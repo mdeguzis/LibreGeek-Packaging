@@ -87,6 +87,8 @@ main()
 	echo -e "\n==> Fetching upstream source\n"
 	sleep 2s
 	
+	git clone $git_url $git_dir
+	
 	# Creaste build files
 	cd $git_dir
 	git checkout isengard

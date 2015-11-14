@@ -43,11 +43,12 @@ install_prereqs()
 {
 	clear
 
+	# kodi directories needed before building
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages 
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc \
-	checkinstall
+	checkinstall kodi
 	
 	echo -e "\n==> Installing $pkgname build dependencies...\n"
 	sleep 2s
@@ -125,8 +126,8 @@ main()
 	cp pvr.mythtv.so ../pvr.mythtv/
 	sudo cp -r ../pvr.mythtv/ /home/steam/.kodi/addons/ 
 	
-	# copy files to respective locations
-	cp pvr.mythtv.so pvr.mythtv/
+	# correct permissions
+	sudo chown -R steam:steam /home/steam/.kodi/addons/pvr.mythtv
  
 	#################################################
 	# Build Debian package

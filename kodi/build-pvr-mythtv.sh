@@ -17,6 +17,9 @@ time_stamp_start=(`date +"%T"`)
 # reset source command for while loop
 src_cmd=""
 
+# addons dir
+addons_dir="/home/steam/kodi-addons"
+
 # upstream URL
 git_url="git://github.com/janbar/pvr.mythtv.git"
 
@@ -29,7 +32,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 provides="kodi-pvr-mythtv"
 pkggroup="video"
-requires=""
+requires="kodi"
 replaces="kodi-pvr-mythtv"
 
 # set build_dir
@@ -62,10 +65,19 @@ main()
 	
 		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
+		cd "$build_dir"
 		
 	else
 	
 		mkdir -p "$build_dir"
+		cd "$build_dir"
+		
+	fi
+	
+	# ensure SteamOS-Tools addons directory is available
+	if [[ ! -d "$addons_dir" ]]; then
+	
+		mkdir -p "$addons_dir"
 		
 	fi
 	
@@ -75,12 +87,10 @@ main()
 	echo -e "\n==> Fetching upstream source\n"
 	sleep 2s
 	
-	# Clone upstream source code
-	git clone "$git_url" "$git_dir"
+	# Creaste build files
+	mkdir src && cd src
+	cd pvr.mythtv ; git checkout isengard ; cd ..
 	
-	# Enter git dir for build
-	cd "$git_dir" || exit
- 
 	#################################################
 	# Build pvr.mythtv
 	#################################################
@@ -88,13 +98,10 @@ main()
 	echo -e "\n==> Bulding ${pkgname}\n"
 	sleep 3s
 	
-	# swtich to release target
-	git checkout ${release} ; cd ..
-
-	# Creaste build files
-	mkdir build && cd build
-	cmake -DCMAKE_BUILD_TYPE=Release ../kodi-pvr-mythtv/
-	make
+	mkdir -p build
+	rm -rf build/*
+	cd build
+	cmake -DCMAKE_BUILD_TYPE=Release ../pvr.mythtv/
   	
 	# make package, fail out if incomplete
 	if make; then
@@ -109,6 +116,21 @@ main()
 		exit 1
 		
 	fi
+	
+	#############################################
+	# Post package instructions
+	#############################################	
+	
+	# Create the package ZIP 
+	cp -r ../pvr.mythtv/pvr.mythtv ./
+	cp pvr.mythtv.so pvr.mythtv/
+	zip -r pvr.mythtv-linux.zip ./pvr.mythtv
+	
+	# copy zip into kodi directory for user to install later
+	sudo cp pvr.mythtv-linux.zip "$addons_dir"
+
+	# ensure old zip was not install by user
+	rm /home/steam/.kodi/addons/packages/pvr.mythtv-linux.zip
  
 	#################################################
 	# Build Debian package

@@ -89,7 +89,7 @@ main()
 	
 	# Creaste build files
 	mkdir src && cd src
-	cd pvr.mythtv ; git checkout isengard ; cd ..
+	cd pvr.mythtv ; git checkout isengard
 	
 	#################################################
 	# Build pvr.mythtv
@@ -98,9 +98,7 @@ main()
 	echo -e "\n==> Bulding ${pkgname}\n"
 	sleep 3s
 	
-	mkdir -p build
-	rm -rf build/*
-	cd build
+	mkdir build && cd build
 	cmake -DCMAKE_BUILD_TYPE=Release ../pvr.mythtv/
   	
 	# make package, fail out if incomplete
@@ -121,16 +119,12 @@ main()
 	# Post package instructions
 	#############################################	
 	
-	# Create the package ZIP 
-	cp -r ../pvr.mythtv/pvr.mythtv ./
-	cp pvr.mythtv.so pvr.mythtv/
-	zip -r pvr.mythtv-linux.zip ./pvr.mythtv
+	# copy library
+	cp pvr.mythtv.so ../pvr.mythtv/
+	sudo cp -r pvr.mythtv/ /home/steam/.kodi/addons/ 
 	
-	# copy zip into kodi directory for user to install later
-	sudo cp pvr.mythtv-linux.zip "$addons_dir"
-
-	# ensure old zip was not install by user
-	rm /home/steam/.kodi/addons/packages/pvr.mythtv-linux.zip
+	# copy files to respective locations
+	cp pvr.mythtv.so pvr.mythtv/
  
 	#################################################
 	# Build Debian package

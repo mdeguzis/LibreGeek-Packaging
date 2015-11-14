@@ -101,7 +101,7 @@ main()
 	sleep 3s
 	
 	mkdir build && cd build
-	cmake -DCMAKE_BUILD_TYPE=Release ../pvr.mythtv/
+	cmake -DCMAKE_BUILD_TYPE=Release ..
   	
 	# make package, fail out if incomplete
 	if make; then

@@ -93,7 +93,7 @@ main()
 
 	# Creaste build files
 	mkdir build && cd build
-	cmake -DCMAKE_BUILD_TYPE=Release ../pvr.mythtv/
+	cmake -DCMAKE_BUILD_TYPE=Release ../kodi-pvr-mythtv/
 	make
   	
 	# make package, fail out if incomplete

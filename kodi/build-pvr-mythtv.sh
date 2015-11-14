@@ -122,7 +122,7 @@ main()
 	#############################################	
 	
 	# copy library
-	cp ../pvr.mythtv.so ../pvr.mythtv/
+	cp pvr.mythtv.so ../pvr.mythtv/
 	sudo cp -r pvr.mythtv/ /home/steam/.kodi/addons/ 
 	
 	# copy files to respective locations

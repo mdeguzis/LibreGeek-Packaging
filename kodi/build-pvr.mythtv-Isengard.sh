@@ -18,14 +18,14 @@ time_stamp_start=(`date +"%T"`)
 src_cmd=""
 
 # vars for package
-pkgname="pcsx2.snapshot"
+pkgname="kodi-pvr-mythtv"
 #pkgver="20151003+git"
 pkgrev="1"
 dist_rel="brewmaster"
 
 # build dirs
-build_dir="/home/desktop/build-pcsx2-temp"
-git_dir="$build_dir/pcsx2"
+build_dir="/home/desktop/build-${pkgname}-temp"
+git_dir="$build_dir/${pkgname}"
 git_url="https://github.com/PCSX2/pcsx2"
 
 # package vars

@@ -22,15 +22,15 @@ git_url="git://github.com/janbar/pvr.mythtv.git"
 
 # package vars
 release="isengard"
-pkgname="pvr.mythtv"
+pkgname="kodi-pvr-mythtv"
 pkgrel="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="pvr.mythtv"
+provides="kodi-pvr-mythtv"
 pkggroup="video"
 requires=""
-replaces="pvr.mythtv"
+replaces="kodi-pvr-mythtv"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"

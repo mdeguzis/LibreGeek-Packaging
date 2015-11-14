@@ -72,7 +72,7 @@ main()
 	# install prereqs for build
 	install_prereqs
 	
-	echo -e "==> Fetching upstream source\n"
+	echo -e "\n==> Fetching upstream source\n"
 	sleep 2s
 	
 	# Clone upstream source code

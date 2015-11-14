@@ -88,8 +88,8 @@ main()
 	sleep 2s
 	
 	# Creaste build files
-	mkdir src && cd src
-	cd pvr.mythtv ; git checkout isengard
+	cd $git_dir
+	git checkout isengard
 	
 	#################################################
 	# Build pvr.mythtv

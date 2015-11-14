@@ -72,6 +72,9 @@ main()
 	# install prereqs for build
 	install_prereqs
 	
+	echo -e "==> Fetching upstream source\n"
+	sleep 2s
+	
 	# Clone upstream source code
 	git clone "$git_url" "$git_dir"
 	
@@ -157,7 +160,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}/build: \n"
-	ls ${git_dir}/build | grep -E *.deb
+	ls ${build_dir}/build | grep -E *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -167,8 +170,8 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# cut files
-		if [[ -d "${git_dir}/build" ]]; then
-			scp ${git_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		if [[ -d "${build_dir}/build" ]]; then
+			scp ${build_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 		fi
 		

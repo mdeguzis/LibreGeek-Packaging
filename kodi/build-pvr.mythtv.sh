@@ -44,14 +44,14 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages 
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc \
-	platform checkinstall
+	checkinstall
 	
 	echo -e "\n==> Installing $pkgname build dependencies...\n"
 	sleep 2s
 	
 	# Built from Kodi PPA
 	# See: http://forum.kodi.tv/showthread.php?tid=221184
-	sudo apt-get -y --force-yes install sudo apt-get install bison flex libtool intltool zip cmake
+	sudo apt-get -y --force-yes install bison flex libtool intltool zip cmake
 }
 
 main()

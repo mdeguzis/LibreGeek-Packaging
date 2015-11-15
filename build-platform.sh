@@ -88,7 +88,7 @@ main()
 	
 	# Create basic changelog
 	
-	echo <<-EOF> changelog-temp
+	echo <<-EOF> changelog_tmp
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
@@ -100,7 +100,7 @@ main()
 	EOF
 	
 	
-	sed -i -e "1i$changelog-temp\" "debian/changelog"
+	sed -e "s/^/$changelog_tmp\n/g" "debian/changelog"
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"

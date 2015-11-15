@@ -101,8 +101,8 @@ main()
 	
 	
 	#sed -i -e "s/^/$changelog_tmp\n/g" "debian/changelog"
-	sed ‘1r changelog_tmp.txt’ < debian/changelog > tempFile.txt
-	mv tempFile.txt debian/changelog
+	old_changelog=$(cat debian/changelog)
+	echo -en "changelog.in\n$old_changelog" >
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"

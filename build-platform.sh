@@ -84,18 +84,6 @@ main()
 	
 	# emter source dir
 	cd "${pkgname}"
-  	
-	# copy in debian folder/files
-	mkdir debian
-	cp -r "$scriptdir/$pkgname/debian" .
-	
-	# copy debian shell changelog from SteamOS-Tools
-	cp "$scriptdir/$pkgname/debian/changelog" "debian/changelog"
-	
-	# Change version, uploader, insert change log comments
-	sed -i "s|version_placeholder|$pkgver-$pkgrev|g" debian/changelog
-	sed -i "s|uploader|$uploader|g" debian/changelog
-	sed -i "s|dist_rel|$dist_rel|g" debian/changelog
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for build. Please ensure there is a revision number"

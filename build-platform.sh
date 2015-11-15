@@ -101,7 +101,7 @@ main()
 	
 	
 	#sed -i -e "s/^/$changelog_tmp\n/g" "debian/changelog"
-	sed ‘1r changelog_tmp.txt’ < debian/changelogt > tempFile.txt
+	sed ‘1r changelog_tmp.txt’ < debian/changelog > tempFile.txt
 	mv tempFile.txt debian/changelog
 	
 	# open debian/changelog and update

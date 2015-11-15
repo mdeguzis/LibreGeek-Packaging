@@ -88,7 +88,7 @@ main()
 	
 	# Create basic changelog
 	
-	echo <<-EOF> changelog_tmp
+	cat <<-EOF> changelog_tmp
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools

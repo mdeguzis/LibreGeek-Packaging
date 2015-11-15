@@ -3,12 +3,11 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-platform.sh
-# Script Ver:	0.3.7
-# Description:	Attempts to build a deb package from platform git source
+# Script Ver:	0.1.3
+# Description:	Attempts to build a deb package from kodi-platform git source
 #
-# See:		https://launchpadlibrarian.net/219136562/platform_2.19.3-1~vivid1.dsc
-#		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-platform.sh
+# See:		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
+# Usage:	build-kodi-platform.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -17,12 +16,12 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream URL
-git_url="https://github.com/Pulse-Eight/platform/"
+git_url="https://github.com/xbmc/kodi-platform"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="platform"
+pkgname="kodi-platform"
 pkgver="${date_short}+git"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -40,7 +39,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc python \
-	cmake
+	cmake libtinyxml-dev kodi-addon-dev libplatform-dev
 
 }
 

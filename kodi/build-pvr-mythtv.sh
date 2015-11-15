@@ -86,6 +86,11 @@ main()
 	
 	# emter source dir
 	cd "${pkgname}"
+
+	mkdir build && cd build
+	cmake ..
+	make
+	cd ..
 	
 	# funnel old changelog.in to changelog or create basic file
 	# cp debian/changelog.in debian/changelog

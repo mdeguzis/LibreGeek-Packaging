@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/kodi-pvr/pvr.mythtv"
-kodi_release="fix/debian-packaging"
+kodi_release="Isengard"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -71,6 +71,12 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	
 	git clone "$git_url" "$git_dir"
+	
+	# checkout appropriate Kodi release
+	git checkout $kodi_release
+	
+	# back out of git dir to archive
+	cd ..
  
 	#################################################
 	# Build platform
@@ -87,9 +93,6 @@ main()
 	
 	# emter source dir
 	cd "${pkgname}"
-
-	# checkout appropriate Kodi release
-	git checkout $kodi_release
 	
 	# funnel old changelog.in to changelog or create basic file
 	# cp debian/changelog.in debian/changelog

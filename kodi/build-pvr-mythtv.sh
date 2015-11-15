@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-platform.sh
-# Script Ver:	0.3.7
+# Script Ver:	0.3.9
 # Description:	Attempts to build a deb package from mythtv addon git source
 #
 # See:		https://github.com/kodi-pvr/pvr.mythtv
@@ -114,6 +114,9 @@ main()
  	# cleanup old files
  	rm -f changelog.in
  	rm -f debian/changelog.in
+ 	
+ 	# correct .in files as needed
+ 	mv "${git_dir}/pvr.mythtv/addon.xml.in" "${git_dir}/pvr.mythtv/addon.xml"
  
 	#################################################
 	# Build Debian package

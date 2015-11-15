@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/kodi-pvr/pvr.mythtv"
-kodi_release="Isengard"
+kodi_release="fix/debian-packaging"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

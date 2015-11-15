@@ -97,12 +97,11 @@ main()
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 	
-	 -- SteamOS-Tools Signing Key <mdeguzis@gmail.com> $date_long
+	 -- $uploader $date_long
 	
 	EOF
 	
-	
-	#sed -i -e "s/^/$changelog_tmp\n/g" "debian/changelog"
+	# Perform a little trickery to update existing changelog
 	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 	
 	# open debian/changelog and update

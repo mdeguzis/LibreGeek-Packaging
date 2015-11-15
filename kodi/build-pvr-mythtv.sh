@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/kodi-pvr/pvr.mythtv"
-kodi_release="Isengard"
+git_branch="Isengard"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -66,18 +66,12 @@ main()
 	# install prereqs for build
 	install_prereqs
 	
-	# Clone upstream source code
+	# Clone upstream source code and branch
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone "$git_url" "$git_dir"
+	git clone -b "$git_branch" "$git_url" "$git_dir"
 	
-	# checkout appropriate Kodi release
-	git checkout $kodi_release
-	
-	# back out of git dir to archive
-	cd ..
- 
 	#################################################
 	# Build platform
 	#################################################

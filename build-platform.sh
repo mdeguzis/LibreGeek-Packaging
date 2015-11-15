@@ -19,7 +19,7 @@ time_stamp_start=(`date +"%T"`)
 git_url="https://github.com/Pulse-Eight/platform/"
 
 # package vars
-date="date +"%a, %d %Y %H:%M:%S %z""
+date=$(date +"%a, %d %Y %H:%M:%S %z")
 pkgname="platform"
 pkgver="${date}+git"
 pkgrev="1"
@@ -88,7 +88,7 @@ main()
 	
 	# Create basic changelog
 	
-	cat <<-EOF> changelog_tmp.txt
+	cat <<-EOF> changelog.in
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
@@ -101,8 +101,7 @@ main()
 	
 	
 	#sed -i -e "s/^/$changelog_tmp\n/g" "debian/changelog"
-	old_changelog=$(cat debian/changelog)
-	echo -en "changelog.in\n$old_changelog" >
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-platform.sh
-# Script Ver:	0.1.7
+# Script Ver:	0.3.7
 # Description:	Attempts to build a deb package from platform git source
 #
 # See:		https://launchpadlibrarian.net/219136562/platform_2.19.3-1~vivid1.dsc
@@ -19,9 +19,10 @@ time_stamp_start=(`date +"%T"`)
 git_url="https://github.com/Pulse-Eight/platform/"
 
 # package vars
-date=$(date +"%a, %d %Y %H:%M:%S %z")
+date_long=$(date +"%a, %d %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
 pkgname="platform"
-pkgver="${date}+git"
+pkgver="${date_short}+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -95,7 +96,7 @@ main()
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 	
-	 -- SteamOS-Tools Signing Key <mdeguzis@gmail.com> $date
+	 -- SteamOS-Tools Signing Key <mdeguzis@gmail.com> $date_long
 	
 	EOF
 	

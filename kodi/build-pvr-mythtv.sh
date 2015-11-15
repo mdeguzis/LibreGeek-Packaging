@@ -88,7 +88,7 @@ main()
 	cd "${pkgname}"
 	
 	# Create basic changelog
-	cat <<-EOF> changelog.in
+	cat <<-EOF> debian/changelog.in
 	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools

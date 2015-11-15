@@ -22,8 +22,7 @@ git_url="https://github.com/kodi-pvr/pvr.mythtv"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="pvr.mythtv"
-#pkgver="${date_short}+git"
+pkgname="kodi-pvr-mythtv"
 pkgver="${date_short}+git"
 pkgrev="1"
 dist_rel="brewmaster"

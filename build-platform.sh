@@ -2,12 +2,12 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-antimicro.sh
+# Scipt Name:	build-platform.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to build a deb package from antimicro git source
+# Description:	Attempts to build a deb package from platform git source
 #
-# See:		https://launchpadlibrarian.net/219136562/antimicro_2.19.3-1~vivid1.dsc
-# Usage:	build-antimicro.sh
+# See:		https://launchpadlibrarian.net/219136562/platform_2.19.3-1~vivid1.dsc
+# Usage:	build-platform.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -18,18 +18,18 @@ time_stamp_start=(`date +"%T"`)
 src_cmd=""
 
 # upstream URL
-git_url="https://github.com/Ryochan7/antimicro"
+git_url="https://github.com/Pulse-Eight/platform/"
 
 # package vars
-pkgname="antimicro"
+pkgname="platform"
 pkgrel="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="antimicro"
-pkggroup="X11"
+provides="platform"
+pkggroup="utils"
 requires=""
-replaces="antimicro"
+replaces="platform"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
@@ -77,7 +77,7 @@ main()
 	cd "$git_dir" || exit
  
 	#################################################
-	# Build antimicro
+	# Build platform
 	#################################################
 	
 	echo -e "\n==> Bulding ${pkgname}\n"

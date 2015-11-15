@@ -2,38 +2,33 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-pvr.mythtv.sh
-# Script Ver:	1.0.0
-# Description:	Attempts to build a deb package from pvr.mythtv git source
+# Scipt Name:	build-platform.sh
+# Script Ver:	0.3.7
+# Description:	Attempts to build a deb package from mythtv addon git source
 #
-# See:		http://kodi.wiki/view/MythTV_PVR/BuildFromSource
-# Usage:	build-pvr.mythtv.sh
+# See:		https://github.com/kodi-pvr/pvr.mythtv
+#		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
+# Usage:	build-pvr-mythtv.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-# reset source command for while loop
-src_cmd=""
-
-# addons dir
-addons_dir="/home/steam/kodi-addons"
 
 # upstream URL
-git_url="git://github.com/janbar/pvr.mythtv.git"
+git_url="https://github.com/kodi-pvr/pvr.mythtv"
 
 # package vars
-release="isengard"
-pkgname="kodi-pvr-mythtv"
-pkgrel="1"
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
+pkgname="platform"
+#pkgver="${date_short}+git"
+pkgver="1.0.10+git"
+pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="kodi-pvr-mythtv"
-pkggroup="video"
-requires="kodi"
-replaces="kodi-pvr-mythtv"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
@@ -42,92 +37,80 @@ git_dir="${build_dir}/${pkgname}"
 install_prereqs()
 {
 	clear
-
-	# kodi directories needed before building
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	# install basic build packages 
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc \
-	checkinstall kodi
-	
-	echo -e "\n==> Installing $pkgname build dependencies...\n"
-	sleep 2s
-	
-	# Built from Kodi PPA
-	# See: http://forum.kodi.tv/showthread.php?tid=221184
-	sudo apt-get -y --force-yes install bison flex libtool intltool zip cmake
+	# install basic build packages
+	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc python \
+	debhelper cmake kodi-pvr-dev libkodiplatform-dev kodi-addon-dev
+
 }
 
 main()
 {
 	
-	# create and enter build_dir
+	# create build_dir
 	if [[ -d "$build_dir" ]]; then
 	
 		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
-		cd "$build_dir"
 		
 	else
-	
+		
 		mkdir -p "$build_dir"
-		cd "$build_dir"
 		
 	fi
 	
-	# ensure SteamOS-Tools addons directory is available
-	if [[ ! -d "$addons_dir" ]]; then
-	
-		mkdir -p "$addons_dir"
-		
-	fi
-	
+	# enter build dir
+	cd "$build_dir" || exit
+
 	# install prereqs for build
 	install_prereqs
 	
-	echo -e "\n==> Fetching upstream source\n"
+	# Clone upstream source code
+	
+	echo -e "\n==> Obtaining upstream source code\n"
+	
+	git clone "$git_url" "$git_dir"
+ 
+	#################################################
+	# Build platform
+	#################################################
+	
+	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-	
-	git clone $git_url $git_dir
-	
-	# Creaste build files
-	cd $git_dir
-	git checkout isengard
-	
-	#################################################
-	# Build pvr.mythtv
-	#################################################
-	
-	echo -e "\n==> Bulding ${pkgname}\n"
-	sleep 3s
-	
-	mkdir build && cd build
-	cmake -DCMAKE_BUILD_TYPE=Release ..
-  	
-	# make package, fail out if incomplete
-	if make; then
 
-  	echo -e "\n==INFO==\n${pkgname} build successful"
-  	sleep 2s
-		
-	else 
 	
-		echo -e "\n==ERROR==\n${pkgname}build FAILED. Exiting in 15 seconds"
-		sleep 15s
-		exit 1
-		
-	fi
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
 	
-	#############################################
-	# Post package instructions
-	#############################################	
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 	
-	# copy library
-	cp pvr.mythtv.so ../pvr.mythtv/
-	sudo cp -r ../pvr.mythtv/ /home/steam/.kodi/addons/ 
+	# emter source dir
+	cd "${pkgname}"
 	
-	# correct permissions
-	sudo chown -R steam:steam /home/steam/.kodi/addons/pvr.mythtv
+	# Create basic changelog
+	
+	cat <<-EOF> changelog.in
+	$pkgname ($pkgver) $dist_rel; urgency=low
+
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+	
+	 -- $uploader  $date_long
+	
+	EOF
+	
+	# Perform a little trickery to update existing changelog
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"
+	sleep 3s
+	nano debian/changelog
+ 
+ 	rm -f changelog_tmp.txt
  
 	#################################################
 	# Build Debian package
@@ -136,10 +119,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
-	--pkgversion="$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
-	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
-	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration
@@ -179,7 +159,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}/build: \n"
-	ls ${build_dir}/build | grep -E *.deb
+	ls ${build_dir}| grep -E *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -189,8 +169,8 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# cut files
-		if [[ -d "${build_dir}/build" ]]; then
-			scp ${build_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		if [[ -d "${build_dir}" ]]; then
+			scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 		fi
 		

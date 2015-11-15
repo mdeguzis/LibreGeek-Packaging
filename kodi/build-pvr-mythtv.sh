@@ -87,10 +87,6 @@ main()
 	# emter source dir
 	cd "${pkgname}"
 	
-	# funnel old changelog.in to changelog or create basic file
-	# cp debian/changelog.in debian/changelog
-	touch debian/changelog
-	
 	# Create basic changelog
 	cat <<-EOF> changelog.in
 	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
@@ -103,16 +99,10 @@ main()
 	
 	EOF
 	
-	# Perform a little trickery to update existing changelog or create basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-	rm -f debian/changelog.in
-	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
-	nano debian/changelog
- 
- 	rm -f changelog_tmp.txt
+	nano debian/changelog.in
  
 	#################################################
 	# Build Debian package

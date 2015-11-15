@@ -78,7 +78,6 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
 	
@@ -88,8 +87,9 @@ main()
 	# emter source dir
 	cd "${pkgname}"
 	
-	# funnel old changelog.in to changelog
-	cp debian/changelog.in debian/changelog
+	# funnel old changelog.in to changelog or create basic file
+	# cp debian/changelog.in debian/changelog
+	touch debian/changelog
 	
 	# Create basic changelog
 	cat <<-EOF> changelog.in
@@ -105,7 +105,6 @@ main()
 	
 	# Perform a little trickery to update existing changelog or create basic file
 	# cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-	touch debian/changelog
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."

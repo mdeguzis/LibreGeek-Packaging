@@ -97,7 +97,6 @@ main()
 	  * Upstream authors and source: $git_url
 	
 	 -- SteamOS-Tools Signing Key <mdeguzis@gmail.com> $date_long
-	
 	EOF
 	
 	

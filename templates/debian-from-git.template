@@ -2,13 +2,13 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	debian-packaging.template
+# Scipt Name:	debian-from-git.template
 # Script Ver:	1.0.0
 # Description:	Point of reference template for packages that are built from 
 #               upstream git repositories. They must* contain a debian folder.
 #
 # See:		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-platform.sh
+# Usage:	n/a
 # -------------------------------------------------------------------------------
 
 arg1="$1"

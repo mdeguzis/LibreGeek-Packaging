@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-platform.sh
-# Script Ver:	0.1.3
+# Script Ver:	0.1.5
 # Description:	Attempts to build a deb package from kodi-platform git source
 #
 # See:		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
@@ -21,7 +21,7 @@ git_url="https://github.com/xbmc/kodi-platform"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="kodi-platform"
+pkgname="kodiplatform"
 pkgver="${date_short}+git"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -96,7 +96,7 @@ main()
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 	
-	 -- $uploader $date_long
+	 -- $uploader  $date_long
 	
 	EOF
 	

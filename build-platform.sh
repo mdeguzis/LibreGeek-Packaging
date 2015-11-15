@@ -7,6 +7,7 @@
 # Description:	Attempts to build a deb package from platform git source
 #
 # See:		https://launchpadlibrarian.net/219136562/platform_2.19.3-1~vivid1.dsc
+#		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
 # Usage:	build-platform.sh
 # -------------------------------------------------------------------------------
 
@@ -19,7 +20,7 @@ time_stamp_start=(`date +"%T"`)
 git_url="https://github.com/Pulse-Eight/platform/"
 
 # package vars
-date_long=$(date +"%a, %d %Y %H:%M:%S %z")
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="platform"
 pkgver="${date_short}+git"
@@ -96,7 +97,8 @@ main()
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 	
-	-- SteamOS-Tools Signing Key <mdeguzis@gmail.com> $date_long
+	 -- SteamOS-Tools Signing Key <mdeguzis@gmail.com> $date_long
+	
 	EOF
 	
 	

@@ -114,9 +114,6 @@ main()
  	# cleanup old files
  	rm -f changelog.in
  	rm -f debian/changelog.in
- 	
- 	# correct .in files as needed
- 	mv "${git_dir}/pvr.mythtv/addon.xml.in" "${git_dir}/pvr.mythtv/addon.xml"
  
 	#################################################
 	# Build Debian package

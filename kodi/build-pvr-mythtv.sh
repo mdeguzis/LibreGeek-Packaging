@@ -93,7 +93,7 @@ main()
 	
 	# Create basic changelog
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -103,11 +103,12 @@ main()
 	
 	EOF
 	
-	# Perform a little trickery to update existing changelog
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	# Perform a little trickery to update existing changelog or create basic file
+	# cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	touch debian/changelog
 	
 	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"
+	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
 	nano debian/changelog
  

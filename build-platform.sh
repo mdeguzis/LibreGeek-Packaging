@@ -96,7 +96,7 @@ main()
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 	
-	 -- SteamOS-Tools Signing Key <mdeguzis@gmail.com> $date_long
+	-- SteamOS-Tools Signing Key <mdeguzis@gmail.com> $date_long
 	EOF
 	
 	

@@ -97,7 +97,7 @@ main()
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 	
-	 -- $uploader $date_long
+	 -- $uploader  $date_long
 	
 	EOF
 	

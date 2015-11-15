@@ -22,9 +22,9 @@ git_url="https://github.com/kodi-pvr/pvr.mythtv"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="platform"
+pkgname="pvr.mythtv"
 #pkgver="${date_short}+git"
-pkgver="1.0.10+git"
+pkgver="${date_short}+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

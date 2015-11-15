@@ -89,8 +89,10 @@ main()
 	# emter source dir
 	cd "${pkgname}"
 	
-	# Create basic changelog
+	# funnel old changelog.in to changelog
+	cp debian/changelog.in debian/changelog
 	
+	# Create basic changelog
 	cat <<-EOF> changelog.in
 	$pkgname ($pkgver) $dist_rel; urgency=low
 

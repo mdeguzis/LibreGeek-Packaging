@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-platform.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.1.7
 # Description:	Attempts to build a deb package from platform git source
 #
 # See:		https://launchpadlibrarian.net/219136562/platform_2.19.3-1~vivid1.dsc
@@ -100,7 +100,7 @@ main()
 	EOF
 	
 	
-	sed -i -e '1i$changelog-temp\' debian/changelog
+	sed -i -e "1i$changelog-temp\" "debian/changelog"
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"

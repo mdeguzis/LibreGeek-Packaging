@@ -100,7 +100,7 @@ main()
 	EOF
 	
 	
-	sed -e "s/^/$changelog_tmp\n/g" "debian/changelog"
+	sed -i -e "s/^/$changelog_tmp\n/g" "debian/changelog"
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"

@@ -19,8 +19,9 @@ time_stamp_start=(`date +"%T"`)
 git_url="https://github.com/Pulse-Eight/platform/"
 
 # package vars
+date="date +"%a, %d %Y %H:%M:%S %z""
 pkgname="platform"
-pkgver="20151006+git"
+pkgver="${date}+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -85,8 +86,24 @@ main()
 	# emter source dir
 	cd "${pkgname}"
 	
+	# Create basic changelog
+	
+	echo <<-EOF> changelog-temp
+	$pkgname ($pkgver) $dist_rel; urgency=low
+
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+	
+	 -- SteamOS-Tools Signing Key <mdeguzis@gmail.com> $date
+	
+	EOF
+	
+	
+	sed -i -e '1i$changelog-temp\' debian/changelog
+	
 	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for build. Please ensure there is a revision number"
+	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"
 	sleep 3s
 	nano debian/changelog
  

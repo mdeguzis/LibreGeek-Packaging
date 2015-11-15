@@ -104,7 +104,7 @@ main()
 	EOF
 	
 	# Perform a little trickery to update existing changelog or create basic file
-	# cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."

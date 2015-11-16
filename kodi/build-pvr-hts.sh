@@ -2,13 +2,13 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-platform.sh
-# Script Ver:	0.3.9
-# Description:	Attempts to build a deb package from mythtv addon git source
+# Scipt Name:	build-pvr-hts.sh
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from Kodi PVR HTS addon git source
 #
-# See:		https://github.com/kodi-pvr/pvr.mythtv
+# See:		https://github.com/kodi-pvr/pvr.hts
 #		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-pvr-mythtv.sh
+# Usage:	build-pvr-hts.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -17,7 +17,7 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/kodi-pvr/pvr.mythtv"
+git_url="https://github.com/kodi-pvr/pvr.hts"
 git_branch="Isengard"
 
 # package vars
@@ -40,7 +40,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc python \
+	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
 	debhelper cmake kodi-pvr-dev libkodiplatform-dev kodi-addon-dev
 
 }

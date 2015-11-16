@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-pvr-dvblink.sh
-# Script Ver:	0.1.1
+# Script Ver:	1.0.0
 # Description:	Attempts to build a deb package from Kodi PVR dvblink addon git source
 #
 # See:		https://github.com/kodi-pvr/pvr.dvblink
@@ -24,8 +24,8 @@ git_branch="Isengard"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="kodi-pvr-dvblink"
-pkgver="${date_short}+git"
-#pkgver="2.1.17+git"
+#pkgver="${date_short}+git"
+pkgver="1.9.27+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

@@ -2,13 +2,13 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-pvr-hts.sh
+# Scipt Name:	build-pvr-argustv.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from Kodi PVR HTS addon git source
+# Description:	Attempts to build a deb package from Kodi PVR argustv addon git source
 #
-# See:		https://github.com/kodi-pvr/pvr.hts
+# See:		https://github.com/kodi-pvr/pvr.argustv
 #		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-pvr-hts.sh
+# Usage:	build-pvr-argustv.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -17,15 +17,15 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/kodi-pvr/pvr.hts"
+git_url="https://github.com/kodi-pvr/pvr.argustv"
 git_branch="Isengard"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="kodi-pvr-hts"
-#pkgver="${date_short}+git"
-pkgver="2.1.17+git"
+pkgname="kodi-pvr-argustv"
+pkgver="${date_short}+git"
+#pkgver="2.1.17+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -42,7 +42,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
-	debhelper cmake kodi-pvr-dev libkodiplatform-dev kodi-addon-dev
+	debhelper cmake kodi-pvr-dev libkodiplatform-dev kodi-addon-dev libjsoncpp-dev
 
 }
 

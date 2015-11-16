@@ -2,13 +2,13 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-pvr-hts.sh
+# Scipt Name:	build-libcec.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from Kodi PVR HTS addon git source
+# Description:	Attempts to build a deb package libcec git source
 #
-# See:		https://github.com/kodi-pvr/pvr.hts
+# See:		https://github.com/Pulse-Eight/libcec
 #		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-pvr-hts.sh
+# Usage:	build-libcec.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -17,15 +17,15 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/kodi-pvr/pvr.hts"
-git_branch="Isengard"
+git_url="https://github.com/Pulse-Eight/libcec"
+git_branch="Release"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="kodi-pvr-hts"
+pkgname="libcec"
 #pkgver="${date_short}+git"
-pkgver="2.1.17+git"
+pkgver="3.0.1+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -42,7 +42,8 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
-	debhelper cmake kodi-pvr-dev libkodiplatform-dev kodi-addon-dev
+ 	libudev-dev liblockdev1-dev libplatform-dev python-dev cmake swig libxrandr-dev \
+ 	x11proto-core-dev libncurses5-dev
 
 }
 
@@ -90,8 +91,8 @@ main()
 	cd "${pkgname}"
 	
 	# funnel old changelog.in to changelog or create basic file
-	# cp debian/changelog.in debian/changelog
-	touch debian/changelog
+	cp debian/changelog.in debian/changelog
+	# touch debian/changelog
 	
 	# Create basic changelog
 	# This addons build cannot have a revision

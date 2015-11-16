@@ -2,13 +2,13 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-pvr-hts.sh
+# Scipt Name:	build-pvr-vbox.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from Kodi PVR HTS addon git source
+# Description:	Attempts to build a deb package from Kodi PVR VBOX addon git source
 #
-# See:		https://github.com/kodi-pvr/pvr.hts
+# See:		https://github.com/kodi-pvr/pvr.vbox"
 #		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-pvr-hts.sh
+# Usage:	build-pvr-vbox.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -17,15 +17,15 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/kodi-pvr/pvr.hts"
+git_url="https://github.com/kodi-pvr/pvr.vbox"
 git_branch="Isengard"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="kodi-pvr-hts"
+pkgname="kodi-pvr-vbox"
 #pkgver="${date_short}+git"
-pkgver="2.1.17+git"
+pkgver="1.3.9+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

@@ -23,9 +23,8 @@ git_branch="Isengard"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="kodi-pvr-hts"
-#pkgver="${date_short}+git"
-pkgver="2.1.17+git"
+pkgname="kodi-pvr-vdr-vnsi"
+pkgver="${date_short}+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

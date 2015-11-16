@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-pvr-dvbviewer.sh
-# Script Ver:	0.1.1
+# Script Ver:	1.0.0
 # Description:	Attempts to build a deb package from Kodi PVR HTS addon git source
 #
 # See:		https://github.com/kodi-pvr/pvr.dvbviewer

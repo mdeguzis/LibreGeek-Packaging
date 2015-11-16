@@ -2,13 +2,13 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-pvr-hts.sh
+# Scipt Name:	build-vdr-vnsi.sh
 # Script Ver:	0.1.1
 # Description:	Attempts to build a deb package from Kodi PVR HTS addon git source
 #
-# See:		https://github.com/kodi-pvr/pvr.hts
+# See:		https://github.com/kodi-pvr/pvr.vdr.vnsi
 #		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-pvr-hts.sh
+# Usage:	build-vdr-vnsi.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -17,7 +17,7 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/kodi-pvr/pvr.hts"
+git_url="https://github.com/kodi-pvr/pvr.vdr.vnsi"
 git_branch="Isengard"
 
 # package vars
@@ -42,7 +42,8 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
-	debhelper cmake kodi-pvr-dev libkodiplatform-dev kodi-addon-dev
+	debhelper cmake libtinyxml-dev kodi-pvr-dev libkodiplatform-dev kodi-addon-dev \
+        libgles2-mesa-dev libgl1-mesa-dev pkg-config
 
 }
 

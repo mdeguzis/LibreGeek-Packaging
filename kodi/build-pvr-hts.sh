@@ -23,7 +23,7 @@ git_branch="Isengard"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="kodi-pvr-mythtv"
+pkgname="kodi-pvr-hts"
 pkgver="${date_short}+git"
 pkgrev="1"
 dist_rel="brewmaster"

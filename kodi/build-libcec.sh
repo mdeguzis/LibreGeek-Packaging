@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/Pulse-Eight/libcec"
-git_branch="Release"
+git_branch="release"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

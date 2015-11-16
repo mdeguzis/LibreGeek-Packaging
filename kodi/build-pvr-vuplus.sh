@@ -17,7 +17,7 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/kodi-pvr/pvr.vuplus/tree/Isengard"
+git_url="https://github.com/kodi-pvr/pvr.vuplus"
 git_branch="Isengard"
 
 # package vars

@@ -67,6 +67,9 @@ main()
 	# Clone upstream source
 	#################################################
 
+	echo -e "\n==> Fetching $pkgname upstream source\n"
+	sleep 2s
+
 	git clone "$git_url" "$git_dir"
 	cd "$git_dir"
 

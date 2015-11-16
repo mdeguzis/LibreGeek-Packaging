@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-pvr-vbox.sh
-# Script Ver:	0.1.1
+# Script Ver:	1.0.0
 # Description:	Attempts to build a deb package from Kodi PVR VBOX addon git source
 #
 # See:		https://github.com/kodi-pvr/pvr.vbox"
@@ -25,7 +25,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="kodi-pvr-vbox"
 #pkgver="${date_short}+git"
-pkgver="1.3.9+git"
+pkgver="0.3.9+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

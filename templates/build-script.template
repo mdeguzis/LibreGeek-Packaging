@@ -216,9 +216,8 @@ main()
 
 	if [[ "$build_type" == "dpkg" ]]; then
 
-		# Build with dpkg-buildpackage
-		
-		#dpkg-buildpackage -us -uc -nc
+		# Build the package
+		# Remove -us -uc if you want to sign the package with your PGP key (see changelog trailer line)
 		dpkg-buildpackage -rfakeroot -us -uc
 		
 	elif [[ "$build_type" == "checkinstall" ]]; then

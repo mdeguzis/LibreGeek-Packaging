@@ -10,3 +10,6 @@ Packaging scripts and files for SteamOS-Tools
 
 # Examples of packages that merely install files
 * [php-htmlpurifier](http://packages.debian.org/source/sid/php-htmlpurifier)
+
+# Cmake vs Make
+* [Cmake vs Make (Perpetual Enigma)](http://prateekvjoshi.com/2014/02/01/cmake-vs-make/)

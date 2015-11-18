@@ -1,0 +1,11 @@
+Package: mypackage
+Version: 1.1-1
+Section: base
+Priority: optional
+Architecture: all
+Depends: pkg1 (>= 2.05a-11), pkg2 (>= 2.0-12), 
+pkg3 (>= 3.02-8), pkg4
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com
+Description: My handy-dandy script
+ This script provides a broad overview of different
+ system aspects.

@@ -21,16 +21,15 @@ src_cmd=""
 git_url="https://github.com/simonvetter/afpfs-ng"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
 pkgname="afpfs-ng"
-#pkgver="${date_short}+git"
-pkgver="0.8.1"
-pkgrev="1"
+pkgrel="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-
+provides="afpfs-ng"
+pkggroup="utils"
+requires=""
+replaces="afpfs-ng"
 
 # build dirs
 build_dir="/home/desktop/build-${pkgname}-temp"
@@ -43,86 +42,57 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
-	debhelper fuse ncurses-dev libreadline-dev libfuse-dev libgcrypt20 dh-autoreconf \
-	libgcrypt11-dev
+	debhelper fuse ncurses-dev libreadline-dev libfuse-dev libgcrypt20
 }
 
 main()
 {
 	
-	# create build_dir
+	# create and enter build_dir
 	if [[ -d "$build_dir" ]]; then
 	
 		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
 		
 	else
-		
+	
 		mkdir -p "$build_dir"
 		
 	fi
 	
-	# enter build dir
-	cd "$build_dir" || exit
+	# Enter build dir
+	cd "$build_dir"
+	
+	#################################################
+	# Clone upstream source
+	#################################################
 
-	# install prereqs for build
-	install_prereqs
-	
-	# Clone upstream source code
-	
-	echo -e "\n==> Obtaining upstream source code\n"
-	
-	git clone "$git_url" "$git_dir"
- 
-	#################################################
-	# Build platform
-	#################################################
-	
-	echo -e "\n==> Creating original tarball\n"
+	echo -e "\n==> Fetching $pkgname upstream source\n"
 	sleep 2s
-	
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-	
-	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# emter source dir
-	cd "${pkgname}"
+	git clone "$git_url" "$git_dir"
+	cd "$git_dir"
 
-	# copy in debian folder
-	cp -r "$scriptdir/afpfs-ng/debian" .
-	
-	# Create basic changelog
-	cat <<-EOF> debian/changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	#################################################
+	# Build afpfs-ng (uses standard make)
+	#################################################
+  
+  	echo -e "\n==> Creating $pkgname build files\n"
+	sleep 2s
 
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
-	
-	 -- $uploader  $date_long
-	
-	EOF
-	
-	# Perform a little trickery to update existing changelog
-	cat 'debian/changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-	
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"
-	sleep 3s
-	nano debian/changelog
- 
- 	rm -f changelog_tmp.txt
- 
+	./configure && make && echo 'done!'
+
 	#################################################
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building $pkgname Debian package from source\n"
 	sleep 2s
 
-	dpkg-buildpackage -rfakeroot -us -uc
+	sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
+	--pkgversion="$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
+	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
+	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
 
 	#################################################
 	# Post install configuration
@@ -150,9 +120,9 @@ main()
 	
 	# back out of build temp to script dir if called from git clone
 	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir" || exit
+		cd "$scriptdir"
 	else
-		cd "$HOME" || exit
+		cd "$HOME"
 	fi
 	
 	# inform user of packages
@@ -161,19 +131,19 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: ${build_dir}/build: \n"
-	ls ${build_dir}| grep -E *.deb
+	echo -e "Showing contents of: ${git_dir}/build: \n"
+	ls "${git_dir}/build" | grep -E *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
-	read -erp "Choice: " transfer_choice
+	read -ep "Choice: " transfer_choice
 	
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# cut files
-		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		if [[ -d "${git_dir}/build" ]]; then
+			scp ${git_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 		fi
 		
@@ -184,4 +154,5 @@ main()
 }
 
 # start main
+install_prereqs
 main

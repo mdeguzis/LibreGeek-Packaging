@@ -76,9 +76,6 @@ main()
 	# Build platform
 	#################################################
 	
-	# copy in debian folder
-	cp -r "$scriptdir/afpfs-ng/debian" "$git_dir"
-	
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 	
@@ -87,6 +84,9 @@ main()
 	
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "$git_dir"
+
+	# copy in debian folder
+	cp -r "$scriptdir/afpfs-ng/debian" "$git_dir"
 	
 	# emter source dir
 	cd "$git_dir"
@@ -105,7 +105,7 @@ main()
 	EOF
 	
 	# Perform a little trickery to update existing changelog
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	cat 'debian/changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes. Please do NOT include a revision number"

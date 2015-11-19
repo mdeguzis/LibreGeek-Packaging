@@ -77,7 +77,7 @@ main()
 	#################################################
 	
 	# copy in debian folder
-	cp "$scriptdir/afpfs-ng/debian" "$git_dir"
+	cp -r "$scriptdir/afpfs-ng/debian" "$git_dir"
 	
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s

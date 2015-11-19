@@ -91,10 +91,7 @@ main()
 	cd "${pkgname}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/afpfs-ng/debian" "${pkgname}"
-	
-	# emter source dir
-	cd "$git_dir"
+	cp -r "$scriptdir/afpfs-ng/debian" .
 	
 	# Create basic changelog
 	cat <<-EOF> debian/changelog.in

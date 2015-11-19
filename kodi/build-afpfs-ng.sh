@@ -21,15 +21,16 @@ src_cmd=""
 git_url="https://github.com/simonvetter/afpfs-ng"
 
 # package vars
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
 pkgname="afpfs-ng"
-pkgrel="1"
+#pkgver="${date_short}+git"
+pkgver="0.8.1"
+pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="afpfs-ng"
-pkggroup="utils"
-requires=""
-replaces="afpfs-ng"
+
 
 # build dirs
 build_dir="/home/desktop/build-${pkgname}-temp"

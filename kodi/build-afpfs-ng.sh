@@ -85,10 +85,13 @@ main()
 	# use latest revision designated at the top of this script
 	
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "$git_dir"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
+	# emter source dir
+	cd "${pkgname}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/afpfs-ng/debian" "$git_dir"
+	cp -r "$scriptdir/afpfs-ng/debian" "${pkgname}"
 	
 	# emter source dir
 	cd "$git_dir"

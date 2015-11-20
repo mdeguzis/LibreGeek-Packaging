@@ -26,10 +26,10 @@ pkgrel="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="afpfs-ng"
+provides="afpfs-ng, afpfs-ng-utils, libafpclient-dev, libafpclient0"
 pkggroup="utils"
 requires=""
-replaces="afpfs-ng"
+replaces="afpfs-ng, afpfs-ng-utils, libafpclient-dev, libafpclient0
 
 # build dirs
 build_dir="/home/desktop/build-${pkgname}-temp"

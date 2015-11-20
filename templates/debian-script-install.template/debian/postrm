@@ -1,4 +1,11 @@
 #!/bin/sh
+#------------------------------------------------------------------------------------------------------
+# Help notes:
+# See: https://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html
+#------------------------------------------------------------------------------------------------------
+# This script typically modifies links or other files associated with foo, and/or removes files 
+# created by the package
+
 # postrm script for freenet-daemon
 #
 # see: dh_installdeb(1)

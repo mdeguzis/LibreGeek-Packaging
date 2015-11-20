@@ -7,9 +7,11 @@ See: [Chapter 7 - Basics of the Debian package management system](https://www.de
 * debian/changelog - the latest changes for your package
 * debian/postinst - optional file that describes what to do after your package is installed
 * debian/preinst - optional file that describes what to do before your package is installed
-* debian/rules - describes what needs building and install the files in the right place. If you just need to copy some files and not to compile stuff, just create/edit the file debian/install to specify which files need to be installed where.
+* debian/rules - describes what needs building and install the files in the right place. If you just need to copy some files and not to compile stuff, just create/edit the file debian/install to specify which files need to be installed where. The newer `dh_make` generates a very simple but powerful default rules file.
 
-# Notes
+
+
+# General Notes
 
 See the packaging-tutorial written by Lucas Nussbaum, the current Debian Project Leader. You can install it directly from a Debian repository:
 

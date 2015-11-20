@@ -1,11 +1,12 @@
 Package: mypackage
 Version: 1.1-1
-Section: base
+Section: utils
 Priority: optional
 Architecture: all
-Depends: pkg1 (>= 2.05a-11), pkg2 (>= 2.0-12), 
-pkg3 (>= 3.02-8), pkg4
+Build-Depends: debhelper (>=9)
+Standards-Version: 3.9.4
+Homepage: <insert the upstream URL, if relevant>
+Depends: ${shlibs:Depends}, ${misc:Depends}
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com
-Description: My handy-dandy script
- This script provides a broad overview of different
- system aspects.
+Description: <insert up to 60 chars description>
+  <insert long description, indented with two spaces>

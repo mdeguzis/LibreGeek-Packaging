@@ -1,1 +1,1 @@
-script.sh /usr/local/bin
+parent-build-directory/dummy-script.sh /usr/local/bin/

@@ -1,21 +1,22 @@
 Source: xwiimote
+Priority: extra
 Section: utils
-Priority: low
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends: debhelper (>=9), libudev1, libncurses5
 Standards-Version: 3.9.4
 Homepage: https://github.com/dvdhrm/xwiimote
+
 Package: xwiimote
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: xwiimote is an open-source device driver for Nintendo Wii / Wii U remotes
   It contains tools and libraries which work together with the official hid-wiimote
-kernel driver, available since linux-3.1.If you want to use a Nintendo Wii Remote or
-any compatible device (including the Nintendo Wii Balance Board, Nintendo Wii U Pro 
-Controller, and more) on your linux system, the xwiimote software stack provides 
-everything you need.
-
-This distribution is hosted at:
-http://dvdhrm.github.io/xwiimote
-Use this website to contact the maintainers or developers or to file bug
-reports.
+  kernel driver, available since linux-3.1.If you want to use a Nintendo Wii Remote or
+  any compatible device (including the Nintendo Wii Balance Board, Nintendo Wii U Pro 
+  Controller, and more) on your linux system, the xwiimote software stack provides 
+  everything you need.
+  .
+  This distribution is hosted at:
+  http://dvdhrm.github.io/xwiimote
+  Use this website to contact the maintainers or developers or to file bug
+  reports.

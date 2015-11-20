@@ -17,7 +17,7 @@ sleep 2s
 
 sudo apt-get install -y --force-yes build-essential autoconf automake and \
 autotools-dev debhelper dh-make devscripts fakeroot git lintian patch patchutils \
-pbuilder perl python quilt xutils-de
+pbuilder perl python quilt xutils-de dh-make
 
 echo -e "Configuring dh_make\n"
 sleep 2s

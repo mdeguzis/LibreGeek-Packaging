@@ -3,7 +3,6 @@
 %:
 	dh $@
 
-
 # Override should not be need for configure, but below it can be uncommented
 #override_dh_auto_configure:
 #        dh_auto_configure -- --enable-debug --prefix=/usr

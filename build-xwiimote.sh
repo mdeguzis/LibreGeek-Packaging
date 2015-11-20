@@ -17,8 +17,8 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/dvdhrm/xwiimotes"
-git_branch="Isengard"
+git_url="https://github.com/dvdhrm/xwiimote"
+git_branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -86,7 +86,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 	
 	# copy in debian folder
-	cp -r xwiimote/debian "${pkgname}"
+	cp -r $scriptdir/xwiimote/debian "${git_dir}"
 	
 	# enter source dir
 	cd "${pkgname}"
@@ -94,7 +94,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

@@ -1,4 +1,1 @@
-../doc/website/index.html
-../doc/*.3
-../doc/DEVICES
-../doc/DEV_*
+./doc/*

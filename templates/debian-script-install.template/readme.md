@@ -9,7 +9,11 @@ See: [Chapter 7 - Basics of the Debian package management system](https://www.de
 * debian/preinst - optional file that describes what to do before your package is installed
 * debian/rules - describes what needs building and install the files in the right place. If you just need to copy some files and not to compile stuff, just create/edit the file debian/install to specify which files need to be installed where. The newer `dh_make` generates a very simple but powerful default rules file.
 
+You **do not** need the package-name prefix infront of install, docs, manpages, etc if you are only creating one package binary.
 
+# Helpful hints for creating packages
+* `dh_make` - The dh_make command will create some template configuration files under the debian directory. Most of them come with filenames suffixed by .ex. Some of them come with filenames prefixed by the binary package name such as package. Take a look at all of them
+* Any debhelper configuration files without a package prefix, such as install, apply to the first binary package. When there are many binary packages, their configurations can be specified by prefixing their name to their configuration filenames such as package-1.install, package-2.install, etc.
 
 # General Notes
 
@@ -45,6 +49,15 @@ dbmsmoles/* usr/share/themole/dbmsmoles/
 queryfilters/* usr/share/themole/queryfilters/
 requestfilters/* usr/share/themole/requestfilters/
 responsefilters/* usr/share/themole/responsefilters/
+```
+
+# Using pbuilder
+* See the setup-files/ root directory for the pbuilder creation script
+
+If you already have a completed source package, issue the following commands in the directory where the foo.orig.tar.gz, foo.debian.tar.gz, and foo.dsc files exist to update the local pbuilder chroot system and to build binary packages in it:
+```
+sudo pbuilder --update
+sudo pbuilder --build foo_version.dsc
 ```
 
 # Finish the package steps

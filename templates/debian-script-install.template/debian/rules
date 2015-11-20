@@ -1,6 +1,10 @@
 #!/usr/bin/make -f
 
-# include FILENAME
+# main packaging script based on dh7 syntax
+%:
+         dh $@ 
+
+# include FILENAME.extension
 
 #------------------------------------------------------------------------------------------------------
 # Help notes:
@@ -19,6 +23,10 @@
 # get-orig-source target: to obtain the most recent version of the original source package from an upstream archive. (Optional)
 
 #------------------------------------------------------------------------------------------------------
+
+###############################
+# OVERRIDES:
+###############################
 
 # override_dh_auto_build:
 

@@ -2,6 +2,9 @@
 # COPY TO ~/.pbuilderrc after installation of pbuilder
 ####################################################################
 
+AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
+HOOKDIR=/var/cache/pbuilder/hooks
+
 # Codenames for Debian suites according to their alias. Update these when
 # needed.
 UNSTABLE_CODENAME="brewmaster"

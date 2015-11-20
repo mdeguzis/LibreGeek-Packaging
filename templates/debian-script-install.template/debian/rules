@@ -2,8 +2,23 @@
 
 # include FILENAME
 
-%:
-	# dh $@ --with javahelper
+#------------------------------------------------------------------------------------------------------
+# Help notes:
+# See: https://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html
+#------------------------------------------------------------------------------------------------------
+
+# clean target: to clean all compiled, generated, and useless files in the build-tree. (Required)
+# build target: to build the source into compiled programs and formatted documents in the build-tree. (Required)
+# build-arch target: to build the source into arch-dependent compiled programs in the build-tree. (Required)
+# build-indep target: to build the source into arch-independent formatted documents in the build-tree. (Required)
+# install target: to install files into a file tree for each binary package under the debian directory. 
+#                 If defined, binary* targets effectively depend on this target. (Optional)
+# binary target: to create all binary packages (effectively a combination of binary-arch and binary-indep targets). (Required)
+# binary-arch target: to create arch-dependent (Architecture: any) binary packages in the parent directory. (Required)
+# binary-indep target: to create arch-independent (Architecture: all) binary packages in the parent directory. (Required)
+# get-orig-source target: to obtain the most recent version of the original source package from an upstream archive. (Optional)
+
+#------------------------------------------------------------------------------------------------------
 
 # override_dh_auto_build:
 
@@ -19,6 +34,8 @@
 
 # override_dh_builddeb:
 
-# get-orig-source:
-
 # override_dh_auto_clean:
+
+#------------------------------------------------------------------------------------------------------
+# End help text
+#------------------------------------------------------------------------------------------------------

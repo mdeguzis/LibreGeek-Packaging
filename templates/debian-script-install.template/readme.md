@@ -1,4 +1,6 @@
 # File explanations
+See: [Chapter 7 - Basics of the Debian package management system](https://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html)
+
 * src/ - where are your install files can go (can be named something else)
 * debian/control - debian control file
 * debian/copyright - where you place your copyright file text

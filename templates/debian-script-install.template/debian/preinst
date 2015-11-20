@@ -1,4 +1,12 @@
 #!/bin/sh
+#------------------------------------------------------------------------------------------------------
+# Help notes:
+# See: https://www.debian.org/doc/manuals/debian-faq/ch-pkg_basics.en.html
+#------------------------------------------------------------------------------------------------------
+# This script executes before that package will be unpacked from its Debian archive (".deb") file. 
+# Many 'preinst' scripts stop services for packages which are being upgraded until their installation 
+# or upgrade is completed (following the successful execution of the 'postinst' script).
+
 set -e
 
 case "$1" in

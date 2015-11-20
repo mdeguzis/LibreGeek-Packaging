@@ -6,7 +6,7 @@
 # Scipt Name:   	 build-pbuilder-env.sh
 # Script Ver:	     0.1.3
 # Description:	   Create buld environment for testing and building packages
-# Usage:	         ./build-pbuilder-env.sh [target] [arch]
+# Usage:	         ./build-pbuilder-env.sh [distribution] [arch]
 #
 # Notes:          For targets, see utilities/pbuilder-helper.txt
 # -------------------------------------------------------------------------------
@@ -25,12 +25,15 @@ cowbuilder pbuilder debootstrap cvs fpc gdc libflac-dev libsamplerate0-dev libgn
 # PBUILDER setup
 #####################################
 
-# ask for DIST target
-	echo -e "\nEnter DIST to build for (see utilities/pbuilder-helper.txt)"
-	
-# get user choice
-	sleep 0.2s
-	read -erp "Choice: " dist_choice
+DIST="$1"
+ARCH="$2"
+
+# set the /var/cache/pbuilder/result directory writable by your user account.
+sudo chmod u+w /var/cache/pbuilder/result
+
+# create a directory, e.g. /var/cache/pbuilder/hooks, writable by the user, to place hook scripts in.
+sudo mkdir -p /var/cache/pbuilder/hooks
+sudo chown $USER:$USER /var/cache/pbuilder/hooks
 
 # copy files based of pwd
 touch "$HOME/.pbuilderrc"
@@ -44,8 +47,8 @@ sudo cp .pbuilderrc "/root/.pbuilderrc"
 
 # set vars
 
-DISTS="$dist_choice" \
-ARCHS="$arch" \
+DISTS="$DIST" \
+ARCHS="$ARCH" \
 BUILDER="pdebuild" \
 PBUILDER_BASE="/home/$USER/${target}-pbuilder/"
 

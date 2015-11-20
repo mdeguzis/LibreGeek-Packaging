@@ -29,7 +29,7 @@ maintainer="ProfessorKaos64"
 provides="afpfs-ng, afpfs-ng-utils, libafpclient-dev, libafpclient0"
 pkggroup="utils"
 requires=""
-replaces="afpfs-ng, afpfs-ng-utils, libafpclient-dev, libafpclient0
+replaces="afpfs-ng, afpfs-ng-utils, libafpclient-dev, libafpclient0"
 
 # build dirs
 build_dir="/home/desktop/build-${pkgname}-temp"

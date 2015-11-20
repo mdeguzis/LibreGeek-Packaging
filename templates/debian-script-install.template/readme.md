@@ -11,6 +11,8 @@ See: [Chapter 7 - Basics of the Debian package management system](https://www.de
 
 You **do not** need the package-name prefix infront of install, docs, manpages, etc if you are only creating one package binary.
 
+Full maintainers guide is [here](https://www.debian.org/doc/manuals/maint-guide/)
+
 # Helpful hints for creating packages
 * `dh_make` - The dh_make command will create some template configuration files under the debian directory. Most of them come with filenames suffixed by .ex. Some of them come with filenames prefixed by the binary package name such as package. Take a look at all of them
 * Any debhelper configuration files without a package prefix, such as install, apply to the first binary package. When there are many binary packages, their configurations can be specified by prefixing their name to their configuration filenames such as package-1.install, package-2.install, etc.

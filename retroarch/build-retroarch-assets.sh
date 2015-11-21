@@ -19,14 +19,14 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/RetroArch"
+git_url="https://github.com/libretro/retroarch-assets/"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="retroarch-assets"
-pkgver="${date_short}+git"
+pkgver="${date_short}+git+SteamOS2"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -126,9 +126,8 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	# this particular package setup uses debbuild
-	# 'dpkg-buildpackage -rfakeroot -us -uc' will fail
-	debuild -b -uc -us
+	#  build
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-retroarch-assets.sh
-# Script Ver:	1.0.0
+# Script Ver:	1.2.1
 # Description:	Attempts to build a deb package from latest retroarch
 #		assets github release
 #
@@ -126,7 +126,9 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	dpkg-buildpackage -rfakeroot -us -uc
+	# this particular package setup uses debbuild
+	# 'dpkg-buildpackage -rfakeroot -us -uc' will fail
+	debuild -b -uc -us
 
 	#################################################
 	# Post install configuration

@@ -1,5 +1,4 @@
 #!/bin/bash
-# 
 -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
@@ -9,9 +8,9 @@
 #		github release
 #
 # See:		https://github.com/libretro/RetroArch
-#	
+#
 # Usage:	build-retroarch.sh
-# 
+#
 -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -43,89 +42,91 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config \ 
+	sudo apt-get install -y --force-yes build-essential pkg-config \
 	checkinstall bc build-essential devscripts make git-core curl \
 	g++ pkg-config libglu1-mesa-dev freeglut3-dev mesa-common-dev \
 	libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev \
 	libsdl-ttf2.0-dev nvidia-cg-toolkit nvidia-cg-dev libasound2-dev \
-	unzip samba smbclient
+	unzip samba smbclient libsdl2-dev libxml2-dev libavcodec-dev \
+	libavformat-dev libavutil-dev libswscale-dev libv4l-dev \
+	libxinerama-dev libudev-dev libusb-1.0-0-dev libxv-dev libopenal-dev \
+	libjack-jackd2-dev libgbm-dev libegl1-mesa-dev python3-dev
 
 }
 
 main()
 {
-	
+
 	# create build_dir
 	if [[ -d "$build_dir" ]]; then
-	
+
 		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
-		
+
 	else
-		
+
 		mkdir -p "$build_dir"
-		
+
 	fi
-	
+
 	# enter build dir
 	cd "$build_dir" || exit
 
 	# install prereqs for build
 	install_prereqs
-	
+
 	# Clone upstream source code and branch
-	
+
 	echo -e "\n==> Obtaining upstream source code\n"
-	
+
 	# clone
 	git clone -b "$release_tag" "$git_url" "$git_dir"
-	
+
 	#################################################
 	# Build platform
 	#################################################
-	
+
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
-	
+
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
-	
+
 	# copy in debian folder
-	cp -r $scriptdir/retroarch/debian "${git_dir}"
-	
+	cp -r $scriptdir/debian "${git_dir}"
+
 	# enter source dir
 	cd "${pkgname}"
-	
+
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
+	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	
+
 	 -- $uploader  $date_long
-	
+
 	EOF
-	
-	# Perform a little trickery to update existing changelog or create 
-basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp 
-debian/changelog
-	
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
 	nano debian/changelog
- 
+
  	# cleanup old files
  	rm -f changelog.in
  	rm -f debian/changelog.in
- 
+
 	#################################################
 	# Build Debian package
 	#################################################

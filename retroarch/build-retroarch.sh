@@ -168,20 +168,15 @@ main()
 	fi
 	
 	# inform user of packages
-	echo -e 
-"\n############################################################"
-	echo -e "If package was built without errors you will see it 
-below."
-	echo -e "If you don't, please check build dependcy errors listed 
-above."
-	echo -e 
-"############################################################\n"
+	echo -e "\n############################################################"
+	echo -e "If package was built without errors you will see it below."
+	echo -e "If you don't, please check build dependcy errors listed above."
+	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}/build: \n"
 	ls ${build_dir}| grep -E *.deb
 
-	echo -e "\n==> Would you like to transfer any packages that were 
-built? [y/n]"
+	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
 	read -erp "Choice: " transfer_choice
@@ -190,8 +185,7 @@ built? [y/n]"
 	
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/*.deb 
-mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 		fi
 		

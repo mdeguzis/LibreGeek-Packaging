@@ -1,35 +1,36 @@
 #!/bin/bash
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ds4drv.sh
-# Script Ver:	1.1.3
-# Description:	Attempts to build a deb package from DS4DRV git source
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from latest retroarch
+#		assets github release
 #
-# See:		Upstread Readme for all notes/tips/tricks
-# Usage:	./build-ds4drv.sh
-# -------------------------------------------------------------------------------
+# See:		https://github.com/chrippa/ds4drv
+#
+# Usage:	build-ds4drv.sh
+#
+#-------------------------------------------------------------------------------
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-# reset source command for while loop
-src_cmd=""
 
-# upstream URL
-git_url="https://github.com/chrippa/ds4drv"
+# upstream vars
+git_url="https://github.com/libretro/retroarch-assets/"
+branch="master"
 
 # package vars
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
 pkgname="ds4drv"
-pkgrel="1"
+pkgver="${date_short}git+SteamOS2"
+pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="ds4drv"
-pkggroup="utils"
-requires=""
-replaces="ds4drv"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
@@ -43,56 +44,81 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
 	python-pip python python-setuptools python-dev python-pyudev bluez-tools gcc
-	
-	# Install python-evdev using pip
-	sudo pip install evdev
-
 }
 
 main()
 {
-	
-	# create and enter build_dir
+
+	# create build_dir
 	if [[ -d "$build_dir" ]]; then
-	
-		audo rm -rf "$build_dir"
+
+		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
-		
+
 	else
-	
+
 		mkdir -p "$build_dir"
-		
+
 	fi
-	
+
+	# enter build dir
+	cd "$build_dir" || exit
+
 	# install prereqs for build
 	install_prereqs
-	
-	# Clone upstream source code
-	git clone "$git_url" "$git_dir"
-	
-	# Enter git dir for build
-	cd "$git_dir" || exit
- 
+
+	# Clone upstream source code and branch
+
+	echo -e "\n==> Obtaining upstream source code\n"
+
+	# clone
+	git clone -b "$branch" "$git_url" "$git_dir"
+
 	#################################################
-	# Build ds4drv
+	# Build platform
 	#################################################
-	
-	echo -e "\n==> Bulding ${pkgname}\n"
+
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
+
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
+
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
+	# copy in debian folder
+	cp -r $scriptdir/retroarch-assets/debian "${git_dir}"
+
+	# enter source dir
+	cd "${pkgname}"
+
+	# Create basic changelog format
+	# This addons build cannot have a revision
+	cat <<-EOF> changelog.in
+	$pkgname ($pkgver) $dist_rel; urgency=low
+
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+
+	 -- $uploader  $date_long
+
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
-	
-	# Create build files
-	sudo python setup.py install
-	
-	# install service
-	sudo cp "systemd/ds4drv.service" "/lib/systemd/system/"
-	
-	# ds4drv's systemd service expects the binary file to be at /usr/bin
-	# this install places it at /usr/local/bin, move it
-	sudo mv "/usr/local/bin/ds4drv" "/usr/bin/"
- 
- 	# enable service
- 	sudo systemctl enable ds4drv.service
- 
+	nano debian/changelog
+
+ 	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
+
 	#################################################
 	# Build Debian package
 	#################################################
@@ -100,10 +126,8 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
-	--pkgversion="$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
-	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
-	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
+	#  build
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration
@@ -142,8 +166,8 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: ${build_dir}/build: \n"
-	ls ${git_dir}/build | grep -E *.deb
+	echo -e "Showing contents of: ${build_dir}: \n"
+	ls ${build_dir}| grep -E *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -153,8 +177,8 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# cut files
-		if [[ -d "${git_dir}/build" ]]; then
-			scp ${git_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		if [[ -d "${build_dir}" ]]; then
+			scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 		fi
 		

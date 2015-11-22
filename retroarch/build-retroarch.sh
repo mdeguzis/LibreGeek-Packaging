@@ -96,7 +96,10 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/retroarch/debian "${git_dir}"
+	cp -r "$scriptdir/retroarch/debian" "${git_dir}"
+
+	# Release tags do not contian the .desktop file
+	cp -v "$scriptdir/retroarch/retroarch.desktop" "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"

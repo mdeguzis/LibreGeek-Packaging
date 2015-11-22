@@ -1,0 +1,77 @@
+Source: retroarch
+Section: otherosfs
+Priority: optional
+Maintainer: Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+Uploaders: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9),
+               libasound2-dev,
+               libavcodec-dev,
+               libavdevice-dev,
+               libavformat-dev,
+               libavutil-dev,
+               libc6-dev (>= 2.13),
+               libdrm-dev,
+               libegl1-mesa-dev,
+               libfreetype6-dev,
+               libgbm-dev,
+               libjack-jackd2-dev,
+               libopenal-dev,
+               libpulse-dev,
+               libsdl2-dev,
+               libswscale-dev,
+               libudev-dev,
+               libusb-1.0-0-dev,
+               libv4l-dev,
+               libxinerama-dev,
+               libxml2-dev,
+               libxv-dev,
+               libxxf86vm-dev,
+               nvidia-cg-dev [!armhf],
+               pkg-config,
+               python3-dev,
+               x11proto-xext-dev,
+               zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://www.libretro.com/
+
+Package: retroarch
+Architecture: any
+Depends: fonts-dejavu-core,
+         libretro-core-info,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Suggests: retroarch-assets, retroarch-joypad-autoconfig
+Description: Simple frontend for the libretro library
+ RetroArch is an open source, multi-platform frontend for the libretro API.
+ It can be used as a modular multi emulator system, game engine, media player
+ and 3D technical demonstration. These features are available through
+ libretro cores.
+ .
+ It provides three built-in GUI: RGUI, XMB and GLUI.
+
+Package: retroarch-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: retroarch (= ${binary:Version})
+         ${misc:Depends},
+         ${shlibs:Depends}
+Description: Simple frontend for the libretro library - debug symbols
+ RetroArch is an open source, multi-platform frontend for the libretro API.
+ It can be used as a modular multi emulator system, game engine, media player
+ and 3D technical demonstration. These features are available through
+ libretro cores.
+ .
+ This package provides the debug symbols for RetroArch.
+
+Package: retroarch-cg2glsl
+Architecture: amd64 i386
+Depends: nvidia-cg-toolkit, python3, ${misc:Depends}, ${shlibs:Depends}
+Breaks: retroarch (<< 1.2.2+r259~17~)
+Description: Cg to GLSL shaders converter
+ retroarch-cg2glsl converts Cg shaders to GLSL shaders. It can convert single
+ shaders as well as whole folder structures in batch. 100% compatibility
+ is not guaranteed, but almost all shaders should work fine. Cg presets (.cgp)
+ are not converted at the moment, but converting them is as simple as copying
+ over the .cgp, rename it to .glslp and replace references to .cg files
+ to .glsl.

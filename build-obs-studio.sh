@@ -4,7 +4,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-obs-studio.sh
-# Script Ver:	0.5.5
+# Script Ver:	0.5.7
 # Description:	Attempts to build a deb package from obs-studio git source
 #
 # See:		https://github.com/jp9000/obs-studio/wiki/Install-Instructions
@@ -29,7 +29,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 provides="obs-studio"
 pkggroup="utils"
-requires=""
+requires="libQt5Widgets5, libxcb-xinerama0, libqt5x11extras5"
 replaces="obs-studio"
 
 # build dirs

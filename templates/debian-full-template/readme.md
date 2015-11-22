@@ -62,6 +62,14 @@ sudo pbuilder --update
 sudo pbuilder --build foo_version.dsc
 ```
 
+# Notes regarding systemd service files
+* See this [Debian team](https://wiki.debian.org/Teams/pkg-systemd/Packaging) post for full details
+* If you already have a service file you would like to include, copy it into debian/ before building, and include the appropariate dh helper in your rules file, such as (example ds4drv build):
+
+```
+dh $@ --with python2 --with=systemd
+```
+
 # Finish the package steps
 
 Now you have all you need to build your package. cd to the root directory of your package and run dpkg-buildpackage. If all went well, you'll have your fresh new .deb in ../.

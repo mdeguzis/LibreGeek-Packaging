@@ -98,6 +98,10 @@ main()
 
 	# copy in debian folder
 	cp -r "$scriptdir/retroarch/debian" "${git_dir}"
+	
+	# correct any files needed here that you can ahead of time
+	# For whatever reason, some "defaults" don't quite work
+	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/retroarch.cfg"
 
 	# enter source dir
 	cd "${pkgname}"

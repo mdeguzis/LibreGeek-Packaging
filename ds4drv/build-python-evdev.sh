@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-ds4drv.sh
+# Scipt Name:	build-python-evdev.sh
 # Script Ver:	1.0.
-# Description:	Attempts to build a deb package from latest ds4drv
+# Description:	Attempts to build a deb package from latest python-evdev
 #		github release
 #
-# See:		https://github.com/chrippa/ds4drv
+# See:		https://github.com/gvalkov/python-evdev
 #
-# Usage:	build-ds4drv.sh
+# Usage:	build-python-evdev
 #
 #-------------------------------------------------------------------------------
 
@@ -19,14 +19,14 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/chrippa/ds4drv"
+git_url="https://github.com/gvalkov/python-evdev"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="ds4drv"
-pkgver="${date_short}+git+SteamOS2"
+pkgname="python-evdev"
+pkgver="0.5.0+git+SteamOS2"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -43,7 +43,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
-	python-pip python python-setuptools python-dev python-pyudev bluez-tools gcc debhelper dh-systemd
+	python python-setuptools python-dev python-pyudev gcc debhelper
 }
 
 main()
@@ -89,9 +89,6 @@ main()
 
 	# copy in debian folder
 	cp -r $scriptdir/$pkgname/debian "${git_dir}"
-
-	# copy service file into main source tree
-	cp -r "${git_dir}/systemd/ds4drv.service" "${git_dir}/debian"
 
 	# enter source dir
 	cd "${pkgname}"

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-retroarch.sh
+# Scipt Name:	bbuild-libretro-core-info.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from latest retroarch
+# Description:	Attempts to build a deb package from latest libretro-core-info
 #		github release
 #
-# See:		https://github.com/libretro/RetroArch
+# See:		https://github.com/libretro/libretro-super
 #
-# Usage:	build-retroarch.sh
+# Usage:	build-libretro-core-info.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,15 +19,15 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/RetroArch"
-rel_target="v1.2.2"
-#rel_target="master"
+git_url="https://github.com/libretro/libretro-super"
+#rel_target="v1.2.2"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="retroarch"
-pkgver="1.2.2+git+SteamOS2"
+pkgname="libretro-core-info"
+pkgver="${date_short}+git+SteamOS2"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -43,15 +43,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config \
-	checkinstall bc build-essential devscripts make git-core curl \
-	g++ pkg-config libglu1-mesa-dev freeglut3-dev mesa-common-dev \
-	libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev \
-	libsdl-ttf2.0-dev nvidia-cg-toolkit nvidia-cg-dev libasound2-dev \
-	unzip samba smbclient libsdl2-dev libxml2-dev libavcodec-dev \
-	libavformat-dev libavutil-dev libswscale-dev libv4l-dev \
-	libxinerama-dev libudev-dev libusb-1.0-0-dev libxv-dev libopenal-dev \
-	libjack-jackd2-dev libgbm-dev libegl1-mesa-dev python3-dev libavdevice-dev
+	sudo apt-get install -y --force-yes build-essential pkg-config bc devscripts 
 
 }
 

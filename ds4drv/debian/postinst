@@ -17,12 +17,12 @@ set -e
 case "$1" in
     configure)
 
-    # enable/start the ds4drv service
-    # ds4drv's systemd service expects the binary file to be at /usr/bin
+	# enable/start the ds4drv service
+	# ds4drv's systemd service expects the binary file to be at /usr/bin
 	# this install places it at /usr/local/bin, move it
 	mv "/usr/local/bin/ds4drv" "/usr/bin/"
 	systemctl enable ds4drv.service
-    systemctl start ds4drv.service
+	systemctl start ds4drv.service
     :
     ;;
 

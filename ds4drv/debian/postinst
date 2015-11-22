@@ -17,8 +17,12 @@ set -e
 case "$1" in
     configure)
 
-    # The steam user is unable to write into these root controlled directories
-    # perhaps this is due to the install under the desktop user.
+    # enable/start the ds4drv service
+    # ds4drv's systemd service expects the binary file to be at /usr/bin
+	# this install places it at /usr/local/bin, move it
+	mv "/usr/local/bin/ds4drv" "/usr/bin/"
+	systemctl enable ds4drv.service
+    systemctl start ds4drv.service
     :
     ;;
 

@@ -1,1 +1,1 @@
-usr/share/libretro/assets
+systemd/ds4drv.service /lib/systemd/system/

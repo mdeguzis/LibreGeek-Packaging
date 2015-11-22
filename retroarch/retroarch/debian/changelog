@@ -1,14 +1,8 @@
-retroarch (1.2.2+r211~12~ubuntu15.04.1) vivid; urgency=low
+retroarch (1.2.2+r259~19~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.
 
- -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 26 Oct 2015 03:48:03 +0000
-
-retroarch (1.2.2+r211~11~ubuntu14.04.1) trusty; urgency=low
-
-  * Auto build.
-
- -- Launchpad Package Builder <noreply@launchpad.net>  Sun, 19 Jul 2015 15:48:51 +0000
+ -- Launchpad Package Builder <noreply@launchpad.net>  Sat, 21 Nov 2015 23:18:23 +0000
 
 retroarch (1.2.2-0ubuntu1) UNRELEASED; urgency=low
 

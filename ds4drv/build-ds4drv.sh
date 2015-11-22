@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ds4drv.sh
-# Script Ver:	0.1.1
+# Script Ver:	1.0.
 # Description:	Attempts to build a deb package from latest retroarch
 #		assets github release
 #
@@ -19,14 +19,14 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/retroarch-assets/"
+git_url="https://github.com/chrippa/ds4drv"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="ds4drv"
-pkgver="${date_short}git+SteamOS2"
+pkgver="${date_short}+git+SteamOS2"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -88,7 +88,10 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/retroarch-assets/debian "${git_dir}"
+	cp -r $scriptdir/debian "${git_dir}"
+
+	# copy service file into main source tree
+	cp -r "${git_dir}/systemd/ds4drv.service" "${git_dir}/debian"
 
 	# enter source dir
 	cd "${pkgname}"

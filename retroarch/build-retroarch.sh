@@ -50,7 +50,7 @@ install_prereqs()
 	unzip samba smbclient libsdl2-dev libxml2-dev libavcodec-dev \
 	libavformat-dev libavutil-dev libswscale-dev libv4l-dev \
 	libxinerama-dev libudev-dev libusb-1.0-0-dev libxv-dev libopenal-dev \
-	libjack-jackd2-dev libgbm-dev libegl1-mesa-dev python3-dev
+	libjack-jackd2-dev libgbm-dev libegl1-mesa-dev python3-dev libavdevice-dev
 
 }
 

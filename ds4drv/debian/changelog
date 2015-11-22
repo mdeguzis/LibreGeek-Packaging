@@ -1,0 +1,11 @@
+retroarch-assets (0.1+r71~2~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 09 Jul 2015 05:31:45 +0000
+
+retroarch-assets (0.1-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 20 Sep 2014 11:40:00 -0300

@@ -1,0 +1,15 @@
+Source: retroarch-assets
+Section: otherosfs
+Priority: extra
+Maintainer: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), rsync
+Standards-Version: 3.9.5
+Homepage: http://www.libretro.com
+Vcs-Git: git://github.com/libretro/retroarch-assets.git
+Vcs-Browser: https://github.com/libretro/retroarch-assets
+
+Package: retroarch-assets
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: RetroArch assets for Lakka and RMenu
+ This package installs RetroArch assets for Lakka and RMenu.

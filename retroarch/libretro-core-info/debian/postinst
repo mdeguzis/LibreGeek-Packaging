@@ -19,7 +19,7 @@ case "$1" in
 
     # The steam user is unable to write into these root controlled directories
     # perhaps this is due to the install under the desktop user.
-    chown -R steam:steam /usr/lib/libretro/
+    chown -R steam:steam /usr/share/libretro/
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

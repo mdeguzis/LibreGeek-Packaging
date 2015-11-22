@@ -20,7 +20,8 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/libretro/RetroArch"
-release_tag="v1.2.2"
+#rel_target="v1.2.2"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -80,7 +81,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$release_tag" "$git_url" "$git_dir"
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 
 	#################################################
 	# Build platform

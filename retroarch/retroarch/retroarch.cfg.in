@@ -35,7 +35,7 @@ extraction_directory = "/tmp/"
 # libretro_path = "/path/to/libretro.so"
 
 # A directory for where to search for libretro core implementations.
-libretro_directory = "/usr/lib/libretro/"
+libretro_directory = "/usr/lib/@DEB_HOST_MULTIARCH@/libretro/"
 
 # A directory for where to search for libretro core information.
 libretro_info_path = "/usr/share/libretro/info/"

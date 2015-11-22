@@ -32,6 +32,8 @@ endif
 	dh $@ --parallel
 
 override_dh_auto_configure:
+	sed 's/@DEB_HOST_MULTIARCH@/$(DEB_HOST_MULTIARCH)/g' \
+		debian/retroarch.cfg.in > debian/retroarch.cfg
 	# See ./configure --help for valid flags
 	# disable flags (i.e. --disable-ffmpeg for example) if there is no package relative to the feature in Build-Depends
 	./configure --prefix=/usr --disable-ffmpeg $(CONFIG_EXTRA_FLAGS)
@@ -45,10 +47,6 @@ override_dh_auto_build:
 
 override_dh_strip:
 	dh_strip -pretroarch --dbg-package=retroarch-dbg
-
-#override_dh_auto_install:
-	# Add here commands to install the package into debian/retroarch.
-#	$(MAKE) DESTDIR=$(CURDIR)/debian/retroarch PREFIX=/usr install
 
 override_dh_auto_clean:
 	touch config.mk

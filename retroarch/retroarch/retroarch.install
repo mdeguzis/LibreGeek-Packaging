@@ -3,6 +3,6 @@ audio/audio_filters/*.so                   usr/lib/retroarch/filters/audio
 debian/retroarch.cfg                       etc
 gfx/video_filters/*.filt                   usr/lib/retroarch/filters/video
 gfx/video_filters/*.so                     usr/lib/retroarch/filters/video
-media/retroarch.svg                        usr/share/icons/hicolor/scalable/apps
+usr/share/pixmaps/retroarch.svg
 usr/bin/retroarch
 usr/share/applications/retroarch.desktop

@@ -110,7 +110,7 @@ main()
 	# The source tree is also missing the dekstop file with the release tags
 	# See: https://github.com/libretro/RetroArch/issues/2443
 	cp "$scriptdir/retroarch/retroarch.desktop" "${git_dir}"
-	cp "$scriptdir/retroarch/retroarch.install" "${git_dir}"
+	cp "$scriptdir/retroarch/retroarch.install" "${git_dir}/debian"
 	
 	# enter source dir
 	cd "${pkgname}"

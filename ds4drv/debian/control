@@ -1,15 +1,15 @@
-Source: retroarch-assets
-Section: otherosfs
-Priority: extra
-Maintainer: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
-Build-Depends: debhelper (>= 9), rsync
+Source: ds4drv
+Section: games
+Priority: optional
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9), python, python-setuptools,
+python-dev, python-pyudev
 Standards-Version: 3.9.5
-Homepage: http://www.libretro.com
-Vcs-Git: git://github.com/libretro/retroarch-assets.git
-Vcs-Browser: https://github.com/libretro/retroarch-assets
+Homepage: https://github.com/chrippa/ds4drv
 
-Package: retroarch-assets
+Package:ds4drv
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: RetroArch assets for Lakka and RMenu
- This package installs RetroArch assets for Lakka and RMenu.
+Depends: ${shlibs:Depends}, ${misc:Depends},
+bluez-tools, python-dev, python-pyudev
+Description: ds4drv is a Sony DualShock 4 userspace driver for Linux.
+ This package installs ds4drv fro SteamOS users.

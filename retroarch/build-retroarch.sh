@@ -20,8 +20,8 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/libretro/RetroArch"
-#rel_target="v1.2.2"
-rel_target="master"
+rel_target="v1.2.2"
+#rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -99,10 +99,19 @@ main()
 	# copy in debian folder
 	cp -r "$scriptdir/retroarch/debian" "${git_dir}"
 	
+	###############################################################
 	# correct any files needed here that you can ahead of time
+	###############################################################
+	
 	# For whatever reason, some "defaults" don't quite work
 	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/retroarch.cfg"
-
+	
+	# Install file does not copy desktop file into debian/tmp directory using release tags
+	# The source tree is also missing the dekstop file with the release tags
+	# See: https://github.com/libretro/RetroArch/issues/2443
+	cp "$scriptdir/retroarch/retroarch.desktop" "${git_dir}"
+	cp "$scriptdir/retroarch/retroarch.install" "${git_dir}"
+	
 	# enter source dir
 	cd "${pkgname}"
 

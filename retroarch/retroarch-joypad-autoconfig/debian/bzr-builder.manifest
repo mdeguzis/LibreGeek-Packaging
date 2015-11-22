@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r267~2
-lp:~libretro/libretro/retroarch-joypad-autoconfig revid:git-v1:b5dbd19aafbc0fcd7a5c85f745b163f14ba4914f
-nest packaging lp:~libretro/libretro/retroarch-joypad-autoconfig-debian debian revid:sergio_br2@yahoo.com.br-20140801020342-w2ynp3q1vfixhnwi

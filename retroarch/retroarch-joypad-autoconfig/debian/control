@@ -1,0 +1,15 @@
+Source: retroarch-joypad-autoconfig
+Section: otherosfs
+Priority: extra
+Maintainer: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: http://www.libretro.com
+Vcs-Git: git://github.com/libretro/retroarch-joypad-autoconfig.git
+Vcs-Browser: https://github.com/libretro/retroarch-joypad-autoconfig
+
+Package: retroarch-joypad-autoconfig
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: RetroArch joypad auto config files
+ This package installs RetroArch config files of joypads.

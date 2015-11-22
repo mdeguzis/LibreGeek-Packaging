@@ -1,0 +1,11 @@
+retroarch-joypad-autoconfig (0.1+r267~2~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 19 Nov 2015 06:02:01 +0000
+
+retroarch-joypad-autoconfig (0.1-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 31 Jul 2014 06:28:00 -0300

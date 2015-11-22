@@ -1,0 +1,23 @@
+This package was debianized by Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br> on
+Thu, 31 Jul 2014 06:28:00 -0300.
+
+It was downloaded from <https://github.com/libretro/retroarch-joypad-autoconfig>
+
+Upstream Authors:
+
+    The RetroArch Team
+
+Copyright:
+
+    Copyright (C) 2014 The RetroArch Team
+
+License:
+
+    Licensed under the terms of the GNU General Public License version 3
+
+The Debian packaging is:
+
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

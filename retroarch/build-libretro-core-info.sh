@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	bbuild-libretro-core-info.sh
-# Script Ver:	0.1.1
+# Script Ver:	1.0.0
 # Description:	Attempts to build a deb package from latest libretro-core-info
 #		github release
 #
@@ -27,7 +27,7 @@ rel_target="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="libretro-core-info"
-pkgver="${date_short}+git+SteamOS2"
+pkgver="0.1+git+SteamOS2"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -89,21 +89,12 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/retroarch/debian" "${git_dir}"
-	
+	cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
+
 	###############################################################
 	# correct any files needed here that you can ahead of time
 	###############################################################
-	
-	# For whatever reason, some "defaults" don't quite work
-	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/retroarch.cfg"
-	
-	# Install file does not copy desktop file into debian/tmp directory using release tags
-	# The source tree is also missing the dekstop file with the release tags
-	# See: https://github.com/libretro/RetroArch/issues/2443
-	cp "$scriptdir/retroarch/retroarch.desktop" "${git_dir}"
-	cp "$scriptdir/retroarch/retroarch.install" "${git_dir}/debian"
-	
+
 	# enter source dir
 	cd "${pkgname}"
 

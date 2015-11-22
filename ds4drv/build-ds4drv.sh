@@ -43,7 +43,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
-	python-pip python python-setuptools python-dev python-pyudev bluez-tools gcc
+	python-pip python python-setuptools python-dev python-pyudev bluez-tools gcc debhelper dh-systemd
 }
 
 main()

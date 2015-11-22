@@ -1,0 +1,11 @@
+libretro-core-info (0.1+r1139~2~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 15 Oct 2015 15:47:32 +0000
+
+libretro-core-info (0.1-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Mon, 15 Dec 2014 00:09:00 -0300

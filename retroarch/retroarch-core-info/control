@@ -1,0 +1,15 @@
+Source: libretro-core-info
+Section: otherosfs
+Priority: extra
+Maintainer: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: http://www.libretro.com
+Vcs-Git: git://github.com/libretro/libretro-super.git
+Vcs-Browser: https://github.com/libretro/libretro-super
+
+Package: libretro-core-info
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Info files for Libretro cores
+ This package installs info files for all cores.

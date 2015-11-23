@@ -13,7 +13,7 @@
 # -------------------------------------------------------------------------------
 
 # Set vars
-build_dir="$HOME/kodi-all-tmp"
+auto_build_dir="$HOME/kodi-all-tmp"
 build_all="yes"
 
 install_prereqs()
@@ -24,14 +24,14 @@ install_prereqs()
 	build-essential
 	
 	# create and enter build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "$auto_build_dir" ]]; then
 	
-		sudo rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		sudo rm -rf "$auto_build_dir"
+		mkdir -p "$auto_build_dir"
 		
 	else
 	
-		mkdir -p "$build_dir"
+		mkdir -p "$auto_build_dir"
 		
 	fi
 	

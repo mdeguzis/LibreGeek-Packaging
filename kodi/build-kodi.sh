@@ -567,6 +567,45 @@ kodi_post_cfgs()
 	fi
 	
 	
+	# If "build_all" is requested, skip user interaction
+	
+	if [[ "$build_all" == "yes" ]]; then
+	
+		echo -e "\n==INFO==\nAuto-build requested"
+		mv ${build_dir}/*.deb "$auto_build_dir"
+		sleep 2s
+		
+	else
+		
+		# inform user of packages
+		echo -e "\n############################################################"
+		echo -e "If package was built without errors you will see it below."
+		echo -e "If you don't, please check build dependcy errors listed above."
+		echo -e "############################################################\n"
+		
+		echo -e "Showing contents of: ${git_dir}/build: \n"
+		ls "${build_dir}" | grep -E *.deb
+	
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -ep "Choice: " transfer_choice
+		
+		if [[ "$transfer_choice" == "y" ]]; then
+		
+			# cut files
+			if [[ -d "${build_dir}" ]]; then
+				scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+	
+			fi
+			
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
+		fi
+
+	fi
+	
+	
 }
 
 

@@ -1,35 +1,36 @@
 #!/bin/bash
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-simplescreenrecorder.sh
-# Script Ver:	0.7.7
-# Description:	Attempts to build a deb package from simplescreenrecorder git source
+# Scipt Name:	build-ssr.sh
+# Script Ver:	1.0.0
+# Description:	Attempts to build a deb package from latest 
+#		Simple Screen Recorder github release
 #
-# See:		https://launchpadlibrarian.net/219136562/simplescreenrecorder_2.19.3-1~vivid1.dsc
-# Usage:	build-simplescreenrecorder.sh
-# -------------------------------------------------------------------------------
+# See:		https://github.com/MaartenBaert/ssr
+#
+# Usage:	build-ssr.sh
+#
+#-------------------------------------------------------------------------------
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-# reset source command for while loop
-src_cmd=""
 
-# upstream URL
-git_url="https://github.com/MaartenBaert/ssr"
+# upstream vars
+git_url="https://github.com/chrippa/ds4drv"
+branch="0.3.6"
 
 # package vars
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
 pkgname="simplescreenrecorder"
-pkgrel="1"
+pkgver="0.3.6+git+SteamOS2"
+pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="simplescreenrecorder"
-pkggroup="X11"
-requires=""
-replaces="simplescreenrecorder"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
@@ -41,69 +42,82 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config qt4-qmake libqt4-dev libavformat-dev \
-	libavcodec-dev libavutil-dev libswscale-dev libasound2-dev libpulse-dev libjack-jackd2-dev \
-	libgl1-mesa-dev libglu1-mesa-dev libx11-dev libxfixes-dev libxext-dev libxi-dev g++-multilib \
-	libx11-6 libxext6 libxext-dev libxfixes3 libxfixes3:i386 libglu1-mesa:i386 ffmpeg checkinstall bc
-	
-	# some libraries are not foudn with the current build script
-	# Per the readme file, symlink these
-	# Suppress warnings if the link exists
-	cd /usr/lib/i386-linux-gnu
-	sudo ln -s libGL.so.1 libGL.so 2> /dev/null
-	sudo ln -s libGLU.so.1 libGLU.so 2> /dev/null
-	sudo ln -s libX11.so.6 libX11.so 2> /dev/null
-	sudo ln -s libXext.so.6 libXext.so 2> /dev/null
-	sudo ln -s libXfixes.so.3 libXfixes.so 2> /dev/null
-	sudo ldconfig
+	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
+	debhelper dpkg-dev pkg-config help2man libgl1-mesa-dev libglu1-mesa-dev qt4-qmake libqt4-dev \
+	libavformat-dev libavcodec-dev libavutil-dev libswscale-dev libasound2-dev libpulse-dev \
+	libjack-dev libx11-dev libxext-dev libxfixes-dev libxi-dev
 
 }
 
 main()
 {
-	
+
 	# create build_dir
 	if [[ -d "$build_dir" ]]; then
-	
+
 		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
-		
+
 	else
-		
+
 		mkdir -p "$build_dir"
-		
+
 	fi
+
+	# enter build dir
+	cd "$build_dir" || exit
 
 	# install prereqs for build
 	install_prereqs
-	
-	# Clone upstream source code
-	git clone "$git_url" "$git_dir"
-	
-	# Enter git dir for build
-	cd "$git_dir" || exit
- 
-	#################################################
-	# Build simplescreenrecorder
-	#################################################
-	
-	echo -e "\n==> Bulding ${pkgname}\n"
-	sleep 3s
-  	
-	# Upstream Git source uses script to build and install package
-	if bash simple-build-and-install; then
 
-  	echo -e "\n==INFO==\n${pkgname} build successful"
-  	sleep 2s
-		
-	else 
-	
-		echo -e "\n==ERROR==\n${pkgname} build FAILED. Exiting in 15 seconds"
-		sleep 15s
-		exit 1
-		
-	fi
- 
+	# Clone upstream source code and branch
+
+	echo -e "\n==> Obtaining upstream source code\n"
+
+	# clone
+	git clone -b "$branch" "$git_url" "$git_dir"
+
+	#################################################
+	# Build platform
+	#################################################
+
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
+
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
+
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
+	# enter source dir
+	cd "${pkgname}"
+
+	# Create basic changelog format
+	cat <<-EOF> changelog.in
+	$pkgname ($pkgver) $dist_rel; urgency=low
+
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+
+	 -- $uploader  $date_long
+
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
+	sleep 3s
+	nano debian/changelog
+
+ 	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
+
 	#################################################
 	# Build Debian package
 	#################################################
@@ -111,10 +125,8 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
-	--pkgversion="$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
-	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
-	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
+	#  build
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration
@@ -153,8 +165,8 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: ${build_dir}/build: \n"
-	ls ${git_dir}/build | grep -E *.deb
+	echo -e "Showing contents of: ${build_dir}: \n"
+	ls ${build_dir}| grep -E *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -164,8 +176,8 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# cut files
-		if [[ -d "${git_dir}/build" ]]; then
-			scp ${git_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		if [[ -d "${build_dir}" ]]; then
+			scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 		fi
 		

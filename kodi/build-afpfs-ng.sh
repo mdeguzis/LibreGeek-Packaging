@@ -127,7 +127,7 @@ main()
 	
 	# If "build_all" is requested, skip user interaction
 	
-	if [[ "$build_all == "yes" ]]; then
+	if [[ "$build_all" == "yes" ]]; then
 	
 		echo -e "\n==INFO==\nAuto-build requested"
 		mv ${git_dir}/build/*.deb "$auto_build_dir"

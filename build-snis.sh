@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-obs-studio.sh
-# Script Ver:	1.0.
-# Description:	Attempts to build a deb package from latest obs-studio
+# Scipt Name:	build-snis.sh
+# Script Ver:	1.0.0
+# Description:	Attempts to build a deb package from latest snis
 #		github release
 #
-# See:		https://github.com/jp9000/obs-studio
+# See:		https://github.com/smcameron/space-nerds-in-space
 #
-# Usage:	build-obs-studio.sh
+# Usage:	build-snis.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,14 +19,14 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/jp9000/obs-studio"
-rel_target="0.12.2"
+git_url="https://github.com/smcameron/space-nerds-in-space"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="obs-studio"
-pkgver="0.12.2+git+SteamOS2"
+pkgname="snis"
+pkgver="${date_short}+git+SteamOS2"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -42,22 +42,10 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes libx11-dev libgl1-mesa-dev \
-	libpulse-dev libxcomposite-dev libxinerama-dev libv4l-dev libudev-dev \
-	libfreetype6-dev libfontconfig-dev qtbase5-dev libqt5x11extras5-dev \
-	libx264-dev libxcb-xinerama0-dev libxcb-shm0-dev libjack-jackd2-dev \
-	libcurl4-openssl-dev build-essential bc debhelper cdbs cmake libfdk-aac-dev
+	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
+	debhelper build-essential portaudio19-dev libvorbis-dev libgtk2.0-dev openscad  libgtkglext1-dev \
+	liblua5.2-dev  libglew-dev  libsdl1.2-dev
 
-	echo -e "\n==> Installing $pkgname build dependencies...\n"
-	sleep 2s
-
-	# Until the ffmpeg build script is finished, install ffmpeg from rebuilt PPA source
-	# hosted in the Libregeek repositories. Exit if not installed correctly.
-
-	sudo apt-get install -y --force-yes ffmpeg libavcodec-ffmpeg-dev \
-	libavdevice-ffmpeg-dev libavfilter-ffmpeg-dev libavformat-ffmpeg-dev \
-	libavresample-ffmpeg-dev libavutil-ffmpeg-dev libpostproc-ffmpeg-dev \
-	libswresample-ffmpeg-dev libswscale-ffmpeg-dev
 }
 
 main()
@@ -100,10 +88,6 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
-
-	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
-
 	# enter source dir
 	cd "${pkgname}"
 

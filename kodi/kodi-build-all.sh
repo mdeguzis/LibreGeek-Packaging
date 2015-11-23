@@ -93,6 +93,36 @@ build_all()
 		sleep 3s
 	
 	done
+	
+	###########################################################
+	# Summary
+	###########################################################
+	
+	# inform user of packages
+	echo -e "\n#######################################################################"
+	echo -e "If all kodi packages were built without errors you will see them below."
+	echo -e "If you don't, please check the $build_dir/build-log.txt log."
+	echo -e "#########################################################################\n"
+	
+	echo -e "Showing contents of: $auto_build_dir: \n"
+	ls "${auto_build_dir}" | grep -E *.deb
+	
+	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+	sleep 0.5s
+	# capture command
+	read -ep "Choice: " transfer_choice
+	
+	if [[ "$transfer_choice" == "y" ]]; then
+	
+		# cut files
+		if [[ -d "${auto_build_dir}/" ]]; then
+			scp ${auto_build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+	
+		fi
+		
+	elif [[ "$transfer_choice" == "n" ]]; then
+		echo -e "Upload not requested\n"
+	fi
 
 }
 

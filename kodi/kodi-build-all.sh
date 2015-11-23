@@ -46,7 +46,6 @@ build_all()
 	# build Kodi prerequisite packages 
 	###########################################################
 	# Install them for the main builds
-	# These packages will be removed at the end of this script
 	# In the the future, this behavior will be replaced by pbuilder/chroot.
 	
 	# NOTE: This package script list is not yet complete

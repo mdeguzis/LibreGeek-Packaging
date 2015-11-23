@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+INSTDIRS = debian/tmp/usr/include debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/default.mk
+
+%:
+	dh $@ 
+
+#build: $(INSTDIRS)
+override_dh_auto_build:
+	$(CXX) -shared -fPIC -Wall -std=c++11 -Wl,-soname,libcrossguid.so.0.1 -DGUID_LIBUUID -I/usr/include/uuid  guid.cpp -o libcrossguid.so.0.1 $(CXXFLAGS) -luuid
+	@ln -s libcrossguid.so.0.1 libcrossguid.so
+	$(AR) x /usr/lib/$(DEB_HOST_MULTIARCH)/libuuid.a
+	$(AR) cr libcrossguid.a *.o
+
+override_dh_auto_install: $(INSTDIRS)
+	cp guid.h debian/tmp/usr/include/
+	cp libcrossguid.* debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/
+
+$(INSTDIRS):
+	mkdir -p $@
+
+clean:
+	rm -f libcrossguid.* *.o debian/*.log debian/*.substvars
+

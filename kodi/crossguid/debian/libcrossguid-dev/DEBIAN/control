@@ -1,0 +1,12 @@
+Package: libcrossguid-dev
+Source: crossguid
+Version: 0.1~git20150807.8f399e8
+Architecture: amd64
+Maintainer: wsnipex <wsnipex@a1.net>
+Installed-Size: 89
+Depends: libcrossguid1 (= 0.1~git20150807.8f399e8)
+Section: libdevel
+Priority: optional
+Homepage: https://github.com/graeme-hill/crossguid
+Description: cross platform UUID library headers
+ Development headers for Graeme Hill's cross platform UUID library

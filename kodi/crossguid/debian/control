@@ -1,0 +1,22 @@
+Source: crossguid
+Priority: optional
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9), uuid-dev
+Standards-Version: 3.9.5
+Section: libs
+Homepage: https://github.com/graeme-hill/crossguid
+Vcs-Git: https://github.com/graeme-hill/crossguid
+
+Package: libcrossguid-dev
+Section: libdevel
+Architecture: any
+Depends: libcrossguid1 (= ${binary:Version}), ${misc:Depends}
+Description: cross platform UUID library headers
+ Development headers for Graeme Hill's cross platform UUID library
+
+Package: libcrossguid1
+Architecture: any
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: cross platform UUID library
+ Graeme Hill's cross platform UUID library

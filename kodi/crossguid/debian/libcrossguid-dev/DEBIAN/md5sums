@@ -1,0 +1,7 @@
+e92929e210c63c5148d8db7dd09e04b0  usr/include/guid.h
+364d431c40249e45fdb6a20bb1a8176d  usr/lib/x86_64-linux-gnu/libcrossguid.a
+0cdd359b38b853bbb013822a550232e8  usr/lib/x86_64-linux-gnu/libcrossguid.so
+866b2f1309c48ca6ba5805487090dce1  usr/share/doc/libcrossguid-dev/README.Debian
+bf1ab48486fc720abf0f8ed5d7bc83c9  usr/share/doc/libcrossguid-dev/README.md.gz
+61d717ae0ecb96546d2018bf6e39ab98  usr/share/doc/libcrossguid-dev/changelog.gz
+80b3fe0475848f8dacff671e9ef6db0a  usr/share/doc/libcrossguid-dev/copyright

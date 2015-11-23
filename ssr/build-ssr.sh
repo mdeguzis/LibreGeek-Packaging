@@ -19,8 +19,8 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/chrippa/ds4drv"
-branch="0.3.6"
+git_url="https://github.com/MaartenBaert/ssr"
+rel_target="0.3.6"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -75,7 +75,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 
 	#################################################
 	# Build platform
@@ -89,6 +89,9 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"

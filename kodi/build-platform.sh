@@ -157,7 +157,7 @@ main()
 	if [[ "$build_all" == "yes" ]]; then
 	
 		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${git_dir}/build/*.deb "$auto_build_dir"
+		mv ${build_dir}/*.deb "$auto_build_dir"
 		sleep 2s
 		
 	else

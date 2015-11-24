@@ -1,4 +1,5 @@
-# SteamOS-Tools-Packaging
+# SteamOS-Tools-Packaging [![Build Status](https://travis-ci.org/ProfessorKaos64/hid-retrobit.svg?branch=brewmaster)](https://travis-ci.org/ProfessorKaos64/SteamOS-Tools-Packaging)
+
 Packaging scripts and files for SteamOS-Tools
 
 # Links and resources

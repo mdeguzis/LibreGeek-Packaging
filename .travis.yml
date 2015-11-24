@@ -4,4 +4,4 @@ branches:
 
 # Test script auto_builds below
 script:
-  - kodi/build-kodi.sh
+  - bash kodi/build-kodi.sh

@@ -19,8 +19,9 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/retuxx/hid-retrobit"
-rel_target="v1.0.0"
+#git_url="https://github.com/retuxx/hid-retrobit"
+git_url="https://github.com/ProfessorKaos64/hid-retrobit"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -87,15 +88,15 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
+	# copy in debian folder
+	cp -r "$scriptdir/debian" "${git_dir}"
+
 	# enter source dir
 	cd "${pkgname}"
 
-	# name DEBIAN, not sure why it is in all caps
-	mv DEBIAN debian
-
 	# Create basic changelog format, none exists upstream
 	cat <<-EOF> debian/changelog
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

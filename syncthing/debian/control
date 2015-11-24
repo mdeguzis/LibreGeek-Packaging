@@ -1,8 +1,8 @@
 Source: syncthing
 Section: net
 Priority: optional
-Maintainer: Niklas Sombert <niklas@ytvwld.de>
-Build-Depends: debhelper (>= 8.0.0), gccgo-go, git
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 8.0.0), gccgo, git
 Standards-Version: 3.9.4
 Homepage: http://syncthing.net/
 Vcs-Browser: https://github.com/calmh/syncthing

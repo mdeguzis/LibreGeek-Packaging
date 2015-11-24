@@ -88,7 +88,10 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# copy in debian folder
+	# remove upstream partial DEBIAN dir
+	rm -rf "${git_dir}/DEBIAN/"
+
+	# copy in debian folder proper to source folder
 	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# enter source dir

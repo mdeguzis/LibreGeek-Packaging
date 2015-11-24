@@ -1,3 +1,7 @@
+branches:
+  only:
+    - brewmaster
+
 # Test script auto_builds below
 script:
   - kodi/build-kodi.sh

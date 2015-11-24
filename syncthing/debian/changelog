@@ -1,0 +1,473 @@
+syncthing (0.11.13a-7) vivid; urgency=low
+
+  * Add the official Syncthing repository to the system.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 04 Oct 2015 18:31:31 +0200
+
+syncthing (0.11.13a-5) utopic; urgency=low
+
+  * Retryinng the build for utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 10 Jul 2015 20:10:36 +0200
+
+syncthing (0.11.13a-4) vivid; urgency=low
+
+  * A build for vivid.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 10 Jul 2015 19:32:08 +0200
+
+syncthing (0.11.13a-3) trusty; urgency=low
+
+  * A build for trusty.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 10 Jul 2015 19:34:51 +0200
+
+syncthing (0.11.13a-2) utopic; urgency=low
+
+  * A build for utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 10 Jul 2015 19:33:15 +0200
+
+syncthing (0.11.13a-1) wily; urgency=low
+
+  * Updated version to v0.11.13.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 10 Jul 2015 17:29:01 +0200
+
+syncthing (0.11.0-3) trusty; urgency=low
+
+  * Updated version to v0.11.0.
+    WARNING: This version is not compatible to v0.10.*!
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 26 Apr 2015 15:49:50 +0200
+
+syncthing (0.11.0-2) utopic; urgency=low
+
+  * Updated version to v0.11.0.
+    WARNING: This version is not compatible to v0.10.*!
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 26 Apr 2015 15:37:43 +0200
+
+syncthing (0.11.0-1) vivid; urgency=low
+
+  * Updated version to v0.11.0.
+    WARNING: This version is not compatible to v0.10.*!
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 26 Apr 2015 15:07:37 +0200
+
+syncthing (0.10.30-3) trusty; urgency=low
+
+  * Another build for Trusty.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 29 Mar 2015 14:28:33 +0200
+
+syncthing (0.10.30-1) vivid; urgency=low
+
+  * Updated version to v0.10.30.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 29 Mar 2015 13:49:01 +0200
+
+syncthing (0.10.27-6) trusty; urgency=low
+
+  * Another build for Trusty.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 20 Mar 2015 12:27:15 +0200
+
+syncthing (0.10.27-5) utopic; urgency=low
+
+  * Another build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 20 Mar 2015 12:26:21 +0200
+
+syncthing (0.10.27-4) vivid; urgency=low
+
+  * Corrected my mistake in cmd/syncthing/main.go.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 20 Mar 2015 12:21:05 +0200
+
+syncthing (0.10.27-3) trusty; urgency=low
+
+  * Another build for Trusty.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Thu, 19 Mar 2015 18:31:20 +0200
+
+syncthing (0.10.27-2) utopic; urgency=low
+
+  * Another build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Thu, 19 Mar 2015 18:25:52 +0200
+
+syncthing (0.10.27-1) vivid; urgency=low
+
+  * Updated version to v0.10.27.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Thu, 19 Mar 2015 18:25:52 +0200
+
+syncthing (0.10.26-6) vivid; urgency=low
+
+  * Another build for Vivid.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 15 Mar 2015 14:37:55 +0200
+
+syncthing (0.10.26-5) utopic; urgency=low
+
+  * Another build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 15 Mar 2015 14:36:16 +0200
+
+syncthing (0.10.26-4) trusty; urgency=low
+
+  * Trying to use -03 on gccgo. This could reduce the memory usage.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 15 Mar 2015 14:29:36 +0200
+
+syncthing (0.10.26-3) trusty; urgency=low
+
+  * Another build for Trusty.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 15 Mar 2015 10:56:31 +0200
+
+syncthing (0.10.26-2) utopic; urgency=low
+
+  * Another build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 15 Mar 2015 10:55:36 +0200
+
+syncthing (0.10.26-1) vivid; urgency=low
+
+  * Updated version to v0.10.26.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 15 Mar 2015 10:42:09 +0200
+
+syncthing (0.10.20-3) trusty; urgency=low
+
+  * Another build for Trusty.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 16 Jan 2015 17:55:15 +0200 
+
+syncthing (0.10.20-2) utopic; urgency=low
+
+  * Another build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 16 Jan 2015 17:49:28 +0200 
+
+syncthing (0.10.20-1) vivid; urgency=low
+
+  * Updated version to v0.10.20.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Thu, 15 Jan 2015 18:03:26 +0200 
+
+syncthing (0.10.18-1) vivid; urgency=low
+
+  * Updated version to v0.10.18.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 11 Jan 2015 15:13:09 +0200 
+
+syncthing (0.10.17-2) utopic; urgency=low
+
+  * Another build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 05 Jan 2015 14:05:56 +0200 
+
+syncthing (0.10.17-1) trusty; urgency=low
+
+  * Updated version to v0.10.17.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 05 Jan 2015 12:42:01 +0200 
+
+syncthing (0.10.14-2) utopic; urgency=low
+
+  * Another build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 04 Jan 2015 13:55:28 +0200 
+
+syncthing (0.10.14-1) trusty; urgency=low
+
+  * Updated version to v0.10.14.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 02 Jan 2015 18:00:05 +0200 
+
+syncthing (0.10.13-3) utopic; urgency=low
+
+  * Another build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Wed, 24 Dec 2014 20:46:01 +0200 
+
+syncthing (0.10.13-2) trusty; urgency=low
+
+  * true.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Wed, 24 Dec 2014 19:45:50 +0200 
+
+syncthing (0.10.13-1) trusty; urgency=low
+
+  * Updated version to v0.10.13.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Wed, 24 Dec 2014 18:08:17 +0200 
+
+syncthing (0.10.6-4~14.10) utopic; urgency=low
+
+  * Another build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 19 Dec 2014 14:16:04 +0200
+
+syncthing (0.10.6-3) trusty; urgency=low
+
+  * Copy the right file.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Tue, 16 Dec 2014 15:34:06 +0100
+
+syncthing (0.10.6-2) trusty; urgency=low
+
+  * gccgo
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Thu, 04 Dec 2014 18:18:33 +0200
+
+syncthing (0.10.6-1) trusty; urgency=low
+
+  * Updated version to v0.10.6.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 23 Nov 2014 10:39:18 +0200 
+
+syncthing (0.10.3-2) trusty; urgency=low
+
+  * Fixed a problem in the build process.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Thu, 06 Nov 2014 17:53:26 +0200
+
+syncthing (0.10.3-1) trusty; urgency=low
+
+  * Updated version to v0.10.3.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 24 Oct 2014 20:40:39 +0200
+
+syncthing (0.10.1-4) utopic; urgency=low
+
+  * This is a build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 13 Oct 2014 18:46:37 +0200
+
+syncthing (0.10.1-3) trusty; urgency=low
+
+  * Corrected the wrong version number.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 13 Oct 2014 18:42:01 +0200
+
+syncthing (0.10.1-2) utopic; urgency=low
+
+  * This is a build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 12 Oct 2014 18:41:18 +0200
+
+syncthing (0.10.1-1) trusty; urgency=low
+
+  * Updated version to v0.10.1.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 12 Oct 2014 16:38:56 +0200
+
+syncthing (0.9.19-6) utopic; urgency=low
+
+  * This is a build for Utopic.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Fri, 10 Oct 2014 21:38:37 +0200
+
+syncthing (0.9.19-5) trusty; urgency=low
+
+  * The resulting binary is located in bin.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 05 Oct 2014 13:04:59 +0200
+
+syncthing (0.9.19-5) trusty; urgency=low
+
+  * Changes to build.go.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 05 Oct 2014 12:20:43 +0200
+
+syncthing (0.9.19-3) trusty; urgency=low
+
+  * Corrected a mistake in make.sh. (Again.)
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 05 Oct 2014 12:10:42 +0200
+
+syncthing (0.9.19-2) trusty; urgency=low
+
+  * Corrected a mistake in make.sh.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 05 Oct 2014 11:51:17 +0200
+
+syncthing (0.9.19-1) trusty; urgency=low
+
+  * Updated version to v0.9.19.
+    Notice: You need to have v0.9.* installed on all nodes.
+            Otherwise it won't sync.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sun, 05 Oct 2014 10:53:24 +0200
+
+syncthing (0.8.19-1) trusty; urgency=low
+
+  * Updated version to v0.8.19.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sat, 12 Jul 2014 11:39:01 +0200
+
+syncthing (0.8.17-1) trusty; urgency=low
+
+  * Updated version to v0.8.17.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Tue, 08 Jul 2014 12:49:01 +0200
+
+syncthing (0.8.16-1) trusty; urgency=low
+
+  * Updated version to v0.8.16.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Tue, 08 Jul 2014 12:30:01 +0200
+
+syncthing (0.8.15-2) trusty; urgency=low
+
+  * Added version and build information.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Tue, 08 Jul 2014 11:36:02 +0200
+
+syncthing (0.8.15-1) trusty; urgency=low
+
+  * Updated version to v0.8.15.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Tue, 08 Jul 2014 11:00:01 +0200
+
+syncthing (0.8.14-3) trusty; urgency=low
+
+  * Copied a few files into the right directory.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 07 Jul 2014 17:53:03 +0200
+
+syncthing (0.8.14-2) trusty; urgency=low
+
+  * Added build and version information.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 07 Jul 2014 14:46:02 +0200
+
+syncthing (0.8.14-1) trusty; urgency=low
+
+  * Updated version to v0.8.14.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 07 Jul 2014 14:46:01 +0200
+
+syncthing (0.8.13-2) trusty; urgency=low
+
+  * Sorry. (Used golang-go instead of gccgo-go. Don't know why this didn't work.)
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.13-1) trusty; urgency=low
+
+  * New upstream version for Trusty (using gccgo-go).
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-18) lucid; urgency=low
+
+  * Versions prior to Trusty need golang-go instead of gccgo-go.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-17) precise; urgency=low
+
+  * Versions prior to Trusty need golang-go instead of gccgo-go.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-16) lucid; urgency=low
+
+  * Nothing has changed. (This is stupid! Why can't I just build it for any series?)
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-15) quantal; urgency=low
+
+  * Nothing has changed. (This is stupid! Why can't I just build it for any series?)
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-14) raring; urgency=low
+
+  * Nothing has changed. (This is stupid! Why can't I just build it for any series?)
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-13) saucy; urgency=low
+
+  * Nothing has changed. (This is stupid! Why can't I just build it for any series?)
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-12) precise; urgency=low
+
+  * Nothing has changed. (This is stupid! Why can't I just build it for any series?)
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-11) trusty; urgency=low
+
+  * Finally found the mistake. Stripping isn't allowed.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-10) trusty; urgency=low
+
+  * Additional modifications for gccgo.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-9) trusty; urgency=low
+
+  * Modifications for gccgo.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-8) trusty; urgency=low
+
+  * Created make.sh.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:37:30 +0200
+
+syncthing (0.8.12-7) trusty; urgency=low
+
+  * Creating a folder...
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 19:02:29 +0200
+
+syncthing (0.8.12-6) trusty; urgency=low
+
+  * Three characters were missing ("sh ").
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 18:54:28 +0200
+
+syncthing (0.8.12-5) trusty; urgency=low
+
+  * The GOPATH is cleaned.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 18:32:27 +0200
+
+syncthing (0.8.12-4) trusty; urgency=low
+
+  * Empty directories need to be there!
+  * A few dependencies aren't really needed.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 15:06:26 +0200
+
+syncthing (0.8.12-3) trusty; urgency=low
+
+  * Renaming a directory that is needed for building.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 15:06:26 +0200
+
+syncthing (0.8.12-2) trusty; urgency=low
+
+  * Include some dependencies for offline building.
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Mon, 02 Jun 2014 14:55:25 +0200
+
+syncthing (0.8.12-1) trusty; urgency=low
+
+  * Initial release
+
+ -- Niklas Sombert <niklas@ytvwld.de>  Sat, 31 May 2014 16:02:24 +0200

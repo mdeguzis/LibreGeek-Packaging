@@ -25,8 +25,8 @@ rel_target="v0.12.4"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="obs-studio"
-pkgver="${date_short}+git+SteamOS2"
+pkgname="syncthing"
+pkgver="0.12.4+git+SteamOS2"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -43,7 +43,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-  :
+  	sudo apt-get install -y --force-yes debhelper gccgo git
 
 }
 

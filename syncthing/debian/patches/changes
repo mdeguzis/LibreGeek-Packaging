@@ -1,0 +1,109 @@
+Description: Changes
+ These are the changes made to the upstream sources.
+ .
+ syncthing (0.11.13a-7) vivid; urgency=low
+ .
+   * Add the official Syncthing repository to the system.
+Author: Niklas Sombert <niklas@ytvwld.de>
+
+--- /dev/null
++++ syncthing-0.11.13a/Makefile
+@@ -0,0 +1,7 @@
++default:
++	sh make.sh
++
++dontinstall:
++	mkdir -p $(DESTDIR)/etc/xdg
++	mkdir -p $(DESTDIR)/etc/xdg/upstart
++	cp etc-xdg-upstart-syncthing.conf $(DESTDIR)/etc/xdg/upstart/syncthing.conf
+--- syncthing-0.11.13a.orig/build.go
++++ syncthing-0.11.13a/build.go
+@@ -192,7 +192,7 @@ func bench(pkg string) {
+ 
+ func install(pkg string, tags []string) {
+ 	os.Setenv("GOBIN", "./bin")
+-	args := []string{"install", "-v", "-ldflags", ldflags()}
++	args := []string{"install", "-v"}
+ 	if len(tags) > 0 {
+ 		args = append(args, "-tags", strings.Join(tags, ","))
+ 	}
+@@ -211,7 +211,7 @@ func build(pkg string, tags []string) {
+ 	}
+ 
+ 	rmr(binary, binary+".md5")
+-	args := []string{"build", "-ldflags", ldflags()}
++	args := []string{"build", "-gccgoflags", ldflags()}
+ 	if len(tags) > 0 {
+ 		args = append(args, "-tags", strings.Join(tags, ","))
+ 	}
+@@ -437,12 +437,13 @@ func clean() {
+ 
+ func ldflags() string {
+ 	var b bytes.Buffer
+-	b.WriteString("-w")
+-	b.WriteString(fmt.Sprintf(" -X main.Version %s", version))
+-	b.WriteString(fmt.Sprintf(" -X main.BuildStamp %d", buildStamp()))
+-	b.WriteString(fmt.Sprintf(" -X main.BuildUser %s", buildUser()))
+-	b.WriteString(fmt.Sprintf(" -X main.BuildHost %s", buildHost()))
+-	b.WriteString(fmt.Sprintf(" -X main.BuildEnv %s", buildEnvironment()))
++	//b.WriteString("-w")
++	//b.WriteString(fmt.Sprintf(" -X main.Version %s", version))
++	//b.WriteString(fmt.Sprintf(" -X main.BuildStamp %d", buildStamp()))
++	//b.WriteString(fmt.Sprintf(" -X main.BuildUser %s", buildUser()))
++	//b.WriteString(fmt.Sprintf(" -X main.BuildHost %s", buildHost()))
++	//b.WriteString(fmt.Sprintf(" -X main.BuildEnv %s", buildEnvironment()))
++	b.WriteString(" -O3 ")
+ 	return b.String()
+ }
+ 
+--- syncthing-0.11.13a.orig/cmd/syncthing/main.go
++++ syncthing-0.11.13a/cmd/syncthing/main.go
+@@ -44,12 +44,12 @@ import (
+ )
+ 
+ var (
+-	Version     = "unknown-dev"
++	Version     = "v0.11.13"
+ 	BuildEnv    = "default"
+-	BuildStamp  = "0"
++	BuildStamp  = "1436541684"
+ 	BuildDate   time.Time
+-	BuildHost   = "unknown"
+-	BuildUser   = "unknown"
++	BuildHost   = "Niklas-Netbook"
++	BuildUser   = "niklas"
+ 	IsRelease   bool
+ 	IsBeta      bool
+ 	LongVersion string
+@@ -198,7 +198,7 @@ var (
+ 	auditEnabled      bool
+ 	verbose           bool
+ 	noRestart         = os.Getenv("STNORESTART") != ""
+-	noUpgrade         = os.Getenv("STNOUPGRADE") != ""
++	noUpgrade         = true
+ 	guiAddress        = os.Getenv("STGUIADDRESS") // legacy
+ 	guiAuthentication = os.Getenv("STGUIAUTH")    // legacy
+ 	guiAPIKey         = os.Getenv("STGUIAPIKEY")  // legacy
+--- /dev/null
++++ syncthing-0.11.13a/make.sh
+@@ -0,0 +1,20 @@
++#!/bin/sh
++echo "Setting GOPATH, GOROOT and GOBIN..."
++export GOPATH=$(pwd)/gopath
++mkdir -p $GOPATH/root
++export GOROOT=$GOPATH/root
++mkdir -p $GOPATH/bin
++export GOBIN=$GOPATH/bin
++export PATH=$PATH:$GOBIN
++#echo "Installing godep..."
++#go install github.com/tools/godep
++#echo "Installing go vet..."
++#go install code.google.com/p/go.tools/cmd/vet
++echo "Creating a symbolic link..."
++mkdir -p $GOPATH/src/github.com/syncthing
++rm -f $GOPATH/src/github.com/syncthing/syncthing
++ln -s $(pwd) $GOPATH/src/github.com/syncthing/syncthing
++
++echo "Building it..."
++rm syncthing
++go run build.go -no-upgrade clean build

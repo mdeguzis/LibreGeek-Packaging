@@ -2,6 +2,9 @@ branches:
   only:
     - brewmaster
 
+env:
+  - build_all="yes"
+
 # Test script auto_builds below
 script:
   - bash kodi/build-kodi.sh

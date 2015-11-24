@@ -88,8 +88,12 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
 	# enter source dir
 	cd "${pkgname}"
+
+	# There seems to be a missing man page, corrected in forked makefile
+	# See: https://github.com/smcameron/space-nerds-in-space/issues/72
 
 	# Create basic changelog format
 	# This addons build cannot have a revision

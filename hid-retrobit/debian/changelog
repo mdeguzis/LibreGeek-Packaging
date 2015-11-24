@@ -1,0 +1,8 @@
+hid-retrobit (1.0.0+git+SteamOS2-1) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/retuxx/hid-retrobit
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 23 Nov 2015 21:46:34 -0500
+

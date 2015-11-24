@@ -90,8 +90,11 @@ main()
 	# enter source dir
 	cd "${pkgname}"
 
-	# Create basic changelog format
-	cat <<-EOF> changelog.in
+	# name DEBIAN, not sure why it is in all caps
+	mv DEBIAN debian
+
+	# Create basic changelog format, none exists upstream
+	cat <<-EOF> debian/changelog
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
@@ -101,10 +104,6 @@ main()
 	 -- $uploader  $date_long
 
 	EOF
-
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."

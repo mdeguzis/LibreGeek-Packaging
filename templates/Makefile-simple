@@ -1,0 +1,15 @@
+###################################################################################
+# Simple file/directory install Makefile 
+###################################################################################
+
+build:
+
+installdirs:
+	mkdir -p ~/dir1/dir2
+
+install:
+	install -m 644 file.conf $(DESTDIR)/etc/dir/plugins/
+	install -m 644 file $(DESTDIR)/etc/default/
+
+clean:
+	rm -f *.junk

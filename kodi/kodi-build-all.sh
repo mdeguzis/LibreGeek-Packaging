@@ -18,107 +18,108 @@ build_all="yes"
 
 install_prereqs()
 {
-	
+
 	# Install basic build packages
 	sudo apt-get install -y --force-yes autoconf automake autopoint autotools-dev bc ccache cmake \
 	build-essential
-	
+
 	# create and enter build_dir
 	if [[ -d "$auto_build_dir" ]]; then
-	
+
 		sudo rm -rf "$auto_build_dir"
 		mkdir -p "$auto_build_dir"
-		
+
 	else
-	
+
 		mkdir -p "$auto_build_dir"
-		
+
 	fi
-	
+
 }
 
 build_all()
 {
 	# Install prereqs
 	install_prereqs
-	
+
 	###########################################################
 	# build Kodi prerequisite packages 
 	###########################################################
 	# Install them for the main builds
 	# In the the future, this behavior will be replaced by pbuilder/chroot.
-	
+
 	# NOTE: This package script list is not yet complete
 	# There are move PPA packages to replace.
 	package="libcec kodi-platform platform afpfs-ng"
-	
+
 	if ./build-${package}.sh; then
-	
+
 		echo -e "Package ${package} build sucessfully"
 		sleep 3s
-	
+
 	else
-	
+
 		echo -e "Package ${package} build FAILED. Please review log.txt"
 		sleep 3s
-	
+
 	done
-	
-	
+
+
 	# Install packages to clean build environment
 	sudo gdebi $build_dir/libcec*.deb
 	sudo gdebi $build_dir/libkodiplatform-dev*.deb
 	sudo gdebi $build_dir/platform-dev*.deb
 	sudo gdebi $build_dir/afpfs-ng*.deb
-	
+
 	###########################################################
 	# build Main Kodi package and pvr addons
 	###########################################################
-	
+
 	package="kodi pvr-argustv pvr-demo pvr-dvblink pvr-dvbviewer pvr-filmon pvr-hts \
 	pvr-iptvsimple pvr-mediaportal-tvserver pvr-mythtv pvr-nextpvr pvr-njoy pvr-pctv \
-	pvr-stalker pvr-vbox pvr-vdr-vnsi pvr-vuplus pvr-wmc"
-	
+	pvr-stalker pvr-vbox pvr-vdr-vnsi pvr-vuplus pvr-wmc kodi-audioencoder-lame \
+	kodi-audioencoder-flac"
+
 	for dep in ${package}; do
-	
+
 	if ./build-${package}.sh; then
-	
+
 		echo -e "Package ${package} build sucessfully"
 		sleep 3s
-	
+
 	else
-	
+
 		echo -e "Package ${package} build FAILED. Please review log.txt"
 		sleep 3s
-	
+
 	done
-	
+
 	###########################################################
 	# Summary
 	###########################################################
-	
+
 	# inform user of packages
 	echo -e "\n#######################################################################"
 	echo -e "If all kodi packages were built without errors you will see them below."
 	echo -e "If you don't, please check the $build_dir/build-log.txt log."
 	echo -e "#########################################################################\n"
-	
+
 	echo -e "Showing contents of: $auto_build_dir: \n"
 	ls "${auto_build_dir}" | grep -E *.deb
-	
+
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
 	read -ep "Choice: " transfer_choice
-	
+
 	if [[ "$transfer_choice" == "y" ]]; then
-	
+
 		# cut files
 		if [[ -d "${auto_build_dir}/" ]]; then
 			scp ${auto_build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-	
+
 		fi
-		
+
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"
 	fi

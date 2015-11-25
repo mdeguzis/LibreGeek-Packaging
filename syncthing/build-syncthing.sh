@@ -43,7 +43,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-  	sudo apt-get install -y --force-yes debhelper gccgo git
+  	sudo apt-get install -y --force-yes debhelper gccgo git golang-go
 
 }
 

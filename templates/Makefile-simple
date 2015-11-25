@@ -1,15 +1,25 @@
 ###################################################################################
 # Simple file/directory install Makefile 
 ###################################################################################
+# phony targets: https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html#Phony-Targets
+
+application_dir="$HOME/my-program"
 
 build:
 
 installdirs:
-	mkdir -p ~/dir1/dir2
+	mkdir -p ${application_dir}
 
-install:
+install: installdirs
 	install -m 644 file.conf $(DESTDIR)/etc/dir/plugins/
 	install -m 644 file $(DESTDIR)/etc/default/
+	install -m 644 my-program ${application-dir}
 
 clean:
 	rm -f *.junk
+
+uninstall:
+	$(DESTDIR)/etc/dir/plugins/file.conf
+	$(DESTDIR)/etc/default/file
+	
+.PHONY: install uninstall

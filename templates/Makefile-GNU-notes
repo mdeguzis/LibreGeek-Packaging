@@ -3,7 +3,9 @@
 # All sections refer to a page in the GNU make manual
 ###################################################################################
 
+##########################################
 # Section 2.1 - target syntax for rules
+##########################################
 
 targets : prerequisites
         recipe
@@ -13,11 +15,32 @@ targets : prerequisites
 targets : prerequisites ; recipe
         recipe
         …
-
+##########################################
 # Section 3 - Writing Makefiles
+##########################################
 
 # The include directive tells make to suspend reading the current makefile and read one or more other makefiles 
 # before continuing. The directive is a line in the makefile that looks like this:
 
 	include filenames…
 
+##########################################
+# Vpaths
+##########################################
+
+# The value of the make variable VPATH specifies a list of directories that make should search. Most often, the 
+# directories are expected to contain prerequisite files that are not in the current directory; however, make 
+# uses VPATH as a search list for both prerequisites and targets of rules.
+
+For example,
+
+VPATH = src:../headers
+specifies a path containing two directories, src and ../headers, which make searches in that order.
+
+With this value of VPATH, the following rule,
+
+foo.o : foo.c
+is interpreted as if it were written like this:
+
+foo.o : src/foo.c
+assuming the file foo.c does not exist in the current directory but is found in the directory src.

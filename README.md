@@ -10,7 +10,7 @@ Packaging scripts and files for SteamOS-Tools
 * [Binary package How-To](http://tldp.org/HOWTO/html_single/Debian-Binary-Package-Building-HOWTO/)
 
 # How to create and use Makefiles
-* [Using make and writing Makefiles (Newhall)](http://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html)
+* [Using make and writing Makefiles (Sourceforge)](http://makepp.sourceforge.net/1.19/makepp_tutorial.html)
 
 # Examples of packages that merely install files
 * [php-htmlpurifier](http://packages.debian.org/source/sid/php-htmlpurifier)

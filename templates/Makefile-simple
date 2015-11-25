@@ -1,7 +1,10 @@
 ###################################################################################
 # Simple file/directory install Makefile 
 ###################################################################################
-# phony targets: https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html#Phony-Targets
+# ---Help links---
+# main_link: https://www.gnu.org/software/make/manual
+# phony targets: ${main_link}/html_node/Phony-Targets.html#Phony-Targets
+###################################################################################
 
 app_dir="$HOME/my-program"
 app_prefix="/usr/local"
@@ -36,5 +39,8 @@ clean:
 uninstall:
 	$(DESTDIR)/etc/dir/plugins/file.conf
 	$(DESTDIR)/etc/default/file
-	
-.PHONY: install uninstall
+
+# Ensure any targets that are not meant to create the actual target, are marked
+# with .PHONY <TARGET>. See the help file at the top of this template.
+
+.PHONY: install uninstall clean

@@ -3,4 +3,8 @@
 %:
 	dh $@ --with dkms
 
+override_dh_auto_make:
+
 override_dh_auto_install:
+
+

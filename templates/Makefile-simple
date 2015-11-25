@@ -14,6 +14,12 @@ install: installdirs
 	install -m 644 file.conf $(DESTDIR)/etc/dir/plugins/
 	install -m 644 file $(DESTDIR)/etc/default/
 	install -m 644 my-program ${application-dir}
+	
+	# you can also create install dirs here if you wish
+	install -d $(DESTDIR)$(SUBDIR)
+	
+	# then, if you want, start a script to do the final install
+	cd ${application_dir}; ./install_all.sh
 
 clean:
 	rm -f *.junk

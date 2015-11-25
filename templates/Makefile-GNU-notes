@@ -1,0 +1,23 @@
+###################################################################################
+# Explations and manual notes from GNU only*:
+# All sections refer to a page in the GNU make manual
+###################################################################################
+
+# Section 2.1 - target syntax for rules
+
+targets : prerequisites
+        recipe
+        …
+# or like this: #
+
+targets : prerequisites ; recipe
+        recipe
+        …
+
+# Section 3 - Writing Makefiles
+
+# The include directive tells make to suspend reading the current makefile and read one or more other makefiles 
+# before continuing. The directive is a line in the makefile that looks like this:
+
+	include filenames…
+

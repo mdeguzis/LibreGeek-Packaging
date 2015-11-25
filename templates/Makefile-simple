@@ -3,23 +3,32 @@
 ###################################################################################
 # phony targets: https://www.gnu.org/software/make/manual/html_node/Phony-Targets.html#Phony-Targets
 
-application_dir="$HOME/my-program"
+app_dir="$HOME/my-program"
+app_prefix="/usr/local"
 
 build:
 
 installdirs:
-	mkdir -p ${application_dir}
+	mkdir -p ${app_dir}
 
 install: installdirs
 	install -m 644 file.conf $(DESTDIR)/etc/dir/plugins/
 	install -m 644 file $(DESTDIR)/etc/default/
-	install -m 644 my-program ${application-dir}
+	install -m 644 my-program ${app-dir}
+	
+	# Install our binary/script
+	install -m 644 executable.sh ${app_prefix}/launch-me
 	
 	# you can also create install dirs here if you wish
 	install -d $(DESTDIR)$(SUBDIR)
 	
 	# then, if you want, start a script to do the final install
 	cd ${application_dir}; ./install_all.sh
+	
+	# Now for a for-loop example!
+	for p in *.crt; do \
+	 install -m 644 $$p $(CERTSDIR)/$$p ; \
+	done
 
 clean:
 	rm -f *.junk

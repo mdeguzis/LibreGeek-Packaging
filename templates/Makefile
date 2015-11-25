@@ -1,9 +1,54 @@
 ###################################################################################
+# About:
+#
 # Below is an example simple Makefile from the Lutris project.
-#
-#
+# Some elements are changed from examples in the GNU make manual
+# See: https://www.gnu.org/software/make/manual/html_node/index.html#SEC_Contents
 ###################################################################################
 VERSION="0.3.7"
+
+###################################################################################
+# Explations and manual notes from GNU only*:
+# All sections refer to a page in the GNU make manual
+###################################################################################
+
+# Section 2.1 - target syntax for rules
+
+targets : prerequisites
+        recipe
+        …
+# or like this: #
+
+targets : prerequisites ; recipe
+        recipe
+        …
+
+# Section 3 - Writing Makefiles
+
+# The include directive tells make to suspend reading the current makefile and read one or more other makefiles 
+# before continuing. The directive is a line in the makefile that looks like this:
+
+	include filenames…
+
+###################################################################################
+# Simple file/directory install Makefile 
+###################################################################################
+
+build:
+
+installdirs:
+	mkdir -p ~/dir1/dir2
+
+install:
+	install -m 644 file.conf $(DESTDIR)/etc/dir/plugins/
+	install -m 644 file $(DESTDIR)/etc/default/
+
+clean:
+	rm -f *.junk
+###################################################################################
+# Example section below from Lutris
+# Augmented with other example commands and sections
+###################################################################################
 
 cover:
 	rm tests/fixtures/pga.db -f

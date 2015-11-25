@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	kodi-build-all.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.3.1
 # Description:	Attempts to build all kodi packages and addons into a temporary
 #               folder under $HOME/kodi-all-tmp/
 #               This script passes "build_all=yes" to each script.
@@ -50,47 +50,52 @@ build_all()
 
 	# NOTE: This package script list is not yet complete
 	# There are move PPA packages to replace.
-	package="libcec kodi-platform platform afpfs-ng"
+	pkgs="libcec kodi-platform platform afpfs-ng taglib"
 
-	if ./build-${package}.sh; then
 
-		echo -e "Package ${package} build sucessfully"
-		sleep 3s
+	for pkg in ${pkg};
+	do
 
-	else
+		if ./build-${pkg}.sh; then
 
-		echo -e "Package ${package} build FAILED. Please review log.txt"
-		sleep 3s
+			echo -e "Package ${pkg} build sucessfully"
+			sleep 3s
+
+		else
+
+			echo -e "Package ${pkg} build FAILED. Please review log.txt"
+			sleep 3s
 
 	done
-
 
 	# Install packages to clean build environment
 	sudo gdebi $build_dir/libcec*.deb
 	sudo gdebi $build_dir/libkodiplatform-dev*.deb
 	sudo gdebi $build_dir/platform-dev*.deb
 	sudo gdebi $build_dir/afpfs-ng*.deb
+	sudo gdebi $build_dir/taglib*.deb
 
 	###########################################################
 	# build Main Kodi package and pvr addons
 	###########################################################
 
-	package="kodi pvr-argustv pvr-demo pvr-dvblink pvr-dvbviewer pvr-filmon pvr-hts \
+	pkgs="kodi pvr-argustv pvr-demo pvr-dvblink pvr-dvbviewer pvr-filmon pvr-hts \
 	pvr-iptvsimple pvr-mediaportal-tvserver pvr-mythtv pvr-nextpvr pvr-njoy pvr-pctv \
 	pvr-stalker pvr-vbox pvr-vdr-vnsi pvr-vuplus pvr-wmc kodi-audioencoder-lame \
 	kodi-audioencoder-flac"
 
-	for dep in ${package}; do
+	for pkg in ${pkgs};
+	do
 
-	if ./build-${package}.sh; then
+		if ./build-${pkg}.sh; then
 
-		echo -e "Package ${package} build sucessfully"
-		sleep 3s
+			echo -e "Package ${pkg} build sucessfully"
+			sleep 3s
 
-	else
+		else
 
-		echo -e "Package ${package} build FAILED. Please review log.txt"
-		sleep 3s
+			echo -e "Package ${pkg} build FAILED. Please review log.txt"
+			sleep 3s
 
 	done
 

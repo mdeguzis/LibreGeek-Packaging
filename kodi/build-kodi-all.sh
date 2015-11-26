@@ -13,6 +13,7 @@
 # -------------------------------------------------------------------------------
 
 # Set vars
+scriptdir=$(pwd)
 auto_build_dir="$HOME/kodi-all-tmp"
 build_all="yes"
 
@@ -68,8 +69,11 @@ build_all()
 		EOF
 		sleep 3s
 
-		run_script=$(find . -name "build-${pkg}.sh")
-		if $run_script; then
+		# Find where our script is (takes care of debian/ folders)
+		script_dir=$(find -name "build-${pkg}.sh" -printf '%h\n')
+
+		cd "$script_dir"
+		if ./build-${pkg}.sh; then
 
 			echo -e "Package ${pkg} build sucessfully"
 			sleep 3s
@@ -79,6 +83,9 @@ build_all()
 			echo -e "Package ${pkg} build FAILED. Please review log.txt"
 			sleep 3s
 		fi
+
+		# return back to original script dir
+		cd $scriptdir
 
 	done
 
@@ -103,8 +110,11 @@ build_all()
 		EOF
 		sleep 3s
 
-		run_script=$(find . -name "build-${pkg}.sh")
-		if $run_script; then
+                # Find where our script is (takes care of debian/ folders)
+                script_dir=$(find -name "build-${pkg}.sh" -printf '%h\n')
+
+                cd "$script_dir"
+                if ./build-${pkg}.sh; then
 
 			echo -e "Package ${pkg} build sucessfully"
 			sleep 3s
@@ -115,8 +125,11 @@ build_all()
 			sleep 3s
 		fi
 
+		# return back to original script dir
+                cd $scriptdir
+
 	done
-	
+
 	sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
 	sudo gdebi $auto_build_dir/libcec*.deb
 	sudo gdebi $auto_build_dir/afpfs-ng*.deb
@@ -134,18 +147,21 @@ build_all()
 
 	for pkg in ${pkgs};
 	do
-	
+
 		cat <<-EOF
-		
+
 		-------------------------------------
 		Building ${pkg}
 		-------------------------------------
-		
+
 		EOF
 		sleep 3s
 
-		run_script=$(find . -name "build-${pkg}.sh")
-		if $run_script; then
+		# Find where our script is (takes care of debian/ folders)
+                script_dir=$(find -name "build-${pkg}.sh" -printf '%h\n')
+
+                cd "$script_dir"
+                if ./build-${pkg}.sh; then
 
 			echo -e "Package ${pkg} build sucessfully"
 			sleep 3s
@@ -154,8 +170,11 @@ build_all()
 
 			echo -e "Package ${pkg} build FAILED. Please review log.txt"
 			sleep 3s
-			
+
 		fi
+
+		# go back to original scriptdir
+		cd "$scriptdir"
 
 	done
 

@@ -33,8 +33,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
-build_dir="$HOME/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+build_dir="$HOME/src/github.com/syncthing"
 
 install_prereqs()
 {
@@ -43,7 +42,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-  	sudo apt-get install -y --force-yes debhelper gccgo git golang-go
+  	sudo apt-get install -y --force-yes debhelper gccgo git golang-go dh-golang
 
 }
 
@@ -73,7 +72,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "$rel_target" "$git_url" "$pkgname"
 
 	#################################################
 	# Build platform
@@ -86,13 +85,21 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+#	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	cp -r $scriptdir/debian "${pkgname}"
 
 	# enter source dir
 	cd "${pkgname}"
+
+        # create build files
+        go run build.go
+
+	# create source tarball
+        cd ..
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	cd "$pkgname"
 
 	# Create basic changelog format
 	# This addons build cannot have a revision
@@ -128,23 +135,24 @@ main()
 	sleep 2s
 
 	#  build
+	#debuild -uc -us --source-option=--include-binaries
 	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration
 	#################################################
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"

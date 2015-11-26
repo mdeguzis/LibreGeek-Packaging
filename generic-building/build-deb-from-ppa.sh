@@ -83,7 +83,7 @@ install_prereqs()
 	sources_check=$(sudo find /etc/apt -type f -name "jessie*.list")
 	sources_check2=$(grep -r jessie /etc/apt/sources.list)
 	
-	if [[ "$sources_check" == "" && "$sources_check2" == " ]]; then
+	if [[ "$sources_check" == "" && "$sources_check2" == "" ]]; then
                 echo -e "\n==INFO==\nSources do *NOT* appear to be added at first glance. Adding now..."
                 sleep 2s
                 "$scriptdir/add-debian-repos.sh"

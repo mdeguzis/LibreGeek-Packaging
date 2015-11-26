@@ -39,8 +39,9 @@ install_prereqs()
 
 build_all()
 {
-	
-	clear 
+
+	clear
+
 	# Install prereqs
 	install_prereqs
 
@@ -55,7 +56,7 @@ build_all()
 	pkgs="libcec kodi-platform platform afpfs-ng taglibc dcadec"
 
 
-	for pkg in ${pkg};
+	for pkg in ${pkgs};
 	do
 
 		cat <<-EOF
@@ -81,12 +82,12 @@ build_all()
 	done
 
 	# Install packages to clean build environment
-	sudo gdebi $build_dir/libcec*.deb
-	sudo gdebi $build_dir/libkodiplatform-dev*.deb
-	sudo gdebi $build_dir/platform-dev*.deb
-	sudo gdebi $build_dir/afpfs-ng*.deb
-	sudo gdebi $build_dir/taglib*.deb
-	sudo gdebi $build_dir/dcadec*.deb
+	sudo gdebi $auto_build_dir/libcec*.deb
+	sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
+	sudo gdebi $auto_build_dir/platform-dev*.deb
+	sudo gdebi $auto_build_dir/afpfs-ng*.deb
+	sudo gdebi $auto_build_dir/taglib*.deb
+	sudo gdebi $auto_build_dir/dcadec*.deb
 
 	###########################################################
 	# build Main Kodi package and pvr addons

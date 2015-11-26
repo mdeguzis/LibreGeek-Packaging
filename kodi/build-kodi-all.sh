@@ -1,4 +1,4 @@
-#!/bin/bash
+\#!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
@@ -76,7 +76,6 @@ build_all()
 
 			echo -e "Package ${pkg} build FAILED. Please review log.txt"
 			sleep 3s
-			
 		fi
 
 	done
@@ -87,6 +86,7 @@ build_all()
 	sudo gdebi $build_dir/platform-dev*.deb
 	sudo gdebi $build_dir/afpfs-ng*.deb
 	sudo gdebi $build_dir/taglib*.deb
+	sudo gdebi $build_dir/dcadec*.deb
 
 	###########################################################
 	# build Main Kodi package and pvr addons

@@ -56,6 +56,14 @@ build_all()
 	for pkg in ${pkg};
 	do
 
+		cat <<-EOF
+		-------------------------------------
+		Building ${pkg}
+		-------------------------------------
+		
+		EOF
+		sleep 3s
+		
 		if ./build-${pkg}.sh; then
 
 			echo -e "Package ${pkg} build sucessfully"
@@ -88,6 +96,14 @@ build_all()
 
 	for pkg in ${pkgs};
 	do
+	
+		cat <<-EOF
+		-------------------------------------
+		Building ${pkg}
+		-------------------------------------
+		
+		EOF
+		sleep 3s
 
 		if ./build-${pkg}.sh; then
 

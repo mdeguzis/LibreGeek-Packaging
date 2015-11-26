@@ -52,21 +52,21 @@ build_all()
 
 	# NOTE: This package script list is not yet complete
 	# There are move PPA packages to replace.
-	pkgs="libcec kodi-platform platform afpfs-ng taglib"
+	pkgs="libcec kodi-platform platform afpfs-ng taglibc dcadec"
 
 
 	for pkg in ${pkg};
 	do
 
 		cat <<-EOF
-		
+
 		-------------------------------------
 		Building ${pkg}
 		-------------------------------------
-		
+
 		EOF
 		sleep 3s
-		
+
 		if ./build-${pkg}.sh; then
 
 			echo -e "Package ${pkg} build sucessfully"

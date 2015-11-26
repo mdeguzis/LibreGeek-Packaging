@@ -152,4 +152,4 @@ build_all()
 }
 
 # start functions
-build_all | tee $build_dir/build-log.txt
+build_all | tee $auto_build_dir/build-log.txt

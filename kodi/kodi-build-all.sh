@@ -39,6 +39,8 @@ install_prereqs()
 
 build_all()
 {
+	
+	clear 
 	# Install prereqs
 	install_prereqs
 

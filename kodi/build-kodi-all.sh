@@ -68,7 +68,8 @@ build_all()
 		EOF
 		sleep 3s
 
-		if ./build-${pkg}.sh; then
+		run_script=$(find . -name "build-${pkg}.sh")
+		if $run_script; then
 
 			echo -e "Package ${pkg} build sucessfully"
 			sleep 3s
@@ -102,7 +103,8 @@ build_all()
 		EOF
 		sleep 3s
 
-		if ./build-${pkg}.sh; then
+		run_script=$(find . -name "build-${pkg}.sh")
+		if $run_script; then
 
 			echo -e "Package ${pkg} build sucessfully"
 			sleep 3s
@@ -142,7 +144,8 @@ build_all()
 		EOF
 		sleep 3s
 
-		if ./build-${pkg}.sh; then
+		run_script=$(find . -name "build-${pkg}.sh")
+		if $run_script; then
 
 			echo -e "Package ${pkg} build sucessfully"
 			sleep 3s

@@ -65,6 +65,8 @@ build_all()
 
 			echo -e "Package ${pkg} build FAILED. Please review log.txt"
 			sleep 3s
+			
+		fi
 
 	done
 
@@ -96,6 +98,8 @@ build_all()
 
 			echo -e "Package ${pkg} build FAILED. Please review log.txt"
 			sleep 3s
+			
+		fi
 
 	done
 

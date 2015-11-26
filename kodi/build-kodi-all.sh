@@ -1,4 +1,4 @@
-\#!/bin/bash
+#!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
@@ -51,9 +51,9 @@ build_all()
 	# Install them for the main builds
 	# In the the future, this behavior will be replaced by pbuilder/chroot.
 
-	# NOTE: This package script list is not yet complete
-	# There are move PPA packages to replace.
-	pkgs="libcec kodi-platform platform afpfs-ng taglibc dcadec"
+	# STAGE 1
+	# set pkg list
+	pkgs="kodi-platform platform"
 
 
 	for pkg in ${pkgs};
@@ -82,9 +82,40 @@ build_all()
 	done
 
 	# Install packages to clean build environment
-	sudo gdebi $auto_build_dir/libcec*.deb
 	sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
 	sudo gdebi $auto_build_dir/platform-dev*.deb
+	
+	# STAGE 2
+	# set pkg list
+	pkgs="libcec afpfs-ng taglibc dcadec"
+
+
+	for pkg in ${pkgs};
+	do
+
+		cat <<-EOF
+
+		-------------------------------------
+		Building ${pkg}
+		-------------------------------------
+
+		EOF
+		sleep 3s
+
+		if ./build-${pkg}.sh; then
+
+			echo -e "Package ${pkg} build sucessfully"
+			sleep 3s
+
+		else
+
+			echo -e "Package ${pkg} build FAILED. Please review log.txt"
+			sleep 3s
+		fi
+
+	done
+	
+	sudo gdebi $auto_build_dir/libcec*.deb
 	sudo gdebi $auto_build_dir/afpfs-ng*.deb
 	sudo gdebi $auto_build_dir/taglib*.deb
 	sudo gdebi $auto_build_dir/dcadec*.deb

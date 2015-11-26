@@ -53,7 +53,7 @@ build_all()
 
 	# STAGE 1
 	# set pkg list
-	pkgs="kodi-platform platform"
+	pkgs="kodi-addon-dev platform"
 
 
 	for pkg in ${pkgs};
@@ -82,12 +82,12 @@ build_all()
 	done
 
 	# Install packages to clean build environment
-	sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
+	sudo gdebi $auto_build_dir/kodi-addon*.deb
 	sudo gdebi $auto_build_dir/platform-dev*.deb
 	
 	# STAGE 2
 	# set pkg list
-	pkgs="libcec afpfs-ng taglibc dcadec"
+	pkgs="kodi-platform libcec afpfs-ng taglibc dcadec"
 
 
 	for pkg in ${pkgs};
@@ -115,6 +115,7 @@ build_all()
 
 	done
 	
+	sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
 	sudo gdebi $auto_build_dir/libcec*.deb
 	sudo gdebi $auto_build_dir/afpfs-ng*.deb
 	sudo gdebi $auto_build_dir/taglib*.deb

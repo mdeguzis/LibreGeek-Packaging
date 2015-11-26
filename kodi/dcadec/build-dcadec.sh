@@ -90,9 +90,6 @@ main()
 	# emter source dir
 	cd "${pkgname}"
 
-	# Remove uneeded dirs
-	rm -rf test/
-
 	# Create basic changelog
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in

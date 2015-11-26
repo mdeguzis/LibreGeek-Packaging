@@ -1,0 +1,22 @@
+Source: dcadec
+Priority: optional
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Section: libs
+Homepage: 
+Vcs-Git: https://github.com/foo86/dcadec.git
+Vcs-Browser: https://github.com/foo86/dcadec
+
+Package: dcadec-dev
+Section: libdevel
+Architecture: any
+Depends: dcadec1 (= ${binary:Version}), ${misc:Depends}
+Description: dcadec is a free DTS Coherent Acoustics decoder with support for HD extensions
+ Development headers for dcadec, a free DTS Coherent Acoustics decoder with support for HD extensions
+
+Package: dcadec1
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: dcadec is a free DTS Coherent Acoustics decoder with support for HD extensions
+ Binary files for dcadec, a free DTS Coherent Acoustics decoder with support for HD extensions

@@ -85,12 +85,15 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 	
+	# Add debian build folder
+        cp -r "$scriptdir/debian" "${pkgname}"
+	
 	# emter source dir
 	cd "${pkgname}"
 	
 	# Create basic changelog (no upstream change log from the PPA source)
 	# This addons build cannot have a revision
-	cat <<-EOF> debian/changelog
+	cat <<-EOF> changelog.in
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
@@ -102,7 +105,7 @@ main()
 	EOF
 	
 	# Perform a little trickery to update existing changelog or create basic file
-	# cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."

@@ -2,13 +2,13 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libcec.sh
+# Scipt Name:	build-afpfs-ng.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package libcec git source
+# Description:	Attempts to build a deb package afpfs-ng git source
 #
-# See:		https://github.com/Pulse-Eight/libcec
-#		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-libcec.sh
+# See:		https://github.com/simonvetter/afpfs-ng
+#
+# Usage:	build-afpfs-ng.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/simonvetter/afpfs-ng"
-git_branch="release"
+git_branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -41,7 +41,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
-	debhelper fuse ncurses-dev libreadline-dev libfuse-dev libgcrypt20
+	debhelper fuse ncurses-dev libreadline-dev libfuse-dev libgcrypt20 afpfs-ng-utils
 
 }
 

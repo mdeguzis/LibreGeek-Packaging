@@ -49,53 +49,56 @@ install_prereqs()
 
 main()
 {
-	
+
 	# create build_dir
 	if [[ -d "$build_dir" ]]; then
-	
+
 		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
-		
+
 	else
-		
+
 		mkdir -p "$build_dir"
-		
+
 	fi
-	
+
 	# enter build dir
 	cd "$build_dir" || exit
 
 	# install prereqs for build
 	install_prereqs
-	
+
 	# Clone upstream source code and branch
-	
+
 	echo -e "\n==> Obtaining upstream source code\n"
-	
+
 	git clone -b "$rel_target" "$git_url" "$git_dir"
-	
+
 	#################################################
 	# Build platform
 	#################################################
-	
+
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
-	
+
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
-	
+
 	# Add debian build folder
         cp -r "$scriptdir/debian" "${pkgname}"
-        
+
         # Add our patch for identify.c
-        cp -r "$scriptdir/Makefile.am.patch" "${pkgname}/patches/"
-        
+        #cp -r "$scriptdir/Makefile.am.patch" "${pkgname}/patches/"
+
 	# emter source dir
 	cd "${pkgname}"
-	
+
+	# rename README.md, autobuild with autoconf doesn't like the ext.
+	mv README.md README
+
 	# Create basic changelog (no upstream change log from the PPA source)
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in

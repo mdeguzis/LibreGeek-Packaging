@@ -90,7 +90,7 @@ main()
 	
 	# Create basic changelog (no upstream change log from the PPA source)
 	# This addons build cannot have a revision
-	cat <<-EOF> changelog
+	cat <<-EOF> debian/changelog
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools

@@ -38,8 +38,15 @@ cores_num="$2"
 # use "latest release" tagged release
 package_deb="no"
 skip_to_build="no"
-kodi_release="Isengard"
-kodi_tag="15.2-Isengard"
+
+# Do not set release tags if auto-building
+if [[ "$build_all" != "yes" ]]; then
+
+	# Set tags manually in script
+	kodi_release="Isengard"
+	kodi_tag="15.2-Isengard"
+
+fi
 
 # Set target
 repo_target="xbmc"
@@ -239,17 +246,22 @@ kodi_package_deb()
 	# Ensure we are in the proper directory
 	cd "$build_dir"
 	
-	# show tags instead of branches
-	git tag -l --column
-	
-	echo -e "\nWhich Kodi release do you wish to build for:"
-	
-	# get user choice
-	sleep 0.2s
-	read -erp "Release Choice: " kodi_tag
-	
-	# checkout proper release
-	git checkout "tags/${kodi_tag}"
+	# only call if not auto-building
+	if [[ "$build_all" != "yes" ]]; then
+		
+		# show tags instead of branches
+		git tag -l --column
+		
+		echo -e "\nWhich Kodi release do you wish to build for:"
+		
+		# get user choice
+		sleep 0.2s
+		read -erp "Release Choice: " kodi_tag
+		
+		# checkout proper release
+		git checkout "tags/${kodi_tag}"
+		
+	fi
 	
 	# Testing...use our fork with a different changelog setup
 	

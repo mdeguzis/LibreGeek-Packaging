@@ -30,7 +30,7 @@ kodi_tag="15.2-Isengard"
 
 install_prereqs()
 {
-	echo -e "Installing basic build tools\n"
+	echo -e "==> Installing basic build tools\n"
 	sleep 2s
 
 	# Install basic build packages
@@ -103,16 +103,14 @@ build_all()
 	done
 
 	# Install packages to clean build environment
+	echo -e "--> Installing Stage 1 prerequisite build packages\n"
+	sleep 2s
 	echo "y" | sudo gdebi $auto_build_dir/*dcadec*.deb
 	echo "y" | sudo gdebi $auto_build_dir/*platform-dev*.deb
 
-	echo -e "\nExiting stage 1 builds"
-	exit 1
-
 	# STAGE 2
 	# set pkg list
-	pkgs="kodi-platform libcec afpfs-ng taglibc"
-
+	pkgs="kodi-platform libcec afpfs-ng taglib"
 
 	for pkg in ${pkgs};
 	do
@@ -146,11 +144,14 @@ build_all()
 
 	done
 
-	sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
-	sudo gdebi $auto_build_dir/libcec*.deb
-	sudo gdebi $auto_build_dir/afpfs-ng*.deb
-	sudo gdebi $auto_build_dir/taglib*.deb
-	sudo gdebi $auto_build_dir/dcadec*.deb
+	echo "y" | sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
+	echo "y" | sudo gdebi $auto_build_dir/libcec*.deb
+	echo "y" | sudo gdebi $auto_build_dir/afpfs-ng*.deb
+	echo "y" | sudo gdebi $auto_build_dir/taglib*.deb
+
+	# TESTING ONLY
+	echo -e "\nExiting stage 1 builds"
+	exit 1
 
 	###########################################################
 	# build Main Kodi package and pvr addons

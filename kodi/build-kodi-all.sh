@@ -112,7 +112,7 @@ build_all()
 	done
 
 	# Install packages to clean build environment
-	echo -e "--> Installing Stage 1 prerequisite build packages\n"
+	echo -e "\v==> Installing Stage 1 prerequisite build packages\n"
 	sleep 2s
 	echo "y" | sudo gdebi $auto_build_dir/*dcadec*.deb
 	echo "y" | sudo gdebi $auto_build_dir/*platform*.deb
@@ -160,6 +160,7 @@ build_all()
 
 	done
 
+	echo -e "\v==> Installing Stage 2 prerequisite build packages\n"
 	echo "y" | sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
 	echo "y" | sudo gdebi $auto_build_dir/libcec*.deb
 	echo "y" | sudo gdebi $auto_build_dir/afpfs-ng*.deb

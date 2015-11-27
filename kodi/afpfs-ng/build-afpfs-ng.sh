@@ -89,7 +89,10 @@ main()
 	
 	# Add debian build folder
         cp -r "$scriptdir/debian" "${pkgname}"
-	
+        
+        # Add our patch for identify.c
+        cp -r "$scriptdir/Makefile.am.patch" "${pkgname}/patches/"
+        
 	# emter source dir
 	cd "${pkgname}"
 	

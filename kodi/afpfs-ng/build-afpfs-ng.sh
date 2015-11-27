@@ -43,6 +43,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
 	debhelper fuse ncurses-dev libreadline-dev libfuse-dev libgcrypt20 afpfs-ng-utils
+	libgcrypt11-dev dh-autoreconf
 
 }
 

@@ -30,6 +30,8 @@ kodi_tag="15.2-Isengard"
 
 install_prereqs()
 {
+	echo -e "Installing basic build tools\n"
+	sleep 2s
 
 	# Install basic build packages
 	sudo apt-get install -y --force-yes autoconf automake autopoint autotools-dev bc ccache cmake \

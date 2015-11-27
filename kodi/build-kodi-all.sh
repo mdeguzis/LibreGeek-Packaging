@@ -13,8 +13,13 @@
 # -------------------------------------------------------------------------------
 
 # Set vars
-auto_build_dir="$HOME/kodi-all-tmp"
-build_all="yes"
+scriptdir=$(pwd)
+
+# pass build dir var to all scripts
+export auto_build_dir="$HOME/kodi-all-tmp"
+
+# pass auto-build flag
+export build_all="yes"
 
 install_prereqs()
 {
@@ -39,6 +44,9 @@ install_prereqs()
 
 build_all()
 {
+
+	clear
+
 	# Install prereqs
 	install_prereqs
 
@@ -48,32 +56,92 @@ build_all()
 	# Install them for the main builds
 	# In the the future, this behavior will be replaced by pbuilder/chroot.
 
-	# NOTE: This package script list is not yet complete
-	# There are move PPA packages to replace.
-	pkgs="libcec kodi-platform platform afpfs-ng taglib"
+	# STAGE 1
+	# set pkg list
+	pkgs="dcadec platform"
 
 
-	for pkg in ${pkg};
+	for pkg in ${pkgs};
 	do
 
+		cat <<-EOF
+
+		-------------------------------------
+		Building ${pkg}
+		-------------------------------------
+
+		EOF
+		sleep 3s
+
+		# Find where our script is (takes care of debian/ folders)
+		script_dir=$(find -name "build-${pkg}.sh" -printf '%h\n')
+
+		cd "$script_dir"
 		if ./build-${pkg}.sh; then
 
-			echo -e "Package ${pkg} build sucessfully"
+			echo -e "Package ${pkg} built sucessfully"
 			sleep 3s
 
 		else
 
 			echo -e "Package ${pkg} build FAILED. Please review log.txt"
 			sleep 3s
+		fi
+
+		# return back to original script dir
+		cd $scriptdir
 
 	done
 
 	# Install packages to clean build environment
-	sudo gdebi $build_dir/libcec*.deb
-	sudo gdebi $build_dir/libkodiplatform-dev*.deb
-	sudo gdebi $build_dir/platform-dev*.deb
-	sudo gdebi $build_dir/afpfs-ng*.deb
-	sudo gdebi $build_dir/taglib*.deb
+	echo "y" | sudo gdebi $auto_build_dir/*dcadec*.deb
+	echo "y" | sudo gdebi $auto_build_dir/*platform-dev*.deb
+
+	echo -e "\nExiting stage 1 builds"
+	exit 1
+
+	# STAGE 2
+	# set pkg list
+	pkgs="kodi-platform libcec afpfs-ng taglibc"
+
+
+	for pkg in ${pkgs};
+	do
+
+		cat <<-EOF
+
+		-------------------------------------
+		Building ${pkg}
+		-------------------------------------
+
+		EOF
+		sleep 3s
+
+                # Find where our script is (takes care of debian/ folders)
+                script_dir=$(find -name "build-${pkg}.sh" -printf '%h\n')
+
+                cd "$script_dir"
+                if ./build-${pkg}.sh; then
+
+			echo -e "Package ${pkg} built sucessfully"
+			sleep 3s
+
+		else
+
+			echo -e "Package ${pkg} build FAILED. Please review log.txt"
+			sleep 3s
+		fi
+
+		# return back to original script dir
+                cd $scriptdir
+
+	done
+
+	sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
+	sudo gdebi $auto_build_dir/libcec*.deb
+	sudo gdebi $auto_build_dir/afpfs-ng*.deb
+	sudo gdebi $auto_build_dir/taglib*.deb
+	sudo gdebi $auto_build_dir/dcadec*.deb
 
 	###########################################################
 	# build Main Kodi package and pvr addons
@@ -87,15 +155,33 @@ build_all()
 	for pkg in ${pkgs};
 	do
 
-		if ./build-${pkg}.sh; then
+		cat <<-EOF
 
-			echo -e "Package ${pkg} build sucessfully"
+		-------------------------------------
+		Building ${pkg}
+		-------------------------------------
+
+		EOF
+		sleep 3s
+
+		# Find where our script is (takes care of debian/ folders)
+                script_dir=$(find -name "build-${pkg}.sh" -printf '%h\n')
+
+                cd "$script_dir"
+                if ./build-${pkg}.sh; then
+
+			echo -e "Package ${pkg} built sucessfully"
 			sleep 3s
 
 		else
 
 			echo -e "Package ${pkg} build FAILED. Please review log.txt"
 			sleep 3s
+
+		fi
+
+		# go back to original scriptdir
+		cd "$scriptdir"
 
 	done
 
@@ -132,4 +218,4 @@ build_all()
 }
 
 # start functions
-build_all | tee $build_dir/build-log.txt
+build_all | tee $auto_build_dir/build-log.txt

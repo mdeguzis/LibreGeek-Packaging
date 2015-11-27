@@ -4,7 +4,7 @@
 # Author:    	Michael DeGuzis
 # Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-deb-from-PPA.sh
-# Script Ver:	0.4.5
+# Script Ver:	0.4.6
 # Description:	Attempts to build a deb package from a PPA
 #
 # See also:	Generate a source list: http://repogen.simplylinux.ch/
@@ -81,8 +81,9 @@ install_prereqs()
 	
 	# check for repos
 	sources_check=$(sudo find /etc/apt -type f -name "jessie*.list")
+	sources_check2=$(grep -r jessie /etc/apt/sources.list)
 	
-	if [[ "$sources_check" == "" ]]; then
+	if [[ "$sources_check" == "" && "$sources_check2" == "" ]]; then
                 echo -e "\n==INFO==\nSources do *NOT* appear to be added at first glance. Adding now..."
                 sleep 2s
                 "$scriptdir/add-debian-repos.sh"
@@ -101,7 +102,7 @@ install_prereqs()
 main()
 {
 	
-	build_dir="/home/desktop/build-deb-temp"
+	build_dir="$HOME/build-deb-temp"
 	
 	# remove previous dirs if they exist
 	if [[ -d "$build_dir" ]]; then

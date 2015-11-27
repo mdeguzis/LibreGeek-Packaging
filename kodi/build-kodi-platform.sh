@@ -35,7 +35,7 @@ git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
-	clear
+
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages

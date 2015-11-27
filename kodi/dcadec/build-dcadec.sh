@@ -2,13 +2,12 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-kodi-audio-encoder-flac.sh
-# Script Ver:	0.1.1
-# Description:	Attempts to build a deb package kodi flac audio encoder git
-#		source
+# Scipt Name:	build-dcadec.sh
+# Script Ver:	1.0.1
+# Description:	Attempts to build a deb package dcadec git source
 #
-# See:		https://github.com/xbmc/audioencoder.flac
-# Usage:	build-kodi-audio-encoder-flac.sh
+# See:		https://github.com/graeme-hill/crossguid
+# Usage:	build-dcadec.sh
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -17,14 +16,15 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/xbmc/audioencoder.flac"
-git_branch="Isengard"
+git_url="https://github.com/foo86/dcadec"
+git_branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="kodi-audioencoder-flac"
-pkgver="1.0.0+git+bsos"
+pkgname="dcadec"
+pkgver="${date_short}+git+bsos"
+#pkgver="0.1+git"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -36,13 +36,12 @@ git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
-	clear
-	echo -e "==> Installing prerequisites for building...\n"
+
+	echo -e "\n==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
-	debhelper cmake kodi-addon-dev kodi-audio-dev libtool libflac-dev libogg-dev
-
+	debhelper 
 }
 
 main()
@@ -84,6 +83,9 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
+        # funnel old changelog.in to changelog or create basic file
+        cp -r "$scriptdir/debian" "${git_dir}"
 
 	# emter source dir
 	cd "${pkgname}"

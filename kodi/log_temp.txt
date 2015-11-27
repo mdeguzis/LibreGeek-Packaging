@@ -1,0 +1,15 @@
+[3;J[H[2J-----------------------------------------------------------
+Kodi-src build script
+-----------------------------------------------------------
+
+==> Installing main deps for building
+
+
+==INFO==
+Installing package: dcadec1
+
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Cannot install dcadec1. Exiting in 15s. 
+

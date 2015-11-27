@@ -14,8 +14,12 @@
 
 # Set vars
 scriptdir=$(pwd)
-auto_build_dir="$HOME/kodi-all-tmp"
-build_all="yes"
+
+# pass build dir var to all scripts
+export auto_build_dir="$HOME/kodi-all-tmp"
+
+# pass auto-build flag
+export build_all="yes"
 
 install_prereqs()
 {

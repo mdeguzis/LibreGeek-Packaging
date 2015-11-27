@@ -66,6 +66,14 @@ build_all()
 	# In the the future, this behavior will be replaced by pbuilder/chroot.
 
 	# STAGE 1
+	
+	cat <<-EOF
+	----------------------------------------------------------
+	Building and install stage 1 prerequisite build packages
+	----------------------------------------------------------
+
+	EOF
+	
 	# set pkg list
 	pkgs="dcadec platform"
 
@@ -106,7 +114,15 @@ build_all()
 	echo -e "--> Installing Stage 1 prerequisite build packages\n"
 	sleep 2s
 	echo "y" | sudo gdebi $auto_build_dir/*dcadec*.deb
-	echo "y" | sudo gdebi $auto_build_dir/*platform-dev*.deb
+	echo "y" | sudo gdebi $auto_build_dir/*platform*.deb
+
+
+	cat <<-EOF
+	----------------------------------------------------------
+	Building and install stage 2 prerequisite build packages
+	----------------------------------------------------------
+
+	EOF
 
 	# STAGE 2
 	# set pkg list

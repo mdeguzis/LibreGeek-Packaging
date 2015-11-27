@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/simonvetter/afpfs-ng"
-git_branch="master"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -70,7 +70,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone -b "$git_branch" "$git_url" "$git_dir"
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 	
 	#################################################
 	# Build platform

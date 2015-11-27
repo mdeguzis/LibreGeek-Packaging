@@ -38,7 +38,7 @@ git_dir="${build_dir}/${pkgname}"
 install_prereqs()
 {
 
-	echo -e "==> Installing prerequisites for building...\n"
+	echo -e "\n==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \

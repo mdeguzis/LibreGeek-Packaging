@@ -12,7 +12,10 @@
 # Usage:	kodi-build-all.sh
 # -------------------------------------------------------------------------------
 
-# Set vars
+##############################
+# Vars
+##############################
+
 scriptdir=$(pwd)
 
 # pass build dir var to all scripts
@@ -20,6 +23,10 @@ export auto_build_dir="$HOME/kodi-all-tmp"
 
 # pass auto-build flag
 export build_all="yes"
+
+# Set package var overrides here
+kodi_release="Isengard"
+kodi_tag="15.2-Isengard"
 
 install_prereqs()
 {

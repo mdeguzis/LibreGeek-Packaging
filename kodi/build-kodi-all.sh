@@ -79,7 +79,7 @@ build_all()
 		cd "$script_dir"
 		if ./build-${pkg}.sh; then
 
-			echo -e "Package ${pkg} build sucessfully"
+			echo -e "Package ${pkg} built sucessfully"
 			sleep 3s
 
 		else
@@ -94,9 +94,12 @@ build_all()
 	done
 
 	# Install packages to clean build environment
-	sudo gdebi $auto_build_dir/*dcadec*.deb
-	sudo gdebi $auto_build_dir/*platform-dev*.deb
-	
+	echo "y" | sudo gdebi $auto_build_dir/*dcadec*.deb
+	echo "y" | sudo gdebi $auto_build_dir/*platform-dev*.deb
+
+	echo -e "\nExiting stage 1 builds"
+	exit 1
+
 	# STAGE 2
 	# set pkg list
 	pkgs="kodi-platform libcec afpfs-ng taglibc"
@@ -120,7 +123,7 @@ build_all()
                 cd "$script_dir"
                 if ./build-${pkg}.sh; then
 
-			echo -e "Package ${pkg} build sucessfully"
+			echo -e "Package ${pkg} built sucessfully"
 			sleep 3s
 
 		else
@@ -167,7 +170,7 @@ build_all()
                 cd "$script_dir"
                 if ./build-${pkg}.sh; then
 
-			echo -e "Package ${pkg} build sucessfully"
+			echo -e "Package ${pkg} built sucessfully"
 			sleep 3s
 
 		else

@@ -88,13 +88,9 @@ main()
 	# emter source dir
 	cd "${pkgname}"
 	
-	# funnel old changelog.in to changelog or create basic file
-	cp debian/changelog.in debian/changelog
-	# touch debian/changelog
-	
-	# Create basic changelog
+	# Create basic changelog (no upstream change log from the PPA source)
 	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
+	cat <<-EOF> changelog
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
@@ -106,7 +102,7 @@ main()
 	EOF
 	
 	# Perform a little trickery to update existing changelog or create basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	# cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."

@@ -156,7 +156,7 @@ main()
 	if [[ "$build_all" == "yes" ]]; then
 	
 		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${git_dir}/*.deb "$auto_build_dir"
+		mv ${build_dir}/*.deb "$auto_build_dir"
 		sleep 2s
 		
 	else
@@ -168,7 +168,7 @@ main()
 		echo -e "############################################################\n"
 		
 		echo -e "Showing contents of: ${git_dir}/build: \n"
-		ls "${git_dir}" | grep -E *.deb
+		ls "${build_dir}" | grep -E *.deb
 	
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -178,8 +178,8 @@ main()
 		if [[ "$transfer_choice" == "y" ]]; then
 		
 			# cut files
-			if [[ -d "${git_dir}" ]]; then
-				scp ${git_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			if [[ -d "${build_dir}" ]]; then
+				scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 	
 			fi
 			

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	kodi-build-all.sh
-# Script Ver:	0.3.1
+# Script Ver:	0.5.1
 # Description:	Attempts to build all kodi packages and addons into a temporary
 #               folder under $HOME/kodi-all-tmp/
 #               This script passes "build_all=yes" to each script.
@@ -182,6 +182,9 @@ build_all()
 
 			echo -e "Package ${pkg} built sucessfully"
 			sleep 3s
+			
+			# cleanup temp build dir
+			sudo rm -rf build-${pkg}-temp
 
 		else
 
@@ -224,6 +227,7 @@ build_all()
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"
 	fi
+
 
 }
 

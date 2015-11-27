@@ -70,9 +70,8 @@ build_all()
 	cat <<-EOF
 	
 	----------------------------------------------------------
-	Building and install stage 1 prerequisite build packages
+	Building stage 1 prerequisite build packages
 	----------------------------------------------------------
-
 	EOF
 	
 	# set pkg list
@@ -119,8 +118,9 @@ build_all()
 
 
 	cat <<-EOF
+	
 	----------------------------------------------------------
-	Building and install stage 2 prerequisite build packages
+	Building stage 2 prerequisite build packages
 	----------------------------------------------------------
 
 	EOF
@@ -169,6 +169,14 @@ build_all()
 	# TESTING ONLY
 	echo -e "\nExiting stage 1 builds"
 	exit 1
+	
+	cat <<-EOF
+	
+	----------------------------------------------------------
+	Building main Kodi packages
+	----------------------------------------------------------
+
+	EOF
 
 	###########################################################
 	# build Main Kodi package and pvr addons

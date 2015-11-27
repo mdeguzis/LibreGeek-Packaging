@@ -219,10 +219,17 @@ build_all()
 	###########################################################
 
 	# inform user of packages
-	echo -e "\n#######################################################################"
-	echo -e "If all kodi packages were built without errors you will see them below."
-	echo -e "If you don't, please check the $build_dir/build-log.txt log."
-	echo -e "#########################################################################\n"
+	cat <<-EOF
+	
+	######################################################################
+	If all kodi packages were built without errors you will see them below.
+	If you don't, please check the $build_dir/build-log.txt log.
+	
+	Please remember to update version numbers in the individual build
+	scripts if they have changed!
+	#########################################################################
+
+	EOF
 
 	echo -e "Showing contents of: $auto_build_dir: \n"
 	ls "${auto_build_dir}" | grep -E *.deb

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-ds4drv.sh
-# Script Ver:	1.0.
-# Description:	Attempts to build a deb package from latest ds4drv
+# Scipt Name:	build-lgogdownloader.sh
+# Script Ver:	01.0
+# Description:	Attempts to build a deb package from latest lgogdownloader
 #		github release
 #
-# See:		https://github.com/chrippa/ds4drv
+# See:		https://github.com/Sude-/lgogdownloader/
 #
-# Usage:	build-ds4drv.sh
+# Usage:	build-lgogdownloader.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,13 +19,13 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/chrippa/ds4drv"
-branch="master"
+git_url="https://github.com/Sude-/lgogdownloader"
+rel_target="v2.26"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="ds4drv"
+pkgname="lgogdownloader"
 pkgver="${date_short}+git+SteamOS2"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -42,8 +42,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
-	python-pip python python-setuptools python-dev python-pyudev bluez-tools gcc debhelper dh-systemd
+	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc devscripts 
 }
 
 main()
@@ -72,7 +71,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 
 	#################################################
 	# Build platform

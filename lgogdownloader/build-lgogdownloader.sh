@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-lgogdownloader.sh
-# Script Ver:	01.0
+# Script Ver:	0.3.1
 # Description:	Attempts to build a deb package from latest lgogdownloader
 #		github release
 #
@@ -26,7 +26,7 @@ rel_target="v2.26"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="lgogdownloader"
-pkgver="${date_short}+git+SteamOS2"
+pkgver="2.26+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -42,7 +42,10 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc devscripts 
+	sudo apt install -y --force-yes build-essential libcurl4-openssl-dev \
+	libboost-regex-dev libjsoncpp-dev liboauth-dev librhash-dev libtinyxml-dev \
+	libhtmlcxx-dev libboost-system-dev libboost-filesystem-dev \
+	libboost-program-options-dev libboost-date-time-dev help2man
 }
 
 main()
@@ -87,10 +90,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/$pkgname/debian "${git_dir}"
-
-	# copy service file into main source tree
-	cp -r "${git_dir}/systemd/ds4drv.service" "${git_dir}/debian"
+	cp -r $scriptdir/debian "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"

@@ -1,0 +1,26 @@
+Source: lgogdownloader
+Section: utils
+Priority: optional
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ libcurl4-openssl-dev,
+ libboost-regex-dev,
+ libjsoncpp-dev,
+ liboauth-dev,
+ librhash-dev,
+ libtinyxml-dev,
+ libhtmlcxx-dev,
+ libboost-system-dev,
+ libboost-filesystem-dev,
+ libboost-program-options-dev,
+ libboost-date-time-dev,
+ help2man
+Standards-Version: 3.9.5
+Homepage: https://github.com/Sude-/lgogdownloader
+
+Package: lgogdownloader
+Architecture: all
+Depends: ${shlibs:Depends},
+	 ${misc:Depends}
+Description: lgogdownloader is an unofficial GOG downloader.
+ This package installs lgogdownloader for SteamOS Brewmaster users.

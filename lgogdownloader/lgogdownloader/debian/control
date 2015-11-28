@@ -1,23 +1,23 @@
-Source: ds4drv
+Source: lgogdownloader
 Section: utils
 Priority: optional
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends:	debhelper (>= 9),
-		dh-systemd,
-		dh-python,
-		python,
-		python-setuptools,
-		python-dev,
+libcurl,
+liboauth,
+librhash,
+jsoncpp,
+htmlcxx,
+tinyxml,
+boost,
+help2man
+
 Standards-Version: 3.9.5
-Homepage: https://github.com/chrippa/ds4drv
+Homepage: https://github.com/Sude-/lgogdownloader
 
 Package:ds4drv
 Architecture: all
 Depends: ${shlibs:Depends},
-	 ${misc:Depends},
-	 bluez-tools,
-	 python-pyudev,
-	 python-evdev,
-	 python-setuptools
-Description: ds4drv is a Sony DualShock 4 userspace driver for Linux.
- This package installs ds4drv for SteamOS Brewmaster users.
+	 ${misc:Depends}
+Description: lgogdownloader is an unofficial GOG downloader.
+ This package installs lgogdownloader for SteamOS Brewmaster users.

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-afpfs-ng.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.6.1
 # Description:	Attempts to build a deb package afpfs-ng git source
 #
 # See:		https://github.com/simonvetter/afpfs-ng
@@ -90,8 +90,10 @@ main()
 	# Add debian build folder
         cp -r "$scriptdir/debian" "${pkgname}"
 
-        # Add our patch for identify.c
-        #cp -r "$scriptdir/Makefile.am.patch" "${pkgname}/patches/"
+        # Add missing c file "indentify.c"
+        # See: https://github.com/Boxee/afpfs-ng/blob/master/lib/identify.c
+        # See also: https://github.com/simonvetter/afpfs-ng/issues/9
+        cp -r "$scriptdir/identify.c" "${pkgname}/lib/"
 
 	# emter source dir
 	cd "${pkgname}"

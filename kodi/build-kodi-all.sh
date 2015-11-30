@@ -173,20 +173,80 @@ build_all()
 	cat <<-EOF
 	
 	----------------------------------------------------------
-	Building main Kodi packages
+	Building main Kodi package
 	----------------------------------------------------------
 
 	EOF
 
 	###########################################################
-	# build Main Kodi package and pvr addons
+	# build Main Kodi package
 	###########################################################
 
-	pkgs="kodi pvr-argustv pvr-demo pvr-dvblink pvr-dvbviewer pvr-filmon pvr-hts \
+	# Kodi proces the packages:
+	# kodi-addon-dev, kodi-audio-dev, kodi-bin, kodi-bin, kodi-eventclients-common, kodi-eventclients-dev
+	# kodi-eventclients-j2me, kodi-eventclients-ps3, kodi-eventclients-wiiremote, kodi-eventclients-wiiremote
+	# kodi-eventclients-xbmc-send, kodi-pvr-dev, kodi-screensaver-dev, kodi-tools-texturepacker, 
+	# kodi-tools-texturepacker, kodi-visualization-dev, kodi
+	
+	# The PVR addons requrie kodi-addon-dev, so build and install kodi first, thent the addons
+	pkgs="kodi"
+
+	for pkg in ${pkgs};
+	do
+
+		cat <<-EOF
+
+		-------------------------------------
+		Building ${pkg}
+		-------------------------------------
+		EOF
+		sleep 3s
+
+		# Find where our script is (takes care of debian/ folders)
+                script_dir=$(find -name "build-${pkg}.sh" -printf '%h\n')
+
+                cd "$script_dir"
+                if ./build-${pkg}.sh; then
+
+			echo -e "Package ${pkg} built sucessfully"
+			sleep 3s
+			
+			# cleanup temp build dir
+			sudo rm -rf build-${pkg}-temp
+
+		else
+
+			echo -e "Package ${pkg} build FAILED. Please review log.txt"
+			sleep 3s
+
+		fi
+
+		# go back to original scriptdir
+		cd "$scriptdir"
+
+	done
+	
+	echo -e "\v==> Installing packages required for addon building\n"
+	echo "y" | sudo gdebi $auto_build_dir/kodi-addon-dev*.deb
+
+	cat <<-EOF
+	
+	----------------------------------------------------------
+	Building Kodi addons
+	----------------------------------------------------------
+
+	EOF
+
+	###########################################################
+	# build Kodi addons
+	###########################################################
+
+	# Now build Kodi addons	after Kodi is installed
+	pkgs="pvr-argustv pvr-demo pvr-dvblink pvr-dvbviewer pvr-filmon pvr-hts \
 	pvr-iptvsimple pvr-mediaportal-tvserver pvr-mythtv pvr-nextpvr pvr-njoy pvr-pctv \
 	pvr-stalker pvr-vbox pvr-vdr-vnsi pvr-vuplus pvr-wmc kodi-audioencoder-lame \
 	kodi-audioencoder-flac"
-
+	
 	for pkg in ${pkgs};
 	do
 

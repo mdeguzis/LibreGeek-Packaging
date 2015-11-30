@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		0.9.5
+# Script Ver:		0.9.6
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -190,8 +190,8 @@ kodi_prereqs()
 		echo -e "==> Installing build deps for packaging\n"
 		sleep 2s
 	
-		PKGS="build-essential fakeroot devscripts checkinstall \
-		cowbuilder pbuilder debootstrap cvs fpc gdc libflac-dev libsamplerate0-dev libgnutls28-dev"
+		PKGS="build-essential fakeroot devscripts checkinstall cowbuilder pbuilder debootstrap \
+		cvs fpc gdc libflac-dev libsamplerate0-dev libgnutls28-dev"
 		
 		# install dependencies / packages
 		function_install_pkgs
@@ -203,21 +203,27 @@ kodi_prereqs()
 		# Dependencies - ppa:xbmc sourced
 		#####################################
 
-		# Info: packages are rebuilt on SteamOS brewmaster, and hosted at 
-		# packages.libregeek.org
+		# Info: packages are rebuilt on SteamOS brewmaster, and hosted at packages.libregeek.org
 		
 		# Origin: ppa:team-xbmc/ppa 
-		PKGS="libcec3 libcec-dev libafpclient-dev libgif-dev libmp3lame-dev libgif-dev libplatform-dev"
+		# Only install here if not using auto-build script (which installs them after)
 		
-		# install dependencies / packages
-		function_install_pkgs
+		if [[ "$build_all" != "yes" ]]; then
 		
-		# Origin: ppa:team-xbmc/xbmc-nightly
-		# It seems shairplay, libshairplay* are too old in the stable ppa
-		PKGS="libshairport-dev libshairplay-dev shairplay"
+			PKGS="libcec3 libcec-dev libafpclient-dev libgif-dev libmp3lame-dev libgif-dev libplatform-dev"
+			
+			# install dependencies / packages
+			function_install_pkgs
+			
+			# Origin: ppa:team-xbmc/xbmc-nightly
+			# It seems shairplay, libshairplay* are too old in the stable ppa
+			PKGS="libshairport-dev libshairplay-dev shairplay"
+			
+			# install dependencies / packages
+			function_install_pkgs
+				
+		fi
 		
-		# install dependencies / packages
-		function_install_pkgs
 
 	fi
 }

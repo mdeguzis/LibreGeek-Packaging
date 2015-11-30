@@ -1,0 +1,30 @@
+Source: shairplay
+Section: net
+Priority: extra
+Maintainer: wsnipex <wsnipex@a1.net>
+Build-Depends: debhelper (>= 9.0.0), autotools-dev, libao-dev, pkg-config, autoconf, automake, libtool
+Standards-Version: 3.9.3
+Homepage: https://github.com/juhovh/shairplay
+Vcs-Git: git://github.com/juhovh/shairplay
+
+Package: shairplay
+Architecture: any
+Depends: libshairplay0, libavahi-compat-libdnssd-dev, ${shlibs:Depends}, ${misc:Depends}
+Description: Free portable AirPlay server implementation
+ Free portable AirPlay server implementation similar to ShairPort.
+
+Package: libshairplay-dev
+Multi-Arch: same
+Section: libdevel
+Architecture: any
+Depends: libao-dev, libshairplay0 (= ${binary:Version}), ${misc:Depends}
+Description: Free portable AirPlay server implementation (development files)
+ Free portable AirPlay server implementation similar to ShairPort.
+
+Package: libshairplay0
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: libao4, ${shlibs:Depends}, ${misc:Depends}
+Description: Free portable AirPlay server implementation (development files)
+ Free portable AirPlay server implementation similar to ShairPort.

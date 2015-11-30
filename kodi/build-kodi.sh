@@ -150,19 +150,11 @@ function_install_pkgs()
 
 kodi_prereqs()
 {
-	clear
-	
-	cat <<-EOF
-	-----------------------------------------------------------
-	Kodi-src build script
-	-----------------------------------------------------------
-	
-	EOF
 	
 	# Main build dependencies are installed via desktop-software.sh
 	# from the software list cfgs/software-lists/kodi-src.txt
 	
-	echo -e "==> Installing main deps for building\n"
+	echo -e \n"==> Installing main deps for building\n"
 	
 	PKGS="autoconf automake autopoint autotools-dev bc ccache cmake curl dcadec1 dcadec-dev \
 	doxygen default-jre gawk gperf g++ libao-dev libasound2-dev libass-dev libavahi-client-dev \

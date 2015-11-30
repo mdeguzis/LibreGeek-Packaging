@@ -1,0 +1,34 @@
+shairplay (0.9.0-6~vivid) vivid; urgency=medium
+
+  * rebuild for vivid
+
+ -- wsnipex <wsnipex@a1.net>  Fri, 27 Mar 2015 08:22:50 +0100
+
+shairplay (0.9.0-6~trusty) trusty; urgency=high
+
+  * fix password auth with itunes
+  * fix race condition between ipv4 and ipv6
+
+ -- wsnipex <wsnipex@a1.net>  Tue, 27 Mar 2014 10:38:52 +0100
+
+shairplay (0.9.0-5~trusty) trusty; urgency=high
+
+  * port to trusty
+
+ -- wsnipex <wsnipex@a1.net>  Wed, 29 Jan 2014 10:38:52 +0100
+
+shairplay (0.9.0-5~saucy) saucy; urgency=low
+
+  * build for saucy
+
+ -- wsnipex <wsnipex@a1.net>  Thu, 27 Jun 2013 11:58:29 +0200
+
+shairplay (0.9.0-5~raring) raring; urgency=low
+ 
+  * debian multiarch
+
+  * add patch to read airport.key from /etc/shairport/airport.key
+
+  * Initial release 
+
+ -- wsnipex <wsnipex@a1.net>  Thu, 18 Apr 2013 22:20:27 +0200

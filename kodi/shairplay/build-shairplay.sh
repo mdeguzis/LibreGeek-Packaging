@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-shairplay.sh
-# Script Ver:	0.6.1
+# Script Ver:	0.1.1
 # Description:	Attempts to build a deb package shairplay git source
 #
 # See:		https://github.com/juhovh/shairplay
@@ -17,7 +17,7 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/simonvetter/shairplay"
+git_url="https://github.com/juhovh/shairplay"
 rel_target="master"
 
 # package vars
@@ -25,7 +25,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="shairplay"
 #pkgver="${date_short}+git"
-pkgver="0.8.1+git+bsos"
+pkgver="0.9.0+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -41,7 +41,8 @@ install_prereqs()
 	echo -e "\n==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc
+	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
+	autoconf automake libtool libltdl-dev libao-dev libavahi-compat-libdnssd-dev avahi-daemon
 
 }
 
@@ -86,7 +87,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# Add debian build folder
-  cp -r "$scriptdir/debian" "${pkgname}"
+	cp -r "$scriptdir/debian" "${pkgname}"
 
 	# emter source dir
 	cd "${pkgname}"

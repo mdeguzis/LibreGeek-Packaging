@@ -127,7 +127,7 @@ build_all()
 
 	# STAGE 2
 	# set pkg list
-	pkgs="kodi-platform libcec afpfs-ng taglib"
+	pkgs="kodi-platform libcec afpfs-ng taglib shairplay"
 
 	for pkg in ${pkgs};
 	do
@@ -165,7 +165,9 @@ build_all()
 	echo "y" | sudo gdebi $auto_build_dir/libcec*.deb
 	echo "y" | sudo gdebi $auto_build_dir/afpfs-ng*.deb
 	echo "y" | sudo gdebi $auto_build_dir/taglib*.deb
-
+	echo "y" | sudo gdebi $auto_build_dir/libshair*.deb 
+	echo "y" | sudo gdebi $auto_build_dir/shairplay*.deb
+	
 	# TESTING ONLY
 	echo -e "\nExiting stage 1 builds"
 	exit 1

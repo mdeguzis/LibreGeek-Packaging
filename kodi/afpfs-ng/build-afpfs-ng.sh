@@ -90,10 +90,10 @@ main()
 	# Add debian build folder
         cp -r "$scriptdir/debian" "${pkgname}"
 
-        # Add missing c file "indentify.c"
-        # See: https://github.com/Boxee/afpfs-ng/blob/master/lib/identify.c
+        # lib/Makefile.am trys to build indentify.c, but it does not exist
+	# Use our modified Makefile.am with this cut out
         # See also: https://github.com/simonvetter/afpfs-ng/issues/9
-        cp -r "$scriptdir/identify.c" "${pkgname}/lib/"
+        cp -r "$scriptdir/Makefile.am" "${pkgname}/lib/"
 
 	# emter source dir
 	cd "${pkgname}"
@@ -182,8 +182,8 @@ main()
 		echo -e "If you don't, please check build dependcy errors listed above."
 		echo -e "############################################################\n"
 		
-		echo -e "Showing contents of: ${git_dir}/build: \n"
-		ls "${buiild_dir}" | grep -E *.deb
+		echo -e "Showing contents of: ${build_dir}: \n"
+		ls "${build_dir}" | grep -E *.deb
 	
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s

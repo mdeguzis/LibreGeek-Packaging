@@ -57,7 +57,7 @@ install_prereqs()
 	sudo apt-get install -y --force-yes libxcb-keysyms1-dev libxcb-image0-dev \
 	libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev \
 	libxcb-randr0-dev libxcb-render-util0-dev libgl1-mesa-dev
-	
+
 	# Needed for qtwebengine building
 	sudo apt-get install -y --force-yes libcap-dev libegl1-mesa-dev x11-xserver-utils \
 	libxrandr-dev libxss-dev libxcursor-dev libxtst-dev libpci-dev libdbus-1-dev \
@@ -76,16 +76,16 @@ main()
 	
 	# create and enter build_dir
 	if [[ -d "$build_dir" ]]; then
-	
+
 		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
-		
+
 	else
 
 		mkdir -p "$build_dir"
-		
+
 	fi
-	
+
 	# Enter build dir
 	cd "$build_dir"
 
@@ -95,36 +95,36 @@ main()
 
 	# install qt-5.6 alpha
 	# See: http://doc.qt.io/qt-5/build-sources.html
-	
+
  	# obtain source
-	wget ${qt_src_url}/${qt_rel}
+	wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
 	tar -xzvf "$qt_src_file"
 	cd "qt-everywhere-opensource-src*" || exit
-	
+
 	# configure opensource version, auto-accept yes
 	./configure -confirm-license -prefix $PWD/qtbase -opensource -nomake tests
-	
+
 	# Generate build
 	make -j4
-	
+
 	# install build
 	# sudo make install
-	
+
 	#################################################
 	# Build QT 5.6 alpha source (web engine)
 	################################################
 	# Ensure liQt5WebEngine.so exists after install
-	
+
 	cd qtwebengine
 	qmake
 	# Don't use the qmake from the qt4-qmake package, use the qmake of the built Qt, use the full path to it.
 	# See: https://forum.qt.io/topic/49031/solved-maps-and-android/4
-	
+
 	../qtbase/bin/qmake
  	make
  	#sudo make install
 
-	
+
 	#################################################
 	# Build Debian package
 	#################################################
@@ -137,8 +137,8 @@ main()
 	--pkgversion="$pkgver" --pkgrelease="$pkgrel" \
 	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
 	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
-		
-	fi
+
+
 
 	#################################################
 	# Post install configuration

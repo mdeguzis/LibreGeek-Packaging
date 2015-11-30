@@ -1,0 +1,5 @@
+src/lib/.libs/libshairplay.a
+src/lib/alac/.libs/libalac.a
+src/lib/crypto/.libs/libcrypto.a
+src/shairplay
+src/shairplay-shairplay.o

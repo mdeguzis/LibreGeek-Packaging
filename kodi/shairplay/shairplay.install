@@ -1,1 +1,2 @@
-usr/bin/airport.key /etc/shairplay
+usr/bin
+airport.key /etc/shairplay

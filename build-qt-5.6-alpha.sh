@@ -26,6 +26,7 @@ time_stamp_start=(`date +"%T"`)
 qt_src_url="http://download.qt.io/development_releases/qt/"
 qt_rel="5.6/5.6.0-alpha/single/"
 qt_src_file="qt-everywhere-opensource-src-5.6.0-alpha.tar.gz"
+qt_src_folder="${qt_src_file%.*.*}"
 
 # package vars
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -106,7 +107,7 @@ main()
  		
 			wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
 			tar -xzvf "$qt_src_file"
-			cd "${build_dir}/qt-everywhere-opensource-src*" || exit
+			cd "${qt_src_folder}" || exit
 			
 		fi
 		
@@ -115,7 +116,7 @@ main()
 		# archive does not exist, download
 		wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
 		tar -xzvf "$qt_src_file"
-		cd "${build_dir}/qt-everywhere-opensource-src*" || exit
+		cd "${qt_src_folder}" || exit
 		
 	fi
 

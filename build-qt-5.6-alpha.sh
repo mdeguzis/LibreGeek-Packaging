@@ -86,9 +86,6 @@ main()
 
 	fi
 
-	# Enter build dir
-	cd "$build_dir"
-
 	#################################################
 	# Build QT 5.6 alpha source
 	#################################################
@@ -98,25 +95,28 @@ main()
 
  	# obtain source
  	
- 	if [[ -f "${qt_src_url}/${qt_rel}/${qt_src_file}" ]]; then
+ 	if [[ -f "/tmp/${qt_src_file}" ]]; then
  	
  		echo -e "\n==> Archive exists, redownload [y/n]?"
  		read -erp "Choice: " dl_choice
  		
  		if [[ "$dl_choice" == "y" ]]; then 
  		
-			wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
-			tar -xzvf "$qt_src_file"
+			wget -P /tmp --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file}
+			mv "/tmp/${qt_src_file}" "${build_dir}"
+			tar -xzvf "$qt_src_file" -c "${build_dir}"
+			rm "$qt_src_file"
 			cd "${qt_src_folder}" || exit
 			
 		fi
 		
 	else
 	
-		# archive does not exist, download
-		wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
-		tar -xzvf "$qt_src_file"
-		cd "${qt_src_folder}" || exit
+			wget -P /tmp --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file}
+			mv "/tmp/${qt_src_file}" "${build_dir}"
+			tar -xzvf "$qt_src_file" -c "${build_dir}"
+			rm "$qt_src_file"
+			cd "${qt_src_folder}" || exit
 		
 	fi
 

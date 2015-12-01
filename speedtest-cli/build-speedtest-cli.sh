@@ -90,7 +90,7 @@ main()
 	cp -r "$scriptdir/$pkgname/debian" .
 	
 	# copy debian shell changelog from SteamOS-Tools
-	cp "$scriptdir/$pkgname/debian/changelog" "debian/changelog"
+	cp "$scriptdir/debian/changelog" "debian/changelog"
 	
 	# Change version, uploader, insert change log comments
 	sed -i "s|version_placeholder|$pkgver-$pkgrev|g" debian/changelog

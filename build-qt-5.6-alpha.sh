@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-qt-5.6-alpha.sh
-# Script Ver:	0.3.3
+# Script Ver:	0.3.5
 # Description:	Builds QT 5.6-alpha for specific use in building PlexMediaPlayer
 #
 # See:		http://doc.qt.io/qt-5/linux-requirements.html
@@ -94,6 +94,7 @@ main()
 	# See: http://doc.qt.io/qt-5/build-sources.html
 
  	# obtain source
+ 	echo -e "\n==> Downloading source tarball\n"
  	
  	if [[ -f "/tmp/${qt_src_file}" ]]; then
  	

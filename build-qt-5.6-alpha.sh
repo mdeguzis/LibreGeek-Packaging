@@ -106,7 +106,7 @@ main()
  		
 			wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
 			tar -xzvf "$qt_src_file"
-			cd "qt-everywhere-opensource-src*" || exit
+			cd "${build_dir}/qt-everywhere-opensource-src*" || exit
 			
 		fi
 		
@@ -115,7 +115,7 @@ main()
 		# archive does not exist, download
 		wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
 		tar -xzvf "$qt_src_file"
-		cd "qt-everywhere-opensource-src*" || exit
+		cd "${build_dir}/qt-everywhere-opensource-src*" || exit
 		
 	fi
 

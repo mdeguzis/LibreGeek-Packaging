@@ -97,9 +97,27 @@ main()
 	# See: http://doc.qt.io/qt-5/build-sources.html
 
  	# obtain source
-	wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
-	tar -xzvf "$qt_src_file"
-	cd "qt-everywhere-opensource-src*" || exit
+ 	
+ 	if [[ -f "${qt_src_url}/${qt_rel}/${qt_src_file}" ]]; then
+ 	
+ 		read -erp "Archive exists, redownload? [y/n]" dl_choice
+ 		
+ 		if [[ "$dl_choice" == "y" ]]; then 
+ 		
+			wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
+			tar -xzvf "$qt_src_file"
+			cd "qt-everywhere-opensource-src*" || exit
+			
+		fi
+		
+	else
+	
+		# archive does not exist, download
+		wget --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file} 
+		tar -xzvf "$qt_src_file"
+		cd "qt-everywhere-opensource-src*" || exit
+		
+	fi
 
 	# configure opensource version, auto-accept yes
 	./configure -confirm-license -prefix $PWD/qtbase -opensource -nomake tests

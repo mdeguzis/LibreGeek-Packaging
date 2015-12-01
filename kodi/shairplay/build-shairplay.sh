@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-shairplay.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.7.1
 # Description:	Attempts to build a deb package shairplay git source
 #
 # See:		https://github.com/juhovh/shairplay
@@ -95,7 +95,7 @@ main()
 	# Create basic changelog (no upstream change log from the PPA source)
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

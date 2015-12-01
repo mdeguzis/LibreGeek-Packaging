@@ -109,6 +109,14 @@ main()
 			rm "$qt_src_file"
 			cd "${qt_src_folder}" || exit
 			
+		elif [[ "$dl_choice" == "n" ]]; then 
+		
+			# Just move and extract only
+			mv "/tmp/${qt_src_file}" "${build_dir}"
+			tar -xzvf "$qt_src_file" -c "${build_dir}"
+			rm "$qt_src_file"
+			cd "${qt_src_folder}" || exit
+			
 		fi
 		
 	else

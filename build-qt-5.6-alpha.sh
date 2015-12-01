@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-qt-5.6-alpha.sh
-# Script Ver:	0.1.3
+# Script Ver:	0.2.3
 # Description:	Builds QT 5.6-alpha for specific use in building PlexMediaPlayer
 #
 # See:		http://doc.qt.io/qt-5/linux-requirements.html
@@ -40,7 +40,7 @@ requires=""
 replaces=""
 
 # build dirs
-build_dir="/home/desktop/build-${pkgname}-temp"
+build_dir="$HOME/build-${pkgname}-temp"
 
 install_prereqs()
 {

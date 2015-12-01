@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-qt-5.6-alpha.sh
-# Script Ver:	0.2.3
+# Script Ver:	0.3.3
 # Description:	Builds QT 5.6-alpha for specific use in building PlexMediaPlayer
 #
 # See:		http://doc.qt.io/qt-5/linux-requirements.html
@@ -101,7 +101,8 @@ main()
  	
  	if [[ -f "${qt_src_url}/${qt_rel}/${qt_src_file}" ]]; then
  	
- 		read -erp "Archive exists, redownload? [y/n]" dl_choice
+ 		echo -e "\n==> Archive exists, redownload [y/n]?"
+ 		read -erp "Choice: " dl_choice
  		
  		if [[ "$dl_choice" == "y" ]]; then 
  		

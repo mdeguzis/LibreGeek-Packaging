@@ -1,0 +1,29 @@
+Source: libretro-vbam
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://vba-m.com
+
+Package: libretro-vbam
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for VBA-M
+ This wrapper makes VBA-M API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ VisualBoyAdvance-M is a Nintendo Game Boy Advance emulator with high
+ compatibility with commercial games.
+ .
+ VBA-M is an improved fork from the inactive VisualBoyAdvance project, adding
+ several features as well as maintaining an up-to-date codebase. After 
+ VisualBoyAdvance became inactive in 2004, several forks began to appear such
+ as VBALink, which allowed users to emulate the linking of two Gameboy devices.
+ Eventually, VBA-M was created, which merged several of the forks into one
+ codebase. Thus, the M in VBA-M stands for Merge.
+ .
+ Game Boy Advance is a registered trademark of Nintendo of America Inc. VBA-M
+ is not affiliated with or endorsed by any of the companies mentioned.

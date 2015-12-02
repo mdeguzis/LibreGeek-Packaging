@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/vbam_libretro.so usr/lib/libretro/vbam_libretro.so"

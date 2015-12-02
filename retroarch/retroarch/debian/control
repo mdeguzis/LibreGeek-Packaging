@@ -1,8 +1,7 @@
 Source: retroarch
 Section: otherosfs
 Priority: optional
-Maintainer: Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
-Uploaders: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
                libasound2-dev,
                libavcodec-dev,

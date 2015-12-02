@@ -1,0 +1,23 @@
+Source: libretro-snes9x-next
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://github.com/libretro/snes9x-next
+
+Package: libretro-snes9x-next
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Snes9x Next
+ This wrapper makes Snes9x Next API compatible with libretro, thus allowing its
+ use with libretro frontends, such as RetroArch.
+ .
+ Snes9x Next is a Super Nintendo Entertainment System (SNES) emulator based on
+ Snes9x 1.52 with backported patches for performance and compatibility
+ improvements.
+ .
+ Super NES and Super Nintendo Entertainment System are trademarks of
+ Nintendo Co., Limited and its subsidiary companies.

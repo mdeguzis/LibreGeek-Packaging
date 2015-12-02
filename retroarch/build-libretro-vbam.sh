@@ -43,6 +43,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc zlib1g-dev
+
 }
 
 main()

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-stella.sh
+# Scipt Name:	build-libretro-snes9x-next.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest stella
+# Description:	Attempts to builad a deb package from latest libretro snes9x-next
 #		github release
 #
-# See:		https://github.com/libretro/stella-libretro
+# See:		https://github.com/libretro/snes9x-next
 #
-# Usage:	build-libretro-stella.sh
+# Usage:	build-libretro-tgbdual.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,13 +19,13 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/stella-libretro"
+git_url="https://github.com/libretro/snes9x-next"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="libretro-stella"
+pkgname="libretro-snes9x-next"
 pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -42,7 +42,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config b
+	sudo apt-get -y --force-yes install build-essential pkg-config bc
 }
 
 main()

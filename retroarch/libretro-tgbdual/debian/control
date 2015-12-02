@@ -1,0 +1,22 @@
+Source: libretro-tgbdual
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://gigo.retrogames.com/download.html#tgb-dual
+
+Package: libretro-tgbdual
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for TGB Dual
+ This wrappers makes TGB Dual API compatible with libretro, thus allowing 
+ its use with libretro frontends, such as RetroArch.
+ .
+ TGB Dual is a Game Boy [Color] emulator that supports linking feature.
+ .
+ Game Boy and Game Boy Color are registered trademarks of Nintendo of
+ America Inc. TGB Dual is not affiliated with or endorsed by any of the
+ companies mentioned.

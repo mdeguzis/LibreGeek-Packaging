@@ -1,0 +1,116 @@
+This package was debianized by Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com> on
+Wed, 06 Mar 2013 11:03:43 -0500.
+
+It was downloaded from <git://github.com/libretro/tyrquake.git>
+
+Upstream Authors:
+
+     Id Software, Inc.
+     Kevin Shanahan (aka. Tyrann) <tyrann@disenchant.net>
+     The RetroArch Team (libretro port)
+
+Files: *
+Copyright: 1996-1997 Id Software, Inc.
+           2002-2013 Kevin Shanahan
+License: GPLv2+
+
+Files: common/dirent_win32.c
+       common/dirent_win32.h
+Copyright: 1997, 2003, 2012 Kevlin Henney <kevlin@acm.org>
+License:
+    All rights reserved.
+ .
+    Permission to use, copy, modify, and distribute this software and its
+    documentation for any purpose is hereby granted without fee, provided
+    that this copyright and permissions notice appear in all copies and
+    derivatives.
+ .
+    This software is supplied "as is" without express or implied warranty.
+ .
+    But that said, if there are any problems please get in touch.
+
+Files: common/drawhulls.c
+Copyright: 2005 Kevin Shanahan 
+           1996-1997 Id Software, Inc.
+License: GPLv2+
+
+Files: common/rb_tree.c
+Copyright: 1999 Andrea Arcangeli
+License: GPLv2+
+
+Files: common/shell.c
+Copyright: 2002-2014 Kevin Shanahan
+License: GPLv2+
+
+Files: common/snd_sndio.c
+Copyright: 2010 Jacob Meuser <jakemsr@sdf.lonestar.org>
+License:
+    Permission to use, copy, modify, and distribute this software for any
+    purpose with or without fee is hereby granted, provided that the above
+    copyright notice and this permission notice appear in all copies.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+    WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+    MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+    ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+    WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+    ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+    OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+Files: include/adivtab.h
+Copyright: 1996-1997, 1999-2000  Id Software Inc.
+License: GPLv2+
+
+Files: include/cdaudio_driver.h
+Copyright: 2006 Kevin Shanahan
+License: GPLv2+
+
+Files: include/rb_tree.h
+Copyright: 1999 Andrea Arcangeli <andrea@suse.de>
+License: GPLv2+
+
+Files: include/shell.h
+Copyright: 2002 Kevin Shanahan
+License: GPLv2+
+
+Files: wine-dx/*
+Copyright: the Wine project
+License: LGPLv2.1+
+
+Files: libretro/*
+       include/thread.h
+       include/msvc_compat.h
+       include/boolean.h
+       Makefile.libretro
+       Makefile.common
+Copyright: 2013, 2014 The RetroArch Team
+License: GPLv3+
+
+Files: include/libretro.h
+Copyright: 2013, 2014 The RetroArch Team
+License: The MIT License (MIT)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+ .
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+The Debian packaging is:
+
+    Copyright (C) 2013, 2014 Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

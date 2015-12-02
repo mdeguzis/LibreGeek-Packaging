@@ -1,0 +1,24 @@
+Source: libretro-quicknes
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/kode54/QuickNES_Core
+
+Package: libretro-quicknes
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for QuickNES
+ This wrapper makes QuickNES API-compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ Nes_Emu, the core NES emulator library used by QuickNES, began as a very simple
+ NES emulator sometime in 2004. It was based on the 6502 CPU core and APU sound
+ core used in the Game_Music_Emu sound engine.
+ .
+ NES is a trademarks of Nintendo Co., Limited and its subsidiary companies.
+ QuickNES, Nes_Emu and Game_Music_Emu are not affiliated with or endorsed by any
+ of the companies mentioned.

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-tgbdual.sh
+# Scipt Name:	build-libretro-stella.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest tgbdual
+# Description:	Attempts to builad a deb package from latest stella
 #		github release
 #
-# See:		https://github.com/libretro/tgbdual-libretro
+# See:		https://github.com/libretro/stella-libretro
 #
-# Usage:	build-libretro-tgbdual.sh
+# Usage:	build-libretro-stella.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,13 +19,13 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/tgbdual-libretro"
+git_url="https://github.com/libretro/stella-libretro"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="libretro-tgbdual"
+pkgname="libretro-stella"
 pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"

@@ -1,0 +1,21 @@
+Source: libretro-stella
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://stella.sourceforge.net/
+
+Package: libretro-stella
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Stella
+ This wrapper makes Stella API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ Stella is a multi-platform Atari 2600 Video Computer System (VCS) emulator 
+ released under the GNU General Public License (GPL). Stella was originally
+ developed for Linux by Bradford W. Mott, and is currently maintained by 
+ Stephen Anthony.

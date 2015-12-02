@@ -1,0 +1,24 @@
+Source: libretro-yabause
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://yabause.org/
+
+Package: libretro-yabause
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Yabause
+ This wrapper makes Yabause API-compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ Yabause is a Sega Saturn emulator licensed under GPLv2. It supports booting
+ games using Saturn CDs or ISO files, with either an emulated or original BIOS.
+ .
+ The Yabause Team is not connected or affiliated with Sega® or any mentioned
+ company in any way. Companies and all products pertaining to that company are
+ trademarks of that company. Please contact that company for trademark and
+ copyright information.

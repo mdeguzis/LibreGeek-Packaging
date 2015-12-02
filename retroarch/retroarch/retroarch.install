@@ -1,8 +1,0 @@
-audio/audio_filters/*.dsp                  usr/lib/retroarch/filters/audio
-audio/audio_filters/*.so                   usr/lib/retroarch/filters/audio
-debian/retroarch.cfg                       etc
-gfx/video_filters/*.filt                   usr/lib/retroarch/filters/video
-gfx/video_filters/*.so                     usr/lib/retroarch/filters/video
-usr/share/pixmaps/retroarch.svg
-usr/bin/retroarch
-retroarch.desktop                          usr/share/applications

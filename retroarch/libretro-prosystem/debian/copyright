@@ -1,0 +1,75 @@
+This package was debianized by Sérgio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br> on
+Thu, 28 Aug 2014 15:46:00 -0300
+
+It was downloaded from <https://github.com/libretro/prosystem-libretro>
+
+Upstream Authors:
+
+    Greg Stanton (original developer)
+    Brian Berlin (versions 1.1 and 1.2)
+    Leonis (version 1.3)
+    Greg DeMent (version 1.3e)
+    The RetroArch Team (libretro port)
+
+Files: core/*
+Copyright: 2003, 2004, 2005 Greg Stanton
+           2006, 2007 Brian Berlin
+           2008 Leonis
+           2009 Greg DeMent
+License: GPLv2
+
+Files: core/lib/Crypt.h
+Copyright: 1998-2005 Gilles Vollant
+License:
+    This code is a modified version of crypting code in Infozip distribution
+ .
+    The encryption/decryption parts of this source code (as opposed to the
+    non-echoing password parts) were originally written in Europe.  The
+    whole source package can be freely distributed, including from the USA.
+    (Prior to January 2000, re-export from the US was a violation of US law.)
+ .
+    This encryption code is a direct transcription of the algorithm from
+    Roger Schlafly, described by Phil Katz in the file appnote.txt.  This
+    file (appnote.txt) is distributed with the PKZIP program (even in the
+    version without encryption capabilities).
+ .
+    If you don't need crypting in your application, just define symbols
+    NOCRYPT and NOUNCRYPT.
+ .
+    This code support the "Traditional PKWARE Encryption".
+ .
+    The new AES encryption added on Zip format by Winzip (see the page
+    http://www.winzip.com/aes_info.htm ) and PKWare PKZip 5.x Strong
+    Encryption is not supported.
+
+Files: *
+Copyright: 2014 The RetroArch Team
+License: GPLv3
+
+Files: libretro.h
+Copyright: 2014 The RetroArch Team
+License: The MIT License (MIT)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+ .
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+The Debian packaging is:
+
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

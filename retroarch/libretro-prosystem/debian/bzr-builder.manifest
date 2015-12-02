@@ -1,0 +1,3 @@
+# bzr-builder format 0.3 deb-version {debupstream}+r83~15
+lp:~libretro/libretro/prosystem-libretro revid:git-v1:7c8059cbe533e9ad3a18cfe246b673451ea9ec15
+nest packaging lp:~libretro/libretro/prosystem-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151026175629-b2mqkqwcnh6xvbeh

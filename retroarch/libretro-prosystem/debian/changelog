@@ -1,0 +1,11 @@
+libretro-prosystem (1.3e+r83~15~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 26 Oct 2015 18:01:54 +0000
+
+libretro-prosystem (1.3e-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 28 Aug 2014 15:46:00 -0300

@@ -1,0 +1,20 @@
+Source: libretro-prosystem
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: https://web.archive.org/web/20140102081044/https://home.comcast.net/~gscottstanton/
+
+Package: libretro-prosystem
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for ProSystem
+ This wrapper makes ProSystem API compatible with libretro, thus allowing its
+ use with libretro frontends, such as RetroArch.
+ .
+ ProSystem is an emulator that will allow you to play Atari 7800 video games on
+ your PC. The ProSystem emulator imitates the Atari 7800's CPU, video, audio,
+ joystick controls, etc.

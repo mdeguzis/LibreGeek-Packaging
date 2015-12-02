@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/prosystem_libretro.so usr/lib/libretro/prosystem_libretro.so"

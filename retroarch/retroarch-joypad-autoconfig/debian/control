@@ -1,7 +1,7 @@
 Source: retroarch-joypad-autoconfig
 Section: otherosfs
 Priority: extra
-Maintainer: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
 Homepage: http://www.libretro.com

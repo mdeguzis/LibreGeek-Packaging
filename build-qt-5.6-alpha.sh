@@ -48,12 +48,12 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	
+
 	# dependencies
 	sudo apt-get install -y --force-yes libfontconfig1-dev libfreetype6-dev \
 	libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev \
 	libx11-xcb-dev libxcb-glx0-dev
-	
+
 	# Needed if not passing -qt-xcb
 	sudo apt-get install -y --force-yes libxcb-keysyms1-dev libxcb-image0-dev \
 	libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev \
@@ -73,7 +73,7 @@ main()
 	#################################################
 	# Fetch source
 	#################################################
-	
+
 	# create and enter build_dir
 	if [[ -d "$build_dir" ]]; then
 
@@ -95,38 +95,38 @@ main()
 
  	# obtain source
  	echo -e "\n==> Downloading source tarball\n"
- 	
+	sleep 2s
+
  	if [[ -f "/tmp/${qt_src_file}" ]]; then
- 	
- 		echo -e "\n==> Archive exists, redownload [y/n]?"
+
+ 		echo -e "==> Archive exists, redownload [y/n]?"
  		read -erp "Choice: " dl_choice
- 		
+
  		if [[ "$dl_choice" == "y" ]]; then 
- 		
+
 			wget -P /tmp --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file}
 			mv "/tmp/${qt_src_file}" "${build_dir}"
-			tar -xzvf "$qt_src_file" -c "${build_dir}"
-			rm "$qt_src_file"
-			cd "${qt_src_folder}" || exit
-			
+			tar -xzvf "${build_dir}/$qt_src_file" -C "${build_dir}"
+			# rm "/tmp/$qt_src_file"
+			cd "${build_dir}/${qt_src_folder}" || exit
+
 		elif [[ "$dl_choice" == "n" ]]; then 
-		
+
 			# Just move and extract only
-			mv "/tmp/${qt_src_file}" "${build_dir}"
-			tar -xzvf "$qt_src_file" -c "${build_dir}"
-			rm "$qt_src_file"
-			cd "${qt_src_folder}" || exit
-			
+                        mv "/tmp/${qt_src_file}" "${build_dir}"
+                        tar -xzvf "${build_dir}/$qt_src_file" -C "${build_dir}"
+                        # rm "/tmp/$qt_src_file"
+			cd "${build_dir}/${qt_src_folder}" || exit
 		fi
-		
+
 	else
-	
+
 			wget -P /tmp --no-parent --reject "index.html" ${qt_src_url}/${qt_rel}/${qt_src_file}
-			mv "/tmp/${qt_src_file}" "${build_dir}"
-			tar -xzvf "$qt_src_file" -c "${build_dir}"
-			rm "$qt_src_file"
-			cd "${qt_src_folder}" || exit
-		
+                        mv "/tmp/${qt_src_file}" "${build_dir}"
+                        tar -xzvf "${build_dir}/$qt_src_file" -C "${build_dir}"
+                        # rm "/tmp/$qt_src_file"
+                        cd "${build_dir}/${qt_src_folder}" || exit
+
 	fi
 
 	# configure opensource version, auto-accept yes

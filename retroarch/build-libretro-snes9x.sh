@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-snes9x-next.sh
+# Scipt Name:	build-libretro-snes9x.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest libretro snes9x-next
+# Description:	Attempts to builad a deb package from latest libretro snes9x
 #		github release
 #
-# See:		https://github.com/libretro/snes9x-next
+# See:		https://github.com/libretro/snes9x
 #
-# Usage:	build-libretro-snes9x-next.sh
+# Usage:	build-libretro-snes9x.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,13 +19,13 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/snes9x-next"
+git_url="https://github.com/libretro/snes9x"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="libretro-snes9x-next"
+pkgname="libretro-snes9x"
 pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"

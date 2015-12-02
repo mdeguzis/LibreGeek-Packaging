@@ -1,0 +1,169 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Snes9x
+Source: https://github.com/libretro/snes9x
+Comment: This package was debianized by
+ Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com> on Fri, 21 Jan 2011 13:24:59 -0500
+
+
+Files: *
+Copyright: 1996-2015 Snes9x team and other contributors:
+               Gary Henderson <gary.henderson@ntlworld.com> [1] [5] [16]
+               Jerremy Koot <jkoot@snes9x.com> [1]
+               Matthew Kendora [1] [5] [6] [10] [14]
+               Peter Bortas <peter@bortas.org> [1]
+               Joel Yliluoma (http://iki.fi/bisqwit/) [1]
+               John Weidman <jweidman@slip.net> [1] [5] [6] [7] [8] [10] [12] [13] [14] [16]
+               funkyass <funkyass@spam.shaw.ca> [1]
+               Kris Bleakley <codeviolation@hotmail.com> [1] [5] [6] [7] [8] [9] [14]
+               Brad Jorsch <anomie@users.sourceforge.net> [1] [4] [12]
+               Nach <n-a-c-h@users.sourceforge.net> [1] [3] [4] [5] [8]
+               zones <kasumitokoduck@yahoo.com> [1] [2]
+               nitsuja [1]
+               BearOso [1]
+               OV2 [1]
+               Dreamer Nom [2] [8]
+               _Demo_ <_demo_@zsnes.com> [3] [5] [15]
+               zsKnight <zsknight@zsnes.com> [3] [9] [10] [15]
+               Andreas Naive <andreasnaive@gmail.com> [5] [12]
+               Ivar <ivar@snes9x.com> [5] [16]
+               neviksti <neviksti@hotmail.com> [5] [6] [11]
+               Lord Nightmare <lord_nightmare@users.sourceforge.net> [6]
+               Lancer [7]
+               z80 gaiden [7] [8]
+               pagefault <pagefault@zsnes.com> [9] [15]
+               sanmaiwashi (ported from x86 assembler to C) [9]
+               Dark Force [10]
+               byuu [11] [13]
+               Feather [14]
+               Brad Martin [17]
+               Charles Bilyue' [17]
+               Shay Green <gblargg@gmail.com> [18]
+               Marcus Comstedt <marcus@mc.pp.se> [19]
+               [1] Snes9x
+               [2] BS-X C emulator code
+               [3] C4 x86 assembler and some C emulation code
+               [4] C4 C++ code
+               [5] DSP-1 emulator code
+               [6] DSP-2 emulator code
+               [7] DSP-3 emulator code
+               [8] DSP-4 emulator code
+               [9] OBC1 emulator code
+               [10] SPC7110 and RTC C++ emulator code used in 1.39-1.51
+               [11] SPC7110 and RTC C++ emulator code used in 1.52+
+               [12] S-DD1 C emulator code
+               [13] S-RTC C emulator code
+               [14] ST010 C++ emulator code
+               [15] Super FX x86 assembler emulator code
+               [16] Super FX C emulator code
+               [17] Sound emulator code used in 1.5-1.51
+               [18] Sound emulator code used in 1.52+
+               [19] SH assembler code partly based on x86 assembler code
+License: Snes9x license
+
+Files: spc7110dec.*
+       spc7110emu.*
+Copyright: 2008 byuu
+           2008 neviksti
+License:
+    Permission to use, copy, modify, and/or distribute this software for any
+    purpose with or without fee is hereby granted, provided that the above
+    copyright notice and this permission notice appear in all copies.
+ .
+    The software is provided "as is" and the author disclaims all warranties
+    with regard to this software including all implied warranties of
+    merchantibility and fitness, in no event shall the author be liable for
+    any special, direct, indirect, or consequential damages or any damages
+    whatsoever resulting from loss of use, data or profits, whether in an
+    action of contract, negligence or other tortious action, arising out of
+    or in connection with the use or performance of this software.
+
+Files: apu/bapu/dsp/*
+Copyright: 2007 Shay Green
+License: LGPL-2.1+
+
+Files: libretro/*
+Copyright: 2011-2015 The RetroArch Team 
+License: GPL-3+
+
+Files: libretro/libretro.h
+Copyright: 2010-2015 The RetroArch Team 
+License: The MIT License (MIT)
+
+Files: debian/*
+Copyright: 2011-2014 Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+           2014, 2015 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+License: GPL-3+
+
+
+License: Snes9x license
+    Permission to use, copy, modify and/or distribute Snes9x in both binary
+    and source form, for non-commercial purposes, is hereby granted without
+    fee, providing that this license information and copyright notice appear
+    with all copies and any derived work.
+ .
+    This software is provided 'as-is', without any express or implied
+    warranty. In no event shall the authors be held liable for any damages
+    arising from the use of this software or it's derivatives.
+ .
+    Snes9x is freeware for PERSONAL USE only. Commercial users should
+    seek permission of the copyright holders first. Commercial use includes,
+    but is not limited to, charging money for Snes9x or software derived from
+    Snes9x, including Snes9x or derivatives in commercial game bundles, and/or
+    using Snes9x as a promotion for your commercial product.
+ .
+    The copyright holders request that bug fixes and improvements to the code
+    should be forwarded to them so everyone can benefit from the modifications
+    in future versions.
+ .
+    Super NES and Super Nintendo Entertainment System are trademarks of
+    Nintendo Co., Limited and its subsidiary companies.
+
+
+License: The MIT License (MIT)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+ .
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+
+License: GPL-3+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+ .
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+ .
+    The complete text of the GNU General Public License 3
+    can be found in "/usr/share/common-licenses/GPL-3".
+
+
+License: LGPL-2.1+
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
+ .
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+ .
+    The complete text of the GNU Lesser General Public License
+    version 2.1 can be found in "/usr/share/common-licenses/LGPL-2.1".

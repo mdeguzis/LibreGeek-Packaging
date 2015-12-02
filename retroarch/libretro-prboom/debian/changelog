@@ -1,0 +1,11 @@
+libretro-prboom (2.5.0+r175~5~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 26 Oct 2015 17:53:32 +0000
+
+libretro-prboom (2.5.0-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 04 Dec 2014 21:33:00 -0300

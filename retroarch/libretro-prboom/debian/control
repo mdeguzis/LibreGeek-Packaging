@@ -1,0 +1,23 @@
+Source: libretro-prboom
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://prboom.sourceforge.net/
+
+Package: libretro-prboom
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for PrBoom
+ This wrapper makes PrBoom API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ PrBoom is the culmination of years of work by various people and projects on
+ the Doom source code. PrBoom includes work from original Doom source release
+ (by id Software), DosDoom, Boom, MBF, LxDoom and ISDLDoom. Of course ideas
+ were exchanged with many other Doom ports, including xdoom, and Eternity.
+ .
+ PrBoom plays Doom, Doom II, Final Doom and other Doom IWAD mods.

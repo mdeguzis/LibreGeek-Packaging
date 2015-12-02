@@ -1,0 +1,3 @@
+# bzr-builder format 0.3 deb-version {debupstream}+r175~5
+lp:~libretro/libretro/prboom-libretro revid:git-v1:657b4fe4f9df833c59030419d0a7ec6bd76c1e67
+nest packaging lp:~libretro/libretro/prboom-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151026175033-d3xzq9zj4k2e5efx

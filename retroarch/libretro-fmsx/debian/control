@@ -1,0 +1,22 @@
+Source: libretro-fmsx
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://fms.komkon.org/fMSX
+
+Package: libretro-fmsx
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the fMSX
+ This wrapper makes fMSX API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ fMSX is a program that emulates MSX, MSX2, and MSX2+ 8bit home computers. It
+ runs the majority of MSX software and mimics most popular hardware extensions,
+ such as SCC, OPLL, etc.
+ .
+ fMSX was developed by Marat Fayzullin.

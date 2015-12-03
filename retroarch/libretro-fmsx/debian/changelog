@@ -1,0 +1,11 @@
+libretro-fmsx (3.9+r54~4~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 26 Oct 2015 16:04:34 +0000
+
+libretro-fmsx (3.9-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 09 Aug 2014 02:04:00 -0300

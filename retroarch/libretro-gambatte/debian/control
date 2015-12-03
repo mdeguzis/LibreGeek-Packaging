@@ -1,0 +1,22 @@
+Source: libretro-gambatte
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://gambatte.sourceforge.net
+
+Package: libretro-gambatte
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Gambatte
+ This wrappers makes Gambatte API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ Gambatte is a portable, open-source Game Boy and Game Boy Color emulator.
+ .
+ Game Boy and Game Boy Color are registered trademarks of Nintendo of
+ America Inc. Gambatte is not affiliated with or endorsed by any of the
+ companies mentioned.

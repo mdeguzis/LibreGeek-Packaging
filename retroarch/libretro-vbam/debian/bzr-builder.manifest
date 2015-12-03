@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r1126~9
-lp:~libretro/libretro/vbam-libretro revid:git-v1:a6be2819269fbc782dde191502834c3ad14ba3d6
-nest packaging lp:~libretro/libretro/vbam-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151026183144-ayi8va2pwcvb2k71

@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r9~11
-lp:~libretro/libretro/vba-next-libretro revid:sergio_br2@yahoo.com.br-20151026225249-639ehf072464ricb
-nest packaging lp:~libretro/libretro/vba-next-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151026223942-kqbmjn4iqrnjjhbe

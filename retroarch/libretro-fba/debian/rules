@@ -1,0 +1,45 @@
+#!/usr/bin/make -f
+
+# Copyright (C) 2011-2014 Hunter Kaller
+# Copyright (C) 2014, 2015 Sergio Benjamim
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# See issue #2 in github (libretro/libretro-fba)
+export DEB_CXXFLAGS_MAINT_STRIP=-O2
+export DEB_CFLAGS_MAINT_STRIP=-O2
+export DEB_CXXFLAGS_MAINT_APPEND=-Wno-error
+export DEB_CFLAGS_MAINT_APPEND=-Wno-error
+
+ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+ifeq ($(ARCH),armhf)
+	# performance profile is for CPS-3
+	ARM=platform="armv hardfloat" profile=performance
+endif
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_build:
+	dh_auto_build -- -f makefile.libretro $(ARM)
+	dh_auto_build -- -C fba_cores_cps1/ -f makefile.libretro
+	dh_auto_build -- -C fba_cores_cps2/ -f makefile.libretro
+	dh_auto_build -- -C fba_cores_neo/
+
+override_dh_auto_clean:
+	dh_auto_clean -- -f makefile.libretro clean
+	dh_auto_clean -- -C fba_cores_cps1/ -f makefile.libretro clean
+	dh_auto_clean -- -C fba_cores_cps2/ -f makefile.libretro clean
+	dh_auto_clean -- -C fba_cores_neo/

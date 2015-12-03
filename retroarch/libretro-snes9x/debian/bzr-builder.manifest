@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r317~8
-lp:~libretro/libretro/snes9x-libretro revid:git-v1:ccf1ee2eae73ed1e4044c8dd9536dd4ac1be6d8b
-nest packaging lp:~libretro/libretro/snes9x-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151026181715-v46zwn6l9smeingh

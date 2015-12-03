@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "fba_cores_neo/*.so usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro"

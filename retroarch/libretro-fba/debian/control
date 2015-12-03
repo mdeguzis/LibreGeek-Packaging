@@ -1,0 +1,69 @@
+Source: libretro-fba
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://www.barryharris.me.uk/fba.php
+
+Package: libretro-fba
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Final Burn Alpha
+ This wrapper makes Final Burn Alpha API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ FB Alpha is an arcade emulator supporting the following platforms:
+ .
+  * Capcom CPS-1
+  * Capcom CPS-2
+  * Capcom CPS-3
+  * Cave
+  * Data East DEC-0, DEC-8 and DECO IC16 based games
+  * Galaxian based hardware
+  * Irem M62, M63, M72, M90, M92 and M107 hardware
+  * Kaneko 16
+  * Konami
+  * Neo-Geo
+  * NMK16
+  * Pacman based hardware
+  * PGM
+  * Psikyo 68EC020 and SH-2 based hardware
+  * Sega System 1, System 16 (and similar), System 18, X-Board and Y-Board
+  * Super Kaneko Nova System
+  * Toaplan 1
+  * Toaplan 2
+  * Taito F2, X, Z and others
+  * Miscellaneous drivers for lots of other hardware
+
+Package: libretro-fba-cps1
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Final Burn Alpha CPS-1 core
+ This wrapper makes Final Burn Alpha API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ This package provides the CPS-1 core from Final Burn Alpha.
+
+Package: libretro-fba-cps2
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Final Burn Alpha CPS-2 core
+ This wrapper makes Final Burn Alpha API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ This package provides the CPS-2 core from Final Burn Alpha.
+
+Package: libretro-fba-neogeo
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Final Burn Alpha Neo Geo core
+ This wrapper makes Final Burn Alpha API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ This package provides the Neo Geo core from Final Burn Alpha.

@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r50~8
-lp:~libretro/libretro/handy-libretro revid:git-v1:41485d34353a753a2f1c60f96b7d64428a30f3df
-nest packaging lp:~libretro/libretro/handy-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151026162458-bjkjgkyioq8d5kni

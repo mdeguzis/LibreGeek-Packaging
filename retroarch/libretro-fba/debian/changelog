@@ -1,0 +1,115 @@
+libretro-fba (0.2.97.36+r62+n42+co22+ct40~14~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Tue, 27 Oct 2015 00:24:12 +0000
+
+libretro-fba (0.2.97.36-0ubuntu1) UNRELEASED; urgency=low
+
+  * Update.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 02 May 2015 12:44:00 -0300
+
+libretro-fba (0.2.97.35-0ubuntu1) UNRELEASED; urgency=low
+
+  * New port, it has CPS-1, CPS-2 and Neo Geo packages yet based in the 
+  old port.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sun, 08 Mar 2015 17:16:00 -0300
+
+libretro-fba (0.2.97.30-0ubuntu5) UNRELEASED; urgency=low
+
+  * Transitional package for hunterk PPA.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sun, 21 Sep 2014 23:21:00 -0300
+
+libretro-fba (0.2.97.30-0ubuntu4) UNRELEASED; urgency=low
+
+  * Package for each core.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Wed, 27 Aug 2014 03:37:00 -0300
+
+libretro-fba (0.2.97.30-0ubuntu3) UNRELEASED; urgency=low
+
+  * Updated to latest git.
+  * Updated the debian packaging.
+  * Packaging only the CPS1, CPS2 and Neo Geo cores.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Tue, 26 Aug 2014 15:24:00 -0300
+
+libretro-fba (0.2.97.30-0ubuntu0) precise; urgency=low
+
+  * Updated to latest git.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Wed, 12 Mar 2014 13:24:59 -0500
+
+libretro-fba (0.2.97.28-0ubuntu0) raring; urgency=low
+
+  * Updated to latest git.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Sun, 09 Jun 2013 13:24:59 -0500
+
+libretro-fba (0.2.97.27-0ubuntu5) quantal; urgency=low
+
+  * Repackage of older code that actually compiles successfully.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Tue, 12 Feb 2013 13:24:59 -0500
+
+libretro-fba (0.2.97.27-0ubuntu0) quantal; urgency=low
+
+  * Updated to latest FBA source.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Wed, 01 Aug 2012 13:24:59 -0500
+
+libretro-fba (0.2.97.26-0ubuntu1) precise; urgency=low
+
+  * Updated to latest FBA source.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Fri, 17 Aug 2012 13:24:59 -0500
+
+libretro-fba (0.2.97.26-0ubuntu0) precise; urgency=low
+
+  * Updated to latest FBA source.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Wed, 01 Aug 2012 13:24:59 -0500
+
+libretro-fba (0.2.97.24-0ubuntu0) precise; urgency=low
+
+  * Updated to latest FBA source.
+  * Updated to libretro.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Fri, 13 Apr 2012 13:24:59 -0500
+
+libsnes-fba (0.2.97.23-0ubuntu0) natty; urgency=low
+
+  * Many 64-bit bugfixes
+  * Rewind (and hence, netplay) is broken on CPS1/2 and NeoGeo, but works swimmingly on CPS3
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Wed, 14 Mar 2012 13:24:59 -0500
+
+libsnes-fba (0.2.97.18-0ubuntu0) precise; urgency=low
+
+  * Many 64-bit bugfixes
+  * Rewind (and hence, netplay) is broken on CPS1/2 and NeoGeo, but works swimmingly on CPS3
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Tue, 03 Jan 2012 13:24:59 -0500
+
+libsnes-fba (0.2.97.13-0ubuntu3) maverick; urgency=low
+
+  * Many 64-bit bugfixes
+  * Rewind (and hence, netplay) is broken on CPS1/2 and NeoGeo, but works swimmingly on CPS3
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Mon, 05 Dec 2011 13:24:59 -0500
+
+libsnes-fba (0.2.97.13-0ubuntu0) oneiric; urgency=low
+
+  * Many 64-bit bugfixes
+  * Rewind (and hence, netplay) is broken on CPS1/2 and NeoGeo, but works swimmingly on CPS3
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Mon, 31 Oct 2011 13:24:59 -0500
+
+libsnes-fba (0.2.97.08-0ubuntu0) maverick; urgency=low
+
+  * Initial release
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Mon, 03 Oct 2011 13:24:59 -0500

@@ -1,0 +1,23 @@
+Source: libretro-desmume
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), libtinyxml-dev
+Standards-Version: 3.9.6
+Homepage: http://desmume.org
+
+Package: libretro-desmume
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for DeSmuME
+ This wrapper makes DeSmuME core API compatible with libretro, thus allowing its
+ use with libretro frontends, such as RetroArch.
+ .
+ DeSmuME attempts to emulate, as faithfully as possible, the Nintendo DS and
+ Nintendo DS Lite handheld game consoles. Nintendo DSi is not supported.
+ .
+ Nintendo DS, Nintendo DS Lite and Nintendo DSi are registered trademarks of
+ Nintendo of America Inc. DeSmuME is not affiliated with or endorsed by any of
+ the companies mentioned.

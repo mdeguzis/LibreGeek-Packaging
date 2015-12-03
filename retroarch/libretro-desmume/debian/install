@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "desmume/*.so usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro"

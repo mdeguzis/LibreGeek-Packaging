@@ -1,0 +1,24 @@
+Source: libretro-gpsp
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://gpsp-dev.blogspot.com
+
+Package: libretro-gpsp
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for gpSP
+ This wrapper makes gpSP API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ gameplaySP (gpSP for short) is a Game Boy Advance emulator written completely
+ from scratch by Exophase, initially aimed for the PSP handheld, and ported
+ for ARM and x86 architectures. Its main goal is performance even in low spec
+ hardware devices, with overall compatibility being a near second goal.
+ .
+ Game Boy Advance is registered trademarks of Nintendo of America Inc. gpSP
+ is not affiliated with or endorsed by any of the companies mentioned.

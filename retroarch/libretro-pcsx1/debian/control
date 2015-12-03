@@ -1,0 +1,19 @@
+Source: libretro-pcsx1
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/pcsx1-libretro
+
+Package: libretro-pcsx1
+Architecture: amd64 i386
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for PCSX1
+ This wrapper makes PCSX1 API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ PCSX1 is yet another PCSX fork based on the PCSX ReARMed and PCSX-Reloaded
+ projects, rewritten for libretro only.

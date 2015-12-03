@@ -1,0 +1,24 @@
+Source: libretro-picodrive
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://notaz.gp2x.de/pico.php
+
+Package: libretro-picodrive
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for PicoDrive
+ This wrapper makes PicoDrive API-compatible with libretro, thus allowing its
+ use with libretro frontends, such as RetroArch.
+ .
+ This is yet another Megadrive / Genesis / Sega CD / Mega CD emulator, which was
+ written having ARM-based handheld devices in mind (such as PDAs, smartphones
+ and handheld consoles like GP2X of course). The critical parts (renderer, 68K
+ and Z80 cpu interpreters) and some other random code is written in ARM asm, 
+ other code is C. The base code originates from Dave's (fdave, finalburn) 
+ PicoDrive 0.30 for Pocket PC. The Sega/Mega CD code is roughly based on 
+ Stéphane Dallongeville's Gens.

@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/picodrive_libretro.so usr/lib/libretro/picodrive_libretro.so"

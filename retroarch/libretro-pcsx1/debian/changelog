@@ -1,0 +1,11 @@
+libretro-pcsx1 (0.22+r1~1~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Tue, 27 Oct 2015 23:04:45 +0000
+
+libretro-pcsx1 (0.22-1) UNRELEASED; urgency=low
+
+  * New release version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Tue, 27 Oct 2015 20:50:00 -0300

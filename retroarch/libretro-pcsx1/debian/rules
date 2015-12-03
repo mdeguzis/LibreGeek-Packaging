@@ -1,0 +1,41 @@
+#!/usr/bin/make -f
+
+# Copyright (C) 2012-2014 Hunter Kaller
+# Copyright (C) 2014 Sergio Benjamim
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software Foundation,
+# Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+export DEB_CXXFLAGS_MAINT_STRIP=-O2
+export DEB_CFLAGS_MAINT_STRIP=-O2
+
+#ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+%:
+	dh $@ --parallel
+
+#override_dh_auto_configure:
+
+override_dh_auto_build:
+#ifeq ($(ARCH),armhf)
+#	$(MAKE) -f Makefile.libretro platform="armv hardfloat neon"
+#	mv pcsx_rearmed_libretro.so pcsx_rearmed_libretro_neon.so
+#	$(MAKE) -f Makefile.libretro clean
+#	$(MAKE) -f Makefile.libretro platform="armv hardfloat"
+#else
+	dh_auto_build -- -f Makefile.libretro
+#endif
+
+override_dh_auto_clean:
+	dh_auto_clean -- -f Makefile.libretro

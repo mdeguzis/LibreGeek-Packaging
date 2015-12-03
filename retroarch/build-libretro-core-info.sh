@@ -76,7 +76,7 @@ main()
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"

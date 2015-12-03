@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-snes9x.sh
+# Scipt Name:	build-libretro-ppsspp.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest libretro snes9x
+# Description:	Attempts to builad a deb package from latest libretro ppsspp
 #		github release
 #
-# See:		https://github.com/libretro/snes9x
+# See:		https://github.com/libretro/libretro-ppsspp
 #
-# Usage:	build-libretro-snes9x.sh
+# Usage:	build-libretro-ppsspp.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,13 +19,13 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/snes9x"
+git_url="https://github.com/libretro/libretro-ppsspp"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="libretro-snes9x"
+pkgname="libretro-ppsspp"
 pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -38,11 +38,21 @@ git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
+
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc
+	sudo apt-get -y --force-yes install build-essential pkg-config bc \
+	libgl1-mesa-dev libgles2-mesa-dev lsb-release zlib1g-dev
+
+	# required for ffmpeg build script
+	# See: https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
+	#sudo apt-get install -y --force-yes autoconf automake build-essential libass-dev \
+	#libfreetype6-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev \
+	#libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texinfo \
+	#zlib1g-dev
+
 }
 
 main()
@@ -69,9 +79,10 @@ main()
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
+	sleep 2s
 
-	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	# clone recursively to ensure we obtain the submodules
+	git clone --recursive -b "$branch" "$git_url" "$git_dir"
 
 	#################################################
 	# Build package
@@ -135,20 +146,20 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
+
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	

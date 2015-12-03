@@ -87,7 +87,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	cp -r $scriptdir/$pkgname/debian "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"

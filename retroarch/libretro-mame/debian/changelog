@@ -1,0 +1,23 @@
+libretro-mame (0.02015.git+r32269~33~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 05 Nov 2015 16:32:16 +0000
+
+libretro-mame (0.02015.git-0ubuntu1) UNRELEASED; urgency=low
+
+  * Bump to 0.02015.git version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 24 Jan 2015 01:21:00 -0300
+
+libretro-mame (0.02014.git-0ubuntu2) UNRELEASED; urgency=low
+
+  * MESS has a package now.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Wed, 27 Aug 2014 02:41:00 -0300
+
+libretro-mame (0.02014.git-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Mon, 11 Aug 2014 13:34:00 -0300

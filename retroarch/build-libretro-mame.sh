@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-quicknes.sh
+# Scipt Name:	build-libretro-mame.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest libretro quicknes
+# Description:	Attempts to builad a deb package from latest libretro mame
 #		github release
 #
-# See:		https://github.com/libretro/QuickNES_Core
+# See:		https://github.com/libretro/mame
 #
-# Usage:	build-libretro-quicknes.sh
+# Usage:	build-libretro-mame.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,13 +19,13 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/QuickNES_Core"
+git_url="https://github.com/libretro/mame"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="libretro-quicknes"
+pkgname="libretro-mame"
 pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -42,7 +42,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc zlib1g-dev
+	sudo apt-get -y --force-yes install build-essential pkg-config bc \
+	python2.7 python-minimal libqt4-dev-bin qtchooser libasound2-dev
 
 }
 

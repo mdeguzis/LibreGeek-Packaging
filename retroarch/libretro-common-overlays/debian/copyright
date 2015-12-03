@@ -1,0 +1,23 @@
+This package was debianized by Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br> on
+Thu, 15 Jan 2014 12:00:00 -0300.
+
+It was downloaded from <https://github.com/libretro/common-overlays>
+
+Upstream Authors:
+
+    The RetroArch team and many other contributors
+
+Copyright:
+
+    Copyright (C) 2014 The RetroArch team
+
+License:
+
+    Licensed under the terms of the GNU General Public License version 3
+
+The Debian packaging is:
+
+    Copyright (C) 2015 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

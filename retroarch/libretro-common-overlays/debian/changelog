@@ -1,0 +1,11 @@
+libretro-common-overlays (0.1+r24~1~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Fri, 19 Jun 2015 22:41:15 +0000
+
+libretro-common-overlays (0.1-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 15 Jan 2015 12:00:00 -0300

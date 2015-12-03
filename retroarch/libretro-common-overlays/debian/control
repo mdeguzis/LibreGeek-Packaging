@@ -1,0 +1,16 @@
+Source: libretro-common-overlays
+Section: otherosfs
+Priority: extra
+Maintainer: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), rsync
+Standards-Version: 3.9.5
+Homepage: http://www.libretro.com
+Vcs-Git: git://github.com/libretro/libretro-database.git
+Vcs-Browser: https://github.com/libretro/libretro-database
+
+Package: libretro-common-overlays
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Common overlay files for libretro
+ This package installs a collection of overlay files for use with libretro
+ frontends, such as RetroArch.

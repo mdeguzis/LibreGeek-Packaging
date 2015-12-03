@@ -20,7 +20,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/libretro/libretro-fba"
-branch="master"
+branch="v0.2.97.36"
 
 git_url_cores_neo="https://github.com/libretro/fba_cores_neo"
 branch_cores_neo="master"

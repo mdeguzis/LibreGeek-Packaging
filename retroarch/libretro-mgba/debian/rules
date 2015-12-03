@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+
+# Copyright (C) 2015 Sergio Benjamim
+
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+%:
+	dh $@ --buildsystem=cmake --parallel
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX:PATH=/usr -DBUILD_QT=OFF -DBUILD_SDL=OFF -DBUILD_LIBRETRO=ON -DBUILD_STATIC=ON -DBUILD_SHARED=OFF -DDISABLE_DEPS=ON
+
+override_dh_auto_install:
+
+override_dh_installchangelogs:
+	dh_installchangelogs -k CHANGES

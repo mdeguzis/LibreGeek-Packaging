@@ -1,0 +1,3 @@
+# bzr-builder format 0.3 deb-version {debupstream}+r2931~27
+lp:~libretro/libretro/mupen64plus-libretro revid:git-v1:7db9296453629a44de806589f3ff64e824e775ad
+nest packaging lp:~libretro/libretro/mupen64plus-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151027034920-r52m6jbe3mujspq9

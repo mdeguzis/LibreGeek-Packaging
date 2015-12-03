@@ -1,0 +1,300 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Mupen64Plus
+Source: https://github.com/libretro/mupen64plus-libretro
+Files-Excluded: mupen64plus-video-angrylion
+Upstream-Contact:
+ Daniel De Matteis "Twinaphex" <libretro@gmail.com>
+ http://www.libretro.com/forums/
+ Mupen64Plus Team <mupen64plus@googlegroups.com>
+Comment: This is a fork of Mupen64Plus, the libretro port is not in
+ upstream yet and the code diverge
+
+Files: *
+Copyright:
+ 2002-2008 Mupen64 Team
+ 2009-2014 Mupen64Plus Team
+License: GPL-2+
+Comment:
+ Mupen64 Team
+   Hacktarux
+   Dave2001 <Dave2999@hotmail.com>
+   Zilmar
+   Gregor Anich "Blight"
+   Juha Luotio "JttL" and others
+ Mupen64Plus Team (Mupen64 fork)
+   Richard Goedeken "Richard42" <Richard@fascinationsoftware.com>,
+   John Chadwick "NMN",
+   James Hood "Ebenblues",
+   Scott Gorman "okaygo",
+   Scott Knauert "Tillin9",
+   Jesse Dean "DarkJezter",
+   Louai Al-Khanji "slougi",
+   Bob Forder "orbitaldecay",
+   Jason Espinosa "hasone",
+   HyperHacker and others
+
+Files: angrylionrdp/*
+Copyright: 2008 angrylion
+License: MAME
+ Unless otherwise explicitly stated, all code in MAME is released under the
+ following license:
+ .
+ Copyright Nicola Salmoria and the MAME team
+ All rights reserved.
+ .
+ Redistribution and use of this code or any derivative works are permitted
+ provided that the following conditions are met:
+ .
+ * Redistributions may not be sold, nor may they be used in a commercial
+ product or activity.
+ .
+ * Redistributions that are modified from the original source must include the
+ complete source code, including the source code for all components used by a
+ binary built from the modified sources. However, as a special exception, the
+ source code distributed need not include anything that is normally distributed
+ (in either source or binary form) with the major components (compiler, kernel,
+ and so on) of the operating system on which the executable runs, unless that
+ component itself accompanies the executable.
+ .
+ * Redistributions must reproduce the above copyright notice, this list of
+ conditions and the following disclaimer in the documentation and/or other
+ materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+ LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+
+Files: glide2gl/*
+Copyright:
+ 2003-2009 Sergey 'Gonetz' Lipski
+ 2001, 2002 Dave2001
+License: GPL-2+
+
+Files: glide2gl/src/Glide64/m64p.h
+Copyright: 2010 Jon Ring
+License: GPL-2+
+
+Files: gles2n64/*
+Copyright: 2009-2011 Lachlan Tychsen-Smith "lachlan.ts" <lachlan.ts@gmail.com>
+License: GPL-3+
+Comment: https://code.google.com/p/gles2n64/
+
+Files: gles2rice/*
+Copyright:
+ 2009-2014 Mupen64Plus Team
+ 2002, 2003, 2005 Rice1964
+License: GPL-2+
+
+Files: mupen64plus-core/src/si/n64_cic_nus_6105.*
+Copyright: 2011 X-Scale
+License: BSD-2-clause-X-Scale
+
+Files: mupen64plus-rsp-cxd4/*
+Copyright: 2013 Iconoclast
+License: CC0-1.0
+ To the extent possible under law, the author(s) have dedicated all copyright
+ and related and neighboring rights to this software to the public domain
+ worldwide. This software is distributed without any warranty.
+ .
+ You should have received a copy of the CC0 Public Domain Dedication along
+ with this software.
+
+Files: libretro/*
+Copyright: 2013, 2014 The RetroArch Team
+License: GPL-3+
+Comment: The RetroArch Team: Hans-Kristian Arntzen "Themaister",
+ Daniel De Matteis "Twinaphex" and others,
+ see https://github.com/orgs/libretro/people
+
+Files:
+ libretro/glsym/*
+ libretro/msvc/stdbool.h
+ mupen64plus-core/src/api/libretro.h
+Copyright: 2010-2015 The RetroArch Team
+License: Expat
+
+Files: libretro/brumme_crc.c
+Copyright: 2011, 2013, 2014, 2015 Stephan Brumme
+License: Zlib
+
+Files:
+ libretro/SDL.h
+ libretro/SDL_config.h
+ libretro/SDL_mutex.h
+ libretro/SDL_opengl.h
+ libretro/SDL_opengles.h
+ libretro/SDL_opengles2.h
+Copyright: 1997-2012 Sam Lantinga
+License: LGPL-2.1+
+
+Files: libretro/msvc/GL/glext.h
+Copyright: 2007-2012 The Khronos Group Inc.
+License: Expat
+
+Files:
+ libretro/libco/amd64.c
+ libretro/libco/libco.*
+ libretro/libco/x86.c
+Copyright: 2009, 2010 byuu
+License: public-domain
+ These files have been put in the public domain by their author.
+
+Files: libretro/libco/armeabi.c
+Copyright: 2013 Themaister
+License: public-domain
+ These files have been put in the public domain by their author.
+
+Files: libretro/libco/fiber.c
+Copyright: 2008 Nach, byuu
+License: public-domain
+ These files have been put in the public domain by their author.
+
+Files: libretro/libco/ppc.c
+Copyright: 2010 blargg
+License: public-domain
+ These files have been put in the public domain by their author.
+
+Files:
+ libretro/libco/sjlj.c
+ libretro/libco/ucontext.c
+Copyright: 2008 Nach
+License: public-domain
+ These files have been put in the public domain by their author.
+
+Files: tools/gas-preprocessor.pl
+Copyright: David Conrad
+License: GPL-2+
+
+Files: tools/rzlib/*
+Copyright:
+ 2007-2008 Even Rouault
+ 2009-2010 Mathias Svensson
+ 2004, 2010 Mark Adler
+ 1995-2005 Jean-loup Gailly
+License: Zlib
+Comment: It is not used to build the libretro core.
+
+Files: debian/*
+Copyright: 
+ 2014, 2015 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+ 2013, 2014 Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+License: GPL-3+
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 2 can be found in '/usr/share/common-licenses/GPL-2'.
+
+License: GPL-3+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 3 can be found in '/usr/share/common-licenses/GPL-3'.
+
+License: LGPL-2.1+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+ .
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1335  USA
+ .
+ On Debian systems, the complete text of the GNU Lesser General Public
+ License version 2.1 can be found in `/usr/share/common-licenses/LGPL-2.1'.
+
+License: BSD-2-clause-X-Scale
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ .
+ 1. Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY X-Scale ``AS IS'' AND ANY EXPRESS OR IMPLIED
+ WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+ MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO
+ EVENT SHALL X-Scale OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+ LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA,
+ OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+ LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+ NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+
+License: Zlib
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ .
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ .
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgement in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.

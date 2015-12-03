@@ -1,0 +1,32 @@
+Source: libretro-mupen64plus
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9),
+               clang-3.4 [armhf],
+               libgl1-mesa-dev [!armhf],
+               libgles2-mesa-dev [armhf],
+               lsb-release,
+               mesa-common-dev
+Standards-Version: 3.9.6
+Homepage: http://www.mupen64plus.org/
+
+Package: libretro-mupen64plus
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Mupen64Plus
+ This is a wrapper designed to make Mupen64Plus API-compatible with libretro,
+ thus allowing its use with libretro frontends, such as Retroarch.
+ .
+ Mupen64Plus is a cross-platform plugin-based Nintendo 64 emulator which is
+ capable of accurately playing many games. Included are four MIPS R4300 CPU
+ emulators, with dynamic recompilers for 32-bit x86 and 64-bit amd64 systems,
+ and necessary plugins for audio, graphical rendering (RDP), signal co-processor
+ (RSP), and input. There is one included OpenGL video plugin, called RiceVideo.
+ There are 3 other excellent video plugins being maintained by wahrhaft, called
+ Arachnoid, Glide64, and Z64.
+ .
+ Nintendo 64 is a registered trademark of Nintendo of America Inc. Mupen64Plus
+ is not affiliated with or endorsed by any of the companies mentioned.

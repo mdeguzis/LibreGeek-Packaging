@@ -1,0 +1,50 @@
+#!/usr/bin/make -f
+
+# Copyright (C) 2013-2015 Hunter Kaller
+# Copyright (C) 2014, 2015 Sergio Benjamim
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+export DEB_CXXFLAGS_MAINT_STRIP=-O2
+export DEB_CFLAGS_MAINT_STRIP=-O2
+
+ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+# Needs to install lsb-release package
+UBUNTU_VERSION=$(shell lsb_release -c | cut -f2)
+
+ifeq ($(ARCH),armhf)
+	ifeq ($(UBUNTU_VERSION),trusty)
+		export CC=clang
+		export CXX=clang++
+	else
+		export CC=clang-3.4
+		export CXX=clang++-3.4
+		export DEB_CXXFLAGS_MAINT_STRIP=-O2 -fstack-protector-strong
+		export DEB_CFLAGS_MAINT_STRIP=-O2 -fstack-protector-strong
+		export DEB_CXXFLAGS_MAINT_APPEND=-fstack-protector
+		export DEB_CFLAGS_MAINT_APPEND=-fstack-protector
+	endif
+	PLATFORM=platform="armv gles neon hardfloat"
+endif
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_build:
+	dh_auto_build -- $(PLATFORM)
+
+override_dh_installdocs:
+	dh_installdocs
+	cd debian/libretro-*/usr/share/doc/libretro-mupen64plus/ && mv COPYING cxd4-license

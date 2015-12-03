@@ -1,0 +1,70 @@
+This package was debianized by Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br> on
+Thu, 04 Dec 2014 21:33:00 -0300
+
+It was downloaded from <https://github.com/libretro/CATSFC-libretro>
+
+Upstream Authors:
+
+    CATSFC team (improving over BAGSFC)
+        ShadauxCat
+        Nebuleon
+    BassAceGold (BAGSFC, improving over NDSSFC)
+    Supercard team (NDSSFC 1.06, porting to the MIPS processor)
+        dking
+    Snes9x team (Snes9x 1.43)
+    The RetroArch Team (libretro port)
+
+Files: *
+Copyright: 2011-2013 CATSFC team
+           2010 BassAceGold
+           2010 dking <dking024@gmail.com>
+           1997-2005 Snes9x team
+License: GPLv2+ and Snes9x license:
+    Permission to use, copy, modify and distribute Snes9x in both binary and
+    source form, for non-commercial purposes, is hereby granted without fee,
+    providing that this license information and copyright notice appear with
+    all copies and any derived work.
+ .
+    This software is provided 'as-is', without any express or implied
+    warranty. In no event shall the authors be held liable for any damages
+    arising from the use of this software.
+ .
+    Snes9x is freeware for PERSONAL USE only. Commercial users should
+    seek permission of the copyright holders first. Commercial use includes
+    charging money for Snes9x or software derived from Snes9x.
+ .
+    The copyright holders request that bug fixes and improvements to the code
+    should be forwarded to them so everyone can benefit from the modifications
+    in future versions.
+
+Files: libretro.c
+Copyright: 2014 The RetroArch Team
+License: GPLv3
+
+Files: libretro.h
+Copyright: 2014 The RetroArch Team
+License: The MIT License (MIT)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+ .
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+The Debian packaging is:
+
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

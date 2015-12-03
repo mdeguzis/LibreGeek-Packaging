@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/catsfc_libretro.so usr/lib/libretro/catsfc_libretro.so"

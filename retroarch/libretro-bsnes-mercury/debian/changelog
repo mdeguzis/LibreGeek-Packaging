@@ -1,0 +1,11 @@
+libretro-bsnes-mercury (094+r193~13~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 22 Oct 2015 16:43:54 +0000
+
+libretro-bsnes-mercury (094-1) unstable; urgency=low
+
+  * Initial release (Closes: #xxxxxx).
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Wed, 23 Sep 2015 00:34:00 -0300

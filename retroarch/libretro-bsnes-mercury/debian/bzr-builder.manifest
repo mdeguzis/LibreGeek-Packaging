@@ -1,0 +1,3 @@
+# bzr-builder format 0.3 deb-version {debupstream}+r193~13
+lp:~libretro/libretro/bsnes-mercury-libretro revid:git-v1:6d71cf5a0dafbdee8238215b7062f9cc7d458fd5
+nest packaging lp:~libretro/libretro/bsnes-mercury-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151022164216-vpf2qdtd1a504u2e

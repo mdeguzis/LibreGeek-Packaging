@@ -1,0 +1,69 @@
+Source: libretro-bsnes-mercury
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/bsnes-mercury
+
+Package: libretro-bsnes-mercury-accuracy
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${shlibs:Depends}, ${misc:Depends}
+Description: Libretro wrapper for bsnes-mercury accuracy core
+ This wrapper makes bsnes-mercury accuracy core API compatible with libretro,
+ thus allowing its use with libretro frontends, such as RetroArch.
+ .
+ This core is enabled to emulate only SNES hardware and its subsystems (from
+ the command line only), like Super Game Boy, Satellaview and Sufami Turbo.
+ .
+ bsnes-mercury is a fork of higan, aiming to restore some useful features that
+ have been removed, as well as improving performance a bit. Maximum accuracy is
+ still uncompromisable; anything that affects accuracy is optional and off by
+ default. The name is because metals are shiny, like the accuracy promises of
+ bsnes, and mercury is the fastest metal.
+ .
+ This package comes with the bsnes-mercury accuracy core, which runs 100% of
+ SNES games, with perfect emulation of the console. It requires high CPU usage.
+
+Package: libretro-bsnes-mercury-balanced
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${shlibs:Depends}, ${misc:Depends}
+Description: Libretro wrapper for bsnes-mercury balanced core
+ This wrapper makes bsnes-mercury balanced core API compatible with libretro,
+ thus allowing its use with libretro frontends, such as RetroArch.
+ .
+ This core is enabled to emulate only SNES hardware and its subsystems (from
+ the command line only), like Super Game Boy, Satellaview and Sufami Turbo.
+ .
+ bsnes-mercury is a fork of higan, aiming to restore some useful features that
+ have been removed, as well as improving performance a bit. Maximum accuracy is
+ still uncompromisable; anything that affects accuracy is optional and off by
+ default. The name is because metals are shiny, like the accuracy promises of
+ bsnes, and mercury is the fastest metal.
+ .
+ This package comes with the bsnes-mercury balanced core, which tries to keep
+ a good balance between accuracy and performance. It runs almost all SNES games.
+
+Package: libretro-bsnes-mercury-performance
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${shlibs:Depends}, ${misc:Depends}
+Description: Libretro wrapper for bsnes-mercury performance core
+ This wrapper makes bsnes-mercury performance core API compatible with libretro,
+ thus allowing its use with libretro frontends, such as RetroArch.
+ .
+ This core is enabled to emulate only SNES hardware and its subsystems (from
+ the command line only), like Super Game Boy, Satellaview and Sufami Turbo.
+ .
+ bsnes-mercury is a fork of higan, aiming to restore some useful features that
+ have been removed, as well as improving performance a bit. Maximum accuracy is
+ still uncompromisable; anything that affects accuracy is optional and off by
+ default. The name is because metals are shiny, like the accuracy promises of
+ bsnes, and mercury is the fastest metal.
+ .
+ This package comes with the bsnes-mercury performance core, which provides
+ faster emulation at the cost of reduced accuracy, including problems with some
+ games.

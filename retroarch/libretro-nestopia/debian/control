@@ -1,0 +1,19 @@
+Source: libretro-nestopia
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://0ldsk00l.ca/nestopia
+
+Package: libretro-nestopia
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Nestopia
+ Nestopia is a cycle-accurate NES/Famicom emulator. It has a high compatibility
+ rate and support for many peripherals and input devices.
+ .
+ This package contains a wrapper allowing the Nestopia engine to be used with
+ libretro frontends such as RetroArch.

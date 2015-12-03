@@ -1,0 +1,23 @@
+libretro-nestopia (1.46.2+r456~8~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 26 Oct 2015 04:58:20 +0000
+
+libretro-nestopia (1.46.2-0ubuntu1) UNRELEASED; urgency=low
+
+  * Bump version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Mon, 13 Oct 2014 22:05:00 -0300
+
+libretro-nestopia (1.46-0ubuntu3) UNRELEASED; urgency=low
+
+  * Update to latest git version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 28 Aug 2014 01:35:00 -0300
+
+libretro-nestopia (1.46wip-0ubuntu2) trusty; urgency=low
+
+  * Updated to latest git.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Wed, 12 Mar 2014 13:24:59 -0500

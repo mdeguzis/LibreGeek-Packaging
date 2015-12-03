@@ -3,14 +3,13 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-libretro-mgba.sh
-# Script Ver:	0.1.1
+# Script Ver:	1.0.0
 # Description:	Attempts to builad a deb package from latest libretro mgba
 #		github release
 #
 # See:		https://github.com/libretro/mgba
 #
 # Usage:	build-libretro-mupen64plus.sh
-# Statis:	FAILING
 #-------------------------------------------------------------------------------
 
 arg1="$1"

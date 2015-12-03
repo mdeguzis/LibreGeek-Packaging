@@ -1,0 +1,19 @@
+Source: libretro-common-shaders
+Section: otherosfs
+Priority: extra
+Maintainer: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), rsync
+Standards-Version: 3.9.5
+Homepage: http://www.libretro.com
+Vcs-Git: git://github.com/libretro/common-shaders.git
+Vcs-Browser: https://github.com/libretro/common-shaders
+
+Package: libretro-common-shaders
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Common shaders for libretro
+ Collection of commonly used Cg shaders. These shaders are usable by either HLSL
+ and/or Cg runtime compilers. The cg2glsl script will translate most of these
+ into GLSL shaders.
+ .
+ The ARM package already contains the compiled GLSL shaders.

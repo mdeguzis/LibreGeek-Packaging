@@ -1,0 +1,55 @@
+#!/usr/bin/make -f
+
+# Copyright (C) 2014 Sergio Benjamim
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+DOCPATH=debian/libretro-common-shaders/usr/share/doc/libretro-common-shaders
+SHADERSPATH=debian/libretro-common-shaders/usr/share/libretro/shaders
+
+override_dh_auto_build:
+
+override_dh_auto_install:
+ifeq ($(ARCH), $(filter $(ARCH), amd64 i386))
+	rsync -av --progress . $(SHADERSPATH)/ --exclude debian --exclude common-shaders-glsl --exclude docs --exclude .bzr --exclude .bzrignore --exclude .git
+	cp docs/README $(DOCPATH)/
+	mv $(SHADERSPATH)/blurs/README.txt $(DOCPATH)/README-blurs 
+	mv $(SHADERSPATH)/borders/README $(DOCPATH)/README-borders
+	mv $(SHADERSPATH)/borders/gameboy-player/README.txt $(DOCPATH)/README-borders_gameboy-player
+	mv $(SHADERSPATH)/borders/sgb/README.txt $(DOCPATH)/README-borders_sgb
+	mv $(SHADERSPATH)/crt/shaders/crt-royale/README.TXT $(DOCPATH)/README-crt-royale && \
+		mv $(SHADERSPATH)/crt/shaders/crt-royale/THANKS.TXT $(DOCPATH)/THANKS-crt-royale && \
+		rm $(SHADERSPATH)/crt/shaders/crt-royale/LICENSE.TXT
+	mv $(SHADERSPATH)/dithering/shaders/gdapt/README.md $(DOCPATH)/README-dithering_gdapt
+	mv $(SHADERSPATH)/dithering/shaders/mdapt/README.md $(DOCPATH)/README-dithering_mdapt
+	mv $(SHADERSPATH)/handheld/gameboy/README.md $(DOCPATH)/README-gameboy
+	mv $(SHADERSPATH)/handheld/lcd-shader/README.md $(DOCPATH)/README-lcd-shader
+	mv $(SHADERSPATH)/hqx/README.md $(DOCPATH)/README-hqx
+	mv $(SHADERSPATH)/srgb-helpers/README.txt $(DOCPATH)/README-srgb-helpers
+	mv $(SHADERSPATH)/windowed/README.md $(DOCPATH)/README-windowed
+
+else ifeq ($(ARCH),armhf)
+	cp -r common-shaders-glsl/* $(SHADERSPATH)/
+
+endif
+
+override_dh_auto_clean:

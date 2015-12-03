@@ -1,0 +1,11 @@
+libretro-common-shaders (0.1+r41~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Sun, 12 Jul 2015 22:17:27 +0000
+
+libretro-common-shaders (0.1-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 31 Jul 2014 03:27:00 -0300

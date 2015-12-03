@@ -1,0 +1,3 @@
+# bzr-builder format 0.3 deb-version {debupstream}+r128~9
+lp:~libretro/libretro/fceumm-libretro revid:git-v1:70ee9e66362c21823e60e686d4a30be6c2d52803
+nest packaging lp:~libretro/libretro/fceumm-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151026154548-58r3jns23nis0p9i

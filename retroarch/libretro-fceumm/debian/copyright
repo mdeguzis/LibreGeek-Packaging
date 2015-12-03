@@ -1,0 +1,30 @@
+This package was debianized by Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com> on
+Mon, 24 Oct 2011 13:24:59 -0500.
+
+It was downloaded from <https://github.com/libretro/libretro-fceumm>
+
+Upstream Authors:
+
+    BERO (FCE code)
+    Xodnizel (Most of the FCE Ultra code)
+    Cah4e3 (FCE Ultra and FCEUmm code)
+    RetroArch Team (libretro port)
+
+Copyright:
+
+    Copyright (C) 1998 BERO
+    Copyright (C) 2002,2003 Xodnizel
+    Copyright (C) 2006-2014 Cah4e3
+    Copyright (C) 2010-2014 RetroArch Team
+
+License:
+
+    Licensed under the terms of the GNU General Public License version 2
+
+The Debian packaging is:
+
+    Copyright (C) 2011-2014 Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+    Copyright (C) 2014, 2015 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3,
+see `/usr/share/common-licenses/GPL-3'.

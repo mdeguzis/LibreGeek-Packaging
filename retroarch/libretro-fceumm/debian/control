@@ -1,0 +1,22 @@
+Source: libretro-fceumm
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://fceumm.sourceforge.net/
+
+Package: libretro-fceumm
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for FCEUmm
+ This wrapper makes FCE Ultra mappers mod API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ FCE Ultra mappers mod is a NES/Famicom emulator and it is a fork of FCE Ultra,
+ which is a fork of FCE (Family Computer Emulator).
+ .
+ NES and Famicom are registered trademarks of Nintendo of America Inc. FCEUmm is
+ not affiliated with or endorsed by any of the companies mentioned.

@@ -1,0 +1,21 @@
+Source: libretro-gw
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/gw-libretro
+
+Package: libretro-gw
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Game & Watch simulators
+ gw-libretro is a libretro core that runs Game & Watch simulators.
+ .
+ It runs simulators converted from source code for the games available at
+ MADrigal. Each simulator is converted with pas2lua, which was written
+ specifically for this purpose, and uses bstree, which was also specifically
+ written to obfuscate the generated Lua source code as per MADrigal's request.
+ 

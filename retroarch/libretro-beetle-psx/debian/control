@@ -1,0 +1,12 @@
+Source: libretro-beetle-psx
+Section: oldlibs
+Priority: extra
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+
+Package: libretro-beetle-psx
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, libretro-mednafen-psx
+Description: Transitional package for libretro-mednafen-psx
+ Dummy package, it will install libretro-mednafen-psx.

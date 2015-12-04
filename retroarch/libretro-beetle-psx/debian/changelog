@@ -1,0 +1,12 @@
+libretro-beetle-psx (0.9.38.6+r1~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 27 Aug 2015 20:03:22 +0000
+
+libretro-beetle-psx (0.9.38.6-0ubuntu1) UNRELEASED; urgency=low
+
+  * Dummy package.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 27 Aug 2015 16:20:00 -0300
+

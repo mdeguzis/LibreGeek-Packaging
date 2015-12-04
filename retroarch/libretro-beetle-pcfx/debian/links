@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/mednafen_pcfx_libretro.so usr/lib/libretro/mednafen_pcfx_libretro.so"

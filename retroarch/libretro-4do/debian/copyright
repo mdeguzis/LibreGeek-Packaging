@@ -1,0 +1,63 @@
+This package was debianized by Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br> on
+Mon, 25 Aug 2014 21:30:00 -0300
+
+It was downloaded from <https://github.com/libretro/4do-libretro>
+
+Upstream Authors:
+
+    JohnnyDude (author of 4DO)
+    FreeDO team
+        Alexander Troosh <troosh@freedo.org>
+        Maxim Grishin
+        Allen Wright (aka awright69) <awright@freedo.org>
+        John Sammons (aka jsammons)
+        Felix Lazarev (aka felix_laz) <admin@freedo.org>
+    The RetroArch Team (libretro port)
+
+Files: libfreedo/*
+Copyright: 2002-2012 FreeDO team
+License:
+    The FreeDO licensed under modified GNU LGPL, with following notes:
+ .
+    * The owners and original authors of the FreeDO have full right to develop
+    closed source derivative work.
+    * Any non-commercial uses of the FreeDO sources or any knowledge obtained by
+    studying or reverse engineering of the sources, or any other material published
+    by FreeDO have to be accompanied with full credits.
+    * Any commercial uses of FreeDO sources or any knowledge obtained by studying
+    or reverse engineering of the sources, or any other material published by
+    FreeDO is strictly forbidden without owners approval.
+ .
+    The above notes are taking precedence over GNU LGPL in conflicting situations.
+
+Files: *
+Copyright: 2014 The RetroArch Team
+License: GPLv3
+
+Files: libretro.h
+Copyright: 2014 The RetroArch Team
+License: The MIT License (MIT)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+ .
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+The Debian packaging is:
+
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3,
+see `/usr/share/common-licenses/GPL-3'.

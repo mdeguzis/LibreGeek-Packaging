@@ -1,0 +1,19 @@
+Source: libretro-4do
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://www.fourdo.com
+
+Package: libretro-4do
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for 4DO/libfreedo
+ This wrapper makes 4DO/libfreedo API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ 4DO is an open-source, low-level emulator based on the FreeDO source code that
+ emulates the 3DO Interactive Multiplayer.

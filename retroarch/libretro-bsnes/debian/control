@@ -1,0 +1,52 @@
+Source: libretro-bsnes
+Section: games
+Priority: optional
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev, lsb-release
+Standards-Version: 3.9.5
+Homepage: http://byuu.org/emulation/higan/
+
+Package: libretro-bsnes-accuracy
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for bsnes accuracy profile
+ This wrapper makes bsnes accuracy profile API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ bsnes focuses on accuracy of SNES hardware emulation and clean code above all
+ else. It never uses speed or compatibility hacks. As a result, the minimum
+ system requirements are higher than with other emulators.
+ .
+ This package comes with the bsnes accuracy profile, which runs 100% of SNES
+ games, with perfect emulation of the console. It requires high CPU usage.
+
+Package: libretro-bsnes-balanced
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for bsnes balanced profile
+ This wrapper makes bsnes balanced profile API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ bsnes focuses on accuracy of SNES hardware emulation and clean code above all
+ else. It never uses speed or compatibility hacks. As a result, the minimum
+ system requirements are higher than with other emulators.
+ .
+ This package comes with the bsnes balanced profile, which tries to keep a good
+ balance between accuracy and performance. It runs almost all SNES games.
+
+Package: libretro-bsnes-performance
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for bsnes performance profile
+ This wrapper makes bsnes performance profile API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ bsnes focuses on accuracy of SNES hardware emulation and clean code above all
+ else. It never uses speed or compatibility hacks. As a result, the minimum
+ system requirements are higher than with other emulators.
+ .
+ This package comes with the bsnes performance profile, which provides faster
+ emulation at the cost of reduced accuracy, including problems with some games.

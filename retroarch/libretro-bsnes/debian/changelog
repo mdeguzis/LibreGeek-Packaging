@@ -1,0 +1,11 @@
+libretro-bsnes (094+r322~4~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 22 Oct 2015 16:21:57 +0000
+
+libretro-bsnes (094-1) UNRELEASED; urgency=low
+
+  * Shallow fork of bsnes.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 19 Feb 2015 21:24:00 -0300

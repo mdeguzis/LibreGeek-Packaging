@@ -1,0 +1,22 @@
+Source: libretro-beetle-pce-fast
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), libsndfile1-dev, libtrio-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/beetle-pce-fast-libretro
+
+Package: libretro-beetle-pce-fast
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the Beetle PCE FAST core
+ This wrapper makes Beetle PCE FAST core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ This core emulates the TurboGrafx-16 Entertainment SuperSystem, originally
+ known in Japan as the PC Engine. It also emulates the TurboGrafx-CD (CD-ROM²).
+ .
+ Beetle PCE FAST is based in the Mednafen "pce_fast" module, so it has some
+ tricks to speed up the hardware emulation, but with some loss in accuracy.

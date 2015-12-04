@@ -1,0 +1,11 @@
+libretro-beetle-pce-fast (0.9.36.1+r596~11~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 22 Oct 2015 13:32:37 +0000
+
+libretro-beetle-pce-fast (0.9.36.1-1) unstable; urgency=low
+
+  * Initial release (Closes: #xxxxxx).
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Tue, 22 Sep 2015 17:21:00 -0300

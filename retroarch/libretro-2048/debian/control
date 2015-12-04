@@ -1,0 +1,16 @@
+Source: libretro-2048
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), libfontconfig1-dev, zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://gabrielecirulli.github.io/2048
+
+Package: libretro-2048
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for 2048.
+ This wrapper makes 2048 API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.

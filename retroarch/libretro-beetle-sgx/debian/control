@@ -1,0 +1,20 @@
+Source: libretro-beetle-sgx
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/beetle-supergrafx-libretro
+
+Package: libretro-beetle-sgx
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Replaces: libretro-beetle-supergrafx
+Description: Libretro wrapper for the Beetle SGX core
+ This wrapper makes Beetle SGX core API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ Beetle is a fork of Mednafen for libretro. This core emulates TurboGrafx-16 /
+ PC Engine and as well as its successor, PC Engine SuperGrafx.

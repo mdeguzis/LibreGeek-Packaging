@@ -1,0 +1,11 @@
+libretro-beetle-sgx (0.9.36+r524~9~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Fri, 23 Oct 2015 15:17:10 +0000
+
+libretro-beetle-sgx (0.9.36-1) unstable; urgency=low
+
+  * Initial release (Closes: #xxxxxx).
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 01 Oct 2015 18:55:00 -0300

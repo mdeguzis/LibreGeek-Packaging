@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/mednafen_lynx_libretro.so usr/lib/libretro/mednafen_lynx_libretro.so"

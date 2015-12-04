@@ -1,0 +1,11 @@
+libretro-bluemsx (0.020140411.svn1291+r79~9~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 26 Oct 2015 15:10:24 +0000
+
+libretro-bluemsx (0.020140411.svn1291-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Fri, 08 Aug 2014 20:34:00 -0300

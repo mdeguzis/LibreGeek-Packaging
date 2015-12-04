@@ -1,0 +1,191 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: blueMSX
+Source: https://github.com/libretro/blueMSX-libretro
+Comment: This package was debianized by
+ Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br> on Fri, 08 Aug 2014 20:34:00 -0300
+
+
+Files: *
+Copyright: 2003-2014 Daniel Vik
+License: GPL-2+
+
+Files: libretro.h
+Copyright: 2011-2015 The RetroArch Team
+License: Expat
+
+Files: boolean.h
+       libretro.c
+       link.T
+       Makefile.common
+       Makefile.libretro
+Copyright: 2011-2015 The RetroArch Team
+License: GPL-3+
+
+Files: Src/Libretro/Cdrom.c
+Copyright: 2003-2007 Daniel Vik, white cat
+License: GPL-2+
+
+Files: Src/Libretro/Dialog.c
+       Src/Libretro/Input.c
+       Src/Libretro/Menu.c
+       Src/Libretro/Midi.c
+       Src/Libretro/Notifications.c
+       Src/Libretro/Printer.c
+       Src/Libretro/Sound.c
+       Src/Libretro/Uart.c
+       Src/Libretro/VideoIn.c
+Copyright: 2003-2004 Daniel Vikl, Tomas Karlsson
+License: Zlib
+
+Files: Src/Libretro/psp/diet-glob.*
+Copyright: 2001 Guillaume Cottenceau <gc@mandrakesoft.com>
+License: GPL-2+
+Comment: diet libc is licensed under GPL-2+
+
+Files: Src/TinyXML/*
+Copyright: 2000-2013 Lee Thomason
+License: Zlib
+
+Files: Src/SoundChips/Fmopl.c
+       Src/SoundChips/Fmopl.h
+       Src/SoundChips/Ymdeltat.c
+       Src/SoundChips/Ymdeltat.h
+Copyright: 1999, 2000 Tatsuyuki Satoh
+License: GPL-1
+Comment: from fMSXSDL
+
+Files: Src/SoundChips/OpenMsxYM2413.cpp
+       Src/SoundChips/OpenMsxYM2413.h
+Copyright: Mitsutaka Okazaki and Jarek Burczynski
+License: GPL-2+
+Comment: from openMSX, which is licensed under GPL-2+
+
+Files: Src/SoundChips/OpenMsxYMF262.cpp
+       Src/SoundChips/OpenMsxYMF262.h
+Copyright: 2003 Jarek Burczynski
+License: GPL-2+
+Comment: from openMSX, which is licensed under GPL-2+
+
+Files: Src/SoundChips/OpenMsxYMF278.cpp
+       Src/SoundChips/OpenMsxYMF278.h
+Copyright: R. Belmont and O. Galibert
+License: GPL-2+
+Comment: from openMSX, which is licensed under GPL-2+
+
+Files: Src/VideoChips/V9938.c
+       Src/VideoChips/V9938.h
+Copyright: Alex Wulms
+License:
+ This command engine may be used in any MSX emulator. It does not matter
+ under which conditions that the emulator gets distributed. Be it open-
+ source or closed-source. Be it commercially or free-of-charge.
+ .
+ This command engine may not be used in any other kind of softwares.
+ Using this command engine is at own risk. The author is not responsible
+ nor liable for any damages that may occur intentionally or unintentionally
+ from it's usage.
+
+Files: Src/Z80/R800Dasm.c
+Copyright: openMSX
+License: GPL-2+
+Comment: from openMSX, which is licensed under GPL-2+
+
+Files: debian/*
+Copyright: 2014, 2015 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+License: GPL-3+
+
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+
+
+License: Zlib
+ This software is provided 'as-is', without any express or implied
+ warranty. In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ .
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ .
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgement in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+
+
+License: GPL-1
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 1.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335 USA.
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-1'.
+
+
+License: GPL-2+
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1335 USA.
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 2 can be found in the file
+ `/usr/share/common-licenses/GPL-2'.
+
+
+License: GPL-3+
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the full text of the GNU General Public
+ License version 3 can be found in the file
+ `/usr/share/common-licenses/GPL-3'.

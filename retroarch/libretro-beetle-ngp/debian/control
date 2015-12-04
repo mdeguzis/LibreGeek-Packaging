@@ -1,0 +1,23 @@
+Source: libretro-beetle-ngp
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/beetle-ngp-libretro
+
+Package: libretro-beetle-ngp
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the Beetle NGP core
+ This wrapper makes Beetle NGP core API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ Beetle is a fork of Mednafen for libretro. This core emulates the SNK handheld
+ Neo Geo Pocket hardware.
+ .
+ The Mednafen NGP core is itself a fork of NeoPop.
+ .
+ Neo Geo Pocket is (C) by SNK, NeoPop is (C) by neopop_uk. All rights reserved.

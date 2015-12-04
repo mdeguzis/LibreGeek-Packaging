@@ -1,0 +1,3 @@
+# bzr-builder format 0.3 deb-version {debupstream}+r528~6
+lp:~libretro/libretro/beetle-vb-libretro revid:git-v1:085e0b6f37b194b30a86410a216335ed572194ac
+nest packaging lp:~libretro/libretro/beetle-vb-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151022105721-o431cu4gp09bjcah

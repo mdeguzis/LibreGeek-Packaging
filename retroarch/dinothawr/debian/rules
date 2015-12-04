@@ -1,0 +1,46 @@
+#!/usr/bin/make -f
+
+# Copyright (C) 2013 Hunter Kaller
+# Copyright (C) 2014, 2015 Sergio Benjamim
+
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+export DEB_CXXFLAGS_MAINT_STRIP=-O2
+export DEB_CFLAGS_MAINT_STRIP=-O2
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	dh_auto_install
+# dinothawr package
+	# data files
+	cp -r dinothawr/* debian/dinothawr/usr/share/dinothawr/data/
+	cd debian/dinothawr/usr/share/dinothawr/data/ && rm -f *.glsl* *.png *.cfg
+	# dinothawr script
+	cp debian/dinothawr.sh debian/dinothawr/usr/games/dinothawr
+	# config file
+	cp debian/dinothawr.cfg debian/dinothawr/etc/
+	# desktop entry
+	cp debian/dinothawr.desktop debian/dinothawr/usr/share/applications/
+	# icons
+	cp android/icon48x48.png debian/dinothawr/usr/share/icons/hicolor/48x48/apps/dinothawr.png
+	cp android/icon64x64.png debian/dinothawr/usr/share/icons/hicolor/64x64/apps/dinothawr.png
+	cp android/icon72x72.png debian/dinothawr/usr/share/icons/hicolor/72x72/apps/dinothawr.png
+	cp android/icon96x96.png debian/dinothawr/usr/share/icons/hicolor/96x96/apps/dinothawr.png
+	# shaders
+	cp dinothawr/*.glsl* debian/dinothawr/usr/share/dinothawr/shaders/
+	# overlays
+	cp dinothawr/*.cfg debian/dinothawr/usr/share/dinothawr/overlays/
+	cp dinothawr/*.png debian/dinothawr/usr/share/dinothawr/overlays/

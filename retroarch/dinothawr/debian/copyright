@@ -1,0 +1,112 @@
+This package was debianized by Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com> on
+Sat, 10 Oct 2013 13:24:59 -0300
+
+It was downloaded from <https://github.com/libretro/Dinothawr>
+
+Upstream Authors:
+
+    Hans-Kristian Arntzen (aka Themaister) <maister@archlinux.us>
+    Agnes Heyer (aka agnesh) <agnes@retinaleclipse.com>
+
+Files: *
+Copyright: 2012-2014 Themaister, Agnes Heyer
+License:
+    Redistribution and use of the Dinothawr code or any derivative works are
+    permitted provided that the following conditions are met:
+ .
+    Redistributions may not be sold, nor may they be used in a commercial product
+    or activity.
+    Redistributions that are modified from the original source must include the
+    complete source code, including the source code for all components used by a
+    binary built from the modified sources. However, as a special exception, the
+    source code distributed need not include anything that is normally distributed
+    (in either source or binary form) with the major components (compiler, kernel,
+    and so on) of the operating system on which the executable runs, unless that
+    component itself accompanies the executable.
+    Redistributions must reproduce the above copyright notice, this list of
+    conditions and the following disclaimer in the documentation and/or other 
+    materials provided with the distribution.
+ .
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+    ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+    ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+
+Files: audio/utils.cpp
+       audio/utils.h
+Copyright: 2012 Hans-Kristian Arntzen, Agnes Heyer
+License: GPLv3
+
+Files: dinothawr/*
+Copyright: 2012-2014 Themaister, Agnes Heyer
+License: CC BY-NC-SA 3.0
+
+Files: ogg/*
+       vorbis/*
+Copyright: 1994-2010 Xiph.Org Foundation
+License: BSD-STYLE
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions
+    are met:
+ .
+    - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ .
+    - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+    - Neither the name of the Xiph.org Foundation nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+ .
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION
+    OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+    LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+    THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Files: pugixml/*
+Copyright: 2006-2012 Arseny Kapoulkine <arseny.kapoulkine@gmail.com>
+License: The MIT License (MIT)
+
+Files: libretro.h
+Copyright: 2012-2014 The RetroArch Team
+License: The MIT License (MIT)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+ .
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+The Debian packaging is:
+
+    Copyright (C) 2013 Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

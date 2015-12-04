@@ -1,0 +1,35 @@
+Source: dinothawr
+Section: games
+Priority: optional
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://www.libretro.com
+
+Package: libretro-dinothawr
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Suggests: dinothawr
+Description: Libretro wrapper for Dinothawr
+ This wrapper makes Dinothawr API compatible with libretro, thus allowing its
+ use with libretro frontends, such as RetroArch.
+ .
+ Dinothawr is a block pushing puzzle game on slippery surfaces. Our hero is a
+ dinosaur whose friends are trapped in ice. Through puzzles it is your task to
+ free the dinos from their ice prison.
+ .
+ This package provides only the libretro implementation for Dinothawr, you will
+ need the data files for the game (hint: install dinothawr-data).
+
+Package: dinothawr
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, libretro-dinothawr, retroarch
+Suggests: retroarch-joypad-autoconfig
+Description: Block pushing puzzle game
+ Dinothawr is a block pushing puzzle game on slippery surfaces. Our hero is a
+ dinosaur whose friends are trapped in ice. Through puzzles it is your task to
+ free the dinos from their ice prison.
+ .
+ This package provides the game data for Dinothawr (i.e. the game itself). It
+ will need a libretro frontend, such as RetroArch.

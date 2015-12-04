@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Dinothawr
+Type=Application
+GenericName=Dinothawr
+Comment=Block pushing puzzle game on slippery surfaces
+Icon=dinothawr
+Exec=dinothawr
+Terminal=false
+StartupNotify=false
+Categories=Game

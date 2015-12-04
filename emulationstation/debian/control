@@ -1,0 +1,30 @@
+Source: emulationstation
+Section: contrib/misc
+Priority: extra
+Maintainer: Alec Lofquist <allofquist@yahoo.com>
+Build-Depends:	debhelper (>= 9),
+		cmake,
+		g++ (>= 4.8),
+		libsdl2-dev,
+		libasound2-dev,
+		libboost-locale-dev,
+		libboost-system-dev,
+		libboost-filesystem-dev,
+		libboost-date-time-dev,
+		libfreeimage-dev,
+		libfreetype6-dev,
+		libeigen3-dev,
+		libcurl4-openssl-dev,
+		libgl1-mesa-dev
+Standards-Version: 3.9.5
+Homepage: http://www.emulationstation.org
+Vcs-Git: git://github.com/Aloshi/EmulationStation.git
+Vcs-Browser: https://github.com/Aloshi/EmulationStation
+
+Package: emulationstation
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, ttf-dejavu | fonts-dejavu, fonts-droid
+Suggests: emulationstation-theme-simple
+Description: Graphical emulator front-end
+ EmulationStation is a flexible, graphical front-end designed for keyboardless
+ navigation of your retro game collection, across multiple systems.

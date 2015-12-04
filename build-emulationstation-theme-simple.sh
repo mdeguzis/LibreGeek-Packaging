@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-emulationstation.sh
+# Scipt Name:	build-emulationstation-theme-simple.sh
 # Script Ver:	1.0.0
 # Description:	Attempts to builad a deb package from latest emulationstation
 #		github release
 #
-# See:		https://github.com/Aloshi/EmulationStation
+# See:		https://github.com/RetroPie/es-theme-simple
 #
-# Usage:	build-emulationstation.sh
+# Usage:	build-emulationstation-theme-simple.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,13 +19,13 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/Aloshi/EmulationStation"
+git_url="https://github.com/RetroPie/es-theme-simple"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="emulationstation"
+pkgname="emulationstation-theme-simple"
 pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -43,10 +43,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc \
-	debhelper cmake g++ libsdl2-dev	libasound2-dev libboost-locale-dev \
-	libboost-system-dev libboost-filesystem-dev libboost-date-time-dev \
-	libfreeimage-dev libfreetype6-dev libeigen3-dev libcurl4-openssl-dev \
-	libgl1-mesa-dev
+	debhelper rsync
 
 
 }

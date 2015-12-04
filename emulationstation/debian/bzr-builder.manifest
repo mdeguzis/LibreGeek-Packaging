@@ -1,0 +1,3 @@
+# bzr-builder format 0.3 deb-version {debupstream}+r272~2
+lp:~emulationstation/emulationstation/stable revid:git-v1:646bede3d9ec0acf0ae378415edac136774a66c5
+nest packaging lp:~emulationstation/emulationstation/debian debian revid:sergio_br2@yahoo.com.br-20150310003549-1xdidrg5s6syn7g7

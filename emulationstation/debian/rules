@@ -1,0 +1,28 @@
+#!/usr/bin/make -f
+
+# Copyright (C) 2014 Alec Lofquist
+# Copyright (C) 2014 Sergio Benjamim
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+QUILT=QUILT_PATCHES=debian/patches quilt --quiltrc /dev/null
+PATCH := $(QUILT) push -a || [ "$$($(QUILT) applied)" = "$$(grep -v '^\#' debian/patches/series)" ]
+UNPATCH := $(QUILT) pop -a || [ "$$($(QUILT) applied 2>&1)" = "No patches applied" ]
+
+patch:
+	$(PATCH)
+	
+unpatch:
+	$(UNPATCH)
+
+override_dh_auto_configure:
+	cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr .
+
+override_dh_auto_install:
+	$(MAKE) DESTDIR=$(CURDIR)/debian/emulationstation PREFIX=/usr install
+	cp data/resources/window_icon_256.png debian/emulationstation/usr/share/pixmaps/emulationstation.png
+	cp debian/emulationstation.desktop debian/emulationstation/usr/share/applications/

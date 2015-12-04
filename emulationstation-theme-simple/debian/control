@@ -1,0 +1,13 @@
+Source: emulationstation-theme-simple
+Section: contrib/misc
+Priority: extra
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), rsync
+Standards-Version: 3.9.5
+Homepage: http://blog.nilsbyte.de/
+
+Package: emulationstation-theme-simple
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Simple theme for EmulationStation
+ This package provides a simple theme for EmulationStation by nilsbyte.

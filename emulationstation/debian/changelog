@@ -1,0 +1,17 @@
+emulationstation (2.0.1a+r272~2~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Tue, 10 Mar 2015 00:52:40 +0000
+
+emulationstation (2.0.1a-0ubuntu1) UNRELEASED; urgency=low
+
+  * Bump version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Mon, 09 Mar 2015 21:35:00 -0300
+
+emulationstation (2.0.0-0ubuntu1) UNRELEASED; urgency=low
+
+  * Update to latest git version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sun, 30 Nov 2014 23:49:00 -0300

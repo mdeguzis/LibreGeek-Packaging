@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+# Copyright (C) 2014 Sergio Benjamim
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+
+override_dh_auto_build:
+
+override_dh_auto_install:
+	rsync -av --progress . debian/emulationstation-theme-simple/usr/share/emulationstation/themes/simple/ --exclude debian
+	mv debian/emulationstation-theme-simple/usr/share/emulationstation/themes/simple/readme.txt debian/emulationstation-theme-simple/usr/share/doc/emulationstation-theme-simple/readme.txt 

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=EmulationStation
+Type=Application
+GenericName=EmulationStation
+Comment=Graphical emulator front-end
+Icon=/usr/share/pixmaps/emulationstation.png
+Exec=emulationstation
+Terminal=false
+StartupNotify=false
+Categories=Game

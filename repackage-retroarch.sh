@@ -139,7 +139,7 @@ main()
 			
 		else
 		
-			"\n==ERROR==\nPackage ${pkg} build FAILED, please check log.txt\n"
+			echo -e "\n==ERROR==\nPackage ${pkg} build FAILED, please check log.txt\n"
 			echo -e "Continuing in 15 seconds"
 			sleep 15s
 			

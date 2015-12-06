@@ -31,7 +31,7 @@ export extra_opts=$(echo "${@: -1}")
 ###################################
 
 # source args
-$build_opts "$1"
+build_opts="$1"
 cores_num="$2"
 
 # defaults for packaging attempts

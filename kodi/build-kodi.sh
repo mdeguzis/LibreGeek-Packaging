@@ -626,6 +626,7 @@ kodi_post_cfgs()
 # Main order of operations
 main()
 {
+	
 	kodi_prereqs
 	kodi_clone
 	kodi_build

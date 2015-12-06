@@ -49,7 +49,7 @@ set_vars()
 {
 	
 	# build dir
-	build_dir="/home/desktop/build-retroarch-temp"
+	build_dir="$HOME/build-retroarch-temp"
 	
 	# set source
 	repo_src="deb-src http://ppa.launchpad.net/libretro/stable/ubuntu vivid main"
@@ -182,7 +182,7 @@ main()
 		sourcedir="$build_dir"
 		user="mikeyd"
 		host='archboxmtd'
-		destdir="/home/mikeyd/packaging/SteamOS-Tools/incoming/games"
+		destdir="/home/mikeyd/packaging/SteamOS-Tools/incoming/"
 		
 		echo -e "\n"
 		

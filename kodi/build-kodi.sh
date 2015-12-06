@@ -75,27 +75,27 @@ if [[ "$build_opts" == "--cores" ]]; then
 
 	# set cores
 	cores="$core_num"
-	
+
 else
 
 	# default to 2 cores as fallback
 	cores="2"
 fi
-	
+
 
 # assess extra opts from dekstop-software.sh
 if [[ "$extra_opts" == "--package-deb" || "$arg1" == "--package-deb" ]]; then
 
 	# set package to yes if deb generation is requested
 	package_deb="yes"
-	
+
 elif [[ "$extra_opts" == "--skip-build" || "$arg1" == "--skip-build" ]]; then
 
 	# If Kodi is confirmed by user to be built already, allow build
 	# to be skipped and packaging to be attempted directly
 	skip_build="yes"
 	package_deb="yes"
-	
+
 fi
 
 ##################################
@@ -116,46 +116,46 @@ fi
 
 function_install_pkgs()
 {
-	
+
 	# cycle through packages defined
-	
+
 	for PKG in ${PKGS}; 
 	do
-	
+
 		# assess via dpkg OR traditional 'which'
 		PKG_OK_DPKG=$(dpkg-query -W --showformat='${Status}\n' $PKG | grep "install ok installed")
 		PKG_OK_WHICH=$(which $PKG)
-		
+
 		if [[ "$PKG_OK_DPKG" == "" && "$PKG_OK_WHICH" == "" ]]; then
-		
+
 			echo -e "\n==INFO==\nInstalling package: ${PKG}\n"
 			sleep 1s
-			
+
 			if sudo apt-get install ${PKG} -y --force-yes; then
-			
+
 				echo -e "\n${PKG} installed successfully\n"
 				sleep 1s
-			
+
 		else
 				echo -e "Cannot install ${PKG}. Exiting in 15s. \n"
 				sleep 15s
 				exit 1
 			fi
-			
+
 		fi
-	
+
 	done
-	
+
 }
 
 kodi_prereqs()
 {
-	
+
 	# Main build dependencies are installed via desktop-software.sh
 	# from the software list cfgs/software-lists/kodi-src.txt
-	
-	echo -e \n"==> Installing main deps for building\n"
-	
+
+	echo -e "\n==> Installing main deps for building\n"
+
 	PKGS="autoconf automake autopoint autotools-dev bc ccache cmake curl dcadec1 dcadec-dev \
 	doxygen default-jre gawk gperf g++ libao-dev libasound2-dev libass-dev libavahi-client-dev \
 	libavahi-common-dev libbluetooth-dev libbluray-dev libbluray1 libboost-dev libboost-thread-dev \
@@ -168,26 +168,26 @@ kodi_prereqs()
 	libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev libxinerama-dev libxml2-dev libxmu-dev \
 	libxrandr-dev libxslt1-dev libxt-dev libyajl-dev lsb-release nasm python-dev python-imaging python-support \
 	swig unzip uuid-dev yasm zip zlib1g-dev"
-	
+
 	# install dependencies / packages
 	function_install_pkgs
 
 	# required for building kodi debs
 	if [[ "$package_deb" == "yes" ]]; then
-	
+
 		#####################################
 		# Dependencies - Debian sourced
 		#####################################
-	
+
 		echo -e "==> Installing build deps for packaging\n"
 		sleep 2s
-	
+
 		PKGS="build-essential fakeroot devscripts checkinstall cowbuilder pbuilder debootstrap \
 		cvs fpc gdc libflac-dev libsamplerate0-dev libgnutls28-dev"
-		
+
 		# install dependencies / packages
 		function_install_pkgs
-	
+
 		echo -e "\n==> Installing build deps sourced from ppa:team-xbmc/xbmc-ppa-build-depends"
 		sleep 2s
 
@@ -196,97 +196,97 @@ kodi_prereqs()
 		#####################################
 
 		# Info: packages are rebuilt on SteamOS brewmaster, and hosted at packages.libregeek.org
-		
+
 		# Origin: ppa:team-xbmc/ppa 
 		# Only install here if not using auto-build script (which installs them after)
-		
+
 		if [[ "$build_all" != "yes" ]]; then
-		
+
 			PKGS="libcec3 libcec-dev libafpclient-dev libgif-dev libmp3lame-dev libgif-dev libplatform-dev"
-			
+
 			# install dependencies / packages
 			function_install_pkgs
-			
+
 			# Origin: ppa:team-xbmc/xbmc-nightly
 			# It seems shairplay, libshairplay* are too old in the stable ppa
 			PKGS="libshairport-dev libshairplay-dev shairplay"
-			
+
 			# install dependencies / packages
 			function_install_pkgs
-				
+
 		fi
-		
+
 
 	fi
 }
 
 kodi_package_deb()
 {
-	
+
 	# Debian link: 	    https://wiki.debian.org/BuildingTutorial
 	# Ubuntu link: 	    https://wiki.ubuntu.com/PbuilderHowto
 	# XBMC/Kodi readme: https://github.com/xbmc/xbmc/blob/master/tools/Linux/packaging/README.debian
-	
+
 	# Maybe use sudo "bash -c 'cat "TEXT" >> "/etc/sudoers'""
 	# These next 3 lines will need added to /etc/sudoers, if not added already
-	
+
 	# Defaults env_reset,env_keep="DIST ARCH CONCURRENCY_LEVEL"
 	# Cmnd_Alias PBUILDER = /usr/sbin/pbuilder, /usr/bin/pdebuild, /usr/bin/debuild-pbuilder
 	# Desktop ALL=(ALL) PBUILDER
-	
+
 	# copy pbuilder template
 	# If called standalone change copy paths
-	
+
 	############################################################
 	# Assess if we are to build for host/ARCH we have or target
 	############################################################
-	
+
 	# Ensure we are in the proper directory
 	cd "$build_dir"
-	
+
 	# only call if not auto-building
 	if [[ "$build_all" != "yes" ]]; then
-		
+
 		# show tags instead of branches
 		git tag -l --column
-		
+
 		echo -e "\nWhich Kodi release do you wish to build for:"
-		
+
 		# get user choice
 		sleep 0.2s
 		read -erp "Release Choice: " kodi_tag
-		
+
 		# checkout proper release
 		git checkout "tags/${kodi_tag}"
-		
+
 	fi
-	
+
 	# Testing...use our fork with a different changelog setup
-	
+
 	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh 
 	# See: http://unix.stackexchange.com/a/16274
 	sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
-	
+
 	echo -e "\nBuild Kodi for our host/ARCH or for target? [host|target]"
-	
+
 	# get user choice
 	sleep 0.2s
 	read -erp "Choice: " build_choice
 
 	if [[ "$build_choice" == "host" ]]; then
-	
+
 		# build for host type / ARCH ONLY
 		tools/Linux/packaging/mk-debian-package.sh
-		
+
 	elif [[ "$build_choice" == "target" ]]; then
-		
+
 		# ask for DIST target
 		echo -e "\nEnter DIST to build for (see utilities/pbuilder-helper.txt)"
-		
+
 		# get user choice
 		sleep 0.2s
 		read -erp "Choice: " dist_choice
-		
+
 		# add desktop file for SteamOS/BPM
 		touch "$HOME/.pbuilderrc"
 		sudo touch "/root/.pbuilderrc"
@@ -295,24 +295,24 @@ kodi_package_deb()
 
 		# setup dist base
 		if sudo DIST=brewmaster pbuilder create; then
-		
+
 			echo -e "\nBrewmaster environment created successfully!"
-			
+
 		else 
-		
+
 			echo -e "\nBrewmaster environment creation FAILED! Exiting in 10 seconds"
 			sleep 10s
 			exit 1
 		fi
-	
-	
+
+
 		# Clean xbmc pbuilder dir
 		rm -rf "/home/$USER/xbmc-packaging/pbuilder"
 		mkdir -p "/home/$USER/xbmc-packaging/pbuilder"
-		
+
 		# create directory for dependencies
 		mkdir -p "/home/$USER/xbmc-packaging/deps"
-		
+
 		RELEASEV=16 \
 		DISTS="$dist_choice" \
 		ARCHS="amd64" \
@@ -329,14 +329,14 @@ kodi_package_deb()
 
 kodi_clone()
 {
-	
+
 	echo -e "\n==> Cloning the Kodi repository:"
 	echo -e "    $git_url"
 
 	# If git folder exists, evaluate it
 	# Avoiding a large download again is much desired.
 	# If the DIR is already there, the fetch info should be intact
-	
+
 	if [[ -d "$build_dir" ]]; then
 
 		echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
@@ -350,7 +350,7 @@ kodi_clone()
 
 			# attempt git pull, if it doesn't complete reclone
 			if ! git pull; then
-				
+
 				# command failure
 				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 				sleep 2s
@@ -358,8 +358,8 @@ kodi_clone()
 				# create and clone to $HOME/kodi
 				cd
 				git clone ${git_url} ${build_dir}
-				
-				
+
+
 			fi
 
 		elif [[ "$git_choice" == "r" ]]; then
@@ -401,62 +401,62 @@ kodi_build()
 
 	# Skip to debian packaging, if requested
 	if [[ "$skip_build" == "yes" || "$package_deb" == "yes" ]]; then
-	
+
 		# fire off deb packaging attempt
 		echo -e "\n==> Attempting to package existing files in ${build_dir}\n"
 		sleep 2s
-		
+
 		# attempt deb package
 		kodi_package_deb
-		
+
 		echo -e "\nPlease review above output. Exiting script in 15 seconds."
 		exit 1
-		
+
 	fi
 
 	echo -e "\n==> Building Kodi in $build_dir\n"
 
 	# enter build dir
 	cd "$build_dir"
-	
+
 	# checkout target release
 	git checkout "tags/${kodi_tag}"
 
   	# create the Kodi executable manually perform these steps:
 	if ./bootstrap; then
-	
+
 		echo -e "\nBootstrap successful\n"
-		
+
 	else
-	
+
 		echo -e "\nBoostrap failed. Exiting in 10 seconds."
 		sleep 10s
 		exit 1
-		
+
 	fi
 
 	# ./configure <option1> <option2> PREFIX=<system prefix>... 
 	# (See --help for available options). For now, use the default PREFIX
         # A full listing of supported options can be viewed by typing './configure --help'.
 	# Default install path is:
-	
+
 	# FOR PACKAGING DEB ONLY (TESTING)
 	# It may seem that per "http://forum.kodi.tv/showthread.php?tid=80754", we need to
 	# export package config. 
-	
+
 	# Configure with bluray support
 	# Rmove --disable-airplay --disable-airtunes, not working right now
-	
+
 	if ./configure --prefix=/usr --enable-libbluray --enable-airport; then
-	
+
 		echo -e "\nConfigured successfuly\n"
-		
+
 	else
-	
+
 		echo -e "\nConfigure failed. Exiting in 10 seconds."
 		sleep 10s
 		exit 1
-		
+
 	fi
 
 	# make the package
@@ -464,37 +464,37 @@ kodi_build()
      	# concurrent jobs will be used. So for quad-core the command is:
 
 	# make -j4
-	
+
 	# Default core number is 2 if '--cores $n' argument is not specified
 	if make -j${cores}; then
-	
+
 		echo -e "\nKodi built successfuly\n"
-		
+
 	else
-	
+
 		echo -e "\nBuild failed. Exiting in 10 seconds."
 		sleep 10s
 		exit 1
-		
+
 	fi
 
 	# install source build if requested
 	echo -e "\n==> Do you wish to install the built source code? [y/n]"
-	
+
 	# get user choice
 	sleep 0.2s
 	read -erp "Choice: " install_choice
-	
+
 	if [[ "$install_choice" == "y" ]]; then
-	
+
 		sudo make install
-		
+
 	elif [[ "$install_choice" == "n" ]]; then
-	
+
 		echo -e "\nInstallation skipped"
-		
+
 	else
-	
+
 		echo -e "\nInvalid response, skipping installation"
 
 	fi
@@ -539,15 +539,15 @@ show_summary()
 
 	You should now be able to add Kodi as a non-Steam game in Big
 	Picture Mode. Please see see the wiki for more information
-	
+
 	EOF
 	sleep 2s
-	
+
 }
 
 kodi_post_cfgs()
 {
-	
+
 	echo -e "\n==> Adding desktop file and artwork"
 
 	# copy files based of pwd
@@ -564,58 +564,58 @@ kodi_post_cfgs()
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# check if Kodi really installed
 	if [[ -f "/usr/local/bin/kodi" ]]; then
-	
+
 		echo -e "\n==INFO==\nKodi was installed successfully."
-		
-	else 
-	
+
+	else
+
 		echo -e "\n==INFO==\nKodi install unsucessfull\n"
-	
+
 	fi
-	
-	
+
+
 	# If "build_all" is requested, skip user interaction
-	
+
 	if [[ "$build_all" == "yes" ]]; then
-	
+
 		echo -e "\n==INFO==\nAuto-build requested"
 		mv ${build_dir}/*.deb "$auto_build_dir"
 		sleep 2s
-		
+
 	else
-		
+
 		# inform user of packages
 		echo -e "\n############################################################"
 		echo -e "If package was built without errors you will see it below."
 		echo -e "If you don't, please check build dependcy errors listed above."
 		echo -e "############################################################\n"
-		
+
 		echo -e "Showing contents of: ${git_dir}/build: \n"
 		ls "${build_dir}" | grep -E *.deb
-	
+
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
 		read -ep "Choice: " transfer_choice
-		
+
 		if [[ "$transfer_choice" == "y" ]]; then
-		
+
 			# cut files
 			if [[ -d "${build_dir}" ]]; then
 				scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-	
+
 			fi
-			
+
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"
 		fi
 
 	fi
-	
-	
+
+
 }
 
 
@@ -630,7 +630,7 @@ main()
 	kodi_clone
 	kodi_build
 	kodi_post_cfgs
-	
+
 }
 
 #####################################################

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-openpht.sh
-# Script Ver:	1.0.0
+# Script Ver:	1.0.3
 # Description:	Attempts to builad a deb package from latest plexhometheater
 #		github release
 #
@@ -105,9 +105,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	# Exclude vcs project-related files, .git folders are rather large.
-	# https://www.gnu.org/software/tar/manual/html_section/tar_49.html
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" --exclude-vcs "${pkgname}" 
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}" 
 
 	# enter source dir
 	cd "${pkgname}"

@@ -46,6 +46,7 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
+
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc \
 	cmake debhelper cdbs unzip libboost-dev zip libgl1-mesa-dev libglu1-mesa-dev \
@@ -59,6 +60,9 @@ install_prereqs()
 	libmicrohttpd-dev libmodplug-dev librtmp-dev curl libyajl-dev libboost-thread-dev \
 	libboost-system-dev libplist-dev libcec-dev libudev-dev libshairport-dev libtiff5-dev \
 	libtinyxml-dev libmp3lame-dev libva-dev yasm
+
+	# these may not be needed
+	sudo apt-get install -y --force-yes libcec cec-utils dcadec1
 
 }
 

@@ -11,7 +11,7 @@
 #		https://github.com/plexinc/plex-home-theater-public/blob/pht-frodo/README-BUILD-PLEX.md
 #		https://forums.plex.tv/discussion/196117/linux-build#latest
 #
-# See more:	http://www.preining.info/debian/pool/pht/p/plexhometheater/
+# Track:	http://www.preining.info/blog/2015/05/plex-home-theater-1-4-1-for-debian-jessie-and-sid/
 # Usage:	./build-openpht.sh
 #-------------------------------------------------------------------------------
 
@@ -92,9 +92,6 @@ main()
 
         # copy in debian folder and other files
         cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
-        cp "$scriptdir/$pkgname/openpht-steamtile_460x215.png" "${git_dir}/"
-        cp "$scriptdir/$pkgname/openpht.desktop" "${git_dir}/"
-        cp "$scriptdir/$pkgname/openpht.sh" "${git_dir}/"
 
 	#################################################
 	# Build package

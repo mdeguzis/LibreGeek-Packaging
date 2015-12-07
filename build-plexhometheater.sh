@@ -20,8 +20,10 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 #git_url="https://github.com/plexinc/plex-home-theater-public"
-git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
-branch="pht-frodo"
+#git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
+git_url="https://github.com/RasPlex/OpenPHT"
+#branch="pht-frodo"
+branch="openpht-1.5"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -99,8 +101,11 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# copy in debian folder
-	# cp -r $scriptdir/$pkgname/debian "${git_dir}"
+	# copy in debian folder and other files
+	cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
+	cp -r "$scriptdir/$pkgname/plex-steamtile_460x215.png" "${git_dir}"
+	cp -r "$scriptdir/$pkgname/plexhometheater.desktop" "${git_dir}"
+	cp -r "$scriptdir/$pkgname/plexhometheater.sh" "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"

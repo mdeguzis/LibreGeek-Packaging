@@ -89,7 +89,7 @@ main()
 	git clone -b "$branch" "$git_url" "$git_dir"
 
         # copy in debian folder and other files
-        cp -r $scriptdir/$pkgname/debian" "${git_dir}"
+        cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
         cp "$scriptdir/$pkgname/openpht-steamtile_460x215.png" "${git_dir}/"
         cp "$scriptdir/$pkgname/openpht.desktop" "${git_dir}/"
         cp "$scriptdir/$pkgname/openpht.sh" "${git_dir}/"

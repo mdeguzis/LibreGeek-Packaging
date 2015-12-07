@@ -105,7 +105,9 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	# Exclude vcs project-related files, .git folders are rather large.
+	# https://www.gnu.org/software/tar/manual/html_section/tar_49.html
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" --exclude-vcs "${pkgname}" 
 
 	# enter source dir
 	cd "${pkgname}"

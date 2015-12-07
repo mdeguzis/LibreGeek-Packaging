@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-retroarch-assets.sh
-# Script Ver:	1.2.1
+# Script Ver:	1.2.2
 # Description:	Attempts to build a deb package from latest retroarch
 #		assets github release
 #
@@ -26,7 +26,7 @@ branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="retroarch-assets"
-pkgver="0.1+git+SteamOS2"
+pkgver="0.1+git+bsos1"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

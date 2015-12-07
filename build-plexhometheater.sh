@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-retroarch.sh
+# Scipt Name:	build-plexhometheater.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to build a deb package from latest retroarch
+# Description:	Attempts to builad a deb package from latest plexhometheater
 #		github release
 #
-# See:		https://github.com/libretro/RetroArch
+# See:		https://github.com/plexinc/plex-home-theater-public
 #
-# Usage:	build-retroarch.sh
+# Usage:	build-plexhometheater.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,15 +19,15 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/RetroArch"
-rel_target="v1.2.2"
-#rel_target="master"
+#git_url="https://github.com/plexinc/plex-home-theater-public"
+git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
+branch="pht-frodo"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="retroarch"
-pkgver="1.2.2+git+bsos"
+pkgname="plexhometheater"
+pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -43,15 +43,18 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config \
-	checkinstall bc build-essential devscripts make git-core curl \
-	g++ pkg-config libglu1-mesa-dev freeglut3-dev mesa-common-dev \
-	libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev \
-	libsdl-ttf2.0-dev nvidia-cg-toolkit nvidia-cg-dev libasound2-dev \
-	unzip samba smbclient libsdl2-dev libxml2-dev libavcodec-dev \
-	libavformat-dev libavutil-dev libswscale-dev libv4l-dev \
-	libxinerama-dev libudev-dev libusb-1.0-0-dev libxv-dev libopenal-dev \
-	libjack-jackd2-dev libgbm-dev libegl1-mesa-dev python3-dev libavdevice-dev
+	sudo apt-get -y --force-yes install build-essential pkg-config bc \
+	cmake debhelper cdbs unzip libboost-dev zip libgl1-mesa-dev libglu1-mesa-dev \
+	libglew-dev libmad0-dev libjpeg-dev libsamplerate-dev libogg-dev libvorbis-dev \
+	libfreetype6-dev libfontconfig-dev libbz2-dev libfribidi-dev libsqlite3-dev \
+	libasound2-dev libpng12-dev libpcre3-dev liblzo2-dev libcdio-dev libsdl-dev \
+	libsdl-image1.2-dev libsdl-mixer1.2-dev libenca-dev libjasper-dev libxt-dev \
+	libxmu-dev libcurl4-gnutls-dev libdbus-1-dev libpulse-dev libavahi-common-dev \
+	libavahi-client-dev libxrandr-dev libmpeg2-4-dev libass-dev libflac++-dev \
+	libflac-dev zlib1g-dev libsmbclient-dev libiso9660-dev libssl-dev libvdpau-dev \
+	libmicrohttpd-dev libmodplug-dev librtmp-dev curl libyajl-dev libboost-thread-dev \
+	libboost-system-dev libplist-dev libcec-dev libudev-dev libshairport-dev libtiff5-dev \
+	libtinyxml-dev libmp3lame-dev libva-dev yasm
 
 }
 
@@ -81,11 +84,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
-
-
-	# inject .desktop file (not found in release archives)
-	cp -r "$scriptdir/retroarch/retroarch.desktop" "$git_dir/"
+	git clone -b "$branch" "$git_url" "$git_dir"
 
 	#################################################
 	# Build package
@@ -101,14 +100,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/retroarch/debian" "${git_dir}"
-
-	###############################################################
-	# correct any files needed here that you can ahead of time
-	###############################################################
-
-	# For whatever reason, some "defaults" don't quite work
-	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/retroarch.cfg"
+	# cp -r $scriptdir/$pkgname/debian "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"
@@ -146,6 +138,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
+	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
@@ -209,4 +202,3 @@ main()
 
 # start main
 main
-

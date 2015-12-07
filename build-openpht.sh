@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-plexhometheater.sh
+# Scipt Name:	build-openpht.sh
 # Script Ver:	1.0.0
 # Description:	Attempts to builad a deb package from latest plexhometheater
 #		github release
 #
-# See:		https://github.com/plexinc/plex-home-theater-public
+# See:		https://github.com/RasPlex/OpenPHT
 #
-# Usage:	build-plexhometheater.sh
+# Usage:	build-openpht.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ branch="openpht-1.5"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="plexhometheater"
+pkgname="openpht"
 pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -88,6 +88,12 @@ main()
 	# clone
 	git clone -b "$branch" "$git_url" "$git_dir"
 
+        # copy in debian folder and other files
+        cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
+        cp -r "$scriptdir/$pkgname/openpht_460x215.png" "${git_dir}/"
+        cp -r "$scriptdir/$pkgname/openpht.desktop" "${git_dir}/"
+        cp -r "$scriptdir/$pkgname/openpht.sh" "${git_dir}/"
+
 	#################################################
 	# Build package
 	#################################################
@@ -101,12 +107,6 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# copy in debian folder and other files
-	cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
-	cp -r "$scriptdir/$pkgname/plex-steamtile_460x215.png" "${git_dir}"
-	cp -r "$scriptdir/$pkgname/plexhometheater.desktop" "${git_dir}"
-	cp -r "$scriptdir/$pkgname/plexhometheater.sh" "${git_dir}"
-
 	# enter source dir
 	cd "${pkgname}"
 
@@ -118,6 +118,7 @@ main()
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
+	  * This pacakge is made using the OpenPHT fork of PHT
 
 	 -- $uploader  $date_long
 

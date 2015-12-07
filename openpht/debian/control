@@ -1,7 +1,7 @@
-Source: plexhometheater
+Source: openpht
 Section: universe/video
 Priority: optional
-Maintainer: Plex Inc <linux@plexapp.com>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
  cdbs,
  unzip,
@@ -73,7 +73,7 @@ Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
 # libswresample-dev (>= 0.10),
 # libavdevice-dev (>= 0.10)
  
-Package: plexhometheater
+Package: openpht
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, ttf-ubuntu-font-family, libshairport1 | libshairport2, libcec (>= 2.1) | libcec2, libplist1 | libplist2
 Description: The most awesome Media Center you'll ever need.

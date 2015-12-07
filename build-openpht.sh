@@ -11,6 +11,7 @@
 #		https://github.com/plexinc/plex-home-theater-public/blob/pht-frodo/README-BUILD-PLEX.md
 #		https://forums.plex.tv/discussion/196117/linux-build#latest
 #
+# See more:	http://www.preining.info/debian/pool/pht/p/plexhometheater/
 # Usage:	./build-openpht.sh
 #-------------------------------------------------------------------------------
 

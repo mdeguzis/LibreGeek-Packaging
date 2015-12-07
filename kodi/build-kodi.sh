@@ -27,6 +27,30 @@ rm -f "kodi-build-log.txt"
 export extra_opts=$(echo "${@: -1}")
 
 ###################################
+# package vars
+###################################
+
+uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+maintainer="ProfessorKaos64"
+pkgrev="1"
+dist_rel="brewmaster"
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
+
+# Do not set release tags if auto-building
+if [[ "$build_all" != "yes" ]]; then
+
+	# Set tags manually in script
+	kodi_release="Isengard"
+	kodi_tag="15.2-Isengard"
+	pkgver="$kodi_tag"
+
+fi
+
+# Set target for git source author
+repo_target="xbmc"
+
+###################################
 # global vars
 ###################################
 
@@ -39,17 +63,6 @@ cores_num="$2"
 package_deb="no"
 skip_to_build="no"
 
-# Do not set release tags if auto-building
-if [[ "$build_all" != "yes" ]]; then
-
-	# Set tags manually in script
-	kodi_release="Isengard"
-	kodi_tag="15.2-Isengard"
-
-fi
-
-# Set target
-repo_target="xbmc"
 
 # Set buld dir based on repo target to avoid recloning for different targets
 if [[ "$repo_target" != "xbmc" ]]; then
@@ -258,14 +271,31 @@ kodi_package_deb()
 
 		# checkout proper release
 		git checkout "tags/${kodi_tag}"
+		
+		# set version to tag
+		pkgver="$kodi_tag"
 
 	fi
-
-	# Testing...use our fork with a different changelog setup
-
+	
+	
 	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh 
 	# See: http://unix.stackexchange.com/a/16274
-	sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
+	# sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|xbmc/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
+
+	# Create changelog with standard setup
+
+	cat <<-EOF> changelog.in
+	$pkgname ($pkgver) $dist_rel; urgency=low
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+	
+	 -- $uploader  $date_long
+	
+	EOF
+	
+	# Perform a little trickery to update existing changelog
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 
 	echo -e "\nBuild Kodi for our host/ARCH or for target? [host|target]"
 

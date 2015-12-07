@@ -8,9 +8,10 @@
 #		github release
 #
 # See:		https://github.com/RasPlex/OpenPHT
+#		https://github.com/plexinc/plex-home-theater-public/blob/pht-frodo/README-BUILD-PLEX.md
+#		https://forums.plex.tv/discussion/196117/linux-build#latest
 #
-# Usage:	build-openpht.sh
-#
+# Usage:	./build-openpht.sh
 #-------------------------------------------------------------------------------
 
 arg1="$1"

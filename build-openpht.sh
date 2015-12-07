@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-openpht.sh
-# Script Ver:	1.0.3
+# Script Ver:	1.0.5
 # Description:	Attempts to builad a deb package from latest plexhometheater
 #		github release
 #
@@ -90,7 +90,7 @@ main()
 
         # copy in debian folder and other files
         cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
-        cp -r "$scriptdir/$pkgname/openpht_460x215.png" "${git_dir}/"
+        cp -r "$scriptdir/$pkgname/openpht-steamtile_460x215.png" "${git_dir}/"
         cp -r "$scriptdir/$pkgname/openpht.desktop" "${git_dir}/"
         cp -r "$scriptdir/$pkgname/openpht.sh" "${git_dir}/"
 

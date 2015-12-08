@@ -52,7 +52,7 @@ if [[ ! -f "~/.quiltrc-dpkg" ]]; then
   
 fi
 
-cat >>~/.quiltrc-dpkg <<EOF
+cat <<-EOF > $HOME/.quiltrc-dpkg
 d=. ; while [ ! -d $d/debian -a `readlink -e $d` != / ]; do d=$d/..; done
 if [ -d $d/debian ] && [ -z $QUILT_PATCHES ]; then
     # if in Debian packaging tree with unset $QUILT_PATCHES
@@ -63,6 +63,21 @@ if [ -d $d/debian ] && [ -z $QUILT_PATCHES ]; then
     QUILT_COLORS="diff_hdr=1;32:diff_add=1;34:diff_rem=1;31:diff_hunk=1;33:diff_ctx=35:diff_cctx=33"
     if ! [ -d $d/debian/patches ]; then mkdir $d/debian/patches; fi
 fi
+EOF
+
+
+cat <<-EOF > $HOME/.quiltrc
+for where in ./ ../ ../../ ../../../ ../../../../ ../../../../../; do
+if [ -e ${where}debian/rules -a -d ${where}debian/patches ]; then
+        export QUILT_PATCHES=debian/patches
+        break
+fi
+done
+
+QUILT_PUSH_ARGS="--color=auto"
+QUILT_DIFF_ARGS="--no-timestamps --no-index -p ab --color=auto"
+QUILT_REFRESH_ARGS="--no-timestamps --no-index -p ab"
+QUILT_DIFF_OPTS='-p'
 EOF
 
 # source bashrc

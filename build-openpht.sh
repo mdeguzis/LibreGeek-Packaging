@@ -61,8 +61,8 @@ install_prereqs()
 	libboost-system-dev libplist-dev libcec-dev libudev-dev libshairport-dev libtiff5-dev \
 	libtinyxml-dev libmp3lame-dev libva-dev yasm
 
-	# these may not be needed
-	sudo apt-get install -y --force-yes libcec cec-utils dcadec1
+	# libcec
+	sudo apt-get install -y --force-yes libcec3 dcadec1
 
 }
 
@@ -108,15 +108,27 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}" 
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# enter source dir
 	cd "${pkgname}"
 
+        #################################
+        # Patch files here
+        #################################
+
+        echo -e "\n==> Applying patches\n"
+	sleep 3s
+
+	# Patch origin: http://www.preining.info/debian/pool/pht/p/plexhometheater/
+	# Version pack: 1.4.1-2.debian.tar.xz
+        quilt push fix-cec-new
+	quilt push cec3
+
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -153,13 +165,13 @@ main()
 	#################################################
 	# Post install configuration
 	#################################################
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)

@@ -50,6 +50,7 @@ if [[ "$arch_check" != "i386" ]]; then
 	#Proceeding in 10s...
 	#EOF
 	#sleep 10s
+	:
 	
 fi
 

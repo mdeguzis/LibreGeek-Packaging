@@ -41,7 +41,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
 # Check for i386 environment, warn user before building
 arch_check=$(uname -m)
-if [[ "$arch_check" != "i386" ]]
+if [[ "$arch_check" != "i386" ]]; then
 
 	#echo<<- EOF
 	#WARNING! - It is highly suggested you perform this build in a 32 bit

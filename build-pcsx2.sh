@@ -6,6 +6,8 @@
 # Scipt Name:	  build-pcsx2.sh
 # Script Ver:	  0.1.1
 # Description:	  Attempts to build a deb package from PCSX2 git source
+#		  It is highly suggested to build in a 32 bit environment
+#		  https://github.com/ProfessorKaos64/RetroRig/pull/85
 #
 # See:		  https://code.google.com/p/pcsx2/wiki/CompilationGuideForLinux
 # Usage:	  ./build-pcsx2.sh

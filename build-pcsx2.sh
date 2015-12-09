@@ -70,11 +70,11 @@ install_prereqs()
 
 	# 32-bit build depedencies required to build on x86_64
 	sudo apt-get install -y --force-yes libaio-dev:i386 libasound2-dev:i386 libbz2-dev:i386 \
-	libcg:i386 libcggl:i386 libegl1-mesa-dev:i386 libgl1-mesa-dev:i386 libglew-dev:i386 \
-	libglu1-mesa-dev:i386 xlibmesa-glu-dev:i386 libwxgtk3.0-dev:i386 libjpeg62-turbo-dev:i386 \
-	libsdl1.2-dev:i386 libsoundtouch-dev:i386 libsparsehash-dev libwxbase3.0-dev:i386 \
+	libcg:i386 libcggl:i386 libwayland-dev:i386 libegl1-mesa-dev:i386 libgl1-mesa-dev:i386 libglew-dev:i386 \
+	libglu1-mesa-dev:i386 libglu1-mesa-dev:i386 libwxgtk3.0-dev:i386 libjpeg62-turbo-dev:i386 \
+	libfreetype6-dev:i386 libdirectfb-dev:i386 libglib2.0-dev:i386 libavahi-client-dev:i386 libpulse-dev:i386 libsdl1.2-dev:i386 libsoundtouch-dev:i386 libsparsehash-dev libwxbase3.0-dev:i386 \
 	libx11-dev:i386 nvidia-cg-dev:i386 nvidia-cg-toolkit portaudio19-dev:i386 zlib1g-dev:i386 
-	
+
 	# Builing on 32 bit directly:
 	#libaio-dev libpng++-dev libsoundtouch-dev \
 	#libwxbase3.0-dev libwxgtk3.0-dev portaudio19-dev libbz2-dev libgtk2.0-dev

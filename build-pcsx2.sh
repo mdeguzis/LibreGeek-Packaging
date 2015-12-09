@@ -4,7 +4,7 @@
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  build-pcsx2.sh
-# Script Ver:	  0.3.1
+# Script Ver:	  0.3.5
 # Description:	  Attempts to build a deb package from PCSX2 git source
 #		  It is highly suggested to build in a 32 bit environment!!!
 #		  Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
@@ -71,9 +71,9 @@ install_prereqs()
 	# 32-bit build depedencies required to build on x86_64
 	sudo apt-get install -y --force-yes libaio-dev:i386 libasound2-dev:i386 libbz2-dev:i386 \
 	libcg:i386 libcggl:i386 libegl1-mesa-dev:i386 libgl1-mesa-dev:i386 libglew-dev:i386 \
-	libglu1-mesa-dev:i386 llibwxgtk3.0-dev:i386 libjpeg62-turbo-dev:i386 libsdl1.2-dev:i386 \
-	libsoundtouch-dev:i386 libsparsehash-dev libwxbase3.0-dev:i386 libx11-dev:i386 nvidia-cg-dev:i386 \
-	nvidia-cg-toolkit portaudio19-dev:i386 zlib1g-dev:i386 
+	libglu1-mesa-dev:i386 xlibmesa-glu-dev:i386 libwxgtk3.0-dev:i386 libjpeg62-turbo-dev:i386 \
+	libsdl1.2-dev:i386 libsoundtouch-dev:i386 libsparsehash-dev libwxbase3.0-dev:i386 \
+	libx11-dev:i386 nvidia-cg-dev:i386 nvidia-cg-toolkit portaudio19-dev:i386 zlib1g-dev:i386 
 	
 	# Builing on 32 bit directly:
 	#libaio-dev libpng++-dev libsoundtouch-dev \

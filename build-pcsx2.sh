@@ -67,7 +67,7 @@ install_prereqs()
 		sleep .5s
 		read -erp "Choice: " build_choice
 	
-		If [[ "$build_choice" == "y" ]]; then 
+		if [[ "$build_choice" == "y" ]]; then 
 		
 			# 32-bit build depedencies required to build on x86_64
 			sudo apt-get install -y --force-yes libaio-dev:i386 libasound2-dev:i386 \

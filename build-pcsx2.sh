@@ -93,7 +93,7 @@ main()
 	cd pcsx2*
 
 	# Add in debian folder
-	cp -r $scriptdir/$pkgname/debian .
+	cp -r debian-packager debian
 
 	# Change version, uploader, insert change log comments
 	sed -i "s|version_placeholder|$pkgver-$pkgrev|g" debian/changelog

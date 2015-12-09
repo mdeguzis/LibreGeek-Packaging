@@ -39,6 +39,20 @@ git_url="https://github.com/PCSX2/pcsx2"
 # package vars
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
+# Check for i386 environment, warn user before building
+arch_check=$(uname -m)
+if [[ "$arch_check" != "i386" ]]
+
+	#echo<<- EOF
+	#WARNING! - It is highly suggested you perform this build in a 32 bit
+	#environment! If your build fails, please consider doing so.
+
+	#Proceeding in 10s...
+	#EOF
+	#sleep 10s
+	
+fi
+
 install_prereqs()
 {
 	clear
@@ -53,8 +67,16 @@ install_prereqs()
 	echo -e "\n==> Installing pcsx2 build dependencies...\n"
 	sleep 2s
 
-	sudo apt-get install -y --force-yes libaio-dev libpng++-dev libsoundtouch-dev \
-	libwxbase3.0-dev libwxgtk3.0-dev portaudio19-dev libbz2-dev libgtk2.0-dev
+	# 32-bit build depedencies required to build on x86_64
+	sudo apt-get install -y --force-yes libaio-dev:i386 libasound2-dev:i386 libbz2-dev:i386 \
+	libcg:i386 libcggl:i386 libegl1-mesa-dev:i386 libgl1-mesa-dev:i386 libglew-dev:i386 \
+	libglu1-mesa-dev:i386 libgtk2.0-dev:i386 libjpeg-dev:i386 libsdl1.2-dev:i386 libsoundtouch-dev:i386 \
+	libsparsehash-dev libwxbase2.8-dev:i386 libwxgtk2.8-dev:i386 libx11-dev:i386 nvidia-cg-dev:i386 \
+	nvidia-cg-toolkit portaudio19-dev:i386 zlib1g-dev:i386 
+	
+	# Builing on 32 bit directly:
+	#libaio-dev libpng++-dev libsoundtouch-dev \
+	#libwxbase3.0-dev libwxgtk3.0-dev portaudio19-dev libbz2-dev libgtk2.0-dev
 
 }
 

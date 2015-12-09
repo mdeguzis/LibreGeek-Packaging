@@ -58,7 +58,7 @@ install_prereqs()
 	arch_check=$(uname -m)
 	if [[ "$arch_check" != "i386" ]]; then
 	
-		echo<<- EOF
+		cat <<-EOF
 		WARNING! - It is highly suggested you perform this build in a 32 bit
 		environment! If your build fails, please consider doing so.
 	

@@ -53,7 +53,7 @@ install_prereqs()
 	sleep 2s
 
 	sudo apt-get install -y --force-yes libaio-dev libpng++-dev libsoundtouch-dev \
-	libwxbase3.0-dev libwxgtk3.0-dev portaudio19-dev
+	libwxbase3.0-dev libwxgtk3.0-dev portaudio19-dev libbz2-dev libgtk2.0-dev
 
 }
 
@@ -104,11 +104,13 @@ main()
 	# Create basic changelog format
 	cat <<-EOF> changelog.in
 	$pkgname ($pkgver) $dist_rel; urgency=low
+	
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 
 	 -- $uploader  $date_long
+	 
 	EOF
 
 	# Perform a little trickery to update existing changelog or create

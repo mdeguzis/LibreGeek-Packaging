@@ -24,7 +24,8 @@ src_cmd=""
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="pcsx2.snapshot"
-pkgver="${date_short}+git+bsos"
+# pkgver auto obtained from tarball filename
+# pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -103,7 +104,7 @@ main()
 
 	# Create basic changelog format
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 	
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

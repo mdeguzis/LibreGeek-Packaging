@@ -4,10 +4,10 @@
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  build-pcsx2.sh
-# Script Ver:	  0.1.1
+# Script Ver:	  0.3.1
 # Description:	  Attempts to build a deb package from PCSX2 git source
-#		  It is highly suggested to build in a 32 bit environment
-#		  https://github.com/ProfessorKaos64/RetroRig/pull/85
+#		  It is highly suggested to build in a 32 bit environment!!!
+#		  Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
 #
 # See:		  https://code.google.com/p/pcsx2/wiki/CompilationGuideForLinux
 # Usage:	  ./build-pcsx2.sh
@@ -20,11 +20,15 @@ time_stamp_start=(`date +"%T"`)
 # reset source command for while loop
 src_cmd=""
 
-# vars for package
+# package vars
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
 pkgname="pcsx2.snapshot"
-#pkgver="20151003+git"
+pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
+uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+maintainer="ProfessorKaos64"
 
 # build dirs
 build_dir="/home/desktop/build-pcsx2-temp"

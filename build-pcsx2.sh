@@ -97,15 +97,28 @@ main()
 	# Add in debian folder
 	cp -r debian-packager debian
 
-	# Change version, uploader, insert change log comments
-	sed -i "s|version_placeholder|$pkgver-$pkgrev|g" debian/changelog
-	sed -i "s|uploader|$uploader|g" debian/changelog
-	sed -i "s|dist_rel|$dist_rel|g" debian/changelog
+	# Create basic changelog format
+	cat <<-EOF> changelog.in
+	$pkgname ($pkgver) $dist_rel; urgency=low
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+
+	 -- $uploader  $date_long
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 
 	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for build. Please ensure there is a revision number"
+	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
 	nano debian/changelog
+
+ 	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
 
 	############################
 	# proceed to DEB BUILD

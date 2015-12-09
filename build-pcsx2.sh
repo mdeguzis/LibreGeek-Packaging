@@ -60,7 +60,9 @@ install_prereqs()
 	
 		cat <<-EOF
 		WARNING! - It is highly suggested you perform this build in a 32 bit
-		environment! If your build fails, please consider doing so.
+		environment! If your build fails, please consider doing so. If you 
+		are using a 32 bit chroot for SteamOS built using ./build-test-chroot,
+		this may be a false flag. In this case, answer "y".
 	
 		Proceed [y/n]?
 		EOF

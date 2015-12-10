@@ -106,7 +106,7 @@ main()
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 	  * ***** Full list of commits *****
-	  $commits_full
+	$commits_full
 
 	 -- $uploader  $date_long
 

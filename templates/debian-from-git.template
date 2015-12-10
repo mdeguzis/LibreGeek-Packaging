@@ -92,12 +92,19 @@ main()
 	# Create basic changelog
 	# Please* ammend/change the bulleted lines as you see fit!
 	
+	# (Optional) - Add full or truncated (todo) commits to changelog
+	# Remove $commits_* var from changelog.in if you do not wish to include these
+	# Note that the var must only* be on TAB in, as it is formatted with the 
+	# prerequisite two spaces and *
+	commits_full=$(git log --pretty=format:"  * %h %s")
+	
 	cat <<-EOF> changelog.in
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
+	$commits_full
 	
 	 -- $uploader $date_long
 	

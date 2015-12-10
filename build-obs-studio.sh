@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-obs-studio.sh
-# Script Ver:	1.0.
+# Script Ver:	1.0.0
 # Description:	Attempts to build a deb package from latest obs-studio
 #		github release
 #
@@ -20,13 +20,13 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/jp9000/obs-studio"
-rel_target="0.12.2"
+rel_target="0.12.3"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="obs-studio"
-pkgver="0.12.2+git+SteamOS2"
+pkgver="$rel_target+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -102,7 +102,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	cp -r $scriptdir/$pkgname/debian "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"

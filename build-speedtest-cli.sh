@@ -18,9 +18,12 @@ time_stamp_start=(`date +"%T"`)
 # upstream URL
 git_url="https://github.com/sivel/speedtest-cli"
 
+
 # package vars
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
 pkgname="speedtest-cli"
-pkgver="20151006+git"
+pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -43,65 +46,78 @@ install_prereqs()
 
 main()
 {
-	
+
 	# create build_dir
 	if [[ -d "$build_dir" ]]; then
-	
+
 		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
-		
+
 	else
-		
+
 		mkdir -p "$build_dir"
-		
+
 	fi
-	
+
 	# enter build dir
 	cd "$build_dir" || exit
 
 	# install prereqs for build
 	install_prereqs
-	
+
 	# Clone upstream source code
-	
+
 	echo -e "\n==> Obtaining upstream source code\n"
-	
+
 	git clone "$git_url" "$git_dir"
- 
+
 	#################################################
 	# Build speedtest-cli
 	#################################################
-	
+
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	
+
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
-	
+
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
-	
-	# emter source dir
-	cd "${pkgname}"
-  	
+
 	# copy in debian folder/files
 	mkdir debian
-	cp -r "$scriptdir/$pkgname/debian" .
-	
-	# copy debian shell changelog from SteamOS-Tools
-	cp "$scriptdir/debian/changelog" "debian/changelog"
-	
-	# Change version, uploader, insert change log comments
-	sed -i "s|version_placeholder|$pkgver-$pkgrev|g" debian/changelog
-	sed -i "s|uploader|$uploader|g" debian/changelog
-	sed -i "s|dist_rel|$dist_rel|g" debian/changelog
-	
+	cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
+
+	# enter source dir
+	cd "${git_dir}"
+
+	# Create basic changelog format
+	# This addons build cannot have a revision
+	cat <<-EOF> changelog.in
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
+
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+
+	 -- $uploader  $date_long
+
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
 	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for build. Please ensure there is a revision number"
+	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
 	nano debian/changelog
- 
+
+	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
+
 	#################################################
 	# Build Debian package
 	#################################################
@@ -114,11 +130,11 @@ main()
 	#################################################
 	# Post install configuration
 	#################################################
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
 	
 	# note time ended

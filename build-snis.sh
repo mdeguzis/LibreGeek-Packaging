@@ -26,7 +26,7 @@ rel_target="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="snis"
-pkgver="${date_short}+git+SteamOS2"
+pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -95,6 +95,8 @@ main()
 	# There seems to be a missing man page, corrected in forked makefile
 	# See: https://github.com/smcameron/space-nerds-in-space/issues/72
 
+	commits_full=$(git log --pretty=format:"  * %h %s")
+
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
@@ -103,6 +105,8 @@ main()
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
+	  * ***** Full list of commits *****
+	  $commits_full
 
 	 -- $uploader  $date_long
 

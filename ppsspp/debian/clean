@@ -1,0 +1,11 @@
+git-version.cpp
+ppge_atlas.zim.png
+ui_atlas.zim.png
+ui_atlas_high.zim.png
+Core/Util/ppge_atlas.cpp
+Core/Util/ppge_atlas.h
+UI/ui_atlas.cpp
+UI/ui_atlas.h
+assets/ppge_atlas.zim
+assets/ui_atlas.zim
+assets/ui_atlas_lowmem.zim

@@ -1,0 +1,63 @@
+Source: ppsspp
+Section: games
+Priority: optional
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9),
+               clang [armhf],
+               cmake,
+               fonts-dejavu-core,
+               fonts-droid,
+               fonts-liberation,
+               fonts-mona,
+               fonts-nanum,
+               fonts-roboto,
+               fonts-unfonts-core,
+               libfreetype6-dev,
+               libglew-dev,
+               libqt5opengl5-dev,
+               libsdl2-dev,
+               libsnappy-dev,
+               libzip-dev,
+               qt5-qmake,
+               qtbase5-dev,
+               qttools5-dev-tools,
+               ttf-unifont,
+               zlib1g-dev
+Standards-Version: 3.9.5
+Homepage: http://www.ppsspp.org
+
+Package: ppsspp
+Architecture: any
+Depends: ppsspp-common (= ${source:Version}), ${misc:Depends}, ${shlibs:Depends}
+Replaces: ppsspp-qt (<< 1.0.1+r87.f4.p3.l1620.a161.t83~)
+Breaks: ppsspp-qt (<< 1.0.1+r87.f4.p3.l1620.a161.t83~)
+Description: Sony PSP emulator
+ PPSSPP can run your PSP games on your PC in full HD resolution. It can even
+ upscale textures that would otherwise be too blurry as they were made for
+ the small screen of the original PSP.
+ .
+ All trademarks are property of their respective owners. The emulator is for
+ educational and development purposes only and it may not be used to play games
+ you do not legally own.
+
+Package: ppsspp-common
+Architecture: all
+Depends: ${misc:Depends}
+Breaks: ppsspp-common (<< 1.1.1-r93.f4.p3.l1635.a161.t83~37~), ppsspp-qt (<< 1.1.1-r93.f4.p3.l1635.a161.t83~37~), ppsspp-sdl (<< 1.1.1-r93.f4.p3.l1635.a161.t83~31~)
+Description: Common files for PPSSPP
+ PPSSPP can run your PSP games on your PC in full HD resolution. It can even 
+ upscale textures that would otherwise be too blurry as they were made for 
+ the small screen of the original PSP.
+ .
+ All trademarks are property of their respective owners. The emulator is for 
+ educational and development purposes only and it may not be used to play games
+ you do not legally own.
+ .
+ This package provides common files for PPSSPP.
+
+Package: ppsspp-qt
+Architecture: all
+Section: oldlibs
+Depends: ppsspp, ${misc:Depends}
+Description: Transitional package for ppsspp-qt
+ This is a transitional dummy package for ppsspp-qt. It can safely be removed.

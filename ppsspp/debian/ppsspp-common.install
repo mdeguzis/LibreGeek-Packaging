@@ -1,0 +1,14 @@
+assets/unix-icons/hicolor/*  usr/share/icons/hicolor
+assets/7z.png                usr/share/ppsspp/assets
+assets/compat.ini            usr/share/ppsspp/assets
+assets/knownfuncs.ini        usr/share/ppsspp/assets
+assets/langregion.ini        usr/share/ppsspp/assets
+assets/ppge_atlas.zim        usr/share/ppsspp/assets
+assets/rargray.png           usr/share/ppsspp/assets
+assets/ui_atlas.zim          usr/share/ppsspp/assets
+assets/ui_atlas_lowmem.zim   usr/share/ppsspp/assets
+assets/unknown.png           usr/share/ppsspp/assets
+assets/zip.png               usr/share/ppsspp/assets
+flash0/*                     usr/share/ppsspp/assets/flash0
+lang/*                       usr/share/ppsspp/assets/lang
+assets/shaders/*             usr/share/ppsspp/assets/shaders

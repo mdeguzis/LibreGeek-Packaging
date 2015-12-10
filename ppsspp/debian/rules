@@ -1,0 +1,57 @@
+#!/usr/bin/make -f
+
+# Copyright (C) 2014, 2015 Sergio Benjamim
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software Foundation,
+# Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+export QT_SELECT := qt5
+
+ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+# See issue #7817
+ifeq ($(ARCH),armhf)
+COMPILER=QMAKE_CC=clang QMAKE_CXX=clang++
+endif
+
+%:
+	dh $@ --buildsystem=qmake --sourcedirectory="Qt/" --parallel
+
+override_dh_auto_configure:
+	dh_auto_configure -- $(COMPILER) PPSSPPQt.pro
+
+override_dh_auto_build:
+ifeq ($(ARCH),amd64)
+	cd ffmpeg/ && \
+	./linux_x86-64.sh
+else ifeq ($(ARCH),i386)
+	cd ffmpeg/ && \
+	./linux_x86.sh
+else ifeq ($(ARCH),armhf)
+	cd ffmpeg/ && \
+	./linux_arm.sh
+endif
+	mkdir ext/native/tools/build
+	cd ext/native/tools/build && \
+		cmake ../ && \
+		$(MAKE)
+	./buildatlas.sh
+	./build_ppgeatlas.sh
+	dh_auto_build
+
+override_dh_auto_install:
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -r -f ext/native/tools/build/

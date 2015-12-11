@@ -46,7 +46,9 @@ endif
 	cd ext/native/tools/build && \
 		cmake ../ && \
 		$(MAKE)
-	./buildatlas.sh
+	# Issues building at the moment. Possible fix is to modify sample paths
+	# See: https://github.com/hrydgard/ppsspp/issues/8263
+	#./buildatlas.sh
 	./build_ppgeatlas.sh
 	dh_auto_build
 

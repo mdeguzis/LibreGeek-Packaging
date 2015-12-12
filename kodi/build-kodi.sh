@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		0.9.6
+# Script Ver:		0.9.7
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -273,7 +273,7 @@ kodi_package_deb()
 		git checkout "tags/${kodi_tag}"
 		
 		# set version to tag
-		pkgver="$kodi_tag"
+		pkgver="$kodi_tag+git+bsos"
 
 	fi
 	

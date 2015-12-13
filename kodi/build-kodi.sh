@@ -295,7 +295,7 @@ kodi_package_deb()
 	# Assess if we are to build for host/ARCH we have or target
 	############################################################
 
-	echo -e "\nBuild Kodi for our host/ARCH or for target? [host|target]"
+	echo -e "\nBuild Kodi for our host/ARCH or for target? [host|pbuilder]"
 
 	# get user choice
 	sleep 0.2s
@@ -309,7 +309,7 @@ kodi_package_deb()
 		# build for host type / ARCH ONLY
 		tools/Linux/packaging/mk-debian-package.sh
 
-	elif [[ "$build_choice" == "target" ]]; then
+	elif [[ "$build_choice" == "pbuilder" ]]; then
 
 		DIST=$(lsb_release -c | cut -d$'\t' -f2)
 

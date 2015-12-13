@@ -287,6 +287,8 @@ kodi_package_deb()
 	# to sign as wnsipex. This is ok, since we will sign with reprepro. The other
 	# option is to adjust the build script.
 	
+	# Add any overrides to the build host/arch options below
+	
 	# sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
 	############################################################
@@ -300,6 +302,9 @@ kodi_package_deb()
 	read -erp "Choice: " build_choice
 
 	if [[ "$build_choice" == "host" ]]; then
+
+		# Add any overrides for mk-debian-package.sh below
+		# The default in the script is 'debuild' which will attempt to sign the pkg
 
 		# build for host type / ARCH ONLY
 		tools/Linux/packaging/mk-debian-package.sh

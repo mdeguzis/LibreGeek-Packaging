@@ -3,7 +3,7 @@
 # Author:		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:		create-pbuilder-env.sh
-# Script Ver:		0.3.3
+# Script Ver:		0.3.5
 # Description:		Create buld environment for testing and building packages
 # Usage:		create-pbuilder-env.sh [dist] [arch] [keyring]
 #
@@ -12,9 +12,9 @@
 
 # source arguments
 # set var target
-DIST="$1"
-ARCH="$2"
-KEYRING="$3"
+export DIST="$1"
+export ARCH="$2"
+export KEYRING="$3"
 
 #####################################
 # PBUILDER environement creation
@@ -96,7 +96,7 @@ main()
 	
 	# setup dist base
 	if sudo DIST=$DIST pbuilder create --debootstrapopts \
-	--keyring=${KEYRING} --architecture=${ARCH}; then
+	--keyring=${KEYRING} --arch=${ARCH}; then
 	
 		echo -e "\n${target} environment created successfully!"
 	

@@ -7,9 +7,9 @@ HOOKDIR=/var/cache/pbuilder/hooks
 
 # Codenames for Debian suites according to their alias. Update these when
 # needed.
-UNSTABLE_CODENAME=""
-TESTING_CODENAME="brewmaster_beta"
-STABLE_CODENAME="brewmaster"
+UNSTABLE_CODENAME="sid"
+TESTING_CODENAME="stretch"
+STABLE_CODENAME="jessie"
 STABLE_BACKPORTS_SUITE="$STABLE_CODENAME-backports"
 
 # List of Debian suites.
@@ -20,7 +20,7 @@ DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME $STABLE_BAC
 UBUNTU_SUITES=("vivid" "utopic" "trusty" "saucy" "raring" "quantal" "precise" "oneiric" "natty" "lucid" "hardy")
 
 # List of SteamOS suites. Update these when needed.
-STEAMOS_SUITES=("alchemsit" "alchemsit_beta" "brewmaster" "brewmaster_beta")
+STEAMOS_SUITES=("alchemist" "alchemist_beta" "brewmaster" "brewmaster_beta")
 
 # Mirrors to use. Update these to your preferred mirror.
 DEBIAN_MIRROR="ftp.us.debian.org"

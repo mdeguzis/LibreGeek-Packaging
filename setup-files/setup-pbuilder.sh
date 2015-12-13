@@ -47,6 +47,9 @@ sudo touch "/root/.pbuilderrc"
 cp .pbuilderrc "$HOME/.pbuilderrc"
 sudo cp .pbuilderrc "/root/.pbuilderrc"
 
+# create hooks dir
+sudo mkdir -p /usr/lib/pbuilder/hooks
+
 # (Optional) Create /usr/lib/pbuilder/hooks/C10shell with the following content
 sudo cp C10shell /usr/lib/pbuilder/hooks/C10shell
 sudo chmod +x /usr/lib/pbuilder/hooks/C10shell

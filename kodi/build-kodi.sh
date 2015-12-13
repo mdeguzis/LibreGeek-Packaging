@@ -313,12 +313,16 @@ kodi_package_deb()
 
 		DIST=$(lsb_release -c | cut -d$'\t' -f2)
 
+		base_dir="/home/$USER/xbmc-packaging/pbuilder"
+		rm -rf "$base_dir"
+		mkdir -p "$base_dir"
+
 		RELEASEV=$kodi_release \
 		DISTS="$DIST" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
 		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
-		PBUILDER_BASE="/home/$USER/xbmc-packaging/pbuilder" \
+		PBUILDER_BASE="$base_dir" \
 		DPUT_TARGET="local" \
 		tools/Linux/packaging/mk-debian-package.sh
 

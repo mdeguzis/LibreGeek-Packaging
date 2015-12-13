@@ -33,7 +33,6 @@ fi
 # your own default (i.e. ${DIST:="unstable"}).
 : ${DIST:="$(lsb_release --short --codename)"}
 
-
 # Optionally set the architecture to the host architecture if none set. Note
 # that you can set your own default (i.e. ${ARCH:="i386"}).
 : ${ARCH:="$(dpkg --print-architecture)"}
@@ -69,7 +68,7 @@ elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
 elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
     
     # SteamOS configuration
-    MIRRORSITE="http://$STEAMOS_MIRROR"
+    MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
     COMPONENTS="main contrib non-free"
     
 else

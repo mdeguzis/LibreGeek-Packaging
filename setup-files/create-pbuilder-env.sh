@@ -3,7 +3,7 @@
 # Author:		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:		create-pbuilder-env.sh
-# Script Ver:		0.1.3
+# Script Ver:		0.3.3
 # Description:		Create buld environment for testing and building packages
 # Usage:		create-pbuilder-env.sh [dist] [arch] [keyring]
 #
@@ -24,8 +24,13 @@ KEYRING="$3"
 if [[ "$DIST" == "" ]]; then
 
 	clear
-	echo -e "\n==ERROR==\nYou must specify a distribution as an argument."
-	echo -e "type './create-pbuilder-env --help'"
+	cat<<- EOF
+	
+	==ERROR==
+	You must specify a distribution as an argument.
+	type './create-pbuilder-env --help'
+	
+	EOF
 	
 fi
 
@@ -107,3 +112,6 @@ main()
 	mkdir -p "/home/$USER/${DIST}-packaging/deps"
 
 }
+
+# start main
+main

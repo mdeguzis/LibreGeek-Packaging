@@ -93,10 +93,11 @@ main()
 		
 	esac
 	
+	# set default options
+	OPTS="--debootstrapopts"
 	
 	# setup dist base
-	if sudo DIST=$DIST pbuilder create --debootstrapopts \
-	--keyring=${KEYRING} --arch=${ARCH}; then
+	if sudo DIST=$DIST ARCH=$ARCH pbuilder create $OPTS --keyring=${KEYRING} ; then
 	
 		echo -e "\n${target} environment created successfully!"
 	

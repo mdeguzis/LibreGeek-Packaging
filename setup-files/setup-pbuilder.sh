@@ -16,6 +16,7 @@
 #####################################
 
 # http://blogs.libreems.org/setup-pbuilder-make-clean-debian-packages/
+# https://wiki.debian.org/PbuilderTricks
 
 #####################################
 # Dependencies
@@ -24,7 +25,23 @@
 echo -e "\n==> Installing depedencies for packaging and testing\n"
 sleep 2s
 
-sudo apt-get install -y build-essential fakeroot devscripts cowbuilder pbuilder debootstrap
+# Install basic packages and keyrings for pbuilder create
+sudo apt-get install -y build-essential fakeroot devscripts cowbuilder pbuilder debootstrap \
+debian-archive-keyring ubuntu-archive-keyring
+
+echo -e "\n==> Installing Valve keyrings\n"
+sleep 2s
+
+# Obtain valve keyring
+wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/valve-archive-keyring_0.5+bsos3_all.deb"
+sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+
+# update for keyrings
+
+echo -e "\n==> Updating system for newly added keyrings\n"
+sleep 2s
+sudo apt-key update
+sudo apt-get update
 
 #####################################
 # PBUILDER setup
@@ -88,7 +105,7 @@ sudo mount /var/cache/pbuilder/build
 cat <<-EOF
 
 Creating:
-'sudo DIST=${dist} ARCH=${arch} pbuilder create'
+'sudo DIST=${dist} ARCH=${arch} pbuilder create [--keyring=]'
 
 Updating
 'sudo DIST=${dist} ARCH=${arch} pbuilder update'

@@ -45,12 +45,21 @@ EOF
 
 # Setup Quilt rc file
 
-if [[ ! -f "~/.quiltrc-dpkg" ]]; then
-
-  # create file
-  touch ~/.quiltrc-dpkg
-  
+cat <<-EOF > $HOME/.quiltrc
+for where in ./ ../ ../../ ../../../ ../../../../ ../../../../../; do
+if [ -e ${where}debian/rules -a -d ${where}debian/patches ]; then
+        export QUILT_PATCHES=debian/patches
+        break
 fi
+done
+
+QUILT_PUSH_ARGS="--color=auto"
+QUILT_DIFF_ARGS="--no-timestamps --no-index -p ab --color=auto"
+QUILT_REFRESH_ARGS="--no-timestamps --no-index -p ab"
+QUILT_DIFF_OPTS='-p'
+EOF
+
+# Setup Quilt rc file for dpkg
 
 cat <<-EOF > $HOME/.quiltrc-dpkg
 d=. ; while [ ! -d $d/debian -a `readlink -e $d` != / ]; do d=$d/..; done
@@ -65,20 +74,8 @@ if [ -d $d/debian ] && [ -z $QUILT_PATCHES ]; then
 fi
 EOF
 
-
-cat <<-EOF > $HOME/.quiltrc
-for where in ./ ../ ../../ ../../../ ../../../../ ../../../../../; do
-if [ -e ${where}debian/rules -a -d ${where}debian/patches ]; then
-        export QUILT_PATCHES=debian/patches
-        break
-fi
-done
-
-QUILT_PUSH_ARGS="--color=auto"
-QUILT_DIFF_ARGS="--no-timestamps --no-index -p ab --color=auto"
-QUILT_REFRESH_ARGS="--no-timestamps --no-index -p ab"
-QUILT_DIFF_OPTS='-p'
-EOF
+# setup pbuilder
+./setup-pbuilder.sh
 
 # source bashrc
 . ~/.bashrc

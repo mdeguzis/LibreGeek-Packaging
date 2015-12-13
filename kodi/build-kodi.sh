@@ -282,8 +282,9 @@ kodi_package_deb()
 
 	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh 
 	# See: http://unix.stackexchange.com/a/16274
-	# Reduce overhead of maintaining a fork of xbmc, and merely fork the xbmc packaging repo
-	# The build script the kodi team uses will replace any changelog inserted at this point
+	# This was done only at prior point to satisfy some build deps. This has since
+	# been corrected. 'mk-debian-package.sh' handles all package naming and will try
+	# to sign as wnsipex. This is ok, since we will sign with reprepro
 	sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
 	############################################################
@@ -567,28 +568,38 @@ show_build_summary()
 	Time end: ${time_stamp_end}
 	Total Runtime (minutes): $runtime
 
-	You should now be able to add Kodi as a non-Steam game in Big
-	Picture Mode. Please see see the wiki for more information
-
 	EOF
 	sleep 2s
 	
 	# If "build_all" is requested, skip user interaction
+	# Display output based on if we were source building or building
+	# a Debian package
 
 	if [[ "$build_all" == "yes" ]]; then
 
 		echo -e "\n==INFO==\nAuto-build requested"
 		mv ${deb_dir}/*.deb "$auto_build_dir"
 		sleep 2s
+		
+	elif [[ "$package_deb" == "no" ]]; then
+	
+		cat <<-EOF
+		If you chose to build from source code, you should now be able 
+		to add Kodi as a non-Steam game in Big Picture Mode. Please 
+		see see the wiki for more information.
+		
+		EOF
 
-	else
+	elif [[ "$package_deb" == "yes" ]]; then
 
-		# inform user of packages
-		echo -e "\n############################################################"
-		echo -e "If package was built without errors you will see it below."
-		echo -e "If you don't, please check build dependcy errors listed above."
-		echo -e "############################################################\n"
-
+		cat <<-EOF
+		###############################################################
+		If package was built without errors you will see it below.
+		If you don't, please check build dependcy errors listed above.
+		###############################################################
+		
+		EOF
+		
 		echo -e "Showing contents of: ${deb_dir}/build: \n"
 		ls "${deb_dir}" | grep -E *.deb
 

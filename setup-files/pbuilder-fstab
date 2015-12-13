@@ -1,0 +1,2 @@
+# Mount proc and dev filesystem (add to **host** fstab)
+tmpfs   /var/cache/pbuilder/build       tmpfs   defaults,size=2400M 0 0

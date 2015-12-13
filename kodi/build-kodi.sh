@@ -11,7 +11,7 @@
 #               	script. A deb package is built from this script. 
 #
 # Usage:      		./build-kodi.sh --cores [cpu cores]
-#			./build-kodi.sh --package-deb
+#			./build-kodi.sh [--package-deb][--source]
 # See Also:		https://packages.debian.org/sid/kodi
 # -------------------------------------------------------------------------------
 
@@ -29,23 +29,13 @@ export extra_opts=$(echo "${@: -1}")
 ###################################
 # package vars
 ###################################
-
+pkgname="kodi"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 pkgrev="1"
 dist_rel="brewmaster"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-
-# Do not set release tags if auto-building
-if [[ "$build_all" != "yes" ]]; then
-
-	# Set tags manually in script
-	kodi_release="Isengard"
-	kodi_tag="15.2-Isengard"
-	pkgver="$kodi_tag"
-
-fi
 
 # Set target for git source author
 repo_target="xbmc"
@@ -58,13 +48,7 @@ repo_target="xbmc"
 build_opts="$1"
 cores_num="$2"
 
-# defaults for packaging attempts
-# use "latest release" tagged release
-package_deb="no"
-skip_to_build="no"
-
-
-# Set buld dir based on repo target to avoid recloning for different targets
+# Set build dir based on repo target to avoid recloning for different targets
 if [[ "$repo_target" != "xbmc" ]]; then
 
 	# set build dir to alternate
@@ -96,17 +80,22 @@ else
 fi
 
 
-# assess extra opts from dekstop-software.sh
-if [[ "$extra_opts" == "--package-deb" || "$arg1" == "--package-deb" ]]; then
+# Set script defaults for building packages or source directly
+if [[ "$extra_opts" == "--source" || "$arg1" == "--source" ]]; then
 
 	# set package to yes if deb generation is requested
-	package_deb="yes"
+	package_deb="no"
 
 elif [[ "$extra_opts" == "--skip-build" || "$arg1" == "--skip-build" ]]; then
 
 	# If Kodi is confirmed by user to be built already, allow build
 	# to be skipped and packaging to be attempted directly
 	skip_build="yes"
+	package_deb="yes"
+
+else
+
+	# Proceed with default actions
 	package_deb="yes"
 
 fi
@@ -132,7 +121,7 @@ function_install_pkgs()
 
 	# cycle through packages defined
 
-	for PKG in ${PKGS}; 
+	for PKG in ${PKGS};
 	do
 
 		# assess via dpkg OR traditional 'which'
@@ -192,7 +181,7 @@ kodi_prereqs()
 		# Dependencies - Debian sourced
 		#####################################
 
-		echo -e "==> Installing build deps for packaging\n"
+		echo -e "==> Installing build deps for packaging"
 		sleep 2s
 
 		PKGS="build-essential fakeroot devscripts checkinstall cowbuilder pbuilder debootstrap \
@@ -201,7 +190,7 @@ kodi_prereqs()
 		# install dependencies / packages
 		function_install_pkgs
 
-		echo -e "\n==> Installing build deps sourced from ppa:team-xbmc/xbmc-ppa-build-depends"
+		echo -e "\n==> Installing specific kodi build deps"
 		sleep 2s
 
 		#####################################
@@ -228,6 +217,12 @@ kodi_prereqs()
 			function_install_pkgs
 
 		fi
+
+	else
+
+		# If we are not packaging a deb, set to master branch build
+        	rel_target="master"
+        	pkgver="$kodi_tag"
 
 
 	fi
@@ -264,6 +259,7 @@ kodi_package_deb()
 		git tag -l --column
 
 		echo -e "\nWhich Kodi release do you wish to build for:"
+		echo -e "Type 'master' to use the master tree\n"
 
 		# get user choice
 		sleep 0.2s
@@ -271,31 +267,33 @@ kodi_package_deb()
 
 		# checkout proper release
 		git checkout "tags/${kodi_tag}"
-		
-		# set version to tag
-		pkgver="$kodi_tag+git+bsos"
+
+		# set release for upstream xbmc packaging fork
+		if echo $kodi_tag | grep -e "Dharma" 1> /dev/null; then kodi_release="Dharma"; fi
+		if echo $kodi_tag | grep -e "Eden" 1> /dev/null; then kodi_release="Eden"; fi
+		if echo $kodi_tag | grep -e "Frodo" 1> /dev/null; then kodi_release="Frodo"; fi
+		if echo $kodi_tag | grep -e "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
+		if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
+		if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
+
+		# If the tag is left blank, set to master
+		if echo $kodi_tag | grep -e "master" 1> /dev/null; then kodi_release="master"; fi
+
+		# set release for changelog
+        	pkgver="$kodi_release+git+bsos"
+
 
 	fi
-	
-	
+
+
 	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh 
 	# See: http://unix.stackexchange.com/a/16274
-	# sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|xbmc/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
+	# Reduce overhead of maintaining a fork of xbmc, and merely fork the xbmc packaging repo
+	# The build script the kodi team uses will replace any changelog inserted at this point
+	sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
-	# Create changelog with standard setup
 
-	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
-	
-	 -- $uploader  $date_long
-	
-	EOF
-	
-	# Perform a little trickery to update existing changelog
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	# Gather build options
 
 	echo -e "\nBuild Kodi for our host/ARCH or for target? [host|target]"
 
@@ -437,10 +435,16 @@ kodi_build()
 		sleep 2s
 
 		# attempt deb package
-		kodi_package_deb
+		if kodi_package_deb; then
 
-		echo -e "\nPlease review above output. Exiting script in 15 seconds."
-		exit 1
+			echo -e "\n==INFO==\nBuild complete! Please check debian packages."
+			exit 1
+		else
+
+			echo -e "\nPlease review above output. Exiting script in 15 seconds."
+			exit 1
+
+		fi
 
 	fi
 
@@ -450,7 +454,7 @@ kodi_build()
 	cd "$build_dir"
 
 	# checkout target release
-	git checkout "tags/${kodi_tag}"
+	git checkout "$rel_target"
 
   	# create the Kodi executable manually perform these steps:
 	if ./bootstrap; then
@@ -564,7 +568,7 @@ show_summary()
 	Summary
 	----------------------------------------------------------------
 	Time started: ${time_stamp_start}
-	Time started: ${time_stamp_end}
+	Time end: ${time_stamp_end}
 	Total Runtime (minutes): $runtime
 
 	You should now be able to add Kodi as a non-Steam game in Big

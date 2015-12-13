@@ -76,7 +76,7 @@ main()
 		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
 	        ;;
 
-		trusty|vivid|willy
+		trusty|vivid|willy)
 		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
 	        ;;
 

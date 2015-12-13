@@ -284,8 +284,10 @@ kodi_package_deb()
 	# See: http://unix.stackexchange.com/a/16274
 	# This was done only at prior point to satisfy some build deps. This has since
 	# been corrected. 'mk-debian-package.sh' handles all package naming and will try
-	# to sign as wnsipex. This is ok, since we will sign with reprepro
-	sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
+	# to sign as wnsipex. This is ok, since we will sign with reprepro. The other
+	# option is to adjust the build script.
+	
+	# sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
 	############################################################
 	# Assess if we are to build for host/ARCH we have or target

@@ -5,16 +5,8 @@
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 HOOKDIR=/var/cache/pbuilder/hooks
 
-# Codenames for Debian suites according to their alias. Update these when
-# needed.
-UNSTABLE_CODENAME="sid"
-TESTING_CODENAME="stretch"
-STABLE_CODENAME="jessie"
-STABLE_BACKPORTS_SUITE="$STABLE_CODENAME-backports"
-
 # List of Debian suites.
-DEBIAN_SUITES=($UNSTABLE_CODENAME $TESTING_CODENAME $STABLE_CODENAME $STABLE_BACKPORTS_SUITE
-    "unstable" "testing" "stable")
+DEBIAN_SUITES=("wheezy" "jessie" "stretch" "sid")
 
 # List of Ubuntu suites. Update these when needed.
 UBUNTU_SUITES=("vivid" "utopic" "trusty" "saucy" "raring" "quantal" "precise" "oneiric" "natty" "lucid" "hardy")
@@ -41,18 +33,6 @@ fi
 # your own default (i.e. ${DIST:="unstable"}).
 : ${DIST:="$(lsb_release --short --codename)"}
 
-# Optionally change Debian codenames in $DIST to their aliases.
-case "$DIST" in
-    $UNSTABLE_CODENAME)
-        DIST="unstable"
-        ;;
-    $TESTING_CODENAME)
-        DIST="testing"
-        ;;
-    $STABLE_CODENAME)
-        DIST="stable"
-        ;;
-esac
 
 # Optionally set the architecture to the host architecture if none set. Note
 # that you can set your own default (i.e. ${ARCH:="i386"}).

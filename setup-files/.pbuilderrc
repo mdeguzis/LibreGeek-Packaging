@@ -63,6 +63,7 @@ if [ -n "${ARCH}" ]; then
     NAME="$NAME-$ARCH"
     DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
 fi
+
 BASETGZ="/var/cache/pbuilder/$NAME-base.tgz"
 DISTRIBUTION="$DIST"
 BUILDRESULT="/var/cache/pbuilder/$NAME/result/"
@@ -87,7 +88,7 @@ elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
 elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
     
     # SteamOS configuration
-    MIRRORSITE="http://repo.steampowered.com"
+    MIRRORSITE="http://$STEAMOS_MIRROR"
     COMPONENTS="main contrib non-free"
     
 else

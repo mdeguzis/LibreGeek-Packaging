@@ -311,41 +311,10 @@ kodi_package_deb()
 
 	elif [[ "$build_choice" == "target" ]]; then
 
-		# ask for DIST target
-		echo -e "\nEnter DIST to build for (see utilities/pbuilder-helper.txt)"
+		DIST=$(lsb_release -c | cut -d$'\t' -f2)
 
-		# get user choice
-		sleep 0.2s
-		read -erp "Choice: " dist_choice
-
-		# add desktop file for SteamOS/BPM
-		touch "$HOME/.pbuilderrc"
-		sudo touch "/root/.pbuilderrc"
-		cp ../testing/pbuilder-helper.txt "$HOME/.pbuilderrc"
-		sudo cp "../utilities/pbuilder-helper.txt" "/root/.pbuilderrc"
-
-		# setup dist base
-		if sudo DIST=brewmaster pbuilder create; then
-
-			echo -e "\nBrewmaster environment created successfully!"
-
-		else 
-
-			echo -e "\nBrewmaster environment creation FAILED! Exiting in 10 seconds"
-			sleep 10s
-			exit 1
-		fi
-
-
-		# Clean xbmc pbuilder dir
-		rm -rf "/home/$USER/xbmc-packaging/pbuilder"
-		mkdir -p "/home/$USER/xbmc-packaging/pbuilder"
-
-		# create directory for dependencies
-		mkdir -p "/home/$USER/xbmc-packaging/deps"
-
-		RELEASEV=16 \
-		DISTS="$dist_choice" \
+		RELEASEV=$kodi_release \
+		DISTS="$DIST" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
 		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \

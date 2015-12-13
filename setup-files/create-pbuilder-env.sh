@@ -23,6 +23,7 @@ KEYRING="$3"
 # Warn if DIST is blank
 if [[ "$DIST" == "" ]]; then
 
+	clear
 	echo -e "\n==ERROR==\nYou must specify a distribution as an argument."
 	echo -e "type './create-pbuilder-env --help'"
 	

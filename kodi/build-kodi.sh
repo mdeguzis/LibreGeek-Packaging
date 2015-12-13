@@ -36,6 +36,7 @@ set_vars()
 	###################################
 	# package vars
 	###################################
+	
 	pkgname="kodi"
 	uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 	maintainer="ProfessorKaos64"
@@ -48,7 +49,7 @@ set_vars()
 	repo_target="xbmc"
 	
 	###################################
-	# global vars
+	# build vars
 	###################################
 	
 	# Set build dir based on repo target to avoid recloning for different targets
@@ -65,6 +66,9 @@ set_vars()
 	# Set Git URL
 	git_url="git://github.com/${repo_target}/xbmc.git"
 	#git_url="git://github.com/xbmc/xbmc.git"
+	
+	# set dir for debs
+	deb_dir="$HOME/kodi"
 	
 	###################
 	# global vars
@@ -527,11 +531,33 @@ kodi_build_src()
 	#################################################
 	# Post install configuration
 	#################################################
+	
+	echo -e "\n==> Adding desktop file and artwork"
+
+	# copy files
+	sudo cp "kodi.desktop" "/usr/share/applications"
+	sudo cp "Kodi.png" "/home/steam/Pictures"
+
+	# check if Kodi really installed
+	if [[ -f "/usr/local/bin/kodi" ]]; then
+
+		echo -e "\n==INFO==\nKodi was installed successfully."
+
+	else
+
+		echo -e "\n==INFO==\nKodi install unsucessfull\n"
+
+	fi
 
 }
 
-show_summary()
+show_build_summary()
 {
+	
+	# note time ended
+	time_end=$(date +%s)
+	time_stamp_end=(`date +"%T"`)
+	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
 
 	cat <<-EOF
 	----------------------------------------------------------------
@@ -546,47 +572,13 @@ show_summary()
 
 	EOF
 	sleep 2s
-
-}
-
-kodi_post_cfgs()
-{
-
-	echo -e "\n==> Adding desktop file and artwork"
-
-	# copy files based of pwd
-	sudo cp "../../cfgs/desktop-files/kodi.desktop" "/usr/share/applications"
-	sudo cp "../../artwork/banners/Kodi.png" "/home/steam/Pictures"
-
-	#################################################
-	# Cleanup
-	#################################################t
-
-	# clean up dirs
-
-	# note time ended
-	time_end=$(date +%s)
-	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-
-	# check if Kodi really installed
-	if [[ -f "/usr/local/bin/kodi" ]]; then
-
-		echo -e "\n==INFO==\nKodi was installed successfully."
-
-	else
-
-		echo -e "\n==INFO==\nKodi install unsucessfull\n"
-
-	fi
-
-
+	
 	# If "build_all" is requested, skip user interaction
 
 	if [[ "$build_all" == "yes" ]]; then
 
 		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${build_dir}/*.deb "$auto_build_dir"
+		mv ${deb_dir}/*.deb "$auto_build_dir"
 		sleep 2s
 
 	else
@@ -597,8 +589,8 @@ kodi_post_cfgs()
 		echo -e "If you don't, please check build dependcy errors listed above."
 		echo -e "############################################################\n"
 
-		echo -e "Showing contents of: ${git_dir}/build: \n"
-		ls "${build_dir}" | grep -E *.deb
+		echo -e "Showing contents of: ${deb_dir}/build: \n"
+		ls "${deb_dir}" | grep -E *.deb
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -608,8 +600,8 @@ kodi_post_cfgs()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# cut files
-			if [[ -d "${build_dir}" ]]; then
-				scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			if [[ -d "${deb_dir}" ]]; then
+				scp ${deb_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 			fi
 
@@ -619,9 +611,7 @@ kodi_post_cfgs()
 
 	fi
 
-
 }
-
 
 
 ####################################################
@@ -646,8 +636,8 @@ main()
 	
 	fi
 	
-	# process post configs
-	kodi_post_cfgs
+	# go to summary
+	show_build_summary
 
 }
 

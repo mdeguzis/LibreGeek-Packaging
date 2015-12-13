@@ -44,13 +44,13 @@ fi
 # Optionally change Debian codenames in $DIST to their aliases.
 case "$DIST" in
     $UNSTABLE_CODENAME)
-        #DIST="unstable"
+        DIST="unstable"
         ;;
     $TESTING_CODENAME)
-        #DIST="testing"
+        DIST="testing"
         ;;
     $STABLE_CODENAME)
-        #DIST="stable"
+        DIST="stable"
         ;;
 esac
 
@@ -64,11 +64,12 @@ if [ -n "${ARCH}" ]; then
     DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
 fi
 
-BASETGZ="/var/cache/pbuilder/$NAME-base.tgz"
-DISTRIBUTION="$DIST"
-BUILDRESULT="/var/cache/pbuilder/$NAME/result/"
-APTCACHE="/var/cache/pbuilder/$NAME/aptcache/"
-BUILDPLACE="/var/cache/pbuilder/build/"
+if [ -n "${DIST}" ]; then
+        BASETGZ="`dirname $BASETGZ`/$DIST-base.tgz"
+        DISTRIBUTION="$DIST"
+        BUILDRESULT="/var/cache/pbuilder/$DIST/result/"
+        APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+fi
 
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     

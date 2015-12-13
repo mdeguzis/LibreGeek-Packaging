@@ -34,7 +34,14 @@ sudo chmod u+w /var/cache/pbuilder/result
 sudo mkdir -p /var/cache/pbuilder/hooks
 sudo chown $USER:$USER /var/cache/pbuilder/hooks
 
-# copy files based of pwd
+# copy pbuilder file
+# /etc/pbuilderrc - The system-wide pbuilder configuration. Configuration values specified in this 
+# file will be available to all users on the system who run pbuilder.
+
+# global config options
+sudo cp .pbuilderrc /etc/pbuilderrc
+
+# personal user configs
 touch "$HOME/.pbuilderrc"
 sudo touch "/root/.pbuilderrc"
 cp .pbuilderrc "$HOME/.pbuilderrc"
@@ -46,23 +53,23 @@ sudo cp .pbuilderrc "/root/.pbuilderrc"
 
 # set vars
 
-DISTS="$DIST" \
-ARCHS="$ARCH" \
+#DISTS="$DIST" \
+#ARCHS="$ARCH" \
 BUILDER="pdebuild" \
 PBUILDER_BASE="/home/$USER/${target}-pbuilder/"
 
 # setup dist base
-if sudo pbuilder create; then
+if DIST=$DIST sudo pbuilder create; then
 
 	echo -e "\n${target} environment created successfully!"
-	
-else 
+
+else
 
 	echo -e "\n${target} environment creation FAILED! Exiting in 15 seconds"
 	sleep 15s
 	exit 1
 fi
-	
+
 # create directory for dependencies
 mkdir -p "/home/$USER/${dist_choice}-packaging/deps"
 

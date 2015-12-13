@@ -317,7 +317,7 @@ kodi_package_deb()
 		rm -rf "$base_dir"
 		mkdir -p "$base_dir"
 
-		RELEASEV=$kodi_release \
+		RELEASEV=$kodi_tag \
 		DISTS="$DIST" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \

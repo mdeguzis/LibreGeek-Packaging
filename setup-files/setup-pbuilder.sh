@@ -1,14 +1,14 @@
 
 #!/bin/bash
 # -------------------------------------------------------------------------------
-# Author: 	       Michael DeGuzis
-# Git:		         https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:   	 build-pbuilder-env.sh
-# Script Ver:	     0.1.3
-# Description:	   Create buld environment for testing and building packages
-# Usage:	         ./build-pbuilder-env.sh [distribution] [arch]
+# Author:		Michael DeGuzis
+# Git:		        https://github.com/ProfessorKaos64/SteamOS-Tools
+# Scipt Name:   	build-pbuilder-env.sh
+# Script Ver:		0.1.3
+# Description:		Create buld environment for testing and building packages
+# Usage:		./build-pbuilder-env.sh [distribution] [arch]
 #
-# Notes:          For targets, see utilities/pbuilder-helper.txt
+# Notes:          	For targets, see .pbuilderrc in this directory
 # -------------------------------------------------------------------------------
 
 #####################################
@@ -18,8 +18,7 @@
 echo -e "==> Installing depedencies for packaging and testing\n"
 sleep 2s
 
-sudo apt-get install -y build-essential fakeroot devscripts checkinstall \
-cowbuilder pbuilder debootstrap cvs fpc gdc libflac-dev libsamplerate0-dev libgnutls28-dev
+sudo apt-get install -y build-essential fakeroot devscripts cowbuilder pbuilder debootstrap
 
 #####################################
 # PBUILDER setup

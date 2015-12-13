@@ -34,13 +34,6 @@ if [[ "$DIST" == "" ]]; then
 	
 fi
 
-# if ARCH is blank, use x86_64 as a default
-if [[ "$ARCH" == "" ]]; then
-
-	ARCH="x86_64"
-	
-fi
-
 show_help()
 {
 	
@@ -97,7 +90,7 @@ main()
 	OPTS="--debootstrapopts"
 	
 	# setup dist base
-	if sudo DIST=$DIST ARCH=$ARCH pbuilder create $OPTS --keyring=${KEYRING} ; then
+	if sudo DIST=$DIST pbuilder create $OPTS --keyring=${KEYRING} ; then
 	
 		echo -e "\n${target} environment created successfully!"
 	

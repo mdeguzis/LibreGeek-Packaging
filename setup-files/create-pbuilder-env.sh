@@ -93,11 +93,10 @@ main()
 		
 	esac
 	
-	pbuiler_create="sudo DIST=$DIST pbuilder create --debootstrapopts \
-	--keyring=${KEYRING} --architecture=${ARCH}"
 	
 	# setup dist base
-	if ${pbuilder_create}; then
+	if sudo DIST=$DIST pbuilder create --debootstrapopts \
+	--keyring=${KEYRING} --architecture=${ARCH}; then
 	
 		echo -e "\n${target} environment created successfully!"
 	

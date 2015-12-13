@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		0.9.7
+# Script Ver:		0.9.9
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -14,6 +14,10 @@
 #			./build-kodi.sh [--package-deb][--source]
 # See Also:		https://packages.debian.org/sid/kodi
 # -------------------------------------------------------------------------------
+
+# source args
+build_opts="$1"
+cores_num="$2"
 
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
@@ -26,95 +30,96 @@ rm -f "kodi-build-log.txt"
 # See: http://www.cyberciti.biz/faq/linux-unix-bsd-apple-osx-bash-get-last-argument/
 export extra_opts=$(echo "${@: -1}")
 
-###################################
-# package vars
-###################################
-pkgname="kodi"
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
-pkgrev="1"
-dist_rel="brewmaster"
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+set_vars()
+{
 
-# Set target for git source author
-repo_target="xbmc"
-
-###################################
-# global vars
-###################################
-
-# source args
-build_opts="$1"
-cores_num="$2"
-
-# Set build dir based on repo target to avoid recloning for different targets
-if [[ "$repo_target" != "xbmc" ]]; then
-
-	# set build dir to alternate
-	build_dir="$HOME/kodi/kodi-${repo_target}"
-else
-	# set build dir to default
-	build_dir="$HOME/kodi/kodi-source"
-
-fi
-
-# Set Git URL
-git_url="git://github.com/${repo_target}/xbmc.git"
-#git_url="git://github.com/xbmc/xbmc.git"
-
-###################
-# global vars
-###################
-
-# Allow more concurrent threads to be specified
-if [[ "$build_opts" == "--cores" ]]; then
-
-	# set cores
-	cores="$core_num"
-
-else
-
-	# default to 2 cores as fallback
-	cores="2"
-fi
-
-
-# Set script defaults for building packages or source directly
-if [[ "$extra_opts" == "--source" || "$arg1" == "--source" ]]; then
-
-	# set package to yes if deb generation is requested
-	package_deb="no"
-
-elif [[ "$extra_opts" == "--skip-build" || "$arg1" == "--skip-build" ]]; then
-
-	# If Kodi is confirmed by user to be built already, allow build
-	# to be skipped and packaging to be attempted directly
-	skip_build="yes"
-	package_deb="yes"
-
-else
-
-	# Proceed with default actions
-	package_deb="yes"
-
-fi
-
-##################################
-# Informational
-##################################
-
-# Source build notes:
-# https://github.com/xbmc/xbmc/blob/master/docs/README.linux
-
-# Current version:
-# https://github.com/xbmc/xbmc/blob/master/version.txt
-
-# model control file after:
-# https://packages.debian.org/sid/kodi
-
-# Current checkinstall config:
-# cfgs/source-builds/kodi-checkinstall.txt
+	###################################
+	# package vars
+	###################################
+	pkgname="kodi"
+	uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+	maintainer="ProfessorKaos64"
+	pkgrev="1"
+	dist_rel="brewmaster"
+	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+	date_short=$(date +%Y%m%d)
+	
+	# Set target for git source author
+	repo_target="xbmc"
+	
+	###################################
+	# global vars
+	###################################
+	
+	# Set build dir based on repo target to avoid recloning for different targets
+	if [[ "$repo_target" != "xbmc" ]]; then
+	
+		# set build dir to alternate
+		build_dir="$HOME/kodi/kodi-${repo_target}"
+	else
+		# set build dir to default
+		build_dir="$HOME/kodi/kodi-source"
+	
+	fi
+	
+	# Set Git URL
+	git_url="git://github.com/${repo_target}/xbmc.git"
+	#git_url="git://github.com/xbmc/xbmc.git"
+	
+	###################
+	# global vars
+	###################
+	
+	# Allow more concurrent threads to be specified
+	if [[ "$build_opts" == "--cores" ]]; then
+	
+		# set cores
+		cores="$core_num"
+	
+	else
+	
+		# default to 2 cores as fallback
+		cores="2"
+	fi
+	
+	
+	# Set script defaults for building packages or source directly
+	if [[ "$extra_opts" == "--source" || "$arg1" == "--source" ]]; then
+	
+		# set package to yes if deb generation is requested
+		package_deb="no"
+	
+	elif [[ "$extra_opts" == "--skip-build" || "$arg1" == "--skip-build" ]]; then
+	
+		# If Kodi is confirmed by user to be built already, allow build
+		# to be skipped and packaging to be attempted directly
+		skip_build="yes"
+		package_deb="yes"
+	
+	else
+	
+		# Proceed with default actions
+		package_deb="yes"
+	
+	fi
+	
+	##################################
+	# Informational
+	##################################
+	
+	# Source build notes:
+	# https://github.com/xbmc/xbmc/blob/master/docs/README.linux
+	
+	# Current version:
+	# https://github.com/xbmc/xbmc/blob/master/version.txt
+	
+	# model control file after:
+	# https://packages.debian.org/sid/kodi
+	
+	# Current checkinstall config:
+	# cfgs/source-builds/kodi-checkinstall.txt
+	
+}
 
 function_install_pkgs()
 {
@@ -235,20 +240,6 @@ kodi_package_deb()
 	# Ubuntu link: 	    https://wiki.ubuntu.com/PbuilderHowto
 	# XBMC/Kodi readme: https://github.com/xbmc/xbmc/blob/master/tools/Linux/packaging/README.debian
 
-	# Maybe use sudo "bash -c 'cat "TEXT" >> "/etc/sudoers'""
-	# These next 3 lines will need added to /etc/sudoers, if not added already
-
-	# Defaults env_reset,env_keep="DIST ARCH CONCURRENCY_LEVEL"
-	# Cmnd_Alias PBUILDER = /usr/sbin/pbuilder, /usr/bin/pdebuild, /usr/bin/debuild-pbuilder
-	# Desktop ALL=(ALL) PBUILDER
-
-	# copy pbuilder template
-	# If called standalone change copy paths
-
-	############################################################
-	# Assess if we are to build for host/ARCH we have or target
-	############################################################
-
 	# Ensure we are in the proper directory
 	cd "$build_dir"
 
@@ -285,15 +276,15 @@ kodi_package_deb()
 
 	fi
 
-
 	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh 
 	# See: http://unix.stackexchange.com/a/16274
 	# Reduce overhead of maintaining a fork of xbmc, and merely fork the xbmc packaging repo
 	# The build script the kodi team uses will replace any changelog inserted at this point
 	sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
-
-	# Gather build options
+	############################################################
+	# Assess if we are to build for host/ARCH we have or target
+	############################################################
 
 	echo -e "\nBuild Kodi for our host/ARCH or for target? [host|target]"
 
@@ -421,32 +412,11 @@ kodi_clone()
 
 }
 
-kodi_build()
+kodi_build_src()
 {
 	#################################################
-	# Build Kodi
+	# Build Kodi source
 	#################################################
-
-	# Skip to debian packaging, if requested
-	if [[ "$skip_build" == "yes" || "$package_deb" == "yes" ]]; then
-
-		# fire off deb packaging attempt
-		echo -e "\n==> Attempting to package existing files in ${build_dir}\n"
-		sleep 2s
-
-		# attempt deb package
-		if kodi_package_deb; then
-
-			echo -e "\n==INFO==\nBuild complete! Please check debian packages."
-			exit 1
-		else
-
-			echo -e "\nPlease review above output. Exiting script in 15 seconds."
-			exit 1
-
-		fi
-
-	fi
 
 	echo -e "\n==> Building Kodi in $build_dir\n"
 
@@ -661,9 +631,22 @@ kodi_post_cfgs()
 main()
 {
 	
+	# Process main functions
+	set_vars
 	kodi_prereqs
 	kodi_clone
-	kodi_build
+	
+	# Process how we are building
+	if [[ "$package_deb" == "yes" ]]; then
+	
+		kodi_package_deb
+		
+	else
+		kodi_build_src
+	
+	fi
+	
+	# process post configs
 	kodi_post_cfgs
 
 }

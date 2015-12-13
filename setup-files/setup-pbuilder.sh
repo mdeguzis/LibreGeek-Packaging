@@ -38,7 +38,7 @@ sudo mkdir -p /var/cache/pbuilder/hooks
 sudo chown $USER:$USER /var/cache/pbuilder/hooks
 
 # setup cache directory
-rm -rf /var/cache/pbuilder/repo
+sudo rm -rf /var/cache/pbuilder/repo
 sudo mkdir /var/cache/pbuilder/repo
 sudo chmod 777 /var/cache/pbuilder/repo
 

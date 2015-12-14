@@ -22,7 +22,7 @@ git_url="https://github.com/Pulse-Eight/platform/"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="platform"
+pkgname="p8-platform"
 #pkgver="${date_short}+git"
 pkgver="1.0.10+git"
 pkgrev="1"

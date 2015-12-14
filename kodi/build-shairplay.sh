@@ -87,7 +87,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# Add debian build folder
-	cp -r "$scriptdir/debian" "${pkgname}"
+	cp -r "$scriptdir/$pkgname/debian" "${pkgname}"
 
 	# emter source dir
 	cd "${pkgname}"

@@ -84,7 +84,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
         # funnel old changelog.in to changelog or create basic file
-        cp -r "$scriptdir/debian" "${git_dir}"
+        cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
 
 	# emter source dir
 	cd "${pkgname}"

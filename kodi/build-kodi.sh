@@ -200,7 +200,6 @@ kodi_prereqs()
 		function_install_pkgs
 
 		echo -e "\n==> Installing specific kodi build deps"
-		sleep 2s
 
 		#####################################
 		# Dependencies - ppa:xbmc sourced

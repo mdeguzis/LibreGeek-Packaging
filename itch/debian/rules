@@ -8,9 +8,13 @@
 # override_dh_auto_test:
 
 # override_dh_auto_configure:
+	export PATH=$PATH:$PWD/node_modules/.bin
+	#export COVERALLS_SERVICE_NAME=jenkins
+        #export COVERALLS_SERVICE_JOB_ID=$BUILD_ID
 
 # override_dh_auto_install:
 	npm install
+	npm test
 
 # override_dh_strip:
 

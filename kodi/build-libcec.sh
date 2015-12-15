@@ -43,7 +43,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
  	libudev-dev liblockdev1-dev libplatform-dev python-dev cmake swig libxrandr-dev \
- 	x11proto-core-dev libncurses5-dev libudev-dev liblockdev1-dev libplatform-dev \
+ 	x11proto-core-dev libncurses5-dev libudev-dev liblockdev1-dev lib8-platform-dev \
  	python-dev swig libxrandr-dev libncurses5-dev
 
 }

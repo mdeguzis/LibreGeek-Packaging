@@ -1,0 +1,20 @@
+Source: itch
+Priority: extra
+Section: games
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>=9), npm, node, golang
+Standards-Version: 3.9.4
+Homepage: https://github.com/itchio/itch
+
+Package: xwiimote
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: download and run games from itch.io
+  The goal of this project is to give you a desktop application 
+  that you can download and run games from itch.io with. Additionally 
+  you should be able to update games and get notified when games are 
+  updated. The goal is not to replace the itch.io website.
+  .
+  This software is hosted at:
+  https://github.com/itchio/itch
+  

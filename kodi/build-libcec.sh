@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-libcec.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.2.1
 # Description:	Attempts to build a deb package libcec git source
 #
 # See:		https://github.com/Pulse-Eight/libcec
@@ -43,7 +43,8 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
  	libudev-dev liblockdev1-dev libplatform-dev python-dev cmake swig libxrandr-dev \
- 	x11proto-core-dev libncurses5-dev
+ 	x11proto-core-dev libncurses5-dev libudev-dev liblockdev1-dev libplatform-dev \
+ 	python-dev swig libxrandr-dev libncurses5-dev
 
 }
 

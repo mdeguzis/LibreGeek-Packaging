@@ -8,9 +8,9 @@
 #		github release
 #
 # See:		https://github.com/itchio/itch
+#		https://github.com/itchio/itch/issues/41
 #
 # Usage:	build-itch.sh
-#
 #-------------------------------------------------------------------------------
 
 arg1="$1"

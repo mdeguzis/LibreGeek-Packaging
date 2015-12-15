@@ -1,0 +1,19 @@
+# main packaging script based on dh7 syntax
+%:
+         dh $@ 
+
+# override_dh_auto_build:
+  export
+
+# override_dh_auto_test:
+
+# override_dh_auto_configure:
+
+# override_dh_auto_install:
+	npm install
+
+# override_dh_strip:
+
+# override_dh_builddeb:
+
+# override_dh_auto_clean:

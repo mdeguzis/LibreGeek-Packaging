@@ -1,2 +1,3 @@
 #!/bin/sh
 /opt/itch/itch "$@"
+itch.desktop /usr/share/applications

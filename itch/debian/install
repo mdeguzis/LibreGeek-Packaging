@@ -1,3 +1,14 @@
 #!/bin/sh
 /opt/itch/itch "$@"
 itch.desktop /usr/share/applications
+
+#../release/itch.sh=/usr/bin/itch opt/
+#../release/itch.desktop=/usr/share/applications/itch.desktop opt/
+#../release/icons/icon16.png=/usr/share/icons/hicolor/16x16/apps/itch.png opt/
+#../release/icons/icon32.png=/usr/share/icons/hicolor/32x32/apps/itch.png opt/
+#../release/icons/icon36.png=/usr/share/icons/hicolor/36x36/apps/itch.png opt/
+#../release/icons/icon48.png=/usr/share/icons/hicolor/48x48/apps/itch.png opt/
+#../release/icons/icon64.png=/usr/share/icons/hicolor/64x64/apps/itch.png opt/
+#../release/icons/icon72.png=/usr/share/icons/hicolor/72x72/apps/itch.png opt/
+#../release/icons/icon144.png=/usr/share/icons/hicolor/144x144/apps/itch.png opt/
+#../release/icons/icon512.png=/usr/share/icons/hicolor/512x512/apps/itch.png opt/

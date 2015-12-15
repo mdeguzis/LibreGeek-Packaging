@@ -13,6 +13,26 @@
 # Usage:	build-itch.sh
 #-------------------------------------------------------------------------------
 
+###############################
+# TODO
+###############################
+
+# Rebuild nodejs for brewmaster off of sid:
+# https://packages.debian.org/sid/nodejs
+
+# Build sassc 
+# https://github.com/sass/sassc
+# https://github.com/sass/sassc/blob/master/docs/building/unix-instructions.md 
+
+# Unsure:
+# Install the javascript dependencies:
+# npm install
+
+# Building notes
+# CI Job definitions: https://github.com/itchio/ci.itch.ovh/blob/master/src/jobs/itch.yml
+
+###############################
+
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
@@ -42,7 +62,10 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages - TODO
-	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper 
+	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper npm
+	
+	# Install build-specific extra packages
+	npm install -g electron-prebuilt@0.35.4
 
 }
 

@@ -64,9 +64,15 @@ install_prereqs()
 	# install basic build packages - TODO
 	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper npm
 	
+	# Setup npm
+	npm config set spin false
+	
 	# Install build-specific extra packages
 	npm install -g electron-prebuilt@0.35.4
-
+	
+	# Install grunt
+	npm install -g grunt-cli
+	
 }
 
 main()

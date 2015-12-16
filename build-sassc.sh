@@ -8,7 +8,6 @@
 #		github release
 #
 # See:		https://github.com/sass/sassc
-#		
 #
 # Usage:	build-sassc.sh
 #-------------------------------------------------------------------------------
@@ -20,13 +19,15 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/sass/sassc"
+git_url_libsass="https://github.com/sass/libsass"
 rel_target="3.3.0"
+rel_target_libsass="3.3.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="sassc"
-pkgver="0.3.7+git+bsos"
+pkgver="3.3.0+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -43,8 +44,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages - TODO
-	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper libsass
-	
+	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper
+
 }
 
 main()
@@ -61,11 +62,11 @@ main()
 		mkdir -p "$build_dir"
 
 	fi
-	
+
 	# OPTIONAL - use upstream libsass
-  # git clone https://github.com/sass/libsass.git
-  # Edit your .bash_profile to include libsass directory:
-  # export SASS_LIBSASS_PATH=/Users/you/path/libsass
+	# git clone https://github.com/sass/libsass.git
+	# Edit your .bash_profile to include libsass directory:
+	# export SASS_LIBSASS_PATH=/Users/you/path/libsass
 
 	# enter build dir
 	cd "$build_dir" || exit
@@ -80,8 +81,11 @@ main()
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 
-	# upstream missing a build dep
-	cp "$scriptdir/$pkgname/control" "$git_dir/debian/"
+	# clone libsass
+	git clone -b "$rel_target" "$git_url_libsass" "libsass"
+
+	# copy in debian directory
+	cp -r "$scriptdir/$pkgname/debian" "$git_dir"
 
 	#################################################
 	# Build platform
@@ -96,6 +100,9 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
+	# Tell sassc where libsass is
+	export SASS_LIBSASS_PATH="$build_dir/libsass"
+
 	# enter source dir
 	cd "${pkgname}"
 
@@ -104,7 +111,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

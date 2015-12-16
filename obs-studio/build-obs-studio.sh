@@ -2,14 +2,15 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-sassc.sh
-# Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from latest sassc
+# Scipt Name:	build-obs-studio.sh
+# Script Ver:	1.0.0
+# Description:	Attempts to build a deb package from latest obs-studio
 #		github release
 #
-# See:		https://github.com/sass/sassc
+# See:		https://github.com/jp9000/obs-studio
 #
-# Usage:	build-sassc.sh
+# Usage:	build-obs-studio.sh
+#
 #-------------------------------------------------------------------------------
 
 arg1="$1"
@@ -18,16 +19,14 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/sass/sassc"
-git_url_libsass="https://github.com/sass/libsass"
-rel_target="3.3.0"
-rel_target_libsass="3.3.2"
+git_url="https://github.com/jp9000/obs-studio"
+rel_target="0.12.3"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="sassc"
-pkgver="3.3.0+git+bsos"
+pkgname="obs-studio"
+pkgver="$rel_target+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -39,13 +38,26 @@ git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
-
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	# install basic build packages - TODO
-	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper
+	# install basic build packages
+	sudo apt-get install -y --force-yes libx11-dev libgl1-mesa-dev \
+	libpulse-dev libxcomposite-dev libxinerama-dev libv4l-dev libudev-dev \
+	libfreetype6-dev libfontconfig-dev qtbase5-dev libqt5x11extras5-dev \
+	libx264-dev libxcb-xinerama0-dev libxcb-shm0-dev libjack-jackd2-dev \
+	libcurl4-openssl-dev build-essential bc debhelper cdbs cmake libfdk-aac-dev
 
+	echo -e "\n==> Installing $pkgname build dependencies...\n"
+	sleep 2s
+
+	# Until the ffmpeg build script is finished, install ffmpeg from rebuilt PPA source
+	# hosted in the Libregeek repositories. Exit if not installed correctly.
+
+	sudo apt-get install -y --force-yes ffmpeg libavcodec-ffmpeg-dev \
+	libavdevice-ffmpeg-dev libavfilter-ffmpeg-dev libavformat-ffmpeg-dev \
+	libavresample-ffmpeg-dev libavutil-ffmpeg-dev libpostproc-ffmpeg-dev \
+	libswresample-ffmpeg-dev libswscale-ffmpeg-dev
 }
 
 main()
@@ -63,11 +75,6 @@ main()
 
 	fi
 
-	# OPTIONAL - use upstream libsass
-	# git clone https://github.com/sass/libsass.git
-	# Edit your .bash_profile to include libsass directory:
-	# export SASS_LIBSASS_PATH=/Users/you/path/libsass
-
 	# enter build dir
 	cd "$build_dir" || exit
 
@@ -80,12 +87,6 @@ main()
 
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
-
-	# clone libsass
-	git clone -b "$rel_target" "$git_url_libsass" "libsass"
-
-	# copy in debian directory
-	cp -r "$scriptdir/$pkgname/debian" "$git_dir"
 
 	#################################################
 	# Build platform
@@ -100,24 +101,20 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# Tell sassc where libsass is
-	export SASS_LIBSASS_PATH="$build_dir/libsass"
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"
 
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
-
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
+	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	  * ***** Full list of commits *****
-	$commits_full
 
 	 -- $uploader  $date_long
 

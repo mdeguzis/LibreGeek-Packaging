@@ -78,9 +78,6 @@ main()
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 
-	# upstream missing a build dep
-	cp "$scriptdir/$pkgname/control" "$git_dir/debian/"
-
 	#################################################
 	# Build platform
 	#################################################

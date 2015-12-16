@@ -1,29 +1,52 @@
 #!/bin/bash
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-speedtest-cli.sh
+# Scipt Name:	build-itch.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from speedtest-cli git source
+# Description:	Attempts to build a deb package from latest itch
+#		github release
 #
-# See:		https://launchpadlibrarian.net/219136562/speedtest-cli_2.19.3-1~vivid1.dsc
-# Usage:	build-speedtest-cli.sh
-# -------------------------------------------------------------------------------
+# See:		https://github.com/itchio/itch
+#		https://github.com/itchio/itch/issues/41
+#
+# Usage:	build-itch.sh
+#-------------------------------------------------------------------------------
+
+###############################
+# TODO
+###############################
+
+# Rebuild nodejs for brewmaster off of sid:
+# https://packages.debian.org/sid/nodejs
+
+# Build sassc 
+# https://github.com/sass/sassc
+# https://github.com/sass/sassc/blob/master/docs/building/unix-instructions.md 
+
+# Unsure:
+# Install the javascript dependencies:
+# npm install
+
+# Building notes
+# CI Job definitions: https://github.com/itchio/ci.itch.ovh/blob/master/src/jobs/itch.yml
+
+###############################
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-# upstream URL
-git_url="https://github.com/sivel/speedtest-cli"
-
+# upstream vars
+git_url="https://github.com/itchio/itch"
+rel_target="v0.3.7"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="speedtest-cli"
-pkgver="${date_short}+git+bsos"
+pkgname="itch"
+pkgver="0.3.7+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -38,10 +61,18 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc python \
-	python-setuptools debhelper python-all
-
+	# install basic build packages - TODO
+	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper npm
+	
+	# Setup npm
+	npm config set spin false
+	
+	# Install build-specific extra packages
+	npm install -g electron-prebuilt@0.35.4
+	
+	# Install grunt
+	npm install -g grunt-cli
+	
 }
 
 main()
@@ -65,19 +96,22 @@ main()
 	# install prereqs for build
 	install_prereqs
 
-	# Clone upstream source code
+	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone "$git_url" "$git_dir"
+	# clone
+	git clone -b "$rel_target" "$git_url" "$git_dir"
+
+	# upstream missing a build dep
+	cp "$scriptdir/control" "$git_dir/debian/"
 
 	#################################################
-	# Build speedtest-cli
+	# Build platform
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
@@ -85,21 +119,21 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# copy in debian folder/files
-	mkdir debian
-	cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
-
 	# enter source dir
-	cd "${git_dir}"
+	cd "${pkgname}"
+
+	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
+	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
+	  * ***** Full list of commits *****
+	$commits_full
 
 	 -- $uploader  $date_long
 
@@ -114,7 +148,7 @@ main()
 	sleep 3s
 	nano debian/changelog
 
-	# cleanup old files
+ 	# cleanup old files
  	rm -f changelog.in
  	rm -f debian/changelog.in
 
@@ -125,16 +159,17 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
+	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration
 	#################################################
-
+	
 	#################################################
 	# Cleanup
 	#################################################
-
+	
 	# clean up dirs
 	
 	# note time ended
@@ -164,7 +199,7 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: ${build_dir}/build: \n"
+	echo -e "Showing contents of: ${build_dir}: \n"
 	ls ${build_dir}| grep -E *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"

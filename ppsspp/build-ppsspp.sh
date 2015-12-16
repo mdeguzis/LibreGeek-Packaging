@@ -1,35 +1,36 @@
 #!/bin/bash
-# -------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-qtsixa.sh
+# Scipt Name:	build-ppsspp.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to build a deb package from forked qtsixa git source
+# Description:	Attempts to builad a deb package from latest ppsspp
+#		github release
 #
-# See:		https://github.com/arcsur/qtsixa/blob/master/INSTALL
-# Usage:	build-qtsixa.sh
-# -------------------------------------------------------------------------------
+# See:		https://github.com/hrydgard/ppsspp
+#
+# Usage:	build-ppsspp.sh
+#
+#-------------------------------------------------------------------------------
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-# reset source command for while loop
-src_cmd=""
 
-# upstream URL
-git_url="https://github.com/arcsur/qtsixa
+# upstream vars
+git_url="https://github.com/hrydgard/ppsspp"
+branch="master"
 
 # package vars
-pkgname="qtsixa"
-pkgrel="1"
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
+pkgname="ppsspp"
+pkgver="1.1.1+git+bsos"
+pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="qtsixa"
-pkggroup="utils"
-requires="bluez, libbluetooth3, udev, python-qt4, python-dbus, gksu, bluez-hcidump, libnotify-bin, xdg-utils"
-replaces="qtsixa"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
@@ -41,49 +42,87 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
-	libusb-dev libbluetooth-dev ibdbus-1-dev libdbus-glib-1-2 libjack-dev python-qt4-dev pyqt4-dev-tools
+	sudo apt-get -y --force-yes install build-essential pkg-config bc \
+	debhelper cmake fonts-dejavu-core fonts-droid fonts-liberation fonts-mona \
+	fonts-nanum fonts-roboto fonts-unfonts-core libfreetype6-dev libglew-dev \
+	libqt5opengl5-dev libsdl2-dev libsnappy-dev libzip-dev qt5-qmake qtbase5-dev \
+	qttools5-dev-tools ttf-unifont zlib1g-dev
 
 }
 
 main()
 {
-	
-	# create and enter build_dir
+
+	# create build_dir
 	if [[ -d "$build_dir" ]]; then
-	
-		audo rm -rf "$build_dir"
+
+		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
-		
+
 	else
-	
+
 		mkdir -p "$build_dir"
-		
+
 	fi
-	
+
+	# enter build dir
+	cd "$build_dir" || exit
+
 	# install prereqs for build
 	install_prereqs
-	
-	# Clone upstream source code
-	git clone "$git_url" "$git_dir"
-	
-	# Enter git dir for build
-	cd "$git_dir" || exit
- 
+
+	# Clone upstream source code and branch
+
+	echo -e "\n==> Obtaining upstream source code\n"
+
+	# clone recursively for submodules
+	git clone --recursive -b "$branch" "$git_url" "$git_dir"
+
 	#################################################
-	# Build qtsixa
+	# Build package
 	#################################################
-	
-	echo -e "\n==> Bulding ${pkgname}\n"
+
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
+
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
+
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
+
+	# enter source dir
+	cd "${pkgname}"
+
+	# Create basic changelog format
+	# This addons build cannot have a revision
+	cat <<-EOF> changelog.in
+	$pkgname ($pkgver) $dist_rel; urgency=low
+
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+
+	 -- $uploader  $date_long
+
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
-	
-	# Create build files
-	make
-	
-	# install (testing only)
-	# sudo make install
-  # sudo make install-system
- 
+	nano debian/changelog
+
+ 	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
+
 	#################################################
 	# Build Debian package
 	#################################################
@@ -91,10 +130,8 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
-	--pkgversion="$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
-	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
-	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
+	#  build
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration
@@ -133,8 +170,8 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: ${build_dir}/build: \n"
-	ls ${git_dir}/build | grep -E *.deb
+	echo -e "Showing contents of: ${build_dir}: \n"
+	ls ${build_dir}| grep -E *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -144,8 +181,8 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# cut files
-		if [[ -d "${git_dir}/build" ]]; then
-			scp ${git_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		if [[ -d "${build_dir}" ]]; then
+			scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 		fi
 		

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-ppsspp.sh
+# Scipt Name:	build-emulationstation-theme-simple.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest ppsspp
+# Description:	Attempts to builad a deb package from latest emulationstation
 #		github release
 #
-# See:		https://github.com/hrydgard/ppsspp
+# See:		https://github.com/RetroPie/es-theme-simple
 #
-# Usage:	build-ppsspp.sh
+# Usage:	build-emulationstation-theme-simple.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,14 +19,14 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/hrydgard/ppsspp"
+git_url="https://github.com/RetroPie/es-theme-simple"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="ppsspp"
-pkgver="1.1.1+git+bsos"
+pkgname="emulationstation-theme-simple"
+pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -43,10 +43,8 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc \
-	debhelper cmake fonts-dejavu-core fonts-droid fonts-liberation fonts-mona \
-	fonts-nanum fonts-roboto fonts-unfonts-core libfreetype6-dev libglew-dev \
-	libqt5opengl5-dev libsdl2-dev libsnappy-dev libzip-dev qt5-qmake qtbase5-dev \
-	qttools5-dev-tools ttf-unifont zlib1g-dev
+	debhelper rsync
+
 
 }
 
@@ -75,8 +73,8 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone recursively for submodules
-	git clone --recursive -b "$branch" "$git_url" "$git_dir"
+	# clone
+	git clone -b "$branch" "$git_url" "$git_dir"
 
 	#################################################
 	# Build package
@@ -92,7 +90,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/$pkgname/debian "${git_dir}"
+	cp -r $scriptdir/debian "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"

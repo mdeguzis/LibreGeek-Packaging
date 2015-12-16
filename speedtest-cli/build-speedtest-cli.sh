@@ -1,32 +1,29 @@
 #!/bin/bash
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-obs-studio.sh
-# Script Ver:	1.0.0
-# Description:	Attempts to build a deb package from latest obs-studio
-#		github release
+# Scipt Name:	build-speedtest-cli.sh
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from speedtest-cli git source
 #
-# See:		https://github.com/jp9000/obs-studio
-#
-# Usage:	build-obs-studio.sh
-#
-#-------------------------------------------------------------------------------
+# See:		https://launchpadlibrarian.net/219136562/speedtest-cli_2.19.3-1~vivid1.dsc
+# Usage:	build-speedtest-cli.sh
+# -------------------------------------------------------------------------------
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-# upstream vars
-git_url="https://github.com/jp9000/obs-studio"
-rel_target="0.12.3"
+# upstream URL
+git_url="https://github.com/sivel/speedtest-cli"
+
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="obs-studio"
-pkgver="$rel_target+git+bsos"
+pkgname="speedtest-cli"
+pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -42,22 +39,9 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes libx11-dev libgl1-mesa-dev \
-	libpulse-dev libxcomposite-dev libxinerama-dev libv4l-dev libudev-dev \
-	libfreetype6-dev libfontconfig-dev qtbase5-dev libqt5x11extras5-dev \
-	libx264-dev libxcb-xinerama0-dev libxcb-shm0-dev libjack-jackd2-dev \
-	libcurl4-openssl-dev build-essential bc debhelper cdbs cmake libfdk-aac-dev
+	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc python \
+	python-setuptools debhelper python-all
 
-	echo -e "\n==> Installing $pkgname build dependencies...\n"
-	sleep 2s
-
-	# Until the ffmpeg build script is finished, install ffmpeg from rebuilt PPA source
-	# hosted in the Libregeek repositories. Exit if not installed correctly.
-
-	sudo apt-get install -y --force-yes ffmpeg libavcodec-ffmpeg-dev \
-	libavdevice-ffmpeg-dev libavfilter-ffmpeg-dev libavformat-ffmpeg-dev \
-	libavresample-ffmpeg-dev libavutil-ffmpeg-dev libpostproc-ffmpeg-dev \
-	libswresample-ffmpeg-dev libswscale-ffmpeg-dev
 }
 
 main()
@@ -81,19 +65,19 @@ main()
 	# install prereqs for build
 	install_prereqs
 
-	# Clone upstream source code and branch
+	# Clone upstream source code
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone "$git_url" "$git_dir"
 
 	#################################################
-	# Build platform
+	# Build speedtest-cli
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
+
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
@@ -101,16 +85,17 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# copy in debian folder
-	cp -r $scriptdir/$pkgname/debian "${git_dir}"
+	# copy in debian folder/files
+	mkdir debian
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# enter source dir
-	cd "${pkgname}"
+	cd "${git_dir}"
 
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -129,7 +114,7 @@ main()
 	sleep 3s
 	nano debian/changelog
 
- 	# cleanup old files
+	# cleanup old files
  	rm -f changelog.in
  	rm -f debian/changelog.in
 
@@ -140,17 +125,16 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration
 	#################################################
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
 	
 	# note time ended
@@ -180,7 +164,7 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: ${build_dir}: \n"
+	echo -e "Showing contents of: ${build_dir}/build: \n"
 	ls ${build_dir}| grep -E *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"

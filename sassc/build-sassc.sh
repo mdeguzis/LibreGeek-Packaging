@@ -2,15 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-emulationstation-theme-simple.sh
-# Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest emulationstation
+# Scipt Name:	build-sassc.sh
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from latest sassc
 #		github release
 #
-# See:		https://github.com/RetroPie/es-theme-simple
+# See:		https://github.com/sass/sassc
 #
-# Usage:	build-emulationstation-theme-simple.sh
-#
+# Usage:	build-sassc.sh
 #-------------------------------------------------------------------------------
 
 arg1="$1"
@@ -19,14 +18,16 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/RetroPie/es-theme-simple"
-branch="master"
+git_url="https://github.com/sass/sassc"
+git_url_libsass="https://github.com/sass/libsass"
+rel_target="3.3.0"
+rel_target_libsass="3.3.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="emulationstation-theme-simple"
-pkgver="${date_short}+git+bsos"
+pkgname="sassc"
+pkgver="3.3.0+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -38,13 +39,12 @@ git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
+
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc \
-	debhelper rsync
-
+	# install basic build packages - TODO
+	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper
 
 }
 
@@ -63,6 +63,11 @@ main()
 
 	fi
 
+	# OPTIONAL - use upstream libsass
+	# git clone https://github.com/sass/libsass.git
+	# Edit your .bash_profile to include libsass directory:
+	# export SASS_LIBSASS_PATH=/Users/you/path/libsass
+
 	# enter build dir
 	cd "$build_dir" || exit
 
@@ -74,10 +79,16 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone -b "$rel_target" "$git_url" "$git_dir"
+
+	# clone libsass
+	git clone -b "$rel_target" "$git_url_libsass" "libsass"
+
+	# copy in debian directory
+	cp -r "$scriptdir/debian" "$git_dir"
 
 	#################################################
-	# Build package
+	# Build platform
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -89,20 +100,24 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# copy in debian folder
-	cp -r $scriptdir/$pkgname/debian "${git_dir}"
+	# Tell sassc where libsass is
+	export SASS_LIBSASS_PATH="$build_dir/libsass"
 
 	# enter source dir
 	cd "${pkgname}"
 
+	commits_full=$(git log --pretty=format:"  * %cd %h %s")
+
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
+	  * ***** Full list of commits *****
+	$commits_full
 
 	 -- $uploader  $date_long
 

@@ -24,3 +24,11 @@ Packaging scripts and files for SteamOS-Tools
 
 # Cmake vs Make
 * [Cmake vs Make (Perpetual Enigma)](http://prateekvjoshi.com/2014/02/01/cmake-vs-make/)
+
+# Other notes
+* Some folders here may be a [sub-module](https://git-scm.com/book/en/v2/Git-Tools-Submodules). If you clone this repository, ensure you add the --recursive option flag. You can also use
+
+```
+git pull --recurse-submodules
+git submodule update --recursive
+```

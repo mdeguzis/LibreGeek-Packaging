@@ -139,7 +139,7 @@ main()
 	
 	#wget "https://github.com/PCSX2/pcsx2/raw/master/debian-packager/create_built_tarball.sh"
 	
-	sh "create_built_tarball.sh"
+	./create_built_tarball.sh
 	rm "create_built_tarball.sh"
 
 	# unpack tarball

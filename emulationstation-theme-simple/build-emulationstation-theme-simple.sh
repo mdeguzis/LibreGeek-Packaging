@@ -26,8 +26,10 @@ branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="emulationstation-theme-simple"
-pkgver="${date_short}+git+bsos"
-pkgrev="1"
+pkgver="${date_short}"
+upstream_rev=""
+pkgsuffix="git+bsos"
+pkgrev="2"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -98,7 +100,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver_$pkgsuffix$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -150,7 +152,6 @@ main()
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
 	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)

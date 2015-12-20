@@ -48,7 +48,7 @@ TMP_DIR=/tmp/pcsx2_git
 mkdir -p $TMP_DIR
 
 REMOTE_REPO="https://github.com/PCSX2/pcsx2.git"
-LOCAL_REPO="$TMP_DIR/pcsx2"
+LOCAL_REPO="pcsx2"
 
 ######################################################################
 # Basic functions
@@ -82,9 +82,9 @@ download_orig()
 remove_3rdparty()
 {
     echo "Remove 3rdparty code"
-    rm -fr $LOCAL_REPO/3rdparty
-    rm -fr $LOCAL_REPO/fps2bios
-    rm -fr $LOCAL_REPO/tools
+    rm -rf $LOCAL_REPO/3rdparty
+    rm -rf $LOCAL_REPO/fps2bios
+    rm -rf $LOCAL_REPO/tools
 }
 
 remove_not_yet_free_plugin()
@@ -93,14 +93,14 @@ remove_not_yet_free_plugin()
     # remove also deprecated plugins
     for plugin in CDVDiso CDVDisoEFP CDVDlinuz CDVDolio CDVDpeops dev9ghzdrk PeopsSPU2 SSSPSXPAD USBqemu xpad zerogs zerospu2
     do
-        rm -fr $LOCAL_REPO/plugins/$plugin
+        rm -rf $LOCAL_REPO/plugins/$plugin
     done
 }
 
 remove_remaining_non_free_file()
 {
     echo "Remove remaining non free file. TODO UPSTREAM"
-    rm -fr $LOCAL_REPO/plugins/GSdx/baseclasses
+    rm -rf $LOCAL_REPO/plugins/GSdx/baseclasses
     rm -f  $LOCAL_REPO/plugins/zzogl-pg/opengl/Win32/aviUtil.h
     rm -f  $LOCAL_REPO/plugins/spu2-x/src/Windows/Hyperlinks.h
     rm -f  $LOCAL_REPO/plugins/spu2-x/src/Windows/Hyperlinks.cpp
@@ -110,7 +110,7 @@ remove_remaining_non_free_file()
 remove_dot_git()
 {
     # To save 66% of the package size
-    rm -fr  $LOCAL_REPO/.git
+    rm -rf  $LOCAL_REPO/.git
 }
 
 ######################################################################
@@ -147,13 +147,13 @@ fi
 
 
 NEW_DIR=${TMP_DIR}/$PKG_NAME
-rm -fr $NEW_DIR
+rm -rf $NEW_DIR
 mv $LOCAL_REPO $NEW_DIR
 
 echo "Build the tar.gz file"
 tar -C $TMP_DIR -cJf ${TAR_NAME}.xz $PKG_NAME
 
 ## Clean
-rm -fr $TMP_DIR
+rm -rf $TMP_DIR
 
 exit 0

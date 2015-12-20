@@ -3,7 +3,7 @@
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  build-mpv.sh
-# Script Ver:	  0.1.1
+# Script Ver:	  1.0.0
 # Description:	Builds mpv for specific use in building PlexMediaPlayer
 #
 # See:		 
@@ -91,8 +91,11 @@ main()
 	touch debian/changelog
 	rm -f debian/changelog.TEMPLATE
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
-
-	# Create basic changelog format
+	
+	# check for updates
+	./update
+	
+		# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
@@ -118,9 +121,6 @@ main()
  	# cleanup old files
  	rm -f changelog.in
  	rm -f debian/changelog.in
-	
-	# check for updates
-	./update
 	
 	# Install the dependencies 
 	rm -f mpv-build-deps_*_*.deb

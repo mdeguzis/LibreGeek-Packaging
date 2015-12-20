@@ -26,8 +26,9 @@ branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="emulationstation"
-pkgver="${date_short}+git+bsos"
-pkgrev="1"
+pkgver="${date_short}"
+pkgsuffix="git+bsos"
+pkgrev="2"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -101,7 +102,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}${pkgrev}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

@@ -84,8 +84,13 @@ main()
 
 	# clone
 	git clone "$git_url" "$git_dir"
+	
+	# enter source dir
 	cd "$git_dir"
 	
+	# gather commits
+	touch debian/changelog
+	rm -f debian/changelog.TEMPLATE
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 
 	# Create basic changelog format
@@ -98,6 +103,7 @@ main()
 	  * ***** Full list of commits *****
 	$commits_full
 	 -- $uploader  $date_long
+
 	EOF
 
 	# Perform a little trickery to update existing changelog or create

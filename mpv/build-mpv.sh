@@ -21,10 +21,13 @@ time_stamp_start=(`date +"%T"`)
 # reset source command for while loop
 
 # package vars
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="mpv"
-pkgver="${pkgname}+SteamOS2"
-pkgrel="1"
+pkgver="${date_short}"
+pkgrel="2"
+pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 maintainer="ProfessorKaos64"
 provides="mpv"
@@ -83,6 +86,33 @@ main()
 	git clone "$git_url" "$git_dir"
 	cd "$git_dir"
 	
+	commits_full=$(git log --pretty=format:"  * %cd %h %s")
+
+	# Create basic changelog format
+	# This addons build cannot have a revision
+	cat <<-EOF> changelog.in
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+	  * ***** Full list of commits *****
+	$commits_full
+	 -- $uploader  $date_long
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
+	sleep 3s
+	nano debian/changelog
+
+ 	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
+	
 	# check for updates
 	./update
 	
@@ -96,9 +126,6 @@ main()
 	# build debian package
 	dpkg-buildpackage -uc -us -b -j4
 	
-	# move build-dep package to build dir
-	# the mpv player package itself will be in the build dir
-	mv mpv-build-deps*.deb ..
 	
 	#################################################
 	# Cleanup

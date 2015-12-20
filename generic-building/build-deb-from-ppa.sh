@@ -324,7 +324,7 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# cut files
-		scp $build_dir/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"

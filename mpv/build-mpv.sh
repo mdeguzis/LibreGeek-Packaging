@@ -87,15 +87,15 @@ main()
 	# enter source dir
 	cd "$git_dir"
 	
+	# check for updates
+	./update
+	
 	# gather commits
 	touch debian/changelog
 	rm -f debian/changelog.TEMPLATE
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 	
-	# check for updates
-	./update
-	
-		# Create basic changelog format
+	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low

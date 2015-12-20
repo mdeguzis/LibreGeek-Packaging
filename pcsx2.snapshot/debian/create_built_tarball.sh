@@ -50,13 +50,13 @@ mkdir -p $TMP_DIR
 REMOTE_REPO="https://github.com/PCSX2/pcsx2.git"
 LOCAL_REPO="$TMP_DIR/pcsx2"
 
-
 ######################################################################
 # Basic functions
 ######################################################################
 date=
 version=
-release=
+release="git"
+
 get_pcsx2_version()
 {
     local major=`grep -o "VersionHi.*" $LOCAL_REPO/pcsx2/SysForwardDefs.h | grep -o "[0-9]*"`
@@ -128,13 +128,21 @@ get_pcsx2_version
 remove_dot_git
 
 # Debian name of package and tarball
-if [ $release -eq 1 ]
-then
+if [[ "$release" == "stable" ]]; then
+
     PKG_NAME="pcsx2-${version}"
     TAR_NAME="pcsx2_${version}.orig.tar"
-else
+
+elif [[ "$release" == "git" ]]; then
+
+    PKG_NAME="pcsx2_${version}~git${date}"
+    TAR_NAME="pcsx2_${version}~git${date}.orig.tar"
+
+elif [[ "$release" == "daily" ]]; then
+
     PKG_NAME="pcsx2.snapshot-${version}~git${date}"
     TAR_NAME="pcsx2.snapshot_${version}~git${date}.orig.tar"
+    
 fi
 
 

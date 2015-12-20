@@ -100,7 +100,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver_$pkgsuffix$pkgrev) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}${pkgrev}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

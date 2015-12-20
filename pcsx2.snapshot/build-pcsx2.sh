@@ -24,8 +24,7 @@ src_cmd=""
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="pcsx2"
-# pkgver auto obtained from tarball filename
-# pkgver="${date_short}+git+bsos"
+pkgver="${date_short}+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -35,12 +34,14 @@ maintainer="ProfessorKaos64"
 build_dir="/home/desktop/build-pcsx2-temp"
 git_dir="$build_dir/pcsx2"
 git_url="https://github.com/PCSX2/pcsx2"
+rel_target="master"
 
 # package vars
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
 install_prereqs()
 {
+	
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s

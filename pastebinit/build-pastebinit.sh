@@ -26,6 +26,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="pastebinit"
 pkgver="1.4"
+upstream_rev="4"
 pkgrev="4"
 pkgsuffix="git+bsos"
 dist_rel="brewmaster"
@@ -97,7 +98,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver-$pkgrev+$pkgsuffix) $dist_rel; urgency=low
+	$pkgname ($pkgver-$upstream_rev+$pkgsuffix-$pkgrev) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

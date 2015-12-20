@@ -200,21 +200,20 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep -E *.deb
+	ls ${build_dir}| grep $pkgname_$pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
 	read -erp "Choice: " transfer_choice
-	
+
 	if [[ "$transfer_choice" == "y" ]]; then
-	
+
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-
+			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
-		
+
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"
 	fi

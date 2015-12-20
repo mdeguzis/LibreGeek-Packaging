@@ -281,5 +281,4 @@ main()
 }
 
 # start main
-install_prereqs
 main

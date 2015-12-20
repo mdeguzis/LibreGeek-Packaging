@@ -173,10 +173,13 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
+	
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
 
 	# enter source dir
-	cd "${pkgname}"
+	cd "${git_dir}"
 
 	# There seems to be a missing man page, corrected in forked makefile
 	# See: https://github.com/smcameron/space-nerds-in-space/issues/72

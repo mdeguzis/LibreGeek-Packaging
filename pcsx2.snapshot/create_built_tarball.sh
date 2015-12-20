@@ -32,7 +32,7 @@ EOF
 # Default value
 GIT_SHA1=0;
 BRANCH="master"
-while [ -n "$1" ]; do
+while [[ -n "$1" ]]; do
 case $1 in
     -help|-h   ) help;shift 1;;
     -rev|-r    ) GIT_SHA1=$2; shift 2;;
@@ -73,9 +73,13 @@ get_git_version()
 
 download_orig()
 {
-    (cd $TMP_DIR && git clone --branch $1 $REMOTE_REPO pcsx2)
-    if [ "$SVN_CO_VERSION" = "1" ] ; then
-        (cd $TMP_DIR/pcsx2 && git checkout $GIT_SHA1)
+    cd $TMP_DIR || exit
+    git clone --branch $1 $REMOTE_REPO pcsx2
+    
+    if [[ "$SVN_CO_VERSION" = "1" ]] ; then
+    
+        cd $TMP_DIR/pcsx2 && git checkout $GIT_SHA1
+        
     fi
 }
 

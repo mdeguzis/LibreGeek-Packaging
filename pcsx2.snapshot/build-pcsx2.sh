@@ -107,9 +107,10 @@ install_prereqs()
 
 main()
 {
+	# Note: based on:
+	# https://github.com/PCSX2/pcsx2/blob/master/debian-packager/create_built_tarball.sh
 
-	# create and enter build_dir
-
+	# create build_dir
 	if [[ -d "$build_dir" ]]; then
 
 		sudo rm -rf "$build_dir"
@@ -121,14 +122,47 @@ main()
 
 	fi
 
-	# copy in tarball script
-	cp "create_built_tarball.sh" "$build_dir"
+	# enter build dir
+	cd "$build_dir" || exit
 
-	# Enter build dir
-	cd "$build_dir"
+	# install prereqs for build
+	install_prereqs
+
+	# Clone upstream source code and branch
+
+	echo -e "\n==> Obtaining upstream source code\n"
+
+	# clone
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 
 	#################################################
-	# Build PKG
+	# Prepare build (upstream-specific)
+	#################################################
+
+	echo -e "\nRemove 3rdparty code"
+	rm -fr "$git_dir/3rdparty"
+	rm -fr "$git_dir/fps2bios"
+	rm -fr "$git_dir/tools"
+	
+	echo "Remove non free plugins"
+	# remove also deprecated plugins
+	for plugin in CDVDiso CDVDisoEFP CDVDlinuz CDVDolio CDVDpeops dev9ghzdrk \
+	PeopsSPU2 SSSPSXPAD USBqemu xpad zerogs zerospu2
+	do
+		rm -fr "$git_dir/plugins/$plugin"
+	done
+
+	echo "Remove remaining non free file. TODO UPSTREAM"
+	rm -rf $git_dir/unfree
+	rm -rf $git_dir/plugins/GSdx/baseclasses
+	rm -f  $git_dir/plugins/zzogl-pg/opengl/Win32/aviUtil.h
+	rm -f  $git_dir/common/src/Utilities/x86/MemcpyFast.cpp
+	
+	# To save 66% of the package size
+	rm -rf  $git_dir/.git
+
+	#################################################
+	# Build platform
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -136,34 +170,31 @@ main()
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
-	
-	#wget "https://github.com/PCSX2/pcsx2/raw/master/debian-packager/create_built_tarball.sh"
-	
-	./create_built_tarball.sh
-	rm "create_built_tarball.sh"
 
-	# unpack tarball
-	tar -xf pcsx2*.tar.xz
-
-	# actively get pkg ver from created tarball
-	pkgver=$(find . -name *.orig.tar.xz | cut -c 18-41)
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# enter source dir
-	cd pcsx2*
+	cd "${pkgname}"
 
-	# Add in debian folder
-	cp -r debian-packager debian
+	# There seems to be a missing man page, corrected in forked makefile
+	# See: https://github.com/smcameron/space-nerds-in-space/issues/72
+
+	commits_full=$(git log --pretty=format:"  * %h %s")
 
 	# Create basic changelog format
+	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
-	
+	$pkgname ($pkgver) $dist_rel; urgency=low
+
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
+	  * ***** Full list of commits *****
+	$commits_full
 
 	 -- $uploader  $date_long
-	 
+
 	EOF
 
 	# Perform a little trickery to update existing changelog or create
@@ -179,99 +210,73 @@ main()
  	rm -f changelog.in
  	rm -f debian/changelog.in
 
-	############################
-	# proceed to DEB BUILD
-	############################
+	#################################################
+	# Build Debian package
+	#################################################
 
-	echo -e "\n==> Building Debian package from source\n"
+	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	# Build with dpkg-buildpackage
-
-	#dpkg-buildpackage -us -uc -nc
+	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration
 	#################################################
-
-	# TODO
-
+	
 	#################################################
 	# Cleanup
 	#################################################
-
+	
 	# clean up dirs
-
+	
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-
+	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
+	
 	# back out of build temp to script dir if called from git clone
 	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir"
+		cd "$scriptdir" || exit
 	else
-		cd "$HOME"
+		cd "$HOME" || exit
 	fi
-
+	
 	# inform user of packages
 	echo -e "\n############################################################"
 	echo -e "If package was built without errors you will see it below."
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: $build_dir: \n"
-	ls "$build_dir"
-
-	echo -e "\n==> Would you like to trim tar.gz, dsc files, and folders for uploading? [y/n]"
-	sleep 0.5s
-	# capture command
-	read -ep "Choice: " trim_choice
-	
-	if [[ "$trim_choice" == "y" ]]; then
-		
-		# cut files so we just have our deb pkg
-		sudo rm -f $git_dir/*.tar.gz
-		sudo rm -f $git_dir/*.dsc
-		sudo rm -f $git_dir/*.changes
-		sudo rm -f $git_dir/*-dbg
-		sudo rm -f $git_dir/*-dev
-		sudo rm -f $git_dirs/*-compat
-
-		# remove source directory that was made
-		find $build_dir -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
-
-	elif [[ "$trim_choice" == "n" ]]; then
-
-		echo -e "File trim not requested"
-	fi
+	echo -e "Showing contents of: ${build_dir}: \n"
+	ls ${build_dir}| grep -E *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
-	read -ep "Choice: " transfer_choice
-
+	read -erp "Choice: " transfer_choice
+	
 	if [[ "$transfer_choice" == "y" ]]; then
-
+	
 		# cut files
-		if [[ -d "$build_dir" ]]; then
-			scp $build_dir/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		if [[ -d "${build_dir}" ]]; then
+			scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 		fi
-
+		
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"
 	fi
+
 
 }
 

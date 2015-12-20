@@ -25,8 +25,9 @@ rel_target="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="pastebinit"
-pkgver="1.4-4+git+bsos4"
-pkgrev="1"
+pkgver="1.4"
+pkg_suffix="git+bsos"
+pkgrev="4"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -96,7 +97,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname ($pkgver-$pkgrev+$pkgsuffix) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

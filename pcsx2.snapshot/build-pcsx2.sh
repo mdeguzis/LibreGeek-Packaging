@@ -23,7 +23,7 @@ src_cmd=""
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="pcsx2.snapshot"
+pkgname="pcsx2"
 # pkgver auto obtained from tarball filename
 # pkgver="${date_short}+git+bsos"
 pkgrev="1"
@@ -120,6 +120,9 @@ main()
 		mkdir -p "$build_dir"
 
 	fi
+
+	# copy in tarball script
+	cp "create_built_tarball.sh" "$build_dir"
 
 	# Enter build dir
 	cd "$build_dir"

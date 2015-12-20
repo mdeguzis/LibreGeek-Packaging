@@ -76,9 +76,10 @@ download_orig()
     cd $TMP_DIR || exit
     git clone --branch $1 $REMOTE_REPO pcsx2
     
-    if [[ "$SVN_CO_VERSION" = "1" ]] ; then
+    if [[ "$SVN_CO_VERSION" == "1" ]]; then
     
-        cd $TMP_DIR/pcsx2 && git checkout $GIT_SHA1
+        cd $TMP_DIR/pcsx2 || exit
+        git checkout $GIT_SHA1
         
     fi
 }

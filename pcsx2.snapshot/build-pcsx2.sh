@@ -133,7 +133,9 @@ main()
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
-	wget "https://github.com/PCSX2/pcsx2/raw/master/debian-packager/create_built_tarball.sh"
+	
+	#wget "https://github.com/PCSX2/pcsx2/raw/master/debian-packager/create_built_tarball.sh"
+	
 	sh "create_built_tarball.sh"
 	rm "create_built_tarball.sh"
 

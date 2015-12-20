@@ -179,8 +179,7 @@ main()
 
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/${pkgname}_${pkgver}\* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-
+			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

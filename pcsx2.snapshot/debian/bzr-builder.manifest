@@ -1,3 +1,0 @@
-# bzr-builder format 0.4 deb-version 3:1.3.1~git201512071110
-lp:pcsx2-github-mirror revid:git-v1:0bd7cb1ebe8ba8ee9914811a0e067845136539cb
-merge packaging lp:~pcsx2-team/pcsx2-github-mirror/pcsx2-daily-packaging revid:helkaluin@gmail.com-20151024131029-dnalg1cmzpg4v659

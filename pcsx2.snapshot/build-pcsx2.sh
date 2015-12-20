@@ -4,7 +4,7 @@
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  build-pcsx2.sh
-# Script Ver:	  0.3.5
+# Script Ver:	  0.7.5
 # Description:	  Attempts to build a deb package from PCSX2 git source
 #		  It is highly suggested to build in a 32 bit environment!!!
 #		  Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
@@ -160,7 +160,7 @@ main()
 	rm -f  $git_dir/common/src/Utilities/x86/MemcpyFast.cpp
 	
 	# To save 66% of the package size
-	rm -rf  $git_dir/.git
+	# rm -rf  $git_dir/.git
 
 	#################################################
 	# Build platform
@@ -181,11 +181,6 @@ main()
 	# enter source dir
 	cd "${git_dir}"
 
-	# There seems to be a missing man page, corrected in forked makefile
-	# See: https://github.com/smcameron/space-nerds-in-space/issues/72
-
-	commits_full=$(git log --pretty=format:"  * %h %s")
-
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
@@ -194,8 +189,6 @@ main()
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	  * ***** Full list of commits *****
-	$commits_full
 
 	 -- $uploader  $date_long
 

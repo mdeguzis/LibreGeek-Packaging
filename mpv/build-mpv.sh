@@ -57,7 +57,6 @@ install_prereqs()
 
 main()
 {
-	clear
 	
 	#################################################
 	# Fetch source
@@ -97,6 +96,7 @@ main()
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url

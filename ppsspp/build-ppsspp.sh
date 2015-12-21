@@ -83,17 +83,18 @@ main()
 	#################################
 	# correct font files
 	#################################
-	
+
 	echo -e "\n==> Correcting font files\n"
 	sleep 1s
-	
+
 	# This section / set of files were sourced from the nightly PPA
 	# Why the official PPA has the correct files, vs the master branch?
 	# https://launchpad.net/~ppsspp/+archive/ubuntu/testing/+packages
 	cp -v "$scriptdir/buildatlas.sh" "$git_dir"
 	cp -v "$scriptdir/ppge_atlasscript.txt" "$git_dir"
 	cp -v "$scriptdir/atlasscript.txt" "$git_dir"
-	
+	cp -v "$scriptdir/build_ppgeatlas.sh" "$git_dir"
+
 	# see: https://github.com/hrydgard/ppsspp/issues/8263
 	# cp arialuni.ttf "${git_dir}/assets/"
 	# cp KozGoPro-Medium.otf "${git_dir}/assets/"

@@ -94,6 +94,11 @@ main()
 
 	# copy in debian folder
 	cp -r $scriptdir/debian "${git_dir}"
+	
+	# correct font file
+	# see: https://github.com/hrydgard/ppsspp/issues/8263
+	cp arialuni.ttf "${git_dir}/assets/"
+	sed i-e 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/arialuni.ttf|' atlasscript.txt 
 
 	# enter source dir
 	cd "${pkgname}"

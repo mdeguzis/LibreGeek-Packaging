@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-openpht.sh
-# Script Ver:	1.0.7
+# Script Ver:	1.0.8
 # Description:	Attempts to builad a deb package from latest plexhometheater
 #		github release
 #
@@ -31,8 +31,9 @@ branch="openpht-1.5"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="openpht"
-pkgver="${date_short}+git+bsos"
+pkgver="1.5"
 pkgrev="1"
+pkgsuffix="git+bsos${pkgver}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -128,7 +129,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
+	$pkgname (${pkgver}-${pkgrev}+${pkgsuffix}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

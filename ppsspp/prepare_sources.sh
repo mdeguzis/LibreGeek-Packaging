@@ -45,3 +45,6 @@ rm -rf ppsspp_*ubuntu15.10.1*
 
 # rename folder for package build
 mv git_dir ppsspp
+
+# relocate
+mv ppsspp/ "$build_dir"

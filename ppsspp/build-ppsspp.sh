@@ -34,8 +34,8 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
-build_dir="$HOME/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+export build_dir="$HOME/build-${pkgname}-temp"
+export git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
@@ -78,29 +78,13 @@ main()
 	sleep 1s
 
 	# clone recursively for submodules
-	git clone --recursive -b "$branch" "$git_url" "$git_dir"
-
-	#################################
-	# correct font files
-	#################################
-
-	echo -e "\n==> Correcting font files\n"
-	sleep 1s
-
-	# This section / set of files were sourced from the nightly PPA
-	# Why the official PPA has the correct files, vs the master branch?
-	# https://launchpad.net/~ppsspp/+archive/ubuntu/testing/+packages
-	cp -v "$scriptdir/buildatlas.sh" "$git_dir"
-	cp -v "$scriptdir/ppge_atlasscript.txt" "$git_dir"
-	cp -v "$scriptdir/atlasscript.txt" "$git_dir"
-	cp -v "$scriptdir/build_ppgeatlas.sh" "$git_dir"
-
-	# see: https://github.com/hrydgard/ppsspp/issues/8263
-	# cp arialuni.ttf "${git_dir}/assets/"
-	# cp KozGoPro-Medium.otf "${git_dir}/assets/"
-	#sed -ie 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/Roboto-Condensed.ttf|' "$git_dir/atlasscript.txt"
-	#sed -ie 's|C:/Windows/Fonts/KozGoPro-Medium.otf|assets/Roboto-Condensed.ttf|' "$git_dir/ppge_atlasscript.txt"
+	# git clone --recursive -b "$branch" "$git_url" "$git_dir"
 	
+	# run script to sync missing scripts / font files / etc from PPA build folder
+	# this will create the ppsspp source folder in the script diretory
+	
+	./prepare_sources.sh
+
 	#################################################
 	# Build package
 	#################################################

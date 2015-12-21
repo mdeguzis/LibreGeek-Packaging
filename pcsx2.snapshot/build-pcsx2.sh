@@ -31,6 +31,9 @@ dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
+# sub-packages (used for copying to package pool only)
+subpkg1="pcsx2-dbg"
+
 # build dirs
 build_dir="/home/desktop/build-pcsx2-temp"
 git_dir="$build_dir/pcsx2"
@@ -269,6 +272,8 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/${subpkg1}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -78,6 +78,9 @@ main()
 
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
+	
+	# remove .git folder to save space on build
+	rm -f "$git_dir/.git"
 
 	#################################################
 	# Build platform

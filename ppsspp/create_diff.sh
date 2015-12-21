@@ -28,7 +28,7 @@ main()
   
   # run diff to file
   
-  echo -e "\n==> Creating diff\n"
+  echo -e "\n==> Creating diff as $pwd/source_differences.txt\n"
   sleep 2s
   
   diff -r git_source ppa_source | grep git_source | awk '{print $4}' > source_differences.txt
@@ -57,6 +57,7 @@ main()
   			  ;;
   			  
   			  2)
+  			  ls -la && echo ""
   			  read -erp "Folder to copy: " folder
   			  cp -r $folder
   			  ;;

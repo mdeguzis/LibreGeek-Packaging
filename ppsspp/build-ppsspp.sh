@@ -90,9 +90,9 @@ main()
 	# This section / set of files were sourced from the nightly PPA
 	# Why the official PPA has the correct files, vs the master branch?
 	# https://launchpad.net/~ppsspp/+archive/ubuntu/testing/+packages
-	cp buildatlas.sh "$git_dir"
-	cp ppge_atlasscript.txt "$git_dir"
-	cp atlasscript.txt "$git_dir"
+	cp -v "$scriptdir/buildatlas.sh" "$git_dir"
+	cp -v "$scriptdir/ppge_atlasscript.txt" "$git_dir"
+	cp -v "$scriptdir/atlasscript.txt" "$git_dir"
 	
 	# see: https://github.com/hrydgard/ppsspp/issues/8263
 	# cp arialuni.ttf "${git_dir}/assets/"

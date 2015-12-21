@@ -95,10 +95,15 @@ main()
 	# copy in debian folder
 	cp -r $scriptdir/debian "${git_dir}"
 	
-	# correct font file
+	#################################
+	# correct font files
+	#################################
+	
 	# see: https://github.com/hrydgard/ppsspp/issues/8263
 	cp arialuni.ttf "${git_dir}/assets/"
-	sed i-e 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/arialuni.ttf|' atlasscript.txt 
+	cp KozGoPro-Medium.otf "${git_dir}/assets/"
+	sed ie 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/arialuni.ttf|' atlasscript.txt 
+	sed ie 's|C:/Windows/Fonts|assets' ppge_atlasscript.txt
 
 	# enter source dir
 	cd "${pkgname}"

@@ -28,7 +28,7 @@ date_short=$(date +%Y%m%d)
 pkgname="obs-studio"
 pkgver="$rel_target"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgver}"
+pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -119,8 +119,6 @@ main()
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	  * ***** Full list of commits *****
-	$commits_full
 	
 	 -- $uploader  $date_long
 

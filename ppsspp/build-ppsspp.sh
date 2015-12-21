@@ -100,10 +100,11 @@ main()
 	#################################
 	
 	# see: https://github.com/hrydgard/ppsspp/issues/8263
-	cp arialuni.ttf "${git_dir}/assets/"
-	cp KozGoPro-Medium.otf "${git_dir}/assets/"
-	sed ie 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/arialuni.ttf|' atlasscript.txt 
-	sed ie 's|C:/Windows/Fonts|assets' ppge_atlasscript.txt
+	
+	# cp arialuni.ttf "${git_dir}/assets/"
+	# cp KozGoPro-Medium.otf "${git_dir}/assets/"
+	sed ie 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/Roboto-Condensed.ttf|' atlasscript.txt 
+	sed ie 's|C:/Windows/Fonts/KozGoPro-Medium.otf|assets/Roboto-Condensed.ttf' ppge_atlasscript.txt
 
 	# enter source dir
 	cd "${pkgname}"

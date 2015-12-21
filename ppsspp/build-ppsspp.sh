@@ -75,6 +75,7 @@ main()
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
+	sleep 1s
 
 	# clone recursively for submodules
 	git clone --recursive -b "$branch" "$git_url" "$git_dir"
@@ -83,12 +84,21 @@ main()
 	# correct font files
 	#################################
 	
-	# see: https://github.com/hrydgard/ppsspp/issues/8263
+	echo -e "\n==> Correcting font files\n"
+	sleep 1s
 	
+	# This section / set of files were sourced from the nightly PPA
+	# Why the official PPA has the correct files, vs the master branch?
+	# https://launchpad.net/~ppsspp/+archive/ubuntu/testing/+packages
+	cp buildatlas.sh "$git_dir"
+	cp ppge_atlasscript.txt "$git_dir"
+	cp atlasscript.txt "$git_dir"
+	
+	# see: https://github.com/hrydgard/ppsspp/issues/8263
 	# cp arialuni.ttf "${git_dir}/assets/"
 	# cp KozGoPro-Medium.otf "${git_dir}/assets/"
-	sed -ie 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/Roboto-Condensed.ttf|' "$git_dir/atlasscript.txt"
-	sed -ie 's|C:/Windows/Fonts/KozGoPro-Medium.otf|assets/Roboto-Condensed.ttf|' "$git_dir/ppge_atlasscript.txt"
+	#sed -ie 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/Roboto-Condensed.ttf|' "$git_dir/atlasscript.txt"
+	#sed -ie 's|C:/Windows/Fonts/KozGoPro-Medium.otf|assets/Roboto-Condensed.ttf|' "$git_dir/ppge_atlasscript.txt"
 	
 	#################################################
 	# Build package

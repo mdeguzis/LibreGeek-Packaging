@@ -51,6 +51,7 @@ main()
   			  case "$file" in
   			  
   			  1)
+  			  ls -la && echo ""
   			  read -erp "File to copy: " file
   			  cp $file .
   			  ;;

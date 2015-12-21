@@ -97,9 +97,6 @@ main()
 
         # copy in debian folder and other files
         cp -r "$scriptdir/debian" "${git_dir}"
-        
-        # gather git log now, if .git is remvoe to save space
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 	
 	# Trim out .git
 	rm -rf "${git_dir}/.git"
@@ -141,7 +138,6 @@ main()
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 	  * This pacakge is made using the OpenPHT fork of PHT
-	$commits_full
 
 	 -- $uploader  $date_long
 

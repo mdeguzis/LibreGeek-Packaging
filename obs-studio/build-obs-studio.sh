@@ -107,6 +107,9 @@ main()
 
 	# enter source dir
 	cd "${pkgname}"
+	
+	# gather commits
+	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 
 	# Create basic changelog format
 	# This addons build cannot have a revision

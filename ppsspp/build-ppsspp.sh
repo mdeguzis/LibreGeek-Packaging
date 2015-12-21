@@ -88,7 +88,7 @@ main()
 	# cp arialuni.ttf "${git_dir}/assets/"
 	# cp KozGoPro-Medium.otf "${git_dir}/assets/"
 	sed -ie 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/Roboto-Condensed.ttf|' "$git_dir/atlasscript.txt"
-	sed -ie 's|C:/Windows/Fonts/KozGoPro-Medium.otf|assets/Roboto-Condensed.ttf' "$git_dir/ppge_atlasscript.txt"
+	sed -ie 's|C:/Windows/Fonts/KozGoPro-Medium.otf|assets/Roboto-Condensed.ttf|' "$git_dir/ppge_atlasscript.txt"
 	
 	#################################################
 	# Build package

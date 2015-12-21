@@ -79,6 +79,17 @@ main()
 	# clone recursively for submodules
 	git clone --recursive -b "$branch" "$git_url" "$git_dir"
 
+	#################################
+	# correct font files
+	#################################
+	
+	# see: https://github.com/hrydgard/ppsspp/issues/8263
+	
+	# cp arialuni.ttf "${git_dir}/assets/"
+	# cp KozGoPro-Medium.otf "${git_dir}/assets/"
+	sed -ie 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/Roboto-Condensed.ttf|' "$git_dir/atlasscript.txt"
+	sed -ie 's|C:/Windows/Fonts/KozGoPro-Medium.otf|assets/Roboto-Condensed.ttf' "$git_dir/ppge_atlasscript.txt"
+	
 	#################################################
 	# Build package
 	#################################################
@@ -94,17 +105,6 @@ main()
 
 	# copy in debian folder
 	cp -r $scriptdir/debian "${git_dir}"
-	
-	#################################
-	# correct font files
-	#################################
-	
-	# see: https://github.com/hrydgard/ppsspp/issues/8263
-	
-	# cp arialuni.ttf "${git_dir}/assets/"
-	# cp KozGoPro-Medium.otf "${git_dir}/assets/"
-	sed ie 's|C:/Windows/Fonts/ARIALUNI.ttf|assets/Roboto-Condensed.ttf|' atlasscript.txt 
-	sed ie 's|C:/Windows/Fonts/KozGoPro-Medium.otf|assets/Roboto-Condensed.ttf' ppge_atlasscript.txt
 
 	# enter source dir
 	cd "${pkgname}"

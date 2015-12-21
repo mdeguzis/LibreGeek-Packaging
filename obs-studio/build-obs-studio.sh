@@ -20,14 +20,15 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/jp9000/obs-studio"
-rel_target="0.12.3"
+rel_target="0.12.4"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="obs-studio"
-pkgver="$rel_target+git+bsos"
+pkgver="$rel_target"
 pkgrev="1"
+pkgsuffix="git+bsos${pkgver}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -110,12 +111,14 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
-
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-
+	  * ***** Full list of commits *****
+	$commits_full
+	
 	 -- $uploader  $date_long
 
 	EOF

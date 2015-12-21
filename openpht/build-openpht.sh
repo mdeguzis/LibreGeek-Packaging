@@ -60,7 +60,7 @@ install_prereqs()
 	libflac-dev zlib1g-dev libsmbclient-dev libiso9660-dev libssl-dev libvdpau-dev \
 	libmicrohttpd-dev libmodplug-dev librtmp-dev curl libyajl-dev libboost-thread-dev \
 	libboost-system-dev libplist-dev libcec-dev libudev-dev libshairport-dev libtiff5-dev \
-	libtinyxml-dev libmp3lame-dev libva-dev yasm
+	libtinyxml-dev libmp3lame-dev libva-dev yasm quilt
 
 	# libcec
 	sudo apt-get install -y --force-yes libcec3 dcadec1

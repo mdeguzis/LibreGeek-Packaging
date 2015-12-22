@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-qtsixa.sh
-# Script Ver:	1.0.0
+# Script Ver:	1.0.2
 # Description:	Attempts to build a deb package from forked qtsixa git source
 #
 # See:		https://github.com/arcsur/qtsixa/blob/master/INSTALL
@@ -19,17 +19,18 @@ src_cmd=""
 
 # upstream URL
 git_url="https://github.com/arcsur/qtsixa"
+rel_target="master"
 
 # package vars
-pkgname="qtsixa"
-pkgrel="1"
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
+pkgname="antimicro"
+pkgver="$date_short"
+pkgrev="1"
+pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="qtsixa"
-pkggroup="utils"
-requires="bluez, libbluetooth3, udev, python-qt4, python-dbus, gksu, bluez-hcidump, libnotify-bin, xdg-utils"
-replaces="qtsixa"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
@@ -64,11 +65,53 @@ main()
 	# install prereqs for build
 	install_prereqs
 	
-	# Clone upstream source code
-	git clone "$git_url" "$git_dir"
+	# clone
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 	
-	# Enter git dir for build
-	cd "$git_dir" || exit
+	#################################################
+	# Build package
+	#################################################
+	
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
+
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
+
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
+
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
+
+	# enter source dir
+	cd "${git_dir}"
+
+	# Create basic changelog format
+	# This addons build cannot have a revision
+	cat <<-EOF> changelog.in
+	$pkgname ($pkgver) $dist_rel; urgency=low
+	
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+
+	 -- $uploader  $date_long
+
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
+	sleep 3s
+	nano debian/changelog
+
+ 	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
  
 	#################################################
 	# Build qtsixa
@@ -76,25 +119,8 @@ main()
 	
 	echo -e "\n==> Bulding ${pkgname}\n"
 	sleep 3s
-	
-	# Create build files
-	make
-	
-	# install (testing only)
-	# sudo make install
-  # sudo make install-system
- 
-	#################################################
-	# Build Debian package
-	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
-	sleep 2s
-
-	sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
-	--pkgversion="$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
-	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
-	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration

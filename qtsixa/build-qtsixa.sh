@@ -44,6 +44,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
 	libusb-dev libbluetooth-dev libdbus-1-dev libdbus-glib-1-2 libjack-dev python-qt4-dev pyqt4-dev-tools
+	libdbus-glib-1-dev dh-systemd
 
 }
 

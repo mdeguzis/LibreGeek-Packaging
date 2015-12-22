@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-qtsixa.sh
-# Script Ver:	1.0.2
+# Script Ver:	1.0.5
 # Description:	Attempts to build a deb package from forked qtsixa git source
 #
 # See:		https://github.com/arcsur/qtsixa/blob/master/INSTALL
@@ -64,6 +64,9 @@ main()
 	
 	# install prereqs for build
 	install_prereqs
+	
+	echo -e "\n==> Obtaining upstream source code\n"
+	sleep 1s
 	
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"

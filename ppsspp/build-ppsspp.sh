@@ -14,7 +14,7 @@
 #-------------------------------------------------------------------------------
 
 arg1="$1"
-scriptdir=$(pwd)
+export scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
@@ -79,11 +79,13 @@ main()
 
 	# clone recursively for submodules
 	# git clone --recursive -b "$branch" "$git_url" "$git_dir"
-	
-	# run script to sync missing scripts / font files / etc from PPA build folder
-	# this will create the ppsspp source folder in the script diretory
-	
-	./prepare_sources.sh
+
+	# There are missing files in the master git tree that exist in the PPA tree
+	# use a script to source the differences, sync, and keep a few files intact
+	# from the PPA we need to keep. This will keep an up to date snap of git,
+	# while adding missing files needed for the build.
+
+	bash "$scriptdir/prepare_sources.sh"
 
 	#################################################
 	# Build package
@@ -143,13 +145,13 @@ main()
 	#################################################
 	# Post install configuration
 	#################################################
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)

@@ -16,35 +16,65 @@
 # diff -r dir1 dir2 shows which files are only in dir1 and those only in dir2
 # diff -r dir1 dir2 | grep dir1 shows which files are only in dir1
 
-echo -e "\n==> Downloading sources\n"
-sleep 2s
+# remove previous dirs if left behind
+rm -rf git_source ppa_source index.html* ppsspp*
 
+# Get PPA latest version for 15.10
+target="15.10"
+URL="https://launchpad.net/~ppsspp/+archive/ubuntu/testing/"
+
+#######################
+# Perform evaluation
+######################
+
+wget --quiet -A --no-parent 'index.html' ${URL}
+latest_version=$(cat index.html | grep -A 4 'ppsspp$' | grep ${target} | awk '{print $1}')
+rm -f index.html
+echo -e "Working with version: $latest_version"
+
+#######################
 # Download sources
-git clone https://github.com/hrydgard/ppsspp git_source
-wget https://launchpad.net/~ppsspp/+archive/ubuntu/testing/+files/ppsspp_*ubuntu15.10.1.tar.xz -C ppa_source
+#######################
 
+# git
+git clone --recursive https://github.com/hrydgard/ppsspp git_source
+
+# PPA
+mkdir -p ppa_source
+wget --quiet https://launchpad.net/~ppsspp/+archive/ubuntu/testing/+files/ppsspp_${latest_version}.tar.xz
+tar -xf ppsspp_${latest_version}.tar.xz
+mv ppsspp* ppa_source
+rm -rf ppsspp_${latest_version}.tar.xz
+
+#######################
 # run diff to file
+#######################
 
-echo -e "\n==> Creating diff as $pwd/source_differences.txt\n"
+echo -e "\n==> Creating diff as $PWD/source_differences.txt"
 sleep 2s
 
 diff -r git_source ppa_source | grep git_source | awk '{print $4}' > source_differences.txt
 
 # Rsync folder missing files
 # rsync -options --otherOptions sourceDir targetDir
-# Only missing files -> 
+# Only missing files ->
 
 echo -e "\n==> Copying missing files into git dir"
+sleep 2s
 
-rsync -avz ppa_source git_dir
+# We want to keep some modified files from the PPA source code, but sync
+# the rest missing from the git master folder
+rsync -avz --exclude-from "$scriptdir/exclude-list.txt" ppa_source git_dir
 
-echo -e "\n==> Removing PPA dir"
-
-# remove
-rm -rf ppsspp_*ubuntu15.10.1*
+echo -e "\n==> Transferring to build dir"
 
 # rename folder for package build
 mv git_dir ppsspp
 
 # relocate
-mv ppsspp/ "$build_dir"
+mv git_source/* "$git_dir/"
+
+echo -e "\n==> Removing uneeded dirs"
+
+# remove
+rm -rf git_source ppa_source ppssp

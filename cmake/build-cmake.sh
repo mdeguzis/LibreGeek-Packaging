@@ -23,23 +23,19 @@ src_cmd=""
 
 # upstream URL
 git_url="https://cmake.org/cmake.git"
-pkgver="3.4.1"
 
 # package vars
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="cmake"
-pkgrel="1"
+uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+pkgver="3.4.1"
+pkgrev="2"
+pkgsuffix="bsos{pkgrev}"
 dist_rel="brewmaster"
 maintainer="ProfessorKaos64"
-provides="cmake"
-pkggroup="video"
-requires=""
-replaces=""
 
 # build dirs
 build_dir="/home/desktop/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
-
 
 install_prereqs()
 {
@@ -78,7 +74,10 @@ main()
 	echo -e "\n==> Fetching upstream source\n"
 
 	# Get upstream source
-	git clone "$git_url" "$git_dir"
+	git clone -b "v${pkgver}" "$git_url" "$git_dir"
+
+	# copy in debian folder
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# enter git dir
 	cd "$git_dir"
@@ -87,38 +86,41 @@ main()
 	# Build cmake source
 	#################################################
 
-	# get desired version
-	git checkout v${pkgver}
+	# Create basic changelog format
+	# This addons build cannot have a revision
+	cat <<-EOF> changelog.in
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
-	# configure cmake with SSL support
-	# For a listing of options, you'd need to run 'cmake -LAH' and check CMakeCache.txt
-	#  qmake is only used if you are building cmake-gui with Qt4 support
-	./configure -- -DCMAKE_USE_OPENSSL=ON \
-	-DQT_QMAKE_EXECUTABLE=/usr/local/Qt-5.6.0/bin/qmake
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
 
-	# build the package
-	make
+	 -- $uploader  $date_long
+
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
+	sleep 3s
+	nano debian/changelog
+
+ 	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
 
 	#################################################
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package from source\n"
+	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	# use checkinstall
-	sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
-	--pkgversion="$pkgver+$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
-	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
-	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
-
-
-
-	#################################################
-	# Post install configuration
-	#################################################
-	
-	# TODO
+	#  build
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Cleanup
@@ -152,19 +154,21 @@ main()
 	echo -e "If package was built without errors you will see it below."
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
-
-	echo -e "Showing contents of: $git_dir": \n"
-	ls "$git_dir"" | grep -E *.deb
+	
+	echo -e "Showing contents of: ${build_dir}: \n"
+	ls ${build_dir}| grep $pkgname_$pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
-	read -ep "Choice: " transfer_choice
+	read -erp "Choice: " transfer_choice
 
 	if [[ "$transfer_choice" == "y" ]]; then
 
-		# transfer files
-		scp ${git_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		# cut files
+		if [[ -d "${build_dir}" ]]; then
+			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"

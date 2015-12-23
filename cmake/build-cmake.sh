@@ -29,7 +29,7 @@ pkgname="cmake"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgver="3.4.1"
 pkgrev="2"
-pkgsuffix="bsos{pkgrev}"
+pkgsuffix="bsos${pkgrev}"
 dist_rel="brewmaster"
 maintainer="ProfessorKaos64"
 

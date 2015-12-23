@@ -4,13 +4,19 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-sprunge.sh
 # Script Ver:	1.0.0
-# Description:	Builds simple pacakge for using sprunge
+# Description:	Builds package of QT 5.6.0 alpha
 #
-# See:		http://github.com/rupa/sprunge
+# See:		https://github.com/ProfessorKaos64/qt
 #
 # Usage:	build-sprunge.sh
 #
 #-------------------------------------------------------------------------------
+
+# files
+qt_src_url="http://download.qt.io/development_releases/qt/"
+qt_rel="5.6/5.6.0-alpha/single/"
+qt_src_file="qt-everywhere-opensource-src-5.6.0-alpha.tar.gz"
+qt_src_folder="${qt_src_file%.*.*}"
 
 arg1="$1"
 scriptdir=$(pwd)
@@ -18,29 +24,44 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/rupa/sprunge"
+git_url="https://github.com/ProfessorKaos64/qt"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="sprunge"
-pkgver="1.0.0+git+bsos"
+pkgname="qt"
+pkgver="5.6.0-beta"
 pkgrev="1"
+pkgsuffix="git+bsos$(pkgver}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
-sprunge_dir="${build_dir}/${pkgname}"
+git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
+	
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper
+	sudo apt-get install -y --force-yes libfontconfig1-dev libfreetype6-dev \
+	libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev \
+	libx11-xcb-dev libxcb-glx0-dev
+
+	# Needed if not passing -qt-xcb
+	sudo apt-get install -y --force-yes libxcb-keysyms1-dev libxcb-image0-dev \
+	libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev \
+	libxcb-randr0-dev libxcb-render-util0-dev libgl1-mesa-dev
+
+	# Needed for qtwebengine building
+	sudo apt-get install -y --force-yes libcap-dev libegl1-mesa-dev x11-xserver-utils \
+	libxrandr-dev libxss-dev libxcursor-dev libxtst-dev libpci-dev libdbus-1-dev \
+	libatk1.0-dev libnss3-dev re2c gperf flex bison libicu-dev libxslt-dev ruby \
+	libssl-doc x11proto-composite-dev libasound2-dev libxcomposite-dev
 
 }
 
@@ -59,9 +80,6 @@ main()
 
 	fi
 
-        # Inject our script
-	mkdir "$sprunge_dir"
-        cp sprunge ${sprunge_dir}
 
 	# enter build dir
 	cd "$build_dir" || exit
@@ -82,24 +100,21 @@ main()
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# copy in debian folder
-	cp -r "$scriptdir/debian" "${pkgname}"
-
 	###############################################################
 	# correct any files needed here that you can ahead of time
 	###############################################################
 
 	# enter source dir
-	cd "${sprunge_dir}"
+	cd "${git_dir}"
 
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
-	  * Simple package for sprunge curl tool
+	  * Package build for QT 5.6.0-beta only
 	  * Upstream authors and source: $git_url
 
 	 -- $uploader  $date_long
@@ -177,7 +192,7 @@ main()
 
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -1,0 +1,55 @@
+Source: qtsixa
+Section: utils
+Priority: optional
+Maintainer: Ubuntu Devel <ubuntu-devel-discuss@lists.ubuntu.com>
+XSBC-Original-Maintainer: Filipe Coelho (aka 'falkTX') <falktx@gmail.com>
+Standards-Version: 3.8.4
+Build-Depends: debhelper (>= 7.0), cdbs, gcc (>= 4.1), pyqt4-dev-tools,
+  libusb-dev, libbluetooth-dev, libdbus-glib-1-dev, libdbus-1-dev, libjack-dev | libjack-jackd2-dev
+
+Package: qtsixa
+Architecture: any
+Depends: ${python:Depends}, ${misc:Depends},
+  sixad | sixad-gasia,
+  python-qt4, python-dbus, xdg-utils
+Recommends: gksu | kdesu | kdesudo, bluez-hcidump, libnotify-bin
+Description: Sixaxis Joystick Manager
+ This package provides a useful GUI to control the sixad modules.
+ .
+ QtSixA is written in PyQt
+
+Package: sixad
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, bluez (>= 4.12)
+Conflicts: sixad-gasia
+Replaces: sixad-gasia
+Description: [Qt]SixA Daemon (Official)
+ This package provides the modules (called 'sixad') for connecting PS3 hardware
+ (Sixaxis/DualShock3 and Keypads) to a Linux-compatible machine
+ .
+ Currently sixad supports:
+  - Sixaxis buttons, axis, accelerometers and LEDs
+  - PS3 Keypads
+ .
+ sixad also registers the Sixaxis and Keypad's MAC/ID in the joystick name
+ (ex: "PLAYSTATION(R)3 Controller (00:XX:X0:0X:XX)".
+ .
+ This is the regular, official version.
+
+Package: sixad-gasia
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, bluez (>= 4.12)
+Conflicts: sixad
+Replaces: sixad
+Description: [Qt]SixA Daemon (Gasia)
+ This package provides the modules (called 'sixad') for connecting PS3 hardware
+ (Sixaxis/DualShock3 and Keypads) to a Linux-compatible machine
+ .
+ Currently sixad supports:
+  - Sixaxis buttons, axis, accelerometers and LEDs
+  - PS3 Keypads
+ .
+ sixad also registers the Sixaxis and Keypad's MAC/ID in the joystick name
+ (ex: "PLAYSTATION(R)3 Controller (00:XX:X0:0X:XX)".
+ .
+ This is the non-official, gasia version.

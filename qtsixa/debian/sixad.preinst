@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+# compatiblity with older versions

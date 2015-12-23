@@ -1,65 +1,53 @@
 #!/bin/bash
-# -------------------------------------------------------------------------------
-# Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	  build-cmake.sh
-# Script Ver:	  0.7.9
-# Description:	  Attempts to build a deb package from Plex Media Player git source
-#                 Installs cmake to '/usr/local/bin/cmake'
-# See:		  https://cmake.org/download/
-# Usage:	 ./build-cmake.sh
-# -------------------------------------------------------------------------------
-
-#################################################
-# VARS
-#################################################
+#-------------------------------------------------------------------------------
+# Author:	Michael DeGuzis
+# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Scipt Name:	build-sprunge.sh
+# Script Ver:	1.0.0
+# Description:	Builds simple pacakge for using sprunge
+#
+# See:		http://github.com/rupa/sprunge
+#
+# Usage:	build-sprunge.sh
+#
+#-------------------------------------------------------------------------------
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-# reset source command for while loop
-src_cmd=""
 
-# upstream URL
-git_url="https://cmake.org/cmake.git"
+# upstream vars
+git_url="https://github.com/rupa/sprunge"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="cmake"
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-pkgver="3.4.1"
-pkgrev="2"
-pkgsuffix="git+bsos${pkgrev}"
+pkgname="sprunge"
+pkgver="1.0.0+git+bsos"
+pkgrev="1"
 dist_rel="brewmaster"
+uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# build dirs
-build_dir="/home/desktop/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+# set build_dir
+build_dir="$HOME/build-${pkgname}-temp"
+sprunge_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	# install needed packages
-	sudo apt-get install -y --force-yes git devscripts build-essential checkinstall \
-	debhelper dpkg-dev libarchive-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev \
-	libjsoncpp-dev liblzma-dev libncurses5-dev procps python-sphinx qtbase5-dev zlib1g-dev
+	# install basic build packages
+	sudo apt-get install -y --force-yes build-essential bc debhelper
 
 }
 
 main()
 {
 
-
-	#################################################
-	# Fetch source
-	#################################################
-
-	# create and enter build_dir
+	# create build_dir
 	if [[ -d "$build_dir" ]]; then
 
 		sudo rm -rf "$build_dir"
@@ -71,23 +59,21 @@ main()
 
 	fi
 
-	# Enter build dir
-	cd "$build_dir"
+        # Inject our script
+	mkdir "$sprunge_dir"
+        cp sprunge ${sprunge_dir}
 
-	echo -e "\n==> Fetching upstream source\n"
+	# enter build dir
+	cd "$build_dir" || exit
 
-	# Get upstream source
-	git clone -b "v${pkgver}" "$git_url" "$git_dir"
-
-	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	# install prereqs for build
+	install_prereqs
 
 	#################################################
-	# Build cmake source
+	# Build platform
 	#################################################
 
-
-	echo -e "\n==> Creating original tarball\n"sleep 2s
+	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
 	# create the tarball from latest tarball creation script
@@ -97,21 +83,23 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	cp -r "$scriptdir/debian" "${pkgname}"
+
+	###############################################################
+	# correct any files needed here that you can ahead of time
+	###############################################################
 
 	# enter source dir
-	cd "${pkgname}"
-
-	# gather commits
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
+	cd "${sprunge_dir}"
 
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}-${pkgrev}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname ($pkgver) $dist_rel; urgency=low
 
-	  * Packaged Debian stretch backport for SteamOS-Tools
+	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
+	  * Simple package for sprunge curl tool
 	  * Upstream authors and source: $git_url
 
 	 -- $uploader  $date_long
@@ -138,36 +126,39 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
+	# Post install configuration
+	#################################################
+	
+	#################################################
 	# Cleanup
 	#################################################
-
+	
 	# clean up dirs
-
+	
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-
+	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
+	
 	# back out of build temp to script dir if called from git clone
 	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir"
+		cd "$scriptdir" || exit
 	else
-		cd "$HOME"
+		cd "$HOME" || exit
 	fi
-
+	
 	# inform user of packages
 	echo -e "\n############################################################"
 	echo -e "If package was built without errors you will see it below."
@@ -186,7 +177,7 @@ main()
 
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then
@@ -196,5 +187,5 @@ main()
 }
 
 # start main
-install_prereqs
 main
+

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "$1" in
+  configure)
+update-rc.d sixad stop 10 0 1 6 .
+if [ -f /usr/lib/X11/xorg.conf.d/10-joystick.conf ]; then
+mv /usr/lib/X11/xorg.conf.d/10-joystick.conf /var/lib/sixad/10-joystick.conf.bak
+fi
+chmod 777 -R /var/lib/sixad/
+  ;;
+esac
+

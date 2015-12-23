@@ -3,7 +3,7 @@
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  build-cmake.sh
-# Script Ver:	  0.5.7
+# Script Ver:	  0.7.7
 # Description:	  Attempts to build a deb package from Plex Media Player git source
 #                 Installs cmake to '/usr/local/bin/cmake'
 # See:		  https://cmake.org/download/
@@ -89,7 +89,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}-${pkgrev}+${pkgsuffix}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

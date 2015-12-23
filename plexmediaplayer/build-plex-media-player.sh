@@ -3,7 +3,7 @@
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  build-plex-media-player.sh
-# Script Ver:	  0.1.3-beta
+# Script Ver:	  0.1.5
 # Description:	  Attempts to build a deb package from Plex Media Player git source
 #                 PLEASE NOTE THIS SCRIPT IS NOT YET COMPLETE!
 # See:		 
@@ -49,10 +49,10 @@ install_prereqs()
 	# install needed packages from Debian repos
 	sudo apt-get install -y --force-yes git devscripts build-essential checkinstall \
 	debian-keyring debian-archive-keyring ninja-build mesa-common-dev python-pkgconfig \
-	mpv libmpv-dev libsdl2-dev libcec-dev
+	libmpv-dev libsdl2-dev libcec-dev
 	
-	# built for Libregeek
-	sudo apt-get install -y --force-yes qt-everywhere-oss
+	# built for Libregeek, specifically for this build
+	sudo apt-get install -y --force-yes qt-everywhere-oss cmake mpv
 
 }
 

@@ -44,7 +44,8 @@ install_prereqs()
 	sleep 2s
 	# install needed packages
 	sudo apt-get install -y --force-yes git devscripts build-essential checkinstall \
-	debian-keyring debian-archive-keyring openssl libssl-dev
+	debhelper dpkg-dev libarchive-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev \
+	libjsoncpp-dev liblzma-dev libncurses5-dev procps python-sphinx qtbase5-dev zlib1g-dev
 
 }
 
@@ -91,7 +92,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}-${pkgrev}+${pkgsuffix}) $dist_rel; urgency=low
 
-	  * Packaged deb for SteamOS-Tools
+	  * Packaged Debian stretch backport for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

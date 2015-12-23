@@ -25,7 +25,7 @@ rel_target="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="qtsixa"
-pkgver="$date_short"
+pkgver="1.5.1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -94,7 +94,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 	
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

@@ -86,6 +86,13 @@ main()
 
 	# install prereqs for build
 	install_prereqs
+	
+	# Clone upstream source code and branch
+
+	echo -e "\n==> Obtaining upstream source code\n"
+
+	# clone
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 
 	#################################################
 	# Build platform

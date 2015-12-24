@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-platform.sh
-# Script Ver:	0.1.5
+# Script Ver:	0.7.5
 # Description:	Attempts to build a deb package from kodi-platform git source
 #
 # See:		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
@@ -41,7 +41,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc python \
-	cmake libtinyxml-dev kodi-addon-dev lib-8platform-dev
+	cmake libtinyxml-dev kodi-addon-dev libp8-platform-dev
 
 }
 
@@ -74,7 +74,7 @@ main()
 	
 	# Correct file in debian folder. Upstream has not yet changed their control file
 	# libplatform was renamed upstream
-	sed -ie 's|lib-8platform-dev|libplatform-dev|g' "$git_dir/debian/control"
+	sed -ie 's|libplatform-dev|libp8-platform-dev|g' "$git_dir/debian/control"
  
 	#################################################
 	# Build platform

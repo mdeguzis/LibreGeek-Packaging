@@ -41,7 +41,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc python \
-	cmake libtinyxml-dev kodi-addon-dev lib-8platform-dev libplatform-dev
+	cmake libtinyxml-dev kodi-addon-dev lib-8platform-dev
 
 }
 
@@ -71,6 +71,10 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	
 	git clone "$git_url" "$git_dir"
+	
+	# Correct file in debian folder. Upstream has not yet changed their control file
+	# libplatform was renamed upstream
+	sed -ie 's|lib-8platform-dev|libplatform-dev|g' "$git_dir/debian/control"
  
 	#################################################
 	# Build platform
@@ -79,7 +83,6 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
 	

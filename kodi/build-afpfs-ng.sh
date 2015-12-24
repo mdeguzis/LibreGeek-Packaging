@@ -105,7 +105,7 @@ main()
 	# Create basic changelog (no upstream change log from the PPA source)
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}${pkgrev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

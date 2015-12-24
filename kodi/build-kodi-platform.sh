@@ -41,7 +41,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc python \
-	cmake libtinyxml-dev kodi-addon-dev lib-8platform-dev
+	cmake libtinyxml-dev kodi-addon-dev lib-8platform-dev libplatform-dev
 
 }
 

@@ -52,7 +52,7 @@ install_prereqs()
 	libmpv-dev libsdl2-dev libcec-dev
 	
 	# built for Libregeek, specifically for this build
-	sudo apt-get install -y --force-yes qt-everywhere-oss cmake mpv
+	sudo apt-get install -y --force-yes cmake mpv
 
 }
 
@@ -79,38 +79,33 @@ main()
 	# Enter build dir
 	cd "$build_dir"
 	
+	#################################################
+	# Build QT 5.6 alpha source
+	#################################################
+
+	cd $HOME
+	git clone https://github.com/ProfessorKaos64/qt/
+	cd qt
+	rm -rf debian/
+	./configure -confirm-license -opensource
+	make
+	sudo make install
+	cd qtwebengine
+	qmake
+	make
+	sudo make install
+	
+	#################################################
+	# Fetch PMP source
+	#################################################
+	
 	# Get upstream source
 	git clone "$git_url" "$git_dir"
 		
 	# enter git dir
 	cd "$git_dir"
-
-	#################################################
-	# Build QT 5.6 alpha source
-	#################################################
-
-	# install qt-5.6 alpha if it is not found
-	# See: http://doc.qt.io/qt-5/build-sources.html
-	qt_loc=""
 	
-	if [[ ! -f "$qt_loc" ]]; then
 	
-		# install deb, requires libregeek testing repo
-		if sudo apt-get install qt-everywhere-oss; then
-		
-			echo -e "\nQT 5.6-Alpha installed successfully"
-			
-		else
-		
-			echo -e "\nQT 5.6-Alpha installation FAILED. "
-			echo -e "Did you you remember to add the Libregeek testing repositories?"
-			sleep 5s
-			exit 1
-			
-		fi
-		
-	fi
-
 	#################################################
 	# Build PMP source
 	#################################################

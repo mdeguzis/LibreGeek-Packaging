@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		0.9.9
+# Script Ver:		1.0.0
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -580,7 +580,7 @@ show_build_summary()
 		EOF
 		
 		echo -e "Showing contents of: ${deb_dir}/build: \n"
-		ls "${deb_dir}" | grep -E *.deb
+		ls "${deb_dir}"
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -591,7 +591,7 @@ show_build_summary()
 
 			# cut files
 			if [[ -d "${deb_dir}" ]]; then
-				scp ${deb_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+				scp ${deb_dir}/* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 			fi
 

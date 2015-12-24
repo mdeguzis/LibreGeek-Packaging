@@ -25,8 +25,9 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="afpfs-ng"
 #pkgver="${date_short}+git"
-pkgver="0.8.1+git+bsos"
+pkgver="0.8.1"
 pkgrev="1"
+pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -88,7 +89,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# Add debian build folder
-        cp -r "$scriptdir/debian" "${pkgname}"
+        cp -r "$scriptdir/$pkgname/debian" "${pkgname}"
 
         # lib/Makefile.am trys to build indentify.c, but it does not exist
 	# Use our modified Makefile.am with this cut out
@@ -104,7 +105,7 @@ main()
 	# Create basic changelog (no upstream change log from the PPA source)
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}${pkgrev}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -183,7 +184,7 @@ main()
 		echo -e "############################################################\n"
 		
 		echo -e "Showing contents of: ${build_dir}: \n"
-		ls "${build_dir}" | grep -E *.deb
+		ls "${build_dir}" | grep -E *${pkgver}*
 	
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -194,7 +195,7 @@ main()
 		
 			# cut files
 			if [[ -d "${build_dir}" ]]; then
-				scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 	
 			fi
 			

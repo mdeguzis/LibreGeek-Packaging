@@ -1,1 +1,2 @@
-sprunge /usr/bin/
+./src/plexmediaplayer /usr/local/bin
+./src/pmphelper /usr/local/bin

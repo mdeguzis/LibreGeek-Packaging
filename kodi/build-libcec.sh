@@ -75,6 +75,9 @@ main()
 	
 	git clone -b "$git_branch" "$git_url" "$git_dir"
 	
+	# Upsteam has split control files ATM, remove precise file that conflicts in build
+	rm -f "$git_dir/debian/control.precise"
+	
 	#################################################
 	# Build platform
 	#################################################

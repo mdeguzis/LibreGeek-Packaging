@@ -172,7 +172,7 @@ main()
 		echo -e "############################################################\n"
 
 		echo -e "Showing contents of: ${build_dir}: \n"
-		ls ${build_dir}| grep *${pkgname}*
+		ls ${build_dir}| grep *${pkgver}*
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s

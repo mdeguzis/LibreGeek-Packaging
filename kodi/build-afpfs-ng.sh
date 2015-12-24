@@ -94,7 +94,7 @@ main()
         # lib/Makefile.am trys to build indentify.c, but it does not exist
 	# Use our modified Makefile.am with this cut out
         # See also: https://github.com/simonvetter/afpfs-ng/issues/9
-        cp -r "$scriptdir/Makefile.am" "${pkgname}/lib/"
+        cp -r "$scriptdir/$pkgname/Makefile.am" "${pkgname}/lib/"
 
 	# emter source dir
 	cd "${pkgname}"

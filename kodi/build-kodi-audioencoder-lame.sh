@@ -24,7 +24,7 @@ git_branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="kodi-audioencoder-lame"
-pkgver="${date_short}"
+pkgver="1.1.0"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -72,6 +72,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "$git_branch" "$git_url" "$git_dir"
+
+	# Correct source files for building
+	mv "$git_dir/audioencoder.lame/addon.xml.in" "$git_dir/audioencoder.lame/addon.xml"
 
 	#################################################
 	# Build platform

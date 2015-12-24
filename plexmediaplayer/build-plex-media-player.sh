@@ -27,19 +27,19 @@ git_dir="${build_dir}/${pkgname}"
 
 # upstream URL
 git_url="https://github.com/plexinc/plex-media-player"
-tarball_url=""
-tarball_file=""
 
 # package vars
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="PlexMediaPlayer"
-pkgrel="1"
+pkgver="${date_short}"
+pkgrev="1"
+pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 maintainer="ProfessorKaos64"
 provides="plexmediaplayer"
-pkggroup="video"
-requires=""
-replaces=""
+
 
 install_prereqs()
 {
@@ -52,7 +52,7 @@ install_prereqs()
 	libmpv-dev libsdl2-dev libcec-dev
 	
 	# built for Libregeek, specifically for this build
-	sudo apt-get install -y --force-yes qt-everywhere-oss cmake mpv
+	sudo apt-get install -y --force-yes cmake mpv
 
 }
 
@@ -79,81 +79,86 @@ main()
 	# Enter build dir
 	cd "$build_dir"
 	
-	# Get upstream source
-	git clone "$git_url" "$git_dir"
-		
-	# enter git dir
-	cd "$git_dir"
-
 	#################################################
 	# Build QT 5.6 alpha source
 	#################################################
 
-	# install qt-5.6 alpha if it is not found
-	# See: http://doc.qt.io/qt-5/build-sources.html
-	qt_loc=""
+	cd $HOME
+	git clone https://github.com/ProfessorKaos64/qt/
+	cd qt
+	rm -rf debian/
+	./configure -confirm-license -opensource
+	make
+	sudo make install
+	cd qtwebengine
+	qmake
+	make
+	sudo make install
 	
-	if [[ ! -f "$qt_loc" ]]; then
+	# the qt directory in /usr/local is owned by staff, correct that
+	sudo chown -R root:root 
 	
-		# install deb, requires libregeek testing repo
-		if sudo apt-get install qt-everywhere-oss; then
+	#################################################
+	# Fetch PMP source
+	#################################################
+	
+	# Get upstream source
+	git clone "$git_url" "$git_dir"
+	
+	# copy in debian folder and other files
+        cp -r "$scriptdir/debian" "${git_dir}"
 		
-			echo -e "\nQT 5.6-Alpha installed successfully"
-			
-		else
-		
-			echo -e "\nQT 5.6-Alpha installation FAILED. "
-			echo -e "Did you you remember to add the Libregeek testing repositories?"
-			sleep 5s
-			exit 1
-			
-		fi
-		
-	fi
-
+	# enter git dir
+	cd "$git_dir"
+	
 	#################################################
 	# Build PMP source
 	#################################################
 	
-	# the qt directory in /usr/local is owned by staff, correct t hat
-	sudo chown -R root:root 
-	
-	mkdir build
-	cd build
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
 
-	# Cmake must be 3.1 or higher, install Libregeek version if it does not exist
-	cmake_chk=$(/usr/local/bin/cmake --version | grep "cmake version")
-	
-	if [[ "$cmake_chk" != "cmake version 3.3.2" ]]; then
-	
-		# install Libregeek cmake
-		# WARNING: package will replace existing cmake!
-		wget "http://packages.libregeek.org/SteamOS-Tools/pool/main/c/cmake/cmake_20151025+git+SteamOS2-1_amd64.deb"
-		sudo gdebi "cmake_20151025+git+SteamOS2-1_amd64.deb"
-		rm -f "cmake_20151025+git+SteamOS2-1_amd64.deb"
-		
-	fi
-	
-	/usr/local/bin/cmake -GNinja -DCMAKE_BUILD_TYPE=Debug \
-	-DQTROOT=/usr/local/Qt-5.6.0 \
-	-DCMAKE_INSTALL_PREFIX=output ..
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
 
-	ninja-build
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
+	# enter source dir
+	cd "${pkgname}"
+
+	commits_full=$(git log --pretty=format:"  * %cd %h %s")
+
+	# Create basic changelog format
+	# This addons build cannot have a revision
+	cat <<-EOF> changelog.in
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 	
-	#################################################
-	# Build Debian package
-	#################################################
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+
+	 -- $uploader  $date_long
+
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
+	sleep 3s
+	nano debian/changelog
+
+ 	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
 	
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s
 
-	# use checkinstall
-	sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
-	--pkgversion="$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
-	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
-	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
-		
-	fi
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration

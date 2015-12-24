@@ -74,8 +74,8 @@ main()
 	
 	# Correct file in debian folder. Upstream has not yet changed their control file
 	# libplatform was renamed upstream
-	sed -ie 's|libplatform-dev|libp8-platform-dev|g' "$git_dir/debian/control"
-	export platform_DIR="/usr/lib/p8-platform/"
+	cp "$scriptdir/$pkgname/debian/control" "$git_dir/debian/"
+	cp "$scriptdir/$pkgname/debian/rules" "$git_dir/debian"
  
 	#################################################
 	# Build platform

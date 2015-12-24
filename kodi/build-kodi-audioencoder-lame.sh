@@ -42,7 +42,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
-	debhelper cmake kodi-addon-dev, kodi-audio-dev, libtool, libmp3lame-dev
+	debhelper cmake kodi-addon-dev kodi-audio-dev libtool libmp3lame-dev
 
 }
 

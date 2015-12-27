@@ -19,8 +19,7 @@ DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 
 %:
-	dh $@  --with autotools-dev
+	dh $@  --with autoreconf
 
 override_dh_auto_configure:
-	./autogen.sh
 	./configure --disable-static --prefix=/usr --libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH)

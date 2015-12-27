@@ -1,8 +1,20 @@
-shairplay (0.9.0-6~vivid) vivid; urgency=medium
+shairplay (0.9.2-2~vivid) vivid; urgency=medium
 
-  * rebuild for vivid
+  * support for IOS9 devices
 
- -- wsnipex <wsnipex@a1.net>  Fri, 27 Mar 2015 08:22:50 +0100
+ -- wsnipex <wsnipex@a1.net>  Thu, 03 Dec 2015 19:14:44 +0100
+
+shairplay (0.9.0-8~wily) wily; urgency=medium
+
+  * port to wily
+
+ -- wsnipex <wsnipex@a1.net>  Mon, 26 Oct 2015 09:45:02 +0100
+
+shairplay (0.9.0-7~vivid) vivid; urgency=medium
+
+  * update to 0f41ade2678f374aa8446d127d6aa9d5a3d428da
+
+ -- wsnipex <wsnipex@a1.net>  Mon, 06 Jul 2015 22:06:15 +0200
 
 shairplay (0.9.0-6~trusty) trusty; urgency=high
 

@@ -1,0 +1,22 @@
+Source: libretro-nxengine
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://nxengine.sourceforge.net
+
+Package: libretro-nxengine
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for NXEngine
+ This wrapper makes NXEngine API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ A complete open-source clone/rewrite of the masterpiece jump-and-run platformer
+ Doukutsu Monogatari (also known as Cave Story).
+ .
+ You will need the executable file (Doukutsu.exe for example, which is freeware)
+ that is not provided by this package.

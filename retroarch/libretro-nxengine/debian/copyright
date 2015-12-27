@@ -1,0 +1,26 @@
+This package was debianized by Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com> on
+Thu, 13 Mar 2014 13:24:59 -0500
+
+It was downloaded from <https://github.com/libretro/nxengine-libretro>
+
+Upstream Author:
+
+    Caitlin Shaw
+    RetroArch Team (libretro port)
+
+Copyright:
+
+    Copyright (C) 2010-2014 Caitlin Shaw
+    Copyright (C) 2011-2014 RetroArch Team
+
+License:
+
+    Licensed under the terms of the GNU General Public License version 3
+
+The Debian packaging is:
+
+    Copyright (C) 2014 Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

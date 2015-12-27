@@ -26,6 +26,7 @@ date_short=$(date +%Y%m%d)
 pkgname="shairplay"
 pkgver="0.9.2"
 pkgrev="1"
+upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -95,7 +96,7 @@ main()
 	# Create basic changelog (no upstream change log from the PPA source)
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

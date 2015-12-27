@@ -1,0 +1,13 @@
+Index: mame2014-libretro/Makefile
+===================================================================
+--- mame2014-libretro.orig/Makefile	2015-08-08 18:05:50.520714768 -0300
++++ mame2014-libretro/Makefile	2015-08-08 18:06:19.365085450 -0300
+@@ -561,7 +561,7 @@
+ 
+ # CFLAGS is defined based on C or C++ targets
+ # (remember, expansion only happens when used, so doing it here is ok)
+-CFLAGS = $(CCOMFLAGS) $(CPPONLYFLAGS)
++CFLAGS += $(CCOMFLAGS) $(CPPONLYFLAGS)
+ 
+ # we compile C-only to C89 standard with GNU extensions
+ # we compile C++ code to C++98 standard with GNU extensions

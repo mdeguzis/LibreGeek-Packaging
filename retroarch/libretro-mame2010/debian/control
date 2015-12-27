@@ -1,0 +1,21 @@
+Source: libretro-mame2010
+Section: games
+Priority: optional
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), gcc-4.8, g++-4.8, zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://mamedev.org
+
+Package: libretro-mame2010
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for MAME 2010 (0.139)
+ This wrapper makes MAME 2010 (0.139) core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ MAME is a hardware emulator: it faithfully reproduces the behavior of many
+ arcade machines (it is not a simulation). This program is not a game but can
+ directly, through ROM images, run the complete system of these old arcade
+ machines. These ROMs are subject to copyright and it is in most of the cases
+ illegal to use them if you do not own the arcade machine.

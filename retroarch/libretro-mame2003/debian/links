@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/mame2003_libretro.so usr/lib/libretro/mame2003_libretro.so"

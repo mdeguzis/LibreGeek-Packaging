@@ -1,0 +1,21 @@
+Source: libretro-hatari
+Section: otherosfs
+Priority: optional
+Maintainer: Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.5
+Homepage: http://hatari.tuxfamily.org
+
+Package: libretro-hatari
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Hatari
+ This is a wrapper designed to make Hatari API-compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ Hatari is an Atari ST/STE/TT/Falcon emulator and unlike most other open source
+ ST emulators which try to give you a good environment for running GEM 
+ applications, Hatari tries to emulate the hardware as close as possible so that
+ it is able to run most of the old Atari games and demos. Because of this, it 
+ may be somewhat slower than less accurate emulators.

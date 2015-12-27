@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "mess2014_libretro.so usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro"

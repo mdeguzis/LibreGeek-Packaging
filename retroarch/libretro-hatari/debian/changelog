@@ -1,0 +1,23 @@
+libretro-hatari (1.8+r4135.1~8~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Sergio Benjamim <sergio_br2@yahoo.com.br>  Tue, 27 Oct 2015 04:54:26 +0000
+
+libretro-hatari (1.8-0ubuntu1) UNRELEASED; urgency=low
+
+  * New upstream version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 15 Nov 2014 15:04:00 -0300
+
+libretro-hatari (1.7-0ubuntu1) UNRELEASED; urgency=low
+
+  * Last git version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Mon, 04 Aug 2014 12:41:00 -0300
+
+libretro-hatari (1.6-0ubuntu1) raring; urgency=low
+
+  * Initial release.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Mon, 29 Apr 2013 13:24:59 -0500

@@ -1,0 +1,168 @@
+This package was debianized by Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com> on
+Wed, 06 Mar 2013 11:03:43 -0500.
+
+It was downloaded from <https://github.com/libretro/hatari-libretro>
+
+Upstream Authors:
+
+    Hatari Team
+        Nicolas Pomarede (aka npomarede)
+        Thomas Huth (aka huth)
+        Eero Tamminen (aka oak)
+        Laurent Sallafranque
+    The RetroArch Team (libretro port)
+
+Files: *
+Copyright: 2001-2014 Hatari Team
+License: GPLv2
+
+Files: src/cpu/jit/codegen_x86.c
+       src/cpu/jit/compemu_codegen.h
+       src/cpu/jit/compemu_support_codegen.c
+Copyright: 2000-2002 Bernd Meyer
+           2000-2005 Gwenole Beauchesne
+           1997-2008 Christian Bauer
+License: GPLv2
+
+Files: src/cpu/jit/codegen_x86.c
+Copyright: 1999, 2000, 2001, 2002, 2003 Ian Piumarta
+           2003-2008 Gwenole Beauchesne
+           1997-2008 Christian Bauer
+License: GPLv2
+
+Files: src/cpu/jit/compemu_fpp.c
+Copyright: 1996 Herman ten Brugge
+           2000 Bernd Meyer
+           2005 Peter Keunecke
+License: GPLv2
+
+Files: src/cpu/jit/gencomp.c
+Copyright: 1995, 1996 Bernd Schmidt
+           2000 Bernd Meyer
+License: GPLv2
+
+Files: src/cpu/memory.c
+       src/cpu/memory.h
+       src/cpu/newcpu.c
+       src/cpu/newcpu.h
+Copyright: 1995 Bernd Schmidt
+License: GPLv2
+
+Files: src/cpu/build68k.c
+       src/cpu/readcpu.c
+       src/cpu/readcpu.h
+Copyright: 1995, 1996 Bernd Schmidt
+License: GPLv2
+
+Files: src/cpu/maccess.h
+       src/uae-cpu/m68k.h
+Copyright: 1996 Bernd Schmidt
+License: GPLv2
+
+Files: src/cpu/sysdeps.h
+Copyright: 1996, 1997 Bernd Schmidt
+License: GPLv2
+
+Files: src/cpu/gencpu.c
+Copyright: 1995, 1996, 1997, 1998, 1999, 2000 Bernd Schmidt
+License: GPLv2
+
+Files: src/cpu/cpummu.c
+       src/cpu/cpummu.h
+Copyright: 2001-2004 Milan Jurik of ARAnyM dev team
+License: GPLv2
+
+Files: src/cpu/cpummu030.c
+       src/cpu/cpummu030.h
+Copyright: 2012 Andreas Grabher
+License: GPLv2
+
+Files: src/cpu/custom.c
+       src/cpu/custom.h
+Copyright: 1995-2002 Bernd Schmidt
+           1995 Alessandro Bissacco
+           2000-2010 Toni Wilen
+License: GPLv2
+
+Files: src/cpu/fpp.c
+       src/cpu/md-fpp.h
+Copyright: 1996 Herman ten Brugge
+           2005 Peter Keunecke
+License: GPLv2
+
+Files: src/cpu/fpp-ieee-be.h
+       src/uae-cpu/fpp-ieee-be.h
+Copyright: 1999 Sam Jordan
+License: GPLv2
+
+Files: src/cpu/fpp-unknown.h
+       src/uae-cpu/fpp-unknown.h
+Copyright: 1996 Herman ten Brugge
+License: GPLv2
+
+Files: src/cpu/m68k.h
+Copyright: 1996 Bernd Schmidt
+           2004-2005 Richard Drummond
+License: GPLv2
+
+Files: src/cpu/savestate.h
+Copyright: 1999-2001 Toni Wilen
+License: GPLv2
+
+Files: src/debug/68kDisass.c
+Copyright: 2010 Markus Fritze
+License: GPLv2
+
+Files: src/falcon/dsp.c
+       src/falcon/dsp.h
+Copyright: 2001-2008 ARAnyM developer team
+           2008 Thomas Huth (Adaption to Hatari)
+License: GPLv2
+
+Files: src/falcon/dsp_core.c
+       src/falcon/dsp_core.h
+       src/falcon/dsp_cpu.c
+       src/falcon/dsp_cpu.h
+       src/falcon/dsp_disasm.c
+       src/falcon/dsp_disasm.h
+Copyright: 2003-2008 ARAnyM developer team
+License: GPLv2
+
+Files: src/falcon/nvram.c
+Copyright: 2001-2004 Petr Stehlik of ARAnyM dev team
+           2006 Thomas Huth (Adaption to Hatari)
+License: GPLv2
+
+Files: libretro/*
+       Makefile.libretro
+Copyright: 2013, 2014 The RetroArch Team
+License: GPLv3
+
+Files: libretro/libretro.h
+Copyright: 2013, 2014 The RetroArch Team
+License: The MIT License (MIT)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+ .
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+The Debian packaging is:
+
+    Copyright (C) 2013 Hunter Kaller (aka hizzlekizzle) <hunter_kaller@yahoo.com>
+    Copyright (C) 2014 Sergio Benjamim (aka sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

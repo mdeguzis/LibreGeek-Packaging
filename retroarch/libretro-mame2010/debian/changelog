@@ -1,0 +1,11 @@
+libretro-mame2010 (0.139+r104~12~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Wed, 25 Nov 2015 20:31:38 +0000
+
+libretro-mame2010 (0.139-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Mon, 11 Aug 2014 22:37:00 -0300

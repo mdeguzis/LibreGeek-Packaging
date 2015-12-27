@@ -24,9 +24,9 @@ git_branch="Isengard"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="kodi-pvr-wmc"
-#pkgver="${date_short}+git"
-pkgver="1.9.27+git"
+pkgver="0.6.11"
 pkgrev="1"
+pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -96,7 +96,7 @@ main()
 	# Create basic changelog
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -174,22 +174,21 @@ main()
 		echo -e "If you don't, please check build dependcy errors listed above."
 		echo -e "############################################################\n"
 		
-		echo -e "Showing contents of: ${git_dir}/build: \n"
-		ls "${build_dir}" | grep -E *.deb
-	
+		echo -e "Showing contents of: ${build_dir}: \n"
+		ls "${build_dir}" | grep -E *${pkgver}*
+
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
-		read -ep "Choice: " transfer_choice
-		
+		read -erp "Choice: " transfer_choice
+
 		if [[ "$transfer_choice" == "y" ]]; then
-		
+
 			# cut files
-			if [[ -d "${build_dir}/" ]]; then
-				scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-	
+			if [[ -d "${build_dir}" ]]; then
+				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 			fi
-			
+
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"
 		fi

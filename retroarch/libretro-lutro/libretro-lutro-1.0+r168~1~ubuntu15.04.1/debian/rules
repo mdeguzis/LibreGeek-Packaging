@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+
+export DEB_CXXFLAGS_MAINT_STRIP=-O2
+export DEB_CFLAGS_MAINT_STRIP=-O2
+
+%:
+	dh $@

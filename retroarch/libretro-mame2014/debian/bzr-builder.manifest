@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r32134~3
-lp:~libretro/libretro/mame2014-libretro revid:git-v1:6d370c1719ed1a196d8af2d61fee70682593efaf
-nest packaging lp:~libretro/libretro/mame2014-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151105145724-ukj658w7g4jlxjf2

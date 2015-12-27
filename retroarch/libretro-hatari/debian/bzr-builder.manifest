@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r4135.1~8
-lp:~libretro/libretro/hatari-libretro revid:sergio_br2@yahoo.com.br-20150108004627-3koea7ahzir9k8aa
-nest packaging lp:~libretro/libretro/hatari-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151027045159-zdx28798e6iiv1ed

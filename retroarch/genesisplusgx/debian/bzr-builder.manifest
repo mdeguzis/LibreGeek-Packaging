@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r700~13
-lp:~libretro/libretro/Genesis-Plus-GX revid:git-v1:7d8d5f1026af8cfd00cdf32c67a999bd1e454a09
-nest packaging lp:~libretro/libretro/Genesis-Plus-GX-debian debian revid:sergio_br2@yahoo.com.br-20151026031433-45dt7bg1k55iqrzl

@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r395~7
-lp:~libretro/libretro/catsfc-libretro revid:git-v1:de41bfac45d2e4be7cba8942c408571d2ecbc0d1
-nest packaging lp:~libretro/libretro/catsfc-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151026130042-sfp02umjreb4rac0

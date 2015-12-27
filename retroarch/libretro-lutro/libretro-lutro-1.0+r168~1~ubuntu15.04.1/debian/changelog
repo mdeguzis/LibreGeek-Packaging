@@ -1,0 +1,11 @@
+libretro-lutro (1.0+r168~1~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 14 Dec 2015 14:32:33 +0000
+
+libretro-lutro (1.0-1) unstable; urgency=low
+
+  * Initial release (Closes: #xxxxxx).
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Tue, 27 Oct 2015 23:12:00 -0300

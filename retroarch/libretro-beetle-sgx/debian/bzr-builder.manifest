@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r524~9
-lp:~libretro/libretro/beetle-supergrafx-libretro revid:git-v1:c6d348801aad5d56bc8c6d1e234353ad31d82eeb
-nest packaging lp:~libretro/libretro/beetle-supergrafx-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151022151712-ntr2fyk0cjyzwn7r

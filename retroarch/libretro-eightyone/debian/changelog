@@ -1,0 +1,11 @@
+libretro-eightyone (1.0a+r94~1~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 23 Nov 2015 21:49:35 +0000
+
+libretro-eightyone (1.0a-1) unstable; urgency=low
+
+  * Initial release (Closes: #xxxxxx).
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Tue, 27 Oct 2015 23:12:00 -0300

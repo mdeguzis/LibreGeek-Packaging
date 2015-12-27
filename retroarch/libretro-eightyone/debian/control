@@ -1,0 +1,20 @@
+Source: libretro-eightyone
+Section: games
+Priority: optional
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/81-libretro
+
+Package: libretro-eightyone
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for EightyOne
+ This wrapper makes EightyOne API compatible with libretro, thus allowing its
+ use with libretro frontends, such as RetroArch.
+ .
+ EightyOne is an emulator for several home computers made by Sinclair
+ Research (And their clones) in the 1980s, such as Sinclair ZX81. As well as
+ emulating the machines themselves, numerous addon cards are supported,
+ including hi-res graphics, custom character sets, sound and colour cards.

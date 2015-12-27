@@ -1,0 +1,3 @@
+# bzr-builder format 0.3 deb-version {debupstream}+r94~1
+lp:~libretro/libretro/81-libretro revid:git-v1:5e5dd8446db5f5ed3dc39a0cdd760f95b289aa40
+nest packaging lp:~libretro/libretro/81-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151028142817-njp9dfbulflkueqa

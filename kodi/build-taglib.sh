@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-taglib.sh
-# Script Ver:	0.1.1
+# Script Ver:	1.0.0
 # Description:	Attempts to build a deb package taglib git source
 #
 # See:		https://github.com/taglib/taglib
@@ -17,14 +17,15 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/taglib/taglib"
-git_branch="v1.9.1"
+git_branch="v1.10"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="taglib"
-pkgver="1.9.1+git+bsos"
+pkgver="1.10"
 pkgrev="1"
+pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -92,7 +93,7 @@ main()
 	# Create basic changelog
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver-$pkgrev) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -171,19 +172,18 @@ main()
 		echo -e "############################################################\n"
 
 		echo -e "Showing contents of: ${build_dir}: \n"
-		ls "${build_dir}" | grep -E *.deb
+		ls "${build_dir}" | grep -E *${pkgver}*
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
-		read -ep "Choice: " transfer_choice
+		read -erp "Choice: " transfer_choice
 
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# cut files
 			if [[ -d "${build_dir}" ]]; then
-				scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-
+				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 			fi
 
 		elif [[ "$transfer_choice" == "n" ]]; then

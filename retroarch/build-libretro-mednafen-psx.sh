@@ -4,10 +4,10 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-libretro-mednafen-psx.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest libretro mednafens
-#		psx github release
+# Description:	Attempts to builad a deb package from latest libretro mednafen-psx
+#		github release
 #
-# See:		https://github.com/libretro/beetle-psx-libretro
+# See:		https://github.com/libretro/mednafen-psx-libretro
 #
 # Usage:	build-libretro-mednafen-psx.sh
 #
@@ -19,17 +19,16 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-# Note: Even though the git source is for beetle-psx, that is where the source code
-# seems to live. Beetle psx is only a transitional package to this one here.
-git_url="https://github.com/libretro/beetle-psx-libretro"
+git_url="https://github.com/libretro/mednafen-psx-libretro"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="libretro-mednafen-psx"
-pkgver="${date_short}+git+bsos"
+pkgver="0.9.38.6"
 pkgrev="1"
+pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -44,7 +43,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc zlib1g-dev libtrio-dev
+	sudo apt-get -y --force-yes install build-essential pkg-config bc
 
 }
 
@@ -98,7 +97,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname ($pkgver) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -169,21 +168,20 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep -E *.deb
+	ls "${build_dir}" | grep -E *${pkgver}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
 	read -erp "Choice: " transfer_choice
-	
+
 	if [[ "$transfer_choice" == "y" ]]; then
-	
+
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-
+			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
-		
+
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"
 	fi

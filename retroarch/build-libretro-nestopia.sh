@@ -43,7 +43,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config b
+	sudo apt-get -y --force-yes install build-essential pkg-config bc
 
 }
 

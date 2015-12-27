@@ -1,0 +1,16 @@
+Source: libretro-3dengine
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), libglu1-mesa-dev, mesa-common-dev, zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://www.libretro.com
+
+Package: libretro-3dengine
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro 3D Engine
+ 3D Engine for libretro GL with additional features (camera/location/etc).
+ Should be compatible from libretro 2.0/GLES 2.0 and up.

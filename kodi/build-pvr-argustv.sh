@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-pvr-argustv.sh
-# Script Ver:	1.0.3
+# Script Ver:	1.0.5
 # Description:	Attempts to build a deb package from Kodi PVR argustv addon git source
 #
 # See:		https://github.com/kodi-pvr/pvr.argustv
@@ -18,15 +18,15 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/kodi-pvr/pvr.argustv"
-git_branch="Isengard"
+git_branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="kodi-pvr-argustv"
-pkgver="1.9.27"
+pkgver="1.11.7"
 pkgrev="1"
-pkgsuffix="git+${pkgrev}"
+pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"

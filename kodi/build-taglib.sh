@@ -41,7 +41,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
-	cmake debhelper dpkg-dev zlib1g-dev pkg-kde-tools doxygen graphviz gsfonts-x11
+	cmake debhelper dpkg-dev zlib1g-dev pkg-kde-tools doxygen graphviz gsfonts-x11 quilt
 }
 
 main()
@@ -70,6 +70,13 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "$git_branch" "$git_url" "$git_dir"
+	
+	# Apply patches
+	echo -e "\n==> Applying patches"
+	sleep 2s
+
+        quilt push multiarch.diff
+	quilt push 309.patch
 
 	#################################################
 	# Build platform

@@ -20,7 +20,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/libretro/libretro-fba"
-branch="v0.2.97.37"
+branch="v0.2.97.36"
 
 git_url_cores_neo="https://github.com/libretro/fba_cores_neo"
 branch_cores_neo="master"
@@ -33,7 +33,7 @@ branch_cores_cps2="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="libretro-fba"
-pkgver="0.2.97.37"
+pkgver="0.2.97.36"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"

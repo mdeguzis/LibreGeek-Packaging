@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-handy.sh
+# Scipt Name:	build-libretro-lutro.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest libretro handy
+# Description:	Attempts to builad a deb package from latest libretro lutro
 #		github release
 #
-# See:		https://github.com/libretro/libretro-handy
+# See:		https://github.com/libretro/libretro-lutro
 #
-# Usage:	build-libretro-handy.sh
+# Usage:	build-libretro-lutro.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,13 +19,13 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/libretro-handy"
+git_url="https://github.com/libretro/libretro-lutro"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="libretro-handy"
+pkgname="libretro-lutro"
 pkgver="1.0"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
@@ -43,7 +43,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc zlib1g-dev
+	sudo apt-get -y --force-yes install build-essential pkg-config bc
 
 }
 

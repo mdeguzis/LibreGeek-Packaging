@@ -1,0 +1,20 @@
+Source: libretro-o2em
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://o2em.sourceforge.net
+
+Package: libretro-o2em
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for O2EM
+ This wrapper makes O2EM API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ O2EM is an open source multi-platform Odyssey 2 / Videopac+ emulator. The
+ Odyssey2 (Videopac/Jopac in Europe) was a video game console created in the
+ late 70s.

@@ -25,6 +25,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="kodi-pvr-mythtv"
 pkgver="3.4.2"
+upstream_rev="1"
 pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -95,7 +96,7 @@ main()
 	
 	# Create basic changelog
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${pkgrev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upsteam_rev}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

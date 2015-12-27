@@ -1,0 +1,21 @@
+Source: libretro-meteor
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/blastrock/meteor
+
+Package: libretro-meteor
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Meteor
+ This wrapper makes Meteor API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ Meteor is a Nintendo Gameboy Advance emulator.
+ .
+ Game Boy Advance is registered trademarks of Nintendo of America Inc. Meteor
+ is not affiliated with or endorsed by any of the companies mentioned.

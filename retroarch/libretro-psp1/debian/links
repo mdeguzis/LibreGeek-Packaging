@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/psp1_libretro.so usr/lib/libretro/psp1_libretro.so"

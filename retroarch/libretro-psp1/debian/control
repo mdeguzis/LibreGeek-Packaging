@@ -1,0 +1,30 @@
+Source: libretro-psp1
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9),
+               libgl1-mesa-dev,
+               libgles2-mesa-dev [armhf],
+               lsb-release,
+               zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://ppsspp.org
+
+Package: libretro-psp1
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for PSP1
+ This wrapper makes PSP1 API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ PSP1 is a fork of PPSSPP with libretro API in mind.
+ .
+ PPSSPP can run your PSP games on your PC in full HD resolution. It can even
+ upscale textures that would otherwise be too blurry as they were made for
+ the small screen of the original PSP.
+ .
+ All trademarks are property of their respective owners. The emulator is for
+ educational and development purposes only and it may not be used to play games
+ you do not legally own.

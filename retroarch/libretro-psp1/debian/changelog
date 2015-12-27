@@ -1,0 +1,11 @@
+libretro-psp1 (1.0.1+2.f4.a161.t83~1~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 03 Dec 2015 22:12:02 +0000
+
+libretro-psp1 (1.0.1-0ubuntu1) UNRELEASED; urgency=low
+
+  * New upstream release
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 03 Dec 2015 20:04:00 -0300

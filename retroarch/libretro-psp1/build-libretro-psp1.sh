@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-prosystem.sh
+# Scipt Name:	build-libretro-psp1.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest libretro prosystem
+# Description:	Attempts to builad a deb package from latest libretro psp1
 #		github release
 #
-# See:		https://github.com/libretro/prosystem-libretro
+# See:		https://github.com/libretro/PSP1
 #
-# Usage:	build-libretro-prosystem.sh
+# Usage:	build-libretro-psp1.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -19,14 +19,14 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/libretro/prosystem-libretro"
+git_url="https://github.com/libretro/PSP1"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="libretro-prosystem"
-pkgver="1.3e"
+pkgname="libretro-psp1"
+pkgver="1.0.1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -43,7 +43,9 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc zlib1g-dev
+	sudo apt-get -y --force-yes install build-essential pkg-config bc \
+	debhelper libgl1-mesa-dev libgles2-mesa-dev lsb-release zlib1g-dev
+
 
 }
 
@@ -73,7 +75,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone --recursive -b "$branch" "$git_url" "$git_dir"
 
 	#################################################
 	# Build package
@@ -89,7 +91,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/$pkgname/debian "${git_dir}"
+	cp -r $scriptdir/debian "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"

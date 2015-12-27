@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-platform.sh
-# Script Ver:	0.3.9
+# Script Ver:	1.0.0
 # Description:	Attempts to build a deb package from mythtv addon git source
 #
 # See:		https://github.com/kodi-pvr/pvr.mythtv
@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/kodi-pvr/pvr.mythtv"
-git_branch="master"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -71,7 +71,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone -b "$git_branch" "$git_url" "$git_dir"
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 	
 	#################################################
 	# Build platform

@@ -17,13 +17,14 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/taglib/taglib"
-git_branch="v1.10"
+git_branch="v1.9.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="taglib"
-pkgver="1.10"
+pkgver="1.9.1"
+upstream_rev="1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -82,17 +83,10 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
         # funnel old changelog.in to changelog or create basic file
         cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
-        
-        # Apply patches
-	echo -e "\n==> Applying patches"
-	sleep 2s
-
-        quilt push "multiarch.diff"
-	quilt push "309.patch"
 
 	# emter source dir
 	cd "${pkgname}"
@@ -100,7 +94,7 @@ main()
 	# Create basic changelog
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

@@ -91,8 +91,8 @@ main()
 	echo -e "\n==> Applying patches"
 	sleep 2s
 
-        quilt push multiarch.diff
-	quilt push 309.patch
+        quilt push "multiarch.diff"
+	quilt push "309.patch"
 
 	# emter source dir
 	cd "${pkgname}"

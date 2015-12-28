@@ -1,0 +1,17 @@
+libretro-vecx (1.0+r45~5~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 09 Nov 2015 10:46:26 +0000
+
+libretro-vecx (1.0-0ubuntu1) UNRELEASED; urgency=low
+
+  * Update to latest git version.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 18 Sep 2014 01:28:00 -0300
+
+libretro-vecx (0.1~filthypants) raring; urgency=low
+
+  * Initial release.
+
+ -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Sat, 02 Mar 2013 13:24:59 -0500

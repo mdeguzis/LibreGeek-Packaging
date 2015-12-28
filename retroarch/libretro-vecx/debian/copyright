@@ -1,0 +1,53 @@
+This package was debianized by Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com> on
+Sat, 02 Mar 2013 13:24:59 -0500
+
+It was downloaded from <https://github.com/libretro/libretro-vecx>
+
+Upstream Authors:
+
+    Valavan Manohararajah (original author)
+    John Hawthorn (SDL port)
+    Nikita Zimin (audio)
+    The RetroArch Team (libretro port)
+        demeth (aka letoram aka vdw) (initial libretro port)
+        Squarepusher (aka twinaphex) (current maintainer)
+
+Files: *
+Copyright: 2002 Valavan Manohararajah
+           2010 Nikita Zimin
+           2009, 2013 John Hawthorn
+License: GPLv2, LGPLv2.1
+
+Files: libretro/*
+       Makefile.libretro
+Copyright: 2013, 2014 The RetroArch Team
+License: GPLv3
+
+Files: libretro/libretro.h
+Copyright: 2013, 2014 The RetroArch Team
+License: The MIT License (MIT)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+ .
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+The Debian packaging is:
+
+    Copyright (C) 2013 Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

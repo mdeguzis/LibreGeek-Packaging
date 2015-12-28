@@ -1,0 +1,18 @@
+Source: libretro-vecx
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/jhawthorn/vecx
+
+Package: libretro-vecx
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for VecX
+ This wrapper makes VecX API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ VecX is a Vectrex emulator.

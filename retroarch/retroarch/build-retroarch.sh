@@ -101,7 +101,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/retroarch/debian" "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	###############################################################
 	# correct any files needed here that you can ahead of time

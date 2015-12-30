@@ -79,8 +79,8 @@ main()
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 	
-	# remove .git folder to save space on build
-	rm -rf "$git_dir/.git"
+	# (optional) remove .git folder to save space on build
+	# rm -rf "$git_dir/.git"
 
 	#################################################
 	# Build platform
@@ -115,13 +115,6 @@ main()
 
 	EOF
 
-	# Append old changelog from script dir
-	if [[ -f "$scriptdir/changelog.old" ]]; then
-	
-		cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
-
-	fi
-
 	# Perform a little trickery to update existing changelog from upstream
 	# If no changelog upstream exists, comment this section out, and change the above line
 	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
@@ -132,7 +125,10 @@ main()
 	nano debian/changelog
 
  	# Keep the old changelog so it can be appended next time
- 	mv changelog.in $scriptdir/changelog.old
+ 	# This repository keeps it's own debian changelog up to date, do not keep it.
+ 	
+ 	rm -f changelog.in
+ 	# mv changelog.in $scriptdir/changelog.old
 
 	#################################################
 	# Build Debian package

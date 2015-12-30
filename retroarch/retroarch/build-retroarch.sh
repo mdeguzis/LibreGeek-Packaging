@@ -176,10 +176,13 @@ main()
 	fi
 	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<- EOF 
+	#################################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+	
+	EOF
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
 	ls "${build_dir}" | grep -E *${pkgver}*

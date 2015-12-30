@@ -1,44 +1,40 @@
 #!/bin/bash
-# -------------------------------------------------------------------------------
-# Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	  TEMPLATE_FILE_FOR_PACKAGING
-# Script Ver:	  0.7.8
-# Description:	  Attempts to build a deb package from <package> git source
+#-------------------------------------------------------------------------------
+# Author:	Michael DeGuzis
+# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Scipt Name:	build-lutris.sh
+# Script Ver:	1.0.0
+# Description:	Attempts to build a deb package from latest PKGNAME
+#		github release
 #
-# See:		 
-# Usage:
-# -------------------------------------------------------------------------------
-
-#################################################
-# VARS
-#################################################
+# See:		GIT URL
+#
+# Usage:	./build-PKGNAME.sh
+#
+#-------------------------------------------------------------------------------
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-# reset source command for while loop
-src_cmd=""
 
-# upstream URL
-git_url="https://github.com/AUTHOR/REPOSITORY"
-tarball_url="URL-TO-TARBALL"
-tarball_file="TARBALL-FILE"
+# upstream vars
+git_url="GITURL"
+rel_target="TARGET_BRANCH_OR_RELEASE"
 
 # package vars
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
 pkgname="PKGNAME"
-pkgrel="RELEASE_NUM"
-dist_rel="DISTRELEASE"
+pkgver="VERSION"
+pkgrev="1"
+pkgsuffix="git+bsos${pkgrev}"
+dist_rel="brewmaster"
+uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="PROVIDES"
-pkggroup="GROUP"
-requires=""
-replaces=""
 
-# build dirs
-build_dir="/home/desktop/build-${pkgname}-temp"
+# set build_dir
+build_dir="$HOME/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
@@ -46,195 +42,105 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	# install needed packages
-	sudo apt-get install git devscripts build-essential checkinstall \
-	debian-keyring debian-archive-keyring cmake g++ g++-multilib \
-	libqt4-dev libqt4-dev libxi-dev libxtst-dev libX11-dev bc libsdl2-dev \
-	gcc gcc-multilib nano
-	
-	echo -e "\n==> Installing $pkgname build dependencies...\n"
-	sleep 2s
-	
-	### REPLACE THESE WITH PACKAGES SPECIFIED BY UPSTREAM SOURCE ###
-	
-	sudo apt-get install libaio-dev libpng++-dev libsoundtouch-dev \
-	libwxbase3.0-dev libwxgtk3.0-dev portaudio19-dev
+	# install basic build packages
+	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc
 
-}
-
-function_clone_git()
-{
-	
-	if [[ -d "$git_dir" ]]; then
-	
-		echo -e "\n==Info==\nGit folder already exists! Rebuild [r] or [p] pull?\n"
-		sleep 1s
-		read -ep "Choice: " git_choice
-		
-		if [[ "$git_choice" == "p" ]]; then
-			# attempt to pull the latest source first
-			echo -e "\n==> Attempting git pull..."
-			sleep 2s
-		
-			# attempt git pull, if it doesn't complete reclone
-			if ! git pull; then
-				
-				# failure
-				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning..."
-				sleep 2s
-				rm -rf "$git_dir"
-				# clone to git DIR
-				git clone "$git_url" "$git_dir"
-				
-			fi
-			
-		elif [[ "$git_choice" == "r" ]]; then
-			echo -e "\n==> Removing and cloning repository again...\n"
-			sleep 2s
-			# remove, clone, enter
-			rm -rf "$git_dir"
-			cd "$build_dir"
-			# create and clone to git dir
-			git clone "$git_url" "$git_dir"
-		else
-		
-			echo -e "\n==Info==\nGit directory does not exist. cloning now..."
-			sleep 2s
-			# create and clone to git dir
-			git clone "$git_url" "$git_dir"
-		
-		fi
-	
-	else
-		
-			echo -e "\n==Info==\nGit directory does not exist. cloning now..."
-			sleep 2s
-			# create and clone to current dir
-			git clone "$git_url" "$git_dir"
-	fi
-	
 }
 
 main()
 {
-	
-	# create and enter build_dir
-	
+
+	# create build_dir
 	if [[ -d "$build_dir" ]]; then
-	
+
 		sudo rm -rf "$build_dir"
 		mkdir -p "$build_dir"
-		
+
 	else
 
 		mkdir -p "$build_dir"
-		
+
 	fi
+
+	# enter build dir
+	cd "$build_dir" || exit
+
+	# install prereqs for build
+	install_prereqs
+
+	# Clone upstream source code and branch
+
+	echo -e "\n==> Obtaining upstream source code\n"
+
+	# clone
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 	
-	# Enter build dir
-	cd "$build_dir"
-	
-	clear
- 
+	# (optional) remove .git folder to save space on build
+	rm -f "$git_dir/.git"
+
 	#################################################
-	# Build PKG
+	# Build platform
 	#################################################
-	
+
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-	
-	echo -e "Use upstream tarball or git source? [tar/git]"
-	sleep 0.2s
-	
-	read -erp "Choice: " upstream_choice
-	
-	if [[ "$upstream_source" == "tar" ]]
-	
-		# create the tarball from latest tarball creation script
-		# use latest revision designated at the top of this script
-		wget "${tarball_url}/${tarball_file}"
-		
-		# unpack tarball
-		tar -xf ${pkgname}*.tar.xz
-		
-		# actively get pkg ver from created tarball
-		pkgver=$(find . -name *.orig.tar.xz | cut -c 18-41)
-		
-	elif [[ "$upstream_source" == "git" ]]
-	
-		# clone git
-		git clone "$git_url" "$git_dir"
-		
-		# enter git dir
-		cd "$git_dir"
-	
-	else
-	
-		echo -e "\nInvalid input, exiting in 15 seconds"
-		sleep 15s
-		exit 1
-	
-	fi
-	
-	# enter source dir
-	cd ${pkgname}*
-	
-	# Create the debian folder from the exiting debian-packager
-	# if debian folder exists in upacked tarball or git source
-	if [[ -d "debian" ]]; then
-	
-		# copy debian shell changelog from SteamOS-Tools
-		cp "$scriptdir/$pkgname/debian/changelog" "debian/changelog"
-		
-		# Change version, uploader, insert change log comments
-		sed -i "s|version_placeholder|$pkgver-$pkgrev|g" debian/changelog
-		sed -i "s|uploader|$uploader|g" debian/changelog
-		sed -i "s|dist_rel|$dist_rel|g" debian/changelog
-		
-		# open debian/changelog and update
-		echo -e "\n==> Opening changelog for build. Please ensure there is a revision number"
-		sleep 3s
-		nano debian/changelog	
-		
-		# set build type
-		build_type="dpkg"
-		
-	else
-	
-		# no debian folder, use checkinstall
-		# set build type
-		build_type="checkinstall"
-		
-	fi
 
-	############################
-	# proceed to DEB BUILD
-	############################
-	
-	echo -e "\n==> Building Debian package from source\n"
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
+
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
+	# enter source dir
+	cd "${pkgname}"
+
+	commits_full=$(git log --pretty=format:"  * %cd %h %s")
+
+	# Create basic changelog format
+	# This addons build cannot have a revision
+	cat <<-EOF> changelog.in
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+	  * Now includes support for the Lutris Kodi Addon
+	  * For addon information, see: https://github.com/RobLoach/script.lutris
+
+	 -- $uploader  $date_long
+
+	EOF
+
+	# Append old changelog from script dir
+	cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
+
+	# Perform a little trickery to update existing changelog from upstream
+	# If no changelog upstream exists, comment this section out, and change the above line
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
+	sleep 3s
+	nano debian/changelog
+
+ 	# cleanup old files
+ 	# Keep the old changelog so it can be appended next time
+ 	mv chnagelog.in $scriptdir/changelog.old
+ 	rm -f debian/changelog.in
+
+	#################################################
+	# Build Debian package
+	#################################################
+
+	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	if [[ "$build_type" == "dpkg" ]]; then
-
-		# Build the package
-		# Remove -us -uc if you want to sign the package with your PGP key (see changelog trailer line)
-		dpkg-buildpackage -rfakeroot -us -uc
-		
-	elif [[ "$build_type" == "checkinstall" ]]; then
-	
-		# use checkinstall
-		sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
-		--pkgversion="$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
-		--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
-		--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
-		
-	fi
+	#  build
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
 	# Post install configuration
 	#################################################
-	
-	# TODO
 	
 	#################################################
 	# Cleanup
@@ -258,9 +164,9 @@ main()
 	
 	# back out of build temp to script dir if called from git clone
 	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir"
+		cd "$scriptdir" || exit
 	else
-		cd "$HOME"
+		cd "$HOME" || exit
 	fi
 	
 	# inform user of packages
@@ -269,36 +175,21 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	if [[ -d "$git_dir/build" ]]; then
-	
-		echo -e "Showing contents of: $git_dir/build: \n"
-		ls "$git_dir/build" | grep -E *.deb
-	
-	elif [[ -d "$build_dir" ]]; then
-	
-		echo -e "Showing contents of: $build_dir: \n"
-		ls "${git_dir}/build" | grep -E *.deb
-
-	fi
+	echo -e "Showing contents of: ${build_dir}: \n"
+	ls "${build_dir}" | grep -E *${pkgver}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
-	read -ep "Choice: " transfer_choice
-	
-	if [[ "$transfer_choice" == "y" ]]; then
-	
-		# transfer files
-		if [[ -d "$git_dir/build" ]]; then
-		
-			scp ${git_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-		
-		elif [[ -d "$build_dir" ]]; then
-		
-			scp $build_dir/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+	read -erp "Choice: " transfer_choice
 
+	if [[ "$transfer_choice" == "y" ]]; then
+
+		# cut files
+		if [[ -d "${build_dir}" ]]; then
+			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
-		
+
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"
 	fi
@@ -306,5 +197,4 @@ main()
 }
 
 # start main
-install_prereqs
 main

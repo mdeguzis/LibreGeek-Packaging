@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-lutris.sh
-# Script Ver:	1.1.1
+# Script Ver:	1.1.3
 # Description:	Attempts to build a deb package from latest Lutris
 #		github release
 #
@@ -116,7 +116,11 @@ main()
 	EOF
 
 	# Append old changelog from script dir
-	cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
+	if [[ -f "$scriptdir/changelog.old" ]]; then
+	
+		cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
+
+	fi
 
 	# Perform a little trickery to update existing changelog from upstream
 	# If no changelog upstream exists, comment this section out, and change the above line

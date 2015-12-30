@@ -20,14 +20,14 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/lutris/lutris"
-rel_target="v0.3.7"
+rel_target="v0.3.7.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="lutris"
-pkgver="0.3.7"
-pkgrev="2"
+pkgver="0.3.7.1"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -108,15 +108,18 @@ main()
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	  * ***** Full list of commits *****
-	$commits_full
+	  * Now includes support for the Lutris Kodi Addon
+	  * For addon information, see: https://github.com/RobLoach/script.lutris
 
 	 -- $uploader  $date_long
 
 	EOF
 
-	# Perform a little trickery to update existing changelog or create
-	# basic file
+	# Append old changelog from script dir
+	cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
+
+	# Perform a little trickery to update existing changelog from upstream
+	# If no changelog upstream exists, comment this section out, and change the above line
 	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 
 	# open debian/changelog and update
@@ -125,7 +128,8 @@ main()
 	nano debian/changelog
 
  	# cleanup old files
- 	rm -f changelog.in
+ 	# Keep the old changelog so it can be appended next time
+ 	mv chnagelog.in $scriptdir/changelog.old
  	rm -f debian/changelog.in
 
 	#################################################

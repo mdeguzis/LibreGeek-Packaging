@@ -127,10 +127,8 @@ main()
 	sleep 3s
 	nano debian/changelog
 
- 	# cleanup old files
  	# Keep the old changelog so it can be appended next time
  	mv chnagelog.in $scriptdir/changelog.old
- 	rm -f debian/changelog.in
 
 	#################################################
 	# Build Debian package

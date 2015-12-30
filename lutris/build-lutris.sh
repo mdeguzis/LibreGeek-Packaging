@@ -128,7 +128,7 @@ main()
 	nano debian/changelog
 
  	# Keep the old changelog so it can be appended next time
- 	mv chnagelog.in $scriptdir/changelog.old
+ 	mv changelog.in $scriptdir/changelog.old
 
 	#################################################
 	# Build Debian package

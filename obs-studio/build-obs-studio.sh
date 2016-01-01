@@ -123,6 +123,13 @@ main()
 	 -- $uploader  $date_long
 
 	EOF
+	
+	# Append old changelog from script dir if it exists
+	if [[ -f "$scriptdir/changelog.old" ]]; then
+	
+		cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
+
+	fi
 
 	# Perform a little trickery to update existing changelog or create
 	# basic file
@@ -133,9 +140,16 @@ main()
 	sleep 3s
 	nano debian/changelog
 
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
+ 	# Keep the old changelog so it can be appended next time, if exists
+ 	if [[ -f "$scriptdir/changelog.old" ]]; then
+ 	
+ 		mv changelog.in $scriptdir/changelog.old
+ 		
+ 	else
+ 	
+ 		rm -f changelog.in
+ 		
+ 	fi
 
 	#################################################
 	# Build Debian package
@@ -147,10 +161,6 @@ main()
 	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
 
-	#################################################
-	# Post install configuration
-	#################################################
-	
 	#################################################
 	# Cleanup
 	#################################################
@@ -185,7 +195,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep $pkgname_$pkgver
+	ls "${build_dir}" | grep -E *${pkgver}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -196,7 +206,7 @@ main()
 
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

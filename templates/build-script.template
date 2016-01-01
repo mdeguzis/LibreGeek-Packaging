@@ -112,7 +112,7 @@ main()
 	EOF
 
 	# Append old changelog from script dir if it exists
-	if [[ -f "$scriptdir/chnagelog.old" ]]; then
+	if [[ -f "$scriptdir/changelog.old" ]]; then
 	
 		cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
 
@@ -128,7 +128,7 @@ main()
 	nano debian/changelog
 
  	# Keep the old changelog so it can be appended next time, if exists
- 	if [[ -f "$scriptdir/chnagelog.old" ]]; then
+ 	if [[ -f "$scriptdir/changelog.old" ]]; then
  	
  		mv changelog.in $scriptdir/changelog.old
  		

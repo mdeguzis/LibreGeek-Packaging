@@ -19,14 +19,15 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/smcameron/space-nerds-in-space"
-rel_target="master"
+#git_url="https://github.com/smcameron/space-nerds-in-space"
+git_url="https://github.com/ProfessorKaos64/space-nerds-in-space"
+rel_target="v20160101"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="snis"
-pkgver="${date_short}+git+bsos"
+pkgver="20160101+git+bsos"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

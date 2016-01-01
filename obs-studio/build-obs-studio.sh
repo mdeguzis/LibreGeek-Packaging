@@ -127,7 +127,7 @@ main()
 	# Append old changelog from script dir if it exists
 	if [[ -f "$scriptdir/changelog.old" ]]; then
 	
-		cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
+		cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp changelog.in
 
 	fi
 

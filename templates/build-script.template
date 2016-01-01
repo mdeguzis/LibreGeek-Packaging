@@ -111,9 +111,13 @@ main()
 
 	EOF
 
-	# Append old changelog from script dir
-	cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
+	# Append old changelog from script dir if it exists
+	if [[ -f "$scriptdir/chnagelog.old" ]]; then
+	
+		cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp debian/changelog.in
 
+	fi
+	
 	# Perform a little trickery to update existing changelog from upstream
 	# If no changelog upstream exists, comment this section out, and change the above line
 	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
@@ -123,8 +127,16 @@ main()
 	sleep 3s
 	nano debian/changelog
 
- 	# Keep the old changelog so it can be appended next time
- 	mv changelog.in $scriptdir/changelog.old
+ 	# Keep the old changelog so it can be appended next time, if exists
+ 	if [[ -f "$scriptdir/chnagelog.old" ]]; then
+ 	
+ 		mv changelog.in $scriptdir/changelog.old
+ 		
+ 	else
+ 	
+ 		rm -f changelog.in
+ 		
+ 	fi
 
 	#################################################
 	# Build Debian package
@@ -135,10 +147,6 @@ main()
 
 	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup

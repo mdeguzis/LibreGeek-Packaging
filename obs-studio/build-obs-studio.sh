@@ -140,16 +140,8 @@ main()
 	sleep 3s
 	nano debian/changelog
 
- 	# Keep the old changelog so it can be appended next time, if exists
- 	if [[ -f "$scriptdir/changelog.old" ]]; then
- 	
- 		mv changelog.in $scriptdir/changelog.old
- 		
- 	else
- 	
- 		rm -f changelog.in
- 		
- 	fi
+ 	# Keep the old changelog so it can be appended next time
+ 	mv changelog.in $scriptdir/changelog.old
 
 	#################################################
 	# Build Debian package

@@ -1,0 +1,18 @@
+Source: libretro-virtualjaguar
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://icculus.org/virtualjaguar
+
+Package: libretro-virtualjaguar
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Virtual Jaguar
+ This wrapper makes Virtual Jaguar core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ Virtual Jaguar is an emulator for the Atari Jaguar video game system.

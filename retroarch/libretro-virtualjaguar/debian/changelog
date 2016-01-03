@@ -1,0 +1,11 @@
+libretro-virtualjaguar (2.1.0+r135~11~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 07 Dec 2015 00:16:30 +0000
+
+libretro-virtualjaguar (2.1.0-0ubuntu1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Mon, 11 Aug 2014 02:05:00 -0300

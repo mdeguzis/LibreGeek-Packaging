@@ -1,0 +1,31 @@
+This package was debianized by Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br> on
+Mon, 11 Aug 2014 02:05:00 -0300
+
+It was downloaded from <https://github.com/libretro/virtualjaguar-libretro>
+
+Upstream Authors:
+
+    David Raingeard (aka Cal2) (Potato Emulation)
+    SDLEMU (Underground Software) (Virtual Jaguar GCC/Qt) <sdlemu@ngemu.com>
+        Niels Wagenaar (Win32/Linux)
+        Carwin Jones (BeOS)
+        Adam Green (MacOS)
+        James Hammons (Win32) <jlhamm@acm.org>
+    RetroArch Team (libretro port)
+
+Copyright:
+
+    Copyright (C) ????-2003 David Raingeard
+    Copyright (C) 2009-2014 SDLEMU
+    Copyright (C) 2013-2014 RetroArch Team
+
+License:
+
+    Licensed under the terms of the GNU General Public License version 3
+
+The Debian packaging is:
+
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

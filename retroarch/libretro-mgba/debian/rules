@@ -12,3 +12,6 @@ DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 	dh $@
 
 override_dh_auto_install:
+
+override_dh_installchangelogs:
+	dh_installchangelogs -k CHANGES

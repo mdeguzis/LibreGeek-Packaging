@@ -9,12 +9,6 @@
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 
 %:
-	dh $@ --buildsystem=cmake --parallel
-
-override_dh_auto_configure:
-	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX:PATH=/usr -DBUILD_QT=OFF -DBUILD_SDL=OFF -DBUILD_LIBRETRO=ON -DBUILD_STATIC=ON -DBUILD_SHARED=OFF -DDISABLE_DEPS=ON
+	dh $@
 
 override_dh_auto_install:
-
-override_dh_installchangelogs:
-	dh_installchangelogs -k CHANGES

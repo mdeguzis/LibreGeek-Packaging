@@ -1,8 +1,8 @@
-libretro-mgba (0.4~WIP+r40~16~ubuntu15.04.1) vivid; urgency=low
+libretro-mgba (0.4~WIP+r46~16~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.
 
- -- Launchpad Package Builder <noreply@launchpad.net>  Tue, 24 Nov 2015 14:16:44 +0000
+ -- Launchpad Package Builder <noreply@launchpad.net>  Sun, 03 Jan 2016 03:12:50 +0000
 
 libretro-mgba (0.4~WIP-1) unstable; urgency=low
 

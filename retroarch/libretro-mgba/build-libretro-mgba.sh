@@ -26,7 +26,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="libretro-mgba"
 pkgver="0.4"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -43,7 +43,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc \
-	cmake zlib1g-dev
+	cmake zlib1g-dev debhelper
 
 }
 
@@ -94,10 +94,6 @@ main()
 	# enter source dir
 	cd "${pkgname}"
 
-	# There are issues with commits above the below SHA1
-	# Build from this point until fixed upstream
-	git checkout 34d0dff2
-
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
@@ -106,6 +102,7 @@ main()
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
+
 	 -- $uploader  $date_long
 
 	EOF

@@ -28,7 +28,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="retroarch-joypad-autoconfig"
 pkgver="0.1"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -92,11 +92,11 @@ main()
 
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"
-	
+
 	###############################################################
 	# correct any files needed here that you can ahead of time
 	###############################################################
-	
+
 	# enter source dir
 	cd "${pkgname}"
 
@@ -138,36 +138,36 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
+
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
+
 	# back out of build temp to script dir if called from git clone
 	if [[ "$scriptdir" != "" ]]; then
 		cd "$scriptdir" || exit
 	else
 		cd "$HOME" || exit
 	fi
-	
+
 	# inform user of packages
 	echo -e "\n############################################################"
 	echo -e "If package was built without errors you will see it below."
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
-	
+
 	echo -e "Showing contents of: ${build_dir}: \n"
 	ls "${build_dir}" | grep -E *${pkgver}*
 
@@ -181,6 +181,7 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			mv ${git_dir}/debian/changelog ${scriptdir}/debian/
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

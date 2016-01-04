@@ -110,16 +110,9 @@ main()
 	 -- $uploader  $date_long
 
 	EOF
-
-	# Append old changelog from script dir if it exists
-	if [[ -f "$scriptdir/changelog.old" ]]; then
-	
-		cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp changelog.in
-
-	fi
 	
 	# Perform a little trickery to update existing changelog from upstream
-	# If no changelog upstream exists, comment this section out, and change the above line
+	# If no changelog upstream exists, create a basic changelog file instead.
 	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 
 	# open debian/changelog and update
@@ -127,10 +120,8 @@ main()
 	sleep 3s
 	nano debian/changelog
 
- 	# Keep the old changelog so it can be appended next time
- 	# If not desired, remove changelog.in
- 	mv changelog.in $scriptdir/changelog.old
-	# rm -f changelog.in
+	# cleanup old changelog
+	rm -f changelog.in
 
 	#################################################
 	# Build Debian package
@@ -188,6 +179,10 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			
+			# Only move the old changelog if transfer occurs to keep final changelog 
+			# out of the picture until a confirmed build is made. Remove if upstream has their own.
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

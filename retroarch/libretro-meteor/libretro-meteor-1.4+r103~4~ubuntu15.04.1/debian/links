@@ -1,2 +1,0 @@
-#!/bin/sh
-echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/meteor_libretro.so usr/lib/libretro/meteor_libretro.so"

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-libcec.sh
-# Script Ver:	0.2.1
+# Script Ver:	0.5.1
 # Description:	Attempts to build a deb package libcec git source
 #
 # See:		https://github.com/Pulse-Eight/libcec
@@ -18,7 +18,10 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/Pulse-Eight/libcec"
-git_branch="master"
+# For Kodi's Jarvis release, it is more than likely platform will still be used
+# For now, use the commit before this was changed or the release tree (uses platform)
+# The appropirate commit would possibly be "4905a70" for this.
+git_branch="release"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -99,7 +102,6 @@ main()
 	
 	# funnel old changelog.in to changelog or create basic file
 	cp debian/changelog.in debian/changelog
-	# touch debian/changelog
 	
 	# Create basic changelog
 	# This addons build cannot have a revision
@@ -109,6 +111,8 @@ main()
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
+	  * This revision still uses the legacy platform vs. p8-platform
+	  * See: https://github.com/xbmc/kodi-platform/pull/16
 	
 	 -- $uploader  $date_long
 	

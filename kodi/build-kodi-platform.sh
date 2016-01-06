@@ -41,7 +41,10 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc python \
-	cmake libtinyxml-dev kodi-addon-dev libp8-platform-dev
+	cmake libtinyxml-dev kodi-addon-dev libplatform-dev
+
+	# See: https://github.com/xbmc/kodi-platform/pull/16
+ 	# For now, the likely target package for Jarvis will be platform, not the renamed p8-platform
 
 }
 
@@ -69,9 +72,7 @@ main()
 	# Clone upstream source code
 
 	echo -e "\n==> Obtaining upstream source code\n"
-
 	git clone "$git_url" "$git_dir"
-	#scp -r mikeyd@archboxmtd:/home/mikeyd/github_repos/kodi-platform "$git_dir"
 
 	#################################################
 	# Build platform
@@ -121,10 +122,6 @@ main()
 
 	dpkg-buildpackage -rfakeroot -us -uc
 
-	#################################################
-	# Post install configuration
-	#################################################
-	
 	#################################################
 	# Cleanup
 	#################################################

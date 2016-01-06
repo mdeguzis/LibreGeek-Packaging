@@ -22,9 +22,10 @@ git_url="https://github.com/Pulse-Eight/platform/"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="p8-platform"
+#pkgname="p8-platform"
+pkgname="platform"
 pkgver="1.0.10"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -87,10 +88,13 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 	
 	# emter source dir
-	cd "${pkgname}"
+	cd "${git_dir}"
+	
+	# See: https://github.com/xbmc/kodi-platform/pull/16
+	# For now, the likely target package for Jarvis will be platform, not the renamed p8-platform
+	git checkout a1e5905
 	
 	# Create basic changelog
-	
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
@@ -120,10 +124,6 @@ main()
 	sleep 2s
 
 	dpkg-buildpackage -rfakeroot -us -uc
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup

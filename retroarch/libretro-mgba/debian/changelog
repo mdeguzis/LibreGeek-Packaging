@@ -1,11 +1,10 @@
 libretro-mgba (0.4+git+bsos2) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools
-  * Fixed build off of master tree
   * See: packages.libregeek.org
   * Upstream authors and source: https://github.com/libretro/mgba
 
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 03 Jan 2016 18:49:38 -0500
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 05 Jan 2016 20:17:43 -0500
 
 libretro-mgba (0.4~WIP+r46~16~ubuntu15.04.1) vivid; urgency=low
 

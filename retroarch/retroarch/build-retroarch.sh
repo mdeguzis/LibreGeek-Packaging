@@ -181,9 +181,9 @@ main()
 	If package was built without errors you will see it below.
 	If you don't, please check build dependency errors listed above.
 	#################################################################
-	
+
 	EOF
-	
+
 	echo -e "Showing contents of: ${build_dir}: \n"
 	ls "${build_dir}" | grep -E *${pkgver}*
 

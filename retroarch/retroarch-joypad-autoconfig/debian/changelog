@@ -4,7 +4,7 @@ retroarch-joypad-autoconfig (0.1+git+bsos2) brewmaster; urgency=low
   * See: packages.libregeek.org
   * Upstream authors and source: https://github.com/libretro/retroarch-joypad-autoconfig
 
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 03 Jan 2016 22:49:29 -0500
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 04 Jan 2016 19:21:34 -0500
 
 retroarch-joypad-autoconfig (0.1+r267~2~ubuntu15.04.1) vivid; urgency=low
 

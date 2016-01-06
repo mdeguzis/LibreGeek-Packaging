@@ -8,6 +8,7 @@ Packaging scripts and files for SteamOS-Tools
 * [Debian Developer's Reference](http://www.debian.org/doc/manuals/developers-reference/)
 * [Debian Policy](http://www.debian.org/doc/debian-policy/)
 * [Binary package How-To](http://tldp.org/HOWTO/html_single/Debian-Binary-Package-Building-HOWTO/)
+* [libregeek package stats](http://steamos-tools-stats.libregeek.org)
 
 # Using reprepro
 * [Setting up a signed repository (Debian)](https://wiki.debian.org/SettingUpSignedAptRepositoryWithReprepro)

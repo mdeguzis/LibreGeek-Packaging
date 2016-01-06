@@ -25,7 +25,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="libcec"
 pkgver="3.0.1"
-pkgrev="2"
+pkgrev="3"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -42,9 +42,12 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
- 	libudev-dev liblockdev1-dev libp8-platform-dev python-dev cmake swig libxrandr-dev \
+ 	libudev-dev liblockdev1-dev libplatform-dev python-dev cmake swig libxrandr-dev \
  	x11proto-core-dev libncurses5-dev libudev-dev liblockdev1-dev libp8-platform-dev \
  	python-dev swig libxrandr-dev libncurses5-dev
+ 	
+ 	# See: https://github.com/xbmc/kodi-platform/pull/16
+ 	# For now, the likely target package for Jarvis will be platform, not the renamed p8-platform
 
 }
 

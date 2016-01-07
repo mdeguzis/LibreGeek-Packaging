@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-vbam.sh
-# Script Ver:	1.0.0
+# Script Ver:	1.0.3
 # Description:	Attempts to build a deb package from latest
 #		VBAM github release
 #
@@ -83,7 +83,7 @@ main()
 	rm -rf "${git_dir}/src/debian"
 
 	# cp our debian directory inside the root
-	cp "$sriptdir/debian" "${git_dir}"
+	cp "$scriptdir/debian" "${git_dir}"
 
 	#################################################
 	# Build platform

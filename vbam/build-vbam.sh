@@ -47,7 +47,7 @@ install_prereqs()
 	sudo apt-get -y --force-yes install cmake debhelper libavcodec-dev libavformat-dev \
 	libavutil-dev libcairo2-dev libgl1-mesa-dev libgtkglextmm-x11-1.2-dev libgtkmm-2.4-dev \
 	liblircclient-dev libopenal-dev libpng-dev libsdl1.2-dev libsfml-dev libswscale-dev \
-	libwxbase3.0-dev libwxgtk3.0-dev zip zlib1g-dev nasm
+	libwxbase3.0-dev libwxgtk3.0-dev zip zlib1g-dev nas quilt
 
 }
 
@@ -79,8 +79,11 @@ main()
 	# clone
 	git clone --recursive -b "$rel_target" "$git_url" "$git_dir"
 
-	# move the debian directory inside the root
-	cp -r "$scriptdir/debian" "${git_dir}"
+	# Remove old debian dir
+	rm -rf "${git_dir}/src/debian"
+
+	# cp our debian directory inside the root
+	cp "$sriptdir/debian" "${git_dir}"
 
 	#################################################
 	# Build platform
@@ -93,14 +96,14 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# enter source dir
 	cd "${git_dir}"
 
 	# Create basic changelog format
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upsteam_rev}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

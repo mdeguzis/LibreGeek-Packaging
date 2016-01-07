@@ -16,15 +16,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-export DEB_LDFLAGS_MAINT_APPEND=-Wl,--as-needed
+# Uncomment this to turn on verbose mode
+#export DH_VERBOSE=1
 
-CMAKE_EXTRA_FLAGS += -DENABLE_LINK=ON \
-						-DCMAKE_C_FLAGS="-DFINAL_BUILD" \
-						-DCMAKE_SKIP_RPATH=ON \
-						-DENABLE_GTK=ON
+ifeq ($(DH_VERBOSE),1)
+EXTRA_CMAKE_FLAGS += -DCMAKE_VERBOSE_MAKEFILE=ON
+endif
+
+#DEB_BUILD_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_BUILD_ARCH_CPU)
+
+#ifneq (,$(filter $(DEB_BUILD_ARCH_CPU),i386 amd64))
+#EXTRA_CMAKE_FLAGS += -DUSE_ASM_SCALERS=ON -DUSE_ASM_CORE=ON
+#endif
+
+CMAKE_EXTRA_FLAGS += -DCMAKE_INSTALL_PREFIX=/usr \
+						-DENABLE_LIRC=ON -DENABLE_LINK=ON \
+						-DCMAKE_SKIP_RPATH=ON $(EXTRA_CMAKE_FLAGS)
 
 %:
-	dh $@ --buildsystem=cmake --builddirectory=obj --parallel
+	dh $@ --buildsystem=cmake --parallel
 
 override_dh_auto_configure:
 	dh_auto_configure -- $(CMAKE_EXTRA_FLAGS)

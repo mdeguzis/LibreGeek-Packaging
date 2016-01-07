@@ -107,7 +107,7 @@ main()
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
-	  * Fixed rules file for building for SteamOS/Debian
+	  * Fixed debian files for building for SteamOS/Debian
 	  * Upstream authors and source: $git_url
 
 	 -- $uploader  $date_long

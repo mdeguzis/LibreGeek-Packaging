@@ -83,7 +83,7 @@ main()
 	rm -rf "${git_dir}/src/debian"
 
 	# cp our debian directory inside the root
-	cp "$scriptdir/debian" "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	#################################################
 	# Build platform

@@ -1,5 +1,5 @@
---- CMakeLists.txt	2016-01-07 17:33:48.876640243 -0500
-+++ CMakeLists.txt.new	2016-01-07 17:41:57.183061624 -0500
+--- CMakeLists.txt	2016-01-07 17:45:01.103973638 -0500
++++ CMakeLists.txt.new	2016-01-07 17:52:08.814094538 -0500
 @@ -226,11 +226,11 @@
  
  # Compiler flags
@@ -15,7 +15,197 @@
  ENDIF()
  
  IF(CMAKE_SYSTEM_PROCESSOR MATCHES "[xX]86|[aA][mM][dD]64|[xX]64" AND CMAKE_C_SIZEOF_DATA_PTR EQUAL 8)
-@@ -417,7 +417,7 @@
+@@ -252,103 +252,103 @@
+ add_subdirectory (fex)
+ 
+ SET(SRC_MAIN
+-    src/Util.cpp
+-    src/common/ConfigManager.cpp
+-    src/common/dictionary.c
+-    src/common/iniparser.c
+-    src/common/Patch.cpp
+-    src/common/memgzio.c
+-    src/common/SoundSDL.cpp
++    Util.cpp
++    common/ConfigManager.cpp
++    common/dictionary.c
++    common/iniparser.c
++    common/Patch.cpp
++    common/memgzio.c
++    common/SoundSDL.cpp
+ )
+ 
+ if(ENABLE_FFMPEG)
+-    SET(SRC_MAIN ${SRC_MAIN} src/common/ffmpeg.cpp)
++    SET(SRC_MAIN ${SRC_MAIN} common/ffmpeg.cpp)
+ endif(ENABLE_FFMPEG)
+ 
+ SET(SRC_GBA
+-    src/gba/agbprint.cpp
+-    src/gba/bios.cpp
+-    src/gba/BreakpointStructures.cpp
+-    src/gba/Cheats.cpp
+-    src/gba/CheatSearch.cpp
+-    src/gba/debugger-expr-lex.cpp
+-    src/gba/debugger-expr-yacc.cpp
+-    src/gba/EEprom.cpp
+-    src/gba/ereader.cpp
+-    src/gba/Flash.cpp
+-    src/gba/GBA.cpp
+-    src/gba/GBAGfx.cpp
+-    src/gba/GBALink.cpp
+-    src/gba/GBASockClient.cpp
+-    src/gba/GBA-thumb.cpp
+-    src/gba/GBA-arm.cpp
+-    src/gba/gbafilter.cpp
+-    src/gba/Globals.cpp
+-    src/gba/Mode0.cpp
+-    src/gba/Mode1.cpp
+-    src/gba/Mode2.cpp
+-    src/gba/Mode3.cpp
+-    src/gba/Mode4.cpp
+-    src/gba/Mode5.cpp
+-    src/gba/RTC.cpp
+-    src/gba/Sound.cpp
+-    src/gba/Sram.cpp
++    gba/agbprint.cpp
++    gba/bios.cpp
++    gba/BreakpointStructures.cpp
++    gba/Cheats.cpp
++    gba/CheatSearch.cpp
++    gba/debugger-expr-lex.cpp
++    gba/debugger-expr-yacc.cpp
++    gba/EEprom.cpp
++    gba/ereader.cpp
++    gba/Flash.cpp
++    gba/GBA.cpp
++    gba/GBAGfx.cpp
++    gba/GBALink.cpp
++    gba/GBASockClient.cpp
++    gba/GBA-thumb.cpp
++    gba/GBA-arm.cpp
++    gba/gbafilter.cpp
++    gba/Globals.cpp
++    gba/Mode0.cpp
++    gba/Mode1.cpp
++    gba/Mode2.cpp
++    gba/Mode3.cpp
++    gba/Mode4.cpp
++    gba/Mode5.cpp
++    gba/RTC.cpp
++    gba/Sound.cpp
++    gba/Sram.cpp
+ )
+ 
+ SET(SRC_GB
+-    src/gb/GB.cpp
+-    src/gb/gbCheats.cpp
+-    src/gb/gbDis.cpp
+-    src/gb/gbGfx.cpp
+-    src/gb/gbGlobals.cpp
+-    src/gb/gbMemory.cpp
+-    src/gb/gbPrinter.cpp
+-    src/gb/gbSGB.cpp
+-    src/gb/gbSound.cpp
++    gb/GB.cpp
++    gb/gbCheats.cpp
++    gb/gbDis.cpp
++    gb/gbGfx.cpp
++    gb/gbGlobals.cpp
++    gb/gbMemory.cpp
++    gb/gbPrinter.cpp
++    gb/gbSGB.cpp
++    gb/gbSound.cpp
+ )
+ 
+ SET(SRC_APU
+-    src/apu/Blip_Buffer.cpp
+-    src/apu/Effects_Buffer.cpp
+-    src/apu/Gb_Apu.cpp
+-    src/apu/Gb_Apu_State.cpp
+-    src/apu/Gb_Oscs.cpp
+-    src/apu/Multi_Buffer.cpp
++    apu/Blip_Buffer.cpp
++    apu/Effects_Buffer.cpp
++    apu/Gb_Apu.cpp
++    apu/Gb_Apu_State.cpp
++    apu/Gb_Oscs.cpp
++    apu/Multi_Buffer.cpp
+ )
+ 
+ SET(SRC_SDL
+-    src/sdl/SDL.cpp
+-    src/sdl/filters.cpp
+-    src/sdl/text.cpp
+-    src/sdl/inputSDL.cpp
+-    src/sdl/expr.cpp
+-    src/sdl/exprNode.cpp
+-    src/sdl/expr-lex.cpp
++    sdl/SDL.cpp
++    sdl/filters.cpp
++    sdl/text.cpp
++    sdl/inputSDL.cpp
++    sdl/expr.cpp
++    sdl/exprNode.cpp
++    sdl/expr-lex.cpp
+ )
+ 
+ SET(SRC_FILTERS
+-    src/filters/2xSaI.cpp
+-    src/filters/admame.cpp
+-    src/filters/bilinear.cpp
+-    src/filters/hq2x.cpp
+-    src/filters/interframe.cpp
+-    src/filters/pixel.cpp
+-    src/filters/scanline.cpp
+-    src/filters/simpleFilter.cpp
+-    src/filters/xbrzfilter.cpp
+-    src/filters/xBRZ/xbrz.cpp
++    filters/2xSaI.cpp
++    filters/admame.cpp
++    filters/bilinear.cpp
++    filters/hq2x.cpp
++    filters/interframe.cpp
++    filters/pixel.cpp
++    filters/scanline.cpp
++    filters/simpleFilter.cpp
++    filters/xbrzfilter.cpp
++    filters/xBRZ/xbrz.cpp
+ )
+ 
+ SET(SRC_HQ_C
+-    src/filters/hq/c/hq_implementation.cpp
++    filters/hq/c/hq_implementation.cpp
+ )
+ 
+ SET(SRC_HQ_ASM
+-    src/filters/hq/asm/hq3x_16.asm
+-    src/filters/hq/asm/hq3x_32.asm
+-    src/filters/hq/asm/hq4x_16.asm
+-    src/filters/hq/asm/hq4x_32.asm
+-    src/filters/hq/asm/hq3x32.cpp
++    filters/hq/asm/hq3x_16.asm
++    filters/hq/asm/hq3x_32.asm
++    filters/hq/asm/hq4x_16.asm
++    filters/hq/asm/hq4x_32.asm
++    filters/hq/asm/hq3x32.cpp
+ )
+ 
+ if( ENABLE_ASM_SCALERS )
+@@ -360,9 +360,9 @@
+ 
+ if( ENABLE_DEBUGGER )
+     SET(SRC_DEBUGGER
+-        src/gba/armdis.cpp
+-        src/gba/elf.cpp
+-        src/gba/remote.cpp
++        gba/armdis.cpp
++        gba/elf.cpp
++        gba/remote.cpp
+     )
+ endif( ENABLE_DEBUGGER )
+ 
+@@ -417,17 +417,17 @@
  	ELSE( WIN32 )
  		INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/vbam DESTINATION bin)
  	ENDIF( WIN32 )
@@ -24,6 +214,18 @@
  				DESTINATION ${CMAKE_INSTALL_PREFIX}/${SYSCONFDIR}
  				RENAME vbam.cfg)
  ENDIF( ENABLE_SDL )
+ 
+ IF( ENABLE_GTK OR ENABLE_GTK3 )
+-	add_subdirectory (src/gtk)
++	add_subdirectory (gtk)
+ ENDIF( ENABLE_GTK OR ENABLE_GTK3 )
+ 
+ IF( ENABLE_WX )
+-    add_subdirectory(src/wx)
++    add_subdirectory(wx)
+ ENDIF( ENABLE_WX )
+ 
+ if( ENABLE_GTK OR ENABLE_GTK3 OR ENABLE_WX )
 @@ -436,19 +436,19 @@
          add_subdirectory(po)
      endif( ENABLE_NLS )
@@ -48,4 +250,3 @@
 +        INSTALL(FILES ${CMAKE_CURRENT_SOURCE_DIR}/debian/wxvbam.1 DESTINATION ${CMAKE_INSTALL_PREFIX}/share/man/man1)
      ENDIF( ENABLE_WX )
  ENDIF( UNIX )
- 

@@ -1,0 +1,11 @@
+vbam (1.8.0.1508-r1343~12~ubuntu15.04.1) vivid; urgency=low
+
+  * Auto build.
+
+ -- Sergio Benjamim <sergio_br2@yahoo.com.br>  Sat, 19 Sep 2015 12:01:36 +0000
+
+vbam (1.8.0.1508-1) unstable; urgency=low
+
+  * Initial release (Closes: #541157).
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 13 Jun 2015 21:58:00 -0300

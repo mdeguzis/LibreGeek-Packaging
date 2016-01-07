@@ -1,0 +1,2 @@
+version=3
+opts=uversionmangle=s/^/1.8.0./ http://sf.net/vbam/vbam-r(\d+)-src\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))

@@ -35,6 +35,9 @@ Packaging scripts and files for SteamOS-Tools
 # Patches
 * [Applying patches with quilt](https://raphaelhertzog.com/2012/08/08/how-to-use-quilt-to-manage-patches-in-debian-packages/)
 
+# Unattended upgrades
+* Checking for issues: `sudo unattended-upgrade -d`
+
 # Other notes
 * Some folders here may be a [sub-module](https://git-scm.com/book/en/v2/Git-Tools-Submodules). If you clone this repository, ensure you add the --recursive option flag. You can also use
 

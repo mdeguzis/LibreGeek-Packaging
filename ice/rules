@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	sudo rm -rf /tmp/pip_build_root
+	sudo rm -rf build	
+	sudo rm -rf Ice.egg-info
+	sudo rm -rf dist
+
+override_dh_auto_configure:
+
+override_dh_auto_build:
+	# Prereqs
+	pip install --upgrade pysteam
+	pip install --upgrade  appdirs
+	# For whatever reason the egg-info dir get's assigned to root
+	sudo chown $USER:$USER Ice.egg-info
+	# Setup Ice
+	python setup.py install

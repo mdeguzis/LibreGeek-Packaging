@@ -73,9 +73,6 @@ main()
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 
-	# copy in modified rules until tested
-        cp -r "$scriptdir/rules" "$git_dir"
-
 	#################################################
 	# Build package
 	#################################################

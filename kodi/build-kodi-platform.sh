@@ -17,6 +17,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream URL
 git_url="https://github.com/ProfessorKaos64/kodi-platform"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -24,7 +25,7 @@ date_short=$(date +%Y%m%d)
 pkgname="kodiplatform"
 #pkgver="${date_short}+git"
 pkgver="16.0.0"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -72,7 +73,7 @@ main()
 	# Clone upstream source code
 
 	echo -e "\n==> Obtaining upstream source code\n"
-	git clone "$git_url" "$git_dir"
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 
 	#################################################
 	# Build platform
@@ -83,15 +84,19 @@ main()
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
-	
+
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
-	
+
 	# emter source dir
 	cd "${pkgname}"
-	
+
+	# See: https://github.com/xbmc/kodi-platform/pull/16
+	# For now, the likely target package for Jarvis will be platform, not the renamed p8-platform
+	git checkout 45d6ad1
+
 	# Create basic changelog
-	
+
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 

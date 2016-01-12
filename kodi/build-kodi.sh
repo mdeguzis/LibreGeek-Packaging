@@ -36,7 +36,7 @@ set_vars()
 	###################################
 	# package vars
 	###################################
-	
+
 	pkgname="kodi"
 	uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 	maintainer="ProfessorKaos64"
@@ -44,85 +44,85 @@ set_vars()
 	dist_rel="brewmaster"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
-	
+
 	# Set target for git source author
 	repo_target="xbmc"
-	
+
 	###################################
 	# build vars
 	###################################
-	
+
 	# Set build dir based on repo target to avoid recloning for different targets
 	if [[ "$repo_target" != "xbmc" ]]; then
-	
+
 		# set build dir to alternate
 		build_dir="$HOME/kodi/kodi-${repo_target}"
 	else
 		# set build dir to default
 		build_dir="$HOME/kodi/kodi-source"
-	
+
 	fi
-	
+
 	# Set Git URL
 	git_url="git://github.com/${repo_target}/xbmc.git"
 	#git_url="git://github.com/xbmc/xbmc.git"
-	
+
 	# set dir for debs
 	deb_dir="$HOME/kodi"
-	
+
 	###################
 	# global vars
 	###################
-	
+
 	# Allow more concurrent threads to be specified
 	if [[ "$build_opts" == "--cores" ]]; then
-	
+
 		# set cores
 		cores="$core_num"
-	
+
 	else
-	
+
 		# default to 2 cores as fallback
 		cores="2"
 	fi
-	
-	
+
+
 	# Set script defaults for building packages or source directly
 	if [[ "$extra_opts" == "--source" || "$arg1" == "--source" ]]; then
-	
+
 		# set package to yes if deb generation is requested
 		package_deb="no"
-	
+
 	elif [[ "$extra_opts" == "--skip-build" || "$arg1" == "--skip-build" ]]; then
-	
+
 		# If Kodi is confirmed by user to be built already, allow build
 		# to be skipped and packaging to be attempted directly
 		skip_build="yes"
 		package_deb="yes"
-	
+
 	else
-	
+
 		# Proceed with default actions
 		package_deb="yes"
-	
+
 	fi
-	
+
 	##################################
 	# Informational
 	##################################
-	
+
 	# Source build notes:
 	# https://github.com/xbmc/xbmc/blob/master/docs/README.linux
-	
+
 	# Current version:
 	# https://github.com/xbmc/xbmc/blob/master/version.txt
-	
+
 	# model control file after:
 	# https://packages.debian.org/sid/kodi
-	
+
 	# Current checkinstall config:
 	# cfgs/source-builds/kodi-checkinstall.txt
-	
+
 }
 
 function_install_pkgs()
@@ -285,10 +285,10 @@ kodi_package_deb()
 	# been corrected. 'mk-debian-package.sh' handles all package naming and will try
 	# to sign as wnsipex. This is ok, since we will sign with reprepro. The other
 	# option is to adjust the build script.
-	
+
 	# Add any overrides to the build host/arch options below
-	
-	# sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
+
+	sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
 	############################################################
 	# Assess if we are to build for host/ARCH we have or target

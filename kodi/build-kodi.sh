@@ -172,13 +172,13 @@ kodi_prereqs()
 	libavahi-common-dev libbluetooth-dev libbluray-dev libbluray1 libboost-dev libboost-thread-dev \
 	libbz2-dev libcap-dev libcdio-dev libcec-dev libcrossguid1 libcrossguid-dev libcurl3 libcurl4-gnutls-dev \
 	libcwiid-dev libdbus-1-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libgif-dev libglew-dev \
-	libglu1-mesa-dev libiso9660-dev libgnutls28-dev libjasper-dev libjpeg-dev libltdl-dev liblzo2-dev \
+	libglu1-mesa-dev libiso9660-dev libgnutls28-dev libjpeg-dev libltdl-dev liblzo2-dev \
 	libmicrohttpd-dev libmodplug-dev libmpcdec-dev libmpeg2-4-dev libmysqlclient-dev libnfs-dev libogg-dev \
 	libpcre3-dev libplist-dev libpng12-dev libpulse-dev librtmp-dev libsdl1.2-dev libsdl2-dev libshairport-dev \
 	libsmbclient-dev libsqlite3-dev libssh-dev libssl-dev libswscale-dev libtag1-dev libtiff5-dev libtinyxml-dev \
 	libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev libxinerama-dev libxml2-dev libxmu-dev \
 	libxrandr-dev libxslt1-dev libxt-dev libyajl-dev lsb-release nasm python-dev python-imaging python-support \
-	swig unzip uuid-dev yasm zip zlib1g-dev"
+	swig unzip uuid-dev yasm zip zlib1g-dev libegl1-mesa-dev"
 
 	# install dependencies / packages
 	function_install_pkgs

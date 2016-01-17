@@ -54,7 +54,8 @@ install_prereqs()
 	# Additional suggested packages added per: https://wiki.debian.org/Python/LibraryStyleGuide
 	sudo apt-get install -y --force-yes build-essential bc debhelper \
 	python-pip python-psutil groff pysteam git python-setuptools dh-python \
-	python-all python-setuptools python-pip python-docutils python-sphinx pysteam
+	python-all python-setuptools python-pip python-docutils python-sphinx \
+	python-addirs
 
 
 }

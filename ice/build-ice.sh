@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ice.sh
-# Script Ver:	1.0.9
+# Script Ver:	1.1.3
 # Description:	Builds simple pacakge for using ice
 #
 # See:		https://github.com/scottrice/Ice
@@ -112,9 +112,9 @@ main()
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}-${upstream_rev}+${pkgsuffix}) $dist_rel; urgency=low
 
-	  	  * Packaged deb for SteamOS-Tools
-		  * See: packages.libregeek.org
-		  * Upstream authors and source: $git_url
+		* Packaged deb for SteamOS-Tools
+		* See: packages.libregeek.org
+		* Upstream authors and source: $git_url
 
 		 -- $uploader  $date_long
 

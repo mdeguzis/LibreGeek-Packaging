@@ -1,5 +1,24 @@
-ice (0.1.1-1+bsos1) brewmaster; urgency=low
+ice-steamos (0.1.0-1+bsos1) brewmaster; urgency=low
 
-  * Dummy package to transition to ice-steamos
+  * Replacement packge for Ice, renamed package
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/ProfessorKaos64/Ice
 
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 17 Jan 2016 09:48:42 -0500
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 16 Jan 2016 21:18:56 -0500
+
+ice (0.1.0-1+bsos1) brewmaster; urgency=low
+
+  * Initial release
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/ProfessorKaos64/Ice
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 14 Jan 2016 18:22:52 -0500
+
+ice (0.1.0-1+git+bsos1) brewmaster; urgency=low
+
+  * Initial upload dummy changelog
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 09 Jan 2016 19:14:39 -0500
+ 

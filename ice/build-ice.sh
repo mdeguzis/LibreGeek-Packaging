@@ -55,7 +55,7 @@ install_prereqs()
 	sudo apt-get install -y --force-yes build-essential bc debhelper \
 	python-pip python-psutil groff pysteam git python-setuptools dh-python \
 	python-all python-setuptools python-pip python-docutils python-sphinx \
-	python-addirs
+	python-appdirs
 
 
 }
@@ -113,6 +113,7 @@ main()
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}-${upstream_rev}+${pkgsuffix}) $dist_rel; urgency=low
 
+		  * Patched logging locations for SteamOS
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
 		  * Upstream authors and source: $git_url

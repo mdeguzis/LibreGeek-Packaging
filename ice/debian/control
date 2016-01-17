@@ -1,0 +1,17 @@
+Source: ice
+Section: games
+Priority: extra
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9), dpkg-dev
+Standards-Version: 3.9.5
+Homepage: https://github.com/ProfessorKaos64/Ice
+Vcs-Git: git://github.com/ProfessorKaos64/Ice.git
+Vcs-Browser: https://github.com/ProfessorKaos64/Ice
+
+Package: ice
+Section: games
+Priority: extra
+Depends: ice-steamos, ${misc:Depends}
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Architecture: all
+Description: dummy package to transition to ice-steamos

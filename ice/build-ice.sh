@@ -112,9 +112,9 @@ main()
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}-${upstream_rev}+${pkgsuffix}) $dist_rel; urgency=low
 
-		* Packaged deb for SteamOS-Tools
-		* See: packages.libregeek.org
-		* Upstream authors and source: $git_url
+		  * Packaged deb for SteamOS-Tools
+		  * See: packages.libregeek.org
+		  * Upstream authors and source: $git_url
 
 		 -- $uploader  $date_long
 

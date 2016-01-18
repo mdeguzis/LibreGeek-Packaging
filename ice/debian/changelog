@@ -1,3 +1,13 @@
+ice-unstable (0.1.0-1+d04e7fe+1) brewmaster; urgency=low
+
+  * Upstream "Ice" package (unstable)
+  * This package is NOT guaranteed to work!
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/scottrice/Ice
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 18 Jan 2016 06:41:28 -0500
+
 ice (0.1.0-1+git+bsos1) brewmaster; urgency=low
 
   * Initial upload dummy changelog

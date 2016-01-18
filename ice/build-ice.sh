@@ -4,7 +4,8 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ice.sh
 # Script Ver:	1.1.3
-# Description:	Builds simple pacakge for using ice
+# Description:	Builds simple pacakge for using ice based of of master upstream
+#		git source
 #
 # See:		https://github.com/scottrice/Ice
 #
@@ -20,15 +21,16 @@ time_stamp_start=(`date +"%T"`)
 # upstream vars
 git_url="https://github.com/scottrice/Ice"
 rel_target="master"
+commit="d04e7fe"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="ice"
+pkgname="ice-unstable"
 pkgver="0.1.0"
-upstream_rev="2"
+upstream_rev="1"
 pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+pkgsuffix="${commit}+${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -104,6 +106,9 @@ main()
 
 	# enter source dir
 	cd "${git_dir}"
+	
+	# checkout commit for versioning
+	git chekcout "$commit"
 
 	# Create new changelog if we are not doing an autobuild
 	# Also add exceptions for Travis CI build tests
@@ -113,7 +118,8 @@ main()
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}-${upstream_rev}+${pkgsuffix}) $dist_rel; urgency=low
 
-		  * Patched logging locations for SteamOS
+		  * Upstream "Ice" package (unstable)
+		  * This package is NOT guaranteed to work!
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
 		  * Upstream authors and source: $git_url

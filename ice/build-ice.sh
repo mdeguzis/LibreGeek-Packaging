@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ice.sh
-# Script Ver:	1.1.3
+# Script Ver:	1.1.5
 # Description:	Builds simple pacakge for using ice based of of master upstream
 #		git source
 #
@@ -108,7 +108,7 @@ main()
 	cd "${git_dir}"
 	
 	# checkout commit for versioning
-	git chekcout "$commit"
+	git checkout "$commit"
 
 	# Create new changelog if we are not doing an autobuild
 	# Also add exceptions for Travis CI build tests

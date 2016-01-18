@@ -208,8 +208,7 @@ main()
 				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 				# Preserve changelog
-				cd "$scriptdir"
-				cp "${git_dir}/debian/changelog" ../debian/ 
+				mv "${git_dir}/debian/changelog" "$scriptdir/debian" 
 
 			fi
 

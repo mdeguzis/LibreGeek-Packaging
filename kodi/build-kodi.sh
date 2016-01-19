@@ -155,7 +155,8 @@ function_install_pkgs()
 			
 		elif [[ "$PKG_OK_DPKG" != "" ]]; then
 		
-			ecbo -e "Package ${PKG} [OK]"
+			echo -e "Package ${PKG} [OK]"
+			sleep 0.3s
 
 		fi
 

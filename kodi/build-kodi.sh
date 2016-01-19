@@ -156,7 +156,7 @@ function_install_pkgs()
 		elif [[ "$PKG_OK_DPKG" != "" ]]; then
 		
 			echo -e "Package ${PKG} [OK]"
-			sleep 0.3s
+			sleep 0.1s
 
 		fi
 

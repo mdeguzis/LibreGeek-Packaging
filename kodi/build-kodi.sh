@@ -135,9 +135,9 @@ function_install_pkgs()
 
 		# assess via dpkg OR traditional 'which'
 		PKG_OK_DPKG=$(dpkg-query -W --showformat='${Status}\n' $PKG | grep "install ok installed")
-		PKG_OK_WHICH=$(which $PKG)
+		#PKG_OK_WHICH=$(which $PKG)
 
-		if [[ "$PKG_OK_DPKG" == "" && "$PKG_OK_WHICH" == "" ]]; then
+		if [[ "$PKG_OK_DPKG" == "" ]]; then
 
 			echo -e "\n==INFO==\nInstalling package: ${PKG}\n"
 			sleep 1s
@@ -146,12 +146,16 @@ function_install_pkgs()
 
 				echo -e "\n${PKG} installed successfully\n"
 				sleep 1s
-
-		else
+		
+			else
 				echo -e "Cannot install ${PKG}. Exiting in 15s. \n"
 				sleep 15s
 				exit 1
 			fi
+			
+		elif [[ "$PKG_OK_DPKG" != "" ]]; then
+		
+			ecbo -e "Package ${PKG} [OK]"
 
 		fi
 

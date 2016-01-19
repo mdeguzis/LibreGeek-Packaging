@@ -10,7 +10,7 @@
 
 # If set to a directory, Content which is temporarily extracted
 # will be extracted to this directory.
-extraction_directory = "/tmp/"
+cache_directory = "/tmp"
 
 # Save all input remapping files to this directory.
 # input_remapping_directory =
@@ -90,7 +90,7 @@ assets_directory = "/usr/share/libretro/assets/"
 # dynamic_wallpapers_directory =
 
 # Boxarts directory. To store boxart PNG files.
-boxarts_directory = "~/.config/retroarch/"
+# boxarts_directory =
 
 # Sets start directory for menu config browser.
 rgui_config_directory = "~/.config/retroarch/"
@@ -370,7 +370,7 @@ audio_filter_dir = "/usr/lib/retroarch/filters/audio/"
 # Input binds which are made explicit (input_playerN_*_btn/axis) will take priority over autoconfigs.
 # Autoconfigs can be created with retroarch-joyconfig, manually, or with a frontend.
 # Requires input_autodetect_enable to be enabled.
-joypad_autoconfig_dir = "/usr/share/libretro/autoconfig/"
+# joypad_autoconfig_dir =
 
 # Sets which libretro device is used for a user.
 # Devices are indentified with a number.

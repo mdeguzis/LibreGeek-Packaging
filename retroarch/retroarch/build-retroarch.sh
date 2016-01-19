@@ -20,13 +20,13 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/libretro/RetroArch"
-rel_target="v1.2.2"
+rel_target="v1.3.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="retroarch"
-pkgver="1.2.2"
+pkgver="1.3.1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -43,15 +43,15 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config \
-	checkinstall bc build-essential devscripts make git-core curl \
-	g++ pkg-config libglu1-mesa-dev freeglut3-dev mesa-common-dev \
-	libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev \
-	libsdl-ttf2.0-dev nvidia-cg-toolkit nvidia-cg-dev libasound2-dev \
-	unzip samba smbclient libsdl2-dev libxml2-dev libavcodec-dev \
-	libavformat-dev libavutil-dev libswscale-dev libv4l-dev \
-	libxinerama-dev libudev-dev libusb-1.0-0-dev libxv-dev libopenal-dev \
-	libjack-jackd2-dev libgbm-dev libegl1-mesa-dev python3-dev libavdevice-dev
+	sudo apt-get install -y --force-yes build-essential pkg-config libpulse-dev\
+	checkinstall bc build-essential devscripts make git-core curl libxxf86vm-dev\
+	g++ pkg-config libglu1-mesa-dev freeglut3-dev mesa-common-dev lsb-release \
+	libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libc6-dev x11proto-xext-dev \
+	libsdl-ttf2.0-dev nvidia-cg-toolkit nvidia-cg-dev libasound2-dev unzip samba \
+	smbclient libsdl2-dev libxml2-dev libavcodec-dev libfreetype6-dev libavformat-dev \
+	libavutil-dev libswscale-dev libv4l-dev libdrm-dev libxinerama-dev libudev-dev \
+	libusb-1.0-0-dev libxv-dev libopenal-dev libjack-jackd2-dev libgbm-dev \
+	libegl1-mesa-dev python3-dev libavdevice-dev
 
 }
 

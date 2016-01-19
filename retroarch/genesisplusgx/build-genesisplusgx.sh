@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-genesisplusgx.sh
-# Script Ver:	1.0.0
+# Script Ver:	1.0.3
 # Description:	Attempts to builad a deb package from latest libretro
 #		genesisplusgx github release
 #
@@ -26,7 +26,7 @@ branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="genesisplusgx"
-pkgver="1.7.4"
+pkgver="1.7.5"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -44,6 +44,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc
+
 }
 
 main()
@@ -128,10 +129,6 @@ main()
 
 	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup

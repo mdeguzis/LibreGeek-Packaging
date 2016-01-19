@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 # Copyright (C) 2010 Hunter Kaller
-# Copyright (C) 2014 Sergio Benjamim
+# Copyright (C) 2014-2016 Sergio Benjamim
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -23,9 +23,16 @@ export DEB_CFLAGS_MAINT_STRIP=-O2
 ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
 
 ifeq ($(ARCH), $(filter $(ARCH), amd64 i386))
-	CONFIG_EXTRA_FLAGS=--enable-sse --disable-oss
+	CONFIG_EXTRA_FLAGS=--enable-sse
 else ifeq ($(ARCH),armhf)
-	CONFIG_EXTRA_FLAGS=--disable-vg --disable-cg --disable-oss --enable-gles --enable-neon --enable-floathard
+	CONFIG_EXTRA_FLAGS=--disable-vg --disable-cg --enable-gles --enable-neon --enable-floathard
+endif
+
+# Needs to install lsb-release package
+STEAMOS_VERSION=$(shell lsb_release -c | cut -f2)
+
+ifeq ($(STEAMOS_VERSION),brewmaster)
+	CONFIG_FFMPEG=--disable-ffmpeg
 endif
 
 %:
@@ -36,7 +43,7 @@ override_dh_auto_configure:
 		debian/retroarch.cfg.in > debian/retroarch.cfg
 	# See ./configure --help for valid flags
 	# disable flags (i.e. --disable-ffmpeg for example) if there is no package relative to the feature in Build-Depends
-	./configure --prefix=/usr --disable-ffmpeg $(CONFIG_EXTRA_FLAGS)
+	./configure --prefix=/usr --disable-oss $(CONFIG_FFMPEG) $(CONFIG_EXTRA_FLAGS)
 
 override_dh_auto_build:
 	dh_auto_build

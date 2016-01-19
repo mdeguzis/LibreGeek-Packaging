@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.0.0
+# Script Ver:		1.0.3
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -167,18 +167,19 @@ kodi_prereqs()
 
 	echo -e "\n==> Installing main deps for building\n"
 
-	PKGS="autoconf automake autopoint autotools-dev bc ccache cmake curl dcadec1 dcadec-dev \
-	doxygen default-jre gawk gperf g++ libao-dev libasound2-dev libass-dev libavahi-client-dev \
-	libavahi-common-dev libbluetooth-dev libbluray-dev libbluray1 libboost-dev libboost-thread-dev \
-	libbz2-dev libcap-dev libcdio-dev libcec-dev libcrossguid1 libcrossguid-dev libcurl3 libcurl4-gnutls-dev \
-	libcwiid-dev libdbus-1-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libgif-dev libglew-dev \
-	libglu1-mesa-dev libiso9660-dev libgnutls28-dev libjpeg-dev libltdl-dev liblzo2-dev \
-	libmicrohttpd-dev libmodplug-dev libmpcdec-dev libmpeg2-4-dev libmysqlclient-dev libnfs-dev libogg-dev \
-	libpcre3-dev libplist-dev libpng12-dev libpulse-dev librtmp-dev libsdl1.2-dev libsdl2-dev libshairport-dev \
-	libsmbclient-dev libsqlite3-dev libssh-dev libssl-dev libswscale-dev libtag1-dev libtiff5-dev libtinyxml-dev \
-	libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev libxinerama-dev libxml2-dev libxmu-dev \
-	libxrandr-dev libxslt1-dev libxt-dev libyajl-dev lsb-release nasm python-dev python-imaging python-support \
-	swig unzip uuid-dev yasm zip zlib1g-dev libegl1-mesa-dev"
+	PKGS="autoconf, automake autopoint autotools-dev cmake curl dcadec-dev default-jre \
+	gawk gperf libao-dev libasound2-dev libass-dev libavahi-client-dev libavahi-common-dev \
+	libbluetooth-dev libbluray-dev libboost-dev libboost-thread-dev libbz2-dev libcap-dev \
+	libcdio-dev libcec-dev libcurl4-openssl-dev libcurl4-gnutls-dev libcwiid-dev libdbus-1-dev \
+	libegl1-mesa-dev libfontconfig-dev libfreetype6-dev libfribidi-dev libgif-dev \
+	libgl1-mesa-dev libiso9660-dev libjpeg-dev libltdl-dev liblzo2-dev libmicrohttpd-dev \
+	libmodplug-dev libmpcdec-dev libmysqlclient-dev libnfs-dev libogg-dev libpcre3-dev \
+	libplist-dev libpng12-dev libpulse-dev librtmp-devlibsdl2-dev libshairplay-dev \
+	libsmbclient-dev libsqlite3-dev libssh-dev libssl-dev libswscale-dev libtag1-dev \
+	libtinyxml-dev libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev \
+	libxinerama-dev libxml2-dev libxmu-dev libxrandr-dev libxslt1-dev libxt-dev libyajl-dev \
+	lsb-release nasm:i386 python-dev python-imaging python-support swig unzip uuid-dev yasm \
+	zip zlib1g-dev crossguid libcrossguid-dev"
 
 	# install dependencies / packages
 	function_install_pkgs
@@ -205,7 +206,7 @@ kodi_prereqs()
 		# Dependencies - ppa:xbmc sourced
 		#####################################
 
-		# Info: packages are rebuilt on SteamOS brewmaster, and hosted at packages.libregeek.org
+		# Info: packages are rebuilt on SteamOS brewmaster and hosted at packages.libregeek.org
 
 		# Origin: ppa:team-xbmc/ppa 
 		# Only install here if not using auto-build script (which installs them after)

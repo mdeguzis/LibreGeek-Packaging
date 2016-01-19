@@ -179,7 +179,7 @@ kodi_prereqs()
 	libegl1-mesa-dev libfontconfig-dev libfreetype6-dev libfribidi-dev libgif-dev \
 	libgl1-mesa-dev libiso9660-dev libjpeg-dev libltdl-dev liblzo2-dev libmicrohttpd-dev \
 	libmodplug-dev libmpcdec-dev libmysqlclient-dev libnfs-dev libogg-dev libpcre3-dev \
-	libplist-dev libpng12-dev libpulse-dev librtmp-devlibsdl2-dev libshairplay-dev \
+	libplist-dev libpng12-dev libpulse-dev librtmp-dev libsdl2-dev libshairplay-dev \
 	libsmbclient-dev libsqlite3-dev libssh-dev libssl-dev libswscale-dev libtag1-dev \
 	libtinyxml-dev libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev \
 	libxinerama-dev libxml2-dev libxmu-dev libxrandr-dev libxslt1-dev libxt-dev libyajl-dev \

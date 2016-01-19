@@ -26,6 +26,7 @@ Build-Depends: debhelper (>= 9),
                libxml2-dev,
                libxv-dev,
                libxxf86vm-dev,
+               lsb-release,
                nvidia-cg-dev [!armhf],
                pkg-config,
                python3-dev,
@@ -38,9 +39,9 @@ Package: retroarch
 Architecture: any
 Depends: fonts-dejavu-core,
          libretro-core-info,
+         retroarch-assets,
          ${misc:Depends},
          ${shlibs:Depends}
-Suggests: retroarch-assets, retroarch-joypad-autoconfig
 Description: Simple frontend for the libretro library
  RetroArch is an open source, multi-platform frontend for the libretro API.
  It can be used as a modular multi emulator system, game engine, media player

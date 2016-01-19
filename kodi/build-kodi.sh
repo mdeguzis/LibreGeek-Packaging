@@ -167,7 +167,7 @@ kodi_prereqs()
 
 	echo -e "\n==> Installing main deps for building\n"
 
-	PKGS="autoconf, automake autopoint autotools-dev cmake curl dcadec-dev default-jre \
+	PKGS="autoconf automake autopoint autotools-dev cmake curl dcadec-dev default-jre \
 	gawk gperf libao-dev libasound2-dev libass-dev libavahi-client-dev libavahi-common-dev \
 	libbluetooth-dev libbluray-dev libboost-dev libboost-thread-dev libbz2-dev libcap-dev \
 	libcdio-dev libcec-dev libcurl4-openssl-dev libcurl4-gnutls-dev libcwiid-dev libdbus-1-dev \

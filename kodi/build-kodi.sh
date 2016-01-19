@@ -176,8 +176,8 @@ kodi_prereqs()
 	gawk gperf libao-dev libasound2-dev libass-dev libavahi-client-dev libavahi-common-dev \
 	libbluetooth-dev libbluray-dev libboost-dev libboost-thread-dev libbz2-dev libcap-dev \
 	libcdio-dev libcec-dev libcurl4-openssl-dev libcwiid-dev libdbus-1-dev \
-	libegl1-mesa-dev libfontconfig-dev libfreetype6-dev libfribidi-dev libgif-dev \
-	libgl1-mesa-dev libiso9660-dev libjpeg-dev libltdl-dev liblzo2-dev libmicrohttpd-dev \
+	libegl1-mesa-dev libfontconfig-dev libfribidi-dev libgif-dev libgl1-mesa-dev \
+	libiso9660-dev libjpeg-dev libltdl-dev liblzo2-dev libmicrohttpd-dev \
 	libmodplug-dev libmpcdec-dev libmysqlclient-dev libnfs-dev libogg-dev libpcre3-dev \
 	libplist-dev libpng12-dev libpulse-dev librtmp-dev libsdl2-dev libshairplay-dev \
 	libsmbclient-dev libsqlite3-dev libssh-dev libssl-dev libswscale-dev libtag1-dev \

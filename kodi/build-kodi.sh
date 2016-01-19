@@ -171,6 +171,7 @@ kodi_prereqs()
 	# from the software list cfgs/software-lists/kodi-src.txt
 
 	echo -e "\n==> Installing main deps for building\n"
+	sleep 2s
 
 	PKGS="autoconf automake autopoint autotools-dev cmake curl dcadec-dev default-jre \
 	gawk gperf libao-dev libasound2-dev libass-dev libavahi-client-dev libavahi-common-dev \
@@ -206,6 +207,7 @@ kodi_prereqs()
 		function_install_pkgs
 
 		echo -e "\n==> Installing specific kodi build deps\n"
+		sleep 2s
 
 		#####################################
 		# Dependencies - ppa:xbmc sourced

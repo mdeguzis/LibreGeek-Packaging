@@ -172,6 +172,9 @@ kodi_prereqs()
 
 	echo -e "\n==> Installing main deps for building\n"
 	sleep 2s
+	
+	# Javis control file lists 'libglew-dev libjasper-dev libmpeg2-4-dev', but they are not
+	# in the linux readme
 
 	PKGS="autoconf automake autopoint autotools-dev cmake curl dcadec-dev default-jre \
 	gawk gperf libao-dev libasound2-dev libass-dev libavahi-client-dev libavahi-common-dev \
@@ -185,7 +188,7 @@ kodi_prereqs()
 	libtinyxml-dev libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev \
 	libxinerama-dev libxml2-dev libxmu-dev libxrandr-dev libxslt1-dev libxt-dev libyajl-dev \
 	lsb-release nasm:i386 python-dev python-imaging python-support swig unzip uuid-dev yasm \
-	zip zlib1g-dev libcrossguid-dev"
+	zip zlib1g-dev libcrossguid-dev libglew-dev libjasper-dev libmpeg2-4-dev"
 
 	# install dependencies / packages
 	function_install_pkgs

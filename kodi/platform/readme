@@ -1,3 +1,0 @@
-# Backported patches
-* Fixes "cannot find squish.h"
-* https://github.com/Pulse-Eight/platform/commit/e1f8dc1b882069e52e6ead4380e3bb9b4792c398

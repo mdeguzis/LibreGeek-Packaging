@@ -1,0 +1,20 @@
+Source: libretro-reicast
+Section: games
+Priority: optional
+Maintainer: Sergio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9),
+               libegl1-mesa-dev [armhf],
+               libgl1-mesa-dev [!armhf],
+               libgles2-mesa-dev [armhf]
+Standards-Version: 3.9.6
+Homepage: http://reicast.com/
+
+Package: libretro-reicast
+Architecture: amd64
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Reicast
+ This wrapper makes Reicast API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ Reicast is a Sega Dreamcast emulator, based on the old nullDC.

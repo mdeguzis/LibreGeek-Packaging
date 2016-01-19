@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-platform.sh
-# Script Ver:	0.3.7
+# Script Ver:	0.5.7
 # Description:	Attempts to build a deb package from platform git source
 #
 # See:		https://launchpadlibrarian.net/219136562/platform_2.19.3-1~vivid1.dsc
@@ -18,6 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream URL
 git_url="https://github.com/Pulse-Eight/platform/"
+rel_target="platform-2.0.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -71,7 +72,14 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone "$git_url" "$git_dir"
+	# Use backported patch to fix issue 22 in regards to failure to find squish.h when build Kodi
+	# See: https://github.com/Pulse-Eight/platform/pull/22#issuecomment-172975015
+	# Also see:  https://github.com/xbmc/kodi-platform/pull/16
+	# For now, the target package for Jarvis will be platform, not the renamed p8-platform
+
+	# Do NOT remove this rel_target defined above, until Kodi team moves to p8-platform.
+
+	git clone -b "$rel_target" "$git_url" "$git_dir"
  
 	#################################################
 	# Build platform
@@ -89,10 +97,6 @@ main()
 	
 	# emter source dir
 	cd "${git_dir}"
-	
-	# See: https://github.com/xbmc/kodi-platform/pull/16
-	# For now, the likely target package for Jarvis will be platform, not the renamed p8-platform
-	git checkout a1e5905
 	
 	# Create basic changelog
 	cat <<-EOF> changelog.in

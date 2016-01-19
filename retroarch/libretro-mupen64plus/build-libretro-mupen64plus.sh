@@ -27,7 +27,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="libretro-mupen64plus"
 pkgver="2.0"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -44,7 +44,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc \
-	libgl1-mesa-dev lsb-release  mesa-common-dev
+	libgl1-mesa-dev lsb-release  mesa-common-dev clang libgles2-mesa-dev
 
 }
 

@@ -196,7 +196,7 @@ kodi_prereqs()
 		# Dependencies - Debian sourced
 		#####################################
 
-		echo -e "==> Installing build deps for packaging"
+		echo -e "\n==> Installing build deps for packaging\n"
 		sleep 2s
 
 		PKGS="build-essential fakeroot devscripts checkinstall cowbuilder pbuilder debootstrap \
@@ -205,7 +205,7 @@ kodi_prereqs()
 		# install dependencies / packages
 		function_install_pkgs
 
-		echo -e "\n==> Installing specific kodi build deps"
+		echo -e "\n==> Installing specific kodi build deps\n"
 
 		#####################################
 		# Dependencies - ppa:xbmc sourced

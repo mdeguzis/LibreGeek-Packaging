@@ -184,7 +184,7 @@ kodi_prereqs()
 	libtinyxml-dev libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev \
 	libxinerama-dev libxml2-dev libxmu-dev libxrandr-dev libxslt1-dev libxt-dev libyajl-dev \
 	lsb-release nasm:i386 python-dev python-imaging python-support swig unzip uuid-dev yasm \
-	zip zlib1g-dev crossguid libcrossguid-dev"
+	zip zlib1g-dev libcrossguid-dev"
 
 	# install dependencies / packages
 	function_install_pkgs

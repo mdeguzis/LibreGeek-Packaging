@@ -1,8 +1,22 @@
-libretro-fba (0.2.97.36+r62+n42+co22+ct40~14~ubuntu15.04.1) vivid; urgency=low
+libretro-fba (0.2.97.37+git+bsos1) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/libretro/libretro-fba
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 19:43:19 -0500
+
+libretro-fba (0.2.97.37+r76+n43+co23+ct41~15~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.
 
- -- Launchpad Package Builder <noreply@launchpad.net>  Tue, 27 Oct 2015 00:24:12 +0000
+ -- Launchpad Package Builder <noreply@launchpad.net>  Sun, 03 Jan 2016 07:31:49 +0000
+
+libretro-fba (0.2.97.37-0ubuntu1) UNRELEASED; urgency=low
+
+  * Update.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Tue, 11 Nov 2015 11:36:00 -0300
 
 libretro-fba (0.2.97.36-0ubuntu1) UNRELEASED; urgency=low
 

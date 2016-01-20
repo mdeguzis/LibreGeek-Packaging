@@ -1,3 +1,11 @@
+genesisplusgx (1.7.5+git+bsos1) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/libretro/Genesis-Plus-GX
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 19:15:51 -0500
+
 genesisplusgx (1.7.4+r700~13~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.

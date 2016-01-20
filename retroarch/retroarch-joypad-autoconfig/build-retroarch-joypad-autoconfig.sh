@@ -20,7 +20,6 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/libretro/retroarch-joypad-autoconfig"
-#rel_target="v1.2.2"
 rel_target="master"
 
 # package vars
@@ -28,7 +27,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="retroarch-joypad-autoconfig"
 pkgver="0.1"
-pkgrev="2"
+pkgrev="3"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

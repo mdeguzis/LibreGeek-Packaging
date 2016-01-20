@@ -1,3 +1,11 @@
+libretro-fmsx (3.9+git+bsos2) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/libretro/fmsx-libretro
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 20:17:50 -0500
+
 libretro-fmsx (3.9+r54~4~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.

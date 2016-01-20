@@ -20,7 +20,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/libretro/libretro-fba"
-branch="v0.2.97.37"
+branch="master"
 
 git_url_cores_neo="https://github.com/libretro/fba_cores_neo"
 branch_cores_neo="master"
@@ -188,6 +188,10 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+
+			# keep changelog
+                        cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -1,3 +1,12 @@
+retroarch-joypad-autoconfig (0.1+git+bsos3) brewmaster; urgency=low
+
+  * Updated for new RetroArch release
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/libretro/retroarch-joypad-autoconfig
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 19:04:08 -0500
+
 retroarch-joypad-autoconfig (0.1+git+bsos2) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

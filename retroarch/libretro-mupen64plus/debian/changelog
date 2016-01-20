@@ -1,3 +1,11 @@
+libretro-mupen64plus (2.0+git+bsos2) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/libretro/mupen64plus-libretro
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 19:24:09 -0500
+
 libretro-mupen64plus (2.0+r2931~27~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.

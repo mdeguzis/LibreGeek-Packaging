@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # See issue #2 in github (libretro/libretro-fba)
-export DEB_CXXFLAGS_MAINT_STRIP=-O2
-export DEB_CFLAGS_MAINT_STRIP=-O2
-export DEB_CXXFLAGS_MAINT_APPEND=-Wno-error
-export DEB_CFLAGS_MAINT_APPEND=-Wno-error
+export DEB_CXXFLAGS_MAINT_STRIP=-O2 -Werror=format-security
+export DEB_CFLAGS_MAINT_STRIP=-O2 -Werror=format-security
+#export DEB_CXXFLAGS_MAINT_APPEND=-Wno-error
+#export DEB_CFLAGS_MAINT_APPEND=-Wno-error
 
 ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
 

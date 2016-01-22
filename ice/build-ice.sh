@@ -21,7 +21,7 @@ time_stamp_start=(`date +"%T"`)
 # upstream vars
 git_url="https://github.com/scottrice/Ice"
 rel_target="master"
-commit="d04e7fe"
+commit="e6594ab"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

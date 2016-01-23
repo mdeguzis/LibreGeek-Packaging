@@ -74,8 +74,8 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	mkdir -p "$source_dir"
-	cd "$sourcedir" || exit 1
-	wget -P "$source_dir" "$sourcecode"
+	cd "$source_dir" || exit
+	wget "$sourcecode"
 	tar -xf "$sourcefile"
 	rm -rf "$sourcefile"
 

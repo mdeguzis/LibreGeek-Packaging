@@ -1,0 +1,87 @@
+#!/usr/bin/make -f
+# See debhelper(7) (uncomment to enable)
+# output every command that modifies files on the build system.
+#DH_VERBOSE = 1
+
+ARCHIVE01	=	$(CURDIR)/bgdc
+ARCHIVE02	=	$(CURDIR)/bgdi
+ARCHIVE03	=	$(CURDIR)/Manual.html
+ARCHIVE04	=	$(CURDIR)/SorMaker.dat
+ARCHIVE05	=	$(CURDIR)/SorR.dat
+ICON01		=	$(CURDIR)/sorr.png
+LAUNCHER01	=	$(CURDIR)/sorr.desktop
+SCRIPT01	=	$(CURDIR)/sorr
+
+DEST01		=	$(CURDIR)/debian/sorr/usr/games
+DEST02		=	$(CURDIR)/debian/sorr/usr/share/games/sorr
+DEST03		=	$(CURDIR)/debian/sorr/usr/share/applications
+DEST04		=	$(CURDIR)/debian/sorr/usr/share/pixmaps
+
+build: build-stamp
+build-stamp:
+	dh_testdir
+	touch build-stamp
+
+clean:
+	dh_testdir
+	dh_testroot
+	rm -f build-stamp
+	dh_clean
+
+install: build clean $(ARCHIVE01) $(ARCHIVE02) $(ARCHIVE03) $(ARCHIVE04) $(ARCHIVE05) $(ICON01) $(LAUNCHER01) $(SCRIPT01)
+
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs
+	dh_install
+	
+	mkdir -m 755 -p $(DEST01)
+	mkdir -m 777 -p $(DEST02)
+	mkdir -m 755 -p $(DEST03)
+	mkdir -m 755 -p $(DEST04)
+	
+	cp -r data 		$(CURDIR)/debian/sorr/usr/share/games/sorr/
+	cp -r manual 	$(CURDIR)/debian/sorr/usr/share/games/sorr/
+	cp -r mod 		$(CURDIR)/debian/sorr/usr/share/games/sorr/
+	cp -r palettes 	$(CURDIR)/debian/sorr/usr/share/games/sorr/
+	
+	install -m 777		$(ARCHIVE01)	$(DEST02)
+	install -m 777 		$(ARCHIVE02)	$(DEST02)
+	install -m 777 		$(ARCHIVE03)	$(DEST02)
+	install -m 755 		$(ARCHIVE04)	$(DEST02)
+	install -m 777 		$(ARCHIVE05)	$(DEST02)
+	install -m 777 		$(ICON01)		$(DEST04)
+	install -m 777 		$(LAUNCHER01)	$(DEST03)
+	install -m 777 		$(SCRIPT01)		$(DEST01)
+	
+binary-indep: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs
+	dh_installman
+	dh_link
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs
+	dh_installman
+	dh_link
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-arch binary-indep
+.PHONY: build clean binary-indep binary-arch binary install configure

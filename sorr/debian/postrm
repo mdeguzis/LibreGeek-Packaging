@@ -1,0 +1,10 @@
+#!/bin/sh
+# postrm script for sorr
+#
+# see: dh_installdeb(1)
+
+set -e
+
+rm -rf /usr/share/games/sorr
+
+exit 0

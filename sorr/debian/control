@@ -1,0 +1,17 @@
+Source: sorr
+Section: games
+Priority: optional
+Maintainer: Carlos Donizete <coringao@ubuntugames.org>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: http://www.bombergames.net
+#Vcs-Git: git://anonscm.debian.org/collab-maint/sorr.git
+#Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/sorr.git;a=summary
+
+Package: sorr
+Architecture: any
+Depends: zlib1g, zenity
+Description: Remake of all the original games
+ Streets of Rage 1, 2, and 3 – thrown into one 
+ complete package in the style of Streets of Rage 2, 
+ arguably the best game in the series.

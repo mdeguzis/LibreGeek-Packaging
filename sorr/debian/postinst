@@ -1,0 +1,10 @@
+#!/bin/sh
+# postinst script for sorr
+#
+# see: dh_installdeb(1)
+
+set -e
+
+chmod 777 -R /usr/share/games/sorr
+
+exit 0

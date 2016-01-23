@@ -1,0 +1,9 @@
+sorr (5.1-1ug) ubuntugames; urgency=low
+
+  * Initial release
+  * Archive 'SorR.dat' and 'SorMaker.dat' version 5.1
+  * Game files are located in the directory - (/usr/share/games/sorr)
+  * Directory 'savegame' is being linked in the '$HOME/.sorr-savegame'
+  * Script (usr/games/sorr) helped by Renan Fernandes
+
+ -- Carlos Donizete <coringao@ubuntugames.org>  Sat, 15 Aug 2015 10:04:54 -0300

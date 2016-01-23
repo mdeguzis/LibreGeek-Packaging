@@ -73,13 +73,14 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	wget -O "$source_dir" "$sourcecode"
+	mkdir -p "$source_dir"
+	wget -P "$source_dir" "$sourcecode"
 
 	# inject our modified files for SteamOS
-	cp -r "$scriptdir/sorr.desktop" "$source_dir/"
-	cp -r "$scriptdir/sorr" "$source_dir/"
-	cp -r "$scriptdir/sorr.desktop" "$source_dir/"
-	cp -r "$scriptdir/sorr.png" "$source_dir/"
+	cp "$scriptdir/sorr.desktop" "$source_dir/"
+	cp "$scriptdir/sorr" "$source_dir/"
+	cp "$scriptdir/sorr.desktop" "$source_dir/"
+	cp "$scriptdir/sorr.png" "$source_dir/"
 
 	#################################################
 	# Build package
@@ -95,22 +96,15 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
-
-	###############################################################
-	# correct any files needed here that you can ahead of time
-	###############################################################
-
-	# For whatever reason, some "defaults" don't quite work
-	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/sorr.cfg"
+	cp -r "$scriptdir/debian" "${source_dir}"
 
 	# enter source dir
-	cd "${pkgname}"
+	cd "${source_dir}"
 
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}-${upstream_suffix}+${pkgsuffix}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

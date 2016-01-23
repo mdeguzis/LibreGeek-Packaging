@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-sorr.sh
-# Script Ver:	1.0.0
+# Script Ver:	1.0.5
 # Description:	Attempts to build a deb package from latest sorr
 #		github release
 #
@@ -138,7 +138,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	dpkg-buildpackage -rfakeroot -us -uc
+	dpkg-buildpackage -rfakeroot -us -uc -sa
 
 	#################################################
 	# Cleanup

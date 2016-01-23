@@ -71,7 +71,7 @@ install_prereqs()
 
 	clear
 	# set scriptdir
-	scriptdir="$HOME/SteamOS-Tools"
+	scriptdir="$pwd"
 	
 	echo -e "==> Checking for Debian sources..."
 	

@@ -76,7 +76,7 @@ main()
 	mkdir -p "$source_dir"
 	cd "$source_dir" || exit
 	wget "$sourcecode"
-	tar -xf "$sourcefile"
+	tar -xvf "$sourcefile"
 	rm -rf "$sourcefile"
 
 	# inject our modified files for SteamOS

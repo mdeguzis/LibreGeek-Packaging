@@ -4,7 +4,7 @@
 # Author:    	Michael DeGuzis
 # Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-deb-from-PPA.sh
-# Script Ver:	0.4.6
+# Script Ver:	0.5.6
 # Description:	Attempts to build a deb package from a PPA
 #
 # See also:	Generate a source list: http://repogen.simplylinux.ch/
@@ -214,7 +214,7 @@ main()
 	# assess if depdencies should be ignored.
 	# If no argument used, build normally
 
-	if [[ "arg1" == "" ]]; then
+	if [[ "$arg1" == "" ]]; then
 	
 		echo -e "\n==> Attempting to auto-install build dependencies\n"
 	

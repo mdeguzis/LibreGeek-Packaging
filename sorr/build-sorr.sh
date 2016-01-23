@@ -19,7 +19,8 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-sourcecode="http://archive.ubuntugames.org/dists/ubuntugames/main/source/amd64/sorr_5.1.orig.tar.gz"
+sourcefile="sorr_5.1.orig.tar.gz"
+sourcecode="http://archive.ubuntugames.org/dists/ubuntugames/main/source/amd64/${source_file}"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -72,9 +73,10 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
 	mkdir -p "$source_dir"
 	wget -P "$source_dir" "$sourcecode"
+	tar -xf "$sourcefile"
+	rm -rf "$sourcefile"
 
 	# inject our modified files for SteamOS
 	cp "$scriptdir/sorr.desktop" "$source_dir/"

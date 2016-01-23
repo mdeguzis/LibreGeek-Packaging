@@ -306,7 +306,7 @@ main()
 	echo -e "sudo dpkg-buildpackage -b -d -uc"
 	echo -e "###################################################################\n"
 	
-	ls "/home/desktop/build-deb-temp"
+	ls "$HOME/build-deb-temp"
 	
 	echo -e "\n==> Would you like to trim tar.gz, dsc files, and folders for uploading? [y/n]"
 	sleep 0.5s

@@ -4,7 +4,7 @@
 # Author:    	Michael DeGuzis
 # Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-deb-from-PPA.sh
-# Script Ver:	0.4.6
+# Script Ver:	0.5.6
 # Description:	Attempts to build a deb package from a PPA
 #
 # See also:	Generate a source list: http://repogen.simplylinux.ch/
@@ -71,7 +71,7 @@ install_prereqs()
 
 	clear
 	# set scriptdir
-	scriptdir="$HOME/SteamOS-Tools"
+	scriptdir="$pwd"
 	
 	echo -e "==> Checking for Debian sources..."
 	
@@ -214,7 +214,7 @@ main()
 	# assess if depdencies should be ignored.
 	# If no argument used, build normally
 
-	if [[ "arg1" == "" ]]; then
+	if [[ "$arg1" == "" ]]; then
 	
 		echo -e "\n==> Attempting to auto-install build dependencies\n"
 	
@@ -290,7 +290,7 @@ main()
 
 	# back out of build temp to script dir if called from git clone
 	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir/utilities/build-scripts"
+		cd "$scriptdir/generic-building"
 	else
 		cd "$HOME"
 	fi
@@ -306,7 +306,7 @@ main()
 	echo -e "sudo dpkg-buildpackage -b -d -uc"
 	echo -e "###################################################################\n"
 	
-	ls "/home/desktop/build-deb-temp"
+	ls "$HOME/build-deb-temp"
 	
 	echo -e "\n==> Would you like to trim tar.gz, dsc files, and folders for uploading? [y/n]"
 	sleep 0.5s

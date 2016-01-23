@@ -78,6 +78,7 @@ main()
 	wget "$sourcecode"
 	tar -xvf "$sourcefile"
 	rm -rf "$sourcefile"
+	cd "$build_dir"
 
 	# inject our modified files for SteamOS
 	cp "$scriptdir/sorr.desktop" "$source_dir/"

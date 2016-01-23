@@ -14,6 +14,7 @@
 # Usage:	./build-deb-from-PPA.sh
 #		source ./build-deb-from-PPA.sh
 #		./build-deb-from-PPA.sh --ignore-deps
+#		./build-deb-from-PPA.sh --binary
 # -------------------------------------------------------------------------------
 
 ####################################################
@@ -58,15 +59,10 @@ show_help()
 }
 
 if [[ "$arg1" == "--help" ]]; then
-	
+
 	#show help
 	show_help
 	exit 1
-	
-elif [[ "$arg1" == "--ignore-deps" ]]; then
-
-	# There are times when another package provides what we want in Debian
-	ignore_deps="yes"
 
 fi
 
@@ -215,8 +211,10 @@ main()
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
-	# assess if depdencies should be ignored
-	if [[ "$ignore_deps" == "no" ]]; then
+	# assess if depdencies should be ignored.
+	# If no argument used, build normally
+
+	if [[ "arg1" == "" ]]; then
 	
 		echo -e "\n==> Attempting to auto-install build dependencies\n"
 	
@@ -249,7 +247,7 @@ main()
 			
 		fi
 	
-	elif [[ "$ignore_deps" == "yes" ]]; then
+	elif [[ "$arg1" == "--ignore_deps" ]]; then
 	
 		# There are times when specific packages are specific in the depends lines
 		# of Ubuntu control files are satisfied by other packages.
@@ -271,15 +269,32 @@ main()
 		# build using typicaly commands + override option
 		cd ${build_source_dir} && dpkg-buildpackage -b -rfakeroot -us -uc -d
 	
+
+	elif [[ "$arg1" == "--binary-only" ]]; then
+
+
+                echo -e "\n==INFO==\nBuilding binary only\n"
+                sleep 2s
+
+                # download source
+                apt-get source ${target}
+
+                # identify folder
+                cd $build_dir
+                build_source_dir=$(ls -d */)
+
+                # build using typicaly commands + override option
+                cd ${build_source_dir} && dpkg-buildpackage -b -rfakeroot -us -uc
+
 	fi
-	
+
 	# back out of build temp to script dir if called from git clone
 	if [[ "$scriptdir" != "" ]]; then
 		cd "$scriptdir/utilities/build-scripts"
 	else
 		cd "$HOME"
 	fi
-	
+
 	# inform user of packages
 	echo -e "\n###################################################################"
 	echo -e "If package was built without errors you will see it below."

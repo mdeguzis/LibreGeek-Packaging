@@ -20,7 +20,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 sourcefile="sorr_5.1.orig.tar.gz"
-sourcecode="http://archive.ubuntugames.org/dists/ubuntugames/main/source/amd64/${source_file}"
+sourcecode="http://archive.ubuntugames.org/dists/ubuntugames/main/source/amd64/${sourcefile}"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

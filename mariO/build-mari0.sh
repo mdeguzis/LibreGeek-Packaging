@@ -20,7 +20,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/Stabyourself/mari0"
-rel_target="1.6"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -43,7 +43,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc dh-lua
+	sudo apt-get install -y --force-yes build-essential bc dh-lua love
 
 }
 
@@ -75,9 +75,8 @@ main()
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 
-
-	# inject .desktop file (not found in release archives)
-	cp -r "$scriptdir/mari0.desktop" "$git_dir/"
+	# inject love file
+	cp "$scriptdir/mari0_1.6.love" "$git_dir"
 
 	#################################################
 	# Build package
@@ -90,17 +89,10 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"
-
-	###############################################################
-	# correct any files needed here that you can ahead of time
-	###############################################################
-
-	# For whatever reason, some "defaults" don't quite work
-	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/mari0.cfg"
 
 	# enter source dir
 	cd "${pkgname}"
@@ -108,7 +100,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${pkgrev}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

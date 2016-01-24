@@ -43,7 +43,12 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc dh-lua love
+	sudo apt-get install -y --force-yes build-essential bc dh-lua
+
+	# Needs older love version
+	wget http://ftp.us.debian.org/debian/pool/main/l/love/love_0.8.0-1+deb7u1_amd64.deb
+	sudo dpkg -i love_0.8.0-1+deb7u1_amd64.deb
+	rm love_0.8.0-1+deb7u1_amd64.deb
 
 }
 

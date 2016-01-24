@@ -1,3 +1,11 @@
+sorr (5.1-1ug+bsos2) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: http://soronline.net/sorr.htm
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 23 Jan 2016 14:19:39 -0500
+
 sorr (5.1-1ug) ubuntugames; urgency=low
 
   * Initial release

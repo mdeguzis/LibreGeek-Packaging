@@ -8,7 +8,7 @@ Homepage: http://stabyourself.net/mari0/
 
 Package: mari0
 Architecture: all
-Depends: ${misc:Depends}, love-unstable
+Depends: ${misc:Depends}, love
 Description: Mario Bros. with Portal guns!
  Two genre defining games from completely different eras, Nintendo's Super
  Mario Bros. and Valve's Portal. These two games managed to give Platformers and

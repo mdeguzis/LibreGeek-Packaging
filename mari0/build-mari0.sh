@@ -78,11 +78,13 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	#git clone -b "$rel_target" "$git_url" "$git_dir"
 
-	# inject love file
+	# For now, use prebuilt files
+	mkdir -p "$git_dir"
 	cp "$scriptdir/mari0_1.6.love" "$git_dir"
 	cp "$scriptdir/mari0" "$git_dir"
+	cp "$scriptdir/mari0.png" "$git_dir"
 
 	#################################################
 	# Build package

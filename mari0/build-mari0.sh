@@ -82,6 +82,7 @@ main()
 
 	# inject love file
 	cp "$scriptdir/mari0_1.6.love" "$git_dir"
+	cp "$scriptdir/mari0" "$git_dir"
 
 	#################################################
 	# Build package

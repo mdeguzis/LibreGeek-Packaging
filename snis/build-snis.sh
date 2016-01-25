@@ -88,7 +88,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

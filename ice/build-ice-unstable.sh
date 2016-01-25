@@ -95,20 +95,21 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
-	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${git_dir}"
-
-	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
-
 	# enter source dir
 	cd "${git_dir}"
 	
 	# checkout commit for versioning
 	git checkout "$commit"
+	cd "$build_dir"
+
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
+	
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${git_dir}"
+
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
 
 	# Create new changelog if we are not doing an autobuild
 	# Also add exceptions for Travis CI build tests

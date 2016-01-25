@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ice.sh
-# Script Ver:	1.1.9
+# Script Ver:	1.2.3
 # Description:	Builds simple pacakge for using ice based of of master upstream
 #		git source
 #
@@ -100,7 +100,6 @@ main()
 	
 	# checkout commit for versioning
 	git checkout "$commit"
-	cd "$build_dir"
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script

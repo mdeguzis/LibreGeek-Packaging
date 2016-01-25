@@ -116,7 +116,7 @@ main()
 	if [[ "$autobuild" != "yes" ]]; then
 
 		cat <<-EOF> changelog.in
-		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev) $dist_rel; urgency=low
+		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 		  * Upstream "Ice" package (unstable)
 		  * This package is NOT guaranteed to work!

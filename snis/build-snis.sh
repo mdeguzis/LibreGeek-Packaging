@@ -103,11 +103,10 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
+	  * Update release to latest commits, as of ${date_short}
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	  * ***** Full list of commits *****
-	$commits_full
 
 	 -- $uploader  $date_long
 
@@ -186,6 +185,12 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			
+			# update changelog
+			echo -e "\nUpdating changelog to upstream fork\n"
+			cd ${git_dir} && git add . && git commit -m "Update changelog with new release"
+			cd ${scriptdir}
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

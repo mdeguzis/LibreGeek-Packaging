@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ice.sh
-# Script Ver:	1.1.5
+# Script Ver:	1.1.9
 # Description:	Builds simple pacakge for using ice based of of master upstream
 #		git source
 #
@@ -116,7 +116,7 @@ main()
 	if [[ "$autobuild" != "yes" ]]; then
 
 		cat <<-EOF> changelog.in
-		$pkgname (${pkgver}-${upstream_rev}+${pkgsuffix}) $dist_rel; urgency=low
+		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev) $dist_rel; urgency=low
 
 		  * Upstream "Ice" package (unstable)
 		  * This package is NOT guaranteed to work!

@@ -91,7 +91,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# enter source dir
-	cd "${pkgname}"
+	cd "${git_dir}"
 
 	# There seems to be a missing man page, corrected in forked makefile
 	# See: https://github.com/smcameron/space-nerds-in-space/issues/72

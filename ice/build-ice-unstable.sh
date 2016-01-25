@@ -21,7 +21,7 @@ time_stamp_start=(`date +"%T"`)
 # upstream vars
 git_url="https://github.com/scottrice/Ice"
 rel_target="master"
-commit="5cf4434"
+commit="1cc2e64"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -37,7 +37,7 @@ maintainer="ProfessorKaos64"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+git_dir="${build_dir}/${pkgname}_${pkgver}+${pkgsuffix}"
 
 install_prereqs()
 {
@@ -99,7 +99,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${git_dir}"
 
 	# copy in debian folder
 	cp -r $scriptdir/debian "${git_dir}"

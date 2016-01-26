@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ice.sh
-# Script Ver:	1.2.3
+# Script Ver:	1.1.5
 # Description:	Builds simple pacakge for using ice based of of master upstream
 #		git source
 #
@@ -21,7 +21,7 @@ time_stamp_start=(`date +"%T"`)
 # upstream vars
 git_url="https://github.com/scottrice/Ice"
 rel_target="master"
-commit="1cc2e64"
+commit="5cf4434"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -30,7 +30,7 @@ pkgname="ice-unstable"
 pkgver="0.1.0"
 upstream_rev="1"
 pkgrev="1"
-pkgsuffix="${commit}+bsos${pkgrev}"
+pkgsuffix="${commit}+${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -95,24 +95,20 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
+
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
+
 	# enter source dir
 	cd "${git_dir}"
 	
 	# checkout commit for versioning
 	git checkout "$commit"
-	
-	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-	
-	# create source tarball
-	cd "$build_dir"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
-
-	# enter dir to build
-	cd "${git_dir}"
 
 	# Create new changelog if we are not doing an autobuild
 	# Also add exceptions for Travis CI build tests
@@ -120,7 +116,7 @@ main()
 	if [[ "$autobuild" != "yes" ]]; then
 
 		cat <<-EOF> changelog.in
-		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+		$pkgname (${pkgver}-${upstream_rev}+${pkgsuffix}) $dist_rel; urgency=low
 
 		  * Upstream "Ice" package (unstable)
 		  * This package is NOT guaranteed to work!
@@ -225,4 +221,3 @@ main()
 
 # start main
 main
-

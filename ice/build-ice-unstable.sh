@@ -90,6 +90,9 @@ main()
 	cd "${git_dir}"
 	git checkout "$commit"
 
+	# Add debian folder
+	cp -r $scriptdir/debian "${git_dir}"
+
 	#################################################
 	# Build package
 	#################################################
@@ -101,10 +104,8 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
-
-	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
 
 	# Create new changelog if we are not doing an autobuild
 	# Also add exceptions for Travis CI build tests
@@ -152,6 +153,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
+	cd "${git_dir}"
 	dpkg-buildpackage -rfakeroot -us -uc -sa
 
 	#################################################

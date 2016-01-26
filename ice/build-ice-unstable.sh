@@ -91,7 +91,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_target" "$git_url" "$pkgname"
+	git clone -b "$rel_target" "$git_url" "${git_dir}"
 	cd "${git_dir}"
 	git checkout "$commit"
 

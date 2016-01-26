@@ -87,8 +87,8 @@ main()
 
 	# clone and checkout desired commit
 	git clone -b "$rel_target" "$git_url" "$git_dir"
-	cd "${git_dir}"
-	git checkout "$commit"
+	#cd "${git_dir}"
+	#git checkout "$commit"
 
 	# Add debian folder
 	cp -r $scriptdir/debian "${git_dir}"
@@ -104,7 +104,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	cd "${build_dir}"
+	#cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
 	
 	# Enter git dir to build

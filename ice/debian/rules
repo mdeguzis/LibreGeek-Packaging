@@ -11,8 +11,6 @@ export https_proxy=
 %:
 	dh $@ --with python2 --buildsystem=pybuild
 
-clean:
-
 override_dh_auto_test:
 
 override_dh_installdirs:

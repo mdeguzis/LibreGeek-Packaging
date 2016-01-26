@@ -21,7 +21,7 @@ time_stamp_start=(`date +"%T"`)
 # upstream vars
 git_url="https://github.com/scottrice/Ice"
 rel_target="master"
-commit="5cf4434"
+commit="1cc2e64"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -30,7 +30,7 @@ pkgname="ice-unstable"
 pkgver="0.1.0"
 upstream_rev="1"
 pkgrev="1"
-pkgsuffix="${commit}+${pkgrev}"
+pkgsuffix="${commit}+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -57,9 +57,9 @@ install_prereqs()
 	sudo apt-get install -y --force-yes build-essential bc debhelper \
 	python-pip python-psutil groff git python-setuptools dh-python \
 	python-all python-setuptools python-pip python-docutils python-sphinx \
-	
+
 	if [[ "$autobuild" != "yes" ]]; then
-	
+
 		# Only install if not doing an auto-build. Travis CI won't install this package
 		sudo apt-get install -y --force-yes python-appdirs
 
@@ -109,9 +109,9 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	#cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "$pkgname"
-	
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "$pkgname"
+
 	# Enter git dir to build
 	cd "${git_dir}"
 
@@ -121,7 +121,7 @@ main()
 	if [[ "$autobuild" != "yes" ]]; then
 
 		cat <<-EOF> changelog.in
-		$pkgname (${pkgver}-${upstream_rev}+${pkgsuffix}) $dist_rel; urgency=low
+		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 		  * Upstream "Ice" package (unstable)
 		  * This package is NOT guaranteed to work!

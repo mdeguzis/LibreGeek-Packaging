@@ -96,9 +96,6 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-	
-	# re-enter build dir for orig tarball creation
-	cd "$build_dir" || exit
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script

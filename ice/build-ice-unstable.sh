@@ -91,9 +91,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_target" "$git_url" "$git_dir"
-	#cd "${git_dir}"
-	#git checkout "$commit"
+	git clone -b "$rel_target" "$git_url" "$pkgname"
+	cd "${git_dir}"
+	git checkout "$commit"
 
 	# Add debian folder
 	cp -r $scriptdir/debian "${git_dir}"
@@ -110,7 +110,7 @@ main()
 
 	# create source tarball
 	#cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "$pkgname"
 	
 	# Enter git dir to build
 	cd "${git_dir}"

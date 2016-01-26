@@ -100,16 +100,18 @@ main()
 	
 	# checkout commit for versioning
 	git checkout "$commit"
-	cd "$build_dir"
+	
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
 	
 	# create source tarball
+	cd "$build_dir"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${git_dir}"
 
-	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	# enter dir to build
 	cd "${git_dir}"
 
 	# Create new changelog if we are not doing an autobuild

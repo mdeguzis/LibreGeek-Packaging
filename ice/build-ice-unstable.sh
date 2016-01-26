@@ -57,8 +57,13 @@ install_prereqs()
 	sudo apt-get install -y --force-yes build-essential bc debhelper \
 	python-pip python-psutil groff git python-setuptools dh-python \
 	python-all python-setuptools python-pip python-docutils python-sphinx \
-	python-appdirs
+	
+	if [[ "$autobuild" != "yes" ]]; then
+	
+		# Only install if not doing an auto-build. Travis CI won't install this package
+		sudo apt-get install -y --force-yes python-appdirs
 
+	fi
 
 }
 

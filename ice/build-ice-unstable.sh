@@ -29,7 +29,7 @@ date_short=$(date +%Y%m%d)
 pkgname="ice-unstable"
 pkgver="0.1.0"
 upstream_rev="1"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="${commit}+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -123,6 +123,7 @@ main()
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
+		  * Fixed logs against upstream code
 		  * Upstream "Ice" package (unstable)
 		  * This package is NOT guaranteed to work!
 		  * Packaged deb for SteamOS-Tools

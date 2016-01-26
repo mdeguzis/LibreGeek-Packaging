@@ -37,7 +37,7 @@ maintainer="ProfessorKaos64"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}_${pkgver}+${pkgsuffix}"
+git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
@@ -109,7 +109,7 @@ main()
 	
 	# create source tarball
 	cd "$build_dir"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${git_dir}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
 
 	# enter dir to build
 	cd "${git_dir}"

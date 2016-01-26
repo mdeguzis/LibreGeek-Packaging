@@ -106,6 +106,9 @@ main()
 	# create source tarball
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
+	
+	# Enter git dir to build
+	cd "${git_dir}"
 
 	# Create new changelog if we are not doing an autobuild
 	# Also add exceptions for Travis CI build tests
@@ -153,7 +156,6 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	cd "${git_dir}"
 	dpkg-buildpackage -rfakeroot -us -uc -sa
 
 	#################################################

@@ -24,7 +24,7 @@ branches:
 # without duplicating scripts or configuration across multiple repositories.
 
 before_install:
-  - wget -O- http://travis.debian.net/script.sh | sh -
+  - wget -O- http://travis.debian.net/script.sh && sh script.sh
   - curl packages.libregeek.org/SteamOS-Tools/public.key | sudo apt-key add -
   - echo "deb http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
   - echo "deb-src http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list

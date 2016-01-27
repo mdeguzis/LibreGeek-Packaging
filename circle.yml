@@ -1,0 +1,36 @@
+language: python
+python:
+  - "2.7"
+  
+# blacklist
+branches:
+  except:
+    - master
+
+# whitelist
+branches:
+  only:
+    - brewmaster
+
+# Configure apt    
+#addons:
+#  apt:
+#    sources: 
+
+# python-appdirs STILL not working, even though whitelisted.
+# See: https://github.com/travis-ci/apt-package-whitelist/issues/2230
+# sudo sh -c "echo 'foreign-architecture i386' > /etc/dpkg/dpkg.cfg.d/multiarch"
+
+before_install:
+  - curl packages.libregeek.org/SteamOS-Tools/public.key | sudo apt-key add -
+  - echo "deb http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
+  - echo "deb-src http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
+  - echo "deb http://ch.archive.ubuntu.com/ubuntu/ vivid main restricted" | sudo tee -a /etc/apt/sources.list
+  - sudo rm -f /etc/dpkg/dpkg.cfg.d/multiarch*
+  - sudo apt-get update -qq
+  
+install:
+  - sudo apt-get install -y --force-yes dh-python pysteam python-all python-setuptools python-pip python-docutils python-sphinx python-psutil
+
+script:
+  - cd ice && ./build-ice-unstable.sh

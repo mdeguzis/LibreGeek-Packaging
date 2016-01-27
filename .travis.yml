@@ -1,3 +1,8 @@
+sudo: required
+
+services:
+  - docker
+
 dist: trusty
 language: python
 python:
@@ -23,6 +28,7 @@ branches:
 # sudo sh -c "echo 'foreign-architecture i386' > /etc/dpkg/dpkg.cfg.d/multiarch"
 
 before_install:
+  - wget -O- https://raw.githubusercontent.com/ProfessorKaos64/travis.debian.net/gh-pages/script.sh | sh -
   - curl packages.libregeek.org/SteamOS-Tools/public.key | sudo apt-key add -
   - echo "deb http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
   - echo "deb-src http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list

@@ -21,8 +21,11 @@ branches:
 # and test your Debian packages on the Travis CI hosted continuous integration platform 
 # without duplicating scripts or configuration across multiple repositories.
 
+# Currently having trouble running:
+# 'wget -O - http://travis.debian.net/script.sh | sh -'
+
 before_install:
-  - wget -O - http://travis.debian.net/script.sh | sh -
+  - wget http://travis.debian.net/script.sh -O - | sh
   - curl packages.libregeek.org/SteamOS-Tools/public.key | sudo apt-key add -
   - echo "deb http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
   - echo "deb-src http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list

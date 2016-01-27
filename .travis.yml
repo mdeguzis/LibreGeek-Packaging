@@ -3,7 +3,6 @@ sudo: required
 services:
   - docker
 
-dist: trusty
 language: python
 python:
   - "2.7"
@@ -18,13 +17,12 @@ branches:
   only:
     - brewmaster
 
-
 # Note: travis.debian.net is a hosted utility to make it easier and cleaner to build 
 # and test your Debian packages on the Travis CI hosted continuous integration platform 
 # without duplicating scripts or configuration across multiple repositories.
 
 before_install:
-  - wget -O- http://travis.debian.net/script.sh && sh script.sh
+  - wget -O- http://travis.debian.net/script.sh | sh -
   - curl packages.libregeek.org/SteamOS-Tools/public.key | sudo apt-key add -
   - echo "deb http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
   - echo "deb-src http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list

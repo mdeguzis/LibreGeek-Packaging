@@ -1,0 +1,15 @@
+## Customize dependencies
+dependencies:
+  pre:
+    - curl packages.libregeek.org/SteamOS-Tools/public.key | sudo apt-key add -
+    - echo "deb http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
+    - echo "deb-src http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
+    - echo "deb http://ch.archive.ubuntu.com/ubuntu/ vivid main restricted" | sudo tee -a /etc/apt/sources.list
+    - sudo rm -f /etc/dpkg/dpkg.cfg.d/multiarch*
+    - sudo apt-get update -qq
+    - sudo apt-get install -y --force-yes dh-python pysteam python-all python-setuptools python-pip python-docutils python-sphinx python-psutil
+
+## Customize test commands
+test:
+  override:
+    - cd ice && ./build-ice-unstable.sh

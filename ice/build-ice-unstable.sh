@@ -25,11 +25,11 @@ commit="1cc2e64"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+vdate_short=$(date +%Y%m%d)
 pkgname="ice-unstable"
 pkgver="0.1.0"
 upstream_rev="1"
-pkgrev="2"
+pkgrev="4"
 pkgsuffix="${commit}+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -96,7 +96,12 @@ main()
 	git checkout "$commit"
 
 	# Add debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
+
+	# inject config files
+	cp -r "$scriptdir/consoles.txt" "${git_dir}"
+	cp -r "$scriptdir/emulators.txt" "${git_dir}"
+	cp -r "$scriptdir/config.txt" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -123,9 +128,7 @@ main()
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-		  * Fixed logs against upstream code
-		  * Upstream "Ice" package (unstable)
-		  * This package is NOT guaranteed to work!
+		  * Patched data paths for configuration files
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
 		  * Upstream authors and source: $git_url

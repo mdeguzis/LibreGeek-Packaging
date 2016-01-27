@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 #export DH_VERBOSE = 1
-export PYBUILD_NAME = ice
+export PYBUILD_NAME = ice-unstable
 
 # Don't let pybuild screw with proxy
 # Common errors: "[Errno 111] Connection refused -- Some packages may not be found!"
@@ -12,15 +12,5 @@ export https_proxy=
 	dh $@ --with python2 --buildsystem=pybuild
 
 override_dh_auto_test:
+	sudo pip install -r requirements.txt
 
-override_dh_installdirs:
-	dh_installdirs /etc/ice
-	dh_installdirs /usr/share/games
-	dh_installdirs $HOME/.config/ice
-	
-override_dh_strip:
-	dh_strip -pice  --dbg-package=ice-dbg
-	
-override_dh_auto_install:
-
-override_dh_usrlocal:

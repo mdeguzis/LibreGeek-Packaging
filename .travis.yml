@@ -18,26 +18,21 @@ branches:
   only:
     - brewmaster
 
-# Configure apt    
-#addons:
-#  apt:
-#    sources: 
 
-# python-appdirs STILL not working, even though whitelisted.
-# See: https://github.com/travis-ci/apt-package-whitelist/issues/2230
-# sudo sh -c "echo 'foreign-architecture i386' > /etc/dpkg/dpkg.cfg.d/multiarch"
+# Note: travis.debian.net is a hosted utility to make it easier and cleaner to build 
+# and test your Debian packages on the Travis CI hosted continuous integration platform 
+# without duplicating scripts or configuration across multiple repositories.
 
 before_install:
   - wget -O- http://travis.debian.net/script.sh | sh -
   - curl packages.libregeek.org/SteamOS-Tools/public.key | sudo apt-key add -
   - echo "deb http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
   - echo "deb-src http://packages.libregeek.org/SteamOS-Tools/ brewmaster main games" | sudo tee -a /etc/apt/sources.list
-  - echo "deb http://ch.archive.ubuntu.com/ubuntu/ vivid main restricted" | sudo tee -a /etc/apt/sources.list
   - sudo rm -f /etc/dpkg/dpkg.cfg.d/multiarch*
   - sudo apt-get update -qq
   
 install:
-  - sudo apt-get install -y --force-yes dh-python pysteam python-all python-setuptools python-pip python-docutils python-sphinx python-psutil
+  - sudo apt-get install -y --force-yes dh-python pysteam python-all python-setuptools python-pip python-docutils python-sphinx python-psutil python-appdirs
 
 script:
   - cd ice && ./build-ice-unstable.sh

@@ -4,4 +4,4 @@ services:
   - docker
 
 script:
-  - wget -O- https://raw.githubusercontent.com/ProfessorKaos64/travis.debian.net/gh-pages/script.sh | sh -
+  - wget -O- https://raw.githubusercontent.com/ProfessorKaos64/travis.debian.net/gh-pages/script.sh | bash -

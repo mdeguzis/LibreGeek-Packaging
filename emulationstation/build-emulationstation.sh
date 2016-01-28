@@ -21,14 +21,15 @@ time_stamp_start=(`date +"%T"`)
 # upstream vars
 git_url="https://github.com/Aloshi/EmulationStation"
 branch="master"
+commit="646bede"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="emulationstation"
-pkgver="${date_short}"
+pkgver="2.0.1"
 pkgrev="2"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="${commit}+git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -67,9 +68,6 @@ main()
 
 	fi
 
-	# enter build dir
-	cd "$build_dir" || exit
-
 	# install prereqs for build
 	install_prereqs
 
@@ -77,8 +75,15 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
+	# clone and checkout commit
 	git clone -b "$branch" "$git_url" "$git_dir"
+	cd "$git_dir" && checkout "$commit"
+	
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
+	
+	# enter build dir
+	cd "$build_dir" || exit
 
 	#################################################
 	# Build package
@@ -92,9 +97,6 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
-
-	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"
@@ -134,10 +136,6 @@ main()
 
 	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup
@@ -185,6 +183,11 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			
+			# Only move the old changelog if transfer occurs to keep final changelog 
+			# out of the picture until a confirmed build is made. Remove if upstream has their own.
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

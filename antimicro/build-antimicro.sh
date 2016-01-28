@@ -19,14 +19,14 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/Ryochan7/antimicro"
-rel_target="2.20.2"
+rel_target="2.21"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="antimicro"
-pkgver="2.20.2+git+bsos3"
 pkgrev="1"
+pkgver="${rel_target}+git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"

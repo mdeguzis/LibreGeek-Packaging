@@ -21,15 +21,16 @@ time_stamp_start=(`date +"%T"`)
 # upstream vars
 git_url="https://github.com/RetroPie/es-theme-simple"
 branch="master"
+commit="e9c72a3"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="emulationstation-theme-simple"
-pkgver="$date_short"
-upstream_rev=""
-pkgrev="2"
-pkgsuffix="git+bsos{pkgrev}"
+pkgver="1.4"
+upstream_rev="1"
+pkgrev="1"
+pkgsuffix="${commit}+git+bsos{pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -65,18 +66,17 @@ main()
 
 	fi
 
-	# enter build dir
-	cd "$build_dir" || exit
-
-	# install prereqs for build
-	install_prereqs
-
-	# Clone upstream source code and branch
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
+	# clone and checkout commit
 	git clone -b "$branch" "$git_url" "$git_dir"
+	cd "$git_dir" && git checkout "$commit"
+	
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
+	
+	# enter build dir
+	cd "$build_dir" || exit
 
 	#################################################
 	# Build package
@@ -182,6 +182,11 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			
+			# Only move the old changelog if transfer occurs to keep final changelog 
+			# out of the picture until a confirmed build is made. Remove if upstream has their own.
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

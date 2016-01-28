@@ -179,6 +179,11 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
+			# Only move the old changelog if transfer occurs to keep final changelog 
+			# out of the picture until a confirmed build is made. Remove if upstream has their own.
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			
+
 		fi
 		
 	elif [[ "$transfer_choice" == "n" ]]; then

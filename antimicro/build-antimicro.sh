@@ -183,7 +183,6 @@ main()
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 			
-
 		fi
 		
 	elif [[ "$transfer_choice" == "n" ]]; then

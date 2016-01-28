@@ -77,7 +77,7 @@ main()
 
 	# clone and checkout commit
 	git clone -b "$branch" "$git_url" "$git_dir"
-	cd "$git_dir" && checkout "$commit"
+	cd "$git_dir" && git checkout "$commit"
 	
 	# copy in debian folder
 	cp -r $scriptdir/debian "${git_dir}"

@@ -20,13 +20,13 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/lutris/lutris"
-rel_target="v0.3.7.1"
+rel_target="v0.3.7.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="lutris"
-pkgver="0.3.7.1"
+pkgver="0.3.7.2"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -190,6 +190,11 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			
+			# Only move the old changelog if transfer occurs to keep final changelog 
+			# out of the picture until a confirmed build is made. Remove if upstream has their own.
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

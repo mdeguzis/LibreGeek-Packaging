@@ -21,7 +21,6 @@ time_stamp_start=(`date +"%T"`)
 # upstream vars
 git_url="https://github.com/scottrice/Ice"
 rel_target="1.0.0"
-commit="ae96fbd"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -92,8 +91,6 @@ main()
 
 	# clone and checkout desired commit
 	git clone -b "$rel_target" "$git_url" "${git_dir}"
-	cd "${git_dir}"
-	git checkout "$commit"
 
 	# Add debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"

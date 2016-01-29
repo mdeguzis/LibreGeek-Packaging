@@ -9,7 +9,7 @@
 #
 # See:		https://github.com/scottrice/Ice
 #
-# Usage:	./build-ice-steamos.sh
+# Usage:	./build-ice-steamos-unstable.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -26,10 +26,10 @@ commit="ae96fbd"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="ice-steamos"
+pkgname="ice-steamos-unstable"
 pkgver="1.0.0"
 upstream_rev="1"
-pkgrev="4"
+pkgrev="1"
 pkgsuffix="${commit}+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -96,7 +96,7 @@ main()
 	git checkout "$commit"
 
 	# Add debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	cp -r "$scriptdir/debian-unstable" "${git_dir}"
 
 	# inject config files
 	cp -r "$scriptdir/consoles.txt" "${git_dir}"

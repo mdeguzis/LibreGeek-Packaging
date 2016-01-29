@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ice.sh
-# Script Ver:	1.3.5
+# Script Ver:	1.7.5
 # Description:	Builds simple pacakge for using ice based of of master upstream
 #		git source
 #
@@ -55,8 +55,12 @@ install_prereqs()
 	# Additional suggested packages added per: https://wiki.debian.org/Python/LibraryStyleGuide
 	sudo apt-get install -y --force-yes build-essential bc debhelper \
 	python-pip python-psutil groff git python-setuptools dh-python \
-	python-all python-setuptools python-pip python-docutils python-sphinx \
-	python-appdirs
+	python-all python-setuptools python-pip python-docutils python-sphinx
+	
+	# These packages are now "Debianized" so we don't have to rely on hacky installs with pip
+	# python-addirs is an upsteam Debain package
+	# For the rest, see the respective github repositories under my profile
+	sudo apt-get install -y --force-yes python-appdirs python-pastebin python-psutil python-pysteam
 
 }
 

@@ -28,7 +28,7 @@ Depends: ${python:Depends},
  python-appdirs,
  python-pastebin,
  python-psutil,
- pysteam
+ pysteam,
  retroarch, 
  retroarch-assets,
  retroarch-joypad-autoconfig,

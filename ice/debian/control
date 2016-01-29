@@ -10,6 +10,10 @@ Build-Depends: debhelper (>= 9),
  python-docutils,
  python-sphinx,
  python-psutil
+ python-appdirs,
+ python-pastebin,
+ python-psutil,
+ pysteam
 Standards-Version: 3.9.5
 Homepage: https://github.com/ProfessorKaos64/Ice
 Vcs-Git: git://github.com/ProfessorKaos64/Ice.git
@@ -20,9 +24,11 @@ Architecture: all
 Depends: ${python:Depends},
  ${misc:Depends},
  dolphin-emu,
- pysteam,
- python-psutil,
+ python-psutil
  python-appdirs,
+ python-pastebin,
+ python-psutil,
+ pysteam
  retroarch, 
  retroarch-assets,
  retroarch-joypad-autoconfig,

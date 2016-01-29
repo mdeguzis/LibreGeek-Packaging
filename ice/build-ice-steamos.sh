@@ -94,6 +94,9 @@ main()
 	cp -r "$scriptdir/emulators.txt" "${git_dir}"
 	cp -r "$scriptdir/config.txt" "${git_dir}"
 
+	# Use disabled requirements.txt, as these are packaged
+#	cp -r "$scriptdir/requirements.txt" "${git_dir}"
+
 	#################################################
 	# Build package
 	#################################################

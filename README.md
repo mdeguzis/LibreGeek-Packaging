@@ -36,6 +36,9 @@ Packaging scripts and files for SteamOS-Tools
 # Patches
 * [Applying patches with quilt](https://raphaelhertzog.com/2012/08/08/how-to-use-quilt-to-manage-patches-in-debian-packages/)
 
+# Python
+[Debian Python packaging](https://wiki.debian.org/Python/Packaging)
+
 # Unattended upgrades
 * Checking for issues: `sudo unattended-upgrade -d`
 

@@ -20,14 +20,14 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/jp9000/obs-studio"
-rel_target="0.12.4"
+rel_target="0.13.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="obs-studio"
 pkgver="$rel_target"
-pkgrev="2"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -140,9 +140,6 @@ main()
 	sleep 3s
 	nano debian/changelog
 
- 	# Keep the old changelog so it can be appended next time
- 	mv changelog.in $scriptdir/changelog.old
-
 	#################################################
 	# Build Debian package
 	#################################################
@@ -199,6 +196,11 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+
+			# Only move the old changelog if transfer occurs to keep final changelog 
+			# out of the picture until a confirmed build is made. Remove if upstream has their own.
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"			
+			
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -11,6 +11,12 @@ export https_proxy=
 %:
 	dh $@ --with python2 --buildsystem=pybuild
 
+override_dh_auto_clean:
+	rm -rf /tmp/appdirs
+	rm -rf /tmp/pysteam
+	rm -rf /tmp/psutil
+	rm -rf /tmp/pastebin
+
 override_dh_auto_test:
-	sudo pip install -r requirements.txt
+	sudo pip install --upgrade -r requirements.txt
 

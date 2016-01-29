@@ -24,7 +24,7 @@ Architecture: all
 Depends: ${python:Depends},
  ${misc:Depends},
  dolphin-emu,
- python-psutil
+ python-psutil,
  python-appdirs,
  python-pastebin,
  python-psutil,

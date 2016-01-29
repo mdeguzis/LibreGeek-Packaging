@@ -60,7 +60,7 @@ install_prereqs()
 	# These packages are now "Debianized" so we don't have to rely on hacky installs with pip
 	# python-addirs is an upsteam Debain package
 	# For the rest, see the respective github repositories under my profile
-	sudo apt-get install -y --force-yes python-appdirs python-pastebin python-psutil python-pysteam
+	sudo apt-get install -y --force-yes python-appdirs python-pastebin python-psutil pysteam
 
 }
 

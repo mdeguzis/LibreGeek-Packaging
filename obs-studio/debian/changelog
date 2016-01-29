@@ -1,1 +1,26 @@
+obs-studio (0.13.0+git+bsos1) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/jp9000/obs-studio
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 28 Jan 2016 20:46:44 -0500
+
+obs-studio (0.12.4+git+bsos1) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/jp9000/obs-studio
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 01 Jan 2016 17:07:14 -0500
+
+obs-studio (0.12.4+git+bsos1) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/jp9000/obs-studio
+  * OLD
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 01 Jan 2016 11:30:39 -0500
+
 

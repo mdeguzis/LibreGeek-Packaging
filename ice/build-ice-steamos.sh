@@ -3,13 +3,13 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ice.sh
-# Script Ver:	1.1.5
+# Script Ver:	1.3.5
 # Description:	Builds simple pacakge for using ice based of of master upstream
 #		git source
 #
 # See:		https://github.com/scottrice/Ice
 #
-# Usage:	./build-ice.sh
+# Usage:	./build-ice-steamos.sh
 #
 #-------------------------------------------------------------------------------
 
@@ -20,17 +20,17 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/scottrice/Ice"
-rel_target="master"
-commit="1cc2e64"
+rel_target="1.0.0"
+commit="ae96fbd"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-vdate_short=$(date +%Y%m%d)
-pkgname="ice-unstable"
-pkgver="0.1.0"
+date_short=$(date +%Y%m%d)
+pkgname="ice-steamos"
+pkgver="1.0.0"
 upstream_rev="1"
-pkgrev="4"
-pkgsuffix="${commit}+bsos${pkgrev}"
+pkgrev="1"
+pkgsuffix="bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"

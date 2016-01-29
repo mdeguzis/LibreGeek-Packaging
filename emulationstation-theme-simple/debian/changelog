@@ -1,3 +1,11 @@
+emulationstation-theme-simple (1.4+e9c72a3+git+bsos1) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/RetroPie/es-theme-simple
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 28 Jan 2016 18:12:29 -0500
+
 emulationstation-theme-simple (1.4+r6~3~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.

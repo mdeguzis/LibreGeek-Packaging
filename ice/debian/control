@@ -1,4 +1,4 @@
-Source: ice-unstable
+Source: ice-steamos
 Section: games
 Priority: extra
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
@@ -15,9 +15,7 @@ Homepage: https://github.com/ProfessorKaos64/Ice
 Vcs-Git: git://github.com/ProfessorKaos64/Ice.git
 Vcs-Browser: https://github.com/ProfessorKaos64/Ice
 
-Package: ice-unstable
-Breaks: ice-steamos (<= 0.1.0~), ice (<= 0.1.0~)
-Replaces: ice-steamos (<= 0.1.0~), ice (<= 0.1.0~)
+Package: ice-steamos
 Architecture: all
 Depends: ${python:Depends},
  ${misc:Depends},

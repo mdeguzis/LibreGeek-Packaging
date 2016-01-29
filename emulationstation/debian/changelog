@@ -1,3 +1,11 @@
+emulationstation (2.0.1+646bede+git+bsos1) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/Aloshi/EmulationStation
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 28 Jan 2016 18:00:13 -0500
+
 emulationstation (2.0.1a+r272~2~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.

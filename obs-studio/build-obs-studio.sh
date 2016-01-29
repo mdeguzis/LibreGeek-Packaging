@@ -123,13 +123,6 @@ main()
 	 -- $uploader  $date_long
 
 	EOF
-	
-	# Append old changelog from script dir if it exists
-	if [[ -f "$scriptdir/changelog.old" ]]; then
-	
-		cat 'changelog.in' | cat - $scriptdir/changelog.old > temp && mv temp changelog.in
-
-	fi
 
 	# Perform a little trickery to update existing changelog or create
 	# basic file

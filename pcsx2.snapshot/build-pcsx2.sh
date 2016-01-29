@@ -24,9 +24,10 @@ src_cmd=""
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="pcsx2"
+commit="7563ca9"
 pkgver="${date_short}"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="${commit}+git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -166,6 +167,9 @@ main()
 	
 	# To save 66% of the package size
 	# rm -rf  $git_dir/.git
+	
+	# copy in debian folder
+	cp -r $scriptdir/debian "${git_dir}"
 
 	#################################################
 	# Build platform
@@ -179,9 +183,6 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
-	
-	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -222,10 +223,6 @@ main()
 	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
 
-	#################################################
-	# Post install configuration
-	#################################################
-	
 	#################################################
 	# Cleanup
 	#################################################
@@ -271,8 +268,11 @@ main()
 
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-			scp ${build_dir}/${subpkg1}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/${pkgname}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+
+			# Only move the old changelog if transfer occurs to keep final changelog 
+			# out of the picture until a confirmed build is made. Remove if upstream has their own.
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

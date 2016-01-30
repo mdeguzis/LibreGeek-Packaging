@@ -128,7 +128,7 @@ main()
 
 	if [[ "$autobuild" != "yes" ]]; then
 
-		cat <<-EOF> changelog.in
+		cat <<-EOF> debian/changelog
 		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 		  * Patched data paths for configuration files
@@ -140,10 +140,6 @@ main()
 		 -- $uploader  $date_long
 
 		EOF
-
-		# Perform a little trickery to update existing changelog or create
-		# basic file
-		cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 
 		# open debian/changelog and update
 		echo -e "\n==> Opening changelog for confirmation/changes."

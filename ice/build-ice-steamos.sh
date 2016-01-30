@@ -112,6 +112,7 @@ main()
 		
 		# return to build dir
 		cd "${build_dir}" && mv "ice-steamos" "ice-steamos-unstable"
+		git_dir="${build_dir}/${pkgname}"
 		
 	fi
 

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ice.sh
-# Script Ver:	1.7.5
+# Script Ver:	1.9.5
 # Description:	Builds simple pacakge for using ice based of of master upstream
 #		git source
 #
@@ -107,7 +107,7 @@ main()
 		
 		# handle latest commit
 		commit=$(git log -n 1 --pretty=format:"%h")
-		cd "${git_dir}" && git checkout $commit
+		cd "${git_dir}" && git checkout master && git checkout $commit 1> /dev/null
 		
 		# return to build dir
 		cd "${build_dir}"

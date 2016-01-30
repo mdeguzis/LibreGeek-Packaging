@@ -1,6 +1,16 @@
 ice-steamos (1.0.0+bsos3-1) brewmaster; urgency=low
 
   * Added man page
+  * Added singular [option] argument to launcher
+  * For list of arguments, type 'man ice-steamos'
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/scottrice/Ice
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 30 Jan 2016 16:34:32 -0500
+
+ice-steamos (1.0.0+bsos3-1) brewmaster; urgency=low
+
+  * Added man page
   * See: packages.libregeek.org
   * Upstream authors and source: https://github.com/scottrice/Ice
 

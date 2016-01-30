@@ -9,8 +9,8 @@
 #
 # See:		https://github.com/scottrice/Ice
 #
-# Usage:	./build-ice-steamos.sh
-#
+# Usage:	./build-ice-steamos.sh [opts]
+# Opts:		[--unstable]
 #-------------------------------------------------------------------------------
 
 arg1="$1"
@@ -99,8 +99,20 @@ main()
 	cp -r "$scriptdir/config.txt" "${git_dir}"
 	cp -r "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
 
-	# modify debian/control to reflect pkg name
-	sed -ie "s|PKGNAME|$pkgname|g" "${git_dir}/debian/control"
+	if [[ "$arg1" == "--unstable" ]]; then
+
+		# modify debian/control to reflect pkg name
+		pkgname="ice-steamos-unstable"
+		sed -ie "s|ice-steamos|$pkgname|g" "${git_dir}/debian/control"
+		
+		# handle latest commit
+		commit=$(git log -n 1 --pretty=format:"%h")
+		cd "${git_dir}" $$ git checkout $commit
+		
+		# return to build dir
+		cd "${build_dir}"
+		
+	fi
 
 	#################################################
 	# Build package
@@ -121,12 +133,11 @@ main()
 	# Create new changelog if we are not doing an autobuild
 	# Also add exceptions for Travis CI build tests
 
-	if [[ "$autobuild" != "yes" ]]; then
+	if [[ "$arg1" != "--unstable" ]]; then
 
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-		  * Renamed launcher
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
 		  * Upstream authors and source: $git_url
@@ -134,23 +145,23 @@ main()
 		 -- $uploader  $date_long
 
 		EOF
-
-		# Perform a little trickery to update existing changelog or create
-		# basic file
-		cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-
-		# open debian/changelog and update
-		echo -e "\n==> Opening changelog for confirmation/changes."
-		sleep 3s
-		nano debian/changelog
-
+		
 	else
-
-		# Add exceptions for travis ci build. python-appdirs is not yet whitelisted on travis ci
-		# This is installed above manually via .travis.yml
-		sed -ie '/python-appdirs/d' debian/control
-
+	
+		# copy in unstable changelog
+		cp "$scriptdir/debian/changelog.unstable" "${git_dir}/debian"
+		
 	fi
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
+	sleep 3s
+	nano debian/changelog
+
 
  	# cleanup old files
  	rm -f changelog.in
@@ -210,13 +221,19 @@ main()
 
 		if [[ "$transfer_choice" == "y" ]]; then
 
-			# cut files
-			if [[ -d "${build_dir}" ]]; then
-				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-
-				# Preserve changelog
+			# transfer packages
+			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+	
+			# Preserve changelog
+			
+			if [[ "$arg1" != "--unstable" ]]; then
+			
 				mv "${git_dir}/debian/changelog" "$scriptdir/debian" 
-
+				
+			else
+			
+				mv "${git_dir}/debian/changelog" "$scriptdir/debian/changelog.unstable" 
+				
 			fi
 
 		elif [[ "$transfer_choice" == "n" ]]; then

@@ -132,6 +132,7 @@ main()
 		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 		  * Patched data paths for configuration files
+		  * Latest "unstable" build against commit $commit
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
 		  * Upstream authors and source: $git_url
@@ -218,9 +219,6 @@ main()
 			# cut files
 			if [[ -d "${build_dir}" ]]; then
 				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-
-				# Preserve changelog
-				mv "${git_dir}/debian/changelog" "$scriptdir/debian" 
 
 			fi
 

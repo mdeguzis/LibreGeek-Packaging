@@ -96,7 +96,7 @@ main()
 	git checkout "$commit"
 
 	# Add debian folder
-	cp -r "$scriptdir/debian-unstable" "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# inject config files
 	cp -r "$scriptdir/consoles.txt" "${git_dir}"

@@ -1,0 +1,54 @@
+.TH "ice-steamos" 6 "Ice-SteamOS Man Page" "Version 1.0.0"
+.SH NAME
+ice \- Utility to add ROMs to Steam BPM and make launching them much easier. 
+.SH SYNOPSIS
+ice-steamos [option]
+.SH DESCRIPTION
+.B ice-steamos 
+is a fork of the original upstream "Ice" program by Scott Rice.
+
+.PP
+Use Steam to play all your old games! Just because old consoles aren't sold anymore doesn't 
+mean you can't enjoy their games. Ice leverages Steam's Big Picture mode to turn it into an 
+emulator frontend (similar to Hyperspin). It accomplishes this by creating folders in 
+specified locations on the user's hard drive, then adding any ROMs that are placed in these 
+folders to Steam as non-Steam games.
+
+.PP
+The goal of this fork is to fix up Ice and tailor it for use on SteamOS. 
+Debian packaging is in use to automate installation over using pip/python commands. 
+pysteam, psutil, pysteam, and pastebin python packages were converted into Debian packages, 
+which requires adding the SteamOS-Tools repository, noted below. ice-steamos follows the 
+latest "stable" release (either upstream or deemed stable by us), and ice-steamos-unstable, 
+which follows the latest upstream commits.
+.SH OPTIONS
+.IP pdebug
+Pastes debug logs to pastebin to include with bug reports
+.IP -s --skip-steam-check
+Skips checking whether Steam is running
+.IP -c --config
+Specify a config file
+.IP -C --consoles
+Specify a specific consoles.txt file
+.IP -e --emulators
+Specify a specific emulators.txt file
+.SH SEE ALSO
+n/a
+.SH BUGS
+.B (1) Error msg: 'Ice cannot run because of issues with your system.'
+
+.PP
+.I (1) Error text:
+
+* Ice requires write access too `/home/steam/.local/share/Steam/userdata/21885827/config/grid` to run.
+Please resolve these issues and try running Ice again.
+
+.PP
+.I (1) Resolution:
+
+Close the window, or hit enter to exit...
+Re-run ice-steamos once more. For some reason, the first time you run ice, this may show up as a false positive.
+This is being looked into.
+.SH AUTHOR
+SteamOS version: ProfessorKaos64 (mdeguzis@gmail.com), Sharkwouter (https://github.com/sharkwouter)
+Original source code: Scott Rice (https://github.com/scottrice/Ice)

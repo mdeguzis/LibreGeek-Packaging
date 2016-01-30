@@ -107,7 +107,7 @@ main()
 		
 		# handle latest commit
 		commit=$(git log -n 1 --pretty=format:"%h")
-		cd "${git_dir}" $$ git checkout $commit
+		cd "${git_dir}" && git checkout $commit
 		
 		# return to build dir
 		cd "${build_dir}"
@@ -161,7 +161,6 @@ main()
 	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
 	nano debian/changelog
-
 
  	# cleanup old files
  	rm -f changelog.in

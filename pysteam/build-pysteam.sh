@@ -172,6 +172,12 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			
+			# update changelog for upstream source
+                        echo -e "\n==> Updating remote changelog\n" && sleep 2s
+                        cd "${git_dir}/debian" && git add changelog && git commit -m "update changelog"
+                        git push origin "$rel_target" && cd "$scriptdir"
+                        
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -36,6 +36,7 @@ Packaging scripts and files for SteamOS-Tools
 # Magpages
 * [help2man](https://www.gnu.org/software/help2man/)
 * [Writing man pages (LinuxHowTo)](http://www.linuxhowtos.org/System/creatingman.htm)
+* Test manpage with `groff -Tascii -man [manpage]`
 
 # Patches
 * [Applying patches with quilt](https://raphaelhertzog.com/2012/08/08/how-to-use-quilt-to-manage-patches-in-debian-packages/)

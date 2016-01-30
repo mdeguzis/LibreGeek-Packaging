@@ -150,8 +150,16 @@ main()
 		
 	else
 	
-		# copy in unstable changelog
-		cp "$scriptdir/debian/changelog.unstable" "${git_dir}/debian"
+		cat <<-EOF> changelog.in
+		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+
+		  * Unstable build against upstream commit $commit
+		  * See: packages.libregeek.org
+		  * Upstream authors and source: $git_url
+
+		 -- $uploader  $date_long
+
+		EOF
 		
 	fi
 

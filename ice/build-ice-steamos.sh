@@ -106,8 +106,9 @@ main()
 		sed -ie "s|ice-steamos|$pkgname|g" "${git_dir}/debian/control"
 		
 		# handle latest commit
+		cd "${git_dir}"
 		commit=$(git log -n 1 --pretty=format:"%h")
-		cd "${git_dir}" && git checkout master && git checkout $commit 1> /dev/null
+		git checkout $commit 1> /dev/null
 		
 		# return to build dir
 		cd "${build_dir}"

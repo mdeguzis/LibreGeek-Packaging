@@ -34,7 +34,8 @@ Packaging scripts and files for SteamOS-Tools
 * [Cmake vs Make (Perpetual Enigma)](http://prateekvjoshi.com/2014/02/01/cmake-vs-make/)
 
 # Magpages
-[help2man](https://www.gnu.org/software/help2man/)
+* [help2man](https://www.gnu.org/software/help2man/)
+* [Writing man pages (LinuxHowTo)](http://www.linuxhowtos.org/System/creatingman.htm)
 
 # Patches
 * [Applying patches with quilt](https://raphaelhertzog.com/2012/08/08/how-to-use-quilt-to-manage-patches-in-debian-packages/)

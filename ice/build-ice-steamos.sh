@@ -97,6 +97,7 @@ main()
 	cp -r "$scriptdir/consoles.txt" "${git_dir}"
 	cp -r "$scriptdir/emulators.txt" "${git_dir}"
 	cp -r "$scriptdir/config.txt" "${git_dir}"
+	cp -r "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
 
 	# modify debian/control to reflect pkg name
 	sed -ie "s|PKGNAME|$pkgname|g" "${git_dir}/debian/control"
@@ -125,7 +126,7 @@ main()
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-		  * Patched data paths for configuration files
+		  * Renamed launcher
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
 		  * Upstream authors and source: $git_url

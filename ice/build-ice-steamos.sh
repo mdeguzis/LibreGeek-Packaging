@@ -149,6 +149,8 @@ main()
 		EOF
 		
 	else
+		# copy in unstable changelog
+		cp "$scriptdir/debian/changelog.unstable" "${git_dir}/debian/changelog"
 	
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low

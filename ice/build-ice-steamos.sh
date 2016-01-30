@@ -111,7 +111,7 @@ main()
 		git checkout $commit 1> /dev/null
 		
 		# return to build dir
-		cd "${build_dir}"
+		cd "${build_dir}" && mv "ice-steamos" "ice-steamos-unstable"
 		
 	fi
 

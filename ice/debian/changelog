@@ -1,3 +1,13 @@
+ice-steamos (1.0.0+bsos1-1) brewmaster; urgency=low
+
+  * Main 1.0 release against upstream with patches applied
+  * Patched data paths for configuration files
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/scottrice/Ice
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 29 Jan 2016 21:09:36 -0500
+
 ice-unstable (0.1.0+1cc2e64+bsos4-1) brewmaster; urgency=low
 
   * Patched data paths for configuration files

@@ -103,6 +103,9 @@ main()
 	cp -r "$scriptdir/emulators.txt" "${git_dir}"
 	cp -r "$scriptdir/config.txt" "${git_dir}"
 
+	# modify debian/control to reflect pkg name
+        sed -ie "s|PKGNAME|$pkgname|g" "${git_dir}/debian/control"
+
 	#################################################
 	# Build package
 	#################################################

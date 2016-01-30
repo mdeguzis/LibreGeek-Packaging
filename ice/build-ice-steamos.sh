@@ -56,7 +56,7 @@ install_prereqs()
 	sudo apt-get install -y --force-yes build-essential bc debhelper \
 	python-pip python-psutil groff git python-setuptools dh-python \
 	python-all python-setuptools python-pip python-docutils python-sphinx
-	
+
 	# These packages are now "Debianized" so we don't have to rely on hacky installs with pip
 	# python-addirs is an upsteam Debain package
 	# For the rest, see the respective github repositories under my profile
@@ -98,8 +98,8 @@ main()
 	cp -r "$scriptdir/emulators.txt" "${git_dir}"
 	cp -r "$scriptdir/config.txt" "${git_dir}"
 
-	# Use disabled requirements.txt, as these are packaged
-#	cp -r "$scriptdir/requirements.txt" "${git_dir}"
+	# modify debian/control to reflect pkg name
+	sed -ie "s|PKGNAME|$pkgname|g" "${git_dir}/debian/control"
 
 	#################################################
 	# Build package

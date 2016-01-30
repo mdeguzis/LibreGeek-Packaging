@@ -104,16 +104,17 @@ main()
 		# modify debian/control to reflect pkg name
 		pkgname="ice-steamos-unstable"
 		sed -ie "s|ice-steamos|$pkgname|g" "${git_dir}/debian/control"
-		
+
 		# handle latest commit
 		cd "${git_dir}"
 		commit=$(git log -n 1 --pretty=format:"%h")
 		git checkout $commit 1> /dev/null
-		
+		pkgsuffix="${commit}+bsos${pkgrev}"
+
 		# return to build dir
 		cd "${build_dir}" && mv "ice-steamos" "ice-steamos-unstable"
 		git_dir="${build_dir}/${pkgname}"
-		
+
 	fi
 
 	#################################################
@@ -147,11 +148,11 @@ main()
 		 -- $uploader  $date_long
 
 		EOF
-		
+
 	else
 		# copy in unstable changelog
 		cp "$scriptdir/debian/changelog.unstable" "${git_dir}/debian/changelog"
-	
+
 		cat <<-EOF> changelog.in
 		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
@@ -162,7 +163,7 @@ main()
 		 -- $uploader  $date_long
 
 		EOF
-		
+
 	fi
 
 	# Perform a little trickery to update existing changelog or create

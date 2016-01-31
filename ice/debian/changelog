@@ -1,3 +1,11 @@
+ice-steamos (1.0.0+bsos4-1) brewmaster; urgency=low
+
+  * Added a lot of info to the man page, nearly complete
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/scottrice/Ice
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 30 Jan 2016 19:24:40 -0500
+
 ice-steamos (1.0.0+bsos3-1) brewmaster; urgency=low
 
   * Added man page

@@ -93,11 +93,11 @@ main()
 	# Add debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"
 
-	# inject config files
+	# inject our modified files
 	cp -r "$scriptdir/consoles.txt" "${git_dir}"
 	cp -r "$scriptdir/emulators.txt" "${git_dir}"
 	cp -r "$scriptdir/config.txt" "${git_dir}"
-	cp -r "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
+	cp -r "$scriptdir/README.md" "${git_dir}"
 
 	if [[ "$arg1" == "--unstable" ]]; then
 

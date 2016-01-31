@@ -33,7 +33,7 @@ Packaging scripts and files for SteamOS-Tools
 # Cmake vs Make
 * [Cmake vs Make (Perpetual Enigma)](http://prateekvjoshi.com/2014/02/01/cmake-vs-make/)
 
-# Magpages
+# Man Pages
 * [help2man](https://www.gnu.org/software/help2man/)
 * [Writing man pages (LinuxHowTo)](http://www.linuxhowtos.org/System/creatingman.htm)
 * [Debian manual](http://man7.org/linux/man-pages/man7/man-pages.7.html)

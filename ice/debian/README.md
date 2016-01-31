@@ -16,7 +16,7 @@ The original upstream code, and by extension, ours, is licensed under MIT.
 
 Ice's upstream official documentation is available at [Getting Started.](http://scottrice.github.io/Ice/getting-started/). 
 # Emulators
-This fork makes use of as many libretro cores as we can, so that gamepad input (by way of retroarch-joypad-autoconfig) is handled automatically, taking out the need for manual configurations on our part, and the user. However, emulators, such as Dolphin, will need setup as the steam user (or migrated after setup with the desktop user) in Desktop Mode. Making non-libretro cores easier to configure is something that will be looked into. See "depends" lines of  [debian/control](https://github.com/ProfessorKaos64/Ice/blob/brewmaster/debian/control) for a list of emulators in use, as well as the [configuration files](https://github.com/ProfessorKaos64/SteamOS-Tools-Packaging/tree/brewmaster/ice) under the SteamOS-Tools build repository.
+This fork makes use of as many libretro cores as we can, so that gamepad input (by way of retroarch-joypad-autoconfig) is handled automatically, taking out the need for manual configurations on our part, and the user. However, emulators, such as Dolphin, will need setup as the steam user (or migrated after setup with the desktop user) in Desktop Mode. Making non-libretro cores easier to configure is something that will be looked into. See "depends" lines of  [debian/control](https://github.com/ProfessorKaos64/SteamOS-Tools-Packaging/tree/brewmaster/ice/debian/control) for a list of emulators in use, as well as the [configuration files](https://github.com/ProfessorKaos64/SteamOS-Tools-Packaging/tree/brewmaster/ice) under the SteamOS-Tools build repository.
 
 # Building
 Building for specific platforms is located in the [docs/](https://github.com/ProfessorKaos64/Ice/tree/brewmaster/docs) folder. For now, this will just be regarding GNU/Linux platforms.
@@ -99,3 +99,39 @@ If you wish to purge the configuration files:
 ```
 sudo apt-get purge ice-steamos
 ```
+
+# Troubleshooting
+
+## Write access errors
+If you receive this message:
+
+```
+=========== Starting Ice ===========
+Ice cannot run because of issues with your system.
+
+* Ice requires write access too `/home/steam/.local/share/Steam/userdata/21885827/config/grid` to run.
+
+Please resolve these issues and try running Ice again
+
+Close the window, or hit enter to exit...
+```
+
+Resolution:
+
+Re-run ice-steamos once more. For some reason, the first time you run ice, this may show up as a false positive. This is being looked into.
+
+
+## steamwebhelper issues running on a seperate TTY
+Error: another process, such as 'steamwebhelper' is still open, preventing Ice from running"
+
+```
+`steamwebhelper` cannot be running while Ice is being run. Please resolve these issues and try running Ice again.
+Close the window, or hit enter to exit..
+```
+
+Resolution:
+
+Switch back to the desktop user by typing "exit," and run 'sudo pkill steamwebhelper'". 'Try running ice-steamos' as the
+steam user again. This is the only current reported issue of a process still running after closing lightdm. The bug seems
+to present itself only when running ice-steamos on another TTY line, not over SSH.
+

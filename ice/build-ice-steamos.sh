@@ -97,7 +97,7 @@ main()
 	cp -r "$scriptdir/consoles.txt" "${git_dir}"
 	cp -r "$scriptdir/emulators.txt" "${git_dir}"
 	cp -r "$scriptdir/config.txt" "${git_dir}"
-	cp -r "$scriptdir/README.md" "${git_dir}"
+	cp -r "$scriptdir/debian/README.md" "${git_dir}"
 
 	if [[ "$arg1" == "--unstable" ]]; then
 

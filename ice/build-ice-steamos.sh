@@ -90,24 +90,14 @@ main()
 	# clone and checkout desired commit
 	git clone -b "$rel_target" "$git_url" "${git_dir}"
 
-	# Add debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
-
-	# inject our modified files
-	cp "$scriptdir/consoles.txt" "${git_dir}"
-	cp "$scriptdir/emulators.txt" "${git_dir}"
-	cp "$scriptdir/config.txt" "${git_dir}"
-	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
-	cp "$scriptdir/debian/README.md" "${git_dir}"
-
 	if [[ "$arg1" == "--unstable" ]]; then
 
-		# modify debian/control to reflect pkg name
+		# adjust vars
 		pkgname="ice-steamos-unstable"
-		sed -ie "s|ice-steamos|$pkgname|g" "${git_dir}/debian/control"
+		pkgrev="1"
 
 		# handle latest commit
-		cd "${git_dir}"
+		cd "${git_dir}" && git checkout master
 		commit=$(git log -n 1 --pretty=format:"%h")
 		git checkout $commit 1> /dev/null
 		pkgsuffix="${commit}+bsos${pkgrev}"
@@ -118,6 +108,16 @@ main()
 
 	fi
 
+	# Add debian folder
+	cp -r "$scriptdir/debian" "${git_dir}"
+
+	# inject our modified files
+	cp "$scriptdir/consoles.txt" "${git_dir}"
+	cp "$scriptdir/emulators.txt" "${git_dir}"
+	cp "$scriptdir/config.txt" "${git_dir}"
+	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
+	cp "$scriptdir/debian/README.md" "${git_dir}"
+	
 	#################################################
 	# Build package
 	#################################################
@@ -135,8 +135,8 @@ main()
 	cd "${git_dir}"
 
 	# Create new changelog if we are not doing an autobuild
-	# Also add exceptions for Travis CI build tests
-
+	# alter here based on unstable
+	
 	if [[ "$arg1" != "--unstable" ]]; then
 
 		cat <<-EOF> changelog.in
@@ -150,6 +150,10 @@ main()
 		EOF
 
 	else
+		
+		# modify debian/control to reflect pkg name
+		sed -ie "s|ice-steamos|$pkgname|g" "${git_dir}/debian/control"
+
 		# copy in unstable changelog
 		cp "$scriptdir/debian/changelog.unstable" "${git_dir}/debian/changelog"
 

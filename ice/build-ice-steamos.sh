@@ -94,10 +94,11 @@ main()
 	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# inject our modified files
-	cp -r "$scriptdir/consoles.txt" "${git_dir}"
-	cp -r "$scriptdir/emulators.txt" "${git_dir}"
-	cp -r "$scriptdir/config.txt" "${git_dir}"
-	cp -r "$scriptdir/debian/README.md" "${git_dir}"
+	cp "$scriptdir/consoles.txt" "${git_dir}"
+	cp "$scriptdir/emulators.txt" "${git_dir}"
+	cp "$scriptdir/config.txt" "${git_dir}"
+	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
+	cp "$scriptdir/debian/README.md" "${git_dir}"
 
 	if [[ "$arg1" == "--unstable" ]]; then
 

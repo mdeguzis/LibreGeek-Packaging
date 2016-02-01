@@ -20,6 +20,7 @@ Vcs-Git: git://github.com/ProfessorKaos64/Ice.git
 Vcs-Browser: https://github.com/ProfessorKaos64/Ice
 
 Package: ice-steamos
+Replaces: ice-steamos-unstable
 Architecture: all
 Depends: ${python:Depends},
  ${misc:Depends},

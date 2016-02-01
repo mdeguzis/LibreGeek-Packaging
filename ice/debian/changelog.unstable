@@ -1,8 +1,0 @@
-ice-steamos-unstable (1.0.0+ae96fbd+bsos2-1) brewmaster; urgency=low
-
-  * Unstable build against upstream commit ae96fbd
-  * See: packages.libregeek.org
-  * Upstream authors and source: https://github.com/scottrice/Ice
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 30 Jan 2016 11:01:29 -0500
-

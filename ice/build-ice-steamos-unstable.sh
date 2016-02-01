@@ -87,11 +87,12 @@ main()
 
 	# clone and checkout desired commit
 	git clone -b "$rel_target" "$git_url" "${git_dir}"
-	cd "${git_dir}"
+	cd "${git_dir}" && git checkout master
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
+	
+	# Alter pkg suffix based on commit
 	pkgsuffix="${latest_commit}+bsos${pkgrev}"
-	cd "${build_dir}"
 
 	# Add debian folder
         cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
@@ -101,10 +102,13 @@ main()
 	cp "$scriptdir/config.txt" "${git_dir}"
 	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
 	cp "$scriptdir/debian/README.md" "${git_dir}"
-
+		
 	#################################################
 	# Build package
 	#################################################
+
+	# enter build dir to package attempt
+	cd "${build_dir}"
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s

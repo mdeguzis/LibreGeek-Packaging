@@ -6,7 +6,7 @@
 # Script Ver:	1.0.0
 # Description:	Builds simple pacakge for typhoon2001
 #
-# See:		https://github.com/ProfessorKaos64/typhoon-2001
+# See:		https://github.com/ProfessorKaos64/typhoon2001
 #
 # Usage:	./build-typhoon2001-steamos.sh
 #-------------------------------------------------------------------------------
@@ -17,8 +17,8 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/ProfessorKaos64/typhoon-2001"
-rel_target="1.0.0"
+git_url="https://github.com/ProfessorKaos64/typhoon2001"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

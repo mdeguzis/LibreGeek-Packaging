@@ -27,7 +27,7 @@ date_short=$(date +%Y%m%d)
 pkgname="ice-steamos"
 pkgver="1.0.0"
 upstream_rev="1"
-pkgrev="5"
+pkgrev="6"
 pkgsuffix="bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -121,7 +121,8 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * Stable build
+	  * Fix control file (stable/unstable) to replace the other package
+	  * Update man page
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

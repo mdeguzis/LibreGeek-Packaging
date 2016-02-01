@@ -92,7 +92,7 @@ main()
 	git checkout $latest_commit 1> /dev/null
 	
 	# Alter pkg suffix based on commit
-	pkgsuffix="${latest_commit}+bsos${pkgrev}"
+	pkgsuffix="${date_short}+r${latest_commit}+bsos${pkgrev}"
 
 	# Add debian folder
         cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"

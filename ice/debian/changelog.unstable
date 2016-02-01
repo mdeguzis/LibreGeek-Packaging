@@ -5,7 +5,7 @@ ice-steamos-unstable (20160201.git5000749+bsos1-1) brewmaster; urgency=low
   * See: packages.libregeek.org
   * Upstream authors and source: https://github.com/scottrice/Ice
 
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 01 Feb 2016 12:30:55 -0500
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 01 Feb 2016 12:29:24 -0500
 
 ice-steamos-unstable (1.0.0+ae96fbd+bsos2-1) brewmaster; urgency=low
 

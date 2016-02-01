@@ -25,7 +25,7 @@ rel_target="1.0.0"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="ice-steamos-unstable"
-pkgver="1.0.0"
+pkgver="${date_short}"
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -90,9 +90,9 @@ main()
 	cd "${git_dir}" && git checkout master
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
-	
+
 	# Alter pkg suffix based on commit
-	pkgsuffix="${date_short}+r${latest_commit}+bsos${pkgrev}"
+	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
 
 	# Add debian folder
         cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
@@ -102,7 +102,7 @@ main()
 	cp "$scriptdir/config.txt" "${git_dir}"
 	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
 	cp "$scriptdir/debian/README.md" "${git_dir}"
-		
+
 	#################################################
 	# Build package
 	#################################################
@@ -117,7 +117,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "$pkgname"
+	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "$pkgname"
 
 	# Enter git dir to build
 	cd "${git_dir}"
@@ -126,7 +126,7 @@ main()
 	# alter here based on unstable
 
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * New unstable build against upstream commit $latest_commit
 	  * Fixed package control file to replace ice-steams on install to avoid conflicts
@@ -207,7 +207,7 @@ main()
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 			# Preserve changelog
-			mv "${git_dir}/debian/changelog" "$scriptdir/debian/changelog.unstable" 
+			mv "${git_dir}/debian/changelog" "$scriptdir/debian-unstable/"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

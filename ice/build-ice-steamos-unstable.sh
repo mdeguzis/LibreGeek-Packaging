@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-ice.sh
+# Scipt Name:	build-ice-unstable.sh
 # Script Ver:	1.9.5
 # Description:	Builds simple pacakge for using ice based of of master upstream
-#		git source
+#		git source (unstable build)
 #
 # See:		https://github.com/scottrice/Ice
 #
-# Usage:	./build-ice-steamos.sh
+# Usage:	./build-ice-steamos-unstable.sh
 #-------------------------------------------------------------------------------
 
 arg1="$1"
@@ -24,11 +24,10 @@ rel_target="1.0.0"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="ice-steamos"
+pkgname="ice-steamos-unstable"
 pkgver="1.0.0"
 upstream_rev="1"
-pkgrev="5"
-pkgsuffix="bsos${pkgrev}"
+pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -88,12 +87,13 @@ main()
 
 	# clone and checkout desired commit
 	git clone -b "$rel_target" "$git_url" "${git_dir}"
-
-	# Add debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	git checkout $latest_commit 1> /dev/null
+	pkgsuffix="${latest_commit}+bsos${pkgrev}"
+	cd "${build_dir}"
 
 	# inject our modified files
-	cp "$scriptdir/consoles.txt" "${git_dir}"
 	cp "$scriptdir/emulators.txt" "${git_dir}"
 	cp "$scriptdir/config.txt" "${git_dir}"
 	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
@@ -121,7 +121,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * Stable build
+	  * Unstable build against upstream commit $commit
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

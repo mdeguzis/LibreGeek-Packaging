@@ -93,7 +93,10 @@ main()
 	pkgsuffix="${latest_commit}+bsos${pkgrev}"
 	cd "${build_dir}"
 
-	# inject our modified files
+	# Add debian folder
+        cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
+
+	# inject iur modified files
 	cp "$scriptdir/emulators.txt" "${git_dir}"
 	cp "$scriptdir/config.txt" "${git_dir}"
 	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"

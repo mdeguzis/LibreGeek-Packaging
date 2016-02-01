@@ -124,7 +124,8 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * Unstable build against upstream commit $commit
+	  * New unstable build against upstream commit $commit
+	  * Fixed package control file to replace ice-steams on install to avoid conflicts
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

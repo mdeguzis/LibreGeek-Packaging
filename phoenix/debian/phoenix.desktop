@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Phoenix
+GenericName=Phoenix
+X-GNOME-FullName=Front end GUI for Libretro/Retroarch
+Comment=
+Exec=phoenix
+Icon=/usr/share/pixmaps/phoenix.png
+Terminal=false
+Type=Application

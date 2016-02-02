@@ -59,52 +59,26 @@ install_prereqs()
 	#############################################################
 	
 	arch_check=$(uname -m)
-	if [[ "$arch_check" != "i386" ]]; then
+	if [[ "$arch_check" == "i386" ]]; then
 	
-		cat <<-EOF
-		WARNING! - It is highly suggested you perform this build in a 32 bit
-		environment! If your build fails, please consider doing so. If you 
-		are using a 32 bit chroot for SteamOS built using ./build-test-chroot,
-		this may be a false flag. In this case, answer "y".
-	
-		Proceed [y/n]?
-		EOF
-		sleep .5s
-		read -erp "Choice: " build_choice
-	
-		if [[ "$build_choice" == "y" ]]; then 
+		# 32-bit build depedencies required to build on x86_64
+		sudo apt-get install -y --force-yes libaio-dev:i386 libasound2-dev:i386 \
+		libbz2-dev:i386 libcg:i386 libcggl:i386 libwayland-dev:i386 libegl1-mesa-dev:i386 \
+		libgl1-mesa-dev:i386 libglew-dev:i386 libglu1-mesa-dev:i386 libglu1-mesa-dev:i386 \
+		libwxgtk3.0-dev:i386 libjpeg62-turbo-dev:i386 libfreetype6-dev:i386 libdirectfb-dev:i386 \
+		libglib2.0-dev:i386 libavahi-client-dev:i386 libpulse-dev:i386 libsdl1.2-dev:i386 \
+		libsoundtouch-dev:i386 libsparsehash-dev libwxbase3.0-dev:i386 libx11-dev:i386 \
+		nvidia-cg-dev:i386 nvidia-cg-toolkit portaudio19-dev:i386 zlib1g-dev:i386 \
+		libgtk2.0-dev libpng++-dev libsdl2-dev
 		
-			# 32-bit build depedencies required to build on x86_64
-			sudo apt-get install -y --force-yes libaio-dev:i386 libasound2-dev:i386 \
-			libbz2-dev:i386 libcg:i386 libcggl:i386 libwayland-dev:i386 libegl1-mesa-dev:i386 \
-			libgl1-mesa-dev:i386 libglew-dev:i386 libglu1-mesa-dev:i386 libglu1-mesa-dev:i386 \
-			libwxgtk3.0-dev:i386 libjpeg62-turbo-dev:i386 libfreetype6-dev:i386 libdirectfb-dev:i386 \
-			libglib2.0-dev:i386 libavahi-client-dev:i386 libpulse-dev:i386 libsdl1.2-dev:i386 \
-			libsoundtouch-dev:i386 libsparsehash-dev libwxbase3.0-dev:i386 libx11-dev:i386 \
-			nvidia-cg-dev:i386 nvidia-cg-toolkit portaudio19-dev:i386 zlib1g-dev:i386 \
-			libgtk2.0-dev libpng++-dev libsdl2-dev
-			
-		else
+	elif [[ "$arch_check" == "x86_64" ]]; then
+	
+		# 32-bit build depedencies required to build on x86_64
+		sudo apt-get install -y --force-yes cmake debhelper dpkg-dev libaio-dev libasound2-dev \
+		libbz2-dev libgl1-mesa-dev libglu1-mesa-dev libgtk2.0-dev libpng12-dev libpng++-dev \
+		libpulse-dev libsdl2-dev libsoundtouch-dev libwxbase3.0-dev libwxgtk3.0-dev libx11-dev \
+		locales portaudio19-dev zlib1g-dev 
 		
-			echo -e "\nExiting..."
-			sleep 1s && exit 1
-			
-		fi
-	
-	elif [[ "$arch_check" == "i386" ]]; then
-	
-		# Builing on 32 bit directly
-		sudo apt-get install -f --force-yeslibaio-dev libpng++-dev libsoundtouch-dev \
-		libwxbase3.0-dev libwxgtk3.0-dev portaudio19-dev libbz2-dev libgtk2.0-dev \
-		cmake g++ g++-multilib libqt4-dev libqt4-dev libxi-dev libxtst-dev libX11-dev bc libsdl2-dev \
-		gcc gcc-multilib nano
-		
-	else
-	
-		# exit out
-		echo -e "Building on this architecture is not currently supported. Exiting."
-		sleep 3s && exit
-	
 	fi
 
 }

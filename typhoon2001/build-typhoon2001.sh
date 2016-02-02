@@ -174,9 +174,9 @@ main()
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
-		read -erp "Chotyphoon2001: " transfer_chotyphoon2001
+		read -erp "Choice: " transfer_choice
 
-		if [[ "$transfer_chotyphoon2001" == "y" ]]; then
+		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer packages
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
@@ -186,7 +186,7 @@ main()
 			git commit -m "update changelog" && git push origin master
 			cd "$scriptdir" 
 
-		elif [[ "$transfer_chotyphoon2001" == "n" ]]; then
+		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"
 		fi
 	fi

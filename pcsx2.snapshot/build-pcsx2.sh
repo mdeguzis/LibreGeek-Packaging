@@ -49,8 +49,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install needed packages
-	sudo apt-get install -y --force-yes git devscripts build-essential checkinstall \
-	debian-keyring debian-archive-keyring 
+	sudo apt-get install -y --force-yes git devscripts build-essential checkinstall
 
 	echo -e "\n==> Installing pcsx2 build dependencies...\n"
 	sleep 2s

@@ -26,7 +26,7 @@ date_short=$(date +%Y%m%d)
 pkgname="typhoon2001"
 pkgver="1.0.0"
 upstream_rev="1"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -104,10 +104,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * Statically linked build of Typhoon 2001
-	  * All credit goes to original author, Thorsten Kuphaldt
-	  * Original website: http://typhoon.kuto.de
-	  * Wayback machine archive: http://web.archive.org/web/20110511052002/http://typhoon.kuto.de/
+	  * Add desktop file and image for Steam BPM
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

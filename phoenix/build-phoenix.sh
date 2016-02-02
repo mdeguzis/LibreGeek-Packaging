@@ -184,7 +184,7 @@ main()
 			git commit -m "update changelog" && git push origin master
 			cd "$scriptdir" 
 
-		elif [[ "$transfer_chophoenix" == "n" ]]; then
+		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"
 		fi
 	fi

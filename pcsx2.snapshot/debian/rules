@@ -1,5 +1,8 @@
 #!/usr/bin/make -f
 
+# Build options and more:
+# https://github.com/PCSX2/pcsx2/blob/master/build.sh
+
 # Uncomment this to turn on verbose mode. 
 # export DH_VERBOSE=1
 
@@ -13,6 +16,7 @@ override_dh_auto_configure:
 	dh_auto_configure -- \
 		-DCMAKE_BUILD_TYPE=$(CMAKE_BUILD_TYPE) \
 		-DCMAKE_BUILD_STRIP=FALSE \
+		-DCMAKE_TOOLCHAIN_FILE=cmake/linux-compiler-i386-multilib.cmake \
 		-DXDG_STD=TRUE \
 		-DDISABLE_ADVANCE_SIMD=TRUE \
 		-DPACKAGE_MODE=TRUE

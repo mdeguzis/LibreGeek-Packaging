@@ -19,7 +19,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/scottrice/Ice"
-rel_target="1.0.0"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -87,7 +87,7 @@ main()
 
 	# clone and checkout desired commit
 	git clone -b "$rel_target" "$git_url" "${git_dir}"
-	cd "${git_dir}" && git checkout master
+	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
 

@@ -26,7 +26,7 @@ date_short=$(date +%Y%m%d)
 pkgname="typhoon2001"
 pkgver="1.0.0"
 upstream_rev="1"
-pkgrev="2"
+pkgrev="3"
 pkgsuffix="bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -104,7 +104,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * Add desktop file and image for Steam BPM
+	  * Correct image location and desktop file
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

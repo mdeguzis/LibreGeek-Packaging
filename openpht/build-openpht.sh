@@ -24,14 +24,13 @@ time_stamp_start=(`date +"%T"`)
 #git_url="https://github.com/plexinc/plex-home-theater-public"
 #git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
 git_url="https://github.com/RasPlex/OpenPHT"
-#branch="pht-frodo"
 branch="openpht-1.5"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="openpht"
-pkgver="1.5"
+pkgver="1.5.1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"

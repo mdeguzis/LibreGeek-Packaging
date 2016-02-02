@@ -168,6 +168,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
+	  * Based release tag: 1.4.0
 	  * Built against latest commit $latest_commit
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url

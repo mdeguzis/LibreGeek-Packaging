@@ -1,0 +1,15 @@
+Source: phoenix
+Section: games
+Priority: extra
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/ProfessorKaos64/typhoon-2001
+Vcs-Git: git://github.com/ProfessorKaos64/typhoon-2001.git
+Vcs-Browser: https://github.com/ProfessorKaos64/typhoon-2001
+
+Package: phoenix
+Architecture: all
+Depends: ${misc:Depends}
+Description: Phoenix is a easy-to-use front-end for Libretro/Retroarch
+ This package is targeted at SteamOS.

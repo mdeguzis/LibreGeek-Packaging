@@ -7,6 +7,7 @@
 # Description:	Builds simple pacakge for Phoenix (Libretro front-end)
 #
 # See:		https://github.com/team-phoenix/Phoenix
+#		Phoenix/blob/master/.travis.yml
 #
 # Usage:	./build-phoenix-steamos.sh
 #-------------------------------------------------------------------------------
@@ -50,7 +51,14 @@ install_prereqs()
 	fi
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper
+	sudo apt-get install -y --force-yes build-essential bc debhelper g++-4.8 libsdl2-dev \
+	libsamplerate0-dev
+	
+	# Pacakges left to build?
+	
+	# https://launchpad.net/~beineri/+archive/ubuntu/opt-qt551-trusty
+	# qt55base qt55declarative qt55imageformats qt55location qt55multimedia qt55qbs qt55quickcontrols 
+	# qt55script qt55tools qt55translations
 
 }
 
@@ -78,7 +86,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_target" "$git_url" "${git_dir}"
+	git clone --recursive -b "$rel_target" "$git_url" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -130,7 +138,15 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	dpkg-buildpackage -rfakeroot -us -uc -sa
+	#dpkg-buildpackage -rfakeroot -us -uc -sa
+
+	# PKG TESTING ONLY FOR NOW
+	sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
+	source /opt/qt55/bin/qt55-env.sh
+	mkdir phoenix-build
+	cd phoenix-build || exit 1
+	qmake ..
+	make
 
 	#################################################
 	# Cleanup

@@ -7,9 +7,11 @@
 # Description:	Builds simple pacakge for Phoenix (Libretro front-end)
 #
 # See:		https://github.com/team-phoenix/Phoenix
-#		Phoenix/blob/master/.travis.yml
+#		https://github.com/team-phoenix/Phoenix/wiki/Dependencies
+#		https://github.com/team-phoenix/Phoenix/wiki/Building
 #
-# Usage:	./build-phoenix-steamos.sh
+# Usage:	./build-phoenix-steamos.sh [option]
+# Options:	--build-test
 #-------------------------------------------------------------------------------
 
 arg1="$1"
@@ -51,19 +53,22 @@ install_prereqs()
 	fi
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper g++-4.8 libsdl2-dev \
-	libsamplerate0-dev
-	
-	# Pacakges left to build?
-	
-	# https://launchpad.net/~beineri/+archive/ubuntu/opt-qt551-trusty
-	# qt55base qt55declarative qt55imageformats qt55location qt55multimedia qt55qbs qt55quickcontrols 
-	# qt55script qt55tools qt55translations
+	sudo apt-get install -y --force-yes build-essential git mesa-common-dev libglu1-mesa-dev \
+	libsdl2-dev libsamplerate0-dev
 
 }
 
 main()
 {
+	
+	# Stop build asap if not doing a test until further notice
+	if [[ "$arg1" != "--build-test" ]]; then
+	
+		clear
+		echo -e "\n==ERROR==\nThis package is in early testing, do not attempt to build!"
+		exit 1
+
+	fi
 
 	# create build_dir
 	if [[ -d "$build_dir" ]]; then
@@ -141,12 +146,15 @@ main()
 	#dpkg-buildpackage -rfakeroot -us -uc -sa
 
 	# PKG TESTING ONLY FOR NOW
-	sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
-	source /opt/qt55/bin/qt55-env.sh
-	mkdir phoenix-build
-	cd phoenix-build || exit 1
-	qmake ..
-	make
+	if [[ "$arg1" == "--build-test" ]]; then
+
+		mkdir Phoenix-build
+		cd Phoenix-build
+		qmake ../Phoenix -r
+		make -j8
+		cd debug && ls
+
+	fi
 
 	#################################################
 	# Cleanup

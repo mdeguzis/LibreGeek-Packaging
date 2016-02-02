@@ -4,7 +4,7 @@
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  build-pcsx2.sh
-# Script Ver:	  0.7.5
+# Script Ver:	  0.9.5
 # Description:	  Attempts to build a deb package from PCSX2 git source
 #		  It is highly suggested to build in a 32 bit environment!!!
 #		  Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
@@ -24,10 +24,8 @@ src_cmd=""
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="pcsx2"
-commit="7563ca9"
 pkgver="${date_short}"
 pkgrev="1"
-pkgsuffix="${commit}+git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -138,9 +136,15 @@ main()
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
+	
+	# clone and checkout desired commit
+        git clone -b "$rel_target" "$git_url" "${git_dir}"
+        cd "${git_dir}"
+        latest_commit=$(git log -n 1 --pretty=format:"%h")
+        git checkout $latest_commit 1> /dev/null
 
-	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+        # Alter pkg suffix based on commit
+        pkgsuffix="git${latest_commit}+bsos${pkgrev}"
 
 	#################################################
 	# Prepare build (upstream-specific)
@@ -192,7 +196,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
-	  * Packaged deb for SteamOS-Tools
+	  * Built against latest commit $latest_commit
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

@@ -74,10 +74,10 @@ install_prereqs()
 	elif [[ "$arch_check" == "x86_64" ]]; then
 	
 		# 32-bit build depedencies required to build on x86_64
-		sudo apt-get install -y --force-yes cmake debhelper dpkg-dev libaio-dev libasound2-dev \
-		libbz2-dev libgl1-mesa-dev libglu1-mesa-dev libgtk2.0-dev libpng12-dev libpng++-dev \
-		libpulse-dev libsdl2-dev libsoundtouch-dev libwxbase3.0-dev libwxgtk3.0-dev libx11-dev \
-		locales portaudio19-dev zlib1g-dev 
+		sudo apt-get install -y --force-yes devscripts build-essential checkinstall \
+		cmake debhelper dpkg-dev libaio-dev libasound2-dev libbz2-dev libgl1-mesa-dev \
+		libglu1-mesa-dev libgtk2.0-dev libpng12-dev libpng++-dev libpulse-dev libsdl2-dev \
+		libsoundtouch-dev libwxbase3.0-dev libwxgtk3.0-dev libx11-dev locales portaudio19-dev zlib1g-dev 
 		
 	fi
 

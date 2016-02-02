@@ -185,7 +185,9 @@ main()
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 			# Preserve changelog
-			mv "${git_dir}/debian/changelog" "$scriptdir/debian/changelog.unstable" 
+			cd "${git_dir}" && git add debian/changelog
+			git commit -m "update changelog" && git push origin master
+			cd "$scriptdir" 
 
 		elif [[ "$transfer_chotyphoon2001" == "n" ]]; then
 			echo -e "Upload not requested\n"

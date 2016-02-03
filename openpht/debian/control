@@ -74,6 +74,7 @@ Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
 # libavdevice-dev (>= 0.10)
  
 Package: openpht
+Replaces: openpht (<= 20151207+git+bsos~)
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}, ttf-ubuntu-font-family, libshairport1 | libshairport2, libcec (>= 2.1) | libcec2, libplist1 | libplist2
 Description: The most awesome Media Center you'll ever need.

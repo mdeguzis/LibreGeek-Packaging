@@ -31,7 +31,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="openpht"
 pkgver="1.5.1"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -201,7 +201,7 @@ main()
 			scp ${build_dir}/${pkgname}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 			
 			# keep changelog rolling
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 
 		fi
 

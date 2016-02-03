@@ -203,7 +203,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep $pkgname_$pkgver
+	ls ${build_dir}| grep $pkgname
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -214,7 +214,11 @@ main()
 
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/${pkgname}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			
+			# keep changelog rolling
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

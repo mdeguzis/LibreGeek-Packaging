@@ -116,18 +116,6 @@ main()
 	# enter source dir
 	cd "${pkgname}"
 
-        #################################
-        # Patch files here
-        #################################
-
-        echo -e "\n==> Applying patches\n"
-	sleep 3s
-
-	# Patch origin: http://www.preining.info/debian/pool/pht/p/plexhometheater/
-	# Version pack: 1.4.1-2.debian.tar.xz
-        quilt push fix-cec-new
-	quilt push cec3
-
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
@@ -164,10 +152,6 @@ main()
 
 	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
-
-	#################################################
-	# Post install configuration
-	#################################################
 
 	#################################################
 	# Cleanup

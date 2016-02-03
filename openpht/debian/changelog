@@ -1,3 +1,12 @@
+openpht (1.5.1+git+bsos3-3) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/RasPlex/OpenPHT
+  * This pacakge is made using the OpenPHT fork of PHT
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 02 Feb 2016 21:33:50 -0500
+
 plexhometheater (1.4.1.469-201505131108-ubuntu85~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.

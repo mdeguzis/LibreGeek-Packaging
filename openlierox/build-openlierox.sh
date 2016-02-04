@@ -86,6 +86,9 @@ main()
 	# Build package
 	#################################################
 
+	# enter build dir to package attempt
+	cd "${build_dir}"
+
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 

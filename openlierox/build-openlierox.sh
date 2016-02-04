@@ -25,6 +25,7 @@ rel_target="0.59"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="openlierox"
+upstream_rev="1"
 pkgrev="1"
 pkgver="0.59"
 dist_rel="brewmaster"
@@ -106,7 +107,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * Update release to latest commit ${latest_commit}
 	  * Packaged deb for SteamOS-Tools

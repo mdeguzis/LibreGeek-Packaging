@@ -84,9 +84,7 @@ main()
 	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
 
 	# libsdl1 is not needed, should be libsdl2-image-dev, so replace in control
-	sdl_old="libsdl-image1.2-dev"
-	sdl_new="libsdl2-image-dev"
-	sed -ie "s|$sdl_old|$sdl_new|g" "${git_dir}/debian/control"
+	cp "$scriptdir/control" "${git_dir}/debian/"
 
 	#################################################
 	# Build package

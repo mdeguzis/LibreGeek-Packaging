@@ -18,7 +18,8 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/albertz/openlierox"
+#git_url="https://github.com/albertz/openlierox"
+git_url="https://github.com/ProfessorKaos64/openlierox"
 rel_target="0.59"
 
 # package vars
@@ -84,7 +85,7 @@ main()
 	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
 
 	# libsdl1 is not needed, should be libsdl2-image-dev, so replace in control
-	cp "$scriptdir/control" "${git_dir}/debian/"
+	# cp "$scriptdir/control" "${git_dir}/debian/"
 
 	#################################################
 	# Build package

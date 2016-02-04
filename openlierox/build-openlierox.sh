@@ -43,9 +43,9 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
-	debhelper bash gzip g++ libsdl1.2-dev libsdl-mixer1.2-dev libsdl-image1.2-dev libgd2-xpm-dev \
+	debhelper bash gzip g++ libsdl1.2-dev libsdl-mixer1.2-dev  libgd2-xpm-dev \
 	libgd2-noxpm-dev zlib1g-dev libxml2-dev libcurl4-openssl-dev libboost-dev libboost-signals-dev \
-	libalut-dev libopenal-dev cmake libhawknl-dev liblua5.1-0-dev libzip-dev binutils-dev
+	libalut-dev libopenal-dev cmake libhawknl-dev liblua5.1-0-dev libzip-dev binutils-dev libsdl2-image-dev
 
 }
 
@@ -82,6 +82,11 @@ main()
 	
 	# Alter pkg suffix based on commit
 	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
+
+	# libsdl1 is not needed, should be libsdl2-image-dev, so replace in control
+	sdl_old="libsdl-image1.2-dev"
+	sdl_new="libsdl2-image-dev"
+	sed -ie "s|$sdl_old|$sdl_new|g" "${git_dir}/debian/control"
 
 	#################################################
 	# Build package

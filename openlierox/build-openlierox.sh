@@ -105,7 +105,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+{pkgsuffix}) $dist_rel; urgency=low
 
-	  * Update release to latest commits, as of ${date_short}
+	  * Update release to latest commit ${latest_commit}
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url

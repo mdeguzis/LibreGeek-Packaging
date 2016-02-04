@@ -24,7 +24,7 @@ rel_target="0.59"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="snis"
+pkgname="openlierox"
 pkgrev="1"
 pkgver="0.59"
 dist_rel="brewmaster"

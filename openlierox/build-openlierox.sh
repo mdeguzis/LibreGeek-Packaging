@@ -43,7 +43,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
 	debhelper bash gzip g++ libsdl1.2-dev libsdl-mixer1.2-dev libsdl-image1.2-dev libgd2-xpm-dev \
-	libgd2-noxpm-dev zlib1g-dev libxml2-dev libcurl4-openssl-dev libboost-dev, libboost-signals-dev \
+	libgd2-noxpm-dev zlib1g-dev libxml2-dev libcurl4-openssl-dev libboost-dev libboost-signals-dev \
 	libalut-dev libopenal-dev cmake libhawknl-dev liblua5.1-0-dev libzip-dev binutils-dev
 
 }

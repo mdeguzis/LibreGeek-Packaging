@@ -10,6 +10,9 @@ Packaging scripts and files for SteamOS-Tools
 * [Binary package How-To](http://tldp.org/HOWTO/html_single/Debian-Binary-Package-Building-HOWTO/)
 * [libregeek package stats](http://steamos-tools-stats.libregeek.org)
 
+# VPS links
+* [swap space on Digital Ocean droplet](https://bitcointalk.org/index.php?topic=304389.0)
+
 # Using reprepro
 * [Setting up a signed repository (Debian)](https://wiki.debian.org/SettingUpSignedAptRepositoryWithReprepro)
 * [Creating a Debian/Ubuntu mirror (What I used initially)](http://www.infrastructureanywhere.com/documentation/additional/mirrors.html)

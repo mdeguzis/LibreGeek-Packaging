@@ -15,7 +15,8 @@ Build-Depends: debhelper (>= 7),
  libalut-dev, libopenal-dev,
  cmake,
  libhawknl-dev, liblua5.1-0-dev, libzip-dev,
- libiberty-dev
+ libiberty-dev,
+ binutils-dev, 
 Homepage: http://www.openlierox.net/
 
 Package: openlierox

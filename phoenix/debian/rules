@@ -3,7 +3,7 @@
 %:
 	dh $@
 
-override_dh_autobuild:
+override_dh_auto_build:
 	mkdir Phoenix-build
 	cd Phoenix-build
 	qmake ../Phoenix -r

@@ -114,7 +114,6 @@ main()
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	  * This pacakge is made using the srb2 fork of PHT
 
 	 -- $uploader  $date_long
 

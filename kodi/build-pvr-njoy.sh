@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/kodi-pvr/pvr.njoy"
-git_branch="master"
+git_branch="Isengard"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

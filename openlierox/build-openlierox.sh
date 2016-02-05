@@ -205,5 +205,15 @@ main()
 
 }
 
-# start main
-main
+# start main and log to tmp
+main | tee "/tmp/${pkgname}-build-log-temp.txt"
+
+# convert log file to Unix compatible ASCII
+strings "/tmp/${pkgname}-build-log-temp.txt" > "/tmp/${pkgname}-build-log.txt"
+
+# strings does catch all characters that I could 
+# work with, final cleanup
+sed -i 's|\[J||g' "/tmp/${pkgname}-build-log.txt"
+
+# remove file not needed anymore
+rm -f "/tmp/${pkgname}-build-log-temp.txt"

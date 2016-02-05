@@ -30,7 +30,6 @@ pkgname="phoenix"
 pkgver="0.0.0"
 upstream_rev="1"
 pkgrev="1"
-pkgsuffix="alpha+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -60,15 +59,6 @@ install_prereqs()
 
 main()
 {
-	
-	# Stop build asap if not doing a test until further notice
-	if [[ "$arg1" != "--build-test" ]]; then
-	
-		clear
-		echo -e "\n==ERROR==\nThis package is in early testing, do not attempt to build!"
-		exit 1
-
-	fi
 
 	# create build_dir
 	if [[ -d "$build_dir" ]]; then
@@ -92,6 +82,9 @@ main()
 
 	# clone and checkout desired commit
 	git clone --recursive -b "$rel_target" "$git_url" "${git_dir}"
+	
+	# copy in debian folder
+	cp "$scriptdir/debian" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -104,10 +97,14 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "$pkgname"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# Enter git dir to build
 	cd "${git_dir}"
+	
+	# Get commit for version
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
 
 	# Create new changelog if we are not doing an autobuild
 	# alter here based on unstable

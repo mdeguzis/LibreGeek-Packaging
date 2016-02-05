@@ -140,18 +140,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	#dpkg-buildpackage -rfakeroot -us -uc -sa
-
-	# PKG TESTING ONLY FOR NOW
-	if [[ "$arg1" == "--build-test" ]]; then
-
-		mkdir Phoenix-build
-		cd Phoenix-build
-		qmake ../Phoenix -r
-		make -j8
-		cd debug && ls
-
-	fi
+	dpkg-buildpackage -rfakeroot -us -uc -sa
 
 	#################################################
 	# Cleanup

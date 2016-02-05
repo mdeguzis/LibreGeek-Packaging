@@ -53,7 +53,7 @@ install_prereqs()
 
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential git mesa-common-dev libglu1-mesa-dev \
-	libsdl2-dev libsamplerate0-dev
+	libsdl2-dev libsamplerate0-dev qt4-qmake
 
 }
 

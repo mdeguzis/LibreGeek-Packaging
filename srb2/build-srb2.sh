@@ -21,7 +21,7 @@ time_stamp_start=(`date +"%T"`)
 # upstream vars
 #git_url="https://github.com/STJr/SRB2"
 git_url="https://github.com/ProfessorKaos64/SRB2"
-rel_target="SRB2_release_2.1.14"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -30,7 +30,6 @@ pkgname="srb2"
 pkgver="2.1.14"
 upstream_rev="1"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -79,12 +78,21 @@ main()
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 	
+	# get suffix from latest commit
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	git checkout $latest_commit 1> /dev/null
+	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
+	
 	#################################################
 	# Build package
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
+	
+	# enter build dir to package attempt
+	cd "${build_dir}"
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script

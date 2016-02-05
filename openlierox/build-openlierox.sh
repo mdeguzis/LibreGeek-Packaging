@@ -113,6 +113,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
+	  * Initial build attempt
 	  * Update release to latest commit ${latest_commit}
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -198,6 +199,7 @@ main()
 			# update changelog
 			echo -e "\nUpdating changelog to upstream fork\n"
 			cd ${git_dir} && git add . && git commit -m "Update changelog with new release"
+			git push origin ${rel_target}
 			cd ${scriptdir}
 
 		fi

@@ -19,7 +19,8 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/STJr/SRB2"
+#git_url="https://github.com/STJr/SRB2"
+git_url="https://github.com/ProfessorKaos64/SRB2"
 rel_target="SRB2_release_2.1.14"
 
 # package vars
@@ -45,8 +46,8 @@ install_prereqs()
 	sleep 2s
 
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper libsdl1.2-dev \
-	libsdl-mixer1.2-dev libpng12-dev libglu1-dev libgl-dev nasm:i386
+	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper libsdl2-dev \
+	libpng12-dev libglu-mesa-dev libgl-mesa-dev nasm:i386
 
 }
 

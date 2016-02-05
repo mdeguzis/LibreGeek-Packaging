@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/kodi-pvr/pvr.dvblink"
-git_branch="master"
+git_branch="Isengard"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -187,6 +187,10 @@ main()
 			# cut files
 			if [[ -d "${build_dir}" ]]; then
 				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			
+				# Preserve changelog
+				cp "${git_dir}/debian/changelog" "$scriptdir/debian/changelog" 
+			
 			fi
 
 		elif [[ "$transfer_choice" == "n" ]]; then

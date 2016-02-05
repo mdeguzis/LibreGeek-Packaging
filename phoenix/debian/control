@@ -7,7 +7,8 @@ Build-Depends: debhelper (>= 9),
  mesa-common-dev,
  libglu1-mesa-dev,
  libsdl2-dev,
- libsamplerate0-dev
+ libsamplerate0-dev,
+ libsdl2-dev
 Standards-Version: 3.9.5
 Homepage: https://github.com/ProfessorKaos64/typhoon-2001
 Vcs-Git: git://github.com/ProfessorKaos64/typhoon-2001.git

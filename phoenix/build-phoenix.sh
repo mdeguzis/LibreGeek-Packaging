@@ -84,7 +84,7 @@ main()
 	git clone --recursive -b "$rel_target" "$git_url" "${git_dir}"
 	
 	# copy in debian folder
-	cp "$scriptdir/debian" "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	#################################################
 	# Build package

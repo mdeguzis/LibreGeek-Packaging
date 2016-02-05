@@ -184,6 +184,9 @@ main()
 			if [[ -d "${build_dir}/" ]]; then
 				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
+				# Preserve changelog
+				cp "${git_dir}/debian/changelog" "$scriptdir/debian/changelog" 
+
 			fi
 
 		elif [[ "$transfer_choice" == "n" ]]; then

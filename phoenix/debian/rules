@@ -2,3 +2,10 @@
 
 %:
 	dh $@
+
+override_dh_autobuild:
+	mkdir Phoenix-build
+	cd Phoenix-build
+	qmake ../Phoenix -r
+	make -j8
+	cd debug && ls

@@ -25,6 +25,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="kodi-pvr-demo"
 pkgver="1.11.7"
+upsteam_rev="1"
 pkgrev="3"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -96,7 +97,7 @@ main()
 	# Create basic changelog
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upsteam_rev}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

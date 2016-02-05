@@ -46,10 +46,10 @@ install_prereqs()
 
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
-	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl2-dev libsdl2-mixer-dev
+	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl1.2-dev libsdl-mixer1.2-dev
 	
-	# Don't use SDL1.2?
-	# sudo apt-get -y --force-yes libsdl1.2-dev libsdl-mixer1.2-dev
+	# Can't use SDL2 at the moment, maybe later...
+	# sudo apt-get -y --force-yes libsdl2-dev libsdl2-mixer-dev
 
 }
 

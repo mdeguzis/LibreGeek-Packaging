@@ -47,7 +47,7 @@ install_prereqs()
 
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper libsdl2-dev \
-	libpng12-dev libglu-mesa-dev libgl-mesa-dev nasm:i386
+	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386
 
 }
 

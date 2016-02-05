@@ -2,7 +2,12 @@ Source: phoenix
 Section: games
 Priority: extra
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9),
+ qt4-qmake,
+ mesa-common-dev,
+ libglu1-mesa-dev,
+ libsdl2-dev,
+ libsamplerate0-dev
 Standards-Version: 3.9.5
 Homepage: https://github.com/ProfessorKaos64/typhoon-2001
 Vcs-Git: git://github.com/ProfessorKaos64/typhoon-2001.git

@@ -83,6 +83,11 @@ main()
 	# clone and checkout desired commit
 	git clone --recursive -b "$rel_target" "$git_url" "${git_dir}"
 	
+	# Get commit for version
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
+	
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"
 
@@ -92,19 +97,15 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
+	
+	# Enter build dir to create tarball
+	cd "${build_dir}"
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# Enter git dir to build
 	cd "${git_dir}"
-	
-	# Get commit for version
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
 
 	# Create new changelog if we are not doing an autobuild
 	# alter here based on unstable

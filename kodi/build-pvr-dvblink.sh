@@ -89,10 +89,6 @@ main()
 	# emter source dir
 	cd "${pkgname}"
 	
-	# funnel old changelog.in to changelog or create basic file
-	# cp debian/changelog.in debian/changelog
-	touch debian/changelog
-	
 	# Create basic changelog
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
@@ -107,7 +103,7 @@ main()
 	EOF
 	
 	# Perform a little trickery to update existing changelog or create basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	cat 'changelog.old' | cat - debian/changelog > temp && mv temp debian/changelog
 	
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
@@ -115,7 +111,7 @@ main()
 	nano debian/changelog
  
  	# cleanup old files
- 	rm -f changelog.in
+ 	rm -f changelog.old
  	rm -f debian/changelog.in
  
 	#################################################
@@ -126,10 +122,6 @@ main()
 	sleep 2s
 
 	dpkg-buildpackage -rfakeroot -us -uc
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup
@@ -189,7 +181,7 @@ main()
 				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 			
 				# Preserve changelog
-				cp "${git_dir}/debian/changelog" "$scriptdir/debian/changelog" 
+				cp "${git_dir}/debian/changelog" "$scriptdir/debian/changelog.old" 
 			
 			fi
 

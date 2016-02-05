@@ -113,9 +113,13 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
+	  * Initial build attempt
 	  * Update release to latest commit ${latest_commit}
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
+	  * Fixed doc installs
+	  * Fixed missing libraries/deps, old deps upgraded (SDL2 vs SDL1.2)
+	  * Fixed static build location on Debian systems for libboost_system.a et. all
 	  * Upstream authors and source: $git_url
 
 	 -- $uploader  $date_long
@@ -195,6 +199,7 @@ main()
 			# update changelog
 			echo -e "\nUpdating changelog to upstream fork\n"
 			cd ${git_dir} && git add . && git commit -m "Update changelog with new release"
+			git push origin ${rel_target}
 			cd ${scriptdir}
 
 		fi

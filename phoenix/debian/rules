@@ -6,6 +6,6 @@
 override_dh_auto_build:
 	mkdir Phoenix-build
 	cd Phoenix-build
-	qmake .. -r
+	qmake ../phoenix -r
 	make -j8
 	cd debug && ls

@@ -53,8 +53,15 @@ install_prereqs()
 
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential git mesa-common-dev libglu1-mesa-dev \
-	libsdl2-dev libsamplerate0-dev qt4-qmake
-
+	libsdl2-dev libsamplerate0-dev qt4-qmake g++-4.8 
+	
+	# update alternatives
+	sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 90
+	
+	# Yet to build, TODO
+	# https://launchpad.net/~beineri/+archive/ubuntu/opt-qt551-trusty
+	# qt55base qt55declarative qt55imageformats qt55location qt55multimedia qt55qbs 
+	# qt55quickcontrols qt55script qt55tools qt55translations 
 }
 
 main()

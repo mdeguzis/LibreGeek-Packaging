@@ -27,7 +27,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="openlierox"
 upstream_rev="1"
-pkgrev="2"
+pkgrev="3"
 pkgver="0.59"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -117,9 +117,11 @@ main()
 	  * Update release to latest commit ${latest_commit}
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
+	  * Add better artwork for SteamOS / BPM
 	  * Fixed doc installs
 	  * Fixed missing libraries/deps, old deps upgraded (SDL2 vs SDL1.2)
-	  * Fixed static build location on Debian systems for libboost_system.a et. all
+	  * Fixed static build location on Debian systems for libboost_system.a
+	  * Use absolute paths on debian/*.install file
 	  * Upstream authors and source: $git_url
 
 	 -- $uploader  $date_long

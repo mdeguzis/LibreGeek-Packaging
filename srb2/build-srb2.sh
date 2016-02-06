@@ -44,6 +44,11 @@ git_dir="${build_dir}/${pkgname}"
 install_prereqs()
 {
 	clear
+	
+	if [[ "$arg1"  == '--build-data' ]]; then
+		echo -e "==INFO==\nBuilding both main data package and data pacakge\n"
+	fi
+	
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 

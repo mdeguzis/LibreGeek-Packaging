@@ -49,11 +49,8 @@ install_prereqs()
 
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
-	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl1.2-dev libsdl-mixer1.2-dev \
-	 libgme-dev
-
-	# Can't use SDL2 at the moment, maybe later...
-	# sudo apt-get -y --force-yes libsdl2-dev libsdl2-mixer-dev
+	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl2-dev libsdl2-mixer-dev \
+	libgme-dev
 
 }
 
@@ -85,9 +82,8 @@ main()
 	# clone (use recursive to get the assets folder)
 	git clone --recursive -b "$rel_target" "$git_url" "$git_dir"
 
-	# get suffix from latest commit
+	# get suffix from target commit (stable targets for now)
 	cd "${git_dir}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $target_commit 1> /dev/null
 	pkgsuffix="git${target_commit}+bsos${pkgrev}"
 
@@ -153,7 +149,7 @@ main()
 	# Prepare Debian package (data) - if needed
 	#################################################
 
-	if [[ "arg1" == "--build-data" ]]; then
+	if [[ "$arg1" == "--build-data" ]]; then
 
 		# now we need to build the data package
 		# Pkg ver is independent* of the version of srb2

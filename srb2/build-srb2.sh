@@ -46,7 +46,8 @@ install_prereqs()
 
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
-	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl1.2-dev libsdl-mixer1.2-dev
+	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl1.2-dev libsdl-mixer1.2-dev \
+	 libgme-dev
 	
 	# Can't use SDL2 at the moment, maybe later...
 	# sudo apt-get -y --force-yes libsdl2-dev libsdl2-mixer-dev
@@ -78,8 +79,8 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	# clone (use recursive to get the assets folder)
+	git clone --recursive -b "$rel_target" "$git_url" "$git_dir"
 	
 	# get suffix from latest commit
 	cd "${git_dir}"

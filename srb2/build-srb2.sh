@@ -159,11 +159,11 @@ main()
 		# now we need to build the data package
 		# Pkg ver is independent* of the version of srb2
 		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
-		pkgver="2.1.4"
-		pkgname="srb2-data"
+		pkgver_data="2.1.4"
+		pkgname_data="srb2-data"
 		data_dir="assets"
 	
-		echo -e "\n==> Building Debian package ${pkgname} from source\n"
+		echo -e "\n==> Building Debian package ${pkgname_data} from source\n"
 		sleep 2s
 		
 		# enter build dir to package attempt
@@ -181,7 +181,7 @@ main()
 		# Create basic changelog format
 	
 		cat <<-EOF> changelog.in
-		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+		$pkgname_data (${pkgver_data}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 	
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
@@ -208,14 +208,14 @@ main()
 		# Build Debian package (data)
 		#################################################
 	
-		echo -e "\n==> Building Debian package ${pkgname} from source\n"
+		echo -e "\n==> Building Debian package ${pkgname_data} from source\n"
 		sleep 2s
 	
 		#  build
 		dpkg-buildpackage -rfakeroot -us -uc
 		
 		# Move packages to build dir
-		mv ${git_dir}/*${pkgver}* "${build_dir}"
+		mv ${git_dir}/*${pkgver_data}* "${build_dir}"
 		
 	# end build data run
 	fi
@@ -266,7 +266,7 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp -v ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-
+			scp -v ${build_dir}/*${pkgver_data}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -10,7 +10,8 @@
 # See:		https://github.com/STJr/SRB2
 # See:    https://github.com/STJr/SRB2/issues/45
 #
-# Usage:	./build-srb2.sh
+# Usage:	./build-srb2.sh [opts]
+# Opts:		[--build-data]
 #-------------------------------------------------------------------------------
 
 arg1="$1"
@@ -149,66 +150,74 @@ main()
 	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
-	# Prepare Debian package (data)
+	# Prepare Debian package (data) - if needed
 	#################################################
 
-	# now we need to build the data package
-	pkgname="srb-data"
-	data_dir="assets"
+	if [[ "arg1" == "--build-data" ]]; then
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
-	sleep 2s
+		# now we need to build the data package
+		# Pkg ver is independent* of the version of srb2
+		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
+		pkgver="2.1.4"
+		pkgname="srb-data"
+		data_dir="assets"
 	
-	# enter build dir to package attempt
-	cd "${git_dir}"
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
-	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${data_dir}"
-
-	# enter source dir
-	cd "${data_dir}"
-
-	# Create basic changelog format
-
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
-
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
-
-	 -- $uploader  $date_long
-
-	EOF
-
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano debian/changelog
-
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
+		echo -e "\n==> Building Debian package ${pkgname} from source\n"
+		sleep 2s
+		
+		# enter build dir to package attempt
+		cd "${git_dir}"
 	
-	#################################################
-	# Build Debian package (data)
-	#################################################
-
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
-	sleep 2s
-
-	#  build
-	dpkg-buildpackage -rfakeroot -us -uc
+		# create the tarball from latest tarball creation script
+		# use latest revision designated at the top of this script
 	
-	# Move packages to build dir
-	mv ${git_dir}/*${pkgver}* "${build_dir}"
+		# create source tarball
+		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${data_dir}"
+	
+		# enter source dir
+		cd "${data_dir}"
+	
+		# Create basic changelog format
+	
+		cat <<-EOF> changelog.in
+		$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+	
+		  * Packaged deb for SteamOS-Tools
+		  * See: packages.libregeek.org
+		  * Upstream authors and source: $git_url
+	
+		 -- $uploader  $date_long
+	
+		EOF
+	
+		# Perform a little trickery to update existing changelog or create
+		# basic file
+		cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	
+		# open debian/changelog and update
+		echo -e "\n==> Opening changelog for confirmation/changes."
+		sleep 3s
+		nano debian/changelog
+	
+	 	# cleanup old files
+	 	rm -f changelog.in
+	 	rm -f debian/changelog.in
+		
+		#################################################
+		# Build Debian package (data)
+		#################################################
+	
+		echo -e "\n==> Building Debian package ${pkgname} from source\n"
+		sleep 2s
+	
+		#  build
+		dpkg-buildpackage -rfakeroot -us -uc
+		
+		# Move packages to build dir
+		mv ${git_dir}/*${pkgver}* "${build_dir}"
+		
+	# end build data run
+	fi
 
 	#################################################
 	# Cleanup

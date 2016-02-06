@@ -254,7 +254,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep $pkgver
+	ls ${build_dir}| grep -E "${pkgver}|${pkgver_data}"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -265,8 +265,8 @@ main()
 
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp -v ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-			scp -v ${build_dir}/*${pkgver_data}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/*${pkgver_data}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

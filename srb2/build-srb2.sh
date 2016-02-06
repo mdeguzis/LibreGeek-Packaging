@@ -32,7 +32,7 @@ date_short=$(date +%Y%m%d)
 pkgname="srb2"
 pkgver="2.1.14"
 upstream_rev="1"
-pkgrev="2"
+pkgrev="3"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -173,7 +173,7 @@ main()
 		# use latest revision designated at the top of this script
 	
 		# create source tarball
-		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${data_dir}"
+		tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${data_dir}"
 	
 		# enter source dir
 		cd "${data_dir}"
@@ -181,7 +181,7 @@ main()
 		# Create basic changelog format
 	
 		cat <<-EOF> changelog.in
-		$pkgname_data (${pkgver_data}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+		$pkgname_data (${pkgver_data}-${upstream_rev}) $dist_rel; urgency=low
 	
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org

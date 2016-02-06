@@ -173,7 +173,7 @@ main()
 		# use latest revision designated at the top of this script
 	
 		# create source tarball
-		tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${data_dir}"
+		tar -cvzf "${pkgname_data}_${pkgver_data}.orig.tar.gz" "${data_dir}"
 	
 		# enter source dir
 		cd "${data_dir}"

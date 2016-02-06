@@ -160,7 +160,7 @@ main()
 		# Pkg ver is independent* of the version of srb2
 		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
 		pkgver="2.1.4"
-		pkgname="srb-data"
+		pkgname="srb2-data"
 		data_dir="assets"
 	
 		echo -e "\n==> Building Debian package ${pkgname} from source\n"

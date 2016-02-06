@@ -94,7 +94,7 @@ main()
 	cp "$scriptdir/rules" "${git_dir}/debian"
 
 	#################################################
-	# Build package
+	# Build package (main)
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -139,7 +139,56 @@ main()
  	rm -f debian/changelog.in
 
 	#################################################
-	# Build Debian package
+	# Build Debian package (data)
+	#################################################
+
+	# now we need to build the data package
+	pkgname="srb2-data"
+	data_dir="assets"
+
+	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	sleep 2s
+	
+	# enter build dir to package attempt
+	cd "${git_dir}"
+
+	# create the tarball from latest tarball creation script
+	# use latest revision designated at the top of this script
+
+	# create source tarball
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${data_dir}"
+
+	# enter source dir
+	cd "${data_dir}"
+
+	# Create basic changelog format
+
+	cat <<-EOF> changelog.in
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+
+	  * Packaged deb for SteamOS-Tools
+	  * See: packages.libregeek.org
+	  * Upstream authors and source: $git_url
+
+	 -- $uploader  $date_long
+
+	EOF
+
+	# Perform a little trickery to update existing changelog or create
+	# basic file
+	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+
+	# open debian/changelog and update
+	echo -e "\n==> Opening changelog for confirmation/changes."
+	sleep 3s
+	nano debian/changelog
+
+ 	# cleanup old files
+ 	rm -f changelog.in
+ 	rm -f debian/changelog.in
+	
+	#################################################
+	# Build Debian package (data)
 	#################################################
 
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
@@ -147,6 +196,9 @@ main()
 
 	#  build
 	dpkg-buildpackage -rfakeroot -us -uc
+	
+	# Move packages to build dir
+	mv ${git_dir}/*${pkgver}* "${build_dir}"
 
 	#################################################
 	# Cleanup
@@ -194,9 +246,6 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-			
-			# keep changelog rolling
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 
 		fi
 

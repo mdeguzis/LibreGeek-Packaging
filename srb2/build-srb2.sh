@@ -94,7 +94,7 @@ main()
 	cp "$scriptdir/rules" "${git_dir}/debian"
 
 	#################################################
-	# Build package (main)
+	# Prepare package (main)
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -137,9 +137,19 @@ main()
  	# cleanup old files
  	rm -f changelog.in
  	rm -f debian/changelog.in
+ 	
+ 	#################################################
+	# Build Debian package (main)
+	#################################################
+
+	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	sleep 2s
+
+	#  build
+	dpkg-buildpackage -rfakeroot -us -uc
 
 	#################################################
-	# Build Debian package (data)
+	# Prepare Debian package (data)
 	#################################################
 
 	# now we need to build the data package

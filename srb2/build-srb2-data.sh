@@ -2,15 +2,15 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-srb2.sh
+# Scipt Name:	build-srb2-data..sh
 # Script Ver:	1.0.8
 # Description:	Attempts to builad a deb package from latest Sonic Robo Blast 2
-#		github release
+#		github release for the data files
 #
 # See:		https://github.com/STJr/SRB2
 # See:    https://github.com/STJr/SRB2/issues/45
 #
-# Usage:	./build-srb2.sh
+# Usage:	./build-srb2-data.sh
 #-------------------------------------------------------------------------------
 
 arg1="$1"
@@ -28,7 +28,7 @@ target_commit="bac39b1"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="srb2"
+pkgname="srb2-data."
 pkgver="2.1.14"
 upstream_rev="1"
 pkgrev="1"

@@ -153,7 +153,7 @@ main()
 	#################################################
 
 	# now we need to build the data package
-	pkgname="srb2-data"
+	pkgname="srb-data"
 	data_dir="assets"
 
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"

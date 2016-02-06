@@ -198,7 +198,7 @@ main()
 			
 			# update changelog
 			echo -e "\nUpdating changelog to upstream fork\n"
-			cd ${git_dir} && git add . && git commit -m "Update changelog with new release"
+			cd ${git_dir} && git add debian/changelog && git commit -m "Update changelog with new release"
 			git push origin ${rel_target}
 			cd ${scriptdir}
 

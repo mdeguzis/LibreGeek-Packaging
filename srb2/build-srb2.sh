@@ -21,10 +21,10 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 # build from specific commit for stability
-git_url="https://github.com/STJr/SRB2"
-#git_url="https://github.com/ProfessorKaos64/SRB2"
-rel_target="master"
-target_commit="bac39b1"
+#git_url="https://github.com/STJr/SRB2"
+git_url="https://github.com/ProfessorKaos64/SRB2"
+rel_target="brewmaster"
+commit="5c09c31"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -32,7 +32,7 @@ date_short=$(date +%Y%m%d)
 pkgname="srb2"
 pkgver="2.1.14"
 upstream_rev="1"
-pkgrev="3"
+pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -44,11 +44,11 @@ git_dir="${build_dir}/${pkgname}"
 install_prereqs()
 {
 	clear
-	
+
 	if [[ "$arg1"  == '--build-data' ]]; then
 		echo -e "==INFO==\nBuilding both main data package and data pacakge\n"
 	fi
-	
+
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 
@@ -85,15 +85,16 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone (use recursive to get the assets folder)
-	git clone --recursive -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "$rel_target" "$git_url" "$git_dir"
 
 	# get suffix from target commit (stable targets for now)
 	cd "${git_dir}"
-	git checkout $target_commit 1> /dev/null
-	pkgsuffix="git${target_commit}+bsos${pkgrev}"
+	#git checkout $commit 1> /dev/null
+	commit=$(git log -n 1 --pretty=format:"%h")
+	pkgsuffix="git${commit}+bsos${pkgrev}"
 
-	# copy in modified rules until fixed upstream
-	cp "$scriptdir/rules" "${git_dir}/debian"
+	# copy in modified files until fixed upstream
+	# cp "$scriptdir/rules" "${git_dir}/debian"
 
 	#################################################
 	# Prepare package (main)
@@ -139,7 +140,7 @@ main()
  	# cleanup old files
  	rm -f changelog.in
  	rm -f debian/changelog.in
- 	
+
  	#################################################
 	# Build Debian package (main)
 	#################################################
@@ -159,64 +160,64 @@ main()
 		# now we need to build the data package
 		# Pkg ver is independent* of the version of srb2
 		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
-		pkgver_data="2.1.4"
+		pkgver_data="2.1.14"
 		pkgname_data="srb2-data"
 		data_dir="assets"
-	
+
 		echo -e "\n==> Building Debian package ${pkgname_data} from source\n"
 		sleep 2s
-		
+
 		# enter build dir to package attempt
 		cd "${git_dir}"
-	
+
 		# create the tarball from latest tarball creation script
 		# use latest revision designated at the top of this script
-	
+
 		# create source tarball
 		tar -cvzf "${pkgname_data}_${pkgver_data}.orig.tar.gz" "${data_dir}"
-	
+
 		# enter source dir
 		cd "${data_dir}"
-	
+
 		# Create basic changelog format
-	
+
 		cat <<-EOF> changelog.in
-		$pkgname_data (${pkgver_data}-${upstream_rev}) $dist_rel; urgency=low
-	
+		$pkgname_data (${pkgver_data}) $dist_rel; urgency=low
+
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
 		  * Upstream authors and source: $git_url
-	
+
 		 -- $uploader  $date_long
-	
+
 		EOF
-	
+
 		# Perform a little trickery to update existing changelog or create
 		# basic file
 		cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-	
+
 		# open debian/changelog and update
 		echo -e "\n==> Opening changelog for confirmation/changes."
 		sleep 3s
 		nano debian/changelog
-	
+
 	 	# cleanup old files
 	 	rm -f changelog.in
 	 	rm -f debian/changelog.in
-		
+
 		#################################################
 		# Build Debian package (data)
 		#################################################
-	
+
 		echo -e "\n==> Building Debian package ${pkgname_data} from source\n"
 		sleep 2s
-	
+
 		#  build
 		dpkg-buildpackage -rfakeroot -us -uc
-		
+
 		# Move packages to build dir
 		mv ${git_dir}/*${pkgver_data}* "${build_dir}"
-		
+
 	# end build data run
 	fi
 
@@ -230,31 +231,31 @@ main()
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
+
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
+
 	# back out of build temp to script dir if called from git clone
 	if [[ "$scriptdir" != "" ]]; then
 		cd "$scriptdir" || exit
 	else
 		cd "$HOME" || exit
 	fi
-	
+
 	# inform user of packages
 	echo -e "\n############################################################"
 	echo -e "If package was built without errors you will see it below."
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
-	
+
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep -E "${pkgver}|${pkgver_data}"
+	ls ${build_dir}| grep -E "srb2"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

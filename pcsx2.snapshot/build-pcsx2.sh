@@ -23,7 +23,6 @@ time_stamp_start=(`date +"%T"`)
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="pcsx2"
-pkgver="${date_short}"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -115,6 +114,10 @@ main()
         latest_commit=$(git log -n 1 --pretty=format:"%h")
         git checkout $latest_commit 1> /dev/null
 
+	# get latest base release for changelog
+	pkgver_orig=$(git tag | tail -n 1)
+	pkgver=$(sed -ie "|[-|a-z]||g")
+
         # Alter pkg suffix based on commit
         pkgsuffix="git${latest_commit}+bsos${pkgrev}"
 
@@ -168,7 +171,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
-	  * Based release tag: 1.4.0
+	  * Base release tag: $base_release
 	  * Built against latest commit $latest_commit
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url

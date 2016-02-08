@@ -116,7 +116,7 @@ main()
 
 	# get latest base release for changelog
 	pkgver_orig=$(git tag | tail -n 1)
-	pkgver=$(sed -ie "|[-|a-z]||g")
+	pkgver=$(sed -ie "s|[-|a-z]||g")
 
         # Alter pkg suffix based on commit
         pkgsuffix="git${latest_commit}+bsos${pkgrev}"

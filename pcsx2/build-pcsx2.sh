@@ -33,7 +33,7 @@ subpkg1="pcsx2-dbg"
 
 # build dirs
 build_dir="/home/desktop/build-pcsx2-temp"
-git_dir="$build_dir/pcsx2"
+git_dir="$build_dir/${pkgname}"
 git_url="https://github.com/PCSX2/pcsx2"
 branch="master"
 

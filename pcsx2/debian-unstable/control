@@ -41,7 +41,7 @@ Description: Playstation 2 emulator
  this instruction set, it does not have enough horse power to run this emulator
  anyway.
 
-Package: pcsx2-dbg-unstable
+Package: pcsx2-unstable-dbg
 Section: debug
 Priority: extra
 Architecture: i386

@@ -29,7 +29,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # sub-packages (used for copying to package pool only)
-subpkg1="pcsx2-unstable-dbg"
+pkgname_dbg="pcsx2-unstable-dbg"
 
 # build dirs
 build_dir="/home/desktop/build-${pkgname}-temp"
@@ -253,6 +253,7 @@ main()
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/${pkgname}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/${pkgname_dbg}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.

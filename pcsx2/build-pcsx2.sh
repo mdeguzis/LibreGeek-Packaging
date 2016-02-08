@@ -173,7 +173,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
-	  * Packaged form latest release upstream: $base_release
+	  * Packaged form latest release upstream: $release_tag
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

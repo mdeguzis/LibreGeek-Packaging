@@ -117,11 +117,7 @@ main()
 	# get latest base release for changelog 
 	# This is used because upstream does tend to use release tags
 	pkgver_orig=$(git tag | tail -n 1)
-	pkgver=$(sed -i "s|[-|a-z]||g" <<<"$pkgver_orig")
-	
-	echo "pkgver orig: $pkgver_orig"
-	echo "pkgver new: $pkgver_orig"
-	sleep 50s
+	pkgver=$(sed "s|[-|a-z]||g" <<<"$pkgver_orig")
 
         # Alter pkg suffix based on commit
         pkgsuffix="git${latest_commit}+bsos${pkgrev}"

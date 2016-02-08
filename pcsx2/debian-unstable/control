@@ -26,6 +26,7 @@ Standards-Version: 3.9.5
 Homepage: http://pcsx2.net/
 
 Package: pcsx2-unstable
+Section: games
 Architecture: i386
 # -i686 allow to use SSE into libc6
 Depends: ${shlibs:Depends}, ${misc:Depends}, libc6-i686
@@ -42,7 +43,7 @@ Description: Playstation 2 emulator
  anyway.
 
 Package: pcsx2-unstable-dbg
-Section: debug
+Section: games
 Priority: extra
 Architecture: i386
 Depends: ${misc:Depends}, pcsx2-unstable (= ${binary:Version})

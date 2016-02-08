@@ -4,7 +4,7 @@
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  build-pcsx2.sh
-# Script Ver:	  0.9.5
+# Script Ver:	  0.9.7
 # Description:	  Attempts to build a deb package from PCSX2 git source
 #		  It is highly suggested to build in a 32 bit environment!!!
 #		  Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
@@ -114,9 +114,13 @@ main()
         latest_commit=$(git log -n 1 --pretty=format:"%h")
         git checkout $latest_commit 1> /dev/null
 
-	# get latest base release for changelog
+	# get latest base release for changelog 
+	# This is used because upstream does tend to use release tags
 	pkgver_orig=$(git tag | tail -n 1)
 	pkgver=$(sed -ie "s|[-|a-z]||g" <<<"$pkgver_orig")
+	
+	echo "$pkgver_orig"
+	sleep 50s
 
         # Alter pkg suffix based on commit
         pkgsuffix="git${latest_commit}+bsos${pkgrev}"

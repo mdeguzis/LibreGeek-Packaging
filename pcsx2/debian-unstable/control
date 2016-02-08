@@ -22,7 +22,7 @@ Build-Depends: cmake (>= 2.8.5),
     locales | locales-all,
     portaudio19-dev,
     zlib1g-dev (>= 1:1.2.3.3)
-Standards-Version: 3.9.3
+Standards-Version: 3.9.5
 Homepage: http://pcsx2.net/
 
 Package: pcsx2-unstable

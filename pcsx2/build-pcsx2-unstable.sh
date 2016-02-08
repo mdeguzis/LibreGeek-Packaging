@@ -32,8 +32,8 @@ maintainer="ProfessorKaos64"
 subpkg1="pcsx2-unstable-dbg"
 
 # build dirs
-build_dir="/home/desktop/build-pcsx2-temp"
-git_dir="$build_dir/${pkgname}"
+build_dir="/home/desktop/build-${pkgname}-temp"
+git_dir="${build_dir}/${pkgname}"
 git_url="https://github.com/PCSX2/pcsx2"
 branch="master"
 

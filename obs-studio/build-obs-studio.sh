@@ -20,7 +20,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/jp9000/obs-studio"
-rel_target="0.13.0"
+rel_target="0.13.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -115,7 +115,14 @@ main()
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
-	
+
+	  * Latest $rel_target release from upstream:
+	   * Fixed another bug where audio could shut off for sources under certain circumstances
+	   * Fixed a bug where if the media source's "restart when active" setting was enabled, it would start up active even in an inactive scene
+	   * Fixed a bug where rotation would not be preserved when transitioning in Studio Mode
+	   * Fixed a bug where the scene would always be duplicated regardless of whether scene duplication mode is on if you turn on Studio Mode
+	   * You can now right-click things in the preview without it trying to perform a selection action (preserves selection on right-click)
+	   * The program now uses FLAC for audio when using lossless mode in simple output
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url

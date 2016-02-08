@@ -150,7 +150,7 @@ main()
 	# rm -rf  $git_dir/.git
 	
 	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	cp -r $scriptdir/debian-unstable "${git_dir}/debian"
 
 	#################################################
 	# Build platform
@@ -253,7 +253,7 @@ main()
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian-unstable"
 
 		fi
 

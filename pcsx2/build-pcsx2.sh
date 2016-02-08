@@ -35,7 +35,7 @@ subpkg1="pcsx2-dbg"
 build_dir="/home/desktop/build-pcsx2-temp"
 git_dir="$build_dir/pcsx2"
 git_url="https://github.com/PCSX2/pcsx2"
-rel_target="master"
+branch="master"
 
 # package vars
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -109,18 +109,19 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	
 	# clone and checkout desired commit
-        git clone -b "$rel_target" "$git_url" "${git_dir}"
+        git clone -b "$branch" "$git_url" "${git_dir}"
         cd "${git_dir}"
-        latest_commit=$(git log -n 1 --pretty=format:"%h")
-        git checkout $latest_commit 1> /dev/null
-
-	# get latest base release for changelog 
-	# This is used because upstream does tend to use release tags
-	pkgver_orig=$(git tag | tail -n 1)
-	pkgver=$(sed "s|[-|a-z]||g" <<<"$pkgver_orig")
+        
+	# get latest base release
+	# This is used because upstream does tends to use release tags
+	release_tag=$(git tag | tail -n 1)
+	git checkout $release_tag 1> /dev/null
+	
+	# cleanup for pkg version naming
+	pkgver=$(sed "s|[-|a-z]||g" <<<"$release_tag")
 
         # Alter pkg suffix based on commit
-        pkgsuffix="${latest_commit}git+bsos${pkgrev}"
+        pkgsuffix="git+bsos${pkgrev}"
 
 	#################################################
 	# Prepare build (upstream-specific)
@@ -172,8 +173,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
-	  * Base release tag: $base_release
-	  * Built against latest commit $latest_commit
+	  * Packaged form latest release upstream: $base_release
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

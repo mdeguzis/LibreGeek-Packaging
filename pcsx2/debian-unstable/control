@@ -1,4 +1,4 @@
-Source: pcsx2
+Source: pcsx2-unstable
 Section: games
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
@@ -25,7 +25,7 @@ Build-Depends: cmake (>= 2.8.5),
 Standards-Version: 3.9.3
 Homepage: http://pcsx2.net/
 
-Package: pcsx2
+Package: pcsx2-unstable
 Architecture: i386
 # -i686 allow to use SSE into libc6
 Depends: ${shlibs:Depends}, ${misc:Depends}, libc6-i686
@@ -41,7 +41,7 @@ Description: Playstation 2 emulator
  this instruction set, it does not have enough horse power to run this emulator
  anyway.
 
-Package: pcsx2-dbg
+Package: pcsx2-dbg-unstable
 Section: debug
 Priority: extra
 Architecture: i386

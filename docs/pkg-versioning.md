@@ -26,22 +26,39 @@ kismet-1.0-5.20050517cvs%{?dist} (new cvs checkout, note the increment of %{X})
 
 ***
 
-##  Clone and checkout desired commit
+##  Base release off latest release tag
 
 ```
-git clone -b "$rel_target" "$git_url" "${git_dir}"
+# clone and checkout desired commit
+git clone -b "$branch" "$git_url" "${git_dir}"
+cd "${git_dir}"
+
+# get latest base release
+# This is used because upstream does tends to use release tags
+release_tag=$(git tag | tail -n 1)
+git checkout $release_tag 1> /dev/null
+
+# cleanup for pkg version naming
+pkgver=$(sed "s|[-|a-z]||g" <<<"$release_tag")
+
+# Alter pkg suffix based on commit
+pkgsuffix="git+bsos${pkgrev}"
+```
+
+##  Base release off latest commit (for "unstable packages")
+
+```
+# clone and checkout desired commit
+git clone -b "$branch "$git_url" "${git_dir}"
 cd "${git_dir}"
 latest_commit=$(git log -n 1 --pretty=format:"%h")
 git checkout $latest_commit 1> /dev/null
-```
 
-## Get latest base release for changelog
-If no base release tag exists, try to search the code. If there is absolutely no trace of a version, use a short-data format. Some projects do not update release tags. In this case, if a version is not foudn in the code, use your best judgement.
-
-```
+# get latest base release for changelog 
+# This is used because upstream does tend to use release tags
 pkgver_orig=$(git tag | tail -n 1)
-pkgver=$(sed -ie "|[-|a-z]||g")
-```
+pkgver=$(sed "s|[-|a-z]||g" <<<"$pkgver_orig")
 
-## Alter pkg suffix based on commit
-pkgsuffix="git${latest_commit}+bsos${pkgrev}"
+# Alter pkg suffix based on commit
+pkgsuffix="${latest_commit}git+bsos${pkgrev}"
+```

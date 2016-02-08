@@ -35,7 +35,7 @@ subpkg1="pcsx2-dbg"
 build_dir="/home/desktop/build-pcsx2-temp"
 git_dir="$build_dir/pcsx2"
 git_url="https://github.com/PCSX2/pcsx2"
-rel_target="master"
+branch="master"
 
 # package vars
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -109,7 +109,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	
 	# clone and checkout desired commit
-        git clone -b "$rel_target" "$git_url" "${git_dir}"
+        git clone -b "$branch" "$git_url" "${git_dir}"
         cd "${git_dir}"
         latest_commit=$(git log -n 1 --pretty=format:"%h")
         git checkout $latest_commit 1> /dev/null

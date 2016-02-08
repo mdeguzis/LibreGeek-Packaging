@@ -1,5 +1,5 @@
-#Pkg versioning ([from Fedora](https://fedoraproject.org/wiki/Packaging:NamingGuidelines#Snapshot_packages))
-Snapshot packages contain data about where the snapshot came from as well as ordering information for rpm. The information about the snapshot will be called %{checkout} in this section.
+#Pkg versioning
+[Snapshot packages](https://fedoraproject.org/wiki/Packaging:NamingGuidelines#Snapshot_packages) contain data about where the snapshot came from as well as ordering information for rpm. The information about the snapshot will be called %{checkout} in this section.
 
 %{checkout} consists of the date that the snapshot is made in YYYYMMDD format, a short (2-5 characters) string identifying the type of revision control system or that this is a snapshot, and optionally, up to 13 characters (ASCII) alphanumeric characters that could be useful in finding the revision in the revision control system.
 

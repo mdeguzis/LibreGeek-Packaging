@@ -120,7 +120,7 @@ main()
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$pkgver_orig")
 
         # Alter pkg suffix based on commit
-        pkgsuffix="git${latest_commit}+bsos${pkgrev}"
+        pkgsuffix="${latest_commit}git+bsos${pkgrev}"
 
 	#################################################
 	# Prepare build (upstream-specific)

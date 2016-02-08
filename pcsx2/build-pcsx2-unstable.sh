@@ -22,7 +22,7 @@ time_stamp_start=(`date +"%T"`)
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="pcsx2"
+pkgname="pcsx2-unstable"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

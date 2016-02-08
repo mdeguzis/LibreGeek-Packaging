@@ -160,6 +160,9 @@ main()
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script
+	
+	# enter build dir to create tarball
+	cd ${build_dir}
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"

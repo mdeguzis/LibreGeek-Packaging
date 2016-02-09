@@ -84,7 +84,7 @@ main()
 	# Search and validate
 	#################################################
 	
-	echo -e "\n==> Check for existance of : ${npm_pkg_name}?"
+	echo -e "\n==> Check for existance of: ${npm_pkg_name}?"
 	echo -e "    (building local index takes time!)\n"
 	sleep 0.5s
 	
@@ -148,7 +148,7 @@ main()
 		
 		cat<<- EOF> create_git_temp
 		#!/bin/bash
-		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}''
+		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
 		git remote add origin git@github.com:USERNAME/PKGNAME.git
 		EOF
 		

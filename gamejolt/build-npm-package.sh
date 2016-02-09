@@ -153,8 +153,10 @@ main()
 		EOF
 		
 		# swap the vars
-		sed -ie "g|USERNAME|$GIT_USERNAME|g" create_git_temp
-		sed -ie "g|PKGNAME|$pkgname|g" create_git_temp
+		DESCRIPTION="Pacakged for SteamOS"
+		sed -i "g|DESCRIPTION|$DESCRIPTION|g" create_git_temp
+		sed -i "g|USERNAME|$GIT_USERNAME|g" create_git_temp
+		sed -i "g|PKGNAME|$pkgname|g" create_git_temp
 		
 		# execute and cleanup
 		bash create_git_temp && rm -f create_git_temp

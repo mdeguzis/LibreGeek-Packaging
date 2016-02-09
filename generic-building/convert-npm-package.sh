@@ -271,7 +271,7 @@ main()
 	# Add Debianized files to repo
 	echo -e "\n==> Injecting Debian files\n"
 	sleep 2s
-	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
+	cp -rf ${npm_temp_dir}/${npm_pkg_name}/* .
 	
 	echo -e "\n==> Modifying Debian package files"
 	sleep 2s
@@ -292,13 +292,13 @@ main()
 	sed -i "s| (Closes: #nnnn)||g" "$debian_dir/changelog"
 	# control
 	sed -i "s|FIX_ME debian author|$uploader|g" "$debian_dir/control"
-	sed -i "s|FIX_ME repo url|$git_url|g" "$debian_dir/control"
+	sed -i "s|FIX_ME repo url|$upstream_source|g" "$debian_dir/control"
 	sed -i "s|FIX_ME debian author|$maintainer|g" "$debian_dir/control"
 	sed -i "s|FIX_ME long description|$description_long|g" "$debian_dir/control"
 	# copyright
 	sed -i "s|FIX_ME debian author|$maintainer|g" "$debian_dir/copyright"
 	# watch (optional)
-	sed -i "s|FIX_ME repo url|$upstream_source|g" "$debian_dir/watch"
+	sed -i "s|# Origin url: FIX_ME repo url|Origin url: $upstream_source|g" "$debian_dir/watch"
 	sed -i '/fakeupstream/d' "$debian_dir/watch"
 	
 	# Open debian files for confirmation

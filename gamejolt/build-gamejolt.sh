@@ -49,8 +49,8 @@ install_prereqs()
 	fi
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper nodejs gcc-4.9 \
-	gcc-4.9-multilib g++-4.9-multilib
+	sudo apt-get install -y --force-yes build-essential bc debhelper npm nodejs \
+	npm2deb gcc-4.9 gcc-4.9-multilib g++-4.9-multilib
 
 	# Need to "debianize" gulp and bower
 	# See: https://www.npmjs.com/package/npm2debian

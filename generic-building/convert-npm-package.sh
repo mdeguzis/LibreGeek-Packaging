@@ -179,22 +179,6 @@ main()
 		# execute
 		bash create_git_temp
 		
-	else
-	
-		# check for dir in $HOME, clone if not there
-		if [[ -d "$HOME/${pkgname}" ]]; then
-		
-			 cd "$HOME/${pkgname}" || exit
-			 
-		else
-		
-			echo -e "repository not found at $HOME location, cloning..."
-			cd || exit 
-			git clone "${git_url}" "${pkgname}"
-			cd "${pkgname}" || exit
-		
-		fi
-		
 	fi
 
 	#################################################
@@ -205,8 +189,17 @@ main()
 	echo -e "\n==> Cloning repository\n"
 	sleep 2s
 	
-	git clone "${git_url}" "${local_git_dir}"
-	cd "${git_dir}" || exit
+	if [[ -d "${local_git_dir}" ]]; then
+	
+		cd "${local_git_dir}"
+		git pull
+	
+	else
+	
+		git clone "${git_url}" "${local_git_dir}"
+		cd "${local_git_dir}" || exit
+		
+	fi
 	
 	# Add Debianized files to repo
 	echo -e "\n==> Injecting Debian files\n"
@@ -253,7 +246,7 @@ main()
 		git checkout "tags/${tag_choice}"
 	        
 	        # copy source files and cleanup
-	        cd "${git_dir}" || exit
+	        cd "${local_git_dir}" || exit
 	        cp -rv /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
 	        ;;
 	        

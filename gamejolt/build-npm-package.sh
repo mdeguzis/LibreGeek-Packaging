@@ -144,10 +144,20 @@ main()
 	if [[ "$git_missing" != "" ]]; then
 	
 		# create repo using git api
-		curl -u "$GIT_USERNAME" https://api.github.com/user/repos -d "{"name":"$pkgname","description":"$pkgname for SteamOS"}"
+		# This is too tricky with globbing/expanding the repo vars, so create a temp command
 		
-		# Remember replace USER with your username and REPO with your repository/application name!
-		git remote add origin git@github.com:${GIT_USERNAME}/${pkgname}.git
+		cat<<- EOF> create_git_temp
+		#!/bin/bash
+		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}''
+		git remote add origin git@github.com:USERNAME/PKGNAME.git
+		EOF
+		
+		# swap the vars
+		sed -ie "g|USERNAME|$GIT_USERNAME|g" create_git_temp
+		sed -ie "g|PKGNAME|$pkgname|g" create_git_temp
+		
+		# execute and cleanup
+		bash create_git_temp && rm -f create_git_temp
 		
 		# push new repo
 		if cd ${pkgname} && git push origin master; then

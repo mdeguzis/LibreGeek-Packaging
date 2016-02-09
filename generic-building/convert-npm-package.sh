@@ -247,8 +247,9 @@ main()
 		# checkout proper release
 		git checkout "tags/${tag_choice}"
 	        
-	        # copy source files and cleanup (overwrite generated files from upsteam)
-	        cp -rfv /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
+	        # copy source files and cleanup
+	        cd "${git_dir}" || exit
+	        cp /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
 	        ;;
 	        
 	        2)

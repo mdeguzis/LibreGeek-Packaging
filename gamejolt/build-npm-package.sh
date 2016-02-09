@@ -189,15 +189,11 @@ main()
 	# Add Debianized files to repo
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
-	# testing
-	ls
-	echo "sleeping" && sleep 50s
-	
 	# correct and update resultant files pushed by npm2deb
-	nano debian/${pkgname}/changelog
-	nano debian/${pkgname}/debian/control
-	nano debian/${pkgname}/debian/copyright
-	nano debian/${pkgname}/watch
+	nano ${pkgname}/debian/changelog
+	nano ${pkgname}/debian/debian/control
+	nano ${pkgname}/debian/debian/copyright
+	nano ${pkgname}/debian/watch
 	
 	# Furture TODO? Monitor debian/watch for new package
 	# 'uscan --download-current-verion'

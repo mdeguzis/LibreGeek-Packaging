@@ -75,7 +75,7 @@ main()
 	fi
 
 	# enter build dir
-	cd "$npm_temp_dir" || exit
+	cd "${npm_temp_dir}" || exit
 
 	# install prereqs for build
 	install_prereqs
@@ -140,7 +140,7 @@ main()
 	if [[ "$git_exists" != "" ]]; then
 	
 		# create repo using git api
-		curl -u '${GIT_USERNAME}' https://api.github.com/user/repos -d '{"name":"${npm_pkg_name}"}'
+		curl -u '${GIT_USERNAME}' https://api.github.com/user/repos -d '{"name":"$npm_pkg_name"}'
 		
 		# Remember replace USER with your username and REPO with your repository/application name!
 		git remote add origin git@github.com:${GIT_USERNAME}/${npm_pkg_name}.git
@@ -201,7 +201,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "$pkgname"
+	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# Enter git dir to build
 	cd "${git_dir}"

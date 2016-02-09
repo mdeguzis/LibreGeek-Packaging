@@ -72,6 +72,7 @@ main()
 
 		sudo rm -rf "$npm_temp_dir"
 		mkdir -p "$npm_temp_dir"
+		sudo rm -rf "$git_dir"
 
 	else
 
@@ -259,7 +260,7 @@ main()
 	files="changelog control copyright watch"
 	
 	# only edit file if it exists
-	for file in "${file}"
+	for file in "${files}"
 	do
 		if [[ -f "$debian_dir/$file" ]]; then
 		

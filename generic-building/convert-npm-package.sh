@@ -149,7 +149,7 @@ main()
 	# Create/sync files to github repository
 	#################################################
 	
-	echo -e "\n==> Checking for Creating GitHub repository"
+	echo -e "\n==> Checking for existance of our GitHub repository"
 	sleep 2s
 	
 	# create repository if it does not exist
@@ -227,9 +227,26 @@ main()
 	case "$web_app_choice" in
 	        
 	        1)
+	        
 	        # using GitHub
 	        read -erp "Enter GitHub repository: " upsteam_source
-	        git clone "${upsteam_source}" "/tmp/git_temp"
+	        git clone "${upsteam_source}" "/tmp/git_temp" 
+	        cd "/tmp/git_tmp"
+	        
+	        # Checkout tag# show tags instead of branches
+		git tag -l --column
+
+		echo -e "\nWhich  release do you wish to build for:"
+		echo -e "Type 'master' to use the master tree\n"
+
+		# get user choice
+		sleep 0.2s
+		read -erp "Release Choice: " git_choice
+
+		# checkout proper release
+		git checkout "tags/${tag_choice}"
+	        
+	        # copy source files and cleanup
 	        cp -r /tmp/git_temp/* . && rm -rf /tmp/git_temp
 	        ;;
 	        

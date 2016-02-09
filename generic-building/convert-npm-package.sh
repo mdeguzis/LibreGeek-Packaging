@@ -249,7 +249,7 @@ main()
 	        
 	        # copy source files and cleanup
 	        cd "${git_dir}" || exit
-	        cp /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
+	        cp -rv /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
 	        ;;
 	        
 	        2)

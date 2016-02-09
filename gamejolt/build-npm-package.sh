@@ -140,7 +140,7 @@ main()
 	if [[ "$git_exists" != "" ]]; then
 	
 		# create repo using git api
-		curl -u '${GIT_USERNAME}' https://api.github.com/user/repos -d '{"name":"$npm_pkg_name"}'
+		curl -u '${GIT_USERNAME}' https://api.github.com/user/repos -d '{"name":"${npm_pkg_name}"}'
 		
 		# Remember replace USER with your username and REPO with your repository/application name!
 		git remote add origin git@github.com:${GIT_USERNAME}/${npm_pkg_name}.git
@@ -157,8 +157,8 @@ main()
 		
 			echo -e "repository not foudn at $HOME location, cloning..."
 			cd
-			git clone "${git_url}" "${npm_pkg_name}"}'
-			cd "${npm_pkg_name}"}'
+			git clone "${git_url}" "${npm_pkg_name}"
+			cd "${npm_pkg_name}"
 		
 		fi
 	

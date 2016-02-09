@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-npm-package.sh
-# Script Ver:	0.3.1
+# Script Ver:	0.5.1
 # Description:	Builds simple Debian package from npm module and uploads to 
 #		GitHub
 #
@@ -190,10 +190,17 @@ main()
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
 	# correct and update resultant files pushed by npm2deb
+	sed -i "s|UNRELEASED|$dist_rel|g" node-${npm_pkg_name}/debian/changelog
+	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/changelog
+	
+	# Open debian files for confirmation
 	nano node-${npm_pkg_name}/debian/changelog
-	nano node-${npm_pkg_name}/debian/debian/control
-	nano node-${npm_pkg_name}/debian/debian/copyright
+	nano node-${npm_pkg_name}/debian/control
+	nano node-${npm_pkg_name}/debian/copyright
 	nano node-${npm_pkg_name}/debian/watch
+	
+	# exit for now until the above is "solid"
+	exit 1
 	
 	# Furture TODO? Monitor debian/watch for new package
 	# 'uscan --download-current-verion'

@@ -36,7 +36,6 @@ git_url="https://github.com/${GIT_USERNAME}/${pkgname}"
 
 # set build_dir
 npm_temp_dir="$HOME/${pkgname}-temp"
-build_dir="$HOME/build-${pkgname}-temp"
 git_dir="${npm_temp_dir}/${npm_pkg_name}"
 
 # bail out if not arg
@@ -70,14 +69,11 @@ main()
 	# create build_dir
 	if [[ -d "$build_dir" ]]; then
 
-		sudo rm -rf "$build_dir"
 		sudo rm -rf "$npm_temp_dir"
-		mkdir -p "$build_dir"
 		mkdir -p "$npm_temp_dir"
 
 	else
 
-		mkdir -p "$build_dir"
 		mkdir -p "$npm_temp_dir"
 
 	fi
@@ -102,7 +98,7 @@ main()
 	
 		# search
 		npm search ${npm_pkg_name}
-	
+
 	fi
 
 	echo -e "\n==> Please review the dependencies for package: ${npm_pkg_name}"
@@ -119,7 +115,7 @@ main()
 		exit 1
 	fi
 
-	echo -e "\n==> Check if someone else has already started working on this module..."
+	echo -e "\n==> Checking if someone else has already started working on this module..."
 	sleep 2s
 	
 	npm2deb search bower
@@ -160,13 +156,14 @@ main()
 	sleep 2s
 	
 	# create repository if it does not exist
+	# create debianized files in temp npm_temp_dir under $HOME
 	cd $HOME
 	
 	git_missing=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${pkgname} | grep "Not Found")
 	
 	if [[ "$git_missing" != "" ]]; then
 	
-		echo -e "\n==INFO==\nRepository missing, creating GitHub repository via API\n"
+		echo -e "\nRepository missing, creating GitHub repository via API\n"
 		sleep 2s
 	
 		# create repo using git api
@@ -212,9 +209,6 @@ main()
 	# Enter new repo
 	cd "${git_dir}" || exit 
 	
-	# Add Debianized files to repo
-	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
-	
 	# add basic readme
 	touch README.md
 	cat <<-EOF > README.md
@@ -243,10 +237,18 @@ main()
 	sed -i '/fakeupstream/d' node-${npm_pkg_name}/debian/watch
 	
 	# Open debian files for confirmation
-	nano node-${npm_pkg_name}/debian/changelog
-	nano node-${npm_pkg_name}/debian/control
-	nano node-${npm_pkg_name}/debian/copyright
-	nano node-${npm_pkg_name}/debian/watch
+	file="changelog control copyright watch"
+	
+	# only edit file if it exists
+	for entry in "${file}"
+	do
+		if [[ -f "$file" ]]; then
+		
+			nano node-${npm_pkg_name}/debian/${file}
+		
+		fi
+		
+	done
 
 	#################################################
 	# Sync to remote
@@ -285,5 +287,15 @@ main()
 
 }
 
-# start main
-main
+# start main and log to tmp
+main | tee "/tmp/${pkgname}-log-temp.txt"
+
+# convert log file to Unix compatible ASCII
+strings "/tmp/${pkgname}-log-temp.txt" > "/tmp/${pkgname}-log.txt"
+
+# strings does catch all characters that I could 
+# work with, final cleanup
+sed -i 's|\[J||g' "/tmp/${pkgname}-log.txt"
+
+# remove file not needed anymore
+rm -f "/tmp/${pkgname}-log-temp.txt"

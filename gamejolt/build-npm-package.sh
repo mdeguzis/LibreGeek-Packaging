@@ -84,8 +84,8 @@ main()
 	# Search and validate
 	#################################################
 	
-	echo -e "\n==> Check for existance of : ${npm_pkg_name}? \n"
-	echo -e "   (building local index takes time!)\n"
+	echo -e "\n==> Check for existance of : ${npm_pkg_name}?"
+	echo -e "    (building local index takes time!)\n"
 	sleep 0.5s
 	
 	read -erp "Choice [y/n]: " search_npm
@@ -140,7 +140,7 @@ main()
 	if [[ "$git_missing" != "" ]]; then
 	
 		# create repo using git api
-		curl -u '${GIT_USERNAME}' https://api.github.com/user/repos -d '{"name":"${npm_pkg_name}"}'
+		curl -u "${GIT_USERNAME}' https://api.github.com/user/repos -d '{"name":"${npm_pkg_name}"}"
 		
 		# Remember replace USER with your username and REPO with your repository/application name!
 		git remote add origin git@github.com:${GIT_USERNAME}/${npm_pkg_name}.git

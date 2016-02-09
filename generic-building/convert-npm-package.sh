@@ -36,8 +36,8 @@ GIT_USERNAME="ProfessorKaos64"
 git_url="https://github.com/${GIT_USERNAME}/${pkgname}.git"
 
 # set build_dirs
-npm_temp_dir="$HOME/${pkgname}-temp"
-git_dir="$npm_temp_dir/${pkgname}-git"
+npm_temp_dir="$HOME/${pkgname}temp"
+local_git_dir="$HOME/${pkgname}-git"
 
 # bail out if not arg
 if [[ "$npm_pkg_name" == "" ]]; then
@@ -205,8 +205,13 @@ main()
 	echo -e "\n==> Cloning repository\n"
 	sleep 2s
 	
-	git clone "${git_url}" "${git_dir}"
+	git clone "${git_url}" "${local_git_dir}"
 	cd "${git_dir}" || exit
+	
+	# Add Debianized files to repo
+	echo -e "\n==> Injecting Debian files\n"
+	sleep 2s
+	cp -i ${npm_temp_dir}/${npm_pkg_name}/* .
 	
 	cat<<- EOF
 	
@@ -269,10 +274,6 @@ main()
 	# Alter Debian packaging files
 	#################################################
 	
-	# Add Debianized files to repo
-	echo -e "\n==> Injecting Debian files\n"
-	sleep 2s
-	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
 	echo -e "\n==> Modifying Debian package files"
 	sleep 2s

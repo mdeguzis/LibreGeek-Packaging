@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	convert-npm-package.sh
-# Script Ver:	0.8.1
+# Script Ver:	0.9.1
 # Description:	Builds simple Debian package from npm module and uploads to 
 #		GitHub. Creates repo if it doesn't exist.
 #
@@ -106,7 +106,7 @@ main()
 	fi
 
 	echo -e "\n==> Please review the dependencies for package: ${npm_pkg_name}"
-	sleep 3s
+	sleep 2s
 	
 	echo -e "\nGenerating dependency list, please wait..."
 	npm2deb depends -b -r ${npm_pkg_name} &> ${npm_pkg_name}.deps
@@ -210,7 +210,7 @@ main()
 	#################################################
 	
 	# Enter new repo
-	cd "$HOME/${pkgname}" || exit 
+	cd "${git_dir}" || exit 
 	
 	# Add Debianized files to repo
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .

@@ -173,6 +173,7 @@ main()
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
 		git remote add origin git@github.com:USERNAME/PKGNAME.git
 		echo "Initializing PKGNAME repository"
+		git push origin master
 		EOF
 		
 		# swap the vars

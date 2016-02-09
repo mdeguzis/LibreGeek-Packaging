@@ -174,11 +174,11 @@ main()
 		
 		# swap the vars
 		DESCRIPTION="$pkgname packged for SteamOS"
-		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
-		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
-		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
+		sed -i "s|DESCRIPTION|$DESCRIPTION|g" "$HOME/create_git_temp"
+		sed -i "s|USERNAME|$GIT_USERNAME|g" "$HOME/create_git_temp"
+		sed -i "s|PKGNAME|$pkgname|g" "$HOME/create_git_temp"
 		
-		# execute under $HOME
+		# execute under $HOME to easily locate the repo
 		cd $HOME && bash create_git_temp && rm -f create_git_temp
 		
 	else

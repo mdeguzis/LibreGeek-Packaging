@@ -27,7 +27,7 @@ pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-DESCRIPTION="$pkgname packged for SteamOS"
+DESCRIPTION="Debianized $npg_pkg_name, packaged for SteamOS"
 description_long="Converted Debain package using npm2deb"
 
 # upstream vars

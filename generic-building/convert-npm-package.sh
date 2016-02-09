@@ -70,6 +70,7 @@ main()
 	# create build_dir
 	if [[ -d "$npm_temp_dir" ]]; then
 
+		sudo rm -rf "/tmp/source_tmp"
 		sudo rm -rf "$npm_temp_dir"
 		mkdir -p "$npm_temp_dir"
 
@@ -230,8 +231,8 @@ main()
 	        
 	        # using GitHub
 	        read -erp "Enter GitHub repository: " upsteam_source
-	        git clone "${upsteam_source}" "/tmp/git_tmp" 
-	        cd "/tmp/git_tmp"
+	        git clone "${upsteam_source}" "/tmp/source_tmp" 
+	        cd "/tmp/source_tmp"
 	        
 	        # Checkout tag# show tags instead of branches
 		git tag -l --column
@@ -241,13 +242,13 @@ main()
 
 		# get user choice
 		sleep 0.2s
-		read -erp "Release Choice: " git_choice
+		read -erp "Release Choice: " tag_choice
 
 		# checkout proper release
 		git checkout "tags/${tag_choice}"
 	        
 	        # copy source files and cleanup
-	        cp -r /tmp/git_temp/* . && rm -rf /tmp/git_temp
+	        cp -r /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
 	        ;;
 	        
 	        2)

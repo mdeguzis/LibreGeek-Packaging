@@ -113,6 +113,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
+	  * Update gamepad profiles against latest commit "${latest_commit}"
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url

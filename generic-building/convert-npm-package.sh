@@ -270,7 +270,11 @@ main()
 	
 	# Add Debianized files to repo
 	echo -e "\n==> Injecting Debian files\n"
+	sleep 2s
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
+	
+	echo -e "\n==> Modifying Debian package files"
+	sleep 2s
 	
 	# add basic readme
 	touch README.md
@@ -278,9 +282,6 @@ main()
 	# ${pkgname}
 	Converted NPM package
 	EOF
-	
-	echo -e "\n==> Modifying Debian package files"
-	sleep 2s
 	
 	# correct and update resultant files pushed by npm2deb
 	debian_dir="node-${npm_pkg_name}/debian"

@@ -124,6 +124,9 @@ main()
 	
 	read -erp "Choice [y/n]: " npm_exists
 	
+	# Furture TODO? Monitor debian/watch for new package
+	# 'uscan --download-current-verion'
+	
 	if [[ "$npm_exists" == "n" ]]; then
 	
 		# create
@@ -141,7 +144,7 @@ main()
 	fi
 	
 	#################################################
-	# Sync files to github repository
+	# Create/sync files to github repository
 	#################################################
 	
 	echo -e "\n==> Checking for Creating GitHub repository"
@@ -194,11 +197,22 @@ main()
 		
 	fi
 	
+	#################################################
+	# Alter Debian packaging files
+	#################################################
+	
 	# Enter new repo
 	cd "$HOME/${pkgname}" || exit 
 	
 	# Add Debianized files to repo
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
+	
+	# add basic readme
+	touch README.md
+	cat <<-EOF > README.md
+	# ${pkgname}
+	Converted NPM package
+	EOF
 	
 	echo -e "\n==> Modifying Debian package files"
 	sleep 2s
@@ -225,9 +239,10 @@ main()
 	nano node-${npm_pkg_name}/debian/control
 	nano node-${npm_pkg_name}/debian/copyright
 	nano node-${npm_pkg_name}/debian/watch
-	
-	# Furture TODO? Monitor debian/watch for new package
-	# 'uscan --download-current-verion'
+
+	#################################################
+	# Sync to remote
+	#################################################
 
 	# push changes
 	git add .

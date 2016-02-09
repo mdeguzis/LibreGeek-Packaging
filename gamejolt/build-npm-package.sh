@@ -28,6 +28,11 @@ dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
+# testing, check vars
+echo "npm pkg= ${npm_pkg_name}"
+echo "pkgname= ${pkgname}"
+sleep 50s
+
 # upstream vars
 branch="master"
 GIT_USERNAME="ProfessorKaos64"

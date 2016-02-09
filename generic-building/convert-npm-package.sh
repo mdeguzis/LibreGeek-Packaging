@@ -168,19 +168,19 @@ main()
 		# create in $HOME for easy identification
 		cat<<- EOF> create_git_temp
 		#!/bin/bash
-		cd BUIDLOC
+		cd BUILDLOC || exit
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
 		EOF
 		
 		# swap the vars
 		DESCRIPTION="$pkgname packged for SteamOS"
-		sed -i "s|BUIDLOC|$HOME|g" create_git_temp
+		sed -i "s|BUILDLOC|$HOME|g" create_git_temp
 		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
 		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
 		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
 		
-		# execute and cleanup
-		bash create_git_temp && rm -f create_git_temp
+		# execute
+		bash create_git_temp
 		
 	else
 	

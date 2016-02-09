@@ -55,6 +55,7 @@ install_prereqs()
 	# Need to "debianize" gulp and bower
 	# See: https://www.npmjs.com/package/npm2debian
 	# See: https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
+	# Per package.json, try to match gulp (~3.8.1)
 
 }
 

@@ -2,34 +2,35 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-gamejolt.sh
+# Scipt Name:	build-npm-package.sh
 # Script Ver:	0.1.1
-# Description:	Builds simple pacakge for using gamejolt based of of master upstream
-#		git source (unstable build)
+# Description:	Builds simple Debian package from npm module and uploads to 
+#		GitHub
 #
-# See:		https://github.com/gamejolt/
+# See:		https://www.npmjs.com/package/npm-package-search
+# See:		https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
 #
-# Usage:	./build-gamejolt.sh
+# Usage:	./build-npm-package.sh [npm_module]
 #-------------------------------------------------------------------------------
 
-arg1="$1"
+npm_pkg_name="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-# upstream vars
-git_url="https://github.com/scottrice/Ice"
-rel_target="master"
-
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="ice-steamos-unstable"
+pkgname="npm-${npm_pkg_name}"
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
+
+# upstream vars
+git_url="https://github.com/ProfessorKaos64/${pkgname}"
+rel_target="master"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
@@ -49,11 +50,7 @@ install_prereqs()
 	fi
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper nodejs gcc-4.9 \
-	gcc-4.9-multilib g++-4.9-multilib
-
-	# Need to "debianize" gulp and bower
-	# See: https://www.npmjs.com/package/npm2debian
+	sudo apt-get install -y --force-yes build-essential bc debhelper npm npm2deb
 
 }
 
@@ -77,24 +74,42 @@ main()
 
 	# install prereqs for build
 	install_prereqs
+	
+	echo -e "\n==> Please review the dependencies for package: ${pkgname}\n"
+	sleep 3s
+	
+	npm2deb depends -b -r ${npm_pkg_name}
+
+	echo -e "\n==> Check if someone else has already started working on this module...\n"
+	sleep 2s
+	
+	npm2deb search bower
+	
+	echo -e "\n==> Has anyone started packaging this module?\n"
+	sleep 1s
+	
+	read -erp "Choice [y/n]: " npm_exists
+	
+	if [[ "$npm_exists" == "n" ]]; then
+	
+		# exit
+		echo -e "\n==ERROR==\nNo module named ${npm_pkg_name} exists!\n"
+		sleep 2s
+		exit 1
+	
+	else
+	
+		# view module
+		npm2deb view ${npm_pkg_name}
+		
+		# build 
+		npm2deb create ${npm_pkg_name}
+	
+	fi
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and checkout desired commit
-	git clone --recursive -b "$rel_target" "$git_url" "${git_dir}"
-	cd "${git_dir}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	git checkout $latest_commit 1> /dev/null
 	
-	# source pkgver
-	pkgver=$(grep version package.json | cut -c  15-19)
-
-	# Alter pkg suffix based on commit
-	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
-
-	# Add debian folder
-        cp -r "$scriptdir/debian" "${git_dir}/debian"
-
 	#################################################
 	# Build package
 	#################################################

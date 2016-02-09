@@ -171,6 +171,8 @@ main()
 		#!/bin/bash
 		echo "Creating repositry PKGNAME"
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
+		git remote add origin git@github.com:USERNAME/PKGNAME.git
+		echo "Initializing PKGNAME repository"
 		EOF
 		
 		# swap the vars
@@ -205,13 +207,15 @@ main()
 	#################################################	
 	
 	# clone the empty repository to write to
+	echo -e "\n==> Cloning empty repository\n"
+	sleep 2s
 	git clone -b "$branch" "$git_url" "${git_dir}"
 	
 	#################################################
 	# Alter Debian packaging files
 	#################################################
 	
-	# Enter new repo
+	# Enter new repo and initialize
 	cd "${git_dir}" || exit 
 	
 	# Add Debianized files to repo

@@ -88,6 +88,9 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
+	
+	# enter build dir to create tarball
+	cd "${build_dir}"
 
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script

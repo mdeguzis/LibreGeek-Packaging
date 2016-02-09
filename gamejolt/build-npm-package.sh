@@ -38,6 +38,13 @@ npm_temp_dir="$HOME/npm-${pkgname}-temp"
 build_dir="$HOME/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
+# bail out if not arg
+if [[ "$npm_pkg_name" == "" ]]; then
+	clear
+	echo -e "==ERROR==\nYou must specify and NPM package name as an arugment!\n"
+	exit 1
+fi
+
 install_prereqs()
 {
 	clear
@@ -189,9 +196,16 @@ main()
 	# Add Debianized files to repo
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
+	echo -e "\n==>Modifying Debian package files"
+	sleep 2s
+	
 	# correct and update resultant files pushed by npm2deb
 	sed -i "s|UNRELEASED|$dist_rel|g" node-${npm_pkg_name}/debian/changelog
-	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/changelog
+	sed -i "s| (Closes: #nnnn)||g" node-${npm_pkg_name}/debian/changelog
+	sed -i "s|FIX_ME debian author|$maintainer|g" node-${npm_pkg_name}/debian/control
+	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/control
+	sed -i "s|FIX_ME debian author|$maintainer|g" node-${npm_pkg_name}/debian/control
+	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/watch
 	
 	# Open debian files for confirmation
 	nano node-${npm_pkg_name}/debian/changelog

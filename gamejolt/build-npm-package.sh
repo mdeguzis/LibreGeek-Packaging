@@ -34,6 +34,7 @@ GIT_USERNAME="ProfessorKaos64"
 git_url="https://github.com/${GIT_USERNAME}/${pkgname}"
 
 # set build_dir
+npm_temp_dir="$HOME/npm-${pkgname}-temp"
 build_dir="$HOME/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
@@ -62,16 +63,19 @@ main()
 	if [[ -d "$build_dir" ]]; then
 
 		sudo rm -rf "$build_dir"
+		sudo rm -rf "$npm_temp_dir"
 		mkdir -p "$build_dir"
+		mkdir -p "$npm_temp_dir"
 
 	else
 
 		mkdir -p "$build_dir"
+		mkdir -p "$npm_temp_dir"
 
 	fi
 
 	# enter build dir
-	cd "$build_dir" || exit
+	cd "$npm_temp_dir" || exit
 
 	# install prereqs for build
 	install_prereqs
@@ -80,7 +84,8 @@ main()
 	# Search and validate
 	#################################################
 	
-	echo -e "\n==> Check for existance of : ${npm_pkg_name}? (building local index takes time)\n"
+	echo -e "\n==> Check for existance of : ${npm_pkg_name}? \n"
+	echo -e "   (building local index takes time!)\n"
 	sleep 0.5s
 	
 	read -erp "Choice [y/n]: " search_npm
@@ -157,6 +162,18 @@ main()
 		
 		fi
 	
+		# Add Debianized files to repo
+		cp -r ${build_dir}/${npm_pkg_name}/* .
+		
+		# correct and update resultant files pushed by npm2deb
+		nano debian/node-${npm_pkg_name/changelog
+		nano debian/node-${npm_pkg_name}/debian/control
+		nano debian/node-${npm_pkg_name}/debian/copyright
+		nano debian/node-${npm_pkg_name}/watch
+		
+		# Furture TODO? Monitor debian/watch for new package
+		# 'uscan --download-current-verion'
+	
 		# push changes
 		git add .
 		git commit -m "update source code from npm2deb"
@@ -164,13 +181,18 @@ main()
 		cp $scriptdir
 
 	fi
+	
+	#################################################
+	# Gather new source files
+	#################################################
+	
+	# clone
+	cd "${build_dir}"
+	git clone -b "$branch" "$git_url" "$git_dir"
 
 	#################################################
 	# Build package
 	#################################################
-
-	# enter build dir to package attempt
-	cd "${build_dir}"
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
@@ -190,8 +212,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * New unstable build against upstream commit $latest_commit
-	  * Fixed package control file to replace ice-steams on install to avoid conflicts
+	  * Pacakged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

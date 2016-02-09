@@ -143,7 +143,7 @@ main()
 	if [[ "$git_missing" != "" ]]; then
 	
 		# create repo using git api
-		curl -u "$GIT_USERNAME" https://api.github.com/user/repos -d '{"name":"$pkgname","description":"$pkgname for SteamOS"}'
+		curl -u "$GIT_USERNAME" https://api.github.com/user/repos -d "{"name":"$pkgname","description":"$pkgname for SteamOS"}"
 		
 		# Remember replace USER with your username and REPO with your repository/application name!
 		git remote add origin git@github.com:${GIT_USERNAME}/${pkgname}.git

@@ -208,18 +208,9 @@ main()
 	echo -e "\n==> Cloning empty repository\n"
 	sleep 2s
 	
-	if [[ -d "$git_dir" ]]; then
-	
-		# pull
-		cd "${git_dir}" || exit && git pull
+	git clone "${git_url}" "${git_dir}"
+	cd "${git_dir}" || exi
 		
-	else
-		
-		git clone "${git_url}" "${git_dir}"
-		cd "${git_dir}" || exi
-		
-	fi
-	
 	#################################################
 	# Alter Debian packaging files
 	#################################################

@@ -33,6 +33,7 @@ description_long="Converted Debain package using npm2deb"
 branch="master"
 GIT_USERNAME="ProfessorKaos64"
 git_url="https://github.com/${GIT_USERNAME}/${pkgname}"
+git_dir="$HOME/${pkgname}"
 
 # set build_dir
 npm_temp_dir="$HOME/${pkgname}-temp"
@@ -166,7 +167,7 @@ main()
 		# This is too tricky with globbing/expanding the repo vars, so create a temp command
 		
 		# create in $HOME for easy identification
-		cat<<- EOF> "$HOME/create_git_temp"
+		cat<<- EOF> create_git_temp
 		#!/bin/bash
 		echo "Creating repositry PKGNAME"
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
@@ -174,12 +175,12 @@ main()
 		
 		# swap the vars
 		DESCRIPTION="$pkgname packged for SteamOS"
-		sed -i "s|DESCRIPTION|$DESCRIPTION|g" "$HOME/create_git_temp"
-		sed -i "s|USERNAME|$GIT_USERNAME|g" "$HOME/create_git_temp"
-		sed -i "s|PKGNAME|$pkgname|g" "$HOME/create_git_temp"
+		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
+		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
+		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
 		
-		# execute under $HOME to easily locate the repo
-		cd $HOME && bash create_git_temp && rm -f create_git_temp
+		# execute
+		bash create_git_temp && rm -f create_git_temp
 		
 	else
 	
@@ -198,13 +199,20 @@ main()
 		fi
 		
 	fi
+
+	#################################################
+	# Alter Debian packaging files
+	#################################################	
+	
+	# clone the empty repository to write to
+	git clone -b "$branch" "$git_url" "${git_dir}"
 	
 	#################################################
 	# Alter Debian packaging files
 	#################################################
 	
 	# Enter new repo
-	cd "$HOME/${pkgname}" || exit 
+	cd "${git_dir}" || exit 
 	
 	# Add Debianized files to repo
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
@@ -222,19 +230,19 @@ main()
 	# correct and update resultant files pushed by npm2deb
 	
 	# changelog
-	sed -i "s|UNRELEASED|$dist_rel|g" node-${npm_pkg_name}/debian/changelog
-	sed -i "s|FIX_ME debian author|$uploader|g" node-${npm_pkg_name}/debian/changelog
-	sed -i "s| (Closes: #nnnn)||g" node-${npm_pkg_name}/debian/changelog
+	sed -i "s|UNRELEASED|$dist_rel|g" debian/changelog
+	sed -i "s|FIX_ME debian author|$uploader|g" debian/changelog
+	sed -i "s| (Closes: #nnnn)||g" debian/changelog
 	# control
-	sed -i "s|FIX_ME debian author|$uploader|g" node-${npm_pkg_name}/debian/control
-	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/control
-	sed -i "s|FIX_ME debian author|$maintainer|g" node-${npm_pkg_name}/debian/control
-	sed -i "s|FIX_ME long description|$description_long|g" node-${npm_pkg_name}/debian/control
+	sed -i "s|FIX_ME debian author|$uploader|g" debian/control
+	sed -i "s|FIX_ME repo url|$git_url|g" debian/control
+	sed -i "s|FIX_ME debian author|$maintainer|g" debian/control
+	sed -i "s|FIX_ME long description|$description_long|g" debian/control
 	# copyright
-	sed -i "s|FIX_ME debian author|$maintainer|g" node-${npm_pkg_name}/debian/copyright
+	sed -i "s|FIX_ME debian author|$maintainer|g" debian/copyright
 	# watch (optional)
-	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/watch
-	sed -i '/fakeupstream/d' node-${npm_pkg_name}/debian/watch
+	sed -i "s|FIX_ME repo url|$git_url|g" debian/watch
+	sed -i '/fakeupstream/d' debian/watch
 	
 	# Open debian files for confirmation
 	file="changelog control copyright watch"
@@ -244,7 +252,7 @@ main()
 	do
 		if [[ -f "$file" ]]; then
 		
-			nano node-${npm_pkg_name}/debian/${file}
+			nano debian/${file}
 		
 		fi
 		

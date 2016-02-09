@@ -130,15 +130,15 @@ main()
 	
 	read -erp "Choice [y/n]: " npm_exists
 	
-	# Furture TODO? Monitor debian/watch for new package
-	# 'uscan --download-current-verion'
-	
 	if [[ "$npm_exists" == "n" ]]; then
 	
 		# create
 		echo -e "Creating converted files..."
 		npm2deb create ${npm_pkg_name}
-	
+		
+		# Source the upstream URL
+		upstream_source=$(npm2deb view ${npm_pkg_name} | cut -c 41-100)
+		
 	else
 	
 		# view module
@@ -243,7 +243,7 @@ main()
 	# copyright
 	sed -i "s|FIX_ME debian author|$maintainer|g" "$debian_dir/copyright"
 	# watch (optional)
-	sed -i "s|FIX_ME repo url|$git_url|g" "$debian_dir/watch"
+	sed -i "s|FIX_ME repo url|$upstream_source|g" "$debian_dir/watch"
 	sed -i '/fakeupstream/d' "$debian_dir/watch"
 	
 	# Open debian files for confirmation
@@ -259,6 +259,9 @@ main()
 		fi
 		
 	done
+	
+	# pull upstream source based on watch file
+	uscan --download-current-version
 
 	#################################################
 	# Sync to remote

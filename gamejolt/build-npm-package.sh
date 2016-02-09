@@ -136,6 +136,9 @@ main()
 	# Sync files to github repository
 	#################################################
 	
+	echo -e "\n==>Creating GitHub repository via API"
+	sleep 2s
+	
 	# create repository if it does not exist
 	cd $HOME
 	
@@ -148,24 +151,18 @@ main()
 		
 		cat<<- EOF> create_git_temp
 		#!/bin/bash
+		cd
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
-		git remote add origin git@github.com:USERNAME/PKGNAME.git
 		EOF
 		
 		# swap the vars
-		DESCRIPTION="Pacakged for SteamOS"
+		DESCRIPTION="$pkgname packged for SteamOS"
 		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
 		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
 		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
 		
 		# execute and cleanup
 		bash create_git_temp && rm -f create_git_temp
-		
-		# push new repo
-		if cd ${pkgname} && git push origin master; then
-			echo -e "Creation failed!"
-			exit 1
-		fi
 		
 	else
 	
@@ -182,26 +179,26 @@ main()
 			cd "${pkgname}" || exit
 		
 		fi
-	
-		# Add Debianized files to repo
-		cp -r ${build_dir}/${pkgname}/* .
 		
-		# correct and update resultant files pushed by npm2deb
-		nano debian/node-${pkgname}/changelog
-		nano debian/node-${pkgname}/debian/control
-		nano debian/node-${pkgname}/debian/copyright
-		nano debian/node-${pkgname}/watch
-		
-		# Furture TODO? Monitor debian/watch for new package
-		# 'uscan --download-current-verion'
-	
-		# push changes
-		git add .
-		git commit -m "update source code from npm2deb"
-		git push origin $branch
-		cp $scriptdir
-
 	fi
+	
+	# Add Debianized files to repo
+	cp -r ${build_dir}/${pkgname}/* .
+	
+	# correct and update resultant files pushed by npm2deb
+	nano debian/node-${pkgname}/changelog
+	nano debian/node-${pkgname}/debian/control
+	nano debian/node-${pkgname}/debian/copyright
+	nano debian/node-${pkgname}/watch
+	
+	# Furture TODO? Monitor debian/watch for new package
+	# 'uscan --download-current-verion'
+
+	# push changes
+	git add .
+	git commit -m "update source code from npm2deb"
+	git push origin $branch
+	cp $scriptdir
 	
 	#################################################
 	# Gather new source files

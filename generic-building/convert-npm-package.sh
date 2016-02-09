@@ -228,8 +228,8 @@ main()
 	        1)
 	        
 	        # using GitHub
-	        read -erp "Enter GitHub repository: " upsteam_source
-	        git clone "${upsteam_source}" "/tmp/source_tmp" 
+	        read -erp "Enter GitHub repository: " upstream_source
+	        git clone "${upstream_source}" "/tmp/source_tmp" 
 	        cd "/tmp/source_tmp"
 	        
 	        # Checkout tag# show tags instead of branches

@@ -33,7 +33,7 @@ description_long="Converted Debain package using npm2deb"
 # upstream vars
 branch="master"
 GIT_USERNAME="ProfessorKaos64"
-git_url="https://github.com/${GIT_USERNAME}/${pkgname}/.git"
+git_url="https://github.com/${GIT_USERNAME}/${pkgname}.git"
 git_dir="$HOME/${pkgname}"
 
 # set build_dir

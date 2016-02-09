@@ -268,7 +268,7 @@ main()
 	# Alter Debian packaging files
 	#################################################
 	
-	# Add Debianized files to repo
+	# Add Debianized files to repo (overwrite origs if testing occurred)
 	echo -e "\n==> Injecting Debian files\n"
 	sleep 2s
 	cp -rf ${npm_temp_dir}/${npm_pkg_name}/* .

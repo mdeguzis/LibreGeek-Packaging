@@ -202,7 +202,7 @@ main()
 	#################################################	
 	
 	# clone the empty repository to write to
-	echo -e "\n==> Cloning empty repository\n"
+	echo -e "\n==> Cloning repository\n"
 	sleep 2s
 	
 	git clone "${git_url}" "${git_dir}"
@@ -247,8 +247,8 @@ main()
 		# checkout proper release
 		git checkout "tags/${tag_choice}"
 	        
-	        # copy source files and cleanup
-	        cp -rv /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
+	        # copy source files and cleanup (overwrite generated files from upsteam)
+	        cp -rfv /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
 	        ;;
 	        
 	        2)
@@ -268,10 +268,10 @@ main()
 	# Alter Debian packaging files
 	#################################################
 	
-	# Add Debianized files to repo (overwrite origs if testing occurred)
+	# Add Debianized files to repo
 	echo -e "\n==> Injecting Debian files\n"
 	sleep 2s
-	cp -rf ${npm_temp_dir}/${npm_pkg_name}/* .
+	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
 	echo -e "\n==> Modifying Debian package files"
 	sleep 2s

@@ -35,7 +35,7 @@ GIT_USERNAME="ProfessorKaos64"
 git_url="https://github.com/${GIT_USERNAME}/${pkgname}"
 
 # set build_dir
-npm_temp_dir="$HOME/npm-${pkgname}-temp"
+npm_temp_dir="$HOME/${pkgname}-temp"
 build_dir="$HOME/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
@@ -166,7 +166,7 @@ main()
 	
 	if [[ "$git_missing" != "" ]]; then
 	
-		echo -e "\n==INFO==\nRepository missing, creating GitHub repository via API"
+		echo -e "\n==INFO==\nRepository missing, creating GitHub repository via API\n"
 		sleep 2s
 	
 		# create repo using git api

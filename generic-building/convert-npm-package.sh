@@ -34,10 +34,10 @@ description_long="Converted Debain package using npm2deb"
 branch="master"
 GIT_USERNAME="ProfessorKaos64"
 git_url="https://github.com/${GIT_USERNAME}/${pkgname}.git"
-git_dir="$HOME/${pkgname}"
 
-# set build_dir
+# set build_dirs
 npm_temp_dir="$HOME/${pkgname}-temp"
+git_dir="$npm_temp_dir/${pkgname}-git"
 
 # bail out if not arg
 if [[ "$npm_pkg_name" == "" ]]; then
@@ -72,7 +72,6 @@ main()
 
 		sudo rm -rf "$npm_temp_dir"
 		mkdir -p "$npm_temp_dir"
-		sudo rm -rf "$git_dir"
 
 	else
 
@@ -258,13 +257,13 @@ main()
 	
 	# Open debian files for confirmation
 	files="changelog control copyright watch"
-	
+
 	# only edit file if it exists
-	for file in "${files}"
+	for file in ${files};
 	do
 		if [[ -f "$debian_dir/$file" ]]; then
 		
-			nano "$debian_dir/${file}"
+			nano "$debian_dir/$file"
 		
 		fi
 		

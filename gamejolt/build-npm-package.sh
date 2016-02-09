@@ -157,7 +157,7 @@ main()
 		
 		# swap the vars
 		DESCRIPTION="$pkgname packged for SteamOS"
-		sed -i "s|TEMP|$npm_temp_dir|g" create_git_temp
+		sed -i "s|TEMP|$HOME|g" create_git_temp
 		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
 		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
 		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
@@ -184,16 +184,16 @@ main()
 	fi
 	
 	# Enter new repo
-	cd ${build_dir}/${pkgname} || exit 
+	cd "$HOME/${pkgname}" || exit 
 	
 	# Add Debianized files to repo
 	cp -r ${npm_temp_dir}/* .
 	
 	# correct and update resultant files pushed by npm2deb
-	nano ${build_dir}/${pkgname}/debian/node-${pkgname}/changelog
-	nano ${build_dir}/${pkgname}/debian/node-${pkgname}/debian/control
-	nano ${build_dir}/${pkgname}/debian/node-${pkgname}/debian/copyright
-	nano ${build_dir}/${pkgname}/debian/node-${pkgname}/watch
+	nano debian/${pkgname}/changelog
+	nano debian/${pkgname}/debian/control
+	nano debian/${pkgname}/debian/copyright
+	nano debian/${pkgname}/watch
 	
 	# Furture TODO? Monitor debian/watch for new package
 	# 'uscan --download-current-verion'

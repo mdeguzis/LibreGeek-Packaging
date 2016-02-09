@@ -139,6 +139,15 @@ main()
 		# Source the upstream URL
 		upstream_source=$(npm2deb view ${npm_pkg_name} | cut -c 41-100)
 		
+		# some people like to list github.io pages insteam of true upsteam
+		gitio_check=$(echo $upstream_source | grep -E "*.io")
+		if [[ "$gitio_check" != "" ]] then;
+
+			echo -e "\n==github.io site detected==\nPlease remember to double check the debian/watch file"
+			sleep 5s
+			
+		fi
+		
 	else
 	
 		# view module

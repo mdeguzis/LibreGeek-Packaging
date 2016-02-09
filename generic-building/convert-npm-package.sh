@@ -112,10 +112,10 @@ main()
 	npm2deb depends -b -r ${npm_pkg_name} &> ${npm_pkg_name}.deps
 	less ${npm_pkg_name}.deps
 	
-	read -erp "Continue? [y/n]: " abort_choice
+	read -erp "Continue? [y/n]: " continue_choice
 	sleep 0.5s
 	
-	if [[ "$abort_choice" == "y" ]]; then
+	if [[ "$continue_choice" != "y" ]]; then
 		exit 1
 	fi
 

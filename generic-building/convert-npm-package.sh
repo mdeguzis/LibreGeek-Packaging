@@ -166,7 +166,7 @@ main()
 		# This is too tricky with globbing/expanding the repo vars, so create a temp command
 		
 		# create in $HOME for easy identification
-		cat<<- EOF> create_git_temp
+		cat<<- EOF> "$HOME/create_git_temp"
 		#!/bin/bash
 		echo "Creating repositry PKGNAME"
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
@@ -179,7 +179,7 @@ main()
 		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
 		
 		# execute under $HOME
-		cd $HOME && bash create_git_temp
+		cd $HOME && bash create_git_temp && rm -f create_git_temp
 		
 	else
 	

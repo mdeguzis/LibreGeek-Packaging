@@ -29,8 +29,9 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # upstream vars
-git_url="https://github.com/ProfessorKaos64/${pkgname}"
-rel_target="master"
+branch="master"
+GIT_USERNAME="ProfessorKaos64"
+git_url="https://github.com/${GIT_USERNAME}/${pkgname}"
 
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
@@ -75,7 +76,23 @@ main()
 	# install prereqs for build
 	install_prereqs
 	
-	echo -e "\n==> Please review the dependencies for package: ${pkgname}\n"
+	#################################################
+	# Search and validate
+	#################################################
+	
+	echo -e "\n==> Check for existance of : ${npm_pkg_name}? (building local index takes time)\n"
+	sleep 0.5s
+	
+	read -erp "Choice [y/n]: " search_npm
+	
+	if [[ "$npm_exists" == "y" ]]; then
+	
+		# search
+		npm search ${npm_pkg_name}
+	
+	fi
+
+	echo -e "\n==> Please review the dependencies for package: ${npm_pkg_name}\n"
 	sleep 3s
 	
 	npm2deb depends -b -r ${npm_pkg_name}
@@ -85,6 +102,10 @@ main()
 	
 	npm2deb search bower
 	
+	#################################################
+	# Create package files
+	#################################################
+	
 	echo -e "\n==> Has anyone started packaging this module?\n"
 	sleep 1s
 	
@@ -92,24 +113,58 @@ main()
 	
 	if [[ "$npm_exists" == "n" ]]; then
 	
-		# exit
-		echo -e "\n==ERROR==\nNo module named ${npm_pkg_name} exists!\n"
-		sleep 2s
-		exit 1
+		# create
+		npm2deb create ${npm_pkg_name}
 	
 	else
 	
 		# view module
 		npm2deb view ${npm_pkg_name}
-		
-		# build 
-		npm2deb create ${npm_pkg_name}
 	
 	fi
-
-	echo -e "\n==> Obtaining upstream source code\n"
-
 	
+	#################################################
+	# Sync files to github repository
+	#################################################
+	
+	# create repository if it does not exist
+	cd $HOME
+	
+	git_exists=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${npm_pkg_name} | grep "Not Found")
+	
+	if [[ "$git_exists" != "" ]]; then
+	
+		# create repo using git api
+		curl -u '${GIT_USERNAME}' https://api.github.com/user/repos -d '{"name":"${npm_pkg_name}"}'
+		
+		# Remember replace USER with your username and REPO with your repository/application name!
+		git remote add origin git@github.com:${GIT_USERNAME/${npm_pkg_name}.git
+		git push origin master
+		
+	else
+	
+		# check for dir in $HOME, clone if not there
+		if [[ -d "$HOME/${npm_pkg_name}" ]]; then
+		
+			 cd "$HOME/${npm_pkg_name}"
+			 
+		else
+		
+			echo -e "repository not foudn at $HOME location, cloning..."
+			cd
+			git clone "${git_url}" "${npm_pkg_name}"}'
+			cd "${npm_pkg_name}"}'
+		
+		fi
+	
+		# push changes
+		git add .
+		git commit -m "update source code from npm2deb"
+		git push origin $branch
+		cp $scriptdir
+
+	fi
+
 	#################################################
 	# Build package
 	#################################################

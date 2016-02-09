@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-npm-package.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.3.1
 # Description:	Builds simple Debian package from npm module and uploads to 
 #		GitHub
 #
@@ -119,7 +119,7 @@ main()
 	if [[ "$npm_exists" == "n" ]]; then
 	
 		# create
-		echo -e "...creating converted files"
+		echo -e "Creating converted files..."
 		npm2deb create ${npm_pkg_name}
 	
 	else
@@ -154,9 +154,9 @@ main()
 		
 		# swap the vars
 		DESCRIPTION="Pacakged for SteamOS"
-		sed -i "g|DESCRIPTION|$DESCRIPTION|g" create_git_temp
-		sed -i "g|USERNAME|$GIT_USERNAME|g" create_git_temp
-		sed -i "g|PKGNAME|$pkgname|g" create_git_temp
+		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
+		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
+		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
 		
 		# execute and cleanup
 		bash create_git_temp && rm -f create_git_temp

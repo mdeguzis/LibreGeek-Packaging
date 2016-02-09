@@ -27,6 +27,7 @@ pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
+description_long="Converted Debain package using npm2deb"
 
 # upstream vars
 branch="master"
@@ -109,7 +110,7 @@ main()
 	
 	npm2deb depends -b -r ${npm_pkg_name}
 
-	echo -e "\n==> Check if someone else has already started working on this module...\n"
+	echo -e "\n==> Check if someone else has already started working on this module..."
 	sleep 2s
 	
 	npm2deb search bower
@@ -118,7 +119,7 @@ main()
 	# Create package files
 	#################################################
 	
-	echo -e "\n==> Has anyone started packaging this module?\n"
+	echo -e "==> Has anyone started packaging this module?\n"
 	sleep 1s
 	
 	read -erp "Choice [y/n]: " npm_exists
@@ -143,7 +144,7 @@ main()
 	# Sync files to github repository
 	#################################################
 	
-	echo -e "\n==> Creating GitHub repository via API"
+	echo -e "\n==> Checking for Creating GitHub repository"
 	sleep 2s
 	
 	# create repository if it does not exist
@@ -152,6 +153,9 @@ main()
 	git_missing=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${pkgname} | grep "Not Found")
 	
 	if [[ "$git_missing" != "" ]]; then
+	
+		echo -e "\n==INFO==\nRepository missing, creating GitHub repository via API"
+		sleep 2s
 	
 		# create repo using git api
 		# This is too tricky with globbing/expanding the repo vars, so create a temp command
@@ -200,12 +204,21 @@ main()
 	sleep 2s
 	
 	# correct and update resultant files pushed by npm2deb
+	
+	# changelog
 	sed -i "s|UNRELEASED|$dist_rel|g" node-${npm_pkg_name}/debian/changelog
+	sed -i "s|FIX_ME debian author|$uploader|g" node-${npm_pkg_name}/debian/changelog
 	sed -i "s| (Closes: #nnnn)||g" node-${npm_pkg_name}/debian/changelog
-	sed -i "s|FIX_ME debian author|$maintainer|g" node-${npm_pkg_name}/debian/control
+	# control
+	sed -i "s|FIX_ME debian author|$uploader|g" node-${npm_pkg_name}/debian/control
 	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/control
 	sed -i "s|FIX_ME debian author|$maintainer|g" node-${npm_pkg_name}/debian/control
+	sed -i "s|FIX_ME long description|$description_long|g" node-${npm_pkg_name}/debian/control
+	# copyright
+	sed -i "s|FIX_ME debian author|$uplaoder|g" node-${npm_pkg_name}/debian/copyright
+	# watch (optional)
 	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/watch
+	sed -i '/fakeupstream/d' node-${npm_pkg_name}/debian/watch
 	
 	# Open debian files for confirmation
 	nano node-${npm_pkg_name}/debian/changelog

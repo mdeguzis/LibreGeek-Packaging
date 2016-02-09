@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	convert-npm-package.sh
-# Script Ver:	0.7.1
+# Script Ver:	0.8.1
 # Description:	Builds simple Debian package from npm module and uploads to 
 #		GitHub. Creates repo if it doesn't exist.
 #
@@ -37,7 +37,7 @@ git_url="https://github.com/${GIT_USERNAME}/${pkgname}"
 # set build_dir
 npm_temp_dir="$HOME/${pkgname}-temp"
 build_dir="$HOME/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+git_dir="${npm_temp_dir}/${npm_pkg_name}"
 
 # bail out if not arg
 if [[ "$npm_pkg_name" == "" ]]; then
@@ -174,13 +174,12 @@ main()
 		
 		cat<<- EOF> create_git_temp
 		#!/bin/bash
-		cd TEMP
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
 		EOF
 		
 		# swap the vars
 		DESCRIPTION="$pkgname packged for SteamOS"
-		sed -i "s|TEMP|$HOME|g" create_git_temp
+		#sed -i "s|TEMP|$HOME|g" create_git_temp
 		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
 		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
 		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
@@ -191,9 +190,9 @@ main()
 	else
 	
 		# check for dir in $HOME, clone if not there
-		if [[ -d "$HOME/${pkgname}" ]]; then
+		if [[ -d "$git_dir" ]]; then
 		
-			 cd "$HOME/${pkgname}" || exit
+			 cd "$git_dir" || exit
 			 
 		else
 		

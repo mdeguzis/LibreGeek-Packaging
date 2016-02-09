@@ -125,7 +125,7 @@ main()
 	# Create package files
 	#################################################
 	
-	echo -e "==> Has anyone started packaging this module?\n"
+	echo -e "==> Per the above, Has anyone started packaging this module?\n"
 	sleep 1s
 	
 	read -erp "Choice [y/n]: " npm_exists
@@ -208,6 +208,7 @@ main()
 	cd "${git_dir}" || exit
 	
 	cat<<- EOF
+	
 	#############################################################
 	What type of upstream files are we dealing with?
 	#############################################################

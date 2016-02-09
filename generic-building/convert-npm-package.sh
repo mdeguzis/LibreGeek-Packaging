@@ -169,6 +169,7 @@ main()
 		cat<<- EOF> create_git_temp
 		#!/bin/bash
 		cd BUILDLOC || exit
+		Creating repositry in location: BUILDLOC
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
 		EOF
 		

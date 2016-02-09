@@ -136,7 +136,7 @@ main()
 	# Sync files to github repository
 	#################################################
 	
-	echo -e "\n==>Creating GitHub repository via API"
+	echo -e "\n==> Creating GitHub repository via API"
 	sleep 2s
 	
 	# create repository if it does not exist
@@ -151,12 +151,13 @@ main()
 		
 		cat<<- EOF> create_git_temp
 		#!/bin/bash
-		cd
+		cd TEMP
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
 		EOF
 		
 		# swap the vars
 		DESCRIPTION="$pkgname packged for SteamOS"
+		sed -i "s|TEMP|$npm_temp_dir|g" create_git_temp
 		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
 		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
 		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
@@ -182,14 +183,17 @@ main()
 		
 	fi
 	
+	# Enter new repo
+	cd ${build_dir}/${pkgname} || exit 
+	
 	# Add Debianized files to repo
-	cp -r ${build_dir}/${pkgname}/* .
+	cp -r ${npm_temp_dir}/* .
 	
 	# correct and update resultant files pushed by npm2deb
-	nano debian/node-${pkgname}/changelog
-	nano debian/node-${pkgname}/debian/control
-	nano debian/node-${pkgname}/debian/copyright
-	nano debian/node-${pkgname}/watch
+	nano ${build_dir}/${pkgname}/debian/node-${pkgname}/changelog
+	nano ${build_dir}/${pkgname}/debian/node-${pkgname}/debian/control
+	nano ${build_dir}/${pkgname}/debian/node-${pkgname}/debian/copyright
+	nano ${build_dir}/${pkgname}/debian/node-${pkgname}/watch
 	
 	# Furture TODO? Monitor debian/watch for new package
 	# 'uscan --download-current-verion'

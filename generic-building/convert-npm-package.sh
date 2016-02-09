@@ -108,7 +108,16 @@ main()
 	echo -e "\n==> Please review the dependencies for package: ${npm_pkg_name}\n"
 	sleep 3s
 	
-	npm2deb depends -b -r ${npm_pkg_name}
+	echo -e "\nGenerating depdency list, please wait..."
+	npm2deb depends -b -r ${npm_pkg_name} &> ${npm_pkg_name}.deps
+	less ${npm_pkg_name}.deps
+	
+	echo -e "\n==> Continue? [y/n]: " abort_choice
+	sleep 0.5s
+	
+	if [[ "$abort_choice" == "y" ]]; then
+		exit 1
+	fi
 
 	echo -e "\n==> Check if someone else has already started working on this module..."
 	sleep 2s

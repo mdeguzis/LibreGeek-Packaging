@@ -135,9 +135,9 @@ main()
 	# create repository if it does not exist
 	cd $HOME
 	
-	git_exists=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${npm_pkg_name} | grep "Not Found")
+	git_missing=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${npm_pkg_name} | grep "Not Found")
 	
-	if [[ "$git_exists" != "" ]]; then
+	if [[ "$git_missing" != "" ]]; then
 	
 		# create repo using git api
 		curl -u '${GIT_USERNAME}' https://api.github.com/user/repos -d '{"name":"${npm_pkg_name}"}'
@@ -151,14 +151,14 @@ main()
 		# check for dir in $HOME, clone if not there
 		if [[ -d "$HOME/${npm_pkg_name}" ]]; then
 		
-			 cd "$HOME/${npm_pkg_name}"
+			 cd "$HOME/${npm_pkg_name}" || exit
 			 
 		else
 		
-			echo -e "repository not foudn at $HOME location, cloning..."
-			cd
+			echo -e "repository not found at $HOME location, cloning..."
+			cd || exit 
 			git clone "${git_url}" "${npm_pkg_name}"
-			cd "${npm_pkg_name}"
+			cd "${npm_pkg_name}" || exit
 		
 		fi
 	
@@ -166,7 +166,7 @@ main()
 		cp -r ${build_dir}/${npm_pkg_name}/* .
 		
 		# correct and update resultant files pushed by npm2deb
-		nano debian/node-${npm_pkg_name/changelog
+		nano debian/node-${npm_pkg_name}/changelog
 		nano debian/node-${npm_pkg_name}/debian/control
 		nano debian/node-${npm_pkg_name}/debian/copyright
 		nano debian/node-${npm_pkg_name}/watch

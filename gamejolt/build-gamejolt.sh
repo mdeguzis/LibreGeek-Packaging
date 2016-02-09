@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-gamejolt.sh
-# Script Ver:	1.9.5
+# Script Ver:	0.1.1
 # Description:	Builds simple pacakge for using gamejolt based of of master upstream
 #		git source (unstable build)
 #
@@ -25,7 +25,6 @@ rel_target="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="ice-steamos-unstable"
-pkgver="0.3.0
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -50,7 +49,11 @@ install_prereqs()
 	fi
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper 
+	sudo apt-get install -y --force-yes build-essential bc debhelper nodejs gcc-4.9 \
+	gcc-4.9-multilib g++-4.9-multilib
+
+	# Need to "debianize" gulp and bower
+	# See: https://www.npmjs.com/package/npm2debian
 
 }
 
@@ -78,22 +81,19 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_target" "$git_url" "${git_dir}"
+	git clone --recursive -b "$rel_target" "$git_url" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
+	
+	# source pkgver
+	pkgver=$(grep version package.json | cut -c  15-19)
 
 	# Alter pkg suffix based on commit
 	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
 
 	# Add debian folder
-        cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
-
-	# inject iur modified files
-	cp "$scriptdir/emulators.txt" "${git_dir}"
-	cp "$scriptdir/config.txt" "${git_dir}"
-	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
-	cp "$scriptdir/debian/README.md" "${git_dir}"
+        cp -r "$scriptdir/debian" "${git_dir}/debian"
 
 	#################################################
 	# Build package

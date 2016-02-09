@@ -211,7 +211,7 @@ main()
 	# Add Debianized files to repo
 	echo -e "\n==> Injecting Debian files\n"
 	sleep 2s
-	cp -i ${npm_temp_dir}/${npm_pkg_name}/* .
+	cp -ri ${npm_temp_dir}/${npm_pkg_name}/* .
 	
 	cat<<- EOF
 	

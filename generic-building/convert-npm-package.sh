@@ -36,7 +36,6 @@ git_url="https://github.com/${GIT_USERNAME}/${pkgname}"
 
 # set build_dir
 npm_temp_dir="$HOME/${pkgname}-temp"
-git_dir="${npm_temp_dir}/${npm_pkg_name}"
 
 # bail out if not arg
 if [[ "$npm_pkg_name" == "" ]]; then
@@ -67,7 +66,7 @@ main()
 {
 
 	# create build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "$npm_temp_dir" ]]; then
 
 		sudo rm -rf "$npm_temp_dir"
 		mkdir -p "$npm_temp_dir"
@@ -156,9 +155,6 @@ main()
 	sleep 2s
 	
 	# create repository if it does not exist
-	# create debianized files in temp npm_temp_dir under $HOME
-	cd $HOME
-	
 	git_missing=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${pkgname} | grep "Not Found")
 	
 	if [[ "$git_missing" != "" ]]; then
@@ -169,14 +165,16 @@ main()
 		# create repo using git api
 		# This is too tricky with globbing/expanding the repo vars, so create a temp command
 		
+		# create in $HOME for easy identification
 		cat<<- EOF> create_git_temp
 		#!/bin/bash
+		cd BUIDLOC
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
 		EOF
 		
 		# swap the vars
 		DESCRIPTION="$pkgname packged for SteamOS"
-		#sed -i "s|TEMP|$HOME|g" create_git_temp
+		sed -i "s|BUIDLOC|$HOME|g" create_git_temp
 		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
 		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
 		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
@@ -187,9 +185,9 @@ main()
 	else
 	
 		# check for dir in $HOME, clone if not there
-		if [[ -d "$git_dir" ]]; then
+		if [[ -d "$HOME/${pkgname}" ]]; then
 		
-			 cd "$git_dir" || exit
+			 cd "$HOME/${pkgname}" || exit
 			 
 		else
 		
@@ -207,7 +205,10 @@ main()
 	#################################################
 	
 	# Enter new repo
-	cd "${git_dir}" || exit 
+	cd "$HOME/${pkgname}" || exit 
+	
+	# Add Debianized files to repo
+	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
 	# add basic readme
 	touch README.md

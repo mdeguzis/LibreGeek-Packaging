@@ -131,29 +131,16 @@ main()
 	read -erp "Choice [y/n]: " npm_exists
 	
 	if [[ "$npm_exists" == "n" ]]; then
+		
 	
 		# create
-		echo -e "Creating converted files..."
+		echo -e "Creating base files..."
 		npm2deb create ${npm_pkg_name}
-		
-		# Source the upstream URL
-		upstream_source=$(npm2deb view ${npm_pkg_name} | cut -c 41-100)
-		
-		# some people like to list github.io pages insteam of true upsteam
-		gitio_check=$(echo $upstream_source | grep -E "*.io")
-		if [[ "$gitio_check" != "" ]] then;
-
-			echo -e "\n==github.io site detected==\nPlease remember to double check the debian/watch file"
-			sleep 5s
-			
-		fi
 		
 	else
 	
 		# view module
-		echo -e "Assuming y, review output below..."
-		npm2deb view ${npm_pkg_name}
-		sleep 5s
+		echo -e "\nPlease review the upstream packages\n"
 		exit 1
 	
 	fi
@@ -210,7 +197,7 @@ main()
 	fi
 
 	#################################################
-	# Alter Debian packaging files
+	# Enter bare repository, source upstream files
 	#################################################	
 	
 	# clone the empty repository to write to
@@ -218,7 +205,45 @@ main()
 	sleep 2s
 	
 	git clone "${git_url}" "${git_dir}"
-	cd "${git_dir}" || exi
+	cd "${git_dir}" || exit
+	
+	cat<<- EOF
+	#############################################################
+	What type of upstream files are we dealing with?
+	#############################################################
+
+	(1) GitHub
+	(2) Source from NPM JSON file (please verify in debian/watch)
+	(e) exit script
+
+	EOF
+	
+	# the prompt sometimes likes to jump above sleep
+	sleep 0.5s
+	
+	read -ep "Choice: " web_app_choice
+	
+	case "$web_app_choice" in
+	        
+	        1)
+	        # using GitHub
+	        read -erp "Enter GitHub repository: " upsteam_source
+	        git clone "${upsteam_source}" "/tmp/git_temp"
+	        cp -r /tmp/git_temp/* . && rm -rf /tmp/git_temp
+	        ;;
+	        
+	        2)
+	        # Source the upstream URL
+		upstream_source=$(npm2deb view ${npm_pkg_name} | cut -c 41-100)
+		;;
+	         
+	        *|e)
+	        echo -e "\n==ERROR==\nFile type not supported or exit requeste\n"
+	        exit 1
+		;;
+		
+	esac
+	
 		
 	#################################################
 	# Alter Debian packaging files

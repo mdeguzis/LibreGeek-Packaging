@@ -248,7 +248,7 @@ main()
 		git checkout "tags/${tag_choice}"
 	        
 	        # copy source files and cleanup
-	        cp -r /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
+	        cp -rv /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
 	        ;;
 	        
 	        2)
@@ -269,6 +269,7 @@ main()
 	#################################################
 	
 	# Add Debianized files to repo
+	echo -e "\n==> Injecting Debian files\n"
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
 	# add basic readme

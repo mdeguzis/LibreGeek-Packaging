@@ -189,12 +189,12 @@ main()
 	# Add Debianized files to repo
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
-	# correct and update resultant files pushed by npm2deb
-	nano debian/${pkgname}/changelog
-	
 	# testing
+	ls
 	echo "sleeping" && sleep 50s
 	
+	# correct and update resultant files pushed by npm2deb
+	nano debian/${pkgname}/changelog
 	nano debian/${pkgname}/debian/control
 	nano debian/${pkgname}/debian/copyright
 	nano debian/${pkgname}/watch

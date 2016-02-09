@@ -243,7 +243,7 @@ main()
 	# changelog
 	sed -i "s|UNRELEASED|$dist_rel|g" "$debian_dir/changelog"
 	sed -i "s|FIX_ME debian author|$uploader|g" "$debian_dir/changelog"
-	sed -i "s| (Closes: #nnnn)||g" "$debian/changelog"
+	sed -i "s| (Closes: #nnnn)||g" "$debian_dir/changelog"
 	# control
 	sed -i "s|FIX_ME debian author|$uploader|g" "$debian_dir/control"
 	sed -i "s|FIX_ME repo url|$git_url|g" "$debian_dir/control"
@@ -256,10 +256,10 @@ main()
 	sed -i '/fakeupstream/d' "$debian_dir/watch"
 	
 	# Open debian files for confirmation
-	file="changelog control copyright watch"
+	files="changelog control copyright watch"
 	
 	# only edit file if it exists
-	for entry in "${file}"
+	for file in "${file}"
 	do
 		if [[ -f "$debian_dir/$file" ]]; then
 		

@@ -28,11 +28,6 @@ dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# testing, check vars
-echo "npm pkg= ${npm_pkg_name}"
-echo "pkgname= ${pkgname}"
-sleep 50s
-
 # upstream vars
 branch="master"
 GIT_USERNAME="ProfessorKaos64"
@@ -145,7 +140,7 @@ main()
 	if [[ "$git_missing" != "" ]]; then
 	
 		# create repo using git api
-		curl -u "${GIT_USERNAME}" https://api.github.com/user/repos -d '{"name":"${npm_pkg_name}"}'
+		curl -u "$GIT_USERNAME" https://api.github.com/user/repos -d '{"name":"$npm_pkg_name"}'
 		
 		# Remember replace USER with your username and REPO with your repository/application name!
 		git remote add origin git@github.com:${GIT_USERNAME}/${npm_pkg_name}.git

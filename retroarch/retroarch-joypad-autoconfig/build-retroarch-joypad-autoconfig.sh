@@ -20,14 +20,14 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream vars
 git_url="https://github.com/libretro/retroarch-joypad-autoconfig"
-rel_target="master"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="retroarch-joypad-autoconfig"
 pkgver="0.1"
-pkgrev="3"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -73,8 +73,14 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	# clone and checkout desired commit
+	git clone -b "$branch" "$git_url" "${git_dir}"
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	git checkout $latest_commit 1> /dev/null
+
+	# Alter pkg suffix based on commit
+	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
 
 	#################################################
 	# Build platform

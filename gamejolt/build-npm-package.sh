@@ -124,7 +124,10 @@ main()
 	else
 	
 		# view module
+		echo -e "Assuming y, review output below..."
 		npm2deb view ${npm_pkg_name}
+		sleep 5s
+		exit 1
 	
 	fi
 	

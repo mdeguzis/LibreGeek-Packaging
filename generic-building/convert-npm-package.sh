@@ -2,15 +2,15 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-npm-package.sh
+# Scipt Name:	convert-npm-package.sh
 # Script Ver:	0.7.1
 # Description:	Builds simple Debian package from npm module and uploads to 
-#		GitHub
+#		GitHub. Creates repo if it doesn't exist.
 #
 # See:		https://www.npmjs.com/package/npm-package-search
 # See:		https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
 #
-# Usage:	./build-npm-package.sh [npm_module]
+# Usage:	./convert-npm-package.sh [npm_module]
 #-------------------------------------------------------------------------------
 
 npm_pkg_name="$1"
@@ -233,71 +233,7 @@ main()
 	git add .
 	git commit -m "update source code from npm2deb"
 	git push origin $branch
-	cd $scriptdir
 	
-	# exit for now until the above is "solid"
-	exit 1
-	
-	#################################################
-	# Gather new source files
-	#################################################
-	
-	# clone
-	cd "${build_dir}"
-	git clone -b "$branch" "$git_url" "$git_dir"
-
-	#################################################
-	# Build package
-	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
-	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "${pkgname}"
-
-	# Enter git dir to build
-	cd "${git_dir}"
-
-	# Create new changelog if we are not doing an autobuild
-	# alter here based on unstable
-
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
-
-	  * Pacakged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
-
-	 -- $uploader  $date_long
-
-	EOF
-
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano debian/changelog
-
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
-
-	#################################################
-	# Build Debian package
-	#################################################
-
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
-	sleep 2s
-
-	dpkg-buildpackage -rfakeroot -us -uc -sa
-
 	#################################################
 	# Cleanup
 	#################################################
@@ -322,35 +258,6 @@ main()
 		cd "$scriptdir" || exit
 	else
 		cd "$HOME" || exit
-	fi
-
-	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
-
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep ${pkgver}
-
-	if [[ "$autobuild" != "yes" ]]; then
-
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-		sleep 0.5s
-		# capture command
-		read -erp "Choice: " transfer_choice
-
-		if [[ "$transfer_choice" == "y" ]]; then
-
-			# transfer packages
-			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
-
-			# Preserve changelog
-			mv "${git_dir}/debian/changelog" "$scriptdir/debian-unstable/"
-
-		elif [[ "$transfer_choice" == "n" ]]; then
-			echo -e "Upload not requested\n"
-		fi
 	fi
 
 }

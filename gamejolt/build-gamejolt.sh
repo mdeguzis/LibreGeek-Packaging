@@ -18,13 +18,13 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/scottrice/Ice"
+git_url="https://github.com/gamejolt/gamejolt"
 rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="ice-steamos-unstable"
+pkgname="gamejolt"
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"

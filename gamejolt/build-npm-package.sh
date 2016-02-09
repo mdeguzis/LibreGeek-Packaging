@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-npm-package.sh
-# Script Ver:	0.5.1
+# Script Ver:	0.7.1
 # Description:	Builds simple Debian package from npm module and uploads to 
 #		GitHub
 #
@@ -200,7 +200,7 @@ main()
 	# Add Debianized files to repo
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
-	echo -e "\n==>Modifying Debian package files"
+	echo -e "\n==> Modifying Debian package files"
 	sleep 2s
 	
 	# correct and update resultant files pushed by npm2deb
@@ -215,7 +215,7 @@ main()
 	sed -i "s|FIX_ME debian author|$maintainer|g" node-${npm_pkg_name}/debian/control
 	sed -i "s|FIX_ME long description|$description_long|g" node-${npm_pkg_name}/debian/control
 	# copyright
-	sed -i "s|FIX_ME debian author|$uplaoder|g" node-${npm_pkg_name}/debian/copyright
+	sed -i "s|FIX_ME debian author|$uploader|g" node-${npm_pkg_name}/debian/copyright
 	# watch (optional)
 	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/watch
 	sed -i '/fakeupstream/d' node-${npm_pkg_name}/debian/watch
@@ -226,9 +226,6 @@ main()
 	nano node-${npm_pkg_name}/debian/copyright
 	nano node-${npm_pkg_name}/debian/watch
 	
-	# exit for now until the above is "solid"
-	exit 1
-	
 	# Furture TODO? Monitor debian/watch for new package
 	# 'uscan --download-current-verion'
 
@@ -236,7 +233,10 @@ main()
 	git add .
 	git commit -m "update source code from npm2deb"
 	git push origin $branch
-	cp $scriptdir
+	cd $scriptdir
+	
+	# exit for now until the above is "solid"
+	exit 1
 	
 	#################################################
 	# Gather new source files

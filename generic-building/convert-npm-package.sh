@@ -210,14 +210,22 @@ main()
 	# clone the empty repository to write to
 	echo -e "\n==> Cloning empty repository\n"
 	sleep 2s
-	git clone "${git_url}" "${git_dir}"
+	
+	if [[ -d "$ git_dir" ]]; then
+	
+		# pull
+		cd "${git_dir}" || exit && git pull
+		
+	else
+		
+		git clone "${git_url}" "${git_dir}"
+		cd "${git_dir}" || exi
+		
+	fi
 	
 	#################################################
 	# Alter Debian packaging files
 	#################################################
-	
-	# Enter new repo and initialize
-	cd "${git_dir}" || exit 
 	
 	# Add Debianized files to repo
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
@@ -233,21 +241,22 @@ main()
 	sleep 2s
 	
 	# correct and update resultant files pushed by npm2deb
+	debian_dir="node-${npm_pkg_name}/debian"
 	
 	# changelog
-	sed -i "s|UNRELEASED|$dist_rel|g" debian/changelog
-	sed -i "s|FIX_ME debian author|$uploader|g" debian/changelog
+	sed -i "s|UNRELEASED|$dist_rel|g" "$debian_dir/changelog"
+	sed -i "s|FIX_ME debian author|$uploader|g" "$debian_dir/changelog"
 	sed -i "s| (Closes: #nnnn)||g" debian/changelog
 	# control
-	sed -i "s|FIX_ME debian author|$uploader|g" debian/control
-	sed -i "s|FIX_ME repo url|$git_url|g" debian/control
-	sed -i "s|FIX_ME debian author|$maintainer|g" debian/control
-	sed -i "s|FIX_ME long description|$description_long|g" debian/control
+	sed -i "s|FIX_ME debian author|$uploader|g" "$debian_dir/control"
+	sed -i "s|FIX_ME repo url|$git_url|g" "$debian_dir/control"
+	sed -i "s|FIX_ME debian author|$maintainer|g" "$debian_dir/control"
+	sed -i "s|FIX_ME long description|$description_long|g" "$debian_dir/control"
 	# copyright
-	sed -i "s|FIX_ME debian author|$maintainer|g" debian/copyright
+	sed -i "s|FIX_ME debian author|$maintainer|g" "$debian_dir/copyright"
 	# watch (optional)
-	sed -i "s|FIX_ME repo url|$git_url|g" debian/watch
-	sed -i '/fakeupstream/d' debian/watch
+	sed -i "s|FIX_ME repo url|$git_url|g" "$debian_dir/watch"
+	sed -i '/fakeupstream/d' "$debian_dir/watch"
 	
 	# Open debian files for confirmation
 	file="changelog control copyright watch"
@@ -255,9 +264,9 @@ main()
 	# only edit file if it exists
 	for entry in "${file}"
 	do
-		if [[ -f "$file" ]]; then
+		if [[ -f "$debian_dir/$file" ]]; then
 		
-			nano debian/${file}
+			nano "$debian_dir/${file}"
 		
 		fi
 		

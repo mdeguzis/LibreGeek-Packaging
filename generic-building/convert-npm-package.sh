@@ -172,9 +172,6 @@ main()
 		#!/bin/bash
 		echo "Creating repositry PKGNAME"
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
-		#git remote add origin git@github.com:USERNAME/PKGNAME.git
-		#echo "Initializing PKGNAME repository"
-		#git push origin master
 		EOF
 		
 		# swap the vars
@@ -211,7 +208,7 @@ main()
 	echo -e "\n==> Cloning empty repository\n"
 	sleep 2s
 	
-	if [[ -d "$ git_dir" ]]; then
+	if [[ -d "$git_dir" ]]; then
 	
 		# pull
 		cd "${git_dir}" || exit && git pull
@@ -246,7 +243,7 @@ main()
 	# changelog
 	sed -i "s|UNRELEASED|$dist_rel|g" "$debian_dir/changelog"
 	sed -i "s|FIX_ME debian author|$uploader|g" "$debian_dir/changelog"
-	sed -i "s| (Closes: #nnnn)||g" debian/changelog
+	sed -i "s| (Closes: #nnnn)||g" "$debian/changelog"
 	# control
 	sed -i "s|FIX_ME debian author|$uploader|g" "$debian_dir/control"
 	sed -i "s|FIX_ME repo url|$git_url|g" "$debian_dir/control"

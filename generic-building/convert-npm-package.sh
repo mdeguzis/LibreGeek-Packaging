@@ -27,12 +27,13 @@ pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
+DESCRIPTION="$pkgname packged for SteamOS"
 description_long="Converted Debain package using npm2deb"
 
 # upstream vars
 branch="master"
 GIT_USERNAME="ProfessorKaos64"
-git_url="https://github.com/${GIT_USERNAME}/${pkgname}"
+git_url="https://github.com/${GIT_USERNAME}/${pkgname}/.git"
 git_dir="$HOME/${pkgname}"
 
 # set build_dir
@@ -171,19 +172,18 @@ main()
 		#!/bin/bash
 		echo "Creating repositry PKGNAME"
 		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
-		git remote add origin git@github.com:USERNAME/PKGNAME.git
-		echo "Initializing PKGNAME repository"
-		git push origin master
+		#git remote add origin git@github.com:USERNAME/PKGNAME.git
+		#echo "Initializing PKGNAME repository"
+		#git push origin master
 		EOF
 		
 		# swap the vars
-		DESCRIPTION="$pkgname packged for SteamOS"
 		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
 		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
 		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
 		
 		# execute
-		bash create_git_temp && rm -f create_git_temp
+		bash create_git_temp
 		
 	else
 	
@@ -210,7 +210,7 @@ main()
 	# clone the empty repository to write to
 	echo -e "\n==> Cloning empty repository\n"
 	sleep 2s
-	git clone -b "$branch" "$git_url" "${git_dir}"
+	git clone "${git_url}" "${git_dir}"
 	
 	#################################################
 	# Alter Debian packaging files

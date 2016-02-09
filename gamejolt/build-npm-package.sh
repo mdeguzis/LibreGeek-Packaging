@@ -190,10 +190,10 @@ main()
 	cp -r ${npm_temp_dir}/${npm_pkg_name}/* .
 	
 	# correct and update resultant files pushed by npm2deb
-	nano ${pkgname}/debian/changelog
-	nano ${pkgname}/debian/debian/control
-	nano ${pkgname}/debian/debian/copyright
-	nano ${pkgname}/debian/watch
+	nano node-${npm_pkg_name}/debian/changelog
+	nano node-${npm_pkg_name}/debian/debian/control
+	nano node-${npm_pkg_name}/debian/debian/copyright
+	nano node-${npm_pkg_name}/debian/watch
 	
 	# Furture TODO? Monitor debian/watch for new package
 	# 'uscan --download-current-verion'

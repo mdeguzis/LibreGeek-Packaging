@@ -105,14 +105,14 @@ main()
 	
 	fi
 
-	echo -e "\n==> Please review the dependencies for package: ${npm_pkg_name}\n"
+	echo -e "\n==> Please review the dependencies for package: ${npm_pkg_name}"
 	sleep 3s
 	
-	echo -e "\nGenerating depdency list, please wait..."
+	echo -e "\nGenerating dependency list, please wait..."
 	npm2deb depends -b -r ${npm_pkg_name} &> ${npm_pkg_name}.deps
 	less ${npm_pkg_name}.deps
 	
-	echo -e "\n==> Continue? [y/n]: " abort_choice
+	read -erp "Continue? [y/n]: " abort_choice
 	sleep 0.5s
 	
 	if [[ "$abort_choice" == "y" ]]; then

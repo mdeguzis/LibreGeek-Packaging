@@ -230,7 +230,7 @@ main()
 	        
 	        # using GitHub
 	        read -erp "Enter GitHub repository: " upsteam_source
-	        git clone "${upsteam_source}" "/tmp/git_temp" 
+	        git clone "${upsteam_source}" "/tmp/git_tmp" 
 	        cd "/tmp/git_tmp"
 	        
 	        # Checkout tag# show tags instead of branches

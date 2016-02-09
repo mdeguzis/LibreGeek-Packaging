@@ -215,7 +215,7 @@ main()
 	sed -i "s|FIX_ME debian author|$maintainer|g" node-${npm_pkg_name}/debian/control
 	sed -i "s|FIX_ME long description|$description_long|g" node-${npm_pkg_name}/debian/control
 	# copyright
-	sed -i "s|FIX_ME debian author|$uploader|g" node-${npm_pkg_name}/debian/copyright
+	sed -i "s|FIX_ME debian author|$maintainer|g" node-${npm_pkg_name}/debian/copyright
 	# watch (optional)
 	sed -i "s|FIX_ME repo url|$git_url|g" node-${npm_pkg_name}/debian/watch
 	sed -i '/fakeupstream/d' node-${npm_pkg_name}/debian/watch

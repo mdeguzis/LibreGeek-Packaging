@@ -138,41 +138,46 @@ main()
 	# create repository if it does not exist
 	cd $HOME
 	
-	git_missing=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${npm_pkg_name} | grep "Not Found")
+	git_missing=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${pkgname} | grep "Not Found")
 	
 	if [[ "$git_missing" != "" ]]; then
 	
 		# create repo using git api
-		curl -u "$GIT_USERNAME" https://api.github.com/user/repos -d '{"name":"$npm_pkg_name"}'
+		curl -u "$GIT_USERNAME" https://api.github.com/user/repos -d '{"name":"$pkgname","description":"$pkgname for SteamOS"}'
 		
 		# Remember replace USER with your username and REPO with your repository/application name!
-		git remote add origin git@github.com:${GIT_USERNAME}/${npm_pkg_name}.git
-		git push origin master
+		git remote add origin git@github.com:${GIT_USERNAME}/${pkgname}.git
+		
+		# push new repo
+		if cd ${pkgname} && git push origin master; then
+			echo -e "Creation failed!"
+			exit 1
+		fi
 		
 	else
 	
 		# check for dir in $HOME, clone if not there
-		if [[ -d "$HOME/${npm_pkg_name}" ]]; then
+		if [[ -d "$HOME/${pkgname}" ]]; then
 		
-			 cd "$HOME/${npm_pkg_name}" || exit
+			 cd "$HOME/${pkgname}" || exit
 			 
 		else
 		
 			echo -e "repository not found at $HOME location, cloning..."
 			cd || exit 
-			git clone "${git_url}" "${npm_pkg_name}"
-			cd "${npm_pkg_name}" || exit
+			git clone "${git_url}" "${pkgname}"
+			cd "${pkgname}" || exit
 		
 		fi
 	
 		# Add Debianized files to repo
-		cp -r ${build_dir}/${npm_pkg_name}/* .
+		cp -r ${build_dir}/${pkgname}/* .
 		
 		# correct and update resultant files pushed by npm2deb
-		nano debian/node-${npm_pkg_name}/changelog
-		nano debian/node-${npm_pkg_name}/debian/control
-		nano debian/node-${npm_pkg_name}/debian/copyright
-		nano debian/node-${npm_pkg_name}/watch
+		nano debian/node-${pkgname}/changelog
+		nano debian/node-${pkgname}/debian/control
+		nano debian/node-${pkgname}/debian/copyright
+		nano debian/node-${pkgname}/watch
 		
 		# Furture TODO? Monitor debian/watch for new package
 		# 'uscan --download-current-verion'

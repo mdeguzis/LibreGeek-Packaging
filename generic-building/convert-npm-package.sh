@@ -38,7 +38,7 @@ git_url="https://github.com/${GIT_USERNAME}/${pkgname}.git"
 # set build_dirs
 npm_temp_dir="$HOME/${pkgname}-temp"
 local_git_dir="$HOME/${pkgname}-git"
-debian_dir="${npm_temp_dir}/${npm_pkg_name}/debian"
+debian_dir="${npm_temp_dir}/${npm_pkg_name}/node-${npm_pkg_name}debian"
 
 # bail out if not arg
 if [[ "$npm_pkg_name" == "" ]]; then

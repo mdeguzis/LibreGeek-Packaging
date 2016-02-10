@@ -21,7 +21,7 @@ time_stamp_start=(`date +"%T"`)
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="npm-${npm_pkgname}"
+pkgname="${npm_pkgname}"
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -93,7 +93,7 @@ create_new_repo()
 	
 	if [[ -d "${local_git_dir}" ]]; then
 	
-		cd "${local_git_dir}"
+		cd "${local_git_dir}" && echo -e ""
 		git pull
 	
 	else
@@ -248,9 +248,8 @@ main()
 	# create repository if it does not exist
 	# test against pkgname or npm-pkgname
 	git_missing=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${pkgname} | grep "Not Found")
-	git_missing_npm=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${npm_pkgname} | grep "Not Found")
 
-	if [[ "$git_missing" != "" && "$git_missing_npm" != "" ]]; then
+	if [[ "$git_missing" != "" ]]; then
 		
 		echo -e "\nRepository seems to be missing. Fork an upstream repository or create a new one?\n"
 		sleep 0.5s

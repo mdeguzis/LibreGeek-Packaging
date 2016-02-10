@@ -205,7 +205,7 @@ main()
 	# Add Debianized files to repo
 	echo -e "\n==> Injecting Debian files\n"
 	sleep 2s
-	cp -ri ${debian_dir}/* .
+	cp -ri ${debian_dir} .
 	
 	cat<<- EOF
 	

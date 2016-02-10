@@ -8,7 +8,8 @@
 #
 # See:		https://launchpadlibrarian.net/219136562/platform_2.19.3-1~vivid1.dsc
 #		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-platform.sh
+# Usage:	build-platform.sh [opts]
+# Opts:		[--testing]
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -58,6 +59,14 @@ main()
 	else
 		
 		mkdir -p "$build_dir"
+		
+	fi
+	
+	# Set distribution to testing if specified
+	if [[ "$arg1" == "testing" ]]; then
+	
+		new_dist="${dist_rel}_testing"
+		dist_rel="${new_dist}"
 		
 	fi
 	

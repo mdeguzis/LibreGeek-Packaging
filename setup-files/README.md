@@ -1,4 +1,4 @@
-# Pacakging notes
+# Packaging notes
 To setup machine for packaging:
 
 ```

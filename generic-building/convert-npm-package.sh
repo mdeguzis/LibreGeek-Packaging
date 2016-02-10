@@ -68,18 +68,13 @@ install_prereqs()
 main()
 {
 
-	# create build_dir
-	if [[ -d "$npm_temp_dir" ]]; then
-
-		sudo rm -rf "/tmp/source_tmp"
-		sudo rm -rf "$npm_temp_dir"
-		mkdir -p "$npm_temp_dir"
-
-	else
-
-		mkdir -p "$npm_temp_dir"
-
-	fi
+	# clean build files
+	rm -rf "/tmp/source_tmp"
+	rm -rf ${local_git_dir}
+	rm -rf "$npm_temp_dir"
+	
+	# create temp dir for npm files
+	mkdir -p "$npm_temp_dir"
 
 	# enter build dir
 	cd "${npm_temp_dir}" || exit

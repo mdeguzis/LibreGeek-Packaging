@@ -13,7 +13,7 @@
 # Usage:	./convert-npm-package.sh [npm_module]
 #-------------------------------------------------------------------------------
 
-npm_pkg_name="$1"
+npm_pkgname="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
@@ -246,14 +246,13 @@ main()
 	sleep 2s
 	
 	# create repository if it does not exist
+	# test against pkgname or npm-pkgname
 	git_missing=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${pkgname} | grep "Not Found")
-	
-	if [[ "$git_missing" != "" ]]; then
-	
-		echo -e "\nRepository missing, creating GitHub repository via API"
-		sleep 2s
+	git_missing_npm=$(curl -s https://api.github.com/repos/${GIT_USERNAME}/${npm_pkgname} | grep "Not Found")
+
+	if [[ "$git_missing" != "" && "$git_missing_npm" != "" ]]; then
 		
-		echo -e "\nFork an upstream repository or create a new one?\n"
+		echo -e "\nRepository seems to be missing. Fork an upstream repository or create a new one?\n"
 		sleep 0.5s
 		read -erp "Choice: [fork|new]: " git_choice
 		

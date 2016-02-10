@@ -60,10 +60,8 @@ sudo mkdir /var/cache/pbuilder/repo
 sudo chmod 777 /var/cache/pbuilder/repo
 
 # copy files based of pwd
-touch "$HOME/.pbuilderrc"
-sudo touch "/root/.pbuilderrc"
-cp .pbuilderrc "$HOME/.pbuilderrc"
-sudo cp .pbuilderrc "/root/.pbuilderrc"
+cp "$scriptdir/.pbuilderrc" "$HOME/"
+sudo cp "$scriptdir/.pbuilderrc" "/root/"
 
 # create hooks dir
 sudo mkdir -p /usr/lib/pbuilder/hooks

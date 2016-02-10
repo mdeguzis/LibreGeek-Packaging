@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-npm-bower.sh
+# Scipt Name:	build-node-bower.sh
 # Script Ver:	0.1.1
 # Description:	Builds simple pacakge for using npm-bower based of of master upstream
 #		git source (unstable build)
 #
 # See:		https://github.com/ProfessorKaos64/npm-bower/
 #
-# Usage:	./build-npm-bower.sh
+# Usage:	./build-node-bower.sh
 #-------------------------------------------------------------------------------
 
 arg1="$1"
@@ -18,7 +18,7 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # upstream vars
-git_url="https://github.com/npm-bower/npm-bower"
+git_url="https://github.com/ProfessorKaos64/bower"
 rel_target="master"
 
 # package vars
@@ -49,13 +49,7 @@ install_prereqs()
 	fi
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper npm nodejs \
-	npm2deb gcc-4.9 gcc-4.9-multilib g++-4.9-multilib
-
-	# Need to "debianize" gulp and bower
-	# See: https://www.npmjs.com/package/npm2debian
-	# See: https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
-	# Per package.json, try to match gulp (~3.8.1)
+	sudo apt-get install -y --force-yes build-essential bc debhelper npm nodejs
 
 }
 
@@ -122,8 +116,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * New unstable build against upstream commit $latest_commit
-	  * Fixed package control file to replace ice-steams on install to avoid conflicts
+	  * Pacaked deb for SteamOS
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

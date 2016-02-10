@@ -4,10 +4,10 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-node-bower.sh
 # Script Ver:	0.1.1
-# Description:	Builds simple pacakge for using npm-bower based of of master upstream
+# Description:	Builds simple pacakge for using node-bower based of of master upstream
 #		git source (unstable build)
 #
-# See:		https://github.com/ProfessorKaos64/npm-bower/
+# See:		https://github.com/ProfessorKaos64/bower/
 #
 # Usage:	./build-node-bower.sh
 #-------------------------------------------------------------------------------
@@ -24,7 +24,8 @@ rel_target="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="npm-bower"
+pkgname="node-bower"
+pkgver="1.7.7"
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -81,12 +82,9 @@ main()
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
-	
-	# source pkgver
-	pkgver=$(grep version package.json | cut -c  15-19)
 
 	# Alter pkg suffix based on commit
-	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
+	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
 
 	# Add debian folder
         cp -r "$scriptdir/debian" "${git_dir}/debian"

@@ -162,17 +162,6 @@ create_new_repo()
 	
 }
 
-fork_repo()
-{
-	
-	# Just fork it (TM)
-	rm -rf "${local_git_dir}"
-	read -erp "Enter GitHub repository: " upstream_source
-	git clone "${upstream_source}" "${local_git_dir}" 
-	
-	
-}
-
 main()
 {
 
@@ -264,7 +253,7 @@ main()
 		echo -e "\nRepository missing, creating GitHub repository via API"
 		sleep 2s
 		
-		echo -e "\nFork an upstream repository or create a new one?"
+		echo -e "\nFork an upstream repository or create a new one?\n"
 		sleep 0.5s
 		read -erp "Choice: [fork|new]: " git_choice
 		
@@ -273,9 +262,17 @@ main()
 		
 		if [[ "$git_choice" == "fork" ]]; then
 		
-			# fork insead of make a new repo
-			fork_repo
-		
+			# fork on GitHub.com using hub binrary
+			file="v2.2.3/hub-linux-amd64-2.2.3.tgz"
+			wget -O hub.tgz \
+			"https://github.com/github/hub/releases/download/${file}" -q --show-progress
+			
+			# fork repo using hub
+			# See: https://hub.github.com/
+			read -erp "Repo to fork?: " git_url
+			git clone "${git_url}" "${local_git_dir}"
+			hub-linux-amd64*/bin/hub fork
+			
 		else
 		
 			# use function to create

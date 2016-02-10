@@ -105,7 +105,7 @@ main()
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	
+
 	 -- $uploader  $date_long
 	
 	EOF
@@ -118,7 +118,7 @@ main()
 	sleep 3s
 	nano debian/changelog
  
- 	rm -f changelog_tmp.txt
+ 	rm -f changelog.in
  
 	#################################################
 	# Build Debian package

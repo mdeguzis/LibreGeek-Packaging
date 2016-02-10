@@ -12,7 +12,7 @@
 # -------------------------------------------------------------------------------
 
 clear
-echo -e "Installing basic packages"
+echo -e "==> Installing basic packages"
 sleep 2s
 
 ##################################################
@@ -21,13 +21,13 @@ sleep 2s
 
 sudo apt-get install -y --force-yes build-essential autoconf automake and \
 autotools-dev debhelper dh-make devscripts fakeroot git lintian patch patchutils \
-pbuilder perl python quilt xutils-de dh-make devscripts
+pbuilder perl python quilt xutils-dev dh-make devscripts
 
-##################################################
-# dh
-#################################################
+####################################################################
+# General packaging defaults
+####################################################################
 
-echo -e "Configuring dh_make\n"
+echo -e "\n==> Configuring general package defaults\n"
 sleep 2s
 
 # Ask user for repos / vars
@@ -38,9 +38,25 @@ read -erp "Last Name: " first_name
 # set tmp var for last run, if exists
 repo_src_tmp="$repo_src"
 
+cat << EOF > $HOME/.bashrc
+##### DEBIAN PACKAGING SETUP #####
+
+# Debian identification
+DEBEMAIL="${email}"
+DEBFULLNAME="$first_name $last_name"
+export DEBEMAIL DEBFULLNAME
+
+# Quilt
+alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
+complete -F _quilt_completion $_quilt_complete_opt dquilt
+EOF
+
 ####################################################################
 # Debuild
 ####################################################################
+
+echo -e "\n==> Configuring debuild\n"
+sleep 2s
 
 # debuild default options
 cat<<- EOF> $HOME/.devscripts
@@ -68,25 +84,11 @@ DEBUILD_LINTIAN_OPTS="-i -I --show-overrides"
 EOF
 
 ####################################################################
-# General packaging defaults
-####################################################################
-
-cat << EOF > $HOME/.bashrc
-##### DEBIAN PACKAGING SETUP #####
-
-# Debian identification
-DEBEMAIL="${email}"
-DEBFULLNAME="$first_name $last_name"
-export DEBEMAIL DEBFULLNAME
-
-# Quilt
-alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
-complete -F _quilt_completion $_quilt_complete_opt dquilt
-EOF
-
-####################################################################
 # Quilt options
 ####################################################################
+
+echo -e "\n==> Configuring quilt\n"
+sleep 2s
 
 # Setup Quilt rc file
 
@@ -124,6 +126,9 @@ EOF
 ####################################################################
 
 # setup pbuilder
+echo -e "\n==> Configuring pbuilder\n"
+sleep 2s
+
 ./setup-pbuilder.sh
 
 ####################################################################

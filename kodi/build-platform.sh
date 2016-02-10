@@ -7,8 +7,10 @@
 # Description:	Attempts to build a deb package from platform git source
 #
 # See:		https://launchpadlibrarian.net/219136562/platform_2.19.3-1~vivid1.dsc
-#		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-platform.sh
+#
+# Usage:	build-platform.sh [opts]
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
 
 #################################################

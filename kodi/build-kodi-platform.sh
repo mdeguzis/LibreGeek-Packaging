@@ -17,14 +17,14 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream URL
 git_url="https://github.com/ProfessorKaos64/kodi-platform"
-rel_target="master"
+rel_target="Jarvis"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="kodiplatform"
 #pkgver="${date_short}+git"
-pkgver="17.0.0"
+pkgver="16.0.0"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"

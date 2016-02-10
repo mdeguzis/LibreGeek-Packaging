@@ -341,7 +341,7 @@ main()
 	done
 	
 	# update if watch file exists with github url 
-	if grep "$upstream_source" "${local_git_dir}/debian/watch" then
+	if grep "$upstream_source" "${local_git_dir}/debian/watch"; then
 	
 		# pull upstream source based on watch file
 		echo -e "Updating against upstream from info in debian/watch\n"

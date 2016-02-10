@@ -138,6 +138,10 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
+	# Use custom overrides? (see $HOME/.devscripts)
+	# DEBUILD_DPKG_BUILDPACKAGE_OPTS="-us -uc -I -i"
+	
+	# build
 	debuild
 	
 	#################################################

@@ -36,8 +36,9 @@ GIT_USERNAME="ProfessorKaos64"
 git_url="https://github.com/${GIT_USERNAME}/${pkgname}.git"
 
 # set build_dirs
-npm_temp_dir="$HOME/${pkgname}temp"
+npm_temp_dir="$HOME/${pkgname}-temp"
 local_git_dir="$HOME/${pkgname}-git"
+debian_dir="${npm_temp_dir}/node-${npm_pkg_name}/debian"
 
 # bail out if not arg
 if [[ "$npm_pkg_name" == "" ]]; then
@@ -204,7 +205,7 @@ main()
 	# Add Debianized files to repo
 	echo -e "\n==> Injecting Debian files\n"
 	sleep 2s
-	cp -ri ${npm_temp_dir}/${npm_pkg_name}/* .
+	cp -ri ${debian_dir}/* .
 	
 	cat<<- EOF
 	
@@ -277,9 +278,6 @@ main()
 	# ${pkgname}
 	Converted NPM package
 	EOF
-	
-	# correct and update resultant files pushed by npm2deb
-	debian_dir="node-${npm_pkg_name}/debian"
 	
 	# changelog
 	sed -i "s|UNRELEASED|$dist_rel|g" "$debian_dir/changelog"

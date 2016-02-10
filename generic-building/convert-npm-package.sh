@@ -65,12 +65,118 @@ install_prereqs()
 
 }
 
+create_new_repo()
+{
+	
+	#################################################
+	# Create bare repo
+	#################################################
+	
+	# create new repo in $HOME for easy identification
+	cat<<- EOF> create_git_temp
+	#!/bin/bash
+	echo "Creating repositry PKGNAME"
+	curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
+	EOF
+	
+	# swap the vars
+	sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
+	sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
+	sed -i "s|PKGNAME|$pkgname|g" create_git_temp
+	
+	# execute
+	bash create_git_temp
+	
+	# clone the empty repository to write to
+	echo -e "\n==> Cloning our new base repository\n"
+	sleep 2s
+	
+	if [[ -d "${local_git_dir}" ]]; then
+	
+		cd "${local_git_dir}"
+		git pull
+	
+	else
+	
+		git clone "${git_url}" "${local_git_dir}"
+		cd "${local_git_dir}" || exit
+		
+	fi
+	
+	cat<<- EOF
+	
+	#############################################################
+	What type of upstream files are we dealing with?
+	#############################################################
+
+	(1) GitHub
+	(2) Source from NPM JSON file (please verify in debian/watch)
+	(e) exit script
+
+	EOF
+	
+	# the prompt sometimes likes to jump above sleep
+	sleep 0.5s
+	
+	read -ep "Choice: " source_choice
+	
+	case "$source_choice" in
+	        
+	        1)
+	        
+	        # using GitHub
+	        read -erp "Enter GitHub repository: " upstream_source
+	        git clone "${upstream_source}" "/tmp/source_tmp" 
+	        cd "/tmp/source_tmp"
+	        
+	        # Checkout tag# show tags instead of branches
+		git tag -l --column
+
+		echo -e "\nWhich  release do you wish to build for:"
+		echo -e "Type 'master' to use the master tree\n"
+
+		# get user choice
+		sleep 0.2s
+		read -erp "Release Choice: " tag_choice
+
+		# checkout proper release
+		git checkout "tags/${tag_choice}"
+	        
+	        # copy source files and cleanup
+	        cd "${local_git_dir}" || exit
+	        cp -rv /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
+	        ;;
+	        
+	        2)
+	        # Source the upstream URL
+		upstream_source=$(npm2deb view ${npm_pkg_name} | cut -c 41-100)
+		;;
+	         
+	        *|e)
+	        echo -e "\n==ERROR==\nFile type not supported or exit requeste\n"
+	        exit 1
+		;;
+		
+	esac
+	
+	
+}
+
+fork_repo()
+{
+	
+	# Just fork it (TM)
+	read -erp "Enter GitHub repository: " upstream_source
+	git clone "${upstream_source}" "${local_git_dir}" 
+	
+	
+}
+
 main()
 {
 
 	# clean build files
 	rm -rf "/tmp/source_tmp"
-	rm -rf ${local_git_dir}
 	rm -rf "$npm_tmp_dir"
 	
 	# create temp dir for npm files
@@ -154,115 +260,46 @@ main()
 	
 	if [[ "$git_missing" != "" ]]; then
 	
-		echo -e "\nRepository missing, creating GitHub repository via API\n"
+		echo -e "\nRepository missing, creating GitHub repository via API"
 		sleep 2s
-	
+		
+		echo -e "\Fork an upstream repository or create a new one?"
+		sleep 0.5s
+		read -erp "Choice: [fork|new]: " git_choice
+		
 		# create repo using git api
 		# This is too tricky with globbing/expanding the repo vars, so create a temp command
 		
-		# create in $HOME for easy identification
-		cat<<- EOF> create_git_temp
-		#!/bin/bash
-		echo "Creating repositry PKGNAME"
-		curl -u "USERNAME" https://api.github.com/user/repos -d '{"name":"PKGNAME","description":"DESCRIPTION"}'
-		EOF
+		if [[ "$git_choice" == "fork" ]]; then
 		
-		# swap the vars
-		sed -i "s|DESCRIPTION|$DESCRIPTION|g" create_git_temp
-		sed -i "s|USERNAME|$GIT_USERNAME|g" create_git_temp
-		sed -i "s|PKGNAME|$pkgname|g" create_git_temp
+			# fork insead of make a new repo
+			fork_repo
 		
-		# execute
-		bash create_git_temp
+		else
 		
-	fi
-
-	#################################################
-	# Enter bare repository, source upstream files
-	#################################################	
-	
-	# clone the empty repository to write to
-	echo -e "\n==> Cloning repository\n"
-	sleep 2s
-	
-	if [[ -d "${local_git_dir}" ]]; then
-	
-		cd "${local_git_dir}"
-		git pull
-	
+			# use function to create
+			create_new_repo
+		
+		fi
+		
 	else
 	
+		# update existing repo
 		git clone "${git_url}" "${local_git_dir}"
-		cd "${local_git_dir}" || exit
+		
 		
 	fi
 	
 	# Add Debianized files to repo
 	echo -e "\n==> Injecting Debian files\n"
+	
 	sleep 2s
+	cd "${local_git_dir}"
 	cp -ri ${debian_dir} .
 	
-	cat<<- EOF
-	
-	#############################################################
-	What type of upstream files are we dealing with?
-	#############################################################
-
-	(1) GitHub
-	(2) Source from NPM JSON file (please verify in debian/watch)
-	(e) exit script
-
-	EOF
-	
-	# the prompt sometimes likes to jump above sleep
-	sleep 0.5s
-	
-	read -ep "Choice: " web_app_choice
-	
-	case "$web_app_choice" in
-	        
-	        1)
-	        
-	        # using GitHub
-	        read -erp "Enter GitHub repository: " upstream_source
-	        git clone "${upstream_source}" "/tmp/source_tmp" 
-	        cd "/tmp/source_tmp"
-	        
-	        # Checkout tag# show tags instead of branches
-		git tag -l --column
-
-		echo -e "\nWhich  release do you wish to build for:"
-		echo -e "Type 'master' to use the master tree\n"
-
-		# get user choice
-		sleep 0.2s
-		read -erp "Release Choice: " tag_choice
-
-		# checkout proper release
-		git checkout "tags/${tag_choice}"
-	        
-	        # copy source files and cleanup
-	        cd "${local_git_dir}" || exit
-	        cp -rv /tmp/source_tmp/* . && rm -rf /tmp/source_tmp
-	        ;;
-	        
-	        2)
-	        # Source the upstream URL
-		upstream_source=$(npm2deb view ${npm_pkg_name} | cut -c 41-100)
-		;;
-	         
-	        *|e)
-	        echo -e "\n==ERROR==\nFile type not supported or exit requeste\n"
-	        exit 1
-		;;
-		
-	esac
-	
-		
 	#################################################
 	# Alter Debian packaging files
 	#################################################
-	
 	
 	echo -e "\n==> Modifying Debian package files"
 	sleep 2s
@@ -303,8 +340,14 @@ main()
 		
 	done
 	
-	# pull upstream source based on watch file
-	uscan --download-current-version
+	# update if watch file exists with github url 
+	if grep "$upstream_source" "${local_git_dir}/debian/watch" then
+	
+		# pull upstream source based on watch file
+		echo -e "Updating against upstream from info in debian/watch\n"
+		uscan --download-current-version
+	
+	fi
 
 	#################################################
 	# Sync to remote

@@ -2,22 +2,30 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	install-pkg-tools.sh
-# Script Ver:	1.0.0
-# Description:	Simply installs basic packaging tools suggested by the Debian
-#               maintainers guide.
+# Scipt Name:	configure-packaging-env.sh
+# Script Ver:	1.3.1
+# Description:	Installs basic packaging tools suggested by the Debian
+#               maintainers guide and configures various packaging options
 #
 # See:		https://www.debian.org/doc/manuals/maint-guide/start.en.html#needprogs
-# Usage:	install-pkg-tools.sh
+# Usage:	./configure-packaging-env.sh
 # -------------------------------------------------------------------------------
 
 clear
 echo -e "Installing basic packages"
 sleep 2s
 
+##################################################
+# Base packages
+#################################################
+
 sudo apt-get install -y --force-yes build-essential autoconf automake and \
 autotools-dev debhelper dh-make devscripts fakeroot git lintian patch patchutils \
-pbuilder perl python quilt xutils-de dh-make
+pbuilder perl python quilt xutils-de dh-make devscripts
+
+##################################################
+# dh
+#################################################
 
 echo -e "Configuring dh_make\n"
 sleep 2s
@@ -30,7 +38,40 @@ read -erp "Last Name: " first_name
 # set tmp var for last run, if exists
 repo_src_tmp="$repo_src"
 
-cat >>~/.bashrc <<EOF
+####################################################################
+# Debuild
+####################################################################
+
+# debuild default options
+cat<<- EOF> $HOME/.devscripts
+##################################################
+# Notes
+##################################################
+# -us   Do not sign the source package.
+# -uc   Do not sign the .changes file.
+# -i[regex]
+# -I[pattern]
+
+# Re: debuild -i, to avoid editor backup files and version control metadata...
+# Source packages using the latest “3.0 (quilt)” and “3.0 (native)” 
+# formats do not have this problem anymore, the -i -I options 
+# are enabled by default for them.
+# For the old (“1.0”) source format, it’s still needed.
+
+# See: 'man debuild'
+
+##################################################
+# Set defaults
+##################################################
+DEBUILD_DPKG_BUILDPACKAGE_OPTS="-us -uc"
+DEBUILD_LINTIAN_OPTS="-i -I --show-overrides"
+EOF
+
+####################################################################
+# General packaging defaults
+####################################################################
+
+cat << EOF > $HOME/.bashrc
 ##### DEBIAN PACKAGING SETUP #####
 
 # Debian identification
@@ -42,6 +83,10 @@ export DEBEMAIL DEBFULLNAME
 alias dquilt="quilt --quiltrc=${HOME}/.quiltrc-dpkg"
 complete -F _quilt_completion $_quilt_complete_opt dquilt
 EOF
+
+####################################################################
+# Quilt options
+####################################################################
 
 # Setup Quilt rc file
 
@@ -74,9 +119,17 @@ if [ -d $d/debian ] && [ -z $QUILT_PATCHES ]; then
 fi
 EOF
 
+####################################################################
+# Pbuilder
+####################################################################
+
 # setup pbuilder
 ./setup-pbuilder.sh
 
+####################################################################
+# Cleanup
+####################################################################
+
 # source bashrc
-. ~/.bashrc
+. $HOME/.bashrc
 

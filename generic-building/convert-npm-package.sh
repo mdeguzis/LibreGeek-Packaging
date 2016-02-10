@@ -21,7 +21,7 @@ time_stamp_start=(`date +"%T"`)
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="npm-${npm_pkg_name}"
+pkgname="npm-${npm_pkgname}"
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -38,10 +38,10 @@ git_url="https://github.com/${GIT_USERNAME}/${pkgname}.git"
 # set build_dirs
 npm_tmp_dir="$HOME/${pkgname}-temp"
 local_git_dir="$HOME/${pkgname}-git"
-debian_dir="${npm_tmp_dir}/${npm_pkg_name}/node-${npm_pkg_name}/debian"
+debian_dir="${npm_tmp_dir}/${npm_pkgname}/node-${npm_pkgname}/debian"
 
 # bail out if not arg
-if [[ "$npm_pkg_name" == "" ]]; then
+if [[ "$npm_pkgname" == "" ]]; then
 	clear
 	echo -e "==ERROR==\nYou must specify and NPM package name as an arugment!\n"
 	exit 1
@@ -149,7 +149,7 @@ create_new_repo()
 	        
 	        2)
 	        # Source the upstream URL
-		upstream_source=$(npm2deb view ${npm_pkg_name} | cut -c 41-100)
+		upstream_source=$(npm2deb view ${npm_pkgname} | cut -c 41-100)
 		;;
 	         
 	        *|e)
@@ -182,7 +182,7 @@ main()
 	# Search and validate
 	#################################################
 	
-	echo -e "\n==> Check for existance of: ${npm_pkg_name}?"
+	echo -e "\n==> Check for existance of: ${npm_pkgname}?"
 	echo -e "    (building local index takes time!)\n"
 	sleep 0.5s
 	
@@ -191,16 +191,16 @@ main()
 	if [[ "$npm_exists" == "y" ]]; then
 	
 		# search
-		npm search ${npm_pkg_name}
+		npm search ${npm_pkgname}
 
 	fi
 
-	echo -e "\n==> Please review the dependencies for package: ${npm_pkg_name}"
+	echo -e "\n==> Please review the dependencies for package: ${npm_pkgname}"
 	sleep 2s
 	
 	echo -e "\nGenerating dependency list, please wait..."
-	npm2deb depends -b -r ${npm_pkg_name} &> ${npm_pkg_name}.deps
-	less ${npm_pkg_name}.deps
+	npm2deb depends -b -r ${npm_pkgname} &> ${npm_pkgname}.deps
+	less ${npm_pkgname}.deps
 	
 	read -erp "Continue? [y/n]: " continue_choice
 	sleep 0.5s
@@ -228,7 +228,7 @@ main()
 	
 		# create
 		echo -e "Creating base files..."
-		npm2deb create ${npm_pkg_name}
+		npm2deb create ${npm_pkgname}
 		
 	else
 	

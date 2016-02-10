@@ -100,6 +100,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
+	cd ${build_dir}
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# emter source dir

@@ -7,7 +7,8 @@
 # Description:	Attempts to build a deb package from kodi-platform git source
 #
 # See:		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-kodi-platform.sh
+# Usage:	build-kodi-platform.sh [opts]
+# Opts:		[--testing]
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -62,6 +63,14 @@ main()
 
 		mkdir -p "$build_dir"
 
+	fi
+	
+	# Set distribution to testing if specified
+	if [[ "$arg1" == "testing" ]]; then
+	
+		new_dist="${dist_rel}_testing"
+		dist_rel="${new_dist}"
+		
 	fi
 
 	# enter build dir

@@ -166,6 +166,7 @@ fork_repo()
 {
 	
 	# Just fork it (TM)
+	rm -rf "${local_git_dir}"
 	read -erp "Enter GitHub repository: " upstream_source
 	git clone "${upstream_source}" "${local_git_dir}" 
 	
@@ -263,7 +264,7 @@ main()
 		echo -e "\nRepository missing, creating GitHub repository via API"
 		sleep 2s
 		
-		echo -e "\Fork an upstream repository or create a new one?"
+		echo -e "\nFork an upstream repository or create a new one?"
 		sleep 0.5s
 		read -erp "Choice: [fork|new]: " git_choice
 		

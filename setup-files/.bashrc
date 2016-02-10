@@ -1,8 +1,8 @@
 ##### DEBIAN PACKAGING SETUP #####
 
 # Debian identification
-DEBEMAIL="mdeguzis@gmail.com"
-DEBFULLNAME="ProfessorKaos64"
+DEBEMAIL="EMAIL"
+DEBFULLNAME="FNAME LNAME"
 export DEBEMAIL DEBFULLNAME
 
 # Quilt

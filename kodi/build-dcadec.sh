@@ -69,7 +69,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_target" "$git_url" "${git_dir}"
+	git clone -b "$git_branch" "$git_url" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null

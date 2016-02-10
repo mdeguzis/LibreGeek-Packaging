@@ -7,7 +7,8 @@
 # Description:	Attempts to build a deb package dcadec git source
 #
 # See:		https://github.com/graeme-hill/crossguid
-# Usage:	build-dcadec.sh
+# Usage:	build-dcadec.sh [opts]
+# Opts:		[--testing]
 # -------------------------------------------------------------------------------
 
 arg1="$1"
@@ -45,7 +46,15 @@ install_prereqs()
 
 main()
 {
-
+	
+	# Set distribution to testing if specified
+	if [[ "$arg1" == "--testing" ]]; then
+	
+		new_dist="${dist_rel}_testing"
+		dist_rel="${new_dist}"
+		
+	fi
+	
 	# create build_dir
 	if [[ -d "$build_dir" ]]; then
 

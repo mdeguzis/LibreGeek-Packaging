@@ -36,9 +36,9 @@ GIT_USERNAME="ProfessorKaos64"
 git_url="https://github.com/${GIT_USERNAME}/${pkgname}.git"
 
 # set build_dirs
-npm_temp_dir="$HOME/${pkgname}-temp"
+npm_tmp_dir="$HOME/${pkgname}-temp"
 local_git_dir="$HOME/${pkgname}-git"
-debian_dir="${npm_temp_dir}/${npm_pkg_name}/node-${npm_pkg_name}/debian"
+debian_dir="${npm_tmp_dir}/${npm_pkg_name}/node-${npm_pkg_name}/debian"
 
 # bail out if not arg
 if [[ "$npm_pkg_name" == "" ]]; then
@@ -71,13 +71,13 @@ main()
 	# clean build files
 	rm -rf "/tmp/source_tmp"
 	rm -rf ${local_git_dir}
-	rm -rf "$npm_temp_dir"
+	rm -rf "$npm_tmp_dir"
 	
 	# create temp dir for npm files
-	mkdir -p "$npm_temp_dir"
+	mkdir -p "$npm_tmp_dir"
 
 	# enter build dir
-	cd "${npm_temp_dir}" || exit
+	cd "${npm_tmp_dir}" || exit
 
 	# install prereqs for build
 	install_prereqs
@@ -275,19 +275,19 @@ main()
 	EOF
 	
 	# changelog
-	sed -i "s|UNRELEASED|$dist_rel|g" "$debian_dir/changelog"
-	sed -i "s|FIX_ME debian author|$uploader|g" "$debian_dir/changelog"
-	sed -i "s| (Closes: #nnnn)||g" "$debian_dir/changelog"
+	sed -i "s|UNRELEASED|$dist_rel|g" "$local_git_dir/debian/changelog"
+	sed -i "s|FIX_ME debian author|$uploader|g" "$local_git_dir/debian/changelog"
+	sed -i "s| (Closes: #nnnn)||g" "$local_git_dir/debian/changelog"
 	# control
-	sed -i "s|FIX_ME debian author|$uploader|g" "$debian_dir/control"
-	sed -i "s|FIX_ME repo url|$upstream_source|g" "$debian_dir/control"
-	sed -i "s|FIX_ME debian author|$maintainer|g" "$debian_dir/control"
-	sed -i "s|FIX_ME long description|$description_long|g" "$debian_dir/control"
+	sed -i "s|FIX_ME debian author|$uploader|g" "$local_git_dir/debian/control"
+	sed -i "s|FIX_ME repo url|$upstream_source|g" "$local_git_dir/debian/control"
+	sed -i "s|FIX_ME debian author|$maintainer|g" "$local_git_dir/debian/control"
+	sed -i "s|FIX_ME long description|$description_long|g" "$local_git_dir/debian/control"
 	# copyright
-	sed -i "s|FIX_ME debian author|$maintainer|g" "$debian_dir/copyright"
+	sed -i "s|FIX_ME debian author|$maintainer|g" "$local_git_dir/debian/copyright"
 	# watch (optional)
-	sed -i "s|# Origin url: FIX_ME repo url|Origin url: $upstream_source|g" "$debian_dir/watch"
-	sed -i '/fakeupstream/d' "$debian_dir/watch"
+	sed -i "s|# Origin url: FIX_ME repo url|Origin url: $upstream_source|g" "$local_git_dir/debian/watch"
+	sed -i '/fakeupstream/d' "$local_git_dir/debian/watch"
 	
 	# Open debian files for confirmation
 	files="changelog control copyright watch"
@@ -295,9 +295,9 @@ main()
 	# only edit file if it exists
 	for file in ${files};
 	do
-		if [[ -f "$debian_dir/$file" ]]; then
+		if [[ -f "$local_git_dir/debian/$file" ]]; then
 		
-			nano "$debian_dir/$file"
+			nano "$local_git_dir/debian/$file"
 		
 		fi
 		

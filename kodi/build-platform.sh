@@ -18,7 +18,7 @@ time_stamp_start=(`date +"%T"`)
 
 # upstream URL
 git_url="https://github.com/Pulse-Eight/platform/"
-rel_target="platform-2.0.1"
+branch_tag="platform-2.0.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -72,14 +72,14 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	# Use backported patch to fix issue 22 in regards to failure to find squish.h when build Kodi
+	# Use rel_target set above for issue 22, in regards to failure to find squish.h when build Kodi
 	# See: https://github.com/Pulse-Eight/platform/pull/22#issuecomment-172975015
 	# Also see:  https://github.com/xbmc/kodi-platform/pull/16
 	# For now, the target package for Jarvis will be platform, not the renamed p8-platform
 
 	# Do NOT remove this rel_target defined above, until Kodi team moves to p8-platform.
 
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "$branch_tag" "$git_url" "$git_dir"
  
 	#################################################
 	# Build platform
@@ -87,7 +87,6 @@ main()
 	
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
 	
 	# create the tarball from latest tarball creation script
 	# use latest revision designated at the top of this script

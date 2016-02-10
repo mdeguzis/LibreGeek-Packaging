@@ -100,14 +100,14 @@ main()
 	
 	# Create basic changelog
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}.${pkgsuffix}) $dist_rel; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 
 	 -- $uploader  $date_long
-	
+
 	EOF
 	
 	# Perform a little trickery to update existing changelog

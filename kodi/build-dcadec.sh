@@ -25,7 +25,6 @@ date_short=$(date +%Y%m%d)
 pkgname="dcadec"
 pkgver="${date_short}"
 pkgrev="2"
-pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -69,7 +68,17 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "$git_branch" "$git_url" "$git_dir"
+	# clone and checkout desired commit
+	git clone -b "$rel_target" "$git_url" "${git_dir}"
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	git checkout $latest_commit 1> /dev/null
+
+	# Alter pkg suffix based on commit
+	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
+	
+	# Add debian files
+        cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
 
 	#################################################
 	# Build platform
@@ -83,9 +92,6 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
-
-        # funnel old changelog.in to changelog or create basic file
-        cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
 
 	# emter source dir
 	cd "${pkgname}"

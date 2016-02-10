@@ -190,6 +190,9 @@ main()
 			# cut files
 			if [[ -d "${build_dir}" ]]; then
 				scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+				
+				# keep changelog rolling since we maintain the debian folder
+				cp "${git_dir}/debian/changelog" "${scriptdir}/${pkgname}/debian"
 
 			fi
 

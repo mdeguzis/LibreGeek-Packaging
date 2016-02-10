@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	convert-npm-package.sh
-# Script Ver:	0.9.1
+# Script Ver:	0.9.5
 # Description:	Builds simple Debian package from npm module and uploads to 
 #		GitHub. Creates repo if it doesn't exist.
 #
@@ -267,7 +267,7 @@ main()
 			wget -O hub.tgz \
 			"https://github.com/github/hub/releases/download/${file}" -q --show-progress
 			
-			# fork repo using hub
+			# fork repo using hub (warning will output if fork exists)
 			# See: https://hub.github.com/
 			read -erp "Repo to fork?: " git_url
 			git clone "${git_url}" "${local_git_dir}"
@@ -283,8 +283,15 @@ main()
 	else
 	
 		# update existing repo
-		git clone "${git_url}" "${local_git_dir}"
+		if [[ -d "${local_git_dir}" ]]; then
 		
+			cd "${local_git_dir}" && git pull
+			
+		else
+		
+			git clone "${git_url}" "${local_git_dir}"
+			
+		fi
 		
 	fi
 	

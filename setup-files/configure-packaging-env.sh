@@ -55,7 +55,7 @@ cp "$scriptdir/.quiltrc-dpkg" "$HOME"
 cp "$scriptdir/.quiltrc" "$HOME"
 
 # devscripts
-cp "$scriptdir/.quiltrc" "$HOME"
+cp "$scriptdir/.devscripts" "$HOME"
 
 # GitHub Setup
 

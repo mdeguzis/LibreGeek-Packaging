@@ -38,16 +38,16 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/Stabyourself/mari0"
+git_url=""
 rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="mari0"
-pkgver="1.6"
+pkgname="minecraft"
+pkgver="1.0"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="latest+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -62,12 +62,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc dh-lua
-
-	# Needs older love version
-	wget http://ftp.us.debian.org/debian/pool/main/l/love/love_0.8.0-1+deb7u1_amd64.deb
-	sudo dpkg -i love_0.8.0-1+deb7u1_amd64.deb
-	rm love_0.8.0-1+deb7u1_amd64.deb
+	sudo apt-get install -y --force-yes build-essential debhelper bc openjdk-7-jre
 
 }
 
@@ -99,11 +94,8 @@ main()
 	# clone
 	#git clone -b "$rel_target" "$git_url" "$git_dir"
 
-	# For now, use prebuilt files
+	# Create empty git dir to just store debian/ files
 	mkdir -p "$git_dir"
-	cp "$scriptdir/mari0_1.6.love" "$git_dir"
-	cp "$scriptdir/mari0" "$git_dir"
-	cp "$scriptdir/mari0.png" "$git_dir"
 
 	#################################################
 	# Build package
@@ -129,6 +121,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}-${pkgrev}) $dist_rel; urgency=low
 
+	  * Simple package to add Minecraft to Linux/SteamOS
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
@@ -222,6 +215,15 @@ main()
 
 }
 
-# start main
-main
+# start main and log to tmp
+main | tee "/tmp/${pkgname}-build-log-temp.txt"
 
+# convert log file to Unix compatible ASCII
+strings "/tmp/${pkgname}-build-log-temp.txt" > "/tmp/${pkgname}-build-log.txt"
+
+# strings does catch all characters that I could 
+# work with, final cleanup
+sed -i 's|\[J||g' "/tmp/${pkgname}-build-log.txt"
+
+# remove file not needed anymore
+rm -f "/tmp/${pkgname}-build-log-temp.txt"

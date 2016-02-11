@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-mari0.sh
+# Scipt Name:	build-minecraft.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to build a deb package from latest mari0
-#		github release
+# Description:	Attempts to build a deb package from latest Minecraft jar
+#		file release
 #
-# See:		https://github.com/Stabyourself/mari0
+# See:		https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
 #
-# Usage:	build-mari0.sh
+# Usage:	./build-minecraft.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -102,6 +102,7 @@ main()
 	
 	# Inject other files from scriptdir
 	cp "${scriptdir}/minecraft.png" "${git_dir}"
+	cp "${scriptdir}/minecraft-launcher.sh" "${git_dir}/minecraft"
 
 	#################################################
 	# Build package

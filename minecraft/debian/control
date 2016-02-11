@@ -4,11 +4,11 @@ Priority: extra
 Maintainer: ProfessorKaos64 <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.2
-Homepage: http://stabyourself.net/mari0/
+Homepage: https://minecraft.net/
 
 Package: minecraft
 Architecture: all
 Depends: ${misc:Depends},
-openjdk-7-jre
+ openjdk-7-jre
 Description: Minecraft for Linux/SteamOS
  Simple package to add Minecraft to SteamOS

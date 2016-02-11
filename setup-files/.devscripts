@@ -1,1 +1,2 @@
-
+DEBUILD_DPKG_BUILDPACKAGE_OPTS="-us -uc"
+DEBUILD_LINTIAN_OPTS="-i -I --show-overrides"

@@ -627,7 +627,7 @@ show_build_summary()
 
 			# transfer files
 			if [[ -d "${deb_dir}" ]]; then
-				scp ${deb_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
+				rsync -arv --exclude '*.build' ${deb_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
 
 			fi
 

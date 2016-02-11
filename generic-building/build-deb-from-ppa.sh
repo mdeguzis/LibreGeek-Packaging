@@ -357,7 +357,7 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# transfer files
-		scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+		rsync -arv --exclude '*.build' ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"

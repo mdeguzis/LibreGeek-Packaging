@@ -193,7 +193,7 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --exclude '*.build' ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -214,7 +214,7 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --exclude '*.build' ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.

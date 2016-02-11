@@ -199,7 +199,7 @@ main()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer packages
-			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --exclude '*.build' ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Preserve changelog
 			cd "${git_dir}" && git add debian/changelog

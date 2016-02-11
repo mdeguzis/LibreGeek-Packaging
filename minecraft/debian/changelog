@@ -1,5 +1,11 @@
 minecraft (1.0+20160211+bsos5-1) brewmaster; urgency=low
 
+  * Add post install messge
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 11 Feb 2016 14:23:24 -0500
+
+minecraft (1.0+20160211+bsos5-1) brewmaster; urgency=low
+
   * Add postinst message about demo
 
  -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 11 Feb 2016 12:41:28 -0500

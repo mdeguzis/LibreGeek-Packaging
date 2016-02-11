@@ -238,11 +238,11 @@ main()
 		# transfer files
 		if [[ -d "$git_dir/build" ]]; then
 		
-			scp ${git_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --exclude '*.build' ${git_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		
 		elif [[ -d "$build_dir" ]]; then
 		
-			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --exclude '*.build' ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 		fi
 		

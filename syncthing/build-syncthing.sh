@@ -155,7 +155,7 @@ main()
 
 	#  build
 	#debuild -uc -us --source-option=--include-binaries
-	dpkg-buildpackage -rfakeroot -us -uc
+	debuild
 
 	#################################################
 	# Post install configuration

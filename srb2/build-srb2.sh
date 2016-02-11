@@ -169,7 +169,7 @@ main()
 	sleep 2s
 
 	#  build
-	dpkg-buildpackage -rfakeroot -us -uc
+	debuild
 
 	#################################################
 	# Prepare Debian package (data) - if needed
@@ -233,7 +233,7 @@ main()
 		sleep 2s
 
 		#  build
-		dpkg-buildpackage -rfakeroot -us -uc
+		debuild
 
 		# Move packages to build dir
 		mv ${git_dir}/*${pkgver_data}* "${build_dir}"

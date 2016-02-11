@@ -142,7 +142,7 @@ main()
 	echo -e "\n==> Bulding ${pkgname}\n"
 	sleep 3s
 
-	dpkg-buildpackage -rfakeroot -us -uc
+	debuild
 
 	#################################################
 	# Post install configuration

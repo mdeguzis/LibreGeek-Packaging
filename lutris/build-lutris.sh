@@ -157,7 +157,7 @@ main()
 	sleep 2s
 
 	#  build
-	dpkg-buildpackage -rfakeroot -us -uc
+	debuild
 
 	#################################################
 	# Post install configuration

@@ -175,7 +175,7 @@ main()
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s
 
-	dpkg-buildpackage -rfakeroot -us -uc
+	debuild
 
 	#################################################
 	# Post install configuration

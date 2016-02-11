@@ -12,6 +12,7 @@
 # -------------------------------------------------------------------------------
 
 export scriptdir=$(pwd)
+export stools_configs="$HOME/.config/SteamOS-Tools"
 
 clear
 echo -e "==> Installing basic packages"
@@ -26,10 +27,29 @@ autotools-dev debhelper dh-make devscripts fakeroot git lintian patch patchutils
 pbuilder perl python quilt xutils-dev dh-make devscripts
 
 ####################################################################
+# Create directories
+####################################################################
+
+echo -e "\n==> Adding needed directories"
+sleep 2s
+
+dirs="${stools_configs}"
+
+for dir in ${dirs};
+do
+	if [[ ! -d "${dir}" ]]; then
+	
+		mkdir -p "${dir}"
+	
+	fi
+	
+done
+
+####################################################################
 # Dot files
 ####################################################################
 
-echo -e "\n==> Configuring dotfiles"
+echo -e "\n==> Adding and configuring dotfiles"
 sleep 2s
 
 # .bashrc (if exists)
@@ -89,6 +109,15 @@ else
 fi
 
 ####################################################################
+# Other configuration files
+####################################################################
+
+echo -e "\n==> Adding other configuration files"
+sleep 2s
+
+cp "$scriptdir/repo-exclude.txt" "${stools_configs}"
+
+####################################################################
 # Pbuilder
 ####################################################################
 
@@ -104,4 +133,3 @@ sleep 2s
 
 # source bashrc
 . $HOME/.bashrc
-

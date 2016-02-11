@@ -1,16 +1,11 @@
 Format: http://dep.debian.net/deps/dep5
-Upstream-Name: mari0
-Source: http://stabyourself.net/mari0
+Upstream-Name: Minecraft
+Source: https://minecraft.net/
 
-Files: *
-Copyright: 2012 Maurice Guégan <contact@stabyourself.net>
-           2012 Sašo Smolej <contact@stabyourself.net>
+Files: Minecraft.jar
+Copyright: Mojang
 
-License: Creative Commons BY-NC-SA 3.0
- http://creativecommons.org/licenses/by-nc-sa/3.0/
+Comment: See "https://account.mojang.com/documents/minecraft_eula" for license terms.
 
 Files: debian/*
-Copyright: 2012 Mike Williamson <blessedbyvirtuosity@gmail.com>
-
-License: Creative Commons BY-NC-SA 3.0
- http://creativecommons.org/licenses/by-nc-sa/3.0/
+Copyright: ProfessorKaos64 <mdeguzis@gmail.com>

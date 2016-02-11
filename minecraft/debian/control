@@ -1,17 +1,14 @@
-Source: mari0
+Source: minecraft
 Section: games
 Priority: extra
-Maintainer: Mike Williamson <blessedbyvirtuosity@gmail.com>
+Maintainer: ProfessorKaos64 <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.2
 Homepage: http://stabyourself.net/mari0/
 
-Package: mari0
+Package: minecraft
 Architecture: all
-Depends: ${misc:Depends}, love
-Description: Mario Bros. with Portal guns!
- Two genre defining games from completely different eras, Nintendo's Super
- Mario Bros. and Valve's Portal. These two games managed to give Platformers and
- First-Person Puzzle Games a solid place in the video game world. But what if
- Nintendo teamed up with Valve and recreated the famous Mario game with Portal
- gun mechanics?
+Depends: ${misc:Depends},
+openjdk-7-jre
+Description: Minecraft for Linux/SteamOS
+ Simple package to add Minecraft to SteamOS

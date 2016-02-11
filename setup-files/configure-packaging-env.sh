@@ -11,7 +11,7 @@
 # Usage:	./configure-packaging-env.sh
 # -------------------------------------------------------------------------------
 
-scriptdir=$(pwd)
+export scriptdir=$(pwd)
 
 clear
 echo -e "==> Installing basic packages"

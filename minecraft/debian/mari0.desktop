@@ -1,12 +1,11 @@
 [Desktop Entry]
 Version=1.0
-Name=Mari0
-GenericName=Mari0
+Name=Minecraft
+GenericName=Minecraft
 Type=Application
-Comment=Mario+Portals! Ported for SteamOS
-Icon=/home/steam/Pictures/mari0.png
-Exec=mari0
+Comment=Simple Minecraft package for SteamOS
+Icon=/home/steam/Pictures/minecraft.png
+Exec=minecraft
 Terminal=false
 StartupNotify=false
-Keywords=multi;engine;emulator;xmb;
 Categories=Game;

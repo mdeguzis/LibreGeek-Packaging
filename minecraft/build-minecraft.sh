@@ -98,7 +98,7 @@ main()
 	mkdir -p "$git_dir"
 
 	# Get jar file
-	curl -o "${git_dir}/Minecraft.jar" "https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
+	curl -o "${git_dir}/Minecraft.jar" https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar
 
 	#################################################
 	# Build package

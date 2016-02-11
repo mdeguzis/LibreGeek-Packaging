@@ -1,3 +1,11 @@
+dcadec (20160210+0e07438git+bsos1) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/foo86/dcadec
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Wed, 10 Feb 2016 07:53:05 -0500
+
 dcadec (0.1~git-396e75652~vivid) vivid; urgency=low
 
   * Initial release

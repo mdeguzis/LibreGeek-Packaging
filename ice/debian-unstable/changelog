@@ -1,3 +1,12 @@
+ice-steamos-unstable (20160210.gitd7d37e5+bsos1-1) brewmaster; urgency=low
+
+  * New unstable build against upstream commit d7d37e5
+  * Fixed package control file to replace ice-steams on install to avoid conflicts
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/scottrice/Ice
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Wed, 10 Feb 2016 06:12:01 -0500
+
 ice-steamos-unstable (20160201.git5000749+bsos1-1) brewmaster; urgency=low
 
   * New unstable build against upstream commit 5000749

@@ -9,12 +9,32 @@
 # See:		https://github.com/dvdhrm/xwiimote
 #	
 # Usage:	build-pvr-hts.sh
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
+
+#################################################
+# Set variables
+#################################################
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
+
+# repo destination vars (use only local hosts!)
+USER="mikeyd"
+HOST="archboxmtd"
+
+if [[ "$arg1" == "--testing" ]]; then
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	
+else
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	
+fi
 
 # upstream vars
 git_url="https://github.com/dvdhrm/xwiimote"

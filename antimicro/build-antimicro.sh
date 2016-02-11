@@ -10,12 +10,32 @@
 # See:		https://github.com/Ryochan7/antimicro
 #
 # Usage:	build-antimicro.sh
-#-------------------------------------------------------------------------------
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
+# -------------------------------------------------------------------------------
+
+#################################################
+# Set variables
+#################################################
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
+
+# repo destination vars (use only local hosts!)
+USER="mikeyd"
+HOST="archboxmtd"
+
+if [[ "$arg1" == "--testing" ]]; then
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	
+else
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	
+fi
 
 # upstream vars
 git_url="https://github.com/Ryochan7/antimicro"
@@ -177,7 +197,7 @@ main()
 	
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.

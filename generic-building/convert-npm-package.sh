@@ -11,16 +11,37 @@
 # See:		https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
 #
 # Usage:	./convert-npm-package.sh [npm_module]
-#-------------------------------------------------------------------------------
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
+# -------------------------------------------------------------------------------
 
-npm_pkgname="$1"
+#################################################
+# Set variables
+#################################################
+
+arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
+# repo destination vars (use only local hosts!)
+USER="mikeyd"
+HOST="archboxmtd"
+
+if [[ "$arg1" == "--testing" ]]; then
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	
+else
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	
+fi
+
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+npm_pkgname="$1"
 pkgname="${npm_pkgname}"
 upstream_rev="1"
 pkgrev="1"

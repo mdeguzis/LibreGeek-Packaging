@@ -9,12 +9,33 @@
 # See:		https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 #		http://archive.ubuntu.com/ubuntu/pool/universe/f/ffmpeg/ffmpeg_2.5.8-0ubuntu0.15.04.1.dsc
 # Usage:	build-ffmpeg.sh
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
+
+#################################################
+# Set variables
+#################################################
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
+
+# repo destination vars (use only local hosts!)
+USER="mikeyd"
+HOST="archboxmtd"
+
+if [[ "$arg1" == "--testing" ]]; then
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	
+else
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	
+fi
+
 # reset source command for while loop
 src_cmd=""
 

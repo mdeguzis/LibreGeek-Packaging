@@ -8,16 +8,33 @@
 #                 PLEASE NOTE THIS SCRIPT IS NOT YET COMPLETE!
 # See:		 
 # Usage:
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
 
 #################################################
-# VARS
+# Set variables
 #################################################
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
+
+# repo destination vars (use only local hosts!)
+USER="mikeyd"
+HOST="archboxmtd"
+
+if [[ "$arg1" == "--testing" ]]; then
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	
+else
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	
+fi
+
 # reset source command for while loop
 src_cmd=""
 
@@ -221,11 +238,11 @@ main()
 		# transfer files
 		if [[ -d "$git_dir/build" ]]; then
 		
-			scp ${git_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${git_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		
 		elif [[ -d "$build_dir" ]]; then
 		
-			scp $build_dir/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 		fi
 		

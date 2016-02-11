@@ -15,22 +15,40 @@
 #		source ./build-deb-from-PPA.sh
 #		./build-deb-from-PPA.sh --ignore-deps
 #		./build-deb-from-PPA.sh --binary
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
 
-####################################################
+#################################################
+# Set variables
+#################################################
+
+arg1="$1"
+scriptdir=$(pwd)
+time_start=$(date +%s)
+time_stamp_start=(`date +"%T"`)
+
+# repo destination vars (use only local hosts!)
+USER="mikeyd"
+HOST="archboxmtd"
+
+if [[ "$arg1" == "--testing" ]]; then
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	
+else
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	
+fi
+
+###############################
 # Notes regarding some sources
-####################################################
+###############################
 
 # Ubuntu packages are not "PPA's" so example deb-src lines are:
 # deb-src http://archive.ubuntu.com/ubuntu vivid main restricted universe multiverse
 # GPG-key(s): 437D05B5, C0B21F32
-
-
-
-arg1="$1"
-scriptdir=$(pwd)
-ignore_deps="no"
-build_source_dir="Not applicable"
 
 show_help()
 {
@@ -339,7 +357,7 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# cut files
-		scp ${build_dir}/* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+		scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"

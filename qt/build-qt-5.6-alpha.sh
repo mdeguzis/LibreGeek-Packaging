@@ -10,17 +10,32 @@
 #		http://wiki.qt.io/Building-Qt-5-from-Git
 #
 # Usage:	./build-qt-5.6-alpha.sh
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
 
 #################################################
-# VARS
+# Set variables
 #################################################
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-# reset source command for while loop
+
+# repo destination vars (use only local hosts!)
+USER="mikeyd"
+HOST="archboxmtd"
+
+if [[ "$arg1" == "--testing" ]]; then
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	
+else
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	
+fi
 
 # files
 qt_src_url="http://download.qt.io/development_releases/qt/"
@@ -229,11 +244,11 @@ main()
 		# transfer files
 		if [[ -d "$git_dir/build" ]]; then
 		
-			scp ${git_dir}/build/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${git_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		
 		elif [[ -d "$build_dir" ]]; then
 		
-			scp $build_dir/*.deb mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 		fi
 		

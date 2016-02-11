@@ -13,7 +13,13 @@
 # Usage:      		./build-kodi.sh --cores [cpu cores]
 #			./build-kodi.sh [--package-deb][--source]
 # See Also:		https://packages.debian.org/sid/kodi
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
+
+#################################################
+# Set variables
+#################################################
 
 # source args
 build_opts="$1"
@@ -28,7 +34,26 @@ rm -f "kodi-build-log.txt"
 # Specify a final arg for any extra options to build in later
 # The command being echo'd will contain the last arg used.
 # See: http://www.cyberciti.biz/faq/linux-unix-bsd-apple-osx-bash-get-last-argument/
-export extra_opts=$(echo "${@: -1}")
+export final_opts=$(echo "${@: -1}")
+
+arg1="$1"
+scriptdir=$(pwd)
+time_start=$(date +%s)
+time_stamp_start=(`date +"%T"`)
+
+# repo destination vars (use only local hosts!)
+USER="mikeyd"
+HOST="archboxmtd"
+
+if [[ "$final_opts" == "--testing" ]]; then
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	
+else
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	
+fi
 
 set_vars()
 {
@@ -602,7 +627,7 @@ show_build_summary()
 
 			# cut files
 			if [[ -d "${deb_dir}" ]]; then
-				scp ${deb_dir}/* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+				scp ${deb_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
 
 			fi
 

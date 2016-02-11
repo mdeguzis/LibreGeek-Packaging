@@ -8,18 +8,32 @@
 #                 Installs cmake to '/usr/local/bin/cmake'
 # See:		  https://cmake.org/download/
 # Usage:	 ./build-cmake.sh
+# Opts:		[--testing]
+#		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
 
 #################################################
-# VARS
+# Set variables
 #################################################
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-# reset source command for while loop
-src_cmd=""
+
+# repo destination vars (use only local hosts!)
+USER="mikeyd"
+HOST="archboxmtd"
+
+if [[ "$arg1" == "--testing" ]]; then
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	
+else
+
+	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	
+fi
 
 # upstream URL
 git_url="https://cmake.org/cmake.git"
@@ -186,7 +200,7 @@ main()
 
 		# cut files
 		if [[ -d "${build_dir}" ]]; then
-			scp ${build_dir}/*${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

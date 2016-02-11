@@ -1,12 +1,2 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
-
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
-
-%:
-	dh $@ 
-
-override_dh_auto_build:
-	# requires older love version
-	wget -O Minecraft.jar "https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
+# -*- makefil

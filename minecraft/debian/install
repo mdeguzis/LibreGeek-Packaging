@@ -1,4 +1,4 @@
-Minecraft.jar /usr/games/minecraft
-minecraft /usr/bin/
+Minecraft.jar /usr/share/games/minecraft
+minecraft /usr/games/
 minecraft.png /usr/share/pixmaps/
 minecraft.desktop /usr/share/applications/

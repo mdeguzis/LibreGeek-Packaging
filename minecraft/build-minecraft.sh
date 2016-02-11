@@ -47,7 +47,7 @@ date_short=$(date +%Y%m%d)
 pkgname="minecraft"
 pkgver="1.0"
 pkgrev="1"
-pkgsuffix="latest+bsos${pkgrev}"
+pkgsuffix="${date_short}+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -96,6 +96,9 @@ main()
 
 	# Create empty git dir to just store debian/ files
 	mkdir -p "$git_dir"
+
+	# Get jar file
+	wget -O "${git_dir}/Minecraft.jar" "https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar"
 
 	#################################################
 	# Build package

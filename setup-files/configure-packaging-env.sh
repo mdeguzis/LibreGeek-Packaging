@@ -12,7 +12,7 @@
 # -------------------------------------------------------------------------------
 
 export scriptdir=$(pwd)
-export stools_configs="$HOME/.config/SteamOS-Tools"
+export steamos_tools_configs="$HOME/.config/SteamOS-Tools"
 
 clear
 echo -e "==> Installing basic packages"
@@ -33,7 +33,7 @@ pbuilder perl python quilt xutils-dev dh-make devscripts
 echo -e "\n==> Adding needed directories"
 sleep 2s
 
-dirs="${stools_configs}"
+dirs="${steamos_tools_configs}"
 
 for dir in ${dirs};
 do

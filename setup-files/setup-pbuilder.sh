@@ -51,18 +51,12 @@ sudo apt-get update
 # set the /var/cache/pbuilder/result directory writable by your user account.
 sudo chmod u+w /var/cache/pbuilder/result
 
-# create a directory, e.g. /var/cache/pbuilder/hooks, writable by the user, to place hook scripts in.
-sudo mkdir -p /var/cache/pbuilder/hooks
-sudo chown $USER:$USER /var/cache/pbuilder/hooks
+##########################
+# Hooks
+##########################
 
-# setup cache directory
-sudo rm -rf /var/cache/pbuilder/repo
-sudo mkdir /var/cache/pbuilder/repo
-sudo chmod 777 /var/cache/pbuilder/repo
-
-# copy files based of pwd
-cp "$scriptdir/.pbuilderrc" "$HOME/"
-sudo cp "$scriptdir/.pbuilderrc" "/root/"
+echo -e "\n==> Adding pbuilder hooks"
+sleep 0.5s
 
 # create hooks dir
 sudo mkdir -p /usr/lib/pbuilder/hooks
@@ -73,7 +67,32 @@ sudo chmod +x /usr/lib/pbuilder/hooks/C10shell
 
 # Create /usr/lib/pbuilder/hooks/D05deps
 sudo cp D05deps /usr/lib/pbuilder/hooks/D05deps
-	
+
+##########################
+# Cache directory
+##########################
+echo -e "\n==> Adding cache setup"
+sleep 0.5s
+
+# create a directory, e.g. /var/cache/pbuilder/hooks, writable by the user, to place hook scripts in.
+sudo mkdir -p /var/cache/pbuilder/hooks
+sudo chown $USER:$USER /var/cache/pbuilder/hooks
+
+sudo rm -rf /var/cache/pbuilder/repo
+sudo mkdir /var/cache/pbuilder/repo
+sudo chmod 777 /var/cache/pbuilder/repo
+
+##########################
+# core configs
+##########################
+
+# copy files based of pwd
+echo -e "\n==> Adding pbuilder config files"
+sleep 0.5s
+
+cp "$scriptdir/.pbuilderrc" "$HOME/"
+sudo cp "$scriptdir/.pbuilderrc" "/root/"
+
 # create directory for dependencies
 mkdir -p "/home/$USER/${dist_choice}-packaging/deps"
 
@@ -85,6 +104,12 @@ dpkg-scanpackages /var/cache/pbuilder/repo > /var/cache/pbuilder/repo/Packages
 # chroot on tmpfs will speed it up immensely.  so add the following to /etc/fstab 
 # (it should be all on one line starting with “tmpfs” and ending with the second zero.
 
+##########################
+# core configs
+##########################
+
+echo -e "\n==> Processing fstab"
+sleep 0.5s
 
 # remove old /etc/fstab entries
 sudo sed -ie "\:#pbuilder tmpfs:,+1d" "/etc/fstab"
@@ -100,9 +125,15 @@ fi
 # mount fstab it with 
 sudo mount /var/cache/pbuilder/build
 
+echo -e "\n==> Finishing up"
+sleep 0.5s
+
 # output help
 cat <<-EOF
 
+################################################################
+Summary
+################################################################
 Creating:
 'sudo DIST=${dist} ARCH=${arch} pbuilder create [--keyring=]'
 

@@ -70,19 +70,19 @@ main()
 {
 
 	# create build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "${build_dir}" ]]; then
 
-		sudo rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 
 	else
 
-		mkdir -p "$build_dir"
+		mkdir -p "${build_dir}"
 
 	fi
 
 	# enter build dir
-	cd "$build_dir" || exit
+	cd "${build_dir}" || exit
 
 	# install prereqs for build
 	install_prereqs
@@ -95,10 +95,13 @@ main()
 	#git clone -b "$rel_target" "$git_url" "$git_dir"
 
 	# Create empty git dir to just store debian/ files
-	mkdir -p "$git_dir"
+	mkdir -p "${git_dir}"
 
 	# Get jar file
 	curl -o "${git_dir}/Minecraft.jar" "https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar" -#
+	
+	# Inject other files from scriptdir
+	cp "${scriptdir}/minecraft.png" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -114,7 +117,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"
@@ -176,8 +179,8 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir" || exit
+	if [[ "${scriptdir}" != "" ]]; then
+		cd "${scriptdir}" || exit
 	else
 		cd "$HOME" || exit
 	fi

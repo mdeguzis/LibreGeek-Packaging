@@ -62,7 +62,7 @@ cp "$scriptdir/.quiltrc" "$HOME"
 ####################################################################
 
 # setup pbuilder
-echo -e "\n==> Configuring pbuilder\n"
+echo -e "\n==> Configuring pbuilder"
 sleep 2s
 
 ./setup-pbuilder.sh

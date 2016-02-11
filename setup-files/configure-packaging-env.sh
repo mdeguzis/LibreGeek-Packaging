@@ -33,7 +33,10 @@ echo -e "\n==> Configuring dotfiles"
 sleep 2s
 
 # .bashrc (if exists)
-if ! grep "##### DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc"; then
+bashrc_test_start=$(grep "##### DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
+bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
+
+if [[ "$bashrc_test_start" == "" && "$bashrc_test_start" == "" ]]; then
 
         cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
         

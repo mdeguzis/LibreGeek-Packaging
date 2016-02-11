@@ -22,12 +22,13 @@
 # Dependencies
 #####################################
 
-echo -e "\n==> Installing depedencies for packaging and testing\n"
-sleep 2s
+cat<<- EOF
+########################################################################
+Pbuilder Setup for SteamOS Packaging
+########################################################################
 
-# Install basic packages and keyrings for pbuilder create
-sudo apt-get install -y build-essential fakeroot devscripts cowbuilder pbuilder debootstrap \
-debian-archive-keyring ubuntu-archive-keyring
+EOF
+sleep 2s
 
 echo -e "\n==> Installing Valve keyrings\n"
 sleep 2s

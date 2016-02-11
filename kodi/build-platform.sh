@@ -38,14 +38,14 @@ fi
 
 # upstream URL
 git_url="https://github.com/Pulse-Eight/platform/"
-branch_tag="p8-platform-2.0.1"
+branch_tag="platform-2.0.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="p8-platform"
+pkgname="platform"
 pkgver="2.0.1"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

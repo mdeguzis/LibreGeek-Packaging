@@ -67,3 +67,6 @@ git commit
 git pull --recurse-submodules
 git submodule update --recursive
 ```
+
+# Tips and Tricks
+* [Find and process find results to sed](https://gist.github.com/ProfessorKaos64/cc44646a4368723d6f45)

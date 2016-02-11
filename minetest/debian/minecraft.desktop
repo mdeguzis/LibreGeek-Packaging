@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Minecraft
+GenericName=Minecraft
+Type=Application
+Comment=Simple Minecraft package for SteamOS
+Icon=/usr/share/pixmaps/minecraft.png
+Exec=minecraft
+Terminal=false
+StartupNotify=false
+Categories=Game;

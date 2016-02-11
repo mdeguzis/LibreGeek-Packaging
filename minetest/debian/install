@@ -1,0 +1,4 @@
+Minecraft.jar /usr/share/games/minecraft
+minecraft /usr/games/
+minecraft.png /usr/share/pixmaps/
+debian/minecraft.desktop /usr/share/applications/

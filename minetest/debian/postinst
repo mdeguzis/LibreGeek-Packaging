@@ -1,0 +1,5 @@
+# Remind user about registering
+echo "\n==NOTICE!==\nPlease ensure you have registered already at \
+https://minecraft.net/register before playing on SteamoS! The browser window "Register" \
+calls will NOT be visible in SteamOS! You should be able to play the demo if you do not \
+wish to pay for Minecraft just yet. \n"

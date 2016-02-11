@@ -57,6 +57,37 @@ cp "$scriptdir/.quiltrc" "$HOME"
 # devscripts
 cp "$scriptdir/.quiltrc" "$HOME"
 
+# GitHub Setup
+
+git_user_test=$(git config --global user.name)
+git_email_test=$(git config --global user.email)
+
+if [[ "$git_user_test" == "" && "$git_email_test" == "" ]]; then
+
+        echo -e "\nSeting info for Git config\n"
+        sleep 2s
+        
+        read -erp "Git username: " GITUSER
+        read -erp "Git email: " GITEMAIL
+        git config --global user.name "${GITUSER}"
+        git config --global user.email "${GITEMAIL}"
+        
+else
+
+        echo -e "\nGit email/user already set, reset?"
+        read -erp "Choice [y/n]: " git_reset
+        
+        if [[ "$git_reset" == "y" ]]; then
+
+                read -erp "Git username: " GITUSER
+                read -erp "Git email: " GITEMAIL
+                git config --global user.name "${GITUSER}"
+                git config --global user.email "${GITEMAIL}"
+        
+        fi
+
+fi
+
 ####################################################################
 # Pbuilder
 ####################################################################

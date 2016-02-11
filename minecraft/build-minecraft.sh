@@ -47,6 +47,7 @@ date_short=$(date +%Y%m%d)
 pkgname="minecraft"
 pkgver="1.0"
 pkgrev="2"
+upstream_rev="1"
 pkgsuffix="${date_short}+bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -126,7 +127,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${pkgrev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * Simple package to add Minecraft to Linux/SteamOS
 	  * Packaged deb for SteamOS-Tools

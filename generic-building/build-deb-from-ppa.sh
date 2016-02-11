@@ -333,7 +333,7 @@ main()
 	
 	if [[ "$trim_choice" == "y" ]]; then
 		
-		# cut files so we just have our deb pkg
+		# transfer files so we just have our deb pkg
 		rm -f $build_dir/*.tar.gz
 		rm -f $build_dir/*.dsc
 		rm -f $build_dir/*.changes
@@ -356,7 +356,7 @@ main()
 	
 	if [[ "$transfer_choice" == "y" ]]; then
 	
-		# cut files
+		# transfer files
 		scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		
 	elif [[ "$transfer_choice" == "n" ]]; then

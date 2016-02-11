@@ -625,7 +625,7 @@ show_build_summary()
 
 		if [[ "$transfer_choice" == "y" ]]; then
 
-			# cut files
+			# transfer files
 			if [[ -d "${deb_dir}" ]]; then
 				scp ${deb_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
 

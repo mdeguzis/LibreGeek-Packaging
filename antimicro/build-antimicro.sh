@@ -195,7 +195,7 @@ main()
 	
 	if [[ "$transfer_choice" == "y" ]]; then
 	
-		# cut files
+		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 

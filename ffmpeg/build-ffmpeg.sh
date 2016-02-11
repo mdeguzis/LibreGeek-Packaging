@@ -296,7 +296,7 @@ main()
 
 	if [[ "$transfer_choice" == "y" ]]; then
 
-		# cut files
+		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			scp ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi

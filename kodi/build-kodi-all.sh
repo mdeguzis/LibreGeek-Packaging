@@ -330,7 +330,7 @@ build_all()
 
 	if [[ "$transfer_choice" == "y" ]]; then
 
-		# cut files
+		# transfer files
 		if [[ -d "${auto_build_dir}/" ]]; then
 			scp ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 

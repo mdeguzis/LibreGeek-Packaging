@@ -46,7 +46,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="minecraft"
 pkgver="1.0"
-pkgrev="3"
+pkgrev="4"
 upstream_rev="1"
 pkgsuffix="${date_short}+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -129,10 +129,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * Simple package to add Minecraft to Linux/SteamOS
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
+	  * Add post install messge
 
 	 -- $uploader  $date_long
 

@@ -119,7 +119,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}.${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * New unstable build against upstream commit $latest_commit
 	  * See: packages.libregeek.org

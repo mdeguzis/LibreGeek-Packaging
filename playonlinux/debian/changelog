@@ -1,7 +1,0 @@
-playonlinux-unstable (4.2.9.2665b57git+bsos1-1) brewmaster; urgency=low
-
-  * New unstable build against upstream commit 2665b57
-  * See: packages.libregeek.org
-  * Upstream authors and source: https://github.com/PlayOnLinux/POL-POM-4
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 12 Feb 2016 15:10:53 -0500

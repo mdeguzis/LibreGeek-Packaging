@@ -106,6 +106,7 @@ main()
 	sleep 2s
 
 	# create source tarball
+	cd "$build_dir" || exit
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# enter source dir

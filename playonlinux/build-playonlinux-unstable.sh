@@ -99,6 +99,9 @@ main()
 	# Alter pkg suffix based on commit
 	pkgsuffix="${date_short}.${latest_commit}git+bsos${pkgrev}"
 	
+	# add debian files
+	cp -r "${scriptdir}/debian" "${git_dir}"
+	
 	#################################################
 	# Build package
 	#################################################

@@ -102,6 +102,9 @@ main()
 	# add debian files
 	cp -r "${scriptdir}/debian" "${git_dir}"
 	
+	# copy patched makefile (will become debian patch soon after testing)
+	cp -r "${scriptdir}/Makefile" "${git_dir}"
+	
 	#################################################
 	# Build package
 	#################################################

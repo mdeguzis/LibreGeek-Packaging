@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-sorr.sh
+# Scipt Name:	build-koku-xinput-wine.sh
 # Script Ver:	1.0.5
-# Description:	Attempts to build a deb package from latest sorr
+# Description:	Attempts to build a deb package from latest koku-xinput-wine
 #		github release
 #
-# See:		http://archive.ubuntugames.org/dists/ubuntugames/main/source/amd64/
+# See:		https://github.com/ProfessorKaos64/koku-xinput-wine
 #
-# Usage:	build-sorr.sh
+# Usage:	build-koku-xinput-wine.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -36,19 +36,17 @@ else
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
 	
 fi
-
 # upstream vars
-sourcefile="sorr_5.1.orig.tar.gz"
-sourcecode="http://archive.ubuntugames.org/dists/ubuntugames/main/source/amd64/${sourcefile}"
+git_url="https://github.com/ProfessorKaos64/koku-xinput-wine"
+brnach="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="sorr"
-pkgver="5.1"
-pkgrev="2"
+pkgname="koku-xinput-wine"
+pkgver="1.0"
+pkgrev="1"
 upstream_suffix="1ug"
-pkgsuffix="bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -63,7 +61,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc
+	sudo apt-get install -y --force-yes build-essential pkg-config bc libsdl1.2-dev
 
 }
 
@@ -92,19 +90,14 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	mkdir -p "$source_dir"
-	cd "$source_dir" || exit
-	wget "$sourcecode"
-	tar -xvf "$sourcefile"
-	rm -rf "$sourcefile"
-	cd "$build_dir"
+	# clone and checkout desired commit
+	git clone -b "$branch" "$git_url" "${git_dir}"
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
-	# inject our modified files for SteamOS
-	cp "$scriptdir/sorr.desktop" "$source_dir/"
-	cp "$scriptdir/sorr" "$source_dir/"
-	cp "$scriptdir/sorr.desktop" "$source_dir/"
-	cp "$scriptdir/sorr.png" "$source_dir/"
-
+	# Alter pkg suffix based on commit
+	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
+	
 	#################################################
 	# Build package
 	#################################################
@@ -129,9 +122,10 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}-${upstream_suffix}+${pkgsuffix}) $dist_rel; urgency=low
 
+	  * 32-bit library to add xinput support to Wine
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
-	  * Upstream authors and source: http://soronline.net/sorr.htm
+	  * Upstream authors and source: http://soronline.net/koku-xinput-wine.htm
 
 	 -- $uploader  $date_long
 

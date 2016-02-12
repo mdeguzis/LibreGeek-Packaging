@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-koku-xinput-wine.sh
+# Scipt Name:	build-playonlinux-unstable.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from latest koku-xinput-wine
+# Description:	Attempts to build a deb package from latest PlayOnLinux 4
 #		github release
 #
-# See:		https://github.com/ProfessorKaos64/koku-xinput-wine
+# See:		https://github.com/PlayOnLinux/POL-POM-4
 #
-# Usage:	build-koku-xinput-wine.sh
+# Usage:	build-playonlinux-unstable.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -37,17 +37,16 @@ else
 	
 fi
 # upstream vars
-git_url="https://github.com/ProfessorKaos64/koku-xinput-wine"
+git_url="https://github.com/PlayOnLinux/POL-POM-4e"
 branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="koku-xinput-wine"
-pkgver="1.0"
+pkgname="playonlinux-unstable"
+pkgver="4.2.10"
 upstream_rev="1"
-pkgrev="2"
-upstream_suffix="1ug"
+pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -62,7 +61,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc libsdl1.2-dev
+	sudo apt-get install -y --force-yes build-essential pkg-config bc python imagemagick
 
 }
 
@@ -91,13 +90,14 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and checkout desired commit
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	# clone and checkout latest commit
+	git clone -b "$branch" "$git_url" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	git checkout $latest_commit 1> /dev/null
 
 	# Alter pkg suffix based on commit
-	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
+	pkgsuffix="${date_short}.${latest_commit}git+bsos${pkgrev}"
 	
 	#################################################
 	# Build package
@@ -116,17 +116,11 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * 32-bit library to add xinput support to Wine
-	  * Fixed up CmakeLists.txt to handle finding SDL dynamically
-	  * Symlinked library from /usr/lib/DEB_HOST_MULTIARCH/ to /usr/lib/
-	  * See upstream README.md for details
-	  * Largely untested at this time
-	  * Packaged deb for SteamOS-Tools
+	  * New unstable build against upstream commit $latest_commit
 	  * See: packages.libregeek.org
-	  * Forked source: https://github.com/ProfessorKaos64/koku-xinput-wine
-	  * Upstream authors and source: https://github.com/KoKuToru/koku-xinput-wine
+	  * Upstream authors and source: $git_url
 
 	 -- $uploader  $date_long
 

@@ -1,0 +1,19 @@
+Source: playonlinux
+Section: contrib/otherosfs
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Bertrand Marc <beberking@gmail.com>
+Build-Depends: debhelper (>= 8), python, imagemagick
+Standards-Version: 3.9.5
+Vcs-Svn: svn://anonscm.debian.org/pkg-games/packages/trunk/playonlinux/
+Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-games/packages/trunk/playonlinux/
+Homepage: http://www.playonlinux.com/
+
+Package: playonlinux
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, wine|wine-development, unzip, wget, xterm|x-terminal-emulator, python-wxgtk3.0, imagemagick, cabextract, mesa-utils, gettext-base, binutils, gnupg, icoutils, x11-utils, curl, netcat, bzip2, p7zip-full
+Suggests: ttf-mscorefonts-installer, scrot
+Description: front-end for Wine
+ PlayOnLinux is a front-end for wine. It permits you to easily install Windows
+ Games and software on Linux. It is advised to have a functional internet
+ connection.

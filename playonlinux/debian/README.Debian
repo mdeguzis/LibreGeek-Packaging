@@ -1,0 +1,20 @@
+PlayOnLinux platform
+-----------------
+
+Currently upstream supports PlayOnLinux on linux platform only. It could
+theoreticaly be usable on kFreeBSD, but this would require major changes
+upstream.
+
+PlayOnLinux for Debian
+-----------------
+
+To comply with the Debian main category, automatic installation of 
+Microsoft fonts is deactivated in PlayOnLinux. If you encounter any fonts 
+troubles in PlayOnLinux, you should think about installing the Debian package 
+ttf-msttcorefonts-installer.
+
+Alternativelly, you can install these fonts manually in the PlayOnLinux 
+fashion by launching in the PlayOnLinux Debug console :
+install_fonts
+
+ -- Bertrand Marc <beberking@gmail.com>  Fri, 04 Mar 2009 17:18:41 +0100

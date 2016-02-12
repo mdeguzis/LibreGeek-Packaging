@@ -37,7 +37,7 @@ else
 	
 fi
 # upstream vars
-git_url="https://github.com/PlayOnLinux/POL-POM-4e"
+git_url="https://github.com/PlayOnLinux/POL-POM-4"
 branch="master"
 
 # package vars

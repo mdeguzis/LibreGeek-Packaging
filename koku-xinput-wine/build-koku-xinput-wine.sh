@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-koku-xinput-wine.sh
-# Script Ver:	1.0.5
+# Script Ver:	0.1.1
 # Description:	Attempts to build a deb package from latest koku-xinput-wine
 #		github release
 #
@@ -38,7 +38,7 @@ else
 fi
 # upstream vars
 git_url="https://github.com/ProfessorKaos64/koku-xinput-wine"
-brnach="master"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

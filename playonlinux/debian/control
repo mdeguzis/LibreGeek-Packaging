@@ -11,6 +11,7 @@ Homepage: http://www.playonlinux.com/
 
 Package: playonlinux-unstable
 Architecture: all
+Breaks: playonlinux
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, wine|wine-development, unzip, wget, xterm|x-terminal-emulator, python-wxgtk3.0, imagemagick, cabextract, mesa-utils, gettext-base, binutils, gnupg, icoutils, x11-utils, curl, netcat, bzip2, p7zip-full
 Suggests: ttf-mscorefonts-installer, scrot
 Description: front-end for Wine

@@ -133,7 +133,7 @@ main()
         
 	# get latest base release
 	# This is used because upstream does tends to use release tags
-	release_tag=$(git tag | tail -n 1)
+	release_tag=$(git describe --abbrev=0 --tags)
 	git checkout $release_tag 1> /dev/null
 	
 	# cleanup for pkg version naming

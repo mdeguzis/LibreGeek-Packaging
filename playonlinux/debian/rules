@@ -17,6 +17,6 @@ override_dh_auto_build-indep:
 
 override_dh_install:
 	dh_install
-	chmod +x debian/playonlinux-unstable/usr/share/playonlinux/bash/startup_after_server
-	chmod +x debian/playonlinux-unstable/usr/share/playonlinux/bash/read_pc_cd
-	chmod +x debian/playonlinux-unstable/usr/share/playonlinux/bash/find_python
+	chmod +x debian/playonlinux/usr/share/playonlinux/bash/startup_after_server
+	chmod +x debian/playonlinux/usr/share/playonlinux/bash/read_pc_cd
+	chmod +x debian/playonlinux/usr/share/playonlinux/bash/find_python

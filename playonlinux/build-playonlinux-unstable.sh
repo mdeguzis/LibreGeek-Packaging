@@ -68,19 +68,19 @@ main()
 {
 
 	# create build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "${build_dir}" ]]; then
 
-		sudo rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 
 	else
 
-		mkdir -p "$build_dir"
+		mkdir -p "${build_dir}"
 
 	fi
 
 	# enter build dir
-	cd "$build_dir" || exit
+	cd "${build_dir}" || exit
 
 	# install prereqs for build
 	install_prereqs
@@ -90,7 +90,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout latest commit
-	git clone -b "$branch" "$git_url" "${git_dir}"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	
 	# get latest base release for changelog 
@@ -116,7 +116,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "$build_dir" || exit
+	cd "${build_dir}" || exit
 	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# enter source dir
@@ -129,7 +129,7 @@ main()
 
 	  * New unstable build against upstream commit $latest_commit
 	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
+	  * Upstream authors and source: ${git_url}
 
 	 -- $uploader  $date_long
 
@@ -209,7 +209,7 @@ main()
 			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
-			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin master
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

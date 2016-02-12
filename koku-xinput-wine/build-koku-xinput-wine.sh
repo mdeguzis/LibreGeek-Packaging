@@ -45,6 +45,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="koku-xinput-wine"
 pkgver="1.0"
+upstream_rev="1"
 pkgrev="1"
 upstream_suffix="1ug"
 dist_rel="brewmaster"
@@ -115,7 +116,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * 32-bit library to add xinput support to Wine
 	  * Packaged deb for SteamOS-Tools

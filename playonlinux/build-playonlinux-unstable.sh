@@ -97,7 +97,7 @@ main()
 	git checkout $latest_commit 1> /dev/null
 
 	# Alter pkg suffix based on commit
-	pkgsuffix="${date_short}.${latest_commit}git+bsos${pkgrev}"
+	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
 	
 	# add debian files
 	cp -r "${scriptdir}/debian" "${git_dir}"
@@ -119,7 +119,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}.${pkgsuffix}) $dist_rel; urgency=low
 
 	  * New unstable build against upstream commit $latest_commit
 	  * See: packages.libregeek.org

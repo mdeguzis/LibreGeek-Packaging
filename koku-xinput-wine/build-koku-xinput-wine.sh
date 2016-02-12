@@ -115,7 +115,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix} $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
 	  * 32-bit library to add xinput support to Wine
 	  * Packaged deb for SteamOS-Tools

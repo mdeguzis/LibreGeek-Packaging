@@ -44,7 +44,6 @@ branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 pkgname="playonlinux-unstable"
-pkgver="4.2.10"
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -93,6 +92,10 @@ main()
 	# clone and checkout latest commit
 	git clone -b "$branch" "$git_url" "${git_dir}"
 	cd "${git_dir}"
+	
+	# get latest base release for changelog 
+	# This is used because upstream does tend to use release tags
+	pkgver=$(git tag | tail -n 1)
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
 

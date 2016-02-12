@@ -1,8 +1,3 @@
-Description: Remove binary code from the package
- Upstream ships a binary plugin in the archive. This plugin is not necessary to
- get PlayOnLinux working and it still can be downloaded from upstream.
-Forwarded: not-needed
-Author: Bertrand Marc <beberking@gmail.com>
 --- a/plugins/plugins.lst
 +++ b/plugins/plugins.lst
 @@ -21,9 +21,6 @@

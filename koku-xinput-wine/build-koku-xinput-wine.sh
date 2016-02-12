@@ -91,7 +91,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$branch" "$git_url" "${git_dir}"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
@@ -105,22 +105,16 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
-	# copy in debian folder
-	cp -r "$scriptdir/debian" "${source_dir}"
-
 	# enter source dir
-	cd "${source_dir}"
+	cd "${git_dir}"
 
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}-${upstream_suffix}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix} $dist_rel; urgency=low
 
 	  * 32-bit library to add xinput support to Wine
 	  * Packaged deb for SteamOS-Tools
@@ -205,8 +199,7 @@ main()
 			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
-			# out of the picture until a confirmed build is made. Remove if upstream has their own.
-			cp "${source_dir}/debian/changelog" "${scriptdir}/debian"
+			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin master
 
 		fi
 

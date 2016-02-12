@@ -51,9 +51,9 @@ dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dir
+# set build_dirs
 build_dir="$HOME/build-${pkgname}-temp"
-source_dir="${build_dir}/${pkgname}"
+git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {

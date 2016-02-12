@@ -95,7 +95,7 @@ main()
 	
 	# get latest base release for changelog 
 	# This is used because upstream does tend to use release tags
-	pkgver=$(git tag | tail -n 1)
+	pkgver=$(git describe --abbrev=0 --tags)
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
 

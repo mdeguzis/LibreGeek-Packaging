@@ -135,7 +135,7 @@ main()
 
 	# get latest base release for changelog 
 	# This is used because upstream does tend to use release tags
-	base_release=$(git tag | tail -n 1)
+	base_release=$(git describe --abbrev=0 --tags)
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
         # Alter pkg suffix based on commit

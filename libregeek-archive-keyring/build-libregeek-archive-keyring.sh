@@ -2,14 +2,13 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-gamejolt.sh
+# Scipt Name:	build-libregeek-archive-keyring.sh
 # Script Ver:	0.1.1
-# Description:	Builds simple pacakge for using gamejolt based of of master upstream
-#		git source (unstable build)
+# Description:	Builds simple pacakge libregeek archive keyring
 #
-# See:		https://github.com/gamejolt/
+# See:		packages.libregeek.org
 #
-# Usage:	./build-gamejolt.sh
+# Usage:	./build-libregeek-archive-keyring.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -44,7 +43,9 @@ rel_target="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="gamejolt"
+pkgname="libregeek-archive-keyring.sh"
+pkgver="1.0"
+pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -69,13 +70,7 @@ install_prereqs()
 	fi
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper npm nodejs \
-	npm2deb gcc-4.9 gcc-4.9-multilib g++-4.9-multilib
-
-	# Need to "debianize" gulp and bower
-	# See: https://www.npmjs.com/package/npm2debian
-	# See: https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
-	# Per package.json, try to match gulp (~3.8.1)
+	sudo apt-get install -y --force-yes build-essential bc debhelper
 
 }
 
@@ -102,17 +97,8 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and checkout desired commit
-	git clone --recursive -b "$rel_target" "$git_url" "${git_dir}"
-	cd "${git_dir}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	git checkout $latest_commit 1> /dev/null
-	
-	# source pkgver
-	pkgver=$(grep version package.json | cut -c  15-19)
-
-	# Alter pkg suffix based on commit
-	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
+	# USE ONLY LOCAL SERVER TO PROVIDE GPG KEY
+	scp "/home/mikeyd/packaging/SteamOS-Tools/public.key" "${git_dir}/libregeek-archive-keyring.gpg"
 
 	# Add debian folder
         cp -r "$scriptdir/debian" "${git_dir}/debian"
@@ -142,10 +128,8 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * New unstable build against upstream commit $latest_commit
-	  * Fixed package control file to replace ice-steams on install to avoid conflicts
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
+	  * Initial build
+	  * Arhive keyring for libregeek archive repository
 
 	 -- $uploader  $date_long
 

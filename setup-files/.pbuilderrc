@@ -80,11 +80,5 @@ fi
 # Dependencies - TODO?
 ######################################################
 
-#OTHERMIRROR="deb [trusted=yes] file:////home/$USER/xbmc-packaging/deps ./"
-#BINDMOUNTS="/home/$USER/xbmc-packaging/deps"
-
-# the hook dir may already be set/populated!
-#HOOKDIR="home/$USER/xbmc-packaging/deps"
-
-# this is necessary for running ''apt-ftparchive'' in the hook below
-#EXTRAPACKAGES="apt-utils"
+# Add extra packages
+#EXTRAPACKAGES_TEMP

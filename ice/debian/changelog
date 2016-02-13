@@ -1,3 +1,12 @@
+ice-steamos (1.0.0+bsos8-1) brewmaster; urgency=low
+
+  * Fix control file (stable/unstable) to note it will break the other package
+  * Update man page
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/scottrice/Ice
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 13 Feb 2016 09:16:57 -0500
+
 ice-steamos (1.0.0+bsos5-1) brewmaster; urgency=low
 
   * Correct README file pushed to /usr/share/doc/ice-steamos

@@ -5,7 +5,8 @@ Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends:	debhelper (>= 9),
  g++,
  cmake,
- libqt4-dev,
+ qttools5-dev,
+ qttools5-dev-tools,
  libsdl1.2-dev,
  libxi-dev,
  libxtst-dev,
@@ -18,7 +19,7 @@ Package:antimicro
 Architecture: all
 Depends: ${misc:Depends},
  libsdl2-2.0-0,
- libqt4-network
+ libqt5network5
 Description: Antimicro is a graphical program used to map keyboard keys and mouse controls to a gamepad
  This program is useful for playing PC games using a gamepad that do not have any form of built-in 
  gamepad support. However, you can use this program to control any desktop application with a gamepad; 

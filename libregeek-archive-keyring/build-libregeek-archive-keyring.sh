@@ -43,7 +43,7 @@ rel_target="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="libregeek-archive-keyring.sh"
+pkgname="libregeek-archive-keyring"
 pkgver="1.0"
 pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"

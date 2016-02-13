@@ -92,11 +92,11 @@ main()
 	# setup dist base
 	if sudo DIST=$DIST pbuilder create $OPTS --keyring=${KEYRING} ; then
 	
-		echo -e "\n${target} environment created successfully!"
+		echo -e "\n${DIST} environment created successfully!"
 	
 	else
 	
-		echo -e "\n${target} environment creation FAILED! Exiting in 15 seconds"
+		echo -e "\n${DIST} environment creation FAILED! Exiting in 15 seconds"
 		sleep 15s
 		exit 1
 	fi

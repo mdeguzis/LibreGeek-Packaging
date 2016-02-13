@@ -101,11 +101,11 @@ main()
 	esac
 	
 	# set default options
-	if [[ "${BETA_FLAG" == "false" ]]; then
+	if [[ "${BETA_FLAG}" == "false" ]]; then
 	
 		OPTS="--debootstrapopts"
 		
-	elif [[ "${BETA_FLAG" == "true" ]]; then
+	elif [[ "${BETA_FLAG}" == "true" ]]; then
 	
 		OPTS="--debootstrapopts --extrapackages steamos-beta-repo"
 		

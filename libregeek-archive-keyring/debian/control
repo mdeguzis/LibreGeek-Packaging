@@ -1,0 +1,16 @@
+Source: gamejolt
+Section: games
+Priority: extra
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+Homepage: https://github.com/gamejolt/gamejolt
+Vcs-Git: git://github.com/gamejolt/gamejolt
+Vcs-Browser: https://github.com/gamejolt/gamejolt
+
+Package: gamejolt
+Architecture: all
+Depends: ${misc:Depends}
+Description: Frontend for Game Jolt. It powers the site and the client.
+ .
+ This package is targeted at SteamOS.

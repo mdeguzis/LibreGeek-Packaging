@@ -1,3 +1,12 @@
+antimicro (2.21+git+bsos2) brewmaster; urgency=low
+
+  * Fix build and run deps
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/Ryochan7/antimicro
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 13 Feb 2016 12:21:58 -0500
+
 antimicro (2.21+git+bsos1) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

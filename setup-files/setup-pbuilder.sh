@@ -104,6 +104,17 @@ dpkg-scanpackages /var/cache/pbuilder/repo > /var/cache/pbuilder/repo/Packages
 # chroot on tmpfs will speed it up immensely.  so add the following to /etc/fstab 
 # (it should be all on one line starting with “tmpfs” and ending with the second zero.
 
+echo -e "\n==> Adding symlinks for /usr/share/debootstrap/scripts"
+sleep 2s
+
+# brewmaster
+sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster" 2> /dev/null
+sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster_beta" 2> /dev/null
+
+# alchemist
+sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist" 2> /dev/null
+sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
+
 ##########################
 # core configs
 ##########################

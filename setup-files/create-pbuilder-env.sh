@@ -15,17 +15,18 @@
 export DIST="$1"
 export ARCH="$2"
 export KEYRING="$3"
+export BETA_FLAG="false"
 
 # set base DIST if requesting a beta
 if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
 
 	# Set DIST
 	DIST=$(sed "s|_beta||g" <<<${DIST}) 
-	BETA_FLAG="YES"
+	BETA_FLAG="true"
 	
 	# Set extra packages to intall?
 	# Use wildcard * to replace the entire line
-	# sed -i "s|EXTRAPACKAGES_TEMP.*|EXTRAPACKAGES_TEMP=|g" "$HOME/.pbuilderrc"
+	sed "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=steamos-beta-repo|" "$HOME/.pbuilderrc"
 	
 fi
 
@@ -100,7 +101,15 @@ main()
 	esac
 	
 	# set default options
-	OPTS="--debootstrapopts"
+	if [[ "${BETA_FLAG" == "false" ]]; then
+	
+		OPTS="--debootstrapopts"
+		
+	elif [[ "${BETA_FLAG" == "true" ]]; then
+	
+		OPTS="--debootstrapopts --extrapackages steamos-beta-repo"
+		
+	fi
 	
 	# setup dist base
 	# test if final tarball was built

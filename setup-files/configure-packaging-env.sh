@@ -123,7 +123,7 @@ cp "$scriptdir/repo-include.txt" "${steamos_tools_configs}"
 #################################################
 
 # setup pbuilder
-echo -e "\n==> Configuring pbuilder"
+echo -e "\n==> Configuring pbuilder\n"
 sleep 2s
 
 ./setup-pbuilder.sh

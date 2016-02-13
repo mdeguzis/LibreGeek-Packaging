@@ -220,7 +220,7 @@ main()
 			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Preserve changelog
-			mv "${git_dir}/debian/changelog" "$scriptdir/debian/changelog.unstable" 
+			mv "${git_dir}/debian/changelog" "$scriptdir/debian/changelog" 
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

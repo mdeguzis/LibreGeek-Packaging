@@ -98,7 +98,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# USE ONLY LOCAL SERVER TO PROVIDE GPG KEY
-	scp "/home/mikeyd/packaging/SteamOS-Tools/public.key" "${git_dir}/libregeek-archive-keyring.gpg"
+	scp "mikeyd@archboxmtd:home/mikeyd/packaging/SteamOS-Tools/public.key" "${git_dir}/libregeek-archive-keyring.gpg"
 
 	# Add debian folder
         cp -r "$scriptdir/debian" "${git_dir}/debian"

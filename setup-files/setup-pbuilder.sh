@@ -119,22 +119,22 @@ sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scrip
 # core configs
 ##########################
 
-echo -e "\n==> Processing fstab"
-sleep 0.5s
+#echo -e "\n==> Processing fstab"
+#sleep 0.5s
 
 # remove old /etc/fstab entries
 sudo sed -ie "\:#pbuilder tmpfs:,+1d" "/etc/fstab"
 
-fstab_check=$(cat /etc/fstab | grep pbuilder)
-if [[ "$fstab_check" == "" ]]; then
+#fstab_check=$(cat /etc/fstab | grep pbuilder)
+#if [[ "$fstab_check" == "" ]]; then
 
-	sudo su -c "echo '#pbuilder tmpfs' >> /etc/fstab"
-	sudo su -c "echo 'tmpfs   /var/cache/pbuilder/build       tmpfs   defaults,size=2400M 0 0' >> /etc/fstab"
+#	sudo su -c "echo '#pbuilder tmpfs' >> /etc/fstab"
+#	sudo su -c "echo 'tmpfs   /var/cache/pbuilder/build       tmpfs   defaults,size=2400M 0 0' >> /etc/fstab"
 	
-fi
+#fi
 
 # mount fstab it with 
-sudo mount /var/cache/pbuilder/build
+#sudo mount /var/cache/pbuilder/build
 
 echo -e "\n==> Finishing up"
 sleep 0.5s

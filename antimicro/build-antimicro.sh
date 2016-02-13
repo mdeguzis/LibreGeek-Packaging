@@ -62,7 +62,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes g++ cmake libqt4-dev libsdl1.2-dev libxi-dev libxtst-dev \
-	libsdl2-dev libX11-dev
+	libsdl2-dev libX11-dev qttools5-dev 
 }
 
 main()
@@ -147,10 +147,6 @@ main()
 
 	#  build
 	debuild
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup

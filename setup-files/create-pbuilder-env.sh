@@ -90,7 +90,17 @@ main()
 	OPTS="--debootstrapopts"
 	
 	# setup dist base
-	if sudo DIST=$DIST pbuilder create $OPTS --keyring=${KEYRING} ; then
+	# test if final tarball was built
+	if ! sudo DIST=$DIST pbuilder create $OPTS --keyring=${KEYRING}
+	
+		echo -e "\n${DIST} environment encountered a fatal error! Exiting."
+		sleep 15s
+		exit 1
+
+	fi
+
+	# test if final tarball was built
+	if [[ -f "/var/cache/pbuilder/${DIST}-base.tgz" ]]; then
 	
 		echo -e "\n${DIST} environment created successfully!"
 	

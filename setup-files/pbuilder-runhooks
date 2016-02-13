@@ -1,0 +1,109 @@
+#! /bin/bash
+#==========================================================================
+# Execute any hooks required for this segment
+#
+# Title:         pbuilder-runhooks
+# Description    User hooks for pbuilder package
+# Programmed by: Dale Amon <amon@vnl.com>
+
+# $HOOKDIR is set in /etc/pbuilderrc and contains a list of executable
+# programs or scripts. The type is only limited by what you expect will
+# be available in your chrooted environment after debootstrap has done
+# an initial install. The functions must be named in the format:
+# <prefex><digit><digit><descriptive name>. Currently only X is defined;
+# scripts prefixed with X will be run just before the chroot environment
+# is exited and the base.tgz file is created or updated.
+
+# $BUILDPLACE is as used in pbuilder. When already inside chroot, this
+# routine can be called with $BUILDPLACE='' (from pdebuild-internal)
+
+# TODO:		* Are there any other executable backup types we should
+#		  filtered besides *~ and *.bak?
+#
+#==========================================================================
+
+hooks=tmp/hooks
+
+#==========================================================================
+# Set up fresh chroot'd hooks tmp script directory
+# 
+
+function loadhooks () {
+    if [ -z "$HOOKDIR" ]; then
+	return ;
+    fi
+    if [ -d "$BUILDPLACE/$hooks" ]; then
+	rm -rf "$BUILDPLACE/$hooks"
+    fi
+    if [ -d "$HOOKDIR" ]; then
+	mkdir -p "$BUILDPLACE/$hooks"
+	if ! cp -aL "$HOOKDIR/"* "$BUILDPLACE/$hooks"; then
+	    log "W: no hooks found in the hookdir '$HOOKDIR'"
+	fi
+    else
+	log "W: hookdir $HOOKDIR does not exist, skipping"
+    fi
+}
+
+#--------------------------------------------------------------------------
+# Tidy up after ourselves. (Anything we leave behind ends up in base.tgz)
+#
+
+function unloadhooks () {
+    if [ -z "$HOOKDIR" ]; then
+	return ;
+    fi
+    if [ -d "$BUILDPLACE/$hooks" ]; then
+	rm -rf "$BUILDPLACE/$hooks"
+    else
+	log "E: Logic failure in hook handling. Directory $BUILDPLACE/$hooks should exist but it does not."
+    fi
+}
+
+#--------------------------------------------------------------------------
+# Execute every script found in the chroot'd target directory. We only 
+# test for whether a file is executable because we have no idea what
+# the user had put in their dist. If they want PL/1 and ADA on the base
+# dist or have decided to use emacslisp for everything, it's their 
+# problem.
+#
+# Args:		Required prefix on hook fn name
+# Returns:	none
+#
+
+function executehooks () {
+    local prefix="$1"
+    if [ -z "$HOOKDIR" ]; then
+	return ;
+    fi
+    for fn in "$BUILDPLACE/$hooks/$prefix"[0-9][0-9]* ; do
+	case "$fn" in
+	    "$BUILDPLACE/$hooks/$prefix"'[0-9][0-9]*')
+		log "W: no hooks of type ${prefix} found -- ignoring"
+		;;
+	    *~)
+		log "W: skipping an editor backup file $fn"
+		;;
+	    *.bak)
+		log "W: skipping a backup file $fn"
+		;;
+	    *)	
+		if [ -x "$fn" ]; then
+		    log "I: user script $fn starting"
+		    $CHROOTEXEC "/$hooks/"$(basename "$fn")
+		    log "I: user script $fn finished"
+		else
+		    if [ -f "$fn" ]; then
+			filetype=$(basename "$fn" ) 
+			log "W: execute priv not set on file $filetype, not executing."
+		    else
+			# Should it reach here ? This case should be caught in the above case.
+			log "W: no hooks of type ${prefix} found -- internal error in logic"
+		    fi
+		fi  
+	        ;;	
+	esac
+    done
+}
+
+#--------------------------------------------------------------------------

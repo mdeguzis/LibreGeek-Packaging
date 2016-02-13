@@ -34,8 +34,10 @@ echo -e "\n==> Installing Valve keyrings\n"
 sleep 2s
 
 # Obtain valve keyring
-wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/valve-archive-keyring_0.5+bsos3_all.deb"
-sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+valve_keyring_current="valve-archive-keyring_0.5+bsos3_all.deb"
+curl -o "/tmp/valve-archive-keyring.deb" "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring_current=}"
+sudo dpkg -i "valve-archive-keyring.deb"
+rm -f "/tmp/valve-archive-keyring.deb"
 
 # update for keyrings
 

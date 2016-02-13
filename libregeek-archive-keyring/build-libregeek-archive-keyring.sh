@@ -102,7 +102,7 @@ main()
 	mv "${git_dir}/public.key" "${git_dir}/libregeek-archive-keyring.gpg"
 
 	# Add debian folder
-        cp -r "$scriptdir/debian" "${git_dir}/debian"
+        cp -r "$scriptdir/debian" "${git_dir}"
 
 	#################################################
 	# Build package

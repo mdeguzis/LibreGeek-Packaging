@@ -16,6 +16,19 @@ export DIST="$1"
 export ARCH="$2"
 export KEYRING="$3"
 
+# set base DIST if requesting a beta
+if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
+
+	# Set DIST
+	DIST=$(sed "s|_beta||g" <<<${DIST}) 
+	BETA_FLAG="YES"
+	
+	# Set extra packages to intall?
+	# Use wildcard * to replace the entire line
+	# sed -i "s|EXTRAPACKAGES_TEMP.*|EXTRAPACKAGES_TEMP=|g" "$HOME/.pbuilderrc"
+	
+fi
+
 #####################################
 # PBUILDER environement creation
 #####################################

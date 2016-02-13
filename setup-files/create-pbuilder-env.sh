@@ -105,10 +105,6 @@ main()
 	
 		OPTS="--debootstrapopts"
 		
-	elif [[ "${BETA_FLAG}" == "true" ]]; then
-	
-		OPTS="--debootstrapopts --extrapackages steamos-beta-repo"
-		
 	fi
 	
 	# setup dist base

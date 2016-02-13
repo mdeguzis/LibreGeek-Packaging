@@ -18,9 +18,9 @@
 # http://blogs.libreems.org/setup-pbuilder-make-clean-debian-packages/
 # https://wiki.debian.org/PbuilderTricks
 
-#####################################
+#########################################
 # Dependencies
-#####################################
+#########################################
 
 cat<<- EOF
 #########################################
@@ -44,44 +44,6 @@ sleep 2s
 sudo apt-key update
 sudo apt-get update
 
-#####################################
-# PBUILDER setup
-#####################################
-
-# set the /var/cache/pbuilder/result directory writable by your user account.
-sudo chmod u+w /var/cache/pbuilder/result
-
-##########################
-# Hooks
-##########################
-
-echo -e "\n==> Adding pbuilder hooks"
-sleep 0.5s
-
-# create hooks dir
-sudo mkdir -p /usr/lib/pbuilder/hooks
-
-# (Optional) Create /usr/lib/pbuilder/hooks/C10shell with the following content
-sudo cp C10shell /usr/lib/pbuilder/hooks/C10shell
-sudo chmod +x /usr/lib/pbuilder/hooks/C10shell
-
-# Create /usr/lib/pbuilder/hooks/D05deps
-sudo cp D05deps /usr/lib/pbuilder/hooks/D05deps
-
-##########################
-# Cache directory
-##########################
-echo -e "\n==> Adding cache setup"
-sleep 0.5s
-
-# create a directory, e.g. /var/cache/pbuilder/hooks, writable by the user, to place hook scripts in.
-sudo mkdir -p /var/cache/pbuilder/hooks
-sudo chown $USER:$USER /var/cache/pbuilder/hooks
-
-sudo rm -rf /var/cache/pbuilder/repo
-sudo mkdir /var/cache/pbuilder/repo
-sudo chmod 777 /var/cache/pbuilder/repo
-
 ##########################
 # core configs
 ##########################
@@ -92,17 +54,6 @@ sleep 0.5s
 
 cp "$scriptdir/.pbuilderrc" "$HOME/"
 sudo cp "$scriptdir/.pbuilderrc" "/root/"
-
-# create directory for dependencies
-mkdir -p "/home/$USER/${dist_choice}-packaging/deps"
-
-# Now we need to initialize the “Packages” file for the empty repo so we 
-# can work the first time:
-dpkg-scanpackages /var/cache/pbuilder/repo > /var/cache/pbuilder/repo/Packages
-
-# (OPTIONAL)  If you have lots of RAM (more than 4 GB) putting the pbuilder “build” 
-# chroot on tmpfs will speed it up immensely.  so add the following to /etc/fstab 
-# (it should be all on one line starting with “tmpfs” and ending with the second zero.
 
 echo -e "\n==> Adding symlinks for /usr/share/debootstrap/scripts"
 sleep 2s

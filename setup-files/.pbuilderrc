@@ -15,10 +15,10 @@ UBUNTU_SUITES=("vivid" "utopic" "trusty" "saucy" "raring" "quantal" "precise" "o
 STEAMOS_SUITES=("alchemist" "alchemist_beta" "brewmaster" "brewmaster_beta")
 
 # Mirrors to use. Update these to your preferred mirror.
-DEBIAN_MIRROR="httpredir.debian.org"
+DEBIAN_MIRROR="ftp.debian.org"
 UBUNTU_MIRROR="mirrors.kernel.org"
 STEAMOS_MIRROR="repo.steampowered.com"
-LIBREGEEK_MIRROR="packages.libregeek.org"
+LIBREGEEK_MIRROR="packages.libregeek.org/SteamOS-Tools"
 
 # Optionally use the changelog of a package to determine the suite to use if
 # none set.
@@ -57,7 +57,7 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
     COMPONENTS="main contrib non-free"
     if $(echo "$STABLE_CODENAME stable" | grep -q $DIST); then
-        OTHERMIRROR="deb $MIRRORSITE $STABLE_BACKPORTS_SUITE $COMPONENTS"
+        OTHERMIRROR="$OTHERMIRROR | deb $MIRRORSITE $STABLE_BACKPORTS_SUITE $COMPONENTS"
     fi
     
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
@@ -70,16 +70,19 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
     
     # SteamOS configuration
     MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
-    LIBREGEEK_MIRRORSITE="http://$LIBREGEEK_MIRROR/SteamOS-Tools"
     COMPONENTS="main contrib non-free"
-    COMPONENTS_DEBIAN="main contrib non-free"
-    COMPONENTS_LIBREGEEK="main games"
+
+    # Extra
+    LIBREGEEK_MIRRORSITE="http://$LIBREGEEK_MIRROR/SteamOS-Tools"
+    LIBREGEEK_COMPONENTS="main games"
+    DEBIAN_MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
+    DEBIAN_COMPONENTS="main contrib non-free"
     
     # Set current Debian DIST
-    DEBIAN_DIST="jessie
+    DEBIAN_DIST="jessie"
     
     # Add the debian / libregeek mirrors
-    OTHERMIRROR="deb $DEBIAN_MIRROR $DEBIAN_DIST $DEBIAN_COMPONENTS \
+    OTHERMIRROR="deb $DEBIAN_MIRRORSITE $DEBIAN_DIST $DEBIAN_COMPONENTS \
     | deb $LIBREGEEK_MIRRORSITE $DIST $LIBREGEEK_COMPONENTS"
     
 else

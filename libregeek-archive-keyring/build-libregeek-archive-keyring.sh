@@ -58,13 +58,6 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 
-	# Avoid libattr garbage for 32 bit package installed by emulators
-	if [[ -f "/usr/share/doc/libattr1/changelog.Debian.gz" ]]; then
-
-		sudo mv "/usr/share/doc/libattr1/changelog.Debian.gz" \
-		"/usr/share/doc/libattr1/changelog.Debian.gz.old" 2> /dev/null
-	fi
-
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential bc debhelper
 

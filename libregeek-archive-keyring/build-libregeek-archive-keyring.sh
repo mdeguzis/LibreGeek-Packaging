@@ -36,10 +36,6 @@ else
 	
 fi
 
-# upstream vars
-git_url="https://github.com/gamejolt/gamejolt"
-rel_target="master"
-
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
@@ -98,6 +94,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# USE ONLY LOCAL SERVER TO PROVIDE GPG KEY
+	mkdir -p "${git_dir}"
 	scp "mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/public.key" "${git_dir}"
 	mv "${git_dir}/public.key" "${git_dir}/libregeek-archive-keyring.gpg"
 

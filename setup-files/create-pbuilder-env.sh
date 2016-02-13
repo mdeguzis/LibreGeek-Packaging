@@ -101,11 +101,7 @@ main()
 	esac
 	
 	# set default options
-	if [[ "${BETA_FLAG}" == "false" ]]; then
-	
-		OPTS="--debootstrapopts"
-		
-	fi
+	OPTS="--debootstrapopts"
 	
 	# setup dist base
 	# test if final tarball was built

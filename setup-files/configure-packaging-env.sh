@@ -26,9 +26,9 @@ sudo apt-get install -y --force-yes build-essential autoconf automake and \
 autotools-dev debhelper dh-make devscripts fakeroot git lintian patch patchutils \
 pbuilder perl python quilt xutils-dev dh-make devscripts pbuilder
 
-####################################################################
+#################################################
 # Create directories
-####################################################################
+#################################################
 
 echo -e "\n==> Adding needed directories"
 sleep 2s
@@ -108,9 +108,9 @@ else
 
 fi
 
-####################################################################
+#################################################
 # Other configuration files
-####################################################################
+#################################################
 
 echo -e "\n==> Adding other configuration files"
 sleep 2s
@@ -118,9 +118,9 @@ sleep 2s
 cp "$scriptdir/repo-exclude.txt" "${steamos_tools_configs}"
 cp "$scriptdir/repo-include.txt" "${steamos_tools_configs}"
 
-####################################################################
+#################################################
 # Pbuilder
-####################################################################
+#################################################
 
 # setup pbuilder
 echo -e "\n==> Configuring pbuilder"
@@ -128,9 +128,9 @@ sleep 2s
 
 ./setup-pbuilder.sh
 
-####################################################################
+#################################################
 # Cleanup
-####################################################################
+#################################################
 
 # source bashrc
 . $HOME/.bashrc

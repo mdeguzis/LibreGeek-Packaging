@@ -117,7 +117,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * Fix syntax error in debian/*.install
+	  * LibreGeek archive keyring
 
 	 -- $uploader  $date_long
 
@@ -191,6 +191,10 @@ main()
 
 			# transfer packages
 			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+
+			# update changelog
+			cd "${git_dir}" && git add debian/changelog  && git commit -m "Update changelog" && git push origin master
+			cd "${scriptdir}"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

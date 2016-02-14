@@ -2,8 +2,17 @@
 # COPY TO ~/.pbuilderrc after installation of pbuilder
 ####################################################################
 
+###########################
+# Core options
+###########################
+
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 HOOKDIR=/var/cache/pbuilder/hooks
+PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends-aptitude
+
+###########################
+DIST/SUITE CONFIGURAITON
+###########################
 
 # List of Debian suites.
 DEBIAN_SUITES=("wheezy" "jessie" "stretch" "sid")
@@ -18,7 +27,7 @@ STEAMOS_SUITES=("alchemist" "alchemist_beta" "brewmaster" "brewmaster_beta")
 DEBIAN_MIRROR="ftp.debian.org"
 UBUNTU_MIRROR="mirrors.kernel.org"
 STEAMOS_MIRROR="repo.steampowered.com"
-LIBREGEEK_MIRROR="packages.libregeek.org/SteamOS-Tools"
+LIBREGEEK_MIRROR="packages.libregeek.org"
 
 # Optionally use the changelog of a package to determine the suite to use if
 # none set.

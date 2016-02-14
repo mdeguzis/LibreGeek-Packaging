@@ -60,34 +60,22 @@ sudo chmod u+w /var/cache/pbuilder/result
 echo -e "\n==> Adding pbuilder hooks"
 sleep 0.5s
 
-# create hooks dir
-sudo mkdir -p /usr/lib/pbuilder/hooks
+if [[ ! -d "/var/cache/pbuilder/hooks" ]]; then
 
-# (Optional) Create /usr/lib/pbuilder/hooks/C10shell with the following content
-#sudo cp C10shell /usr/lib/pbuilder/hooks/C10shell
-#sudo chmod +x /usr/lib/pbuilder/hooks/C10shell
+	sudo mkdir /var/cache/pbuilder/hooks
+	sudo chown -R $USER /var/cache/pbuilder/hooks
+	
+fi
 
-# Create /usr/lib/pbuilder/hooks/D05deps
-#sudo cp D05deps /usr/lib/pbuilder/hooks/D05deps
-
-##########################
-# Cache directory
-##########################
-
-#echo -e "\n==> Adding cache setup"
-#sleep 0.5s
-
-# create a directory, e.g. /var/cache/pbuilder/hooks, writable by the user, to place hook scripts in.
-#sudo mkdir -p /var/cache/pbuilder/hooks
-#sudo chown $USER:$USER /var/cache/pbuilder/hooks
-
-#sudo rm -rf /var/cache/pbuilder/repo
-#sudo mkdir /var/cache/pbuilder/repo
-#sudo chmod 777 /var/cache/pbuilder/repo
+# Copy some hook files into that directory
+cp -r /usr/share/doc/pbuilder/* /var/cache/pbuilder/hooks
 
 ##########################
 # core configs
 ##########################
+
+# IMPORTANT!
+# For information, see: http://manpages.ubuntu.com/manpages/precise/man5/pbuilderrc.5.html
 
 # copy files based of pwd
 echo -e "\n==> Adding pbuilder config files"

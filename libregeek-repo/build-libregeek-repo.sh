@@ -2,13 +2,13 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libregeek-archive-keyring.sh
+# Scipt Name:	build-libregeek-repo.sh.sh
 # Script Ver:	0.1.1
-# Description:	Builds simple pacakge libregeek archive keyring
+# Description:	Builds simple pacakge for libregeek repos
 #
 # See:		packages.libregeek.org
 #
-# Usage:	./build-libregeek-archive-keyring.sh
+# Usage:	./build-libregeek-repo.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -23,7 +23,7 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # git vars
-git_url="https://github.com/ProfessorKaos64/libregeek-archive-keyring"
+git_url="https://github.com/ProfessorKaos64/libregeek-repo"
 branch="master"
 
 # repo destination vars (use only local hosts!)
@@ -43,7 +43,7 @@ fi
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-pkgname="libregeek-archive-keyring"
+pkgname="libregeek-repo"
 pkgver="0.1"
 pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"
@@ -63,7 +63,7 @@ install_prereqs()
 	sleep 2s
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper
+	sudo apt-get install -y --force-yes bc debhelper
 
 }
 
@@ -117,7 +117,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * LibreGeek archive keyring
+	  * LibreGeek repositories
 
 	 -- $uploader  $date_long
 

@@ -106,7 +106,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "$pkgname"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "$pkgname"
 
 	# Enter git dir to build
 	cd "${git_dir}"
@@ -115,7 +115,7 @@ main()
 	# alter here based on unstable
 
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * LibreGeek repositories
 

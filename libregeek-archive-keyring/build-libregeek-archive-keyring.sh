@@ -47,7 +47,7 @@ pkgname="libregeek-archive-keyring"
 pkgver="1.0"
 pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"
-pkgrev="1"
+pkgrev="2"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -117,8 +117,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
-	  * Initial build
-	  * Arhive keyring for libregeek archive repository
+	  * Fix syntax error in debian/*.install
 
 	 -- $uploader  $date_long
 

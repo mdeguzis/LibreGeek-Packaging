@@ -6,7 +6,7 @@
 # Scipt Name:   	build-pbuilder-env.sh
 # Script Ver:		0.3.9
 # Description:		Create buld environment for testing and building packages
-# Usage:		./build-pbuilder-env.sh [distribution] [arch]
+# Usage:		./setup-pbuilder.sh
 #
 # Notes:          	For targets, see .pbuilderrc in this directory
 # -------------------------------------------------------------------------------
@@ -18,10 +18,6 @@
 # http://blogs.libreems.org/setup-pbuilder-make-clean-debian-packages/
 # https://wiki.debian.org/PbuilderTricks
 
-#####################################
-# Dependencies
-#####################################
-
 cat<<- EOF
 #########################################
 Pbuilder Setup for SteamOS Packaging
@@ -30,12 +26,18 @@ Pbuilder Setup for SteamOS Packaging
 EOF
 sleep 2s
 
-echo -e "\n==> Installing Valve keyrings\n"
+echo -e "\n==> Installing keyrings\n"
 sleep 2s
 
 # Obtain valve keyring
-wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/valve-archive-keyring_0.5+bsos3_all.deb"
+wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/valve-archive-keyring_0.5+bsos3_all.deb" -q --show-progress -nc
 sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+
+# Libregeek keyrings
+wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
+wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
+sudo dpkg -i libregeek-archive-keyring-latest.deb
+sudo dpkg -i steamos-tools-repo-latest.deb
 
 # update for keyrings
 
@@ -59,7 +61,7 @@ echo -e "\n==> Adding pbuilder hooks"
 sleep 0.5s
 
 # create hooks dir
-#sudo mkdir -p /usr/lib/pbuilder/hooks
+sudo mkdir -p /usr/lib/pbuilder/hooks
 
 # (Optional) Create /usr/lib/pbuilder/hooks/C10shell with the following content
 #sudo cp C10shell /usr/lib/pbuilder/hooks/C10shell
@@ -71,16 +73,17 @@ sleep 0.5s
 ##########################
 # Cache directory
 ##########################
-echo -e "\n==> Adding cache setup"
-sleep 0.5s
+
+#echo -e "\n==> Adding cache setup"
+#sleep 0.5s
 
 # create a directory, e.g. /var/cache/pbuilder/hooks, writable by the user, to place hook scripts in.
-sudo mkdir -p /var/cache/pbuilder/hooks
-sudo chown $USER:$USER /var/cache/pbuilder/hooks
+#sudo mkdir -p /var/cache/pbuilder/hooks
+#sudo chown $USER:$USER /var/cache/pbuilder/hooks
 
-sudo rm -rf /var/cache/pbuilder/repo
-sudo mkdir /var/cache/pbuilder/repo
-sudo chmod 777 /var/cache/pbuilder/repo
+#sudo rm -rf /var/cache/pbuilder/repo
+#sudo mkdir /var/cache/pbuilder/repo
+#sudo chmod 777 /var/cache/pbuilder/repo
 
 ##########################
 # core configs
@@ -104,26 +107,37 @@ dpkg-scanpackages /var/cache/pbuilder/repo > /var/cache/pbuilder/repo/Packages
 # chroot on tmpfs will speed it up immensely.  so add the following to /etc/fstab 
 # (it should be all on one line starting with “tmpfs” and ending with the second zero.
 
+echo -e "\n==> Adding symlinks for /usr/share/debootstrap/scripts"
+sleep 2s
+
+# brewmaster
+sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster" 2> /dev/null
+sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster_beta" 2> /dev/null
+
+# alchemist
+sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist" 2> /dev/null
+sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
+
 ##########################
 # core configs
 ##########################
 
-echo -e "\n==> Processing fstab"
-sleep 0.5s
+#echo -e "\n==> Processing fstab"
+#sleep 0.5s
 
 # remove old /etc/fstab entries
 sudo sed -ie "\:#pbuilder tmpfs:,+1d" "/etc/fstab"
 
-fstab_check=$(cat /etc/fstab | grep pbuilder)
-if [[ "$fstab_check" == "" ]]; then
+#fstab_check=$(cat /etc/fstab | grep pbuilder)
+#if [[ "$fstab_check" == "" ]]; then
 
-	sudo su -c "echo '#pbuilder tmpfs' >> /etc/fstab"
-	sudo su -c "echo 'tmpfs   /var/cache/pbuilder/build       tmpfs   defaults,size=2400M 0 0' >> /etc/fstab"
+#	sudo su -c "echo '#pbuilder tmpfs' >> /etc/fstab"
+#	sudo su -c "echo 'tmpfs   /var/cache/pbuilder/build       tmpfs   defaults,size=2400M 0 0' >> /etc/fstab"
 	
-fi
+#fi
 
 # mount fstab it with 
-sudo mount /var/cache/pbuilder/build
+#sudo mount /var/cache/pbuilder/build
 
 echo -e "\n==> Finishing up"
 sleep 0.5s

@@ -22,9 +22,7 @@ sleep 2s
 # Base packages
 #################################################
 
-sudo apt-get install -y --force-yes build-essential autoconf automake and \
-autotools-dev debhelper dh-make devscripts fakeroot git lintian patch patchutils \
-pbuilder perl python quilt xutils-dev dh-make devscripts pbuilder
+sudo apt-get install -y --force-yes pbuilder
 
 #################################################
 # Create directories

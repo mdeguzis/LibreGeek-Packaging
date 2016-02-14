@@ -6,9 +6,13 @@
 # Core options
 ###########################
 
+# Remember, to build using pbuilder and the satisfy depends below, you will need to install
+# the aptitude package in the chroot with "pbuilder login --save-after-login"
+# Also see: pbuilder exec --save-after-exec
+
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 HOOKDIR=/var/cache/pbuilder/hooks
-PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends-aptitude
+PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 
 ###########################
 DIST/SUITE CONFIGURAITON

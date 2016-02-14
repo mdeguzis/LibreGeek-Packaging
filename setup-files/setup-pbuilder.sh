@@ -87,10 +87,6 @@ sudo cp "$scriptdir/.pbuilderrc" "/root/"
 # create directory for dependencies
 mkdir -p "/home/$USER/${dist_choice}-packaging/deps"
 
-# Now we need to initialize the “Packages” file for the empty repo so we 
-# can work the first time:
-dpkg-scanpackages /var/cache/pbuilder/repo > /var/cache/pbuilder/repo/Packages
-
 # (OPTIONAL)  If you have lots of RAM (more than 4 GB) putting the pbuilder “build” 
 # chroot on tmpfs will speed it up immensely.  so add the following to /etc/fstab 
 # (it should be all on one line starting with “tmpfs” and ending with the second zero.

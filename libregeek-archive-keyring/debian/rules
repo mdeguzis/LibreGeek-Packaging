@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-KEYRING=steamos-tools-archive-keyring.gpg
+KEYRING=libregeek-archive-keyring.gpg
 
 %:
 	dh $@

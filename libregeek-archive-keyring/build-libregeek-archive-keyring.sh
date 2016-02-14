@@ -22,6 +22,10 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
+# git vars
+git_url="https://github.com/ProfessorKaos64/libregeek-archive-keyring"
+branch="master"
+
 # repo destination vars (use only local hosts!)
 USER="mikeyd"
 HOST="archboxmtd"
@@ -86,13 +90,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# USE ONLY LOCAL SERVER TO PROVIDE GPG KEY
-	mkdir -p "${git_dir}"
-	scp "mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/public.key" "${git_dir}"
-	mv "${git_dir}/public.key" "${git_dir}/libregeek-archive-keyring.gpg"
-
-	# Add debian folder
-        cp -r "$scriptdir/debian" "${git_dir}"
+	git clone -b "${branch}" "${git_url}" "{git_dir}"
 
 	#################################################
 	# Build package

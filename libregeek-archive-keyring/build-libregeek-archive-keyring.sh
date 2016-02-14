@@ -90,7 +90,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${branch}" "${git_url}" "{git_dir}"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package

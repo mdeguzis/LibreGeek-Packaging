@@ -3,7 +3,7 @@
 ####################################################################
 
 ###########################
-# Core options
+# Pbuilder core options
 ###########################
 
 # Remember, to build using pbuilder and the satisfy depends below, you will need to install
@@ -14,8 +14,12 @@ AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 HOOKDIR=/var/cache/pbuilder/hooks
 PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 
-# -IF- you MUST have networking during the build override this option before building
+# -IF- you MUST have networking
 # USENETWORK=no
+
+# Specify where the deb file is built to
+# This var is exported on build attempt for Libregeek packaging
+BUILDRESULT="${build_dir}"
 
 ###########################
 # DIST/SUITE CONFIGURAITON

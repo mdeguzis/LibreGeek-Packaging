@@ -76,7 +76,14 @@ build_all()
 	clear
 
 	# Install prereqs
-	install_prereqs
+	
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# handle prereqs on host machine
+		install_prereqs
+
+	fi
+
 
 	###########################################################
 	# build Kodi prerequisite packages 

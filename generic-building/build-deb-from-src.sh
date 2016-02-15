@@ -219,6 +219,13 @@ main()
 }
 
 # start main
-install_prereqs
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# handle prereqs on host machine
+		install_prereqs
+
+	fi
+
 main
 

@@ -83,7 +83,14 @@ main()
 	fi
 	
 	# install prereqs for build
-	install_prereqs
+	
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# handle prereqs on host machine
+		install_prereqs
+
+	fi
+
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 1s

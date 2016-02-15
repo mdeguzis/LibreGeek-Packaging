@@ -85,7 +85,14 @@ main()
 	cd "$build_dir" || exit
 
 	# install prereqs for build
-	install_prereqs
+	
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# handle prereqs on host machine
+		install_prereqs
+
+	fi
+
 
 	# Clone upstream source code
 

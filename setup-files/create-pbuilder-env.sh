@@ -26,7 +26,7 @@ if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
 	
 	# Set extra packages to intall
 	# Use wildcard * to replace the entire line
-	PKGS="steamos-beta-repo wget ca-certificates nano vim"
+	PKGS="steamos-beta-repom"
 	sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
 	sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
 	
@@ -35,7 +35,7 @@ else
 	# Set extra packages to intall
 	# Use wildcard * to replace the entire line
 	# None for now
-	PKGS="wget ca-certificates nano vim"
+	PKGS=""
 	sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
 	sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
 	

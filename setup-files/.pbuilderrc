@@ -14,6 +14,9 @@ AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 HOOKDIR=/var/cache/pbuilder/hooks
 PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 
+# -IF- you MUST have networking during the build override this option before building
+# USENETWORK=no
+
 ###########################
 # DIST/SUITE CONFIGURAITON
 ###########################

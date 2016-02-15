@@ -125,6 +125,22 @@ main()
 
 	fi
 
+	# create cache directory needed by our setup in .pbuilderrc
+	BASE_DIR="$HOME/pbuilder"
+	BASETGZ="$HOME/pbuilder/${DIST}-${ARCH}-base.tgz"
+	APTCACHE="${BASE_DIR}/${DIST}-${ARCH}/aptcache"
+	
+	dirs="${BASE_DIR} ${BASETGZ} ${APTCACHE}"
+	for dir in ${dirs};
+	do
+		if [[ ! -d "${dir}" ]]; then
+		
+			mkdir -p "${dir}"
+		
+		fi
+	
+	done
+
 	# test if final tarball was built
 	if [[ -f "/var/cache/pbuilder/${DIST}-base.tgz" ]]; then
 	

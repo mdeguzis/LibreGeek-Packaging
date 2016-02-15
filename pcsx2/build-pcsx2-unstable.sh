@@ -60,13 +60,7 @@ branch="master"
 # package vars
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
-
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
-
-		install_prereqs
-
-	fi
-()
+install_prereqs()
 {
 	
 	clear
@@ -128,13 +122,7 @@ main()
 	cd "$build_dir" || exit
 
 	# install prereqs for build
-	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
-
-		install_prereqs
-
-	fi
-
+	install_prereqs
 
 	# Clone upstream source code and branch
 

@@ -1,6 +1,0 @@
-
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
-
-		install_prereqs
-
-	fi

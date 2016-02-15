@@ -54,13 +54,7 @@ maintainer="ProfessorKaos64"
 build_dir="$HOME/build-${pkgname}-temp"
 sprunge_dir="${build_dir}/${pkgname}"
 
-
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
-
-		install_prereqs
-
-	fi
-()
+install_prereqs()
 {
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
@@ -93,13 +87,7 @@ main()
 	cd "$build_dir" || exit
 
 	# install prereqs for build
-	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
-
-		install_prereqs
-
-	fi
-
+	install_prereqs
 
 	#################################################
 	# Build platform

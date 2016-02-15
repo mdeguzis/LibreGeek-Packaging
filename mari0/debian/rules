@@ -11,9 +11,3 @@
 
 %:
 	dh $@ 
-
-override_dh_auto_build:
-	# requires older love version
-	wget http://ftp.debian.org/debian/pool/main/l/love/love_0.8.0-1+deb7u1_amd64.deb
-	sudo dpkg -i love_0.8.0-1+deb7u1_amd64.deb
-	rm love_0.8.0-1+deb7u1_amd64.deb

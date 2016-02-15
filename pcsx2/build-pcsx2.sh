@@ -231,7 +231,7 @@ main()
 	sleep 2s
 
 	#  build
-	"${BUILDER}" "${BUILDER_OPTS}"
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

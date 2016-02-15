@@ -650,7 +650,7 @@ main()
 	# Process main functions
 	set_vars
 	
-	if [[ "${BUILDER}" != "pdebbuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
 		kodi_prereqs
 	fi
 	

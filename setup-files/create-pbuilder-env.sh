@@ -114,17 +114,7 @@ main()
 		;;
 		
 	esac
-
-	# setup dist base
-	# test if final tarball was built
-	if ! sudo DIST=$DIST pbuilder create $DEBOOTSTRAPOPTS; then
 	
-		echo -e "\n${DIST} environment encountered a fatal error! Exiting."
-		sleep 15s
-		exit 1
-
-	fi
-
 	# create cache directory needed by our setup in .pbuilderrc
 	BASE_DIR="$HOME/pbuilder"
 	BASETGZ="$HOME/pbuilder/${DIST}-${ARCH}-base.tgz"
@@ -140,6 +130,16 @@ main()
 		fi
 	
 	done
+
+	# setup dist base
+	# test if final tarball was built
+	if ! sudo DIST=$DIST pbuilder create $DEBOOTSTRAPOPTS; then
+	
+		echo -e "\n${DIST} environment encountered a fatal error! Exiting."
+		sleep 15s
+		exit 1
+
+	fi
 
 	# test if final tarball was built
 	if [[ -f "/var/cache/pbuilder/${DIST}-base.tgz" ]]; then

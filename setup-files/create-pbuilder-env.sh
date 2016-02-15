@@ -94,23 +94,23 @@ main()
 	
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--keyring=$KEYRING"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch $ARCH"
 	        ;;
 	
 	        wheezy|jessie|stretch|sid)
 		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--keyring=$KEYRING"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch $ARCH"
 	        ;;
 
 		trusty|vivid|willy)
 		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--keyring=$KEYRING"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch $ARCH"
 	        ;;
 
 	        *)
 	        # use steamos as default
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--keyring=$KEYRING"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch $ARCH"
 		;;
 		
 	esac
@@ -119,9 +119,8 @@ main()
 	# test if final tarball was built
 	if ! sudo pbuilder create \
 			--distribution $DIST \
-			--arch $ARCH \
 			--basetgz $DIST-$ARCH \
-			--debootstrapopts $DEBOOTSTRAPOPTS \
+			$DEBOOTSTRAPOPTS \
 			; then
 	
 		echo -e "\n${DIST} environment encountered a fatal error! Exiting."

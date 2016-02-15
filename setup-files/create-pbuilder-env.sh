@@ -93,24 +93,24 @@ main()
 	case "$DIST" in
 	
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
-		KEYRING_VALVE="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=${KEYRING_VALVE}"
+		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=${KEYRING}"
 	        ;;
 	
 	        wheezy|jessie|stretch|sid)
-		KEYRING_DEBIAN="/usr/share/keyrings/debian-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=${KEYRING_DEBIAN}"
+		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=${KEYRING_DEBIAN} --KEYRING=${KEYRING}"
 	        ;;
 
 		trusty|vivid|willy)
-		KEYRING_UBUNTU="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=${KEYRING_UBUNTU}"
+		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=${KEYRING}"
 	        ;;
 
 	        *)
 	        # use steamos as default
-		KEYRING_VALVE="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=${KEYRING_VALVE}"
+		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=${KEYRING}"
 		;;
 		
 	esac

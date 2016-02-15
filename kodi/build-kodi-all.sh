@@ -47,7 +47,13 @@ export build_all="yes"
 kodi_release="Isengard"
 kodi_tag="15.2-Isengard"
 
-install_prereqs()
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+()
 {
 	echo -e "==> Installing basic build tools\n"
 	sleep 2s
@@ -76,7 +82,13 @@ build_all()
 	clear
 
 	# Install prereqs
-	install_prereqs
+	
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+
 
 	###########################################################
 	# build Kodi prerequisite packages 

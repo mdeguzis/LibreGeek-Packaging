@@ -56,7 +56,13 @@ replaces="ffmpeg"
 # set build_dir
 build_dir="$HOME/build-${pkgname}-temp"
 
-install_prereqs()
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+()
 {
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
@@ -308,5 +314,11 @@ main()
 }
 
 # start main
-install_prereqs
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+
 main

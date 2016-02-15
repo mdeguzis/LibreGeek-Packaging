@@ -62,7 +62,13 @@ if [[ "$arg" == "--help" ]]; then
 	exit
 fi
 
-install_prereqs()
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+()
 {
 	clear
 	echo -e "==> Assessing prerequisites for building...\n"
@@ -219,6 +225,12 @@ main()
 }
 
 # start main
-install_prereqs
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+
 main
 

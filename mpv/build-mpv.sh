@@ -61,7 +61,13 @@ build_dir="/home/desktop/build-${pkgname}-temp"
 git_url="https://github.com/mpv-player/mpv-build"
 git_dir="mpv-build"
 
-install_prereqs()
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+()
 {
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
@@ -213,5 +219,11 @@ main()
 }
 
 # start main
-install_prereqs
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+
 main

@@ -57,7 +57,13 @@ maintainer="ProfessorKaos64"
 build_dir="$HOME/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
-install_prereqs()
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+()
 {
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
@@ -100,7 +106,13 @@ main()
 	cd "$build_dir" || exit
 
 	# install prereqs for build
-	install_prereqs
+	
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+
 
 	# Clone upstream source code and branch
 

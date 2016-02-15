@@ -84,7 +84,13 @@ if [[ "$arg1" == "--help" ]]; then
 
 fi
 
-install_prereqs()
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+()
 {
 
 	clear
@@ -383,7 +389,13 @@ main()
 }
 
 #prereqs
-install_prereqs
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		install_prereqs
+
+	fi
+
 
 # start main
 main

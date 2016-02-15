@@ -104,8 +104,28 @@ else
 fi
 
 ######################################################
-# Dependencies - TODO?
+# Dependencies
 ######################################################
 
 # Add extra packages
 #EXTRAPACKAGES_TEMP
+
+######################################################
+# Debuild options
+######################################################
+
+#for pbuilder debuild (sudo -E keeps the environment as-is)
+BUILDSOURCEROOTCMD="fakeroot"
+PBUILDERROOTCMD="sudo -E"
+
+# use cowbuilder for pdebuild
+#PDEBUILD_PBUILDER="cowbuilder"
+
+#Command-line option passed on to dpkg-buildpackage.
+#DEBBUILDOPTS="-IXXX -iXXX"
+
+# create sources only
+#DEBBUILDOPTS="-S -sa"
+
+# create binary AND sources
+DEBBUILDOPTS="-us -uc"

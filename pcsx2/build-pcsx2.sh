@@ -45,6 +45,8 @@ BUILDER="pdebuild"
 pkgname="pcsx2"
 pkgrev="1"
 dist_rel="brewmaster"
+arch="i386"
+BUILDER_OPTS="--basetgz /var/cache/pbuilder/${dit-rel}-${arch}-base.tgz"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
@@ -229,7 +231,7 @@ main()
 	sleep 2s
 
 	#  build
-	"${BUILDER}"
+	"${BUILDER}" "${BUILDER_OPTS}"
 
 	#################################################
 	# Cleanup

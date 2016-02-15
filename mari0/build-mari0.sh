@@ -102,7 +102,7 @@ main()
 
 	# Clone upstream source code and branch
 
-	echo -e "\n==> Obtaining upstream source code\n"
+	echo -e "\n==> Obtaining upstream source code"
 
 	# clone
 	#git clone -b "$rel_target" "$git_url" "$git_dir"
@@ -117,7 +117,7 @@ main()
 	# Build package
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
+	echo -e "\n==> Creating original tarball"
 	sleep 2s
 
 	# create the tarball from latest tarball creation script

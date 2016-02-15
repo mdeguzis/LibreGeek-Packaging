@@ -118,7 +118,7 @@ main()
 
 	# setup dist base
 	# test if final tarball was built
-	if ! sudo DIST=$DIST pbuilder create $DEBOOTSTRAPOPTS; then
+	if ! sudo ARCH=$ARCH DIST=$DIST pbuilder create $DEBOOTSTRAPOPTS; then
 	
 		echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 		sleep 15s

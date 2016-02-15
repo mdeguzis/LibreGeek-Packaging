@@ -46,7 +46,7 @@ pkgname="pcsx2"
 pkgrev="1"
 dist_rel="brewmaster"
 arch="i386"
-BUILDER_OPTS="--basetgz /var/cache/pbuilder/${dit-rel}-${arch}-base.tgz"
+BUILDER_OPTS="--basetgz $HOME/pbuilder/brewmaster-i386-base.tgz"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 

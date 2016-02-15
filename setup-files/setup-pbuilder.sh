@@ -26,7 +26,7 @@ Pbuilder Setup for SteamOS Packaging
 EOF
 sleep 2s
 
-echo -e "\n==> Installing keyrings\n"
+echo -e "==> Installing keyrings\n"
 sleep 2s
 
 # Obtain valve keyring

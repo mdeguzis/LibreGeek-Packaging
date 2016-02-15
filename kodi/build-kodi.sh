@@ -69,7 +69,7 @@ set_vars()
 	dist_rel="brewmaster"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
-BUILDER="pdebuild"
+	BUILDER="pdebuild"
 
 	# Set target for git source author
 	repo_target="xbmc"
@@ -358,7 +358,6 @@ kodi_package_deb()
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
 		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
-		PBUILDER_BASE="$base_dir" \
 		DPUT_TARGET="local" \
 		tools/Linux/packaging/mk-debian-package.sh
 
@@ -650,7 +649,11 @@ main()
 	
 	# Process main functions
 	set_vars
-	kodi_prereqs
+	
+	if [[ "${BUILDER}" != "pdebbuild" ]]; then
+		kodi_prereqs
+	fi
+	
 	kodi_clone
 	
 	# Process how we are building

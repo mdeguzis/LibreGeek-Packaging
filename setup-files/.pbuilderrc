@@ -17,10 +17,6 @@ PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 # -IF- you MUST have networking
 # USENETWORK=no
 
-# Specify where the deb file is built to
-# This var is exported on build attempt for Libregeek packaging
-BUILDRESULT="${build_dir}"
-
 ###########################
 # DIST/SUITE CONFIGURAITON
 ###########################
@@ -67,7 +63,7 @@ fi
 if [ -n "${DIST}" ]; then
         BASETGZ="`dirname $BASETGZ`/$DIST-base.tgz"
         DISTRIBUTION="$DIST"
-        BUILDRESULT="/var/cache/pbuilder/$DIST/result/"
+        BUILDRESULT="${build_dir}"
         APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
 fi
 

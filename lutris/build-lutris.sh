@@ -44,6 +44,7 @@ rel_target="v0.3.7.2"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="lutris"
 pkgver="0.3.7.2"
 pkgrev="1"
@@ -157,7 +158,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

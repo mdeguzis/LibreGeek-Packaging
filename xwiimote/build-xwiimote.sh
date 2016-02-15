@@ -43,8 +43,10 @@ git_branch="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="xwiimote"
 pkgver="${date_short}+git"
+BUILDER="pdebuild"
 pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -143,7 +145,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

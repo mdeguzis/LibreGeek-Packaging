@@ -69,6 +69,7 @@ set_vars()
 	dist_rel="brewmaster"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 
 	# Set target for git source author
 	repo_target="xbmc"
@@ -339,7 +340,7 @@ kodi_package_deb()
 	if [[ "$build_choice" == "host" ]]; then
 
 		# Add any overrides for mk-debian-package.sh below
-		# The default in the script is 'debuild' which will attempt to sign the pkg
+		# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
 		# build for host type / ARCH ONLY
 		tools/Linux/packaging/mk-debian-package.sh

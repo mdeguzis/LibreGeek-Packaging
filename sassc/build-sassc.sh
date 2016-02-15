@@ -46,6 +46,7 @@ rel_target_libsass="3.3.2"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="sassc"
 pkgver="3.3.0+git+bsos"
 pkgrev="1"
@@ -164,7 +165,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

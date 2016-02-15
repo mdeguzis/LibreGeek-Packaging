@@ -44,8 +44,10 @@ rel_target="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="ice-steamos-unstable"
 pkgver="${date_short}"
+BUILDER="pdebuild"
 upstream_rev="1"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -177,7 +179,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

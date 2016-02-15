@@ -44,6 +44,7 @@ sourcecode="http://archive.ubuntugames.org/dists/ubuntugames/main/source/amd64/$
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="sorr"
 pkgver="5.1"
 pkgrev="2"
@@ -157,7 +158,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

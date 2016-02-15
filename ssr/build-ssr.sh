@@ -44,6 +44,7 @@ rel_target="0.3.6"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="simplescreenrecorder"
 pkgver="0.3.6"
 pkgrev="1"
@@ -149,7 +150,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

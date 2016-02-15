@@ -48,9 +48,11 @@ git_url="https://github.com/plexinc/plex-media-player"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="PlexMediaPlayer"
 pkgver="${date_short}"
+BUILDER="pdebuild"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"
@@ -175,7 +177,7 @@ main()
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s
 
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

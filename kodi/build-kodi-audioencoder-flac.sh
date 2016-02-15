@@ -43,6 +43,7 @@ git_branch="Isengard"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="kodi-audioencoder-flac"
 pkgver="1.0.0"
 pkgrev="2"
@@ -141,7 +142,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

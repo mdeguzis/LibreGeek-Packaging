@@ -44,6 +44,7 @@ rel_target="v1.3.1"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="retroarch"
 pkgver="1.3.1"
 pkgrev="2"
@@ -165,7 +166,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	debuild
+	"${BUILDER}"
 	
 	#################################################
 	# Cleanup

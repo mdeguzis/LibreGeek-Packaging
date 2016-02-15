@@ -44,6 +44,7 @@ rel_target="0.13.1"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="obs-studio"
 pkgver="$rel_target"
 pkgrev="1"
@@ -167,7 +168,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

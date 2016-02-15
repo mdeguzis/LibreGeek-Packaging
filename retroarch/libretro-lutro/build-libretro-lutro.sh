@@ -44,6 +44,7 @@ branch="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="libretro-lutro"
 pkgver="1.0"
 pkgrev="2"
@@ -147,7 +148,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

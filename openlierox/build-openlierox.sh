@@ -44,6 +44,7 @@ rel_target="0.59"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="openlierox"
 upstream_rev="1"
 pkgrev="3"
@@ -168,7 +169,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 	
 	#################################################
 	# Cleanup

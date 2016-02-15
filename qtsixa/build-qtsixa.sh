@@ -42,6 +42,7 @@ rel_target="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="qtsixa"
 pkgver="1.5.1"
 pkgrev="1"
@@ -142,7 +143,7 @@ main()
 	echo -e "\n==> Bulding ${pkgname}\n"
 	sleep 3s
 
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

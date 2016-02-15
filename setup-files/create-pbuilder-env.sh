@@ -82,28 +82,28 @@ main()
 	case "$DIST" in
 	
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
-		VALVE_KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		OPTS="--debootstrapopts --keyring=${VALVE_KEYRING}"
+		KEYRING_VALVE="/usr/share/keyrings/valve-archive-keyring.gpg"
+		OPTS="--debootstrapopts --keyring=${KEYRING_VALVE}"
 	        ;;
 	
 	        wheezy|jessie|stretch|sid)
-		DEBIAN_KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
-		OPTS="--debootstrapopts --keyring=${DEBIAN_KEYRING}"
+		KEYRING_DEBIAN="/usr/share/keyrings/debian-archive-keyring.gpg"
+		OPTS="--debootstrapopts --keyring=${KEYRING_DEBIAN}"
 	        ;;
 
 		trusty|vivid|willy)
-		UBUNTU_KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-		OPTS="--debootstrapopts --keyring=${UBUNTU_KEYRING}"
+		KEYRING_UBUNTU="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
+		OPTS="--debootstrapopts --keyring=${KEYRING_UBUNTU}"
 	        ;;
 
 	        *)
 	        # use steamos as default
-		VALVE_KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		OPTS="--debootstrapopts --keyring=${VALVE_KEYRING}"
+		KEYRING_VALVE="/usr/share/keyrings/valve-archive-keyring.gpg"
+		OPTS="--debootstrapopts --keyring=${KEYRING_VALVE}"
 		;;
 		
 	esac
-	
+
 	# setup dist base
 	# test if final tarball was built
 	if ! sudo DIST=$DIST pbuilder create $OPTS; then
@@ -133,3 +133,4 @@ main()
 
 # start main
 main
+

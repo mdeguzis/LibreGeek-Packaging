@@ -44,8 +44,10 @@ rel_target="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="vbam"
 pkgver="${date_short}"
+BUILDER="pdebuild"
 upsteam_rev="1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
@@ -154,7 +156,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

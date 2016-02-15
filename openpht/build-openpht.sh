@@ -49,6 +49,7 @@ branch="openpht-1.5"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="openpht"
 pkgver="1.5.1"
 upstream_rev="1"
@@ -172,7 +173,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

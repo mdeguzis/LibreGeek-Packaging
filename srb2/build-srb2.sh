@@ -49,6 +49,7 @@ commit="5c09c31"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="srb2"
 pkgver="2.1.14"
 upstream_rev="1"
@@ -169,7 +170,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Prepare Debian package (data) - if needed
@@ -233,7 +234,7 @@ main()
 		sleep 2s
 
 		#  build
-		debuild
+		"${BUILDER}"
 
 		# Move packages to build dir
 		mv ${git_dir}/*${pkgver_data}* "${build_dir}"

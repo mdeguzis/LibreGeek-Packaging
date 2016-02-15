@@ -45,9 +45,11 @@ rel_target="v20160101"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="snis"
 pkgrev="1"
 pkgver="${date_short}+git+bsos${pkgrev}"
+BUILDER="pdebuild"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -123,6 +125,7 @@ main()
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Update release to latest commits, as of ${date_short}
+BUILDER="pdebuild"
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
@@ -152,7 +155,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

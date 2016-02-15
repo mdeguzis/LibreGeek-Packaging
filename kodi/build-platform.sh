@@ -43,6 +43,7 @@ branch_tag="platform-2.0.1"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="platform"
 pkgver="2.0.1"
 pkgrev="2"
@@ -142,7 +143,7 @@ main()
 	# DEBUILD_DPKG_BUILDPACKAGE_OPTS="-us -uc -I -i"
 	
 	# build
-	debuild
+	"${BUILDER}"
 	
 	#################################################
 	# Cleanup

@@ -45,6 +45,7 @@ commit="e9c72a3"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="emulationstation-theme-simple"
 pkgver="1.4"
 upstream_rev="1"
@@ -150,7 +151,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

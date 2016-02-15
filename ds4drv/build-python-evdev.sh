@@ -44,6 +44,7 @@ branch="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="python-evdev"
 pkgver="0.5.0+git+SteamOS2"
 pkgrev="1"
@@ -146,7 +147,7 @@ main()
 	sleep 2s
 
 	#  build
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

@@ -44,6 +44,7 @@ rel_target="v0.12.4"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="syncthing"
 pkgver="0.12.4+git+SteamOS2"
 pkgrev="1"
@@ -154,8 +155,8 @@ main()
 	sleep 2s
 
 	#  build
-	#debuild -uc -us --source-option=--include-binaries
-	debuild
+	#"${BUILDER}" -uc -us --source-option=--include-binaries
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

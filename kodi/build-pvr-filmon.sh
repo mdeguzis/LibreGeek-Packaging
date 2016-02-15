@@ -43,8 +43,10 @@ git_branch="Isengard"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="kodi-pvr-filmon"
 #pkgver="${date_short}+git"
+BUILDER="pdebuild"
 pkgver="0.7.1"
 pkgrev="3"
 pkgsuffix="git+bsos${pkgrev}"
@@ -147,7 +149,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

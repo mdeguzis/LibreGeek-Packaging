@@ -43,6 +43,7 @@ rel_target="Isengard"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="kodi-pvr-mythtv"
 pkgver="3.4.2"
 upstream_rev="1"
@@ -145,7 +146,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	debuild
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

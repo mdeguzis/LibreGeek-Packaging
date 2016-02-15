@@ -43,6 +43,7 @@ rel_target="brewmaster"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+BUILDER="pdebuild"
 pkgname="pysteam"
 pkgver="1.0.0"
 upstream_rev="1"
@@ -143,7 +144,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	debuild
+	"${BUILDER}"
 	
 	#################################################
 	# Cleanup

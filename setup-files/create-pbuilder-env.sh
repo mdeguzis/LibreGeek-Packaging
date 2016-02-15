@@ -93,31 +93,31 @@ main()
 	case "$DIST" in
 	
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
-		export KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		export DEBOOTSTRAPOPTS="--keyring=$KEYRING"
+		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
+		DEBOOTSTRAPOPTS="--arch $ARCH --debootstrapopts --keyring=$KEYRING"
 	        ;;
 	
 	        wheezy|jessie|stretch|sid)
-		export KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
-		export DEBOOTSTRAPOPTS="--keyring=$KEYRING"
+		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
+		DEBOOTSTRAPOPTS="--arch $ARCH --debootstrapopts --keyring=$KEYRING"
 	        ;;
 
 		trusty|vivid|willy)
-		export KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-		export DEBOOTSTRAPOPTS="--keyring=$KEYRING"
+		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
+		DEBOOTSTRAPOPTS="--arch $ARCH --debootstrapopts --keyring=$KEYRING"
 	        ;;
 
 	        *)
 	        # use steamos as default
-		export KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		export DEBOOTSTRAPOPTS="--keyring=$KEYRING"
+		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
+		DEBOOTSTRAPOPTS="--arch $ARCH --debootstrapopts --keyring=$KEYRING"
 		;;
 		
 	esac
 
 	# setup dist base
 	# test if final tarball was built
-	if ! sudo DIST=$DIST pbuilder create; then
+	if ! sudo DIST=$DIST pbuilder create $DEBOOTSTRAPOPTS; then
 	
 		echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 		sleep 15s
@@ -144,4 +144,3 @@ main()
 
 # start main
 main
-

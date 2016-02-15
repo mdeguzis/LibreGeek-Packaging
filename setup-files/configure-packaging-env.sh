@@ -12,7 +12,6 @@
 # -------------------------------------------------------------------------------
 
 export scriptdir=$(pwd)
-export steamos_tools_configs="$HOME/.config/SteamOS-Tools"
 
 clear
 echo -e "==> Installing basic packages"
@@ -31,7 +30,10 @@ sudo apt-get install -y --force-yes pbuilder
 echo -e "\n==> Adding needed directories"
 sleep 2s
 
-dirs="${steamos_tools_configs}"
+steamos_tools_configs="$HOME/.config/SteamOS-Tools"
+pbuilder_home="$HOME/pbuilder"
+
+dirs="${steamos_tools_configs} ${pbuilder_home=}"
 
 for dir in ${dirs};
 do

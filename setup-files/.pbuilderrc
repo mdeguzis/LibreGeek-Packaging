@@ -95,8 +95,8 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
     DEBIAN_DIST="jessie"
     
     # Add the debian / libregeek mirrors
-    OTHERMIRROR="deb $DEBIAN_MIRRORSITE $DEBIAN_DIST $DEBIAN_COMPONENTS \
-    | deb $LIBREGEEK_MIRRORSITE $DIST $LIBREGEEK_COMPONENTS"
+    #OTHERMIRROR="deb $DEBIAN_MIRRORSITE $DEBIAN_DIST $DEBIAN_COMPONENTS \
+    #| deb $LIBREGEEK_MIRRORSITE $DIST $LIBREGEEK_COMPONENTS"
     
 else
     echo "Unknown distribution: $DIST"

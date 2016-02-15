@@ -17,6 +17,12 @@ PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 # -IF- you MUST have networking
 # USENETWORK=no
 
+# By default, pbuilder uses hard links to manage the pbuilder package cache. 
+# It is not possible to make hard links across different devices; and thus this error will occur, depending on your set up. 
+# Note that packages in APTCACHE will be copied into chroot local cache, so plan for enough space on BUILDPLACE device
+
+#APTCACHEHARDLINK=no
+
 ###########################
 # DIST/SUITE CONFIGURAITON
 ###########################

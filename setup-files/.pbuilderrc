@@ -60,11 +60,13 @@ if [ -n "${ARCH}" ]; then
     DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
 fi
 
+# Note: build_dir is specified in each build script
 if [ -n "${DIST}" ]; then
-        BASETGZ="`dirname $BASETGZ`/$DIST-base.tgz"
-        DISTRIBUTION="$DIST"
+        BASE_DIR="/home/${SUDO_USER}/pbuilder"
+        BASETGZ="/home/${SUDO_USER}/pbuilder/$DIST-$ARCH-base.tgz"
+        DISTRIBUTION="${DIST}"
         BUILDRESULT="${build_dir}"
-        APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+        APTCACHE="${BASE_DIR}/${DIST}-${ARCH}/aptcache/"
 fi
 
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then

@@ -70,3 +70,4 @@ git submodule update --recursive
 
 # Tips and Tricks
 * [Find and process find results to sed](https://gist.github.com/ProfessorKaos64/cc44646a4368723d6f45)
+* [Replace line with contents of file](https://gist.github.com/ProfessorKaos64/345b86deec3e39a01755)

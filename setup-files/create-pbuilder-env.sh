@@ -24,9 +24,17 @@ if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
 	DIST=$(sed "s|_beta||g" <<<${DIST}) 
 	BETA_FLAG="true"
 	
-	# Set extra packages to intall?
+	# Set extra packages to intall
 	# Use wildcard * to replace the entire line
-	sed "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=steamos-beta-repo|" "$HOME/.pbuilderrc"
+	sed "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=bc debian-archive-keyring steamos-beta-repo|" "$HOME/.pbuilderrc"
+	sudo sed "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=bc debian-archive-keyring steamos-beta-repo|" "/root/.pbuilderrc"
+	
+else
+
+	# Set extra packages to intall
+	# Use wildcard * to replace the entire line
+	sed "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=bc debian-archive-keyring|" "$HOME/.pbuilderrc"
+	sudo sed "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=bc debian-archive-keyring|" "/root/.pbuilderrc"
 	
 fi
 

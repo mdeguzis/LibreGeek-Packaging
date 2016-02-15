@@ -90,6 +90,7 @@ main()
 {
 	
 	# set keyrings based on ARCH
+	# For specifying arch, see: http://pbuilder.alioth.debian.org/#amd64i386
 	case "$DIST" in
 	
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
@@ -99,18 +100,18 @@ main()
 	
 	        wheezy|jessie|stretch|sid)
 		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch=$ARCH"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
 	        ;;
 
 		trusty|vivid|willy)
 		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch=$ARCH"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
 	        ;;
 
 	        *)
 	        # use steamos as default
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch=$ARCH"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
 		;;
 		
 	esac

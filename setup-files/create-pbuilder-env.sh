@@ -15,9 +15,6 @@
 export DIST="$1"
 export ARCH="$2"
 export KEYRING="$3"
-export BETA_FLAG="false"
-export BASETGZ="$HOME/pbuilder"
-export BASEDIR="$HOME/pbuilder"
 
 # set base DIST if requesting a beta
 if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
@@ -49,6 +46,11 @@ if [[ "$ARCH" == "" ]]; then
 	ARCH=$(dpkg --print-architecture)
 	
 fi
+
+# Set final pbuilder vars
+export BETA_FLAG="false"
+export BASE_DIR="${HOME}/pbuilder"
+export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 
 #####################################
 # PBUILDER environement creation
@@ -104,23 +106,23 @@ main()
 	
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING"
+		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 	        ;;
 	
 	        wheezy|jessie|stretch|sid)
 		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING"
+		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 	        ;;
 
 		trusty|vivid|willy)
 		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING"
+		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 	        ;;
 
 	        *)
 	        # use steamos as default
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING"
+		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 		;;
 		
 	esac
@@ -146,8 +148,7 @@ main()
 	
 	# setup dist base
 	# test if final tarball was built
-	if ! sudo ARCH=$ARCH DIST=$DIST BASETGZ=$BASETGZ BASEDIR=$BASEDIR \
-		pbuilder create $DEBOOTSTRAPOPTS; then
+	if ! sudo DIST=$DIST pbuilder create $OPTS; then
 	
 		echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 		sleep 3s

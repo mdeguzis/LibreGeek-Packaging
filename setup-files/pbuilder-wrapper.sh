@@ -21,6 +21,13 @@ export BETA_FLAG="false"
 export BASE_DIR="${HOME}/pbuilder"
 export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 
+# Set ARCH fallback
+if [[ "$ARCH" == "" ]]; then
+
+	ARCH=$(dpkg --print-architecture)
+	
+fi
+
 show_help()
 {
 	
@@ -74,13 +81,6 @@ set_creation_vars()
 		PKGS="wget ca-certificates"
 		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
 		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
-		
-	fi
-	
-	# Set ARCH fallback
-	if [[ "$ARCH" == "" ]]; then
-	
-		ARCH=$(dpkg --print-architecture)
 		
 	fi
 	

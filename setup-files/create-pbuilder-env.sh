@@ -117,7 +117,25 @@ main()
 		;;
 		
 	esac
+	
+	echo -e "==> Options set:\n"
+	sleep 2s
+	
+	cat<<- EOF
+	
+	DIST="$1"
+	ARCH="$2"
+	KEYRING="$3"
+	BETA_FLAG="false"
+	BASETGZ="$HOME/pbuilder"
+	BASEDIR="$HOME/pbuilder"
 
+	EOF
+	
+	
+	echo -e "==> Creating pbuilder environment\n"
+	sleep 2s
+	
 	# setup dist base
 	# test if final tarball was built
 	if ! sudo ARCH=$ARCH DIST=$DIST BASETGZ=$BASETGZ BASEDIR=$BASEDIR \

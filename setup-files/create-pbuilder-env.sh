@@ -11,11 +11,13 @@
 # -------------------------------------------------------------------------------
 
 # source arguments
-# set var target
+# set var targets
 export DIST="$1"
 export ARCH="$2"
 export KEYRING="$3"
 export BETA_FLAG="false"
+export BASETGZ="$HOME/pbuilder"
+export BASEDIR="$HOME/pbuilder"
 
 # set base DIST if requesting a beta
 if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
@@ -118,7 +120,8 @@ main()
 
 	# setup dist base
 	# test if final tarball was built
-	if ! sudo ARCH=$ARCH DIST=$DIST pbuilder create $DEBOOTSTRAPOPTS; then
+	if ! sudo ARCH=$ARCH DIST=$DIST BASETGZ=$BASETGZ BASEDIR=$BASEDIR \
+		pbuilder create $DEBOOTSTRAPOPTS; then
 	
 		echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 		sleep 15s

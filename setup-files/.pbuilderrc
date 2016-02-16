@@ -62,8 +62,8 @@ if [ -n "${ARCH}" ]; then
 fi
 
 if [ -n "${DIST}" ]; then
-        BASEDIR="`dirname $BASEDIR`"
-        BASETGZ="`dirname $BASETGZ`/$DIST-base.tgz"
+        BASEDIR="$BASEDIR"
+        BASETGZ="$BASEDIR/$DIST-base.tgz"
         DISTRIBUTION="$DIST"
         BUILDRESULT="${build_dir}"
         APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"

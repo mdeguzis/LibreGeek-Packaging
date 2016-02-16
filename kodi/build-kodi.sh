@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.0.9
+# Script Ver:		1.2.1
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -359,7 +359,7 @@ kodi_package_deb()
 		tools/Linux/packaging/mk-debian-package.sh
 
 		# copy deb files into the deb_dir location
-		cp -r "${build_dir}/*.deb" "${deb_dir}"
+		cp -r ${build_dir}/*.deb "${deb_dir}"
 
 	# end building
 	fi

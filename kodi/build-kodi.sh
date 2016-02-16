@@ -351,8 +351,8 @@ kodi_package_deb()
 		DISTS="brewmaster" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
-		PDEBUILD_OPTS="--debbuildopts \"-j4\"" 
-		PBUILDER_BASE="$HOME/pbuilder"
+		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \ 
+		PBUILDER_BASE="$HOME/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
 
 	# end building

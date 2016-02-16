@@ -59,7 +59,7 @@ if [ -n "${ARCH}" ]; then
 fi
 
 if [ -n "${DIST}" ]; then
-        BASETGZ="$HOME/pbuilder/$DIST-base.tgz"
+        BASETGZ="/home/$SUDO_USER/pbuilder/$DIST-base.tgz"
         DISTRIBUTION="$DIST"
         BUILDRESULT="$build_dir"
         APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"

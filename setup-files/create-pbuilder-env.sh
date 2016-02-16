@@ -104,23 +104,23 @@ main()
 	
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch  $ARCH"
 	        ;;
 	
 	        wheezy|jessie|stretch|sid)
 		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch $ARCH"
 	        ;;
 
 		trusty|vivid|willy)
 		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch $ARCH"
 	        ;;
 
 	        *)
 	        # use steamos as default
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --debootstrapopts --arch $ARCH"
 		;;
 		
 	esac

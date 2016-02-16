@@ -127,7 +127,7 @@ main()
 	fi
 
 	# test if final tarball was built
-	if [[ -f "/var/cache/pbuilder/${DIST}-base.tgz" ]]; then
+	if [[ -f "$HOME/pbuilder/$DIST-base.tgz ]]; then
 	
 		echo -e "\n${DIST} environment created successfully!"
 	

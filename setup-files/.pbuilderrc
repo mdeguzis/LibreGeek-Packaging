@@ -62,8 +62,7 @@ if [ -n "${ARCH}" ]; then
 fi
 
 if [ -n "${DIST}" ]; then
-        BASEDIR="$BASEDIR"
-        BASETGZ="$BASEDIR/$DIST-$ARCH-base.tgz"
+        BASETGZ="$HOME/$DIST-$ARCH-base.tgz"
         DISTRIBUTION="$DIST"
         BUILDRESULT="${build_dir}"
         APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
@@ -75,7 +74,7 @@ CODENAME=$(lsb_release -i | awk '{print $3}')
 if $(echo ${CODENAME} | grep -q "SteamOS"); then
 
        APTCACHEHARDLINK="no"
-       APTCACHE="$BASEDIR/$DIST/aptcache/"
+       APTCACHE="$HOME/$DIST/aptcache/"
 
 fi
 

@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.0.5
+# Script Ver:		1.0.9
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -347,18 +347,12 @@ kodi_package_deb()
 
 	elif [[ "$build_choice" == "pbuilder" ]]; then
 
-		DIST=$(lsb_release -c | cut -d$'\t' -f2)
-
-		base_dir="/home/$USER/xbmc-packaging/pbuilder"
-		rm -rf "$base_dir"
-		mkdir -p "$base_dir"
-
 		RELEASEV="$kodi_tag" \
+		DISTS="brewmaster" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
+		PDEBUILD_OPTS="--debbuildopts \"-j4\"" 
 		PBUILDER_BASE="$HOME/pbuilder"
-		DISTS="brewmaster" \
-		PBUILDER_BASE="/home/$USER/xbmc-packaging/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
 
 	# end building

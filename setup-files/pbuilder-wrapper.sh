@@ -107,7 +107,7 @@ show_run_info()
 run_pbuilder()
 {
 	
-	if [[ "${PROCEED}" == "true" ]]; then
+	if [[ "$PROCEED" == "true" ]]; then
 
 		# Process actions, exit on fatal error
 		if ! sudo DIST=$DIST pbuilder $OPERATION $OPTS; then

@@ -13,7 +13,7 @@
 
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 HOOKDIR=/var/cache/pbuilder/hooks
-PBUILDERSATISFYDEPENDSCMD="/usr/lib/pbuilder/pbuilder-satisfydepends-gdebi"
+PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 
 ###########################
 # DIST/SUITE CONFIGURAITON
@@ -61,7 +61,7 @@ fi
 if [ -n "${DIST}" ]; then
         BASETGZ="`dirname $BASETGZ`/$DIST-base.tgz"
         DISTRIBUTION="$DIST"
-        BUILDRESULT="$build_dir"
+        BUILDRESULT="${build_dir}"
         APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
 fi
 

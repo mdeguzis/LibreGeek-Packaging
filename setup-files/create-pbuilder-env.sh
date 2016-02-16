@@ -123,12 +123,12 @@ main()
 	
 	cat<<- EOF
 	
-	DIST="$1"
-	ARCH="$2"
-	KEYRING="$3"
+	DIST="$DIST"
+	ARCH="$ARCH"
+	KEYRING="$KEYRING"
 	BETA_FLAG="false"
-	BASETGZ="$HOME/pbuilder"
-	BASEDIR="$HOME/pbuilder"
+	BASETGZ="$BASETGZ"
+	BASEDIR="$BASEDIR"
 
 	EOF
 	

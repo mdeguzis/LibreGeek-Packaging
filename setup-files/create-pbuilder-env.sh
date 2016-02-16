@@ -126,7 +126,6 @@ main()
 	esac
 	
 	echo -e "==> Options set:\n"
-	sleep 2s
 	
 	cat<<- EOF
 	
@@ -138,6 +137,8 @@ main()
 	BASEDIR="$BASEDIR"
 
 	EOF
+	
+	sleep 2s
 	
 	
 	echo -e "==> Creating pbuilder environment\n"

@@ -43,6 +43,13 @@ else
 	
 fi
 
+# Set ARCH fallback
+if [[ "$ARCH" == "" ]]; then
+
+	ARCH=$(dpkg --print-architecture)
+	
+fi
+
 #####################################
 # PBUILDER environement creation
 #####################################
@@ -97,23 +104,23 @@ main()
 	
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
 	        ;;
 	
 	        wheezy|jessie|stretch|sid)
 		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
 	        ;;
 
 		trusty|vivid|willy)
 		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
 	        ;;
 
 	        *)
 	        # use steamos as default
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING"
+		DEBOOTSTRAPOPTS="--debootstrapopts --keyring=$KEYRING --arch --debootstrapopts $ARCH"
 		;;
 		
 	esac

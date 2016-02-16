@@ -354,11 +354,7 @@ kodi_package_deb()
 		mkdir -p "$base_dir"
 
 		RELEASEV=$kodi_tag \
-		DISTS="$DIST" \
-		ARCHS="amd64" \
 		BUILDER="pdebuild" \
-		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
-		DPUT_TARGET="local" \
 		tools/Linux/packaging/mk-debian-package.sh
 
 	# end building

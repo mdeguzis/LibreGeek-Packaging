@@ -15,6 +15,9 @@ AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 HOOKDIR=/var/cache/pbuilder/hooks
 PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends-gdebi
 
+# Allow softlinks
+# APTCACHEHARDLINK=no
+
 ###########################
 # DIST/SUITE CONFIGURAITON
 ###########################
@@ -59,10 +62,21 @@ if [ -n "${ARCH}" ]; then
 fi
 
 if [ -n "${DIST}" ]; then
+        BASEDIR="`dirname $BASEDIR"
         BASETGZ="`dirname $BASETGZ`/$DIST-base.tgz"
         DISTRIBUTION="$DIST"
         BUILDRESULT="${build_dir}"
         APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+fi
+
+# If the host machine is steamos, divert cache and allow symlinks since / is 10 GB only
+CODENAME=$(lsb_release -i | awk '{print $3}')
+
+if $(echo ${CODENAME} | grep -q "SteamOS"}; then
+
+       APTCACHEHARDLINK="no"
+       APTCACHE="$BASEDIR/$DIST/aptcache/"
+
 fi
 
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then

@@ -12,9 +12,10 @@
 
 # source arguments
 # set var targets
-export DIST="$1"
-export ARCH="$2"
-export KEYRING="$3"
+export OPERATION="$1"
+export DIST="$2"
+export ARCH="$3"
+export KEYRING="$4"
 
 # set base DIST if requesting a beta
 if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
@@ -97,10 +98,41 @@ show_help()
 	
 }
 
+validate_pbuilder_env()
+{
+	
+	echo -e "==> Options set:\n"
+	
+	cat<<- EOF
+	
+	DIST="$DIST"
+	ARCH="$ARCH"
+	KEYRING="$KEYRING"
+	BETA_FLAG="false"
+	BASETGZ="$BASE_TGZ"
+	BASEDIR="$BASE_DIR"
+
+	EOF
+	sleep 2s
+
+	# test if final tarball was built
+	if [[ -f "/var/cache/pbuilder/$DIST-base.tgz" ]]; then
+	
+		echo -e "\n${DIST} environment created successfully!"
+	
+	else
+	
+		echo -e "\n${DIST} environment creation FAILED! Exiting in 15 seconds"
+		sleep 3s
+		exit 1
+	fi
+	
+}
+
 main()
 {
 	
-	# set keyrings based on ARCH
+	# set options
 	# For specifying arch, see: http://pbuilder.alioth.debian.org/#amd64i386
 	case "$DIST" in
 	
@@ -127,45 +159,28 @@ main()
 		
 	esac
 	
-	echo -e "==> Options set:\n"
-	
-	cat<<- EOF
-	
-	DIST="$DIST"
-	ARCH="$ARCH"
-	KEYRING="$KEYRING"
-	BETA_FLAG="false"
-	BASETGZ="$BASE_TGZ"
-	BASEDIR="$BASE_DIR"
+	# Process $OPERATION
+	case $OPERATION in
+		
+		update|build|clean|login|execute )
+		;;
 
-	EOF
+	esac
 	
-	sleep 2s
-	
-	
-	echo -e "==> Creating pbuilder environment\n"
-	sleep 2s
-	
-	# setup dist base
-	# test if final tarball was built
-	if ! sudo DIST=$DIST pbuilder create $OPTS; then
+	# Process actions, exit on fatal error
+	if ! sudo DIST=$DIST pbuilder $OPERATION $OPTS; then
 	
 		echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 		sleep 3s
 		exit 1
 
 	fi
-
-	# test if final tarball was built
-	if [[ -f "/var/cache/pbuilder/$DIST-base.tgz" ]]; then
 	
-		echo -e "\n${DIST} environment created successfully!"
+	if [[ "${OPERATOIN}" == "create" ]]; then
 	
-	else
-	
-		echo -e "\n${DIST} environment creation FAILED! Exiting in 15 seconds"
-		sleep 3s
-		exit 1
+		# validate
+		validate_pbuilder_env
+		
 	fi
 
 }

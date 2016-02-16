@@ -72,7 +72,7 @@ fi
 # If the host machine is steamos, divert cache and allow symlinks since / is 10 GB only
 CODENAME=$(lsb_release -i | awk '{print $3}')
 
-if $(echo ${CODENAME} | grep -q "SteamOS"}; then
+if $(echo ${CODENAME} | grep -q "SteamOS"); then
 
        APTCACHEHARDLINK="no"
        APTCACHE="$BASEDIR/$DIST/aptcache/"

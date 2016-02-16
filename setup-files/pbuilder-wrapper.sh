@@ -179,7 +179,7 @@ main()
 		
 		login)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ --save-after-login"
+		OPTS="--basetgz $BASE_TGZ"
 		run_pbuilder
 		;;
 		

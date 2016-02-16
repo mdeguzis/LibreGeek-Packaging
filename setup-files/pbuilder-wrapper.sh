@@ -16,17 +16,17 @@ export DIST="$2"
 export ARCH="$3"
 export KEYRING="$4"
 
-# Set pbuilder-specific vars
-export BETA_FLAG="false"
-export BASE_DIR="${HOME}/pbuilder"
-export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
-
 # Set ARCH fallback
 if [[ "$ARCH" == "" ]]; then
 
 	ARCH=$(dpkg --print-architecture)
 	
 fi
+
+# Set pbuilder-specific vars
+export BETA_FLAG="false"
+export BASE_DIR="${HOME}/pbuilder"
+export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 
 show_help()
 {

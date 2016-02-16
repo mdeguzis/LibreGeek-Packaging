@@ -6,7 +6,7 @@
 # Script Ver:		0.5.5
 # Description:		Wrapper for working with pbuilder
 # Usage:		pbuilder-wrapper.sh [OPERATION] [dist] [arch] [keyring]
-#
+#			pbuilder-wrapper.sh --help
 # Notes:		For targets, see .pbuilderrc
 # -------------------------------------------------------------------------------
 
@@ -15,6 +15,13 @@ export OPERATION="$1"
 export DIST="$2"
 export ARCH="$3"
 export KEYRING="$4"
+
+# Halt if help requested
+if [[ "${OPERATION}" == "--help" ]]; then
+
+	show_help
+	
+fi
 
 # Set ARCH fallback
 if [[ "$ARCH" == "" ]]; then
@@ -31,27 +38,29 @@ export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 show_help()
 {
 	
+	clear
 	cat<<- EOF
 	------------------------------------------------
 	HELP
 	------------------------------------------------
 	See 'man pbuilder' or 'sudo pbuilder' for help
+	DIST is required.
+
+	pbuilder-wrapper [ACTION][DIST][ARCH][KEYRING]
+
+	Available actions:
 	
-	Create:
-	./create-pbuilder-env.sh [dist] [arch]
-	
-	Update:
-	pbuilder --update --distribution $DIST
-	
-	Build:
-	pbuilder --build 
-	
-	pbuilder --clean
-	Cleans the temporal build directory.
-	
-	For distributions, see ~/.pbuilderrc
+	create
+	update
+	build
+	clean
+	login
+	login-save (--save-after-login)
+	execute
 	
 	EOF
+	exit 1
+
 	
 }
 
@@ -117,23 +126,8 @@ run_pbuilder()
 	
 	else
 	
-		cat<<- EOF
-		Invalid command...
-		------------------------------
-		Valid commands are:
-		------------------------------
-		create
-		update
-		build
-		clean
-		login
-		login-save (--save-after-login)
-		execute
-		
-		EOF
-		exit 1
-
-fi
+		show_help
+	fi
 	
 }
 

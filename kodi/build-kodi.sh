@@ -355,6 +355,9 @@ kodi_package_deb()
 
 		RELEASEV=$kodi_tag \
 		BUILDER="pdebuild" \
+		DISTS="brewmaster" \
+		ARCHS="amd64"
+		PBUILDER_BASE="/home/$USER/xbmc-packaging/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
 
 	# end building

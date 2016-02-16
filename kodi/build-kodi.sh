@@ -353,10 +353,10 @@ kodi_package_deb()
 		rm -rf "$base_dir"
 		mkdir -p "$base_dir"
 
-		RELEASEV=$kodi_tag \
+		RELEASEV="$kodi_tag" \
+		ARCHS="amd64" \
 		BUILDER="pdebuild" \
 		DISTS="brewmaster" \
-		ARCHS="amd64"
 		PBUILDER_BASE="/home/$USER/xbmc-packaging/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
 

@@ -13,8 +13,8 @@
 # Usage:      		./build-kodi.sh --cores [cpu cores]
 #			./build-kodi.sh [--package-deb][--source]
 # See Also:		https://packages.debian.org/sid/kodi
-# Opts:		[--testing]
-#		Modifys build script to denote this is a test package build.
+# Opts:			[--testing]
+#			Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
 
 #################################################
@@ -73,10 +73,17 @@ set_vars()
 
 	# Set target for git source author
 	repo_target="xbmc"
-
+	
 	###################################
 	# build vars
 	###################################
+	
+	# Set path for build debs (debuild)
+	
+	# The current SteamOS-Tools setup for pbuilder packaging uses $build_dir as the
+	# final path for the build debs. If using pbuilder, the build packages will be 
+	# copied into this directory.
+	deb_dir="$HOME/kodi"
 
 	# Set build dir based on repo target to avoid recloning for different targets
 	if [[ "$repo_target" != "xbmc" ]]; then
@@ -91,10 +98,6 @@ set_vars()
 
 	# Set Git URL
 	git_url="git://github.com/${repo_target}/xbmc.git"
-	#git_url="git://github.com/xbmc/xbmc.git"
-
-	# set dir for debs
-	deb_dir="$HOME/kodi"
 
 	###################
 	# global vars
@@ -354,6 +357,9 @@ kodi_package_deb()
 		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
 		PBUILDER_BASE="$HOME/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
+
+		# copy deb files into the deb_dir location
+		cp -r "${build_dir}/*.deb" "${deb_dir}"
 
 	# end building
 	fi

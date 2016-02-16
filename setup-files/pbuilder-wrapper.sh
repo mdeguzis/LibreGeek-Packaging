@@ -143,6 +143,9 @@ fi
 main()
 {
 	
+	# set vars
+	set_vars
+	
 	# set options
 	# For specifying arch, see: http://pbuilder.alioth.debian.org/#amd64i386
 	case "$DIST" in

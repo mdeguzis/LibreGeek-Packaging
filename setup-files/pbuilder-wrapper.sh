@@ -10,50 +10,13 @@
 # Notes:		For targets, see .pbuilderrc
 # -------------------------------------------------------------------------------
 
-set_vars()
-{
+# source arguments
+export OPERATION="$1"
+export DIST="$2"
+export ARCH="$3"
+export KEYRING="$4"
 
-	# source arguments
-	# set var targets
-	export OPERATION="$1"
-	export DIST="$2"
-	export ARCH="$3"
-	export KEYRING="$4"
-	
-	# set base DIST if requesting a beta
-	if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
-	
-		# Set DIST
-		DIST=$(sed "s|_beta||g" <<<${DIST}) 
-		BETA_FLAG="true"
-		
-		# Set extra packages to intall
-		# Use wildcard * to replace the entire line
-		PKGS="steamos-beta-repo wget ca-certificates"
-		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
-		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
-		
-	else
-	
-		# Set extra packages to intall
-		# Use wildcard * to replace the entire line
-		# None for now
-		PKGS="wget ca-certificates"
-		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
-		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
-		
-	fi
-	
-	# Set ARCH fallback
-	if [[ "$ARCH" == "" ]]; then
-	
-		ARCH=$(dpkg --print-architecture)
-		
-	fi
-
-}
-
-# Set final pbuilder vars
+# Set pbuilder-specific vars
 export BETA_FLAG="false"
 export BASE_DIR="${HOME}/pbuilder"
 export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
@@ -85,8 +48,41 @@ show_help()
 	
 }
 
-show_run_info()
+set_creation_vars()
 {
+	
+	# set var targets
+	
+	# set base DIST if requesting a beta
+	if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
+	
+		# Set DIST
+		DIST=$(sed "s|_beta||g" <<<${DIST}) 
+		BETA_FLAG="true"
+		
+		# Set extra packages to intall
+		# Use wildcard * to replace the entire line
+		PKGS="steamos-beta-repo wget ca-certificates"
+		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
+		
+	else
+	
+		# Set extra packages to intall
+		# Use wildcard * to replace the entire line
+		# None for now
+		PKGS="wget ca-certificates"
+		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
+		
+	fi
+	
+	# Set ARCH fallback
+	if [[ "$ARCH" == "" ]]; then
+	
+		ARCH=$(dpkg --print-architecture)
+		
+	fi
 	
 	echo -e "==> Options set:\n"
 	
@@ -101,6 +97,7 @@ show_run_info()
 
 	EOF
 	sleep 2s
+	
 	
 }
 
@@ -179,7 +176,7 @@ main()
 		create)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
-		show_run_info
+		set_creation_vars
 		run_pbuilder
 		;;
 		

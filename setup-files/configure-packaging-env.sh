@@ -38,11 +38,11 @@ dirs="${steamos_tools_configs} ${pbuilder_home=}"
 for dir in ${dirs};
 do
 	if [[ ! -d "${dir}" ]]; then
-	
+
 		mkdir -p "${dir}"
-	
+
 	fi
-	
+
 done
 
 #################################################
@@ -59,10 +59,10 @@ bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
 if [[ "$bashrc_test_start" == "" && "$bashrc_test_start" == "" ]]; then
 
         cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
-        
+
         echo -e "Seting info for .bashrc"
         sleep 2s
-        
+
         read -erp "Email: " EMAIL
         read -erp "Full Name: " NAME
         sed -e "s|EMAIL|$EMAIL|" "$HOME/.bashrc"
@@ -86,24 +86,24 @@ if [[ "$git_user_test" == "" && "$git_email_test" == "" ]]; then
 
         echo -e "\nSeting info for Git config\n"
         sleep 2s
-        
+
         read -erp "Git username: " GITUSER
         read -erp "Git email: " GITEMAIL
         git config --global user.name "${GITUSER}"
         git config --global user.email "${GITEMAIL}"
-        
+
 else
 
         echo -e "\nGit email/user already set, reset?"
         read -erp "Choice [y/n]: " git_reset
-        
+
         if [[ "$git_reset" == "y" ]]; then
 
                 read -erp "Git username: " GITUSER
                 read -erp "Git email: " GITEMAIL
                 git config --global user.name "${GITUSER}"
                 git config --global user.email "${GITEMAIL}"
-        
+
         fi
 
 fi

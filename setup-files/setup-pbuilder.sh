@@ -39,6 +39,10 @@ wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progr
 sudo dpkg -i libregeek-archive-keyring-latest.deb
 sudo dpkg -i steamos-tools-repo-latest.deb
 
+# cleanup
+rm -f steamos-tools-repo-latest.deb
+rm -f libregeek-archive-keyring-latest.deb
+
 # update for keyrings
 
 echo -e "\n==> Updating system for newly added keyrings\n"

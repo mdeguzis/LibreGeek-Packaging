@@ -348,7 +348,7 @@ kodi_package_deb()
 	elif [[ "$build_choice" == "pbuilder" ]]; then
 
 		RELEASEV="$kodi_tag" \
-		DISTS=-"brewmaster" \
+		DISTS="brewmaster" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
 		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \

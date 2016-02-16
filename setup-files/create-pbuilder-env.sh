@@ -3,7 +3,7 @@
 # Author:		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:		create-pbuilder-env.sh
-# Script Ver:		0.3.5
+# Script Ver:		0.5.5
 # Description:		Create buld environment for testing and building packages
 # Usage:		create-pbuilder-env.sh [dist] [arch] [keyring]
 #
@@ -127,7 +127,7 @@ main()
 	fi
 
 	# test if final tarball was built
-	if [[ -f "$HOME/pbuilder/$DIST-base.tgz ]]; then
+	if [[ -f "$HOME/pbuilder/$DIST-base.tgz" ]]; then
 	
 		echo -e "\n${DIST} environment created successfully!"
 	

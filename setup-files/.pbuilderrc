@@ -3,7 +3,7 @@
 ####################################################################
 
 ###########################
-# Pbuilder core options
+# Core options
 ###########################
 
 # Remember, to build using pbuilder and the satisfy depends below, you will need to install
@@ -13,15 +13,6 @@
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 HOOKDIR=/var/cache/pbuilder/hooks
 PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
-
-# -IF- you MUST have networking
-# USENETWORK=no
-
-# By default, pbuilder uses hard links to manage the pbuilder package cache. 
-# It is not possible to make hard links across different devices; and thus this error will occur, depending on your set up. 
-# Note that packages in APTCACHE will be copied into chroot local cache, so plan for enough space on BUILDPLACE device
-
-#APTCACHEHARDLINK=no
 
 ###########################
 # DIST/SUITE CONFIGURAITON
@@ -66,12 +57,10 @@ if [ -n "${ARCH}" ]; then
     DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
 fi
 
-# Note: build_dir is specified in each build script
 if [ -n "${DIST}" ]; then
-        BASE_DIR="/home/${SUDO_USER}/pbuilder"
-        BASETGZ="/home/${SUDO_USER}/pbuilder/$DIST-$ARCH-base.tgz"
-        DISTRIBUTION="${DIST}"
-        BUILDRESULT="${build_dir}"
+        BASETGZ="`dirname $BASETGZ`/$DIST-base.tgz"
+        DISTRIBUTION="$DIST"
+        BUILDRESULT="/var/cache/pbuilder/$DIST/result/"
         APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
 fi
 

@@ -348,8 +348,7 @@ kodi_package_deb()
 	elif [[ "$build_choice" == "pbuilder" ]]; then
 
 		# Remove options set in upstream's script so we can provide our overrides below
-		sed -i "s|ARCHS=${ARCHS:-$(dpkg --print-architecture)}|d" "tools/Linux/packaging/mk-debian-package.sh"
-		
+		sed '/ARCHS\=\$\{ARCHS\:\-\$\(dpkg \-\-print\-architecture\)\}\/d' "tools/Linux/packaging/mk-debian-package.sh"
 		exit 1
 
 		RELEASEV="$kodi_tag" \

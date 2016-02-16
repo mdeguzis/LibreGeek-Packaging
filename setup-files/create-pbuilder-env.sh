@@ -150,7 +150,7 @@ main()
 		pbuilder create $DEBOOTSTRAPOPTS; then
 	
 		echo -e "\n${DIST} environment encountered a fatal error! Exiting."
-		sleep 15s
+		sleep 3s
 		exit 1
 
 	fi
@@ -163,7 +163,7 @@ main()
 	else
 	
 		echo -e "\n${DIST} environment creation FAILED! Exiting in 15 seconds"
-		sleep 15s
+		sleep 3s
 		exit 1
 	fi
 

@@ -62,7 +62,7 @@ if [ -n "${ARCH}" ]; then
 fi
 
 if [ -n "${DIST}" ]; then
-        BASEDIR="`dirname $BASEDIR"
+        BASEDIR="`dirname $BASEDIR`"
         BASETGZ="`dirname $BASETGZ`/$DIST-base.tgz"
         DISTRIBUTION="$DIST"
         BUILDRESULT="${build_dir}"

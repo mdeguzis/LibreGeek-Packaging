@@ -2,8 +2,9 @@
 To setup machine for packaging:
 
 ```
-./configure-packaging-env.sh
+./pbuilder-wrapper.sh [OPTS]
 ```
+Using no options will show you the command list.
 
 # Creating pbuilder environment
 

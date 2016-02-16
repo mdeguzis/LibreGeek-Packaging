@@ -82,10 +82,10 @@ set_vars()
 	if [[ "$repo_target" != "xbmc" ]]; then
 
 		# set build dir to alternate
-		build_dir="$HOME/kodi/kodi-${repo_target}"
+		export build_dir="$HOME/kodi/kodi-${repo_target}"
 	else
 		# set build dir to default
-		build_dir="$HOME/kodi/kodi-source"
+		export build_dir="$HOME/kodi/kodi-source"
 
 	fi
 

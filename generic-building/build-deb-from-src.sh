@@ -77,7 +77,7 @@ install_prereqs()
 
 main()
 {
-	build_dir="/home/desktop/build-deb-temp"
+	export build_dir="/home/desktop/build-deb-temp"
 	git_dir="$build_dir/git-temp"
 	
 	clear

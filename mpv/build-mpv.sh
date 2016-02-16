@@ -53,7 +53,7 @@ requires=""
 replaces=""
 
 # build dirs
-build_dir="/home/desktop/build-${pkgname}-temp"
+export build_dir="/home/desktop/build-${pkgname}-temp"
 
 # deps
 # Use the build-wrapper instead of the main mpv source

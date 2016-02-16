@@ -39,7 +39,7 @@ fi
 src_cmd=""
 
 # build dirs
-build_dir="/home/desktop/build-${pkgname}-temp"
+export build_dir="/home/desktop/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
 # upstream URL

@@ -51,7 +51,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
-build_dir="$HOME/build-${pkgname}-temp"
+export build_dir="$HOME/build-${pkgname}-temp"
 sprunge_dir="${build_dir}/${pkgname}"
 
 install_prereqs()

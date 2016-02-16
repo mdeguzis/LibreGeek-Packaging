@@ -38,7 +38,7 @@ else
 fi
 
 # pass build dir var to all scripts
-export auto_build_dir="$HOME/kodi-all-tmp"
+export auto_export build_dir="$HOME/kodi-all-tmp"
 
 # pass auto-build flag
 export build_all="yes"

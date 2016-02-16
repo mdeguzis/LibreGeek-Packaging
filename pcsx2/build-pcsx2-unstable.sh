@@ -52,7 +52,7 @@ maintainer="ProfessorKaos64"
 pkgname_dbg="pcsx2-unstable-dbg"
 
 # build dirs
-build_dir="/home/desktop/build-${pkgname}-temp"
+export build_dir="/home/desktop/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 git_url="https://github.com/PCSX2/pcsx2"
 branch="master"

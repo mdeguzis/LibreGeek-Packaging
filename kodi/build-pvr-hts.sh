@@ -53,7 +53,7 @@ maintainer="ProfessorKaos64"
 pkgsuffix="git+bsos${pkgrev}"
 
 # set build_dir
-build_dir="$HOME/build-${pkgname}-temp"
+export build_dir="$HOME/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()

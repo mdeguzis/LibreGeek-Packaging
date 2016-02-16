@@ -116,7 +116,7 @@ install_prereqs()
 main()
 {
 	
-	build_dir="$HOME/build-deb-temp"
+	export build_dir="$HOME/build-deb-temp"
 	
 	# remove previous dirs if they exist
 	if [[ -d "$build_dir" ]]; then

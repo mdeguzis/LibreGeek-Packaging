@@ -56,7 +56,7 @@ requires=""
 replaces=""
 
 # build dirs
-build_dir="$HOME/build-${pkgname}-temp"
+export build_dir="$HOME/build-${pkgname}-temp"
 
 install_prereqs()
 {

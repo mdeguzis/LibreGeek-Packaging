@@ -51,7 +51,7 @@ dist_rel="brewmaster"
 maintainer="ProfessorKaos64"
 
 # build dirs
-build_dir="/home/desktop/build-${pkgname}-temp"
+export build_dir="/home/desktop/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()

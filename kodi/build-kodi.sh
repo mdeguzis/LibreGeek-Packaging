@@ -80,19 +80,19 @@ set_vars()
 	
 	# Set path for build debs (debuild)
 	
-	# The current SteamOS-Tools setup for pbuilder packaging uses $build_dir as the
+	# The current SteamOS-Tools setup for pbuilder packaging uses $git_dir as the
 	# final path for the build debs. If using pbuilder, the build packages will be 
 	# copied into this directory.
-	deb_dir="$HOME/kodi"
+	build_dir="$HOME/kodi"
 
-	# Set build dir based on repo target to avoid recloning for different targets
+	# Set git dir based on repo target to avoid recloning for different targets
 	if [[ "$repo_target" != "xbmc" ]]; then
 
 		# set build dir to alternate
-		export build_dir="$HOME/kodi/kodi-${repo_target}"
+		export git_dir="$HOME/kodi/kodi-${repo_target}"
 	else
 		# set build dir to default
-		export build_dir="$HOME/kodi/kodi-source"
+		export git_dir="$HOME/kodi/kodi-source"
 
 	fi
 
@@ -284,7 +284,7 @@ kodi_package_deb()
 	# XBMC/Kodi readme: https://github.com/xbmc/xbmc/blob/master/tools/Linux/packaging/README.debian
 
 	# Ensure we are in the proper directory
-	cd "$build_dir"
+	cd "$git_dir"
 
 	# only call if not auto-building
 	if [[ "$build_all" != "yes" ]]; then
@@ -359,7 +359,7 @@ kodi_package_deb()
 		tools/Linux/packaging/mk-debian-package.sh
 
 		# copy deb files into the deb_dir location
-		cp -r ${build_dir}/*.deb "${deb_dir}"
+		cp -r ${git_dir}/*.deb "${deb_dir}"
 
 	# end building
 	fi
@@ -376,7 +376,7 @@ kodi_clone()
 	# Avoiding a large download again is much desired.
 	# If the DIR is already there, the fetch info should be intact
 
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "$git_dir" ]]; then
 
 		echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
 		sleep 1s
@@ -393,10 +393,10 @@ kodi_clone()
 				# command failure
 				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 				sleep 2s
-				rm -rf "$build_dir"
+				rm -rf "$git_dir"
 				# create and clone to $HOME/kodi
 				cd
-				git clone ${git_url} ${build_dir}
+				git clone ${git_url} ${git_dir}
 
 
 			fi
@@ -404,10 +404,10 @@ kodi_clone()
 		elif [[ "$git_choice" == "r" ]]; then
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
-			sudo rm -rf "$build_dir"
+			sudo rm -rf "$git_dir"
 			# create and clone to $HOME/kodi
 			cd
-			git clone ${git_url} ${build_dir}
+			git clone ${git_url} ${git_dir}
 
 		else
 
@@ -415,7 +415,7 @@ kodi_clone()
 			sleep 2s
 			# create and clone to $HOME/kodi
 			cd
-			git clone ${git_url} ${build_dir}
+			git clone ${git_url} ${git_dir}
 
 		fi
 
@@ -426,7 +426,7 @@ kodi_clone()
 			# create DIRS
 			cd
 			# create and clone to current dir
-			git clone ${git_url} ${build_dir}
+			git clone ${git_url} ${git_dir}
 
 	fi
 
@@ -438,10 +438,10 @@ kodi_build_src()
 	# Build Kodi source
 	#################################################
 
-	echo -e "\n==> Building Kodi in $build_dir\n"
+	echo -e "\n==> Building Kodi in $git_dir\n"
 
 	# enter build dir
-	cd "$build_dir"
+	cd "$git_dir"
 
 	# checkout target release
 	git checkout "$rel_target"
@@ -593,7 +593,7 @@ show_build_summary()
 	if [[ "$build_all" == "yes" ]]; then
 
 		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${deb_dir}/*.deb "$auto_build_dir"
+		mv ${deb_dir}/*.deb "$auto_git_dir"
 		sleep 2s
 		
 	elif [[ "$package_deb" == "no" ]]; then
@@ -627,7 +627,7 @@ show_build_summary()
 
 			# transfer files
 			if [[ -d "${deb_dir}" ]]; then
-				rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${deb_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
+				rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${deb_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
 
 			fi
 

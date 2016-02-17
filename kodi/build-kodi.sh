@@ -596,7 +596,7 @@ show_build_summary()
 	if [[ "$build_all" == "yes" ]]; then
 
 		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${deb_dir}/*.deb "$auto_git_dir"
+		mv ${build_dir}/*.deb "$auto_git_dir"
 		sleep 2s
 		
 	elif [[ "$package_deb" == "no" ]]; then
@@ -630,7 +630,7 @@ show_build_summary()
 
 			# transfer files
 			if [[ -d "${build_dir}" ]]; then
-				rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${deb_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
+				rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
 
 			fi
 

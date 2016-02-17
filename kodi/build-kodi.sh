@@ -70,7 +70,7 @@ set_vars()
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
 	BUILDER="pdebuild"
-	export build_dir="$HOME/kodi"
+	export build_dir="$HOME/build-kodi-temp"
 
 	# Set target for git source author
 	repo_target="xbmc"
@@ -95,10 +95,10 @@ set_vars()
 	if [[ "$repo_target" != "xbmc" ]]; then
 
 		# set git dir to alternate
-		export git_dir="$HOME/kodi/kodi-${repo_target}"
+		export git_dir="$HOME/kodi-${repo_target}"
 	else
 		# set build dir to default
-		export git_dir="$HOME/kodi/kodi-source"
+		export git_dir="$HOME/kodi-source"
 
 	fi
 

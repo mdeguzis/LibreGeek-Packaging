@@ -116,7 +116,7 @@ install_prereqs()
 main()
 {
 	
-	export build_dir="$HOME/build-deb-temp"
+	export build_dir="merge ${HOME}/build-deb-temp"
 	
 	# remove previous dirs if they exist
 	if [[ -d "$build_dir" ]]; then
@@ -310,7 +310,7 @@ main()
 	if [[ "$scriptdir" != "" ]]; then
 		cd "$scriptdir/generic-building"
 	else
-		cd "$HOME"
+		cd "merge ${HOME}"
 	fi
 
 	# inform user of packages
@@ -324,7 +324,7 @@ main()
 	echo -e "sudo dpkg-buildpackage -b -d -uc"
 	echo -e "###################################################################\n"
 	
-	ls "$HOME/build-deb-temp"
+	ls "merge ${HOME}/build-deb-temp"
 	
 	echo -e "\n==> Would you like to trim tar.gz, dsc files, and folders for uploading? [y/n]"
 	sleep 0.5s
@@ -357,7 +357,7 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# transfer files
-		rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+		rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 		
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"

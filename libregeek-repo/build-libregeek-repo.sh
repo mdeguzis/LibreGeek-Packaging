@@ -54,7 +54,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
-export build_dir="$HOME/build-${pkgname}-temp"
+export build_dir="merge ${HOME}/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
@@ -176,7 +176,7 @@ main()
 	if [[ "$scriptdir" != "" ]]; then
 		cd "$scriptdir" || exit
 	else
-		cd "$HOME" || exit
+		cd "merge ${HOME}" || exit
 	fi
 
 	# inform user of packages
@@ -198,7 +198,7 @@ main()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer packages
-			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 			# update changelog
 			cd "${git_dir}" && git add debian/changelog  && git commit -m "Update changelog" && git push origin master

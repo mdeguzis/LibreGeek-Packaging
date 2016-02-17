@@ -54,7 +54,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
-export export build_dir="$HOME/build-${pkgname}-temp"
+export export build_dir="merge ${HOME}/build-${pkgname}-temp"
 export git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
@@ -191,7 +191,7 @@ main()
 	if [[ "$scriptdir" != "" ]]; then
 		cd "$scriptdir" || exit
 	else
-		cd "$HOME" || exit
+		cd "merge ${HOME}" || exit
 	fi
 	
 	# inform user of packages
@@ -216,7 +216,7 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 
 			# copy files to remote server
-			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.

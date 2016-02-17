@@ -54,7 +54,7 @@ requires=""
 replaces="ffmpeg"
 
 # set build_dir
-export build_dir="$HOME/build-${pkgname}-temp"
+export build_dir="merge ${HOME}/build-${pkgname}-temp"
 
 install_prereqs()
 {
@@ -104,7 +104,7 @@ main()
 	tar xzvf fdk-aac.tar.gz
 	cd mstorsjo-fdk-aac* || exit
 	autoreconf -fiv
-	./configure --prefix="$HOME/ffmpeg_build" --disable-shared
+	./configure --prefix="merge ${HOME}/ffmpeg_build" --disable-shared
 	
 	if make; then
 
@@ -134,8 +134,8 @@ main()
 	wget http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.4.0.tar.bz2
 	tar xjvf libvpx-1.4.0.tar.bz2
 	cd libvpx-1.4.0  || exit
-	PATH="$HOME/bin:$PATH" ./configure --prefix="$HOME/ffmpeg_build" --disable-examples --disable-unit-tests
-	PATH="$HOME/bin:$PATH"
+	PATH="merge ${HOME}/bin:$PATH" ./configure --prefix="merge ${HOME}/ffmpeg_build" --disable-examples --disable-unit-tests
+	PATH="merge ${HOME}/bin:$PATH"
 	
 	if make; then
 	
@@ -164,7 +164,7 @@ main()
   	
   	git clone https://github.com/videolan/x265
 	cd x265/build/linux  || exit
-	PATH="$HOME/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="$HOME/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
+	PATH="merge ${HOME}/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="merge ${HOME}/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
 
 	if make; then
 	
@@ -194,12 +194,12 @@ main()
 	wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 	tar xjvf ffmpeg-snapshot.tar.bz2
 	cd ffmpeg  || exit
-	PATH="$HOME/bin:$PATH" PKG_CONFIG_PATH="$HOME/ffmpeg_build/lib/pkgconfig" ./configure \
-	  --prefix="$HOME/ffmpeg_build" \
+	PATH="merge ${HOME}/bin:$PATH" PKG_CONFIG_PATH="merge ${HOME}/ffmpeg_build/lib/pkgconfig" ./configure \
+	  --prefix="merge ${HOME}/ffmpeg_build" \
 	  --pkg-config-flags="--static" \
-	  --extra-cflags="-I$HOME/ffmpeg_build/include" \
-	  --extra-ldflags="-L$HOME/ffmpeg_build/lib" \
-	  --bindir="$HOME/bin" \
+	  --extra-cflags="-Imerge ${HOME}/ffmpeg_build/include" \
+	  --extra-ldflags="-Lmerge ${HOME}/ffmpeg_build/lib" \
+	  --bindir="merge ${HOME}/bin" \
 	  --enable-gpl \
 	  --enable-libass \
 	  --enable-libfdk-aac \
@@ -212,7 +212,7 @@ main()
 	  --enable-libx264 \
 	  --enable-libx265 \
 	  --enable-nonfree
-	PATH="$HOME/bin:$PATH"
+	PATH="merge ${HOME}/bin:$PATH"
 	
 	if make; then
 
@@ -277,7 +277,7 @@ main()
 	if [[ "$scriptdir" != "" ]]; then
 		cd "$scriptdir" || exit
 	else
-		cd "$HOME" || exit
+		cd "merge ${HOME}" || exit
 	fi
 	
 	# inform user of packages
@@ -298,7 +298,7 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/${pkgname}_${pkgver}* mikeyd@archboxmtd:/home/mikeyd/packaging/SteamOS-Tools/incoming
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

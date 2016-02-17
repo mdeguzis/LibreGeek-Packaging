@@ -5,7 +5,7 @@
 # Scipt Name:	kodi-build-all.sh
 # Script Ver:	0.5.1
 # Description:	Attempts to build all kodi packages and addons into a temporary
-#               folder under $HOME/kodi-all-tmp/
+#               folder under merge ${HOME}/kodi-all-tmp/
 #               This script passes "build_all=yes" to each script.
 #
 # See:		n/a
@@ -38,7 +38,7 @@ else
 fi
 
 # pass build dir var to all scripts
-export auto_export build_dir="$HOME/kodi-all-tmp"
+export auto_export build_dir="merge ${HOME}/kodi-all-tmp"
 
 # pass auto-build flag
 export build_all="yes"
@@ -339,7 +339,7 @@ build_all()
 
 		# transfer files
 		if [[ -d "${auto_build_dir}/" ]]; then
-			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 		fi
 

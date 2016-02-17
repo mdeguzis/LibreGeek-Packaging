@@ -187,7 +187,7 @@ main()
 	if [[ "$scriptdir" != "" ]]; then
 		cd "$scriptdir"
 	else
-		cd "$HOME"
+		cd "merge ${HOME}"
 	fi
 	
 	# inform user of packages
@@ -208,7 +208,7 @@ main()
 	
 		# transfer files
 		if -d $git_dir/ build; then
-			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${git_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${git_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 		fi
 		

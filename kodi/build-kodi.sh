@@ -70,7 +70,7 @@ set_vars()
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
 	BUILDER="pdebuild"
-	export build_dir="$HOME/build-kodi-temp"
+	export build_dir="merge ${HOME}/build-kodi-temp"
 
 	# Set target for git source author
 	repo_target="xbmc"
@@ -95,10 +95,10 @@ set_vars()
 	if [[ "$repo_target" != "xbmc" ]]; then
 
 		# set git dir to alternate
-		export git_dir="$HOME/kodi-${repo_target}"
+		export git_dir="merge ${HOME}/kodi-${repo_target}"
 	else
 		# set build dir to default
-		export git_dir="$HOME/kodi-source"
+		export git_dir="merge ${HOME}/kodi-source"
 
 	fi
 
@@ -361,7 +361,7 @@ kodi_package_deb()
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
 		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
-		PBUILDER_BASE="$HOME/pbuilder" \
+		PBUILDER_BASE="merge ${HOME}/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
 
 	# end building
@@ -397,7 +397,7 @@ kodi_clone()
 				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 				sleep 2s
 				rm -rf "$git_dir"
-				# create and clone to $HOME/kodi
+				# create and clone to merge ${HOME}/kodi
 				cd
 				git clone ${git_url} ${git_dir}
 
@@ -408,7 +408,7 @@ kodi_clone()
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
 			sudo rm -rf "$git_dir"
-			# create and clone to $HOME/kodi
+			# create and clone to merge ${HOME}/kodi
 			cd
 			git clone ${git_url} ${git_dir}
 
@@ -416,7 +416,7 @@ kodi_clone()
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
-			# create and clone to $HOME/kodi
+			# create and clone to merge ${HOME}/kodi
 			cd
 			git clone ${git_url} ${git_dir}
 
@@ -630,7 +630,7 @@ show_build_summary()
 
 			# transfer files
 			if [[ -d "${build_dir}" ]]; then
-				rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
+				rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
 
 			fi
 

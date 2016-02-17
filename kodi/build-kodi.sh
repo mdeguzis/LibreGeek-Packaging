@@ -359,9 +359,6 @@ kodi_package_deb()
 		PBUILDER_BASE="$HOME/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
 
-		# copy deb files into the deb_dir location
-		cp -r ${git_dir}/*.deb "${deb_dir}"
-
 	# end building
 	fi
 
@@ -616,8 +613,8 @@ show_build_summary()
 		
 		EOF
 		
-		echo -e "Showing contents of: ${deb_dir}: \n"
-		ls "${deb_dir}"
+		echo -e "Showing contents of: ${build_dir}: \n"
+		ls "${build_dir}"
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -627,7 +624,7 @@ show_build_summary()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer files
-			if [[ -d "${deb_dir}" ]]; then
+			if [[ -d "${build_dir}" ]]; then
 				rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${deb_dir}/* ${USER}@${HOST}:${REPO_FOLDER}
 
 			fi

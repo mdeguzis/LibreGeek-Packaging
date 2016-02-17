@@ -52,11 +52,11 @@ dist_rel="brewmaster"
 maintainer="ProfessorKaos64"
 provides="qt-everywhere-oss"
 pkggroup="utils"
-requires=""
-replaces=""
+requires="
+replaces="
 
 # build dirs
-export build_dir="merge ${HOME}/build-${pkgname}-temp"
+export build_dir="${HOME}/build-${pkgname}-temp"
 
 install_prereqs()
 {
@@ -90,14 +90,14 @@ main()
 	#################################################
 
 	# create and enter build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "${build_dir}" ]]; then
 
-		sudo rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 
 	else
 
-		mkdir -p "$build_dir"
+		mkdir -p "${build_dir}"
 
 	fi
 
@@ -210,10 +210,10 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir"
+	if [[ "${scriptdir}" != "" ]]; then
+		cd "${scriptdir}"
 	else
-		cd "merge ${HOME}"
+		cd "${HOME}"
 	fi
 	
 	# inform user of packages
@@ -227,7 +227,7 @@ main()
 		echo -e "Showing contents of: $git_dir/build: \n"
 		ls "$git_dir/build" | grep -E *.deb
 	
-	elif [[ -d "$build_dir" ]]; then
+	elif [[ -d "${build_dir}" ]]; then
 	
 		echo -e "Showing contents of: $build_dir: \n"
 		ls "${git_dir}/build" | grep -E *.deb
@@ -246,7 +246,7 @@ main()
 		
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${git_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 		
-		elif [[ -d "$build_dir" ]]; then
+		elif [[ -d "${build_dir}" ]]; then
 		
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 

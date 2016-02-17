@@ -56,7 +56,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
-export build_dir="merge ${HOME}/build-${pkgname}-temp"
+export build_dir="${HOME}/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
@@ -75,14 +75,14 @@ main()
 {
 
 	# create build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "${build_dir}" ]]; then
 
-		sudo rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 
 	else
 
-		mkdir -p "$build_dir"
+		mkdir -p "${build_dir}"
 
 	fi
 
@@ -93,10 +93,10 @@ main()
 	cd "$git_dir" && git checkout "$commit"
 	
 	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
 	
 	# enter build dir
-	cd "$build_dir" || exit
+	cd "${build_dir}" || exit
 
 	#################################################
 	# Build package
@@ -112,7 +112,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"
@@ -137,7 +137,7 @@ main()
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
-	nano debian/changelog
+	nano "debian/changelog"
 
  	# cleanup old files
  	rm -f changelog.in
@@ -177,10 +177,10 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir" || exit
+	if [[ "${scriptdir}" != "" ]]; then
+		cd "${scriptdir}" || exit
 	else
-		cd "merge ${HOME}" || exit
+		cd "${HOME}" || exit
 	fi
 	
 	# inform user of packages
@@ -190,7 +190,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep $pkgname_$pkgver
+	ls "${build_dir}" | grep $pkgname_$pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

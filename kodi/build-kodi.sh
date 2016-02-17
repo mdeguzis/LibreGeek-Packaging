@@ -70,7 +70,7 @@ set_vars()
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
 	BUILDER="pdebuild"
-	export build_dir="merge ${HOME}/build-kodi-temp"
+	export build_dir="${HOME}/build-kodi-temp"
 
 	# Set target for git source author
 	repo_target="xbmc"
@@ -80,14 +80,14 @@ set_vars()
 	###################################
 	
 	# Set path for build dir
-	if [[ ! -d "$build_dir" ]]; then
+	if [[ ! -d "${build_dir}" ]]; then
 	
-		mkdir -p "$build_dir"
+		mkdir -p "${build_dir}"
 		
 	else
 	
-		rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 		
 	fi
 
@@ -172,7 +172,7 @@ function_install_pkgs()
 		PKG_OK_DPKG=$(dpkg-query -W --showformat='${Status}\n' $PKG | grep "install ok installed")
 		#PKG_OK_WHICH=$(which $PKG)
 
-		if [[ "$PKG_OK_DPKG" == "" ]]; then
+		if [[ "$PKG_OK_DPKG" == " ]]; then
 
 			echo -e "\n==INFO==\nInstalling package: ${PKG}\n"
 			sleep 1s
@@ -360,7 +360,7 @@ kodi_package_deb()
 		DISTS="brewmaster" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
-		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
+		PDEBUILD_OPTS="--debbuildopts \"-j4\" \
 		PBUILDER_BASE="merge ${HOME}/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
 

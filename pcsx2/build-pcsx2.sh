@@ -109,19 +109,19 @@ main()
 	# https://github.com/PCSX2/pcsx2/blob/master/debian-packager/create_built_tarball.sh
 
 	# create build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "${build_dir}" ]]; then
 
-		sudo rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 
 	else
 
-		mkdir -p "$build_dir"
+		mkdir -p "${build_dir}"
 
 	fi
 
 	# enter build dir
-	cd "$build_dir" || exit
+	cd "${build_dir}" || exit
 
 	# install prereqs for build
 	
@@ -179,7 +179,7 @@ main()
 	# rm -rf  $git_dir/.git
 	
 	# copy in debian folder
-	cp -r $scriptdir/debian "${git_dir}/debian"
+	cp -r "$scriptdir/debian" "${git_dir}/debian"
 
 	#################################################
 	# Build platform
@@ -217,7 +217,7 @@ main()
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
-	nano debian/changelog
+	nano "debian/changelog"
 
  	# cleanup old files
  	rm -f changelog.in
@@ -254,10 +254,10 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir" || exit
+	if [[ "${scriptdir}" != "" ]]; then
+		cd "${scriptdir}" || exit
 	else
-		cd "merge ${HOME}" || exit
+		cd "${HOME}" || exit
 	fi
 	
 	# inform user of packages
@@ -267,7 +267,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep $pkgver
+	ls "${build_dir}" | grep $pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

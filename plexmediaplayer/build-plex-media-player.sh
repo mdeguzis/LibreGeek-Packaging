@@ -36,7 +36,7 @@ else
 fi
 
 # reset source command for while loop
-src_cmd=""
+src_cmd="
 
 # build dirs
 export build_dir="/home/desktop/build-${pkgname}-temp"
@@ -84,19 +84,19 @@ main()
 	#################################################
 	
 	# create and enter build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "${build_dir}" ]]; then
 	
-		sudo rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 		
 	else
 
-		mkdir -p "$build_dir"
+		mkdir -p "${build_dir}"
 		
 	fi
 	
 	# Enter build dir
-	cd "$build_dir"
+	cd "${build_dir}"
 	
 	#################################################
 	# Build QT 5.6 alpha source
@@ -125,7 +125,7 @@ main()
 	git clone "$git_url" "$git_dir"
 	
 	# copy in debian folder and other files
-        cp -r "$scriptdir/debian" "${git_dir}"
+        cp -r ""$scriptdir/debian"" "${git_dir}"
 		
 	# enter git dir
 	cd "$git_dir"
@@ -168,7 +168,7 @@ main()
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
-	nano debian/changelog
+	nano "debian/changelog"
 
  	# cleanup old files
  	rm -f changelog.in
@@ -206,10 +206,10 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir"
+	if [[ "${scriptdir}" != "" ]]; then
+		cd "${scriptdir}"
 	else
-		cd "merge ${HOME}"
+		cd "${HOME}"
 	fi
 	
 	# inform user of packages
@@ -223,7 +223,7 @@ main()
 		echo -e "Showing contents of: $git_dir/build: \n"
 		ls "$git_dir/build" | grep -E *.deb
 	
-	elif [[ -d "$build_dir" ]]; then
+	elif [[ -d "${build_dir}" ]]; then
 	
 		echo -e "Showing contents of: $build_dir: \n"
 		ls "${git_dir}/build" | grep -E *.deb
@@ -242,7 +242,7 @@ main()
 		
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${git_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 		
-		elif [[ -d "$build_dir" ]]; then
+		elif [[ -d "${build_dir}" ]]; then
 		
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 

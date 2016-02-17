@@ -38,7 +38,7 @@ else
 fi
 
 # upstream vars
-git_url=""
+git_url="
 rel_target="master"
 
 # package vars
@@ -56,7 +56,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
-export build_dir="merge ${HOME}/build-${pkgname}-temp"
+export build_dir="${HOME}/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
@@ -151,7 +151,7 @@ main()
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
-	nano debian/changelog
+	nano "debian/changelog"
 
  	# cleanup old files
  	rm -f changelog.in
@@ -190,7 +190,7 @@ main()
 	if [[ "${scriptdir}" != "" ]]; then
 		cd "${scriptdir}" || exit
 	else
-		cd "merge ${HOME}" || exit
+		cd "${HOME}" || exit
 	fi
 	
 	# inform user of packages

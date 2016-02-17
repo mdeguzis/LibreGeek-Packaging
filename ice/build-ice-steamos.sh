@@ -55,7 +55,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
-export build_dir="merge ${HOME}/build-${pkgname}-temp"
+export build_dir="${HOME}/build-${pkgname}-temp"
 git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
@@ -88,19 +88,19 @@ main()
 {
 
 	# create build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "${build_dir}" ]]; then
 
-		sudo rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 
 	else
 
-		mkdir -p "$build_dir"
+		mkdir -p "${build_dir}"
 
 	fi
 
 	# enter build dir
-	cd "$build_dir" || exit
+	cd "${build_dir}" || exit
 
 	# install prereqs for build
 	
@@ -118,14 +118,14 @@ main()
 	git clone -b "$rel_target" "$git_url" "${git_dir}"
 
 	# Add debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	cp -r ""$scriptdir/debian"" "${git_dir}"
 
 	# inject our modified files
 	cp "$scriptdir/consoles.txt" "${git_dir}"
 	cp "$scriptdir/emulators.txt" "${git_dir}"
 	cp "$scriptdir/config.txt" "${git_dir}"
 	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
-	cp "$scriptdir/debian/README.md" "${git_dir}"
+	cp ""$scriptdir/debian"/README.md" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -165,7 +165,7 @@ main()
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
-	nano debian/changelog
+	nano "debian/changelog"
 
  	# cleanup old files
  	rm -f changelog.in
@@ -200,10 +200,10 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir" || exit
+	if [[ "${scriptdir}" != "" ]]; then
+		cd "${scriptdir}" || exit
 	else
-		cd "merge ${HOME}" || exit
+		cd "${HOME}" || exit
 	fi
 
 	# inform user of packages
@@ -213,7 +213,7 @@ main()
 	echo -e "############################################################\n"
 
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep ${pkgver}
+	ls "${build_dir}" | grep ${pkgver}
 
 	if [[ "$autobuild" != "yes" ]]; then
 
@@ -228,7 +228,7 @@ main()
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Preserve changelog
-			mv "${git_dir}/debian/changelog" "$scriptdir/debian/changelog" 
+			mv "${git_dir}/debian/changelog" ""$scriptdir/debian"/changelog" 
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

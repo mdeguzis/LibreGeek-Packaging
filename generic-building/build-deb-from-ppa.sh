@@ -97,7 +97,7 @@ install_prereqs()
 	sources_check=$(sudo find /etc/apt -type f -name "jessie*.list")
 	sources_check2=$(grep -r jessie /etc/apt/sources.list)
 	
-	if [[ "$sources_check" == "" && "$sources_check2" == "" ]]; then
+	if [[ "$sources_check" == " && "$sources_check2" == " ]]; then
                 echo -e "\n==INFO==\nSources do *NOT* appear to be added at first glance. Adding now..."
                 sleep 2s
                 "$scriptdir/add-debian-repos.sh"
@@ -116,16 +116,16 @@ install_prereqs()
 main()
 {
 	
-	export build_dir="merge ${HOME}/build-deb-temp"
+	export build_dir="${HOME}/build-deb-temp"
 	
 	# remove previous dirs if they exist
-	if [[ -d "$build_dir" ]]; then
-		sudo rm -rf "$build_dir"
+	if [[ -d "${build_dir}" ]]; then
+		sudo rm -rf "${build_dir}"
 	fi
 	
 	# create build dir and enter it
-	mkdir -p "$build_dir"
-	cd "$build_dir"
+	mkdir -p "${build_dir}"
+	cd "${build_dir}"
 	
 	# Ask user for repos / vars
 	echo -e "\n==> Please enter or paste the deb-src URL now:"
@@ -133,13 +133,13 @@ main()
 	
 	# set tmp var for last run, if exists
 	repo_src_tmp="$repo_src"
-	if [[ "$repo_src" == "" ]]; then
+	if [[ "$repo_src" == " ]]; then
 		# var blank this run, get input
 		read -ep "deb-src URL: " repo_src
 	else
 		read -ep "deb-src URL: " repo_src
 		# user chose to keep var value from last
-		if [[ "$repo_src" == "" ]]; then
+		if [[ "$repo_src" == " ]]; then
 			repo_src="$repo_src_tmp"
 		else
 			# keep user choice
@@ -155,13 +155,13 @@ main()
 	echo -e "\n==> Please enter or paste the GPG key/url for this repo now:"
 	echo -e "    [Press ENTER to use last: $gpg_pub_key]\n"
 	gpg_pub_key_tmp="$gpg_pub_key"
-	if [[ "$gpg_pub_key" == "" ]]; then
+	if [[ "$gpg_pub_key" == " ]]; then
 		# var blank this run, get input
 		read -ep "GPG Public Key: " gpg_pub_key
 	else
 		read -ep "GPG Public Key: " gpg_pub_key
 		# user chose to keep var value from last
-		if [[ "$gpg_pub_key" == "" ]]; then
+		if [[ "$gpg_pub_key" == " ]]; then
 			gpg_pub_key="$gpg_pub_key_tmp"
 		else
 			# keep user choice
@@ -172,13 +172,13 @@ main()
 	echo -e "\n==> Please enter or paste the desired package name now:"
 	echo -e "    [Press ENTER to use last: $target]\n"
 	target_tmp="$target"
-	if [[ "$target" == "" ]]; then
+	if [[ "$target" == " ]]; then
 		# var blank this run, get input
 		read -ep "Package Name: " target
 	else
 		read -ep "Package Name: " target
 		# user chose to keep var value from last
-		if [[ "$target" == "" ]]; then
+		if [[ "$target" == " ]]; then
 			target="$target_tmp"
 		else
 			# keep user choice
@@ -232,7 +232,7 @@ main()
 	# assess if depdencies should be ignored.
 	# If no argument used, build normally
 
-	if [[ "$arg1" == "" ]]; then
+	if [[ "$arg1" == " ]]; then
 	
 		echo -e "\n==> Attempting to auto-install build dependencies\n"
 	
@@ -307,10 +307,10 @@ main()
 	fi
 
 	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
+	if [[ "${scriptdir}" != "" ]]; then
 		cd "$scriptdir/generic-building"
 	else
-		cd "merge ${HOME}"
+		cd "${HOME}"
 	fi
 
 	# inform user of packages
@@ -324,7 +324,7 @@ main()
 	echo -e "sudo dpkg-buildpackage -b -d -uc"
 	echo -e "###################################################################\n"
 	
-	ls "merge ${HOME}/build-deb-temp"
+	ls "${HOME}/build-deb-temp"
 	
 	echo -e "\n==> Would you like to trim tar.gz, dsc files, and folders for uploading? [y/n]"
 	sleep 0.5s

@@ -91,13 +91,13 @@ main()
 	
 	# set tmp var for last run, if exists
 	git_url_tmp="$git_url"
-	if [[ "$git_url" == "" ]]; then
+	if [[ "$git_url" == " ]]; then
 		# var blank this run, get input
 		read -ep "Git source URL: " git_url
 	else
 		read -ep "Git source URL: " git_url
 		# user chose to keep var value from last
-		if [[ "$git_url" == "" ]]; then
+		if [[ "$git_url" == " ]]; then
 			git_url="$git_url_tmp"
 		else
 			# keep user choice
@@ -131,7 +131,7 @@ main()
 		# ignore executing src_cmd if "done"
 		if [[ "$src_cmd" == "done" ]]; then
 			# do nothing
-			echo "" > /dev/null
+			echo " > /dev/null
 		else
 			# Execute src cmd
 			$src_cmd
@@ -184,10 +184,10 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir"
+	if [[ "${scriptdir}" != "" ]]; then
+		cd "${scriptdir}"
 	else
-		cd "merge ${HOME}"
+		cd "${HOME}"
 	fi
 	
 	# inform user of packages

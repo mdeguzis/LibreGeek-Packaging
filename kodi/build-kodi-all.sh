@@ -250,7 +250,7 @@ build_all()
 		fi
 
 		# go back to original scriptdir
-		cd "$scriptdir"
+		cd "${scriptdir}"
 
 	done
 	
@@ -306,7 +306,7 @@ build_all()
 		fi
 
 		# go back to original scriptdir
-		cd "$scriptdir"
+		cd "${scriptdir}"
 
 	done
 

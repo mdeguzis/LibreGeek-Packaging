@@ -37,7 +37,7 @@ else
 fi
 
 # reset source command for while loop
-src_cmd=""
+src_cmd="
 
 # upstream URL
 git_url="https://github.com/FFmpeg/FFmpeg"
@@ -50,11 +50,11 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 provides="ffmpeg"
 pkggroup="video"
-requires=""
+requires="
 replaces="ffmpeg"
 
 # set build_dir
-export build_dir="merge ${HOME}/build-${pkgname}-temp"
+export build_dir="${HOME}/build-${pkgname}-temp"
 
 install_prereqs()
 {
@@ -79,19 +79,19 @@ main()
 {
 	
 	# create and enter build_dir
-	if [[ -d "$build_dir" ]]; then
+	if [[ -d "${build_dir}" ]]; then
 	
-		sudo rm -rf "$build_dir"
-		mkdir -p "$build_dir"
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 		
 	else
 	
-		mkdir -p "$build_dir"
+		mkdir -p "${build_dir}"
 		
 	fi
 	
 	# Enter build dir
-	cd "$build_dir" || exit
+	cd "${build_dir}" || exit
  
  	#################################################
 	# Build libfdk-aac
@@ -134,8 +134,8 @@ main()
 	wget http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.4.0.tar.bz2
 	tar xjvf libvpx-1.4.0.tar.bz2
 	cd libvpx-1.4.0  || exit
-	PATH="merge ${HOME}/bin:$PATH" ./configure --prefix="merge ${HOME}/ffmpeg_build" --disable-examples --disable-unit-tests
-	PATH="merge ${HOME}/bin:$PATH"
+	PATH="${HOME}/bin:$PATH" ./configure --prefix="merge ${HOME}/ffmpeg_build" --disable-examples --disable-unit-tests
+	PATH="${HOME}/bin:$PATH"
 	
 	if make; then
 	
@@ -164,7 +164,7 @@ main()
   	
   	git clone https://github.com/videolan/x265
 	cd x265/build/linux  || exit
-	PATH="merge ${HOME}/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="merge ${HOME}/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
+	PATH="${HOME}/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="merge ${HOME}/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
 
 	if make; then
 	
@@ -194,12 +194,12 @@ main()
 	wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
 	tar xjvf ffmpeg-snapshot.tar.bz2
 	cd ffmpeg  || exit
-	PATH="merge ${HOME}/bin:$PATH" PKG_CONFIG_PATH="merge ${HOME}/ffmpeg_build/lib/pkgconfig" ./configure \
+	PATH="${HOME}/bin:$PATH" PKG_CONFIG_PATH="merge ${HOME}/ffmpeg_build/lib/pkgconfig" ./configure \
 	  --prefix="merge ${HOME}/ffmpeg_build" \
 	  --pkg-config-flags="--static" \
 	  --extra-cflags="-Imerge ${HOME}/ffmpeg_build/include" \
 	  --extra-ldflags="-Lmerge ${HOME}/ffmpeg_build/lib" \
-	  --bindir="merge ${HOME}/bin" \
+	  --bindir="${HOME}/bin" \
 	  --enable-gpl \
 	  --enable-libass \
 	  --enable-libfdk-aac \
@@ -212,7 +212,7 @@ main()
 	  --enable-libx264 \
 	  --enable-libx265 \
 	  --enable-nonfree
-	PATH="merge ${HOME}/bin:$PATH"
+	PATH="${HOME}/bin:$PATH"
 	
 	if make; then
 
@@ -274,10 +274,10 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir" || exit
+	if [[ "${scriptdir}" != "" ]]; then
+		cd "${scriptdir}" || exit
 	else
-		cd "merge ${HOME}" || exit
+		cd "${HOME}" || exit
 	fi
 	
 	# inform user of packages
@@ -287,7 +287,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls ${build_dir}| grep $pkgname_$pkgver
+	ls "${build_dir}" | grep $pkgname_$pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

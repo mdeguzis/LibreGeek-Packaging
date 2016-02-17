@@ -74,13 +74,13 @@ EOF
 
 if [[ -n "$1" ]]; then
 
-  echo ""
+  echo "
   echo -e "==INFO==\nbuild target is $1"
-  echo ""
+  echo "
 
 else
   echo -e "==INFO==\nbuild target is source"
-  echo ""
+  echo "
 fi
 
 sleep 2s
@@ -108,18 +108,18 @@ EOF
 echo -e "\n==> Setup $build_dir\n"
 
 # setup build directory
-if [[ -d "$build_dir" ]]; then
+if [[ -d "${build_dir}" ]]; then
 
   # reset dir
-  rm -rf "$build_dir"
-  mkdir -p "$build_dir"
-  cd "$build_dir"
+  rm -rf "${build_dir}"
+  mkdir -p "${build_dir}"
+  cd "${build_dir}"
 
 else
 
   # setup build dir
-  mkdir -p "$build_dir"
-  cd "$build_dir"
+  mkdir -p "${build_dir}"
+  cd "${build_dir}"
 
 fi
 
@@ -182,7 +182,7 @@ sed -i "s|dist_rel|$pkgrel|g" debian/changelog
 
 echo -e "\nOpening change log for details to be added...\n"
 sleep 3s
-nano debian/changelog
+nano "debian/changelog"
 
 echo -e "\n==> control"
 sed -i "s|pkgmaintainer|$pkgmaintainer|g" debian/control
@@ -224,7 +224,7 @@ EOF
         ls  "$pkg_folder"
          exit 0
     else
-        echo ""${BUILDER}" failed to generate the binary package, aborting"
+        echo "${BUILDER}" failed to generate the binary package, aborting"
         exit 1
     fi 
     ;;
@@ -245,11 +245,11 @@ EOF
       "${BUILDER}" -S -sa -k${gpgkey}
 
       if [ $? -eq 0 ]; then
-        echo ""
-        ls -lah "$build_dir"
-        echo ""
+        echo "
+        ls -lah "${build_dir}"
+        echo "
         echo "all good"
-        echo ""
+        echo "
 
         while true; do
             read -rp "Do you wish to upload the source package?    " yn
@@ -262,7 +262,7 @@ EOF
 
         exit 0
       else
-        echo ""${BUILDER}" failed to generate the source package, aborting"
+        echo "${BUILDER}" failed to generate the source package, aborting"
         exit 1
       fi
     else

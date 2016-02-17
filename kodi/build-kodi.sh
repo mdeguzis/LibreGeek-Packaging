@@ -172,7 +172,7 @@ function_install_pkgs()
 		PKG_OK_DPKG=$(dpkg-query -W --showformat='${Status}\n' $PKG | grep "install ok installed")
 		#PKG_OK_WHICH=$(which $PKG)
 
-		if [[ "$PKG_OK_DPKG" == " ]]; then
+		if [[ "$PKG_OK_DPKG" == "" ]]; then
 
 			echo -e "\n==INFO==\nInstalling package: ${PKG}\n"
 			sleep 1s

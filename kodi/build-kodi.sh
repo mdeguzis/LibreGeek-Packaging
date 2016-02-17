@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.2.1
+# Script Ver:		1.3.1
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -70,6 +70,7 @@ set_vars()
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
 	BUILDER="pdebuild"
+	build_dir="$HOME/kodi"
 
 	# Set target for git source author
 	repo_target="xbmc"
@@ -78,12 +79,12 @@ set_vars()
 	# build vars
 	###################################
 	
-	# Set path for build debs (debuild)
+	# Set path for build dir
+	if [[ ! -d "$build_dir" ]]; then
 	
-	# The current SteamOS-Tools setup for pbuilder packaging uses $git_dir as the
-	# final path for the build debs. If using pbuilder, the build packages will be 
-	# copied into this directory.
-	build_dir="$HOME/kodi"
+		mkdir -p "$build_dir"
+		
+	fi
 
 	# Set git dir based on repo target to avoid recloning for different targets
 	if [[ "$repo_target" != "xbmc" ]]; then

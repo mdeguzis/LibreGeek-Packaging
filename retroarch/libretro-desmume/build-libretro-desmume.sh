@@ -201,7 +201,7 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 			# keep changelog
                         cp "${git_dir}/debian/changelog" "${scriptdir}/debian"

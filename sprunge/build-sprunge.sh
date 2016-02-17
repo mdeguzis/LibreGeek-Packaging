@@ -204,7 +204,7 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

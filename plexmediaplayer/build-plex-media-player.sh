@@ -240,11 +240,11 @@ main()
 		# transfer files
 		if [[ -d "$git_dir/build" ]]; then
 		
-			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${git_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${git_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 		
 		elif [[ -d "$build_dir" ]]; then
 		
-			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 		fi
 		

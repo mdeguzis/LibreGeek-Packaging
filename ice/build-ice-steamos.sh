@@ -225,7 +225,7 @@ main()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer packages
-			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --include-from=$HOME/.config/SteamOS-Tools/repo-include.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Preserve changelog
 			mv "${git_dir}/debian/changelog" "$scriptdir/debian/changelog" 

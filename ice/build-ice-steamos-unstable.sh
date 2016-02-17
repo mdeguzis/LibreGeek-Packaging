@@ -130,7 +130,7 @@ main()
 	cp "$scriptdir/emulators.txt" "${git_dir}"
 	cp "$scriptdir/config.txt" "${git_dir}"
 	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
-	cp ""$scriptdir/debian"/README.md" "${git_dir}"
+	cp "$scriptdir/debian/README.md" "${git_dir}"
 
 	#################################################
 	# Build package

@@ -158,9 +158,7 @@ main()
 	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * New unstable build against upstream commit $latest_commit
-	  * Fixed package control file to replace ice-steams on install to avoid conflicts
 	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
 
 	 -- $uploader  $date_long
 

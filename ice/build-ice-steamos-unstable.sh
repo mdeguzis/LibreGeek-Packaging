@@ -124,7 +124,7 @@ main()
 	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
 
 	# Add debian folder
-        cp -r ""$scriptdir/debian"-unstable" "${git_dir}/debian"
+        cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
 
 	# inject iur modified files
 	cp "$scriptdir/emulators.txt" "${git_dir}"

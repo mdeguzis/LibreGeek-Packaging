@@ -95,10 +95,10 @@ set_vars()
 	if [[ "$repo_target" != "xbmc" ]]; then
 
 		# set git dir to alternate
-		export git_dir="merge ${HOME}/kodi-${repo_target}"
+		export git_dir="${HOME}/kodi-${repo_target}"
 	else
 		# set build dir to default
-		export git_dir="merge ${HOME}/kodi-source"
+		export git_dir="${HOME}/kodi-source"
 
 	fi
 
@@ -360,8 +360,8 @@ kodi_package_deb()
 		DISTS="brewmaster" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
-		PDEBUILD_OPTS="--debbuildopts \"-j4\" \
-		PBUILDER_BASE="merge ${HOME}/pbuilder" \
+		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
+		PBUILDER_BASE="${HOME}/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
 
 	# end building

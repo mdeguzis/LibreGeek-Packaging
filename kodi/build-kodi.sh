@@ -84,6 +84,11 @@ set_vars()
 	
 		mkdir -p "$build_dir"
 		
+	else
+	
+		rm -rf "$build_dir"
+		mkdir -p "$build_dir"
+		
 	fi
 
 	# Set git dir based on repo target to avoid recloning for different targets

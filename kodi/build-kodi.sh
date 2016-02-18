@@ -69,8 +69,6 @@ set_vars()
 	dist_rel="brewmaster"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
-	BUILDER="pdebuild"
-BUILDOPTS=""
 	export build_dir="${HOME}/build-kodi-temp"
 
 	# Set target for git source author
@@ -318,11 +316,14 @@ kodi_package_deb()
 		if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
 
 		# If the tag is left blank, set to master
-		if echo $kodi_tag | grep -e "master" 1> /dev/null; then kodi_release="master"; fi
+		if [[ "$kodi_tag" == "master" ]]; then
+		
+			git checkout master
+			
+		fi
 
 		# set release for changelog
         	pkgver="$kodi_release+git+bsos"
-
 
 	fi
 
@@ -353,7 +354,12 @@ kodi_package_deb()
 		# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
 		# build for host type / ARCH ONLY
-		tools/Linux/packaging/mk-debian-package.sh
+		RELEASEV="$kodi_tag" \
+		DISTS="brewmaster" \
+		ARCHS="amd64" \
+		BUILDER="debuild" \
+		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
+		PBUILDER_BASE="${HOME}/pbuilder" \
 
 	elif [[ "$build_choice" == "pbuilder" ]]; then
 
@@ -361,7 +367,6 @@ kodi_package_deb()
 		DISTS="brewmaster" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
-BUILDOPTS=""
 		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
 		PBUILDER_BASE="${HOME}/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh

@@ -101,7 +101,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${BUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -178,7 +178,7 @@ main()
 	sleep 2s
 
 	#  build
-	${BUILDER} ${DEBBUILDOPTS}
+	${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Prepare Debian package (data) - if needed
@@ -242,7 +242,7 @@ main()
 		sleep 2s
 
 		#  build
-		${BUILDER} ${DEBBUILDOPTS}
+		${BUILDER} ${BUILDOPTS}
 
 		# Move packages to build dir
 		mv ${git_dir}/*${pkgver_data}* "${build_dir}"

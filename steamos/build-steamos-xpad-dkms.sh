@@ -210,7 +210,7 @@ echo ##########################################
 EOF
 
     #build binary package
-    ${BUILDER} ${DEBBUILDOPTS} -us -uc
+    ${BUILDER} ${BUILDOPTS} -us -uc
 
     if [ $? -eq 0 ]; then
 
@@ -224,7 +224,7 @@ EOF
         ls  "$pkg_folder"
          exit 0
     else
-        echo ${BUILDER} ${DEBBUILDOPTS} failed to generate the binary package, aborting"
+        echo ${BUILDER} ${BUILDOPTS} failed to generate the binary package, aborting"
         exit 1
     fi 
     ;;
@@ -242,7 +242,7 @@ Building source package
 EOF
 
       sleep 3s
-      ${BUILDER} ${DEBBUILDOPTS} -S -sa -k${gpgkey}
+      ${BUILDER} ${BUILDOPTS} -S -sa -k${gpgkey}
 
       if [ $? -eq 0 ]; then
         echo "
@@ -262,7 +262,7 @@ EOF
 
         exit 0
       else
-        echo ${BUILDER} ${DEBBUILDOPTS} failed to generate the source package, aborting"
+        echo ${BUILDER} ${BUILDOPTS} failed to generate the source package, aborting"
         exit 1
       fi
     else

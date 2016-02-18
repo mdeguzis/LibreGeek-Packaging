@@ -89,7 +89,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${BUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -152,7 +152,7 @@ main()
 	# DEBUILD_DPKG_BUILDPACKAGE_OPTS="-us -uc -I -i"
 	
 	# build
-	${BUILDER} ${DEBBUILDOPTS}
+	${BUILDER} ${BUILDOPTS}
 	
 	#################################################
 	# Cleanup

@@ -128,7 +128,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
-	  * Packaged deb for SteamOS-Tools against latest command ${latest_commit}
+	  * Packaged deb for SteamOS-Tools against latest official release
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 
@@ -156,10 +156,6 @@ main()
 	sleep 2s
 
 	"${BUILDER}"
-
-	#################################################
-	# Post install configuration
-	#################################################
 
 	#################################################
 	# Cleanup

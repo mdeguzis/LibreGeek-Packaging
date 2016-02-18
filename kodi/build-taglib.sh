@@ -154,10 +154,6 @@ main()
 	"${BUILDER}"
 
 	#################################################
-	# Post install configuration
-	#################################################
-
-	#################################################
 	# Cleanup
 	#################################################
 
@@ -213,6 +209,10 @@ main()
 			# transfer files
 			if [[ -d "${build_dir}" ]]; then
 				rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+			
+				# Only move the old changelog if transfer occurs to keep final changelog
+				cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			
 			fi
 
 		elif [[ "$transfer_choice" == "n" ]]; then

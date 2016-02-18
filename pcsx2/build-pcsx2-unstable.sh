@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # -------------------------------------------------------------------------------
-# Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	  build-pcsx2.sh
-# Script Ver:	  0.9.7
-# Description:	  Attempts to build a deb package from PCSX2 git source
-#		  It is highly suggested to build in a 32 bit environment!!!
-#		  Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
+# Author:    	Michael DeGuzis
+# Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
+# Scipt Name:	build-pcsx2-unstable.sh
+# Script Ver:	0.9.7
+# Description:	Attempts to build a deb package from PCSX2 git source
+#		It is highly suggested to build in a 32 bit environment!!!
+#		Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
 #
-# See:		  https://code.google.com/p/pcsx2/wiki/CompilationGuideForLinux
-# Usage:	  ./build-pcsx2.sh
+# See:		https://code.google.com/p/pcsx2/wiki/CompilationGuideForLinux
+# Usage:	./build-pcsx2-unstable.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -43,8 +43,9 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
 BUILDOPTS=""
+ARCH="i386"
 pkgname="pcsx2-unstable"
-pkgrev="2"
+pkgrev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -131,7 +132,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -148,7 +148,7 @@ main()
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
         # Alter pkg suffix based on commit
-        pkgsuffix="${latest_commit}git+bsos${pkgrev}"
+        pkgsuffix="${date_short}git+bsos${pkgrev}"
 
 	#################################################
 	# Prepare build (upstream-specific)
@@ -233,7 +233,7 @@ main()
 	sleep 2s
 
 	#  build
-	${BUILDER} ${BUILDOPTS}
+	ARCH="${ARCH}" ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

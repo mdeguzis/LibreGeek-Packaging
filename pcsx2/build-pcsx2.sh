@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # -------------------------------------------------------------------------------
-# Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	  build-pcsx2.sh
-# Script Ver:	  0.9.7
-# Description:	  Attempts to build a deb package from PCSX2 git source
-#		  It is highly suggested to build in a 32 bit environment!!!
-#		  Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
+# Author:    	Michael DeGuzis
+# Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
+# Scipt Name	build-pcsx2.sh
+# Script Ver:	0.9.7
+# Description:	Attempts to build a deb package from PCSX2 git source
+#		It is highly suggested to build in a 32 bit environment!!!
+#		Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
 #
-# See:		  https://code.google.com/p/pcsx2/wiki/CompilationGuideForLinux
-# Usage:	  ./build-pcsx2.sh
+# See:		https://code.google.com/p/pcsx2/wiki/CompilationGuideForLinux
+# Usage:	./build-pcsx2.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ BUILDOPTS=""
 pkgname="pcsx2"
 pkgrev="1"
 dist_rel="brewmaster"
-arch="i386"
+ARCH="i386"
 BUILDER_OPTS="--basetgz merge ${HOME}/pbuilder/brewmaster-i386-base.tgz"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -231,8 +231,8 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	#  build
-	${BUILDER} ${BUILDOPTS}
+	#  build within i386 environment
+	ARCH=i386 ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

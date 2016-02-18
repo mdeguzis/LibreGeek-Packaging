@@ -93,19 +93,21 @@ set_creation_vars()
 		
 	fi
 	
-	echo -e "==> Options set:\n"
-	
 	cat<<- EOF
 	
+	-----------------------------
+	Options passed:
+	-----------------------------
 	DIST="$DIST"
 	ARCH="$ARCH"
 	KEYRING="$KEYRING"
 	BETA_FLAG="false"
 	BASETGZ="$BASE_TGZ"
 	BASEDIR="$BASE_DIR"
-
+	-----------------------------
+	
 	EOF
-	sleep 2s
+	sleep 5s
 	
 	
 }

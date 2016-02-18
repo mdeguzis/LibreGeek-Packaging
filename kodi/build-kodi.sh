@@ -67,6 +67,10 @@ set_vars()
 	maintainer="ProfessorKaos64"
 	pkgrev="1"
 	dist_rel="brewmaster"
+	BUILDER="pdebuild"
+	PBUILDER_BASE="${HOME}/pbuilder"
+	BUILDOPTS="--debbuildopts \"-j4\""
+	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
 	export build_dir="${HOME}/build-kodi-temp"
@@ -342,37 +346,16 @@ kodi_package_deb()
 	# Assess if we are to build for host/ARCH we have or target
 	############################################################
 
-	echo -e "\nBuild Kodi for our host/ARCH or for target? [host|pbuilder]"
+	# Add any overrides for mk-debian-package.sh below
+	# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
-	# get user choice
-	sleep 0.2s
-	read -erp "Choice: " build_choice
-
-	if [[ "$build_choice" == "host" ]]; then
-
-		# Add any overrides for mk-debian-package.sh below
-		# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
-
-		# build for host type / ARCH ONLY
-		RELEASEV="$kodi_tag" \
-		DISTS="brewmaster" \
-		ARCHS="amd64" \
-		BUILDER="debuild" \
-		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
-		PBUILDER_BASE="${HOME}/pbuilder" \
-
-	elif [[ "$build_choice" == "pbuilder" ]]; then
-
-		RELEASEV="$kodi_tag" \
-		DISTS="brewmaster" \
-		ARCHS="amd64" \
-		BUILDER="pdebuild" \
-		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
-		PBUILDER_BASE="${HOME}/pbuilder" \
-		tools/Linux/packaging/mk-debian-package.sh
-
-	# end building
-	fi
+	RELEASEV="$kodi_tag" \
+	DISTS="$dist_rel" \
+	ARCHS="$ARCH" \
+	BUILDER="$BUILDER" \
+	PDEBUILD_OPTS="$BUILDOPTS" \
+	PBUILDER_BASE="$PBUILDER_BASE" \
+	tools/Linux/packaging/mk-debian-package.sh
 
 }
 

@@ -98,5 +98,5 @@ usr/include/taglib/xingheader.h
 usr/include/taglib/xiphcomment.h
 usr/include/taglib/xmfile.h
 usr/include/taglib/xmproperties.h
-usr/lib/*/libtag.so
-usr/lib/*/pkgconfig/taglib.pc
+usr/lib/libtag.so
+usr/lib/pkgconfig/taglib.pc

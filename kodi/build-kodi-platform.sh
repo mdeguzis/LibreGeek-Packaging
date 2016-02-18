@@ -36,7 +36,7 @@ else
 fi
 
 # upstream URL
-git_url="https://github.com/ProfessorKaos64/kodi-platform"
+git_url="https://github.com/xbmc/kodi-platform"
 rel_target="Jarvis"
 
 # package vars

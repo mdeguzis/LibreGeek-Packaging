@@ -46,7 +46,7 @@ BUILDER="pdebuild"
 DEBUILDOPTS=""
 pkgname="dcadec"
 pkgver="0.2.0"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="bsos${pkgrev}"
 BUILDER="pdebuild"
 dist_rel="brewmaster"
@@ -156,7 +156,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	"${BUILDER}" "${DEBUILDOPTS}"
+	"${BUILDER}"
 
 	#################################################
 	# Cleanup

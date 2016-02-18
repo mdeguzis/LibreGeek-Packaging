@@ -37,17 +37,17 @@ fi
 
 # upstream vars
 git_url="https://github.com/taglib/taglib"
-git_branch="v1.9.1"
+git_branch="v1.10"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
 pkgname="taglib"
-pkgver="1.9.1"
+pkgver="1.10"
 upstream_rev="1"
-pkgrev="2"
-pkgsuffix="git+bsos${pkgrev}"
+pkgrev="1"
+pkgsuffix="bsos${pkgrev}"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"

@@ -28,23 +28,24 @@ HOST="archboxmtd"
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # upstream vars
 git_url="https://github.com/foo86/dcadec"
-git_branch="master"
+git_branch="v0.2.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
 pkgname="dcadec"
-pkgver="${date_short}"
+pkgver="0.2.0"
+pkgsuffix="bsos${pkgrev}"
 BUILDER="pdebuild"
 pkgrev="1"
 dist_rel="brewmaster"
@@ -92,25 +93,21 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
 	git clone -b "$git_branch" "$git_url" "${git_dir}"
-	cd "${git_dir}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	git checkout $latest_commit 1> /dev/null
 
-	# Alter pkg suffix based on commit
-	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
-	
 	# Add debian files
         cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
+        
+        # Addin changelog from upstream (in repository root)
+	cp "${git_dir}/CHANGELOG.md" "${git_dir}/debian/"
 
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -131,7 +128,7 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
 
-	  * Packaged deb for SteamOS-Tools
+	  * Packaged deb for SteamOS-Tools against latest command ${latest_commit}
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

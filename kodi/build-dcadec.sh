@@ -43,6 +43,7 @@ git_branch="v0.2.0"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
+DEBUILDOPTS=""
 pkgname="dcadec"
 pkgver="0.2.0"
 pkgrev="1"
@@ -155,7 +156,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	"${BUILDER}"
+	"${BUILDER}" "${DEBUILDOPTS}"
 
 	#################################################
 	# Cleanup
@@ -172,7 +173,6 @@ main()
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
 
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)

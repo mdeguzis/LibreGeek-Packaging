@@ -70,7 +70,7 @@ set_vars()
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
 	BUILDER="pdebuild"
-DEBBUILDOPTS=""
+BUILDOPTS=""
 	export build_dir="${HOME}/build-kodi-temp"
 
 	# Set target for git source author
@@ -361,7 +361,7 @@ kodi_package_deb()
 		DISTS="brewmaster" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
-DEBBUILDOPTS=""
+BUILDOPTS=""
 		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
 		PBUILDER_BASE="${HOME}/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh

@@ -42,7 +42,7 @@ fi
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
-DEBBUILDOPTS=""
+BUILDOPTS=""
 pkgname="pcsx2-unstable"
 pkgrev="2"
 dist_rel="brewmaster"

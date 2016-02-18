@@ -39,12 +39,12 @@ fi
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
-DEBBUILDOPTS=""
+BUILDOPTS=""
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="mpv"
 pkgver="${date_short}"
 BUILDER="pdebuild"
-DEBBUILDOPTS=""
+BUILDOPTS=""
 pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 dist_rel="brewmaster"

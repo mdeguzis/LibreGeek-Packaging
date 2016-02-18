@@ -284,7 +284,7 @@ main()
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian-unstable"
 
 		fi
 

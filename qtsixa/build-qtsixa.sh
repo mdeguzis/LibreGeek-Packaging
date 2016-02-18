@@ -151,7 +151,7 @@ main()
 	echo -e "\n==> Bulding ${pkgname}\n"
 	sleep 3s
 
-	"${BUILDER}"
+	${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

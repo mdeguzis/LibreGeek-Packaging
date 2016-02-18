@@ -158,7 +158,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	"${BUILDER}"
+	${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

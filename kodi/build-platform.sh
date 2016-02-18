@@ -151,7 +151,7 @@ main()
 	# DEBUILD_DPKG_BUILDPACKAGE_OPTS="-us -uc -I -i"
 	
 	# build
-	"${BUILDER}"
+	${BUILDER} ${BUILDOPTS}
 	
 	#################################################
 	# Cleanup

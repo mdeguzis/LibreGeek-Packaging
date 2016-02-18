@@ -164,7 +164,7 @@ main()
 
 	#  build
 	#"${BUILDER}" -uc -us --source-option=--include-binaries
-	"${BUILDER}"
+	${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

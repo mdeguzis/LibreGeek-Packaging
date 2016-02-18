@@ -178,7 +178,7 @@ main()
 	sleep 2s
 
 	#  build
-	"${BUILDER}"
+	${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Prepare Debian package (data) - if needed
@@ -242,7 +242,7 @@ main()
 		sleep 2s
 
 		#  build
-		"${BUILDER}"
+		${BUILDER} ${BUILDOPTS}
 
 		# Move packages to build dir
 		mv ${git_dir}/*${pkgver_data}* "${build_dir}"

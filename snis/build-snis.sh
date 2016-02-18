@@ -92,7 +92,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ ${BUILDER} ${BUILDOPTS} != "pdebuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -165,7 +165,7 @@ BUILDOPTS=""
 	sleep 2s
 
 	#  build
-	${BUILDER} ${BUILDOPTS}
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

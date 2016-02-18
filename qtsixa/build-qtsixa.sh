@@ -85,7 +85,7 @@ main()
 	
 	# install prereqs for build
 	
-	if [[ ${BUILDER} ${BUILDOPTS} != "pdebuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -151,7 +151,7 @@ main()
 	echo -e "\n==> Bulding ${pkgname}\n"
 	sleep 3s
 
-	${BUILDER} ${BUILDOPTS}
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

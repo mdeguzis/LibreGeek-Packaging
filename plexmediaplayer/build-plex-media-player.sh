@@ -179,7 +179,7 @@ main()
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s
 
-	${BUILDER} ${BUILDOPTS}
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration
@@ -258,7 +258,7 @@ main()
 
 # start main
 
-	if [[ ${BUILDER} ${BUILDOPTS} != "pdebuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs

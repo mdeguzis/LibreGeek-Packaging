@@ -152,7 +152,7 @@ main()
 	sleep 2s
 
 	#  build
-	${BUILDER} ${BUILDOPTS}
+	"${BUILDER}"
 
 	#################################################
 	# Post install configuration

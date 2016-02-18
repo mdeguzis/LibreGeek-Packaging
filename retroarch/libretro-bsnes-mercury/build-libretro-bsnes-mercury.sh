@@ -88,7 +88,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ ${BUILDER} ${BUILDOPTS} != "pdebuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -156,7 +156,7 @@ main()
 	sleep 2s
 
 	#  build
-	${BUILDER} ${BUILDOPTS}
+	"${BUILDER}"
 	
 	#################################################
 	# Cleanup

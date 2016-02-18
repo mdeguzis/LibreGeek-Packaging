@@ -350,7 +350,7 @@ kodi_package_deb()
 	if [[ "$build_choice" == "host" ]]; then
 
 		# Add any overrides for mk-debian-package.sh below
-		# The default in the script is '${BUILDER} ${BUILDOPTS}' which will attempt to sign the pkg
+		# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
 		# build for host type / ARCH ONLY
 		tools/Linux/packaging/mk-debian-package.sh
@@ -655,7 +655,7 @@ main()
 	# Process main functions
 	set_vars
 	
-	if [[ ${BUILDER} ${BUILDOPTS} != "pdebuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
 		kodi_prereqs
 	fi
 	

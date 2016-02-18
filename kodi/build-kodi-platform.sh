@@ -98,7 +98,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -119,10 +118,6 @@ main()
 
 	# emter source dir
 	cd "${pkgname}"
-
-	# See: https://github.com/xbmc/kodi-platform/pull/16
-	# For now, the likely target package for Jarvis will be platform, not the renamed p8-platform
-	git checkout 45d6ad1
 
 	# Create basic changelog
 
@@ -200,7 +195,7 @@ main()
 		echo -e "############################################################\n"
 	
 		echo -e "Showing contents of: ${build_dir}: \n"
-		ls "${build_dir}" | grep -E 
+		ls "${build_dir}" | grep "$pkgver"
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s

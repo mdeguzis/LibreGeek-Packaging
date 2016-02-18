@@ -45,6 +45,7 @@ rel_target="0.59"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 pkgname="openlierox"
 upstream_rev="1"
 pkgrev="3"
@@ -90,7 +91,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -176,7 +177,7 @@ main()
 	sleep 2s
 
 	#  build
-	"${BUILDER}"
+	${BUILDER} ${DEBBUILDOPTS}
 	
 	#################################################
 	# Cleanup

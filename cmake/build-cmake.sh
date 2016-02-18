@@ -42,6 +42,7 @@ git_url="https://cmake.org/cmake.git"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 pkgname="cmake"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgver="3.4.1"
@@ -154,7 +155,7 @@ main()
 	sleep 2s
 
 	#  build
-	"${BUILDER}"
+	${BUILDER} ${DEBBUILDOPTS}
 
 	#################################################
 	# Cleanup
@@ -212,7 +213,7 @@ main()
 
 # start main
 
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs

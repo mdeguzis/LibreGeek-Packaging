@@ -43,9 +43,11 @@ git_branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 pkgname="crossguid"
 pkgver="${date_short}"
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 pkgrev="2"
 pkgsuffix="git+bsos"
 dist_rel="brewmaster"
@@ -86,7 +88,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -151,7 +153,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	"${BUILDER}"
+	${BUILDER} ${DEBBUILDOPTS}
 
 	#################################################
 	# Post install configuration

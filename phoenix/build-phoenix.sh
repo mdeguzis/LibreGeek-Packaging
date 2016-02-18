@@ -47,6 +47,7 @@ rel_target="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 pkgname="phoenix"
 pkgver="0.0.0"
 upstream_rev="1"
@@ -105,7 +106,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -176,7 +177,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	"${BUILDER}"
+	${BUILDER} ${DEBBUILDOPTS}
 
 	#################################################
 	# Cleanup

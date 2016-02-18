@@ -70,6 +70,7 @@ set_vars()
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
 	BUILDER="pdebuild"
+DEBBUILDOPTS=""
 	export build_dir="${HOME}/build-kodi-temp"
 
 	# Set target for git source author
@@ -349,7 +350,7 @@ kodi_package_deb()
 	if [[ "$build_choice" == "host" ]]; then
 
 		# Add any overrides for mk-debian-package.sh below
-		# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
+		# The default in the script is '${BUILDER} ${DEBBUILDOPTS}' which will attempt to sign the pkg
 
 		# build for host type / ARCH ONLY
 		tools/Linux/packaging/mk-debian-package.sh
@@ -360,6 +361,7 @@ kodi_package_deb()
 		DISTS="brewmaster" \
 		ARCHS="amd64" \
 		BUILDER="pdebuild" \
+DEBBUILDOPTS=""
 		PDEBUILD_OPTS="--debbuildopts \"-j4\"" \
 		PBUILDER_BASE="${HOME}/pbuilder" \
 		tools/Linux/packaging/mk-debian-package.sh
@@ -653,7 +655,7 @@ main()
 	# Process main functions
 	set_vars
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
 		kodi_prereqs
 	fi
 	

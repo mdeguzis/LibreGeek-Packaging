@@ -46,10 +46,12 @@ rel_target="v20160101"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 pkgname="snis"
 pkgrev="1"
 pkgver="${date_short}+git+bsos${pkgrev}"
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -90,7 +92,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -133,6 +135,7 @@ main()
 
 	  * Update release to latest commits, as of ${date_short}
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
@@ -162,7 +165,7 @@ BUILDER="pdebuild"
 	sleep 2s
 
 	#  build
-	"${BUILDER}"
+	${BUILDER} ${DEBBUILDOPTS}
 
 	#################################################
 	# Post install configuration

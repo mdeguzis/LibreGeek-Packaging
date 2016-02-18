@@ -45,6 +45,7 @@ rel_target="v0.12.4"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 pkgname="syncthing"
 pkgver="0.12.4+git+SteamOS2"
 pkgrev="1"
@@ -86,7 +87,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -162,8 +163,8 @@ main()
 	sleep 2s
 
 	#  build
-	#"${BUILDER}" -uc -us --source-option=--include-binaries
-	"${BUILDER}"
+	#${BUILDER} ${DEBBUILDOPTS} -uc -us --source-option=--include-binaries
+	${BUILDER} ${DEBBUILDOPTS}
 
 	#################################################
 	# Post install configuration

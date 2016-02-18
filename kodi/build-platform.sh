@@ -44,7 +44,8 @@ branch_tag="platform-2.0.1"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
-DEBBUILDOPTS="--debbuildopts -b"
+DEBBUILDOPTS=""
+DEBBUILDOPTS=""
 pkgname="platform"
 pkgver="2.0.1"
 pkgrev="1"
@@ -88,7 +89,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs

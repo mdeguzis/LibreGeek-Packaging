@@ -50,6 +50,7 @@ commit="5c09c31"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
+DEBBUILDOPTS=""
 pkgname="srb2"
 pkgver="2.1.14"
 upstream_rev="1"
@@ -100,7 +101,7 @@ main()
 
 	# install prereqs for build
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ ${BUILDER} ${DEBBUILDOPTS} != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -177,7 +178,7 @@ main()
 	sleep 2s
 
 	#  build
-	"${BUILDER}"
+	${BUILDER} ${DEBBUILDOPTS}
 
 	#################################################
 	# Prepare Debian package (data) - if needed
@@ -241,7 +242,7 @@ main()
 		sleep 2s
 
 		#  build
-		"${BUILDER}"
+		${BUILDER} ${DEBBUILDOPTS}
 
 		# Move packages to build dir
 		mv ${git_dir}/*${pkgver_data}* "${build_dir}"

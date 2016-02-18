@@ -225,12 +225,12 @@ main()
 	if [[ -d "$git_dir/build" ]]; then
 	
 		echo -e "Showing contents of: $git_dir/build: \n"
-		ls "$git_dir/build" | grep -E *.deb
+		ls "$git_dir/build" | grep -E "${pkgver}" *.deb
 	
 	elif [[ -d "${build_dir}" ]]; then
 	
 		echo -e "Showing contents of: $build_dir: \n"
-		ls "${git_dir}/build" | grep -E *.deb
+		ls "${git_dir}/build" | grep -E "${pkgver}" *.deb
 
 	fi
 

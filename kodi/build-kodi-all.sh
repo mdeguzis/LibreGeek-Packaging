@@ -328,7 +328,7 @@ build_all()
 	EOF
 
 	echo -e "Showing contents of: $auto_build_dir: \n"
-	ls "${auto_build_dir}" | grep -E *.deb
+	ls "${auto_build_dir}" | grep -E "${pkgver}" *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

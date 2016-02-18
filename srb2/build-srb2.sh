@@ -283,7 +283,7 @@ main()
 	echo -e "############################################################\n"
 
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep -E "srb2"
+	ls "${build_dir}" | grep -E "${pkgver}" "srb2"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

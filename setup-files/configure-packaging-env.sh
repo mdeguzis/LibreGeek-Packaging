@@ -130,7 +130,7 @@ sleep 2s
 ./setup-pbuilder.sh
 
 # copy wrapper script to bin for easy access
-sudo cp ../pbuilder-wrapper.sh /usr/bin/pbuilder-wrapper
+sudo cp pbuilder-wrapper.sh /usr/bin/pbuilder-wrapper
 
 #################################################
 # Cleanup

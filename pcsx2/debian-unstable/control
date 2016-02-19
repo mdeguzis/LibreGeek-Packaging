@@ -3,37 +3,25 @@ Section: games
 Priority: optional
 Maintainer: Gregory Hainaut <gregory.hainaut@gmail.com>
 Build-Depends: cmake (>= 2.8.5),
- debhelper (>= 8.9),
- libaio-dev:i386,
- libasound2-dev:i386,
- libbz2-dev:i386,
- libcg:i386,
- libcggl:i386,
- libwayland-dev:i386,
- libegl1-mesa-dev:i386,
- libgl1-mesa-dev:i386,
- libglew-dev:i386, 
- libglu1-mesa-dev:i386, 
- libglu1-mesa-dev:i386,	
- libwxgtk3.0-dev:i386, 
- libjpeg62-turbo-dev:i386, 
- libfreetype6-dev:i386, 
- libdirectfb-dev:i386, 
- libglib2.0-dev:i386, 
- libavahi-client-dev:i386, 
- libpulse-dev:i386, 
- libsdl1.2-dev:i386,
- libsoundtouch-dev:i386, 
- libsparsehash-dev, 
- libwxbase3.0-dev:i386, 
- libx11-dev:i386, 
- nvidia-cg-dev:i386, 
- nvidia-cg-toolkit, 
- portaudio19-dev:i386, 
- zlib1g-dev:i386, 
- libgtk2.0-dev, 
- libpng++-dev, 
- libsdl2-dev
+    debhelper (>= 8.9),
+    dpkg-dev (>= 1.15.7),
+    libaio-dev,
+    libasound2-dev,
+    libbz2-dev,
+    libgl1-mesa-dev,
+    libglu1-mesa-dev,
+    libgtk2.0-dev (>= 2.16),
+    libpng12-dev,
+    libpng++-dev,
+    libpulse-dev,
+    libsdl2-dev,
+    libsoundtouch-dev,
+    libwxbase3.0-dev,
+    libwxgtk3.0-dev,
+    libx11-dev,
+    locales | locales-all,
+    portaudio19-dev,
+    zlib1g-dev (>= 1:1.2.3.3)
 Standards-Version: 3.9.3
 Homepage: http://pcsx2.net/
 
@@ -69,4 +57,3 @@ Description: Debug symbols for PCSX2
  anyway.
  .
  This package contains the debug symbols for PCSX2.
-

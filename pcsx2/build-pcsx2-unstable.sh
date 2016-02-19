@@ -10,6 +10,7 @@
 #		Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
 #
 # See:		https://code.google.com/p/pcsx2/wiki/CompilationGuideForLinux
+#		https://github.com/PCSX2/pcsx2/wiki/Installing-on-Linux
 # Usage:	./build-pcsx2-unstable.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.

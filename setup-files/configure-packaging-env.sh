@@ -115,9 +115,9 @@ fi
 echo -e "\n==> Adding other configuration files"
 sleep 2s
 
-cp "$scriptdir/repo-exclude.txt" "${steamos_tools_configs}"
-cp "$scriptdir/repo-include.txt" "${steamos_tools_configs}"
-cp "$scriptdir/repo-filter.txt" "${steamos_tools_configs}"
+cp -v "$scriptdir/repo-exclude.txt" "${steamos_tools_configs}"
+cp -v "$scriptdir/repo-include.txt" "${steamos_tools_configs}"
+cp -v "$scriptdir/repo-filter.txt" "${steamos_tools_configs}"
 
 #################################################
 # Pbuilder

@@ -174,7 +174,7 @@ main()
 	rm -f  $git_dir/common/src/Utilities/x86/MemcpyFast.cpp
 	
 	# To save 66% of the package size
-	# rm -rf  $git_dir/.git
+	rm -rf  $git_dir/.git
 	
 	# copy in debian folder
 	cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
@@ -193,7 +193,7 @@ main()
 	cd ${build_dir}
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# enter source dir
 	cd "${git_dir}"

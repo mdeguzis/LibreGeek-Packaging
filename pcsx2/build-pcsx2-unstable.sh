@@ -32,11 +32,11 @@ HOST="archboxmtd"
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # package vars
@@ -237,7 +237,7 @@ main()
 	#  build
 	# Due to problems with shared libraries, needs an extra option here besides ARCH
 	# See: https://bugs.launchpad.net/ubuntu/+source/pbuilder/+bug/1300726
-	${BUILDER} ${BUILDOPTS}
+	ARCH=i386 ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
@@ -255,7 +255,6 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	

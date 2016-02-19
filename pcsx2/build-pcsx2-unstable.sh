@@ -234,7 +234,9 @@ main()
 	sleep 2s
 
 	#  build
-	ARCH="${ARCH}" ${BUILDER} ${BUILDOPTS}
+	# Due to problems with shared libraries, needs an extra option here besides ARCH
+	# See: https://bugs.launchpad.net/ubuntu/+source/pbuilder/+bug/1300726
+	linux32 ARCH="${ARCH}" ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

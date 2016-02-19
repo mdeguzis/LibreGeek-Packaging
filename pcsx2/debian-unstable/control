@@ -34,7 +34,6 @@ Depends: ${shlibs:Depends}, ${misc:Depends}, libc6-i686
 # libusb    => ps3 controller (and probably others)
 Recommends: libasound2-plugins,
     libusb-0.1-4
-Conflicts: pcsx2-unstable
 Description: Playstation 2 emulator
  PCSX2 is a PlayStation 2 emulator for Windows and Linux.
  .
@@ -48,7 +47,6 @@ Breaks: pcsx2-dbg
 Priority: extra
 Architecture: i386
 Depends: ${misc:Depends}, pcsx2 (= ${binary:Version})
-Conflicts: pcsx2-unstable-dbg
 Description: Debug symbols for PCSX2
  PCSX2 is a PlayStation 2 emulator for Windows and Linux.
  .

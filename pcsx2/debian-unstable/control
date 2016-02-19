@@ -27,6 +27,7 @@ Homepage: http://pcsx2.net/
 
 Package: pcsx2-unstable
 Architecture: i386
+Breaks: pcsx2
 # -i686 allow to use SSE into libc6
 Depends: ${shlibs:Depends}, ${misc:Depends}, libc6-i686
 # libasound => alsa plugin for pulseaudio
@@ -43,6 +44,7 @@ Description: Playstation 2 emulator
 
 Package: pcsx2-unstable-dbg
 Section: debug
+Breaks: pcsx2-dbg
 Priority: extra
 Architecture: i386
 Depends: ${misc:Depends}, pcsx2 (= ${binary:Version})

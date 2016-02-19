@@ -1,0 +1,5 @@
+#### PBUILDER SETUP ####
+Cmnd_Alias  PBUILDER = /usr/sbin/pbuilder, /usr/bin/pdebuild, /usr/bin/debuild-pbuilder, /usr/sbin/cowbuilder
+Defaults!PBUILDER       env_keep+="DIST ARCH"
+
+USER_TMP  ALL=(ALL) PBUILDER

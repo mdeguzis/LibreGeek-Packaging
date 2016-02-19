@@ -236,7 +236,7 @@ main()
 	#  build
 	# Due to problems with shared libraries, needs an extra option here besides ARCH
 	# See: https://bugs.launchpad.net/ubuntu/+source/pbuilder/+bug/1300726
-	export LD_LIBRARY_PATH=/lib/i386-linux-gnu ${BUILDER} ${BUILDOPTS}
+	LD_LIBRARY_PATH=/lib/i386-linux-gnu ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

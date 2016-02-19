@@ -1,9 +1,6 @@
 #!/usr/bin/make -f
 
-# Build options and more:
-# https://github.com/PCSX2/pcsx2/blob/master/build.sh
-
-# Uncomment this to turn on verbose mode. 
+# Uncomment this to turn on verbose mode.
 # export DH_VERBOSE=1
 
 ifneq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
@@ -21,12 +18,12 @@ override_dh_auto_configure:
 		-DPACKAGE_MODE=TRUE
 
 override_dh_strip:
-	dh_strip --package=pcsx2-unstable --dbg-package=pcsx2-unstable-dbg
+	dh_strip --package=pcsx2 --dbg-package=pcsx2-dbg
 
 override_dh_makeshlibs:
 
 override_dh_builddeb:
-	dh_builddeb -- -Zxz
+	        dh_builddeb -- -Zxz
 
 clean:
 	dh_auto_clean

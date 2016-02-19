@@ -12,7 +12,7 @@
 # Speeding up pkg installs, "echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup" instead chroot
 
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
-HOOKDIR=/var/cache/pbuilder/hooks
+HOOKDIR="$HOME/pbuilder/hooks/"
 PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends-gdebi
 
 # Allow softlinks

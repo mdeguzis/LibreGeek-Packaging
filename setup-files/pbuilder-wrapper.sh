@@ -20,14 +20,14 @@ export KEYRING="$4"
 if [[ "${OPERATION}" == "--help" ]]; then
 
 	show_help
-	
+
 fi
 
 # Set ARCH fallback
 if [[ "$ARCH" == "" ]]; then
 
 	ARCH=$(dpkg --print-architecture)
-	
+
 fi
 
 # Set pbuilder-specific vars
@@ -37,7 +37,7 @@ export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 
 show_help()
 {
-	
+
 	clear
 	cat<<- EOF
 	------------------------------------------------
@@ -49,7 +49,7 @@ show_help()
 	pbuilder-wrapper [ACTION][DIST][ARCH][KEYRING]
 
 	Available actions:
-	
+
 	create
 	update
 	build
@@ -57,44 +57,44 @@ show_help()
 	login
 	login-save (--save-after-login)
 	execute
-	
+
 	EOF
 	exit 1
 
-	
+
 }
 
 set_creation_vars()
 {
-	
+
 	# set var targets
-	
+
 	# set base DIST if requesting a beta
 	if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
-	
+
 		# Set DIST
 		DIST=$(sed "s|_beta||g" <<<${DIST}) 
 		BETA_FLAG="true"
-		
+
 		# Set extra packages to intall
 		# Use wildcard * to replace the entire line
 		PKGS="steamos-beta-repo wget ca-certificates"
 		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
 		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
-		
+
 	else
-	
+
 		# Set extra packages to intall
 		# Use wildcard * to replace the entire line
 		# None for now
 		PKGS="wget ca-certificates"
 		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
 		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
-		
+
 	fi
-	
+
 	cat<<- EOF
-	
+
 	-----------------------------
 	Options passed:
 	-----------------------------
@@ -105,80 +105,76 @@ set_creation_vars()
 	BASETGZ="$BASE_TGZ"
 	BASEDIR="$BASE_DIR"
 	-----------------------------
-	
+
 	EOF
 	sleep 5s
-	
-	
+
+
 }
 
 run_pbuilder()
 {
-	
+
 	if [[ "$PROCEED" == "true" ]]; then
 
 		# Process actions, exit on fatal error
 		if ! sudo ARCH=$ARCH DIST=$DIST pbuilder $OPERATION $OPTS; then
-		
+
 			echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 			sleep 3s
 			exit 1
-			
+
 		fi
-	
+
 	else
-	
+
 		show_help
 	fi
-	
+
 }
 
 main()
 {
-	
+
 	# set options
 	# For specifying arch, see: http://pbuilder.alioth.debian.org/#amd64i386
 	case "$DIST" in
-	
+
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 	        ;;
-	
+
 	        wheezy|jessie|stretch|sid)
 		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
-		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 	        ;;
 
 		trusty|vivid|willy)
 		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 	        ;;
 
 	        *)
 	        # use steamos as default
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 		;;
-		
+
 	esac
-	
+
 	# Process $OPERATION
 	case $OPERATION in
-		
+
 		create)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 		set_creation_vars
 		run_pbuilder
 		;;
-		
+
 		login)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ"
 		run_pbuilder
 		;;
-		
+
 		login-save)
 		PROCEED="true"
 		OPERATION="login"
@@ -192,7 +188,7 @@ main()
 		;;
 
 	esac
-	
+
 
 }
 

@@ -87,9 +87,22 @@ set_creation_vars()
 		# Set extra packages to intall
 		# Use wildcard * to replace the entire line
 		# None for now
-		PKGS="wget ca-certificates"
-		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
-		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
+		
+		# Correct issue with some 32 bit pkgs under 32 bit chroots
+		# See: http://www.xilinx.com/support/answers/61323.html
+		if [[ "${ARCH}" == "i386" ]]; then
+		
+			PKGS="wget ca-certificates selinux:i386"
+			sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+			sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"	
+			
+		else
+		
+			PKGS="wget ca-certificates"
+			sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+			sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
+			
+		fi
 
 	fi
 
@@ -105,6 +118,7 @@ set_creation_vars()
 	BASETGZ="$BASE_TGZ"
 	BASEDIR="$BASE_DIR"
 	OPTS="$OPTS"
+	EXTRA PACKAGES: "$PKGS"
 	-----------------------------
 
 	EOF

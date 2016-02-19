@@ -142,4 +142,4 @@ PBUILDERROOTCMD="sudo -E"
 #DEBBUILDOPTS="-S -sa"
 
 # create binary AND sources
-DEBBUILDOPTS="-rfakeroot -us -uc"
+#DEBBUILDOPTS="-us -uc"

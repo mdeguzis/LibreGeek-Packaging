@@ -177,7 +177,7 @@ main()
 	# rm -rf  $git_dir/.git
 	
 	# copy in debian folder
-	cp -r "$scriptdir/debian"-unstable "${git_dir}/debian"
+	cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
 
 	#################################################
 	# Build platform

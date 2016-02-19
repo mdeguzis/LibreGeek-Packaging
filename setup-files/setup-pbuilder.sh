@@ -75,7 +75,7 @@ cp -r /usr/share/doc/pbuilder/* "$HOME/pbuilder/hooks/"
 
 # Copy our hook for adding the Debian/Libregeek repos
 wget -O "/tmp/configure-repos.sh" "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q --show-progress -nc
-sed -i "s|sudo ||g" /tmp/configure-repos.sh"
+sed -i "s|sudo ||g" "/tmp/configure-repos.sh"
 mv "/tmp/configure-repos.sh" "$HOME/pbuilder/hooks/"
 
 ##########################

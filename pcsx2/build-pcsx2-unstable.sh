@@ -46,6 +46,7 @@ BUILDOPTS=""
 ARCH="i386"
 pkgname="pcsx2-unstable"
 pkgrev="1"
+upstream_rev="1"
 dist_rel="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -190,7 +191,7 @@ main()
 	# use latest revision designated at the top of this script
 	
 	# enter build dir to create tarball
-	cd ${build_dir}
+	cd "${build_dir}"
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
@@ -201,7 +202,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
 
 	  * Base release tag: $base_release
 	  * Built against latest commit $latest_commit

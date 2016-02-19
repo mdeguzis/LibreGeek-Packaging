@@ -165,14 +165,14 @@ main()
 
 		create)
 		PROCEED="true"
-		
-		if [[ "${DIST}" == "i386" ]]; then
+
+		if [[ "${ARCH}" == "i386" ]]; then
 			OPTS="linux32 env --basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
 		else
 			OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
-			
+
 		fi
-		
+
 		set_creation_vars
 		run_pbuilder
 		;;

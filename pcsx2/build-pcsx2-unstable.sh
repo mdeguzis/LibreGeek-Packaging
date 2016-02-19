@@ -41,7 +41,7 @@ fi
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-BUILDER="pdebuild"
+BUILDER="debuild"
 BUILDOPTS=""
 ARCH="i386"
 pkgname="pcsx2-unstable"
@@ -236,7 +236,7 @@ main()
 	#  build
 	# Due to problems with shared libraries, needs an extra option here besides ARCH
 	# See: https://bugs.launchpad.net/ubuntu/+source/pbuilder/+bug/1300726
-	ARCH="${ARCH}" ${BUILDER} ${BUILDOPTS}
+	${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

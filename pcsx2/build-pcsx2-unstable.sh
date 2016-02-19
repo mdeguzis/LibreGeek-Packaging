@@ -43,7 +43,7 @@ fi
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 BUILDER="pdebuild"
-BUILDOPTS="--debootstrapopts i386"
+BUILDOPTS=""
 ARCH="i386"
 pkgname="pcsx2-unstable"
 pkgrev="1"

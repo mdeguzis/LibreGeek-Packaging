@@ -183,8 +183,7 @@ funct_prereqs()
 	sleep 1s
 
 	# Install the required packages
-	sudo apt-get install -y --force-yes binutils debootstrap debian-archive-keyring \
-	ubuntu-archive-keyring valve-archive-keyring
+	sudo apt-get install -y --force-yes binutils debootstrap
 
 	# update for keyrings
 

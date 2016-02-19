@@ -64,19 +64,15 @@ sudo chmod u+w /var/cache/pbuilder/result
 echo -e "\n==> Adding pbuilder hooks"
 sleep 0.5s
 
-if [[ ! -d "$HOME/pbuilder/hooks/" ]]; then
+if [[ ! -d "/var/cache/pbuilder/hooks" ]]; then
 
-	mkdir -p "$HOME/pbuilder/hooks/"
+	sudo mkdir /var/cache/pbuilder/hooks
+	sudo chown -R $USER /var/cache/pbuilder/hooks
 	
 fi
 
 # Copy some hook files into that directory
 cp -r /usr/share/doc/pbuilder/* "$HOME/pbuilder/hooks/"
-
-# Copy our hook for adding the Debian/Libregeek repos
-wget -O "/tmp/configure-repos.sh" "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q --show-progress -nc
-sed -i "s|sudo ||g" "/tmp/configure-repos.sh"
-mv "/tmp/configure-repos.sh" "$HOME/pbuilder/hooks/"
 
 ##########################
 # core configs

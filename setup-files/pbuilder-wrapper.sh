@@ -118,7 +118,7 @@ run_pbuilder()
 	if [[ "$PROCEED" == "true" ]]; then
 
 		# Process actions, exit on fatal error
-		if ! sudo DIST=$DIST pbuilder $OPERATION $OPTS; then
+		if ! sudo ARCH=$ARCH DIST=$DIST pbuilder $OPERATION $OPTS; then
 		
 			echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 			sleep 3s

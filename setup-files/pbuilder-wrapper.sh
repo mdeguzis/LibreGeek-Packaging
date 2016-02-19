@@ -104,6 +104,7 @@ set_creation_vars()
 	BETA_FLAG="false"
 	BASETGZ="$BASE_TGZ"
 	BASEDIR="$BASE_DIR"
+	OPTS="$OPTS"
 	-----------------------------
 
 	EOF

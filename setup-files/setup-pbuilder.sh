@@ -137,9 +137,9 @@ cat <<-EOF
 Summary
 ################################################################
 Creating:
-'sudo DIST=${dist} ARCH=${arch} pbuilder create [--keyring=]'
+pbuilder-wrapper create [DIST] [ARCH]
 
 Updating
-'sudo DIST=${dist} ARCH=${arch} pbuilder update'
+pbuilder-wrapper update [DIST] [ARCH]
 
 EOF

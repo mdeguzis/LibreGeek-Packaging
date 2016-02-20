@@ -13,7 +13,7 @@
 
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 HOOKDIR="/var/cache/pbuilder/hooks"
-PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends-gdebi
+PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 
 # Allow softlinks
 # APTCACHEHARDLINK=no

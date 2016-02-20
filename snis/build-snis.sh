@@ -40,7 +40,7 @@ fi
 # upstream vars
 #git_url="https://github.com/smcameron/space-nerds-in-space"
 git_url="https://github.com/ProfessorKaos64/space-nerds-in-space"
-rel_target="v20160101"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -52,7 +52,6 @@ pkgname="snis"
 pkgrev="1"
 pkgver="${date_short}+git+bsos${pkgrev}"
 BUILDER="pdebuild"
-BUILDOPTS=""
 DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -69,7 +68,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
 	debhelper build-essential portaudio19-dev libvorbis-dev libgtk2.0-dev openscad  libgtkglext1-dev \
-	liblua5.2-dev  libglew-dev  libsdl1.2-dev
+	liblua5.2-dev libglew-dev libsdl1.2-dev
 
 }
 
@@ -106,7 +105,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "$branch" "$git_url" "$git_dir"
 
 	#################################################
 	# Build platform
@@ -200,7 +199,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep $pkgname_$pkgver
+	ls "${build_dir}" | grep $pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

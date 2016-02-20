@@ -92,7 +92,7 @@ set_creation_vars()
 		# See: http://www.xilinx.com/support/answers/61323.html
 		if [[ "${ARCH}" == "i386" ]]; then
 		
-			PKGS="wget ca-certificates libselinux1:i386"
+			PKGS="wget ca-certificates"
 			sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
 			sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"	
 			

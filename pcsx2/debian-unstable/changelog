@@ -1,1 +1,10 @@
+pcsx2-unstable (1.5.0+20160220git+bsos1-1) brewmaster; urgency=low
+
+  * Base release tag: v1.5.0-dev
+  * Built against latest commit eee10a1
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/PCSX2/pcsx2
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 20 Feb 2016 11:15:33 -0500
+
 

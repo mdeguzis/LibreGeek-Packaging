@@ -42,13 +42,14 @@ fi
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 ARCH="i386"
 pkgname="pcsx2-unstable"
 pkgrev="1"
 upstream_rev="1"
-dist_rel="brewmaster"
+DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
@@ -203,7 +204,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $DIST; urgency=low
 
 	  * Base release tag: $base_release
 	  * Built against latest commit $latest_commit
@@ -237,7 +238,7 @@ main()
 	#  build
 	# Due to problems with shared libraries, needs an extra option here besides ARCH
 	# See: https://bugs.launchpad.net/ubuntu/+source/pbuilder/+bug/1300726
-	ARCH=i386 ${BUILDER} ${BUILDOPTS}
+	ARCH=i386 DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

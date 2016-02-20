@@ -178,7 +178,7 @@ echo -e "\n==> changelog"
 # Change version, uploader, insert change log comments
 sed -i "s|version_placeholder|$pkgname_$pkgver-$pkgrev~$pkgrel|g" debian/changelog
 sed -i "s|uploader|$uploader|g" debian/changelog
-sed -i "s|dist_rel|$pkgrel|g" debian/changelog
+sed -i "s|DIST|$pkgrel|g" debian/changelog
 
 echo -e "\nOpening change log for details to be added...\n"
 sleep 3s

@@ -44,13 +44,14 @@ rel_target="0.59"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="openlierox"
 upstream_rev="1"
 pkgrev="3"
 pkgver="0.59"
-dist_rel="brewmaster"
+DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
@@ -139,7 +140,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $DIST; urgency=low
 
 	  * Initial build attempt
 	  * Update release to latest commit ${latest_commit}
@@ -177,7 +178,7 @@ main()
 	sleep 2s
 
 	#  build
-	${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 	
 	#################################################
 	# Cleanup

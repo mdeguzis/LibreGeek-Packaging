@@ -43,6 +43,7 @@ rel_target="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="typhoon2001"
@@ -50,7 +51,7 @@ pkgver="1.0.0"
 upstream_rev="1"
 pkgrev="3"
 pkgsuffix="bsos${pkgrev}"
-dist_rel="brewmaster"
+DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
@@ -131,7 +132,7 @@ main()
 	# alter here based on unstable
 
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $DIST; urgency=low
 
 	  * Correct image location and desktop file
 	  * See: packages.libregeek.org
@@ -161,7 +162,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

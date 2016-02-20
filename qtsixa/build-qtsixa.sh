@@ -42,13 +42,14 @@ rel_target="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="qtsixa"
 pkgver="1.5.1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
-dist_rel="brewmaster"
+DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
@@ -121,7 +122,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
 	
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -151,7 +152,7 @@ main()
 	echo -e "\n==> Bulding ${pkgname}\n"
 	sleep 3s
 
-	${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

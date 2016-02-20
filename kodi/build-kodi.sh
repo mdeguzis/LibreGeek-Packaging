@@ -66,13 +66,14 @@ set_vars()
 	uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 	maintainer="ProfessorKaos64"
 	pkgrev="1"
-	dist_rel="brewmaster"
+	DIST="brewmaster"
 	BUILDER="pdebuild"
 	PBUILDER_BASE="${HOME}/pbuilder"
 	BUILDOPTS="--debbuildopts \"-j4\""
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
+ARCH="amd64"
 	export build_dir="${HOME}/build-kodi-temp"
 
 	# Set target for git source author
@@ -350,7 +351,7 @@ kodi_package_deb()
 	# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
 	RELEASEV="$kodi_tag" \
-	DISTS="$dist_rel" \
+	DISTS="$DIST" \
 	ARCHS="$ARCH" \
 	BUILDER="$BUILDER" \
 	PDEBUILD_OPTS="$BUILDOPTS" \

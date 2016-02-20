@@ -41,6 +41,7 @@ git_url="https://cmake.org/cmake.git"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="cmake"
@@ -48,7 +49,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgver="3.4.1"
 pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
-dist_rel="brewmaster"
+DIST="brewmaster"
 maintainer="ProfessorKaos64"
 
 # build dirs
@@ -124,7 +125,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}-${pkgrev}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}-${pkgrev}+${pkgsuffix}) $DIST; urgency=low
 
 	  * Packaged Debian stretch backport for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -155,7 +156,7 @@ main()
 	sleep 2s
 
 	#  build
-	${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

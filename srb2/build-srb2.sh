@@ -49,13 +49,14 @@ commit="5c09c31"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="srb2"
 pkgver="2.1.14"
 upstream_rev="1"
 pkgrev="1"
-dist_rel="brewmaster"
+DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
@@ -147,7 +148,7 @@ main()
 	# Create basic changelog format
 
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -178,7 +179,7 @@ main()
 	sleep 2s
 
 	#  build
-	${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Prepare Debian package (data) - if needed
@@ -211,7 +212,7 @@ main()
 		# Create basic changelog format
 
 		cat <<-EOF> changelog.in
-		$pkgname_data (${pkgver_data}) $dist_rel; urgency=low
+		$pkgname_data (${pkgver_data}) $DIST; urgency=low
 
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
@@ -242,7 +243,7 @@ main()
 		sleep 2s
 
 		#  build
-		${BUILDER} ${BUILDOPTS}
+		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 		# Move packages to build dir
 		mv ${git_dir}/*${pkgver_data}* "${build_dir}"

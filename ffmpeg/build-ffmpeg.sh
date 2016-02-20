@@ -45,7 +45,7 @@ git_url="https://github.com/FFmpeg/FFmpeg"
 # package vars
 pkgname="ffmpeg"
 pkgrel="1"
-dist_rel="brewmaster"
+DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 provides="ffmpeg"

@@ -48,6 +48,7 @@ git_url="https://github.com/plexinc/plex-media-player"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -57,7 +58,7 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
-dist_rel="brewmaster"
+DIST="brewmaster"
 maintainer="ProfessorKaos64"
 provides="plexmediaplayer"
 
@@ -153,7 +154,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
 	
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -179,7 +180,7 @@ main()
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s
 
-	${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

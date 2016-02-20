@@ -43,6 +43,7 @@ git_branch="Isengard"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="kodi-pvr-demo"
@@ -50,7 +51,7 @@ pkgver="1.11.7"
 upsteam_rev="1"
 pkgrev="3"
 pkgsuffix="git+bsos${pkgrev}"
-dist_rel="brewmaster"
+DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
@@ -126,7 +127,7 @@ main()
 	# Create basic changelog
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${upsteam_rev}) $dist_rel; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upsteam_rev}) $DIST; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
@@ -155,7 +156,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

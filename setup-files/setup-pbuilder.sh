@@ -71,9 +71,6 @@ if [[ ! -d "/var/cache/pbuilder/hooks" ]]; then
 	
 fi
 
-# Copy some hook files into that directory
-cp -r /usr/share/doc/pbuilder/* "$HOME/pbuilder/hooks/"
-
 ##########################
 # core configs
 ##########################

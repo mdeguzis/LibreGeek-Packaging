@@ -78,7 +78,7 @@ set_creation_vars()
 
 		# Set extra packages to intall
 		# Use wildcard * to replace the entire line
-		PKGS="steamos-beta-repo wget ca-certificates"
+		PKGS="steamos-beta-repo wget ca-certificates aptitude"
 		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
 		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
 
@@ -92,13 +92,13 @@ set_creation_vars()
 		# See: http://www.xilinx.com/support/answers/61323.html
 		if [[ "${ARCH}" == "i386" ]]; then
 		
-			PKGS="wget ca-certificates"
+			PKGS="wget ca-certificates aptitude"
 			sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
 			sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"	
 			
 		else
 		
-			PKGS="wget ca-certificates"
+			PKGS="wget ca-certificates aptitude"
 			sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
 			sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
 			

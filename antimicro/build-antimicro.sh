@@ -155,7 +155,7 @@ main()
 	sleep 2s
 
 	#  build
-	pdebuild
+	${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

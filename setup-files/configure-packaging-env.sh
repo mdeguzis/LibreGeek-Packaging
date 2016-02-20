@@ -21,7 +21,9 @@ sleep 2s
 # Base packages
 #################################################
 
-sudo apt-get install -y --force-yes pbuilder
+# libselinux1:i386 on the host machine is needed for some reason on 32 bit chroots
+# See: https://github.com/ProfessorKaos64/SteamOS-Tools/issues/125
+sudo apt-get install -y --force-yes pbuilder libselinux1:i386
 
 #################################################
 # Create directories

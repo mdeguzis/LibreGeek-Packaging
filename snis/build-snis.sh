@@ -134,8 +134,6 @@ main()
 	$pkgname ($pkgver) $dist_rel; urgency=low
 
 	  * Update release to latest commits, as of ${date_short}
-BUILDER="pdebuild"
-BUILDOPTS=""
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
@@ -166,10 +164,6 @@ BUILDOPTS=""
 
 	#  build
 	${BUILDER} ${BUILDOPTS}
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup

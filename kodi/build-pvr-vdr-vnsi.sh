@@ -43,9 +43,11 @@ git_branch="Jarvis"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 pkgname="kodi-pvr-vdr-vnsi"
-pkgver="1.11.11"
-pkgrev="3"
+pkgver="1.11.15"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
+BUILDER="pdebuild"
+BUILDOPT="--debbuildopts -b"
 DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -153,10 +155,6 @@ main()
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup

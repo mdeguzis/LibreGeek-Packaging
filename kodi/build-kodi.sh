@@ -73,7 +73,6 @@ set_vars()
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
-ARCH="amd64"
 	export build_dir="${HOME}/build-kodi-temp"
 
 	# Set target for git source author

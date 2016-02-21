@@ -197,9 +197,10 @@ main()
 		run_pbuilder
 		;;
 
-		update|build|clean|login|execute)
+		update|build|clean|execute)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
+		run_pbuilder
 		;;
 
 	esac

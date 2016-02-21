@@ -51,7 +51,7 @@ pkgname="ice-steamos-unstable"
 pkgver="${date_short}"
 BUILDER="pdebuild"
 upstream_rev="1"
-pkgrev="2"
+pkgrev="3"
 DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -131,6 +131,7 @@ main()
 	# inject iur modified files
 	cp "$scriptdir/emulators.txt" "${git_dir}"
 	cp "$scriptdir/config.txt" "${git_dir}"
+	cp "$scriptdir/consoles.txt" "${git_dir}"
 	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
 	cp "$scriptdir/debian/README.md" "${git_dir}"
 

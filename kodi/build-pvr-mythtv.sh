@@ -38,18 +38,18 @@ fi
 
 # upstream vars
 git_url="https://github.com/kodi-pvr/pvr.mythtv"
-rel_target="Isengard"
+branch="Jarvis"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 pkgname="kodi-pvr-mythtv"
-pkgver="3.4.2"
+pkgver="3.4.7"
 upstream_rev="1"
-pkgrev="4"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -102,7 +102,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "$branch" "$git_url" "$git_dir"
 	
 	#################################################
 	# Build platform

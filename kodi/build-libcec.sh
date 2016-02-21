@@ -41,7 +41,7 @@ git_url="https://github.com/Pulse-Eight/libcec"
 # For Kodi's Jarvis release, it is more than likely platform will still be used
 # For now, use the commit before this was changed or the release tree (uses platform)
 # The appropirate commit would possibly be "4905a70" for this.
-git_branch="release"
+branch="libcec-3.1.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -50,8 +50,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="libcec"
-pkgver="3.0.1"
-pkgrev="4"
+pkgver="3.1.0"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -109,7 +109,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone -b "$git_branch" "$git_url" "$git_dir"
+	git clone -b "$branch" "$git_url" "$git_dir"
 	
 	# Upsteam has split control files ATM, remove precise file that conflicts in build
 	rm -f "$git_dir/debian/control.precise"

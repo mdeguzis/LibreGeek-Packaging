@@ -60,7 +60,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/itchio/itch"
-rel_target="v0.3.7"
+rel_target="v0.13.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -69,7 +69,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="itch"
-pkgver="0.3.7+git+bsos"
+pkgver="0.3.7"
+pkgsuffix="bsos${pkgrev}"
 pkgrev="1"
 DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -92,9 +93,6 @@ install_prereqs()
 	
 	# Install build-specific extra packages
 	npm install -g electron-prebuilt@0.35.4
-	
-	# Install grunt
-	npm install -g grunt-cli
 	
 }
 

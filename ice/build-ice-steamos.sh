@@ -122,12 +122,12 @@ main()
 	# Add debian folder
 	cp -r ""$scriptdir/debian"" "${git_dir}"
 
-	# inject our modified files
-	cp "$scriptdir/consoles.txt" "${git_dir}"
+	# inject iur modified files
 	cp "$scriptdir/emulators.txt" "${git_dir}"
 	cp "$scriptdir/config.txt" "${git_dir}"
+	cp "$scriptdir/consoles.txt" "${git_dir}"
 	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
-	cp ""$scriptdir/debian"/README.md" "${git_dir}"
+	cp "$scriptdir/debian/README.md" "${git_dir}"
 
 	#################################################
 	# Build package

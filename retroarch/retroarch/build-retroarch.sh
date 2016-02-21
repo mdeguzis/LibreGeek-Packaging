@@ -113,8 +113,9 @@ main()
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 
 
-	# inject .desktop file (not found in release archives)
-	cp -r "$scriptdir/retroarch.desktop" "$git_dir/"
+	# inject .desktop file (not found in release archives) and image
+	cp -r "$scriptdir/retroarch.png" "$git_dir"
+	cp -r "$scriptdir/retroarch.desktop" "$git_dir"
 
 	#################################################
 	# Build package

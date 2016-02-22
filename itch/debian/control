@@ -2,7 +2,14 @@ Source: itch
 Priority: extra
 Section: games
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
-Build-Depends: debhelper (>=9), npm, node, golang
+Build-Depends: debhelper (>=9),
+ npm,
+ nodejs,
+ golang,
+ node-findup-sync,
+ node-nopt,
+ node-resolve,
+ grunt-cli
 Standards-Version: 3.9.4
 Homepage: https://github.com/itchio/itch
 

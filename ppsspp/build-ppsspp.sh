@@ -39,8 +39,8 @@ else
 fi
 
 # upstream vars
-#git_url="https://github.com/hrydgard/ppsspp"
-git_url="https://github.com/ProfessorKaos64/ppsspp"
+git_url="https://github.com/hrydgard/ppsspp"
+#git_url="https://github.com/ProfessorKaos64/ppsspp"
 branch="master"
 
 # package vars
@@ -50,6 +50,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="ppsspp"
+upsteam_rev="1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -138,7 +139,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upsteam_rev}) $DIST; urgency=low
 
 	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org

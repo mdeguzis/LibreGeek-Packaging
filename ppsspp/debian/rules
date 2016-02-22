@@ -32,6 +32,8 @@ override_dh_auto_clean:
 	#dh_auto_clean
 	rm -r -f ext/native/tools/build/
 
+override_dh_clean:
+
 override_dh_auto_configure:
 	dh_auto_configure -- $(COMPILER) PPSSPPQt.pro
 

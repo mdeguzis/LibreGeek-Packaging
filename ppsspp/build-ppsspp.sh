@@ -131,7 +131,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# enter source dir
 	cd "${pkgname}"

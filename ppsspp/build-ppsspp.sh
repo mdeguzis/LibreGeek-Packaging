@@ -116,7 +116,7 @@ main()
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
 	# copy in debian folder
-	# cp -r "$scriptdir/debian" "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	#################################################
 	# Build package

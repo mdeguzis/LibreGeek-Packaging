@@ -8,6 +8,7 @@
 #		github release
 #
 # See:		https://github.com/hrydgard/ppsspp
+# Font Patch:	https://github.com/hrydgard/ppsspp/issues/8263
 #
 # Usage:	build-ppsspp.sh
 # Opts:		[--testing]

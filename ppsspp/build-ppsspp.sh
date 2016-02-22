@@ -40,7 +40,6 @@ fi
 
 # upstream vars
 git_url="https://github.com/hrydgard/ppsspp"
-#git_url="https://github.com/ProfessorKaos64/ppsspp"
 branch="master"
 
 # package vars

@@ -46,7 +46,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 pkgname="ppsspp"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
@@ -55,8 +55,8 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dir
-export export build_dir="${HOME}/build-${pkgname}-temp"
-export git_dir="${build_dir}/${pkgname}"
+export build_dir="${HOME}/build-${pkgname}-temp"
+git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
@@ -127,6 +127,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
 
 	# enter source dir

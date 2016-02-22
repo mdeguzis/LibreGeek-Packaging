@@ -1,28 +1,28 @@
 Source: ppsspp
 Section: games
 Priority: optional
-Maintainer: SÃ©rgio Benjamim <sergio_br2@yahoo.com.br>
+Maintainer: Sergio Benjamim <sergio_br2@yahoo.com.br>
 Build-Depends: debhelper (>= 9),
-               clang [armhf],
-               cmake,
-               fonts-dejavu-core,
-               fonts-droid,
-               fonts-liberation,
-               fonts-mona,
-               fonts-nanum,
-               fonts-roboto,
-               fonts-unfonts-core,
-               libfreetype6-dev,
-               libglew-dev,
-               libqt5opengl5-dev,
-               libsdl2-dev,
-               libsnappy-dev,
-               libzip-dev,
-               qt5-qmake,
-               qtbase5-dev,
-               qttools5-dev-tools,
-               ttf-unifont,
-               zlib1g-dev
+ clang [armhf],
+ cmake,
+ fonts-dejavu-core,
+ fonts-droid,
+ fonts-liberation,
+ fonts-mona,
+ fonts-nanum,
+ fonts-roboto,
+ fonts-unfonts-core,
+ libfreetype6-dev,
+ libglew-dev,
+ libqt5opengl5-dev,
+ libsdl2-dev,
+ libsnappy-dev,
+ libzip-dev,
+ qt5-qmake,
+ qtbase5-dev,
+ qttools5-dev-tools,
+ ttf-unifont,
+ zlib1g-dev
 Standards-Version: 3.9.5
 Homepage: http://www.ppsspp.org
 

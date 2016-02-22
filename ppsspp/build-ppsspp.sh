@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ppsspp.sh
-# Script Ver:	1.0.5
+# Script Ver:	1.1.9
 # Description:	Attempts to builad a deb package from latest ppsspp
 #		github release
 #
@@ -102,7 +102,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -173,14 +172,8 @@ main()
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
-	# Post install configuration
-	#################################################
-
-	#################################################
 	# Cleanup
 	#################################################
-
-	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)
@@ -210,7 +203,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep $pkgname_$pkgver
+	ls "${build_dir}" | grep $pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

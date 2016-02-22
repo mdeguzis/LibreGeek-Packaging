@@ -48,8 +48,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="ppsspp"
-pkgver="1.1.1"
-pkgrev="2"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -107,14 +106,15 @@ main()
 	sleep 1s
 
 	# clone recursively for submodules
-	# git clone --recursive -b "$branch" "$git_url" "$git_dir"
+	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 
-	# There are missing files in the master git tree that exist in the PPA tree
-	# use a script to source the differences, sync, and keep a few files intact
-	# from the PPA we need to keep. This will keep an up to date snap of git,
-	# while adding missing files needed for the build.
+	# Get base version from latest tag
+	cd "${git_dir}"
+	base_release=$(git describe --abbrev=0 --tags)
+	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
-	bash "$scriptdir/prepare_sources.sh"
+	# copy in debian folder
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -128,9 +128,6 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
-
-	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${pkgname}"

@@ -114,6 +114,9 @@ main()
 	base_release=$(git describe --abbrev=0 --tags)
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
+	# clean out .git (large amount of space taken up)
+	rm -rf "${git_dir}/.git"
+
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"
 

@@ -42,12 +42,12 @@ else ifeq ($(ARCH),armhf)
 	cd ffmpeg/ && \
 	./linux_arm.sh
 endif
-	mkdir ext/native/tools/build
-	cd ext/native/tools/build && \
-		cmake ../ && \
-		$(MAKE)
-	./buildatlas.sh
-	./build_ppgeatlas.sh
+	#mkdir ext/native/tools/build
+	#cd ext/native/tools/build && \
+	#	cmake ../ && \
+	#	$(MAKE)
+	#./buildatlas.sh
+	#./build_ppgeatlas.sh
 	dh_auto_build
 
 override_dh_auto_install:

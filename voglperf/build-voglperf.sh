@@ -38,7 +38,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/ProfessorKaos64/voglperf"
-branch="master"
+branch="brewmaster"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

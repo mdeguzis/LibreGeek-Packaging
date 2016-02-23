@@ -10,8 +10,8 @@ Build-Depends: debhelper,
  dh-python,
  gir1.2-gtk-3.0,
  gir1.2-glib-2.0,
- python-gi
- libgirepository1.0-dev,
+ python-gi,
+ libgirepository1.0-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.5
 Vcs-Git: https://github.com/lutris/lutris

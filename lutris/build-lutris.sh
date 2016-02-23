@@ -48,6 +48,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="lutris"
+upstream_rev="1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -143,7 +144,7 @@ main()
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
+	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $DIST; urgency=low
 
 	  * New $base_release upstream release
 	  * See: packages.libregeek.org

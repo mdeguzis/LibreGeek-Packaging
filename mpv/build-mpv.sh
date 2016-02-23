@@ -116,7 +116,7 @@ main()
 	# var needs exported
 	# Disable automatic chanelog function as well, we won't be using that
 	sed -i "s|version\=|export version\=|g" update
-	sed -i "s|\<do_update_debian_versions\>|#do_update_debian_versions|g" update
+	sed -i 's/\<do_update_debian_versions\>/#do_update_debian_versions/g' update
 	./update --release
 	
 	# Update script sets verion, source that

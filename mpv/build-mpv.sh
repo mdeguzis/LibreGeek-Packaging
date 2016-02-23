@@ -58,6 +58,7 @@ export build_dir="/home/desktop/build-${pkgname}-temp"
 # Use the build-wrapper instead of the main mpv source
 # See: https://github.com/mpv-player/mpv/blob/master/README.md
 git_url="https://github.com/mpv-player/mpv-build"
+mpv_builder_dir="${build_dir}/mpv_builder_dir"
 
 install_prereqs()
 {
@@ -106,14 +107,14 @@ main()
 	#################################################
 
 	# Get helper script
-	wget "https://raw.githubusercontent.com/mpv-player/mpv-build/master/update" -q -nc --show-progress
-	chmod +x update
+	git clone "${git_url}" "${mpv_builder_dir}"
+	cd "${mpv_builder_dir}"
 	
 	# check for updates only on release tags
 	./update --release
 	
 	# Get base version from latest tag
-	cd "${build_dir}/mpv"
+	cd "${mpv_builder_dir}/mpv"
 	base_release=$(git describe --abbrev=0 --tags)
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 	

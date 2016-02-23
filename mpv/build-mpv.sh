@@ -122,8 +122,9 @@ main()
 	sleep 2s
 
 	# create the tarball from latest tarball creation script
+	# Sources are all inside mpv_builder_dir, not pkgname, as it is normally
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${mpv_builder_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

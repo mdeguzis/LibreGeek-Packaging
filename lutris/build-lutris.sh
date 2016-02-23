@@ -39,7 +39,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/lutris/lutris"
-rel_target="v0.3.7.2"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -48,7 +48,6 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="lutris"
-pkgver="0.3.7.2"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -108,11 +107,16 @@ main()
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 	
-	# (optional) remove .git folder to save space on build
-	# rm -rf "$git_dir/.git"
+	# Get base version from latest tag and checkout source
+	cd "${git_dir}"
+	base_release=$(git describe --abbrev=0 --tags)
+	git checkout "${base_release}"
+	
+	# Remove extra characters and set pkgver
+	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -134,11 +138,9 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
 
-	  * Packaged deb for SteamOS-Tools
+	  * New $base_release upstream release
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	  * Now includes support for the Lutris Kodi Addon
-	  * For addon information, see: https://github.com/RobLoach/script.lutris
 
 	 -- $uploader  $date_long
 
@@ -168,10 +170,6 @@ main()
 
 	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup
@@ -188,7 +186,6 @@ main()
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
 	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)

@@ -105,7 +105,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "$branch" "$git_url" "$git_dir"
 	
 	# Get base version from latest tag and checkout source
 	cd "${git_dir}"

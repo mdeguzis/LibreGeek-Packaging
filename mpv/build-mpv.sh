@@ -1,12 +1,12 @@
 #!/bin/bash
 # -------------------------------------------------------------------------------
-# Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	  build-mpv.sh
-# Script Ver:	  1.0.0
+# Author:    	Michael DeGuzis
+# Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
+# Scipt Name:	build-mpv.sh
+# Script Ver:	1.0.0
 # Description:	Builds mpv for specific use in building PlexMediaPlayer
 #
-# See:		 
+# See:		https://github.com/mpv-player/mpv
 # Usage:        ./build-mpv.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
@@ -40,20 +40,16 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="mpv"
-pkgver="${date_short}"
 BUILDER="pdebuild"
-BUILDOPTS=""
-pkgrev="2"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 maintainer="ProfessorKaos64"
 provides="mpv"
 pkggroup="video"
-requires="
-replaces="
 
 # build dirs
 export build_dir="/home/desktop/build-${pkgname}-temp"
@@ -116,8 +112,11 @@ main()
 	# enter source dir
 	cd "$git_dir"
 	
-	# check for updates
-	./update
+	# check for updates only on release tags
+	./update --release
+	
+	# Update script sets verion, source that
+	pkgver="$version"
 	
 	# gather commits
 	touch debian/changelog
@@ -129,11 +128,9 @@ main()
 	cat <<-EOF> changelog.in
 	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
 	
-	  * Packaged deb for SteamOS-Tools
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
-	  * ***** Full list of commits *****
-	$commits_full
+
 	 -- $uploader  $date_long
 
 	EOF
@@ -159,13 +156,11 @@ main()
 	sleep 2s
 	
 	# build debian package
-	dpkg-buildpackage -uc -us
+	${BUILDER} ${BUILDOPTS}
 	
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
 	
 	# note time ended
 	time_end=$(date +%s)
@@ -195,7 +190,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep $pkgname_$pkgver
+	ls "${build_dir}" | grep $pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

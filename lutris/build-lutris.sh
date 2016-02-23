@@ -66,6 +66,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
 	cdbs debhelper python python-support gir1.2-gtk-3.0 gir1.2-glib-2.0 python-gi libgirepository1.0-dev \
+	dh-python
 
 	# Not originally stated in the upstream control file, these 32 bit libraries are needed:
 	sudo apt-get install -y --force-yes libsdl2-2.0-0:i386
@@ -96,6 +97,11 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
+		
+	else
+	
+		# dh_clean is done outside of the pbuilder chroot and requires dh-python
+		sudo apt-get install -y --force-yes dh-python
 
 	fi
 

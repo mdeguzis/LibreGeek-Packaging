@@ -1,6 +1,7 @@
 #!/usr/bin/make -f
 
 DEB_PYTHON2_MODULE_PACKAGES=lutris
+export PYBUILD_NAME=lutris
 
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/python-distutils.mk
@@ -8,9 +9,4 @@ include /usr/share/cdbs/1/class/python-distutils.mk
 # Override dh_clean etc, building in pbuilder
 
 %:
-	dh $@ --with python2
-	
-
-#override_dh_auto_clean:
-
-#override_dh_clean:
+	dh $@ --with python2 --buildsystem=pybuild

@@ -48,8 +48,6 @@ pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 maintainer="ProfessorKaos64"
-provides="mpv"
-pkggroup="video"
 
 # build dirs
 export build_dir="/home/desktop/build-${pkgname}-temp"
@@ -58,7 +56,8 @@ export build_dir="/home/desktop/build-${pkgname}-temp"
 # Use the build-wrapper instead of the main mpv source
 # See: https://github.com/mpv-player/mpv/blob/master/README.md
 git_url="https://github.com/mpv-player/mpv-build"
-git_dir="${build_dir}/mpv_builder_dir"
+mpv_builder_dir="mpv-builder-dir"
+git_dir="${build_dir}/${mpv_builder_dir}"
 
 install_prereqs()
 {
@@ -86,17 +85,17 @@ main()
 	#################################################
 	# Fetch source
 	#################################################
-	
+
 	# create and enter build_dir
 	if [[ -d "${build_dir}" ]]; then
-	
+
 		sudo rm -rf "${build_dir}"
 		mkdir -p "${build_dir}"
-		
+
 	else
 
 		mkdir -p "${build_dir}"
-		
+
 	fi
 	
 	# Enter build dir
@@ -109,15 +108,15 @@ main()
 	# Get helper script
 	git clone "${git_url}" "${git_dir}"
 	cd "${git_dir}"
-	
+
 	# check for updates only on release tags
 	./update --release
-	
+
 	# Get base version from latest tag
 	cd "${git_dir}/mpv"
 	base_release=$(git describe --abbrev=0 --tags)
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
-	
+
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
@@ -128,12 +127,12 @@ main()
 
 	# enter source dir
 	cd "${git_dir}"
-	
+
 	# Create basic changelog format
 	# This addons build cannot have a revision
 	cat <<-EOF> debian/changelog
 	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
-	
+
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url
 

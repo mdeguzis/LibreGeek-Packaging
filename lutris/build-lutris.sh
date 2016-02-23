@@ -141,6 +141,8 @@ main()
 	cat <<-EOF> debian/changelog
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $DIST; urgency=low
 
+	  * Revision 2, fix runtime dependency
+	  * Created simple launcher script so %U works in SteamOS
 	  * New $base_release upstream release
 	  * See: packages.libregeek.org
 	  * Upstream authors and source: $git_url

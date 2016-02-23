@@ -113,14 +113,18 @@ main()
 	cd "$git_dir"
 	
 	# check for updates only on release tags
+	# var needs exported
+	# Disable automatic chanelog function as well, we won't be using that
+	sed -i "s|version\=|export version\=|g" update
+	sed -i "s|\<do_update_debian_versions\>|#do_update_debian_versions|g" update
 	./update --release
 	
 	# Update script sets verion, source that
 	pkgver="$version"
 	
 	# gather commits
-	touch debian/changelog
 	rm -f debian/changelog.TEMPLATE
+	touch debian/changelog
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 	
 	# Create basic changelog format
@@ -171,7 +175,6 @@ main()
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
 	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)

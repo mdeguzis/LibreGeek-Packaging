@@ -119,6 +119,9 @@ main()
 	
 	# Remove extra characters and set pkgver
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
+	
+	# copy in debian folder with replacement files use debhelper over this makefile...
+	cp -r "${scriptdir}/debian/" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -132,9 +135,6 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
-
-	# copy in debian folder with replacement files use debhelper over this makefile...
-	cp -r "${scriptdir}/debian/" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

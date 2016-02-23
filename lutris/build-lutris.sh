@@ -100,8 +100,8 @@ main()
 		
 	else
 	
-		# dh_clean is done outside of the pbuilder chroot and requires dh-python
-		sudo apt-get install -y --force-yes dh-python
+		# dh_clean is done outside of the pbuilder chroot and requires this pkg
+		sudo apt-get install -y --force-yes cdbs
 
 	fi
 
@@ -132,6 +132,9 @@ main()
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
+
+	# copy in debian folder with replacement files use debhelper over this makefile...
+	cp -r "${scriptdir}/debian/*" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

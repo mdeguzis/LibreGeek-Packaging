@@ -58,7 +58,6 @@ export build_dir="/home/desktop/build-${pkgname}-temp"
 # Use the build-wrapper instead of the main mpv source
 # See: https://github.com/mpv-player/mpv/blob/master/README.md
 git_url="https://github.com/mpv-player/mpv-build"
-git_dir="mpv-build"
 
 install_prereqs()
 {
@@ -106,17 +105,17 @@ main()
 	# Build mpv-build deps pkg and install
 	#################################################
 
-	# clone
-	git clone "$git_url" "$git_dir"
-	
-	# enter source dir
-	cd "$git_dir"
+	# Get helper script
+	wget "https://raw.githubusercontent.com/mpv-player/mpv-build/master/update" -q -nc --show-progress
+	chmod +x update
 	
 	# check for updates only on release tags
 	./update --release
 	
-	# Update script sets verion, source that
-	pkgver="$version"
+	# Get base version from latest tag
+	cd "${build_dir}/mpv"
+	base_release=$(git describe --abbrev=0 --tags)
+	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 	
 	# gather commits
 	rm -f debian/changelog.TEMPLATE

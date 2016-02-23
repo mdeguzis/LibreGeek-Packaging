@@ -58,7 +58,7 @@ export build_dir="/home/desktop/build-${pkgname}-temp"
 # Use the build-wrapper instead of the main mpv source
 # See: https://github.com/mpv-player/mpv/blob/master/README.md
 git_url="https://github.com/mpv-player/mpv-build"
-mpv_builder_dir="${build_dir}/mpv_builder_dir"
+git_dir="${build_dir}/mpv_builder_dir"
 
 install_prereqs()
 {
@@ -103,29 +103,34 @@ main()
 	cd "${build_dir}"
 
 	#################################################
-	# Build mpv-build deps pkg and install
+	# Prepare sources
 	#################################################
 
 	# Get helper script
-	git clone "${git_url}" "${mpv_builder_dir}"
-	cd "${mpv_builder_dir}"
+	git clone "${git_url}" "${git_dir}"
+	cd "${git_dir}"
 	
 	# check for updates only on release tags
 	./update --release
 	
 	# Get base version from latest tag
-	cd "${mpv_builder_dir}/mpv"
+	cd "${git_dir}/mpv"
 	base_release=$(git describe --abbrev=0 --tags)
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 	
-	# gather commits
-	rm -f debian/changelog.TEMPLATE
-	touch debian/changelog
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
+
+	# create the tarball from latest tarball creation script
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
+
+	# enter source dir
+	cd "${git_dir}"
 	
 	# Create basic changelog format
 	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
+	cat <<-EOF> debian/changelog
 	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
 	
 	  * See: packages.libregeek.org
@@ -134,10 +139,6 @@ main()
 	 -- $uploader  $date_long
 
 	EOF
-
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
 
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
@@ -154,6 +155,10 @@ main()
 	
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s
+	
+	#################################################
+	# Build mpv
+	#################################################
 	
 	# build debian package
 	${BUILDER} ${BUILDOPTS}

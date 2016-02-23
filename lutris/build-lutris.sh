@@ -138,7 +138,7 @@ main()
 
 	# Create basic changelog format
 	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
+	cat <<-EOF> debian/changelog
 	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $DIST; urgency=low
 
 	  * New $base_release upstream release
@@ -149,19 +149,10 @@ main()
 
 	EOF
 
-	# Perform a little trickery to update existing changelog from upstream
-	# If no changelog upstream exists, comment this section out, and change the above line
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-
 	# open debian/changelog and update
 	echo -e "\n==> Opening changelog for confirmation/changes."
 	sleep 3s
 	nano "debian/changelog"
-
- 	# Keep the old changelog so it can be appended next time
- 	# This repository keeps it's own debian changelog up to date, do not keep it.
- 	
- 	rm -f changelog.in
 
 	#################################################
 	# Build Debian package
@@ -219,6 +210,8 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 			
+			# keep changelog rolling
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

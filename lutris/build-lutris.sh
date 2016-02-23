@@ -99,7 +99,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -126,12 +125,10 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
 
 	# enter source dir
-	cd "${pkgname}"
-
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
+	cd "${git_dir}"
 
 	# Create basic changelog format
 	# This addons build cannot have a revision
@@ -159,7 +156,6 @@ main()
  	# This repository keeps it's own debian changelog up to date, do not keep it.
  	
  	rm -f changelog.in
- 	# mv changelog.in $scriptdir/changelog.old
 
 	#################################################
 	# Build Debian package
@@ -216,10 +212,6 @@ main()
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
-			
-			# Only move the old changelog if transfer occurs to keep final changelog 
-			# out of the picture until a confirmed build is made. Remove if upstream has their own.
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 			
 		fi
 

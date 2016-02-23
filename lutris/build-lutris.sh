@@ -98,11 +98,6 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
-		
-	else
-	
-		# dh_clean is done outside of the pbuilder chroot and requires this pkg
-		sudo apt-get install -y --force-yes cdbs
 
 	fi
 

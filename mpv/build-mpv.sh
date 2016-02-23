@@ -149,10 +149,6 @@ main()
  	rm -f changelog.in
  	rm -f debian/changelog.in
 	
-	# Install the dependencies 
-	rm -f mpv-build-deps_*_*.deb
-	sudo mk-build-deps
-	
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s
 	
@@ -176,9 +172,6 @@ main()
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build temp to script dir if called from git clone
 	if [[ "${scriptdir}" != "" ]]; then

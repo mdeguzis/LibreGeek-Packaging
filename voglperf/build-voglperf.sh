@@ -64,7 +64,9 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages - TODO
-	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper
+	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
+	steamos-dev ca-certificates cmake g++ gcc-multilib g++-multilib ncurses-dev \
+	mesa-common-dev libedit-dev libtinfo-dev libtinfo-dev:i386
 
 }
 

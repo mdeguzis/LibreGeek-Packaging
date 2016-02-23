@@ -131,6 +131,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 	
 	# copy in debian folder with replacement files use debhelper over this makefile...

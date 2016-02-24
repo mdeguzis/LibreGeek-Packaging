@@ -124,6 +124,7 @@ main()
 	sleep 2s
 
  	# update changelog with dch
+	if [[ -f "debian/changelog" ]]; then
 
 		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 

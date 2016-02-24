@@ -121,7 +121,7 @@ main()
 	# enter source dir
 	cd "${git_dir}"
 
-	echo -e "\nUpdating changelog"
+	echo -e "\n==> Updating changelog"
 	sleep 2s
 
 	# Create basic changelog format if it does exist or update
@@ -131,7 +131,7 @@ main()
 		
 	else
 	
-		dch --create -v $pkgver -l $pkgsuffix -M --package $pkgname -D $DIST -u low
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 	
 	fi
 

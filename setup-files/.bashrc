@@ -2,7 +2,7 @@
 
 # Debian identification
 DEBEMAIL="EMAIL"
-DEBFULLNAME="NAME"
+DEBFULLNAME="FULLNAME"
 export DEBEMAIL DEBFULLNAME
 
 # Quilt

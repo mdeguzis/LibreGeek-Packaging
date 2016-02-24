@@ -147,7 +147,7 @@ main()
 
 
 	echo -e "\n==> Updating changelog"
-	sleeps 2s
+	sleep 2s
 
  	# update changelog with dch
 
@@ -221,7 +221,7 @@ main()
 		nano "debian/changelog"
 
 	echo -e "\n==> Updating changelog"
-	sleeps 2s
+	sleep 2s
 
 	 	# update changelog with dch
 

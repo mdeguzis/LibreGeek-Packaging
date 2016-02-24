@@ -115,6 +115,10 @@ main()
 	
 	# Remove extra characters and set pkgver
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
+	
+	# cpy in our modified files
+	cd "${scriptdir}/setup.py" "${git_dir}"
+	cd "${scriptdir}/lutris-launcher" "${git_dir}/bin/"
 
 	#################################################
 	# Build package

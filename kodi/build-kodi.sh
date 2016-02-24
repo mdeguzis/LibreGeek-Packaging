@@ -75,6 +75,7 @@ urgency="low"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
 	export build_dir="${HOME}/build-kodi-temp"
+src_dir="${pkgname}-${pkgver}"
 
 	# Set target for git source author
 	repo_target="xbmc"

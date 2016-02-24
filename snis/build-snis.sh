@@ -59,6 +59,7 @@ maintainer="ProfessorKaos64"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
+src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${pkgname}_${pkgver}"
 
 install_prereqs()

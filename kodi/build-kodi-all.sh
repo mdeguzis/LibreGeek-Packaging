@@ -39,6 +39,7 @@ fi
 
 # pass build dir var to all scripts
 export auto_export build_dir="merge ${HOME}/kodi-all-tmp"
+src_dir="${pkgname}-${pkgver}"
 
 # pass auto-build flag
 export build_all="yes"

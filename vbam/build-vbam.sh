@@ -61,7 +61,8 @@ maintainer="ProfessorKaos64"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+src_dir="${pkgname}-${pkgver}"
+git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
@@ -128,7 +129,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

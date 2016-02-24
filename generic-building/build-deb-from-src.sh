@@ -78,6 +78,7 @@ install_prereqs()
 main()
 {
 	export build_dir="/home/desktop/build-deb-temp"
+src_dir="${pkgname}-${pkgver}"
 	git_dir="$build_dir/git-temp"
 	
 	clear

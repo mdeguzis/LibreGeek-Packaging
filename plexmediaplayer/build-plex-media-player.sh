@@ -40,7 +40,8 @@ src_cmd="
 
 # build dirs
 export build_dir="/home/desktop/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+src_dir="${pkgname}-${pkgver}"
+git_dir="${build_dir}/${src_dir}"
 
 # upstream URL
 git_url="https://github.com/plexinc/plex-media-player"
@@ -145,10 +146,10 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
-	cd "${pkgname}"
+	cd "${src_dir}"
 
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 

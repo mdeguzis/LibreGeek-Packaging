@@ -52,6 +52,7 @@ maintainer="ProfessorKaos64"
 
 # build dirs
 export build_dir="/home/desktop/build-${pkgname}-temp"
+src_dir="${pkgname}-${pkgver}"
 
 # deps
 # Use the build-wrapper instead of the main mpv source

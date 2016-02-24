@@ -59,7 +59,8 @@ pkgname_dbg="pcsx2-unstable-dbg"
 
 # build dirs
 export build_dir="/home/desktop/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+src_dir="${pkgname}-${pkgver}"
+git_dir="${build_dir}/${src_dir}"
 git_url="https://github.com/PCSX2/pcsx2"
 branch="master"
 

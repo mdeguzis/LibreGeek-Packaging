@@ -59,7 +59,8 @@ maintainer="ProfessorKaos64"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+src_dir="${pkgname}-${pkgver}"
+git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
@@ -129,13 +130,13 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# Tell sassc where libsass is
 	export SASS_LIBSASS_PATH="$build_dir/libsass"
 
 	# enter source dir
-	cd "${pkgname}"
+	cd "${src_dir}"
 
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 

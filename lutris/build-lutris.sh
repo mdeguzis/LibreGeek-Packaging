@@ -58,7 +58,8 @@ maintainer="ProfessorKaos64"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+src_dir="${pkgname}-${pkgver}"
+git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
@@ -134,7 +135,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 	
 	# copy in debian folder with replacement files use debhelper over this makefile...
 	cp -r "${scriptdir}/debian/" "${git_dir}"

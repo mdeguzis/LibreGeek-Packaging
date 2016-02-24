@@ -56,6 +56,7 @@ replaces="ffmpeg"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
+src_dir="${pkgname}-${pkgver}"
 
 install_prereqs()
 {

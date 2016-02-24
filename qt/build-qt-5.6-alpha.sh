@@ -58,6 +58,7 @@ replaces="
 
 # build dirs
 export build_dir="${HOME}/build-${pkgname}-temp"
+src_dir="${pkgname}-${pkgver}"
 
 install_prereqs()
 {

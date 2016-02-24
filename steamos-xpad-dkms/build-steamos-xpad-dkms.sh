@@ -49,6 +49,7 @@ pkgrel="wily"
 
 # build_dirs
 export build_dir="${HOME}/pkg-build-dir"
+src_dir="${pkgname}-${pkgver}"
 pkg_folder="${pkgname}_${pkgver}-${pkgrev}~${pkgrel}"
 
 # Define branch

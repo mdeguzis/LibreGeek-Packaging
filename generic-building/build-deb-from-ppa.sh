@@ -117,6 +117,7 @@ main()
 {
 	
 	export build_dir="${HOME}/build-deb-temp"
+src_dir="${pkgname}-${pkgver}"
 	
 	# remove previous dirs if they exist
 	if [[ -d "${build_dir}" ]]; then

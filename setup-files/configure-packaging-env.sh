@@ -54,23 +54,29 @@ done
 echo -e "\n==> Adding and configuring dotfiles"
 sleep 2s
 
-# .bashrc (if exists)
+# .bashrc
+
 bashrc_test_start=$(grep "##### DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
 bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
 
-if [[ "$bashrc_test_start" == "" && "$bashrc_test_start" == "" ]]; then
+# Reset setup for incoming vars
+sed -i '/"##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
 
-        cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
+cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
 
-        echo -e "Seting info for .bashrc"
-        sleep 2s
+echo -e "Seting info for .bashrc"
+sleep 2s
 
-        read -erp "Email: " EMAIL
-        read -erp "Full Name: " NAME
-        sed -e "s|EMAIL|$EMAIL|" "$HOME/.bashrc"
-        sed -e "s|NAME|$NAME|" "$HOME/.bashrc"
+read -erp "Email: " EMAIL
+read -erp "Maintainer full name: " FULLNAME
+read -erp "GitHub username: " GITUSER
+sed -e "s|EMAIL|$EMAIL|" "$HOME/.bashrc"
+sed -e "s|FULLNAME|$FULLNAME|" "$HOME/.bashrc"
 
-fi
+
+# Set github vars
+git config --global user.name "${NAME}"
+git config --global user.email "${GITUSER}"
 
 # Setup Quilt rc file for dpkg
 cp "$scriptdir/.quiltrc-dpkg" "$HOME"
@@ -78,37 +84,6 @@ cp "$scriptdir/.quiltrc" "$HOME"
 
 # devscripts
 cp "$scriptdir/.devscripts" "$HOME"
-
-# GitHub Setup
-
-git_user_test=$(git config --global user.name)
-git_email_test=$(git config --global user.email)
-
-if [[ "$git_user_test" == "" && "$git_email_test" == "" ]]; then
-
-        echo -e "\nSeting info for Git config\n"
-        sleep 2s
-
-        read -erp "Git username: " GITUSER
-        read -erp "Git email: " GITEMAIL
-        git config --global user.name "${GITUSER}"
-        git config --global user.email "${GITEMAIL}"
-
-else
-
-        echo -e "\nGit email/user already set, reset?"
-        read -erp "Choice [y/n]: " git_reset
-
-        if [[ "$git_reset" == "y" ]]; then
-
-                read -erp "Git username: " GITUSER
-                read -erp "Git email: " GITEMAIL
-                git config --global user.name "${GITUSER}"
-                git config --global user.email "${GITEMAIL}"
-
-        fi
-
-fi
 
 #################################################
 # Other configuration files

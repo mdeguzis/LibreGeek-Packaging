@@ -131,7 +131,7 @@ main()
 		
 	else
 	
-		dch --create -v $pkgver -M --package $pkgname -D $DIST -u low
+		dch --create -v $pkgver -l $pkgsuffix -M --package $pkgname -D $DIST -u low
 	
 	fi
 

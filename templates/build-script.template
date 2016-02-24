@@ -43,18 +43,23 @@ branch="BRANCH"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
+ARCH="amd64"
+BUILDER="pdebuild"
+BUILDOPTS="--debbuildopts -b"
 pkgname="PKGNAME"
 pkgver="VERSION"
 pkgrev="1"
 upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"
-dist_rel="brewmaster"
+DIST="brewmaster"
+urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dirs
-build_dir="$HOME/build-${pkgname}-temp"
-git_dir="${build_dir}/${pkgname}"
+export build_dir="${HOME}/build-${pkgname}-temp"
+src_dir="${pkgname}-${pkgver}"
+git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
@@ -111,36 +116,24 @@ main()
 
 	# create source tarball
 	cd "${build_dir}" || exit
-	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "${pkgname}"
+	tar -cvzf "${pkgname}-${pkgver}+${pkgsuffix}.orig.tar.gz" "$pkgname"
 
 	# enter source dir
 	cd "${git_dir}"
 
-	# Create basic changelog format
-	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}.${pkgsuffix}) $dist_rel; urgency=low
+	echo -e "\n==> Updating changelog"
+	sleep 2s
 
-	  * <CHANGE LOG ITEM>
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: ${git_url}
+ 	# update changelog with dch
+	if [[ -f "debian/changelog" ]]; then
 
-	 -- $uploader  $date_long
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
-	EOF
+	else
 
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano debian/changelog
-
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
+	fi
 
 	#################################################
 	# Build Debian package
@@ -149,7 +142,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	debuild
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
@@ -170,13 +163,6 @@ main()
 
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
-	# back out of build temp to script dir if called from git clone
-	if [[ "$scriptdir" != "" ]]; then
-		cd "$scriptdir" || exit
-	else
-		cd "$HOME" || exit
-	fi
 
 	# inform user of packages
 	cat<<- EOF
@@ -201,14 +187,14 @@ main()
 
 			# copy files to remote server
 			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
-
+########################################
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 			
 			# If using a fork instead with debiain/ upstream
 			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin "${branch}"
 			cd "${scriptdir}"
-
+########################################
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

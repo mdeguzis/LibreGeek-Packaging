@@ -130,35 +130,17 @@ main()
 	# emter source dir
 	cd "${pkgname}"
 	
-	# funnel old changelog.in to changelog or create basic file
-	cp debian/changelog.in debian/changelog
-	
-	# Create basic changelog
-	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
-
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
-	  * This revision still uses the legacy platform vs. p8-platform
-	  * See: https://github.com/xbmc/kodi-platform/pull/16
-	
-	 -- $uploader  $date_long
-	
-	EOF
-	
-	# Perform a little trickery to update existing changelog or create basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-	
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano "debian/changelog"
  
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
+ 	# update changelog with dch
+
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
+
+	else
+
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
+
+	fi
+
  
 	#################################################
 	# Build Debian package

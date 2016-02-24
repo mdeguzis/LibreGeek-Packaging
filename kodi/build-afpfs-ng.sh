@@ -134,30 +134,17 @@ main()
 	# rename README.md, autobuild with autoconf doesn't like the ext.
 	mv README.md README
 
-	# Create basic changelog (no upstream change log from the PPA source)
-	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
-
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
-	
-	 -- $uploader  $date_long
-	
-	EOF
-	
-	# Perform a little trickery to update existing changelog or create basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-	
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano "debian/changelog"
  
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
+ 	# update changelog with dch
+
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
+
+	else
+
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
+
+	fi
+
  
 	#################################################
 	# Build Debian package

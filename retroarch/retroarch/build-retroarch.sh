@@ -143,31 +143,17 @@ main()
 	# enter source dir
 	cd "${pkgname}"
 
-	# Create basic changelog format
-	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
 
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
+ 	# update changelog with dch
 
-	 -- $uploader  $date_long
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	EOF
+	else
 
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano "debian/changelog"
+	fi
 
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
 
 	#################################################
 	# Build Debian package

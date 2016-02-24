@@ -103,60 +103,17 @@ main()
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	
-	# get latest base release for changelog 
-	# This is used because upstream does tend to use release tags
-	pkgver=$(git describe --abbrev=0 --tags)
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	git checkout $latest_commit 1> /dev/null
 
-	# Alter pkg suffix based on commit
-	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
-	
-	# add debian files
-	cp -r "${scriptdir}/debian" "${git_dir}"
-	
-	# Remove files that will conflict with what deb helper and debian/* is doing
-	rm -f "${git_dir}/Makefile"
-	
-	#################################################
-	# Build package
-	#################################################
+ 	# update changelog with dch
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	# create source tarball
-	cd "${build_dir}" || exit
-	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "${pkgname}"
+	else
 
-	# enter source dir
-	cd "${git_dir}"
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	# Create basic changelog format
-	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}.${pkgsuffix}-${upstream_rev}) $DIST; urgency=low
+	fi
 
-	  * New unstable build against upstream commit $latest_commit
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: ${git_url}
-
-	 -- $uploader  $date_long
-
-	EOF
-
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano "debian/changelog"
-
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
 
 	#################################################
 	# Build Debian package

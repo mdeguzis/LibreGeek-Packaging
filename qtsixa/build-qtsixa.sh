@@ -119,31 +119,17 @@ main()
 	# enter source dir
 	cd "${git_dir}"
 
-	# Create basic changelog format
-	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
-	
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
 
-	 -- $uploader  $date_long
+ 	# update changelog with dch
 
-	EOF
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+	else
 
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano "debian/changelog"
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
+	fi
+
  
 	#################################################
 	# Build qtsixa

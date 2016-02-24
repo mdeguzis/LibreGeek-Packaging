@@ -132,31 +132,17 @@ main()
 	# enter source dir
 	cd "${git_dir}"
 
-	# Create basic changelog format
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${upsteam_rev}) $DIST; urgency=low
 
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Fixed debian files for building for SteamOS/Debian
-	  * Upstream authors and source: $git_url
+ 	# update changelog with dch
 
-	 -- $uploader  $date_long
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	EOF
+	else
 
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano "debian/changelog"
+	fi
 
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
 
 	#################################################
 	# Build Debian package

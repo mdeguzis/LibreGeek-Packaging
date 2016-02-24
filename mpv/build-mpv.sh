@@ -128,26 +128,17 @@ main()
 	# enter source dir
 	cd "${git_dir}"
 
-	# Create basic changelog format
-	# This addons build cannot have a revision
-	cat <<-EOF> debian/changelog
-	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
 
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
+ 	# update changelog with dch
 
-	 -- $uploader  $date_long
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	EOF
+	else
 
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano "debian/changelog"
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
+	fi
+
 	
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s

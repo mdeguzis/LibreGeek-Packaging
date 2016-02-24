@@ -140,34 +140,6 @@ main()
 	# gather commits
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 
-	# Create basic changelog format
-	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}) $DIST; urgency=low
-
-	  * Latest $rel_target release from upstream:
-	   * Fixed another bug where audio could shut off for sources under certain circumstances
-	   * Fixed a bug where if the media source's "restart when active" setting was enabled, it would start up active even in an inactive scene
-	   * Fixed a bug where rotation would not be preserved when transitioning in Studio Mode
-	   * Fixed a bug where the scene would always be duplicated regardless of whether scene duplication mode is on if you turn on Studio Mode
-	   * You can now right-click things in the preview without it trying to perform a selection action (preserves selection on right-click)
-	   * The program now uses FLAC for audio when using lossless mode in simple output
-	  * Packaged deb for SteamOS-Tools
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
-	
-	 -- $uploader  $date_long
-
-	EOF
-
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano "debian/changelog"
 
 	#################################################
 	# Build Debian package

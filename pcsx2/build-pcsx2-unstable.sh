@@ -145,88 +145,17 @@ main()
         latest_commit=$(git log -n 1 --pretty=format:"%h")
         git checkout $latest_commit 1> /dev/null
 
-	# get latest base release for changelog 
-	# This is used because upstream does tend to use release tags
-	base_release=$(git describe --abbrev=0 --tags)
-	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
-        # Alter pkg suffix based on commit
-        pkgsuffix="${date_short}git+bsos${pkgrev}"
+ 	# update changelog with dch
 
-	#################################################
-	# Prepare build (upstream-specific)
-	#################################################
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	echo -e "\nRemove 3rdparty code"
-	rm -fr "$git_dir/3rdparty"
-	rm -fr "$git_dir/fps2bios"
-	rm -fr "$git_dir/tools"
-	
-	echo "Remove non free plugins"
-	# remove also deprecated plugins
-	for plugin in CDVDiso CDVDisoEFP CDVDlinuz CDVDolio CDVDpeops dev9ghzdrk \
-	PeopsSPU2 SSSPSXPAD USBqemu xpad zerogs zerospu2
-	do
-		rm -fr "$git_dir/plugins/$plugin"
-	done
+	else
 
-	echo "Remove remaining non free file. TODO UPSTREAM"
-	rm -rf $git_dir/unfree
-	rm -rf $git_dir/plugins/GSdx/baseclasses
-	rm -f  $git_dir/plugins/zzogl-pg/opengl/Win32/aviUtil.h
-	rm -f  $git_dir/common/src/Utilities/x86/MemcpyFast.cpp
-	
-	# To save 66% of the package size
-	rm -rf  $git_dir/.git
-	
-	# copy in debian folder
-	cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
 
-	#################################################
-	# Build platform
-	#################################################
+	fi
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-	
-	# enter build dir to create tarball
-	cd "${build_dir}"
-
-	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
-
-	# enter source dir
-	cd "${git_dir}"
-
-	# Create basic changelog format
-	# This addons build cannot have a revision
-	cat <<-EOF> changelog.in
-	$pkgname (${pkgver}+${pkgsuffix}-${upstream_rev}) $DIST; urgency=low
-
-	  * Base release tag: $base_release
-	  * Built against latest commit $latest_commit
-	  * See: packages.libregeek.org
-	  * Upstream authors and source: $git_url
-
-	 -- $uploader  $date_long
-
-	EOF
-
-	# Perform a little trickery to update existing changelog or create
-	# basic file
-	cat 'changelog.in' | cat - debian/changelog > temp && mv temp debian/changelog
-
-	# open debian/changelog and update
-	echo -e "\n==> Opening changelog for confirmation/changes."
-	sleep 3s
-	nano "debian/changelog"
-
- 	# cleanup old files
- 	rm -f changelog.in
- 	rm -f debian/changelog.in
 
 	#################################################
 	# Build Debian package

@@ -143,7 +143,20 @@ main()
 	# enter source dir
 	cd "${git_dir}"
 
+	echo -e "\n==> Updating changelog"
+	sleep 2s
 
+	# Create basic changelog format if it does exist or update
+	if [[ -f "debian/changelog" ]]; then
+	
+		dch -v "${pkgver}+${pkgsuffix}" --package $pkgname -D $DIST -u "${urgency}"
+		
+	else
+	
+		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+	
+	fi
+	
 	#################################################
 	# Build Debian package
 	#################################################

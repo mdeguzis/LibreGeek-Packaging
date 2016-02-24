@@ -70,8 +70,8 @@ sleep 2s
 read -erp "Email: " EMAIL
 read -erp "Maintainer full name: " FULLNAME
 read -erp "GitHub username: " GITUSER
-sed -i "s|EMAIL|$EMAIL|" "$HOME/.bashrc"
-sed -i "s|FULLNAME|$FULLNAME|" "$HOME/.bashrc"
+sed -i "s|EMAIL_TEMP|$EMAIL|" "$HOME/.bashrc"
+sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"
 
 # Set github vars
 git config --global user.name "${NAME}"

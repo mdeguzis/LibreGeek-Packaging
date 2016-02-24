@@ -124,3 +124,73 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
+	# Create basic changelog format if it does exist or update
+	if [[ -f "debian/changelog" ]]; then
+	
+		dch -v "${pkgver}+${pkgsuffix}" -M --package $pkgname -D $DIST -u low
+		
+	else
+	
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
+	
+	fi
+
+	#################################################
+	# Build Debian package
+	#################################################
+
+	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	sleep 2s
+
+	#  build
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+
+	#################################################
+	# Cleanup
+	#################################################
+
+	# clean up dirs
+
+	# note time ended
+	time_end=$(date +%s)
+	time_stamp_end=(`date +"%T"`)
+	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+
+	# output finish
+	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "Time started: ${time_stamp_end}"
+	echo -e "Total Runtime (minutes): $runtime\n"
+
+	# inform user of packages
+	echo -e "\n############################################################"
+	echo -e "If package was built without errors you will see it below."
+	echo -e "If you don't, please check build dependcy errors listed above."
+	echo -e "############################################################\n"
+
+	echo -e "Showing contents of: ${build_dir}: \n"
+	ls "${build_dir}" | grep $pkgver
+
+	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+	sleep 0.5s
+	# capture command
+	read -erp "Choice: " transfer_choice
+
+	if [[ "$transfer_choice" == "y" ]]; then
+
+		# transfer files
+		if [[ -d "${build_dir}" ]]; then
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+		
+			# Update changelog
+			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin brewmaster
+			cd "${scriptdir}"
+		fi
+
+	elif [[ "$transfer_choice" == "n" ]]; then
+		echo -e "Upload not requested\n"
+	fi
+
+}
+
+# start main
+main

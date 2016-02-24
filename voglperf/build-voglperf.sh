@@ -182,7 +182,7 @@ main()
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 		
 			# Update changelog
-			cd "${git_dir}" && git add debian/changelog && git push origin brewmaster
+			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin brewmaster
 			cd "${scriptdir}"
 		fi
 

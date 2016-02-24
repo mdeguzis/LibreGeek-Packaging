@@ -60,19 +60,18 @@ bashrc_test_start=$(grep "##### DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
 bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
 
 # Reset setup for incoming vars
-sed -i '/"##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
+sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
 
 cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
 
-echo -e "Seting info for .bashrc"
+echo -e "\nSeting info for .bashrc"
 sleep 2s
 
 read -erp "Email: " EMAIL
 read -erp "Maintainer full name: " FULLNAME
 read -erp "GitHub username: " GITUSER
-sed -e "s|EMAIL|$EMAIL|" "$HOME/.bashrc"
-sed -e "s|FULLNAME|$FULLNAME|" "$HOME/.bashrc"
-
+sed -i "s|EMAIL|$EMAIL|" "$HOME/.bashrc"
+sed -i "s|FULLNAME|$FULLNAME|" "$HOME/.bashrc"
 
 # Set github vars
 git config --global user.name "${NAME}"

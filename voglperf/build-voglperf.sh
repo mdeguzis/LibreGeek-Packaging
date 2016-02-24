@@ -121,6 +121,8 @@ main()
 	# enter source dir
 	cd "${git_dir}"
 
+	echo -e "\nUpdating changelog"
+	sleep 2s
 
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then

@@ -112,5 +112,5 @@ sudo cp pbuilder-wrapper.sh /usr/bin/pbuilder-wrapper
 # Cleanup
 #################################################
 
-# source bashrc
-. $HOME/.bashrc
+# source bashrc for this session
+source $HOME/.bashrc

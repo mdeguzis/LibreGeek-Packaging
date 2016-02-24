@@ -52,6 +52,7 @@ pkgver="16.0.0"
 pkgrev="3"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
+urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 

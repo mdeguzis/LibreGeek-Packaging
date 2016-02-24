@@ -47,6 +47,7 @@ BUILDOPTS=""
 pkgname="pcsx2"
 pkgrev="1"
 DIST="brewmaster"
+urgency="low"
 ARCH="i386"
 BUILDER_OPTS="--basetgz merge ${HOME}/pbuilder/brewmaster-i386-base.tgz"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -206,11 +207,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	fi
 

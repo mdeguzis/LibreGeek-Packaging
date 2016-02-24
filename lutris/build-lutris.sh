@@ -52,6 +52,7 @@ upstream_rev="1"
 pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
+urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 

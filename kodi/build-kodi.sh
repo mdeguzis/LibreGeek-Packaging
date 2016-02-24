@@ -67,6 +67,7 @@ set_vars()
 	maintainer="ProfessorKaos64"
 	pkgrev="1"
 	DIST="brewmaster"
+urgency="low"
 	BUILDER="pdebuild"
 	PBUILDER_BASE="${HOME}/pbuilder"
 	BUILDOPTS="--debbuildopts \"-j4\""

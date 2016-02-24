@@ -116,9 +116,10 @@ main()
 	# Remove extra characters and set pkgver
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 	
-	# cpy in our modified files
-	cp "${scriptdir}/setup.py" "${git_dir}"
-	cp "${scriptdir}/lutris-launcher" "${git_dir}/bin/"
+	# copy in our modified files for clean shortcut in BPM?
+	# Don't use these for now, as running the client IN BPM is too buggy
+	#cp "${scriptdir}/setup.py" "${git_dir}"
+	#cp "${scriptdir}/lutris-launcher" "${git_dir}/bin/"
 
 	#################################################
 	# Build package

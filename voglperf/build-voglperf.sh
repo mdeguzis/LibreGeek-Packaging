@@ -127,7 +127,7 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 	
-		dch -i -M --package $pkgname -D $DIST -u low
+		dch -v "${pkgver}+${pkgsuffix}" -M --package $pkgname -D $DIST -u low
 		
 	else
 	

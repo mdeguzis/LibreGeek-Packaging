@@ -50,7 +50,7 @@ pkgrel="wily"
 # build_dirs
 export build_dir="${HOME}/pkg-build-dir"
 src_dir="${pkgname}-${pkgver}"
-pkg_folder="${pkgname}_${pkgver}-${pkgrev}~${pkgrel}"
+pkg_folder="${pkgname}-${pkgver}-${pkgrev}~${pkgrel}"
 
 # Define branch
 BRANCH="master"
@@ -68,7 +68,7 @@ clear
 
 cat<<- EOF
 #####################################################################
-Building ${pkgname}_${pkgver}-${pkgrev}~${pkgrel}
+Building ${pkgname}-${pkgver}-${pkgrev}~${pkgrel}
 #####################################################################
 
 EOF
@@ -159,7 +159,7 @@ echo -e "\n==> Creating archive\n"
 cd .. || exit
 tar cfj steamos-xpad-dkms.orig.tar.bz2 "$pkg_folder"
 # The original tarball should not have the revision and release tacked on
-mv "steamos-xpad-dkms.orig.tar.bz2" "${pkgname}_${pkgver}.orig.tar.bz2"
+mv "steamos-xpad-dkms.orig.tar.bz2" "${pkgname}-${pkgver}.orig.tar.bz2"
 
 cat <<-EOF
 ##########################################
@@ -255,7 +255,7 @@ EOF
         while true; do
             read -rp "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:mdeguzis/steamos-tools ${build_dir}/${pkgname}_${pkgver}-${pkgrev}~${pkgrel}_source.changes; break;;
+                [Yy]* ) dput ppa:mdeguzis/steamos-tools ${build_dir}/${pkgname}-${pkgver}-${pkgrev}~${pkgrel}_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

@@ -117,7 +117,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}-${pkgver}.orig.tar.gz" "${src_dir}"
 
 	###############################################################
 	# correct any files needed here that you can ahead of time

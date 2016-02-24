@@ -141,7 +141,7 @@ main()
 	cd "${build_dir}"
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}-${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Enter git dir to build
 	cd "${git_dir}"

@@ -135,7 +135,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}-${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 	
 	# copy in debian folder with replacement files use debhelper over this makefile...
 	cp -r "${scriptdir}/debian/" "${git_dir}"

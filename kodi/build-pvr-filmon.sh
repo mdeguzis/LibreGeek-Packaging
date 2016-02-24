@@ -119,7 +119,7 @@ main()
 	# use latest revision designated at the top of this script
 	
 	# create source tarball
-	tar -cvzf "${pkgname}-${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 	
 	# emter source dir
 	cd "${src_dir}"

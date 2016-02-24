@@ -146,6 +146,9 @@ main()
 	cd "${pkgname}"
 
 
+	echo -e "\n==> Updating changelog"
+	sleeps 2s
+
  	# update changelog with dch
 
 		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low
@@ -216,6 +219,9 @@ main()
 		echo -e "\n==> Opening changelog for confirmation/changes."
 		sleep 3s
 		nano "debian/changelog"
+
+	echo -e "\n==> Updating changelog"
+	sleeps 2s
 
 	 	# update changelog with dch
 

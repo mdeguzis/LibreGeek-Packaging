@@ -133,6 +133,9 @@ main()
 	cd "${git_dir}"
 
 
+	echo -e "\n==> Updating changelog"
+	sleeps 2s
+
  	# update changelog with dch
 
 		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u low

@@ -113,9 +113,8 @@ main()
 	# Get base version from latest tag and checkout source
 	cd "${git_dir}"
 	base_release=$(git describe --abbrev=0 --tags)
-	#git checkout "${base_release}"
-	# checkout this commit for now, removes koku-xinput-wine
-	git checkout 6f47861
+	# Use maser for now until next release (fixes 32 bit libs koku-xinput-wine issue)
+	# git checkout "${base_release}"
 
 	# Remove extra characters and set pkgver
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
@@ -140,7 +139,8 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 	
 	# copy in debian folder with replacement files use debhelper over this makefile...
-	cp -r "${scriptdir}/debian/" "${git_dir}"
+	# 20160225 - changes merged into master upstream tree
+	# cp -r "${scriptdir}/debian/" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

@@ -98,9 +98,6 @@ main()
 
 	fi
 
-	# install prereqs for build
-	install_prereqs
-
 	# Clone upstream source code and branch
 	# NOTE! - If you wish to source versions or commits automatically into variables here,
 	# 	  such as commits, of upstream tags, see docs/pkg-versioning.md

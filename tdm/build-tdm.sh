@@ -2,15 +2,15 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-NAME.sh
+# Scipt tdm:	build-tdm.sh
 # Script Ver:	0.1.1
 # Description:	Attempts to build a deb package from the laest "The Dark Mod"
 #		release
 #
-# See:		GIT URL
-#		PKGNAME
+# See:		https://github.com/ProfessorKaos64/tdm
+#		http://wiki.thedarkmod.com/index.php?title=The_Dark_Mod_-_Compilation_Guide
 #
-# Usage:	./build-PKGNAME.sh
+# Usage:	./build-tdm.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -38,8 +38,8 @@ else
 	
 fi
 # upstream vars
-git_url="GIT_URL"
-branch="BRANCH"
+git_url="https://github.com/ProfessorKaos64/tdm"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -47,8 +47,8 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-pkgname="PKGNAME"
-pkgver="VERSION"
+pkgtdm="tdm"
+pkgver="2.0.2"
 pkgrev="1"
 upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"
@@ -58,8 +58,8 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dirs
-export build_dir="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
+export build_dir="${HOME}/build-${pkgtdm}-temp"
+src_dir="${pkgtdm}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
@@ -68,7 +68,11 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc
+	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper gcc g++ \
+	g++-4.9-multilib m4 zip libglew-dev libglew-dev:i386 libpng12-dev libpng12-dev:i386 \
+	libjpeg62-dev libjpeg62-dev:i386 libc6-dev:i386 libxxf86vm-dev libxxf86vm-dev:i386 \
+	libopenal-dev libopenal-dev:i386 libasound2-dev libasound2-dev:i386 libxext-devn \
+	libxext-devn:i386 scons
 
 }
 
@@ -102,12 +106,6 @@ main()
 	# clone and checkout latest commit
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	
-	# add debian files
-	cp -r "${scriptdir}/debian" "${git_dir}"
-	
-	# Remove files that will conflict with what deb helper and debian/* is doing
-	rm -f "${git_dir}/Makefile"
-	
 	#################################################
 	# Build package
 	#################################################
@@ -117,7 +115,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}" || exit
-	tar -cvzf "${pkgname}-${pkgver}+${pkgsuffix}.orig.tar.gz" "$pkgname"
+	tar -cvzf "${pkgtdm}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -128,11 +126,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgtdm}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgtdm}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -188,14 +186,11 @@ main()
 
 			# copy files to remote server
 			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
-########################################
-			# Only move the old changelog if transfer occurs to keep final changelog 
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 			
 			# If using a fork instead with debiain/ upstream
 			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin "${branch}"
 			cd "${scriptdir}"
-########################################
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -71,8 +71,8 @@ install_prereqs()
 	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper gcc g++ \
 	g++-4.9-multilib m4 zip libglew-dev libglew-dev:i386 libpng12-dev libpng12-dev:i386 \
 	libjpeg62-dev libjpeg62-dev:i386 libc6-dev:i386 libxxf86vm-dev libxxf86vm-dev:i386 \
-	libopenal-dev libopenal-dev:i386 libasound2-dev libasound2-dev:i386 libxext-devn \
-	libxext-devn:i386 scons
+	libopenal-dev libopenal-dev:i386 libasound2-dev libasound2-dev:i386 libxext-dev \
+	libxext-dev:i386 scons
 
 }
 

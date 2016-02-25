@@ -135,11 +135,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgtdm}" -D "${DIST}" -u "${urgency}"
+		dch -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M --package "${pkgtdm}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgtdm}" -D "${DIST}" -u "${urgency}"
+		dch --create -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M --package "${pkgtdm}" -D "${DIST}" -u "${urgency}"
 
 	fi
 

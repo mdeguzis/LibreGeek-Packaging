@@ -44,7 +44,7 @@ branch="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-ARCH=""
+ARCH="i386"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgtdm="tdm"

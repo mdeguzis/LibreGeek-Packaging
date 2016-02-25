@@ -9,6 +9,7 @@
 #
 # See:		https://github.com/ProfessorKaos64/tdm
 #		http://wiki.thedarkmod.com/index.php?title=The_Dark_Mod_-_Compilation_Guide
+#		http://wiki.thedarkmod.com/index.php?title=DarkRadiant_-_Compiling_in_Linux
 #
 # Usage:	./build-tdm.sh
 # Opts:		[--testing]

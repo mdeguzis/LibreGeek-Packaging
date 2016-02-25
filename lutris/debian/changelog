@@ -1,3 +1,10 @@
+lutris (0.3.7.3+git+bsos3-2) brewmaster; urgency=low
+
+  * Upstream revision 2, koku-xinput-wine removed, commit 6f47861
+  * Package revision 3, debian/control adjusted to remove i386 packages
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 25 Feb 2016 06:41:48 -0500
+
 lutris (0.3.7.3+git+bsos2-1) brewmaster; urgency=low
 
   * Revision 2, fix runtime dependency

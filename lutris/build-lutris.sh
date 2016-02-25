@@ -30,11 +30,11 @@ HOST="archboxmtd"
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -48,8 +48,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="lutris"
-upstream_rev="1"
-pkgrev="2"
+upstream_rev="2"
+pkgrev="3"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -95,7 +95,7 @@ main()
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
@@ -109,15 +109,17 @@ main()
 
 	# clone
 	git clone -b "$branch" "$git_url" "$git_dir"
-	
+
 	# Get base version from latest tag and checkout source
 	cd "${git_dir}"
 	base_release=$(git describe --abbrev=0 --tags)
-	git checkout "${base_release}"
-	
+	#git checkout "${base_release}"
+	# checkout this commit for now, removes koku-xinput-wine
+	git checkout 6f47861
+
 	# Remove extra characters and set pkgver
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
-	
+
 	# copy in our modified files for clean shortcut in BPM?
 	# Don't use these for now, as running the client IN BPM is too buggy
 	#cp "${scriptdir}/setup.py" "${git_dir}"

@@ -101,11 +101,8 @@ main()
 	# clone and checkout latest commit
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	
-	# add debian files
+	# add debian files (if need be)
 	cp -r "${scriptdir}/debian" "${git_dir}"
-	
-	# Remove files that will conflict with what deb helper and debian/* is doing
-	rm -f "${git_dir}/Makefile"
 	
 	#################################################
 	# Build package
@@ -116,7 +113,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}" || exit
-	tar -cvzf "${pkgname}-${pkgver}+${pkgsuffix}.orig.tar.gz" "$pkgname"
+	tar -cvzf "${pkgname}-${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -148,8 +145,6 @@ main()
 	# Cleanup
 	#################################################
 
-	# clean up dirs
-
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -159,7 +154,6 @@ main()
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
 
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)

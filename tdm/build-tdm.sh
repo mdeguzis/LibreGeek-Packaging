@@ -112,6 +112,9 @@ main()
 	# clone and checkout latest commit
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	
+	# trim .git since this is a larger repo
+	rm -rf "${git_dir}/.git"
+	
 	#################################################
 	# Build package
 	#################################################

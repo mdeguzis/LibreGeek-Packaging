@@ -64,7 +64,7 @@ show_help()
 
 }
 
-set_creation_vars()
+set_vars()
 {
 
 	# set var targets
@@ -180,13 +180,14 @@ main()
 		create)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
-		set_creation_vars
+		set_vars
 		run_pbuilder
 		;;
 
 		login)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ"
+		set_vars
 		run_pbuilder
 		;;
 
@@ -194,12 +195,14 @@ main()
 		PROCEED="true"
 		OPERATION="login"
 		OPTS="--basetgz $BASE_TGZ --save-after-login"
+		set_vars
 		run_pbuilder
 		;;
 
 		update|build|clean|execute)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
+		set_vars
 		run_pbuilder
 		;;
 

@@ -79,51 +79,53 @@ set_vars()
 		# Set extra packages to intall
 		# Use wildcard * to replace the entire line
 		PKGS="steamos-beta-repo wget ca-certificates aptitude"
-		sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
-		sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
+		sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+		sudo sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
 
 	else
 
 		# Set extra packages to intall
 		# Use wildcard * to replace the entire line
 		# None for now
-		
-		# Correct issue with some 32 bit pkgs under 32 bit chroots
-		# See: http://www.xilinx.com/support/answers/61323.html
+
 		if [[ "${ARCH}" == "i386" ]]; then
-		
+
 			PKGS="wget ca-certificates aptitude"
-			sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
-			sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"	
-			
+			sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+			sudo sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"	
+
 		else
 		
 			PKGS="wget ca-certificates aptitude"
-			sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
-			sudo sed -i "s|^.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
-			
+			sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+			sudo sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
+	
 		fi
 
 	fi
 
-	cat<<- EOF
+	# Only show detailed info if creating the chroot
+	if [[ "${OPERATION}" == "create" ]]; then
 
-	-----------------------------
-	Options passed:
-	-----------------------------
-	DIST="$DIST"
-	ARCH="$ARCH"
-	KEYRING="$KEYRING"
-	BETA_FLAG="false"
-	BASETGZ="$BASE_TGZ"
-	BASEDIR="$BASE_DIR"
-	OPTS="$OPTS"
-	EXTRA PACKAGES: "$PKGS"
-	-----------------------------
+		cat<<- EOF
 
-	EOF
-	sleep 5s
+		-----------------------------
+		Options passed:
+		-----------------------------
+		DIST="$DIST"
+		ARCH="$ARCH"
+		KEYRING="$KEYRING"
+		BETA_FLAG="false"
+		BASETGZ="$BASE_TGZ"
+		BASEDIR="$BASE_DIR"
+		OPTS="$OPTS"
+		EXTRA PACKAGES: "$PKGS"
+		-----------------------------
 
+		EOF
+		sleep 5s
+
+	fi
 
 }
 

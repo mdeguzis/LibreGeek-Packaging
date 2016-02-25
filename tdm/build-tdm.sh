@@ -93,9 +93,15 @@ main()
 
 	# enter build dir
 	cd "${build_dir}" || exit
-
+	
+	
 	# install prereqs for build
-	install_prereqs
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# handle prereqs on host machine
+		install_prereqs
+
+	fi
 
 	# Clone upstream source code and branch
 	# NOTE! - If you wish to source versions or commits automatically into variables here,

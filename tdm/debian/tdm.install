@@ -1,2 +1,3 @@
 thedarkmod /usr/games/tdm/
-debian/thedarkmod.desktop /usr/share/applications
+thedarkmod.png /usr/share/pixmaps/
+debian/thedarkmod.desktop /usr/share/applications/

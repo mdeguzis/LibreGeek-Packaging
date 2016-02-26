@@ -2,16 +2,16 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt tdm:	build-tdm.sh
+# Scipt thedarkmod:	build-thedarkmod.sh
 # Script Ver:	0.1.1
 # Description:	Attempts to build a deb package from the laest "The Dark Mod"
 #		release
 #
-# See:		https://github.com/ProfessorKaos64/tdm
+# See:		https://github.com/ProfessorKaos64/thedarkmod
 #		http://wiki.thedarkmod.com/index.php?title=The_Dark_Mod_-_Compilation_Guide
 #		http://wiki.thedarkmod.com/index.php?title=DarkRadiant_-_Compiling_in_Linux
 #
-# Usage:	./build-tdm.sh
+# Usage:	./build-thedarkmod.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 # required to run postinstall
 USENETWORK="yes"
-pkgname="tdm"
+pkgname="thedarkmod"
 pkgver="2.0.3"
 pkgrev="1"
 upstream_rev="1"

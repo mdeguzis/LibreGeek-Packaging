@@ -2,7 +2,7 @@
 
 UPDATER_URL="http://www.fidcal.com/darkuser/tdm_update_linux.zip"
 UPDATER_ZIP="tdm_update_linux.zip"
-UPDATER_FILE="tdm_update_linux.zip"
+UPDATER_FILE="tdm_update_linux"
 
 echo -e "\n==> Now running post install steps"
 sleep 2s

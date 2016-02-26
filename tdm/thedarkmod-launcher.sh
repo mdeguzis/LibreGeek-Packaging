@@ -1,9 +1,9 @@
-!#/bin/bash
+#!/bin/bash
 
 ##############################
 # Launcher for The Dark Mod
 ##############################
-
-# Change to install dir and run
-cd $HOME/darkmod
-./thedarkmod.x86
+# Note: 'thedarkmod' is a symbolic link to the true location
+#       defined by issuing 'ls -la /usr/games/thedarkmod'
+cd "/usr/games"
+./thedarkmod

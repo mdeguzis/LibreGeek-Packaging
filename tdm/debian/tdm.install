@@ -1,3 +1,2 @@
-thedarkmod.x86 /usr/games/tdm/
-thedarkmod.x86 /usr/games/tdm/darkmod/
-tdm_game02.pk4 /usr/games/tdm/darkmod/
+thedarkmod /usr/games/tdm/
+thedarkmod.desktop /usr/share/applications

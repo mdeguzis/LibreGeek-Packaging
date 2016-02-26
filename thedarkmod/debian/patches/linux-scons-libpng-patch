@@ -1,0 +1,120 @@
+--- a/SConstruct
++++ b/SConstruct
+@@ -461,6 +461,7 @@ g_base_env.Append(CPPPATH = '#/include')
+ g_base_env.Append(CPPPATH = '#/include/zlib')
+ g_base_env.Append(CPPPATH = '#/include/minizip')
+ g_base_env.Append(CPPPATH = '#/include/libjpeg')
++g_base_env.Append(CPPPATH = '#/include/libpng')
+ g_base_env.Append(CPPPATH = '#/include/devil')
+ g_base_env.Append(CPPPATH = '#/')
+ 
+--- a/sys/scons/SConscript.core
++++ b/sys/scons/SConscript.core
+@@ -313,10 +313,11 @@ else:
+ 	sound_env.Append( CPPDEFINES = 'NO_ALSA' )
+ sound_lib = sound_env.StaticLibrary( 'sound', sound_list )
+ 
+-local_env.Append( LIBS = [ 'pthread', 'dl', 'rt', 'png' ] ) # greebo: Added librt and libpng
++local_env.Append( LIBS = [ 'pthread', 'dl', 'rt' ] ) #, 'png' # greebo: Added librt and libpng
+ if ( local_dedicated == 0 ):
+ 	local_env.Append( LIBS = [ 'X11', 'Xext', 'Xxf86vm' ] ) # 'Xxf86dga', 
+-	local_env.Append( LIBPATH = [ '/usr/X11R6/lib' ] )
++#	local_env.Append( LIBPATH = [ '/usr/X11R6/lib' ] )
++	local_env.Append( LIBPATH = [ '/usr/lib/i386-linux-gnu' ] )
+ #	local_env.Append( LIBS = [ 'openal' ] )
+ 
+ # greebo: Add boost and image libraries
+@@ -342,6 +343,8 @@ source_list += [ '../../openal/stubs.cpp
+ # greebo: Use custom compiled devIL and libjpeg (since the engine requires 4 bytes per pixel format) in Linux
+ source_list += SConscript( '../../sys/scons/SConscript.devil' )
+ source_list += SConscript( '../../sys/scons/SConscript.libjpeg' )
++source_list += SConscript( '../../sys/scons/SConscript.libpng' )
++source_list += SConscript( '../../sys/scons/SConscript.ziploader' )
+ 
+ source_list += g_env_noopt.StaticObject( '../../tools/compilers/dmap/optimize_gcc.cpp' )
+ 
+--- a/sys/scons/SConscript.game
++++ b/sys/scons/SConscript.game
+@@ -303,7 +303,7 @@ local_env.Append( CPPFLAGS = [ '-Wno-dep
+ 
+ # Link the runtime statically, link statically against libpng.a
+ # the corresponding package libpng12-dev must be available on the system
+-local_env.Append( LINKFLAGS = [ '-lrt', '-lpng' ] )
++local_env.Append( LINKFLAGS = [ '-lrt' ] ) #, '-lpng'
+ 
+ local_env.Append(LIBS = [
+ 	# Uncomment this if you're on a x64 system - there is no libpng.a on Ubuntu x64 for instance
+@@ -325,8 +325,9 @@ if NO_GCH == '0':
+ # greebo: Use custom compiled devIL and libjpeg in Linux
+ devil_list = SConscript( '../../sys/scons/SConscript.devil' )
+ libjpeg_list = SConscript( '../../sys/scons/SConscript.libjpeg' )
++libpng_list = SConscript( '../../sys/scons/SConscript.libpng' )
+ 
+-full_list = game_list + darkModList + idlib_objects + ziploader_list + devil_list + libjpeg_list
++full_list = game_list + darkModList + idlib_objects + ziploader_list + devil_list + libjpeg_list + libpng_list
+ 
+ ret = local_env.SharedLibrary('game', full_list )
+ 
+--- /dev/null
++++ b/sys/scons/SConscript.libpng
+@@ -0,0 +1,60 @@
++#*****************************************************************************
++#                    The Dark Mod GPL Source Code
++#
++# This file is part of the The Dark Mod Source Code, originally based
++# on the Doom 3 GPL Source Code as published in 2011.
++#
++# The Dark Mod Source Code is free software: you can redistribute it
++# and/or modify it under the terms of the GNU General Public License as
++# published by the Free Software Foundation, either version 3 of the License,
++# or (at your option) any later version. For details, see LICENSE.TXT.
++#
++# Project: The Dark Mod (http://www.thedarkmod.com/)
++#
++# $Revision: 5572 $ (Revision of last commit)
++# $Date: 2012-09-18 01:35:30 0930 (Tue, 18 Sep 2012) $ (Date of last commit)
++# $Author: greebo $ (Author of last commit)
++#
++#*****************************************************************************
++
++import scons_utils
++
++Import( 'GLOBALS' )
++Import( GLOBALS )
++
++libpng_string = ' \
++	png.c \
++	pngerror.c \
++	pngget.c \
++	pngmem.c \
++	pngpread.c \
++	pngread.c \
++	pngrio.c \
++	pngrtran.c \
++	pngrutil.c \
++	pngset.c \
++	pngtrans.c \
++	pngwio.c \
++	pngwrite.c \
++	pngwtran.c \
++	pngwutil.c'
++
++
++libpng_list = scons_utils.BuildList( '', libpng_string )
++
++# greebo: The source files are located in darkmod_src/lib/libpng, for all platforms
++
++for i in range( len( libpng_list ) ):
++	libpng_list[ i ] = '../../lib/libpng/' + libpng_list[ i ]
++
++local_env = g_env.Clone()
++
++# Use the libpng headers
++local_env.Append(CPPPATH = '#/include/libpng')
++
++ret_list = []
++
++for f in libpng_list:
++	ret_list += local_env.SharedObject( source = f )
++
++Return( 'ret_list' )

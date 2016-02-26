@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+# See: ./linuxBuild.sh
+
+%:
+	dh $@
+	
+override_dh_auto_build:
+	# make sure this file exists
+	touch scons.signatures.dblite
+	# build
+	scons -j2 BUILD_GAMEPAK=1 NO_GCH=0 BUILD=release
+	# cleanup
+	mv gamex86-base.so gamex86.so
+	# try autobuilding the rest of files (tdm updater?)
+	dh_auto_build
+	
+override_dh_clean:
+	dh_clean "/usr/games/tdm/darkmod/gamex86.so"

@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # See: ./linuxBuild.sh
 
-export OS=$(lsb_release -is)
+export OS=$()
 LINK_DEST="/usr/games/thedarkmod.x86"
 
 %:
@@ -13,10 +13,10 @@ override_dh_installdirs:
 
 override_dh_link:
 	# evaluate
-	if [ "${OS}" == "SteamOS" ]; then
-		LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
+	ifeq ($(shell lsb_release -is),SteamOS)
+        	LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
 	else
-		LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
-	fi
+        	LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
+	endif
 	# create links
 	dh_link ${LINK_TARGET} ${LINK_DEST}

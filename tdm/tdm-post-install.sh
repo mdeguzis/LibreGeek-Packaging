@@ -1,4 +1,4 @@
-!#/bin/bash
+#!/bin/bash
 
 echo -e "\m==> Now running post install steps"
 

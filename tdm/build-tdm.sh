@@ -48,7 +48,7 @@ date_short=$(date +%Y%m%d)
 ARCH="i386"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-pkgtdm="tdm"
+pkgname="tdm"
 pkgver="2.0.2"
 pkgrev="1"
 upstream_rev="1"
@@ -59,7 +59,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build_dirs
-export build_dir="${HOME}/build-${pkgtdm}-temp"
+export build_dir="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"
 
@@ -128,7 +128,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}" || exit
-	tar -cvzf "${pkgtdm}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 	
 	# enter source dir
 	cd "${git_dir}"
@@ -139,11 +139,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M --package "${pkgtdm}" -D "${DIST}" -u "${urgency}"
+		dch -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M --package "${pkgtdm}" -D "${DIST}" -u "${urgency}"
+		dch --create -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	fi
 

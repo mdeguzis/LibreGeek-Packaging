@@ -3,6 +3,13 @@
 
 LINK_DEST="/usr/games/thedarkmod.x86"
 
+# evaluate (DO NOT INDENT)
+ifeq ($(shell lsb_release -is),SteamOS)
+LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
+else
+LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
+endif
+
 %:
 	dh $@
 
@@ -11,11 +18,5 @@ override_dh_installdirs:
 	dh_installdirs /usr/share/games/darkmod
 
 override_dh_link:
-	# evaluate
-	ifeq ($(shell lsb_release -is),SteamOS)
-	LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
-	else
-	LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
-	endif
 	# create links
 	dh_link ${LINK_TARGET} ${LINK_DEST}

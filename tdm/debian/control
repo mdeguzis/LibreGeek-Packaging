@@ -27,6 +27,8 @@ Depends: ${misc:Depends},
  libboost-test,
  libalut,
  libvorbis,
+ wget,
+ unzip,
  zip
 Description: The Dark Mod is a fan-made game in the style of the original Thief.
  This is a virtual package that provides run-time depedencies. The pacakge will run the

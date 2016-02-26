@@ -3,6 +3,7 @@
 UPDATER_URL="http://www.fidcal.com/darkuser/"
 UPDATER_ZIP="tdm_update_linux.zip"
 UPDATER_FILE="tdm_update.linux"
+TEMP_GAME_DIR="/tmp/tdm"
 
 # clean up any old updater files
 
@@ -20,11 +21,15 @@ wget -O "/tmp/${UPDATER_ZIP}" "${UPDATER_URL}/${UPDATER_ZIP}" -q --show-progress
 unzip -d "/tmp" "/tmp/${UPDATER_ZIP}"
 chmod +x "/tmp/${UPDATER_FILE}"
 
-echo -e "\nCopying updater to /usr/share/games/"
-sudo cp "/tmp/${UPDATER_FILE}" "/usr/share/games/tdm"
-
 # run updater
 
 echo -e "\n...Running The Dark Mod updater\n"
-cd "/usr/share/games/tdm"
+cd "/tmp"
+mkdir -p "${TEMP_GAME_DIR}"
 ./${UPDATER_FILE}
+
+# copy game files to /usr/share/games/tdm
+
+echo -e "\nCopying game files to /usr/share/games/tdm"
+sleep 2s
+sudo cp -rv "${TEMP_GAME_DIR}" "/usr/share/games/"

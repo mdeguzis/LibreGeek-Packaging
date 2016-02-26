@@ -111,6 +111,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	
 	######## Use a virtual package for now ########
+	mkdir -p "${git_dir}"
 	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# clone and checkout latest commit

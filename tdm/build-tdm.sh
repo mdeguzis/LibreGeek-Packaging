@@ -39,8 +39,8 @@ else
 	
 fi
 # upstream vars
-git_url="https://github.com/ProfessorKaos64/tdm"
-branch="master"
+#git_url="https://github.com/ProfessorKaos64/tdm"
+#branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -109,12 +109,15 @@ main()
 	# 	  such as commits, of upstream tags, see docs/pkg-versioning.md
 
 	echo -e "\n==> Obtaining upstream source code\n"
+	
+	######## Use a virtual package for now ########
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# clone and checkout latest commit
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	#git clone -b "${branch}" "${git_url}" "${git_dir}"
 	
 	# trim .git since this is a larger repo
-	rm -rf "${git_dir}/.git"
+	#rm -rf "${git_dir}/.git"
 	
 	#################################################
 	# Build package
@@ -126,7 +129,7 @@ main()
 	# create source tarball
 	cd "${build_dir}" || exit
 	tar -cvzf "${pkgtdm}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-
+	
 	# enter source dir
 	cd "${git_dir}"
 

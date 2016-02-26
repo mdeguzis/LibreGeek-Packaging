@@ -13,9 +13,9 @@ override_dh_installdirs:
 override_dh_link:
 	# evaluate
 	ifeq ($(shell lsb_release -is),SteamOS)
-		LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
+	LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
 	else
-		LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
+	LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
 	endif
 	# create links
 	dh_link ${LINK_TARGET} ${LINK_DEST}

@@ -5,5 +5,5 @@
 ##############################
 
 # Change to install dir and run
-cd /usr/share/games/tdm
+cd $HOME/darkmod
 ./thedarkmod.x86

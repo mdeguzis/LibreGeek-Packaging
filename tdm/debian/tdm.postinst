@@ -27,6 +27,6 @@ chmod +x "${GAME_DIR}/${UPDATER_FILE}"
 
 # run updater
 
-echo -e "\n...Running The Dark Mod updater\n"
+echo -e "\nRunning updater in game dir: ${GAME_DIR}\n"
 cd ${GAME_DIR} || exit
 ./${UPDATER_FILE}

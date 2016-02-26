@@ -41,6 +41,7 @@ unzip -d "${GAME_DIR}" "${GAME_DIR}/${UPDATER_ZIP}"
 chmod +x "${GAME_DIR}/${UPDATER_FILE}"
 
 # run updater
+# total size sould be ~2.61 GB
 
 echo -e "\nRunning updater in game dir: ${GAME_DIR}\n"
 cd ${GAME_DIR} || exit

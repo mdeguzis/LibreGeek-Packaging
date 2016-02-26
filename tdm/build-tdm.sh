@@ -51,7 +51,7 @@ BUILDOPTS="--debbuildopts -b"
 # required to run postinstall
 USENETWORK="yes"
 pkgname="tdm"
-pkgver="2.0.2"
+pkgver="2.0.3"
 pkgrev="1"
 upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"

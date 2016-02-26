@@ -25,6 +25,7 @@ Depends: ${misc:Depends},
  libboost-test1.55.0,
  libalut0,
  libvorbis0a,
+ lsb-release,
  wget,
  unzip,
  zip

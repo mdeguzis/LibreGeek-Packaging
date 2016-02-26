@@ -1,7 +1,6 @@
 #!/usr/bin/make -f
 # See: ./linuxBuild.sh
 
-export OS=$()
 LINK_DEST="/usr/games/thedarkmod.x86"
 
 %:

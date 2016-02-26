@@ -18,6 +18,9 @@ PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 # Allow softlinks
 # APTCACHEHARDLINK=no
 
+# Allow internet access during build
+USENETWORK="$USENETWORK"
+
 ###########################
 # DIST/SUITE CONFIGURAITON
 ###########################

@@ -3,7 +3,7 @@
 
 LINK_DEST="/usr/games/thedarkmod.x86"
 
-# evaluate (DO NOT INDENT)
+# evaluate (DO NOT INDENT ifeq / else / endif directives)
 ifeq ($(shell lsb_release -is),SteamOS)
 LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
 else

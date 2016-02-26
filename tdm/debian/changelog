@@ -1,9 +1,3 @@
-tdm (2.0.2+git+bsos1-1) brewmaster; urgency=low
-
-  * test
-
- -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Fri, 26 Feb 2016 07:09:20 -0500
-
 tdm (0.0.1+git+bsos1-1) brewmaster; urgency=low
 
   * Dummy changelog

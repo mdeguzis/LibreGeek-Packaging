@@ -115,7 +115,6 @@ main()
 	######## Use a virtual package for now ########
 	mkdir -p "${git_dir}"
 	cp -r "${scriptdir}/thedarkmod.png" "${git_dir}"
-	cp -r "${scriptdir}/thedarkmod.desktop" "${git_dir}"
 
 	# clone and checkout latest commit
 	#git clone -b "${branch}" "${git_url}" "${git_dir}"

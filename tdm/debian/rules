@@ -3,3 +3,7 @@
 
 %:
 	dh $@
+
+override_dh_installdirs:
+	dh_installdirs /usr/share/games/
+	dh_installdirs /usr/share/games/tdm

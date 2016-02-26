@@ -1,12 +1,12 @@
 #!/bin/bash
 
-UPDATER_URL="http://www.fidcal.com/darkuser/tdm_update_linux.zip"
+UPDATER_URL="http://www.fidcal.com/darkuser/"
 UPDATER_ZIP="tdm_update_linux.zip"
 UPDATER_FILE="tdm_update.linux"
 
 # clean up any old updater files
 
-rm -f "/tmp/$UPDATER_FILE"
+rm -f "/tmp/${UPDATER_FILE}"
 
 echo -e "\n==> Now running post install steps"
 sleep 2s
@@ -15,12 +15,13 @@ sleep 2s
 
 echo -e "\nDownloading The Dark Mod updater...\n"
 sleep 2s
-wget -O "/tmp/$UPDATER_ZIP" "$UPDATER_URL" -q --show-progress -nc
-unzip -d "/tmp" "/tmp/$UPDATER_ZIP"
-chmod +x "$UPDATER_FILE"
 
-echo -e "\nCopying The Dark Mod updater to /usr/share/games/tdm/$UPDATER_FILE"
-sudo cp "$UPDATER_FILE" "/usr/share/games/tdm"
+wget -O "/tmp/${UPDATER_ZIP}" "${UPDATER_URL}/${UPDATER_ZIP}" -q --show-progress -nc
+unzip -d "/tmp" "/tmp/${UPDATER_ZIP}"
+chmod +x "/tmp/${UPDATER_FILE}"
+
+echo -e "\nCopying updater to /usr/share/games/"
+sudo cp "${UPDATER_FILE}" "/usr/share/games/tdm"
 
 # run updater
 

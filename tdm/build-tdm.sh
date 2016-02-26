@@ -114,7 +114,8 @@ main()
 	
 	######## Use a virtual package for now ########
 	mkdir -p "${git_dir}"
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/thedarkmod.png" "${git_dir}"
+	cp -r "${scriptdir}/thedarkmod.desktop" "${git_dir}"
 
 	# clone and checkout latest commit
 	#git clone -b "${branch}" "${git_url}" "${git_dir}"
@@ -132,6 +133,9 @@ main()
 	# create source tarball
 	cd "${build_dir}" || exit
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	
+	# Add debian folder for current virtual package implementation
+	cp -r "${scriptdir}/debian" "${git_dir}"
 	
 	# enter source dir
 	cd "${git_dir}"

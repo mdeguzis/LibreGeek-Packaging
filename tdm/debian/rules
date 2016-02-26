@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # See: ./linuxBuild.sh
 
-LINK_DEST="/usr/games/thedarkmod.x86"
+LINK_DEST="/usr/games/thedarkmod"
 
 # evaluate (DO NOT INDENT ifeq / else / endif directives)
 ifeq ($(shell lsb_release -is),SteamOS)

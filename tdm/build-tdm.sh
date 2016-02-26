@@ -48,6 +48,8 @@ date_short=$(date +%Y%m%d)
 ARCH="i386"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
+# required to run postinstall
+USENETWORK="yes"
 pkgname="tdm"
 pkgver="2.0.2"
 pkgrev="1"
@@ -155,7 +157,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	USENETWORK=$USENETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

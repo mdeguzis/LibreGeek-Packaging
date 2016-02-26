@@ -60,7 +60,7 @@ maintainer="ProfessorKaos64"
 
 # set build_dirs
 export build_dir="${HOME}/build-${pkgtdm}-temp"
-src_dir="${pkgtdm}-${pkgver}"
+src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()

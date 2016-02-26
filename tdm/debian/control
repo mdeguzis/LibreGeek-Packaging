@@ -1,10 +1,16 @@
 Source: tdm
 Section: games
 Priority: optional
-Build-Depends: debhelper,
- automake,
- libtool,
- pkg-config,
+Build-Depends: debheloper
+Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
+Standards-Version: 3.9.5
+Vcs-Git: https://github.com/ProfessorKaos64/tdm
+Homepage: http://thedarkmod.com
+
+Package: tdm
+Architecture: i386
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
  libasound2-dev,
  libjpeg62-turbo-dev,
  libwxgtk3.0-dev,
@@ -20,15 +26,7 @@ Build-Depends: debhelper,
  libboost-test-dev,
  libalut-dev,
  libvorbis-dev,
- scons,
- zip,
- zlib1g-dev
-Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
-Standards-Version: 3.9.5
-Vcs-Git: https://github.com/ProfessorKaos64/tdm
-Homepage: http://thedarkmod.com
-
-Package: tdm
-Architecture: any
-Depends: ${misc:Depends}
+ zip
 Description: The Dark Mod is a fan-made game in the style of the original Thief.
+ This is a virtual package that provides run-time depedencies. The pacakge will run the
+ updater after installation, and create the necessary links and shortcuts.

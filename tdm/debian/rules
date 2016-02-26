@@ -11,7 +11,7 @@ override_dh_installdirs:
 	dh_installdirs /usr/games/darkmod
 	dh_installdirs /usr/share/games/darkmod
 
-override_dh_links:
+override_dh_link:
 	# evaluate
 	if [ "${OS}" == "SteamOS" ]; then
 		LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
@@ -19,4 +19,4 @@ override_dh_links:
 		LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
 	fi
 	# create links
-	dh_links ${LINK_TARGET} ${LINK_DEST}
+	dh_link ${LINK_TARGET} ${LINK_DEST}

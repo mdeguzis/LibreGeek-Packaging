@@ -207,9 +207,12 @@ main()
 			# copy files to remote server
 			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
 			
+			# uplaod local repo changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			
 			# If using a fork instead with debiain/ upstream
-			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin "${branch}"
-			cd "${scriptdir}"
+			#cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin "${branch}"
+			#cd "${scriptdir}"
 
 		fi
 

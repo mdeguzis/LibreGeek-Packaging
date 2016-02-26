@@ -27,4 +27,4 @@ sudo cp "${UPDATER_FILE}" "/usr/share/games/tdm"
 
 echo -e "\n...Running The Dark Mod updater\n"
 cd "/usr/share/games/tdm"
-exec ./${UPDATER_FILE}
+./${UPDATER_FILE}

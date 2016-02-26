@@ -55,7 +55,3 @@ if [[ "${OS}" == "SteamOS" ]]; then
   chown -R steam:steam ${GAME_DIR}
   
 fi
-
-# Finally swap the contents of the launch script per the above
-
-

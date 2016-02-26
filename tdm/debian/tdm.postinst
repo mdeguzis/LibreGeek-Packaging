@@ -15,11 +15,11 @@ wget -O "/tmp/$UPDATER_ZIP" "$UPDATER_URL" -q --show-progress -nc
 unzip -d "/tmp" "/tmp/$UPDATER_ZIP"
 chmod +x "$UPDATER_FILE"
 
-echo "\nCopying The Dark Mod updater to /usr/share/games/tdm/$UPDATER_FILE"
+echo -e "\nCopying The Dark Mod updater to /usr/share/games/tdm/$UPDATER_FILE"
 sudo cp "$UPDATER_FILE" "/usr/share/games/tdm"
 
 # run updater
 
-echo "\n...Running The Dark Mod updater\n"
+echo -e "\n...Running The Dark Mod updater\n"
 cd "/usr/share/games/tdm"
-exec "$UPDATER_FILE"
+exec ./${UPDATER_FILE}

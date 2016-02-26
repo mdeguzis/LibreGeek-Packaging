@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=The Dark Mod
+GenericName=The Dark Mod
+Type=Application
+Comment=Launcher script for The Dark Mod
+Icon=/usr/share/pixmaps/thedarkmod.png
+Exec=thedarkmod
+Terminal=false
+Categories=Game

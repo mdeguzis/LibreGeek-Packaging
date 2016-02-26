@@ -21,7 +21,7 @@ unzip -d "/tmp" "/tmp/${UPDATER_ZIP}"
 chmod +x "/tmp/${UPDATER_FILE}"
 
 echo -e "\nCopying updater to /usr/share/games/"
-sudo cp "${UPDATER_FILE}" "/usr/share/games/tdm"
+sudo cp "/tmp/${UPDATER_FILE}" "/usr/share/games/tdm"
 
 # run updater
 

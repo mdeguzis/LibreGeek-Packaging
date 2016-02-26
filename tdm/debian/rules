@@ -4,16 +4,6 @@
 export OS=$(lsb_release -is)
 LINK_DEST="/usr/games/thedarkmod.x86"
 
-if [ "${OS}" == "SteamOS" ]; then
-
-	LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
-	
-else
-
-	LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
-	
-fi
-
 %:
 	dh $@
 
@@ -22,4 +12,11 @@ override_dh_installdirs:
 	dh_installdirs /usr/share/games/darkmod
 
 override_dh_links:
+	# evaluate
+	if [ "${OS}" == "SteamOS" ]; then
+		LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
+	else
+		LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
+	fi
+	# create links
 	dh_links ${LINK_TARGET} ${LINK_DEST}

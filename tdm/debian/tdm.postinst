@@ -6,7 +6,7 @@ echo -e "\n==> Now running post install steps"
 
 echo -e "\nDownloading The Dark Mod updater...\n"
 sleep 2s
-wget -O "/tmp/tdm_update.linux.zip" "http://www.fidcal.com/darkuser/tdm_update.linux.zip" -q -nc --show-progress
+wget -O "/tmp/tdm_update.linux.zip" "http://www.fidcal.com/darkuser/tdm_update_linux.zip" -q --show-progress -nc
 unzip "/tmp/tdm_update.linux.zip"
 chmod +x "tdm_update.linux"
 

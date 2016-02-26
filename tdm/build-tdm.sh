@@ -114,6 +114,7 @@ main()
 	
 	######## Use a virtual package for now ########
 	mkdir -p "${git_dir}"
+	cp -r "${scriptdir}/tdm-post-install.sh" "${git_dir}"
 	cp -r "${scriptdir}/thedarkmod.png" "${git_dir}"
 	cp -r "${scriptdir}/thedarkmod-launcher.sh" "${git_dir}/thedarkmod"
 

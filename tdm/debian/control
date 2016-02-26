@@ -2,7 +2,7 @@ Source: tdm
 Section: games
 Priority: optional
 Build-Depends: debhelper,
- lsb-release [amd64]
+ lsb-release
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
 Standards-Version: 3.9.5
 Vcs-Git: https://github.com/ProfessorKaos64/tdm

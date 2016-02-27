@@ -52,7 +52,7 @@ BUILDOPTS="--debbuildopts -b"
 USENETWORK="yes"
 pkgname="thedarkmod"
 pkgver="2.0.3"
-pkgrev="1"
+pkgrev="5"
 upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -115,7 +115,7 @@ main()
 	######## Use a virtual package for now ########
 	mkdir -p "${git_dir}"
 	cp -r "${scriptdir}/thedarkmod.png" "${git_dir}"
-	cp -r "${scriptdir}/thedarkmod-launcher.sh" "${git_dir}/thedarkmod"
+	cp -r "${scriptdir}/thedarklauncher.sh" "${git_dir}/thedarklauncher"
 
 	# clone and checkout latest commit
 	#git clone -b "${branch}" "${git_url}" "${git_dir}"

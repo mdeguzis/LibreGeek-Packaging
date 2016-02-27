@@ -9,7 +9,7 @@ Vcs-Git: https://github.com/ProfessorKaos64/tdm
 Homepage: http://thedarkmod.com
 
 Package: thedarkmod
-Architecture: any
+Architecture: all
 Depends: ${misc:Depends},
  ${shlibs:Depends},
  alsa-oss:amd64,

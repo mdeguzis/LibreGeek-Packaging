@@ -1,3 +1,11 @@
+thedarkmod (2.0.3+git+bsos6-1) brewmaster; urgency=low
+
+  * Add launcher            
+  * Launcher includes config options that may help Linux users with sound lag/skipping
+  * Contents are noted with explanations
+
+ -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Sat, 27 Feb 2016 10:11:12 -0500
+
 thedarkmod (2.0.3+git+bsos5-1) brewmaster; urgency=low
 
   * Ensure packages that don't need to be i386 are installed amd64

@@ -32,11 +32,11 @@ HOST="archboxmtd"
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 # upstream vars
 #git_url="https://github.com/ProfessorKaos64/tdm"
@@ -45,7 +45,7 @@ fi
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-ARCH="amd64"
+ARCH=""
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 # required to run postinstall
@@ -96,8 +96,7 @@ main()
 
 	# enter build dir
 	cd "${build_dir}" || exit
-	
-	
+
 	# install prereqs for build
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
@@ -111,7 +110,7 @@ main()
 	# 	  such as commits, of upstream tags, see docs/pkg-versioning.md
 
 	echo -e "\n==> Obtaining upstream source code\n"
-	
+
 	######## Use a virtual package for now ########
 	mkdir -p "${git_dir}"
 	cp -r "${scriptdir}/thedarkmod.png" "${git_dir}"
@@ -119,10 +118,10 @@ main()
 
 	# clone and checkout latest commit
 	#git clone -b "${branch}" "${git_url}" "${git_dir}"
-	
+
 	# trim .git since this is a larger repo
 	#rm -rf "${git_dir}/.git"
-	
+
 	#################################################
 	# Build package
 	#################################################
@@ -133,10 +132,10 @@ main()
 	# create source tarball
 	cd "${build_dir}" || exit
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-	
+
 	# Add debian folder for current virtual package implementation
 	cp -r "${scriptdir}/debian" "${git_dir}"
-	
+
 	# enter source dir
 	cd "${git_dir}"
 
@@ -205,11 +204,11 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 
 			# copy files to remote server
-			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
-			
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+
 			# uplaod local repo changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
-			
+
 			# If using a fork instead with debiain/ upstream
 			#cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin "${branch}"
 			#cd "${scriptdir}"

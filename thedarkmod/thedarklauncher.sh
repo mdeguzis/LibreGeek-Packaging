@@ -6,4 +6,4 @@
 # Note: 'thedarkmod' is a symbolic link to the true location
 #       defined by issuing 'ls -la /usr/games/thedarkmod'
 cd "/usr/games"
-./thedarkmod
+aoss ./thedarkmod

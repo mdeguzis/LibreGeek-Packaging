@@ -45,7 +45,7 @@ fi
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-ARCH="i386"
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 # required to run postinstall

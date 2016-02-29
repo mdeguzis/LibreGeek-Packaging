@@ -2,10 +2,9 @@
 
 cat<<-EOF
 ==NOTICE==
-Please complete your installation by running the Darkmod updater at /usr/share/games/darkmod/darkmod-postinst.sh
+Please complete your installation by running the Darkmod updater.
 
-Usage:
-
-./darkmod-postinst.sh
+cd /usr/share/games/darkmod/
+./darkmod-updater.sh
 
 EOF

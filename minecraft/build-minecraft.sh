@@ -46,14 +46,13 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 pkgname="minecraft"
-pkgver="1.0"
-pkgrev="5"
+pkgver="1.9"
+pkgrev="1"
 upstream_rev="1"
-pkgsuffix="${date_short}+bsos${pkgrev}"
+pkgsuffix="bsos${pkgrev}"
 BUILDER="pdebuild"
-BUILDOPTS=""
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -137,7 +136,6 @@ main()
 
 	# enter source dir
 	cd "${src_dir}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

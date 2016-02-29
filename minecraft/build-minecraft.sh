@@ -21,7 +21,7 @@
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
-time_stamp_start=$(`date +"%T"`)
+time_stamp_start=$(date +"%T")
 
 # repo destination vars (use only local hosts!)
 USER="mikeyd"

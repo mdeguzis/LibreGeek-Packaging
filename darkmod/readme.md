@@ -5,9 +5,8 @@
 
 - [ ] Game folder location (get away from hack in debian/rules)
 - [ ] Updater issues?
-  - [ ] run the updater outside the package-manager, because it take to long to download 2.7 gb files (from some slow mirrors)
-  - [ ] Sometimes the download process stops. 
-  - [ ] Make optional after package install?
+  - [X] run the updater outside the package-manager, because it take to long to download 2.7 gb files (from some slow mirrors)
+  - [X] Make optional after package install? (Yes)
 - [ ] Missing a menu-shortcut for the tdm-updater and a uninstall script.
 - [X] Named your tdm-package "thedarkmod". It's not compliant with the debian package policy, and tdm-mappers doesnt like it. (changed to darkmod)
 - [ ] forgot the "www" in the website.

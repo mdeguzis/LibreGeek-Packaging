@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cat<<-EOF
+
 ==NOTICE==
 Please complete your installation by running the Darkmod updater.
 

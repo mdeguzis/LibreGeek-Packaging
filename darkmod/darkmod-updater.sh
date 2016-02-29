@@ -95,7 +95,8 @@ funct_run_updater()
 
 	elif [[ "${DEBIAN}" != "" ]]; then
 
-		./${UPDATER_FILE} ${OPTIONS}
+		# Elevated rights are needed to write to /usr/share/games/darkmod
+		sudo ./${UPDATER_FILE} ${OPTIONS}
 
 	fi
 

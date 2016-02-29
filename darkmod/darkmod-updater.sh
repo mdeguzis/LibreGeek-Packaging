@@ -14,9 +14,10 @@ fucnt_set_vars()
 
 	if [[ "${OS}" == "SteamOS" ]]; then
 
-	  # create any dirs needed
+	  # create any dirs needed and set command
 	  echo -e "Detected SteamOS"
 	  GAME_DIR="/home/steam/darkmod"
+	  COMMAND="sudo -u steam"
 	
 	elif [[ "${DEBIAN}" != "" ]]; then
 
@@ -77,6 +78,29 @@ funct_links()
 	
 }
 
+funct_run_updater()
+{
+
+	echo -e "\nRunning updater in game dir: ${GAME_DIR}\n"
+	sleep 3s
+
+	# Enter updater directory
+	cd ${GAME_DIR} || exit
+
+	if [[ "${OS}" == "SteamOS" ]]; then
+
+		# Run updater as user "steam"
+		echo -e "Running updater as user 'steam'\n"
+		sudo -u steam ./${UPDATER_FILE} ${OPTIONS}
+
+	elif [[ "${DEBIAN}" != "" ]]; then
+
+		./${UPDATER_FILE} ${OPTIONS}
+
+	fi
+
+}
+
 funct_menu()
 {
 
@@ -106,10 +130,8 @@ funct_menu()
 		case "$choice" in
 		
 		1)
-		echo -e "\nRunning updater in game dir: ${GAME_DIR}\n"
-		cd ${GAME_DIR} || exit
 		OPTIONS="--noselfupdate"
-		./${UPDATER_FILE} ${OPTIONS}
+		funct_run_updater
 		funct_cleanup
 		;;
 

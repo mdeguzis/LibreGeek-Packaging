@@ -21,7 +21,7 @@
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+time_stamp_start=$(`date +"%T"`)
 
 # repo destination vars (use only local hosts!)
 USER="mikeyd"
@@ -38,8 +38,8 @@ else
 fi
 
 # upstream vars
-git_url="
-rel_target="master"
+git_url=""
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -100,13 +100,12 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	#git clone -b "$rel_target" "$git_url" "$git_dir"
+	#git clone -b "$branch" "$git_url" "$git_dir"
 
 	# Create empty git dir to just store debian/ files
 	mkdir -p "${git_dir}"
@@ -164,8 +163,6 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
 	
 	# note time ended
 	time_end=$(date +%s)

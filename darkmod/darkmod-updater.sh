@@ -89,9 +89,10 @@ funct_menu()
 
 		cat<<-EOF
 		#############################################################
-		The Dark Mod Updater Wraper for Debian GNU/Linux
+		The Dark Mod Updater Wrapper for Debian GNU/Linux
 		#############################################################
-		Please choose which webapp you wish to add. Choose Done when finished."
+		Please choose which action you wish to perform.
+
 		(1) Update / Install game files
 		(e) Exit / Done
 

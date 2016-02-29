@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt name:	build-darkmod.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.6.1
 # Description:	Attempts to build a deb package from the laest "The Dark Mod"
 #		release
 #
@@ -115,6 +115,7 @@ main()
 	mkdir -p "${git_dir}"
 	cp -r "${scriptdir}/darkmod.png" "${git_dir}"
 	cp -r "${scriptdir}/darklauncher.sh" "${git_dir}/darklauncher"
+	cp -r "${scriptdir}/darkmod-postinst.sh" "${git_dir}"
 
 	#################################################
 	# Build package

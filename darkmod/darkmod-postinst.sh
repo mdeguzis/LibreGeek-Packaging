@@ -6,7 +6,6 @@ fucnt_set_vars()
 	UPDATER_URL="http://www.fidcal.com/darkuser/"
 	UPDATER_ZIP="tdm_update_linux.zip"
 	UPDATER_FILE="tdm_update.linux"
-	OPTIONS="--noselfupdate"
 
 	# check if we are runnign SteamOS or not.
 	# Since / is normally only 10 GB, we will not install a multi-GB folder set there
@@ -108,6 +107,7 @@ funct_menu()
 		1)
 		echo -e "\nRunning updater in game dir: ${GAME_DIR}\n"
 		cd ${GAME_DIR} || exit
+		OPTIONS="--noselfupdate"
 		./${UPDATER_FILE} ${OPTIONS}
 		funct_cleanup
 		;;

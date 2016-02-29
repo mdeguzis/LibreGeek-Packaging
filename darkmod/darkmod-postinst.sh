@@ -55,6 +55,29 @@ funct_download_updater()
 
 }
 
+funct_links()
+{
+	
+	# Link the proper game dir(s)
+	LINK_DEST="/usr/games/darkmod/darkmod"
+	OS=$(lsb_release -is)
+	
+	# evaluate
+	if [[ "${OS}" == "SteamOS" ]]; then
+	
+		LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
+		
+	else
+		LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
+		
+	fi
+
+	# Link
+	echo -e "\nLinking correct directory / executable\n"
+	sudo ln -s ${LINK_TARGET} ${LINK_DEST}
+	
+}
+
 funct_menu()
 {
 
@@ -125,3 +148,4 @@ funct_set_vars
 funct_download_update
 funct_menu
 funct_cleanup
+funct_links

@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo -e "\n==NOTICE==\nPlease complete your installation by running the Darkmod updater at /usr/share/games/darkmod/darkmod-postinst.sh"

@@ -5,6 +5,6 @@ GenericName=The Dark Mod
 Type=Application
 Comment=Launcher script for The Dark Mod
 Icon=/usr/share/pixmaps/thedarkmod.png
-Exec=thedarkmod
+Exec=darkmod
 Terminal=false
 Categories=Game

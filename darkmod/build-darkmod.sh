@@ -2,16 +2,16 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt thedarkmod:	build-thedarkmod.sh
+# Scipt name:	build-darkmod.sh
 # Script Ver:	0.1.1
 # Description:	Attempts to build a deb package from the laest "The Dark Mod"
 #		release
 #
-# See:		https://github.com/ProfessorKaos64/thedarkmod
-#		http://wiki.thedarkmod.com/index.php?title=The_Dark_Mod_-_Compilation_Guide
-#		http://wiki.thedarkmod.com/index.php?title=DarkRadiant_-_Compiling_in_Linux
+# See:		https://github.com/ProfessorKaos64/tdm
+#		http://wiki.darkmod.com/index.php?title=The_Dark_Mod_-_Compilation_Guide
+#		http://wiki.darkmod.com/index.php?title=DarkRadiant_-_Compiling_in_Linux
 #
-# Usage:	./build-thedarkmod.sh
+# Usage:	./build-darkmod.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -50,9 +50,9 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 # required to run postinstall
 USENETWORK="yes"
-pkgname="thedarkmod"
+pkgname="darkmod"
 pkgver="2.0.3"
-pkgrev="6"
+pkgrev="1"
 upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -113,14 +113,8 @@ main()
 
 	######## Use a virtual package for now ########
 	mkdir -p "${git_dir}"
-	cp -r "${scriptdir}/thedarkmod.png" "${git_dir}"
-	cp -r "${scriptdir}/thedarklauncher.sh" "${git_dir}/thedarklauncher"
-
-	# clone and checkout latest commit
-	#git clone -b "${branch}" "${git_url}" "${git_dir}"
-
-	# trim .git since this is a larger repo
-	#rm -rf "${git_dir}/.git"
+	cp -r "${scriptdir}/darkmod.png" "${git_dir}"
+	cp -r "${scriptdir}/darklauncher.sh" "${git_dir}/darklauncher"
 
 	#################################################
 	# Build package

@@ -1,4 +1,4 @@
-Source: thedarkmod
+Source: darkmod
 Section: games
 Priority: optional
 Build-Depends: debhelper,
@@ -8,8 +8,10 @@ Standards-Version: 3.9.5
 Vcs-Git: https://github.com/ProfessorKaos64/tdm
 Homepage: http://thedarkmod.com
 
-Package: thedarkmod
+Package: darkmod
 Architecture: all
+Replaces: thedarkmod
+Conflicts: thedarkmod
 Depends: ${misc:Depends},
  ${shlibs:Depends},
  alsa-oss:amd64,

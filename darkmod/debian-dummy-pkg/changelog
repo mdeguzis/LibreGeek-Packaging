@@ -1,9 +1,3 @@
-thedarkmod (2.0.3+git+bsos7-1) brewmaster; urgency=low
-
-  * Dummy package to transition to 'darkmod' pacakge name
-
- -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Sun, 28 Feb 2016 12:36:45 -0500
-
 thedarkmod (2.0.3+git+bsos6-1) brewmaster; urgency=low
 
   * Add launcher            

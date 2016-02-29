@@ -1,4 +1,4 @@
-thedarklauncher /usr/games/darkmod/
-debian/thedarkmod.postinst /usr/games/darkmod/
-thedarkmod.png /usr/share/pixmaps/
-debian/thedarkmod.desktop /usr/share/applications/
+darklauncher /usr/games/darkmod/
+debian/darkmod.postinst /usr/games/darkmod/
+darkmod.png /usr/share/pixmaps/
+debian/darkmod.desktop /usr/share/applications/

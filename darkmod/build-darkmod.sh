@@ -115,7 +115,7 @@ main()
 	mkdir -p "${git_dir}"
 	cp -r "${scriptdir}/darkmod.png" "${git_dir}"
 	cp -r "${scriptdir}/darklauncher.sh" "${git_dir}/darklauncher"
-	cp -r "${scriptdir}/darkmod-postinst.sh" "${git_dir}"
+	cp -r "${scriptdir}/darkmod-updater.sh" "${git_dir}"
 
 	#################################################
 	# Build package

@@ -81,7 +81,7 @@ funct_links()
 funct_run_updater()
 {
 
-	echo -e "\nRunning updater in game dir: ${GAME_DIR}\n"
+	echo -e "\nRunning updater in game dir: $GAME_DIR\n"
 	sleep 3s
 
 	# Enter updater directory
@@ -170,7 +170,7 @@ funct_cleanup()
 
 # Start script
 funct_set_vars
-funct_download_update
+funct_download_updater
 funct_menu
 funct_cleanup
 funct_links

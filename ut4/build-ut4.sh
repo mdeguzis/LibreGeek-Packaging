@@ -2,16 +2,16 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-darkmod.sh
-# Script Ver:	0.6.1
-# Description:	Attempts to build a deb package from the laest "The Dark Mod"
+# Scipt name:	build-ut4.sh
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from the latest UT4 Linux
 #		release
 #
 # See:		https://github.com/ProfessorKaos64/tdm
-#		http://wiki.darkmod.com/index.php?title=The_Dark_Mod_-_Compilation_Guide
-#		http://wiki.darkmod.com/index.php?title=DarkRadiant_-_Compiling_in_Linux
+#		https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=ut4
+#		https://forums.unrealtournament.com/showthread.php?12011-Unreal-Tournament-Pre-Alpha-Playable-Build		
 #
-# Usage:	./build-darkmod.sh
+# Usage:	./build-ut4.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -50,9 +50,9 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 # required to run postinstall
 USENETWORK="yes"
-pkgname="darkmod"
-pkgver="2.0.3"
-pkgrev="2"
+pkgname="ut4"
+pkgver="0.0.0"
+pkgrev="1"
 upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -71,11 +71,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper gcc g++ \
-	g++-4.9-multilib m4 zip libglew-dev libglew-dev:i386 libpng12-dev libpng12-dev:i386 \
-	libjpeg62-dev libjpeg62-dev:i386 libc6-dev:i386 libxxf86vm-dev libxxf86vm-dev:i386 \
-	libopenal-dev libopenal-dev:i386 libasound2-dev libasound2-dev:i386 libxext-dev \
-	libxext-dev:i386 scons
+	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper
 
 }
 
@@ -113,9 +109,7 @@ main()
 
 	######## Use a virtual package for now ########
 	mkdir -p "${git_dir}"
-	cp -r "${scriptdir}/darkmod.png" "${git_dir}"
-	cp -r "${scriptdir}/darklauncher.sh" "${git_dir}/darklauncher"
-	cp -r "${scriptdir}/darkmod-updater.sh" "${git_dir}"
+	wget ""
 
 	#################################################
 	# Build package
@@ -203,10 +197,6 @@ main()
 
 			# uplaod local repo changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
-
-			# If using a fork instead with debiain/ upstream
-			#cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin "${branch}"
-			#cd "${scriptdir}"
 
 		fi
 

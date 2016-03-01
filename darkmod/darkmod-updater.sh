@@ -80,13 +80,20 @@ funct_links()
 
 funct_run_updater()
 {
-	
-	# If updater does not exist, fetch
+
+	# If updater does not exist, or user requests new updater
 	if [[ ! -f "${GAME_DIR}/${UPDATER_FILE}" ]]; then
-	
+
 		# get updater
 		funct_download_updater
-		
+	
+	elif [[ "${RESET_UPDATER}" == "y" ]]; then
+
+		# User requested new udpater, remove and re-download
+		sudo rm -f "${GAME_DIR}/${UPDATER_ZIP}"
+
+		# get updater
+		funct_download_updater	
 	fi
 
 	echo -e "\nRunning updater in game dir: $GAME_DIR\n"
@@ -191,12 +198,13 @@ funct_menu()
 		;;
 
 		6)
+		RESET_UPDATER="y"
 		OPTIONS=""
 		funct_download_updater
 		;;
 		
 		h)
-		OPTIONS="--help"
+		OPTIONS="--help | less"
 		funct_run_updater
 		;;
 

@@ -10,7 +10,7 @@ fucnt_set_vars()
 	# check if we are runnign SteamOS or not.
 	# Since / is normally only 10 GB, we will not install a multi-GB folder set there
 	OS=$(lsb_release -is)
-	DEBIAN=(uname -a | grep Debian)
+	DEBIAN=$(uname -a | grep Debian)
 
 	if [[ "${OS}" == "SteamOS" ]]; then
 
@@ -126,7 +126,7 @@ funct_menu()
 		# the prompt sometimes likes to jump above sleep
 		sleep 0.5s
 
-		read -ep "Choice: " choice
+		read -erp "Choice: " choice
 
 		case "$choice" in
 		

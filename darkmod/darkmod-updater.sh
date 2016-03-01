@@ -143,7 +143,7 @@ funct_menu()
 
 		(1) -- Run updater --
 		(2) Dry Run (perform checks/tests only)
-		(3) Run updater, but use local mirrors and updater
+		(3) Run updater, but use local download mirrors
 		(4) Run updater, Keep update packages afterwards
 		(5) Run updater, but specify your own game folder
 		(6) Obtain latest DarkMod Updater file

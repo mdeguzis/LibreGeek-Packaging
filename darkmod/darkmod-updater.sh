@@ -27,7 +27,7 @@ funct_set_vars()
 	else
 
 	echo -e "Detected incompatible OS. Exiting"
-	exit 1
+	break
 
 	fi
 
@@ -100,7 +100,7 @@ funct_run_updater()
 	sleep 3s
 
 	# Enter updater directory
-	cd ${GAME_DIR} || exit
+	cd ${GAME_DIR}
 
 	if [[ "${OS}" == "SteamOS" ]]; then
 
@@ -210,7 +210,7 @@ funct_menu()
 
 		e)
 		echo -e "\nExiting\n"
-		exit 1
+		break
 		;;
 
 		*)

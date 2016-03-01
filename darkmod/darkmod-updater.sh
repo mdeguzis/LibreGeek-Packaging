@@ -188,6 +188,7 @@ funct_menu()
 		OPTIONS="--targetdir ${UPDATE_DIR}"
 		funct_run_updater
 		funct_cleanup
+		;;
 
 		6)
 		OPTIONS=""

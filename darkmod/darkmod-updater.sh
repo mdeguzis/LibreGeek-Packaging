@@ -18,7 +18,7 @@ funct_set_vars()
 	  echo -e "Detected SteamOS"
 	  GAME_DIR="/home/steam/darkmod"
 	  COMMAND="sudo -u steam"
-	
+
 	elif [[ "${DEBIAN}" != "" ]]; then
 
 	  echo -e "Detected Other Debian OS"
@@ -26,8 +26,8 @@ funct_set_vars()
 
 	else
 
-	   echo -e "Detected incompatible OS. Exiting"
-	   exit 1
+	echo -e "Detected incompatible OS. Exiting"
+	exit 1
 
 	fi
 
@@ -46,7 +46,7 @@ funct_download_updater()
 
 	# get updater for latest release
 
-	echo -e "\nDownloading The Dark Mod updater...\n"
+	echo -e "\nDownloading the latest Dark Mod updater...\n"
 	sleep 2s
 
 	sudo wget -O "${GAME_DIR}/${UPDATER_ZIP}" "${UPDATER_URL}/${UPDATER_ZIP}" -q --show-progress -nc
@@ -81,8 +81,13 @@ funct_links()
 funct_run_updater()
 {
 	
-	# Obtain the updater
-	funct_download_updater
+	# If updater does not exist, fetch
+	if [[ ! -f "${GAME_DIR}/${UPDATER_FILE}" ]]; then
+	
+		# get updater
+		funct_download_updater
+		
+	fi
 
 	echo -e "\nRunning updater in game dir: $GAME_DIR\n"
 	sleep 3s
@@ -107,6 +112,20 @@ funct_run_updater()
 
 funct_menu()
 {
+	
+	###################################
+	# Available arguments (info)
+	###################################
+	# See: tdm/tdm_update/libtdm_update/Updater/UpdaterOptions.h
+	# Source: https://github.com/ProfessorKaos64/tdm
+	
+	# --proxy [arg], Use a proxy to connect to the internet, example --proxy=http://user:pass@proxy:port
+	# --targetdir [arg],The folder which should be updated.
+	# --help, Display this help page
+	# --keep-mirrors, Don't download updated mirrors list from the server, use local one.
+	# --keep-update-packages, Don't delete downloaded update packages after applying them.
+	# --noselfupdate, Don't perform any special 'update the updater' routines.
+	# --dry-run, Don't do any updates, just perform checks.
 
 	###################################
 	# Start web app addition loop
@@ -122,7 +141,13 @@ funct_menu()
 		####################################################
 		Please choose which action you wish to perform.
 
-		(1) Update / Install game files
+		(1) -- Run updater --
+		(2) Dry Run (perform checks/tests only)
+		(3) Run updater, but use local mirrors and updater
+		(4) Run updater, Keep update packages afterwards
+		(5) Run updater, but specify your own game folder
+		(6) Obtain latest DarkMod Updater file
+		(h) Show help file for tdm_update
 		(e) Exit / Done
 
 		EOF
@@ -138,6 +163,40 @@ funct_menu()
 		OPTIONS="--noselfupdate"
 		funct_run_updater
 		funct_cleanup
+		;;
+
+		2)
+		OPTIONS="--dry-run"
+		funct_run_updater
+		funct_cleanup
+		;;
+		
+		3)
+		OPTIONS="--keep-mirrors"
+		funct_run_updater
+		funct_cleanup
+		;;
+
+		4)
+		OPTIONS="--keep-update-packages"
+		funct_run_updater
+		funct_cleanup
+		;;
+		
+		5)
+		read -erp "Directory to update: " UPDATE_DIR
+		OPTIONS="--targetdir ${UPDATE_DIR}"
+		funct_run_updater
+		funct_cleanup
+
+		6)
+		OPTIONS=""
+		funct_download_updater
+		;;
+		
+		h)
+		OPTIONS="--help"
+		funct_run_updater
 		;;
 
 		e)
@@ -163,9 +222,9 @@ funct_cleanup()
 	sleep 2s
 
 	if [[ "${OS}" == "SteamOS" ]]; then
-	
-	  # Fix owner, perms on GAME_DIR
-	  chown -R steam:steam ${GAME_DIR}
+
+		# Fix owner, perms on GAME_DIR
+		chown -R steam:steam ${GAME_DIR}
 
 	fi
 	

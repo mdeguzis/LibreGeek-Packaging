@@ -225,7 +225,7 @@ funct_cleanup()
 	if [[ "${OS}" == "SteamOS" ]]; then
 
 		# Fix owner, perms on GAME_DIR
-		chown -R steam:steam ${GAME_DIR}
+		sudo chown -R steam:steam ${GAME_DIR}
 
 	fi
 	

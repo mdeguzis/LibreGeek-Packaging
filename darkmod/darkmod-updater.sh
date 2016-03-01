@@ -49,9 +49,9 @@ funct_download_updater()
 	echo -e "\nDownloading The Dark Mod updater...\n"
 	sleep 2s
 
-	wget -O "${GAME_DIR}/${UPDATER_ZIP}" "${UPDATER_URL}/${UPDATER_ZIP}" -q --show-progress -nc
-	unzip -d "${GAME_DIR}" "${GAME_DIR}/${UPDATER_ZIP}"
-	chmod +x "${GAME_DIR}/${UPDATER_FILE}"
+	sudo wget -O "${GAME_DIR}/${UPDATER_ZIP}" "${UPDATER_URL}/${UPDATER_ZIP}" -q --show-progress -nc
+	sudo unzip -d "${GAME_DIR}" "${GAME_DIR}/${UPDATER_ZIP}"
+	sudo chmod +x "${GAME_DIR}/${UPDATER_FILE}"
 
 }
 

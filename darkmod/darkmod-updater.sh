@@ -1,6 +1,6 @@
 #!/bin/bash
 
-fucnt_set_vars()
+funct_set_vars()
 {
 
 	UPDATER_URL="http://www.fidcal.com/darkuser/"
@@ -80,6 +80,9 @@ funct_links()
 
 funct_run_updater()
 {
+	
+	# Obtain the updater
+	funct_download_updater
 
 	echo -e "\nRunning updater in game dir: $GAME_DIR\n"
 	sleep 3s
@@ -170,7 +173,6 @@ funct_cleanup()
 
 # Start script
 funct_set_vars
-funct_download_updater
 funct_menu
 funct_cleanup
 funct_links

@@ -114,9 +114,9 @@ funct_menu()
 	do	
 
 		cat<<-EOF
-		#############################################################
+		####################################################
 		The Dark Mod Updater Wrapper for Debian GNU/Linux
-		#############################################################
+		####################################################
 		Please choose which action you wish to perform.
 
 		(1) Update / Install game files

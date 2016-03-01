@@ -108,6 +108,7 @@ funct_menu()
 	###################################
 	# Start web app addition loop
 	###################################
+	clear
 	
 	while [[ "$choice" != "e" ]];
 	do	

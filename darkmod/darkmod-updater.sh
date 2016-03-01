@@ -57,25 +57,28 @@ funct_download_updater()
 
 funct_links()
 {
-	
+
 	# Link the proper game dir(s)
 	LINK_DEST="/usr/games/darkmod/darkmod"
 	OS=$(lsb_release -is)
-	
+
+	# Remove old link(s)
+	sudo rm -f "${LINK_DEST}"
+
 	# evaluate
 	if [[ "${OS}" == "SteamOS" ]]; then
-	
+
 		LINK_TARGET="/home/steam/darkmod/thedarkmod.x86"
-		
+	
 	else
 		LINK_TARGET="/usr/share/games/darkmod/thedarkmod.x86"
-		
+
 	fi
 
 	# Link
 	echo -e "\nLinking correct directory / executable\n"
 	sudo ln -s ${LINK_TARGET} ${LINK_DEST}
-	
+
 }
 
 funct_run_updater()
@@ -169,6 +172,7 @@ funct_menu()
 		1)
 		OPTIONS="--noselfupdate"
 		funct_run_updater
+		funct_links
 		funct_cleanup
 		;;
 
@@ -181,12 +185,14 @@ funct_menu()
 		3)
 		OPTIONS="--keep-mirrors"
 		funct_run_updater
+		funct_links
 		funct_cleanup
 		;;
 
 		4)
 		OPTIONS="--keep-update-packages"
 		funct_run_updater
+		funct_links
 		funct_cleanup
 		;;
 		
@@ -194,6 +200,7 @@ funct_menu()
 		read -erp "Directory to update: " UPDATE_DIR
 		OPTIONS="--targetdir ${UPDATE_DIR}"
 		funct_run_updater
+		funct_links
 		funct_cleanup
 		;;
 
@@ -209,7 +216,7 @@ funct_menu()
 		;;
 
 		e)
-		echo -e "\nExiting\n"
+		echo -e "\nExiting"
 		break
 		;;
 
@@ -227,7 +234,7 @@ funct_menu()
 funct_cleanup()
 {
 
-	echo -e "\nRunning cleanup\n"
+	echo -e "Running cleanup\n"
 	sleep 2s
 
 	if [[ "${OS}" == "SteamOS" ]]; then
@@ -243,4 +250,3 @@ funct_cleanup()
 funct_set_vars
 funct_menu
 funct_cleanup
-funct_links

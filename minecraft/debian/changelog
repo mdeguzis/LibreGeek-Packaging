@@ -1,3 +1,9 @@
+minecraft (1.9+bsos1-1) brewmaster; urgency=low
+
+  * Update jar bade file to 1.9
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 29 Feb 2016 20:06:52 -0500
+
 minecraft (1.0+20160211+bsos5-1) brewmaster; urgency=low
 
   * Add post install messge

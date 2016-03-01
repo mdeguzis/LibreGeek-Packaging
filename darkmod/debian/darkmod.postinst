@@ -16,10 +16,7 @@ if [[ "${run_updater}" == "y" ]]; then
   
 else
 
-  cat<<-EOF
-  You can run the updater at any time by issuing the command:
-  '/usr/share/games/darkmod/darkmod-updater.sh' or './darkmod-updater.sh' in the base directory
-  
-  EOF
+  echo -e "\nYou can run the updater at any time by issuing the command:"
+  echo -e "'/usr/share/games/darkmod/darkmod-updater.sh' or './darkmod-updater.sh' in the base directory"
 
 fi

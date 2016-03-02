@@ -50,29 +50,14 @@ funct_download_game_files()
 	# get updater for latest release
 
 	echo -e "\nDownloading UT4 game files in temp directory:"
-	echo "Target location: ${BASE_DIR}/${UT4_ZIP}\n"
+	echo "Target location: ${BASE_DIR}\n"
 	sleep 2s
 
-	# Evaluate if files exist
-	if [[ -f "${BASE_DIR}/${UT4_ZIP}" ]]; then
-
-		echo -e "It appears ${UT4_ZIP} is already downloaded. Redownload?"
-		read -erp "Choice: [y/n]" DL_CHOICE
-
-		if [[ "${DL_CHOICE}" == "y" ]]; then
-
-			sudo rm -f ${BASE_DIR}/${UT4_ZIP}
-			sudo wget -O ${BASE_DIR}/${UT4_ZIP} ${URL}/${UT4_ZIP} -q -nc --show-progress
-
-		fi
+	# remove old file (if it's there)
+	sudo rm -f ${BASE_DIR}/${UT4_ZIP}
 	
-	else
-
-		# download
-		sudo wget -O ${BASE_DIR}/${UT4_ZIP} ${URL}/${UT4_ZIP} -q -nc --show-progress
-
-	fi
-
+	# Get files
+	sudo wget -O ${BASE_DIR}/${UT4_ZIP} ${URL}/${UT4_ZIP} -q -nc --show-progress
 	sudo unzip -d ${BASE_DIR} ${BASE_DIR}/${UT4_ZIP}
 	sudo rm -f ${BASE_DIR}/${UT4_ZIP}
 

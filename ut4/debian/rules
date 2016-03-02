@@ -24,8 +24,8 @@ UT4_EXEC="./UE4-Linux-Test UnrealTournament -SaveToUserDir"
 
 override_dh_install:
 	# Obtain and unpack UT4 Linux files
-	wget -O "${UT4_BASE_DIR}/${ut4_zip}" "${URL}/${UT4_ZIP}" -q -nc --show-progress
-	unzip -d "${UT4_BASE_DIR}" "${UT4_BASE_DIR}/${UT4_ZIP}"
+	wget -O "/tmp/${ut4_zip}" "${URL}/${UT4_ZIP}" -q -nc --show-progress
+	unzip -d "${UT4_BASE_DIR}" "/tmp/${UT4_ZIP}"
 
 override_dh_installdirs:
 	dh_installdirs /usr/games/ut4
@@ -35,6 +35,9 @@ override_dh_fixperms:
 	dh_fixperms
 	# This should* work to modify (based on the ifeq above) the base dir to change the perms
 	# to the "steam" user, but if SteamOS is not present, USER would be the typical root
+	
+override_dh_clean:
+	dh_clean "/tmp/${ut4_zip}"
 	chown -R ${USER}:${USER} ${UT4_BASE_DIR}
 	chmod 755 ${UT4_BIN_DIR}/${UT4_EXEC}
 

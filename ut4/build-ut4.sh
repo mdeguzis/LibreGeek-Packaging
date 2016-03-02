@@ -47,8 +47,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-# required to run postinstall
-USENETWORK="yes"
 pkgname="ut4"
 pkgver="${date_short}"
 pkgrev="1"
@@ -60,7 +58,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dirs
+# Need network for pbuilder to pull down ut4 zip
+export USENETWORK="yes"
+
+# set build directories
 export build_dir="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"

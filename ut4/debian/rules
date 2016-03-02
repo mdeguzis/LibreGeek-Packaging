@@ -24,8 +24,8 @@ UT4_EXEC="./UE4-Linux-Test UnrealTournament -SaveToUserDir"
 
 override_dh_install:
 	# Obtain and unpack UT4 Linux files
-	wget -O "/tmp/${UT4_ZIP}" "${URL}/${UT4_ZIP}" -q -nc --show-progress
-	unzip -d "${UT4_BASE_DIR}" "/tmp/${UT4_ZIP}"
+	wget -O /tmp/${UT4_ZIP} ${URL}/${UT4_ZIP} -q -nc --show-progress
+	unzip -d ${UT4_BASE_DIR} /tmp/${UT4_ZIP}
 
 override_dh_installdirs:
 	dh_installdirs /usr/games/ut4
@@ -37,7 +37,7 @@ override_dh_fixperms:
 	# to the "steam" user, but if SteamOS is not present, USER would be the typical root
 	
 override_dh_clean:
-	dh_clean "/tmp/${UT4_ZIP}"
+	dh_clean /tmp/${UT4_ZIP}
 
 override_dh_link:
 	# create links

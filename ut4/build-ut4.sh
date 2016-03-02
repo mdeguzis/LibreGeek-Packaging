@@ -5,10 +5,9 @@
 # Scipt name:	build-ut4.sh
 # Script Ver:	0.1.1
 # Description:	Attempts to build a deb package from the latest UT4 Linux
-#		release
+#		release.
 #
-# See:		https://github.com/ProfessorKaos64/tdm
-#		https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=ut4
+# See:		https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=ut4
 #		https://forums.unrealtournament.com/showthread.php?12011-Unreal-Tournament-Pre-Alpha-Playable-Build		
 #
 # Usage:	./build-ut4.sh
@@ -45,16 +44,17 @@ fi
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-ARCH=""
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 # required to run postinstall
 USENETWORK="yes"
 pkgname="ut4"
-pkgver="0.0.0"
+pkgver="${date_short}"
 pkgrev="1"
 upstream_rev="1"
-pkgsuffix="git+bsos${pkgrev}"
+# Base version sourced from ZIP file version
+pkgsuffix="2883976build+alpha+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -107,9 +107,8 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	######## Use a virtual package for now ########
 	mkdir -p "${git_dir}"
-	wget ""
+	cp "${scriptdir}/ut4-alpha.png" "${git_dir}"
 
 	#################################################
 	# Build package

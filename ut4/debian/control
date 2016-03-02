@@ -2,7 +2,9 @@ Source: ut4
 Section: games
 Priority: optional
 Build-Depends: debhelper,
- lsb-release
+ lsb-release,
+ unzip,
+ wget
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
 Standards-Version: 3.9.5
 Homepage: https://github.com/EpicGames/UnrealTournament

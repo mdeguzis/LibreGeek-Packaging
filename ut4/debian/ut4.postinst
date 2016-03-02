@@ -17,13 +17,13 @@ funct_set_vars()
 	if [[ "${OS}" == "SteamOS" ]]; then
 
 	  # create any dirs needed and set command
-	  echo -e "Detected SteamOS"
+	  echo -e "\nDetected SteamOS"
 	  BASE_DIR="/home/steam"
 	  GAME_DIR="/home/steam/ut4-linux"
 
 	elif [[ "${DEBIAN}" != "" ]]; then
 
-	  echo -e "Detected Other Debian OS"
+	  echo -e "\nDetected Other Debian OS"
 	  BASE_DIR="/usr/share/games"
 	  GAME_DIR="/usr/share/games/ut4-linux"
 
@@ -50,7 +50,7 @@ funct_download_game_files()
 	# get updater for latest release
 
 	echo -e "\nDownloading UT4 game files in temp directory:"
-	echo "Target location: ${BASE_DIR}\n"
+	echo -e "Target location: ${BASE_DIR}\n"
 	sleep 2s
 
 	# remove old file (if it's there)

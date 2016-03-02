@@ -2,15 +2,15 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-ut4.sh
+# Scipt name:	build-citra.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from the latest UT4 Linux
-#		release.
+# Description:	Attempts to build a deb package from the latest Citra source
+#		code.
 #
-# See:		https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=ut4
-#		https://forums.unrealtournament.com/showthread.php?12011-Unreal-Tournament-Pre-Alpha-Playable-Build		
+# See:		https://github.com/citra-emu/
+#		https://github.com/citra-emu/citra/wiki/Linux-Build	
 #
-# Usage:	./build-ut4.sh
+# Usage:	./build-citra.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -38,8 +38,8 @@ else
 
 fi
 # upstream vars
-#git_url="https://github.com/ProfessorKaos64/tdm"
-#branch="master"
+git_url="https://github.com/citra-emu/citra"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -47,12 +47,12 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-pkgname="ut4"
+pkgname="citra"
 pkgver="${date_short}"
 pkgrev="1"
 upstream_rev="1"
 # Base version sourced from ZIP file version
-pkgsuffix="2883976build+alpha+bsos${pkgrev}"
+pkgsuffix="${dateshort}git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -72,7 +72,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper
+	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch
 
 }
 
@@ -102,15 +102,12 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
-	# NOTE! - If you wish to source versions or commits automatically into variables here,
-	# 	  such as commits, of upstream tags, see docs/pkg-versioning.md
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	mkdir -p "${git_dir}"
-	cp "${scriptdir}/ut4-alpha.png" "${git_dir}"
-	cp "${scriptdir}/ut4-launch.sh" "${git_dir}/ut4-launch"
+	# clone and get latest commit tag
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
 	# Build package
@@ -135,11 +132,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		git-dch -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		git-dch --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	fi
 

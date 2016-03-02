@@ -37,7 +37,3 @@ override_dh_fixperms:
 	# to the "steam" user, but if SteamOS is not present, USER would be the typical root
 	chown -R ${USER}:${USER} ${UT4_BASE_DIR}
 	chmod 755 ${UT4_BIN_DIR}/${UT4_EXEC}
-
-override_dh_link:
-	# create links
-	dh_link ${LINK_TARGET} ${LINK_DEST}

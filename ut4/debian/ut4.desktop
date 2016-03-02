@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=UT4 alpha
+Comment=Launcher for UT4 Tournament alpha
+Exec=/usr/games/ut4
+Icon=/home/steam/Pictures/ut4-alpha.png
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/steam;

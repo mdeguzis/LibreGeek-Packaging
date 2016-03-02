@@ -1,9 +1,39 @@
 #!/usr/bin/make -f
 # See: ./linuxBuild.sh
 
+LINK_DEST="/usr/games/ut4"
+
+# evaluate (DO NOT INDENT ifeq / else / endif directives)
+ifeq ($(shell lsb_release -is),SteamOS)
+LINK_TARGET="/home/steam/ut4/ut4"
+else
+LINK_TARGET="/usr/share/games/ut4/ut4"
+endif
+
+UT_USER="steam"
+URL="https://s3.amazonaws.com/unrealtournament"
+UT4_ZIP="UnrealTournament-Client-XAN-2883976-Linux.zip"
+UT4_BASE_DIR="/home/${UT_USER}/ut4-linux"
+UT4_BIN_DIR="${UT4_DIR}/LinuxNoEditor/Engine/Binaries/Linux/"
+UT4_EXEC="./UE4-Linux-Test UnrealTournament -SaveToUserDir"
+
 %:
 	dh $@
 
+override_dh_install:
+	# Obtain Linux files
+	wget -O "/home/${UT_USER}/${ut4_zip}" "${URL}/${ut4_zip}" -q -nc --show-progress
+	unzip -d "/home/${UT_USER}" "/home/${UT_USER}/${ut4_zip}"
+
 override_dh_installdirs:
-	dh_installdirs /usr/games/darkmod
-	dh_installdirs /usr/share/games/darkmod
+	dh_installdirs /usr/games/ut4
+	dh_installdirs /usr/share/games/ut4
+
+override_dh_fixperms:
+	dh_fixperms
+	chown -R ${UT_USER}:${UT_USER} ${UT4_BASE_DIR}
+	chmod 755 ${UT4_BIN_DIR}/${UT4_EXEC}
+
+override_dh_link:
+	# create links
+	dh_link ${LINK_TARGET} ${LINK_DEST}

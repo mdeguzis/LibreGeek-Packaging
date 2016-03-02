@@ -1,0 +1,104 @@
+#!/bin/bash
+
+funct_set_vars()
+{
+
+  UT4_VERSION="2883976"
+  URL="https://s3.amazonaws.com/unrealtournament"
+  UT4_ZIP="UnrealTournament-Client-XAN-${UT4_VERSION}-Linux.zip"
+  UT4_BIN_DIR="${UT4_BASE_DIR}/LinuxNoEditor/Engine/Binaries/Linux/"
+  UT4_EXEC="./UE4-Linux-Test UnrealTournament -SaveToUserDir"
+  
+	# check if we are runnign SteamOS or not.
+	# Since / is normally only 10 GB, we will not install a multi-GB folder set there
+	OS=$(lsb_release -is)
+	DEBIAN=$(uname -a | grep Debian)
+
+	if [[ "${OS}" == "SteamOS" ]]; then
+
+	  # create any dirs needed and set command
+	  echo -e "Detected SteamOS"
+	  BASE_DIR="/home/steam"
+	  GAME_DIR="/home/steam/ut4-linux"
+
+	elif [[ "${DEBIAN}" != "" ]]; then
+
+	  echo -e "Detected Other Debian OS"
+	  BASE_DIR="/usr/share/games"
+	  GAME_DIR="/usr/share/games/ut4-linux"
+
+	else
+
+	echo -e "Detected incompatible OS. Exiting"
+	break
+
+	fi
+
+	# create game directory
+	mkdir -p "${GAME_DIR}"
+
+	# clean up any old updater files
+
+	rm -f "${GAME_DIR}/${UT4_ZIP}"
+	rm -f "${GAME_DIR}/${UT4_ZIP}"
+
+}
+
+funct_download_game_files()
+{
+
+	# get updater for latest release
+
+	echo -e "\nDownloading UT4 game files in temp directory:"
+	echo "Target location: ${BASE_DIR}\n"
+	sleep 2s
+
+	# remove old file (if it's there)
+	sudo rm -f ${BASE_DIR}/${UT4_ZIP}
+	
+	# Get files
+	sudo wget -O ${BASE_DIR}/${UT4_ZIP} ${URL}/${UT4_ZIP} -q -nc --show-progress
+	sudo unzip -d ${BASE_DIR} ${BASE_DIR}/${UT4_ZIP}
+	sudo rm -f ${BASE_DIR}/${UT4_ZIP}
+
+}
+
+funct_links()
+{
+
+	# Link the proper game dir(s)
+	LINK_DEST="/usr/games/ut4"
+	OS=$(lsb_release -is)
+
+	# Remove old link(s)
+	sudo rm -f "${LINK_DEST}"
+
+  # Set link
+	LINK_TARGET="${GAME_DIR}/${UT4_BIN_DIR}/UE4-Linux-Test UnrealTournament"
+
+	# Link
+	echo -e "\nLinking correct directory / executable\n"
+	sudo ln -s ${LINK_TARGET} ${LINK_DEST}
+
+}
+
+
+funct_cleanup()
+{
+
+	echo -e "Running cleanup\n"
+	sleep 2s
+
+	if [[ "${OS}" == "SteamOS" ]]; then
+
+		# Fix owner, perms on GAME_DIR
+		sudo chown -R steam:steam ${GAME_DIR}
+
+	fi
+	
+}
+
+# Start script
+funct_set_vars
+funct_download_game_files
+funct_cleanup

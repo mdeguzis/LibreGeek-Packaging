@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+# See: ./linuxBuild.sh
+
+%:
+	dh $@
+
+override_dh_installdirs:
+	dh_installdirs /usr/games/ut4
+	dh_installdirs /usr/share/games/ut4

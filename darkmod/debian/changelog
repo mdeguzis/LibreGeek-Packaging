@@ -1,3 +1,9 @@
+darkmod (2.0.3+git+bsos3-1) brewmaster; urgency=low
+
+  * Fix debian/control
+
+ -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Tue, 01 Mar 2016 23:10:55 -0500
+
 darkmod (2.0.3+git+bsos2-1) brewmaster; urgency=low
 
   * Move post install phase to standalone script

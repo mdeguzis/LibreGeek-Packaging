@@ -49,7 +49,8 @@ funct_download_game_files()
 
 	# get updater for latest release
 
-	echo -e "\nDownloading UT4 game files...\n"
+	echo -e "\nDownloading UT4 game files in temp directory:"
+	echo "Target location: ${BASE_DIR}/${UT4_ZIP}\n"
 	sleep 2s
 
 	# Evaluate if files exist

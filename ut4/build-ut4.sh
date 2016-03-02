@@ -110,7 +110,7 @@ main()
 
 	mkdir -p "${git_dir}"
 	cp "${scriptdir}/ut4-alpha.png" "${git_dir}"
-	cp "${scriptdir}/ut4-launcher.sh" "${git_dir}/ut4-launch"
+	cp "${scriptdir}/ut4-launch.sh" "${git_dir}/ut4-launch"
 
 	#################################################
 	# Build package

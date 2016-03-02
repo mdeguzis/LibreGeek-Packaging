@@ -2,8 +2,9 @@ Source: citra
 Section: games
 Priority: optional
 Build-Depends: debhelper,
- libglfw-dev,
+ libsdl2-dev,
  libqt5opengl5-dev,
+ python-pkgconfig,
  qtbase5-dev,
  cmake
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>

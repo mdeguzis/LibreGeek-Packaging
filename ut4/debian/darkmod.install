@@ -1,5 +1,2 @@
-darklauncher /usr/games/darkmod/
-debian/darkmod.postinst /usr/games/darkmod/
-darkmod-updater.sh /usr/share/games/darkmod
-darkmod.png /usr/share/pixmaps/
-debian/darkmod.desktop /usr/share/applications/
+ut4-alpha.png /usr/share/pixmaps/
+debian/ut4.desktop /usr/share/applications/

@@ -1,13 +1,5 @@
-darkmod (2.0.3+git+bsos2-1) brewmaster; urgency=low
+ut4 (0.0.0+git+bsos1-1) brewmaster; urgency=low
 
-  * Move post install phase to standalone script
-  * User is free to start this automatically after install or later
-  * New update wrapper is menu-driven
-
- -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Tue, 01 Mar 2016 13:52:34 -0500
-
-darkmod (2.0.3+git+bsos1-1) brewmaster; urgency=low
-
-  * Rename thedarkmod to darkmod
+  * Dummy changelog
 
  -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 25 Feb 2016 06:41:48 -0500

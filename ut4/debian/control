@@ -2,9 +2,7 @@ Source: ut4
 Section: games
 Priority: optional
 Build-Depends: debhelper,
- lsb-release,
- unzip,
- wget
+ lsb-release
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
 Standards-Version: 3.9.5
 Homepage: https://github.com/EpicGames/UnrealTournament
@@ -12,6 +10,8 @@ Homepage: https://github.com/EpicGames/UnrealTournament
 Package: ut4
 Architecture: all
 Depends: ${misc:Depends},
- ${shlibs:Depends}
+ ${shlibs:Depends},
+ unzip,
+ wget
 Description: Unreal Tournament is an upcoming first-person shooter video game developed by Epic Games
  See: https://forums.unrealtournament.com/showthread.php?12011-Unreal-Tournament-Pre-Alpha-Playable-Build

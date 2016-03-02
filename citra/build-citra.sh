@@ -8,7 +8,7 @@
 #		code.
 #
 # See:		https://github.com/citra-emu/
-#		https://github.com/citra-emu/citra/wiki/Linux-Build	
+#		https://github.com/citra-emu/citra/wiki/Linux-Build
 #
 # Usage:	./build-citra.sh
 # Opts:		[--testing]
@@ -123,6 +123,9 @@ main()
 
 	# Add debian folder for current virtual package implementation
 	cp -r "${scriptdir}/debian" "${git_dir}"
+
+	# License file is .txt and not in debian/
+	cp "${git_dir}/license.txt" "${git_dir}/debian/LICENSE"
 
 	# enter source dir
 	cd "${git_dir}"

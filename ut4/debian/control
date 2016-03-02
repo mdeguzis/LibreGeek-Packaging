@@ -14,4 +14,6 @@ Depends: ${misc:Depends},
  unzip,
  wget
 Description: Unreal Tournament is an upcoming first-person shooter video game developed by Epic Games
+ This pacakge is a virtual package that provides an easy means to load UT4 on your GNU/Linux machine.
+ .
  See: https://forums.unrealtournament.com/showthread.php?12011-Unreal-Tournament-Pre-Alpha-Playable-Build

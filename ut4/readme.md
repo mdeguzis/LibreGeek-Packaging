@@ -1,3 +1,18 @@
+# Important
+
+Warning: Please read the below carefully!
+
+Make sure you linked your GitHub account to your profile on
+https://unrealengine.com, as all Epic repositories are private. The script
+may ask you to install additional packages (on certain distributions), then
+it will download the archives with binary dependencies (by default, to
+~/Downloads), which are pretty large (3GB in total) - they won't be re-downloaded
+unless they are updated for the particular release tag. If any new archives have
+been downloaded (which is the case the first time you do this), the script will
+unpack them over your repository (it will ask you to confirm that action as it
+is potentially destructive). You can force this by supplying -updatedeps flag
+if for some reason you want to unpack them again.
+
 # Old code:
 
 	

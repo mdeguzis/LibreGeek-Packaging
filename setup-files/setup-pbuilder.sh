@@ -63,15 +63,18 @@ elif [[ "${OS}" == "Arch" ]]; then
 
 	
 	# obtain keyring source for Valve archive keyring and convert it, not provided in AUR
-	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q --show-progress -nc 
-	
+	mkdir -p "$HOME/setup-temp" && cd "$HOME/setup-temp"
+	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q -nc --show-progress
+
 	# Convert
 	ar xv "${valve_keyring}.deb"
+	tar -xzvf data.tar.gz
 	sudo cp "etc/apt/trusted.gpg.d/valve-archive-keyring.gpg" "/etc/apt/trusted.gpg.d/"
 	sudo cp "usr/share/keyrings/valve-archive-keyring.gpg" "/usr/share/keyrings"
 	
 	# cleanup
-	rm -f valve-archive-keyring*.deb
+	cd ..
+	rm -rf "$HOME/setup-temp"
 
 fi
 

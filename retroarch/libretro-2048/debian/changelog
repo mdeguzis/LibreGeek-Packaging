@@ -1,0 +1,5 @@
+libretro-2048 (1.0+git+bsos2) brewmaster; urgency=low
+
+  * Latest release as of commit bcf98b6
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 07:51:59 -0500

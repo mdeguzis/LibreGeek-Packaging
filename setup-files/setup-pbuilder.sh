@@ -68,7 +68,7 @@ elif [[ "${OS}" == "Arch" ]]; then
 
 	# Convert
 	ar xv "${valve_keyring}.deb"
-	tar -xzvf data.tar.xz
+	tar -xvf data.tar.xz
 	sudo cp "etc/apt/trusted.gpg.d/valve-archive-keyring.gpg" "/etc/apt/trusted.gpg.d/"
 	sudo cp "usr/share/keyrings/valve-archive-keyring.gpg" "/usr/share/keyrings"
 	

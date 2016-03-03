@@ -23,7 +23,43 @@ sleep 2s
 
 # libselinux1:i386 on the host machine is needed for some reason on 32 bit chroots
 # See: https://github.com/ProfessorKaos64/SteamOS-Tools/issues/125
-sudo apt-get install -y --force-yes pbuilder libselinux1:i386 lsb-release bc devscripts
+
+# Test OS first, so we can allow configuration on multiple distros
+OS=$(lsb_release -si)
+
+if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
+
+	sudo apt-get install -y --force-yes pbuilder libselinux1:i386 lsb-release bc devscripts
+	
+elif [[ "${OS}" == "Arch"]]; then
+
+	# Get pacaur deps 
+	sudo pacman -S expac yajl bash-completion
+	
+	# packages in the main repos
+	sudo pacman -S bc devscripts
+	
+	# install pacaur if not installed
+	if ! pacaur -Qs pacaur; then
+	
+		# Install pacaur
+		wget "https://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz" -q -nc --show-progress
+		tar zxvf pacaur.tar.gz
+		cd pacaur && makepkg
+		sudo pacman -U pacaur*.pkg.tar.xz
+		
+	fi
+
+	# Finally, get build tools and pbuilder-ubuntu
+	# Pass -S to invoke pacman
+	pacaur -S pbuilder-ubuntu
+
+else
+
+	echo -e "\nUnsupported OS/Distro! Exiting...\n"
+	exit 1
+	
+fi
 
 #################################################
 # Create directories

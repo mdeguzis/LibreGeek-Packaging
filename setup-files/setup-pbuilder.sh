@@ -59,7 +59,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	sudo apt-key update
 	sudo apt-get update
 
-elif [[ "${OS}" == "Arch"]]; then
+elif [[ "${OS}" == "Arch" ]]; then
 
 	
 	# obtain keyring source for Valve archive keyring and convert it, not provided in AUR

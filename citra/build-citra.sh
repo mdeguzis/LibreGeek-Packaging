@@ -38,8 +38,8 @@ else
 
 fi
 # upstream vars
-#git_url="https://github.com/citra-emu/citra"
-git_url="https://github.com/ProfessorKaos64/citra"
+git_url="https://github.com/citra-emu/citra"
+#git_url="https://github.com/ProfessorKaos64/citra"
 branch="master"
 
 # package vars

@@ -108,6 +108,9 @@ main()
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
+	# trim .git, large repo
+	rm -rf "${git_dir}/.git"
+
 	#################################################
 	# Build package
 	#################################################

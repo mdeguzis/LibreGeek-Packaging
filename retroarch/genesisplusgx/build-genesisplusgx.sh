@@ -49,7 +49,7 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 pkgname="genesisplusgx"
 pkgver="1.7.5"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -100,11 +100,10 @@ main()
 
 
 	# Clone upstream source code and branch
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -125,7 +124,6 @@ main()
 	# enter source dir
 	cd "${src_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
@@ -140,7 +138,6 @@ main()
 
 	fi
 
-
 	#################################################
 	# Build Debian package
 	#################################################
@@ -154,9 +151,7 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -185,7 +180,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep -E "${pkgver}" 
+	ls "${build_dir}" | grep -E $pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

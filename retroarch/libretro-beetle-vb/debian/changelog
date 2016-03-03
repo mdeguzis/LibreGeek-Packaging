@@ -1,0 +1,5 @@
+libretro-beetle-vb (0.9.36+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit c350453
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 09:45:22 -0500

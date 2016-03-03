@@ -1,0 +1,5 @@
+libretro-fceumm (0.020140105+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 5007c4c
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 10:52:50 -0500

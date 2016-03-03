@@ -1,3 +1,9 @@
+libretro-fba (0.2.97.37+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 6545f7c
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 10:38:01 -0500
+
 libretro-fba (0.2.97.37+git+bsos1) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

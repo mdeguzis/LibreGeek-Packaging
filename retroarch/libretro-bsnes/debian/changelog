@@ -1,0 +1,5 @@
+libretro-bsnes (094+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 6039847
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 10:03:03 -0500

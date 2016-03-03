@@ -1,0 +1,5 @@
+libretro-beetle-pce-fast (0.9.36.1+git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 51eb6a2
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 09:30:51 -0500

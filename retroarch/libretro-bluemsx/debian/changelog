@@ -1,0 +1,5 @@
+libretro-bluemsx (0.020140411+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit b1bb17e
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 09:50:48 -0500

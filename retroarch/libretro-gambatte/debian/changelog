@@ -1,0 +1,5 @@
+libretro-gambatte (0.5.0+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 4ad3a4d
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 10:59:13 -0500

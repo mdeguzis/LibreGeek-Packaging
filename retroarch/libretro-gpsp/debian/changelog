@@ -1,0 +1,5 @@
+libretro-gpsp (0.9+git+bsos3) brewmaster; urgency=low
+
+  * Update to the latest commit 5c11ca1
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 11:01:31 -0500

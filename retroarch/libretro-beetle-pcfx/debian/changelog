@@ -1,0 +1,5 @@
+libretro-beetle-pcfx (0.9.33.3+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit f179d01
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 09:37:28 -0500

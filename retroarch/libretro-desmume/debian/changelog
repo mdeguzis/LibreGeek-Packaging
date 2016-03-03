@@ -1,3 +1,9 @@
+libretro-desmume (0.9.11+git+bsos3) brewmaster; urgency=low
+
+  * Update to the latest commit 7f345fb
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 10:12:47 -0500
+
 libretro-desmume (0.9.11+git+bsos2) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

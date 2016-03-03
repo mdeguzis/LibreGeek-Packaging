@@ -1,4 +1,4 @@
-pcsx2 (20160202+gitd59e4ca+bsos1) brewmaster; urgency=low
+pcsx2 (20160202+gitd59e4ca+bsos1-1) brewmaster; urgency=low
 
   * Based release tag: 1.4.0
   * Built against latest commit d59e4ca

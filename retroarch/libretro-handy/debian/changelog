@@ -1,3 +1,9 @@
+libretro-handy (0.95+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 35a41f1
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 11:04:50 -0500
+
 libretro-handy (0.95+git+bsos1) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

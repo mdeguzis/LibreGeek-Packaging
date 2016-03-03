@@ -1,3 +1,9 @@
+pcsx2-unstable (1.5.0+20160302git+bsos1-1) brewmaster; urgency=low
+
+  * Update build to latest upstream commit [edef3ad]
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Wed, 02 Mar 2016 19:56:53 -0500
+
 pcsx2-unstable (1.5.0+20160220git+bsos1-1) brewmaster; urgency=low
 
   * Base release tag: v1.5.0-dev

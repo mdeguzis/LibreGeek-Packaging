@@ -5,15 +5,4 @@ libretro-desmume (0.9.11+git+bsos2) brewmaster; urgency=low
   * Upstream authors and source: https://github.com/libretro/desmume
 
  -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 19:28:37 -0500
-
-libretro-desmume (0.9.11+r5070~17~ubuntu15.04.1) vivid; urgency=low
-
-  * Auto build.
-
- -- Launchpad Package Builder <noreply@launchpad.net>  Sun, 01 Nov 2015 01:46:22 +0000
-
-libretro-desmume (0.9.11-1) unstable; urgency=low
-
-  * Initial release (Closes: #799398).
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Mon, 26 Oct 2015 15:43:00 -0300
+ 

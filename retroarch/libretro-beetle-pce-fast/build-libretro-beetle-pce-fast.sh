@@ -48,7 +48,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="libretro-beetle-pce-fast"
-pkgver="0.9.36"
+pkgver="0.9.36.1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -99,13 +99,14 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
 	# Build package
@@ -113,9 +114,6 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
@@ -126,21 +124,21 @@ main()
 	# enter source dir
 	cd "${src_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -v -e "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch --create -v -e "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -153,14 +151,8 @@ main()
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
-	# Post install configuration
-	#################################################
-	
-	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
 	
 	# note time ended
 	time_end=$(date +%s)
@@ -202,6 +194,10 @@ main()
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

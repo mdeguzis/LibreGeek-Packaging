@@ -1,3 +1,9 @@
+citra (20160302+git+bsos1-1) brewmaster; urgency=low
+
+  * Intial test build
+
+ -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Wed, 02 Mar 2016 18:50:00 -0500
+
 citra (0.0.0+git+bsos1-1) brewmaster; urgency=low
 
   * Dummy changelog

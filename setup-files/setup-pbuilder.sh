@@ -11,6 +11,13 @@
 # Notes:          	For targets, see .pbuilderrc in this directory
 # -------------------------------------------------------------------------------
 
+# set scriptdir if empty (script called standalone)
+if [[ "${scriptdir}" == "" ]]; then
+
+	scriptdir=$(pwd)
+	
+fi
+
 #####################################
 # Information
 #####################################
@@ -29,26 +36,54 @@ sleep 2s
 echo -e "==> Installing keyrings\n"
 sleep 2s
 
-# Obtain valve keyring
-wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/valve-archive-keyring_0.5+bsos3_all.deb" -q --show-progress -nc
-sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+# Set vars
+valve_keyring="valve-archive-keyring_0.5+bsos3_all"
 
-# Libregeek keyrings
-wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
-wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
-sudo dpkg -i libregeek-archive-keyring-latest.deb
-sudo dpkg -i steamos-tools-repo-latest.deb
+# Test OS first, so we can allow configuration on multiple distros
+OS=$(lsb_release -si)
 
-# cleanup
-rm -f steamos-tools-repo-latest.deb
-rm -f libregeek-archive-keyring-latest.deb
+if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
-# update for keyrings
+	# Obtain valve keyring
+	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q --show-progress -nc 
+	sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+	
+	# Libregeek keyrings
+	wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
+	wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
+	sudo dpkg -i libregeek-archive-keyring-latest.deb
+	sudo dpkg -i steamos-tools-repo-latest.deb
+	
+	# cleanup
+	rm -f steamos-tools-repo-latest.deb
+	rm -f libregeek-archive-keyring-latest.deb
+	rm -f valve-archive-keyring*.deb
+	
+	# update for keyrings
+	
+	echo -e "\n==> Updating system for newly added keyrings\n"
+	sleep 2s
+	sudo apt-key update
+	sudo apt-get update
 
-echo -e "\n==> Updating system for newly added keyrings\n"
-sleep 2s
-sudo apt-key update
-sudo apt-get update
+elif [[ "${OS}" == "Arch" ]]; then
+
+	
+	# obtain keyring source for Valve archive keyring and convert it, not provided in AUR
+	mkdir -p "$HOME/setup-temp" && cd "$HOME/setup-temp"
+	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q -nc --show-progress
+
+	# Convert
+	ar xv "${valve_keyring}.deb"
+	tar -xvf data.tar.xz
+	sudo cp "etc/apt/trusted.gpg.d/valve-archive-keyring.gpg" "/etc/apt/trusted.gpg.d/"
+	sudo cp "usr/share/keyrings/valve-archive-keyring.gpg" "/usr/share/keyrings"
+	
+	# cleanup
+	cd ..
+	rm -rf "$HOME/setup-temp"
+
+fi
 
 #####################################
 # PBUILDER setup
@@ -62,11 +97,11 @@ sudo chmod u+w /var/cache/pbuilder/result
 ##########################
 
 echo -e "\n==> Adding pbuilder hooks"
-sleep 0.5s
+sleep 1s
 
 if [[ ! -d "/var/cache/pbuilder/hooks" ]]; then
 
-	sudo mkdir /var/cache/pbuilder/hooks
+	sudo mkdir /var/cache/pbuilder/hooksp
 	sudo chown -R $USER /var/cache/pbuilder/hooks
 	
 fi
@@ -80,7 +115,7 @@ fi
 
 # copy files based of pwd
 echo -e "\n==> Adding pbuilder config files"
-sleep 0.5s
+sleep 1s
 
 cp "$scriptdir/.pbuilderrc" "$HOME/"
 sudo cp "$scriptdir/.pbuilderrc" "/root/"
@@ -93,7 +128,7 @@ mkdir -p "/home/$USER/${dist_choice}-packaging/deps"
 # (it should be all on one line starting with “tmpfs” and ending with the second zero.
 
 echo -e "\n==> Adding symlinks for /usr/share/debootstrap/scripts"
-sleep 2s
+sleep 1s
 
 # brewmaster
 sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster" 2> /dev/null

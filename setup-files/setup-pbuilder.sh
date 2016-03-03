@@ -97,7 +97,7 @@ sudo chmod u+w /var/cache/pbuilder/result
 ##########################
 
 echo -e "\n==> Adding pbuilder hooks"
-sleep 0.5s
+sleep 1s
 
 if [[ ! -d "/var/cache/pbuilder/hooks" ]]; then
 
@@ -115,7 +115,7 @@ fi
 
 # copy files based of pwd
 echo -e "\n==> Adding pbuilder config files"
-sleep 0.5s
+sleep 1s
 
 cp "$scriptdir/.pbuilderrc" "$HOME/"
 sudo cp "$scriptdir/.pbuilderrc" "/root/"
@@ -128,7 +128,7 @@ mkdir -p "/home/$USER/${dist_choice}-packaging/deps"
 # (it should be all on one line starting with “tmpfs” and ending with the second zero.
 
 echo -e "\n==> Adding symlinks for /usr/share/debootstrap/scripts"
-sleep 2s
+sleep 1s
 
 # brewmaster
 sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster" 2> /dev/null

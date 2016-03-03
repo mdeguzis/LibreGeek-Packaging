@@ -98,13 +98,12 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -125,7 +124,6 @@ main()
 	# enter source dir
 	cd "${src_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
@@ -140,7 +138,6 @@ main()
 
 	fi
 
-
 	#################################################
 	# Build Debian package
 	#################################################
@@ -151,10 +148,6 @@ main()
 	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
-	#################################################
-	# Post install configuration
-	#################################################
-	
 	#################################################
 	# Cleanup
 	#################################################
@@ -201,6 +194,10 @@ main()
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

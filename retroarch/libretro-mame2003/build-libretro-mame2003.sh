@@ -49,7 +49,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="libretro-mame2003"
 pkgver="0.78"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -99,13 +99,14 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
 	# Build package
@@ -118,6 +119,8 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
+	cd "${build_dir}"
+
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
@@ -126,21 +129,23 @@ main()
 	# enter source dir
 	cd "${src_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -155,8 +160,6 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
 	
 	# note time ended
 	time_end=$(date +%s)
@@ -180,12 +183,17 @@ main()
 	fi
 	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<-EOF
 	
-	echo -e "Showing contents of: ${build_dir}: \n"
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+	
+	Showing contents of: ${build_dir}
+	
+	EOF
+
 	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
@@ -198,6 +206,9 @@ main()
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

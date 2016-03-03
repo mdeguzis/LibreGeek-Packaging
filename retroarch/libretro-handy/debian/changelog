@@ -5,21 +5,3 @@ libretro-handy (0.95+git+bsos1) brewmaster; urgency=low
   * Upstream authors and source: https://github.com/libretro/libretro-handy
 
  -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 20:25:36 -0500
-
-libretro-handy (0.95+r50~8~ubuntu15.04.1) vivid; urgency=low
-
-  * Auto build.
-
- -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 26 Oct 2015 16:27:44 +0000
-
-libretro-handy (0.95-0ubuntu2) UNRELEASED; urgency=low
-
-  * Updated to latest git version.
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 02 Aug 2014 23:24:00 -0300
-
-libretro-handy (0.95-0ubuntu1) saucy; urgency=low
-
-  * Initial release.
-
- -- Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>  Thu, 10 Oct 2013 13:24:59 -0500

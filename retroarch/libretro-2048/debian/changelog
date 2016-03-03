@@ -1,11 +1,1 @@
-libretro-2048 (1.0+r65~7~ubuntu15.04.1) vivid; urgency=low
 
-  * Auto build.
-
- -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 26 Oct 2015 14:31:29 +0000
-
-libretro-2048 (1.0-0ubuntu1) UNRELEASED; urgency=low
-
-  * Initial release.
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Wed, 30 Jul 2014 22:42:00 -0300

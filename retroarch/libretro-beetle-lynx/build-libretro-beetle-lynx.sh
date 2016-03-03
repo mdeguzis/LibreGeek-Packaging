@@ -49,7 +49,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="libretro-beetle-lynx"
 pkgver="0.9.32"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -152,14 +152,8 @@ main()
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
-	# Post install configuration
-	#################################################
-	
-	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
 	
 	# note time ended
 	time_end=$(date +%s)
@@ -201,6 +195,10 @@ main()
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

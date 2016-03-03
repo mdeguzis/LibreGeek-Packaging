@@ -31,7 +31,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	sudo apt-get install -y --force-yes pbuilder libselinux1:i386 lsb-release bc devscripts
 	
-elif [[ "${OS}" == "Arch"]]; then
+elif [[ "${OS}" == "Arch" ]]; then
 
 	# Get pacaur deps 
 	sudo pacman -S expac yajl bash-completion

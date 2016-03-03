@@ -11,6 +11,13 @@
 # Notes:          	For targets, see .pbuilderrc in this directory
 # -------------------------------------------------------------------------------
 
+# set scriptdir if empty (script called standalone)
+if [[ "${scriptdir}" == "" ]]; then
+
+	scriptdir=$(pwd)
+	
+fi
+
 #####################################
 # Information
 #####################################
@@ -94,7 +101,7 @@ sleep 0.5s
 
 if [[ ! -d "/var/cache/pbuilder/hooks" ]]; then
 
-	sudo mkdir /var/cache/pbuilder/hooks
+	sudo mkdir /var/cache/pbuilder/hooksp
 	sudo chown -R $USER /var/cache/pbuilder/hooks
 	
 fi

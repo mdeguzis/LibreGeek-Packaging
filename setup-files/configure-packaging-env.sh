@@ -52,7 +52,7 @@ elif [[ "${OS}" == "Arch"]]; then
 
 	# Finally, get build tools and pbuilder-ubuntu
 	# Pass -S to invoke pacman
-	pacaur -S pbuilder-ubuntu
+	pacaur -S pbuilder-ubuntu apt deb2targz
 
 else
 

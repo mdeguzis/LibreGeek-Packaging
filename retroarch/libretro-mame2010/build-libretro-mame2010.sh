@@ -49,7 +49,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="libretro-mame2010"
 pkgver="0.139"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -128,7 +128,6 @@ main()
 
 	# enter source dir
 	cd "${src_dir}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

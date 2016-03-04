@@ -5,15 +5,3 @@ libretro-reicast (0.1+git+bsos1) brewmaster; urgency=low
   * Upstream authors and source: https://github.com/libretro/reicast-emulator
 
  -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 20:53:41 -0500
-
-libretro-reicast (0.1+r1024~4~ubuntu15.04.1) vivid; urgency=low
-
-  * Auto build.
-
- -- Sergio Benjamim <sergio_br2@yahoo.com.br>  Wed, 13 Jan 2016 21:57:01 +0000
-
-libretro-reicast (0.1-1) unstable; urgency=low
-
-  * Initial release (Closes: #xxxxxx).
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sun, 10 Jan 2016 13:56:00 -0300

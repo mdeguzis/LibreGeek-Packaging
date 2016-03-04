@@ -130,6 +130,7 @@ set_vars()
 		BETA_FLAG="false"
 		BASETGZ="$BASE_TGZ"
 		BASEDIR="$BASE_DIR"
+		APTCACE="$APTCACHE"
 		OPTS="$OPTS"
 		EXTRA PACKAGES: "$PKGS"
 		-----------------------------

@@ -181,12 +181,12 @@ main()
 	###############################################################
 
 	Showing contents of: ${build_dir}
+	
+	EOF
 
 	ls "${build_dir}" | grep -E "${pkgver}"
 
-	Would you like to transfer any packages that were built? [y/n]"
-	EOF
-
+	echo -e "Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 
 	# capture command

@@ -101,7 +101,7 @@ sleep 1s
 
 if [[ ! -d "/var/cache/pbuilder/hooks" ]]; then
 
-	sudo mkdir /var/cache/pbuilder/hooksp
+	sudo mkdir /var/cache/pbuilder/hooks
 	sudo chown -R $USER /var/cache/pbuilder/hooks
 	
 fi

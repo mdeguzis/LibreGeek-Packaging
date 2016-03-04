@@ -136,13 +136,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 	
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 

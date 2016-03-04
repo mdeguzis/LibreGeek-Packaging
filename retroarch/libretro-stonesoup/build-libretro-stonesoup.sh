@@ -111,7 +111,7 @@ main()
 	wget "https://launchpad.net/~libretro/+archive/ubuntu/testing/+files/${latest_file}"
 	tar -xf "${latest_file}"
 	rm -rf *.tar.xz
-	mv libretro-stonesoup* libretro-stonesoup
+	mv libretro-stonesoup* "${src_dir}"
 	rm -rf "debian/bzr-manifest"
 
 	#################################################

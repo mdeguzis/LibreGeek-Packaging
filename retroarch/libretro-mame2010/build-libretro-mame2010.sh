@@ -186,7 +186,7 @@ main()
 
 	ls "${build_dir}" | grep -E "${pkgver}"
 
-	echo -e "Would you like to transfer any packages that were built? [y/n]"
+	echo -e "\nWould you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 
 	# capture command

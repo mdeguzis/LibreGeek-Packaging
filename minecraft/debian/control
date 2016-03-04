@@ -9,6 +9,6 @@ Homepage: https://minecraft.net/
 Package: minecraft
 Architecture: all
 Depends: ${misc:Depends},
- openjdk-7-jre
+ openjdk-8-jre
 Description: Minecraft for Linux/SteamOS
  Simple package to add Minecraft to SteamOS

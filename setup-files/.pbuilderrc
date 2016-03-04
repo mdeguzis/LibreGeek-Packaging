@@ -71,7 +71,7 @@ if [ -n "${DIST}" ]; then
         BUILDRESULT="${build_dir}"
 
         # root on SteamOS is very small, divert cache
-        STEAMOS_CHECK=${uname -a | grep -i "steamos")
+        STEAMOS_CHECK=$(uname -a | grep -i "steamos")
         
         if [ "${STEAMOS_CHECK}" != "" ]; then
 

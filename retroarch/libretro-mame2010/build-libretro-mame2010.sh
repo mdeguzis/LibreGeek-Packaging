@@ -133,7 +133,7 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
@@ -174,20 +174,21 @@ main()
 
 	# inform user of packages
 	cat<<-EOF
-	
+
 	###############################################################
 	If package was built without errors you will see it below.
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
-	
-	Showing contents of: ${build_dir}
-	
-	EOF
 
-	ls "${build_dir}" | grep -E "${pkgver}" 
+	Showing contents of: ${build_dir}
+
+	# inform user of packages
+
+	ls "${build_dir}" | grep -E "${pkgver}"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
+
 	# capture command
 	read -erp "Choice: " transfer_choice
 
@@ -195,6 +196,7 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
+
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Keep changelog

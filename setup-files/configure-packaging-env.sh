@@ -37,7 +37,17 @@ elif [[ "${OS}" == "Arch" ]]; then
 	sudo pacman -S expac yajl bash-completion
 	
 	# packages in the main repos
-	sudo pacman -S bc devscripts
+	sudo pacman -S bc
+	
+	# devscripts in the AUR is broken, so it was added to my repo and fixed:
+	# https://github.com/ProfessorKaos64/arch-aur-packages
+	
+	git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
+	cd "arch-aur-packages/devscripts"
+	makepkg -s
+	sudo pacman -S "devscripts-2.16.1-1-any.pkg.tar.gz"
+	cd ../..
+	rm -rf "arch-aur-packages/devscripts"
 	
 	# install pacaur if not installed
 	if ! pacaur -Qs pacaur; then

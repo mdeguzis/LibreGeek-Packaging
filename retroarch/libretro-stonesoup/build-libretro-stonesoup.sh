@@ -48,7 +48,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="libretro-stonesoup"
-pkgver="0.15"
+pkgver="0.15.2"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -107,8 +107,9 @@ main()
 
 	# The git source is very old (2014), source latest PPA source code
 	# from libretro PPA unstable repo
-	wget https://launchpad.net/~libretro/+archive/ubuntu/testing/+files/libretro-stonesoup_0.15.2%2Br3%7E1%7Eubuntu15.04.1.tar.xz
-	tar -xf libretro-stonesoup_0.15.2+r3~1~ubuntu15.04.1.tar.xz
+	latest_file="libretro-stonesoup_0.15.2+r3~1~ubuntu15.04.1.tar.xz"
+	wget "https://launchpad.net/~libretro/+archive/ubuntu/testing/+files/${latest_file}"
+	tar -xf "${latest_file}"
 	rm -rf *.tar.xz
 	mv libretro-stonesoup* libretro-stonesoup
 	rm -rf "debian/bzr-manifest"
@@ -124,29 +125,29 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
-
-	# copy in debian folder
-	# cp -r "$scriptdir/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${src_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -161,9 +162,7 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -174,24 +173,18 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<-EOF
 	
-	echo -e "Showing contents of: ${build_dir}: \n"
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+	
+	Showing contents of: ${build_dir}
+	
+	EOF
+
 	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
@@ -204,6 +197,9 @@ main()
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

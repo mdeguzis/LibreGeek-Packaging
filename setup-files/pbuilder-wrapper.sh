@@ -41,10 +41,13 @@ OS=$(lsb_release -si)
 if [[ "${OS}" == "SteamOS" ]]; then
 
 	export APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
+	mkdir -p "${APTCACHE}"
 
 else
 
 	export APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+	sudo mkdir -p "${APTCACHE}"
+
 fi
 
 show_help()

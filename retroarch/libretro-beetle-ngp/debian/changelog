@@ -1,5 +1,0 @@
-libretro-beetle-ngp (0.9.36+git+bsos1) brewmaster; urgency=low
-
-  * Update to latest uostream commits
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 09:17:07 -0500

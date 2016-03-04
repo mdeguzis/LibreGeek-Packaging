@@ -134,12 +134,20 @@ set_vars()
 		BASETGZ="$BASE_TGZ"
 		BASEDIR="$BASE_DIR"
 		APTCACE="$APTCACHE"
-		OPTS="$OPTS"
 		EXTRA PACKAGES: "$PKGS"
 		-----------------------------
 
+		Are the above options OK?
 		EOF
-		sleep 5s
+
+		read -erp "Confirm: [y/n]" create_choice
+
+		if [[ "${create_choice}" != "y" ]]; then
+
+			echo -e "Exiting script\n"
+			exit 1
+
+		fi
 
 	fi
 

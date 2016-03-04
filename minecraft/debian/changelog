@@ -1,3 +1,9 @@
+minecraft (1.9+bsos2-1) brewmaster; urgency=low
+
+  * Update depends to openjdk-8-jre
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 13:40:10 -0500
+
 minecraft (1.9+bsos1-1) brewmaster; urgency=low
 
   * Update jar bade file to 1.9

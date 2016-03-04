@@ -1,0 +1,5 @@
+libretro-nxengine (1.0.0.4+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 12e4bf7
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 11:09:27 -0500

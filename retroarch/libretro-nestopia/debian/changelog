@@ -1,0 +1,5 @@
+libretro-nestopia (1.47+git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 845bcea
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 11:05:21 -0500

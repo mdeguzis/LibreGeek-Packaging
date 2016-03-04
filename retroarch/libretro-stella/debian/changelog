@@ -1,0 +1,5 @@
+libretro-stella (3.9.3+git+bsos3) brewmaster; urgency=low
+
+  * Update to the latest commit 7b62cff
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 12:29:50 -0500

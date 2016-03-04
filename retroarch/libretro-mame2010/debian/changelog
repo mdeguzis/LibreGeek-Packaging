@@ -1,0 +1,6 @@
+libretro-mame2010 (0.139+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit a4537c3
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 14:24:58 -0500
+

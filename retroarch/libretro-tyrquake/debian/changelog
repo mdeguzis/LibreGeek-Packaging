@@ -1,0 +1,5 @@
+libretro-tyrquake (0.62+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 2f6d70b
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 13:22:59 -0500

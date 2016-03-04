@@ -1,3 +1,9 @@
+libretro-mgba (0.4.0+git+bsos3) brewmaster; urgency=low
+
+  * Update to the latest commit 851dbb1
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 10:58:09 -0500
+
 libretro-mgba (0.4+git+bsos2) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

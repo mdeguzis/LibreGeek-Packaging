@@ -1,0 +1,5 @@
+libretro-prboom (2.5.0+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit fd6f568
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 11:24:05 -0500

@@ -1,3 +1,9 @@
+libretro-reicast (0.1+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 7c1becc
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 12:18:11 -0500
+
 libretro-reicast (0.1+git+bsos1) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

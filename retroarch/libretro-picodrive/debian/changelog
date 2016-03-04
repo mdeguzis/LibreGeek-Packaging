@@ -1,0 +1,5 @@
+libretro-picodrive (1.91+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit dfafb96
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 11:19:37 -0500

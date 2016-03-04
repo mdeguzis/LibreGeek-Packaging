@@ -1,0 +1,5 @@
+libretro-mednafen-psx (0.9.38.6+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 20c9b0e
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 10:51:20 -0500

@@ -1,0 +1,5 @@
+libretro-beetle-lynx (0.9.32+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit 6dbf5b4
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 14:18:23 -0500

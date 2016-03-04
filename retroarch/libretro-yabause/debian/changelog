@@ -1,0 +1,5 @@
+libretro-yabause (0.9.14+git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 4262e79
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 13:36:41 -0500

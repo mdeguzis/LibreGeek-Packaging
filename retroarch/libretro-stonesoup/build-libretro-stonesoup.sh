@@ -97,7 +97,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -129,8 +128,13 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# Reset changelog and copy in old one
-	rm -f "debian/changelog"
-	cp "${scriptdir}/changelog" "${src_dir}/debian"
+	rm -f "{src_dir}/debian/changelog"
+	
+	if [[ -f "${scriptdir}/changelog" ]]; then
+	
+		cp "${scriptdir}/changelog" "${src_dir}/debian"
+		
+	fi
 
 	# enter source dir
 	cd "${src_dir}"

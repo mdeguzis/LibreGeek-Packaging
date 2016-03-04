@@ -195,14 +195,14 @@ main()
 		create)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts \
-		APTCACHE $APTCACHE --keyring=$KEYRING"
+		--aptcache $APTCACHE --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
 		;;
 
 		login)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ APTCACHE $APTCACHE "
+		OPTS="--basetgz $BASE_TGZ --aptcache $APTCACHE "
 		set_vars
 		run_pbuilder
 		;;
@@ -210,7 +210,7 @@ main()
 		login-save)
 		PROCEED="true"
 		OPERATION="login"
-		OPTS="--basetgz $BASE_TGZ APTCACHE $APTCACHE --save-after-login"
+		OPTS="--basetgz $BASE_TGZ --aptcache $APTCACHE --save-after-login"
 		set_vars
 		run_pbuilder
 		;;
@@ -218,7 +218,7 @@ main()
 		update|build|clean|execute)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts \
-		APTCACHE $APTCACHE --keyring=$KEYRING"
+		--aptcache $APTCACHE --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
 		;;

@@ -141,13 +141,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update to the latest source push upstream, as of ${date_short}"
 		nano "debian/changelog"
 
 	else
 
 		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update to the latest source push upstream, as of ${date_short}"
 		nano "debian/changelog"
 
 	fi

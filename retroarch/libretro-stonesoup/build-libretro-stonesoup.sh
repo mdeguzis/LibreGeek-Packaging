@@ -207,7 +207,7 @@ main()
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${src_dir}/debian/changelog" "${scriptdir}"
+			cp "${git_dir}/debian/changelog" "${scriptdir}"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

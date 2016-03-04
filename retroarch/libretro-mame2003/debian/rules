@@ -15,6 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# Turn on verbose mode, issues currently with compilation
+export DH_VERBOSE=1
+
 export CC=gcc-4.8
 export CXX=g++-4.8
 

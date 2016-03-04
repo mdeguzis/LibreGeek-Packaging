@@ -111,7 +111,7 @@ main()
 	tar -xf "${latest_file}"
 	rm -rf *.tar.xz
 	mv libretro-stonesoup* "${src_dir}"
-	rm -rf "debian/bzr-manifest"
+	rm -rf "${src_dir}/debian/bzr-manifest"
 
 	#################################################
 	# Build package

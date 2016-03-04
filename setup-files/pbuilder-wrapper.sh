@@ -35,6 +35,18 @@ export BETA_FLAG="false"
 export BASE_DIR="${HOME}/pbuilder"
 export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 
+# root on SteamOS is small, divert cache dir if applicable
+OS=$(lsb_release -si)
+
+if [[ "${OS}" == "SteamOS" ]]; then
+
+	export APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
+
+else
+
+	export APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+fi
+
 show_help()
 {
 
@@ -181,14 +193,15 @@ main()
 
 		create)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
+		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts \
+		APTCACHE $APTCACHE --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
 		;;
 
 		login)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ"
+		OPTS="--basetgz $BASE_TGZ APTCACHE $APTCACHE "
 		set_vars
 		run_pbuilder
 		;;
@@ -196,14 +209,15 @@ main()
 		login-save)
 		PROCEED="true"
 		OPERATION="login"
-		OPTS="--basetgz $BASE_TGZ --save-after-login"
+		OPTS="--basetgz $BASE_TGZ APTCACHE $APTCACHE --save-after-login"
 		set_vars
 		run_pbuilder
 		;;
 
 		update|build|clean|execute)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts --keyring=$KEYRING"
+		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts \
+		APTCACHE $APTCACHE --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
 		;;

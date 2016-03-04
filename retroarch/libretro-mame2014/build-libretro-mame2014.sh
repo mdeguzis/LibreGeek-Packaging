@@ -107,6 +107,9 @@ main()
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	
+	# Trim .git, large repo
+	rm -rf "${git_dir}/.git"
 
 	#################################################
 	# Build package

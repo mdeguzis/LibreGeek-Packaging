@@ -73,7 +73,7 @@ if [ -n "${DIST}" ]; then
         # root on SteamOS is very small, divert cache
         STEAMOS_CHECK=${uname -a | grep -i "steamos")
         
-        if [ "${STEAMOS_CHECK}" != "" ]; the
+        if [ "${STEAMOS_CHECK}" != "" ]; then
 
             APTCACHEHARDLINK=no
             APTCACHE="$HOME/pbuilder/$DIST/aptcache/"

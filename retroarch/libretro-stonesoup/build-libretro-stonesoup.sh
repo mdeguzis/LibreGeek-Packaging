@@ -128,14 +128,15 @@ main()
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
+	# Reset changelog and copy in old one
+	rm -f "debian/changelog"
+	cp "${scriptdir}/changelog" "${src_dir}/debian"
+
 	# enter source dir
 	cd "${src_dir}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
-
-	# Reset changelog
-	rm -f "debian/changelog"
 
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
@@ -202,7 +203,7 @@ main()
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${src_dir}/debian/changelog" "${scriptdir}"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

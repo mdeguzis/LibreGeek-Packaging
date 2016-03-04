@@ -194,8 +194,8 @@ main()
 
 		create)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts \
-		--aptcache $APTCACHE --keyring=$KEYRING"
+		OPTS="--basetgz $BASE_TGZ --aptcache $APTCACHE --architecture $ARCH \
+		--debootstrapopts --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
 		;;
@@ -217,8 +217,8 @@ main()
 
 		update|build|clean|execute)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ --architecture $ARCH --debootstrapopts \
-		--aptcache $APTCACHE --keyring=$KEYRING"
+		OPTS="--basetgz $BASE_TGZ --aptcache $APTCACHE --architecture $ARCH \
+		--debootstrapopts  --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
 		;;

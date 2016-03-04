@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r135~11
-lp:~libretro/libretro/virtualjaguar-libretro revid:git-v1:02269db259f9c4825147134745567e2efaa41785
-nest packaging lp:~libretro/libretro/virtualjaguar-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151027043716-jgpplso3afv7u2i3

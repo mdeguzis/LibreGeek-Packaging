@@ -128,7 +128,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# Reset changelog and copy in old one
-	rm -f "{src_dir}/debian/changelog"
+	rm -f "${src_dir}/debian/changelog"
 	
 	if [[ -f "${scriptdir}/changelog" ]]; then
 	

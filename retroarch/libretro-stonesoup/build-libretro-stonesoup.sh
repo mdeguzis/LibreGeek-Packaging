@@ -134,6 +134,9 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
+	# Reset changelog
+	rm -f "debian/changelog"
+
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 

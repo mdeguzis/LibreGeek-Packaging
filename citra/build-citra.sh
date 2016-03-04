@@ -133,14 +133,18 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
-
+		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
+	
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
 
 	fi
 

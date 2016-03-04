@@ -182,11 +182,11 @@ main()
 
 	Showing contents of: ${build_dir}
 
-	# inform user of packages
-
 	ls "${build_dir}" | grep -E "${pkgver}"
 
-	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+	Would you like to transfer any packages that were built? [y/n]"
+	EOF
+
 	sleep 0.5s
 
 	# capture command

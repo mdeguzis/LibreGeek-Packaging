@@ -133,14 +133,14 @@ set_vars()
 		BETA_FLAG="false"
 		BASETGZ="$BASE_TGZ"
 		BASEDIR="$BASE_DIR"
-		APTCACE="$APTCACHE"
+		APTCACHE="$APTCACHE"
 		EXTRA PACKAGES: "$PKGS"
 		-----------------------------
 
 		Are the above options OK?
 		EOF
 
-		read -erp "Confirm: [y/n]" create_choice
+		read -erp "Confirm [y/n]: " create_choice
 
 		if [[ "${create_choice}" != "y" ]]; then
 

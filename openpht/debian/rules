@@ -1,11 +1,6 @@
 #!/usr/bin/make -f
 
 DEB_AUTO_UPDATE_DEBIAN_CONTROL := yes
-
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/cmake.mk
-include /usr/share/cdbs/1/rules/simple-patchsys.mk
-
 DEB_CMAKE_NORMAL_ARGS += -DENABLE_AUTOUPDATE=off -DCMAKE_BUILD_TYPE=Debug -DENABLE_DVD_DRIVE=off -DCOMPRESS_TEXTURES=on -DCMAKE_INSTALL_PREFIX=/opt/openpht
 
 #export LD_LIBRARY_PATH := debian/openpht/opt/plexhometheater/bin/system/players/dvdplayer:$(LD_LIBRARY_PATH) dh_shlibdeps
@@ -13,3 +8,6 @@ DEB_CMAKE_NORMAL_ARGS += -DENABLE_AUTOUPDATE=off -DCMAKE_BUILD_TYPE=Debug -DENAB
 # Export library path with updated location
 export LD_LIBRARY_PATH := obj-x86_64-linux-gnu/lib/ffmpeg/ffmpeg/lib:$(LD_LIBRARY_PATH) dh_shlibdeps
 unexport LDFLAGS
+
+%:
+	dh $@

@@ -127,7 +127,7 @@ main()
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 
         # copy in debian folder and other files
-        cp -r ""$scriptdir/debian"" "${git_dir}"
+        cp -r "$scriptdir/debian" "${git_dir}"
 	
 	# Trim out .git
 	rm -rf "${git_dir}/.git"
@@ -138,9 +138,6 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"

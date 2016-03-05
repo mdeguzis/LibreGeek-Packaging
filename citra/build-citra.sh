@@ -109,6 +109,9 @@ main()
 	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	
+	# Add image to git dir
+	cp -r "${scriptdir}/citra.png" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -123,7 +126,6 @@ main()
 
 	# Add required files
 	cp -r "${scriptdir}/debian" "${git_dir}"
-	cp -r "${scriptdir}/citra.png" "${git_dir}"
 	cp "${git_dir}/license.txt" "${git_dir}/debian/LICENSE"
 
 	# enter source dir

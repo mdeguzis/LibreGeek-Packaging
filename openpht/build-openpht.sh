@@ -44,18 +44,18 @@ fi
 #git_url="https://github.com/plexinc/plex-home-theater-public"
 #git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
 git_url="https://github.com/RasPlex/OpenPHT"
-branch="openpht-1.5"
+branch="v1.5.2.514-310d4f7e"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbbuildopts -b"
 pkgname="openpht"
-pkgver="1.5.1"
+pkgver="1.5.2"
 upstream_rev="1"
-pkgrev="3"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -119,13 +119,12 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 
         # copy in debian folder and other files
         cp -r ""$scriptdir/debian"" "${git_dir}"
@@ -149,7 +148,6 @@ main()
 	# enter source dir
 	cd "${src_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
@@ -163,7 +161,6 @@ main()
 		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -179,8 +176,6 @@ main()
 	# Cleanup
 	#################################################
 
-	# clean up dirs
-
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -191,25 +186,19 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<-EOF
 	
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep $pkgver
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+	
+	Showing contents of: ${build_dir}
+	
+	EOF
+
+	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -221,10 +210,9 @@ main()
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
-			
-			# keep changelog rolling
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

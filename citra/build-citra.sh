@@ -112,6 +112,9 @@ main()
 	
 	# Add image to git dir
 	cp -r "${scriptdir}/citra.png" "${git_dir}"
+	
+	# Swap version text, since the project assumes citra is being ran in the git dir
+	sed -i "s|GIT-NOTFOUND|${pkgver}git|g" "${git_dir}/externals/cmake-modules/GetGitRevisionDescription.cmake"
 
 	#################################################
 	# Build package

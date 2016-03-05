@@ -121,10 +121,9 @@ main()
 	cd "${build_dir}" || exit
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
-	# Add debian folder for current virtual package implementation
+	# Add required files
 	cp -r "${scriptdir}/debian" "${git_dir}"
-
-	# License file is .txt and not in debian/
+	cp -r "${scriptdir}/citra.png" "${git_dir}"
 	cp "${git_dir}/license.txt" "${git_dir}/debian/LICENSE"
 
 	# enter source dir

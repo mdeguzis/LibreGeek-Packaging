@@ -2,7 +2,7 @@
 Name=Citra
 Comment=Experiemental 3DS emulator software
 Exec=/usr/games/citra
-Icon=/home/steam/Pictures/citra.png
+Icon=/usr/share/pixmaps/citra.png
 Terminal=false
 Type=Application
 Categories=Game;

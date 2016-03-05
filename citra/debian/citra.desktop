@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Citra
 Comment=Experiemental 3DS emulator software
-Exec=/usr/games/citra
+Exec=/usr/bin/citra-qt
 Icon=/usr/share/pixmaps/citra.png
 Terminal=false
 Type=Application

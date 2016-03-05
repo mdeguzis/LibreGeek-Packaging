@@ -14,5 +14,7 @@ Homepage: https://github.com/citra-emu
 Package: citra
 Architecture: all
 Depends: ${misc:Depends},
- ${shlibs:Depends}
+ ${shlibs:Depends},
+ libqt5opengl5,
+ libqt5widgets5
 Description: Citra is an emulator for 3DS games and software.

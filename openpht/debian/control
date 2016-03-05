@@ -3,6 +3,7 @@ Section: universe/video
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
+ cdbs,
  unzip,
  libboost-dev,
  zip,

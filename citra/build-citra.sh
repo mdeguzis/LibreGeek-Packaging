@@ -50,7 +50,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="citra"
 pkgver="${date_short}"
-pkgrev="1"
+pkgrev="2"
 upstream_rev="1"
 # Base version sourced from ZIP file version
 pkgsuffix="${dateshort}git+bsos${pkgrev}"

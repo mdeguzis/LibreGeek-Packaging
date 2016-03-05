@@ -116,6 +116,11 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
+	
+	else
+	
+		# cdbs needed for build clean
+		sudo apt-get install -y cdbs
 
 	fi
 

@@ -4,7 +4,7 @@
 # Author:    	Michael DeGuzis
 # Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-pcsx2-unstable.sh
-# Script Ver:	0.9.7
+# Script Ver:	0.9.9
 # Description:	Attempts to build a deb package from PCSX2 git source
 #		It is highly suggested to build in a 32 bit environment!!!
 #		Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
@@ -44,18 +44,15 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 ARCH="i386"
 pkgname="pcsx2-unstable"
-pkgrev="1"
+pkgrev="2"
 upstream_rev="1"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-
-# sub-packages (used for copying to package pool only)
-pkgname_dbg="pcsx2-unstable-dbg"
 
 # build dirs
 export build_dir="/home/desktop/build-${pkgname}-temp"
@@ -142,7 +139,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-        git clone -b "$branch" "$git_url" "${git_dir}"
+        git clone -b "${branch}" "${git_url}" "${git_dir}"
         cd "${git_dir}"
         latest_commit=$(git log -n 1 --pretty=format:"%h")
         git checkout $latest_commit 1> /dev/null
@@ -232,7 +229,7 @@ main()
 	#  build
 	# Due to problems with shared libraries, needs an extra option here besides ARCH
 	# See: https://bugs.launchpad.net/ubuntu/+source/pbuilder/+bug/1300726
-	ARCH=i386 DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

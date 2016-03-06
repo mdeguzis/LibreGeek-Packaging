@@ -19,7 +19,8 @@ Package:antimicro
 Architecture: all
 Depends: ${misc:Depends},
  libsdl2-2.0-0,
- libqt5network5
+ libqt5network5,
+ libqt5widgets5
 Description: Antimicro is a graphical program used to map keyboard keys and mouse controls to a gamepad
  This program is useful for playing PC games using a gamepad that do not have any form of built-in 
  gamepad support. However, you can use this program to control any desktop application with a gamepad; 

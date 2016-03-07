@@ -49,7 +49,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="antimicro"
 pkgrev="3"
-pkgver="${rel_target}"
+pkgver="${branch}"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -131,13 +131,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update release"
 		nano "debian/changelog"
 
 	else
 
 		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update release"
 		nano "debian/changelog"
 
 	fi

@@ -39,7 +39,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/Ryochan7/antimicro"
-rel_target="2.21"
+branch="2.21"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

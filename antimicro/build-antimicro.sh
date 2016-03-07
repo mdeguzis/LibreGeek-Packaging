@@ -98,7 +98,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -116,6 +115,7 @@ main()
 	sleep 2s
 
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder

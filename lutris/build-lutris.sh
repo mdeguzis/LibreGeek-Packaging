@@ -39,7 +39,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/lutris/lutris"
-branch="master"
+branch="3.7.5"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -48,8 +48,9 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="lutris"
-upstream_rev="2"
-pkgrev="3"
+pkgver="3.7.5"
+upstream_rev="1"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -108,21 +109,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
-
-	# Get base version from latest tag and checkout source
-	cd "${git_dir}"
-	base_release=$(git describe --abbrev=0 --tags)
-	# Use maser for now until next release (fixes 32 bit libs koku-xinput-wine issue)
-	# git checkout "${base_release}"
-
-	# Remove extra characters and set pkgver
-	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
-
-	# copy in our modified files for clean shortcut in BPM?
-	# Don't use these for now, as running the client IN BPM is too buggy
-	#cp "${scriptdir}/setup.py" "${git_dir}"
-	#cp "${scriptdir}/lutris-launcher" "${git_dir}/bin/"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -137,10 +124,6 @@ main()
 	# create source tarball
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-	
-	# copy in debian folder with replacement files use debhelper over this makefile...
-	# 20160225 - changes merged into master upstream tree
-	# cp -r "${scriptdir}/debian/" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -150,13 +133,17 @@ main()
 
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
-	
-		dch -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package $pkgname -D $DIST -u "${urgency}"
-		
+
+		dch -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package $pkgname -D $DIST -u "${urgency}" \
+		"New release"
+		nano "debian/changelog"
+
 	else
 	
-		dch --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
-	
+		dch --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" \
+		-u "${urgency}" "New release"
+		nano "debian/chanelog"
+
 	fi
 	
 	#################################################
@@ -168,12 +155,10 @@ main()
 
 	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
 	
 	# note time ended
 	time_end=$(date +%s)
@@ -185,23 +170,18 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<-EOF
 	
-	echo -e "Showing contents of: ${build_dir}: \n"
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+	
+	Showing contents of: ${build_dir}
+	
+	EOF
+
 	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
@@ -214,9 +194,6 @@ main()
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
-			
-			# keep changelog rolling
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

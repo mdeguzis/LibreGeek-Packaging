@@ -46,10 +46,12 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
+PBUILDER_HOOKS=""
 pkgname="xwiimote"
 pkgver="${date_short}+git"
 BUILDER="pdebuild"
 BUILDOPTS=""
+PBUILDER_HOOKS=""
 pkgrev="1"
 DIST="brewmaster"
 urgency="low"
@@ -148,7 +150,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

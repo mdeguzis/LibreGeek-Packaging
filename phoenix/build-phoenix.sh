@@ -49,6 +49,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
+PBUILDER_HOOKS=""
 pkgname="phoenix"
 pkgver="0.0.0"
 upstream_rev="1"
@@ -169,7 +170,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

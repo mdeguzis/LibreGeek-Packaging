@@ -47,6 +47,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
+PBUILDER_HOOKS=""
 pkgname="syncthing"
 pkgver="0.12.4+git+SteamOS2"
 pkgrev="1"
@@ -157,7 +158,7 @@ main()
 
 	#  build
 	#"${BUILDER}" -uc -us --source-option=--include-binaries
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

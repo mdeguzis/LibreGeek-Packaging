@@ -48,6 +48,7 @@ date_short=$(date +%Y%m%d)
 ARCH=""
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
+PBUILDER_HOOKS=""
 # required to run postinstall
 USENETWORK="yes"
 pkgname="thedarkmod"
@@ -158,7 +159,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	USENETWORK=$USENETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	USENETWORK=$USENETWORK HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

@@ -52,6 +52,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
+PBUILDER_HOOKS=""
 pkgname="srb2"
 pkgver="2.1.14"
 upstream_rev="1"
@@ -171,7 +172,7 @@ main()
 	sleep 2s
 
 	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Prepare Debian package (data) - if needed
@@ -246,7 +247,7 @@ main()
 		sleep 2s
 
 		#  build
-		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+		HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 		# Move packages to build dir
 		mv ${git_dir}/*${pkgver_data}* "${build_dir}"

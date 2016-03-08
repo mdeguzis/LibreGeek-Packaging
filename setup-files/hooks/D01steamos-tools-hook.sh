@@ -65,7 +65,7 @@ for file in ${repo_files};
 do
 	if [[ ! -f "${file}" ]]; then
 
-		echo "E: STEAMOS-TOOLS: Validating FAILED. Exiting. Check .build log for details."
+		echo "E: STEAMOS-TOOLS: Repository validation [FAILED]. Exiting."
 		exit 1
 	else
 

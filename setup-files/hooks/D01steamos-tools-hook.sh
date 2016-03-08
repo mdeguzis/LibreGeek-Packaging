@@ -39,12 +39,12 @@ if [[ "$DIST" == "brewmaster" ]]; then
 		echo "I: STEAMOS-TOOLS: Adding SteamOS-Tools beta track"
 
 		# Add repository quietly, to reduce output on screen.
-		if ! apt-get install -q=3 -y --force-yes steamos-tools-beta-repo; then
+		if ! apt-get install -y --force-yes steamos-tools-beta-repo &> /dev/null; then
 		echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools beta repository. Exiting"
 		exit 1
 		fi
 
-		if ! apt-get update -q=3; then
+		if ! apt-get update &> /dev/null; then
 		echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
 		exit 1
 		fi

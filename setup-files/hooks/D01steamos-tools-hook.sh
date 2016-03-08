@@ -7,14 +7,17 @@ if [[ "$DIST" == "brewmaster" ]]; then
   echo "I: STEAMOS-TOOLS: Adding standard SteamOS-Tools repository configuration"
   
   # get repository configuration script and invoke
-  wget https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh -q -nc
+  wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc
   chmod +x configure-repos.sh
   sed -i "s|sudo ||g" configure-repos.sh
+   ./configure-repos.sh &> /dev/null
   
-  # Invoke script, bail out if it fails
-  if ! ./configure-repos.sh &> /dev/null; then
+  # Validation check
+  if [[ ! -f "/etc/apt/sources.list.d/steamos-tools.list" ]]; then
     echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools repository. Exiting"
     exit 1
+  else
+    echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
   fi
   
   if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then

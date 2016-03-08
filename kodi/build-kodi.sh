@@ -12,7 +12,7 @@
 #
 # Usage:      		./build-kodi.sh --cores [cpu cores]
 #			./build-kodi.sh [--package-deb][--source]
-# See Also:		https://packages.debian.org/sid/kodi
+# See Also:		https://github.com/xbmc/xbmc-packaging
 # Opts:			[--testing]
 #			Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ set_vars()
 	maintainer="ProfessorKaos64"
 	pkgrev="1"
 	DIST="brewmaster"
-urgency="low"
+	urgency="low"
 	BUILDER="pdebuild"
 	PBUILDER_BASE="${HOME}/pbuilder"
 	BUILDOPTS="--debbuildopts \"-j4\""
@@ -75,7 +75,7 @@ urgency="low"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
 	export build_dir="${HOME}/build-kodi-temp"
-src_dir="${pkgname}-${pkgver}"
+	src_dir="${pkgname}-${pkgver}"
 
 	# Set target for git source author
 	repo_target="xbmc"

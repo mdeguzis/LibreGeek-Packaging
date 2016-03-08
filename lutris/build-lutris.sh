@@ -39,7 +39,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/lutris/lutris"
-branch="3.7.5"
+branch="v3.7.5"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

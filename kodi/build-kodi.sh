@@ -327,8 +327,8 @@ kodi_package_deb()
 		else
 
 			# Tags for Krypton are not yet added, add below manually
-			git checkout master
 			kodi_release="Krypton"
+			kodi_tag="17-${kodi_release}"
 
 		fi
 

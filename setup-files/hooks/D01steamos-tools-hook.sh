@@ -1,5 +1,9 @@
 #!/bin/bash
 
+####################################
+# Installation
+####################################
+
 # Add SteamOS tools into chroot environment if we are using a brewmaster DIST
 
 if [[ "$DIST" == "brewmaster" ]]; then
@@ -11,25 +15,6 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	chmod +x configure-repos.sh
 	sed -i "s|sudo ||g" configure-repos.sh
 	./configure-repos.sh &> /dev/null
-	
-	# Validation check
-	repo_files="/etc/apt/sources.list.d/steamos-tools.list \
-	      /etc/apt/sources.list.d/jessie.list \
-	      /etc/apt/sources.list.d/jessie-backports.list \
-	      /etc/apt/preferences.d/steamos-tools \
-	      /etc/apt/preferences.d/jessie \
-	      /etc/apt/preferences.d/jessie-backports \
-	      /etc/apt/apt.conf.d/60unattended-steamos-tools"
-	
-	# Run validation
-	for file in ${repo_files};
-	do
-		if [[ ! -f "${file}" ]]; then
-			echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools repository. Exiting"
-			exit 1
-		fi
-
-	done
 
 	# If we havent exited by now, output pass
 	echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
@@ -54,3 +39,36 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
 # END BREWMASTER DIST HANDLING
 fi
+
+####################################
+# Validation
+####################################
+
+# Add standard files to file list
+
+repo_files+=("/etc/apt/sources.list.d/steamos-tools.list")
+repo_files+=("/etc/apt/sources.list.d/jessie.list")
+repo_files+=("/etc/apt/sources.list.d/jessie-backports.list")
+repo_files+=("/etc/apt/preferences.d/steamos-tools")
+repo_files+=("/etc/apt/preferences.d/jessie")
+repo_files+=("/etc/apt/preferences.d/jessie-backports")
+repo_files+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
+
+# If checking beta, add additioanl files to file list
+
+if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
+
+	repo_files+=("/etc/apt/sources.list.d/steamos-tools-beta.list")
+	repo_files+=("/etc/apt/preferences.d/steamos-tools-beta ")
+
+fi
+
+# Run validation
+for file in ${repo_files};
+do
+	if [[ ! -f "${file}" ]]; then
+		echo "E: STEAMOS-TOOLS: Validating FAILED. Exiting. Check .build log for details."
+		exit 1
+	fi
+
+done

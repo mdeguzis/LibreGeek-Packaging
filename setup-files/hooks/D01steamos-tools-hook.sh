@@ -14,7 +14,15 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc
 	chmod +x configure-repos.sh
 	sed -i "s|sudo ||g" configure-repos.sh
-	./configure-repos.sh &> /dev/null
+	
+	# No need to update twice (if beta is flagged, update will have to run again)
+	sed -i '/apt-get update/d' configure-repos.sh
+
+	# Run setup
+	if ! ./configure-repos.sh &> /dev/null; then
+		echo "E: STEAMOS-TOOLS: SteamOS-Tools configuration [FAILED]. Exiting."
+		exit 1
+	fi
 
 	if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
 
@@ -26,15 +34,21 @@ if [[ "$DIST" == "brewmaster" ]]; then
 		exit 1
 		fi
 
-		if ! apt-get update &> /dev/null; then
-		echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
-		exit 1
-		fi
-
 	# END BETA REPO HANDLING
 	fi
 
 # END BREWMASTER DIST HANDLING
+fi
+
+####################################
+# Update
+####################################
+
+if ! apt-get update &> /dev/null; then
+
+	echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
+	exit 1
+
 fi
 
 ####################################

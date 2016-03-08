@@ -1,0 +1,20 @@
+Source: google-play-music-desktop-player
+Section: web
+Priority: extra
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders:   SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends:
+ debhelper (>= 8),
+ dh-buildinfo,
+Standards-Version: 3.9.6
+Homepage: https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-
+
+Package: google-play-music-desktop-player
+Architecture: all
+Depends:
+ ${misc:Depends},
+ nodejs
+Description: Unofficial Google Play Music desktop player.
+ Run Google Play Music as a stand alone Desktop app. Never again will you 
+ have to hunt through your tabs to pause your music, or stop listening to
+ your favourite song because Chrome is guzzling up all your RAM.

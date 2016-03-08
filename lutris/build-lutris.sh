@@ -131,18 +131,18 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D $DIST -u "${urgency}" \
+		dch -p -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D $DIST -u "${urgency}" \
 		"New release"
 		nano "debian/changelog"
 
 	else
-	
-		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" \
+
+		dch -p --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "New release"
 		nano "debian/chanelog"
 
 	fi
-	
+
 	#################################################
 	# Build Debian package
 	#################################################

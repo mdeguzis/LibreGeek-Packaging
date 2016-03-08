@@ -13,13 +13,26 @@ if [[ "$DIST" == "brewmaster" ]]; then
    ./configure-repos.sh &> /dev/null
   
   # Validation check
-  if [[ ! -f "/etc/apt/sources.list.d/steamos-tools.list" ]]; then
-    echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools repository. Exiting"
-    exit 1
-  else
-    echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
-  fi
+  repo_files="/etc/apt/sources.list.d/steamos-tools.list \
+              /etc/apt/sources.list.d/jessie.list \
+              /etc/apt/sources.list.d/jessie-backports.list \
+              /etc/apt/preferences.d/steamos-tools \
+              /etc/apt/preferences.d/jessie \
+              /etc/apt/preferences.d/jessie-backports \
+              /etc/apt/apt.conf.d/60unattended-steamos-tools"
   
+  # Run validation
+  for file in ${repo_files};
+  do
+    if [[ ! -f "${file}" ]]; then
+      echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools repository. Exiting"
+      exit 1
+    fi
+  done
+
+  # If we havent exited by now, output pass
+  echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
+
   if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
   
     echo "I: NOTICE: Switching to SteamOS-Tools beta track"

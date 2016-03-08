@@ -31,6 +31,14 @@ cd "${build_dir}"
 	
 ## Summary actions
 -----------------------------------------------------------------------------------------------------------------
+	# output finish
+	cat<<-EOF
+	
+	Time started: ${time_stamp_start}
+	echo -e "Time started: ${time_stamp_end}
+	echo -e "Total Runtime (minutes): $runtime
+	EOF
+	
 	# inform user of packages
 	cat<<-EOF
 	

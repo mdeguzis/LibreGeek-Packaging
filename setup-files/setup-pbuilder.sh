@@ -18,6 +18,9 @@ if [[ "${scriptdir}" == "" ]]; then
 	
 fi
 
+# OS check
+OS=$(lsb_release -is)
+
 #####################################
 # Information
 #####################################
@@ -99,12 +102,7 @@ sudo chmod u+w /var/cache/pbuilder/result
 echo -e "\n==> Adding pbuilder hooks"
 sleep 1s
 
-if [[ ! -d "/var/cache/pbuilder/hooks" ]]; then
-
-	sudo mkdir /var/cache/pbuilder/hooks
-	sudo chown -R $USER /var/cache/pbuilder/hooks
-	
-fi
+cp -r "${scriptdir}/hooks" "$HOME/pbuilder/"
 
 ##########################
 # core configs

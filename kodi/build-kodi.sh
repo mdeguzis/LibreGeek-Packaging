@@ -327,13 +327,13 @@ kodi_package_deb()
 		else
 
 			# Tags for Krypton are not yet added, add below manually
-			kodi_release="Krypton"
+			#kodi_release="Krypton"
 			kodi_tag="auto"
 
 		fi
 
 		# set release for changelog
-        	pkgver="$kodi_release+git+bsos${pkgrev}"
+        	pkgver="${kodi_release}+git+bsos${pkgrev}"
 
 	fi
 

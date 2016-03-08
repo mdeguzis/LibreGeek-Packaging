@@ -328,7 +328,7 @@ kodi_package_deb()
 
 			# Tags for Krypton are not yet added, add below manually
 			kodi_release="Krypton"
-			kodi_tag="17-${kodi_release}"
+			kodi_tag="auto"
 
 		fi
 
@@ -348,7 +348,11 @@ kodi_package_deb()
 
 	# Add any overrides to the build host/arch options below
 
-	sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
+	if [[ "${kodi_release}" != "" ]]; then
+
+		sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
+
+	fi
 
 	############################################################
 	# Assess if we are to build for host/ARCH we have or target

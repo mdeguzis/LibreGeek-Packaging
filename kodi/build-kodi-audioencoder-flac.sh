@@ -46,6 +46,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
+STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="kodi-audioencoder-flac"
 pkgver="1.0.0"
 pkgrev="2"

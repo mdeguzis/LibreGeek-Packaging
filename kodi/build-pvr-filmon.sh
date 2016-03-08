@@ -46,6 +46,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
+STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="kodi-pvr-filmon"
 #pkgver="${date_short}+git"
 BUILDER="pdebuild"

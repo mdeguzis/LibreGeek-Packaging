@@ -46,6 +46,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="debuild"
 BUILDOPTS="-b"
+STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="voglperf"
 pkgver="0.1"
 pkgrev="1"

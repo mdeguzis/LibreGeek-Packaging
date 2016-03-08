@@ -47,6 +47,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
+STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="node-grunt-cli"
 pkgver="0.1.13"
 upstream_rev="1"

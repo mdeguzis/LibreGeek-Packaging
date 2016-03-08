@@ -44,7 +44,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-PBUILDER_HOOKS=""
 pkgname="pcsx2"
 pkgrev="1"
 DIST="brewmaster"
@@ -226,7 +225,7 @@ main()
 	sleep 2s
 
 	#  build within i386 environment
-	ARCH=i386 HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	ARCH=i386 DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

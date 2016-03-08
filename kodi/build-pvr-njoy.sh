@@ -45,7 +45,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-PBUILDER_HOOKS=""
 pkgname="kodi-pvr-njoy"
 pkgver="1.11.9"
 pkgrev="1"
@@ -144,7 +143,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

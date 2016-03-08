@@ -45,12 +45,10 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-PBUILDER_HOOKS=""
 pkgname="speedtest-cli"
 pkgver="${date_short}+git+bsos"
 BUILDER="pdebuild"
 BUILDOPTS=""
-PBUILDER_HOOKS=""
 pkgrev="1"
 DIST="brewmaster"
 urgency="low"
@@ -151,7 +149,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

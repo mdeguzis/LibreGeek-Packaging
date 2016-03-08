@@ -45,7 +45,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-PBUILDER_HOOKS=""
 ARCH="i386"
 pkgname="pcsx2-unstable"
 pkgrev="2"
@@ -230,7 +229,7 @@ main()
 	#  build
 	# Due to problems with shared libraries, needs an extra option here besides ARCH
 	# See: https://bugs.launchpad.net/ubuntu/+source/pbuilder/+bug/1300726
-	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

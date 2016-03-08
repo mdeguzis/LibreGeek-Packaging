@@ -71,7 +71,6 @@ set_vars()
 	BUILDER="pdebuild"
 	PBUILDER_BASE="${HOME}/pbuilder"
 	BUILDOPTS="--debbuildopts \"-j4\""
-PBUILDER_HOOKS=""
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)

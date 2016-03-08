@@ -41,7 +41,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-PBUILDER_HOOKS=""
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="mpv"
 BUILDER="pdebuild"

@@ -47,7 +47,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-PBUILDER_HOOKS=""
 pkgname="openlierox"
 upstream_rev="1"
 pkgrev="3"
@@ -164,7 +163,7 @@ main()
 	sleep 2s
 
 	#  build
-	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 	
 	#################################################
 	# Cleanup

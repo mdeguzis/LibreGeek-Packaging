@@ -47,12 +47,10 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-PBUILDER_HOOKS=""
 pkgname="vbam"
 pkgver="${date_short}"
 BUILDER="pdebuild"
 BUILDOPTS=""
-PBUILDER_HOOKS=""
 upsteam_rev="1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
@@ -160,7 +158,7 @@ main()
 	sleep 2s
 
 	#  build
-	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

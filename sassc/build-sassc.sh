@@ -49,7 +49,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-PBUILDER_HOOKS=""
 pkgname="sassc"
 pkgver="3.3.0+git+bsos"
 pkgrev="1"
@@ -165,7 +164,7 @@ main()
 	sleep 2s
 
 	#  build
-	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Post install configuration

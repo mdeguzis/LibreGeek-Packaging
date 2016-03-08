@@ -47,9 +47,7 @@ OS=$(lsb_release -si)
 
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
-	# Obtain valve keyring
-	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q --show-progress -nc 
-	sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+	# Setup common packages
 	
 	# Libregeek keyrings
 	wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
@@ -85,6 +83,17 @@ elif [[ "${OS}" == "Arch" ]]; then
 	# cleanup
 	cd ..
 	rm -rf "$HOME/setup-temp"
+
+fi
+
+# Setup Debian specific (such as the Valve keyring)
+# This package is obviously in SteamOS already
+
+if [[ "${OS}" == "Debian" ]]; then
+
+	# Obtain valve keyring
+	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q --show-progress -nc 
+	sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
 
 fi
 

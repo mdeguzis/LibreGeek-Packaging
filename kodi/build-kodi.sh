@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.3.1
+# Script Ver:		1.3.7
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -71,7 +71,7 @@ set_vars()
 	BUILDER="pdebuild"
 	PBUILDER_BASE="${HOME}/pbuilder"
 	BUILDOPTS="--debbuildopts \"-j4\""
-STEAMOS_TOOLS_BETA_HOOK="false"
+	STEAMOS_TOOLS_BETA_HOOK="true"
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
@@ -264,7 +264,7 @@ kodi_prereqs()
 
 		if [[ "$build_all" != "yes" ]]; then
 
-			PKGS="libcec3 libcec-dev libafpclient-dev libgif-dev libmp3lame-dev libgif-dev libplatform-dev"
+			PKGS="libcec3 libcec-dev libafpclient-dev libgif-dev libmp3lame-dev libgif-dev libp8-platform-dev"
 
 			# install dependencies / packages
 			function_install_pkgs
@@ -281,7 +281,7 @@ kodi_prereqs()
 	else
 
 		# If we are not packaging a deb, set to master branch build
-        	rel_target="master"
+        	branch="master"
         	pkgver="$kodi_tag"
 
 
@@ -315,9 +315,6 @@ kodi_package_deb()
 		git checkout "tags/${kodi_tag}"
 
 		# set release for upstream xbmc packaging fork
-		if echo $kodi_tag | grep -e "Dharma" 1> /dev/null; then kodi_release="Dharma"; fi
-		if echo $kodi_tag | grep -e "Eden" 1> /dev/null; then kodi_release="Eden"; fi
-		if echo $kodi_tag | grep -e "Frodo" 1> /dev/null; then kodi_release="Frodo"; fi
 		if echo $kodi_tag | grep -e "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
 		if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
 		if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
@@ -325,25 +322,29 @@ kodi_package_deb()
 		# If the tag is left blank, set to master
 		if [[ "$kodi_tag" == "master" ]]; then
 		
+			# Tags for Krypton are not yet added, add below manually
 			git checkout master
+			kodi_release="Krypton"
 			
 		fi
 
 		# set release for changelog
-        	pkgver="$kodi_release+git+bsos"
+        	pkgver="$kodi_release+git+bsos${pkgrev}"
 
 	fi
 
 	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh 
 	# See: http://unix.stackexchange.com/a/16274
-	# This was done only at prior point to satisfy some build deps. This has since
+	# This was done only at prior a point to satisfy some build deps. This has since
 	# been corrected. 'mk-debian-package.sh' handles all package naming and will try
-	# to sign as wnsipex. This is ok, since we will sign with reprepro. The other
-	# option is to adjust the build script.
+	# to sign as wnsipex. This is ok, since we will sign with reprepro. 
+	
+	# However, this is still used to adjust the changelog structure
+	# This may be dropped in the future
 
 	# Add any overrides to the build host/arch options below
 
-	sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
+	# sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
 	############################################################
 	# Assess if we are to build for host/ARCH we have or target
@@ -440,7 +441,7 @@ kodi_build_src()
 	cd "$git_dir"
 
 	# checkout target release
-	git checkout "$rel_target"
+	git checkout "$branch"
 
   	# create the Kodi executable manually perform these steps:
 	if ./bootstrap; then

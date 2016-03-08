@@ -11,7 +11,7 @@ chmod +x configure-repos.sh
 sed -i "s|sudo ||g" configure-repos.sh
 ./configure-repos.sh
 
-if [[ "$REPO_BETA_HOOK" == "true" ]]; then
+if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
 
   echo "Switching to SteamOS-Tools beta track"
   sleep 3s

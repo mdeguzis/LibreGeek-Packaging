@@ -38,7 +38,7 @@ fi
 
 # upstream URL
 git_url="https://github.com/Pulse-Eight/platform/"
-branch_tag="platform-2.0.1"
+branch_tag="p8-platform-2.0.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -46,7 +46,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-pkgname="platform"
+pkgname="p8-platform"
 pkgver="2.0.1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
@@ -103,7 +103,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "$branch_tag" "$git_url" "$git_dir"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
  
 	#################################################
 	# Build platform
@@ -112,17 +112,28 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 	
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-	
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 	
 	# emter source dir
-	cd "${git_dir}"
-	
- 
- 
+	cd "${src_dir}"
+
+ 	# update changelog with dch
+	if [[ -f "debian/changelog" ]]; then
+
+		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest release, $pkgver"
+		nano "debian/changelog"
+
+	else
+
+		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest release, $pkgver"
+		nano "debian/changelog"
+
+	fi
+
 	#################################################
 	# Build Debian package
 	#################################################
@@ -130,9 +141,6 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	# Use custom overrides? (see merge ${HOME}/.devscripts)
-	# DEBUILD_DPKG_BUILDPACKAGE_OPTS="-us -uc -I -i"
-	
 	# build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 	
@@ -140,64 +148,50 @@ main()
 	# Cleanup
 	#################################################
 	
-	# clean up dirs
-	
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
 	
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
-	echo -e "Time started: ${time_stamp_end}"
-	echo -e "Total Runtime (minutes): $runtime\n"
+	cat<<-EOF
+	
+	Time started: ${time_stamp_start}
+	echo -e "Time started: ${time_stamp_end}
+	echo -e "Total Runtime (minutes): $runtime
+	EOF
+	
+	# inform user of packages
+	cat<<-EOF
+	
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+	
+	Showing contents of: ${build_dir}
+	
+	EOF
 
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
-	# If "build_all" is requested, skip user interaction
-	
-	if [[ "$build_all" == "yes" ]]; then
-	
-		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${build_dir}/*.deb "$auto_build_dir"
-		sleep 2s
-		
-	else
-		
-		# inform user of packages
-		echo -e "\n############################################################"
-		echo -e "If package was built without errors you will see it below."
-		echo -e "If you don't, please check build dependcy errors listed above."
-		echo -e "############################################################\n"
-	
-		echo -e "Showing contents of: ${build_dir}: \n"
-		ls "${build_dir}" | grep -E "${pkgver}" 
+	ls "${build_dir}" | grep -E "${pkgver}" 
 
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-		sleep 0.5s
-		# capture command
-		read -erp "Choice: " transfer_choice
+	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+	sleep 0.5s
+	# capture command
+	read -erp "Choice: " transfer_choice
 
-		if [[ "$transfer_choice" == "y" ]]; then
+	if [[ "$transfer_choice" == "y" ]]; then
 
-			# transfer files
-			if [[ -d "${build_dir}" ]]; then
-				rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
-			fi
+		# transfer files
+		if [[ -d "${build_dir}" ]]; then
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
-		elif [[ "$transfer_choice" == "n" ]]; then
-			echo -e "Upload not requested\n"
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
+	elif [[ "$transfer_choice" == "n" ]]; then
+		echo -e "Upload not requested\n"
 	fi
 
 }

@@ -10,5 +10,15 @@ Packaging scripts and files for SteamOS-Tools
 * [Binary package How-To](http://tldp.org/HOWTO/html_single/Debian-Binary-Package-Building-HOWTO/)
 * [libregeek package stats](http://steamos-tools-stats.libregeek.org)
 
+# Working with pbuilder and the SteamOS-Tools beta repo
+
+If you wish to work with the SteamOS-Tools beta repo when building, please set the relevant hooks at the top of the build script.
+
+```
+STEAMOS_TOOLS_BETA_HOOK="true"
+```
+
+The reason for this, and the intention, is to keep the chroot as clean as possible. You will also notice, that the [hook script](https://github.com/ProfessorKaos64/SteamOS-Tools-Packaging/blob/brewmaster/setup-files/hooks/D01steamos-tools-hook.sh) will always add the standard repository configuration if the pbuilder distribution is brewmaster.
+
 # Other information
 See docs/* for more

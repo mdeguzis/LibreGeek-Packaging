@@ -311,21 +311,25 @@ kodi_package_deb()
 		sleep 0.2s
 		read -erp "Release Choice: " kodi_tag
 
-		# checkout proper release
-		git checkout "tags/${kodi_tag}"
-
 		# set release for upstream xbmc packaging fork
 		if echo $kodi_tag | grep -e "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
 		if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
 		if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
 
 		# If the tag is left blank, set to master
-		if [[ "$kodi_tag" == "master" ]]; then
 		
+		# checkout proper release
+		if [[ "$kodi_tag" != "master" ]]; then
+
+			# Check out requested tag
+			git checkout "tags/${kodi_tag}"
+
+		else
+
 			# Tags for Krypton are not yet added, add below manually
 			git checkout master
 			kodi_release="Krypton"
-			
+
 		fi
 
 		# set release for changelog
@@ -338,7 +342,7 @@ kodi_package_deb()
 	# This was done only at prior a point to satisfy some build deps. This has since
 	# been corrected. 'mk-debian-package.sh' handles all package naming and will try
 	# to sign as wnsipex. This is ok, since we will sign with reprepro. 
-	
+
 	# However, this is still used to adjust the changelog structure
 	# This may be dropped in the future
 
@@ -394,7 +398,6 @@ kodi_clone()
 				# create and clone to merge ${HOME}/kodi
 				cd
 				git clone ${git_url} ${git_dir}
-
 
 			fi
 

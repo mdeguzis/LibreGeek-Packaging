@@ -8,16 +8,13 @@
 
 if [[ "$DIST" == "brewmaster" ]]; then
 
-	echo "I: STEAMOS-TOOLS: Adding standard SteamOS-Tools repository configuration"
-	
+	echo "I: STEAMOS-TOOLS: Adding repository configuration"
+
 	# get repository configuration script and invoke
 	wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc
 	chmod +x configure-repos.sh
 	sed -i "s|sudo ||g" configure-repos.sh
 	./configure-repos.sh &> /dev/null
-
-	# If we havent exited by now, output pass
-	echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
 
 	if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
 
@@ -67,8 +64,13 @@ fi
 for file in ${repo_files};
 do
 	if [[ ! -f "${file}" ]]; then
+
 		echo "E: STEAMOS-TOOLS: Validating FAILED. Exiting. Check .build log for details."
 		exit 1
+	else
+
+		echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
+
 	fi
 
 done

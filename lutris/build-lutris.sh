@@ -39,7 +39,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/lutris/lutris"
-branch="v3.7.5"
+branch="v0.3.7.5"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -48,7 +48,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 pkgname="lutris"
-pkgver="3.7.5"
+pkgver="0.3.7.5"
 upstream_rev="1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
@@ -117,9 +117,6 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
 
 	# create source tarball
 	cd "${build_dir}"

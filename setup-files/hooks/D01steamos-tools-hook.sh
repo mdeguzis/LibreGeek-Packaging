@@ -35,7 +35,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
   if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
   
-    echo "I: NOTICE: Switching to SteamOS-Tools beta track"
+    echo "I: STEAMOS-TOOLS: Adding SteamOS-Tools beta track"
     sleep 3s
     
     # Add repository quietly, to reduce output on screen.
@@ -44,7 +44,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
       exit 1
     fi
     
-    if ! apt-get update -q; then
+    if ! apt-get update -qq; then
       echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
       exit 1
     fi

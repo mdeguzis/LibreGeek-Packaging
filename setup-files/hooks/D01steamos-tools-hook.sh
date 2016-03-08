@@ -13,10 +13,14 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	# get repository configuration script and invoke
 	wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc
 	chmod +x configure-repos.sh
-	sed -i "s|sudo ||g" configure-repos.sh
+	
+	# pbuilder will invoke as root, ditch sudo
+	sed -i 's/sudo //g' configure-repos.sh
 	
 	# No need to update twice (if beta is flagged, update will have to run again)
+	# Remove any sleep commands to speed up process
 	sed -i '/apt-get update/d' configure-repos.sh
+	sed -i '/sleep/d' configure-repos.sh
 
 	# Run setup
 	if ! ./configure-repos.sh &> /dev/null; then

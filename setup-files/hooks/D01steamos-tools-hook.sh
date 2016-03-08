@@ -13,7 +13,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
   
   # Invoke script, bail out if it fails
   if ! ./configure-repos.sh &> /dev/null; then
-    echo "E: STEAMOS-TOOLS: FAILED TO ADD REPOSITORY"
+    echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools repository. Exiting"
     exit 1
   fi
   
@@ -24,12 +24,12 @@ if [[ "$DIST" == "brewmaster" ]]; then
     
     # Add repository quietly, to reduce output on screen.
     if ! apt-get install -q -y --force-yes steamos-tools-beta-repo; then
-      echo "E: STEAMOS-TOOLS: FAILED TO ADD BETA REPOSITORY"
+      echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools beta repository. Exiting"
       exit 1
     fi
     
     if ! apt-get update -q; then
-      echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed"
+      echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
       exit 1
     fi
 

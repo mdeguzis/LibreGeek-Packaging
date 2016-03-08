@@ -45,6 +45,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
+PBUILDER_HOOKS="$HOME/pbuilder/hooks/steamos-tools-beta/steamos-tools-beta/switch-to-tools-beta.sh"
 pkgname="kodiplatform"
 #pkgver="${date_short}+git"
 BUILDER="pdebuild"
@@ -133,7 +134,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

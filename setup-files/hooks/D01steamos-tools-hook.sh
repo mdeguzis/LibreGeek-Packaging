@@ -44,6 +44,8 @@ fi
 # Update
 ####################################
 
+echo "I: STEAMOS-TOOLS: Updating package listings"
+
 if ! apt-get update &> /dev/null; then
 
 	echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"

@@ -142,6 +142,14 @@ cp "$scriptdir/repo-include.txt" "${steamos_tools_configs}"
 cp "$scriptdir/repo-filter.txt" "${steamos_tools_configs}"
 
 #################################################
+# Preferences
+#################################################
+
+# Editor
+# Provided by sensible-utils, dependency of debianutils
+select-editor
+
+#################################################
 # Pbuilder
 #################################################
 

@@ -48,7 +48,7 @@ date_short=$(date +%Y%m%d)
 ARCH=""
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-STEAMOS_TOOLS_BETA_HOOK="false"
+export STEAMOS_TOOLS_BETA_HOOK="false"
 # required to run postinstall
 USENETWORK="yes"
 pkgname="darkmod"

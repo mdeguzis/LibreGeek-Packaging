@@ -1,13 +1,17 @@
-Source: thedarkmod
-Section: games
+Source: libcec3
+Section: libs
 Priority: optional
 Build-Depends: debhelper
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
-Standards-Version: 3.9.5
-Vcs-Git: https://github.com/ProfessorKaos64/tdm
-Homepage: http://thedarkmod.com
+Standards-Version: 3.9.6
 
 Package: thedarkmod
 Architecture: all
-Depends: darkmod
-Description: Transitional dummy package for 'darkmod'
+Depends: libcec3v4
+Description: CEC shared library (transitional package)
+ USB CEC Adaptor communication Library (shared library) 
+ .
+ Debian Jessie backports now lists this package as libcec3v4. 
+ This causes conflicts with packages that request libcec3.
+ libcec3 is required by packages such as Kodi, and therefore,
+ this transitional package was created to satisfy this requirement.

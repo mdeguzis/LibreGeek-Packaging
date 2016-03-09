@@ -71,7 +71,6 @@ set_vars()
 	BUILDER="pdebuild"
 	PBUILDER_BASE="${HOME}/pbuilder"
 	BUILDOPTS="--debbuildopts \"-j4\""
-	STEAMOS_TOOLS_BETA_HOOK="true"
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
@@ -361,6 +360,7 @@ kodi_package_deb()
 	# Add any overrides for mk-debian-package.sh below
 	# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
+	STEAMOS_TOOLS_BETA_HOOK="true" \
 	RELEASEV="$kodi_tag" \
 	DISTS="$DIST" \
 	ARCHS="$ARCH" \
@@ -438,6 +438,7 @@ kodi_clone()
 
 kodi_build_src()
 {
+
 	#################################################
 	# Build Kodi source
 	#################################################
@@ -551,7 +552,7 @@ kodi_build_src()
 	#################################################
 	# Post install configuration
 	#################################################
-	
+
 	echo -e "\n==> Adding desktop file and artwork"
 
 	# copy files
@@ -573,7 +574,7 @@ kodi_build_src()
 
 show_build_summary()
 {
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -589,7 +590,7 @@ show_build_summary()
 
 	EOF
 	sleep 2s
-	
+
 	# If "build_all" is requested, skip user interaction
 	# Display output based on if we were source building or building
 	# a Debian package
@@ -599,14 +600,14 @@ show_build_summary()
 		echo -e "\n==INFO==\nAuto-build requested"
 		mv ${build_dir}/*.deb "$auto_git_dir"
 		sleep 2s
-		
+
 	elif [[ "$package_deb" == "no" ]]; then
-	
+
 		cat <<-EOF
 		If you chose to build from source code, you should now be able 
 		to add Kodi as a non-Steam game in Big Picture Mode. Please 
 		see see the wiki for more information.
-		
+
 		EOF
 
 	elif [[ "$package_deb" == "yes" ]]; then
@@ -616,9 +617,9 @@ show_build_summary()
 		If package was built without errors you will see it below.
 		If you don't, please check build dependcy errors listed above.
 		###############################################################
-		
+
 		EOF
-		
+
 		echo -e "Showing contents of: ${build_dir}: \n"
 		ls "${build_dir}"
 

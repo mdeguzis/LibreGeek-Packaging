@@ -5,7 +5,7 @@ Build-Depends: debhelper
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
 Standards-Version: 3.9.6
 
-Package: thedarkmod
+Package: libcec3
 Architecture: all
 Depends: libcec3v4
 Description: CEC shared library (transitional package)

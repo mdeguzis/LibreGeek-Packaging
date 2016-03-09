@@ -134,11 +134,13 @@ main()
 
 		dch -v -p "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D \
 		"${DIST}" -u "${urgency}" "Transition to meta package that provides libcec3v4"
+		nano "debian/changelog"
 
 	else
 
 		dch --create -v -p "${pkgver}+${pkgsuffix}${upstream_rev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Transition to meta package that provides libcec3v4"
+		nano "debian/changelog"
 
 	fi
  

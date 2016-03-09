@@ -1,42 +1,4 @@
-thedarkmod (2.0.3+git+bsos6-1) brewmaster; urgency=low
-
-  * Add launcher            
-  * Launcher includes config options that may help Linux users with sound lag/skipping
-  * Contents are noted with explanations
-
- -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Sat, 27 Feb 2016 10:11:12 -0500
-
-thedarkmod (2.0.3+git+bsos5-1) brewmaster; urgency=low
-
-  * Ensure packages that don't need to be i386 are installed amd64
-
- -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Fri, 26 Feb 2016 19:51:49 -0500
-
-thedarkmod (2.0.3+git+bsos4-1) brewmaster; urgency=low
-
-  * Fixed control file for package relationship declarations
-
- -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Fri, 26 Feb 2016 19:33:52 -0500
-
-thedarkmod (2.0.3+git+bsos3-3) brewmaster; urgency=low
-
-  * Missing extra library for sound to function, 'libasound2-plugins'
-
- -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Fri, 26 Feb 2016 18:41:41 -0500
-
-thedarkmod (2.0.3+git+bsos2-2) brewmaster; urgency=low
-
-  * Fix "build dep" of unzip needed for post install actions
-
- -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Fri, 26 Feb 2016 17:41:31 -0500
-
-thedarkmod (2.0.3+git+bsos1-1) brewmaster; urgency=low
-
-  * Initial upload
-
- -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Fri, 26 Feb 2016 16:10:32 -0500
-
-thedarkmod (0.0.1+git+bsos1-1) brewmaster; urgency=low
+libcec3 (0.0.1+git+bsos1-1) brewmaster; urgency=low
 
   * Dummy changelog
 

@@ -48,11 +48,11 @@ HOST="archboxmtd"
 if [[ "$final_opts" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 set_vars()
@@ -71,7 +71,7 @@ set_vars()
 	BUILDER="pdebuild"
 	PBUILDER_BASE="${HOME}/pbuilder"
 	BUILDOPTS="--debbuildopts \"-j4\""
-	HOOKS+=(\"export STEAMOS_TOOLS_BETA_HOOK=\"\"true"\")
+	export STEAMOS_TOOLS_BETA_HOOK="true"
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
@@ -80,21 +80,21 @@ set_vars()
 
 	# Set target for git source author
 	repo_target="xbmc"
-	
+
 	###################################
 	# build vars
 	###################################
-	
+
 	# Set path for build dir
 	if [[ ! -d "${build_dir}" ]]; then
-	
+
 		mkdir -p "${build_dir}"
-		
+
 	else
-	
+
 		rm -rf "${build_dir}"
 		mkdir -p "${build_dir}"
-		
+
 	fi
 
 	# Set git dir based on repo target to avoid recloning for different targets
@@ -187,15 +187,15 @@ function_install_pkgs()
 
 				echo -e "\n${PKG} installed successfully\n"
 				sleep 1s
-		
+
 			else
 				echo -e "Cannot install ${PKG}. Exiting in 15s. \n"
 				sleep 15s
 				exit 1
 			fi
-			
+
 		elif [[ "$PKG_OK_DPKG" != "" ]]; then
-		
+
 			echo -e "Package ${PKG} [OK]"
 			sleep 0.1s
 
@@ -213,7 +213,7 @@ kodi_prereqs()
 
 	echo -e "\n==> Installing main deps for building\n"
 	sleep 2s
-	
+
 	# Javis control file lists 'libglew-dev libjasper-dev libmpeg2-4-dev', but they are not
 	# in the linux readme
 
@@ -259,7 +259,7 @@ kodi_prereqs()
 
 		# Info: packages are rebuilt on SteamOS brewmaster and hosted at packages.libregeek.org
 
-		# Origin: ppa:team-xbmc/ppa 
+		# Origin: ppa:team-xbmc/ppa
 		# Only install here if not using auto-build script (which installs them after)
 
 		if [[ "$build_all" != "yes" ]]; then
@@ -316,7 +316,7 @@ kodi_package_deb()
 		if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
 
 		# If the tag is left blank, set to master
-		
+
 		# checkout proper release
 		if [[ "$kodi_tag" != "master" ]]; then
 
@@ -360,7 +360,6 @@ kodi_package_deb()
 	# Add any overrides for mk-debian-package.sh below
 	# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
-	$HOOKS \
 	RELEASEV="$kodi_tag" \
 	DISTS="$DIST" \
 	ARCHS="$ARCH" \
@@ -651,26 +650,26 @@ show_build_summary()
 # Main order of operations
 main()
 {
-	
+
 	# Process main functions
 	set_vars
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 		kodi_prereqs
 	fi
-	
+
 	kodi_clone
-	
+
 	# Process how we are building
 	if [[ "$package_deb" == "yes" ]]; then
-	
+
 		kodi_package_deb
-		
+
 	else
 		kodi_build_src
-	
+
 	fi
-	
+
 	# go to summary
 	show_build_summary
 
@@ -688,7 +687,7 @@ main | tee log_temp.txt
 # convert log file to Unix compatible ASCII
 strings log_temp.txt > kodi-build-log.txt &> /dev/null
 
-# strings does catch all characters that I could 
+# strings does catch all characters that I could
 # work with, final cleanup
 sed -i 's|\[J||g' kodi-build-log.txt
 

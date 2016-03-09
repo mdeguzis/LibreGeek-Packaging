@@ -118,7 +118,7 @@ main()
 	
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 	
 	# copy debian files
 	cp -r "${scriptdir}/libcec3/debian" "${src_dir}"
@@ -132,11 +132,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -v -p "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D \
+		"${DIST}" -u "${urgency}" "Transition to meta package that provides libcec3v4"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch --create -v -p "${pkgver}+${pkgsuffix}${upstream_rev}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Transition to meta package that provides libcec3v4"
 
 	fi
  

@@ -360,7 +360,6 @@ kodi_package_deb()
 	# Add any overrides for mk-debian-package.sh below
 	# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
-	$HOOKS \
 	RELEASEV="$kodi_tag" \
 	DISTS="$DIST" \
 	ARCHS="$ARCH" \

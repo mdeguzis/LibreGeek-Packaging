@@ -71,6 +71,7 @@ set_vars()
 	BUILDER="pdebuild"
 	PBUILDER_BASE="${HOME}/pbuilder"
 	BUILDOPTS="--debbuildopts \"-j4\""
+	export STEAMOS_TOOLS_BETA_HOOK="true"
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
@@ -283,7 +284,6 @@ kodi_prereqs()
         	branch="master"
         	pkgver="$kodi_tag"
 
-
 	fi
 }
 
@@ -360,7 +360,6 @@ kodi_package_deb()
 	# Add any overrides for mk-debian-package.sh below
 	# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
-	STEAMOS_TOOLS_BETA_HOOK="true" \
 	RELEASEV="$kodi_tag" \
 	DISTS="$DIST" \
 	ARCHS="$ARCH" \

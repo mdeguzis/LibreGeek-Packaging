@@ -193,7 +193,7 @@ main()
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${git_dir}/debian/changelog" "${scriptdir}/libcec3/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

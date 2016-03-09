@@ -2,14 +2,16 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libcec.sh
+# Scipt Name:	build-libcec3-meta.sh
 # Script Ver:	0.5.1
 # Description:	Attempts to build a deb package libcec git source
 #		Notice, this is a transitional package for libcec3v4
+#		Please note libcec3 is the package name for Strech
+#		and Sid (upcoming).
 #
 # See:		https://packages.debian.org/stretch/libcec3
 #		https://packages.debian.org/jessie-backports/libcec3v4
-# Usage:	build-libcec.sh
+# Usage:	build-libcec3-meta.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -48,7 +50,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="libcec"
+pkgname="libcec3"
 pkgver="3.0.1"
 pkgrev="5"
 pkgsuffix="git+bsos${pkgrev}"

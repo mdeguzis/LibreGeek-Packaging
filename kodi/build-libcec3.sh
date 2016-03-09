@@ -109,7 +109,7 @@ main()
 	mkdir -p "${git_dir}"
 	
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
 	
 	echo -e "\n==> Creating original tarball\n"
@@ -118,6 +118,9 @@ main()
 	# create source tarball
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	
+	# copy debian files
+	cp -r "${scriptdir}/libcec3/debian" "${src_dir}"
 	
 	# emter source dir
 	cd "${src_dir}"

@@ -69,6 +69,7 @@ if [ -n "${DIST}" ]; then
         BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
         DISTRIBUTION="$DIST"
         BUILDRESULT="${build_dir}"
+        APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
 
         # root on SteamOS is very small, divert cache
         STEAMOS_CHECK=$(uname -a | grep -i "steamos")
@@ -80,21 +81,7 @@ if [ -n "${DIST}" ]; then
             APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
             BUILDPLACE="$HOME/pbuilder/build"
 
-        else
-
-            APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
-
         fi
-
-fi
-
-# If the host machine is steamos, divert cache and allow symlinks since / is 10 GB only
-CODENAME=$(lsb_release -i | awk '{print $3}')
-
-if $(echo ${CODENAME} | grep -q "SteamOS"); then
-
-       APTCACHEHARDLINK="no"
-       APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
 
 fi
 

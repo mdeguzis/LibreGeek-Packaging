@@ -14,7 +14,7 @@
 export scriptdir=$(pwd)
 
 clear
-echo -e "==> Installing basic packages"
+echo -e "==> Installing basic packages\n"
 sleep 2s
 
 ##################################################

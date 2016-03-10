@@ -135,8 +135,8 @@ set_vars()
 		ARCH="$ARCH"
 		KEYRING="$KEYRING"
 		BETA_FLAG="false"
-		BASETGZ="$BASE_TGZ"
-		BASEDIR="$BASE_DIR"
+		BASETGZ="$BASETGZ"
+		BASEDIR="$BASEDIR"
 		APTCACHE="$APTCACHE"
 		EXTRA PACKAGES: "$PKGS"
 		-----------------------------
@@ -209,7 +209,7 @@ main()
 
 		create)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ --aptcache $APTCACHE --architecture $ARCH \
+		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE --architecture $ARCH \
 		--debootstrapopts --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
@@ -217,7 +217,7 @@ main()
 
 		login)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ --aptcache $APTCACHE "
+		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE "
 		set_vars
 		run_pbuilder
 		;;
@@ -225,14 +225,14 @@ main()
 		login-save)
 		PROCEED="true"
 		OPERATION="login"
-		OPTS="--basetgz $BASE_TGZ --aptcache $APTCACHE --save-after-login"
+		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE --save-after-login"
 		set_vars
 		run_pbuilder
 		;;
 
 		update|build|clean|execute)
 		PROCEED="true"
-		OPTS="--basetgz $BASE_TGZ --aptcache $APTCACHE --architecture $ARCH \
+		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE --architecture $ARCH \
 		--debootstrapopts --keyring=$KEYRING"
 		set_vars
 		run_pbuilder

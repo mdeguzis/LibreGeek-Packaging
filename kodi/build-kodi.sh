@@ -594,13 +594,7 @@ show_build_summary()
 	# Display output based on if we were source building or building
 	# a Debian package
 
-	if [[ "$build_all" == "yes" ]]; then
-
-		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${build_dir}/*.deb "$auto_git_dir"
-		sleep 2s
-
-	elif [[ "$package_deb" == "no" ]]; then
+	if [[ "$package_deb" == "no" ]]; then
 
 		cat <<-EOF
 		If you chose to build from source code, you should now be able 

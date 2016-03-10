@@ -66,26 +66,26 @@ fi
 
 if [ -n "${DIST}" ]; then
 
-        # root partition on SteamOS is very small, divert paths
-        STEAMOS_CHECK=$(uname -a | grep -i "steamos")
+	# root partition on SteamOS is very small, divert paths
+	STEAMOS_CHECK=$(uname -a | grep -i "steamos")
 
-        if [ "${STEAMOS_CHECK}" != "" ]; then
+	if [ "${STEAMOS_CHECK}" != "" ]; then
 
-            # Using SteamOS
-            BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
-            APTCACHEHARDLINK=no
-            APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
-            BUILDPLACE="$HOME/pbuilder/build"
+		# Using SteamOS
+		BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
+		APTCACHEHARDLINK=no
+		APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
+		BUILDPLACE="$HOME/pbuilder/build"
 
-        else
+	else
 
-            # Using another distribution
-            BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
-            DISTRIBUTION="$DIST"
-            BUILDRESULT="$build_dir"
-            APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+		# Using another distribution
+		BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
+		DISTRIBUTION="$DIST"
+		BUILDRESULT="$build_dir"
+		APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
 
-        fi
+	fi
 
 fi
 

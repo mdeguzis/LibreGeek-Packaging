@@ -57,7 +57,7 @@ set_vars()
 {
 
 	# Set ARCH fallback
-	if [[ "$ARCH" == "" ]]; then
+	if [[ "${ARCH}" == "" ]]; then
 
 		ARCH=$(dpkg --print-architecture)
 
@@ -72,17 +72,19 @@ set_vars()
 
 	if [[ "${OS}" == "SteamOS" ]]; then
 	
-		export BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
+		export BASEDIR="${HOME}/pbuilder"
+		export BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
 		export APTCACHEHARDLINK="no"
-		export APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
-		export BUILDPLACE="$HOME/pbuilder/build"
+		export APTCACHE="${HOME}/pbuilder/${DIST}/aptcache/"
+		export BUILDPLACE="${HOME}/pbuilder/build"
 
 	else
-
-		export BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
-		export DISTRIBUTION="$DIST"
+		
+		export BASEDIR="/var/cache/pbuilder/"
+		export BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
+		export DISTRIBUTION="${DIST}"
 		export BUILDRESULT="$build_dir"
-		export APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+		export APTCACHE="/var/cache/pbuilder/${DIST}/aptcache/"
 	
 	fi
 
@@ -98,7 +100,7 @@ set_vars()
 		# Set extra packages to intall
 		# Use wildcard * to replace the entire line
 		PKGS="steamos-beta-repo wget ca-certificates aptitude"
-		sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+		sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "${HOME}/.pbuilderrc"
 		sudo sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
 
 	else
@@ -110,13 +112,13 @@ set_vars()
 		if [[ "${ARCH}" == "i386" ]]; then
 
 			PKGS="wget ca-certificates aptitude"
-			sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+			sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "${HOME}/.pbuilderrc"
 			sudo sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"	
 
 		else
 		
 			PKGS="wget ca-certificates aptitude"
-			sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "$HOME/.pbuilderrc"
+			sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "${HOME}/.pbuilderrc"
 			sudo sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
 	
 		fi
@@ -131,8 +133,8 @@ set_vars()
 		-----------------------------
 		Options passed:
 		-----------------------------
-		DIST="$DIST"
-		ARCH="$ARCH"
+		DIST="${DIST}"
+		ARCH="${ARCH}"
 		KEYRING="$KEYRING"
 		BETA_FLAG="false"
 		BASETGZ="$BASETGZ"
@@ -163,7 +165,7 @@ run_pbuilder()
 	if [[ "$PROCEED" == "true" ]]; then
 
 		# Process actions, exit on fatal error
-		if ! ARCH=$ARCH DIST=$DIST sudo pbuilder $OPERATION $OPTS; then
+		if ! ARCH=${ARCH} DIST=${DIST} sudo pbuilder $OPERATION $OPTS; then
 
 			echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 			sleep 3s
@@ -183,7 +185,7 @@ main()
 
 	# set options
 	# For specifying arch, see: http://pbuilder.alioth.debian.org/#amd64i386
-	case "$DIST" in
+	case "${DIST}" in
 
 		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
 		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
@@ -209,7 +211,7 @@ main()
 
 		create)
 		PROCEED="true"
-		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE --architecture $ARCH \
+		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE --architecture ${ARCH} \
 		--debootstrapopts --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
@@ -232,7 +234,7 @@ main()
 
 		update|build|clean|execute)
 		PROCEED="true"
-		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE --architecture $ARCH \
+		OPTS="--${DIST}tgz $BASETGZ --aptcache $APTCACHE --architecture ${ARCH} \
 		--debootstrapopts --keyring=$KEYRING"
 		set_vars
 		run_pbuilder

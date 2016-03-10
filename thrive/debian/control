@@ -22,7 +22,8 @@ Build-Depends: debhelper,
  libtool,
  libxrandr-dev,
  libxaw7-dev,
- libzzip-dev
+ libzzip-dev,
+ subversion,
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.5
 Vcs-Git: https://github.com/Revolutionary-Games/Thrive

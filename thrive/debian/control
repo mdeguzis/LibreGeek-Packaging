@@ -23,6 +23,7 @@ Build-Depends: debhelper,
  libxrandr-dev,
  libxaw7-dev,
  libzzip-dev,
+ pkg-config,
  subversion,
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.5

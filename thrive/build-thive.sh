@@ -105,7 +105,11 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+	
+	# get assets via SVN
+	cd "${git_dir}"
+	svn co "http://crovea.net/svn/thrive_assets/" "assets"
 
 	#################################################
 	# Build package

@@ -77,6 +77,7 @@ if [ -n "${DIST}" ]; then
 
             APTCACHEHARDLINK=no
             APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
+            BUILDPLACE="$HOME/pbuilder/build"
 
         else
 

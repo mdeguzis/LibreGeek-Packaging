@@ -40,15 +40,16 @@ OS=$(lsb_release -si)
 
 if [[ "${OS}" == "SteamOS" ]]; then
 
-	export BASE_DIR="${HOME}/pbuilder"
-	export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
+	export BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
+	export APTCACHEHARDLINK=no
 	export APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
-	mkdir -p "${APTCACHE}"
+	export BUILDPLACE="$HOME/pbuilder/build"
 
 else
 
-	export BASE_DIR="/var/cache/pbuilder"
-	export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
+	export BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
+	export DISTRIBUTION="$DIST"
+	export BUILDRESULT="$build_dir"
 	export APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
 
 fi

@@ -66,10 +66,7 @@ fi
 
 if [ -n "${DIST}" ]; then
 
-	# root partition on SteamOS is very small, divert paths
-	STEAMOS_CHECK=$(uname -a | grep -i "steamos")
-
-	if [ "${STEAMOS_CHECK}" != "" ]; then
+	if $(uname -a | grep -q steamos); then
 
 		# Using SteamOS
 		BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"

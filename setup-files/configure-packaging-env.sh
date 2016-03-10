@@ -31,6 +31,9 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	# add multiarch
 	sudo dpkg --add-architecture i386
+	echo -e "Updating for multiarch" 
+	sleep 2s
+	sudo apt-get update
 
 	sudo apt-get install -y --force-yes pbuilder libselinux1 libselinux1:i386 \
 	lsb-release bc devscripts sudo

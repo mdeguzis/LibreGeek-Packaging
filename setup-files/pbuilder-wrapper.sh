@@ -71,7 +71,7 @@ set_vars()
 	OS=$(lsb_release -si)
 
 	if [[ "${OS}" == "SteamOS" ]]; then
-	
+
 		export BASEDIR="${HOME}/pbuilder"
 		export BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
 		export APTCACHEHARDLINK="no"
@@ -79,13 +79,13 @@ set_vars()
 		export BUILDPLACE="${HOME}/pbuilder/build"
 
 	else
-		
+
 		export BASEDIR="/var/cache/pbuilder"
 		export BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
 		export DISTRIBUTION="${DIST}"
 		export BUILDRESULT="$build_dir"
 		export APTCACHE="/var/cache/pbuilder/${DIST}/aptcache/"
-	
+
 	fi
 
 	# set var targets
@@ -94,7 +94,7 @@ set_vars()
 	if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
 
 		# Set DIST
-		DIST=$(sed "s|_beta||g" <<<${DIST}) 
+		DIST=$(sed "s|_beta||g" <<<${DIST})
 		BETA_FLAG="true"
 
 		# Set extra packages to intall
@@ -116,7 +116,7 @@ set_vars()
 			sudo sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"	
 
 		else
-		
+
 			PKGS="wget ca-certificates aptitude"
 			sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "${HOME}/.pbuilderrc"
 			sudo sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
@@ -210,33 +210,33 @@ main()
 	case ${OPERATION} in
 
 		create)
-		PROCEED="true"
-		OPTS="--basetgz ${BASETGZ} --aptcache $APTCACHE --architecture ${ARCH} \
-		--debootstrapopts --keyring=$KEYRING"
 		set_vars
+		PROCEED="true"
+		OPTS="--basetgz ${BASETGZ} --aptcache ${APTCACHE} --architecture ${ARCH} \
+		--debootstrapopts --keyring ${KEYRING}"
 		run_pbuilder
 		;;
 
 		login)
-		PROCEED="true"
-		OPTS="--basetgz ${BASETGZ} --aptcache $APTCACHE "
 		set_vars
+		PROCEED="true"
+		OPTS="--basetgz ${BASETGZ} --aptcache ${APTCACHE} "
 		run_pbuilder
 		;;
 
 		login-save)
+		set_vars
 		PROCEED="true"
 		OPERATION="login"
-		OPTS="--basetgz ${BASETGZ} --aptcache $APTCACHE --save-after-login"
-		set_vars
+		OPTS="--basetgz ${BASETGZ} --aptcache ${APTCACHE} --save-after-login"
 		run_pbuilder
 		;;
 
 		update|build|clean|execute)
-		PROCEED="true"
-		OPTS="--${DIST}tgz ${BASETGZ} --aptcache $APTCACHE --architecture ${ARCH} \
-		--debootstrapopts --keyring=$KEYRING"
 		set_vars
+		PROCEED="true"
+		OPTS="--${DIST}tgz ${BASETGZ} --aptcache ${APTCACHE} --architecture ${ARCH} \
+		--debootstrapopts --keyring=${KEYRING}"
 		run_pbuilder
 		;;
 

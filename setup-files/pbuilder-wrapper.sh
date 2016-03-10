@@ -135,12 +135,12 @@ set_vars()
 		-----------------------------
 		DIST="${DIST}"
 		ARCH="${ARCH}"
-		KEYRING="$KEYRING"
+		KEYRING="${KEYRING}"
 		BETA_FLAG="false"
 		BASETGZ="${BASETGZ}"
 		BASEDIR="${BASEDIR}"
-		${BASETGZ}E="$APTCACHE"
-		EXTRA PACKAGES: "$PKGS"
+		APTCACHE="${APTCACHE}"
+		EXTRA PACKAGES: "${PKGS}"
 		-----------------------------
 
 		Are the above options OK?

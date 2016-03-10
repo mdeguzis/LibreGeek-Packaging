@@ -1,0 +1,38 @@
+Source: thrive
+Section: games
+Priority: optional
+Build-Depends: debhelper,
+ automake,
+ cmake,
+ freeglut3-dev,
+ gcc,
+ libavutil-dev,
+ libboost-all-dev,
+ libbullet-dev,
+ libcegui-mk2-dev,
+ libfreeimage-dev,
+ libfreetype6,
+ libgl1-mesa-dev,
+ libglm-dev,
+ libglu1-mesa-dev,
+ libogre-1.9-dev,
+ libois-dev,
+ libopenal-dev,
+ libtinyxml-dev,
+ libtool,
+ libxrandr-dev,
+ libxaw7-dev,
+ libzzip-dev
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Standards-Version: 3.9.5
+Vcs-Git: https://github.com/Revolutionary-Games/Thrive
+Homepage: http://revolutionarygamesstudio.com/
+
+Package: thrive
+Architecture: any
+Depends: ${misc:Depends}
+Description: Thrive is a free, open-source game, similar to Spore.
+ Drawing inspiration from numerous simulation and strategy games 
+ (in particular the original concept behind the PC game Spore), 
+ Thrive is a game about a species evolution from unicellular 
+ organisms to galaxy-wide space travel.

@@ -23,36 +23,6 @@ if [[ "${OPERATION}" == "--help" ]]; then
 
 fi
 
-# Set ARCH fallback
-if [[ "$ARCH" == "" ]]; then
-
-	ARCH=$(dpkg --print-architecture)
-
-fi
-
-# Set pbuilder-specific vars
-export BETA_FLAG="false"
-
-# root on SteamOS is small, divert cache dir if applicable
-# Also adjust for other locations, due to limited space on root
-
-OS=$(lsb_release -si)
-
-if [[ "${OS}" == "SteamOS" ]]; then
-
-	export BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
-	export APTCACHEHARDLINK=no
-	export APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
-	export BUILDPLACE="$HOME/pbuilder/build"
-
-else
-
-	export BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
-	export DISTRIBUTION="$DIST"
-	export BUILDRESULT="$build_dir"
-	export APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
-
-fi
 
 show_help()
 {
@@ -85,6 +55,36 @@ show_help()
 
 set_vars()
 {
+
+	# Set ARCH fallback
+	if [[ "$ARCH" == "" ]]; then
+
+		ARCH=$(dpkg --print-architecture)
+
+	fi
+
+	# Set pbuilder-specific vars
+	export BETA_FLAG="false"
+
+	# root on SteamOS is small, divert cache dir if applicable
+	# Also adjust for other locations, due to limited space on root
+	OS=$(lsb_release -si)
+
+	if [[ "${OS}" == "SteamOS" ]]; then
+	
+		export BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
+		export APTCACHEHARDLINK="no"
+		export APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
+		export BUILDPLACE="$HOME/pbuilder/build"
+
+	else
+
+		export BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
+		export DISTRIBUTION="$DIST"
+		export BUILDRESULT="$build_dir"
+		export APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+	
+	fi
 
 	# set var targets
 

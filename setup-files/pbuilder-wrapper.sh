@@ -3,7 +3,7 @@
 # Author:		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:		pbuilder-wrapper.sh
-# Script Ver:		0.5.5
+# Script Ver:		0.5.9
 # Description:		Wrapper for working with pbuilder
 # Usage:		pbuilder-wrapper.sh [OPERATION] [dist] [arch] [keyring]
 #			pbuilder-wrapper.sh --help
@@ -32,21 +32,24 @@ fi
 
 # Set pbuilder-specific vars
 export BETA_FLAG="false"
-export BASE_DIR="${HOME}/pbuilder"
-export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 
 # root on SteamOS is small, divert cache dir if applicable
+# Also adjust for other locations, due to limited space on root
+
 OS=$(lsb_release -si)
 
 if [[ "${OS}" == "SteamOS" ]]; then
 
+	export BASE_DIR="${HOME}/pbuilder"
+	export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 	export APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
 	mkdir -p "${APTCACHE}"
 
 else
 
+	export BASE_DIR="/var/cache/pbuilder"
+	export BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 	export APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
-	sudo mkdir -p "${APTCACHE}"
 
 fi
 

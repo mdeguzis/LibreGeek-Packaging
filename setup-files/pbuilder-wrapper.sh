@@ -213,7 +213,7 @@ main()
 		set_vars
 		PROCEED="true"
 		OPTS="--basetgz ${BASETGZ} --aptcache ${APTCACHE} --architecture ${ARCH} \
-		--debootstrapopts --keyring ${KEYRING}"
+		--debootstrapopts --keyring=${KEYRING}"
 		run_pbuilder
 		;;
 

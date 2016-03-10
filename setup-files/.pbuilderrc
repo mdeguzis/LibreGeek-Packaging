@@ -71,7 +71,7 @@ if [ -n "${DIST}" ]; then
         BUILDRESULT="${build_dir}"
         APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
 
-        # root on SteamOS is very small, divert cache
+        # root partition on SteamOS is very small, divert paths
         STEAMOS_CHECK=$(uname -a | grep -i "steamos")
         
         if [ "${STEAMOS_CHECK}" != "" ]; then

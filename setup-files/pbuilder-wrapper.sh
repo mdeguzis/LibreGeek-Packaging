@@ -137,9 +137,9 @@ set_vars()
 		ARCH="${ARCH}"
 		KEYRING="$KEYRING"
 		BETA_FLAG="false"
-		BASETGZ="$BASETGZ"
-		BASEDIR="$BASEDIR"
-		APTCACHE="$APTCACHE"
+		BASETGZ="${BASETGZ}"
+		BASEDIR="${BASEDIR}"
+		${BASETGZ}E="$APTCACHE"
 		EXTRA PACKAGES: "$PKGS"
 		-----------------------------
 
@@ -165,7 +165,7 @@ run_pbuilder()
 	if [[ "$PROCEED" == "true" ]]; then
 
 		# Process actions, exit on fatal error
-		if ! ARCH=${ARCH} DIST=${DIST} sudo pbuilder $OPERATION $OPTS; then
+		if ! ARCH=${ARCH} DIST=${DIST} sudo pbuilder ${OPERATION} ${OPTS}; then
 
 			echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 			sleep 3s
@@ -206,12 +206,12 @@ main()
 
 	esac
 
-	# Process $OPERATION
-	case $OPERATION in
+	# Process ${OPTS}
+	case ${OPERATION} in
 
 		create)
 		PROCEED="true"
-		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE --architecture ${ARCH} \
+		OPTS="--basetgz ${BASETGZ} --aptcache $APTCACHE --architecture ${ARCH} \
 		--debootstrapopts --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
@@ -219,7 +219,7 @@ main()
 
 		login)
 		PROCEED="true"
-		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE "
+		OPTS="--basetgz ${BASETGZ} --aptcache $APTCACHE "
 		set_vars
 		run_pbuilder
 		;;
@@ -227,14 +227,14 @@ main()
 		login-save)
 		PROCEED="true"
 		OPERATION="login"
-		OPTS="--basetgz $BASETGZ --aptcache $APTCACHE --save-after-login"
+		OPTS="--basetgz ${BASETGZ} --aptcache $APTCACHE --save-after-login"
 		set_vars
 		run_pbuilder
 		;;
 
 		update|build|clean|execute)
 		PROCEED="true"
-		OPTS="--${DIST}tgz $BASETGZ --aptcache $APTCACHE --architecture ${ARCH} \
+		OPTS="--${DIST}tgz ${BASETGZ} --aptcache $APTCACHE --architecture ${ARCH} \
 		--debootstrapopts --keyring=$KEYRING"
 		set_vars
 		run_pbuilder

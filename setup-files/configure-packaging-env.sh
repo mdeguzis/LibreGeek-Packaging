@@ -29,7 +29,8 @@ OS=$(lsb_release -si)
 
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
-	sudo apt-get install -y --force-yes pbuilder libselinux1:i386 lsb-release bc devscripts
+	sudo apt-get install -y --force-yes pbuilder libselinux1:i386 lsb-release bc \
+	devscripts sudo
 	
 elif [[ "${OS}" == "Arch" ]]; then
 

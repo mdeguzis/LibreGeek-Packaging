@@ -74,11 +74,13 @@ set_vars()
 
 		BASE_DIR="${HOME}/pbuilder"
 		BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
+		APT_CACHE="$HOME/pbuilder/$DIST/aptcache/"
 
 	else
 
 		BASE_DIR="/var/cache/pbuilder"
 		BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
+		APT_CACHE="$HOME/pbuilder/$DIST/aptcache/"
 
 	fi
 
@@ -133,7 +135,7 @@ set_vars()
 		BETA_FLAG="false"
 		BASE_TGZ="${BASE_TGZ}"
 		BASE_DIR="${BASE_DIR}"
-		APTCACHE="${APTCACHE}"
+		APTCACHE="${APT_CACHE}"
 		EXTRA PACKAGES: "${PKGS}"
 		-----------------------------
 
@@ -206,7 +208,7 @@ main()
 		create)
 		set_vars
 		PROCEED="true"
-		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APTCACHE} --architecture ${ARCH} \
+		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APT_CACHE} --architecture ${ARCH} \
 		--debootstrapopts --keyring=${KEYRING}"
 		run_pbuilder
 		;;
@@ -214,7 +216,7 @@ main()
 		login)
 		set_vars
 		PROCEED="true"
-		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APTCACHE} "
+		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APT_CACHE} "
 		run_pbuilder
 		;;
 
@@ -229,7 +231,7 @@ main()
 		update|build|clean|execute)
 		set_vars
 		PROCEED="true"
-		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APTCACHE} --architecture ${ARCH} \
+		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APT_CACHE} --architecture ${ARCH} \
 		--debootstrapopts --keyring=${KEYRING}"
 		run_pbuilder
 		;;

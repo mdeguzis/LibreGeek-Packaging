@@ -163,7 +163,7 @@ run_pbuilder()
 	if [[ "$PROCEED" == "true" ]]; then
 
 		# Process actions, exit on fatal error
-		if ! sudo ARCH=$ARCH DIST=$DIST pbuilder $OPERATION $OPTS; then
+		if ! ARCH=$ARCH DIST=$DIST sudo pbuilder $OPERATION $OPTS; then
 
 			echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 			sleep 3s
@@ -233,7 +233,7 @@ main()
 		update|build|clean|execute)
 		PROCEED="true"
 		OPTS="--basetgz $BASE_TGZ --aptcache $APTCACHE --architecture $ARCH \
-		--debootstrapopts  --keyring=$KEYRING"
+		--debootstrapopts --keyring=$KEYRING"
 		set_vars
 		run_pbuilder
 		;;

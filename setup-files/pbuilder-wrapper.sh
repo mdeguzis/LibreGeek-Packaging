@@ -72,19 +72,13 @@ set_vars()
 
 	if [[ "${OS}" == "SteamOS" ]]; then
 
-		export BASEDIR="${HOME}/pbuilder"
-		export BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
-		export APTCACHEHARDLINK="no"
-		export APTCACHE="${HOME}/pbuilder/${DIST}/aptcache/"
-		export BUILDPLACE="${HOME}/pbuilder/build"
+		BASE_DIR="${HOME}/pbuilder"
+		BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 
 	else
 
-		export BASEDIR="/var/cache/pbuilder"
-		export BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
-		export DISTRIBUTION="${DIST}"
-		export BUILDRESULT="$build_dir"
-		export APTCACHE="/var/cache/pbuilder/${DIST}/aptcache/"
+		BASE_DIR="/var/cache/pbuilder"
+		BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
 
 	fi
 
@@ -137,8 +131,8 @@ set_vars()
 		ARCH="${ARCH}"
 		KEYRING="${KEYRING}"
 		BETA_FLAG="false"
-		BASETGZ="${BASETGZ}"
-		BASEDIR="${BASEDIR}"
+		BASE_TGZ="${BASE_TGZ}"
+		BASE_DIR="${BASE_DIR}"
 		APTCACHE="${APTCACHE}"
 		EXTRA PACKAGES: "${PKGS}"
 		-----------------------------
@@ -212,7 +206,7 @@ main()
 		create)
 		set_vars
 		PROCEED="true"
-		OPTS="--basetgz ${BASETGZ} --aptcache ${APTCACHE} --architecture ${ARCH} \
+		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APTCACHE} --architecture ${ARCH} \
 		--debootstrapopts --keyring=${KEYRING}"
 		run_pbuilder
 		;;
@@ -220,7 +214,7 @@ main()
 		login)
 		set_vars
 		PROCEED="true"
-		OPTS="--basetgz ${BASETGZ} --aptcache ${APTCACHE} "
+		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APTCACHE} "
 		run_pbuilder
 		;;
 
@@ -228,14 +222,14 @@ main()
 		set_vars
 		PROCEED="true"
 		OPERATION="login"
-		OPTS="--basetgz ${BASETGZ} --aptcache ${APTCACHE} --save-after-login"
+		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APTCACHE} --save-after-login"
 		run_pbuilder
 		;;
 
 		update|build|clean|execute)
 		set_vars
 		PROCEED="true"
-		OPTS="--${DIST}tgz ${BASETGZ} --aptcache ${APTCACHE} --architecture ${ARCH} \
+		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APTCACHE} --architecture ${ARCH} \
 		--debootstrapopts --keyring=${KEYRING}"
 		run_pbuilder
 		;;

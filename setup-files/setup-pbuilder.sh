@@ -105,7 +105,7 @@ fi
 sudo chmod u+w /var/cache/pbuilder/result
 
 ##########################
-# Hooks
+# Pbuilder folders
 ##########################
 
 echo -e "\n==> Adding pbuilder hooks"
@@ -130,10 +130,6 @@ sudo cp "$scriptdir/.pbuilderrc" "/root/"
 # create directory for dependencies
 mkdir -p "/home/$USER/${dist_choice}-packaging/deps"
 
-# (OPTIONAL)  If you have lots of RAM (more than 4 GB) putting the pbuilder “build” 
-# chroot on tmpfs will speed it up immensely.  so add the following to /etc/fstab 
-# (it should be all on one line starting with “tmpfs” and ending with the second zero.
-
 echo -e "\n==> Adding symlinks for /usr/share/debootstrap/scripts"
 sleep 1s
 
@@ -154,17 +150,6 @@ sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scrip
 
 # remove old /etc/fstab entries
 sudo sed -ie "\:#pbuilder tmpfs:,+1d" "/etc/fstab"
-
-#fstab_check=$(cat /etc/fstab | grep pbuilder)
-#if [[ "$fstab_check" == "" ]]; then
-
-#	sudo su -c "echo '#pbuilder tmpfs' >> /etc/fstab"
-#	sudo su -c "echo 'tmpfs   /var/cache/pbuilder/build       tmpfs   defaults,size=2400M 0 0' >> /etc/fstab"
-	
-#fi
-
-# mount fstab it with 
-#sudo mount /var/cache/pbuilder/build
 
 echo -e "\n==> Finishing up"
 sleep 0.5s

@@ -80,7 +80,7 @@ set_vars()
 
 	else
 		
-		export BASEDIR="/var/cache/pbuilder/"
+		export BASEDIR="/var/cache/pbuilder"
 		export BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
 		export DISTRIBUTION="${DIST}"
 		export BUILDRESULT="$build_dir"

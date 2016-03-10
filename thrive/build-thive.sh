@@ -138,7 +138,7 @@ main()
 
 		dch --create -v "${pkgver}+${pkgsuffix}-${upstream-rev}" --package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "New release"
-		nano "debian/chanelog"
+		nano "debian/changelog"
 
 	fi
 

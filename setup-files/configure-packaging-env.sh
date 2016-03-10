@@ -26,14 +26,20 @@ sleep 2s
 
 # Test OS first, so we can allow configuration on multiple distros
 OS=$(lsb_release -si)
+MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
 
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
-	# add multiarch
-	sudo dpkg --add-architecture i386
-	echo -e "\nUpdating for multiarch\n" 
-	sleep 2s
-	sudo apt-get update
+	
+	# add multiarch if it is missing
+	if [[ "${MULTIARCH}" == "" ]]; then
+
+		sudo dpkg --add-architecture i386
+		echo -e "\nUpdating for multiarch\n" 
+		sleep 2s
+		sudo apt-get update
+
+	fi
 
 	sudo apt-get install -y --force-yes pbuilder libselinux1 libselinux1:i386 \
 	lsb-release bc devscripts sudo

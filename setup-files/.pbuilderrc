@@ -69,6 +69,7 @@ if [ -n "${DIST}" ]; then
 	if $(uname -a | grep -q steamos); then
 
 		# Using SteamOS
+		DISTRIBUTION="${DIST}"
 		BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
 		APTCACHEHARDLINK=no
 		APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
@@ -77,6 +78,7 @@ if [ -n "${DIST}" ]; then
 	else
 
 		# Using another distribution
+		DISTRIBUTION="${DIST}"
 		BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
 		DISTRIBUTION="$DIST"
 		BUILDRESULT="$build_dir"

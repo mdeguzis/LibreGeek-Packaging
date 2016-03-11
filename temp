@@ -12,12 +12,10 @@
 #${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 # TEST!
-echo -e << EOF > newtext.txt
+cat << EOF > newtext.txt
 			rsync -arv -e 'ssh -p \${REMOTE_PORT}' --filter="merge \${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ \${REMOTE_USER}@\${REMOTE_HOST}:\${REPO_FOLDER}
 EOF
 
 # Replace
 find . -name "build*.sh" -print0 | xargs -0 perl -pe 's/.*rsync -arv.*/`cat newtext.txt`/e' -i
-
-rm newtext.txt

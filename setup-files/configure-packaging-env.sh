@@ -182,7 +182,7 @@ if [[ $(git config --global user.email) == "" ]]; then
 
 	echo -e "Please set your GitHub email: "
 	read -erp "Email: " GITEMAIL
-	git config --global user.name "${GITEMAIL}"
+	git config --global user.email "${GITEMAIL}"
 
 else
 

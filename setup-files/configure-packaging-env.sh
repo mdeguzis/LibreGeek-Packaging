@@ -159,18 +159,18 @@ sudo cp "$scriptdir/.pbuilderrc" "/root/"
 
 if [[ $(git config --global user.name) == "" ]]; then
 
-	echo -e "Plese set your GitHub username: "
+	echo -e "Please set your GitHub username: "
 	read -erp "Username: " GITUSER
 	git config --global user.name "${GITUSER}"
 
 else
 
-	echo -e "GitHub username set. Reset?: " reset_username
+	echo -e "GitHub username set. Reset?: "
 	read -erp "Choice: " reset_username
 
 	if [[ "${reset_username}"  == "y" ]]; then
 
-		echo -e "Plese set your GitHub username: "
+		echo -e "Please set your GitHub username: "
 		read -erp "Username: " GITUSER
 		git config --global user.name "${GITUSER}"
 
@@ -186,12 +186,12 @@ if [[ $(git config --global user.email) == "" ]]; then
 
 else
 
-	echo -e "GitHub email set. Reset?: " reset_email
+	echo -e "GitHub email set. Reset?: "
 	read -erp "Choice: " reset_email
 
 	if [[ "${reset_email}"  == "y" ]]; then
 
-		echo -e "Plese set your GitHub email: "
+		echo -e "Please set your GitHub email: "
 		read -erp "Username: " EMAIL
 		git config --global user.name "${EMAIL}"
 

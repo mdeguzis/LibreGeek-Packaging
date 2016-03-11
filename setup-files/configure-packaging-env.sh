@@ -92,9 +92,8 @@ echo -e "\n==> Adding needed directories"
 sleep 2s
 
 steamos_tools_configs="$HOME/.config/SteamOS-Tools"
-pbuilder_home="$HOME/pbuilder"
 
-dirs="${steamos_tools_configs} ${pbuilder_home=}"
+dirs="${steamos_tools_configs}"
 
 for dir in ${dirs};
 do
@@ -143,6 +142,10 @@ cp "$scriptdir/.quiltrc" "$HOME"
 # devscripts
 cp "$scriptdir/.devscripts" "$HOME"
 
+# pbuilder
+cp "$scriptdir/.pbuilderrc" "$HOME/"
+sudo cp "$scriptdir/.pbuilderrc" "/root/"
+
 #################################################
 # Other configuration files
 #################################################
@@ -163,17 +166,129 @@ cp "$scriptdir/repo-filter.txt" "${steamos_tools_configs}"
 select-editor
 
 #################################################
-# Pbuilder
+# Pbuilder setup
 #################################################
 
 # setup pbuilder
 echo -e "\n==> Configuring pbuilder\n"
+sleep 2S
+
+echo -e "==> Installing keyrings\n"
 sleep 2s
 
-./setup-pbuilder.sh
+# Set vars
+valve_keyring="valve-archive-keyring_0.5+bsos3_all"
+
+# Test OS first, so we can allow configuration on multiple distros
+OS=$(lsb_release -si)
+
+if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
+
+	# Setup common packages
+	
+	# Libregeek keyrings
+	wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
+	wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
+	sudo dpkg -i libregeek-archive-keyring-latest.deb
+	sudo dpkg -i steamos-tools-repo-latest.deb
+	
+	# cleanup
+	rm -f steamos-tools-repo-latest.deb
+	rm -f libregeek-archive-keyring-latest.deb
+	rm -f valve-archive-keyring*.deb
+	
+	# update for keyrings
+	
+	echo -e "\n==> Updating system for newly added keyrings\n"
+	sleep 2s
+	sudo apt-key update
+	sudo apt-get update
+
+elif [[ "${OS}" == "Arch" ]]; then
+
+	
+	# obtain keyring source for Valve archive keyring and convert it, not provided in AUR
+	mkdir -p "$HOME/setup-temp" && cd "$HOME/setup-temp"
+	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q -nc --show-progress
+
+	# Convert
+	ar xv "${valve_keyring}.deb"
+	tar -xvf data.tar.xz
+	sudo cp "etc/apt/trusted.gpg.d/valve-archive-keyring.gpg" "/etc/apt/trusted.gpg.d/"
+	sudo cp "usr/share/keyrings/valve-archive-keyring.gpg" "/usr/share/keyrings"
+	
+	# cleanup
+	cd ..
+	rm -rf "$HOME/setup-temp"
+
+fi
+
+# Setup Debian specific (such as the Valve keyring)
+# This package is obviously in SteamOS already
+
+if [[ "${OS}" == "Debian" ]]; then
+
+	# Obtain valve keyring
+	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q --show-progress -nc 
+	sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+
+fi
+
+##########################
+# Pbuilder folders
+##########################
+
+echo -e "\n==> Adding pbuilder folders"
+sleep 1s
+
+# root on SteamOS is small, divert cache dir if applicable
+# Also adjust for other locations, due to limited space on root
+OS=$(lsb_release -si)
+
+if [[ "${OS}" == "SteamOS" ]]; then
+
+	mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
+	cp -r "${scriptdir}/hooks" "$HOME/pbuilder/"
+
+fi
+
+##########################
+# Extra setup
+##########################
+
+# IMPORTANT!
+# For information, see: http://manpages.ubuntu.com/manpages/precise/man5/pbuilderrc.5.html
+
+echo -e "\n==> Adding symlinks for /usr/share/debootstrap/scripts"
+sleep 1s
+
+# brewmaster
+sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster" 2> /dev/null
+sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster_beta" 2> /dev/null
+
+# alchemist
+sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist" 2> /dev/null
+sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
 
 # copy wrapper script to bin for easy access
 sudo cp pbuilder-wrapper.sh /usr/bin/pbuilder-wrapper
+
+echo -e "\n==> Finishing up"
+sleep 0.5s
+
+# output help
+cat <<-EOF
+
+################################################################
+Summary
+################################################################
+Creating:
+pbuilder-wrapper create [DIST] [ARCH]
+
+Updating
+pbuilder-wrapper update [DIST] [ARCH]
+
+EOF
 
 #################################################
 # Cleanup

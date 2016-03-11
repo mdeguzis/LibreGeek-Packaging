@@ -88,12 +88,14 @@ if [ -n "${DIST}" ]; then
 
 fi
 
+# Note:${DEBOOTSTRAPOPTS[@]} includes the host keyring
+
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     
     # Debian configuration
     MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
     COMPONENTS="main contrib non-free"
-    DEBOOTSTRAPOPTS=("--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
+    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
     if $(echo "$STABLE_CODENAME stable" | grep -q $DIST); then
         OTHERMIRROR="$OTHERMIRROR | deb $MIRRORSITE $STABLE_BACKPORTS_SUITE $COMPONENTS"
     fi
@@ -101,14 +103,14 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
    
     # Ubuntu configuration
-    DEBOOTSTRAPOPTS=("--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg")
+    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg")
     MIRRORSITE="http://$UBUNTU_MIRROR/ubuntu/"
     COMPONENTS="main restricted universe multiverse"
     
 elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
     
     # SteamOS configuration
-    DEBOOTSTRAPOPTS=("--keyring=/usr/share/keyrings/valve-archive-keyring.gpg")
+    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/valve-archive-keyring.gpg")
     MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
     COMPONENTS="main contrib non-free"
     

@@ -19,7 +19,7 @@ sleep 2s
 
 ##################################################
 # Base packages
-#################################################
+##################################################
 
 # libselinux1:i386 on the host machine is needed for some reason on 32 bit chroots
 # See: https://github.com/ProfessorKaos64/SteamOS-Tools/issues/125
@@ -135,7 +135,7 @@ if [[ "${bashrc_choice}" == "y" ]]; then
 	read -erp "Maintainer full name: " FULLNAME
 	read -erp "GitHub username: " GITUSER
 	sed -i "s|EMAIL_TEMP|$EMAIL|" "$HOME/.bashrc"
-	sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"\
+	sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"
 
 fi
 
@@ -196,6 +196,35 @@ else
 		git config --global user.email "${GITEMAIL}"
 
 	fi
+
+fi
+
+##################################################
+# Host / Network
+#################################################
+
+# Set a remote host/user if desired now.
+# All build scripts will default to a set value in the script if this is not set
+
+echo -e "\n==> Setting host/network information"
+
+echo -e "\nSetup remote user/host for repository pool?"
+echo -e "This is suggested if you are using a remote host"
+read -erp "Choice [y/n]: " set_host_user
+
+if [[ "${set_host_user}" == "y" ]]; then
+
+	read -erp "Remote username: " REMOTE_USERNAME_TEMP
+	read -erp "Remote host:" REMOTE_HOST_TEMP
+	
+	sed -i "s|REMOTE_USER_TEMP|$REMOTE_USER_TEMP|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_HOST_TEMP|$REMOTE_HOST_TEMP|" "$HOME/.bashrc"
+
+else
+	
+	# Set var to blank string so value inside build script is taken	
+	sed -i "s|REMOTE_USER_TEMP|$EMAIL|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_HOST_TEMP|$FULLNAME|" "$HOME/.bashrc"
 
 fi
 
@@ -352,4 +381,4 @@ EOF
 #################################################
 
 # source bashrc for this session
-source $HOME/.bashrc
+. $HOME/.bashrc

@@ -215,7 +215,7 @@ read -erp "Choice [y/n]: " set_host_user
 if [[ "${set_host_user}" == "y" ]]; then
 
 	read -erp "Remote username: " REMOTE_USERNAME_TEMP
-	read -erp "Remote host:" REMOTE_HOST_TEMP
+	read -erp "Remote host: " REMOTE_HOST_TEMP
 	
 	sed -i "s|REMOTE_USER_TEMP|$REMOTE_USER_TEMP|" "$HOME/.bashrc"
 	sed -i "s|REMOTE_HOST_TEMP|$REMOTE_HOST_TEMP|" "$HOME/.bashrc"

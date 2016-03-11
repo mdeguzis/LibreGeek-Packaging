@@ -12,7 +12,6 @@
 # Speeding up pkg installs, "echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup" instead chroot
 
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
-HOOKDIR="$HOME/pbuilder/hooks"
 PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 
 # Allow softlinks
@@ -61,6 +60,7 @@ if [ -n "${DIST}" ]; then
 		# Using SteamOS
 		BASEDIR="$HOME/pbuilder"
 		APTCACHEHARDLINK=no
+		HOOKDIR="$HOME/pbuilder/hooks"
 
 	else
 
@@ -76,6 +76,7 @@ if [ -n "${DIST}" ]; then
 	BUILDRESULT="$build_dir"
 	BUILDPLACE="${BASEDIR}/build"
 	APTCACHE="${BASEDIR}/${DIST}/aptcache/"
+	HOOKDIR="${BASEDIR}/hooks"
 
 fi
 

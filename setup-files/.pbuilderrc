@@ -40,16 +40,6 @@ UBUNTU_MIRROR="mirrors.kernel.org"
 STEAMOS_MIRROR="repo.steampowered.com"
 LIBREGEEK_MIRROR="packages.libregeek.org"
 
-# Optionally use the changelog of a package to determine the suite to use if 
-# none set.
-#if [ -z "${DIST}" ] && [ -r "debian/changelog" ]; then
-#    DIST=$(dpkg-parsechangelog --show-field=Distribution)
-#    # Use the unstable suite for Debian experimental packages.
-#    if [ "${DIST}" == "experimental" ]; then
-#        DIST="unstable"
-#    fi
-#fi
-
 # Optionally set a default distribution if none is used. Note that you can set
 # your own default (i.e. ${DIST:="unstable"}).
 : ${DIST:="$(lsb_release --short --codename)"}
@@ -145,3 +135,6 @@ PBUILDERROOTCMD="sudo -E"
 
 # create binary AND sources
 #DEBBUILDOPTS="-us -uc"
+
+# always be verbose:
+DH_VERBOSE=1

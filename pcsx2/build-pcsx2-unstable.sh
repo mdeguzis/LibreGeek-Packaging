@@ -208,13 +208,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -v --force-distribution "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update build to latest upstream commit [$latest_commit]"
 		nano debian/changelog
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch --create -v --force-distribution "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update build to latest upstream commit [$latest_commit]"
 		nano debian/changelog
 

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	configure-packaging-env.sh
-# Script Ver:	2.1.1
+# Script Ver:	2.6.1
 # Description:	Installs basic packaging tools suggested by the Debian
 #               maintainers guide and configures various packaging options
 #
@@ -171,9 +171,9 @@ select-editor
 
 # setup pbuilder
 echo -e "\n==> Configuring pbuilder\n"
-sleep 2S
+sleep 2s
 
-echo -e "==> Installing keyrings\n"
+echo -e "Installing keyrings\n"
 sleep 2s
 
 # Set vars
@@ -238,7 +238,7 @@ fi
 # Pbuilder folders
 ##########################
 
-echo -e "\n==> Adding pbuilder folders"
+echo -e "\nAdding pbuilder folders"
 sleep 1s
 
 # root on SteamOS is small, divert cache dir if applicable
@@ -259,7 +259,7 @@ fi
 # IMPORTANT!
 # For information, see: http://manpages.ubuntu.com/manpages/precise/man5/pbuilderrc.5.html
 
-echo -e "\n==> Adding symlinks for /usr/share/debootstrap/scripts"
+echo -e "\nAdding symlinks for /usr/share/debootstrap/scripts"
 sleep 1s
 
 # brewmaster
@@ -273,7 +273,7 @@ sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scrip
 # copy wrapper script to bin for easy access
 sudo cp pbuilder-wrapper.sh /usr/bin/pbuilder-wrapper
 
-echo -e "\n==> Finishing up"
+echo -e "\nFinishing up"
 sleep 0.5s
 
 # output help

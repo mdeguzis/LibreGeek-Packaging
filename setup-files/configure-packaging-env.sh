@@ -35,7 +35,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	if [[ "${MULTIARCH}" == "" ]]; then
 
 		sudo dpkg --add-architecture i386
-		echo -e "\nUpdating for multiarch\n" 
+		echo -e "Updating for multiarch\n" 
 		sleep 2s
 		sudo apt-get update
 

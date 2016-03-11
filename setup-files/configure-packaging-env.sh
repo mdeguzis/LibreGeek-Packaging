@@ -139,26 +139,6 @@ if [[ "${bashrc_choice}" == "y" ]]; then
 
 fi
 
-# Set github vars, only if they are missing
-
-if [[ $(git config --global user.name) == "" ]]; then
-	
-	echo -e "Plese set your GitHub username: "
-	read -erp "Username: " GITUSER
-	git config --global user.name "${GITUSER}"
-	
-fi
-
-if [[ $(git config --global user.email) == "" ]]; then
-	
-	echo -e "Please set your GitHub email: "
-	read -erp "Email: " EMAIL
-	git config --global user.name "${EMAIL}"
-	
-fi
-
-git config --global user.email "${GITUSER}"
-
 # Setup Quilt rc file for dpkg
 cp "$scriptdir/.quiltrc-dpkg" "$HOME"
 cp "$scriptdir/.quiltrc" "$HOME"
@@ -169,6 +149,55 @@ cp "$scriptdir/.devscripts" "$HOME"
 # pbuilder
 cp "$scriptdir/.pbuilderrc" "$HOME/"
 sudo cp "$scriptdir/.pbuilderrc" "/root/"
+
+#################################################
+# GitHub Setup
+#################################################
+
+# Set github vars, only if they are missing
+# Allow them to be reset
+
+if [[ $(git config --global user.name) == "" ]]; then
+
+	echo -e "Plese set your GitHub username: "
+	read -erp "Username: " GITUSER
+	git config --global user.name "${GITUSER}"
+
+else
+
+	echo -e "GitHub username set. Reset?: " reset_username
+	read -erp "Choice: " reset_username
+
+	if [[ "${reset_username}"  == "y" ]]
+
+		echo -e "Plese set your GitHub username: "
+		read -erp "Username: " GITUSER
+		git config --global user.name "${GITUSER}"
+
+	fi
+
+fi
+
+if [[ $(git config --global user.email) == "" ]]; then
+
+	echo -e "Please set your GitHub email: "
+	read -erp "Email: " EMAIL
+	git config --global user.name "${EMAIL}"
+
+else
+
+	echo -e "GitHub email set. Reset?: " reset_email
+	read -erp "Choice: " reset_email
+
+	if [[ "${reset_email}"  == "y" ]]
+
+		echo -e "Plese set your GitHub email: "
+		read -erp "Username: " EMAIL
+		git config --global user.name "${EMAIL}"
+
+	fi
+
+fi
 
 #################################################
 # Other configuration files

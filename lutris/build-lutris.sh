@@ -79,9 +79,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
-	cdbs debhelper python python-support gir1.2-gtk-3.0 gir1.2-glib-2.0 python-gi libgirepository1.0-dev \
-	dh-python
+	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper \
+ 	python dh-python gir1.2-gtk-3.0 gir1.2-glib-2.0 python-gi libgirepository1.0-dev
 
 	# Not originally stated in the upstream control file, these 32 bit libraries are needed:
 	sudo apt-get install -y --force-yes libsdl2-2.0-0:i386
@@ -116,7 +115,7 @@ main()
 	else
 	
 		# You stil need these for dh_clean beore the build env starts
-		sudo apt-get install -y --force-yes dh-python
+		sudo apt-get install -y --force-yes dh-python python-gi
 
 	fi
 

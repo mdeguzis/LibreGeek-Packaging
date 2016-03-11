@@ -5,7 +5,7 @@
 find . -name "build*.sh" -print0 | xargs -0 sed -i '/USER\=\"mikeyd\"/d'
 find . -name "build*.sh" -print0 | xargs -0 sed -i '/HOST\=\"archboxmtd\"/d'
 
-cat<<-EOF> newtext
+echo -e<<-EOF> newtext
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -22,3 +22,6 @@ EOF
 
 # Add new block of cheese, errrrr....text...
 find . -name "build*.sh" -print0 | xargs -0 perl -pe 's|# repo destination|`cat newtext`|e' -i
+
+# Replace final text in build script
+find . -name "build*.sh" -print0 | xargs -0 sed -i 's/${USER}@${HOST}/${REMOTE_USER}@${REMOTE_HOST}/g'

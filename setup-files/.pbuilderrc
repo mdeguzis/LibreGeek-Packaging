@@ -64,6 +64,30 @@ if [ -n "${ARCH}" ]; then
     DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
 fi
 
+if [ -n "${DIST}" ]; then
+
+	if [[ $(lsb_release -si) == "SteamOS" ]]; then
+
+		# Using SteamOS
+		DISTRIBUTION="${DIST}"
+		BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
+		APTCACHEHARDLINK=no
+		APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
+		BUILDPLACE="$HOME/pbuilder/build"
+
+	else
+
+		# Using another distribution
+		DISTRIBUTION="${DIST}"
+		BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
+		DISTRIBUTION="$DIST"
+		BUILDRESULT="$build_dir"
+		APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+
+	fi
+
+fi
+
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     
     # Debian configuration
@@ -72,13 +96,6 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     if $(echo "$STABLE_CODENAME stable" | grep -q $DIST); then
         OTHERMIRROR="$OTHERMIRROR | deb $MIRRORSITE $STABLE_BACKPORTS_SUITE $COMPONENTS"
     fi
-    
-    # Using another vars
-    DISTRIBUTION="${DIST}"
-    BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
-    DISTRIBUTION="$DIST"
-    BUILDRESULT="$build_dir"
-    APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
     
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
    
@@ -91,13 +108,6 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
     # SteamOS configuration
     MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
     COMPONENTS="main contrib non-free"
-    
-    # Pbuilder vars
-    DISTRIBUTION="${DIST}"
-    BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
-    APTCACHEHARDLINK=no
-    APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
-    BUILDPLACE="$HOME/pbuilder/build"
     
 else
     echo "Unknown distribution: $DIST"

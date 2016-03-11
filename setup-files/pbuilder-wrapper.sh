@@ -103,35 +103,6 @@ set_vars()
 
 	fi
 
-	# Only show detailed info if creating the chroot
-	if [[ "${OPERATION}" == "create" ]]; then
-
-		cat<<- EOF
-
-		-----------------------------
-		Options passed:
-		-----------------------------
-		DIST="${DIST}"
-		ARCH="${ARCH}"
-		KEYRING="${KEYRING}"
-		BETA_FLAG="false"
-		EXTRA PACKAGES: "${PKGS}"
-		-----------------------------
-
-		Are the above options OK?
-		EOF
-
-		read -erp "Confirm [y/n]: " create_choice
-
-		if [[ "${create_choice}" != "y" ]]; then
-
-			echo -e "Exiting script\n"
-			exit 1
-
-		fi
-
-	fi
-
 }
 
 run_pbuilder()

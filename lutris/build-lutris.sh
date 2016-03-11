@@ -112,6 +112,11 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
+		
+	else
+	
+		# You stil need these for dh_clean beore the build env starts
+		sudo apt-get install -y --force-yes dh-python
 
 	fi
 
@@ -142,13 +147,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D $DIST -u "${urgency}" \
+		dch --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D $DIST -u "${urgency}" \
 		"New release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" \
+		dch --force-distribution --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "New release"
 		nano "debian/chanelog"
 

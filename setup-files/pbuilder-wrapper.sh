@@ -81,7 +81,7 @@ set_vars()
 
 		BASE_DIR="/var/cache/pbuilder"
 		BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
-		APT_CACHE="${HOME}/pbuilder/${DIST}/aptcache/"
+		APT_CACHE="${BASE_DIR}/${DIST}/aptcache/"
 		sudo mkdir -p "${APT_CACHE}"
 
 	fi
@@ -163,7 +163,7 @@ run_pbuilder()
 	if [[ "$PROCEED" == "true" ]]; then
 
 		# Process actions, exit on fatal error
-		if ! ARCH=${ARCH} DIST=${DIST} sudo pbuilder ${OPERATION} ${OPTS}; then
+		if ! ARCH=$ARCH DIST=$DIST sudo pbuilder $OPERATION $OPTS; then
 
 			echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 			sleep 3s

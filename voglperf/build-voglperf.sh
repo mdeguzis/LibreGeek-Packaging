@@ -192,7 +192,9 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			rsync -arv -e 'ssh -p ${REMOTE_PORT}' --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
 		
 			# Update changelog
 			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin brewmaster

@@ -171,7 +171,9 @@ main()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer packages
-			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			rsync -arv -e 'ssh -p ${REMOTE_PORT}' --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
 
 		elif [[ "$transfer_chice" == "n" ]]; then
 			echo -e "Upload not requested\n"

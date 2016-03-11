@@ -204,7 +204,9 @@ main()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer packages
-			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			rsync -arv -e 'ssh -p ${REMOTE_PORT}' --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
 
 			# update changelog
 			cd "${git_dir}" && git add debian/changelog  && git commit -m "Update changelog" && git push origin master

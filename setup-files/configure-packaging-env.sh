@@ -122,17 +122,40 @@ sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #
 
 cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
 
-echo -e "\nSeting info for .bashrc"
-sleep 2s
+echo -e "\nSet GitHub info for .bashrc?"
+sleep 0.5s
 
-read -erp "Email: " EMAIL
-read -erp "Maintainer full name: " FULLNAME
-read -erp "GitHub username: " GITUSER
-sed -i "s|EMAIL_TEMP|$EMAIL|" "$HOME/.bashrc"
-sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"
+# info may already be setup, allow people to ignore it.
+read -erp "Choice  [y/n]" bashrc_choice
 
-# Set github vars
-git config --global user.name "${NAME}"
+if [[ "${bashrc_choice}" == "y" ]]; then
+
+	read -erp "Email: " EMAIL
+	read -erp "Maintainer full name: " FULLNAME
+	read -erp "GitHub username: " GITUSER
+	sed -i "s|EMAIL_TEMP|$EMAIL|" "$HOME/.bashrc"
+	sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"\
+
+fi
+
+# Set github vars, only if they are missing
+
+if [[ $(git config --global user.name -l) == "" ]]; then
+	
+	echo -e "Plese set your GitHub username: "
+	read -erp "Username: " GITUSER
+	git config --global user.name "${GITUSER}"
+	
+fi
+
+if [[ $(git config --global user.email -l) == "" ]]; then
+	
+	echo -e "Please set your GitHub email: "
+	read -erp "Email: " EMAIL
+	git config --global user.name "${EMAIL}"
+	
+fi
+
 git config --global user.email "${GITUSER}"
 
 # Setup Quilt rc file for dpkg

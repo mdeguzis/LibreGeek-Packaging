@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	configure-packaging-env.sh
-# Script Ver:	2.6.1
+# Script Ver:	2.6.9
 # Description:	Installs basic packaging tools suggested by the Debian
 #               maintainers guide and configures various packaging options
 #
@@ -114,14 +114,6 @@ sleep 2s
 
 # .bashrc
 
-bashrc_test_start=$(grep "##### DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
-bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
-
-# Reset setup for incoming vars
-sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
-
-cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
-
 echo -e "\nSet GitHub info for .bashrc?"
 sleep 0.5s
 
@@ -129,6 +121,15 @@ sleep 0.5s
 read -erp "Choice  [y/n]" bashrc_choice
 
 if [[ "${bashrc_choice}" == "y" ]]; then
+
+	# Check for block of text
+	bashrc_test_start=$(grep "##### DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
+	bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
+	
+	# Reset setup for incoming vars
+	sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
+	
+	cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
 
 	read -erp "Email: " EMAIL
 	read -erp "Maintainer full name: " FULLNAME
@@ -140,7 +141,7 @@ fi
 
 # Set github vars, only if they are missing
 
-if [[ $(git config --global user.name -l) == "" ]]; then
+if [[ $(git config --global user.name) == "" ]]; then
 	
 	echo -e "Plese set your GitHub username: "
 	read -erp "Username: " GITUSER
@@ -148,7 +149,7 @@ if [[ $(git config --global user.name -l) == "" ]]; then
 	
 fi
 
-if [[ $(git config --global user.email -l) == "" ]]; then
+if [[ $(git config --global user.email) == "" ]]; then
 	
 	echo -e "Please set your GitHub email: "
 	read -erp "Email: " EMAIL

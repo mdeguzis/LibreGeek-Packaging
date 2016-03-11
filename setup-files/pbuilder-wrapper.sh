@@ -3,7 +3,7 @@
 # Author:		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:		pbuilder-wrapper.sh
-# Script Ver:		0.5.9
+# Script Ver:		0.7.9
 # Description:		Wrapper for working with pbuilder
 # Usage:		pbuilder-wrapper.sh [OPERATION] [dist] [arch] [keyring]
 #			pbuilder-wrapper.sh --help
@@ -163,7 +163,7 @@ run_pbuilder()
 	if [[ "$PROCEED" == "true" ]]; then
 
 		# Process actions, exit on fatal error
-		if ! sudo pbuilder ${OPERATION} ${OPTS}; then
+		if ! sudo DIST=${DIST} ARCH=${ARCH} pbuilder ${OPERATION} ${OPTS}; then
 
 			echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 			sleep 3s

@@ -66,23 +66,23 @@ fi
 
 if [ -n "${DIST}" ]; then
 
-	if [[ $(lsb_release -si) == "SteamOS" ]]; then
+        if [[ $(lsb_release -si) == "SteamOS" ]]; then
 
-		# Using SteamOS
-		DISTRIBUTION="${DIST}"
-		BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
-		APTCACHEHARDLINK=no
-		APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
-		BUILDPLACE="$HOME/pbuilder/build"
+                # Using SteamOS
+                DISTRIBUTION="${DIST}"
+                BASETGZ="$HOME/pbuilder/$DIST-$ARCH-base.tgz"
+                APTCACHEHARDLINK=no
+                BUILDPLACE="${BASEDIR}/build"
+                APTCACHE="$HOME/pbuilder/$DIST/aptcache/"
 
-	else
+        else
 
-		# Using another distribution
-		DISTRIBUTION="${DIST}"
-		BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
-		DISTRIBUTION="$DIST"
-		BUILDRESULT="$build_dir"
-		APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
+                # Using another distribution
+                DISTRIBUTION="${DIST}"
+                BASETGZ="/var/cache/pbuilder/$DIST-$ARCH-base.tgz"
+                BUILDRESULT="$build_dir"
+                BUILDPLACE="${BASEDIR}/build"
+                APTCACHE="/var/cache/pbuilder/$DIST/aptcache/"
 
 	fi
 

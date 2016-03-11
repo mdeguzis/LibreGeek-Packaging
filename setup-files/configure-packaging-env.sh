@@ -118,7 +118,7 @@ echo -e "\nSet GitHub info for .bashrc?"
 sleep 0.5s
 
 # info may already be setup, allow people to ignore it.
-read -erp "Choice  [y/n]" bashrc_choice
+read -erp "Choice [y/n]: " bashrc_choice
 
 if [[ "${bashrc_choice}" == "y" ]]; then
 

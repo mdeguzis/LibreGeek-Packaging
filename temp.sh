@@ -5,7 +5,10 @@
 find . -name "build*.sh" -print0 | xargs -0 sed -i '/USER\=\"mikeyd\"/d'
 find . -name "build*.sh" -print0 | xargs -0 sed -i '/HOST\=\"archboxmtd\"/d'
 
-cat <<-EOF > newtext.txt
+# Keep << vs <<- (latter ignores tabs), since we want to keep the code indented
+# The caveat then, is the here-doc needs to not be indented.
+# If you use 'cat <<- EOF > test.txt' with indents, your code will not contain tabs
+cat << EOF > newtext.txt
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script

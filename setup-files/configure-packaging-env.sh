@@ -271,7 +271,7 @@ sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scrip
 sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
 
 # copy wrapper script to bin for easy access
-sudo cp pbuilder-wrapper.sh /usr/bin/pbuilder-wrapper
+sudo cp "${scriptdir}/pbuilder-wrapper.sh" "/usr/bin/pbuilder-wrapper"
 
 echo -e "\nFinishing up"
 sleep 0.5s

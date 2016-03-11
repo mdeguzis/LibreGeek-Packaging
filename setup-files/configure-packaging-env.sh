@@ -192,7 +192,7 @@ else
 	if [[ "${reset_email}"  == "y" ]]; then
 
 		echo -e "Please set your GitHub email: "
-		read -erp "Username: " EMAIL
+		read -erp "Email: " EMAIL
 		git config --global user.email "${EMAIL}"
 
 	fi

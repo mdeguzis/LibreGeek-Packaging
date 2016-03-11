@@ -98,7 +98,7 @@ set_vars()
 			PKGS="wget ca-certificates aptitude"
 			sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "${HOME}/.pbuilderrc"
 			sudo sed -i "s|.*EXTRAPACKAGES.*|EXTRAPACKAGES=\"$PKGS\"|" "/root/.pbuilderrc"
-	
+
 		fi
 
 	fi
@@ -111,7 +111,10 @@ run_pbuilder()
 	if [[ "$PROCEED" == "true" ]]; then
 
 		# Process actions, exit on fatal error
-		if ! sudo DIST=${DIST} ARCH=${ARCH} pbuilder ${OPERATION} ${OPTS}; then
+		# Using local pbuilderrc, preserve the environment before so pbuilder knows 
+		# where to go to look for the pbuiderrc:
+
+		if ! sudo -E DIST=${DIST} ARCH=${ARCH} pbuilder ${OPERATION} ${OPTS}; then
 
 			echo -e "\n${DIST} environment encountered a fatal error! Exiting."
 			sleep 3s
@@ -131,26 +134,6 @@ main()
 
 	# set options
 	# For specifying arch, see: http://pbuilder.alioth.debian.org/#amd64i386
-	case "${DIST}" in
-
-		alchemist|alchemist_beta|brewmaster|brewmaster_beta)
-		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-	        ;;
-
-	        wheezy|jessie|stretch|sid)
-		KEYRING="/usr/share/keyrings/debian-archive-keyring.gpg"
-	        ;;
-
-		trusty|vivid|willy)
-		KEYRING="/usr/share/keyrings/ubuntu-archive-keyring.gpg"
-	        ;;
-
-	        *)
-	        # use steamos as default
-		KEYRING="/usr/share/keyrings/valve-archive-keyring.gpg"
-		;;
-
-	esac
 
 	# Process ${OPTS}
 	case ${OPERATION} in
@@ -158,7 +141,7 @@ main()
 		create)
 		set_vars
 		PROCEED="true"
-		OPTS="--debootstrapopts --keyring=${KEYRING}"
+		OPTS=""
 		run_pbuilder
 		;;
 

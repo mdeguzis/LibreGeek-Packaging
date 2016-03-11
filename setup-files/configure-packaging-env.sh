@@ -168,7 +168,7 @@ else
 	echo -e "GitHub username set. Reset?: " reset_username
 	read -erp "Choice: " reset_username
 
-	if [[ "${reset_username}"  == "y" ]]
+	if [[ "${reset_username}"  == "y" ]]; then
 
 		echo -e "Plese set your GitHub username: "
 		read -erp "Username: " GITUSER
@@ -189,7 +189,7 @@ else
 	echo -e "GitHub email set. Reset?: " reset_email
 	read -erp "Choice: " reset_email
 
-	if [[ "${reset_email}"  == "y" ]]
+	if [[ "${reset_email}"  == "y" ]]; then
 
 		echo -e "Plese set your GitHub email: "
 		read -erp "Username: " EMAIL

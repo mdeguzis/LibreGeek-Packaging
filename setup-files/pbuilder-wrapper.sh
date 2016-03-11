@@ -66,26 +66,6 @@ set_vars()
 	# Set pbuilder-specific vars
 	export BETA_FLAG="false"
 
-	# root on SteamOS is small, divert cache dir if applicable
-	# Also adjust for other locations, due to limited space on root
-	OS=$(lsb_release -si)
-
-	if [[ "${OS}" == "SteamOS" ]]; then
-
-		BASE_DIR="${HOME}/pbuilder"
-		BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
-		APT_CACHE="${HOME}/pbuilder/${DIST}/aptcache/"
-		mkdir -p "${APT_CACHE}"
-
-	else
-
-		BASE_DIR="/var/cache/pbuilder"
-		BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
-		APT_CACHE="${BASE_DIR}/${DIST}/aptcache/"
-		sudo mkdir -p "${APT_CACHE}"
-
-	fi
-
 	# set var targets
 
 	# set base DIST if requesting a beta
@@ -135,9 +115,6 @@ set_vars()
 		ARCH="${ARCH}"
 		KEYRING="${KEYRING}"
 		BETA_FLAG="false"
-		BASE_TGZ="${BASE_TGZ}"
-		BASE_DIR="${BASE_DIR}"
-		APTCACHE="${APT_CACHE}"
 		EXTRA PACKAGES: "${PKGS}"
 		-----------------------------
 
@@ -210,8 +187,7 @@ main()
 		create)
 		set_vars
 		PROCEED="true"
-		OPTS="--basetgz ${BASE_TGZ} --aptcache ${APT_CACHE} --architecture ${ARCH} \
-		--distribution ${DIST} --debootstrapopts --keyring=${KEYRING}"
+		OPTS="--debootstrapopts --keyring=${KEYRING}"
 		run_pbuilder
 		;;
 

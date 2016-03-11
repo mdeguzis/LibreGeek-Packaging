@@ -21,7 +21,7 @@ fi
 EOF
 
 # Add new block of cheese, errrrr....text...
-find . -name "build*.sh" -print0 | xargs -0 perl -pe 's|# repo destination|`cat newtext`|e' -i
+find . -name "build*.sh" -print0 | xargs -0 perl -pe 's/.*repo destination.*/`cat newtext`/e' -i
 
 # Replace final text in build script
 find . -name "build*.sh" -print0 | xargs -0 sed -i 's/${USER}@${HOST}/${REMOTE_USER}@${REMOTE_HOST}/g'

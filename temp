@@ -18,6 +18,6 @@ echo -e << EOF > newtext.txt
 EOF
 
 # Replace
-find . -name "build*.sh" -print0 | xargs -0 perl -pe 's/.*rsync -arv*/`cat newtext.txt`/e' -i
+find . -name "build*.sh" -print0 | xargs -0 perl -pe 's/.*rsync -arv.*/`cat newtext.txt`/e' -i
 
 rm newtext.txt

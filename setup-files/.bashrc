@@ -11,5 +11,6 @@ complete -F _quilt_completion $_quilt_complete_opt dquilt
 
 export REMOTE_USER="REMOTE_USER_TEMP"
 export REMOTE_HOST="REMOTE_HOST_TEMP"
+export REMOTE_PORT="REMOTE_PORT_TEMP"
 
 ##### END DEBIAN PACKAGING SETUP #####

@@ -108,19 +108,6 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
     # SteamOS configuration
     MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
     COMPONENTS="main contrib non-free"
-
-    # Extra
-    LIBREGEEK_MIRRORSITE="http://$LIBREGEEK_MIRROR/SteamOS-Tools"
-    LIBREGEEK_COMPONENTS="main games"
-    DEBIAN_MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
-    DEBIAN_COMPONENTS="main contrib non-free"
-    
-    # Set current Debian DIST
-    DEBIAN_DIST="jessie"
-    
-    # Add the debian / libregeek mirrors
-    #OTHERMIRROR="deb $DEBIAN_MIRRORSITE $DEBIAN_DIST $DEBIAN_COMPONENTS \
-    #| deb $LIBREGEEK_MIRRORSITE $DIST $LIBREGEEK_COMPONENTS"
     
 else
     echo "Unknown distribution: $DIST"

@@ -249,6 +249,10 @@ if [[ "${OS}" == "SteamOS" ]]; then
 
 	mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
 	cp -r "${scriptdir}/hooks" "$HOME/pbuilder/"
+	
+else
+
+	sudo cp -r "${scriptdir}/hooks" "/var/cache/pbuilder/"
 
 fi
 

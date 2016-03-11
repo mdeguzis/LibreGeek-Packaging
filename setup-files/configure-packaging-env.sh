@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	configure-packaging-env.sh
-# Script Ver:	2.6.9
+# Script Ver:	2.7.3
 # Description:	Installs basic packaging tools suggested by the Debian
 #               maintainers guide and configures various packaging options
 #
@@ -214,7 +214,7 @@ read -erp "Choice [y/n]: " set_host_user
 
 if [[ "${set_host_user}" == "y" ]]; then
 
-	read -erp "Remote username: " REMOTE_USERNAME_TEMP
+	read -erp "Remote username: " REMOTE_USER_TEMP
 	read -erp "Remote host: " REMOTE_HOST_TEMP
 	read -erp "Remote port: " REMOTE_PORT_TEMP
 	

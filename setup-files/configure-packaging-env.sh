@@ -166,7 +166,7 @@ if [[ $(git config --global user.name) == "" ]]; then
 else
 
 	echo -e "GitHub global username set. Reset?"
-	read -erp "Choice: [y/n]" reset_username
+	read -erp "Choice [y/n]: " reset_username
 
 	if [[ "${reset_username}"  == "y" ]]; then
 
@@ -187,7 +187,7 @@ if [[ $(git config --global user.email) == "" ]]; then
 else
 
 	echo -e "GitHub global email set. Reset?"
-	read -erp "Choice: [y/n]" reset_email
+	read -erp "Choice [y/n]: " reset_email
 
 	if [[ "${reset_email}"  == "y" ]]; then
 

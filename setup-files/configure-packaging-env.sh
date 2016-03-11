@@ -193,7 +193,7 @@ else
 
 		echo -e "Please set your GitHub email: "
 		read -erp "Username: " EMAIL
-		git config --global user.name "${EMAIL}"
+		git config --global user.email "${EMAIL}"
 
 	fi
 

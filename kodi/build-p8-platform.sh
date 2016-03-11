@@ -23,8 +23,6 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # repo destinatin vars (use only local hosts!)
-USER="mikeyd"
-HOST="archboxmtd"
 
 if [[ "$arg1" == "--testing" ]]; then
 
@@ -185,7 +183,7 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

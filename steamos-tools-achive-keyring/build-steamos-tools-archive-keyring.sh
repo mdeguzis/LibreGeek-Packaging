@@ -23,9 +23,19 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-# repo destination vars (use only local hosts!)
-USER="mikeyd"
-HOST="archboxmtd"
+
+# Check if USER/HOST is setup under ~/.bashrc, set to default if blank
+# This keeps the IP of the remote VPS out of the build script
+
+if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
+
+	# fallback to local repo pool target(s)
+	USER="mikeyd"
+	HOST="archboxmtd"
+
+fi
+
+
 
 if [[ "$arg1" == "--testing" ]]; then
 
@@ -219,7 +229,7 @@ main()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer packages
-			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Preserve changelog
 			mv "${git_dir}/debian/changelog" ""$scriptdir/debian"-unstable/"

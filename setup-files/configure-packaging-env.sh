@@ -199,7 +199,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	
 	# update for keyrings
 	
-	echo -e "\n==> Updating system for newly added keyrings\n"
+	echo -e "\nUpdating system for newly added keyrings\n"
 	sleep 2s
 	sudo apt-key update
 	sudo apt-get update

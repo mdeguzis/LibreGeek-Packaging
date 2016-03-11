@@ -33,8 +33,8 @@ branch="master"
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 	# fallback to local repo pool target(s)
-	USER="mikeyd"
-	HOST="archboxmtd"
+	REMOTE_USER="mikeyd"
+	REMOTE_HOST="archboxmtd"
 
 fi
 

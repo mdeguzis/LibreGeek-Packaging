@@ -1,6 +1,12 @@
 antimicro (2.21+git+bsos3) brewmaster; urgency=low
 
   * Update release
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 11 Mar 2016 14:23:16 -0500
+
+antimicro (2.21+git+bsos3) brewmaster; urgency=low
+
+  * Update release
   * Fix runtime dependency (QT widget)
 
  -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 06 Mar 2016 20:57:23 -0500

@@ -30,12 +30,14 @@ time_stamp_start=(`date +"%T"`)
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 	# fallback to local repo pool target(s)
-	USER="mikeyd"
-	HOST="archboxmtd"
+	REMOTE_USER="mikeyd"
+	REMOTE_HOST="archboxmtd"
 
 fi
 
-
+echo $REMOTE_USER
+echo $REMOTE_HOST
+#exit 1
 
 if [[ "$arg1" == "--testing" ]]; then
 

@@ -216,15 +216,18 @@ if [[ "${set_host_user}" == "y" ]]; then
 
 	read -erp "Remote username: " REMOTE_USERNAME_TEMP
 	read -erp "Remote host: " REMOTE_HOST_TEMP
+	read -erp "Remote port: " REMOTE_PORT_TEMP
 	
 	sed -i "s|REMOTE_USER_TEMP|$REMOTE_USER_TEMP|" "$HOME/.bashrc"
 	sed -i "s|REMOTE_HOST_TEMP|$REMOTE_HOST_TEMP|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_PORT_TEMP|$REMOTE_PORT_TEMP|" "$HOME/.bashrc"
 
 else
 	
 	# Set var to blank string so value inside build script is taken	
 	sed -i "s|REMOTE_USER_TEMP|$EMAIL|" "$HOME/.bashrc"
 	sed -i "s|REMOTE_HOST_TEMP|$FULLNAME|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_PORT_TEMP|22|" "$HOME/.bashrc"
 
 fi
 

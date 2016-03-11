@@ -74,13 +74,15 @@ set_vars()
 
 		BASE_DIR="${HOME}/pbuilder"
 		BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
-		APT_CACHE="$HOME/pbuilder/$DIST/aptcache/"
+		APT_CACHE="${HOME}/pbuilder/${DIST}/aptcache/"
+		mkdir -p "${APT_CACHE}"
 
 	else
 
 		BASE_DIR="/var/cache/pbuilder"
 		BASE_TGZ="${BASE_DIR}/${DIST}-${ARCH}-base.tgz"
-		APT_CACHE="$HOME/pbuilder/$DIST/aptcache/"
+		APT_CACHE="${HOME}/pbuilder/${DIST}/aptcache/"
+		sudo mkdir -p "${APT_CACHE}"
 
 	fi
 

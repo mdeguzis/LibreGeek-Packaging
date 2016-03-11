@@ -14,9 +14,6 @@
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 
-# Allow softlinks
-# APTCACHEHARDLINK=no
-
 # Allow internet access during build
 USENETWORK="$USENETWORK"
 

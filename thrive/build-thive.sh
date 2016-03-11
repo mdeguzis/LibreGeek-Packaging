@@ -134,13 +134,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v --force-distribution "${pkgver}+${pkgsuffix}-${upstream-rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
+		dch --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream-rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
 		"New release"
 		nano "debian/changelog"
 
 	else
 
-		dch --create -v --force-distribution "${pkgver}+${pkgsuffix}-${upstream-rev}" --package "${pkgname}" -D "${DIST}" \
+		dch --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream-rev}" --package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "New release"
 		nano "debian/changelog"
 

@@ -371,6 +371,7 @@ kodi_package_deb()
 
 		# Assess where pbuilder base config is, for multi-box installations
 		echo "Where is your pbuilder base folder?" 
+		sleep 0.3s
 		read -erp "Location: " PBUILDER_BASE
 
 		# Add any overrides for mk-debian-package.sh below

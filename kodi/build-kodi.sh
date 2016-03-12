@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.3.7
+# Script Ver:		1.3.9
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -367,7 +367,7 @@ kodi_package_deb()
 	# Create setup 
 	############################################################
 
-	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER" == "pdebuild" ]]; then
+	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER}" == "pdebuild" ]]; then
 
 		# Assess where pbuilder base config is, for multi-box installations
 		echo "Where is your pbuilder base folder?" 

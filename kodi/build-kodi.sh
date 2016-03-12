@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.3.9
+# Script Ver:		1.4.1
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -224,7 +224,7 @@ kodi_prereqs()
 	echo -e "\n==> Installing main deps for building\n"
 	sleep 2s
 
-	if [[ "${BUILDER}" != "pdebuild" &&  "${package_deb}" == "yes" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" && "${package_deb}" == "yes" ]]; then
 
 		# Javis control file lists 'libglew-dev libjasper-dev libmpeg2-4-dev', but they are not
 		# in the linux readme
@@ -276,8 +276,6 @@ kodi_prereqs()
 
 		# install dependencies / packages
 		function_install_pkgs
-
-		fi
 
 	elif [[ "${BUILDER}" == "pdebuild" &&  "${package_deb}" == "yes" ]]; then
 

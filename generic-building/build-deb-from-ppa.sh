@@ -37,6 +37,7 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 	# fallback to local repo pool target(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
+	REMOTE_PORT="22"
 
 fi
 

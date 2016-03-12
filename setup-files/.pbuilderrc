@@ -52,18 +52,6 @@ if [ -n "${ARCH}" ]; then
 
 fi
 
-# Adjust DIST for "virtual" targets, such as SteamOS beta
-if [[ echo "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
-
-	# Set DIST
-	DIST=$(sed "s|_beta||g" <<<${DIST})
-	
-	# Export this flag so the D class hook can pick up and switch to
-	# the SteamOS beta repositories
-	export STEAMOS_BETA="true"
-	
-fi
-
 if [ -n "${DIST}" ]; then
 
 	if [[ $(lsb_release -si) == "SteamOS" ]]; then
@@ -117,7 +105,13 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/valve-archive-keyring.gpg")
 	MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
 	COMPONENTS="main contrib non-free"
-	EXTRAPACKAGES="wget ca-certificates aptitude"
+	
+	# If we are working with beta packages, adjust accordingly
+	if [[ "${STEAMOS_BETA}" == "true" ]]; then
+		EXTRAPACKAGES="wget ca-certificates aptitude steamos-beta-repo"
+	else
+		EXTRAPACKAGES="wget ca-certificates aptitude"
+	fi
 
 else
 	echo "Unknown distribution: $DIST"

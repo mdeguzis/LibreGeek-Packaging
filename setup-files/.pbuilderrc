@@ -73,7 +73,7 @@ if [ -n "${DIST}" ]; then
 	DISTRIBUTION="${DIST}"
 	BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
 	BUILDRESULT="$build_dir"
-	BUILDPLACE="${BASEDIR}/build"
+	BUILDPLACE="${BASEDIR}/${DIST}/build"
 	APTCACHE="${BASEDIR}/${DIST}/aptcache/"
 	HOOKDIR="${BASEDIR}/hooks"
 

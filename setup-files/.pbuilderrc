@@ -46,13 +46,27 @@ LIBREGEEK_MIRROR="packages.libregeek.org"
 
 NAME="$DIST"
 if [ -n "${ARCH}" ]; then
-    NAME="$NAME-$ARCH"
-    DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
+
+	NAME="$NAME-$ARCH"
+	DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
+
+fi
+
+# Adjust DIST for "virtual" targets, such as SteamOS beta
+if [[ echo "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
+
+	# Set DIST
+	DIST=$(sed "s|_beta||g" <<<${DIST})
+	
+	# Export this flag so the D class hook can pick up and switch to
+	# the SteamOS beta repositories
+	export STEAMOS_BETA="true"
+	
 fi
 
 if [ -n "${DIST}" ]; then
 
-        if [[ $(lsb_release -si) == "SteamOS" ]]; then
+	if [[ $(lsb_release -si) == "SteamOS" ]]; then
 
 		# Using SteamOS
 		BASEDIR="$HOME/pbuilder"
@@ -81,39 +95,34 @@ fi
 
 if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
     
-    # Debian configuration
-    MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
-    COMPONENTS="main contrib non-free"
-    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
-    if $(echo "$STABLE_CODENAME stable" | grep -q $DIST); then
-        OTHERMIRROR="$OTHERMIRROR | deb $MIRRORSITE $STABLE_BACKPORTS_SUITE $COMPONENTS"
-    fi
+	# Debian configuration
+	MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
+	COMPONENTS="main contrib non-free"
+	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
+
+	if $(echo "$STABLE_CODENAME stable" | grep -q $DIST); then
+		OTHERMIRROR="$OTHERMIRROR | deb $MIRRORSITE $STABLE_BACKPORTS_SUITE $COMPONENTS"
+	fi
     
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
    
-    # Ubuntu configuration
-    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg")
-    MIRRORSITE="http://$UBUNTU_MIRROR/ubuntu/"
-    COMPONENTS="main restricted universe multiverse"
+	# Ubuntu configuration
+	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg")
+	MIRRORSITE="http://$UBUNTU_MIRROR/ubuntu/"
+	COMPONENTS="main restricted universe multiverse"
     
 elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
     
-    # SteamOS configuration
-    DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/valve-archive-keyring.gpg")
-    MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
-    COMPONENTS="main contrib non-free"
-    
+	# SteamOS configuration
+	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/valve-archive-keyring.gpg")
+	MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
+	COMPONENTS="main contrib non-free"
+	EXTRAPACKAGES="wget ca-certificates aptitude"
+
 else
-    echo "Unknown distribution: $DIST"
-    exit 1
+	echo "Unknown distribution: $DIST"
+	exit 1
 fi
-
-######################################################
-# Dependencies
-######################################################
-
-# Add extra packages
-#EXTRAPACKAGES_TEMP
 
 ######################################################
 # Debuild options

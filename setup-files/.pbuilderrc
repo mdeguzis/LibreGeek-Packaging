@@ -52,6 +52,21 @@ if [ -n "${ARCH}" ]; then
 
 fi
 
+# Adjust DIST for "virtual" targets, such as SteamOS beta
+
+if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
+
+	# Set DIST
+	# Do this so we can specify the beta taget, but install the base brewmaster
+	# system, specifying the beta repo as OTHERMIRROR
+
+	DIST=$(sed "s|_beta||g" <<<${DIST})
+
+	# Set beta flag so additional beta repo mirror will be added later
+	STEAMOS_BETA="true"
+
+fi
+
 if [ -n "${DIST}" ]; then
 
 	if [[ $(lsb_release -si) == "SteamOS" ]]; then
@@ -107,19 +122,6 @@ elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
     
 elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 
-	# Adjust DIST for "virtual" targets, such as SteamOS beta
-
-	if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
-
-		# Set DIST
-		DIST=$(sed "s|_beta||g" <<<${DIST})
-
-		# Export this flag so the D class hook can pick up and switch to
-		# the SteamOS beta repositories
-		export STEAMOS_BETA="true"
-
-	fi
-
 	# SteamOS main configuration
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/valve-archive-keyring.gpg")
 	MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
@@ -128,6 +130,7 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 	# If we are working with beta packages, adjust accordingly
 	# Check /var/lib/apt/lists/repo.steampowered*beta_main_binary-amd64_Packages for packages
 	# To cross check after chroot creation.
+	# Example: diff -qy Packages-beta Packages | grep -B 2 Version | less
 
 	if [[ "${STEAMOS_BETA}" == "true" ]]; then
 		OTHERMIRROR="deb http://repo.steampowered.com/steamos brewmaster_beta main contrib non-free"

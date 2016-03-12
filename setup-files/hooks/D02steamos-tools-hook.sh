@@ -32,10 +32,12 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
 		echo "I: STEAMOS-TOOLS: Adding SteamOS-Tools beta track"
 
-		# Add repository quietly, to reduce output on screen.
-		if ! apt-get install -y --force-yes steamos-tools-beta-repo &> /dev/null; then
-		echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools beta repository. Exiting"
-		exit 1
+		# Get this manually so we only have to update package listings once below
+		wget "http://packages.libregeek.org/steamos-tools-beta-repo-latest.deb" -q -nc
+		
+		if ! dpkg -i "steamos-tools-beta-repo-latest.deb" &> /dev/null; then
+			echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools beta repository. Exiting"
+			exit 1
 		fi
 
 	# END BETA REPO HANDLING

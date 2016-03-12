@@ -367,7 +367,7 @@ kodi_package_deb()
 	# Create setup 
 	############################################################
 
-	if [[ "${BUILDER}" == "pbuilder" ]]; then
+	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER" == "pdebuild" ]]; then
 
 		# Assess where pbuilder base config is, for multi-box installations
 		echo "Where is your pbuilder base folder?" 

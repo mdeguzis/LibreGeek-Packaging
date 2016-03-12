@@ -364,22 +364,34 @@ kodi_package_deb()
 	fi
 
 	############################################################
-	# pbuilder setup
+	# Create setup 
 	############################################################
 
-	# Assess where pbuilder base config is, for multi-box installations
-	read -erp "Where is your pbuilder base folder?" PBUILDER_BASE
+	if [[ "${BUILDER}" == "pbuilder" ]]; then
 
-	# Add any overrides for mk-debian-package.sh below
-	# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
+		# Assess where pbuilder base config is, for multi-box installations
+		echo "Where is your pbuilder base folder?" 
+		read -erp "Location: " PBUILDER_BASE
 
-	RELEASEV="$kodi_tag" \
-	DISTS="$DIST" \
-	ARCHS="$ARCH" \
-	BUILDER="$BUILDER" \
-	PDEBUILD_OPTS="$BUILDOPTS" \
-	PBUILDER_BASE="$PBUILDER_BASE" \
-	tools/Linux/packaging/mk-debian-package.sh
+		# Add any overrides for mk-debian-package.sh below
+		# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
+
+		RELEASEV="$kodi_tag" \
+		DISTS="$DIST" \
+		ARCHS="$ARCH" \
+		BUILDER="$BUILDER" \
+		PDEBUILD_OPTS="$BUILDOPTS" \
+		PBUILDER_BASE="$PBUILDER_BASE" \
+		tools/Linux/packaging/mk-debian-package.sh
+
+	else
+	
+		RELEASEV="$kodi_tag" \
+		BUILDER="$BUILDER" \
+		PDEBUILD_OPTS="$BUILDOPTS" \
+		tools/Linux/packaging/mk-debian-package.sh
+
+	fi
 
 }
 

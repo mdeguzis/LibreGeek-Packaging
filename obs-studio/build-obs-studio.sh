@@ -36,28 +36,26 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # upstream vars
 git_url="https://github.com/jp9000/obs-studio"
-rel_target="0.13.1"
+rel_target="0.13.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="obs-studio"
 pkgver="$rel_target"
@@ -116,11 +114,16 @@ main()
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
+
+	else
+
+		# need cdbs before build for dh_clean
+		sudo apt-get install -y --force-yes cdbs
 
 	fi
 
@@ -130,7 +133,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "${rel_target}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build platform
@@ -150,10 +153,24 @@ main()
 
 	# enter source dir
 	cd "${src_dir}"
-	
-	# gather commits
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 
+	echo -e "\n==> Updating changelog"
+	sleep 2s
+
+	# update changelog with dch
+	if [[ -f "debian/changelog" ]]; then
+
+		dch --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update release"
+		nano "debian/changelog"
+
+	else
+
+		dch --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update release"
+		nano "debian/changelog"
+
+	fi
 
 	#################################################
 	# Build Debian package
@@ -168,38 +185,32 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
-	
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep -E "${pkgver}" 
+	cat<<-EOF
+
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+
+	Showing contents of: ${build_dir}
+
+	EOF
+
+	ls "${build_dir}" | grep ${pkgver}
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -213,11 +224,8 @@ main()
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
-
-			# Only move the old changelog if transfer occurs to keep final changelog 
-			# out of the picture until a confirmed build is made. Remove if upstream has their own.
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"			
-			
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -1,3 +1,9 @@
+obs-studio (0.13.2+git+bsos1) brewmaster; urgency=low
+
+  * Update release
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 11 Mar 2016 21:38:39 -0500
+
 obs-studio (0.13.0+git+bsos1) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

@@ -1,3 +1,9 @@
+citra (20160311+git+bsos2-1) brewmaster; urgency=low
+
+  * Update to the latest commit 3789de6
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 11 Mar 2016 20:45:45 -0500
+
 citra (20160304+git+bsos1-1) brewmaster; urgency=low
 
   * Update to the latest commit 878562c

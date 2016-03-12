@@ -114,7 +114,8 @@ sleep 2s
 
 # .bashrc
 
-echo -e "\nSet GitHub info for .bashrc?"
+echo -e "\nReset .bashrc? setup?"
+echo -e "This will remove GitHub, quilt, and host setups"
 sleep 0.5s
 
 # info may already be setup, allow people to ignore it.
@@ -130,12 +131,6 @@ if [[ "${bashrc_choice}" == "y" ]]; then
 	sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
 	
 	cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
-
-	read -erp "Email: " EMAIL
-	read -erp "Maintainer full name: " FULLNAME
-	read -erp "GitHub username: " GITUSER
-	sed -i "s|EMAIL_TEMP|$EMAIL|" "$HOME/.bashrc"
-	sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"
 
 fi
 
@@ -155,7 +150,6 @@ sudo cp "$scriptdir/.pbuilderrc" "/root/"
 #################################################
 
 # Set github vars, only if they are missing
-# Allow them to be reset
 
 if [[ $(git config --global user.name) == "" ]]; then
 
@@ -178,11 +172,25 @@ else
 
 fi
 
+# If bashrc was reset, we need to configure this
+
+if grep "FULLNAME_TEMP" "$HOME/.bashrc"; then
+
+	# Set bashrc information
+	read -erp "Maintainer full name: " FULLNAME
+	sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"
+	
+fi
+
 if [[ $(git config --global user.email) == "" ]]; then
 
 	echo -e "Please set your GitHub email: "
 	read -erp "Email: " GITEMAIL
 	git config --global user.email "${GITEMAIL}"
+	
+	# set bashrc
+	# If bashrc was not reset, this will have no affect
+	sed -i "s|EMAIL_TEMP|$GITEMAIL|" "$HOME/.bashrc"
 
 else
 
@@ -194,6 +202,10 @@ else
 		echo -e "Please set your GitHub email: "
 		read -erp "Email: " GITEMAIL
 		git config --global user.email "${GITEMAIL}"
+		
+		# set bashrc
+		# If bashrc was not reset, this will have no affect
+		sed -i "s|EMAIL_TEMP|$GITEMAIL|" "$HOME/.bashrc"
 
 	fi
 

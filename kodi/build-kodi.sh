@@ -80,7 +80,6 @@ set_vars()
 	DIST="brewmaster"
 	urgency="low"
 	BUILDER="pdebuild"
-	PBUILDER_BASE="${HOME}/pbuilder"
 	BUILDOPTS="--debbuildopts \"-j4\""
 	export STEAMOS_TOOLS_BETA_HOOK="true"
 	ARCH="amd64"
@@ -365,8 +364,11 @@ kodi_package_deb()
 	fi
 
 	############################################################
-	# Assess if we are to build for host/ARCH we have or target
+	# pbuilder setup
 	############################################################
+
+	# Assess where pbuilder base config is, for multi-box installations
+	read -erp "Where is your pbuilder base folder?" PBUILDER_BASE
 
 	# Add any overrides for mk-debian-package.sh below
 	# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg

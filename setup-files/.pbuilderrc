@@ -132,7 +132,6 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 	if [[ "${STEAMOS_BETA}" == "true" ]]; then
 		OTHERMIRROR="deb http://repo.steampowered.com/steamos brewmaster_beta main contrib non-free"
 		EXTRAPACKAGES="wget ca-certificates aptitude"
-		APTGETOPT="dist-upgrade" 
 	else
 		EXTRAPACKAGES="wget ca-certificates aptitude"
 	fi

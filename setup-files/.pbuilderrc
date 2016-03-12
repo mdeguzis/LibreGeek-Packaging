@@ -45,7 +45,7 @@ LIBREGEEK_MIRROR="packages.libregeek.org"
 : ${ARCH:="$(dpkg --print-architecture)"}
 
 # Adjust DIST for "virtual" targets, such as SteamOS beta
-if [[ echo "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
+if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
 
 	# Set DIST
 	DIST=$(sed "s|_beta||g" <<<${DIST})

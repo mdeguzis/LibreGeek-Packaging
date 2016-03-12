@@ -44,18 +44,6 @@ LIBREGEEK_MIRROR="packages.libregeek.org"
 # that you can set your own default (i.e. ${ARCH:="i386"}).
 : ${ARCH:="$(dpkg --print-architecture)"}
 
-# Adjust DIST for "virtual" targets, such as SteamOS beta
-if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
-
-	# Set DIST
-	DIST=$(sed "s|_beta||g" <<<${DIST})
-	
-	# Export this flag so the D class hook can pick up and switch to
-	# the SteamOS beta repositories
-	export STEAMOS_BETA="true"
-	
-fi
-
 NAME="$DIST"
 if [ -n "${ARCH}" ]; then
 
@@ -112,8 +100,21 @@ elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
 	COMPONENTS="main restricted universe multiverse"
     
 elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
-    
-	# SteamOS configuration
+
+	# Adjust DIST for "virtual" targets, such as SteamOS beta
+
+	if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
+
+		# Set DIST
+		DIST=$(sed "s|_beta||g" <<<${DIST})
+
+		# Export this flag so the D class hook can pick up and switch to
+		# the SteamOS beta repositories
+		export STEAMOS_BETA="true"
+
+	fi
+
+	# SteamOS main configuration
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/valve-archive-keyring.gpg")
 	MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
 	COMPONENTS="main contrib non-free"

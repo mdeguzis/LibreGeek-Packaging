@@ -52,21 +52,6 @@ if [ -n "${ARCH}" ]; then
 
 fi
 
-# Adjust DIST for "virtual" targets, such as SteamOS beta
-
-if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
-
-	# Set DIST
-	# Do this so we can specify the beta taget, but install the base brewmaster
-	# system, specifying the beta repo as OTHERMIRROR
-
-	DIST=$(sed "s|_beta||g" <<<${DIST})
-
-	# Set beta flag so additional beta repo mirror will be added later
-	STEAMOS_BETA="true"
-
-fi
-
 if [ -n "${DIST}" ]; then
 
 	if [[ $(lsb_release -si) == "SteamOS" ]]; then
@@ -85,8 +70,6 @@ if [ -n "${DIST}" ]; then
 
 	# Set locations
 	ARCHITECTURE="${ARCH}"
-	DISTRIBUTION="${DIST}"
-	BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
 	BUILDRESULT="$build_dir"
 	BUILDPLACE="${BASEDIR}/${DIST}/build"
 	APTCACHE="${BASEDIR}/${DIST}/aptcache/"
@@ -97,6 +80,24 @@ if [ -n "${DIST}" ]; then
 	mkdir -p "${HOOKDIR}"
 	mkdir -p "${APTCACHE}"
 	mkdir -p "${BUILDPLACE}"
+
+fi
+
+# Adjust DIST for "virtual" targets, such as SteamOS beta
+# This way, all the paths above are set correction, but the distribution
+# Given for chroot creation is the "base" dist, such as "brewmaster", not
+# "brewamster_beta"
+
+if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
+
+	# Set DIST
+	DIST=$(sed "s|_beta||g" <<<${DIST})
+	
+	# Set real distribution
+	DISTRIBUTION="${DIST}"
+
+	# Set beta flag so additional beta repo mirror will be added later
+	STEAMOS_BETA="true"
 
 fi
 

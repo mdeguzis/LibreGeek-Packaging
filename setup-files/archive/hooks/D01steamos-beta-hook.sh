@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# NO LONGER USED
+# Worked into .pbuilderrc
+# Former name: D01steamos-beta-hook.sh
+
 ####################################
 # Installation
 ####################################

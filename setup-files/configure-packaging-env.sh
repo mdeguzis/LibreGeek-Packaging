@@ -371,9 +371,6 @@ sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scrip
 sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist" 2> /dev/null
 sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
 
-# copy wrapper script to bin for easy access
-sudo cp "${scriptdir}/pbuilder-wrapper.sh" "/usr/bin/pbuilder-wrapper"
-
 echo -e "\nFinishing up"
 sleep 0.5s
 
@@ -384,10 +381,10 @@ cat <<-EOF
 Summary
 ################################################################
 Creating:
-pbuilder-wrapper create [DIST] [ARCH]
+sudo DIST=[DIST] ARCH=[ARCH] pbuilder [OPERATION]
 
-Updating
-pbuilder-wrapper update [DIST] [ARCH]
+Operations:
+[create|login|login|login --save-after-login|update]
 
 EOF
 

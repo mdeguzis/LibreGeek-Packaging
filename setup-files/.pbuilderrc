@@ -107,8 +107,11 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 	COMPONENTS="main contrib non-free"
 	
 	# If we are working with beta packages, adjust accordingly
+
 	if [[ "${STEAMOS_BETA}" == "true" ]]; then
+		OTHERMIRROR="deb http://repo.steampowered.com/steamos brewmaster_beta main contrib non-free"
 		EXTRAPACKAGES="wget ca-certificates aptitude steamos-beta-repo"
+		APTGETOPT="apt-get update -y -q && apt-get dist-upgrade" 
 	else
 		EXTRAPACKAGES="wget ca-certificates aptitude"
 	fi

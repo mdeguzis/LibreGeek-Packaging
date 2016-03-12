@@ -1,3 +1,6 @@
+# NOTICE:
+# This is now worked into .pbuilderrc
+
 #!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:		Michael DeGuzis

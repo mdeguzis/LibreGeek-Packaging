@@ -224,29 +224,28 @@ kodi_prereqs()
 	echo -e "\n==> Installing main deps for building\n"
 	sleep 2s
 
-	# Javis control file lists 'libglew-dev libjasper-dev libmpeg2-4-dev', but they are not
-	# in the linux readme
+	if [[ "${BUILDER}" != "pdebuild" &&  "${package_deb}" == "yes" ]]; then
 
-	PKGS="autoconf automake autopoint autotools-dev cmake curl dcadec-dev default-jre \
-	gawk gperf libao-dev libasound2-dev libass-dev libavahi-client-dev libavahi-common-dev \
-	libbluetooth-dev libbluray-dev libboost-dev libboost-thread-dev libbz2-dev libcap-dev \
-	libcdio-dev libcec-dev libcurl4-openssl-dev libcwiid-dev libdbus-1-dev \
-	libegl1-mesa-dev libfontconfig1-dev libfribidi-dev libgif-dev libgl1-mesa-dev \
-	libiso9660-dev libjpeg-dev libltdl-dev liblzo2-dev libmicrohttpd-dev \
-	libmodplug-dev libmpcdec-dev libmysqlclient-dev libnfs-dev libogg-dev libpcre3-dev \
-	libplist-dev libpng12-dev libpulse-dev librtmp-dev libsdl2-dev libshairplay-dev \
-	libsmbclient-dev libsqlite3-dev libssh-dev libssl-dev libswscale-dev libtag1-dev \
-	libtinyxml-dev libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev \
-	libxinerama-dev libxml2-dev libxmu-dev libxrandr-dev libxslt1-dev libxt-dev libyajl-dev \
-	lsb-release nasm:i386 python-dev python-imaging python-support swig unzip uuid-dev yasm \
-	zip zlib1g-dev libcrossguid-dev libglew-dev libjasper-dev libmpeg2-4-dev"
-
-	# install dependencies / packages
-	function_install_pkgs
-
-	# required for building kodi debs
-	if [[ "$package_deb" == "yes" ]]; then
-
+		# Javis control file lists 'libglew-dev libjasper-dev libmpeg2-4-dev', but they are not
+		# in the linux readme
+	
+		PKGS="autoconf automake autopoint autotools-dev cmake curl dcadec-dev default-jre \
+		gawk gperf libao-dev libasound2-dev libass-dev libavahi-client-dev libavahi-common-dev \
+		libbluetooth-dev libbluray-dev libboost-dev libboost-thread-dev libbz2-dev libcap-dev \
+		libcdio-dev libcec-dev libcurl4-openssl-dev libcwiid-dev libdbus-1-dev \
+		libegl1-mesa-dev libfontconfig1-dev libfribidi-dev libgif-dev libgl1-mesa-dev \
+		libiso9660-dev libjpeg-dev libltdl-dev liblzo2-dev libmicrohttpd-dev \
+		libmodplug-dev libmpcdec-dev libmysqlclient-dev libnfs-dev libogg-dev libpcre3-dev \
+		libplist-dev libpng12-dev libpulse-dev librtmp-dev libsdl2-dev libshairplay-dev \
+		libsmbclient-dev libsqlite3-dev libssh-dev libssl-dev libswscale-dev libtag1-dev \
+		libtinyxml-dev libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev \
+		libxinerama-dev libxml2-dev libxmu-dev libxrandr-dev libxslt1-dev libxt-dev libyajl-dev \
+		lsb-release nasm:i386 python-dev python-imaging python-support swig unzip uuid-dev yasm \
+		zip zlib1g-dev libcrossguid-dev libglew-dev libjasper-dev libmpeg2-4-dev"
+	
+		# install dependencies / packages
+		function_install_pkgs
+	
 		#####################################
 		# Dependencies - Debian sourced
 		#####################################
@@ -263,30 +262,27 @@ kodi_prereqs()
 		echo -e "\n==> Installing specific kodi build deps\n"
 		sleep 2s
 
-		#####################################
-		# Dependencies - ppa:xbmc sourced
-		#####################################
-
-		# Info: packages are rebuilt on SteamOS brewmaster and hosted at packages.libregeek.org
-
 		# Origin: ppa:team-xbmc/ppa
 		# Only install here if not using auto-build script (which installs them after)
 
-		if [[ "$build_all" != "yes" ]]; then
+		PKGS="libcec3 libcec-dev libafpclient-dev libgif-dev libmp3lame-dev libgif-dev libp8-platform-dev"
 
-			PKGS="libcec3 libcec-dev libafpclient-dev libgif-dev libmp3lame-dev libgif-dev libp8-platform-dev"
+		# install dependencies / packages
+		function_install_pkgs
 
-			# install dependencies / packages
-			function_install_pkgs
+		# Origin: ppa:team-xbmc/xbmc-nightly
+		# It seems shairplay, libshairplay* are too old in the stable ppa
+		PKGS="libshairport-dev libshairplay-dev shairplay"
 
-			# Origin: ppa:team-xbmc/xbmc-nightly
-			# It seems shairplay, libshairplay* are too old in the stable ppa
-			PKGS="libshairport-dev libshairplay-dev shairplay"
-
-			# install dependencies / packages
-			function_install_pkgs
+		# install dependencies / packages
+		function_install_pkgs
 
 		fi
+
+	elif [[ "${BUILDER}" == "pdebuild" &&  "${package_deb}" == "yes" ]]; then
+
+		# Still need a few basic packages
+		sudo apt-get install -y --force-yes curl
 
 	else
 
@@ -675,11 +671,7 @@ main()
 
 	# Process main functions
 	set_vars
-
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
-		kodi_prereqs
-	fi
-
+	kodi_prereqs
 	kodi_clone
 
 	# Process how we are building

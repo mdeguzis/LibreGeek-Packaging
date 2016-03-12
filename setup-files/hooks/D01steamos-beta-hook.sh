@@ -8,12 +8,12 @@
 
 if [[ "$STEAMOS_BETA" == "true" ]]; then
 
-	echo "I: STEAMOS: Adding Valve SteamOS Beta Repository"
+	echo "I: STEAMOS-BETA: Adding Valve SteamOS Beta Repository"
 
 	# Add repository quietly, to reduce output on screen.
 	if ! apt-get install -y --force-yes steamos-beta-repo &> /dev/null; then
 
-		echo "E: STEAMOS: Failed to add SteamOS beta repository. Exiting"
+		echo "E: STEAMOS-BETA: Failed to add SteamOS beta repository. Exiting"
 		exit 1
 
 	fi
@@ -24,11 +24,23 @@ fi
 # Update
 ####################################
 
-echo "I: STEAMOS: Updating package listings"
+echo "I: STEAMOS-BETA: Repairing any half-installed packages"
 
-if ! apt-get update &> /dev/null; then
+# attempt to clean up any half-installed packages (unpacked but failed to configure,
+# possibly because it was upgraded during shutdown)
 
-	echo "E: STEAMOS: SteamOS update operation failed. Exiting"
+if ! apt-get install &> /dev/null; then
+
+	echo "E: STEAMOS-BETA: SteamOS package repair operation failed. Exiting"
+	exit 1
+
+fi
+
+echo "I: STEAMOS-BETA: Updating package listings"
+
+if ! apt-get update -y -q &> /dev/null; then
+
+	echo "E: STEAMOS-BETA: SteamOS update operation failed. Exiting"
 	exit 1
 
 fi
@@ -46,12 +58,25 @@ for file in ${repo_files};
 do
 	if [[ ! -f "${file}" ]]; then
 
-		echo "E: STEAMOS: Repository validation [FAILED]. Exiting."
+		echo "E: STEAMOS-BETA: Repository validation [FAILED]. Exiting."
 		exit 1
 	else
 
-		echo "I: STEAMOS: Repository validation [PASSED]"
+		echo "I: STEAMOS-BETA: Repository validation [PASSED]"
 
 	fi
 
 done
+
+####################################
+# Upgrade
+####################################
+
+echo "I: STEAMOS-BETA-BETA: Upgrading packages"
+
+if ! unattended-upgrade &> /dev/null; then
+
+	echo "E: STEAMOS-BETA: SteamOS upgrade operation failed. Exiting"
+	exit 1
+
+fi

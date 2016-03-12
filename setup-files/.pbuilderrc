@@ -100,6 +100,14 @@ if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
 
 	# Set beta flag so additional beta repo mirror will be added later
 	STEAMOS_BETA="true"
+	
+else
+
+	# Set to expected DIST
+	DISTRIBUTION="${DIST}"
+	
+	# Ensure this is false
+	STEAMOS_BETA="false"
 
 fi
 

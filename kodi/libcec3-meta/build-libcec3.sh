@@ -2,13 +2,16 @@
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libcec.sh
+# Scipt Name:	build-libcec3-meta.sh
 # Script Ver:	0.5.1
 # Description:	Attempts to build a deb package libcec git source
+#		Notice, this is a transitional package for libcec3v4
+#		Please note libcec3 is the package name for Strech
+#		and Sid (upcoming).
 #
-# See:		https://github.com/Pulse-Eight/libcec
-#		http://www.cyberciti.biz/faq/linux-unix-formatting-dates-for-display/
-# Usage:	build-libcec.sh
+# See:		https://packages.debian.org/stretch/libcec3
+#		https://packages.debian.org/jessie-backports/libcec3v4
+# Usage:	build-libcec3-meta.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -40,30 +43,28 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-
+	
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-
+	
 fi
 
 # upstream vars
-git_url="https://github.com/Pulse-Eight/libcec"
-# For Kodi's Jarvis release, it is more than likely platform will still be used
-# For now, use the commit before this was changed or the release tree (uses platform)
-# The appropirate commit would possibly be "4905a70" for this.
-git_branch="release"
+#git_url="https://github.com/Pulse-Eight/libcec"
+#git_branch="release"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="libcec"
+pkgname="libcec3"
 pkgver="3.0.1"
-pkgrev="1"
+pkgrev="5"
+upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -81,84 +82,79 @@ install_prereqs()
 	echo -e "\n==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
- 	libudev-dev liblockdev1-dev libplatform-dev python-dev cmake swig libxrandr-dev \
- 	x11proto-core-dev libncurses5-dev libudev-dev liblockdev1-dev libp8-platform-dev \
- 	python-dev swig libxrandr-dev libncurses5-dev
-
- 	# See: https://github.com/xbmc/kodi-platform/pull/16
- 	# For now, the likely target package for Jarvis will be platform, not the renamed p8-platform
+	sudo apt-get install -y --force-yes build-essential debhelper checkinstall bc
 
 }
 
 main()
 {
-
+	
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then
-
+	
 		sudo rm -rf "${build_dir}"
 		mkdir -p "${build_dir}"
-
+		
 	else
-
+		
 		mkdir -p "${build_dir}"
-
+		
 	fi
-
+	
 	# enter build dir
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-
+	
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
 
 	fi
-
-
+	
 	# Clone upstream source code and branch
-
+	
 	echo -e "\n==> Obtaining upstream source code\n"
-
-	git clone -b "$git_branch" "$git_url" "$git_dir"
-
-	# Upsteam has split control files ATM, remove precise file that conflicts in build
-	rm -f "$git_dir/debian/control.precise"
-
+	
+	#git clone -b "$git_branch" "$git_url" "$git_dir"
+	mkdir -p "${git_dir}"
+	
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
-
+	
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
+	
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
-
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	
+	# copy debian files
+	cp -r "${scriptdir}/libcec3/debian" "${src_dir}"
+	
 	# emter source dir
 	cd "${src_dir}"
-
-
+ 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D \
+		"${DIST}" -u "${urgency}" "Transition to meta package that provides libcec3v4"
+		nano "debian/changelog"
 
 	else
 
-		dch --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch --create --force-distribution -v "${pkgver}+${pkgsuffix}${upstream_rev}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Transition to meta package that provides libcec3v4"
+		nano "debian/changelog"
 
 	fi
-
+ 
 	#################################################
 	# Build Debian package
 	#################################################
@@ -172,25 +168,28 @@ main()
 	# Cleanup
 	#################################################
 
-	# clean up dirs
-
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<-EOF
+	
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+	
+	Showing contents of: ${build_dir}
+	
+	EOF
 
-	echo -e "Showing contents of: ${build_dir}: \n"
 	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
@@ -204,11 +203,14 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/libcec3/debian/"
 		fi
+
 	elif [[ "$transfer_choice" == "n" ]]; then
-
 		echo -e "Upload not requested\n"
-
 	fi
 
 }

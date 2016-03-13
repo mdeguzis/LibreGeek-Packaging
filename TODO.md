@@ -14,21 +14,21 @@ Update scripts with this code
 cd "${build_dir}"
 
 -----------------------------------------------------------------------------------------------------------------
- 	# update changelog with dch
-	if [[ -f "debian/changelog" ]]; then
+ # update changelog with dch
+if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
-		nano "debian/changelog"
+	dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+	"Update to the latest commit ${latest_commit}"
+	nano "debian/changelog"
 
-	else
+else
 
-		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
-		nano "debian/changelog"
+	dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+	"Update to the latest commit ${latest_commit}"
+	nano "debian/changelog"
 
-	fi
-	
+fi
+
 ## Summary actions
 -----------------------------------------------------------------------------------------------------------------
 	# output finish

@@ -12,7 +12,7 @@
 # Speeding up pkg installs, "echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup" instead chroot
 
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
-PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
+PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends-gdebi
 
 # Allow internet access during build
 USENETWORK="$USENETWORK"
@@ -145,9 +145,9 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 
 	if [[ "${STEAMOS_BETA}" == "true" ]]; then
 		OTHERMIRROR="deb http://repo.steampowered.com/steamos brewmaster_beta main contrib non-free"
-		EXTRAPACKAGES="wget ca-certificates aptitude"
+		EXTRAPACKAGES="gdebi-core wget ca-certificates aptitude"
 	else
-		EXTRAPACKAGES="wget ca-certificates aptitude"
+		EXTRAPACKAGES="gdebi-core wget ca-certificates aptitude"
 	fi
 
 else

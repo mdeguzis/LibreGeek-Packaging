@@ -69,7 +69,6 @@ if [ -n "${DIST}" ]; then
 	fi
 
 	# Set locations
-	BASETGZ=
 	ARCHITECTURE="${ARCH}"
 	BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
 	BUILDRESULT="$build_dir"

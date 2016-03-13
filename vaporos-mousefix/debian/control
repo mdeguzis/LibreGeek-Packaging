@@ -1,0 +1,11 @@
+Source: vaporos-mousefix
+Section: utils
+Priority: optional
+Maintainer: Wouter Wijsman <wwijsman@live.nl>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+
+Package: vaporos-mousefix
+Architecture: all
+Depends: ${misc:Depends}
+Description: Disables mouse acceleration

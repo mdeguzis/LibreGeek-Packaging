@@ -1,0 +1,2 @@
+fstrim.service /lib/systemd/system
+fstrim.timer /lib/systemd/system

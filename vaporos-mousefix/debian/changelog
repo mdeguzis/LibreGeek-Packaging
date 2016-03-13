@@ -1,0 +1,11 @@
+vaporos-mousefix (1.0+bsos1-1) brewmaster; urgency=low
+
+  * Re-upload for SteamOS-Tools
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 13 Mar 2016 18:03:24 -0400
+
+vaporos-mousefix (1.0) brewmaster; urgency=low
+
+  * Initial release
+
+ -- Wouter Wijsman <wwijsman@live.nl>  Tue, 12 Jan 2016 12:28:24 +0100

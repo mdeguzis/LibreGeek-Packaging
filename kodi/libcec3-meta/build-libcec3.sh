@@ -4,10 +4,13 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-libcec3-meta.sh
 # Script Ver:	0.5.1
-# Description:	Attempts to build a deb package libcec git source
-#		Notice, this is a transitional package for libcec3v4
+# Description:	Builds a transitional Debian package for libcec3
 #		Please note libcec3 is the package name for Strech
-#		and Sid (upcoming).
+#		and Sid (upcoming). Other packages included for Kodi.
+#
+#		In order to satisfy CEC check/requirements during CMake
+#		package checks, libcec-dev (>= 3),libcec-platform-dev
+# 		are included (jessie-backports).
 #
 # See:		https://packages.debian.org/stretch/libcec3
 #		https://packages.debian.org/jessie-backports/libcec3v4

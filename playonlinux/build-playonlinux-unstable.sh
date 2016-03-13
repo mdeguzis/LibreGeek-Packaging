@@ -108,7 +108,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -117,8 +116,12 @@ main()
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	echo -e "\n==> Updating changelog"
-	sleep 2s
+
+	# This is used because upstream does tend to use release tags
+	pkgver=$(git describe --abbrev=0 --tags)
+
+	# Alter pkg suffix based on commit
+	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
 
 	#################################################
 	# Prepare
@@ -129,7 +132,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}" || exit
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add required files
 	cp -r "${scriptdir}/debian" "${git_dir}"
@@ -143,15 +146,15 @@ main()
 	# update changelog with dch
         if [[ -f "debian/changelog" ]]; then
 
-                dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-                "Update to the latest commit ${latest_commit}"
-                nano "debian/changelog"
+		dch --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
 
         else
 
-                dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-                "Update to the latest commit ${latest_commit}"
-                nano "debian/changelog"
+		dch --force-distribution --create -v "${pkgver}.${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
 
         fi
 

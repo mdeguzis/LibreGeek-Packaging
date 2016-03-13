@@ -1,0 +1,1 @@
+ACTION=="add", ENV{ID_INPUT_JOYSTICK}=="?*", KERNEL=="event*", PROGRAM="/bin/systemd-escape -p --template=actkbd-xboxbinds@.service $env{DEVNAME}", TAG+="systemd", ENV{SYSTEMD_WANTS}+="%c"

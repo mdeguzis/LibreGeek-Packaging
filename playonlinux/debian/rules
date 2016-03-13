@@ -15,6 +15,8 @@
 override_dh_auto_build-indep:
 	convert -monitor -resize 32x32 $(CURDIR)/etc/playonlinux.png $(CURDIR)/playonlinux.xpm
 
+override_dh_auto_install:
+
 override_dh_install:
 	dh_install
 	chmod +x debian/playonlinux-unstable/usr/share/playonlinux/bash/startup_after_server

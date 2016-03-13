@@ -1,0 +1,10 @@
+[Unit]
+BindTo=%i.device
+After=%i.device
+Description=VaporOS Xbox 360 bindings for some commands
+
+[Service]
+Type=forking
+TimeoutStartSec=300
+RemainAfterExit=no
+ExecStart=/usr/bin/actkbd-start.sh /%I /etc/actkbd-steamos-controller.conf

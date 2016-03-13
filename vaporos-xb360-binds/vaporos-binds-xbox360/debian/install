@@ -1,0 +1,8 @@
+actkbd-steamos-controller.conf /etc
+steamos-displayfps.sh /usr/bin/
+steamos-recording.sh /usr/bin/
+steamos-restart.sh /usr/bin/
+steamos-screenshot.sh usr/bin/
+actkbd-start.sh usr/bin/
+99-actkbd-controller.rules /etc/udev/rules.d/
+actkbd-xboxbinds@.service /etc/systemd/system/

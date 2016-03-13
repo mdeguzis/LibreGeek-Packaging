@@ -1,3 +1,9 @@
+playonlinux-unstable (4.2.10.fe283cdgit+bsos1-1) brewmaster; urgency=low
+
+  * Update to the latest commit fe283cd
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 13 Mar 2016 14:15:51 -0400
+
 playonlinux-unstable (4.2.10.2665b57git+bsos1-1) brewmaster; urgency=low
 
   * New unstable build against upstream commit 2665b57

@@ -1,0 +1,25 @@
+vaporos-binds-xbox360 (2.2) brewmaster; urgency=low
+
+  * Dependencies have added to the control file
+  * steamos-recording.sh now uses libav
+
+ -- Wouter Wijsman <wwijsman@live.nl>  Sun, 13 Mar 2016 18:13:08 +0100
+
+vaporos-binds-xbox360 (2.1) brewmaster; urgency=low
+
+  * Updated to use systemd
+
+ -- Wouter Wijsman <wwijsman@live.nl>  Sun, 13 Mar 2016 16:42:48 +0100
+
+vaporos-binds-xbox360 (2.0) brewmaster; urgency=low
+
+  * Updated to brewmaster
+  * Added script to launch actkbd
+
+ -- Wouter Wijsman <wwijsman@live.nl>  Sun, 25 Oct 2015 14:22:00 +0100
+
+vaporos-binds-xbox360 (1.0) alchemist; urgency=low
+
+  * Initial release.
+
+ -- Wouter Wijsman <wwijsman@live.nl>  Mon, 05 Jan 2015 12:09:42 +0100

@@ -1,0 +1,15 @@
+Source: vaporos-binds-xbox360
+Section: extra
+Priority: optional
+Maintainer: Wouter Wijsman <wwijsman@live.nl>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.5
+
+Package: vaporos-binds-xbox360
+Architecture: all
+Depends: imagemagick, libav-tools, steamos-compositor
+Description: Binds scripts to Xbox 360 controller button combinations
+ This package package contains scripts for making a screenshot, recording
+ gameplay, restarting Steam and showing framerate.
+ The button combinations for these scripts can be found in
+ /etc/actkbd-steamos-controller.conf.

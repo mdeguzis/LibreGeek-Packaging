@@ -383,6 +383,9 @@ Summary
 Creating:
 sudo DIST=[DIST] ARCH=[ARCH] pbuilder [OPERATION]
 
+Creation on SteamOS:
+sudo -E DIST=[DIST] ARCH=[ARCH] pbuilder create
+
 Operations:
 [create|login|login|login --save-after-login|update]
 

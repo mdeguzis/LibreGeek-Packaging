@@ -12,7 +12,9 @@
 # Speeding up pkg installs, "echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup" instead chroot
 
 AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
-PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends-gdebi
+
+# the pbuilder-satisfydepends-gdebi may work here, but it gives me issues creating chroots
+PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 
 # Allow internet access during build
 USENETWORK="$USENETWORK"

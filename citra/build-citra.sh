@@ -62,7 +62,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="citra"
 pkgver="${date_short}"
-pkgrev="2"
+pkgrev="1"
 upstream_rev="1"
 # Base version sourced from ZIP file version
 pkgsuffix="${dateshort}git+bsos${pkgrev}"

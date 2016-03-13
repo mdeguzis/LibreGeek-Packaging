@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-playonlinux-unstable.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.1.5
 # Description:	Attempts to build a deb package from latest PlayOnLinux 4
 #		github release
 #
@@ -41,11 +41,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 # upstream vars
 git_url="https://github.com/PlayOnLinux/POL-POM-4"
@@ -56,7 +56,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="playonlinux-unstable"
 upstream_rev="1"
@@ -100,7 +100,7 @@ main()
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
@@ -116,22 +116,44 @@ main()
 	# clone and checkout latest commit
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
-	
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	echo -e "\n==> Updating changelog"
+	sleep 2s
+
+	#################################################
+	# Prepare
+	#################################################
+
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
+
+	# create source tarball
+	cd "${build_dir}" || exit
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+
+	# Add required files
+	cp -r "${scriptdir}/debian" "${git_dir}"
+
+	# enter source dir
+	cd "${git_dir}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
-	if [[ -f "debian/changelog" ]]; then
+	# update changelog with dch
+        if [[ -f "debian/changelog" ]]; then
 
-		dch --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+                dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+                "Update to the latest commit ${latest_commit}"
+                nano "debian/changelog"
 
-	else
+        else
 
-		dch --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+                dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+                "Update to the latest commit ${latest_commit}"
+                nano "debian/changelog"
 
-	fi
-
+        fi
 
 	#################################################
 	# Build Debian package

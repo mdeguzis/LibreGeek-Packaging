@@ -43,11 +43,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -63,7 +63,7 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libcec3"
 pkgver="3.0.1"
-pkgrev="5"
+pkgrev="1"
 upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -88,55 +88,55 @@ install_prereqs()
 
 main()
 {
-	
+
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then
-	
+
 		sudo rm -rf "${build_dir}"
 		mkdir -p "${build_dir}"
-		
+
 	else
-		
+
 		mkdir -p "${build_dir}"
-		
+
 	fi
-	
+
 	# enter build dir
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
 
 	fi
-	
+
 	# Clone upstream source code and branch
-	
+
 	echo -e "\n==> Obtaining upstream source code\n"
-	
+
 	#git clone -b "$git_branch" "$git_url" "$git_dir"
 	mkdir -p "${git_dir}"
-	
+
 	#################################################
 	# Build package
 	#################################################
-	
+
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-	
+
 	# create source tarball
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-	
+
 	# copy debian files
-	cp -r "${scriptdir}/libcec3/debian" "${src_dir}"
-	
+	cp -r "${scriptdir}/debian" "${src_dir}"
+
 	# emter source dir
 	cd "${src_dir}"
- 
+
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
@@ -149,12 +149,12 @@ main()
 
 	else
 
-		dch --create --force-distribution -v "${pkgver}+${pkgsuffix}${upstream_rev}" --package "${pkgname}" \
+		dch --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Transition to meta package that provides libcec3v4"
 		nano "debian/changelog"
 
 	fi
- 
+
 	#################################################
 	# Build Debian package
 	#################################################
@@ -172,7 +172,7 @@ main()
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
@@ -180,14 +180,14 @@ main()
 
 	# inform user of packages
 	cat<<-EOF
-	
+
 	###############################################################
 	If package was built without errors you will see it below.
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
-	
+
 	Showing contents of: ${build_dir}
-	
+
 	EOF
 
 	ls "${build_dir}" | grep -E "${pkgver}" 

@@ -52,7 +52,7 @@ fi
 
 echo "I: STEAMOS-TOOLS: Updating package listings"
 
-if ! apt-get update &> /dev/null; then
+if ! apt-get update -y -q &> /dev/null; then
 
 	echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
 	exit 1

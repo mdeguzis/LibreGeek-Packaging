@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-libregeek-repo.sh.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.3.1
 # Description:	Builds simple pacakge for libregeek repos
 #
 # See:		packages.libregeek.org
@@ -136,13 +136,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Fix improper pinning for jessie/jessie-backports"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}"\
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev" --package "${pkgname}"\
 		-D "${DIST}" -u "${urgency}" "Fix improper pinning for jessie/jessie-backports"
 		nano "debian/changelog"
 

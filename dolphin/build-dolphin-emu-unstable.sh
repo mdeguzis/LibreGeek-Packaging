@@ -139,7 +139,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
+	cp -r "$scriptdir/debian-master" "${git_dir}/debian"
 
 	# enter source dir
 	cd "${src_dir}"

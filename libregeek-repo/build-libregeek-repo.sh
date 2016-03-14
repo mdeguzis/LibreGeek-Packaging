@@ -136,14 +136,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
-		"Fix improper pinning for jessie/jessie-backports"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Fix improper pinning for jessie/jessie-backports"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
-		"Fix improper pinning for jessie/jessie-backports"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}"\
+		-D "${DIST}" -u "${urgency}" "Fix improper pinning for jessie/jessie-backports"
 		nano "debian/changelog"
 
 	fi

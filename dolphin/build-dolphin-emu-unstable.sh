@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-dolphin-emu-master.sh
+# Scipt Name:	build-dolphin-emu-unstable.sh
 # Script Ver:	1.0.0
 # Description:	Attempts to build a deb package from latest dolphin-emu
 #		github release (master tree)
 #
 # See:		https://github.com/dolphin-emu/dolphin/
 #
-# Usage:	build-dolphin-emu-master.sh
+# Usage:	build-dolphin-emu-unstable.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -57,11 +57,11 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="dolphin-emu"
+pkgname="dolphin-emu-unstable"
 pkgver="4.0"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
-DIST="brewmaster"
+DIST="brewunstable"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -139,7 +139,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian-master" "${git_dir}/debian"
+	cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
 
 	# enter source dir
 	cd "${src_dir}"

@@ -1,41 +1,11 @@
-dolphin-emu (5.0~rc-34-9~13~ubuntu15.04.1) vivid; urgency=low
+dolphin-emu-master (4.0.20160314git+bsos1-1) brewmaster; urgency=low
 
-  * Auto build.
+  * Initial upload / build attempt
 
- -- Launchpad Package Builder <noreply@launchpad.net>  Wed, 07 Oct 2015 20:17:53 +0000
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 14 Mar 2016 11:32:44 -0400
 
-dolphin-emu (5.0~rc-34-0ubuntu1) UNRELEASED; urgency=medium
+dolphin-emu-master (0.0.1+git+bsos1) brewmaster; urgency=low
 
-  * 5.0 Release Candidate 34.
+  * Dummy changelog
 
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Wed, 07 Oct 2015 17:10:00 -0300
-
-dolphin-emu (5.0~rc-27-0ubuntu1) UNRELEASED; urgency=medium
-
-  * 5.0 Release Candidate 27.
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Wed, 09 Sep 2015 02:42:00 -0300
-
-dolphin-emu (5.0~rc-19-0ubuntu1) UNRELEASED; urgency=medium
-
-  * 5.0 Release Candidate 19.
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Wed, 19 Aug 2015 14:32:00 -0300
-
-dolphin-emu (5.0~rc-15-0ubuntu1) UNRELEASED; urgency=medium
-
-  * 5.0 Release Candidate 15.
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Mon, 17 Aug 2015 00:47:00 -0300
-
-dolphin-emu (5.0~rc-7-0ubuntu1) UNRELEASED; urgency=medium
-
-  * 5.0 Release Candidate 7.
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 13 Aug 2015 16:10:00 -0300
-
-dolphin-emu (5.0~rc-0ubuntu1) UNRELEASED; urgency=medium
-
-  * 5.0 Release Candidate.
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 14 Feb 2015 03:13:00 -0300
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Wed, 14 Mar 2016 09:51:00 -0500

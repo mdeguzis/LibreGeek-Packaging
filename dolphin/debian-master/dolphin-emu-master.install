@@ -1,0 +1,6 @@
+usr/games/dolphin-emu
+usr/games/dolphin-emu-nogui
+usr/share/applications/dolphin-emu.desktop
+usr/share/games/dolphin-emu/sys/*
+usr/share/icons/hicolor/*
+usr/share/locale/*

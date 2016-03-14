@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-dolphin-emu.sh
+# Scipt Name:	build-dolphin-emu-master.sh
 # Script Ver:	1.0.0
 # Description:	Attempts to build a deb package from latest dolphin-emu
-#		github release
+#		github release (master tree)
 #
 # See:		https://github.com/dolphin-emu/dolphin/
 #
-# Usage:	build-dolphin-emu.sh
+# Usage:	build-dolphin-emu-master.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/dolphin-emu/dolphin/"
-rel_target="5.0-rc"
+rel_target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,9 +58,9 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="dolphin-emu"
-pkgver="5.0"
+pkgver="4.0"
 pkgrev="1"
-pkgsuffix="rc+bsos${pkgrev}"
+pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -139,7 +139,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	cp -r "$scriptdir/debian-master" "${git_dir}/debian"
 
 	# enter source dir
 	cd "${src_dir}"
@@ -151,13 +151,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update release"
+		"Initial upload / build attempt"
 		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update release"
+		"Initial upload / build attemp"
 		nano "debian/changelog"
 
 	fi

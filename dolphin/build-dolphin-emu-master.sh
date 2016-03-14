@@ -123,7 +123,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone --recursive -b "${rel_target}" "${git_url}" "${git_dir}"
+	git clone -b "${rel_target}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build platform
@@ -150,14 +150,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Build for SteamOS"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Build for SteamOS"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update release"
 		nano "debian/changelog"
 
 	fi

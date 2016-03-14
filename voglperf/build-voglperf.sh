@@ -141,11 +141,11 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 	
-		dch --force-distribution -v "${pkgver}+${pkgsuffix}" --package $pkgname -D $DIST -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package $pkgname -D $DIST -u "${urgency}"
 		
 	else
 	
-		dch --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 	
 	fi
 

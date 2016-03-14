@@ -146,13 +146,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D \
 		"${DIST}" -u "${urgency}" "Transition to meta package that provides libcec3v4"
 		nano "debian/changelog"
 
 	else
 
-		dch --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Transition to meta package that provides libcec3v4"
 		nano "debian/changelog"
 

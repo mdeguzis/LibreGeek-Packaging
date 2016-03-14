@@ -51,4 +51,4 @@ override_dh_auto_build:
 	(cd obj-$(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE) && make unittests)
 
 override_dh_strip:
-	dh_strip -pdolphin-emu-unstable --dbg-package=dolphin-emu-unstable-dbg
+	dh_strip -pdolphin-emu-master --dbg-package=dolphin-emu-master-dbg

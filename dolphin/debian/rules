@@ -23,8 +23,6 @@
 %:
 	dh $@
 
-CMAKE_OPTIONS =				\
-	--DCMAKE_INSTALL_PREFIX=/usr
-
 override_dh_auto_configure:
-	dh_auto_configure -- $(CMAKE_OPTIONS)
+	mkdir -p build && cd build
+	cmake .. -DCMAKE_INSTALL_PREFIX=/usr

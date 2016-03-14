@@ -120,17 +120,12 @@ main()
 	# Build package
 	#################################################
 
-	# enter build dir to package attempt
-	cd "${build_dir}"
-
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}}"
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Enter git dir to build
 	cd "${git_dir}"

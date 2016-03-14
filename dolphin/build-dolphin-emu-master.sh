@@ -59,6 +59,7 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="dolphin-emu-master"
 pkgver="4.0"
+upstream_rev="1"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -175,8 +176,6 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-
-	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)

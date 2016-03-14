@@ -18,7 +18,7 @@ done
 dpkg -i /tmp/buildd/*.deb || true
 apt-get install -y -f "${APTGETOPT[@]}"
 
-if chmod a+x /tmp/buildd/*/debian/pbuilder-test/*; then
+if chmod a+x /tmp/buildd/*/debian/pbuilder-test/* &> /dev/null; then
     :
 else
     echo "W: no pbuilder-test script found, skipping"

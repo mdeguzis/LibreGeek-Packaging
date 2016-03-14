@@ -59,8 +59,8 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-repo"
-pkgver="0.3"
-pkgrev="2"
+pkgver="0.4"
+pkgrev="1"
 pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"
 DIST="brewmaster"
@@ -143,13 +143,16 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		"Fix improper pinning for jessie/jessie-backports"
+		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		"Fix improper pinning for jessie/jessie-backports"
+		nano "debian/changelog"
 
 	fi
-
 
 	#################################################
 	# Build Debian package

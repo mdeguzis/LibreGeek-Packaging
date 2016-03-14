@@ -142,7 +142,7 @@ main()
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev" --package "${pkgname}"\
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}"\
 		-D "${DIST}" -u "${urgency}" "Fix improper pinning for jessie/jessie-backports"
 		nano "debian/changelog"
 

@@ -24,5 +24,4 @@
 	dh $@
 
 override_dh_auto_configure:
-	mkdir -p build && cd build
-	cmake .. -DCMAKE_INSTALL_PREFIX=/usr
+	cmake -DCMAKE_INSTALL_PREFIX=/usr

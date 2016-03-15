@@ -293,21 +293,23 @@ cp "$scriptdir/repo-filter.txt" "${steamos_tools_configs}"
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	select-editor
-	
+
 	# disable this line in bashrc if it exists so it does not interfere:
 	sed -i "s|EDITOR=.*|#EDITOR=\"\"|g" "$HOME/.bashrc"
 
 else
 
 	if [[ "${EDITOR}" == "" ]]; then
-	
+
 		echo "No editor currently set"
-		
-	else
 	
+	else
+
 		echo -e "Current editor set: ${EDITOR}\n"
 		sleep 3s
-	
+		
+	fi
+
 	# List editors and set
 	ls "/usr/bin" | grep -xE 'vi|vim|nano|emacs|gvim' && echo ""
 	read -erp "Default editor to use: " EDITOR

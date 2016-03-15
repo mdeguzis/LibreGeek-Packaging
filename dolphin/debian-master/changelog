@@ -2,7 +2,7 @@ dolphin-emu-master (4.0.20160314git+bsos2-1) brewmaster; urgency=low
 
   * Initial upload / build attempt
 
- -- SteamOS-Tools Signing Key <EMAIL_TEMP>  Mon, 14 Mar 2016 17:50:10 -0400
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 14 Mar 2016 17:50:10 -0400
 
 dolphin-emu-master (0.0.1+git+bsos1-1) brewmaster; urgency=low
 

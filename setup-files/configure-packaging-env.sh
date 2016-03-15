@@ -92,6 +92,7 @@ elif [[ "${OS}" == "Arch" ]]; then
 			cd "${aur_install_dir}/${pkg}" || exit 1
 			makepkg -s
 	
+			# No 'else' logic here, we can't check for updates, no AUR of course.
 			if ! sudo pacman -U ${PACOPTS} ${pkg}*.pkg.tar.gz; then
 	
 				echo "ERROR: Installation of ${pkg} failed. Exiting"

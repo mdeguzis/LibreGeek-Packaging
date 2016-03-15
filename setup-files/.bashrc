@@ -14,6 +14,6 @@ export REMOTE_HOST="REMOTE_HOST_TEMP"
 export REMOTE_PORT="REMOTE_PORT_TEMP"
 
 # For use cases outside of using the env var $EDITOR
-EDITOR="/usr/bin/EDITOR_TEMP"
+export EDITOR="/usr/bin/EDITOR_TEMP"
 
 ##### END DEBIAN PACKAGING SETUP #####

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	configure-packaging-env.sh
-# Script Ver:	2.7.3
+# Script Ver:	2.9.1
 # Description:	Installs basic packaging tools suggested by the Debian
 #               maintainers guide and configures various packaging options
 #
@@ -55,7 +55,7 @@ elif [[ "${OS}" == "Arch" ]]; then
 	sudo pacman -S ${PACOPTS} expac yajl
 
 	# get main packages in the main repos for extra needs
-	sudo pacman -Sa ${PACOPTS} bc
+	sudo pacman -S ${PACOPTS} bc
 
 	# <!> devscripts in the AUR is out of date, so it was added to my repo and fixed:
 	# https://github.com/ProfessorKaos64/arch-aur-packages
@@ -66,14 +66,26 @@ elif [[ "${OS}" == "Arch" ]]; then
 	git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
 	cd "${aur_install_dir}/devscripts" || exit 1
 	makepkg -s
-	sudo pacman -U ${PACOPTS} devscripts*.pkg.tar.gz
+	
+	if ! sudo pacman -U ${PACOPTS} devscripts*.pkg.tar.gz; then
+	
+		echo "ERROR: Installation of devscripts failed. Exiting"
+		exit 1
+	
+	fi
 	
 	# <!> apt in the AUR is out of date, so it was added to my repo and fixed:
 	# https://github.com/ProfessorKaos64/arch-aur-packages
 
 	cd "${aur_install_dir}/apt" || exit 1
 	makepkg -s
-	sudo pacman -U ${PACOPTS} apt*.pkg.tar.gz
+	
+	if sudo pacman -U ${PACOPTS} apt*.pkg.tar.gz; then
+	
+		echo "ERROR: Installation of apt failed. Exiting"
+		exit 1
+	
+	fi
 	
 	# Clean up manual AUR package installation directory
 	cd "${root_dir}"
@@ -276,7 +288,31 @@ cp "$scriptdir/repo-filter.txt" "${steamos_tools_configs}"
 
 # Editor
 # Provided by sensible-utils, dependency of debianutils
-select-editor
+
+if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
+
+	select-editor
+	
+	# disable this line in bashrc if it exists so it does not interfere:
+	sed -i "s|EDITOR=.*|#EDITOR=\"\"|g" "$HOME/.bashrc"
+
+else
+
+	if [[ "${EDITOR}" == "" ]]; then
+	
+		echo "No editor currently set"
+		
+	else
+	
+		echo -e "Current editor set: ${EDITOR}\n"
+		sleep 3s
+	
+	# List editors and set
+	ls "/usr/bin" | grep -xE 'vi|vim|nano|emacs|gvim' && echo ""
+	read -erp "Default editor to use: " EDITOR
+	sed -i "s|EDITOR_TEMP|$EDITOR|" "$HOME/.bashrc"
+	
+fi
 
 #################################################
 # Pbuilder setup

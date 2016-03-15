@@ -1,1 +1,5 @@
+lgogdownloader (2.27+git+bsos1) brewmaster; urgency=low
 
+  * Initial release.
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 14 Mar 2016 21:58:33 -0400

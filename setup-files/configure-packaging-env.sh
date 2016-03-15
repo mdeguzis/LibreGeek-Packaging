@@ -30,7 +30,6 @@ MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
 
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
-	
 	# add multiarch if it is missing
 	if [[ "${MULTIARCH}" == "" ]]; then
 
@@ -43,45 +42,53 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	sudo apt-get install -y --force-yes pbuilder libselinux1 libselinux1:i386 \
 	lsb-release bc devscripts sudo
-	
+
 elif [[ "${OS}" == "Arch" ]]; then
 
+	# Default pacman options
+	PACOPTS="--noconfirm --noprogressbar --needed"
+
 	# Get pacaur deps 
-	sudo pacman -S expac yajl bash-completion
-	
+	sudo pacman -SU ${PACOPTS} expac yajl bash-completion
+
 	# packages in the main repos
-	sudo pacman -S bc
-	
+	sudo pacman -SUa ${PACOPTS} bc
+
 	# devscripts in the AUR is broken, so it was added to my repo and fixed:
 	# https://github.com/ProfessorKaos64/arch-aur-packages
-	
+
 	git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
-	cd "arch-aur-packages/devscripts"
+	cd "arch-aur-packages/devscripts" || exit 1
 	makepkg -s
-	sudo pacman -S "devscripts-2.16.1-1-any.pkg.tar.gz"
+	sudo pacman -S ${PACOPTS} "devscripts-2.16.1-1-any.pkg.tar.gz"
 	cd ../..
-	rm -rf "arch-aur-packages/devscripts"
-	
+	rm -rf "arch-aur-packages"
+
 	# install pacaur if not installed
 	if ! pacaur -Qs pacaur; then
-	
+
 		# Install pacaur
 		wget "https://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz" -q -nc --show-progress
 		tar zxvf pacaur.tar.gz
 		cd pacaur && makepkg
-		sudo pacman -U pacaur*.pkg.tar.xz
-		
+		sudo pacman -U ${PACOPTS} pacaur*.pkg.tar.xz
+
+	else
+
+		# just update pacaur target (don't reinstall if up to date)
+		pacaur -SUa ${PACOPTS}
+
 	fi
 
 	# Finally, get build tools and pbuilder-ubuntu
 	# Pass -S to invoke pacman
-	pacaur -S pbuilder-ubuntu apt debian-archive-keyring
+	pacaur -SUa ${PACOPTS} pbuilder-ubuntu apt debian-archive-keyring
 
 else
 
 	echo -e "\nUnsupported OS/Distro! Exiting...\n"
 	exit 1
-	
+
 fi
 
 #################################################

@@ -49,20 +49,32 @@ elif [[ "${OS}" == "Arch" ]]; then
 	PACOPTS="--noconfirm --noprogressbar --needed"
 	AUROPTS="--noconfirm --needed --noedit"
 
-	# Get pacaur deps 
-	sudo pacman -S ${PACOPTS} expac yajl bash-completion
+	# Get pacaur deps
+	sudo pacman -S ${PACOPTS} expac yajl
 
-	# packages in the main repos
+	# get main packages in the main repos for extra needs
 	sudo pacman -Sa ${PACOPTS} bc
 
-	# devscripts in the AUR is broken, so it was added to my repo and fixed:
+	# <!> devscripts in the AUR is out of date, so it was added to my repo and fixed:
 	# https://github.com/ProfessorKaos64/arch-aur-packages
 
+	root_dir="${PWD}"
+	aur_install_dir="${PWD}/arch-aur-packages"
+	
 	git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
-	cd "arch-aur-packages/devscripts" || exit 1
+	cd "${aur_install_dir}/devscripts" || exit 1
 	makepkg -s
 	sudo pacman -U ${PACOPTS} "devscripts-2.16.1-1-any.pkg.tar.gz"
-	cd ../..
+	
+	# <!> apt in the AUR is out of date, so it was added to my repo and fixed:
+	# https://github.com/ProfessorKaos64/arch-aur-packages
+
+	cd "${aur_install_dir}/apt" || exit 1
+	makepkg -s
+	sudo pacman -U ${PACOPTS} "apt-1.6.2-1-any.pkg.tar.gz"
+	
+	# Clean up manual AUR package installation directory
+	cd "${root_dir}"
 	rm -rf "arch-aur-packages"
 
 	# install pacaur if not installed
@@ -83,7 +95,7 @@ elif [[ "${OS}" == "Arch" ]]; then
 
 	# Finally, get build tools and pbuilder-ubuntu
 	# Pass -S to invoke pacman
-	pacaur -Sa ${AUROPTS} pbuilder-ubuntu apt debian-archive-keyring
+	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-archive-keyring
 
 else
 

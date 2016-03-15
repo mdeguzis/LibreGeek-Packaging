@@ -306,7 +306,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	select-editor
 
 	# disable this line in bashrc if it exists so it does not interfere:
-	sed -i "s|EDITOR=.*|#EDITOR=\"\"|g" "$HOME/.bashrc"
+	sed -i "s|export EDITOR=.*|#export EDITOR=\"\"|g" "$HOME/.bashrc"
 
 else
 

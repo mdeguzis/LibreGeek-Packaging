@@ -47,6 +47,7 @@ elif [[ "${OS}" == "Arch" ]]; then
 
 	# Default pacman options
 	PACOPTS="--noconfirm --noprogressbar --needed"
+	AUROPTS="--noconfirm --needed --noedit"
 
 	# Get pacaur deps 
 	sudo pacman -S ${PACOPTS} expac yajl bash-completion
@@ -60,7 +61,7 @@ elif [[ "${OS}" == "Arch" ]]; then
 	git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
 	cd "arch-aur-packages/devscripts" || exit 1
 	makepkg -s
-	sudo pacman -S ${PACOPTS} "devscripts-2.16.1-1-any.pkg.tar.gz"
+	sudo pacman -U ${PACOPTS} "devscripts-2.16.1-1-any.pkg.tar.gz"
 	cd ../..
 	rm -rf "arch-aur-packages"
 
@@ -76,13 +77,13 @@ elif [[ "${OS}" == "Arch" ]]; then
 	else
 
 		# just update pacaur target (don't reinstall if up to date)
-		pacaur -Sa ${PACOPTS}
+		pacaur -Sa ${AUROPTS}
 
 	fi
 
 	# Finally, get build tools and pbuilder-ubuntu
 	# Pass -S to invoke pacman
-	pacaur -Sa ${PACOPTS} pbuilder-ubuntu apt debian-archive-keyring
+	pacaur -Sa ${AUROPTS} pbuilder-ubuntu apt debian-archive-keyring
 
 else
 

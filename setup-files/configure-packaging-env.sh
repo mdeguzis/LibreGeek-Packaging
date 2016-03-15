@@ -57,40 +57,6 @@ elif [[ "${OS}" == "Arch" ]]; then
 	# get main packages in the main repos for extra needs
 	sudo pacman -S ${PACOPTS} bc
 
-	# <!> devscripts in the AUR is out of date, so it was added to my repo and fixed:
-	# https://github.com/ProfessorKaos64/arch-aur-packages
-
-	root_dir="${PWD}"
-	aur_install_dir="${PWD}/arch-aur-packages"
-	
-	git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
-	cd "${aur_install_dir}/devscripts" || exit 1
-	makepkg -s
-	
-	if ! sudo pacman -U ${PACOPTS} devscripts*.pkg.tar.gz; then
-	
-		echo "ERROR: Installation of devscripts failed. Exiting"
-		exit 1
-	
-	fi
-	
-	# <!> apt in the AUR is out of date, so it was added to my repo and fixed:
-	# https://github.com/ProfessorKaos64/arch-aur-packages
-
-	cd "${aur_install_dir}/apt" || exit 1
-	makepkg -s
-	
-	if sudo pacman -U ${PACOPTS} apt*.pkg.tar.gz; then
-	
-		echo "ERROR: Installation of apt failed. Exiting"
-		exit 1
-	
-	fi
-	
-	# Clean up manual AUR package installation directory
-	cd "${root_dir}"
-	rm -rf "arch-aur-packages"
-
 	# install pacaur if not installed
 	if ! pacaur -Qs pacaur; then
 
@@ -103,9 +69,43 @@ elif [[ "${OS}" == "Arch" ]]; then
 	else
 
 		# just update pacaur target (don't reinstall if up to date)
-		pacaur -Sa ${AUROPTS}
+		pacaur -Sa ${AUROPTS} pacaur
 
 	fi
+	
+	# <!> Evaluate packages that are broken or out of date in the AUR
+	# <!> 'apt' in the AUR is out of date, so it was added to my repo and fixed
+	# <!> 'devscripts' in the AUR is out of date, so it was added to my repo and fixed:
+	# https://github.com/ProfessorKaos64/arch-aur-packages
+	
+	# Don't clone this repo if they are found
+	if [[ ! $(pacaur -Qs apt) || ! $(pacaur -Qs devscripts) ]]; then
+
+		git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
+		root_dir="${PWD}"
+		aur_install_dir="${root_dir}/arch-aur-packages"
+		my_arch_pkgs="devscripts apt"
+		
+		for pkgs in ${my_arch_pkgs};
+		do
+
+			cd "${aur_install_dir}/${pkg}" || exit 1
+			makepkg -s
+	
+			if ! sudo pacman -U ${PACOPTS} ${pkg}*.pkg.tar.gz; then
+	
+				echo "ERROR: Installation of ${pkg} failed. Exiting"
+				exit 1
+	
+			fi
+
+		done
+
+	fi
+
+	# Clean up manual AUR package installation directory
+	cd "${root_dir}"
+	rm -rf "arch-aur-packages"
 
 	# Finally, get build tools and pbuilder-ubuntu
 	# Pass -S to invoke pacman

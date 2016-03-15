@@ -59,7 +59,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-repo"
-pkgver="0.4"
+pkgver="0.5"
 pkgrev="1"
 pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"
@@ -137,13 +137,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Fix improper pinning for jessie/jessie-backports"
+		-D "${DIST}" -u "${urgency}" "Improve pinning for jessie/jessie-backports"
 		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}"\
-		-D "${DIST}" -u "${urgency}" "Fix improper pinning for jessie/jessie-backports"
+		-D "${DIST}" -u "${urgency}" "Improve pinning for jessie/jessie-backports"
 		nano "debian/changelog"
 
 	fi

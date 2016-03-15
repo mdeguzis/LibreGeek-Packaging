@@ -60,7 +60,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="dolphin-emu-master"
 pkgver="4.0"
 upstream_rev="1"
-pkgrev="2"
+pkgrev="1"
 pkgsuffix="${date_short}git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -125,6 +125,8 @@ main()
 
 	# clone
 	git clone -b "${rel_target}" "${git_url}" "${git_dir}"
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
 	# Build platform
@@ -152,13 +154,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Initial upload / build attempt"
+		"Built against latest commit: [${latest_commit}]"
 		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Initial upload / build attemp"
+		"Built against latest commit: [${latest_commit}]"
 		nano "debian/changelog"
 
 	fi

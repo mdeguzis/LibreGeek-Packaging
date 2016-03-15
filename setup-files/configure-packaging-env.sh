@@ -11,7 +11,9 @@
 # Usage:	./configure-packaging-env.sh
 # -------------------------------------------------------------------------------
 
+# Main vars
 export scriptdir=$(pwd)
+BASHRC_RESET="false"
 
 clear
 echo -e "==> Installing basic packages\n"
@@ -64,14 +66,14 @@ elif [[ "${OS}" == "Arch" ]]; then
 	git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
 	cd "${aur_install_dir}/devscripts" || exit 1
 	makepkg -s
-	sudo pacman -U ${PACOPTS} "devscripts-2.16.1-1-any.pkg.tar.gz"
+	sudo pacman -U ${PACOPTS} devscripts*.pkg.tar.gz
 	
 	# <!> apt in the AUR is out of date, so it was added to my repo and fixed:
 	# https://github.com/ProfessorKaos64/arch-aur-packages
 
 	cd "${aur_install_dir}/apt" || exit 1
 	makepkg -s
-	sudo pacman -U ${PACOPTS} "apt-1.6.2-1-any.pkg.tar.gz"
+	sudo pacman -U ${PACOPTS} apt*.pkg.tar.gz
 	
 	# Clean up manual AUR package installation directory
 	cd "${root_dir}"
@@ -151,6 +153,13 @@ if [[ "${bashrc_choice}" == "y" ]]; then
 	sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
 	
 	cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
+	
+	# Set bashrc information
+	read -erp "Maintainer full name: " FULLNAME_TEMP
+	sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"
+	
+	read -erp "GitHub Email: " EMAIL_TEMP
+	sed -i "s|EMAIL_TEMP|$EMAIL_TEMP|" "$HOME/.bashrc"
 
 fi
 
@@ -170,6 +179,8 @@ sudo cp "$scriptdir/.pbuilderrc" "/root/"
 #################################################
 
 # Set github vars, only if they are missing
+# Since this is the global git config, it must be assessed
+# seperately from the bashrc setup.
 
 if [[ $(git config --global user.name) == "" ]]; then
 
@@ -192,26 +203,12 @@ else
 
 fi
 
-# If bashrc was reset, we need to configure this
-
-if grep "FULLNAME_TEMP" "$HOME/.bashrc"; then
-
-	# Set bashrc information
-	read -erp "Maintainer full name: " FULLNAME
-	sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"
-	
-fi
-
 if [[ $(git config --global user.email) == "" ]]; then
 
 	echo -e "Please set your GitHub email: "
 	read -erp "Email: " GITEMAIL
 	git config --global user.email "${GITEMAIL}"
 	
-	# set bashrc
-	# If bashrc was not reset, this will have no affect
-	sed -i "s|EMAIL_TEMP|$GITEMAIL|" "$HOME/.bashrc"
-
 else
 
 	echo -e "GitHub global email set. Reset?"
@@ -222,10 +219,6 @@ else
 		echo -e "Please set your GitHub email: "
 		read -erp "Email: " GITEMAIL
 		git config --global user.email "${GITEMAIL}"
-		
-		# set bashrc
-		# If bashrc was not reset, this will have no affect
-		sed -i "s|EMAIL_TEMP|$GITEMAIL|" "$HOME/.bashrc"
 
 	fi
 
@@ -249,17 +242,20 @@ if [[ "${set_host_user}" == "y" ]]; then
 	read -erp "Remote username: " REMOTE_USER_TEMP
 	read -erp "Remote host: " REMOTE_HOST_TEMP
 	read -erp "Remote port: " REMOTE_PORT_TEMP
-	
-	sed -i "s|REMOTE_USER_TEMP|$REMOTE_USER_TEMP|" "$HOME/.bashrc"
-	sed -i "s|REMOTE_HOST_TEMP|$REMOTE_HOST_TEMP|" "$HOME/.bashrc"
-	sed -i "s|REMOTE_PORT_TEMP|$REMOTE_PORT_TEMP|" "$HOME/.bashrc"
+
+	# Use wildcard to assume if it was set to something else before, clear it
+	# when using double quotes here, you do not need to escape $ or =
+	sed -i "s|REMOTE_USER.*|REMOTE_USER=\"${REMOTE_USER_TEMP}\"|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_HOST.*|REMOTE_HOST=\"${REMOTE_HOST_TEMP}\"|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_PORT.*|REMOTE_PORT=\"${REMOTE_PORT_TEMP}\"|" "$HOME/.bashrc"
 
 else
 	
 	# Set var to blank string so value inside build script is taken	
-	sed -i "s|REMOTE_USER_TEMP|$EMAIL|" "$HOME/.bashrc"
-	sed -i "s|REMOTE_HOST_TEMP|$FULLNAME|" "$HOME/.bashrc"
-	sed -i "s|REMOTE_PORT_TEMP|22|" "$HOME/.bashrc"
+	# Use wildcard to assume if it was set to something else before, clear it
+	sed -i "s|REMOTE_USER.*|REMOTE_USER=\"\"|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_HOST.*|REMOTE_HOST=\"\"|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_PORT.*|REMOTE_PORT=\"\"|" "$HOME/.bashrc"
 
 fi
 
@@ -364,11 +360,13 @@ OS=$(lsb_release -si)
 
 if [[ "${OS}" == "SteamOS" ]]; then
 
+	rm -rf "${HOME}/pbuilder/hooks"
 	mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
-	cp -r "${scriptdir}/hooks" "$HOME/pbuilder/"
+	cp -r "${scriptdir}/hooks" "${HOME}/pbuilder/"
 	
 else
 
+	sudo rm -rf "/var/cache/pbuilder/hooks"
 	sudo cp -r "${scriptdir}/hooks" "/var/cache/pbuilder/"
 
 fi
@@ -406,7 +404,7 @@ sudo DIST=[DIST] ARCH=[ARCH] pbuilder [OPERATION]
 Creation on SteamOS:
 sudo -E DIST=[DIST] ARCH=[ARCH] pbuilder create
 
-Operations:
+Common Operations:
 [create|login|login|login --save-after-login|update]
 
 EOF

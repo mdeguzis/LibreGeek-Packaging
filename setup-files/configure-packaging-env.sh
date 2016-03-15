@@ -147,13 +147,14 @@ done
 echo -e "\n==> Adding and configuring dotfiles"
 sleep 2s
 
-# .bashrc
+# Reset setup?
 
 echo -e "\nReset .bashrc? setup?"
-echo -e "This will remove GitHub, quilt, and host setups"
+echo -e "This will remove GitHub, quilt, and host setups, etc."
 sleep 0.5s
 
 # info may already be setup, allow people to ignore it.
+
 read -erp "Choice [y/n]: " bashrc_choice
 
 if [[ "${bashrc_choice}" == "y" ]]; then
@@ -166,11 +167,21 @@ if [[ "${bashrc_choice}" == "y" ]]; then
 	sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
 	
 	cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
-	
-	# Set bashrc information
+
+fi
+
+# Assess if TEMP vars exist, replace them
+# Set bashrc information
+
+if grep "FULLNAME_TEMP" "${HOME}/.bashrc"; then
+
 	read -erp "Maintainer full name: " FULLNAME_TEMP
-	sed -i "s|FULLNAME_TEMP|$FULLNAME|" "$HOME/.bashrc"
-	
+	sed -i "s|FULLNAME_TEMP|$FULLNAME_TEMP|" "$HOME/.bashrc"
+
+fi
+
+if grep "EMAIL_TEMP" "${HOME}/.bashrc"; then
+
 	read -erp "GitHub Email: " EMAIL_TEMP
 	sed -i "s|EMAIL_TEMP|$EMAIL_TEMP|" "$HOME/.bashrc"
 
@@ -305,7 +316,7 @@ else
 	
 	else
 
-		echo -e "Current editor set: ${EDITOR}\n"
+		echo -e "\nCurrent editor set: ${EDITOR}\n"
 		sleep 3s
 		
 	fi

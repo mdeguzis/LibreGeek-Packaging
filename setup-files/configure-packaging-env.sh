@@ -49,10 +49,10 @@ elif [[ "${OS}" == "Arch" ]]; then
 	PACOPTS="--noconfirm --noprogressbar --needed"
 
 	# Get pacaur deps 
-	sudo pacman -SU ${PACOPTS} expac yajl bash-completion
+	sudo pacman -S ${PACOPTS} expac yajl bash-completion
 
 	# packages in the main repos
-	sudo pacman -SUa ${PACOPTS} bc
+	sudo pacman -Sa ${PACOPTS} bc
 
 	# devscripts in the AUR is broken, so it was added to my repo and fixed:
 	# https://github.com/ProfessorKaos64/arch-aur-packages
@@ -76,13 +76,13 @@ elif [[ "${OS}" == "Arch" ]]; then
 	else
 
 		# just update pacaur target (don't reinstall if up to date)
-		pacaur -SUa ${PACOPTS}
+		pacaur -Sa ${PACOPTS}
 
 	fi
 
 	# Finally, get build tools and pbuilder-ubuntu
 	# Pass -S to invoke pacman
-	pacaur -SUa ${PACOPTS} pbuilder-ubuntu apt debian-archive-keyring
+	pacaur -Sa ${PACOPTS} pbuilder-ubuntu apt debian-archive-keyring
 
 else
 

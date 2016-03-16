@@ -1,0 +1,23 @@
+Source: libretro-craft
+Section: games
+Priority: optional
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Uploaders: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Build-Depends: debhelper (>= 9),
+               libegl1-mesa-dev [armhf],
+               libgl1-mesa-dev [!armhf],
+               libgles2-mesa-dev [armhf]
+Standards-Version: 3.9.6
+Homepage: https://www.michaelfogleman.com/craft/
+
+Package: libretro-craft
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Craft
+ This wrapper makes Craft compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ Craft is a Minecraft clone for Windows, Mac OS X and Linux. It is written
+ in just a few thousand lines of C and uses modern OpenGL (shaders). Online
+ multiplayer support is included using a Python-based server. 

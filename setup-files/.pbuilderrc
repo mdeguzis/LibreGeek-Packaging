@@ -130,8 +130,8 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
 
 	if $(echo ${DEBIAN_SUITES[@]} | grep -q "jessie-backports"); then
-		OTHERMIRROR="deb http://httpredir.debian.org/debian/ jessie-backports main \
-		deb-src http://httpredir.debian.org/debian/ jessie-backports main contrib non-free"
+		OTHERMIRROR="deb ftp://ftp.debian.org/debian jessie-backports main \
+		deb-src ftp://ftp.debian.org/debian jessie-backports main contrib non-free"
 	fi
     
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then

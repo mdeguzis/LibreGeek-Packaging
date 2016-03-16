@@ -3,7 +3,10 @@ Section: games
 Priority: optional
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com
 Uploaders: Michael DeGuzis <mdeguzis@gmail.com>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9),
+ libopenal-dev,
+ libalut-dev,
+ liballegro5-dev
 Standards-Version: 3.9.6
 Homepage: https://github.com/libretro/libretro-pcem
 

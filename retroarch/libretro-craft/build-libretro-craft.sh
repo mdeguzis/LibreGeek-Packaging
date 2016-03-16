@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-beetle-ngp.sh
+# Scipt Name:	build-libretro-craft.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest libretro beetle-ngp
+# Description:	Attempts to builad a deb package from latest libretro craft
 #		github release
 #
-# See:		https://github.com/libretro/beetle-ngp-libretro
+# See:		https://github.com/libretro/Craft
 #
-# Usage:	build-libretro-beetle-ngp.sh
+# Usage:	build-libretro-craft.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/libretro/beetle-ngp-libretro"
+git_url="https://github.com/libretro/Craft"
 branch="master"
 
 # package vars
@@ -57,11 +57,11 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="libretro-beetle-ngp"
-pkgver="0.9.36"
-pkgrev="2"
+pkgname="libretro-craft"
+pkgver="1.0"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -79,7 +79,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc
+	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
+	libgl1-mesa-dev
 
 }
 
@@ -143,13 +144,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		"Initial upload"
 		nano "debian/changelog"
  
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		"Initial upload"
 		nano "debian/changelog"
 
 	fi

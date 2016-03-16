@@ -24,7 +24,7 @@ USENETWORK="$USENETWORK"
 ###########################
 
 # List of Debian suites.
-DEBIAN_SUITES=("wheezy" "jessie" "stretch" "sid")
+DEBIAN_SUITES=("wheezy" "jessie" "jessie-backports" "stretch" "sid")
 
 # List of Ubuntu suites. Update these when needed.
 UBUNTU_SUITES=("vivid" "utopic" "trusty" "saucy" "raring" "quantal" "precise" "oneiric" "natty" "lucid" "hardy")

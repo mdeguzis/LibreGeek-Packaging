@@ -136,7 +136,7 @@ main()
 	wget "${DSC}" -q -nc --show-progress
 
 	sudo build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} "${BUILDER}" build --debbuildopts \
-	"sa -v${pkgver}+${pkgsuffix}" "${DSC_FILENAME}" && rm -f ${DSC_FILENAME}
+	"sa -v${pkgver}" "${DSC_FILENAME}" && rm -f ${DSC_FILENAME}
 
 	#################################################
 	# Cleanup

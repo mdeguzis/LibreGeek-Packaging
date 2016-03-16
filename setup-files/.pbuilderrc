@@ -33,7 +33,7 @@ UBUNTU_SUITES=("vivid" "utopic" "trusty" "saucy" "raring" "quantal" "precise" "o
 STEAMOS_SUITES=("alchemist" "alchemist_beta" "brewmaster" "brewmaster_beta")
 
 # Mirrors to use. Update these to your preferred mirror.
-DEBIAN_MIRROR="ftp.debian.org"
+DEBIAN_MIRROR="httpredir.debian.org"
 UBUNTU_MIRROR="mirrors.kernel.org"
 STEAMOS_MIRROR="repo.steampowered.com"
 LIBREGEEK_MIRROR="packages.libregeek.org"
@@ -130,8 +130,7 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
 
 	if $(echo ${DEBIAN_SUITES[@]} | grep -q "jessie-backports"); then
-		OTHERMIRROR="deb ftp://ftp.debian.org/debian jessie-backports main contrib non-free \
-		deb-src ftp://ftp.debian.org/debian jessie-backports main contrib non-free"
+		OTHERMIRROR="deb http://httpredir.debian.org/debian/ jessie-backports main contrib non-free"
 	fi
     
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then

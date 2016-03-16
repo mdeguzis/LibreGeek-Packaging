@@ -51,7 +51,7 @@ fi
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="pdebuild"
+BUILDER="pbuilder"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="rustc"
 pkgver="1.7.0"
@@ -67,7 +67,7 @@ maintainer="ProfessorKaos64"
 ORIGIN="http://http.debian.net/debian/pool/main/r/rustc/"
 DSC="rustc_${pkgver}+dfsg1-1.dsc"
 ORIG_DL="rustc_${pkgver}+dfsg1.orig-dl.tar.xz"
-BUILDOPTS="-sa -v${pkgver}+${pkgsuffix} ${DSC}"
+BUILDOPTS="build --debbuildopts -sa -v${pkgver}+${pkgsuffix} ${DSC}"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
@@ -116,11 +116,9 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# We are backporting, so dl what is only necessary
+	# We are backporting, so don't download anything here
 	mkdir -p "${git_dir}"
-	wget -P "${git_dir}/${DSC}" "${ORIGIN}/${DSC}" -q -nc --show-progress
-	wget -P "${git_dir}/${ORIG_DL}" "${ORIGIN}/${ORIG_DL}" -q -nc --show-progress
-
+	
 	#################################################
 	# Build package
 	#################################################

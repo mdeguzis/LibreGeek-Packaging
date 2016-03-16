@@ -85,8 +85,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper \
- 	g++ clang++ python make curl git
+	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper
 
 }
 
@@ -123,7 +122,7 @@ main()
 
 	# We are backporting, so don't download anything here
 	wget "${ORIG_TAR_GZ}" -q -nc --show-progress
-	mv *.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
+	#mv *.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
 
 	#################################################
 	# Build Debian package

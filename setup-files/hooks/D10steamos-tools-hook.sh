@@ -43,56 +43,56 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	# END BETA REPO HANDLING
 	fi
 
-# END BREWMASTER DIST HANDLING
-fi
-
-####################################
-# Update
-####################################
-
-echo "I: STEAMOS-TOOLS: Updating package listings"
-
-if ! apt-get update -y -q &> /dev/null; then
-
-	echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
-	exit 1
-
-fi
-
-####################################
-# Validation
-####################################
-
-# Add standard files to file list
-
-repo_files+=("/etc/apt/sources.list.d/steamos-tools.list")
-repo_files+=("/etc/apt/sources.list.d/jessie.list")
-repo_files+=("/etc/apt/sources.list.d/jessie-backports.list")
-repo_files+=("/etc/apt/preferences.d/steamos-tools")
-repo_files+=("/etc/apt/preferences.d/jessie")
-repo_files+=("/etc/apt/preferences.d/jessie-backports")
-repo_files+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
-
-# If checking beta, add additioanl files to file list
-
-if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
-
-	repo_files+=("/etc/apt/sources.list.d/steamos-tools-beta.list")
-	repo_files+=("/etc/apt/preferences.d/steamos-tools-beta ")
-
-fi
-
-# Run validation
-for file in ${repo_files};
-do
-	if [[ ! -f "${file}" ]]; then
-
-		echo "E: STEAMOS-TOOLS: Repository validation [FAILED]. Exiting."
+	####################################
+	# Update
+	####################################
+	
+	echo "I: STEAMOS-TOOLS: Updating package listings"
+	
+	if ! apt-get update -y -q &> /dev/null; then
+	
+		echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
 		exit 1
-	else
-
-		echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
-
+	
+	fi
+	
+	####################################
+	# Validation
+	####################################
+	
+	# Add standard files to file list
+	
+	repo_files+=("/etc/apt/sources.list.d/steamos-tools.list")
+	repo_files+=("/etc/apt/sources.list.d/jessie.list")
+	repo_files+=("/etc/apt/sources.list.d/jessie-backports.list")
+	repo_files+=("/etc/apt/preferences.d/steamos-tools")
+	repo_files+=("/etc/apt/preferences.d/jessie")
+	repo_files+=("/etc/apt/preferences.d/jessie-backports")
+	repo_files+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
+	
+	# If checking beta, add additioanl files to file list
+	
+	if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
+	
+		repo_files+=("/etc/apt/sources.list.d/steamos-tools-beta.list")
+		repo_files+=("/etc/apt/preferences.d/steamos-tools-beta ")
+	
 	fi
 
-done
+	# Run validation
+	for file in ${repo_files};
+	do
+		if [[ ! -f "${file}" ]]; then
+	
+			echo "E: STEAMOS-TOOLS: Repository validation [FAILED]. Exiting."
+			exit 1
+		else
+	
+			echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
+	
+		fi
+	
+	done
+
+# END BREWMASTER DIST HANDLING
+fi

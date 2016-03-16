@@ -48,7 +48,7 @@ else
 fi
 
 # Gather vars
-echo -e "==> Setting vars\n"
+echo -e "\n==> Setting vars\n"
 
 read -erp "Target package name: " PKGNAME
 read -erp "Target package version: " PKGVER
@@ -122,7 +122,6 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# We are backporting, so don't download anything here
-	mkdir -p "${git_dir}" && cd "${git_dir}"
 	wget "${ORIG_TAR_GZ}" -q -nc --show-progress
 	mv *.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
 

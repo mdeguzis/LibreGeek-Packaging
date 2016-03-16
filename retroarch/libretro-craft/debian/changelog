@@ -1,11 +1,5 @@
-libretro-craft (1.0+r1~3~ubuntu15.04.1) vivid; urgency=low
+libretro-craft (0.0.1) brewmaster; urgency=low
 
-  * Auto build.
+  * Dummy changelog
 
- -- Launchpad Package Builder <noreply@launchpad.net>  Wed, 16 Mar 2016 01:46:57 +0000
-
-libretro-craft (1.0-1) unstable; urgency=low
-
-  * Initial release (Closes: #xxxxxx).
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Tue, 15 Mar 2016 21:48:00 -0300
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 15 Mar 2016 20:28:00 -0500

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-lutris.sh
+# Scipt Name:	build-rustc.sh
 # Script Ver:	1.1.5
-# Description:	Attempts to build a deb package from latest Lutris
+# Description:	Attempts to build a deb package from latest rust
 #		github release
 #
-# See:		https://github.com/lutris/lutris
+# See:		https://github.com/rust-lang/rust
 #
-# Usage:	build-snis.sh
+# Usage:	build-rustc.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -49,18 +49,18 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/lutris/lutris"
-branch="v0.3.7.5"
+git_url="https://github.com/rust-lang/rust"
+branch="1.7.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="lutris"
-pkgver="0.3.7.5"
+pkgname="rustc"
+pkgver="${branch}"
 upstream_rev="1"
 pkgrev="1"
 pkgsuffix="bsos${pkgrev}"
@@ -81,10 +81,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper \
- 	python dh-python gir1.2-gtk-3.0 gir1.2-glib-2.0 python-gi libgirepository1.0-dev
-
-	# Not originally stated in the upstream control file, these 32 bit libraries are needed:
-	sudo apt-get install -y --force-yes libsdl2-2.0-0:i386
+ 	g++ clang++ python make curl git
 
 }
 
@@ -112,11 +109,6 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
-		
-	else
-	
-		# You stil need these for dh_clean beore the build env starts
-		sudo apt-get install -y --force-yes dh-python python-gi
 
 	fi
 
@@ -148,13 +140,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D $DIST -u "${urgency}" \
-		"New release"
+		"Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
 		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" \
-		-u "${urgency}" "New release"
+		-u "${urgency}" "Initial upload attempt"
 		nano "debian/chanelog"
 
 	fi

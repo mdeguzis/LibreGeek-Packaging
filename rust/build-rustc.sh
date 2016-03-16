@@ -130,7 +130,7 @@ main()
 	sleep 2s
 
 	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	sudo DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

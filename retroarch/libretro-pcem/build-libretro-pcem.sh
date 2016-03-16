@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-beetle-ngp.sh
+# Scipt Name:	build-libretro-pcem.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest libretro beetle-ngp
+# Description:	Attempts to builad a deb package from latest libretro pcem
 #		github release
 #
-# See:		https://github.com/libretro/beetle-ngp-libretro
+# See:		https://github.com/libretro/libretro-pcem
 #
-# Usage:	build-libretro-beetle-ngp.sh
+# Usage:	build-libretro-pcem.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/libretro/beetle-ngp-libretro"
+git_url="https://github.com/libretro/libretro-pcem"
 branch="master"
 
 # package vars
@@ -57,11 +57,11 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="libretro-beetle-ngp"
-pkgver="0.9.36"
-pkgrev="2"
+pkgname="libretro-pcem"
+pkgver="0.1.0"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -143,13 +143,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		"Initial uploader attempt"
 		nano "debian/changelog"
  
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		"Initial uploader attempt"
 		nano "debian/changelog"
 
 	fi

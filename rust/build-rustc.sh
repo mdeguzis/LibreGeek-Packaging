@@ -131,7 +131,7 @@ main()
 
 	#  build
 	wget "${ORIGIN}/${DSC}" -q -nc --show-progress
-	sudo DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	sudo DIST=$DIST ARCH=$ARCH $BUILDER $BUILDOPTS
 	rm -f ${DSC}
 
 	#################################################

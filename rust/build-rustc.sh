@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-rustc.sh
-# Script Ver:	1.1.5
+# Script Ver:	1.1.9
 # Description:	Attempts to build a deb package from backported stretch package
 #
 # See:		https://github.com/rust-lang/rust
@@ -118,8 +118,8 @@ main()
 
 	# We are backporting, so dl what is only necessary
 	mkdir -p "${git_dir}"
-	wget -O "${git_dir}" "${ORIGIN}/${DSC}" -q -nc --show-progress
-	wget -O "${git_dir}" "${ORIGIN}/${ORIG_DL}" -q -nc --show-progress
+	wget -P "${git_dir}" "${ORIGIN}/${DSC}" -q -nc --show-progress
+	wget -P "${git_dir}" "${ORIGIN}/${ORIG_DL}" -q -nc --show-progress
 
 	#################################################
 	# Build package

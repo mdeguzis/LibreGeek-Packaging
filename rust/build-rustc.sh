@@ -68,7 +68,7 @@ ORIGIN="http://http.debian.net/debian/pool/main/r/rustc"
 ORIG_SOURCE="rustc_1.7.0+dfsg1.orig.tar.gz"
 DSC="rustc_${pkgver}+dfsg1-1.dsc"
 ORIG_DL="rustc_${pkgver}+dfsg1.orig-dl.tar.xz"
-BUILDOPTS="build --debbuildopts \"-sa -v${pkgver}+${pkgsuffix}\" $DSC"
+BUILDOPTS="--debbuildopts -sa"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
@@ -131,7 +131,8 @@ main()
 
 	#  build
 	wget "${ORIGIN}/${DSC}" -q -nc --show-progress
-	sudo DIST=$DIST ARCH=$ARCH $BUILDER $BUILDOPTS
+	sudo DIST=$DIST ARCH=$ARCH $BUILDER build "$BUILDOPTS" $DSC
+	
 	rm -f ${DSC}
 
 	#################################################

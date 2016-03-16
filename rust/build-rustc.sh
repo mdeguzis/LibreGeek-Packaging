@@ -4,8 +4,7 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-rustc.sh
 # Script Ver:	1.1.5
-# Description:	Attempts to build a deb package from latest rust
-#		github release
+# Description:	Attempts to build a deb package from backported stretch package
 #
 # See:		https://github.com/rust-lang/rust
 #
@@ -48,26 +47,27 @@ else
 
 fi
 
-# upstream vars
-git_url="https://github.com/rust-lang/rust"
-branch="1.7.0"
-
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="rustc"
-pkgver="${branch}"
+pkgver="1.7.0"
 upstream_rev="1"
 pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+pkgsuffix="bpo8+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
+
+# Backports vars
+ORIGIN="https://packages.debian.org/stretch/rustc"
+DSC="rustc_${pkgver}+dfsg1-1.dsc"
+ORIG_DL="rustc_1.7.0+dfsg1.orig-dl.tar.xz"
+BUILDOPTS="-sa -v${pkgver}+${pkgsuffix} ${DSC}"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
@@ -116,8 +116,10 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	# We are backporting, so dl what is only necessary
+	mkdir -p "${git_dir}"
+	wget -O "${git_dir}" "${ORIGIN}/${DSC}" -q -nc --show-progress
+	wget -O "${git_dir}" "${ORIGIN}/${ORIG_DL}" -q -nc --show-progress
 
 	#################################################
 	# Build package
@@ -139,13 +141,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D $DIST -u "${urgency}" \
 		"Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D "${DIST}" \
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "Initial upload attempt"
 		nano "debian/chanelog"
 

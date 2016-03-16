@@ -105,7 +105,7 @@ main()
 
 	# install prereqs for build
 
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" || "${BUILDER}" != "pbuilder" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -118,6 +118,8 @@ main()
 
 	# We are backporting, so don't download anything here
 	mkdir -p "${git_dir}"
+	wget -P "${git_dir}" \
+	"http://http.debian.net/debian/pool/main/r/rustc/rustc_1.7.0+dfsg1.orig.tar.gz" -q -nc --show-progress
 	
 	#################################################
 	# Build package
@@ -129,27 +131,6 @@ main()
 	# create source tarball
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-
-	# enter source dir
-	cd "${git_dir}"
-
-	echo -e "\n==> Updating changelog"
-	sleep 2s
-
-	# Create basic changelog format if it does exist or update
-	if [[ -f "debian/changelog" ]]; then
-
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D $DIST -u "${urgency}" \
-		"Initial upload attempt"
-		nano "debian/changelog"
-
-	else
-
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" \
-		-u "${urgency}" "Initial upload attempt"
-		nano "debian/chanelog"
-
-	fi
 
 	#################################################
 	# Build Debian package

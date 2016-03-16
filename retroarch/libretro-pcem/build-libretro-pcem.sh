@@ -143,13 +143,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Initial uploader attempt"
+		"Initial upload attempt"
 		nano "debian/changelog"
  
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Initial uploader attempt"
+		"Initial upload attempt"
 		nano "debian/changelog"
 
 	fi

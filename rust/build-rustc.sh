@@ -139,13 +139,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D $DIST -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
 		"Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" \
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upsteam_rev}" --package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "Initial upload attempt"
 		nano "debian/chanelog"
 

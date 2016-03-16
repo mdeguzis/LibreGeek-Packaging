@@ -64,7 +64,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # Backports vars
-ORIGIN="http://http.debian.net/debian/pool/main/r/rustc/"
+ORIGIN="http://http.debian.net/debian/pool/main/r/rustc"
 ORIG_SOURCE="rustc_1.7.0+dfsg1.orig.tar.gz"
 DSC="rustc_${pkgver}+dfsg1-1.dsc"
 ORIG_DL="rustc_${pkgver}+dfsg1.orig-dl.tar.xz"

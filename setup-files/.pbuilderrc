@@ -102,6 +102,14 @@ if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
 	# Set beta flag so additional beta repo mirror will be added later
 	STEAMOS_BETA="true"
 	
+elif [[ "${DIST}" == "jessie-backports" ]]; then
+
+	# Set DIST
+	DIST=$(sed "s|-backports||g" <<<${DIST})
+
+	# Set real distribution
+	DISTRIBUTION="${DIST}"
+	
 else
 
 	# Set to expected DIST
@@ -121,8 +129,9 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
 	COMPONENTS="main contrib non-free"
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
 
-	if $(echo "$STABLE_CODENAME stable" | grep -q $DIST); then
-		OTHERMIRROR="$OTHERMIRROR | deb $MIRRORSITE $STABLE_BACKPORTS_SUITE $COMPONENTS"
+	if $(echo ${DEBIAN_SUITES[@]} | grep -q "jessie-backports"); then
+		OTHERMIRROR="deb http://httpredir.debian.org/debian/ jessie-backports main \
+		deb-src http://httpredir.debian.org/debian/ jessie-backports main contrib non-free"
 	fi
     
 elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then

@@ -131,7 +131,7 @@ main()
 	#  build
 	wget "${ORIGIN}/${DSC}" -q -nc --show-progress
 
-	sudo DIST=${DIST} ARCH=${ARCH} "${BUILDER}" build --debbuildopts \
+	sudo build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} "${BUILDER}" build --debbuildopts \
 	"sa -v${pkgver}+${pkgsuffix}" "${DSC}" && rm -f ${DSC}
 
 	#################################################

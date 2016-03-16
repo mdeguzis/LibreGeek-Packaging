@@ -47,27 +47,32 @@ else
 
 fi
 
+# Gather vars
+echo -e "==> Setting vars\n"
+
+read -erp "Target package name: " PKGNAME
+read -erp "Target package version: " PKGVER
+read -erp "Arch target: " ARCH
+read -erp "Paste link to upsteam .dsc: " DSC
+read -erp "Paste link to upsteam .orig.tar.gz: " ORIG_TAR_GZ
+
+DSC_FILENAME=$(basename ${ORIG_TAR_GZ})
+
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-ARCH="amd64"
+ARCH="$ARCH"
 BUILDER="pbuilder"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="rustc"
-pkgver="1.7.0"
+pkgname="$PKGNAME"
+pkgver="$PKGVER"
 upstream_rev="1"
 pkgrev="1"
 pkgsuffix="bpo8+bsos${pkgrev}"
-DIST="brewmaster"
+DIST="jessie-backports"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-
-# Backports vars
-ORIGIN="http://http.debian.net/debian/pool/main/r/rustc"
-ORIG_SOURCE="rustc_1.7.0+dfsg1.orig.tar.gz"
-DSC="rustc_${pkgver}+dfsg1-1.dsc"
-ORIG_DL="rustc_${pkgver}+dfsg1.orig-dl.tar.xz"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
@@ -118,8 +123,8 @@ main()
 
 	# We are backporting, so don't download anything here
 	mkdir -p "${git_dir}" && cd "${git_dir}"
-	wget "${ORIGIN}/${ORIG_SOURCE}" -q -nc --show-progress
-	mv "${ORIG_SOURCE}" "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
+	wget "${ORIG_TAR_GZ}" -q -nc --show-progress
+	mv *.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
 
 	#################################################
 	# Build Debian package
@@ -129,10 +134,10 @@ main()
 	sleep 2s
 
 	#  build
-	wget "${ORIGIN}/${DSC}" -q -nc --show-progress
+	wget "${DSC}" -q -nc --show-progress
 
 	sudo build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} "${BUILDER}" build --debbuildopts \
-	"sa -v${pkgver}+${pkgsuffix}" "${DSC}" && rm -f ${DSC}
+	"sa -v${pkgver}+${pkgsuffix}" "${DSC_FILENAME}" && rm -f ${DSC_FILENAME}
 
 	#################################################
 	# Cleanup

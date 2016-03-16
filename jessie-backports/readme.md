@@ -3,6 +3,6 @@ Listing and information for packages that have been backported, or are in-progre
 
 # jessie-backports
 
-| Package name  | Descript.                 | Links     | Status  |
-|---------------|---------------------------|-----------|---------|
-|rustc          | Rust programming language | [Main](https://packages.debian.org/stretch/rustc)| WIP |
+| Package name  | Source         |Descript.                  | Links     | Status  |
+|---------------|----------------|---------------------------|-----------|---------|
+|rustc          | Debian Stretch | Rust programming language | [Main](https://packages.debian.org/stretch/rustc)| WIP |

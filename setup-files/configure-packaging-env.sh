@@ -431,6 +431,9 @@ fi
 echo -e "\nAdding symlinks for /usr/share/debootstrap/scripts"
 sleep 1s
 
+# jessie-backports
+sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/jessie-backports" 2> /dev/null
+
 # brewmaster
 sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster" 2> /dev/null
 sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster_beta" 2> /dev/null

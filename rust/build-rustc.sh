@@ -65,6 +65,7 @@ maintainer="ProfessorKaos64"
 
 # Backports vars
 ORIGIN="http://http.debian.net/debian/pool/main/r/rustc/"
+ORIG_SOURCE="rustc_1.7.0+dfsg1.orig.tar.gz"
 DSC="rustc_${pkgver}+dfsg1-1.dsc"
 ORIG_DL="rustc_${pkgver}+dfsg1.orig-dl.tar.xz"
 BUILDOPTS="build --debbuildopts -sa -v${pkgver}+${pkgsuffix} ${DSC}"
@@ -105,7 +106,7 @@ main()
 
 	# install prereqs for build
 
-	if [[ "${BUILDER}" != "pdebuild" || "${BUILDER}" != "pbuilder" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "pbuilder" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -117,20 +118,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# We are backporting, so don't download anything here
-	mkdir -p "${git_dir}"
-	wget -P "${git_dir}" \
-	"http://http.debian.net/debian/pool/main/r/rustc/rustc_1.7.0+dfsg1.orig.tar.gz" -q -nc --show-progress
-	
-	#################################################
-	# Build package
-	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# create source tarball
-	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	mkdir -p "${git_dir}" && cd "${git_dir}"
+	wget "${ORIGIN}/${ORIG_SOURCE}" -q -nc --show-progress
+	mv "${ORIG_SOURCE}" "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
 
 	#################################################
 	# Build Debian package

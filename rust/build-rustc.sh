@@ -66,7 +66,7 @@ maintainer="ProfessorKaos64"
 # Backports vars
 ORIGIN="https://packages.debian.org/stretch/rustc"
 DSC="rustc_${pkgver}+dfsg1-1.dsc"
-ORIG_DL="rustc_1.7.0+dfsg1.orig-dl.tar.xz"
+ORIG_DL="rustc_${pkgver}+dfsg1.orig-dl.tar.xz"
 BUILDOPTS="-sa -v${pkgver}+${pkgsuffix} ${DSC}"
 
 # set build_dir
@@ -118,8 +118,8 @@ main()
 
 	# We are backporting, so dl what is only necessary
 	mkdir -p "${git_dir}"
-	wget -P "${git_dir}" "${ORIGIN}/${DSC}" -q -nc --show-progress
-	wget -P "${git_dir}" "${ORIGIN}/${ORIG_DL}" -q -nc --show-progress
+	wget -P "${git_dir}/${DSC}" "${ORIGIN}/${DSC}" -q -nc --show-progress
+	wget -P "${git_dir}/${ORIG_DL}" "${ORIGIN}/${ORIG_DL}" -q -nc --show-progress
 
 	#################################################
 	# Build package

@@ -3,4 +3,6 @@ Listing and information for packages that have been backported, or are in-progre
 
 # jessie-backports
 
-* `rustc` - Rust programming language (in progress) - origin: sid (testing)
+| Package name  | Descript.                 | Links     | Status  |
+|---------------|---------------------------|-----------|---------|
+|rustc          | Rust programming language | [Main](https://packages.debian.org/stretch/rustc)| WIP |

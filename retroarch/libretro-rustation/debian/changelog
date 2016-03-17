@@ -1,10 +1,4 @@
-libretro-craft (1.0+git+bsos1) brewmaster; urgency=low
-
-  * Initial upload
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Wed, 16 Mar 2016 08:46:45 -0400
-
-libretro-craft (0.0.1) brewmaster; urgency=low
+libretro-rustation (0.0.1) brewmaster; urgency=low
 
   * Dummy changelog
 

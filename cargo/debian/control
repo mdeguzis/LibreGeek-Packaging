@@ -3,13 +3,13 @@ Section: devel
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com)
 Build-Depends: debhelper,
- rust
- python
- curl
- cmake
- pkg-config
- libssl-dev
- git
+ rust,
+ python,
+ curl,
+ cmake,
+ pkg-config,
+ libssl-dev,
+ git,
  libssh2-1-dev
 Standards-Version: 3.9.6
 Homepage: https://crates.io and https://github.com/rust-lang/cargo

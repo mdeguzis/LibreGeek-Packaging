@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-cargo.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.1.9
 # Description:	Attempts to build a deb package from latest cargo
 #		github release
 #
@@ -121,10 +121,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	# Do not use `--recursive ` here. While the submodules will recurse fine,
-	# This conflicts then with the pathing wiht a later usage of git within the makefile
-	# Let the make file fetch the first batch of main submodules usually obtained by --recursive
-	git clone  -b "${branch}" "${git_url}" "${git_dir}"
+	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package

@@ -12,7 +12,7 @@ export DH_VERBOSE=1
 export CARGO_HOME = $(CURDIR)/cargo-home
 
 %:
-	dh $@ --sourcedirectory=cargo
+	dh $@
 
 override_dh_auto_configure:
 	./configure --prefix=/usr/lib/rust/cargo

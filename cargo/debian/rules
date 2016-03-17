@@ -15,8 +15,8 @@ export CARGO_HOME = $(CURDIR)/cargo-home
 	dh $@ --sourcedirectory=cargo
 
 override_dh_auto_configure:
-	#dh_auto_configure -- --prefix=/usr/lib/rust/cargo-nightly
-	cd cargo;./configure --prefix=/usr/lib/rust/cargo-nightly
+	#dh_auto_configure -- --prefix=/usr/lib/rust/cargo
+	cd cargo;./configure --prefix=/usr/lib/rust/cargo
 
 override_dh_auto_test:
 	# make test fails so skip

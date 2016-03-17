@@ -4,8 +4,8 @@ set -e
 
 case "$1" in
 configure)
-update-alternatives --install /usr/bin/cargo cargo /usr/lib/rust/cargo-nightly/bin/cargo 50 
-update-alternatives --set cargo /usr/lib/rust/cargo-nightly/bin/cargo
+update-alternatives --install /usr/bin/cargo cargo /usr/lib/rust/cargo/bin/cargo 50 
+update-alternatives --set cargo /usr/lib/rust/cargo/bin/cargo
 ;;
 esac
 

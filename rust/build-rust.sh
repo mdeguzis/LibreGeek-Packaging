@@ -54,7 +54,7 @@ git_url="https://github.com/rust-lang/rust"
 branch="1.7.0"
 
 # Need network for rust build (uses git sub modules)
-export USENETWORK="yes"
+export USE_NETWORK="yes"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

@@ -41,11 +41,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -77,12 +77,12 @@ git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
-	clear
-	echo -e "==> Installing prerequisites for building...\n"
+
+	echo -e "\n==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
-	rustc cargo
+	apt-get -y --force-yes install build-essential pkg-config bc debhelper \
+	rustc cargo git nano devscripts
 
 }
 
@@ -105,8 +105,17 @@ main()
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# For now still build in pbuilder chroot (using root directory workaround script)
+		# We need to then obtain the libregeek steamos-tools repo configs
+		wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc --show-progress
+		sed -i "s|sudo ||g" "configure-repos.sh"
+		bash "configure-repos.sh"
+		apt-get udpate -y
+		apt-get install -y steamos-tools-beta-repo
+		apt-get update -y
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -148,7 +157,7 @@ main()
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Initial upload"
 		nano "debian/changelog"
- 
+
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
@@ -170,12 +179,12 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
@@ -183,14 +192,14 @@ main()
 
 	# inform user of packages
 	cat<<-EOF
-	
+
 	###############################################################
 	If package was built without errors you will see it below.
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
-	
+
 	Showing contents of: ${build_dir}
-	
+
 	EOF
 
 	ls "${build_dir}" | grep -E "${pkgver}" 

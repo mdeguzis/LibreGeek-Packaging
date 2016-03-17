@@ -2,15 +2,15 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-rust.sh
-# Script Ver:	1.1.5
-# Description:	Attempts to build a deb package from latest rust
+# Scipt Name:	build-cargo.sh
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from latest cargo
 #		github release
 #
-# See:		https://github.com/rust-lang/rust
-#		https://launchpad.net/~hansjorg/+archive/ubuntu/rust
+# See:		https://github.com/rust-lang/cargo
+#		https://launchpad.net/~hansjorg/+archive/ubuntu/cargo
 #
-# Usage:	build-.sh
+# Usage:	build-cargo.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -50,8 +50,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/rust-lang/rust"
-branch="1.7.0"
+git_url="https://github.com/rust-lang/cargo"
+branch="0.9.0"
 
 
 # package vars
@@ -60,10 +60,10 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-export BUILD_DEBUG="false"
+export BUILD_DEBUG="true"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="yes"
-pkgname="rustc"
+pkgname="cargo"
 pkgver="${branch}"
 upstream_rev="1"
 pkgrev="1"
@@ -85,7 +85,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper \
- 	g++ clang++ python make curl git
+ 	python curl git cmake libssl-dev
 
 }
 

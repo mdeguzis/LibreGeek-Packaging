@@ -108,15 +108,6 @@ main()
 
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
-		# For now still build in pbuilder chroot (using root directory workaround script)
-		# We need to then obtain the libregeek steamos-tools repo configs
-		wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc --show-progress
-		sed -i "s|sudo ||g" "configure-repos.sh"
-		bash "configure-repos.sh"
-		apt-get udpate -y
-		apt-get install -y steamos-tools-beta-repo
-		apt-get update -y
-
 		# handle prereqs on host machine
 		install_prereqs
 
@@ -143,14 +134,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	#cp -r "$scriptdir/debian" "${git_dir}"
-	
-	# Use workaround method for now
-	wget "https://github.com/ProfessorKaos64/LibreGeek-Packaging/raw/brewmaster/retroarch/libretro-rustation/debian.tar.gz" \
-	-q -nc --show-progress
-	tar -xzf debian.tar.gz
-	cp -r debian/ "${git_dir}"
-	rm -f debian.tar.gz
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${src_dir}"

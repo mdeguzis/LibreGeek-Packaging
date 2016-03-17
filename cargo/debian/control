@@ -3,7 +3,7 @@ Section: devel
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper,
- rust,
+ rustc,
  python,
  curl,
  cmake,

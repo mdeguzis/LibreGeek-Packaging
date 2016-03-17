@@ -41,11 +41,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -61,8 +61,8 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="retroarch-assets"
 pkgver="0.1"
-pkgrev="2"
-pkgsuffix="git+bsos${pkgrev}"
+pkgrev="1"
+pkgsuffix="${date_short}git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -102,7 +102,7 @@ main()
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
@@ -145,10 +145,12 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		nano "debian/changelog"
 
 	fi
 
@@ -166,37 +168,31 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
-	
-	echo -e "Showing contents of: ${build_dir}: \n"
+	cat<<-EOF
+
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+
+	Showing contents of: ${build_dir}
+
+	EOF
+
 	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
@@ -208,9 +204,11 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then
@@ -221,4 +219,3 @@ main()
 
 # start main
 main
-

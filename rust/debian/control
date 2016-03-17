@@ -1,25 +1,23 @@
-Source: rustc
+Source: rust
 Section: devel
-Priority: optional
-Build-Depends: debhelper,
- g++ (>= 4.7),
- clang++  (>= 3),
- python (>= 2.7,
- make  (>= 3.81),
+Priority: extra
+Maintainer: Hans Jørgen Hoel <hansjorg@gmail.com>
+Build-Depends: debhelper (>= 7),
+ autotools-dev,
  curl,
+ file,
+ python,
+ pandoc,
+ nodejs,
+ po4a,
+ gcc,
+ g++,
  git
-Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
-Standards-Version: 3.9.5
-Vcs-Git: https://github.com/rust-lang/rust
-Homepage: https://github.com/rust-lang/rust
+Standards-Version: 3.9.6
+Homepage: http://rust-lang.org
 
-Package: rustc
-Architecture: amd64
-Depends: ${misc:Depends},
- ${shlibs:Depends}
-Description: Package for Rust programming language.
- .
- Rust is a general-purpose, multi-paradigm, compiled programming language 
- developed by Mozilla Research.[12] It is designed to be a "safe, concurrent, 
- practical language",[13] supporting pure-functional, imperative-procedural, 
- and object-oriented styles.
+Package: rust
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Rust compiler and tools
+ Compiler, libraries and tools for the Rust programming language.

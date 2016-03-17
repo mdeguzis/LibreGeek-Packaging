@@ -41,16 +41,16 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # upstream vars
 git_url="https://github.com/libretro/RetroArch"
-rel_target="v1.3.1"
+rel_target="v1.3.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,8 +60,8 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="retroarch"
-pkgver="1.3.1"
-pkgrev="3"
+pkgver="1.3.2"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"

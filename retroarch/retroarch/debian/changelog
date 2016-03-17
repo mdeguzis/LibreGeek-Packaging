@@ -1,3 +1,9 @@
+retroarch (1.3.2+git+bsos1) brewmaster; urgency=low
+
+  * Update to 1.3.2 latest release
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Wed, 16 Mar 2016 21:56:25 -0400
+
 retroarch (1.3.1+git+bsos2) brewmaster; urgency=low
 
   * Enabled joypad autoconfig (upstream borked it)

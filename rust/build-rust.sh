@@ -2,14 +2,15 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-rustc.sh
+# Scipt Name:	build-rust.sh
 # Script Ver:	1.1.5
 # Description:	Attempts to build a deb package from latest rust
 #		github release
 #
 # See:		https://github.com/rust-lang/rust
+#		https://launchpad.net/~hansjorg/+archive/ubuntu/rust
 #
-# Usage:	build-rustc.sh
+# Usage:	build-rust.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -52,6 +53,9 @@ fi
 git_url="https://github.com/rust-lang/rust"
 branch="1.7.0"
 
+# Need network for rust build (uses git sub modules)
+export USENETWORK="yes"
+
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
@@ -59,7 +63,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="rustc"
+pkgname="rust"
 pkgver="${branch}"
 upstream_rev="1"
 pkgrev="1"
@@ -130,6 +134,9 @@ main()
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
+	# Add debian dir
+	cp -r "${scriptdir}/debian" "${git_dir}"
+
 	# enter source dir
 	cd "${git_dir}"
 
@@ -139,15 +146,15 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D $DIST -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
 		"Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" \
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "Initial upload attempt"
-		nano "debian/chanelog"
+		nano "debian/changelog"
 
 	fi
 
@@ -164,27 +171,27 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-	
+
 	# inform user of packages
 	cat<<-EOF
-	
+
 	###############################################################
 	If package was built without errors you will see it below.
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
-	
+
 	Showing contents of: ${build_dir}
-	
+
 	EOF
 
 	ls "${build_dir}" | grep -E "${pkgver}" 

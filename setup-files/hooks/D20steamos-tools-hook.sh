@@ -94,5 +94,10 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	
 	done
 
+else
+	
+	# just output text
+	echo "I: STEAMOS-TOOLS: Not applicable to dist ${DIST}"
+
 # END BREWMASTER DIST HANDLING
 fi

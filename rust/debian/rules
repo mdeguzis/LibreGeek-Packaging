@@ -13,7 +13,7 @@
 	dh $@ 
 
 override_dh_auto_configure:
-	CC=gcc-4.7 CXX=g++-4.7 ./configure --prefix=/usr/lib/rust/rust
+	CC=gcc-4.9 CXX=g++-4.9 ./configure --prefix=/usr/lib/rust/rust
 
 override_dh_auto_test:
 	# make test started to fail so skip

@@ -7,7 +7,7 @@ sleep 1s
 
 if [[ $(dpkg --print-foreign-architectures | grep -i "i386") == "" ]]; then
 
-	"I: CUSTOM ACTION (Multiarch): Multiarch not found. Adding"
+	echo -e "I: CUSTOM ACTION (Multiarch): Multiarch not found"
 	
 	# add 32 bit support
 	if dpkg --add-architecture i386; then

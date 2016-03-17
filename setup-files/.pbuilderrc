@@ -128,6 +128,7 @@ if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
 	MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
 	COMPONENTS="main contrib non-free"
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
+	EXTRAPACKAGES="gdebi-core wget ca-certificates"
 
 	if $(echo ${DEBIAN_SUITES[@]} | grep -q "jessie-backports"); then
 		OTHERMIRROR="deb http://httpredir.debian.org/debian/ jessie-backports main contrib non-free"
@@ -139,6 +140,7 @@ elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg")
 	MIRRORSITE="http://$UBUNTU_MIRROR/ubuntu/"
 	COMPONENTS="main restricted universe multiverse"
+	EXTRAPACKAGES="gdebi-core wget ca-certificates"
     
 elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 

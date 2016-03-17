@@ -53,8 +53,6 @@ fi
 git_url="https://github.com/rust-lang/rust"
 branch="1.7.0"
 
-# Need network for rust build (uses git sub modules)
-export USE_NETWORK="yes"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -63,6 +61,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
+export USE_NETWORK="no"
 pkgname="rust"
 pkgver="${branch}"
 upstream_rev="1"
@@ -121,7 +120,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package

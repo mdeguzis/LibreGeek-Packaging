@@ -1,4 +1,4 @@
-Source: rust
+Source: rustc
 Section: devel
 Priority: extra
 Maintainer: Hans Jørgen Hoel <hansjorg@gmail.com>
@@ -16,7 +16,7 @@ Build-Depends: debhelper (>= 7),
 Standards-Version: 3.9.6
 Homepage: http://rust-lang.org
 
-Package: rust
+Package: rustc
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Rust compiler and tools

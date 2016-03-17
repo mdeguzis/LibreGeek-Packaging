@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-craft.sh
+# Scipt Name:	build-libretro-rustation.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to builad a deb package from latest libretro craft
+# Description:	Attempts to builad a deb package from latest libretro rustation
 #		github release
 #
-# See:		https://github.com/libretro/Craft
+# See:		https://github.com/libretro/rustation
 #
-# Usage:	build-libretro-craft.sh
+# Usage:	build-libretro-rustation.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/libretro/Craft"
+git_url="https://github.com/libretro/rustation-libretro"
 branch="master"
 
 # package vars
@@ -57,13 +57,13 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -sa"
 export BUILD_DEBUG="false"
-export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="libretro-craft"
-pkgver="1.0"
+export STEAMOS_TOOLS_BETA_HOOK="true"
+pkgname="libretro-rustation"
+pkgver="0.0.1"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="${date_short}git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -81,7 +81,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
-	libgl1-mesa-dev
+	rustc cargo
 
 }
 
@@ -117,7 +117,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
@@ -205,7 +205,6 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
 
 			# Keep changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"

@@ -10,12 +10,5 @@ endif
 %:
 	dh $@ --parallel
 
-override_dh_auto_configure:
-
 override_dh_auto_build:
-	$(MAKE) -f Makefile.libretro $(PLATFORM)
-
-override_dh_auto_clean:
-	$(MAKE) -f Makefile.libretro clean
-
-override_dh_auto_install:
+	cargo build --release

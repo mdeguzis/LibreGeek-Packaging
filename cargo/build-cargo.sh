@@ -208,6 +208,9 @@ main()
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
+			# Keep changelog
+            		cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

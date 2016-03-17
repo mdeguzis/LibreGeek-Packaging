@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Purpose of this is to ensure multiarch is enabled for any DIST
 
 echo -e "I: CUSTOM ACTION (Multiarch): Checking for multi-arch support"

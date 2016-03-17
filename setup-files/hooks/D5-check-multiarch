@@ -1,0 +1,27 @@
+# Purpose of this is to ensure multiarch is enabled for any DIST
+
+echo -e "I: CUSTOM ACTION (Multiarch): Checking for multi-arch support"
+sleep 1s
+
+if [[ "$(dpkg --print-foreign-architectures | grep -i i386) == "" ]]; then
+
+	"I: CUSTOM ACTION (Multiarch): Multiarch not found. Adding"
+	
+	# add 32 bit support
+	if dpkg --add-architecture i386; then
+	
+		echo -e "I: CUSTOM ACTION (Multiarch): Multiarch support [Added]"
+		sleep 1s
+	
+	else
+	
+		echo -e "I: CUSTOM ACTION (Multiarch): Multiarch addition [FAILED]. Exiting"
+		exit 1
+	
+	fi
+
+else
+
+echo -e "I: CUSTOM ACTION (Multiarch): Multi-arch support [OK]"	
+
+fi

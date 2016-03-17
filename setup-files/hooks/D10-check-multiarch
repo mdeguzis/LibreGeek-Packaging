@@ -3,7 +3,7 @@
 echo -e "I: CUSTOM ACTION (Multiarch): Checking for multi-arch support"
 sleep 1s
 
-if [[ "$(dpkg --print-foreign-architectures | grep -i i386) == "" ]]; then
+if [[ "$(dpkg --print-foreign-architectures | grep -i i386)" == "" ]]; then
 
 	"I: CUSTOM ACTION (Multiarch): Multiarch not found. Adding"
 	
@@ -22,6 +22,6 @@ if [[ "$(dpkg --print-foreign-architectures | grep -i i386) == "" ]]; then
 
 else
 
-echo -e "I: CUSTOM ACTION (Multiarch): Multi-arch support [OK]"	
+	echo -e "I: CUSTOM ACTION (Multiarch): Multi-arch support [OK]"	
 
 fi

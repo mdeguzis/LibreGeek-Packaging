@@ -17,7 +17,7 @@ AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
 PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
 
 # Allow internet access during build
-USENETWORK="$USENETWORK"
+USENETWORK="${$USE_NETWORK}"
 
 ###########################
 # DIST/SUITE CONFIGURAITON

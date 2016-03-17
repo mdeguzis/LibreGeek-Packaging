@@ -1,4 +1,4 @@
-cargo (0.9.0) brewmaster; urgency=low
+cargo (0.9.0+bsos1-1) brewmaster; urgency=low
 
   * Initial upload
 

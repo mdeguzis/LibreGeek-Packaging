@@ -2,15 +2,15 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-rust.sh
-# Script Ver:	1.1.5
-# Description:	Attempts to build a deb package from latest rust
+# Scipt Name:	build-cargo.sh
+# Script Ver:	0.1.9
+# Description:	Attempts to build a deb package from latest cargo
 #		github release
 #
-# See:		https://github.com/rust-lang/rust
-#		https://launchpad.net/~hansjorg/+archive/ubuntu/rust
+# See:		https://github.com/rust-lang/cargo
+#		https://launchpad.net/~hansjorg/+archive/ubuntu/cargo
 #
-# Usage:	build-.sh
+# Usage:	build-cargo.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -50,8 +50,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/rust-lang/rust"
-branch="1.7.0"
+git_url="https://github.com/rust-lang/cargo"
+branch="0.9.0"
 
 
 # package vars
@@ -60,10 +60,10 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-export BUILD_DEBUG="false"
-export STEAMOS_TOOLS_BETA_HOOK="false"
+export BUILD_DEBUG="true"
+export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
-pkgname="rustc"
+pkgname="cargo"
 pkgver="${branch}"
 upstream_rev="1"
 pkgrev="1"
@@ -85,7 +85,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper \
- 	g++ clang++ python make curl git
+ 	python curl git cmake libssl-dev
 
 }
 
@@ -121,10 +121,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	# Do not use `--recursive ` here. While the submodules will recurse fine,
-	# This conflicts then with the pathing wiht a later usage of git within the makefile
-	# Let the make file fetch the first batch of main submodules usually obtained by --recursive
-	git clone  -b "${branch}" "${git_url}" "${git_dir}"
+	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -210,6 +207,9 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			# Keep changelog
+            		cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 
 		fi
 

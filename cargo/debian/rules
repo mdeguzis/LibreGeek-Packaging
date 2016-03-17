@@ -12,17 +12,11 @@ export DH_VERBOSE=1
 export CARGO_HOME = $(CURDIR)/cargo-home
 
 %:
-	dh $@ --sourcedirectory=cargo
+	dh $@
 
 override_dh_auto_configure:
-	#dh_auto_configure -- --prefix=/usr/lib/rust/cargo-nightly
-	cd cargo;./configure --prefix=/usr/lib/rust/cargo-nightly
+	./configure --prefix=/usr/lib/rust/cargo
 
 override_dh_auto_test:
 	# make test fails so skip
 	true
-
-override_dh_auto_build:
-	#CARGO_HOME=`pwd`/cargo-home dh_auto_build
-	cd cargo; make
-

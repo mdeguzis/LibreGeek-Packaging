@@ -10,7 +10,7 @@
 # See:		https://github.com/rust-lang/rust
 #		https://launchpad.net/~hansjorg/+archive/ubuntu/rust
 #
-# Usage:	build-rust.sh
+# Usage:	build-.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ BUILDOPTS=""
 export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="yes"
-pkgname="rust"
+pkgname=""
 pkgver="${branch}"
 upstream_rev="1"
 pkgrev="1"

@@ -1,12 +1,20 @@
-Source: cargo-nightly
+Source: cargo
 Section: devel
 Priority: extra
-Maintainer: Hans Jørgen Hoel <hansjorg@gmail.com>
-Build-Depends: debhelper (>= 7), rust-nightly, python, curl, cmake, pkg-config, libssl-dev, git, libssh2-1-dev
-Standards-Version: 3.9.2
-Homepage: https://crates.io
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com)
+Build-Depends: debhelper,
+ rust
+ python
+ curl
+ cmake
+ pkg-config
+ libssl-dev
+ git
+ libssh2-1-dev
+Standards-Version: 3.9.6
+Homepage: https://crates.io and https://github.com/rust-lang/cargo
 
-Package: cargo-nightly
+Package: cargo
 Architecture: amd64
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: The Rust package manager

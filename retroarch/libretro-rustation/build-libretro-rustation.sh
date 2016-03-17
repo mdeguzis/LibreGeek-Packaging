@@ -81,7 +81,7 @@ install_prereqs()
 	echo -e "\n==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	apt-get -y --force-yes install build-essential pkg-config bc debhelper \
+	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
 	rustc cargo git nano devscripts
 
 }

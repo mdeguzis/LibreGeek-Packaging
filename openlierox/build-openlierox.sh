@@ -58,6 +58,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
+export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="openlierox"
 upstream_rev="1"

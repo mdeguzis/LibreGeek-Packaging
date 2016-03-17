@@ -11,4 +11,5 @@ endif
 	dh $@ --parallel
 
 override_dh_auto_build:
+	cargo fetch
 	cargo build --release

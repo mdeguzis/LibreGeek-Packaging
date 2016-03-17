@@ -7,7 +7,7 @@
 # Description:	Attempts to builad a deb package from latest libretro rustation
 #		github release
 #
-# See:		https://github.com/libretro/rustation
+# See:		https://github.com/libretro/rustation-libretro
 #
 # Usage:	build-libretro-rustation.sh
 # Opts:		[--testing]

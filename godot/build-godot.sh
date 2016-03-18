@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-godot.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.5.1
 # Description:	Attempts to build a deb package from latest godot
 #		github release
 #
@@ -123,6 +123,9 @@ main()
 	# clone
 	git clone  -b "${branch}" "${git_url}" "${git_dir}"
 
+	# Add art / other files
+	cp "${scriptdir}/godot.png" "${git_dir}"
+
 	#################################################
 	# Build package
 	#################################################
@@ -136,9 +139,6 @@ main()
 
 	# Add debian dir
 	cp -r "${scriptdir}/debian" "${git_dir}"
-	
-	# Add art / other files
-	cp "${scriptdir}/godot.png" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

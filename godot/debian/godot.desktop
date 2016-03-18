@@ -2,7 +2,7 @@
 Name=godot
 Comment=Ffully featured, open source, MIT licensed, game engine
 Exec=/usr/bin/godot
-Icon=/usr/share/pixmaps/godot.png
+Icon=/usr/share/pixmaps/godot_icon.png
 Terminal=false
 Type=Application
 Categories=Development;

@@ -61,6 +61,7 @@ export BUILDER="pdebuild"
 export BUILD_DEBUG="true"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
+BUILDOPTS="--debbuildopts -b"
 pkgname="libretro-rustation"
 pkgver="0.0.1"
 pkgrev="1"
@@ -112,16 +113,6 @@ main()
 		install_prereqs
 	
 	fi
-		
-	if [[ "${BUILDER}" == "pdebuild" ]]; then 
-	
-		BUILDOPTS="--debbuildopts -b"
-		
-	elif [[ "${BUILDER}" == "debuild" ]]; then
-	
-		BUILDOPTS="-b"
-
-	fi
 
 	# Clone upstream source code and branch
 
@@ -155,14 +146,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Initial upload"
+		dch -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Initial upload"
+		dch --create -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	fi

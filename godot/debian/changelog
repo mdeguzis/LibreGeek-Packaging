@@ -1,0 +1,5 @@
+rustc (1.7.0+bsos1-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 17 Mar 2016 12:28:00 -0500

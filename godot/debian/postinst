@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+configure)
+update-alternatives --install /usr/bin/rustc rustc /usr/lib/rust/rust/bin/rustc 500 \
+--slave /usr/share/man/man1/rustc.1 rustc.1 /usr/lib/rust/rust/share/man/man1/rustc.1 \
+--slave /usr/share/man/man1/rustdoc.1 rustdoc.1 /usr/lib/rust/rust/share/man/man1/rustdoc.1 \
+--slave /usr/bin/rustdoc rustdoc /usr/lib/rust/rust/bin/rustdoc
+update-alternatives --set rustc /usr/lib/rust/rust/bin/rustc
+;;
+esac
+
+# no good, fix: http://lintian.debian.org/tags/package-modifies-ld.so-search-path.html
+echo "/usr/lib/rust/rust/lib" > /etc/ld.so.conf.d/rust.conf
+ldconfig
+
+
+#DEBHELPER#
+

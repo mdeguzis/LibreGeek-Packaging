@@ -1,0 +1,23 @@
+Source: rustc
+Section: devel
+Priority: extra
+Maintainer: Hans Jørgen Hoel <hansjorg@gmail.com>
+Build-Depends: debhelper (>= 7),
+ autotools-dev,
+ curl,
+ file,
+ python,
+ pandoc,
+ nodejs,
+ po4a,
+ gcc,
+ g++,
+ git
+Standards-Version: 3.9.6
+Homepage: http://rust-lang.org
+
+Package: rustc
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Rust compiler and tools
+ Compiler, libraries and tools for the Rust programming language.

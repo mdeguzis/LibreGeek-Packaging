@@ -1,23 +1,32 @@
-Source: rustc
+Source: godot
 Section: devel
 Priority: extra
-Maintainer: Hans Jørgen Hoel <hansjorg@gmail.com>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 7),
- autotools-dev,
- curl,
- file,
- python,
- pandoc,
- nodejs,
- po4a,
+ build-essential,
  gcc,
- g++,
- git
+ pkg-config,
+ python,
+ libasound2-dev,
+ libfreetype6-dev,
+ libgl1-mesa-dev,
+ libglu-dev,
+ libssl-dev,
+ libudev-dev,
+ libx11-dev,
+ libxinerama-dev,
+ libxcursor-dev,
+ scons
 Standards-Version: 3.9.6
 Homepage: http://rust-lang.org
 
-Package: rustc
+Package: godot
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Rust compiler and tools
- Compiler, libraries and tools for the Rust programming language.
+Description: Godot game engine
+ Godot is a fully featured, open source, MIT licensed, game engine.
+ .
+ It focuses on having great tools, and a visual oriented workflow that
+ can export to PC, Mobile and Web platforms with no hassle. The editor,
+ language and APIs are feature rich, yet simple to learn, allowing you
+ to become productive in a matter of hours.

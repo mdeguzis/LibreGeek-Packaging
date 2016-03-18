@@ -143,7 +143,11 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	wget "https://github.com/ProfessorKaos64/LibreGeek-Packaging/raw/brewmaster/retroarch/libretro-rustation/debian.tar.gz" \
+	-q -nc --show-progress
+	tar -xzf debian.tar.gz
+	cp -r "debian" "${git_dir}"
+	rm debian.tar.gz
 
 	# enter source dir
 	cd "${src_dir}"

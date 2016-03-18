@@ -82,7 +82,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	apt-get -y --force-yes install build-essential pkg-config bc debhelper \
-	rustc cargo git nano devscripts
+	rustc cargo git nano devscripts fakeroot
 
 }
 

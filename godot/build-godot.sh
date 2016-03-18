@@ -2,13 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-rust.sh
-# Script Ver:	1.1.5
-# Description:	Attempts to build a deb package from latest rust
+# Scipt Name:	build-godot.sh
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from latest godot
 #		github release
 #
-# See:		https://github.com/rust-lang/rust
-#		https://launchpad.net/~hansjorg/+archive/ubuntu/rust
+# See:		https://github.com/godotengine/godot
 #
 # Usage:	build-.sh
 # Opts:		[--testing]
@@ -50,8 +49,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/rust-lang/rust"
-branch="1.7.0"
+git_url="https://github.com/godotengine/godot"
+branch="2.0-stable"
 
 
 # package vars
@@ -59,11 +58,11 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-export USE_NETWORK="yes"
-pkgname="rustc"
+export USE_NETWORK="no"
+pkgname="godotc"
 pkgver="${branch}"
 upstream_rev="1"
 pkgrev="1"
@@ -84,8 +83,9 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper \
- 	g++ clang++ python make curl git
+	sudo apt-get -y --force-yes install autoconf automake build-essential bc debhelper \
+ 	gcc python scons libx11-dev pkg-config libxcursor-dev libasound2-dev libfreetype60dev \
+ 	libgl1-mesa-dev libglu-dev libssl-dev libxinerama-dev libudev-dev
 
 }
 
@@ -121,9 +121,6 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	# Do not use `--recursive ` here. While the submodules will recurse fine,
-	# This conflicts then with the pathing wiht a later usage of git within the makefile
-	# Let the make file fetch the first batch of main submodules usually obtained by --recursive
 	git clone  -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################

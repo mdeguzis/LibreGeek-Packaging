@@ -84,7 +84,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential bc debhelper \
- 	gcc python scons libx11-dev pkg-config libxcursor-dev libasound2-dev libfreetype60dev \
+ 	gcc python scons libx11-dev pkg-config libxcursor-dev libasound2-dev libfreetype6-dev \
  	libgl1-mesa-dev libglu-dev libssl-dev libxinerama-dev libudev-dev
 
 }

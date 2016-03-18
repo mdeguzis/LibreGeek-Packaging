@@ -3,13 +3,13 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-PKGNAME.sh
-# Script Ver:	1.1.0
+# Script Ver:	0.1.9
 # Description:	Attempts to build a deb package from latest PKGNAME
 #		github release
 #
-# See:		GIT URL
+# See:		GITURL / WEBSITE
 #
-# Usage:	./build-PKGNAME.sh
+# Usage:	build-PKGNAME.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -23,40 +23,52 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-# repo destination vars (use only local hosts!)
-USER="mikeyd"
-HOST="archboxmtd"
+# Check if USER/HOST is setup under ~/.bashrc, set to default if blank
+# This keeps the IP of the remote VPS out of the build script
+
+if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
+
+	# fallback to local repo pool target(s)
+	REMOTE_USER="mikeyd"
+	REMOTE_HOST="archboxmtd"
+	REMOTE_PORT="22"
+
+fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
+
 # upstream vars
-git_url="GIT_URL"
+git_url="GITURL"
 branch="BRANCH"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-ARCH="amd64"
-BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+ARCH="ARCH"
+BUILDER="BUILDER"
+BUILDOPTS=""
+export BUILD_DEBUG="true"
+export STEAMOS_TOOLS_BETA_HOOK="false"
+export USE_NETWORK="yes"
 pkgname="PKGNAME"
-pkgver="VERSION"
-pkgrev="1"
+pkgver="PKGVER"
 upstream_rev="1"
-pkgsuffix="git+bsos${pkgrev}"
-DIST="brewmaster"
+pkgrev="1"
+pkgsuffix="SUFFIX${pkgrev}"
+DIST="DIST"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dirs
+# set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"
@@ -67,7 +79,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc
+	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper
 
 }
 
@@ -88,9 +100,9 @@ main()
 
 	# enter build dir
 	cd "${build_dir}" || exit
-	
-	
+
 	# install prereqs for build
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
@@ -99,17 +111,12 @@ main()
 	fi
 
 	# Clone upstream source code and branch
-	# NOTE! - If you wish to source versions or commits automatically into variables here,
-	# 	  such as commits, of upstream tags, see docs/pkg-versioning.md
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and checkout latest commit
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
-	
-	# add debian files (if need be)
-	cp -r "${scriptdir}/debian" "${git_dir}"
-	
+	# clone
+	git clone  -b "${branch}" "${git_url}" "${git_dir}"
+
 	#################################################
 	# Build package
 	#################################################
@@ -118,8 +125,11 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${build_dir}" || exit
-	tar -cvzf "${pkgname}-${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+
+	# Add debian dir
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -127,14 +137,18 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
+		"Initial upload attempt"
+		nano "debian/changelog"
 
 	else
 
-		dch --create -v "${pkgver}+${pkgsuffix}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" \
+		-u "${urgency}" "Initial upload attempt"
+		nano "debian/changelog"
 
 	fi
 
@@ -145,6 +159,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
+	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
@@ -161,20 +176,19 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
 	# inform user of packages
-	cat<<- EOF
-	#################################################################
+	cat<<-EOF
+
+	###############################################################
 	If package was built without errors you will see it below.
-	If you don't, please check build dependency errors listed above.
-	#################################################################
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+
+	Showing contents of: ${build_dir}
 
 	EOF
 
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep -E *${pkgver}*
+	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -183,18 +197,14 @@ main()
 
 	if [[ "$transfer_choice" == "y" ]]; then
 
+		# transfer files
 		if [[ -d "${build_dir}" ]]; then
+			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
-			# copy files to remote server
-			rsync -arv --exclude-from=$HOME/.config/SteamOS-Tools/repo-exclude.txt ${build_dir}/*${pkgver}* ${USER}@${HOST}:${REPO_FOLDER}
-########################################
-			# Only move the old changelog if transfer occurs to keep final changelog 
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
-			
-			# If using a fork instead with debiain/ upstream
-			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin "${branch}"
-			cd "${scriptdir}"
-########################################
+			# Keep changelog
+            		cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

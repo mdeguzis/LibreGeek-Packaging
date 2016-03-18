@@ -136,6 +136,9 @@ main()
 
 	# Add debian dir
 	cp -r "${scriptdir}/debian" "${git_dir}"
+	
+	# Add art / other files
+	cp "${scriptdir}/godot.png" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

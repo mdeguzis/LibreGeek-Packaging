@@ -57,11 +57,7 @@ branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
-
-# set builder,opts as arg1 for now so this doesn't need to be updated each time
-# we test pbuilder vs debuild (because of issues with pbuilder)
-BUILDER="$arg1"
-
+BUILDER="pdebuild"
 export BUILD_DEBUG="true"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"

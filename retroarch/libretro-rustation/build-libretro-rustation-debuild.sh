@@ -81,7 +81,7 @@ install_prereqs()
 	echo -e "\n==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
+	apt-get -y --force-yes install build-essential pkg-config bc debhelper \
 	rustc cargo git nano devscripts
 
 }
@@ -107,6 +107,15 @@ main()
 	# install prereqs for build
 
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# For now still build in pbuilder chroot (using root directory workaround script)
+		# We need to then obtain the libregeek steamos-tools repo configs
+		wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc --show-progress
+		sed -i "s|sudo ||g" "configure-repos.sh"
+		bash "configure-repos.sh"
+		apt-get udpate -y
+		apt-get install -y steamos-tools-beta-repo
+		apt-get update -y
 
 		# handle prereqs on host machine
 		install_prereqs

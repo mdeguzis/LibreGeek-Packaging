@@ -1,10 +1,8 @@
 #!/usr/bin/make -f
 
 # Try workaround for pbuilder woes with cargo fetch
-if [[ "${BUILDER}" == "pdebuild" ]]; then
-
 ifeq ($(BUILDER),pdebuild)
-export HOME=$(CURDIR)/debian/home-tmp
+	export HOME=$(CURDIR)/debian/home-tmp
 endif
 
 %:

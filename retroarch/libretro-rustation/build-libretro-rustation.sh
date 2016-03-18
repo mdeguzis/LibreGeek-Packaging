@@ -19,6 +19,7 @@
 #################################################
 
 arg1="$1"
+arg2="$2"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
@@ -56,8 +57,11 @@ branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+
+# set builder,opts as arg1 for now so this doesn't need to be updated each time
+# we test pbuilder vs debuild (because of issues with pbuilder)
+BUILDER="$arg1"
+
 export BUILD_DEBUG="true"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
@@ -110,6 +114,16 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
+	
+	fi
+		
+	if [[ "${BUILDER}" == "pdebuild" ]]; then 
+	
+		BUILDOPTS="--debbuildopts -b"
+		
+	elif [[ "${BUILDER}" == "debuild" ]]; then
+	
+		BUILDOPTS="-b"
 
 	fi
 

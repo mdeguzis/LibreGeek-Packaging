@@ -12,12 +12,5 @@
 %:
 	dh $@ 
 
-override_dh_auto_configure:
-	CC=gcc-4.9 CXX=g++-4.9 ./configure --prefix=/usr/lib/rust/rust
-
-override_dh_auto_test:
-	# make test started to fail so skip
-	true
-
-override_dh_shlibdeps:
-	LD_LIBRARY_PATH=$(CURDIR)/debian/rust/usr/lib/rust/rust/lib:$(LD_LIBRARY_PATH) dh_shlibdeps -l$(CURDIR)/debian/rust/usr/lib/rust/rust/lib
+override_dh_auto_build:
+	scots platform=x11

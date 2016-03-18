@@ -1,11 +1,7 @@
 #!/usr/bin/make -f
 
-
-ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
-
-ifeq ($(ARCH),armhf)
-	PLATFORM=platform="armv hardfloat gles"
-endif
+# Try workaround for pbuilder woes with cargo fetch
+export HOME=$(CURDIR)/debian/home-tmp
 
 %:
 	dh $@ --parallel

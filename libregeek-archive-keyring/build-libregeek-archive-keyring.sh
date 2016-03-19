@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-libregeek-archive-keyring.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.4.1
 # Description:	Builds simple pacakge libregeek archive keyring
 #
 # See:		packages.libregeek.org
@@ -60,7 +60,7 @@ BUILDOPTS=""
 export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-archive-keyring"
-pkgver="0.1"
+pkgver="0.5"
 pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"
 pkgrev="1"
@@ -112,7 +112,6 @@ main()
 
 	fi
 
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
@@ -127,15 +126,12 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "$pkgname"
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Enter git dir to build
 	cd "${git_dir}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -144,6 +140,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		nano "debian/changelog"
 
 	else
 
@@ -177,46 +174,37 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<-EOF
+	
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+	
+	Showing contents of: ${build_dir}
+	
+	EOF
 
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep ${pkgver}
+	ls "${build_dir}" | grep -E "${pkgver}" 
 
-	if [[ "$autobuild" != "yes" ]]; then
+	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+	sleep 0.5s
+	# capture command
+	read -erp "Choice: " transfer_choice
 
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-		sleep 0.5s
-		# capture command
-		read -erp "Choice: " transfer_choice
+	if [[ "$transfer_choice" == "y" ]]; then
 
-		if [[ "$transfer_choice" == "y" ]]; then
+		# transfer files
+		if [[ -d "${build_dir}" ]]; then
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
-			# transfer packages
-			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
-
-			# update changelog
-			cd "${git_dir}" && git add debian/changelog  && git commit -m "Update changelog" && git push origin master
-			cd "${scriptdir}"
-
-		elif [[ "$transfer_choice" == "n" ]]; then
-			echo -e "Upload not requested\n"
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
+
+	elif [[ "$transfer_choice" == "n" ]]; then
+		echo -e "Upload not requested\n"
 	fi
 
 }

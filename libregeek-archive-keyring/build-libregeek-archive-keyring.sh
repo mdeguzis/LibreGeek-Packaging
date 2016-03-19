@@ -139,8 +139,6 @@ main()
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
-		nano "debian/changelog"
-
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \

@@ -60,7 +60,7 @@ BUILDOPTS=""
 export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-archive-keyring"
-pkgver="0.5"
+pkgver="0.2"
 pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"
 pkgrev="1"
@@ -120,15 +120,12 @@ main()
 	# Build package
 	#################################################
 
-	# enter build dir to package attempt
-	cd "${build_dir}"
-
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Enter git dir to build
 	cd "${git_dir}"

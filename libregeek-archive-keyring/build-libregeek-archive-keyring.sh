@@ -44,11 +44,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # package vars
@@ -104,7 +104,7 @@ main()
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
@@ -174,14 +174,14 @@ main()
 
 	# inform user of packages
 	cat<<-EOF
-	
+
 	###############################################################
 	If package was built without errors you will see it below.
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
-	
+
 	Showing contents of: ${build_dir}
-	
+
 	EOF
 
 	ls "${build_dir}" | grep -E "${pkgver}" 
@@ -195,7 +195,7 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"

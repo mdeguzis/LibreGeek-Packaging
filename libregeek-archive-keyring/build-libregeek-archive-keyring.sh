@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-libregeek-archive-keyring.sh
-# Script Ver:	0.4.1
+# Script Ver:	0.7.1
 # Description:	Builds simple pacakge libregeek archive keyring
 #
 # See:		packages.libregeek.org
@@ -198,8 +198,8 @@ main()
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cd "${git_dir}" && git add debian/changelog && git push origin master
-			cd "${scriptdir}"
+			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog"
+			git push origin master && cd "${scriptdir}"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

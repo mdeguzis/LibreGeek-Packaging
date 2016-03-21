@@ -61,7 +61,6 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 ARCH="i386"
 pkgname="pcsx2-unstable"
 pkgrev="1"
-upstream_rev="1"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -163,7 +162,7 @@ main()
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
         # Alter pkg suffix based on commit
-        pkgsuffix="${date_short}git+bsos${pkgrev}"
+        pkgsuffix="${date_short}git+bsos"
 
 	#################################################
 	# Prepare build (upstream-specific)
@@ -202,9 +201,6 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# enter build dir to create tarball
 	cd "${build_dir}"
 
@@ -220,13 +216,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update build to latest upstream commit [$latest_commit]"
 		nano debian/changelog
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update build to latest upstream commit [$latest_commit]"
 		nano debian/changelog
 

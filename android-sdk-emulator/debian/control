@@ -1,33 +1,23 @@
-Source: godot
-Section: devel
-Priority: extra
+Source: android-sdk-emulator
+Section: misc
+Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 7),
- build-essential,
- gcc,
- pkg-config,
- python,
- libasound2-dev,
- libfreetype6-dev,
- libgl1-mesa-dev,
- libglu-dev,
- libpulse-dev,
- libssl-dev,
- libudev-dev,
- libx11-dev,
- libxinerama-dev,
- libxcursor-dev,
- scons
+ openjdk-8-jre,
+ openjdk-8-jdk,
+ icedtea-7-plugin
 Standards-Version: 3.9.6
-Homepage: http://rust-lang.org
+Homepage: http://developer.android.com/
 
-Package: godot
+Package: android-sdk-emulator
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Godot game engine
- Godot is a fully featured, open source, MIT licensed, game engine.
+Description: Android SDK Emulator setup package.
+ This package provides an easy and quick setup for the Android SDK
+ Emulator.
  .
- It focuses on having great tools, and a visual oriented workflow that
- can export to PC, Mobile and Web platforms with no hassle. The editor,
- language and APIs are feature rich, yet simple to learn, allowing you
- to become productive in a matter of hours.
+ Android software development is the process by which new applications
+ are created for the Android operating system. Applications are usually 
+ developed in Java programming language using the Android software
+ development kit (SDK), but other development environments are also
+ available.

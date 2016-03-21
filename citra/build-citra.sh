@@ -37,8 +37,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
@@ -62,10 +60,10 @@ BUILDOPTS="--debbuildopts -b"
 export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="citra"
-pkgver="${date_short}"
+pkgver="0.${date_short}"
 pkgrev="1"
 # Base version sourced from ZIP file version
-pkgsuffix="${dateshort}git+bsos"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

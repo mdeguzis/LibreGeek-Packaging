@@ -2,7 +2,7 @@
 
 # Set dirs
 ANDROID_HOME="${HOME}/android-sdk"
-mkdir -p "${ANDROID_HOME}
+mkdir -p "${ANDROID_HOME}"
 
 # Determine laest Linux archive
 
@@ -13,13 +13,13 @@ html2text | grep Linux | grep sdk | awk '{print $2}')
 TARGET_URL="http://dl.google.com/android/android-${LATEST_VER}linux.tgz"
 
 # Get source
-wget -P "${ANDROID_HOME} "${TARGET_URL}" -q -nc --show-progress
+wget -P "${ANDROID_HOME}" "${TARGET_URL}" -q -nc --show-progress
 
 # Extract
-tar -xzf "android-${LATEST_VER}linux.tgz" -C "${ANDROID_HOME}
+tar -xzf "android-${LATEST_VER}linux.tgz" -C "${ANDROID_HOME}"
 
 # Kick off installation
-${ANDROID_HOME}/android
+${ANDROID_HOME}/android-sdk-linux/tools/android 
 
 # Cleanup
 rm -f "android-${LATEST_VER}linux.tgz"

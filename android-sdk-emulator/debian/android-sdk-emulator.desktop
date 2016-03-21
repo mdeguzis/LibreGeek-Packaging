@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Android SDK Emulator
+Comment=Official Android SDK emulator
+Exec=/usr/bin/android-sdk-emulator
+Icon=/usr/share/pixmaps/android_emu_icon.png
+Terminal=false
+Type=Application
+Categories=Development;

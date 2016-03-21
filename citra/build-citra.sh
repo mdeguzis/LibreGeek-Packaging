@@ -64,9 +64,8 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="citra"
 pkgver="${date_short}"
 pkgrev="1"
-upstream_rev="1"
 # Base version sourced from ZIP file version
-pkgsuffix="${dateshort}git+bsos${pkgrev}"
+pkgsuffix="${dateshort}git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -153,13 +152,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 

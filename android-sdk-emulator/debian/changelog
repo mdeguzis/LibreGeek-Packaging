@@ -1,5 +1,5 @@
-godot (0.0.1+bsos1-1) brewmaster; urgency=low
+android-sdk-emulator (0.0.1+bsos-1) brewmaster; urgency=low
 
   * Dummy changelog
 
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 17 Mar 2016 12:28:00 -0500
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 17 Mar 2016 12:28:00 -0500

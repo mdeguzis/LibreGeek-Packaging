@@ -3,9 +3,11 @@ Section: misc
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 7),
+ curl,
  openjdk-8-jre,
  openjdk-8-jdk,
- icedtea-7-plugin
+ icedtea-7-plugin,
+ wget
 Standards-Version: 3.9.6
 Homepage: http://developer.android.com/
 

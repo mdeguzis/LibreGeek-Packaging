@@ -1,5 +1,8 @@
 #!/usr/bin/make -f
 # See: https://github.com/RPCS3/rpcs3/blob/master/.travis.yml
+# https://github.com/RPCS3/rpcs3
+
+# Clang and GCC are too old on Debian Jessie
 
 %:
 	dh $@
@@ -9,6 +12,6 @@ override_dh_auto_clean:
 override_dh_clean:
 
 override_dh_auto_build:
-	cmake -DCMAKE_CXX_COMPILER=clang++ \
-	-DCMAKE_C_COMPILER=clang \
+	cmake -DCMAKE_CXX_COMPILER=g++ \
+	-DCMAKE_C_COMPILER=gcc \
 	-DCMAKE_INSTALL_PREFIX=/usr \

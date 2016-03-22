@@ -10,5 +10,5 @@ override_dh_clean:
 
 override_dh_auto_build:
 	cmake -DCMAKE_CXX_COMPILER=clang++ \
-		-DCMAKE_C_COMPILER=clang -DCMAKE_INSTALL_PREFIX=/usr \
-		-DLLVM_DIR=/usr/local/opt/llvm36/lib/llvm-3.6/share/llvm/cmake
+	-DCMAKE_C_COMPILER=clang \
+	-DCMAKE_INSTALL_PREFIX=/usr \

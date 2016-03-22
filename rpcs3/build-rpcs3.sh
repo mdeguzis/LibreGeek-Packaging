@@ -57,10 +57,11 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="false"
+pkgver="0.0.0.6"
 pkgname="rpcs3"
 pkgrev="1"
 # Base version sourced from ZIP file version
-pkgsuffix="git+bsos"
+pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -71,6 +72,7 @@ export NETWORK="no"
 
 # set build directories
 export build_dir="${HOME}/build-${pkgname}-temp"
+src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
@@ -116,18 +118,6 @@ main()
 	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
-
-	# get latest base release
-	# This is used because upstream does tends to use release tags
-	release_tag=$(git describe --abbrev=0 --tags)
-	git checkout $release_tag 1> /dev/null
-
-	# cleanup for pkg version naming
-	pkgver=$(sed "s|[-|a-z]||g" <<<"$release_tag")
-	src_dir="${pkgname}-${pkgver}"
-
-	# Alter pkg suffix based on commit
-        pkgsuffix="git+bsos"
         
         # There are a LOT of submodules/history, trim them
         echo -e "\nTrimming .git folders"

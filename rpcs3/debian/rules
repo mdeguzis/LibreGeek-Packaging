@@ -1,5 +1,8 @@
 #!/usr/bin/make -f
 
+# Jessie's gcc is too old, use clang
+ export CXX="clang++-3.5" CC="clang-3.5"
+
 %:
 	dh $@
 	

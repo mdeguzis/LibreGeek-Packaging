@@ -61,7 +61,7 @@ pkgname="rpcs3"
 pkgrev="1"
 # Base version sourced from ZIP file version
 pkgsuffix="${date_short}git+bsos"
-DIST="stretch"
+DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"

@@ -3,13 +3,7 @@
 #
 # invoke shell if build fails.
 
-# Only call if debug is specified
-
-if [[ "${BUILD_DEBUG}" == "true" ]]; then
-
-	BUILDDIR="${BUILDDIR:-/tmp/buildd}"
-	apt-get install -y "${APTGETOPT[@]}" vim less 
-	cd "$BUILDDIR"/*/debian/..
-	/bin/bash < /dev/tty > /dev/tty 2> /dev/tty
-
-fi
+BUILDDIR="${BUILDDIR:-/tmp/buildd}"
+apt-get install -y "${APTGETOPT[@]}" vim less 
+cd "$BUILDDIR"/*/debian/..
+/bin/bash < /dev/tty > /dev/tty 2> /dev/tty

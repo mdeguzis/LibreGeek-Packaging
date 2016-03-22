@@ -3,8 +3,6 @@
 %:
 	dh $@
 	
-# Note: Vulkan-LoaderAndValidationLayers/tests/gtest-1.7.0/src/gtest-port.cc.orig
-# is ignored during dh_clean. This seems to be a backup file. Disregard warning for now
+override_dh_auto_clean:
 
-# override_dh_auto_clean
-# override_dh_clean
+override_dh_clean:

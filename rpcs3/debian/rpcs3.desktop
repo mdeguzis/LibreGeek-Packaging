@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Citra
+Comment=Experiemental 3DS emulator software
+Exec=/usr/bin/citra-qt
+Icon=/usr/share/pixmaps/Citra.png
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/steam;

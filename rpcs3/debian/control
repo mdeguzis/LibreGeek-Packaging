@@ -1,0 +1,17 @@
+Source: rpcs3
+Section: games
+Priority: optional
+Build-Depends: debhelper,
+ build-essential  
+ libopenal-dev,
+ libglew-dev,
+ libwxgtk3.0-dev
+Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
+Standards-Version: 3.9.5
+Homepage: https://github.com/RPCS3/rpcs3
+
+Package: rpcs3
+Architecture: all
+Depends: ${misc:Depends},
+ ${shlibs:Depends}
+Description: An open-source PS3 emulator/debugger written in C++ 

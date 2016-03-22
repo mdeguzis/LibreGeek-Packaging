@@ -2,7 +2,7 @@ Source: rpcs3
 Section: games
 Priority: optional
 Build-Depends: debhelper,
- build-essential  
+ build-essential,
  libopenal-dev,
  libglew-dev,
  libwxgtk3.0-dev

@@ -41,11 +41,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -63,7 +63,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="retroarch-joypad-autoconfig"
 pkgver="0.1.1"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -81,7 +81,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
-	build-essential devscripts 
+	build-essential devscripts
 
 }
 
@@ -104,14 +104,13 @@ main()
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
 
 	fi
-
 
 	# Clone upstream source code and branch
 
@@ -124,7 +123,7 @@ main()
 	git checkout $latest_commit 1> /dev/null
 
 	# Alter pkg suffix based on commit
-	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
+	pkgsuffix="${latest_commit}git+bsos"
 
 	#################################################
 	# Build platform
@@ -132,18 +131,15 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-	
+
 	# enter build dir to create tarball
 	cd "${build_dir}"
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	cp -r ""$scriptdir/debian"" "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	###############################################################
 	# correct any files needed here that you can ahead of time
@@ -152,18 +148,19 @@ main()
 	# enter source dir
 	cd "${src_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update to latest commit [${latest_commit}]"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -181,8 +178,6 @@ main()
 	# Cleanup
 	#################################################
 
-	# clean up dirs
-
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -192,7 +187,6 @@ main()
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
 
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
@@ -211,7 +205,7 @@ main()
 	echo -e "############################################################\n"
 
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep -E "${pkgver}" 
+	ls "${build_dir}" | grep -E "${pkgver}"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

@@ -1,3 +1,9 @@
+dolphin-emu-master (4.0.20160321git+bsos1-1) brewmaster; urgency=low
+
+  * Built against latest commit: [3ff56aa]
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 21 Mar 2016 10:39:01 -0400
+
 dolphin-emu-master (4.0.20160314git+bsos2-1) brewmaster; urgency=low
 
   * Initial upload / build attempt

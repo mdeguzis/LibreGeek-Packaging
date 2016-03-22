@@ -1,3 +1,9 @@
+retroarch-joypad-autoconfig (0.1.1+f7f6107git+bsos-1) brewmaster; urgency=low
+
+  * Update to latest commit [f7f6107]
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 21 Mar 2016 20:53:45 -0400
+
 retroarch-joypad-autoconfig (0.1.1+782dab7git+bsos1) brewmaster; urgency=low
 
   * Update gamepad profiles against latest commit 782dab7

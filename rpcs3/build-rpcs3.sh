@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt name:	build-rpcs3.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.3.1
 # Description:	Attempts to build a deb package from the latest rpcs3 source
 #		code.
 #
@@ -128,9 +128,13 @@ main()
 
 	# Alter pkg suffix based on commit
         pkgsuffix="git+bsos"
+        
+        # There are a LOT of submodules/history, trim them
+        echo -e "\nTrimming .git folders"
+        find "${git_dir}" -name "*.git" -print0 | xargs -0 rm -rf
 
 	# Add image to git dir
-	cp -r "${scriptdir}/rpcs3.png" "${git_dir}"
+	# cp -r "${scriptdir}/rpcs3.png" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -145,7 +149,6 @@ main()
 
 	# Add required files
 	cp -r "${scriptdir}/debian" "${git_dir}"
-	cp "${git_dir}/license.txt" "${git_dir}/debian/LICENSE"
 
 	# enter source dir
 	cd "${git_dir}"

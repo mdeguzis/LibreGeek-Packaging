@@ -58,7 +58,6 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 export BUILDER="pdebuild"
-export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
 BUILDOPTS="--debbuildopts -b"

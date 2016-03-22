@@ -81,7 +81,6 @@ set_vars()
 	urgency="low"
 	BUILDER="pdebuild"
 	BUILDOPTS="--debbuildopts \"-j4\""
-export BUILD_DEBUG="false"
 	export STEAMOS_TOOLS_BETA_HOOK="true"
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

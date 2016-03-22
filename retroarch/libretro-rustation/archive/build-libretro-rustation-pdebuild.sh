@@ -58,7 +58,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="debuild"
 BUILDOPTS="-b"
-export BUILD_DEBUG="true"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
 pkgname="libretro-rustation"

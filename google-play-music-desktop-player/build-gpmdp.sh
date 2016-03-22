@@ -58,7 +58,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="debuild"
 BUILDOPTS=""
-export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="google-play-music-desktop-player"
 pkgver="3.0.0"

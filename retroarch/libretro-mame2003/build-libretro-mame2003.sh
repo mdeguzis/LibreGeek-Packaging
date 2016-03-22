@@ -58,7 +58,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-export BUILD_DEBUG="false"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libretro-mame2003"
 pkgver="0.78"

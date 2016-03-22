@@ -59,7 +59,6 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-export BUILD_DEBUG="true"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 pkgname="godot"

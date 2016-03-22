@@ -67,11 +67,10 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # Need network for pbuilder to pull down ut4 zip
-export NETWORK="yes"
+export NETWORK="no"
 
 # set build directories
 export build_dir="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
@@ -125,6 +124,7 @@ main()
 
 	# cleanup for pkg version naming
 	pkgver=$(sed "s|[-|a-z]||g" <<<"$release_tag")
+	src_dir="${pkgname}-${pkgver}"
 
 	# Alter pkg suffix based on commit
         pkgsuffix="git+bsos"

@@ -143,7 +143,7 @@ main()
 	#  build
 	wget "${DSC}" -q -nc --show-progress
 
-	if ! sudo build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} "${BUILDER}" build \
+	if ! sudo -E build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} "${BUILDER}" build \
 	"${DSC_FILENAME}" && rm -f ${DSC_FILENAME}; then
 
 		# back out to scriptdir

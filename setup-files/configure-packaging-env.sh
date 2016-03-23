@@ -42,8 +42,21 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	fi
 
+	# Standard packages
+	echo "\nInstalling main packages\n"
+	sleep 2s
+
 	sudo apt-get install -y --force-yes pbuilder libselinux1 libselinux1:i386 \
 	lsb-release bc devscripts sudo
+	
+	# Open Build System
+	echo "\nInstalling Open Build System package\n"
+	sleep 2s
+
+	sudo cp "${scriptdir}/etc/apt/sources.list.d/osc.list" "/etc/apt/sources.list.d/"
+	apt-get update -y
+	apt-get install -y --force-yes osc
+
 
 elif [[ "${OS}" == "Arch" ]]; then
 
@@ -111,6 +124,22 @@ elif [[ "${OS}" == "Arch" ]]; then
 	# Finally, get build tools and pbuilder-ubuntu
 	# Pass -S to invoke pacman
 	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-archive-keyring
+	
+	# OBS Open Build System
+	if [[ $(grep "openSUSE_Tools_Arch_Extra" "/etc/pacman.conf") == "" ]]; then
+
+		sudo su -c "echo '[openSUSE_Tools_Arch_Extra]' >> /etc/pacman.conf"
+		sudo su -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
+		sudo su -c "echo 'Server = http://download.opensuse.org/repositories/openSUSE:/Tools/Arch_Extra/$arch' >> /etc/pacman.conf"
+
+		if [[ $(pacman -Qs osc) == "" ]]; then
+
+			sudo pacman -Syu
+			sudo pacman -S openSUSE_Tools_Arch_Extra/osc
+
+		fi
+
+	fi
 
 else
 
@@ -420,6 +449,10 @@ else
 	sudo cp -r "${scriptdir}/hooks" "/var/cache/pbuilder/"
 
 fi
+
+#################################################
+# OpenSUSE - Open Build System setup
+#################################################
 
 ##########################
 # Extra setup

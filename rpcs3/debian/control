@@ -3,10 +3,16 @@ Section: games
 Priority: optional
 Build-Depends: debhelper,
  build-essential,
- clang,
+ clang (>=3.6),
  cmake,
+ g++ (>=5),
+ gcc (>=5),
+ libc6-dev,
+ libedit-dev,
  libopenal-dev,
  libglew-dev,
+ libstdc++-4.8-dev,
+ lib32stdc++6,
  libwxgtk3.0-dev,
  zlib1g-dev,
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>

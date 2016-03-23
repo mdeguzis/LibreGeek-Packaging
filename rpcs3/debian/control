@@ -14,7 +14,7 @@ Build-Depends: debhelper,
  libstdc++-4.8-dev,
  lib32stdc++6,
  libwxgtk3.0-dev,
- zlib1g-dev,
+ zlib1g-dev
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
 Standards-Version: 3.9.5
 Homepage: https://github.com/RPCS3/rpcs3

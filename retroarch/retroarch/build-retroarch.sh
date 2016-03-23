@@ -61,7 +61,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="retroarch"
 pkgver="1.3.2"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -126,10 +126,17 @@ main()
 	# clone
 	git clone -b "$rel_target" "$git_url" "$git_dir"
 
-
 	# inject .desktop file (not found in release archives) and image
 	cp -r "$scriptdir/retroarch.png" "$git_dir"
 	cp -r "$scriptdir/retroarch.desktop" "$git_dir"
+	
+	###############################################################
+	# correct any files needed here that you can ahead of time
+	###############################################################
+
+	# For whatever reason, some "defaults" don't quite work
+	# Mayeb ship a config file in the future instead
+	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/retroarch.cfg"
 
 	#################################################
 	# Build package
@@ -145,15 +152,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	cp -r ""$scriptdir/debian"" "${git_dir}"
-
-	###############################################################
-	# correct any files needed here that you can ahead of time
-	###############################################################
-
-	# For whatever reason, some "defaults" don't quite work
-	# Mayeb ship a config file in the future instead
-	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/retroarch.cfg"
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${src_dir}"
@@ -162,10 +161,11 @@ main()
 	sleep 2s
 
  	# update changelog with dch
+ 	# Maybe include static message: "Update to release: ${rel_target}"
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to release: ${rel_target}"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Switch to quilt"
 		nano "debian/changelog"
 
 	else

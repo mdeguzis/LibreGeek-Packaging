@@ -1,4 +1,4 @@
-# SteamOS-Tools-Packaging
+# Libregeek-Packaging
 Packaging scripts and files for SteamOS-Tools
 
 # Branches

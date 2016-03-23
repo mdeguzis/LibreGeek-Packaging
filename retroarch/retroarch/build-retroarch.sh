@@ -152,11 +152,11 @@ main()
 	###############################################################
 
 	# For whatever reason, some "defaults" don't quite work
+	# Mayeb ship a config file in the future instead
 	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/retroarch.cfg"
 
 	# enter source dir
 	cd "${src_dir}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -164,11 +164,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to release: ${rel_target}"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
 
@@ -185,8 +188,6 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
 	
 	# note time ended
 	time_end=$(date +%s)
@@ -249,4 +250,3 @@ main()
 
 # start main
 main
-

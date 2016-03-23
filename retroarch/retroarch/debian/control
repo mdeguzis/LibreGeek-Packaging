@@ -4,44 +4,45 @@ Priority: optional
 Maintainer: Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
 Uploaders: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
 Build-Depends: debhelper (>= 9),
-               libasound2-dev,
-               libavcodec-dev,
-               libavdevice-dev,
-               libavformat-dev,
-               libavutil-dev,
-               libc6-dev (>= 2.13),
-               libdrm-dev,
-               libegl1-mesa-dev,
-               libfreetype6-dev,
-               libgbm-dev,
-               libjack-jackd2-dev,
-               libopenal-dev,
-               libpulse-dev,
-               libsdl2-dev,
-               libswscale-dev,
-               libudev-dev,
-               libusb-1.0-0-dev,
-               libv4l-dev,
-               libxinerama-dev,
-               libxml2-dev,
-               libxv-dev,
-               libxxf86vm-dev,
-               lsb-release,
-               nvidia-cg-dev [!armhf],
-               pkg-config,
-               python3-dev,
-               x11proto-xext-dev,
-               zlib1g-dev
+ libasound2-dev,
+ libavcodec-dev,
+ libavdevice-dev,
+ libavformat-dev,
+ libavutil-dev,
+ libc6-dev (>= 2.13),
+ libdrm-dev,
+ libegl1-mesa-dev,
+ libfreetype6-dev,
+ libgbm-dev,
+ libjack-jackd2-dev,
+ libopenal-dev,
+ libpulse-dev,
+ libsdl2-dev,
+ libswscale-dev,
+ libudev-dev,
+ libusb-1.0-0-dev,
+ libv4l-dev,
+ libxinerama-dev,
+ libxml2-dev,
+ libxv-dev,
+ libxxf86vm-dev,
+ lsb-release,
+ nvidia-cg-dev [!armhf],
+ pkg-config,
+ python3-dev,
+ x11proto-xext-dev,
+ zlib1g-dev
 Standards-Version: 3.9.6
 Homepage: http://www.libretro.com/
 
 Package: retroarch
 Architecture: any
 Depends: fonts-dejavu-core,
-         libretro-core-info,
-         retroarch-assets,
-         ${misc:Depends},
-         ${shlibs:Depends}
+ libretro-core-info,
+ retroarch-assets,
+ retroach-joypad-autoconfig,
+ ${misc:Depends},
+ ${shlibs:Depends}
 Description: Simple frontend for the libretro library
  RetroArch is an open source, multi-platform frontend for the libretro API.
  It can be used as a modular multi emulator system, game engine, media player
@@ -55,8 +56,8 @@ Section: debug
 Priority: extra
 Architecture: any
 Depends: retroarch (= ${binary:Version})
-         ${misc:Depends},
-         ${shlibs:Depends}
+ ${misc:Depends},
+ ${shlibs:Depends}
 Description: Simple frontend for the libretro library - debug symbols
  RetroArch is an open source, multi-platform frontend for the libretro API.
  It can be used as a modular multi emulator system, game engine, media player

@@ -142,9 +142,6 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
@@ -152,7 +149,7 @@ main()
 	cp -r "$scriptdir/debian" "${git_dir}"
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${git_dir}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

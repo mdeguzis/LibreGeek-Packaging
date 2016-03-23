@@ -55,7 +55,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="retroarch"
 pkgver="1.3.2"
@@ -146,7 +146,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

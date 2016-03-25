@@ -151,12 +151,15 @@ main()
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
+	# copy deb dir in
+	cp -r "${scriptdir}/debian" "${git_dir}"
+
 	###############################################################
 	# build package
 	###############################################################
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${git_dir}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

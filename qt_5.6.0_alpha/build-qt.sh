@@ -157,9 +157,10 @@ main()
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
-	# copy deb dir in
-	rm -rf "${git_dir}/debian"
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	# Try using upstream Sid debian/ ?
+	
+	# rm -rf "${git_dir}/debian"
+	# cp -r "${scriptdir}/debian" "${git_dir}"
 
 	###############################################################
 	# build package

@@ -153,7 +153,7 @@ main()
 	###############################################################
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${src_dir}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -196,13 +196,18 @@ main()
 	echo -e "Total Runtime (minutes): $runtime\n"
 	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<-EOF
 	
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep $pkgname_$pkgver
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+	
+	Showing contents of: ${build_dir}
+	
+	EOF
+
+	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -213,8 +218,10 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then
@@ -225,4 +232,3 @@ main()
 
 # start main
 main
-

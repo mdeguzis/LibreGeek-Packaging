@@ -1,0 +1,32 @@
+From d72da0b4b2ee089156d1bd614523838b1635bbf5 Mon Sep 17 00:00:00 2001
+From: Shawn Rutledge <shawn.rutledge@theqtcompany.com>
+Date: Fri, 4 Sep 2015 13:27:48 +0200
+Subject: [PATCH] xcb: fix yet another crash when screens are disconnected
+
+Can't assume that m_screens is not an empty list.
+
+Task-number: QTBUG-42985
+Change-Id: I6f9422638c219123dc898813910d03c7afbd1450
+Reviewed-by: Uli Schlachter <psychon@znc.in>
+Reviewed-by: Laszlo Agocs <laszlo.agocs@theqtcompany.com>
+---
+ src/plugins/platforms/xcb/qxcbconnection.cpp | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+--- a/src/plugins/platforms/xcb/qxcbconnection.cpp
++++ b/src/plugins/platforms/xcb/qxcbconnection.cpp
+@@ -1288,10 +1288,12 @@
+     memset(&event, 0, sizeof(event));
+ 
+     const xcb_window_t eventListener = xcb_generate_id(m_connection);
++    xcb_screen_iterator_t it = xcb_setup_roots_iterator(m_setup);
++    xcb_screen_t *screen = it.data;
+     Q_XCB_CALL(xcb_create_window(m_connection, XCB_COPY_FROM_PARENT,
+-                                 eventListener, m_screens.at(0)->root(),
++                                 eventListener, screen->root,
+                                  0, 0, 1, 1, 0, XCB_WINDOW_CLASS_INPUT_ONLY,
+-                                 m_screens.at(0)->screen()->root_visual, 0, 0));
++                                 screen->root_visual, 0, 0));
+ 
+     event.response_type = XCB_CLIENT_MESSAGE;
+     event.format = 32;

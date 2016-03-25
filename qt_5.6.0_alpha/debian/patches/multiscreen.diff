@@ -1,0 +1,97 @@
+Description: xcb: Fix incorrect screen number reported by QDesktopWidget
+Origin: upstream, https://codereview.qt-project.org/#/c/138819/
+Last-Update: 2015-01-03
+
+commit a6b2a4642f07cd6e52b447e1e441b257990a8d03
+Author: Błażej Szczygieł <spaz16@wp.pl>
+Date:   Sun Oct 25 01:11:28 2015 +0200
+
+    Fix incorrect screen number reported by QDesktopWidget
+    
+    Screens connected to separate graphics cards are detected as
+    separate screens which don't have offset. This patch fixes obtaining
+    the screen number by QWidget: it uses the screen assigned to the root
+    widget. The patch also assigns a proper QScreen to each QDesktopWidget
+    screen().
+    
+    It also fixes closing a popup menu by clicking on another screen.
+    
+    Task-number: QTBUG-48545
+    Change-Id: I3d76261c0c067293d39949c4428b2d8dfd085dc7
+    Reviewed-by: Shawn Rutledge <shawn.rutledge@theqtcompany.com>
+
+Index: qtbase/src/widgets/kernel/qdesktopwidget.cpp
+===================================================================
+--- qtbase.orig/src/widgets/kernel/qdesktopwidget.cpp	2016-01-03 23:52:43.952944281 -0600
++++ qtbase/src/widgets/kernel/qdesktopwidget.cpp	2016-01-03 23:52:43.948944297 -0600
+@@ -36,6 +36,7 @@
+ #include "qdesktopwidget_p.h"
+ #include "qscreen.h"
+ #include "qwidget_p.h"
++#include "qwindow.h"
+ 
+ QT_BEGIN_NAMESPACE
+ 
+@@ -99,13 +100,18 @@
+ 
+     QRegion virtualGeometry;
+ 
+-    // update the geometry of each screen widget, determine virtual geometry
+-    // and emit change signals afterwards.
++    // update the geometry of each screen widget, determine virtual geometry,
++    // set the new screen for window handle and emit change signals afterwards.
+     QList<int> changedScreens;
+     for (int i = 0; i < screens.length(); i++) {
+-        const QRect screenGeometry = screenList.at(i)->geometry();
+-        if (screenGeometry != screens.at(i)->geometry()) {
+-            screens.at(i)->setGeometry(screenGeometry);
++        QDesktopScreenWidget *screenWidget = screens.at(i);
++        QScreen *qScreen = screenList.at(i);
++        QWindow *winHandle = screenWidget->windowHandle();
++        if (winHandle && winHandle->screen() != qScreen)
++            winHandle->setScreen(qScreen);
++        const QRect screenGeometry = qScreen->geometry();
++        if (screenGeometry != screenWidget->geometry()) {
++            screenWidget->setGeometry(screenGeometry);
+             changedScreens.push_back(i);
+         }
+         virtualGeometry += screenGeometry;
+@@ -190,6 +196,21 @@
+     if (!w)
+         return 0;
+ 
++    // Find the root widget, get a QScreen pointer from it and find
++    // the screen number.
++    const QWidget *root = w;
++    const QWidget *tmp = w;
++    while ((tmp = tmp->parentWidget()))
++        root = tmp;
++    QWindow *winHandle = root->windowHandle();
++    if (winHandle) {
++        int screenIdx = QGuiApplication::screens().indexOf(winHandle->screen());
++        if (screenIdx > -1)
++            return screenIdx;
++    }
++
++    // If the screen number cannot be obtained using QScreen pointer,
++    // get it from window position using screen geometry.
+     QRect frame = w->frameGeometry();
+     if (!w->isWindow())
+         frame.moveTopLeft(w->mapToGlobal(QPoint(0, 0)));
+Index: qtbase/src/widgets/widgets/qmenu.cpp
+===================================================================
+--- qtbase.orig/src/widgets/widgets/qmenu.cpp	2016-01-03 23:52:43.952944281 -0600
++++ qtbase/src/widgets/widgets/qmenu.cpp	2016-01-03 23:52:43.948944297 -0600
+@@ -2494,7 +2494,11 @@
+     Q_D(QMenu);
+     if (d->aboutToHide || d->mouseEventTaken(e))
+         return;
+-    if (!rect().contains(e->pos())) {
++    // Workaround for XCB on multiple screens which doesn't have offset. If the menu is open on one screen
++    // and mouse clicks on second screen, e->pos() is QPoint(0,0) and the menu doesn't hide. This trick makes
++    // possible to hide the menu when mouse clicks on another screen (e->screenPos() returns correct value).
++    // Only when mouse clicks in QPoint(0,0) on second screen, the menu doesn't hide.
++    if ((e->pos().isNull() && !e->screenPos().isNull()) || !rect().contains(e->pos())) {
+          if (d->noReplayFor
+              && QRect(d->noReplayFor->mapToGlobal(QPoint()), d->noReplayFor->size()).contains(e->globalPos()))
+              setAttribute(Qt::WA_NoMouseReplay);

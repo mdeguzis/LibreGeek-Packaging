@@ -1,0 +1,86 @@
+From d44ab0cdca239fbd58c8c824eb1ba06073b1b21c Mon Sep 17 00:00:00 2001
+From: Alexander Bersenev <bay@hackerdom.ru>
+Date: Fri, 6 Nov 2015 01:39:27 +0500
+Subject: [PATCH] xcb: Fix not delivering focusIn event on hide/show
+
+Consider a window which was hidden and shown with hide() and show()
+methods and mouse pointer was in window when hide() was called.
+
+At first, window got focusOutEvent and then Qt library sends X server
+a message to unmap the window.
+
+Then X server will send client two messages:
+1) FocusOut(10) detail=Nonlinear(0x03)
+2) FocusIn(9) detail=Pointer(0x05)
+
+QXcbWindow has a logic for not seting active window to 0 if there is
+a FocusIn coming (see QXcbWindow::doFocusOut).
+
+So QGuiApplicationPrivate::focus_window still points to the current
+window.
+
+Then when show() is called, qt compares previous focus with new focus
+and, since they are equal, doesn't do anything. Event focusInEvent
+isn't delivered to the window.
+
+Here are two links why X server sends FocusIn just after FocusOut:
+http://lists.freedesktop.org/archives/xorg/2008-December/041684.html
+https://tronche.com/gui/x/xlib/events/input-focus/normal-and-grabbed.html
+
+Proposed fix ignores FocusIn events with detail==Pointer.
+The text of explaining comment is taken from the Chromium project:
+https://chromium.googlesource.com/chromium/src/+/master/ui/views/widget/desktop_aura/x11_desktop_handler.cc
+from X11DesktopHandler::ProcessXEvent function.
+
+[ChangeLog][module][Linux/XCB] Fix not delivering focusIn event on
+hide/show with XCB
+
+Task-number: QTBUG-49071
+Change-Id: I433c8b638834c25f113cc134ee4185778c44f540
+---
+ src/plugins/platforms/xcb/qxcbwindow.cpp |   21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+--- a/src/plugins/platforms/xcb/qxcbwindow.cpp
++++ b/src/plugins/platforms/xcb/qxcbwindow.cpp
+@@ -969,8 +969,13 @@ static bool focusInPeeker(QXcbConnection
+         return true;
+     }
+     uint response_type = event->response_type & ~0x80;
+-    if (response_type == XCB_FOCUS_IN)
+-        return true;
++    if (response_type == XCB_FOCUS_IN) {
++        // Ignore focus events that are being sent only because the pointer is over
++        // our window, even if the input focus is in a different window.
++        xcb_focus_in_event_t *e = (xcb_focus_in_event_t *) event;
++        if (e->detail != XCB_NOTIFY_DETAIL_POINTER)
++            return true;
++    }
+ 
+     /* We are also interested in XEMBED_FOCUS_IN events */
+     if (response_type == XCB_CLIENT_MESSAGE) {
+@@ -2417,14 +2422,22 @@ void QXcbWindow::handlePropertyNotifyEve
+     }
+ }
+ 
+-void QXcbWindow::handleFocusInEvent(const xcb_focus_in_event_t *)
++void QXcbWindow::handleFocusInEvent(const xcb_focus_in_event_t *event)
+ {
++    // Ignore focus events that are being sent only because the pointer is over
++    // our window, even if the input focus is in a different window.
++    if (event->detail == XCB_NOTIFY_DETAIL_POINTER)
++        return;
+     doFocusIn();
+ }
+ 
+ 
+-void QXcbWindow::handleFocusOutEvent(const xcb_focus_out_event_t *)
++void QXcbWindow::handleFocusOutEvent(const xcb_focus_out_event_t *event)
+ {
++    // Ignore focus events that are being sent only because the pointer is over
++    // our window, even if the input focus is in a different window.
++    if (event->detail == XCB_NOTIFY_DETAIL_POINTER)
++        return;
+     doFocusOut();
+ }
+ 

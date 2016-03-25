@@ -1,0 +1,30 @@
+Description: set positionAutomatic when using setX setY
+Origin: upstream, http://code.qt.io/cgit/qt/qtbase.git/commit/?id=71df75966db5f51c
+Last-Update: 2015-10-22
+
+--- a/src/gui/kernel/qwindow.cpp
++++ b/src/gui/kernel/qwindow.cpp
+@@ -1270,8 +1270,11 @@
+ */
+ void QWindow::setX(int arg)
+ {
++    Q_D(QWindow);
+     if (x() != arg)
+         setGeometry(QRect(arg, y(), width(), height()));
++    else
++        d->positionAutomatic = false;
+ }
+ 
+ /*!
+@@ -1280,8 +1283,11 @@
+ */
+ void QWindow::setY(int arg)
+ {
++    Q_D(QWindow);
+     if (y() != arg)
+         setGeometry(QRect(x(), arg, width(), height()));
++    else
++        d->positionAutomatic = false;
+ }
+ 
+ /*!

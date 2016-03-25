@@ -1,0 +1,364 @@
+Description: dbusmenu: refactor the code to allow dynamic updating of menus
+Origin: upstream, https://code.qt.io/cgit/qt/qtbase.git/commit/?id=9c7f37e648024a8c
+Last-Update: 2016-02-20
+
+--- a/src/platformsupport/dbusmenu/qdbusmenuadaptor.cpp
++++ b/src/platformsupport/dbusmenu/qdbusmenuadaptor.cpp
+@@ -51,8 +51,9 @@
+ 
+ QT_BEGIN_NAMESPACE
+ 
+-QDBusMenuAdaptor::QDBusMenuAdaptor(QObject *parent)
+-    : QDBusAbstractAdaptor(parent)
++QDBusMenuAdaptor::QDBusMenuAdaptor(QDBusPlatformMenu *topLevelMenu)
++    : QDBusAbstractAdaptor(topLevelMenu)
++    , m_topLevelMenu(topLevelMenu)
+ {
+     setAutoRelaySignals(true);
+ }
+@@ -80,7 +81,17 @@
+ bool QDBusMenuAdaptor::AboutToShow(int id)
+ {
+     qCDebug(qLcMenu) << id;
+-    return false;
++    if (id == 0) {
++        emit m_topLevelMenu->aboutToShow();
++    } else {
++        QDBusPlatformMenuItem *item = QDBusPlatformMenuItem::byId(id);
++        if (item) {
++            const QDBusPlatformMenu *menu = static_cast<const QDBusPlatformMenu *>(item->menu());
++            if (menu)
++                emit const_cast<QDBusPlatformMenu *>(menu)->aboutToShow();
++        }
++    }
++    return false;  // updateNeeded (we don't know that, so false)
+ }
+ 
+ QList<int> QDBusMenuAdaptor::AboutToShowGroup(const QList<int> &ids, QList<int> &idErrors)
+@@ -88,6 +99,8 @@
+     qCDebug(qLcMenu) << ids;
+     Q_UNUSED(idErrors)
+     idErrors.clear();
++    Q_FOREACH (int id, ids)
++        AboutToShow(id);
+     return QList<int>(); // updatesNeeded
+ }
+ 
+@@ -97,9 +110,20 @@
+     Q_UNUSED(timestamp)
+     QDBusPlatformMenuItem *item = QDBusPlatformMenuItem::byId(id);
+     qCDebug(qLcMenu) << id << (item ? item->text() : QLatin1String("")) << eventId;
+-    // Events occur on both menus and menuitems, but we only care if it's an item being clicked.
+     if (item && eventId == QLatin1String("clicked"))
+         item->trigger();
++    if (item && eventId == QLatin1String("hovered"))
++        emit item->hovered();
++    if (eventId == QLatin1String("closed")) {
++        // There is no explicit AboutToHide method, so map closed event to aboutToHide method
++        const QDBusPlatformMenu *menu = Q_NULLPTR;
++        if (item)
++            menu = static_cast<const QDBusPlatformMenu *>(item->menu());
++        else if (id == 0)
++            menu = m_topLevelMenu;
++        if (menu)
++            emit const_cast<QDBusPlatformMenu *>(menu)->aboutToHide();
++    }
+ }
+ 
+ void QDBusMenuAdaptor::EventGroup(const QDBusMenuEventList &events)
+@@ -116,7 +140,7 @@
+ 
+ uint QDBusMenuAdaptor::GetLayout(int parentId, int recursionDepth, const QStringList &propertyNames, QDBusMenuLayoutItem &layout)
+ {
+-    uint ret = layout.populate(parentId, recursionDepth, propertyNames);
++    uint ret = layout.populate(parentId, recursionDepth, propertyNames, m_topLevelMenu);
+     qCDebug(qLcMenu) << parentId << "depth" << recursionDepth << propertyNames << layout.m_id << layout.m_properties << "revision" << ret << layout;
+     return ret;
+ }
+--- a/src/platformsupport/dbusmenu/qdbusmenuadaptor_p.h
++++ b/src/platformsupport/dbusmenu/qdbusmenuadaptor_p.h
+@@ -129,7 +129,7 @@
+ "  </interface>\n"
+         "")
+ public:
+-    QDBusMenuAdaptor(QObject *parent);
++    QDBusMenuAdaptor(QDBusPlatformMenu *topLevelMenu);
+     virtual ~QDBusMenuAdaptor();
+ 
+ public: // PROPERTIES
+@@ -155,6 +155,9 @@
+     void ItemActivationRequested(int id, uint timestamp);
+     void ItemsPropertiesUpdated(const QDBusMenuItemList &updatedProps, const QDBusMenuItemKeysList &removedProps);
+     void LayoutUpdated(uint revision, int parent);
++
++private:
++    QDBusPlatformMenu *m_topLevelMenu;
+ };
+ 
+ QT_END_NAMESPACE
+--- a/src/platformsupport/dbusmenu/qdbusmenutypes.cpp
++++ b/src/platformsupport/dbusmenu/qdbusmenutypes.cpp
+@@ -79,29 +79,27 @@
+     return arg;
+ }
+ 
+-uint QDBusMenuLayoutItem::populate(int id, int depth, const QStringList &propertyNames)
++uint QDBusMenuLayoutItem::populate(int id, int depth, const QStringList &propertyNames, const QDBusPlatformMenu *topLevelMenu)
+ {
+     qCDebug(qLcMenu) << id << "depth" << depth << propertyNames;
+     m_id = id;
+     if (id == 0) {
+         m_properties.insert(QLatin1String("children-display"), QLatin1String("submenu"));
+-        Q_FOREACH (const QDBusPlatformMenu *menu, QDBusPlatformMenu::topLevelMenus()) {
+-            if (menu)
+-                populate(menu, depth, propertyNames);
+-        }
++        if (topLevelMenu)
++            populate(topLevelMenu, depth, propertyNames);
+         return 1; // revision
+     }
+ 
+-    const QDBusPlatformMenu *menu = QDBusPlatformMenu::byId(id);
+-    if (!menu) {
+-        QDBusPlatformMenuItem *item = QDBusPlatformMenuItem::byId(id);
+-        if (item)
+-            menu = static_cast<const QDBusPlatformMenu *>(item->menu());
++    QDBusPlatformMenuItem *item = QDBusPlatformMenuItem::byId(id);
++    if (item) {
++        const QDBusPlatformMenu *menu = static_cast<const QDBusPlatformMenu *>(item->menu());
++
++        if (menu) {
++            if (depth != 0)
++                populate(menu, depth, propertyNames);
++            return menu->revision();
++        }
+     }
+-    if (depth != 0 && menu)
+-        populate(menu, depth, propertyNames);
+-    if (menu)
+-        return menu->revision();
+ 
+     return 1; // revision
+ }
+@@ -117,11 +115,13 @@
+ 
+ void QDBusMenuLayoutItem::populate(const QDBusPlatformMenuItem *item, int depth, const QStringList &propertyNames)
+ {
+-    Q_UNUSED(depth)
+-    Q_UNUSED(propertyNames)
+     m_id = item->dbusID();
+     QDBusMenuItem proxy(item);
+     m_properties = proxy.m_properties;
++
++    const QDBusPlatformMenu *menu = static_cast<const QDBusPlatformMenu *>(item->menu());
++    if (depth != 0 && menu)
++        populate(menu, depth, propertyNames);
+ }
+ 
+ const QDBusArgument &operator<<(QDBusArgument &arg, const QDBusMenuLayoutItem &item)
+@@ -199,8 +199,7 @@
+             m_properties.insert(QLatin1String("icon-data"), buf.data());
+         }
+     }
+-    if (!item->isVisible())
+-        m_properties.insert(QLatin1String("visible"), false);
++    m_properties.insert(QLatin1String("visible"), item->isVisible());
+ }
+ 
+ QDBusMenuItemList QDBusMenuItem::items(const QList<int> &ids, const QStringList &propertyNames)
+--- a/src/platformsupport/dbusmenu/qdbusmenutypes_p.h
++++ b/src/platformsupport/dbusmenu/qdbusmenutypes_p.h
+@@ -81,7 +81,7 @@
+ class QDBusMenuLayoutItem
+ {
+ public:
+-    uint populate(int id, int depth, const QStringList &propertyNames);
++    uint populate(int id, int depth, const QStringList &propertyNames, const QDBusPlatformMenu *topLevelMenu);
+     void populate(const QDBusPlatformMenu *menu, int depth, const QStringList &propertyNames);
+     void populate(const QDBusPlatformMenuItem *item, int depth, const QStringList &propertyNames);
+ 
+--- a/src/platformsupport/dbusmenu/qdbusplatformmenu.cpp
++++ b/src/platformsupport/dbusmenu/qdbusplatformmenu.cpp
+@@ -41,9 +41,7 @@
+ Q_LOGGING_CATEGORY(qLcMenu, "qt.qpa.menu")
+ 
+ static int nextDBusID = 1;
+-QHash<int, QDBusPlatformMenu *> menusByID;
+ QHash<int, QDBusPlatformMenuItem *> menuItemsByID;
+-QList<QDBusPlatformMenu *> QDBusPlatformMenu::m_topLevelMenus;
+ 
+ QDBusPlatformMenuItem::QDBusPlatformMenuItem(quintptr tag)
+     : m_tag(tag ? tag : reinterpret_cast<quintptr>(this)) // QMenu will overwrite this later
+@@ -85,7 +83,11 @@
+ */
+ void QDBusPlatformMenuItem::setMenu(QPlatformMenu *menu)
+ {
+-    m_subMenu = static_cast<QDBusPlatformMenu *>(menu);
++    if (m_subMenu)
++        static_cast<QDBusPlatformMenu *>(m_subMenu)->setContainingMenuItem(Q_NULLPTR);
++    m_subMenu = menu;
++    if (menu)
++        static_cast<QDBusPlatformMenu *>(menu)->setContainingMenuItem(this);
+ }
+ 
+ void QDBusPlatformMenuItem::setEnabled(bool enabled)
+@@ -130,7 +132,11 @@
+ 
+ QDBusPlatformMenuItem *QDBusPlatformMenuItem::byId(int id)
+ {
+-    return menuItemsByID[id];
++    // We need to check contains because otherwise QHash would insert
++    // a default-constructed nullptr value into menuItemsByID
++    if (menuItemsByID.contains(id))
++        return menuItemsByID[id];
++    return Q_NULLPTR;
+ }
+ 
+ QList<const QDBusPlatformMenuItem *> QDBusPlatformMenuItem::byIds(const QList<int> &ids)
+@@ -149,18 +155,13 @@
+     , m_isEnabled(false)
+     , m_isVisible(true)
+     , m_isSeparator(false)
+-    , m_dbusID(nextDBusID++)
+-    , m_revision(0)
++    , m_revision(1)
++    , m_containingMenuItem(Q_NULLPTR)
+ {
+-    menusByID.insert(m_dbusID, this);
+-    // Assume it's top-level until we find out otherwise
+-    m_topLevelMenus << this;
+ }
+ 
+ QDBusPlatformMenu::~QDBusPlatformMenu()
+ {
+-    menusByID.remove(m_dbusID);
+-    m_topLevelMenus.removeOne(this);
+ }
+ 
+ void QDBusPlatformMenu::insertMenuItem(QPlatformMenuItem *menuItem, QPlatformMenuItem *before)
+@@ -174,38 +175,59 @@
+     else
+         m_items.insert(idx, item);
+     m_itemsByTag.insert(item->tag(), item);
+-    // If a menu is found as a submenu under an item, we know that it's not a top-level menu.
+     if (item->menu())
+-        m_topLevelMenus.removeOne(const_cast<QDBusPlatformMenu *>(static_cast<const QDBusPlatformMenu *>(item->menu())));
++        syncSubMenu(static_cast<const QDBusPlatformMenu *>(item->menu()));
++    emitUpdated();
+ }
+ 
+ void QDBusPlatformMenu::removeMenuItem(QPlatformMenuItem *menuItem)
+ {
+-    m_items.removeAll(static_cast<QDBusPlatformMenuItem *>(menuItem));
++    QDBusPlatformMenuItem *item = static_cast<QDBusPlatformMenuItem *>(menuItem);
++    m_items.removeAll(item);
+     m_itemsByTag.remove(menuItem->tag());
++    if (item->menu()) {
++        // disconnect from the signals we connected to in syncSubMenu()
++        const QDBusPlatformMenu *menu = static_cast<const QDBusPlatformMenu *>(item->menu());
++        disconnect(menu, &QDBusPlatformMenu::propertiesUpdated,
++                   this, &QDBusPlatformMenu::propertiesUpdated);
++        disconnect(menu, &QDBusPlatformMenu::updated,
++                   this, &QDBusPlatformMenu::updated);
++    }
++    emitUpdated();
++}
++
++void QDBusPlatformMenu::syncSubMenu(const QDBusPlatformMenu *menu)
++{
++    // The adaptor is only connected to the propertiesUpdated signal of the top-level
++    // menu, so the submenus should transfer their signals to their parents.
++    connect(menu, &QDBusPlatformMenu::propertiesUpdated,
++            this, &QDBusPlatformMenu::propertiesUpdated, Qt::UniqueConnection);
++    connect(menu, &QDBusPlatformMenu::updated,
++            this, &QDBusPlatformMenu::updated, Qt::UniqueConnection);
+ }
+ 
+ void QDBusPlatformMenu::syncMenuItem(QPlatformMenuItem *menuItem)
+ {
++    QDBusPlatformMenuItem *item = static_cast<QDBusPlatformMenuItem *>(menuItem);
++    // if a submenu was added to this item, we need to connect to its signals
++    if (item->menu())
++        syncSubMenu(static_cast<const QDBusPlatformMenu *>(item->menu()));
+     // TODO keep around copies of the QDBusMenuLayoutItems so they can be updated?
+     // or eliminate them by putting dbus streaming operators in this class instead?
+     // or somehow tell the dbusmenu client that something has changed, so it will ask for properties again
+-    emitUpdated();
+     QDBusMenuItemList updated;
+     QDBusMenuItemKeysList removed;
+-    updated << QDBusMenuItem(static_cast<QDBusPlatformMenuItem *>(menuItem));
++    updated << QDBusMenuItem(item);
+     qCDebug(qLcMenu) << updated;
+     emit propertiesUpdated(updated, removed);
+ }
+ 
+-QDBusPlatformMenu *QDBusPlatformMenu::byId(int id)
+-{
+-    return menusByID[id];
+-}
+-
+ void QDBusPlatformMenu::emitUpdated()
+ {
+-    emit updated(++m_revision, m_dbusID);
++    if (m_containingMenuItem)
++        emit updated(++m_revision, m_containingMenuItem->dbusID());
++    else
++        emit updated(++m_revision, 0);
+ }
+ 
+ void QDBusPlatformMenu::setTag(quintptr tag)
+@@ -233,6 +255,11 @@
+     m_isVisible = isVisible;
+ }
+ 
++void QDBusPlatformMenu::setContainingMenuItem(QDBusPlatformMenuItem *item)
++{
++    m_containingMenuItem = item;
++}
++
+ QPlatformMenuItem *QDBusPlatformMenu::menuItemAt(int position) const
+ {
+     return m_items.at(position);
+--- a/src/platformsupport/dbusmenu/qdbusplatformmenu_p.h
++++ b/src/platformsupport/dbusmenu/qdbusplatformmenu_p.h
+@@ -119,6 +119,7 @@
+     ~QDBusPlatformMenu();
+     void insertMenuItem(QPlatformMenuItem *menuItem, QPlatformMenuItem *before) Q_DECL_OVERRIDE;
+     void removeMenuItem(QPlatformMenuItem *menuItem) Q_DECL_OVERRIDE;
++    void syncSubMenu(const QDBusPlatformMenu *menu);
+     void syncMenuItem(QPlatformMenuItem *menuItem) Q_DECL_OVERRIDE;
+     void syncSeparatorsCollapsible(bool enable) Q_DECL_OVERRIDE { Q_UNUSED(enable); }
+ 
+@@ -133,8 +134,7 @@
+     void setMinimumWidth(int width) Q_DECL_OVERRIDE { Q_UNUSED(width); }
+     void setFont(const QFont &font) Q_DECL_OVERRIDE { Q_UNUSED(font); }
+     void setMenuType(MenuType type) Q_DECL_OVERRIDE { Q_UNUSED(type); }
+-
+-    int dbusID() const { return m_dbusID; }
++    void setContainingMenuItem(QDBusPlatformMenuItem *item);
+ 
+     void showPopup(const QWindow *parentWindow, const QRect &targetRect, const QPlatformMenuItem *item) Q_DECL_OVERRIDE
+     {
+@@ -155,9 +155,6 @@
+ 
+     bool operator==(const QDBusPlatformMenu& other) { return m_tag == other.m_tag; }
+ 
+-    static QDBusPlatformMenu* byId(int id);
+-    static QList<QDBusPlatformMenu *> topLevelMenus() { return m_topLevelMenus; }
+-
+     uint revision() const { return m_revision; }
+ 
+     void emitUpdated();
+@@ -173,12 +170,10 @@
+     bool m_isEnabled;
+     bool m_isVisible;
+     bool m_isSeparator;
+-    int m_dbusID;
+     uint m_revision;
+     QHash<quintptr, QDBusPlatformMenuItem *> m_itemsByTag;
+     QList<QDBusPlatformMenuItem *> m_items;
+     QDBusPlatformMenuItem *m_containingMenuItem;
+-    static QList<QDBusPlatformMenu *> m_topLevelMenus;
+ };
+ 
+ QT_END_NAMESPACE

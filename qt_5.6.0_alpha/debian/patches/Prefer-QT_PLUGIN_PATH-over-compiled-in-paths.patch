@@ -1,0 +1,65 @@
+From 6129be8a4ba976c42e51012ebaa9005eb402db80 Mon Sep 17 00:00:00 2001
+From: Milian Wolff <milian.wolff@kdab.com>
+Date: Mon, 27 Jul 2015 11:49:55 +0200
+Subject: [PATCH] Prefer QT_PLUGIN_PATH over compiled-in paths.
+
+Currently, when one compiles a Qt plugin that is also installed
+system wide to a local path added to QT_PLUGIN_PATH, you have no
+way to ever load it as the global plugin will always be preferred.
+This is due to the order in which the QCoreApplications::libraryPaths
+are constructed, which always appended the QT_PLUGIN_PATH contents
+to the end.
+
+Now, the QT_PLUGIN_PATH contents are put first, such that the plugins
+in there are preferred and loaded.
+
+[ChangeLog][QtCore][QPluginLoader] Fixed the search order of Qt plugins
+so that paths specified by the QT_PLUGIN_PATH environment variable
+are searched before built-in paths.
+
+Change-Id: Iad8ca2cd34e7a622c191a416c01c1c5cc1812fc9
+Reviewed-by: Oswald Buddenhagen <oswald.buddenhagen@theqtcompany.com>
+Reviewed-by: Olivier Goffart (Woboq GmbH) <ogoffart@woboq.com>
+---
+ src/corelib/kernel/qcoreapplication.cpp | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
+
+--- a/src/corelib/kernel/qcoreapplication.cpp
++++ b/src/corelib/kernel/qcoreapplication.cpp
+@@ -2470,17 +2470,6 @@
+     QMutexLocker locker(libraryPathMutex());
+     if (!coreappdata()->app_libpaths) {
+         QStringList *app_libpaths = coreappdata()->app_libpaths = new QStringList;
+-        QString installPathPlugins =  QLibraryInfo::location(QLibraryInfo::PluginsPath);
+-        if (QFile::exists(installPathPlugins)) {
+-            // Make sure we convert from backslashes to slashes.
+-            installPathPlugins = QDir(installPathPlugins).canonicalPath();
+-            if (!app_libpaths->contains(installPathPlugins))
+-                app_libpaths->append(installPathPlugins);
+-        }
+-
+-        // If QCoreApplication is not yet instantiated,
+-        // make sure we add the application path when we construct the QCoreApplication
+-        if (self) self->d_func()->appendApplicationPathToLibraryPaths();
+ 
+         const QByteArray libPathEnv = qgetenv("QT_PLUGIN_PATH");
+         if (!libPathEnv.isEmpty()) {
+@@ -2498,6 +2487,18 @@
+                 }
+             }
+         }
++
++        QString installPathPlugins =  QLibraryInfo::location(QLibraryInfo::PluginsPath);
++        if (QFile::exists(installPathPlugins)) {
++            // Make sure we convert from backslashes to slashes.
++            installPathPlugins = QDir(installPathPlugins).canonicalPath();
++            if (!app_libpaths->contains(installPathPlugins))
++                app_libpaths->append(installPathPlugins);
++        }
++
++        // If QCoreApplication is not yet instantiated,
++        // make sure we add the application path when we construct the QCoreApplication
++        if (self) self->d_func()->appendApplicationPathToLibraryPaths();
+     }
+     return *(coreappdata()->app_libpaths);
+ }

@@ -1,0 +1,40 @@
+From 2d8b0d1cd566cc0c3ab600650b66cdc771d8314f Mon Sep 17 00:00:00 2001
+From: Shawn Rutledge <shawn.rutledge@digia.com>
+Date: Mon, 4 Jan 2016 15:09:10 +0100
+Subject: [PATCH] xcb: don't select XInput events on the root window
+
+If we select XInput events, then when the mouse is clicked, there will
+not be a fallback to a core pointer event. But a typical Qt application
+doesn't own the root window.  If the window manager (such as OpenBox,
+Awesome or fvwm) relies on receiving core pointer click events, e.g.
+to show a desktop menu, then each time a device is hotplugged while a
+Qt application is running, we would select XI2 events and thereby
+prevent the window manager from receiving them.
+
+QDesktopWidget's native window is added to m_mapper, even when
+it isn't mapped.  Then after hotplugging there's a hierarchy event,
+and that calls xi2Select for every window in m_mapper.  The assumption
+with this patch is that the root window does need to be in m_mapper
+in case the QDesktopWidget is shown (that was done already in Qt 5.1:
+fca94fa5ed8321e84e7b0ff515620fbb901db545), but xi2Select must avoid
+selecting XI2 events on it to fix this bug.
+
+Task-number: QTBUG-49952
+Change-Id: I5c160e879d93fadfce14120ef2e89a4f71d4f599
+Reviewed-by: Uli Schlachter <psychon@znc.in>
+Reviewed-by: Paul Olav Tvete <paul.tvete@theqtcompany.com>
+---
+ src/plugins/platforms/xcb/qxcbconnection_xi2.cpp |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/src/plugins/platforms/xcb/qxcbconnection_xi2.cpp
++++ b/src/plugins/platforms/xcb/qxcbconnection_xi2.cpp
+@@ -268,7 +268,7 @@ void QXcbConnection::finalizeXInput2()
+ 
+ void QXcbConnection::xi2Select(xcb_window_t window)
+ {
+-    if (!m_xi2Enabled)
++    if (!m_xi2Enabled || window == rootWindow())
+         return;
+ 
+     Display *xDisplay = static_cast<Display *>(m_xlib_display);

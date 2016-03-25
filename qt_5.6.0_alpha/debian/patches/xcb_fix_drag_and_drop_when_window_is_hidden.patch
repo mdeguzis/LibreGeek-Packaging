@@ -1,0 +1,139 @@
+From 0b3da1907d46a03e8838c4086b23d48ba69c8776 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?B=C5=82a=C5=BCej=20Szczygie=C5=82?= <spaz16@wp.pl>
+Date: Sun, 18 Oct 2015 00:16:15 +0200
+Subject: [PATCH] xcb: fix drag and drop when window is hidden
+
+This patch fixes drag and drop operation on XCB platform when window
+will be hidden. The window can be hidden during dnd operation by
+switching virtual desktops or by minimizing all windows (show desktop)
+using key shortcut.
+
+The ShapedPixmapWindow must grab mouse before dnd operation if mouse is
+not grabbed by other window (like in Qt4).
+
+Task-number: QTBUG-46243
+Change-Id: I807bc842719a2d0ea0f4dcb733c06c1fd08813e1
+Reviewed-by: Shawn Rutledge <shawn.rutledge@theqtcompany.com>
+---
+ src/plugins/platforms/xcb/qxcbconnection.cpp |    5 +++++
+ src/plugins/platforms/xcb/qxcbconnection.h   |    3 +++
+ src/plugins/platforms/xcb/qxcbdrag.cpp       |    2 ++
+ src/plugins/platforms/xcb/qxcbwindow.cpp     |   21 +++++++++++++++++++--
+ 4 files changed, 29 insertions(+), 2 deletions(-)
+
+--- a/src/plugins/platforms/xcb/qxcbconnection.cpp
++++ b/src/plugins/platforms/xcb/qxcbconnection.cpp
+@@ -488,6 +488,7 @@ QXcbConnection::QXcbConnection(QXcbNativ
+     , has_xkb(false)
+     , m_buttons(0)
+     , m_focusWindow(0)
++    , m_mouseGrabber(0)
+     , m_clientLeader(0)
+     , m_systemTrayTracker(0)
+     , m_glIntegration(Q_NULLPTR)
+@@ -1269,6 +1270,10 @@ void QXcbConnection::setFocusWindow(QXcb
+ {
+     m_focusWindow = w;
+ }
++void QXcbConnection::setMouseGrabber(QXcbWindow *w)
++{
++    m_mouseGrabber = w;
++}
+ 
+ void QXcbConnection::grabServer()
+ {
+--- a/src/plugins/platforms/xcb/qxcbconnection.h
++++ b/src/plugins/platforms/xcb/qxcbconnection.h
+@@ -464,6 +464,8 @@ public:
+ 
+     QXcbWindow *focusWindow() const { return m_focusWindow; }
+     void setFocusWindow(QXcbWindow *);
++    QXcbWindow *mouseGrabber() const { return m_mouseGrabber; }
++    void setMouseGrabber(QXcbWindow *);
+ 
+     QByteArray startupId() const { return m_startupId; }
+     void setStartupId(const QByteArray &nextId) { m_startupId = nextId; }
+@@ -637,6 +639,7 @@ private:
+     Qt::MouseButtons m_buttons;
+ 
+     QXcbWindow *m_focusWindow;
++    QXcbWindow *m_mouseGrabber;
+ 
+     xcb_window_t m_clientLeader;
+     QByteArray m_startupId;
+--- a/src/plugins/platforms/xcb/qxcbdrag.cpp
++++ b/src/plugins/platforms/xcb/qxcbdrag.cpp
+@@ -186,6 +186,8 @@ void QXcbDrag::startDrag()
+                             atom(QXcbAtom::XdndTypelist),
+                             XCB_ATOM_ATOM, 32, drag_types.size(), (const void *)drag_types.constData());
+     QBasicDrag::startDrag();
++    if (connection()->mouseGrabber() == Q_NULLPTR)
++        shapedPixmapWindow()->setMouseGrabEnabled(true);
+ }
+ 
+ void QXcbDrag::endDrag()
+--- a/src/plugins/platforms/xcb/qxcbwindow.cpp
++++ b/src/plugins/platforms/xcb/qxcbwindow.cpp
+@@ -666,12 +666,16 @@ QXcbWindow::~QXcbWindow()
+ {
+     if (window()->type() != Qt::ForeignWindow)
+         destroy();
++    else if (connection()->mouseGrabber() == this)
++        connection()->setMouseGrabber(Q_NULLPTR);
+ }
+ 
+ void QXcbWindow::destroy()
+ {
+     if (connection()->focusWindow() == this)
+         doFocusOut();
++    if (connection()->mouseGrabber() == this)
++        connection()->setMouseGrabber(Q_NULLPTR);
+ 
+     if (m_syncCounter && m_usingSyncProtocol)
+         Q_XCB_CALL(xcb_sync_destroy_counter(xcb_connection(), m_syncCounter));
+@@ -922,6 +926,9 @@ void QXcbWindow::hide()
+ 
+     xcb_flush(xcb_connection());
+ 
++    if (connection()->mouseGrabber() == this)
++        connection()->setMouseGrabber(Q_NULLPTR);
++
+     m_mapped = false;
+ }
+ 
+@@ -2399,6 +2406,8 @@ void QXcbWindow::handlePropertyNotifyEve
+             QWindowSystemInterface::handleWindowStateChanged(window(), newState);
+             m_lastWindowStateEvent = newState;
+             m_windowState = newState;
++            if (m_windowState == Qt::WindowMinimized && connection()->mouseGrabber() == this)
++                connection()->setMouseGrabber(Q_NULLPTR);
+         }
+         return;
+     } else if (event->atom == atom(QXcbAtom::_NET_FRAME_EXTENTS)) {
+@@ -2455,9 +2464,15 @@ bool QXcbWindow::setKeyboardGrabEnabled(
+ 
+ bool QXcbWindow::setMouseGrabEnabled(bool grab)
+ {
++    if (!grab && connection()->mouseGrabber() == this)
++        connection()->setMouseGrabber(Q_NULLPTR);
+ #ifdef XCB_USE_XINPUT22
+-    if (connection()->xi2MouseEvents())
+-        return connection()->xi2SetMouseGrabEnabled(m_window, grab);
++    if (connection()->xi2MouseEvents()) {
++        bool result = connection()->xi2SetMouseGrabEnabled(m_window, grab);
++        if (grab && result)
++            connection()->setMouseGrabber(this);
++        return result;
++    }
+ #endif
+     if (grab && !connection()->canGrab())
+         return false;
+@@ -2476,6 +2491,8 @@ bool QXcbWindow::setMouseGrabEnabled(boo
+     xcb_grab_pointer_reply_t *reply = xcb_grab_pointer_reply(xcb_connection(), cookie, NULL);
+     bool result = !(!reply || reply->status != XCB_GRAB_STATUS_SUCCESS);
+     free(reply);
++    if (result)
++        connection()->setMouseGrabber(this);
+     return result;
+ }
+ 

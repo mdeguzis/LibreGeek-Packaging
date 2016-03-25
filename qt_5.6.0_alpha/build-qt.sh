@@ -55,7 +55,7 @@ qt_src_folder="${qt_src_file%.*.*}"
 
 # upstream vars
 git_url="https://github.com/ProfessorKaos64/qt"
-rel_target="master"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

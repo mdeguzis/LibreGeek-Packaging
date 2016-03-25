@@ -47,11 +47,6 @@ fi
 # reset source command for while loop
 src_cmd=""
 
-# build dirs
-export build_dir="/home/desktop/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${build_dir}/${src_dir}"
-
 # upstream URL
 git_url="https://github.com/plexinc/plex-media-player"
 
@@ -76,7 +71,7 @@ maintainer="ProfessorKaos64"
 # set build directories
 export build_dir="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-git_dir="${build_dir}/${src_dir}
+git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
@@ -148,13 +143,13 @@ main()
 	#################################################
 	
 	# Get upstream source
-	git clone "$git_url" "$git_dir"
+	git clone "${git_url}" "${git_dir}"
 	
 	# copy in debian folder and other files
-        cp -r "$scriptdir/debian" "${git_dir}"
+        cp -r "${scriptdir}/debian" "${git_dir}"
 		
 	# enter git dir
-	cd "$git_dir"
+	cd "${git_dir}"
 	
 	#################################################
 	# Build PMP source
@@ -164,6 +159,7 @@ main()
 	sleep 2s
 
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir

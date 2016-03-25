@@ -1,4 +1,4 @@
-Source: plexmediaplayer
+Source: plex-media-player
 Section: video
 Priority: optional
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.5
 Homepage: https://github.com/plexinc/plex-media-player/
 
-Package: plexmediaplayer
+Package: plex-media-player
 Architecture: all
 Depends: ${misc:Depends}
 Description: Next generation Plex client.

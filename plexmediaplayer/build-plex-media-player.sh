@@ -64,14 +64,19 @@ BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="plexmediaplayer"
-pkgver="${date_short}"
+pkgver="0.${date_short}"
 BUILDER="pdebuild"
-export STEAMOS_TOOLS_BETA_HOOK="false"
+export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 maintainer="ProfessorKaos64"
+
+# set build directories
+export build_dir="${HOME}/build-${pkgname}-temp"
+src_dir="${pkgname}-${pkgver}"
+git_dir="${build_dir}/${src_dir}
 
 install_prereqs()
 {

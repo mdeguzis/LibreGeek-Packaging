@@ -128,6 +128,11 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
+	
+	else
+
+		# required for dh_clean
+		sudo apt-get install -y --force-yes pkg-kde-tool
 
 	fi
 	

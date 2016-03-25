@@ -132,7 +132,7 @@ main()
 	else
 
 		# required for dh_clean
-		sudo apt-get install -y --force-yes pkg-kde-tool
+		sudo apt-get install -y --force-yes pkg-kde-tools
 
 	fi
 	

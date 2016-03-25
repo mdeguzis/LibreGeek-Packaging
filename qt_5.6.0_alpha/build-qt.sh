@@ -136,9 +136,12 @@ main()
 
 	# clone
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	
+	# trim git
+	rm -rf "${git_dir}/.git"
 
 	#################################################
-	# Build platform
+	# Prep source
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -146,10 +149,10 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	###############################################################
-	# correct any files needed here that you can ahead of time
+	# build package
 	###############################################################
 
 	# enter source dir

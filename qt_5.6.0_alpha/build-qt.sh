@@ -144,7 +144,7 @@ main()
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	
 	# trim git
-	rm -rf "${git_dir}/.git"
+	# rm -rf "${git_dir}/.git"
 
 	#################################################
 	# Prep source

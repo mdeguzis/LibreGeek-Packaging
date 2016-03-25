@@ -58,7 +58,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-pkgname="plexmediaplayer"
+pkgname="plex-media-player"
 pkgver="0.${date_short}"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
@@ -123,7 +123,6 @@ main()
 	# Build QT 5.6 alpha source
 	#################################################
 
-	cd merge ${HOME}
 	git clone https://github.com/ProfessorKaos64/qt/
 	cd qt
 	rm -rf debian/

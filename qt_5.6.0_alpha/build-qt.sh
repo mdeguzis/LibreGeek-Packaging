@@ -65,9 +65,9 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="qt"
-pkgver="5.6.0b"
+pkgver="5.6.0"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -129,14 +129,13 @@ main()
 		install_prereqs
 
 	fi
-
 	
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build platform
@@ -145,10 +144,8 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	###############################################################
@@ -158,21 +155,22 @@ main()
 	# enter source dir
 	cd "${git_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -184,15 +182,9 @@ main()
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
-	# Post install configuration
-	#################################################
-	
-	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -202,17 +194,6 @@ main()
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
 	
 	# inform user of packages
 	echo -e "\n############################################################"
@@ -234,7 +215,6 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

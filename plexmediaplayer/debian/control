@@ -5,6 +5,7 @@ Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
  pkg-config,
  cmake (>=3.5),
+ curl,
  mpv (>=0.15),
  qtbase-opensource-src (>=5.6)
 Standards-Version: 3.9.5

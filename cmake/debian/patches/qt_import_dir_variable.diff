@@ -1,5 +1,5 @@
---- a/build-cmake-temp/cmake-3.5.0/Modules/FindQt4.cmake
-+++ b/build-cmake-temp/cmake-3.5.0/Modules/FindQt4.cmake
+--- a/Modules/FindQt4.cmake
++++ b/Modules/FindQt4.cmake
 @@ -734,7 +734,7 @@ if (QT_QMAKE_EXECUTABLE AND
    if (QT_LIBRARY_DIR AND NOT QT_IMPORTS_DIR OR QT_QMAKE_CHANGED)
      _qt4_query_qmake(QT_INSTALL_IMPORTS qt_imports_dir)

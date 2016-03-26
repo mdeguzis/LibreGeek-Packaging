@@ -1,5 +1,5 @@
---- a/build-cmake-temp/cmake-3.5.0/Modules/FindBoost.cmake
-+++ b/build-cmake-temp/cmake-3.5.0/Modules/FindBoost.cmake
+--- a/Modules/FindBoost.cmake
++++ b/Modules/FindBoost.cmake
 @@ -506,6 +506,22 @@ function(_Boost_GUESS_COMPILER_PREFIX _r
    set(${_ret} ${_boost_COMPILER} PARENT_SCOPE)
  endfunction()

@@ -1,5 +1,5 @@
---- a/build-cmake-temp/cmake-3.5.0/Source/kwsys/SystemInformation.cxx
-+++ b/build-cmake-temp/cmake-3.5.0/Source/kwsys/SystemInformation.cxx
+--- a/Source/kwsys/SystemInformation.cxx
++++ b/Source/kwsys/SystemInformation.cxx
 @@ -124,7 +124,7 @@ typedef int siginfo_t;
  # endif
  #endif

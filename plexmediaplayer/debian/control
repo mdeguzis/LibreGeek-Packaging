@@ -3,6 +3,9 @@ Section: video
 Priority: optional
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9)
+ cmake (>=3.5),
+ mpv (>=0.15),
+ qtbase-opensource-src (>=5.6)
 Standards-Version: 3.9.5
 Homepage: https://github.com/plexinc/plex-media-player/
 

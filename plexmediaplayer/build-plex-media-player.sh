@@ -3,7 +3,7 @@
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  build-plex-media-player.sh
-# Script Ver:	  0.1.5
+# Script Ver:	  0.5.5
 # Description:	  Attempts to build a deb package from Plex Media Player git source
 #                 PLEASE NOTE THIS SCRIPT IS NOT YET COMPLETE!
 # See:		 
@@ -49,6 +49,7 @@ src_cmd=""
 
 # upstream URL
 git_url="https://github.com/plexinc/plex-media-player"
+branch="v1.0.6.229-1ce41570"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,7 +60,7 @@ BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="plex-media-player"
-pkgver="0.${date_short}"
+pkgver="1.0.6.229"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgrev="1"
@@ -120,29 +121,12 @@ main()
 	fi
 	
 	#################################################
-	# Build QT 5.6 alpha source
-	#################################################
-
-	git clone https://github.com/ProfessorKaos64/qt/
-	cd qt
-	rm -rf debian/
-	./configure -confirm-license -opensource
-	make
-	sudo make install
-	cd qtwebengine
-	qmake
-	make
-	sudo make install
-	
-	# the qt directory in /usr/local is owned by staff, correct that
-	sudo chown -R root:root 
-	
-	#################################################
 	# Fetch PMP source
 	#################################################
 	
-	# Get upstream source
-	git clone "${git_url}" "${git_dir}"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# copy in debian folder and other files
         cp -r "${scriptdir}/debian" "${git_dir}"
@@ -173,7 +157,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Update to latest commit [${latest_commit}]"
 		nano "debian/changelog"
 
 	else

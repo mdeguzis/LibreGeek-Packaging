@@ -76,7 +76,7 @@ git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
-	clear
+	
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install needed packages from Debian repos
@@ -91,7 +91,6 @@ install_prereqs()
 
 main()
 {
-	clear
 	
 	#################################################
 	# Fetch source

@@ -57,6 +57,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
+export USE_NETWORK="yes"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="plex-media-player"

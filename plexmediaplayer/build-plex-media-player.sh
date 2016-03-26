@@ -92,22 +92,21 @@ install_prereqs()
 
 main()
 {
-	clear
-	
+
 	#################################################
 	# Fetch source
 	#################################################
-	
+
 	# create and enter build_dir
 	if [[ -d "${build_dir}" ]]; then
-	
+
 		sudo rm -rf "${build_dir}"
 		mkdir -p "${build_dir}"
-		
+
 	else
 
 		mkdir -p "${build_dir}"
-		
+	
 	fi
 	
 	# Enter build dir
@@ -124,6 +123,8 @@ main()
 	#################################################
 	# Fetch PMP source
 	#################################################
+	
+	echo -e "\n==> Obtaining upstream source code\n"
 	
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"

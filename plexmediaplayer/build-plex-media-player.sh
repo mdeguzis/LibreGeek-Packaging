@@ -91,6 +91,7 @@ install_prereqs()
 
 main()
 {
+	clear
 	
 	#################################################
 	# Fetch source
@@ -155,13 +156,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev)" --package \
 		"${pkgname}" -D "${DIST}" -u "${urgency}" "Update to latest commit [${latest_commit}]"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev)" --package \
 		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 

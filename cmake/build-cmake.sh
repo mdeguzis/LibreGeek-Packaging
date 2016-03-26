@@ -105,6 +105,23 @@ main()
 	# Enter build dir
 	cd "${build_dir}"
 
+	# install prereqs for build
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# handle prereqs on host machine
+		install_prereqs
+		
+	else
+
+		# Conflict with Valve's libjs-jquery here, force
+		# sudo apt-get install -y --force-yes libjs-jquery="1.11.3+dfsg-4~bpo8+1" \
+		# libjs-sphinxdoc sphinx-doc
+
+		# sphinx-common may work
+		sudo apt-get install -y --force-yes sphinx-common
+
+	fi
+
 	echo -e "\n==> Fetching upstream source\n"
 
 	# Get upstream source
@@ -119,7 +136,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}=${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"

@@ -117,8 +117,9 @@ main()
 		# sudo apt-get install -y --force-yes libjs-jquery="1.11.3+dfsg-4~bpo8+1" \
 		# libjs-sphinxdoc sphinx-doc
 
-		# sphinx-common may work
-		sudo apt-get install -y --force-yes sphinx-common
+		# Packages needed before build
+		sudo apt-get install -y --force-yes sphinx-common dh-autoreconf \
+		libftgl-dev
 
 	fi
 
@@ -136,7 +137,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}=${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"

@@ -57,8 +57,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
-export STEAMOS_TOOLS_BETA_HOOK="false"
-#pkgname="qt"
+export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgname="qtwebengine"
 pkgver="5.6.0"
 pkgrev="1"
@@ -140,11 +139,6 @@ main()
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
-	# Try using upstream Sid debian/ ?
-
-	# rm -rf "${git_dir}/debian"
-	# cp -r "${scriptdir}/debian" "${git_dir}"
-
 	###############################################################
 	# build package
 	###############################################################
@@ -215,7 +209,8 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"

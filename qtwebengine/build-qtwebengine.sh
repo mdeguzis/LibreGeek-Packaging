@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-git_url="https://code.qt.io/qt/qtwebengine.git"
+git_url="git://code.qt.io/qt/qtwebengine.git"
 branch="v5.6.0"
 
 # package vars

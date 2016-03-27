@@ -138,6 +138,9 @@ main()
 	# create source tarball
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	
+	# add debian/
+	cp "${scriptdir}/debian" "${git_dir}"
 
 	###############################################################
 	# build package

@@ -1,0 +1,45 @@
+Source: qtwebengine
+Section: web
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ bison,
+ build-essential,
+ gperf,
+ flex,
+ ruby,
+ python,
+ libasound2-dev,
+ libbz2-dev,
+ libcap-dev,
+ libcups2-dev,
+ libdrm-dev,
+ libegl1-mesa-dev,
+ libgcrypt11-dev,
+ libnss3-dev,
+ libpci-dev,
+ libpulse-dev,
+ libudev-dev,
+ libxtst-dev,
+ gyp,
+ ninja,
+ qtbase-opensource-src (>=5.6.0)
+Standards-Version: 3.9.7
+Homepage: http://qt-project.org/
+Vcs-Git: http://code.qt.io/cgit/qt/qtwebengine.git/
+
+Package: qtwebengine
+Architecture: any
+Multi-Arch: same
+Provides: qtwebengine
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Chromium integration into Qt with QtWebEngine.
+ QtWebEngine integrates chromium's fast moving web capabilities into Qt.
+ .
+ Our goal is to bring the latest and best implementation of the web 
+ platform into the universe of Qt. It is not just a port of the core 
+ HTML/CSS rendering engine, it is the entire Chromium platform. The 
+ integration with Qt focuses on an API that is easy to use, yet 
+ extensible. We also make no compromise on the graphics integration, 
+ integrating the layer rendering of Chromium directly into the OpenGL 
+ scene graph of QtQuick.

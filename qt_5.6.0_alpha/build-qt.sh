@@ -40,11 +40,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 # files
@@ -67,7 +67,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 #pkgname="qt"
 pkgname="qtbase-opensource-src"
 pkgver="5.6.0"
-pkgrev="2"
+pkgrev="3"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -84,7 +84,7 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	
+
 	# install basic build packages
 	sudo apt-get install -y --force-yes libfontconfig1-dev libfreetype6-dev \
 	libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev \
@@ -123,26 +123,26 @@ main()
 	cd "${build_dir}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
-	
+
 	else
 
 		# required for dh_clean
 		sudo apt-get install -y --force-yes pkg-kde-tools
 
 	fi
-	
+
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
-	
+
 	# trim git
 	# rm -rf "${git_dir}/.git"
 
@@ -158,7 +158,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Try using upstream Sid debian/ ?
-	
+
 	# rm -rf "${git_dir}/debian"
 	# cp -r "${scriptdir}/debian" "${git_dir}"
 
@@ -176,7 +176,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Fix rules to make qtwebconfig"
 		nano "debian/changelog"
 
 	else
@@ -203,22 +203,22 @@ main()
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-	
+
 	# inform user of packages
 	cat<<-EOF
-	
+
 	###############################################################
 	If package was built without errors you will see it below.
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
-	
+
 	Showing contents of: ${build_dir}
-	
+
 	EOF
 
 	ls "${build_dir}" | grep -E "${pkgver}" 

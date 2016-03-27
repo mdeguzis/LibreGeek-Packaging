@@ -22,7 +22,7 @@ endif
 
 %:
 	dh $@
-
+	
 override_dh_auto_build:
 	qmake -r
 	make

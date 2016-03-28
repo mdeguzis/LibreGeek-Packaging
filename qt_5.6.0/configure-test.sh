@@ -11,6 +11,8 @@ DEB_HOST_ARCH_OS=$(dpkg-architecture -qDEB_HOST_ARCH_OS)
 DEB_HOST_ARCH_BITS=$(dpkg-architecture -qDEB_HOST_ARCH_BITS)
 DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
+platform_arg="linux-g++-64"
+
 # Checking a build log, there two are added at the end via $(extra_configure_opts)
 # (normally determined via dh/shell checks)
 
@@ -50,6 +52,7 @@ fi
 -examplesdir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/examples" \
 -opensource \
 -platform $platform_arg \
+-system-harfbuzz \
 -system-zlib \
 -system-libpng \
 -system-libjpeg \

@@ -238,7 +238,6 @@ override_dh_auto_build-indep:
 	cd $(CURDIR)/qtbase/src/corelib; ../../bin/qmake
 	cd $(CURDIR)/qtbase/src/xml; ../../bin/qmake
 	dh_auto_build -Smakefile -- html_docs
-	# build webengine ?
 
 override_dh_auto_build-arch:
 	# PK NOTE: based on qtbase/mkspecs/features/qfeatures.prf, the required

@@ -128,6 +128,9 @@ main()
 	# trim git
 	# rm -rf "${git_dir}/.git"
 
+	# add debian/
+	cp -r "${scriptdir}/debian" "${git_dir}"
+
 	#################################################
 	# Prep source
 	#################################################
@@ -138,9 +141,6 @@ main()
 	# create source tarball
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-	
-	# add debian/
-	cp "${scriptdir}/debian" "${git_dir}"
 
 	###############################################################
 	# build package
@@ -163,7 +163,7 @@ main()
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
-
+		nano "debian/changelog"
 	fi
 
 	#################################################

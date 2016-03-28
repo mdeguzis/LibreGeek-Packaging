@@ -1,3 +1,0 @@
-# This is a bug in Lintian. The file is *not* licensed under an RFC license
-# but just listing that some code was extracted from there.
-qtbase-opensource-src source: license-problem-non-free-RFC examples/network/doc/src/torrent.qdoc

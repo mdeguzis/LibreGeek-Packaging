@@ -1,0 +1,5 @@
+cmake (3.5.0+git+bsos-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- SteamOS Desktop <desktop@steamos>  Sat, 26 Mar 2016 09:58:05 -0400

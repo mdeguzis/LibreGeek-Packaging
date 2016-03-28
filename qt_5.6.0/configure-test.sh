@@ -3,13 +3,11 @@
 # This assumes we have a "qt5" directory under home that is initialized
 # It is only meant for simple checks on configure options
 
-echo DEB_HOST_MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
-echo DEB_HOST_ARCH=$(dpkg-architecture -qDEB_HOST_ARCH)
-echo DEB_HOST_ARCH_OS=$(dpkg-architecture -qDEB_HOST_ARCH_OS)
-echo DEB_HOST_ARCH_BITS=$(dpkg-architecture -qDEB_HOST_ARCH_BITS)
-echo DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
-
-sleep 3s
+DEB_HOST_MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH=$(dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS=$(dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_ARCH_BITS=$(dpkg-architecture -qDEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
 qtdir="$HOME/qt5"
 currdir="${PWD}"
@@ -29,19 +27,19 @@ fi
 ./configure \
 -confirm-license \
 -prefix "/usr" \
--bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \
--libdir "/usr/lib/$(DEB_HOST_MULTIARCH)" \
+-bindir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/bin" \
+-libdir "/usr/lib/$DEB_HOST_MULTIARCH" \
 -docdir "/usr/share/qt5/doc" \
--headerdir "/usr/include/$(DEB_HOST_MULTIARCH)/qt5" \
+-headerdir "/usr/include/$DEB_HOST_MULTIARCH/qt5" \
 -datadir "/usr/share/qt5" \
--archdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+-archdatadir "/usr/lib/$DEB_HOST_MULTIARCH/qt5" \
 -hostdatadir "/usr/share/qt5" \
--plugindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/plugins" \
--importdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/imports" \
+-plugindir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/plugins" \
+-importdir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/imports" \
 -translationdir "/usr/share/qt5/translations" \
--hostdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+-hostdatadir "/usr/lib/$DEB_HOST_MULTIARCH/qt5" \
 -sysconfdir "/etc/xdg" \
--examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
+-examplesdir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/examples" \
 -opensource \
 -platform $(platform_arg) \
 -plugin-sql-mysql \

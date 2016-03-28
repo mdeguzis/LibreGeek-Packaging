@@ -1,5 +1,5 @@
 Source: qtbase-opensource-src
-Section: libs
+Section: devel
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
@@ -69,3 +69,18 @@ Standards-Version: 3.9.7
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qtbase.git
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-kde/qt/qtbase.git
+
+Package: qtbase-opensource-src
+Architecture: any
+Multi-Arch: same
+Section: devel
+Depends: ${misc:Depends}
+Description: Qt 5 catch-all package
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains all files under qtbase. This will remain until
+ the individual package installs are worked out.
+ .
+ If you are interested in packaging Qt 5 stuff please take a look at
+ http://pkg-kde.alioth.debian.org/packagingqtbasedstuff.html

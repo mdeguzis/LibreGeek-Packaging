@@ -147,10 +147,13 @@ main()
 	# clone
 	git clone "${git_url}" "${git_dir}"
 	cd "${git_dir}"
-	./init-repository || exit 1
+	
+	# Only needed if using main git repository with all sub modules
+	# ./init-repository || exit 1
+	
 	git checkout "${branch}"
 
-	# trim git
+	# trim git (after confimed working build)
 	# rm -rf "${git_dir}/.git"
 
 	#################################################

@@ -13,13 +13,18 @@ DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
 platform_arg="linux-g++-64"
 
+################################################################################
 # Checking a build log, there two are added at the end via $(extra_configure_opts)
 # (normally determined via dh/shell checks)
+################################################################################
 
 #-plugin-sql-ibase \
 #-opengl desktop
 
+################################################################################
 # Currently disabled options from upstream Debian experimental debian/rules:
+################################################################################
+
 #-plugin-sql-mysql \
 #-plugin-sql-odbc \
 #-plugin-sql-psql \
@@ -28,6 +33,14 @@ platform_arg="linux-g++-64"
 #-plugin-sql-tds \
 #-system-sqlite \
 #-plugin-sql-ibase \
+
+################################################################################
+# Taken out because the jessie/jessie-backport version is too old
+################################################################################
+
+#-system-harfbuzz \
+
+################################################################################
 
 qtdir="$HOME/qt5"
 currdir="${PWD}"
@@ -62,7 +75,6 @@ fi
 -examplesdir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/examples" \
 -opensource \
 -platform $platform_arg \
--system-harfbuzz \
 -system-zlib \
 -system-libpng \
 -system-libjpeg \

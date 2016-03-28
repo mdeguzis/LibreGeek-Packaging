@@ -19,6 +19,16 @@ platform_arg="linux-g++-64"
 #-plugin-sql-ibase \
 #-opengl desktop
 
+# Currently disabled options from upstream Debian experimental debian/rules:
+#-plugin-sql-mysql \
+#-plugin-sql-odbc \
+#-plugin-sql-psql \
+#-plugin-sql-sqlite \
+#-no-sql-sqlite2 \
+#-plugin-sql-tds \
+#-system-sqlite \
+#-plugin-sql-ibase \
+
 qtdir="$HOME/qt5"
 currdir="${PWD}"
 
@@ -73,8 +83,8 @@ fi
 -compile-examples \
 -no-directfb \
 -gstreamer 1.0 \
--plugin-sql-ibase \
 -opengl desktop
+-no-sql-ibase
 
 echo -e "\nReview log?"
 read -erp "Choice [y/n]: " choice

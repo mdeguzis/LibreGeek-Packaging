@@ -70,7 +70,3 @@ override_dh_auto_configure:
 	            -gstreamer 1.0 \
 	            $(extra_configure_opts) \
 	            $(cpu_opt)
-
-override_dh_auto_build:
-	qtbase/bin/qmake -r
-	make

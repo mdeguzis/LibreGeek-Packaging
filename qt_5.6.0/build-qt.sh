@@ -144,13 +144,18 @@ main()
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
-
+	sleep 2s
+	
 	# clone
 	git clone "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	
 	# Only needed if using main git repository with all sub modules
 	# Only init modules we need
+	
+	echo -e "\n==> Initializing modules\n"
+	sleep 2s
+	
 	./init-repository --module-subset=default,-qtwebengine || exit 1
 	
 	git checkout "${branch}"

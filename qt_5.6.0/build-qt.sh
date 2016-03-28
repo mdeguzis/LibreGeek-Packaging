@@ -147,11 +147,68 @@ main()
 	sleep 2s
 	
 	# clone
-	git clone "${git_url}" "${git_dir}"
+	if [[ -d "$git_dir" ]]; then
+
+	echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
+	sleep 1s
+	read -ep "Choice: " git_choice
+
+	if [[ "$git_choice" == "p" ]]; then
+
+		# attempt to pull the latest source first
+		echo -e "\n==> Attempting git pull..."
+		sleep 2s
+
+		# attempt git pull, if it doesn't complete reclone
+		if ! git pull; then
+
+			# command failure
+			echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
+			sleep 2s
+			rm -rf "$git_dir"
+			# create and clone to merge ${HOME}/kodi
+			cd
+			git clone ${git_url} ${git_dir}
+
+		fi
+
+	elif [[ "$git_choice" == "r" ]]; then
+
+		echo -e "\n==> Removing and cloning repository again...\n"
+		sleep 2s
+		sudo rm -rf "$git_dir"
+		# create and clone to merge ${HOME}/kodi
+		cd
+		git clone ${git_url} ${git_dir}
+
+	else
+
+		echo -e "\n==> Git directory does not exist. cloning now...\n"
+		sleep 2s
+		# create and clone to merge ${HOME}/kodi
+		cd
+		git clone ${git_url} ${git_dir}
+
+	fi
+
+else
+
+		echo -e "\n==> Git directory does not exist. cloning now...\n"
+		sleep 2s
+		# create DIRS
+		cd
+		# create and clone to current dir
+		git clone ${git_url} ${git_dir}
+
+	fi
+	
+	
+	# Enter git dir, if not already
 	cd "${git_dir}"
 	
 	# Only needed if using main git repository with all sub modules
 	# Only init modules we need
+	# If git dir was already pulled, it will update the modules
 	
 	echo -e "\n==> Initializing modules\n"
 	sleep 2s

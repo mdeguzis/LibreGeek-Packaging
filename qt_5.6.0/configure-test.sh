@@ -83,7 +83,7 @@ fi
 -compile-examples \
 -no-directfb \
 -gstreamer 1.0 \
--opengl desktop
+-opengl desktop \
 -no-sql-ibase
 
 echo -e "\nReview log?"

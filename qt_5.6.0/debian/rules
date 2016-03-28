@@ -7,20 +7,20 @@
 ################################################################################
 # See: ../configure-test.sh
 
-# Remove options from Debian experiement debian/rules: \
+# Remove options from Debian experiement debian/rules:
 
--plugin-sql-mysql \
--plugin-sql-odbc \
--plugin-sql-psql \
--plugin-sql-sqlite \
--no-sql-sqlite2 \
--plugin-sql-tds \
--system-sqlite \
--plugin-sql-ibase \
+#-plugin-sql-mysql \
+#-plugin-sql-odbc \
+#-plugin-sql-psql \
+#-plugin-sql-sqlite \
+#-no-sql-sqlite2 \
+#-plugin-sql-tds \
+#-system-sqlite \
+#-plugin-sql-ibase \
 
 # Taken out because the jessie/jessie-backport version is too old \
 
--system-harfbuzz \
+#-system-harfbuzz
 
 ################################################################################
 

@@ -3,11 +3,11 @@
 # This assumes we have a "qt5" directory under home that is initialized
 # It is only meant for simple checks on configure options
 
-DEB_HOST_MULTIARCH ?= $(dpkg-architecture -qDEB_HOST_MULTIARCH)
-DEB_HOST_ARCH ?= $(dpkg-architecture -qDEB_HOST_ARCH)
-DEB_HOST_ARCH_OS ?= $(dpkg-architecture -qDEB_HOST_ARCH_OS)
-DEB_HOST_ARCH_BITS ?= $(dpkg-architecture -qDEB_HOST_ARCH_BITS)
-DEB_HOST_ARCH_CPU ?= $(dpkg-architecture -qDEB_HOST_ARCH_CPU)
+DEB_HOST_MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH=$(dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS=$(dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_ARCH_BITS=$(dpkg-architecture -qDEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
 qtdir="$HOME/qt5"
 currdir="${PWD}"
@@ -74,7 +74,7 @@ $(extra_configure_opts) \
 $(cpu_opt) &> qt-configure-test.log
 
 echo -e "\nReview log?"
-reap -erp "Choice: [y/n]" choice
+read -erp "Choice: [y/n]" choice
 
 if [[ "${choice}" == "y" ]]; then
 

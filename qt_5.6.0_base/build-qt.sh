@@ -145,7 +145,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
-	
+
 	# clone
 	if [[ -d "$git_dir" ]]; then
 
@@ -201,20 +201,10 @@ else
 		git clone ${git_url} ${git_dir}
 
 	fi
-	
-	
+
+
 	# Enter git dir, if not already
 	cd "${git_dir}"
-	
-	# Only needed if using main git repository with all sub modules
-	# Only init modules we need
-	# If git dir was already pulled, it will update the modules
-	
-	echo -e "\n==> Initializing modules\n"
-	sleep 2s
-	
-	./init-repository --module-subset=default,-qtwebengine || exit 1
-	
 	git checkout "${branch}"
 
 	# trim git (after confimed working build)
@@ -232,10 +222,9 @@ else
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Try using upstream debian/
-	
-	#cp -r "${scriptdir}/debian" "${git_dir}"
-	cp -r "${scriptdir}/debian_experimental" "${git_dir}/debian"
-	
+
+	cp -r "${scriptdir}/debian" "${git_dir}"
+
 	###############################################################
 	# build package
 	###############################################################

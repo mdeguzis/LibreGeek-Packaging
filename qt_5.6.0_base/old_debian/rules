@@ -1,0 +1,89 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+
+export PATH := $(PATH):$(shell pwd)/bin
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+
+ifneq ($(DEB_HOST_ARCH_OS),linux)
+	extra_configure_opts += -no-eglfs
+endif
+
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+  ifneq (,$(filter $(DEB_HOST_ARCH),alpha ia64 mips64 mips64el arm64))
+	platform_arg = linux-g++
+  else ifeq ($(DEB_HOST_ARCH_BITS),64)
+	platform_arg = linux-g++-64
+  else
+	platform_arg = linux-g++
+  endif
+else ifeq ($(DEB_HOST_ARCH_OS),hurd)
+	platform_arg = hurd-g++
+else ifeq ($(DEB_HOST_ARCH_OS),kfreebsd)
+	platform_arg = gnukfreebsd-g++
+else
+	$(error Unknown qmake mkspec for $(DEB_HOST_ARCH_OS))
+endif
+
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+else
+	NUMJOBS = 1
+endif
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_clean:
+
+override_dh_clean:
+
+override_dh_auto_configure:
+	MAKEFLAGS="-j$(NUMJOBS)" ./configure \
+			-confirm-license \
+			-prefix "/usr" \
+			-bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \
+			-libdir "/usr/lib/$(DEB_HOST_MULTIARCH)" \
+			-docdir "/usr/share/qt5/doc" \
+			-headerdir "/usr/include/$(DEB_HOST_MULTIARCH)/qt5" \
+			-datadir "/usr/share/qt5" \
+			-archdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+			-hostdatadir "/usr/share/qt5" \
+			-plugindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/plugins" \
+			-importdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/imports" \
+			-translationdir "/usr/share/qt5/translations" \
+			-hostdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+			-sysconfdir "/etc/xdg" \
+			-examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
+			-opensource \
+			-platform $(platform_arg) \
+			-system-zlib \
+			-system-libpng \
+			-system-libjpeg \
+			-openssl \
+			-no-rpath \
+			-verbose \
+			-optimized-qmake \
+			-dbus-linked \
+			-no-strip \
+			-no-separate-debug-info \
+			-nomake examples \
+			-nomake tests \
+			-qpa xcb \
+			-xcb \
+			-glib \
+			-icu \
+			-accessibility \
+			-compile-examples \
+			-no-directfb \
+			-gstreamer 1.0 \
+			$(extra_configure_opts) \
+			$(cpu_opt)

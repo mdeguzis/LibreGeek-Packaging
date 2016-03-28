@@ -1,5 +1,20 @@
 #!/usr/bin/make -f
 
+##########################################
+# Curerently disabled options
+##########################################
+# These options were enabled in the expermiential debian/rules file, but
+# I am having issues resolving the 'cannot find sqlcli.h' error. Hopefully
+# I will resolve this later...
+
+#	            -plugin-sql-mysql \
+#	            -plugin-sql-odbc \
+#	            -plugin-sql-psql \
+#	            -plugin-sql-sqlite \
+#	            -no-sql-sqlite2 \
+#	            -plugin-sql-tds \
+#	            -system-sqlite \
+
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
@@ -109,13 +124,6 @@ override_dh_auto_configure:
 	            -sysconfdir "/etc/xdg" \
 	            -examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
 	            -opensource \
-#	            -plugin-sql-mysql \
-#	            -plugin-sql-odbc \
-#	            -plugin-sql-psql \
-#	            -plugin-sql-sqlite \
-#	            -no-sql-sqlite2 \
-#	            -plugin-sql-tds \
-#	            -system-sqlite \
 	            -platform $(platform_arg) \
 	            -system-harfbuzz \
 	            -system-zlib \

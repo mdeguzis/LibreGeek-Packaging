@@ -150,7 +150,7 @@ main()
 	cd "${git_dir}"
 	
 	# Only needed if using main git repository with all sub modules
-	# ./init-repository || exit 1
+	./init-repository || exit 1
 	
 	git checkout "${branch}"
 

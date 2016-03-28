@@ -57,10 +57,10 @@ qt_src_folder="${qt_src_file%.*.*}"
 # upstream vars
 #git_url="https://github.com/ProfessorKaos64/qt"
 #git_url="git://code.qt.io/qt/qt5.git"
-#git_url="https://github.com/qtproject/qtbase/"
+#git_url="git://code.qt.io/qt/qt5.git"
 
+git_url="https://github.com/qtproject/qtbase/"
 branch="v5.6.0"
-git_url="git://code.qt.io/qt/qt5.git"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

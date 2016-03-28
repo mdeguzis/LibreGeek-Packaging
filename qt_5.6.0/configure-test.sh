@@ -4,6 +4,8 @@
 # It is only meant for simple checks on configure options
 
 ####################################################
+# Passes as of 20160328 commit 26bb70d
+####################################################
 
 DEB_HOST_MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
 DEB_HOST_ARCH=$(dpkg-architecture -qDEB_HOST_ARCH)

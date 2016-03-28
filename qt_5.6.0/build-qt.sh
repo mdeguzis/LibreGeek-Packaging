@@ -150,7 +150,8 @@ main()
 	cd "${git_dir}"
 	
 	# Only needed if using main git repository with all sub modules
-	./init-repository || exit 1
+	# Only init modules we need
+	./init-repository --module-subset=default,-qtwebengine || exit 1
 	
 	git checkout "${branch}"
 

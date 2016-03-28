@@ -13,8 +13,6 @@ export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags -
 export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
 export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 
-endif
-
 ifneq ($(DEB_HOST_ARCH_OS),linux)
 	extra_configure_opts += -no-eglfs
 endif

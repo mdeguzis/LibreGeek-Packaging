@@ -179,7 +179,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Fix rules to make qtwebconfig"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Attempt to work in full upstream packaging model"
 		nano "debian/changelog"
 
 	else

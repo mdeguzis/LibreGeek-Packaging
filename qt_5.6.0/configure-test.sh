@@ -74,7 +74,7 @@ $(extra_configure_opts) \
 $(cpu_opt) &> qt-configure-test.log
 
 echo -e "\nReview log?"
-read -erp "Choice: [y/n]" choice
+read -erp "Choice [y/n]: " choice
 
 if [[ "${choice}" == "y" ]]; then
 

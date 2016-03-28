@@ -50,6 +50,7 @@ occuren when a debian/ file set surfaces under Stretch for 5.6.0~.
 * Error boils down to inability to find sqlcli.h. 
 * TODO - upload failed build log to Gist.
 
+```
 libqt5sql5-ibase.install
 libqt5sql5-mysql.install
 libqt5sql5-odbc.install
@@ -59,3 +60,4 @@ libqt5sql5-tds.install
 libqt5sql5.install
 libqt5sql5.lintian-overrides
 libqt5sql5.symbols
+```

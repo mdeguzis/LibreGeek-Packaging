@@ -10,7 +10,7 @@ Please see [configure-test.sh](https://github.com/ProfessorKaos64/LibreGeek-Pack
 
 Status: **[WIP]**
 
-# Disabled configure options
+# Configure options sourced in debian/rules via conditional statements
 
 Checking a build log, there two are added at the end via $(extra_configure_opts) (normally determined via dh/shell checks).
 
@@ -18,6 +18,8 @@ Checking a build log, there two are added at the end via $(extra_configure_opts)
 -plugin-sql-ibase
 -opengl desktop
 ```
+
+# Configure options currently disabled
 
 Currently disabled options from upstream Debian experimental debian/rules:
 

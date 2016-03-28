@@ -177,7 +177,7 @@ main()
 	# Try using upstream debian/
 	
 	#cp -r "${scriptdir}/debian" "${git_dir}"
-	cp -r "${scriptdir}/debian_experimenta" "${git_dir}/debian"
+	cp -r "${scriptdir}/debian_experimental" "${git_dir}/debian"
 	
 	###############################################################
 	# build package
@@ -193,7 +193,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Correct configure options"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Attemp to work in upstream Stretch packaging"
 		nano "debian/changelog"
 
 	else

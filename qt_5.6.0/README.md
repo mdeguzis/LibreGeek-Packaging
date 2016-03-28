@@ -8,7 +8,33 @@ these have been tweaked a little to allow building on SteamOS brewmaster (with J
 
 Status: **[WIP]**
 
-# Disabled confiugre options
+# Disabled configure options
+
+Checking a build log, there two are added at the end via $(extra_configure_opts) (normally determined via dh/shell checks).
+
+```
+-plugin-sql-ibase
+-opengl desktop
+```
+
+Currently disabled options from upstream Debian experimental debian/rules:
+
+```
+-plugin-sql-mysql
+-plugin-sql-odbc
+-plugin-sql-psql
+-plugin-sql-sqlite
+-no-sql-sqlite2
+-plugin-sql-tds
+-system-sqlite
+-plugin-sql-ibase
+```
+
+Taken out because the jessie/jessie-backport version is too old
+
+```
+-system-harfbuzz
+```
 
 # Disabled installs
 

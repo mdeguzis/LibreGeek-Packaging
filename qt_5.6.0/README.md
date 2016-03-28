@@ -6,7 +6,7 @@ these have been tweaked a little to allow building on SteamOS brewmaster (with J
 
 # Build status
 
-Status: **[[WIP]]**
+Status: **[WIP]**
 
 # Disabled confiugre options
 

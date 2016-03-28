@@ -41,7 +41,7 @@ fi
 -sysconfdir "/etc/xdg" \
 -examplesdir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/examples" \
 -opensource \
--platform $(platform_arg) \
+-platform $platform_arg \
 -plugin-sql-mysql \
 -plugin-sql-odbc \
 -plugin-sql-psql \

@@ -7,6 +7,7 @@
 # Description:	Builds package of QT 5.6.0 "qtwebengine"
 #
 # See:		http://code.qt.io/cgit/qt/qtwebengine.git/
+#		https://wiki.qt.io/How_to_Try_QtWebEngine#Building_QtWebengine
 #
 # Usage:	build-qtwebengine.sh
 # Opts:		[--testing]
@@ -48,7 +49,8 @@ else
 fi
 
 # upstream vars
-git_url="git://code.qt.io/qt/qtwebengine.git"
+#git_url="git://code.qt.io/qt/qtwebengine.git"
+git_url="https://github.com/qtproject/qt5"
 branch="v5.6.0"
 
 # package vars
@@ -81,7 +83,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get install bison build-essential gperf flex ruby python libasound2-dev libbz2-dev libcap-dev \
 	libcups2-dev libdrm-dev libegl1-mesa-dev libgcrypt11-dev libnss3-dev libpci-dev libpulse-dev libudev-dev \
-	libxtst-dev gyp ninja
+	libxtst-dev gyp ninja qtbase5-dev
 
 }
 

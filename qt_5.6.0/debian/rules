@@ -168,7 +168,7 @@ override_dh_auto_clean:
 	  config.tests/.qmake.cache \
 	  examples/dbus/*/Makefile.* \
 	  mkspecs/qconfig.pri \
-	  src/corelib/global/qconfig.* \
+	  qtbase/src/corelib/global/qconfig.* \
 	;
 
 	# Misc. directories
@@ -211,10 +211,10 @@ override_dh_auto_clean:
 
 	# Delete all Makefiles, excluding some from src/3rdparty
 	find $(CURDIR) -name Makefile \
-	  ! -path $(CURDIR)/src/3rdparty/Makefile \
-	  ! -path $(CURDIR)/src/3rdparty/freetype/\* \
-	  ! -path $(CURDIR)/src/3rdparty/zlib/\* \
-	  ! -path $(CURDIR)/src/3rdparty/ptmalloc/Makefile \
+	  ! -path $(CURDIR)/qtbase/src/3rdparty/Makefile \
+	  ! -path $(CURDIR)/qtbase/src/3rdparty/freetype/\* \
+	  ! -path $(CURDIR)/qtbase/src/3rdparty/zlib/\* \
+	  ! -path $(CURDIR)/qtbase/src/3rdparty/ptmalloc/Makefile \
 	-print0 | xargs -0 rm -rf
 
 	# Any remaining executables
@@ -233,19 +233,19 @@ ifeq ($(vendor),Ubuntu)
 endif
 
 override_dh_auto_build-indep:
-	cd $(CURDIR)/src; ../bin/qmake; make sub-qdoc
-	cd $(CURDIR)/src/corelib; ../../bin/qmake
-	cd $(CURDIR)/src/xml; ../../bin/qmake
+	cd $(CURDIR)/qtbase/src; ../bin/qmake; make sub-qdoc
+	cd $(CURDIR)/qtbase/src/corelib; ../../bin/qmake
+	cd $(CURDIR)/qtbase/src/xml; ../../bin/qmake
 	dh_auto_build -Smakefile -- html_docs
 
 override_dh_auto_build-arch:
 	# Bootstrap corelibs in order to be able to build the helper tools to
 	# regenerate some upstream-provided files.
-	cd $(CURDIR)/src; ../bin/qmake; make sub-corelib
+	cd $(CURDIR)/qtbase/src; ../bin/qmake; make sub-corelib
 	# Add here the code to generate the helpers and then the headers.
 	LC_ALL=C.UTF-8 sh debian/generateTLDs.sh
 	# Clean up the compiled code and start again.
-	cd $(CURDIR)/src; make distclean
+	cd $(CURDIR)/qtbase/src; make distclean
 	make clean
 	dh_auto_build
 
@@ -258,11 +258,11 @@ ifeq ($(DEB_HOST_ARCH_CPU),i386)
 	install -d debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/sse2/
 
 	# corelib needs make clean first to be able to rebuild.
-	cd $(CURDIR)/src/corelib; make clean ; ../../bin/qmake -config sse2; make
+	cd $(CURDIR)/qtbase/src/corelib; make clean ; ../../bin/qmake -config sse2; make
 	cp -av lib/libQt5Core.so.* debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/sse2/
 
 	# gui on turn doesn't needs it, and actually fails if done.
-	cd $(CURDIR)/src/gui; ../../bin/qmake -config sse2; make
+	cd $(CURDIR)/qtbase/src/gui; ../../bin/qmake -config sse2; make
 	cp -av lib/libQt5Gui.so.* debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/sse2/
 endif
 

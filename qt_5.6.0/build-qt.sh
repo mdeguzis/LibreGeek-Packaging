@@ -163,13 +163,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Try using upstream debian/
-
-	if [[ -d "${git_dir}/debian" ]]; then
-
-		rm -rf "${git_dir}/debian"
-		cp -r "${scriptdir}/debian" "${git_dir}"
-
-	fi
+	cp -r "${scriptdir}/debian" "${git_dir}"
 	
 	###############################################################
 	# build package

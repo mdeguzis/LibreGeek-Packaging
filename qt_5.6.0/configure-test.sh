@@ -50,7 +50,6 @@ fi
 -examplesdir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/examples" \
 -opensource \
 -platform $platform_arg \
--system-sqlite \
 -system-harfbuzz \
 -system-zlib \
 -system-libpng \

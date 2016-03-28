@@ -69,7 +69,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 #pkgname="qt"
 pkgname="qtbase-opensource-src"
 pkgver="5.6.0"
-pkgrev="4"
+pkgrev="2"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -162,11 +162,15 @@ main()
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
-	# Try using upstream Sid debian/ ?
+	# Try using upstream debian/
 
-	rm -rf "${git_dir}/debian"
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	if [[ -d "${git_dir}/debian" ]]; then
 
+		rm -rf "${git_dir}/debian"
+		cp -r "${scriptdir}/debian" "${git_dir}"
+
+	fi
+	
 	###############################################################
 	# build package
 	###############################################################

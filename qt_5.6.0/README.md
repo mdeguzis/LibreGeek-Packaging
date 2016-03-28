@@ -4,6 +4,8 @@ Some info about the build work in progress to get Qt 5.6.0 into SteamOS brewmast
 The debian/ files were sourced from the [Debian Stretch](https://packages.debian.org/sid/qt5-default) set of files. From there, 
 these have been tweaked a little to allow building on SteamOS brewmaster (with Jessie/Jessie-Backports enabled).
 
+Please see [configure-test.sh](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qt_5.6.0/configure-test.sh)
+
 # Build status
 
 Status: **[WIP]**

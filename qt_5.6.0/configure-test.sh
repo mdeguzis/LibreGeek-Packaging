@@ -4,6 +4,7 @@
 # It is only meant for simple checks on configure options
 
 qtdir="$HOME/qt5"
+currdir="${PWD}"
 
 if [[ -d "${qtdir}" ]]; then
 
@@ -12,7 +13,7 @@ if [[ -d "${qtdir}" ]]; then
 	
 else
 
-	echo "Error! - $qtdir not found!
+	echo "Error! - $qtdir not found!"
 	exit 1
 	
 fi
@@ -77,3 +78,4 @@ fi
 
 # clean up
 rm -f qt-configure-test.log
+cd "$currdir"

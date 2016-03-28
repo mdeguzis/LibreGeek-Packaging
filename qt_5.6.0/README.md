@@ -6,6 +6,8 @@ these have been tweaked a little to allow building on SteamOS brewmaster (with J
 
 Please see [configure-test.sh](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qt_5.6.0/configure-test.sh)
 
+The "debian_experimental" folder is for work on trying to build the individual packages of Qt 5.6.0+. The debian folder present installs everything made during the install. Once more is known about the build process, the experimental set can possibly be fixed up.
+
 # Build status
 
 Status: **[WIP]**

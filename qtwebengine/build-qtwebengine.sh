@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-#git_url="git://code.qt.io/qt/qtwebengine.git"
-git_url="https://github.com/qtproject/qt5"
+git_url="git://code.qt.io/qt/qtwebengine.git"
+#git_url="https://github.com/qtproject/qt5"
 branch="v5.6.0"
 
 # package vars
@@ -126,6 +126,7 @@ main()
 
 	# clone
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	cd "${git_dir}" && git submodule update --init
 
 	# trim git
 	# rm -rf "${git_dir}/.git"

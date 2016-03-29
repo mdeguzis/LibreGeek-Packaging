@@ -261,7 +261,8 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${build_dir}/ ${USER}@${HOST}:${REPO_FOLDER}
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"

@@ -170,6 +170,7 @@ main()
 
 		git clone ${git_url} ${git_dir}
 		echo -e "\n==> Initalizing repository" && sleep 3s
+		cd "${git_dir}"
 		perl init-repository --module-subset=default,-qtwebengine || exit 1
 		git checkout "${branch}"
 

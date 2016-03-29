@@ -114,8 +114,14 @@ main()
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then
 
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
+		read -erp "Build dir exists, reset? [y/n]: " build_reset
+		
+		if [[ "${build_reset}" == "y" ]]; then
+
+			sudo rm -rf "${build_dir}"
+			mkdir -p "${build_dir}"
+	
+		fi
 
 	else
 
@@ -146,13 +152,21 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
+	
+	# Since the repo is so large, pull if possible
 
-	git clone ${git_url} ${git_dir}
+	if [[ -d "${git_dir}" ]]; then
+	
+		cd "${git_dir}"
+		git checkout "${branch}" && git pull
+		
+	else
 
+		git clone ${git_url} ${git_dir}
+		git checkout "${branch}"
+	
+	fi
 
-	# Enter git dir, if not already
-	cd "${git_dir}"
-	git checkout "${branch}"
 
 	# trim git (after confimed working build)
 	# rm -rf "${git_dir}/.git"

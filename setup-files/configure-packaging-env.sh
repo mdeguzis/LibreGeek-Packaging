@@ -16,7 +16,7 @@ export scriptdir=$(pwd)
 BASHRC_RESET="false"
 
 clear
-echo -e "==> Installing basic packages\n"
+echo -e "\n==> Installing basic packages\n"
 sleep 2s
 
 ##################################################
@@ -43,7 +43,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	fi
 
 	# Standard packages
-	echo "\nInstalling main packages\n"
+	echo -e "\nInstalling main packages\n"
 	sleep 2s
 
 	sudo apt-get install -y --force-yes pbuilder libselinux1 libselinux1:i386 \

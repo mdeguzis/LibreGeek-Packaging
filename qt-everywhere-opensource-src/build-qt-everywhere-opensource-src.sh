@@ -162,13 +162,13 @@ main()
 	if [[ -d "${git_dir}" ]]; then
 
 		cd "${git_dir}"  && git pull
-		./init-repository --module-subset=default,-qtwebengine || exit 1
+		perl init-repository --module-subset=default,-qtwebengine || exit 1
 		git checkout "${branch}"
 
 	else
 
 		git clone ${git_url} ${git_dir}
-		./init-repository --module-subset=default,-qtwebengine || exit 1
+		perl init-repository --module-subset=default,-qtwebengine || exit 1
 		git checkout "${branch}"
 
 	fi

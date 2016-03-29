@@ -1,4 +1,4 @@
-Source: qtbase-opensource-src
+Source: qt-everywhere-opensource-src
 Section: devel
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
@@ -70,7 +70,7 @@ Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qtbase.git
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-kde/qt/qtbase.git
 
-Package: qtbase-opensource-src
+Package: qt-everywhere-opensource-src
 Architecture: any
 Multi-Arch: same
 Section: devel

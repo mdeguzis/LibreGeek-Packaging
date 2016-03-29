@@ -1,5 +1,5 @@
-qtbase-opensource-src (0.20160325+git+bsos-1) brewmaster; urgency=low
+qt-everywhere-opensource-src (0.0.1+git+bsos-1) brewmaster; urgency=low
 
-  * Initial build attempt
+  * Dummy changelog
 
  -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 21 Mar 2016 16:04:20 -0400

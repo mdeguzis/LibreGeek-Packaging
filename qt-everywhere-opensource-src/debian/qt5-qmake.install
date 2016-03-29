@@ -1,2 +1,2 @@
-usr/lib/*/qt5/bin/qmake
-usr/lib/*/qt5/mkspecs/
+usr/bin/qmake
+usr/bin/mkspecs/

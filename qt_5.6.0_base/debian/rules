@@ -234,7 +234,7 @@ endif
 
 override_dh_auto_build-indep:
 	# build qtbase
-	cd $(CURDIR)/src; ../bin/qmake; make sub-qdoc
+	cd $(CURDIR)/src; ../bin/qmake
 	cd $(CURDIR)/qtbase/src/corelib; ../../bin/qmake
 	cd $(CURDIR)/qtbase/src/xml; ../../bin/qmake
 	dh_auto_build -Smakefile -- html_docs

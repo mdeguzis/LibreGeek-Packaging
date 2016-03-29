@@ -114,7 +114,8 @@ main()
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then
 
-		read -erp "\nBuild dir exists, reset? [y/n]: " build_reset
+		echo -e "\n==> Build dir exists, reset? [y/n]"
+		sleep 0.3s && read -erp "Choice: " build_reset
 		
 		if [[ "${build_reset}" == "y" ]]; then
 

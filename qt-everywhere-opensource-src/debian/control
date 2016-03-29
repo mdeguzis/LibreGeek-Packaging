@@ -85,7 +85,7 @@ Description: Qt 5 catch-all package
  If you are interested in packaging Qt 5 stuff please take a look at
  http://pkg-kde.alioth.debian.org/packagingqtbasedstuff.html
  
- Package: libqt5gui5
+Package: libqt5gui5
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}

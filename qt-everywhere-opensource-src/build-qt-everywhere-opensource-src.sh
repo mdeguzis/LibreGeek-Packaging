@@ -156,26 +156,15 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-
-	# Since the repo is so large, pull if possible
-
-	if [[ -d "${git_dir}" ]]; then
-
-		cd "${git_dir}"
-		echo -e "\n==> Initalizing repository\n" && sleep 3s
-		perl init-repository --module-subset=default,-qtwebengine
-		git checkout "${branch}"
-
-	else
-
-		git clone ${git_url} ${git_dir}
-		echo -e "\n==> Initalizing repository\n" && sleep 3s
-		cd "${git_dir}"
-		perl init-repository --module-subset=default,-qtwebengine || exit 1
-		git checkout "${branch}"
-
-	fi
-
+	git clone ${git_url} ${git_dir}
+	
+	echo -e "\n==> Initalizing repository\n" && sleep 3s
+	
+	cd "${git_dir}"
+	perl init-repository --module-subset=default,-qtwebengine || exit 1
+	
+	# Checkout our desired version
+	git checkout "${branch}"
 
 	# trim git (after confimed working build)
 	# rm -rf "${git_dir}/.git"

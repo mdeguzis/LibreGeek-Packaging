@@ -143,6 +143,19 @@ Description: Qt 5 OpenGL module
  OpenGL is a standard API for rendering 3D graphics. OpenGL only deals with 3D
  rendering and provides little or no support for GUI programming issues.
 
+Package: libqt5sql5
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Recommends: libqt5sql5-sqlite | libqt5sql5-mysql | libqt5sql5-odbc | libqt5sql5-psql | libqt5sql5-tds | libqt5sql5-ibase [kfreebsd-any linux-any]
+Description: Qt 5 SQL module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The QtSql module helps you provide seamless database integration to your Qt
+ applications.
+
 Package: libqt5xml5
 Architecture: any
 Multi-Arch: same

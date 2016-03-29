@@ -8,71 +8,64 @@ Uploaders: Sune Vuorela <sune@debian.org>,
            Timo Jyrinki <timo@debian.org>,
            Dmitry Shachnev <mitya57@debian.org>
 Build-Depends: debhelper (>= 9),
- dpkg-dev (>= 1.16.1),
- firebird-dev [kfreebsd-any linux-any],
- freetds-dev,
- gdb,
- libasound2-dev [linux-any],
- libatspi2.0-dev,
- libcups2-dev,
- libdbus-1-dev,
- libfontconfig1-dev,
- libfreetype6-dev,
- libgbm-dev [linux-any],
- libgl1-mesa-dev | libgl-dev,
- libgles2-mesa-dev [linux-any] | libgles2-dev [linux-any],
- libglib2.0-dev,
- libglu1-mesa-dev | libglu-dev,
- libgstreamer-plugins-base1.0-dev,
- libgstreamer1.0-dev,
- libgtk2.0-dev,
- libharfbuzz-dev,
- libicu-dev,
- libinput-dev [linux-any],
- libjpeg-dev,
- libmtdev-dev [linux-any],
- libmysqlclient-dev,
- libpcre3-dev,
- libpng-dev,
- libpq-dev,
- libproxy-dev,
- libpulse-dev,
- libsqlite3-dev,
- libssl-dev,
- libudev-dev [linux-any],
- libx11-dev,
- libx11-xcb-dev,
- libxcb-icccm4-dev,
- libxcb-image0-dev,
- libxcb-keysyms1-dev,
- libxcb-glx0-dev,
- libxcb-randr0-dev,
- libxcb-render-util0-dev,
- libxcb-render0-dev,
- libxcb-shape0-dev,
- libxcb-shm0-dev,
- libxcb-sync-dev,
- libxcb-xfixes0-dev,
- libxcb-xkb-dev,
- libxcb1-dev,
- libxext-dev,
- libxfixes-dev,
- libxcb-xinerama0-dev,
- libxcomposite-dev,
- libxdamage-dev,
- libxcursor-dev,
- libxi-dev,
- libxkbcommon-dev,
- libxkbcommon-x11-dev,
- libxrender-dev,
- libxrandr-dev,
- openssl,
- perl,
- python, 
- pkg-kde-tools,
- publicsuffix,
- unixodbc-dev,
- zlib1g-dev
+               dpkg-dev (>= 1.16.1),
+               firebird-dev [kfreebsd-any linux-any],
+               freetds-dev,
+               gdb,
+               libasound2-dev [linux-any],
+               libatspi2.0-dev,
+               libcups2-dev,
+               libdbus-1-dev,
+               libfontconfig1-dev,
+               libfreetype6-dev,
+               libgbm-dev [linux-any],
+               libgl1-mesa-dev | libgl-dev,
+               libgles2-mesa-dev [linux-any] | libgles2-dev [linux-any],
+               libglib2.0-dev,
+               libglu1-mesa-dev | libglu-dev,
+               libgstreamer-plugins-base1.0-dev,
+               libgstreamer1.0-dev,
+               libgtk2.0-dev,
+               libharfbuzz-dev,
+               libicu-dev,
+               libinput-dev [linux-any],
+               libjpeg-dev,
+               libmtdev-dev [linux-any],
+               libmysqlclient-dev,
+               libpcre3-dev,
+               libpng-dev,
+               libpq-dev,
+               libproxy-dev,
+               libpulse-dev,
+               libsqlite3-dev,
+               libssl-dev,
+               libudev-dev [linux-any],
+               libx11-dev,
+               libx11-xcb-dev,
+               libxcb-icccm4-dev,
+               libxcb-image0-dev,
+               libxcb-keysyms1-dev,
+               libxcb-randr0-dev,
+               libxcb-render-util0-dev,
+               libxcb-render0-dev,
+               libxcb-shape0-dev,
+               libxcb-shm0-dev,
+               libxcb-sync-dev,
+               libxcb-xfixes0-dev,
+               libxcb-xinerama0-dev,
+               libxcb-xkb-dev,
+               libxcb1-dev,
+               libxext-dev,
+               libxi-dev,
+               libxkbcommon-dev,
+               libxkbcommon-x11-dev,
+               libxrender-dev,
+               pkg-kde-tools (>= 0.15.17),
+               publicsuffix,
+               unixodbc-dev,
+               zlib1g-dev
+Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.0~),
+                     qttools5-dev-tools (>= 5.6.0~)
 Build-Conflicts: libmariadbclient-dev
 Standards-Version: 3.9.7
 Homepage: http://qt-project.org/
@@ -83,7 +76,7 @@ Package: libqt5core5a
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Provides: qtbase-abi-5-5-1
+Provides: qtbase-abi-5-6-0
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Recommends: qttranslations5-l10n
 Suggests: libthai0
@@ -99,12 +92,12 @@ Package: libqt5gui5
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
-Depends: fontconfig, ${misc:Depends}, ${shlibs:Depends}
+Depends: fontconfig, mesa-utils, ${misc:Depends}, ${shlibs:Depends}
 Recommends: libqt5svg5
-Breaks: libqt5egldeviceintegration5 (<< 5.5.1+dfsg-13~),
-        libqt5xcbqpa5 (<< 5.5.1+dfsg-13~)
-Replaces: libqt5egldeviceintegration5 (<< 5.5.1+dfsg-13~),
-          libqt5xcbqpa5 (<< 5.5.1+dfsg-13~)
+Breaks: libqt5egldeviceintegration5 (<< 5.6.0~beta+dfsg-5~),
+        libqt5xcbqpa5 (<< 5.6.0~beta+dfsg-5~)
+Replaces: libqt5egldeviceintegration5 (<< 5.6.0~beta+dfsg-5~),
+          libqt5xcbqpa5 (<< 5.6.0~beta+dfsg-5~)
 Suggests: libqt5libqgtk2, qt5-image-formats-plugins, qtwayland5
 Description: Qt 5 GUI module
  Qt is a cross-platform C++ application framework. Qt's primary feature
@@ -393,7 +386,7 @@ Description: Qt 5 base development programs
  is its rich set of widgets that provide standard GUI functionality.
  .
  This package contains the development programs used for building Qt 5
- applications, such as moc, qdbuscpp2xml, qdbusxml2cpp, qdoc, rcc,
+ applications, such as moc, qdbuscpp2xml, qdbusxml2cpp, rcc,
  syncqt and uic.
 
 Package: qt5-qmake
@@ -483,6 +476,17 @@ Description: Qt 5 development defaults package
  This package should not be used for building Debian packages. Take a
  look at http://pkg-kde.alioth.debian.org/packagingqtbasedstuff.html for
  more information.
+
+Package: qtbase5-doc
+Priority: extra
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Description: Qt 5 base documentation
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the documentation for the Qt 5 base libraries.
 
 Package: qtbase5-doc-html
 Priority: extra

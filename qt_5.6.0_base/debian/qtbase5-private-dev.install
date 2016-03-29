@@ -15,4 +15,3 @@ usr/include/*/qt5/QtWidgets/5.*/*
 usr/include/*/qt5/QtXml/5.*/*
 usr/lib/*/libQt5PlatformSupport.a
 usr/lib/*/libQt5PlatformSupport.prl
-usr/lib/*/pkgconfig/Qt5PlatformSupport.pc

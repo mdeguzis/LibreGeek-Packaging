@@ -13,12 +13,34 @@ tests/auto/network/access/qftp/rfc3252.txt
 tests/auto/corelib/tools/qbytearray/rfc3252.txt 
 tests/auto/corelib/io/qtextstream/rfc3261.txt
 
+Bootstrapping the docs packages
+-------------------------------
+
+In Qt 5.6 the qdoc tool was moved to qttools source, so qtbase got a
+Build-Depends-Indep on qttools5-dev-tools. Thus you need to do the following
+steps if you want to rebuild the whole Qt stack from scratch:
+
+* Build only arch-dependent packages from these sources:
+  - qtbase-opensource-src
+  - qtxmlpatterns-opensource-src
+  - qtdeclarative-opensource-src
+  - qtwebkit-opensource-src
+  - qtdeclarative-opensource-src
+* Build the arch-independent packages (-doc and -doc-html) of the above sources.
+* Build the rest of the Qt stack in the usual way.
+
+Note: the docs packages should not be a problem when bootstrapping a new
+Debian architecture, because the arch-independent packages are already available
+in Debian archive.
+
 Marking private symbols
 -----------------------
 
-After doing a first build, run mark_private_symbols to mark private symbols
-to depend on qtbase-abi-x-y-z. Be sure to modify control, lintian-overrides and
-symbols files with current version of this ABI.
+After each symbols update, run pkgkde-mark-qt5-private symbols helper script
+from pkg-kde-tools ≥ 0.15.21.
+
+When upstream ABI breaks, update qtbase-abi-x-y-z version in debian/control
+and in the symbols files.
 
 Patches to the original source code
 -----------------------------------

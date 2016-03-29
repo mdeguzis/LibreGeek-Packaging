@@ -1,28 +1,7 @@
 #!/usr/bin/make -f
 
+# Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
-
-################################################################################
-# Currently disabled options from upstream Debian experimental debian/rules:
-################################################################################
-# See: ../configure-test.sh
-
-# Remove options from Debian experiement debian/rules:
-
-#-plugin-sql-mysql \
-#-plugin-sql-odbc \
-#-plugin-sql-psql \
-#-plugin-sql-sqlite \
-#-no-sql-sqlite2 \
-#-plugin-sql-tds \
-#-system-sqlite \
-#-plugin-sql-ibase \
-
-# Taken out because the jessie/jessie-backport version is too old \
-
-#-system-harfbuzz
-
-################################################################################
 
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
@@ -40,8 +19,8 @@ upstream_changes := dist/changes-$(shell dpkg-parsechangelog | sed -n 's/^Versio
 # Distribution vendor
 vendor := $(shell dpkg-vendor --query Vendor)
 
-# To easier the files installation according OSes and archs, we create three
-# kinds of install files: foo.install-common, foo.install-$DEB_HOST_ARCH and
+# To easier the files installation according to OSes and CPUs, we create three
+# kinds of install files: foo.install-common, foo.install-$DEB_HOST_ARCH_CPU and
 # foo.install-$DEB_HOST_ARCH_OS. In this case we can fine-tune what we install.
 #
 # Note that if any foo.install-* file exists and foo.install exist too, the
@@ -52,20 +31,17 @@ vendor := $(shell dpkg-vendor --query Vendor)
 
 # Retrieve packages that have a .install-common file
 pkgs_with_common = $(patsubst debian/%.install-common,%,$(wildcard debian/*.install-common))
-# Retrieve packages that have a .install-$DEB_HOST_ARCH file
-pkgs_with_arch = $(patsubst debian/%.install-$(DEB_HOST_ARCH),%,$(wildcard debian/*.install-$(DEB_HOST_ARCH)))
+# Retrieve packages that have a .install-$DEB_HOST_ARCH_CPU file
+pkgs_with_arch = $(patsubst debian/%.install-$(DEB_HOST_ARCH_CPU),%,$(wildcard debian/*.install-$(DEB_HOST_ARCH_CPU)))
 # Retrieve packages that have a .install-$DEB_HOST_ARCH_OS file
 pkgs_with_os = $(patsubst debian/%.install-$(DEB_HOST_ARCH_OS),%,$(wildcard debian/*.install-$(DEB_HOST_ARCH_OS)))
 
-# <!>
-# Don't use this, goes in line with SQL plugins currently disabled
-# <!>
 
-#ifneq (,$(filter libqt5sql5-ibase,$(shell dh_listpackages)))
-#	extra_configure_opts += -plugin-sql-ibase
-#else
+ifneq (,$(filter libqt5sql5-ibase,$(shell dh_listpackages)))
+	extra_configure_opts += -plugin-sql-ibase
+else
 	extra_configure_opts += -no-sql-ibase
-#endif
+endif
 
 no_pch_architectures := arm64
 ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(no_pch_architectures)))
@@ -117,45 +93,51 @@ endif
 
 override_dh_auto_configure:
 	MAKEFLAGS="-j$(NUMJOBS)" ./configure \
-			-confirm-license \
-			-prefix "/usr" \
-			-bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \
-			-libdir "/usr/lib/$(DEB_HOST_MULTIARCH)" \
-			-docdir "/usr/share/qt5/doc" \
-			-headerdir "/usr/include/$(DEB_HOST_MULTIARCH)/qt5" \
-			-datadir "/usr/share/qt5" \
-			-archdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
-			-hostdatadir "/usr/share/qt5" \
-			-plugindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/plugins" \
-			-importdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/imports" \
-			-translationdir "/usr/share/qt5/translations" \
-			-hostdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
-			-sysconfdir "/etc/xdg" \
-			-examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
-			-opensource \
-			-platform $(platform_arg) \
-			-system-zlib \
-			-system-libpng \
-			-system-libjpeg \
-			-openssl \
-			-no-rpath \
-			-verbose \
-			-optimized-qmake \
-			-dbus-linked \
-			-no-strip \
-			-no-separate-debug-info \
-			-nomake examples \
-			-nomake tests \
-			-qpa xcb \
-			-xcb \
-			-glib \
-			-icu \
-			-accessibility \
-			-compile-examples \
-			-no-directfb \
-			-gstreamer 1.0 \
-			$(extra_configure_opts) \
-			$(cpu_opt)
+	            -confirm-license \
+	            -prefix "/usr" \
+	            -bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \
+	            -libdir "/usr/lib/$(DEB_HOST_MULTIARCH)" \
+	            -docdir "/usr/share/qt5/doc" \
+	            -headerdir "/usr/include/$(DEB_HOST_MULTIARCH)/qt5" \
+	            -datadir "/usr/share/qt5" \
+	            -archdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+	            -hostdatadir "/usr/share/qt5" \
+	            -plugindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/plugins" \
+	            -importdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/imports" \
+	            -translationdir "/usr/share/qt5/translations" \
+	            -hostdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+	            -sysconfdir "/etc/xdg" \
+	            -examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
+	            -opensource \
+	            -plugin-sql-mysql \
+	            -plugin-sql-odbc \
+	            -plugin-sql-psql \
+	            -plugin-sql-sqlite \
+	            -no-sql-sqlite2 \
+	            -plugin-sql-tds \
+	            -system-sqlite \
+	            -platform $(platform_arg) \
+	            -system-harfbuzz \
+	            -system-zlib \
+	            -system-libpng \
+	            -system-libjpeg \
+	            -openssl \
+	            -no-rpath \
+	            -verbose \
+	            -optimized-qmake \
+	            -dbus-linked \
+	            -no-strip \
+	            -no-separate-debug-info \
+	            -qpa xcb \
+	            -xcb \
+	            -glib \
+	            -icu \
+	            -accessibility \
+	            -compile-examples \
+	            -no-directfb \
+	            -gstreamer 1.0 \
+	            $(extra_configure_opts) \
+	            $(cpu_opt)
 
 override_dh_auto_clean:
 	[ ! -f Makefile ] || $(MAKE) confclean distclean
@@ -233,26 +215,17 @@ ifeq ($(vendor),Ubuntu)
 endif
 
 override_dh_auto_build-indep:
-	# build qtbase
-	cd $(CURDIR)/src; ../bin/qmake
-	cd $(CURDIR)/src/corelib; ../../bin/qmake
-	cd $(CURDIR)/src/xml; ../../bin/qmake
-	dh_auto_build
+	dh_auto_build -- docs
 
 override_dh_auto_build-arch:
-	# PK NOTE: based on mkspecs/features/qfeatures.prf, the required
-	# file mkspecs/qfeatures.pri is something local, which we don't have.
-	# 
 	# Bootstrap corelibs in order to be able to build the helper tools to
 	# regenerate some upstream-provided files.
-	# cd $(CURDIR)/src; ../bin/qmake; make sub-corelib
+	cd $(CURDIR)/src; ../bin/qmake; make sub-corelib
 	# Add here the code to generate the helpers and then the headers.
-	# LC_ALL=C.UTF-8 sh debian/generateTLDs.sh
+	LC_ALL=C.UTF-8 sh debian/generateTLDs.sh
 	# Clean up the compiled code and start again.
-	# cd $(CURDIR)/src; make distclean
-	# make clean
-	# 
-	# Normal build here
+	cd $(CURDIR)/src; make distclean
+	make clean
 	dh_auto_build
 
 override_dh_auto_install-arch:
@@ -316,10 +289,7 @@ endif
 		-exec chmod a-x {} \;
 
 override_dh_auto_install-indep:
-	make INSTALL_ROOT=$(CURDIR)/debian/tmp install_html_docs
-	# Docs are shipping empty directories, most probably for scripts only present
-	# when building online-html. See QTBUG-44655.
-	find $(CURDIR)/debian/tmp/usr/share/qt5/doc/ -type d -empty -delete -print
+	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
 
 override_dh_install:
 	# Now flush all the .install-* files as .install files.
@@ -328,7 +298,7 @@ override_dh_install:
 	done
 
 	set -e; for pkg in $(pkgs_with_arch); do \
-		cat debian/$$pkg.install-$(DEB_HOST_ARCH) >> debian/$$pkg.install ; \
+		cat debian/$$pkg.install-$(DEB_HOST_ARCH_CPU) >> debian/$$pkg.install ; \
 	done
 
 	set -e; for pkg in $(pkgs_with_os); do \
@@ -343,7 +313,11 @@ override_dh_installdocs:
 	dh_installdocs --all LGPL_EXCEPTION.txt
 
 override_dh_installchangelogs:
-	dh_installchangelogs $(upstream_changes)
+	if [ -f $(upstream_changes) ] ; then \
+		dh_installchangelogs $(upstream_changes); \
+	else \
+		dh_installchangelogs; \
+	fi
 
 override_dh_strip:
 	dh_strip -pqtbase5-examples --dbg-package=qtbase5-examples-dbg
@@ -354,9 +328,6 @@ override_dh_strip:
 override_dh_makeshlibs:
 	dh_makeshlibs -V -plibqt5gui5 -XlibQt5EglDeviceIntegration.so -X libQt5XcbQpa.so
 	dh_makeshlibs -V --remaining-packages
-
-	# Check for private symbols not marked as such. Be verbose.
-	pkgkde-mark-private-symbols debian/qtbase5-private-dev/usr/include
 
 override_dh_clean:
 	dh_clean

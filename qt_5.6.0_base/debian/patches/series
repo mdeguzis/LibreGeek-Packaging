@@ -1,0 +1,12 @@
+# Backported from upstream
+dbusmenu_fixes.diff
+dbustray_fixes.diff
+no_dbus_dependency.diff
+fix_not_delivering_focus.patch
+
+# Debian specific.
+gnukfreebsd.diff
+no_htmlinfo_example.diff
+remove_privacy_breachs.diff
+link_fbclient.diff
+fix_alsa_detection.patch

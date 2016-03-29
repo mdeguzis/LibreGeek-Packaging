@@ -108,6 +108,7 @@ usr/include/*/qt5/QtCore/QGlobalStatic
 usr/include/*/qt5/QtCore/QHash
 usr/include/*/qt5/QtCore/QHashData
 usr/include/*/qt5/QtCore/QHashDummyValue
+usr/include/*/qt5/QtCore/QHashFunctions
 usr/include/*/qt5/QtCore/QHashIterator
 usr/include/*/qt5/QtCore/QHashNode
 usr/include/*/qt5/QtCore/QHistoryState
@@ -145,6 +146,7 @@ usr/include/*/qt5/QtCore/QListSpecialMethods
 usr/include/*/qt5/QtCore/QLocale
 usr/include/*/qt5/QtCore/QLockFile
 usr/include/*/qt5/QtCore/QLoggingCategory
+usr/include/*/qt5/QtCore/QMacAutoReleasePool
 usr/include/*/qt5/QtCore/QMap
 usr/include/*/qt5/QtCore/QMapData
 usr/include/*/qt5/QtCore/QMapDataBase
@@ -162,9 +164,6 @@ usr/include/*/qt5/QtCore/QMetaMethod
 usr/include/*/qt5/QtCore/QMetaObject
 usr/include/*/qt5/QtCore/QMetaProperty
 usr/include/*/qt5/QtCore/QMetaType
-usr/include/*/qt5/QtCore/QMetaTypeId
-usr/include/*/qt5/QtCore/QMetaTypeId2
-usr/include/*/qt5/QtCore/QMetaTypeIdQObject
 usr/include/*/qt5/QtCore/QMimeData
 usr/include/*/qt5/QtCore/QMimeDatabase
 usr/include/*/qt5/QtCore/QMimeType
@@ -294,6 +293,7 @@ usr/include/*/qt5/QtCore/QVariantList
 usr/include/*/qt5/QtCore/QVariantMap
 usr/include/*/qt5/QtCore/QVector
 usr/include/*/qt5/QtCore/QVectorIterator
+usr/include/*/qt5/QtCore/QVersionNumber
 usr/include/*/qt5/QtCore/QWaitCondition
 usr/include/*/qt5/QtCore/QWeakPointer
 usr/include/*/qt5/QtCore/QWinEventNotifier
@@ -349,7 +349,6 @@ usr/include/*/qt5/QtCore/qatomic_bootstrap.h
 usr/include/*/qt5/QtCore/qatomic_cxx11.h
 usr/include/*/qt5/QtCore/qatomic_gcc.h
 usr/include/*/qt5/QtCore/qatomic_ia64.h
-usr/include/*/qt5/QtCore/qatomic_mips.h
 usr/include/*/qt5/QtCore/qatomic_msvc.h
 usr/include/*/qt5/QtCore/qatomic_unix.h
 usr/include/*/qt5/QtCore/qatomic_x86.h
@@ -410,6 +409,7 @@ usr/include/*/qt5/QtCore/qgenericatomic.h
 usr/include/*/qt5/QtCore/qglobal.h
 usr/include/*/qt5/QtCore/qglobalstatic.h
 usr/include/*/qt5/QtCore/qhash.h
+usr/include/*/qt5/QtCore/qhashfunctions.h
 usr/include/*/qt5/QtCore/qhistorystate.h
 usr/include/*/qt5/QtCore/qidentityproxymodel.h
 usr/include/*/qt5/QtCore/qiodevice.h
@@ -518,6 +518,8 @@ usr/include/*/qt5/QtCore/qvariant.h
 usr/include/*/qt5/QtCore/qvariantanimation.h
 usr/include/*/qt5/QtCore/qvarlengtharray.h
 usr/include/*/qt5/QtCore/qvector.h
+usr/include/*/qt5/QtCore/qversionnumber.h
+usr/include/*/qt5/QtCore/qversiontagging.h
 usr/include/*/qt5/QtCore/qwaitcondition.h
 usr/include/*/qt5/QtCore/qwineventnotifier.h
 usr/include/*/qt5/QtCore/qxmlstream.h
@@ -671,6 +673,8 @@ usr/include/*/qt5/QtGui/QOpenGLContext
 usr/include/*/qt5/QtGui/QOpenGLContextGroup
 usr/include/*/qt5/QtGui/QOpenGLDebugLogger
 usr/include/*/qt5/QtGui/QOpenGLDebugMessage
+usr/include/*/qt5/QtGui/QOpenGLExtraFunctions
+usr/include/*/qt5/QtGui/QOpenGLExtraFunctionsPrivate
 usr/include/*/qt5/QtGui/QOpenGLFramebufferObject
 usr/include/*/qt5/QtGui/QOpenGLFramebufferObjectFormat
 usr/include/*/qt5/QtGui/QOpenGLFunctions
@@ -745,6 +749,7 @@ usr/include/*/qt5/QtGui/QRegion
 usr/include/*/qt5/QtGui/QRegularExpressionValidator
 usr/include/*/qt5/QtGui/QResizeEvent
 usr/include/*/qt5/QtGui/QRgb
+usr/include/*/qt5/QtGui/QRgba64
 usr/include/*/qt5/QtGui/QScreen
 usr/include/*/qt5/QtGui/QScreenOrientationChangeEvent
 usr/include/*/qt5/QtGui/QScrollEvent
@@ -851,6 +856,7 @@ usr/include/*/qt5/QtGui/qopenglbuffer.h
 usr/include/*/qt5/QtGui/qopenglcontext.h
 usr/include/*/qt5/QtGui/qopengldebug.h
 usr/include/*/qt5/QtGui/qopengles2ext.h
+usr/include/*/qt5/QtGui/qopenglextrafunctions.h
 usr/include/*/qt5/QtGui/qopenglext.h
 usr/include/*/qt5/QtGui/qopenglframebufferobject.h
 usr/include/*/qt5/QtGui/qopenglfunctions.h
@@ -911,6 +917,7 @@ usr/include/*/qt5/QtGui/qrasterwindow.h
 usr/include/*/qt5/QtGui/qrawfont.h
 usr/include/*/qt5/QtGui/qregion.h
 usr/include/*/qt5/QtGui/qrgb.h
+usr/include/*/qt5/QtGui/qrgba64.h
 usr/include/*/qt5/QtGui/qscreen.h
 usr/include/*/qt5/QtGui/qsessionmanager.h
 usr/include/*/qt5/QtGui/qstandarditemmodel.h
@@ -1029,22 +1036,28 @@ usr/include/*/qt5/QtOpenGLExtensions/QtOpenGLExtensionsVersion
 usr/include/*/qt5/QtOpenGLExtensions/qopenglextensions.h
 usr/include/*/qt5/QtOpenGLExtensions/qtopenglextensionsversion.h
 usr/include/*/qt5/QtPlatformHeaders/QCocoaNativeContext
+usr/include/*/qt5/QtPlatformHeaders/QCocoaWindowFunctions
 usr/include/*/qt5/QtPlatformHeaders/QEGLNativeContext
 usr/include/*/qt5/QtPlatformHeaders/QEglFSFunctions
 usr/include/*/qt5/QtPlatformHeaders/QGLXNativeContext
 usr/include/*/qt5/QtPlatformHeaders/QWGLNativeContext
 usr/include/*/qt5/QtPlatformHeaders/QWindowsWindowFunctions
+usr/include/*/qt5/QtPlatformHeaders/QXcbIntegrationFunctions
 usr/include/*/qt5/QtPlatformHeaders/QXcbWindowFunctions
 usr/include/*/qt5/QtPlatformHeaders/QtPlatformHeaders
 usr/include/*/qt5/QtPlatformHeaders/QtPlatformHeadersDepends
+usr/include/*/qt5/QtPlatformHeaders/QPlatformHeaderHelper
 usr/include/*/qt5/QtPlatformHeaders/QtPlatformHeadersVersion
+usr/include/*/qt5/QtPlatformHeaders/qcocoawindowfunctions.h
 usr/include/*/qt5/QtPlatformHeaders/qcocoanativecontext.h
 usr/include/*/qt5/QtPlatformHeaders/qeglfsfunctions.h
 usr/include/*/qt5/QtPlatformHeaders/qeglnativecontext.h
 usr/include/*/qt5/QtPlatformHeaders/qglxnativecontext.h
+usr/include/*/qt5/QtPlatformHeaders/qplatformheaderhelper.h
 usr/include/*/qt5/QtPlatformHeaders/qtplatformheadersversion.h
 usr/include/*/qt5/QtPlatformHeaders/qwglnativecontext.h
 usr/include/*/qt5/QtPlatformHeaders/qwindowswindowfunctions.h
+usr/include/*/qt5/QtPlatformHeaders/qxcbintegrationfunctions.h
 usr/include/*/qt5/QtPlatformHeaders/qxcbwindowfunctions.h
 usr/include/*/qt5/QtPrintSupport/QAbstractPrintDialog
 usr/include/*/qt5/QtPrintSupport/QPageSetupDialog
@@ -1595,7 +1608,6 @@ usr/lib/*/pkgconfig/Qt5PrintSupport.pc
 usr/lib/*/pkgconfig/Qt5Sql.pc
 usr/lib/*/pkgconfig/Qt5Test.pc
 usr/lib/*/pkgconfig/Qt5Widgets.pc
-usr/lib/*/pkgconfig/Qt5XcbQpa.pc
 usr/lib/*/pkgconfig/Qt5Xml.pc
 usr/share/qt5/doc/global/compat.qdocconf
 usr/share/qt5/doc/global/config.qdocconf
@@ -1613,6 +1625,7 @@ usr/share/qt5/doc/global/macros.qdocconf
 usr/share/qt5/doc/global/manifest-meta.qdocconf
 usr/share/qt5/doc/global/qt-cpp-defines.qdocconf
 usr/share/qt5/doc/global/qt-html-templates-offline.qdocconf
+usr/share/qt5/doc/global/qt-html-templates-offline-simple.qdocconf
 usr/share/qt5/doc/global/qt-html-templates-online.qdocconf
 usr/share/qt5/doc/global/qt-module-defaults-offline.qdocconf
 usr/share/qt5/doc/global/qt-module-defaults-online-commercial.qdocconf
@@ -1664,6 +1677,8 @@ usr/share/qt5/doc/global/template/style/icomoon.svg
 usr/share/qt5/doc/global/template/style/icomoon.ttf
 usr/share/qt5/doc/global/template/style/icomoon.woff
 usr/share/qt5/doc/global/template/style/list_arrow.png
+usr/share/qt5/doc/global/template/style/list_expand.png
 usr/share/qt5/doc/global/template/style/offline.css
+usr/share/qt5/doc/global/template/style/offline-simple.css
 usr/share/qt5/doc/global/template/style/online.css
 usr/share/qt5/doc/global/template/style/theqtcompany.png

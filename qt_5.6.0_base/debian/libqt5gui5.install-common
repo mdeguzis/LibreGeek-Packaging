@@ -1,3 +1,4 @@
+debian/90qt5-opengl /etc/X11/Xsession.d
 usr/lib/*/libQt5Gui.so.*
 usr/lib/*/libQt5XcbQpa.so.*
 usr/lib/*/qt5/plugins/generic/libqtuiotouchplugin.so

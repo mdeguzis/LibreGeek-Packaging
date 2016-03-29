@@ -72,7 +72,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 #pkgname="qt"
 pkgname="qtbase-opensource-src"
 pkgver="5.6.0"
-pkgrev="2"
+pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -189,7 +189,7 @@ main()
 
 	# Try using upstream debian/
 
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian_old" "${git_dir}/debian"
 
 	###############################################################
 	# build package

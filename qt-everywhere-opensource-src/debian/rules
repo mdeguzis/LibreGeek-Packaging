@@ -19,7 +19,7 @@ override_dh_auto_configure:
 	MAKEFLAGS="-j$(NUMJOBS)" ./configure \
 			-confirm-license -opensource \
 			-prefix "/usr" \
-			-bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \
+			-bindir "/usr/bin" \
 			-libdir "/usr/lib/$(DEB_HOST_MULTIARCH)" \
 			-docdir "/usr/share/qt5/doc" \
 			-headerdir "/usr/include/$(DEB_HOST_MULTIARCH)/qt5" \

@@ -162,12 +162,14 @@ main()
 	if [[ -d "${git_dir}" ]]; then
 
 		cd "${git_dir}"  && git pull
+		echo -e "\n==> Initalizing repository" && sleep 3s
 		perl init-repository --module-subset=default,-qtwebengine || exit 1
 		git checkout "${branch}"
 
 	else
 
 		git clone ${git_url} ${git_dir}
+		echo -e "\n==> Initalizing repository" && sleep 3s
 		perl init-repository --module-subset=default,-qtwebengine || exit 1
 		git checkout "${branch}"
 

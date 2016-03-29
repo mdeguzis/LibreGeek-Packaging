@@ -114,7 +114,7 @@ main()
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then
 
-		read -erp "Build dir exists, reset? [y/n]: " build_reset
+		read -erp "\nBuild dir exists, reset? [y/n]: " build_reset
 		
 		if [[ "${build_reset}" == "y" ]]; then
 
@@ -125,7 +125,11 @@ main()
 
 	else
 
+		# initialize main build dir if it doesn't exist
 		mkdir -p "${build_dir}"
+		
+		# clean out former files we need to
+		find "${build_dir}" -type f | egrep '.gz$|.xz$|.build$|.dsc$|.changes$' | xargs rm -f
 
 	fi
 

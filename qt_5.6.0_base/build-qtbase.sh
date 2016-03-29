@@ -162,8 +162,8 @@ main()
 
 	if [[ -d "${git_dir}" ]]; then
 	
-		cd "${git_dir}"
-		git checkout "${branch}" && git pull
+		cd "${git_dir}"  && git pull
+		git checkout "${branch}"
 		
 	else
 

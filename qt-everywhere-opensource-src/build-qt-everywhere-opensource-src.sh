@@ -163,7 +163,7 @@ main()
 
 		cd "${git_dir}"  && git pull
 		echo -e "\n==> Initalizing repository" && sleep 3s
-		perl init-repository --module-subset=default,-qtwebengine || exit 1
+		perl init-repository -f --module-subset=default,-qtwebengine || exit 1
 		git checkout "${branch}"
 
 	else

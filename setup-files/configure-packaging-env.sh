@@ -50,12 +50,12 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	lsb-release bc devscripts sudo
 	
 	# Open Build System
-	echo "\nInstalling Open Build System package\n"
-	sleep 2s
+	#echo "\nInstalling Open Build System package\n"
+	#sleep 2s
 
-	sudo cp "${scriptdir}/etc/apt/sources.list.d/osc.list" "/etc/apt/sources.list.d/"
-	apt-get update -y
-	apt-get install -y --force-yes osc
+	#sudo cp "${scriptdir}/etc/apt/sources.list.d/osc.list" "/etc/apt/sources.list.d/"
+	#apt-get update -y
+	#apt-get install -y --force-yes osc
 
 
 elif [[ "${OS}" == "Arch" ]]; then
@@ -202,14 +202,14 @@ fi
 # Assess if TEMP vars exist, replace them
 # Set bashrc information
 
-if grep "FULLNAME_TEMP" "${HOME}/.bashrc"; then
+if [[ $(grep "FULLNAME_TEMP" "${HOME}/.bashrc") != "" ]]; then
 
 	read -erp "Maintainer full name: " FULLNAME_TEMP
 	sed -i "s|FULLNAME_TEMP|$FULLNAME_TEMP|" "$HOME/.bashrc"
 
 fi
 
-if grep "EMAIL_TEMP" "${HOME}/.bashrc"; then
+if [[ $(grep "EMAIL_TEMP" "${HOME}/.bashrc") != "" ]]; then
 
 	read -erp "GitHub Email: " EMAIL_TEMP
 	sed -i "s|EMAIL_TEMP|$EMAIL_TEMP|" "$HOME/.bashrc"

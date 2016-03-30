@@ -1,0 +1,53 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+export QT_SELECT := qt5
+
+%:
+	dh $@ --with pkgkde_symbolshelper --parallel
+
+# We override qmake until https://bugreports.qt-project.org/browse/QTBUG-30735
+# gets solved (FTBFS with -nocache).
+override_dh_auto_configure:
+	qmake 
+
+override_dh_auto_clean:
+	dh_auto_clean
+	rm -fv .qmake.cache
+
+override_dh_auto_build-indep:
+	cd src; qmake
+	dh_auto_build -- -Csrc sub-qdoc
+	cd src/assistant; qmake
+	dh_auto_build -- -Csrc/assistant sub-qhelpgenerator
+	cd src/qdoc; qmake
+	cd src/assistant/help; qmake
+	dh_auto_build -- docs
+
+override_dh_auto_install-arch:
+	dh_auto_install
+	
+	# Remove libtool-like files
+	rm -f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
+
+	# Remove CMake files for plugins.
+	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/cmake/Qt5Designer/*Plugin.cmake
+
+override_dh_auto_install-indep:
+	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+
+override_dh_install:
+	dh_install --fail-missing
+
+override_dh_strip:
+	dh_strip -pqttools5-examples --dbg-package=qttools5-examples-dbg
+	dh_strip --remaining-packages --dbg-package=qttools5-dbg
+
+override_dh_auto_test-indep:

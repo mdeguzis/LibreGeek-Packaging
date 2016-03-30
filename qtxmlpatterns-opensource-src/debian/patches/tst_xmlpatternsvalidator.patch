@@ -1,0 +1,16 @@
+Description: test not-installed binary in tst_xmlpatternsvalidator
+Author: Dmitry Shachnev <mitya57@debian.org>
+Forwarded: not-needed
+Last-Update: 2015-08-20
+
+--- a/tests/auto/xmlpatternsvalidator/tst_xmlpatternsvalidator.cpp
++++ b/tests/auto/xmlpatternsvalidator/tst_xmlpatternsvalidator.cpp
+@@ -62,7 +62,7 @@
+ };
+ 
+ tst_XmlPatternsValidator::tst_XmlPatternsValidator()
+-    : m_command(QLibraryInfo::location(QLibraryInfo::BinariesPath) + QLatin1String("/xmlpatternsvalidator"))
++    : m_command(QStringLiteral("../../../bin/xmlpatternsvalidator"))
+     , m_dontRun(false)
+ {
+ }

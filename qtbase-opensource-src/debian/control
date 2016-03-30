@@ -153,15 +153,15 @@ Description: Qt 5 SQL module
  applications.
  
 Package: libqt5sql5-sqlite
- Architecture: any
- Multi-Arch: same
- Pre-Depends: ${misc:Pre-Depends}
- Depends: ${misc:Depends}, ${shlibs:Depends}
- Description: Qt 5 SQLite 3 database driver
-  This package contains the SQLite 3 plugin for Qt 5.
-  .
-  Install it if you intend to use or write Qt programs that are to access an
-  SQLite 3 DB.
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 SQLite 3 database driver
+ This package contains the SQLite 3 plugin for Qt 5.
+ .
+ Install it if you intend to use or write Qt programs that are to access an
+ SQLite 3 DB.
 
 Package: libqt5xml5
 Architecture: any

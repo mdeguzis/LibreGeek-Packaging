@@ -34,3 +34,49 @@ override_dh_auto_configure:
 			-examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
 			-nomake examples \
 			-nomake tests 
+
+override_dh_auto_install-arch:
+	dh_auto_install -Smakefile -- INSTALL_ROOT=$(CURDIR)/debian/tmp/
+
+	# Fix wrong path in pkgconfig files
+	find $(CURDIR)/debian/tmp/usr/lib/*/pkgconfig -type f -name '*.pc' \
+		-exec perl -pi -e "s, -L$(CURDIR)/?\S+,,g" {} \;
+
+	# Add a configuration for qtchooser
+	mkdir -p $(CURDIR)/debian/tmp/usr/share/qtchooser
+	echo "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" > $(CURDIR)/debian/tmp/usr/share/qtchooser/qt5-$(DEB_HOST_MULTIARCH).conf
+	echo "/usr/lib/$(DEB_HOST_MULTIARCH)" >> $(CURDIR)/debian/tmp/usr/share/qtchooser/qt5-$(DEB_HOST_MULTIARCH).conf
+
+	# Ship 5.conf and qt5.conf for this arch, and a default.conf.
+	# 5.conf makes calling qtchooser prettier.
+	mkdir -p $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qtchooser
+	ln -s /usr/share/qtchooser/qt5-$(DEB_HOST_MULTIARCH).conf $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qtchooser/5.conf
+	ln -s /usr/share/qtchooser/qt5-$(DEB_HOST_MULTIARCH).conf $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qtchooser/qt5.conf
+	ln -s /usr/share/qtchooser/qt5-$(DEB_HOST_MULTIARCH).conf $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qtchooser/default.conf
+
+	# Remove leftover directories
+	find $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qt5 -depth -type d \( -false \
+	  -o -name .moc\* \
+	  -o -name .obj\* \
+	  -o -name .pch \
+	  -o -name .rcc \
+	\) -print0 | xargs -0 rm -rf
+
+	# Remove libtool-like files
+	rm -f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
+
+	# A user of Qt built by a distro doesn't need to find where the plugins
+	# are via CMake, so don't install them.
+	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/cmake/Qt5*/Q*Plugin.cmake
+
+	# There is also no need to install libQtBootstrap. As it's name indicates it's
+	# only used to bootstrap qt.
+	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libQt5Bootstrap*
+	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/Qt5Bootstrap.pc
+
+	# Remove bogus exec bits from some data files in mkspecs, docs, examples
+	find debian/tmp/usr/share/qt5/ debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/ \
+	     debian/tmp/usr/share/qt5/doc/ \
+		-perm /u+x,g+x,o+x -type f \
+		-regex '.*\.\(app\|conf\|cpp\|h\|js\|php\|png\|pro\|xml\|xsl\)$$' \
+		-exec chmod a-x {} \;

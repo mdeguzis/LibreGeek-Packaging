@@ -4,9 +4,9 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-sprunge.sh
 # Script Ver:	1.0.0
-# Description:	Builds package of QT 5.6.0 (all)
+# Description:	Builds package of QT 5.6.0 (tools)
 #
-# See:		https://github.com/ProfessorKaos64/qt
+# See:		https://github.com/qtproject/qttools
 #		https://wiki.qt.io/Building-Qt-5-from-Git
 #
 # Usage:	build-sprunge.sh
@@ -48,17 +48,8 @@ else
 
 fi
 
-# files
-qt_src_url="http://download.qt.io/development_releases/qt/"
-qt_rel="5.6/5.6.0-alpha/single/"
-qt_src_file="qt-everywhere-opensource-src-5.6.0-alpha.tar.gz"
-qt_src_folder="${qt_src_file%.*.*}"
-
-# upstream vars
-#git_url="https://github.com/ProfessorKaos64/qt"
-#git_url="git://code.qt.io/qt/qt5.git"
-
-git_url="git://code.qt.io/qt/qt5.git"
+# Upstream vars
+git_url="https://github.com/qtproject/qttools"
 branch="v5.6.0"
 
 # package vars
@@ -69,9 +60,9 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 #pkgname="qt"
-pkgname="qt-everywhere-opensource-src"
+pkgname="qttools-opensource-src"
 pkgver="5.6.0"
-pkgrev="2"
+pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -113,23 +104,14 @@ main()
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then
 
-		echo -e "\n==> Build dir exists, reset? [y/n]"
-		sleep 0.3s && read -erp "Choice: " build_reset
 
-		if [[ "${build_reset}" == "y" ]]; then
-
-			sudo rm -rf "${build_dir}"
-			mkdir -p "${build_dir}"
-
-		fi
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 
 	else
 
 		# initialize main build dir if it doesn't exist
 		mkdir -p "${build_dir}"
-
-		# clean out former files we need to
-		find "${build_dir}" -type f | egrep '.gz$|.xz$|.build$|.dsc$|.changes$' | xargs rm -f
 
 	fi
 
@@ -156,15 +138,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	git clone ${git_url} ${git_dir}
-	
-	echo -e "\n==> Initalizing repository\n" && sleep 3s
-	
-	cd "${git_dir}"
-	perl init-repository --module-subset=default,-qtwebengine || exit 1
-	
-	# Checkout our desired version
-	git checkout "${branch}"
+	git clone -b ${branch} ${git_url} ${git_dir}
 
 	# trim git (after confimed working build)
 	# rm -rf "${git_dir}/.git"
@@ -198,7 +172,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Change bin dir target to /usr/bin"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Attempt to work in upstream Stretch packaging"
 		nano "debian/changelog"
 
 	else

@@ -93,44 +93,50 @@ endif
 
 override_dh_auto_configure:
 	MAKEFLAGS="-j$(NUMJOBS)" ./configure \
-	            -confirm-license \
-	            -prefix "/usr" \
-	            -bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \
-	            -libdir "/usr/lib/$(DEB_HOST_MULTIARCH)" \
-	            -docdir "/usr/share/qt5/doc" \
-	            -headerdir "/usr/include/$(DEB_HOST_MULTIARCH)/qt5" \
-	            -datadir "/usr/share/qt5" \
-	            -archdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
-	            -hostdatadir "/usr/share/qt5" \
-	            -plugindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/plugins" \
-	            -importdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/imports" \
-	            -translationdir "/usr/share/qt5/translations" \
-	            -hostdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
-	            -sysconfdir "/etc/xdg" \
-	            -examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
-	            -opensource \
-	            -system-sqlite \
-	            -platform $(platform_arg) \
-	            -system-zlib \
-	            -system-libpng \
-	            -system-libjpeg \
-	            -openssl \
-	            -no-rpath \
-	            -verbose \
-	            -optimized-qmake \
-	            -dbus-linked \
-	            -no-strip \
-	            -no-separate-debug-info \
-	            -qpa xcb \
-	            -xcb \
-	            -glib \
-	            -icu \
-	            -accessibility \
-	            -compile-examples \
-	            -no-directfb \
-	            -gstreamer 1.0 \
-	            $(extra_configure_opts) \
-	            $(cpu_opt)
+			-confirm-license \
+			-prefix "/usr" \
+			-bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \
+			-libdir "/usr/lib/$(DEB_HOST_MULTIARCH)" \
+			-docdir "/usr/share/qt5/doc" \
+			-headerdir "/usr/include/$(DEB_HOST_MULTIARCH)/qt5" \
+			-datadir "/usr/share/qt5" \
+			-archdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+			-hostdatadir "/usr/share/qt5" \
+			-plugindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/plugins" \
+			-importdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/imports" \
+			-translationdir "/usr/share/qt5/translations" \
+			-hostdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+			-sysconfdir "/etc/xdg" \
+			-examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
+			-opensource \
+			-system-sqlite \
+			-platform $(platform_arg) \
+			-plugin-sql-mysql
+			-plugin-sql-odbc
+			-plugin-sql-psql
+			-plugin-sql-sqlite
+			-no-sql-sqlite2
+			-plugin-sql-tds
+			-system-zlib \
+			-system-libpng \
+			-system-libjpeg \
+			-openssl \
+			-no-rpath \
+			-verbose \
+			-optimized-qmake \
+			-dbus-linked \
+			-no-strip \
+			-no-separate-debug-info \
+			-qpa xcb \
+			-xcb \
+			-glib \
+			-icu \
+			-accessibility \
+			-compile-examples \
+			-no-directfb \
+			-gstreamer 1.0 \
+			$(extra_configure_opts) \
+			$(cpu_opt)
 
 override_dh_auto_clean:
 	[ ! -f Makefile ] || $(MAKE) confclean distclean

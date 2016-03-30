@@ -207,8 +207,8 @@ ifeq ($(vendor),Ubuntu)
 	rm -rf po
 endif
 
-#override_dh_auto_build-indep:
-#	dh_auto_build -- docs
+override_dh_auto_build-indep:
+	dh_auto_build -- docs
 
 override_dh_auto_build-arch:
 	# Bootstrap corelibs in order to be able to build the helper tools to
@@ -281,8 +281,8 @@ endif
 		-regex '.*\.\(app\|conf\|cpp\|h\|js\|php\|png\|pro\|xml\|xsl\)$$' \
 		-exec chmod a-x {} \;
 
-#override_dh_auto_install-indep:
-#	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+override_dh_auto_install-indep:
+	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
 
 override_dh_install:
 	# Now flush all the .install-* files as .install files.

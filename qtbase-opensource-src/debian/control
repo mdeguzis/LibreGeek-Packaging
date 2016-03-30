@@ -1,12 +1,7 @@
 Source: qtbase-opensource-src
 Section: libs
 Priority: optional
-Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
-Uploaders: Sune Vuorela <sune@debian.org>,
-           Pino Toscano <pino@debian.org>,
-           Lisandro Damián Nicanor Pérez Meyer <lisandro@debian.org>,
-           Timo Jyrinki <timo@debian.org>,
-           Dmitry Shachnev <mitya57@debian.org>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
                dpkg-dev (>= 1.16.1),
                firebird-dev [kfreebsd-any linux-any],
@@ -64,8 +59,6 @@ Build-Depends: debhelper (>= 9),
                publicsuffix,
                unixodbc-dev,
                zlib1g-dev
-Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.0~),
-                     qttools5-dev-tools (>= 5.6.0~)
 Build-Conflicts: libmariadbclient-dev
 Standards-Version: 3.9.7
 Homepage: http://qt-project.org/
@@ -158,72 +151,6 @@ Description: Qt 5 SQL module
  .
  The QtSql module helps you provide seamless database integration to your Qt
  applications.
-
-Package: libqt5sql5-mysql
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 MySQL database driver
- This package contains the MySQL plugin for Qt 5.
- .
- Install it if you intend to use or write Qt programs that are to access a
- MySQL DB.
-
-Package: libqt5sql5-odbc
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 ODBC database driver
- This package contains the ODBC plugin for Qt 5.
- .
- Install it if you intend to use or write Qt programs that are to access an
- ODBC DB.
-
-Package: libqt5sql5-psql
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 PostgreSQL database driver
- This package contains the PostgreSQL plugin for Qt 5.
- .
- Install it if you intend to use or write Qt programs that are to access a
- PostgreSQL DB.
-
-Package: libqt5sql5-sqlite
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 SQLite 3 database driver
- This package contains the SQLite 3 plugin for Qt 5.
- .
- Install it if you intend to use or write Qt programs that are to access an
- SQLite 3 DB.
-
-Package: libqt5sql5-tds
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 FreeTDS database driver
- This package contains the FreeTDS plugin for Qt 5.
- .
- Install it if you intend to use or write Qt programs that are to access a
- MS SQL or Sybase SQL server.
-
-Package: libqt5sql5-ibase
-Architecture: kfreebsd-any linux-any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 Firebird database driver
- This package contains the Firebird plugin for Qt 5.
- .
- Install it if you intend to use or write Qt programs that are to access a
- Firebird/InterBase DB.
 
 Package: libqt5xml5
 Architecture: any

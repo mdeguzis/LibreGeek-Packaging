@@ -42,19 +42,24 @@ Taken out because the jessie/jessie-backport version is too old
 These installs are currently removed. Perhaps when the issues are resolved in building, they can be added back. This could maybe
 occuren when a debian/ file set surfaces under Stretch for 5.6.0~.
 
-## libqt5sql
+# Build order notes (from README.source)
 
-* Error boils down to inability to find sqlcli.h. 
-* TODO - upload failed build log to Gist.
+Bootstrapping the docs packages
+-------------------------------
 
-```
-libqt5sql5-ibase.install
-libqt5sql5-mysql.install
-libqt5sql5-odbc.install
-libqt5sql5-psql.install
-libqt5sql5-sqlite.install
-libqt5sql5-tds.install
-libqt5sql5.install
-libqt5sql5.lintian-overrides
-libqt5sql5.symbols
-```
+In Qt 5.6 the qdoc tool was moved to qttools source, so qtbase got a
+Build-Depends-Indep on qttools5-dev-tools. Thus you need to do the following
+steps if you want to rebuild the whole Qt stack from scratch:
+
+* Build only arch-dependent packages from these sources:
+  - qtbase-opensource-src
+  - qtxmlpatterns-opensource-src
+  - qtdeclarative-opensource-src
+  - qtwebkit-opensource-src
+  - qtdeclarative-opensource-src
+* Build the arch-independent packages (-doc and -doc-html) of the above sources.
+* Build the rest of the Qt stack in the usual way.
+
+Note: the docs packages should not be a problem when bootstrapping a new
+Debian architecture, because the arch-independent packages are already available
+in Debian archive.

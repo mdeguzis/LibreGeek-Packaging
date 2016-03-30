@@ -189,7 +189,7 @@ main()
 
 	# Try using upstream debian/
 
-	cp -r "${scriptdir}/debian_old" "${git_dir}/debian"
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	###############################################################
 	# build package

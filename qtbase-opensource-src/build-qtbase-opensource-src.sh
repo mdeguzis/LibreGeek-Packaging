@@ -148,10 +148,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-
-	git clone ${git_url} ${git_dir}
-	git checkout "${branch}"
-
+	git clone -b ${branch} ${git_url} ${git_dir}
 
 	# trim git (after confimed working build)
 	# rm -rf "${git_dir}/.git"

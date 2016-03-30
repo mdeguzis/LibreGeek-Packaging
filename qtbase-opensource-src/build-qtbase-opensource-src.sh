@@ -114,23 +114,14 @@ main()
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then
 
-		echo -e "\n==> Build dir exists, reset? [y/n]"
-		sleep 0.3s && read -erp "Choice: " build_reset
-		
-		if [[ "${build_reset}" == "y" ]]; then
 
-			sudo rm -rf "${build_dir}"
-			mkdir -p "${build_dir}"
-	
-		fi
+		sudo rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
 
 	else
 
 		# initialize main build dir if it doesn't exist
 		mkdir -p "${build_dir}"
-		
-		# clean out former files we need to
-		find "${build_dir}" -type f | egrep '.gz$|.xz$|.build$|.dsc$|.changes$' | xargs rm -f
 
 	fi
 
@@ -157,20 +148,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	
-	# Since the repo is so large, pull if possible
 
-	if [[ -d "${git_dir}" ]]; then
-	
-		cd "${git_dir}"  && git pull
-		git checkout "${branch}"
-		
-	else
-
-		git clone ${git_url} ${git_dir}
-		git checkout "${branch}"
-	
-	fi
+	git clone ${git_url} ${git_dir}
+	git checkout "${branch}"
 
 
 	# trim git (after confimed working build)

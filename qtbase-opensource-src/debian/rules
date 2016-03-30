@@ -328,13 +328,13 @@ override_dh_clean:
 
 	# Don't forget to remove the .install files we generated.
 	for pkg in $(pkgs_with_common); do \
-		rm -f debian/$$pkg.install ; \
+		sudo rm -f debian/$$pkg.install ; \
 	done
 
 	for pkg in $(pkgs_with_arch); do \
-		rm -f debian/$$pkg.install ; \
+		sudo rm -f debian/$$pkg.install ; \
 	done
 
 	for pkg in $(pkgs_with_os); do \
-		rm -f debian/$$pkg.install ; \
+		sudo rm -f debian/$$pkg.install ; \
 	done

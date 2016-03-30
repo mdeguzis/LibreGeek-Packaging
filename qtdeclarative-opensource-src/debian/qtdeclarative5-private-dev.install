@@ -1,0 +1,12 @@
+usr/include/*/qt5/QtQml/*/QtQml/private/*.h
+usr/include/*/qt5/QtQmlDevTools/*/QtQmlDevTools/private/*.h
+usr/include/*/qt5/QtQuick/*/QtQuick/private/*.h
+usr/include/*/qt5/QtQuickParticles/*/QtQuickParticles/private/*.h
+usr/include/*/qt5/QtQuickTest/*/QtQuickTest/private/*.h
+usr/include/*/qt5/QtQuickWidgets/*/QtQuickWidgets/private/*.h
+usr/lib/*/qt5/mkspecs/modules/qt_lib_qml_private.pri
+usr/lib/*/qt5/mkspecs/modules/qt_lib_qmldevtools_private.pri
+usr/lib/*/qt5/mkspecs/modules/qt_lib_qmltest_private.pri
+usr/lib/*/qt5/mkspecs/modules/qt_lib_quick_private.pri
+usr/lib/*/qt5/mkspecs/modules/qt_lib_quickparticles_private.pri
+usr/lib/*/qt5/mkspecs/modules/qt_lib_quickwidgets_private.pri

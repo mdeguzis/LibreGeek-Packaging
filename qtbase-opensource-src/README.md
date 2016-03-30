@@ -27,15 +27,9 @@ Checking a build log, there two are added at the end via $(extra_configure_opts)
 Currently disabled options from upstream Debian experimental debian/rules:
 
 ```
--plugin-sql-mysql
--plugin-sql-odbc
--plugin-sql-psql
--plugin-sql-sqlite
--no-sql-sqlite2
--plugin-sql-tds
--system-sqlite
 -plugin-sql-ibase
 ```
+There are issues finding `sqlcli.h` for this piece.
 
 Taken out because the jessie/jessie-backport version is too old
 

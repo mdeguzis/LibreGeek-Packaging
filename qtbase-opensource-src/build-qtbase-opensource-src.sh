@@ -60,7 +60,8 @@ qt_src_folder="${qt_src_file%.*.*}"
 #git_url="git://code.qt.io/qt/qt5.git"
 
 git_url="https://github.com/qtproject/qtbase/"
-branch="v5.6.0"
+default_branch="master"
+target_branch="v5.6.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -143,7 +144,7 @@ main()
 
 			# attempt to pull the latest source first
 			echo -e "\n==> Attempting git pull..."
-			cd "${git_dir}"
+			cd "${git_dir}" && git checkout "${default_branch}"
 			sleep 2s
 
 			# attempt git pull, if it doesn't complete reclone
@@ -154,7 +155,7 @@ main()
 				sleep 2s
 				sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 				cd "${build_dir}" || exit 1
-				git clone -b "${branch}" "${git_url}" "${git_dir}"
+				git clone "${git_url}" "${git_dir}"
 
 			fi
 
@@ -163,14 +164,14 @@ main()
 			sleep 2s
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 			cd "${build_dir}" || exit 1
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			git clone "${git_url}" "${git_dir}"
 
 		else
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
 			mkdir -p "${build_dir}" && cd "${bulid_dir}" || exit 1
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			git clone "${git_url}" "${git_dir}"
 
 		fi
 
@@ -180,12 +181,15 @@ main()
 			sleep 2s
 			# create and clone to current dir
 			cd "${build_dir}" || exit 1
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			git clone "${git_url}" "${git_dir}"
 
 	fi
 
 	# trim git (after confimed working build)
 	# rm -rf "${git_dir}/.git"
+	
+	# Checkout our desired branch now
+	cd "${git_dir}" && git checkout "${target_branch}" || exit 1
 
 	#################################################
 	# Prep source

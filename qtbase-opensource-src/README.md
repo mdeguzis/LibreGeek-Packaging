@@ -1,5 +1,4 @@
 # About
-***
 
 Some info about the build work in progress to get Qt 5.6.0 into SteamOS brewmaster. This is mainly for building PlexMediaPlayer.
 The debian/ files were sourced from the [Debian Stretch](https://packages.debian.org/sid/qt5-default) set of files. From there, 
@@ -10,7 +9,6 @@ Please see [configure-test.sh](https://github.com/ProfessorKaos64/LibreGeek-Pack
 The "debian_experimental" folder is for work on trying to build the individual packages of Qt 5.6.0+. The debian folder present installs everything made during the install. Once more is known about the build process, the experimental set can possibly be fixed up.
 
 # Build status
-***
 
 Main package: **[WIP]**  
 Experimental Status: **[WIP]**
@@ -25,7 +23,6 @@ Checking a build log, there two are added at the end via $(extra_configure_opts)
 ```
 
 # Configure options currently disabled
-***
 
 Currently disabled options from upstream Debian experimental debian/rules:
 
@@ -41,7 +38,6 @@ Taken out because the jessie/jessie-backport version is too old
 ```
 
 # Disabled installs
-***
 
 These installs are currently removed. Perhaps when the issues are resolved in building, they can be added back. This could maybe
 occuren when a debian/ file set surfaces under Stretch for 5.6.0~.
@@ -73,7 +69,6 @@ Debian architecture, because the arch-independent packages are already available
 in Debian archive.
 
 # Symbols
-***
 
 ## WARNING!
 

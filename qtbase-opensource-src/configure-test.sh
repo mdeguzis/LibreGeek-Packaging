@@ -20,50 +20,8 @@ DEB_HOST_ARCH_OS=$(dpkg-architecture -qDEB_HOST_ARCH_OS)
 DEB_HOST_ARCH_BITS=$(dpkg-architecture -qDEB_HOST_ARCH_BITS)
 DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
-#ifneq (,$(filter libqt5sql5-ibase,$(shell dh_listpackages)))
-#	extra_configure_opts += -plugin-sql-ibase
-#else
-extra_configure_opts="-no-sql-ibase"
-#endif
-
-no_pch_architectures="arm64"
-ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(no_pch_architectures)))
-	extra_configure_opts+=("-no-pch")
-endif
-
-gles2_architectures := armel armhf
-ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(gles2_architectures)))
-	extra_configure_opts+=("-opengl es2")
-else
-	extra_configure_opts+=("-opengl desktop")
-endif
-
-ifneq ($(DEB_HOST_ARCH_OS),linux)
-	extra_configure_opts+=("-no-eglfs")
-endif
-
-# Compile without sse2 support on i386
-# Do not use pre compiled headers in order to be able to rebuild the gui
-# submodule.
-ifeq ($(DEB_HOST_ARCH_CPU),i386)
-	cpu_opt="-no-sse2 -no-pch"
-endif
-
-ifeq ($(DEB_HOST_ARCH_OS),linux)
-  ifneq (,$(filter $(DEB_HOST_ARCH),alpha ia64 mips64 mips64el arm64))
-	platform_arg="linux-g++"
-  else ifeq ($(DEB_HOST_ARCH_BITS),64)
-	platform_arg="linux-g++-64"
-  else
-	platform_arg="linux-g++"
-  endif
-else ifeq ($(DEB_HOST_ARCH_OS),hurd)
-	platform_arg="hurd-g++"
-else ifeq ($(DEB_HOST_ARCH_OS),kfreebsd)
-	platform_arg="gnukfreebsd-g++"
-else
-	$(error Unknown qmake mkspec for $(DEB_HOST_ARCH_OS))
-endif
+extra_configure_opts="-no-sql-ibase -no-eglfs -opengl desktop"
+platform_arg="linux-g++-64"
 
 # Set number of jobs explicitly
 NB_CORES=$(grep -c '^processor' /proc/cpuinfo)

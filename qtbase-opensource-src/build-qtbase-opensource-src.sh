@@ -60,8 +60,7 @@ qt_src_folder="${qt_src_file%.*.*}"
 #git_url="git://code.qt.io/qt/qt5.git"
 
 git_url="https://github.com/qtproject/qtbase/"
-default_branch="dev"
-target_branch="v5.6.0"
+branch="v5.6.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -144,7 +143,7 @@ main()
 
 			# attempt to pull the latest source first
 			echo -e "\n==> Attempting git pull..."
-			cd "${git_dir}" && git checkout "${default_branch}"
+			cd "${git_dir}" && git pull
 			sleep 2s
 
 			# attempt git pull, if it doesn't complete reclone
@@ -154,24 +153,23 @@ main()
 				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 				sleep 2s
 				sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-				cd "${build_dir}" || exit 1
-				git clone "${git_url}" "${git_dir}"
+				git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 			fi
 
 		elif [[ "$git_choice" == "r" ]]; then
+
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			cd "${build_dir}" || exit 1
-			git clone "${git_url}" "${git_dir}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 		else
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
-			mkdir -p "${build_dir}" && cd "${bulid_dir}" || exit 1
-			git clone "${git_url}" "${git_dir}"
+			mkdir -p "${build_dir}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 		fi
 
@@ -180,8 +178,8 @@ main()
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
 			# create and clone to current dir
-			cd "${build_dir}" || exit 1
-			git clone "${git_url}" "${git_dir}"
+			mkdir -p "${build_dir}" || exit 1
+			git clone -b "${branch}" "${git_url}" "${git_dir}""
 
 	fi
 

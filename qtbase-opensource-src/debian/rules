@@ -89,7 +89,7 @@ NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 	dh $@ --parallel --with pkgkde_symbolshelper
 
 override_dh_auto_configure:
-	MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}" ./configure \
+	MAKEFLAGS="-j$(NB_CORES) -l$(NB_CORES)" ./configure \
 			-confirm-license \
 			-prefix "/usr" \
 			-bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \

@@ -1,0 +1,2 @@
+# Lock GNU screen if idle for 5 minutes
+idle 300 lockscreen

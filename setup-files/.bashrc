@@ -16,4 +16,8 @@ export REMOTE_PORT="REMOTE_PORT_TEMP"
 # For use cases outside of using the env var $EDITOR
 export EDITOR="/usr/bin/EDITOR_TEMP"
 
+# Optimize compile time
+NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
+export MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}"
+
 ##### END DEBIAN PACKAGING SETUP #####

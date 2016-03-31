@@ -46,7 +46,7 @@ NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 	-examplesdir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/examples" \
 	-opensource \
 	-system-sqlite \
-	-platform $(platform_arg) \
+	-platform $platform_arg \
 	-plugin-sql-mysql
 	-plugin-sql-odbc
 	-plugin-sql-psql

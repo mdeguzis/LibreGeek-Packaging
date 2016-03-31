@@ -20,7 +20,6 @@ DEB_HOST_ARCH_OS=$(dpkg-architecture -qDEB_HOST_ARCH_OS)
 DEB_HOST_ARCH_BITS=$(dpkg-architecture -qDEB_HOST_ARCH_BITS)
 DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
-extra_configure_opts="-no-sql-ibase -no-eglfs -opengl desktop"
 platform_arg="linux-g++-64"
 
 # Set number of jobs explicitly
@@ -73,5 +72,8 @@ override_dh_auto_configure:
 			-compile-examples \
 			-no-directfb \
 			-gstreamer 1.0 \
-			$(extra_configure_opts) \
+			-no-sql-ibase -no-eglfs -opengl desktop \
 			$(cpu_opt)
+
+# Retrun to top dir
+cd "${TOP}"

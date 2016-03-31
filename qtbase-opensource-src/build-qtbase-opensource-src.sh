@@ -174,9 +174,6 @@ main()
 
 	# Try using upstream debian/
 	cp -r "${scriptdir}/debian" "${git_dir}"
-	
-	# First attempt here, merge in patched symbols
-	cp -r ${scriptdir}/symbols-to-merge/*.* "${git_dir}/debian"
 
 	###############################################################
 	# build package

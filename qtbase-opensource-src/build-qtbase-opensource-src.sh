@@ -111,21 +111,6 @@ install_prereqs()
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
-
-
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
-
-	else
-
-		# initialize main build dir if it doesn't exist
-		mkdir -p "${build_dir}"
-
-	fi
-
-
 	# enter build dir
 	cd "${build_dir}" || exit
 
@@ -148,15 +133,17 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-if [[ -d "${git_dir}" ]]; then
+	if [[ -d "${git_dir}" ]]; then
 
 		echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 
 		if [[ "$git_choice" == "p" ]]; then
+
 			# attempt to pull the latest source first
 			echo -e "\n==> Attempting git pull..."
+			cd "${git_dir}"
 			sleep 2s
 
 			# attempt git pull, if it doesn't complete reclone
@@ -165,7 +152,8 @@ if [[ -d "${git_dir}" ]]; then
 				# command failure
 				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 				sleep 2s
-				rm -rf "${git_dir}"
+				sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+				cd "${build_dir}" || exit 1
 				git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 			fi
@@ -173,13 +161,15 @@ if [[ -d "${git_dir}" ]]; then
 		elif [[ "$git_choice" == "r" ]]; then
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
-			sudo rm -rf "${git_dir}"
+			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+			cd "${build_dir}" || exit 1
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 		else
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
+			mkdir -p "${build_dir}" && cd "${bulid_dir}" || exit 1
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 		fi
@@ -189,6 +179,7 @@ if [[ -d "${git_dir}" ]]; then
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
 			# create and clone to current dir
+			cd "${build_dir}" || exit 1
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	fi
@@ -208,7 +199,6 @@ if [[ -d "${git_dir}" ]]; then
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Try using upstream debian/
-
 	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	###############################################################

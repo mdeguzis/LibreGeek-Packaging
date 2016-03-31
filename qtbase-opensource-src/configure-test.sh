@@ -5,7 +5,7 @@
 
 TOP="${PWD}"
 
-cd $HOME/build-qtbase-opensource-src/qtbase-opensource-src-*
+cd $HOME/build-qtbase-opensource-src-temp/qtbase-opensource-src-* || exit 1
 
 ####################################################
 # Passes as of 20160328 commit 26bb70d
@@ -23,23 +23,23 @@ DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 #ifneq (,$(filter libqt5sql5-ibase,$(shell dh_listpackages)))
 #	extra_configure_opts += -plugin-sql-ibase
 #else
-	extra_configure_opts += -no-sql-ibase
+	extra_configure_opts+=$("-no-sql-ibase")
 #endif
 
 no_pch_architectures := arm64
 ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(no_pch_architectures)))
-	extra_configure_opts += -no-pch
+	extra_configure_opts+=$("-no-pch")
 endif
 
 gles2_architectures := armel armhf
 ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(gles2_architectures)))
-	extra_configure_opts += -opengl es2
+	extra_configure_opts+=$("-opengl es2")
 else
-	extra_configure_opts += -opengl desktop
+	extra_configure_opts+=$("-opengl desktop")
 endif
 
 ifneq ($(DEB_HOST_ARCH_OS),linux)
-	extra_configure_opts += -no-eglfs
+	extra_configure_opts+=$("-no-eglfs")
 endif
 
 # Compile without sse2 support on i386

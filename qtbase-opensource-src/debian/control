@@ -206,6 +206,17 @@ Description: Qt 5 FreeTDS database driver
  .
  Install it if you intend to use or write Qt programs that are to access a
  MS SQL or Sybase SQL server.
+ 
+Package: libqt5sql5-ibase
+Architecture: kfreebsd-any linux-any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 Firebird database driver
+ This package contains the Firebird plugin for Qt 5.
+ .
+ Install it if you intend to use or write Qt programs that are to access a
+ Firebird/InterBase DB.
 
 Package: libqt5xml5
 Architecture: any

@@ -23,10 +23,10 @@ DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 #ifneq (,$(filter libqt5sql5-ibase,$(shell dh_listpackages)))
 #	extra_configure_opts += -plugin-sql-ibase
 #else
-	extra_configure_opts+=("-no-sql-ibase")
+extra_configure_opts+=("-no-sql-ibase")
 #endif
 
-no_pch_architectures := arm64
+no_pch_architectures="arm64"
 ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(no_pch_architectures)))
 	extra_configure_opts+=("-no-pch")
 endif

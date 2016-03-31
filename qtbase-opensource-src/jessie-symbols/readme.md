@@ -14,8 +14,14 @@ Please advise the below notes are "right" for doing a backport of this package. 
 2. Attempt the build
 3. Take the buildlog and run it thru the utility below (assuming log .build with pbuilder):
 
+One libary
 ```
-pkgkde-symbolshelper patch -p LIB_PKG_NAME -v 5.3.2 < $HOME/build-qtbase-opensource-src/qtbase*.build`
+pkgkde-symbolshelper patch -p LIB_PKG_NAME -v 5.3.2 < $HOME/build-qtbase-opensource-src/qtbase*.build
+```
+
+A batch:
+```
+pkgkde-symbolshelper batchpatch -v 1.8 5.3.2 $HOME/build-qtbase-opensource-src/qtbase*.build
 ```
 
 List of libs packages:

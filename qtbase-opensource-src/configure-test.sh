@@ -3,6 +3,10 @@
 # This assumes we have a "qt5" directory under home that is initialized
 # It is only meant for simple checks on configure options
 
+TOP="${PWD}"
+
+cd $HOME/build-qtbase-opensource-src/qtbase-opensource-src-*
+
 ####################################################
 # Passes as of 20160328 commit 26bb70d
 ####################################################
@@ -10,11 +14,11 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
-DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
-DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
-DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
-DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+DEB_HOST_MULTIARCH=$(dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH=$(dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS=$(dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_ARCH_BITS=$(dpkg-architecture -qDEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
 export PATH := $(PATH):$(shell pwd)/bin
 export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
@@ -90,7 +94,7 @@ else
 endif
 
 # Set number of jobs explicitly
-NB_CORES ?= $(shell grep -c '^processor' /proc/cpuinfo)
+NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 
 %:
 	dh $@ --parallel --with pkgkde_symbolshelper

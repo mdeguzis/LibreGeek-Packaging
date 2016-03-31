@@ -60,7 +60,7 @@ qt_src_folder="${qt_src_file%.*.*}"
 #git_url="git://code.qt.io/qt/qt5.git"
 
 git_url="https://github.com/qtproject/qtbase/"
-default_branch="master"
+default_branch="dev"
 target_branch="v5.6.0"
 
 # package vars

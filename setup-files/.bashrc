@@ -21,8 +21,10 @@ NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 export MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}"
 
 # Test whether we're in a screen session and runs screen -RR if you aren't. 
-# '-RR' will reattach to the first available session or create one if necessary.
+# Attach here and now. In detail this means: If a session is running, then reattach. 
+# If necessary detach and logout remotely first. 
+# If it was not running, create it and notify the user.
 
-if [[ -z "$STY" ]]; then screen -RR; fi
+if [[ -z "$STY" ]]; then screen -D -R; fi
 
 ##### END DEBIAN PACKAGING SETUP #####

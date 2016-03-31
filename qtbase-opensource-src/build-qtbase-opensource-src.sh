@@ -144,6 +144,7 @@ main()
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+			cd "${build_dir}"
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 		fi
@@ -154,6 +155,7 @@ main()
 			sleep 2s
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
+			cd "${build_dir}"
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	fi

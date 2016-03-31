@@ -135,7 +135,7 @@ main()
 
 	if [[ -d "${git_dir}" ]]; then
 
-		echo -e "\n==Info==\nGit folder already exists! Remove and Reclone [r] ?\n"
+		echo -e "==Info==\nGit folder already exists! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 

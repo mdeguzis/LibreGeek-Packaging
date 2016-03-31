@@ -8,7 +8,7 @@
 
 1. Import the target (in this case Jessie for the backport) symbols into debian/
 2. Attempt the build
-3. Take the diff from each symbols file, and run it thru (assuming log .build with pbuilder):
+3. Take the buildlogand run it thru the utility below (assuming log .build with pbuilder):
 
 ```
 pkgkde-symbolshelper patch -p LIB_PKG_NAME -v 5.3.2 < $HOME/build-qtbase-opensource-src/qtbase*.build`

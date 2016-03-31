@@ -82,17 +82,14 @@ else
 	$(error Unknown qmake mkspec for $(DEB_HOST_ARCH_OS))
 endif
 
-ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
-	NUMJOBS=$(grep -c '^processor' /proc/cpuinfo)
-else
-	NUMJOBS=1
-endif
+# Set number of jobs explicitly
+NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 
 %:
 	dh $@ --parallel --with pkgkde_symbolshelper
 
 override_dh_auto_configure:
-	MAKEFLAGS="-j$(NUMJOBS)" ./configure \
+	MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}" ./configure \
 			-confirm-license \
 			-prefix "/usr" \
 			-bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \

@@ -154,7 +154,7 @@ main()
 			sleep 2s
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
-			git clone -b "${branch}" "${git_url}" "${git_dir}""
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	fi
 

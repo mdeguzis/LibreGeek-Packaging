@@ -22,6 +22,8 @@ DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
 platform_arg="linux-g++-64"
 
+extra_opts="-no-sql-ibase -no-eglfs -opengl desktop"
+
 # Set number of jobs explicitly
 NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 
@@ -29,19 +31,19 @@ NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 ./configure \
 	-confirm-license \
 	-prefix "/usr" \
-	-bindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin" \
-	-libdir "/usr/lib/$(DEB_HOST_MULTIARCH)" \
+	-bindir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/bin" \
+	-libdir "/usr/lib/$DEB_HOST_MULTIARCH" \
 	-docdir "/usr/share/qt5/doc" \
-	-headerdir "/usr/include/$(DEB_HOST_MULTIARCH)/qt5" \
+	-headerdir "/usr/include/$DEB_HOST_MULTIARCH/qt5" \
 	-datadir "/usr/share/qt5" \
-	-archdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+	-archdatadir "/usr/lib/$DEB_HOST_MULTIARCH/qt5" \
 	-hostdatadir "/usr/share/qt5" \
-	-plugindir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/plugins" \
-	-importdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/imports" \
+	-plugindir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/plugins" \
+	-importdir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/imports" \
 	-translationdir "/usr/share/qt5/translations" \
-	-hostdatadir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5" \
+	-hostdatadir "/usr/lib/$DEB_HOST_MULTIARCH/qt5" \
 	-sysconfdir "/etc/xdg" \
-	-examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
+	-examplesdir "/usr/lib/$DEB_HOST_MULTIARCH/qt5/examples" \
 	-opensource \
 	-system-sqlite \
 	-platform $(platform_arg) \
@@ -69,8 +71,8 @@ NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 	-compile-examples \
 	-no-directfb \
 	-gstreamer 1.0 \
-	-no-sql-ibase -no-eglfs -opengl desktop \
-	$(cpu_opt)
+	$extra_opts \
+	$cpu_opt
 
 # Retrun to top dir
 cd "${TOP}"

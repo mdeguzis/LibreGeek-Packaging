@@ -1,3 +1,7 @@
+# WARNING!
+
+Please advise the below notes are "right" for doing a backport of this package. It is highly urged you read throughly through the "Working with symbols files" link below for complete information.
+
 # Notes
 
 * [Working with symbols files](http://pkg-kde.alioth.debian.org/symbolfiles.html)

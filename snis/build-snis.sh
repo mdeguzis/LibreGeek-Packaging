@@ -51,7 +51,7 @@ fi
 # upstream vars
 #git_url="https://github.com/smcameron/space-nerds-in-space"
 git_url="https://github.com/ProfessorKaos64/space-nerds-in-space"
-branch="master"
+branch="v20160330"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,7 +62,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="snis"
 pkgrev="1"
-pkgver="${date_short}+git+bsos${pkgrev}"
+pkgver="20160330+git+bsos${pkgrev}"
 BUILDER="pdebuild"
 DIST="brewmaster"
 urgency="low"
@@ -113,7 +113,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -127,9 +126,6 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
@@ -149,11 +145,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "update release"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}"
 
 	fi
 

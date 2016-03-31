@@ -20,29 +20,6 @@ DEB_HOST_ARCH_OS=$(dpkg-architecture -qDEB_HOST_ARCH_OS)
 DEB_HOST_ARCH_BITS=$(dpkg-architecture -qDEB_HOST_ARCH_BITS)
 DEB_HOST_ARCH_CPU=$(dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
-# Upstream changelog
-upstream_changes := dist/changes-$(shell dpkg-parsechangelog | sed -n 's/^Version: //p' | cut -f1 -d '-' | sed -e 's/+dfsg//' | sed -e 's/+git.*//')
-# Distribution vendor
-vendor := $(shell dpkg-vendor --query Vendor)
-
-# To easier the files installation according to OSes and CPUs, we create three
-# kinds of install files: foo.install-common, foo.install-$DEB_HOST_ARCH_CPU and
-# foo.install-$DEB_HOST_ARCH_OS. In this case we can fine-tune what we install.
-#
-# Note that if any foo.install-* file exists and foo.install exist too, the
-# later will get overwritten.
-#
-# I've opened a bug in debhelper to allow this:
-# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=703201
-
-# Retrieve packages that have a .install-common file
-pkgs_with_common = $(patsubst debian/%.install-common,%,$(wildcard debian/*.install-common))
-# Retrieve packages that have a .install-$DEB_HOST_ARCH_CPU file
-pkgs_with_arch = $(patsubst debian/%.install-$(DEB_HOST_ARCH_CPU),%,$(wildcard debian/*.install-$(DEB_HOST_ARCH_CPU)))
-# Retrieve packages that have a .install-$DEB_HOST_ARCH_OS file
-pkgs_with_os = $(patsubst debian/%.install-$(DEB_HOST_ARCH_OS),%,$(wildcard debian/*.install-$(DEB_HOST_ARCH_OS)))
-
-
 #ifneq (,$(filter libqt5sql5-ibase,$(shell dh_listpackages)))
 #	extra_configure_opts += -plugin-sql-ibase
 #else

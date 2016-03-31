@@ -47,7 +47,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	sleep 2s
 
 	sudo apt-get install -y --force-yes pbuilder libselinux1 libselinux1:i386 \
-	lsb-release bc devscripts sudo
+	lsb-release bc devscripts sudo screen
 	
 	# Open Build System
 	#echo "\nInstalling Open Build System package\n"

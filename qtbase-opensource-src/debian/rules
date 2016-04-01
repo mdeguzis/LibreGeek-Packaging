@@ -37,11 +37,11 @@ pkgs_with_arch = $(patsubst debian/%.install-$(DEB_HOST_ARCH_CPU),%,$(wildcard d
 pkgs_with_os = $(patsubst debian/%.install-$(DEB_HOST_ARCH_OS),%,$(wildcard debian/*.install-$(DEB_HOST_ARCH_OS)))
 
 
-#ifneq (,$(filter libqt5sql5-ibase,$(shell dh_listpackages)))
-#	extra_configure_opts += -plugin-sql-ibase
-#else
+ifneq (,$(filter libqt5sql5-ibase,$(shell dh_listpackages)))
+	extra_configure_opts += -plugin-sql-ibase
+else
 	extra_configure_opts += -no-sql-ibase
-#endif
+endif
 
 no_pch_architectures := arm64
 ifeq ($(DEB_HOST_ARCH),$(findstring $(DEB_HOST_ARCH), $(no_pch_architectures)))
@@ -108,6 +108,13 @@ override_dh_auto_configure:
 			-examplesdir "/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples" \
 			-opensource \
 			-system-sqlite \
+			-no-sql-sqlite2 \
+			-plugin-sql-mysql \
+			-plugin-sql-odbc \
+			-plugin-sql-psql \
+			-plugin-sql-sqlite \
+			-no-sql-sqlite2 \
+			-plugin-sql-tds \
 			-platform $(platform_arg) \
 			-system-zlib \
 			-system-libpng \

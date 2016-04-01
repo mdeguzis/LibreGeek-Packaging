@@ -1,0 +1,20 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following package was automatically installed and is no longer required:
+  liblockfile1
+Use 'apt-get autoremove' to remove it.
+Suggested packages:
+  cdbs
+The following NEW packages will be installed:
+  pkg-kde-tools
+0 upgraded, 1 newly installed, 0 to remove and 62 not upgraded.
+Need to get 95.1 kB of archives.
+After this operation, 450 kB of additional disk space will be used.
+Get:1 http://http.debian.net/debian/ jessie/main pkg-kde-tools all 0.15.15 [95.1 kB]
+Fetched 95.1 kB in 0s (342 kB/s)
+Selecting previously unselected package pkg-kde-tools.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 42789 files and directories currently installed.)
+Preparing to unpack .../pkg-kde-tools_0.15.15_all.deb ...
+Unpacking pkg-kde-tools (0.15.15) ...
+Processing triggers for man-db (2.7.0.2-5) ...

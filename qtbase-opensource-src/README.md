@@ -80,7 +80,7 @@ Please advise the below notes are "right" for doing a backport of this package. 
 * [Pool for qtbase](ftp://ftp.debian.org/debian/pool/main/q/qtbase-opensource-src/)
  * File: "qtbase-opensource-src_5.3.2+dfsg-4.debian.tar.xz"
 
-## How-To:
+## Updating Symbols:
 
 1. Import the target (in this case Jessie for the backport) symbols into debian/
 2. Attempt the build
@@ -94,6 +94,23 @@ pkgkde-symbolshelper patch -p LIB_PKG_NAME -v 5.6.0 < $HOME/build-qtbase-opensou
 A batch:
 ```
 pkgkde-symbolshelper batchpatch -v 5.6.0 $HOME/build-qtbase-opensource-src/qtbase*.build
+```
+
+## Creating Symbols
+
+You can also create the symbols from each library (e.g. libqt5network5). The below example set processes the two libraries from libqt5network5.
+
+General process:
+
+1. Build the package without symbols, and get the compiled binary (e.g. libqt5network5.deb)
+2. Extract package with `dpkg -x <package>`
+3. Update per the directions below (make sure to use the correct path to the libary soname)
+
+You can also use the commong "C10shell" hook to call root inside the pbuilder chroot when the build inevitably fails. You should have the compiled packages ahead of where the symbols were processed. Follow then step 3.
+
+```
+pkgkde-gensymbols -libqt5network5 -v5.6.0 -Osymbols.amd64 -edebian/libqt5network5/usr/lib/qt5/plugins/bearer/libqconnmanbearer.so
+pkgkde-gensymbols -libqt5network5 -v5.6.0 -Osymbols.amd64 -edebian/libqt5network5/usr/lib/qt5/plugins/bearer/libqnmbearer.so
 ```
 
 ## List of libs packages:

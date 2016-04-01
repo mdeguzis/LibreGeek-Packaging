@@ -323,9 +323,9 @@ override_dh_strip:
 	dh_strip -pqt5-qmake --dbg-package=qtbase5-dev-tools-dbg
 	dh_strip --remaining-packages --dbg-package=qtbase5-dbg
 
-override_dh_makeshlibs:
-	dh_makeshlibs -V -plibqt5gui5 -XlibQt5EglDeviceIntegration.so -X libQt5XcbQpa.so
-	dh_makeshlibs -V --remaining-packages
+#override_dh_makeshlibs:
+#	dh_makeshlibs -V -plibqt5gui5 -XlibQt5EglDeviceIntegration.so -X libQt5XcbQpa.so
+#	dh_makeshlibs -V --remaining-packages
 
 override_dh_clean:
 	dh_clean

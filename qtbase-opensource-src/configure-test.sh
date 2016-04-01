@@ -47,8 +47,14 @@ NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 	-opensource \
 	-system-sqlite \
 	-platform $platform_arg \
-	-no-sql-sqlite2
-	-plugin-sql-ibase
+	-no-sql-sqlite2 \
+	-plugin-sql-mysql \
+	-plugin-sql-odbc \
+	-plugin-sql-psql \
+	-plugin-sql-sqlite \
+	-no-sql-sqlite2 \
+	-plugin-sql-tds \
+ 	-plugin-sql-ibase \
 	-system-zlib \
 	-system-libpng \
 	-system-libjpeg \

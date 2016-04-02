@@ -117,6 +117,16 @@ pkgkde-symbolshelper create -o newsymbols/ibqt5concurrent5.symbols -v 5.6.0 symb
 rm -f symbols.amd64 && rm -rf temp/*
 ```
 
+Processing all sonames in an extracted folder can follow a process such as what [Debian documentation](https://www.debian.org/doc/manuals/maint-guide/advanced.en.html) describes
+
+```
+mkdir newsymbols
+dpkg -x libqt5gui5_5.6.0+git+bsos-1_amd64.deb libqt5gui5_5.6.0
+: > newsymbols/libqt5gui5.symbols
+dpkg-gensymbols -v5.6.0 -plibqt5gui5 -Plibqt5gui5_5.6.0 -Onewsymbols/libqt5gui5.symbols
+rm -rf libqt5gui5_5.6.0
+```
+
 Rinse and repeat.
 
 ## List of libs packages:
@@ -125,6 +135,7 @@ Rinse and repeat.
 libqt5concurrent5
 libqt5core5a
 libqt5dbus5
+libqt5libqgtk2 (no symbols in this package)
 libqt5gui5
 libqt5network5
 libqt5opengl5

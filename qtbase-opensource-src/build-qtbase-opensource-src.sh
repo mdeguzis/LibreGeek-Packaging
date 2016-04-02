@@ -48,17 +48,6 @@ else
 
 fi
 
-# files
-qt_src_url="http://download.qt.io/development_releases/qt/"
-qt_rel="5.6/5.6.0-alpha/single/"
-qt_src_file="qt-everywhere-opensource-src-5.6.0-alpha.tar.gz"
-qt_src_folder="${qt_src_file%.*.*}"
-
-# upstream vars
-#git_url="https://github.com/ProfessorKaos64/qt"
-#git_url="git://code.qt.io/qt/qt5.git"
-#git_url="git://code.qt.io/qt/qt5.git"
-
 git_url="https://github.com/qtproject/qtbase/"
 branch="v5.6.0"
 
@@ -72,7 +61,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 #pkgname="qt"
 pkgname="qtbase-opensource-src"
 pkgver="5.6.0"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -189,7 +178,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Attempt to work in upstream Stretch packaging"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Build arch-independent packages (-doc and -doc-html)"
 		nano "debian/changelog"
 
 	else

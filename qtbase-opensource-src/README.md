@@ -103,15 +103,31 @@ You can also create the symbols from each library (e.g. libqt5network5). The bel
 General process:
 
 1. Build the package without symbols, and get the compiled binary (e.g. libqt5network5.deb)
-2. Extract package with `dpkg -x <package>`
-3. Update per the directions below (make sure to use the correct path to the libary soname)
+2. cd into the diretory with the build binaries and move all lib*.deb packages into the temporary build dir source tree with debian/
+3. Create a temp and symbol_temp directory with `mkdir temp newsymbols`
+4. Extract and process each package with `dpkg -x <package> temp/`
+5. Update per the directions below (make sure to use the correct path to the libary soname)
 
 You can also use the commong "C10shell" hook to call root inside the pbuilder chroot when the build inevitably fails. You should have the compiled packages ahead of where the symbols were processed. Follow then step 3.
 
+Example:
 ```
-pkgkde-gensymbols -libqt5network5 -v5.6.0 -Osymbols.amd64 -edebian/libqt5network5/usr/lib/qt5/plugins/bearer/libqconnmanbearer.so
-pkgkde-gensymbols -libqt5network5 -v5.6.0 -Osymbols.amd64 -edebian/libqt5network5/usr/lib/qt5/plugins/bearer/libqnmbearer.so
+pkgkde-gensymbols -plibqt5concurrent5 -v5.6.0 -Osymbols.amd64 -etemp/usr/lib/x86_64-linux-gnu/libQt5Concurrent.so.*
+pkgkde-symbolshelper create -o newsymbols/ibqt5concurrent5.symbols -v 5.6.0 symbols.amd64
+rm -f symbols.amd64 && rm -rf temp/*
 ```
+
+Processing all sonames in an extracted folder can follow a process such as what [Debian documentation](https://www.debian.org/doc/manuals/maint-guide/advanced.en.html) describes
+
+```
+mkdir newsymbols
+dpkg -x libqt5gui5_5.6.0+git+bsos-1_amd64.deb libqt5gui5_5.6.0
+: > newsymbols/libqt5gui5.symbols
+dpkg-gensymbols -v5.6.0 -plibqt5gui5 -Plibqt5gui5_5.6.0 -Onewsymbols/libqt5gui5.symbols
+rm -rf libqt5gui5_5.6.0
+```
+
+Rinse and repeat.
 
 ## List of libs packages:
 
@@ -119,6 +135,7 @@ pkgkde-gensymbols -libqt5network5 -v5.6.0 -Osymbols.amd64 -edebian/libqt5network
 libqt5concurrent5
 libqt5core5a
 libqt5dbus5
+libqt5libqgtk2 (no symbols in this package)
 libqt5gui5
 libqt5network5
 libqt5opengl5

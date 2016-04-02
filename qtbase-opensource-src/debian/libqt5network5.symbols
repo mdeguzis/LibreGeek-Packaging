@@ -1,6 +1,4 @@
-# SymbolsHelper-Confirmed: 5.6.0 amd64
 libQt5Network.so.5 libqt5network5 #MINVER#
-| libqt5network5 #MINVER#, qtbase-abi-5-3-2
  Qt_5.0@Qt_5.0 5.6.0
  Qt_5.1@Qt_5.1 5.6.0
  Qt_5.2@Qt_5.2 5.6.0

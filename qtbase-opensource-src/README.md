@@ -121,11 +121,11 @@ Processing all sonames in an extracted folder can follow a process such as what 
 
 ```
 mkdir newsymbols
-pkg="libqt5gui5"
-dpkg -x ${pkg}_*.deb ${pkg}_5.6.0
+pkg="libqt5gui5" ver="5.6.0"
+dpkg -x ${pkg}_*.deb ${pkg}_${ver}
 : > newsymbols/${pkg}.symbols
-dpkg-gensymbols -v5.6.0 -p${pkg} -P${pkg}_5.6.0 -Onewsymbols/${pkg}.symbols
-rm -rf ${pkg}5_5.6.0/
+dpkg-gensymbols -v5.6.0 -p${pkg} -P${pkg}_${ver} -Onewsymbols/${pkg}.symbols
+rm -rf ${pkg}_${ver}/
 ```
 
 Or...via a [handy script](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtbase-opensource-src/create-new-symbols.sh). Please review the script and be careful to backup files/directories beforehand. You have been warned!

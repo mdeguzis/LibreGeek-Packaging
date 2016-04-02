@@ -103,18 +103,18 @@ You can also create the symbols from each library (e.g. libqt5network5). The bel
 General process:
 
 1. Build the package without symbols, and get the compiled binary (e.g. libqt5network5.deb)
-2. cd into the diretory with the build binaries
-3. Create a temp and symbol_temp directory with `mkdir temp symbols_temp`
+2. cd into the diretory with the build binaries and move all lib*.deb packages into the temporary build dir source tree with debian/
+3. Create a temp and symbol_temp directory with `mkdir temp newsymbols`
 4. Extract and process each package with `dpkg -x <package> temp/`
 5. Update per the directions below (make sure to use the correct path to the libary soname)
 
 You can also use the commong "C10shell" hook to call root inside the pbuilder chroot when the build inevitably fails. You should have the compiled packages ahead of where the symbols were processed. Follow then step 3.
 
+Example:
 ```
-pkgkde-gensymbols -plibqt5concurrent5 -v5.6.0 -Osymbols.amd64 -etemp/usr/lib/x86_64-linux-gnu/libQt5Concurrent.so.5
-pkgkde-symbolshelper create -o temp/libqt5concurrent5.symbols -v 5.6.0 symbols.amd64
-find temp/ -name "*.symbols" -print0 | xargs -0 cp -t symbols_temp/
-rm -f temp/*
+pkgkde-gensymbols -plibqt5concurrent5 -v5.6.0 -Osymbols.amd64 -etemp/usr/lib/x86_64-linux-gnu/libQt5Concurrent.so.*
+pkgkde-symbolshelper create -o newsymbols/ibqt5concurrent5.symbols -v 5.6.0 symbols.amd64
+rm -f symbols.amd64 && rm -rf temp/*
 ```
 
 Rinse and repeat.

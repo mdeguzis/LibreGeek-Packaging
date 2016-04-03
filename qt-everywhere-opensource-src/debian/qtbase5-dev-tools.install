@@ -1,8 +1,0 @@
-usr/bin/fixqt4headers.pl
-usr/bin/moc
-usr/bin/qdbuscpp2xml
-usr/bin/qdbusxml2cpp
-usr/bin/qlalr
-usr/bin/rcc
-usr/bin/syncqt.pl
-usr/bin/uic

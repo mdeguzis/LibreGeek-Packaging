@@ -51,7 +51,7 @@ fi
 # upstream vars
 #git_url="git://code.qt.io/qt/qtwebengine.git"
 git_url="https://github.com/qtproject/qtwebengine"
-branch="v5.6.0"
+branch="5.6"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

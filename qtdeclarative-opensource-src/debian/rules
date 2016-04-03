@@ -17,8 +17,8 @@ export QT_SELECT := qt5
 override_dh_auto_configure:
 	qmake
 
-override_dh_auto_build-indep:
-	dh_auto_build -- docs
+#override_dh_auto_build-indep:
+#	dh_auto_build -- docs
 
 override_dh_auto_install-arch:
 	dh_auto_install
@@ -40,11 +40,11 @@ override_dh_auto_install-arch:
 	-o -name '*.qml' \
 	\) -print0 | xargs -0 chmod a-x
 
-override_dh_auto_install-indep:
-	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+#override_dh_auto_install-indep:
+#	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
 
-override_dh_install:
-	dh_install --fail-missing
+#override_dh_install:
+#	dh_install --fail-missing
 
 override_dh_link:
 	dh_link

@@ -7,5 +7,5 @@
 	dh $@
 	
 override_dh_auto_build:
-	qmake -r
+	qmake -r CONFIG+=release
 	make

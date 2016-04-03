@@ -84,6 +84,12 @@ install_prereqs()
 	sudo apt-get install bison build-essential gperf flex ruby python libasound2-dev libbz2-dev libcap-dev \
 	libcups2-dev libdrm-dev libegl1-mesa-dev libgcrypt11-dev libnss3-dev libpci-dev libpulse-dev libudev-dev \
 	libxtst-dev gyp ninja qtbase5-dev
+	
+	# qt packages from brewmaster_testing
+	sudo apt-get install -y --force-yes libqt5concurrent5 libqt5dbus5 libqt5libqgtk2 libqt5opengl5-dev \
+	libqt5opengl5 libqt5printsupport5 libqt5sql5-ibase libqt5sql5 libqt5sql5-mysql libqt5sql5-odbc \
+	libqt5sql5-psql libqt5sql5-sqlite libqt5sql5-tds libqt5test5 libqt5widgets5 libqt5xml5 qt5-default \
+	qt5-qmake qtbase5-dev-tools qtbase5-private-dev
 
 }
 

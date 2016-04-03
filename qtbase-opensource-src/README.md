@@ -59,8 +59,7 @@ steps if you want to rebuild the whole Qt stack from scratch:
   - qtbase-opensource-src
   - qtxmlpatterns-opensource-src
   - qtdeclarative-opensource-src
-  - qtwebkit-opensource-src
-  - qtdeclarative-opensource-src
+  - qtwebkit-opensource-src / qtwebengine
 * Build the arch-independent packages (-doc and -doc-html) of the above sources.
 * Build the rest of the Qt stack in the usual way.
 

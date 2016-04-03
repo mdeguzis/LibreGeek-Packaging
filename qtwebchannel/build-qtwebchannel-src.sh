@@ -4,9 +4,9 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-sprunge.sh
 # Script Ver:	1.0.0
-# Description:	Builds package of QT 5.6.0 alpha
+# Description:	Builds package of QT 5.6.0 webchannel
 #
-# See:		https://github.com/ProfessorKaos64/qt
+# See:		https://github.com/qtproject/qtwebchannel
 #		https://wiki.qt.io/Building-Qt-5-from-Git
 #
 # Usage:	build-sprunge.sh
@@ -48,7 +48,7 @@ else
 
 fi
 
-git_url="https://github.com/qtproject/qtxmlpatterns"
+git_url="https://github.com/qtproject/qtwebchannel"
 branch="v5.6.0"
 
 # package vars
@@ -58,8 +58,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-#pkgname="qt"
-pkgname="qtxmlpatterns-opensource-src"
+pkgname="qtwebchannel"
 pkgver="5.6.0"
 pkgrev="1"
 pkgsuffix="git+bsos"

@@ -18,7 +18,5 @@ export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 	dh $@
 	
 override_dh_auto_build:
-	qmake -r CONFIG+=release \
-		GYP_CONFIG+=use_system_libjpeg \
-		GYP_CONFIG+=use_system_zlib
+	qmake -r CONFIG+=release
 	make

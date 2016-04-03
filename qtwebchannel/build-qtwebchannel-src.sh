@@ -124,6 +124,7 @@ main()
 	sleep 2s
 
 	git clone -b ${branch} ${git_url} ${git_dir}
+	cd "${git_dir}" && git submodule update --init
 
 	# trim git (after confimed working build)
 	# rm -rf "${git_dir}/.git"

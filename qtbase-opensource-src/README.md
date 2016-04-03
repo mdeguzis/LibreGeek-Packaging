@@ -124,7 +124,7 @@ mkdir newsymbols
 pkg="libqt5gui5" ver="5.6.0"
 dpkg -x ${pkg}_*.deb ${pkg}_${ver}
 : > newsymbols/${pkg}.symbols
-dpkg-gensymbols -v5.6.0 -p${pkg} -P${pkg}_${ver} -Onewsymbols/${pkg}.symbols
+dpkg-gensymbols -v${ver} -p${pkg} -P${pkg}_${ver} -Onewsymbols/${pkg}.symbols
 rm -rf ${pkg}_${ver}/
 ```
 

@@ -1,0 +1,7 @@
+libQt5QuickParticles.so.5 libqt5quickparticles5 #MINVER#
+ Qt_5_PRIVATE_API@Qt_5_PRIVATE_API 5.6.0
+ _ZN10QByteArray7reserveEi@Qt_5_PRIVATE_API 5.6.0
+ _ZN21QQuickParticlesModule12defineModuleEv@Qt_5_PRIVATE_API 5.6.0
+ _ZTIN9QV8Engine9DeletableE@Qt_5_PRIVATE_API 5.6.0
+ _ZTSN9QV8Engine9DeletableE@Qt_5_PRIVATE_API 5.6.0
+ _ZTVN9QV8Engine9DeletableE@Qt_5_PRIVATE_API 5.6.0

@@ -48,18 +48,7 @@ else
 
 fi
 
-# files
-qt_src_url="http://download.qt.io/development_releases/qt/"
-qt_rel="5.6/5.6.0-alpha/single/"
-qt_src_file="qt-everywhere-opensource-src-5.6.0-alpha.tar.gz"
-qt_src_folder="${qt_src_file%.*.*}"
-
-# upstream vars
-#git_url="https://github.com/ProfessorKaos64/qt"
-#git_url="git://code.qt.io/qt/qt5.git"
-#git_url="git://code.qt.io/qt/qt5.git"
-
-git_url="https://github.com/qtproject/qtbase/"
+git_url="https://github.com/qtproject/qtdeclarative"
 branch="v5.6.0"
 
 # package vars
@@ -68,9 +57,9 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-export STEAMOS_TOOLS_BETA_HOOK="false"
+export STEAMOS_TOOLS_BETA_HOOK="true"
 #pkgname="qt"
-pkgname="qtbase-opensource-src"
+pkgname="qtdeclarative-opensource-src"
 pkgver="5.6.0"
 pkgrev="1"
 pkgsuffix="git+bsos"
@@ -91,20 +80,8 @@ install_prereqs()
 	sleep 2s
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes libfontconfig1-dev libfreetype6-dev \
-	libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev \
-	libx11-xcb-dev libxcb-glx0-dev
-
-	# Needed if not passing -qt-xcb
-	sudo apt-get install -y --force-yes libxcb-keysyms1-dev libxcb-image0-dev \
-	libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev \
-	libxcb-randr0-dev libxcb-render-util0-dev libgl1-mesa-dev
-
-	# Needed for qtwebengine building
-	sudo apt-get install -y --force-yes libcap-dev libegl1-mesa-dev x11-xserver-utils \
-	libxrandr-dev libxss-dev libxcursor-dev libxtst-dev libpci-dev libdbus-1-dev \
-	libatk1.0-dev libnss3-dev re2c gperf flex bison libicu-dev libxslt-dev ruby \
-	libssl-doc x11proto-composite-dev libasound2-dev libxcomposite-dev
+	sudo apt-get install -y --force-yes debhelper dpkg-dev libdouble-conversion-dev libqt5xmlpatterns5-dev \ 
+	pkg-kde-tools python qtbase5-private-dev
 
 }
 

@@ -125,7 +125,7 @@ main()
 		else
 		
 			# Discard any created files, update modules
-			cd "${git_dir}" && git stash && git pull
+			cd "${git_dir}" && git stash
 			git submodule update --init
 
 		fi

@@ -1,22 +1,14 @@
 Source: qtdeclarative-opensource-src
 Section: libs
 Priority: optional
-Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
-Uploaders: Sune Vuorela <debian@pusling.com>,
-           Pino Toscano <pino@debian.org>,
-           Lisandro Damián Nicanor Pérez Meyer <lisandro@debian.org>,
-           Timo Jyrinki <timo@debian.org>,
-           Dmitry Shachnev <mitya57@debian.org>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
-               dpkg-dev (>= 1.16.1),
-               libdouble-conversion-dev,
-               libqt5xmlpatterns5-dev (>= 5.6.0~),
-               pkg-kde-tools (>= 0.15.17~),
-               python,
-               qtbase5-private-dev (>= 5.6.0+dfsg~)
-Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.0+dfsg~),
-                     qtbase5-doc-html (>= 5.6.0+dfsg~),
-                     qttools5-dev-tools (>= 5.6.0~)
+ dpkg-dev (>= 1.16.1),
+ libdouble-conversion-dev,
+ libqt5xmlpatterns5-dev (>= 5.6.0~),
+ pkg-kde-tools (>= 0.15.17~),
+ python,
+ qtbase5-private-dev (>= 5.6.0~)
 Standards-Version: 3.9.7
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qtdeclarative.git

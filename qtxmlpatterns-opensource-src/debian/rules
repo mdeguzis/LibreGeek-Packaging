@@ -19,15 +19,15 @@ override_dh_auto_configure:
 #override_dh_auto_build-indep:
 #	dh_auto_build -- docs
 
-override_dh_auto_install-arch:
-	dh_auto_install
+#override_dh_auto_install-arch:
+#	dh_auto_install
 
 	# Remove private headers and the .pri file
-	rm -rfv debian/tmp/usr/include/$(DEB_HOST_MULTIARCH)/qt5/QtXmlPatterns/*/QtXmlPatterns/private/
-	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/mkspecs/modules/qt_lib_xmlpatterns_private.pri
+#	rm -rfv debian/tmp/usr/include/$(DEB_HOST_MULTIARCH)/qt5/QtXmlPatterns/*/QtXmlPatterns/private/
+#	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/mkspecs/modules/qt_lib_xmlpatterns_private.pri
 
 	# Remove libtool-like file
-	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
+#	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
 
 #override_dh_auto_install-indep:
 #	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs

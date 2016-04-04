@@ -217,7 +217,7 @@ main()
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian-catch-all/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

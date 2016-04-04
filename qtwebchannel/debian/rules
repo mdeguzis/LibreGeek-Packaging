@@ -10,4 +10,4 @@ so_version="5.6.0"
 	dh $@
 	
 override_dh_auto_configure:
-	qmake PREFIX=/usr
+	qmake

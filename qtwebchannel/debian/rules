@@ -10,7 +10,7 @@ DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
 DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
 # Set versions for install files
-export SO_VERSION="5.6.0"
+SO_VERSION ?= "5.6.0"
 
 %:
 	dh $@

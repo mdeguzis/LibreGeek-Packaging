@@ -1,6 +1,6 @@
-usr/include/QtWebChannel/QtWebChannel
-usr/lib/cmake/Qt5WebChannel
-usr/lib/libQt5WebChannel.prl
-usr/lib/libQt5WebChannel.so
-usr/lib/pkgconfig/Qt5WebChannel.pc
-usr/lib/qt5/mkspecs/modules/qt_lib_*.pri
+include/QtWebChannel/QtWebChannel
+lib/cmake/Qt5WebChannel
+lib/libQt5WebChannel.prl
+libQt5WebChannel.so
+lib/pkgconfig/Qt5WebChannel.pc
+lib/qt5/mkspecs/modules/qt_lib_*.pri

@@ -16,8 +16,5 @@ DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 	dh $@
 	
 override_dh_auto_configure:
-	qmake
+	qmake -r
 
-#stop build to check
-override_dh_builddeb:
-	cp blah blah

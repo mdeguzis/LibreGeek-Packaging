@@ -9,8 +9,8 @@ DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
 DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
-# Set versions for install files
-SO_VERSION ?= $(shell echo "5.6.0")
+# Set versions for install files (not working in install file, research)
+# SO_VERSION ?= $(shell echo "5.6.0")
 
 %:
 	dh $@

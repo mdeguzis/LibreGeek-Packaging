@@ -18,13 +18,6 @@ export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 	dh $@
 	
 override_dh_auto_configure:
-	#Configure
-	myconf=" -Duse_system_expat=1 -Duse_system_libjpeg=1 -Duse_system_libpng=1 -Duse_system_openssl=1 -Duse_system_zlib=1 -Duse_system_sqlite=1"
-	# Pop the directory and fire off the new configuration set
-	pushd src/3rdparty/chromium/
-	build/linux/unbundle/replace_gyp_files.py $myconf
-	popd
-	# Fire off qmake
 	qmake -r CONFIG+=release
 
 # stop the build here on purpose to check out the files if the build makes it this far

@@ -157,7 +157,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build attempt"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Update build"
 		nano "debian/changelog"
 
 	else

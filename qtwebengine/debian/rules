@@ -17,6 +17,8 @@ export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 %:
 	dh $@
 	
-override_dh_auto_build:
+override_dh_auto_configure:
 	qmake -r CONFIG+=release
-	make
+
+# stop the build here on purpose to check out the files if the build makes it this far
+exec BLAH BLAH

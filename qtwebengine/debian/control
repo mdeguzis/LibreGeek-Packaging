@@ -1,4 +1,4 @@
-Source: qtwebengine
+Source: libqt5-qtwebengine
 Section: web
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
@@ -81,7 +81,7 @@ Standards-Version: 3.9.7
 Homepage: http://qt-project.org/
 Vcs-Git: http://code.qt.io/cgit/qt/qtwebengine.git/
 
-Package: qtwebengine
+Package: libqt5-qtwebengine
 Architecture: any
 Multi-Arch: same
 Provides: qtwebengine

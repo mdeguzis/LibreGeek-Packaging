@@ -1,1 +1,1 @@
-usr/include/QtWebChannel/${so_version}/*
+include/QtWebChannel/${so_version}/*

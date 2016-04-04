@@ -141,7 +141,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Try using upstream debian/
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian-catch-all" "${git_dir}/debian"
 
 	###############################################################
 	# build package

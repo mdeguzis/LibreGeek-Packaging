@@ -1,4 +1,4 @@
-Source: libqt5-qtwebchannel
+Source: libqt5-qtwebchannel-all
 Section: libs
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
@@ -21,12 +21,12 @@ Homepage: http://qt-project.org/
 Vcs-Git: https://github.com/qtproject/qtwebchannel/.git
 Vcs-Browser: https://github.com/qtproject/qtwebchannel.git
 
-Package: libqt5-qtwebchannel
+Package: libqt5-qtwebchannel-all
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 webchannel package (experimental).
+Description: Qt 5 webchannel package all (experimental).
  Qt WebChannel enables peer-to-peer communication between the host 
  (QML/C++ application) and the client (HTML/JavaScript application). 
  The transport mechanism is supported out of the box by the two popular 

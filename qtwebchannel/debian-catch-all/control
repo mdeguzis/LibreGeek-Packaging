@@ -35,31 +35,3 @@ Description: Qt 5 webchannel package (experimental).
  applications to run in any JavaScript runtime. Additionally, a custom 
  transport mechanism can also be implemented using Qt WebSockets to 
  support Qt WebChannel-based communication.
- 
-Package: libqt5-qtwebchannel-dev
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 webchannel dev package (experimental).
-
-Package: libqt5-qtwebchannel-examples
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 webchannel examples package (experimental).
-
-Package: libqt5-qtwebchannel-imports
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 webchannel imports package (experimental).
-
-Package: libqt5-qtwebchannel-private-dev
-Architecture: any
-Multi-Arch: same
-Pre-Depends: ${misc:Pre-Depends}
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: Qt 5 webchannel private headers package (experimental).

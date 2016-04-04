@@ -1,1 +1,2 @@
 include/QtWebChannel/*qml*
+include/QtWebChannel/QQmlWebChannel

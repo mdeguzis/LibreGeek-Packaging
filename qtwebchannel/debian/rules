@@ -9,6 +9,8 @@ so_version="5.6.0"
 %:
 	dh $@
 	
-override_dh_auto_build:
-	INSTALL_ROOT=/usr
+override_dh_auto_configure:
 	qmake -r CONFIG+=release
+
+override_dh_auto_build:
+	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp/usr

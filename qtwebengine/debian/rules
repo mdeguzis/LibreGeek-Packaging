@@ -19,7 +19,7 @@ export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 	
 override_dh_auto_configure:
 	#Configure
-	myconf+=" -Duse_system_expat=1 -Duse_system_libjpeg=1 -Duse_system_libpng=1 -Duse_system_openssl=1 -Duse_system_zlib=1 -Duse_system_sqlite=1"
+	myconf=" -Duse_system_expat=1 -Duse_system_libjpeg=1 -Duse_system_libpng=1 -Duse_system_openssl=1 -Duse_system_zlib=1 -Duse_system_sqlite=1"
 	# Pop the directory and fire off the new configuration set
 	pushd src/3rdparty/chromium/
 	build/linux/unbundle/replace_gyp_files.py $myconf

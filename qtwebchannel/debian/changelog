@@ -1,11 +1,5 @@
-libqt5-qtwebchannel (5.6.0+git+bsos-1) brewmaster; urgency=low
+libqt5-qtwebchannel-all (5.6.0+git+bsos-1) brewmaster; urgency=low
 
-  * First build attempt
+  * Initial upload
 
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 04 Apr 2016 12:26:15 -0400
-
-libqt5-qtwebchannel (0.0.1-1) brewmaster; urgency=medium
-
-  * Dummy changelog
-
- -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 17 Mar 2016 18:29:07 -0400
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 04 Apr 2016 13:44:10 -0400

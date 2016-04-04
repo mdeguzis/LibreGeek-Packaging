@@ -21,4 +21,5 @@ override_dh_auto_configure:
 	qmake -r CONFIG+=release
 
 # stop the build here on purpose to check out the files if the build makes it this far
-exec BLAH BLAH
+override_dh_builddeb:
+	cp blah blah

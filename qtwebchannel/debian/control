@@ -3,6 +3,7 @@ Section: libs
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
+ cmake,
  libqt5concurrent5 (>= 5.6.0),
  libqt5dbus5 (>= 5.6.0),
  libqt5libqgtk2 (>= 5.6.0),

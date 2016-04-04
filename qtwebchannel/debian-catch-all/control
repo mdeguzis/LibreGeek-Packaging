@@ -1,0 +1,37 @@
+Source: libqt5-qtwebchannel
+Section: libs
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ cmake,
+ libqt5concurrent5 (>= 5.6.0),
+ libqt5dbus5 (>= 5.6.0),
+ libqt5libqgtk2 (>= 5.6.0),
+ libqt5opengl5-dev (>= 5.6.0),
+ libqt5opengl5 (>= 5.6.0),
+ libqt5printsupport5 (>= 5.6.0),
+ libqt5test5 (>= 5.6.0),
+ libqt5widgets5 (>= 5.6.0),
+ libqt5xml5 (>= 5.6.0),
+ qt5-default (>= 5.6.0),
+ qt5-qmake (>= 5.6.0),
+ qtbase5-dev (>= 5.6.0),
+Standards-Version: 3.9.7
+Homepage: http://qt-project.org/
+Vcs-Git: https://github.com/qtproject/qtwebchannel/.git
+Vcs-Browser: https://github.com/qtproject/qtwebchannel.git
+
+Package: libqt5-qtwebchannel
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 webchannel package (experimental).
+ Qt WebChannel enables peer-to-peer communication between the host 
+ (QML/C++ application) and the client (HTML/JavaScript application). 
+ The transport mechanism is supported out of the box by the two popular 
+ web engines, Qt WebKit 2 and Qt WebEngine (experimental). It works on 
+ all browsers that support Qt WebSockets, enabling Qt WebChannel 
+ applications to run in any JavaScript runtime. Additionally, a custom 
+ transport mechanism can also be implemented using Qt WebSockets to 
+ support Qt WebChannel-based communication.

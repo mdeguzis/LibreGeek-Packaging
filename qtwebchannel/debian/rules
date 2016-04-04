@@ -10,5 +10,5 @@ so_version="5.6.0"
 	dh $@
 	
 override_dh_auto_build:
-	qmake -r CONFIG+=release
+	qmake -r CONFIG+=release PREFIX=/usr
 	make

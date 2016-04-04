@@ -150,6 +150,18 @@ main()
 
 	# trim git
 	# rm -rf "${git_dir}/.git"
+	
+	########################################################
+	# Correct some stuff based on the model opensuse uses ?
+	# See readme link to build spec in this directory
+	########################################################
+	
+	#Configure
+	#myconf=" -Duse_system_expat=1 -Duse_system_libjpeg=1 -Duse_system_libpng=1 -Duse_system_openssl=1 \
+	#-Duse_system_zlib=1 -Duse_system_sqlite=0 -Duse_system_re2=1"
+
+	# Pop the directory and fire off the new configuration set
+	#pushd src/3rdparty/chromium/ &&	build/linux/unbundle/replace_gyp_files.py $myconf && popd
 
 	# add debian/
 	cp -r "${scriptdir}/debian" "${git_dir}"

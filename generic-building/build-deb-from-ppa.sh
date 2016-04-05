@@ -151,7 +151,7 @@ src_dir="${pkgname}-${pkgver}"
 	else
 		read -ep "deb-src URL: " repo_src
 		# user chose to keep var value from last
-		if [[ "$repo_src" == " ]]; then
+		if [[ "$repo_src" == "" ]]; then
 			repo_src="$repo_src_tmp"
 		else
 			# keep user choice

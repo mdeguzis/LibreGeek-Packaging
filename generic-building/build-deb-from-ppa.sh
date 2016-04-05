@@ -108,7 +108,7 @@ install_prereqs()
 	sources_check=$(sudo find /etc/apt -type f -name "jessie*.list")
 	sources_check2=$(grep -r jessie /etc/apt/sources.list)
 	
-	if [[ "$sources_check" == " && "$sources_check2" == " ]]; then
+	if [[ "$sources_check" == "" && "$sources_check2" == "" ]]; then
                 echo -e "\n==INFO==\nSources do *NOT* appear to be added at first glance. Adding now..."
                 sleep 2s
                 "$scriptdir/add-debian-repos.sh"
@@ -167,13 +167,13 @@ src_dir="${pkgname}-${pkgver}"
 	echo -e "\n==> Please enter or paste the GPG key/url for this repo now:"
 	echo -e "    [Press ENTER to use last: $gpg_pub_key]\n"
 	gpg_pub_key_tmp="$gpg_pub_key"
-	if [[ "$gpg_pub_key" == " ]]; then
+	if [[ "$gpg_pub_key" == "" ]]; then
 		# var blank this run, get input
 		read -ep "GPG Public Key: " gpg_pub_key
 	else
 		read -ep "GPG Public Key: " gpg_pub_key
 		# user chose to keep var value from last
-		if [[ "$gpg_pub_key" == " ]]; then
+		if [[ "$gpg_pub_key" == "" ]]; then
 			gpg_pub_key="$gpg_pub_key_tmp"
 		else
 			# keep user choice
@@ -184,13 +184,13 @@ src_dir="${pkgname}-${pkgver}"
 	echo -e "\n==> Please enter or paste the desired package name now:"
 	echo -e "    [Press ENTER to use last: $target]\n"
 	target_tmp="$target"
-	if [[ "$target" == " ]]; then
+	if [[ "$target" == "" ]]; then
 		# var blank this run, get input
 		read -ep "Package Name: " target
 	else
 		read -ep "Package Name: " target
 		# user chose to keep var value from last
-		if [[ "$target" == " ]]; then
+		if [[ "$target" == "" ]]; then
 			target="$target_tmp"
 		else
 			# keep user choice
@@ -244,7 +244,7 @@ src_dir="${pkgname}-${pkgver}"
 	# assess if depdencies should be ignored.
 	# If no argument used, build normally
 
-	if [[ "$arg1" == " ]]; then
+	if [[ "$arg1" == "" ]]; then
 	
 		echo -e "\n==> Attempting to auto-install build dependencies\n"
 	

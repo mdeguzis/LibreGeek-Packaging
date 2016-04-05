@@ -130,14 +130,14 @@ main()
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 			git clone "${git_url}" "${git_dir}"
 			cd "${git_dir}"
-			perl init-repository --module-subset=default,-qtwebchannel,-qtwebengine
+			./init-repository --module-subset=qtwebchannel,qtwebengine
 			git checkout "${target_branch}"
 			
 		else
 		
 			# Discard any created files, update modules
 			cd "${git_dir}" && git stash && git pull
-			perl init-repository --module-subset=default,-qtwebchannel,-qtwebengine
+			./init-repository --module-subset=qtwebchannel,qtwebengine
 			git checkout "${target_branch}"
 
 		fi
@@ -150,7 +150,7 @@ main()
 			mkdir -p "${build_dir}" || exit 1
 			git clone "${git_url}" "${git_dir}"
 			cd "${git_dir}"
-			perl init-repository --module-subset=default,-qtwebchannel,-qtwebengine
+			./init-repository --module-subset=qtwebchannel,qtwebengine
 			git checkout "${target_branch}"
 
 	fi

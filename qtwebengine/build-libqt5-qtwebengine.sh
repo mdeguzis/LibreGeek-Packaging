@@ -132,9 +132,9 @@ main()
 			cd "${git_dir}"
 			./init-repository --module-subset=qtwebchannel,qtwebengine
 			git checkout "${target_branch}"
-			
+
 		else
-		
+
 			# Discard any created files, update modules
 			cd "${git_dir}" && git stash && git pull
 			./init-repository --module-subset=qtwebchannel,qtwebengine

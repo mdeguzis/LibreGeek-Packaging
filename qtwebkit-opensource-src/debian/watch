@@ -1,0 +1,3 @@
+version=3
+opts=dversionmangle=s/\+dfsg//,repacksuffix=+dfsg \
+https://download.qt.io/community_releases/([\d\.]*)/([\d\.]*)/qtwebkit-opensource-src-([^-]*)\.tar\.xz

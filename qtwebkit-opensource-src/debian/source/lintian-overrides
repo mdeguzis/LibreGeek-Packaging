@@ -1,0 +1,9 @@
+# This are all lintian false positives. See #802028.
+qtwebkit-opensource-src source: source-contains-prebuilt-javascript-object Source/JavaScriptCore/tests/mozilla/ecma*.js *
+qtwebkit-opensource-src source: source-is-missing Source/JavaScriptCore/tests/mozilla/ecma*.js *
+qtwebkit-opensource-src source: source-contains-prebuilt-javascript-object Source/WebCore/inspector/front-end/ace/mode_*.js *
+qtwebkit-opensource-src source: source-is-missing Source/WebCore/inspector/front-end/ace/mode_*.js *
+qtwebkit-opensource-src source: source-contains-prebuilt-javascript-object Source/WebInspectorUI/UserInterface/*.js *
+qtwebkit-opensource-src source: source-is-missing Source/WebInspectorUI/UserInterface/*.js *
+qtwebkit-opensource-src source: source-contains-prebuilt-javascript-object Tools/BuildSlaveSupport/build.webkit.org-config/public_html/TestFailures/scripts/*.js *
+qtwebkit-opensource-src source: source-is-missing Tools/BuildSlaveSupport/build.webkit.org-config/public_html/TestFailures/scripts/*.js *

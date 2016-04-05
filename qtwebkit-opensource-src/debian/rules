@@ -57,9 +57,9 @@ endif
 	# Upstream 5.6.0 RC tarball was generated improperly and has no synced headers
 	/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/bin/syncqt.pl Source -version $(upstream_version)
 
-override_dh_auto_build-indep:
-	dh_auto_build -- sub-Source-QtWebKit-pro-clean
-	dh_auto_build -- -CSource -fMakefile.api docs
+#override_dh_auto_build-indep:
+#	dh_auto_build -- sub-Source-QtWebKit-pro-clean
+#	dh_auto_build -- -CSource -fMakefile.api docs
 
 override_dh_auto_install-arch:
 	make install INSTALL_ROOT=$(CURDIR)/debian/tmp
@@ -82,11 +82,11 @@ override_dh_auto_install-arch:
 	# Remove libtool-like files
 	rm -f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
 
-override_dh_auto_install-indep:
-	dh_auto_build -- -CSource -fMakefile.api INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+#override_dh_auto_install-indep:
+#	dh_auto_build -- -CSource -fMakefile.api INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
 
-override_dh_install:
-	dh_install --fail-missing
+#override_dh_install:
+#	dh_install --fail-missing
 
 override_dh_auto_test:
 	# Do not attempt to run anything to make build-indep work

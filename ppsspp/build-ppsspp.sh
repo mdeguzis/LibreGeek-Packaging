@@ -119,9 +119,52 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 1s
+	
+	if [[ -d "$git_dir" ]]; then
 
-	# clone recursively for submodules
-	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+		echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "p" ]]; then
+			# attempt to pull the latest source first
+			echo -e "\n==> Attempting git pull..."
+			sleep 2s
+
+			# attempt git pull, if it doesn't complete reclone
+			if ! git pull; then
+
+				# command failure
+				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
+				sleep 2s
+				rm -rf "$git_dir"
+				git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+
+			fi
+
+		elif [[ "$git_choice" == "r" ]]; then
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			sudo rm -rf "$git_dir"
+			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+
+		else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# create and clone to current dir
+			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+
+	fi
+
 
 	# Get base version from latest tag
 	cd "${git_dir}"
@@ -141,9 +184,6 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# create source tarball
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
@@ -151,18 +191,21 @@ main()
 	# enter source dir
 	cd "${src_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build"
+		nano "debian/changelog"
 
 	fi
 

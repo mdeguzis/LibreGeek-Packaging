@@ -1,11 +1,6 @@
-for where in ./ ../ ../../ ../../../ ../../../../ ../../../../../; do
-if [ -e ${where}debian/rules -a -d ${where}debian/patches ]; then
-        export QUILT_PATCHES=debian/patches
-        break
-fi
-done
-
-QUILT_PUSH_ARGS="--color=auto"
-QUILT_DIFF_ARGS="--no-timestamps --no-index -p ab --color=auto"
-QUILT_REFRESH_ARGS="--no-timestamps --no-index -p ab"
-QUILT_DIFF_OPTS='-p'
+QUILT_PATCHES=${PWD}/debian/patches
+QUILT_NO_DIFF_INDEX=1
+QUILT_NO_DIFF_TIMESTAMPS=1
+QUILT_REFRESH_ARGS="-p ab"
+# If you want some color when using `quilt diff`.
+QUILT_DIFF_ARGS="--color=auto"

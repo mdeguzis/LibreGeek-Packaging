@@ -53,7 +53,7 @@ fi
 #git_url="https://github.com/qtproject/qtwebengine"
 git_url="https://github.com/qtproject/qt5"
 branch="dev"
-target_branch="5.6.0"
+target_branch="5.6"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

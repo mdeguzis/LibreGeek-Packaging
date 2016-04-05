@@ -91,18 +91,6 @@ install_prereqs()
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
-
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
-
-	else
-
-		mkdir -p "${build_dir}"
-
-	fi
-
 	# enter build dir
 	cd "${build_dir}" || exit
 
@@ -137,7 +125,7 @@ main()
 				# command failure
 				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 				sleep 2s
-				rm -rf "$git_dir"
+				rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 				git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 
 			fi
@@ -145,13 +133,14 @@ main()
 		elif [[ "$git_choice" == "r" ]]; then
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
-			sudo rm -rf "$git_dir"
+			rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 
 		else
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
+			mkdir -p  "${build_dir}"
 			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 
 		fi
@@ -160,6 +149,7 @@ main()
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
+			mkdir -p  "${build_dir}"
 			# create and clone to current dir
 			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 

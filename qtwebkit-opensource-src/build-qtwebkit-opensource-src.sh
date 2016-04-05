@@ -172,6 +172,7 @@ main()
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		nano "debian/changelog"
 
 	fi
 

@@ -51,7 +51,7 @@ fi
 # upstream vars
 #git_url="git://code.qt.io/qt/qtwebengine.git"
 #git_url="https://github.com/qtproject/qtwebengine"
-git_url="https://github.com/qtproject/qt5"
+git_url="https://code.qt.io/qt/qt5.git"
 branch="dev"
 target_branch="5.6"
 

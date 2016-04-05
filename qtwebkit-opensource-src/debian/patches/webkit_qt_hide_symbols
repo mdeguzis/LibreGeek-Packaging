@@ -1,0 +1,14 @@
+--- a/Source/QtWebKit.pro
++++ b/Source/QtWebKit.pro
+@@ -7,6 +7,11 @@
+ TEMPLATE = subdirs
+ CONFIG += ordered
+ 
++CONFIG(release):!CONFIG(standalone_package) {
++    contains(QT_CONFIG, reduce_exports):CONFIG += hide_symbols
++    unix:contains(QT_CONFIG, reduce_relocations):CONFIG += bsymbolic_functions
++}
++
+ api.file = api.pri
+ SUBDIRS += api
+ 

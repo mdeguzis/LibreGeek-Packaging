@@ -1,8 +1,5 @@
-# debian patches
-reduce_memory_usage.patch
-05_sparc_unaligned_access.diff
-no_gc_sections.diff
-hurd.diff
-webkit_qt_hide_symbols.diff
-fix_nonlinux_glibc_linkage.diff
-fix_pthread_linking.diff
+leveldb_memenv_path
+fix_nonlinux_glibc_linkage
+no_gc_sections
+reduce_memory_usage
+webkit_qt_hide_symbols

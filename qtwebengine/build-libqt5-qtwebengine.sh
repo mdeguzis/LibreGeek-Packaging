@@ -52,7 +52,8 @@ fi
 #git_url="git://code.qt.io/qt/qtwebengine.git"
 #git_url="https://github.com/qtproject/qtwebengine"
 git_url="https://github.com/qtproject/qt5"
-branch="5.6.0"
+branch="dev"
+target_branch="5.6.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -130,12 +131,14 @@ main()
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
 			cd "${git_dir}"
 			perl init-repository --module --module-subset=default,-qtwebchannel,-qtwebengine
+			git checkout "${target_branch}"
 			
 		else
 		
 			# Discard any created files, update modules
 			cd "${git_dir}" && git stash
 			perl init-repository --module --module-subset=default,-qtwebchannel,-qtwebengine
+			git checkout "${target_branch}"
 
 		fi
 
@@ -148,6 +151,7 @@ main()
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
 			cd "${git_dir}"
 			perl init-repository --module --module-subset=default,-qtwebchannel,-qtwebengine
+			git checkout "${target_branch}"
 
 	fi
 

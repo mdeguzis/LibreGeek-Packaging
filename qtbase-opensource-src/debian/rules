@@ -278,7 +278,7 @@ endif
 	# only used to bootstrap qt.
 	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/libQt5Bootstrap*
 	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/pkgconfig/Qt5Bootstrap.pc
-	
+
 	# Remove bogus exec bits from some data files in mkspecs, docs, examples
 	find debian/tmp/usr/share/qt5/ debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/ \
 	     debian/tmp/usr/share/qt5/doc/ \

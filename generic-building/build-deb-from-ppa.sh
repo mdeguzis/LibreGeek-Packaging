@@ -145,7 +145,7 @@ src_dir="${pkgname}-${pkgver}"
 	
 	# set tmp var for last run, if exists
 	repo_src_tmp="$repo_src"
-	if [[ "$repo_src" == " ]]; then
+	if [[ "$repo_src" == "" ]]; then
 		# var blank this run, get input
 		read -ep "deb-src URL: " repo_src
 	else

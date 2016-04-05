@@ -50,8 +50,9 @@ fi
 
 # upstream vars
 #git_url="git://code.qt.io/qt/qtwebengine.git"
-git_url="https://github.com/qtproject/qtwebengine"
-branch="5.6"
+#git_url="https://github.com/qtproject/qtwebengine"
+git_url="https://github.com/qtproject/qt5"
+branch="5.6.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -127,13 +128,14 @@ main()
 			sleep 2s
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
-			cd "${git_dir}" && git submodule update --init
+			cd "${git_dir}"
+			perl init-repository --module --module-subset=default-qtwebchannel,-qtwebengine
 			
 		else
 		
 			# Discard any created files, update modules
 			cd "${git_dir}" && git stash
-			git submodule update --init
+			perl init-repository --module --module-subset=default-qtwebchannel,-qtwebengine
 
 		fi
 
@@ -144,24 +146,13 @@ main()
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
-			cd "${git_dir}" && git submodule update --init
+			cd "${git_dir}"
+			perl init-repository --module --module-subset=default-qtwebchannel,-qtwebengine
 
 	fi
 
 	# trim git
 	# rm -rf "${git_dir}/.git"
-	
-	########################################################
-	# Correct some stuff based on the model opensuse uses ?
-	# See readme link to build spec in this directory
-	########################################################
-	
-	#Configure
-	#myconf=" -Duse_system_expat=1 -Duse_system_libjpeg=1 -Duse_system_libpng=1 -Duse_system_openssl=1 \
-	#-Duse_system_zlib=1 -Duse_system_sqlite=0 -Duse_system_re2=1"
-
-	# Pop the directory and fire off the new configuration set
-	#pushd src/3rdparty/chromium/ &&	build/linux/unbundle/replace_gyp_files.py $myconf && popd
 
 	# add debian/
 	cp -r "${scriptdir}/debian" "${git_dir}"

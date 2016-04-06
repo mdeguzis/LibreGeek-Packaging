@@ -13,6 +13,6 @@ do
 	dpkg -x ${pkg}_*.deb ${pkg}_${version}
 	: > newsymbols/${pkg}.symbols
 	dpkg-gensymbols -v${version} -p${pkg} -P${pkg}_${version} -Onewsymbols/${pkg}.symbols
-	rm -rf ${pkg}${version}/
+	rm -rf ${pkg}_${version}/
 
 done

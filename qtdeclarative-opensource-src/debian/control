@@ -1,14 +1,17 @@
 Source: qtdeclarative-opensource-src
 Section: libs
 Priority: optional
-Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
 Build-Depends: debhelper (>= 9),
  dpkg-dev (>= 1.16.1),
  libdouble-conversion-dev,
  libqt5xmlpatterns5-dev (>= 5.6.0~),
  pkg-kde-tools (>= 0.15.17~),
  python,
- qtbase5-private-dev (>= 5.6.0~)
+ qtbase5-private-dev (>= 5.6.0+dfsg~)
+Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.0+dfsg~),
+ qtbase5-doc-html (>= 5.6.0+dfsg~),
+ qttools5-dev-tools (>= 5.6.0~)
 Standards-Version: 3.9.7
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qtdeclarative.git
@@ -228,13 +231,13 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends: libqt5qml5 (= ${binary:Version}),
-         libqt5quick5 (= ${binary:Version}),
-         libqt5quickparticles5 (= ${binary:Version}),
-         libqt5quicktest5 (= ${binary:Version}),
-         libqt5quickwidgets5 (= ${binary:Version}),
-         qt5-qmltooling-plugins,
-         qtbase5-dev,
-         ${misc:Depends}
+ libqt5quick5 (= ${binary:Version}),
+ libqt5quickparticles5 (= ${binary:Version}),
+ libqt5quicktest5 (= ${binary:Version}),
+ libqt5quickwidgets5 (= ${binary:Version}),
+ qt5-qmltooling-plugins,
+ qtbase5-dev,
+ ${misc:Depends}
 Description: Qt 5 declarative development files
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -302,13 +305,13 @@ Multi-Arch: same
 Section: x11
 Pre-Depends: ${misc:Pre-Depends}
 Depends: qml-module-qtqml-models2,
-         qml-module-qtquick-dialogs,
-         qml-module-qtquick-localstorage,
-         qml-module-qtquick-particles2,
-         qml-module-qtquick-xmllistmodel,
-         qml-module-qttest,
-         ${misc:Depends},
-         ${shlibs:Depends}
+ qml-module-qtquick-dialogs,
+ qml-module-qtquick-localstorage,
+ qml-module-qtquick-particles2,
+ qml-module-qtquick-xmllistmodel,
+ qml-module-qttest,
+ ${misc:Depends},
+ ${shlibs:Depends}
 Description: Qt 5 declarative examples
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -321,10 +324,10 @@ Architecture: any
 Multi-Arch: same
 Section: debug
 Depends: libqt5qml5 (= ${binary:Version}),
-         libqt5quick5 (= ${binary:Version}),
-         libqt5quickparticles5 (= ${binary:Version}),
-         libqt5quicktest5 (= ${binary:Version}),
-         ${misc:Depends}
+ libqt5quick5 (= ${binary:Version}),
+ libqt5quickparticles5 (= ${binary:Version}),
+ libqt5quicktest5 (= ${binary:Version}),
+ ${misc:Depends}
 Recommends: qtbase5-dbg
 Suggests: qtdeclarative5-examples (= ${binary:Version})
 Description: Qt 5 declarative libraries debugging symbols
@@ -333,3 +336,25 @@ Description: Qt 5 declarative libraries debugging symbols
  .
  This package contains the debugging symbols for the Qt 5 declarative libraries.
 
+Package: qtdeclarative5-doc
+Priority: extra
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Description: Qt 5 declarative documentation
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the documentation for the Qt 5 declarative libraries.
+
+Package: qtdeclarative5-doc-html
+Priority: extra
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Description: Qt 5 declarative HTML documentation
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the HTML documentation for the Qt 5 declarative
+ libraries.

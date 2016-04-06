@@ -49,7 +49,7 @@ else
 fi
 
 git_url="https://github.com/qtproject/qtdeclarative"
-branch="v5.6.0"
+branch="5.6"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

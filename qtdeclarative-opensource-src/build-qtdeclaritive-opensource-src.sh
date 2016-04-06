@@ -58,7 +58,6 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-#pkgname="qt"
 pkgname="qtdeclarative-opensource-src"
 pkgver="5.6.0"
 pkgrev="2"
@@ -87,9 +86,6 @@ install_prereqs()
 
 main()
 {
-
-	# enter build dir
-	cd "${build_dir}" || exit
 
 	# install prereqs for build
 

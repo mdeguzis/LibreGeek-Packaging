@@ -18,5 +18,4 @@ export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 	dh $@
 	
 override_dh_auto_configure:
-	cd $(CURDIR)/qtwebchannel && qmake
-	cd $(CURDIR)/qtwebengine && qmake -r CONFIG+=release
+	qmake -r CONFIG+=release

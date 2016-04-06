@@ -1,9 +1,6 @@
 Source: qtwebkit-opensource-src
 Priority: optional
 Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
-Uploaders: Timo Jyrinki <timo@debian.org>,
-           Lisandro Damián Nicanor Pérez Meyer <lisandro@debian.org>,
-           Dmitry Shachnev <mitya57@debian.org>
 Build-Depends: bison,
                chrpath,
                debhelper (>= 9.0.0),
@@ -37,9 +34,9 @@ Build-Depends: bison,
                qtdeclarative5-private-dev (>= 5.6.0~),
                qtscript5-private-dev (>= 5.6.0+dfsg~),
                ruby
-Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.0+dfsg~),
-                     qtbase5-doc-html (>= 5.6.0+dfsg~),
-                     qttools5-dev-tools (>= 5.6.0~)
+#Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.0+dfsg~),
+#                     qtbase5-doc-html (>= 5.6.0+dfsg~),
+#                     qttools5-dev-tools (>= 5.6.0~)
 Standards-Version: 3.9.7
 Section: libs
 Homepage: http://trac.webkit.org/wiki/QtWebKit
@@ -98,25 +95,25 @@ Description: Web content engine library for Qt - debugging symbols
  .
  This package contains the debugging symbols for the Qt WebKit library.
 
-Package: qtwebkit5-doc
-Priority: extra
-Architecture: all
-Section: doc
-Depends: ${misc:Depends}
-Description: Qt 5 webkit documentation
- Qt is a cross-platform C++ application framework. Qt's primary feature
- is its rich set of widgets that provide standard GUI functionality.
- .
- This package contains the documentation for the Qt 5 webkit libraries.
+#Package: qtwebkit5-doc
+#Priority: extra
+#Architecture: all
+#Section: doc
+#Depends: ${misc:Depends}
+#Description: Qt 5 webkit documentation
+# Qt is a cross-platform C++ application framework. Qt's primary feature
+# is its rich set of widgets that provide standard GUI functionality.
+# .
+# This package contains the documentation for the Qt 5 webkit libraries.
 
-Package: qtwebkit5-doc-html
-Priority: extra
-Architecture: all
-Section: doc
-Depends: ${misc:Depends}
-Description: Qt 5 webkit HTML documentation
- Qt is a cross-platform C++ application framework. Qt's primary feature
- is its rich set of widgets that provide standard GUI functionality.
- .
- This package contains the HTML documentation for the Qt 5 webkit
- libraries.
+#Package: qtwebkit5-doc-html
+#Priority: extra
+#Architecture: all
+#Section: doc
+#Depends: ${misc:Depends}
+#Description: Qt 5 webkit HTML documentation
+# Qt is a cross-platform C++ application framework. Qt's primary feature
+# is its rich set of widgets that provide standard GUI functionality.
+# .
+# This package contains the HTML documentation for the Qt 5 webkit
+# libraries.

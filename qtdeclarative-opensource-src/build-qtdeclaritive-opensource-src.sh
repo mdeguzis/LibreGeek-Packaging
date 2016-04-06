@@ -61,7 +61,7 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 #pkgname="qt"
 pkgname="qtdeclarative-opensource-src"
 pkgver="5.6.0"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -142,7 +142,6 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Try using upstream debian/
-
 	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	###############################################################
@@ -159,7 +158,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Attempt to work in upstream Stretch packaging"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Build arch-indep packages and docs packages"
 		nano "debian/changelog"
 
 	else

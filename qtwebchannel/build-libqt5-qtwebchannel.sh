@@ -74,6 +74,7 @@ git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
+
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
@@ -89,7 +90,6 @@ main()
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then
 
-
 		sudo rm -rf "${build_dir}"
 		mkdir -p "${build_dir}"
 
@@ -99,7 +99,6 @@ main()
 		mkdir -p "${build_dir}"
 
 	fi
-
 
 	# enter build dir
 	cd "${build_dir}" || exit
@@ -140,7 +139,7 @@ main()
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
-	# Try using upstream debian/
+	# Add debian files
 	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	###############################################################

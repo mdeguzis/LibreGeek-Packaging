@@ -49,11 +49,9 @@ else
 fi
 
 # upstream vars
-#git_url="git://code.qt.io/qt/qtwebengine.git"
-#git_url="https://github.com/qtproject/qtwebengine"
-git_url="https://code.qt.io/qt/qt5.git"
-branch="dev"
-target_branch="5.6"
+#git_url="https://code.qt.io/qt/qt5.git"
+git_url="https://github.com/qtproject/qtwebengine"
+branch="v5.6.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -128,17 +126,12 @@ main()
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone "${git_url}" "${git_dir}"
-			cd "${git_dir}"
-			./init-repository --module-subset=qtwebchannel,qtwebengine
-			git checkout "${target_branch}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 		else
 
 			# Discard any created files, update modules
 			cd "${git_dir}" && git stash && git pull
-			./init-repository --module-subset=qtwebchannel,qtwebengine
-			git checkout "${target_branch}"
 
 		fi
 
@@ -148,10 +141,7 @@ main()
 			sleep 2s
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
-			git clone "${git_url}" "${git_dir}"
-			cd "${git_dir}"
-			./init-repository --module-subset=qtwebchannel,qtwebengine
-			git checkout "${target_branch}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	fi
 

@@ -3,15 +3,14 @@ Section: libs
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
-               libdouble-conversion-dev,
-               libqt5opengl5-dev (>= 5.6.0~),
-               libqt5sql5-sqlite (>= 5.6.0~),
-# We are building for personal omit the qtwebkit parts
-#               libqt5webkit5-dev (>= 5.6.0~),
-               pkg-kde-tools,
-               qtbase5-private-dev (>= 5.6.0~),
-               qtdeclarative5-private-dev (>= ~),
-               zlib1g-dev
+ libdouble-conversion-dev,
+ libqt5opengl5-dev (>= 5.6.0~),
+ libqt5sql5-sqlite (>= 5.6.0~),
+#libqt5webkit5-dev (>= 5.6.0~),
+ pkg-kde-tools,
+ qtbase5-private-dev (>= 5.6.0~),
+ qtdeclarative5-private-dev (>= ~),
+ zlib1g-dev
 Standards-Version: 3.9.7
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qttools.git
@@ -81,11 +80,11 @@ Architecture: any
 Multi-Arch: same
 Section: libdevel
 Depends: libqt5clucene5 (= ${binary:Version}),
-         libqt5designer5 (= ${binary:Version}),
-         libqt5designercomponents5 (= ${binary:Version}),
-         libqt5help5 (= ${binary:Version}),
-         qtbase5-dev,
-         ${misc:Depends}
+ libqt5designer5 (= ${binary:Version}),
+ libqt5designercomponents5 (= ${binary:Version}),
+ libqt5help5 (= ${binary:Version}),
+ qtbase5-dev,
+ ${misc:Depends}
 Description: Qt 5 tools development files
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -146,10 +145,10 @@ Multi-Arch: same
 Priority: extra
 Section: debug
 Depends: libqt5clucene5 (= ${binary:Version}),
-         libqt5designer5 (= ${binary:Version}),
-         libqt5designercomponents5 (= ${binary:Version}),
-         libqt5help5 (= ${binary:Version}),
-         ${misc:Depends}
+ libqt5designer5 (= ${binary:Version}),
+ libqt5designercomponents5 (= ${binary:Version}),
+ libqt5help5 (= ${binary:Version}),
+ ${misc:Depends}
 Description: Qt 5 tools debugging symbols
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -171,30 +170,30 @@ Description: Qt 5 tools examples debugging symbols
  .
  This package contains the debugging symbols for the Qt 5 tools examples.
 
-Package: qttools5-doc
-Priority: extra
-Architecture: all
-Section: doc
-Depends: ${misc:Depends}
-Breaks: qtbase5-doc (<< 5.6.0~)
-Replaces: qtbase5-doc (<< 5.6.0~)
-Description: Qt 5 tools documentation
- Qt is a cross-platform C++ application framework. Qt's primary feature
- is its rich set of widgets that provide standard GUI functionality.
- .
- This package contains the documentation for the Qt 5 tools libraries
- and binaries.
+#Package: qttools5-doc
+#Priority: extra
+#Architecture: all
+#Section: doc
+#Depends: ${misc:Depends}
+#Breaks: qtbase5-doc (<< 5.6.0~)
+#Replaces: qtbase5-doc (<< 5.6.0~)
+#Description: Qt 5 tools documentation
+# Qt is a cross-platform C++ application framework. Qt's primary feature
+# is its rich set of widgets that provide standard GUI functionality.
+# .
+# This package contains the documentation for the Qt 5 tools libraries
+# and binaries.
 
-Package: qttools5-doc-html
-Priority: extra
-Architecture: all
-Section: doc
-Depends: ${misc:Depends}
-Breaks: qtbase5-doc-html (<< 5.6.0~)
-Replaces: qtbase5-doc-html (<< 5.6.0~)
-Description: Qt 5 tools HTML documentation
- Qt is a cross-platform C++ application framework. Qt's primary feature
- is its rich set of widgets that provide standard GUI functionality.
- .
- This package contains the HTML documentation for the Qt 5 tools
- libraries and binaries.
+#Package: qttools5-doc-html
+#Priority: extra
+#Architecture: all
+#Section: doc
+#Depends: ${misc:Depends}
+#Breaks: qtbase5-doc-html (<< 5.6.0~)
+#Replaces: qtbase5-doc-html (<< 5.6.0~)
+#Description: Qt 5 tools HTML documentation
+# Qt is a cross-platform C++ application framework. Qt's primary feature
+# is its rich set of widgets that provide standard GUI functionality.
+# .
+# This package contains the HTML documentation for the Qt 5 tools
+# libraries and binaries.

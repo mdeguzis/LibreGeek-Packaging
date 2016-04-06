@@ -57,9 +57,8 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-#pkgname="qt"
 pkgname="qttools-opensource-src"
 pkgver="5.6.0"
 pkgrev="1"
@@ -139,9 +138,6 @@ main()
 	sleep 2s
 
 	git clone -b ${branch} ${git_url} ${git_dir}
-
-	# trim git (after confimed working build)
-	# rm -rf "${git_dir}/.git"
 
 	#################################################
 	# Prep source

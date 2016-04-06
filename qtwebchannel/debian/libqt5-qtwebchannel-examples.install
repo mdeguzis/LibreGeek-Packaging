@@ -1,1 +1,1 @@
-examples/*
+examples/* /usr/lib/$(DEB_HOST_MULTIARCH)/qt5/examples/

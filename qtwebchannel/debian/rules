@@ -18,3 +18,6 @@ DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 override_dh_auto_configure:
 	qmake -r
 
+override_dh_builddeb:
+	# override here intentionally until missing install files can be found /built
+	cp blah blah

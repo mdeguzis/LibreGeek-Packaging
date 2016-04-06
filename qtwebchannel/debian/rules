@@ -16,8 +16,7 @@ DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 	dh $@
 	
 override_dh_auto_configure:
+	# Replace var placeholder with multi-arch equiv.
+	find . -name *.install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
+	# congfigure
 	qmake -r
-
-override_dh_builddeb:
-	# override here intentionally until missing install files can be found /built
-	cp blah blah

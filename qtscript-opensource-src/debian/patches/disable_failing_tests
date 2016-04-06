@@ -1,11 +1,6 @@
-Description: disable tests that fail on some Debian architectures
-Author: Dmitry Shachnev <mitya57@debian.org>
-Forwarded: not-needed
-Last-Update: 2015-02-25
-
 --- a/tests/auto/qscriptextqobject/tst_qscriptextqobject.cpp
 +++ b/tests/auto/qscriptextqobject/tst_qscriptextqobject.cpp
-@@ -2273,6 +2273,7 @@
+@@ -2273,6 +2273,7 @@ void tst_QScriptExtQObject::cppConnectAn
  
  void tst_QScriptExtQObject::cppConnectAndDisconnect2()
  {
@@ -15,7 +10,7 @@ Last-Update: 2015-02-25
      QLineEdit edit2;
 --- a/tests/auto/qscriptjstestsuite/skip.txt
 +++ b/tests/auto/qscriptjstestsuite/skip.txt
-@@ -5,6 +5,8 @@
+@@ -5,6 +5,8 @@ regress-322135-01.js | asserts
  regress-322135-02.js | asserts
  regress-322135-03.js | takes forever
  regress-322135-04.js | takes forever
@@ -26,7 +21,7 @@ Last-Update: 2015-02-25
  ecma_3/RegExp/regress-289669.js | Can fail due to relying on wall-clock time
 --- a/tests/auto/qscriptv8testsuite/skip.txt
 +++ b/tests/auto/qscriptv8testsuite/skip.txt
-@@ -3,8 +3,10 @@
+@@ -3,8 +3,10 @@ debug-* | not applicable
  mirror-* | not applicable
  array-concat | Hangs on JSC backend
  array-splice | Hangs on JSC backend
@@ -37,13 +32,13 @@ Last-Update: 2015-02-25
  
  [Q_OS_WINCE]
  deep-recursion | Demands too much memory on WinCE
-@@ -19,18 +21,4 @@
+@@ -19,18 +21,5 @@ unicode-test | Demands too much memory o
  [Q_CC_INTEL]
  math-min-max | Unresolved failures with intel compiler
  negate-zero | Unresolved failures with intel compiler
 -smi-negative-zero | Unresolved failures with intel compiler
  str-to-num | Unresolved failures with intel compiler
--to-precision | Unresolved failures with intel compiler
+ to-precision | Unresolved failures with intel compiler
 -
 -[Q_OS_MAC]
 -smi-negative-zero | Unresolved failures on Mac OS X (Cocoa)

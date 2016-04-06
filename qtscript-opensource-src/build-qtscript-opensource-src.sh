@@ -48,22 +48,20 @@ else
 fi
 
 # upstream vars
-git_url="https://code.qt.io/qt/qt5.git"
-branch="dev"
-target_branch="5.6"
-modules="qtscript"
+git_url="https://github.com/qtproject/qtscript"
+branch="5.6"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc --debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
 pkgname="qtscript-opensource-src"
 pkgver="5.6.0"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -77,6 +75,7 @@ git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
+
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
@@ -117,17 +116,12 @@ main()
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone "${git_url}" "${git_dir}"
-			cd "${git_dir}"
-			./init-repository --module-subset="${modules}"
-			git checkout "${target_branch}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 		else
 
 			# Discard any created files, update modules
 			cd "${git_dir}" && git stash && git pull
-			./init-repository --module-subset="${modules}"
-			git checkout "${target_branch}"
 
 		fi
 
@@ -137,10 +131,7 @@ main()
 			sleep 2s
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
-			git clone "${git_url}" "${git_dir}"
-			cd "${git_dir}"
-			./init-repository --module-subset="${modules}"
-			git checkout "${target_branch}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	fi
 
@@ -175,7 +166,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Update release, add symbols"
 		nano "debian/changelog"
 
 	else

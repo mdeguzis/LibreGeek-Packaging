@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 9),
 #libqt5webkit5-dev (>= 5.6.0~),
  pkg-kde-tools,
  qtbase5-private-dev (>= 5.6.0~),
- qtdeclarative5-private-dev (>= ~),
+ qtdeclarative5-private-dev (>= 5.6.0~),
  zlib1g-dev
 Standards-Version: 3.9.7
 Homepage: http://qt-project.org/

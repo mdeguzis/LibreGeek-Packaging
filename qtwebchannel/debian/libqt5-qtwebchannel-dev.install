@@ -1,6 +1,5 @@
-include/QtWebChannel/QtWebChannel   /usr/include/@DEB_HOST_MULTIARCH@/QtWebChannel
-lib/cmake/Qt5WebChannel             /usr/lib/@DEB_HOST_MULTIARCH@/cmake/Qt5WebChannel
-lib/libQt5WebChannel.prl            /usr/lib/@DEB_HOST_MULTIARCH@/libQt5WebChannel.prl
-lib/libQt5WebChannel.so             /usr/lib/@DEB_HOST_MULTIARCH@/libQt5WebChannel.so
-lib/pkgconfig/Qt5WebChannel.pc      /usr/lib/@DEB_HOST_MULTIARCH@/pkgconfig/Qt5WebChannel.pc
-mkspecs/modules/qt_lib_*.pri        /usr/lib/@DEB_HOST_MULTIARCH@/qt5/mkspecs/modules/qt_lib_*.pri
+include/QtWebChannel/QtWebChannel   /usr/include/@DEB_HOST_MULTIARCH@/
+lib/cmake/Qt5WebChannel             /usr/lib/@DEB_HOST_MULTIARCH@/cmake/
+lib/libQt5WebChannel.prl            /usr/lib/@DEB_HOST_MULTIARCH@/
+lib/libQt5WebChannel.so             /usr/lib/@DEB_HOST_MULTIARCH@/
+lib/pkgconfig/Qt5WebChannel.pc      /usr/lib/@DEB_HOST_MULTIARCH@/pkgconfig/

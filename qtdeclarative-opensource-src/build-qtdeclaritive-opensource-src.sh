@@ -88,21 +88,6 @@ install_prereqs()
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
-
-
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
-
-	else
-
-		# initialize main build dir if it doesn't exist
-		mkdir -p "${build_dir}"
-
-	fi
-
-
 	# enter build dir
 	cd "${build_dir}" || exit
 
@@ -125,7 +110,30 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	git clone -b ${branch} ${git_url} ${git_dir}
+	if [[ -d "${git_dir}" ]]; then
+
+		echo -e "==Info==\nGit folder already exists! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# create and clone to current dir
+			mkdir -p "${build_dir}" || exit 1
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
+
+	fi
 
 	# trim git (after confimed working build)
 	# rm -rf "${git_dir}/.git"

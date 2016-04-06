@@ -1,2 +1,2 @@
-include/QtWebChannel/*qml*            /usr/include/$(DEB_HOST_MULTIARCH)/qt5/QtWebChannel
-include/QtWebChannel/QQmlWebChannel   /usr/include/$(DEB_HOST_MULTIARCH)/qt5/QtWebChannel
+include/QtWebChannel/*qml*            /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebChannel
+include/QtWebChannel/QQmlWebChannel   /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebChannel

@@ -61,7 +61,7 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 #pkgname="qt"
 pkgname="qtxmlpatterns-opensource-src"
 pkgver="5.6.0"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -157,7 +157,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Attempt to work in upstream Stretch packaging"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Add arch-indep packages and docs packages"
 		nano "debian/changelog"
 
 	else

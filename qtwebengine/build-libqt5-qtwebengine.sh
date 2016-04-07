@@ -135,14 +135,6 @@ main()
 		else
 
 			# Unpack the original source later on for  clean retry
-			# Clean out old source folders
-
-			echo -e "\nCleaning old source foldrers for retry\n"
-			sleep 2s
-			find "${build_dir}" -type d -exec rm -rf "{}" \;
-			find "${build_dir}" -iname "*.dsc" -o "*.xz" -o "*.changes" -o \
-			"*.build" -type f -exec rm -rf "{}" \;
-
 			# set retry flag
 			retry="yes"
 
@@ -182,10 +174,16 @@ main()
 		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 		
 	else
-
+	
+		echo -e "\nCleaning old source foldrers for retry\n"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
+		mkdir -p "${git_dir}"
+	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
-		tar -xzvf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${src_dir}"
+		tar -xzvf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${git_dir}"
 		sleep 2s
 
 	fi

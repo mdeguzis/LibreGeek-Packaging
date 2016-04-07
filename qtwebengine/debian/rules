@@ -14,6 +14,17 @@ export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags -
 export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
 export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 
+# Modify gyp bulid (modeled after opensuse 5.6 spec. file)
+# Try to just include what's necessary at first 
+# (system packages used during qtbase configuration time)
+# See readme.md in the build script directory for more.
+
+myconf = " -Duse_system_libjpeg=1 \
+	-Duse_system_libpng=1 \
+	-Duse_system_openssl=1 \
+	-Duse_system_zlib=1 \
+	-Duse_system_sqlite=1"
+
 %:
 	dh $@
 	
@@ -22,5 +33,9 @@ override_dh_auto_configure:
 	find . -name *.install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
 	#force the configure script to generate the forwarding headers (it checks whether .git directory exists)
 	mkdir .git
+	# Modify gyp bulid (modeled after opensuse 5.6 spec. file)
+	pushd src/3rdparty/chromium/
+	build/linux/unbundle/replace_gyp_files.py "$(myconf)"
+	popd
 	# configure
 	qmake -r QMAKE_LFLAGS+="-Wl,--no-keep-memory -Wl,--hash-size=31 -Wl,--reduce-memory-overheads"

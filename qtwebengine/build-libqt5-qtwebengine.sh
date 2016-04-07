@@ -152,9 +152,6 @@ main()
 			cd "${git_dir}" && git submodule update --init
 
 	fi
-
-	# add debian/
-	cp -r "${scriptdir}/debian" "${git_dir}"
 	
 	#################################################
 	# Prep source
@@ -187,6 +184,9 @@ main()
 		sleep 2s
 
 	fi
+	
+	# add debian here, after unpack or creation
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	###############################################################
 	# build package

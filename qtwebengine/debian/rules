@@ -14,6 +14,8 @@ export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags -
 export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
 export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 
+current_dir = $(shell pwd)
+
 # Modify gyp bulid (modeled after opensuse 5.6 spec. file)
 # Try to just include what's necessary at first 
 # (system packages used during qtbase configuration time)
@@ -36,8 +38,8 @@ override_dh_auto_configure:
 	#force the configure script to generate the forwarding headers (it checks whether .git directory exists)
 	mkdir .git
 	# Modify gyp bulid (modeled after opensuse 5.6 spec. file)
-	cd $$(pwd)/src/3rdparty/chromium/build/linux/unbundle/
+	cd $(current_dir)/src/3rdparty/chromium/build/linux/unbundle/
 	replace_gyp_files.py "$(myconf)"
-	cd $$(pwd)
+	cd $(current_dir)
 	# configure
 	qmake -r QMAKE_LFLAGS+="-Wl,--no-keep-memory -Wl,--hash-size=31 -Wl,--reduce-memory-overheads"

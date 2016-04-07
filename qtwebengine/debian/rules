@@ -18,4 +18,7 @@ export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 	dh $@
 	
 override_dh_auto_configure:
-	qmake -r
+	#force the configure script to generate the forwarding headers (it checks whether .git directory exists)
+	mkdir .git
+	# configure
+	qmake -r QMAKE_LFLAGS+="-Wl,--no-keep-memory -Wl,--hash-size=31 -Wl,--reduce-memory-overheads"

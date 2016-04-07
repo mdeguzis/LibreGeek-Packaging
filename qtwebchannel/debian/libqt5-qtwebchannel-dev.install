@@ -4,4 +4,4 @@ lib/libQt5WebChannel.prl          /usr/lib/@DEB_HOST_MULTIARCH@/
 lib/libQt*Web*.so                 /usr/lib/@DEB_HOST_MULTIARCH@/
 lib/libQt*Web*.prl                /usr/lib/@DEB_HOST_MULTIARCH@/
 lib/pkgconfig/Qt*Web*.pc          /usr/lib/@DEB_HOST_MULTIARCH@/pkgconfig/
-mkspecs/modules/qt_lib_*.pri      /usr/lib//@DEB_HOST_MULTIARCH@/qt5/mkspecs/modules/
+mkspecs/modules/qt_lib_*.pri      /usr/lib/@DEB_HOST_MULTIARCH@/qt5/mkspecs/modules/

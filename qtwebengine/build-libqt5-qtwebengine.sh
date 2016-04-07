@@ -125,14 +125,18 @@ main()
 
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
 			cd "${git_dir}" && git submodule update --init
 
 		else
 
-			# Discard any created files, update modules
-			cd "${git_dir}" && git stash && git pull
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
 
 		fi
 
@@ -140,6 +144,8 @@ main()
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
+			# reset retry flag
+			retry="no"
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
@@ -152,17 +158,35 @@ main()
 
 	# add debian/
 	cp -r "${scriptdir}/debian" "${git_dir}"
-
+	
+	# Change project file setup to use some system packages etc.
+	cd "${git}" 
+	
 	#################################################
 	# Prep source
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	
+	# create source tarball
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+	
+	if [[ "${retry}" == "no" ]]; then
+
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		
+	else
+
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzvf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${src_dir}"
+		sleep 2s
+
+	fi
 
 	###############################################################
 	# build package

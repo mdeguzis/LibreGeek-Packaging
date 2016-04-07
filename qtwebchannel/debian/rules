@@ -19,5 +19,7 @@ override_dh_auto_configure:
 	# Replace var placeholders with multi-arch equiv. and so ver.
 	find . -name *.install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
 	find . -name *.install -print0 | xargs -0 sed -i "s|@SO_VERSION@|$(SO_VERSION)|g"
+	# force the configure script to generate the forwarding headers (it checks whether .git directory exists)
+	mkdir .git
 	# congfigure
 	qmake -r

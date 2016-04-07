@@ -34,8 +34,8 @@ override_dh_auto_configure:
 	#force the configure script to generate the forwarding headers (it checks whether .git directory exists)
 	mkdir .git
 	# Modify gyp bulid (modeled after opensuse 5.6 spec. file)
-	pushd src/3rdparty/chromium/
-	build/linux/unbundle/replace_gyp_files.py "$(myconf)"
-	popd
+	cd $$(pwd)/src/3rdparty/chromium/build/linux/unbundle/
+	replace_gyp_files.py "$(myconf)"
+	cd $$(pwd)
 	# configure
 	qmake -r QMAKE_LFLAGS+="-Wl,--no-keep-memory -Wl,--hash-size=31 -Wl,--reduce-memory-overheads"

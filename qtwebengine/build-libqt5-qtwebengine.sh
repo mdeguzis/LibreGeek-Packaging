@@ -115,7 +115,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	if [[ -d "${git_dir}" ]]; then
+	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit folder already exists! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s

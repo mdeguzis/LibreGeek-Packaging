@@ -1,1 +1,1 @@
-include/QtWebChannel/@SO_VERSION@/*/private/   /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebChannel/@SO_VERSION@/QtWebChannel/private/
+include/QtWebChannel/@SO_VERSION@/*/private   /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebChannel/@SO_VERSION@/QtWebChannel/

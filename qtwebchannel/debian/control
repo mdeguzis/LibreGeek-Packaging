@@ -52,12 +52,12 @@ Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webchannel examples package (experimental).
 
-#Package: libqt5-qtwebchannel-imports
-#Architecture: any
-#Multi-Arch: same
-#Pre-Depends: ${misc:Pre-Depends}
-#Depends: ${misc:Depends}, ${shlibs:Depends}
-#Description: Qt 5 webchannel imports package (experimental).
+Package: libqt5-qtwebchannel-imports
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Qt 5 webchannel imports package (experimental).
 
 Package: libqt5-qtwebchannel-private-dev
 Architecture: any

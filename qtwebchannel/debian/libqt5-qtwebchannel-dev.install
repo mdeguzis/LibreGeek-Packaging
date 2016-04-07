@@ -8,6 +8,7 @@ include/QtWebChannel/QtWebChannelDepends            /usr/include/@DEB_HOST_MULTI
 src/webchannel/qqmlwebchannel.h                     /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebChannel/
 src/webchannel/qwebchannel.h                        /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebChannel/
 src/webchannel/qwebchannelabstracttransport.h       /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebChannel/
+src/webchannel/qwebchannelglobal.h                  /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebChannel/
 lib/cmake/Qt5WebChannel/*.cmake                     /usr/lib/@DEB_HOST_MULTIARCH@/cmake/Qt5WebChannel/
 lib/libQt5WebChannel.prl                            /usr/lib/@DEB_HOST_MULTIARCH@/
 lib/libQt5WebChannel.so                             /usr/lib/@DEB_HOST_MULTIARCH@/

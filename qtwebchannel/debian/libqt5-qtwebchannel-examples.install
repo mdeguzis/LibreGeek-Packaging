@@ -1,4 +1,4 @@
-examples/qwebchannel              /usr/lib/@DEB_HOST_MULTIARCH@/qt5/examples/
+examples/webchannel              /usr/lib/@DEB_HOST_MULTIARCH@/qt5/examples/
 src/webchannel/qwebchannel.js     /usr/lib/@DEB_HOST_MULTIARCH@/qt5/examples/qwebchannel/chatclient-html/
 src/webchannel/qwebchannel.js     /usr/lib/@DEB_HOST_MULTIARCH@/qt5/examples/qwebchannel/qwclient/
 src/webchannel/qwebchannel.js     /usr/lib/@DEB_HOST_MULTIARCH@/qt5/examples/qwebchannel/nodejs/

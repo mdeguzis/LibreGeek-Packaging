@@ -18,6 +18,8 @@ export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 	dh $@
 	
 override_dh_auto_configure:
+	# Replace var placeholders with multi-arch equiv. and so ver.
+	find . -name *.install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
 	#force the configure script to generate the forwarding headers (it checks whether .git directory exists)
 	mkdir .git
 	# configure

@@ -148,7 +148,7 @@ main()
 	fi
 
 	# trim git
-	# rm -rf "${git_dir}/.git"
+	find . -name .git -print0 | xargs -0 rm -rf
 
 	# add debian/
 	cp -r "${scriptdir}/debian" "${git_dir}"

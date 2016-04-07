@@ -183,7 +183,7 @@ main()
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
-		tar -xzvf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${git_dir}"
+		tar -xzvf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}"
 		sleep 2s
 
 	fi

@@ -21,7 +21,7 @@ current_dir = $(shell pwd)
 # (system packages used during qtbase configuration time)
 # See readme.md in the build script directory for more.
 
-myconf = " -Duse_system_expat=1
+myconf = " -Duse_system_expat=1 \
 	-Duse_system_flac=1 \
 	-Duse_system_libevent=1 \
 	-Duse_system_libjpeg=1 \

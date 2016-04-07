@@ -117,7 +117,7 @@ main()
 
 	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
 
-		echo -e "==Info==\nGit folder already exists! Remove and [r]eclone or [k]eep? ?\n"
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 
@@ -175,7 +175,7 @@ main()
 		
 	else
 	
-		echo -e "\nCleaning old source foldrers for retry\n"
+		echo -e "\n==> Cleaning old source foldrers for retry"
 		sleep 2s
 		
 		rm -rf *.dsc *.xz *.build *.changes ${git_dir}

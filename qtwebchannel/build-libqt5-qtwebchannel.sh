@@ -121,7 +121,8 @@ main()
 	cd "${git_dir}" && git submodule update --init
 
 	# trim git (after confimed working build)
-	# rm -rf "${git_dir}/.git"
+	# A fake .git will be made during the build process for gyp
+	find . -name *.git -print0 | xargs -0 rm -rf
 
 	#################################################
 	# Prep source

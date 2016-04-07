@@ -110,11 +110,6 @@ main()
 		# handle prereqs on host machine
 		install_prereqs
 
-	else
-
-		# required for dh_clean
-		sudo apt-get install -y --force-yes pkg-kde-tools
-
 	fi
 
 	# Clone upstream source code and branch

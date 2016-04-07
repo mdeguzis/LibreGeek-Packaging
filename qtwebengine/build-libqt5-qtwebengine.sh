@@ -139,7 +139,7 @@ main()
 			echo -e "\nCleaning old source foldrers for retry\n"
 			sleep 2s
 			find "${build_dir}" -type d -exec rm -rf "{}" \;
-			find "${build_dir}" -iname "*.dsc -o *.xz -o *.changes -o *.build" -type f -exec rm -rfv "{}" \;
+			find "${build_dir}" -iname "*.dsc -o *.xz -o *.changes -o *.build" -type f -exec rm -rf "{}" \;
 			# set retry flag
 			retry="yes"
 

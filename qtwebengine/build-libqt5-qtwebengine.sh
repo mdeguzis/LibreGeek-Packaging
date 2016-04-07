@@ -161,20 +161,14 @@ main()
 
 	fi
 
-	# trim git
-	find . -name .git -print0 | xargs -0 rm -rf
-
 	# add debian/
 	cp -r "${scriptdir}/debian" "${git_dir}"
-	
-	# Change project file setup to use some system packages etc.
-	cd "${git}" 
 	
 	#################################################
 	# Prep source
 	#################################################
 
-	cd "${build_dir}"
+	cd "${build_dir}" || exit 1
 	
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)

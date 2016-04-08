@@ -8,7 +8,10 @@ Build-Depends: debhelper (>= 9),
  curl,
  mpv (>=0.15),
  ninja-build,
- qtbase-opensource-src (>=5.6)
+ qtbase5-dev (>=5.6.0~),
+ qtbase5-private-dev (>=5.6.0~),
+ libqt5-qtwebengine-dev (>=5.6.0~),
+ libqt5-qtwebengine-private-dev (>=5.6.0~)
 Standards-Version: 3.9.5
 Homepage: https://github.com/plexinc/plex-media-player/
 

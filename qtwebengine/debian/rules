@@ -16,6 +16,9 @@ export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 
 current_dir = $(shell pwd)
 
+# Set versions for install files (not working in install file, research)
+SO_VERSION = 5.6.0
+
 # Modify gyp bulid (modeled after opensuse 5.6 spec. file)
 # Try to just include what's necessary at first 
 # (system packages used during qtbase configuration time)
@@ -48,6 +51,7 @@ myconf = " -Duse_system_expat=1 \
 override_dh_auto_configure:
 	# Replace var placeholders with multi-arch equiv. and so ver.
 	find . -name *.install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
+	find . -name *.install -print0 | xargs -0 sed -i "s|@SO_VERSION@|$(SO_VERSION)|g"
 	# Trim .git dirs
 	find . -name .git -print0 | xargs -0 rm -rf
 	#force the configure script to generate the forwarding headers (it checks whether .git directory exists)

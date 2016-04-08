@@ -168,7 +168,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Attempt to work in upstream Stretch packaging"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Add new symbosl and docs packages"
 		nano "debian/changelog"
 
 	else

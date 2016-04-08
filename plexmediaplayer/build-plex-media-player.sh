@@ -129,9 +129,6 @@ main()
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	
-	# copy in debian folder and other files
-        cp -r "${scriptdir}/debian" "${git_dir}"
 		
 	# enter git dir
 	cd "${git_dir}"
@@ -147,8 +144,12 @@ main()
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
+	# copy in debian folder and other files
+        cp -r "${scriptdir}/debian" "${git_dir}"
+        cp -r "${scriptdir}/plex-media-player.png" "${git_dir}"
+
 	# enter source dir
-	cd "${src_dir}"
+	cd "${git_dir}"
 
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 

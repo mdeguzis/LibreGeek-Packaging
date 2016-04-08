@@ -1,5 +1,5 @@
 usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebChannel/
-usr/include/@DEB_HOST_MULTIARCH@/cmake/Qt5WebChannel
+usr/lib/@DEB_HOST_MULTIARCH@/cmake/Qt5WebChannel
 usr/include/@DEB_HOST_MULTIARCH@/libQt5WebChannel.prl
 usr/include/@DEB_HOST_MULTIARCH@/libQt5WebChannel.so*
 usr/include/@DEB_HOST_MULTIARCH@/pkgconfig/Qt5WebChannel.pc

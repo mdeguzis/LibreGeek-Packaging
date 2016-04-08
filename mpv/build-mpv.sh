@@ -126,7 +126,6 @@ main()
 			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
-			cd "${git_dir}" && git submodule update --init
 
 		else
 
@@ -145,13 +144,14 @@ main()
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
-			cd "${git_dir}" && git submodule update --init
 
 	fi
 
 	#################################################
 	# Prepare sources
 	#################################################
+
+	cd "${build_dir}" || exit 1
 
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)

@@ -90,6 +90,11 @@ TOTAL_THREADS=$(shell expr $(NB_CORES) + 1 )
 	dh $@ --parallel --with pkgkde_symbolshelper
 
 override_dh_auto_configure:
+	# Trim .git dirs
+	find . -name .git -print0 | xargs -0 rm -rf
+	#force the configure script to generate the forwarding headers (it checks whether .git directory exists)
+	mkdir .git
+	# Set make flags and configure
 	MAKEFLAGS="-j$(TOTAL_THREADS) -l$(TOTAL_THREADS)" ./configure \
 			-confirm-license \
 			-prefix "/usr" \

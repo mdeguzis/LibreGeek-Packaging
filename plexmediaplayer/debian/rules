@@ -4,7 +4,8 @@
 	dh $@
 
 override_dh_auto_configure:
-	mkdir build && cd build
+	mkdir build
+	cd build
 	cmake -GNinja -DCMAKE_BUILD_TYPE=Debug \
 		-DQTROOT=/usr/lib/x86_64-linux-gnu/qt5 \
 		-DCMAKE_INSTALL_PREFIX=output ..

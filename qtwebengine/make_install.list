@@ -1,0 +1,412 @@
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineCallback 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineCookieStore 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineUrlRequestInfo 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineUrlRequestInterceptor 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineUrlRequestJob 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineUrlSchemeHandler 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QtWebEngineCoreVersion 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qtwebenginecoreglobal.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebenginecallback.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebenginecookiestore.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlrequestinfo.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlrequestinterceptor.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlrequestjob.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlschemehandler.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/qtwebenginecoreversion.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QtWebEngineCore 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QtWebEngineCoreDepends 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qtwebenginecoreglobal_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/5.6.0/QtWebEngineCore/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebenginecallback_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/5.6.0/QtWebEngineCore/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebenginecookiestore_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/5.6.0/QtWebEngineCore/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlrequestinfo_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/5.6.0/QtWebEngineCore/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/mkspecs/modules-inst/qt_lib_webenginecoreheaders_private.pri 
+usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/
+Makefile.core_gyp_generator install
+Makefile.gyp_configure_host install
+Makefile.gyp_configure_target install
+install -m 755 -p ../../lib/libQt5WebEngineCore.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineCore.so.5.6.0
+ln -f -s libQt5WebEngineCore.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineCore.so
+ln -f -s libQt5WebEngineCore.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineCore.so.5
+ln -f -s libQt5WebEngineCore.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineCore.so.5.6
+sed -e 's,[^ '\'']*/build/libqt5-qtwebengine-5.6.0+git+bsos/lib,,g' ../../lib/libQt5WebEngineCore.prl > 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineCore.prl
+sed -e 's,[^ '\'']*/build/libqt5-qtwebengine-5.6.0+git+bsos/lib,,g' ../../lib/libQt5WebEngineCore.la > 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineCore.la
+sed -e 's,[^ '\'']*/build/libqt5-qtwebengine-5.6.0+git+bsos/lib,,g' ../../lib/pkgconfig/Qt5WebEngineCore.pc > 
+usr/lib/x86_64-linux-gnu/pkgconfig/Qt5WebEngineCore.pc
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineCallback 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineCookieStore 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineUrlRequestInfo 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineUrlRequestInterceptor 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineUrlRequestJob 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QWebEngineUrlSchemeHandler 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QtWebEngineCoreVersion 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qtwebenginecoreglobal.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebenginecallback.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebenginecookiestore.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlrequestinfo.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlrequestinterceptor.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlrequestjob.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlschemehandler.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/qtwebenginecoreversion.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QtWebEngineCore 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineCore/QtWebEngineCoreDepends 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qtwebenginecoreglobal_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/5.6.0/QtWebEngineCore/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebenginecallback_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/5.6.0/QtWebEngineCore/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebenginecookiestore_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/5.6.0/QtWebEngineCore/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/api/qwebengineurlrequestinfo_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineCore/5.6.0/QtWebEngineCore/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/mkspecs/modules-inst/qt_lib_webenginecore.pri 
+usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/mkspecs/modules-inst/qt_lib_webenginecore_private.pri 
+usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/icudtl.dat 
+usr/share/qt5/resources/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/am.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/ar.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/bg.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/bn.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/ca.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/cs.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/da.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/de.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/el.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/en-GB.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/en-US.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/es-419.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/es.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/et.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/fa.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/fi.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/fil.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/fr.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/gu.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/he.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/hi.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/hr.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/hu.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/id.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/it.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/ja.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/kn.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/ko.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/lt.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/lv.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/ml.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/mr.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/ms.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/nb.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/nl.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/pl.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/pt-BR.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/pt-PT.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/ro.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/ru.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/sk.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/sl.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/sr.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/sv.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/sw.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/ta.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/te.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/th.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/tr.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/uk.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/vi.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/zh-CN.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_locales/zh-TW.pak 
+usr/share/qt5/translations/qtwebengine_locales/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_resources.pak 
+usr/share/qt5/resources/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_resources_100p.pak 
+usr/share/qt5/resources/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/core/Release/gen/repack/qtwebengine_resources_200p.pak 
+usr/share/qt5/resources/
+install -m 755 -p ../../libexec/QtWebEngineProcess 
+usr/lib/x86_64-linux-gnu/qt5/libexec/QtWebEngineProcess
+install -m 755 -p ../../lib/libQt5WebEngine.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngine.so.5.6.0
+ln -f -s libQt5WebEngine.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngine.so
+ln -f -s libQt5WebEngine.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngine.so.5
+ln -f -s libQt5WebEngine.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngine.so.5.6
+sed -e 's,[^ '\'']*/build/libqt5-qtwebengine-5.6.0+git+bsos/lib,,g' ../../lib/libQt5WebEngine.prl > 
+usr/lib/x86_64-linux-gnu/libQt5WebEngine.prl
+sed -e 's,[^ '\'']*/build/libqt5-qtwebengine-5.6.0+git+bsos/lib,,g' ../../lib/libQt5WebEngine.la > 
+usr/lib/x86_64-linux-gnu/libQt5WebEngine.la
+sed -e 's,[^ '\'']*/build/libqt5-qtwebengine-5.6.0+git+bsos/lib,,g' ../../lib/pkgconfig/Qt5WebEngine.pc > 
+usr/lib/x86_64-linux-gnu/pkgconfig/Qt5WebEngine.pc
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngine/QQuickWebEngineProfile 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngine/QtWebEngineVersion 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebengineprofile.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qtwebengineglobal.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngine/qtwebengineversion.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngine/QtWebEngine 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngine/QtWebEngineDepends 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginecertificateerror_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginedownloaditem_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginedownloaditem_p_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginehistory_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginehistory_p_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebengineloadrequest_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginenavigationrequest_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginenewviewrequest_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebengineprofile_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginescript_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginescript_p_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginesettings_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginesingleton_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebenginetestsupport_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebengineview_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qquickwebengineview_p_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/api/qtwebengineglobal_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngine/5.6.0/QtWebEngine/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/mkspecs/modules-inst/qt_lib_webengine.pri 
+usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/mkspecs/modules-inst/qt_lib_webengine_private.pri 
+usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/
+install -m 755 -p ../../../qml/QtWebEngine/libqtwebengineplugin.so 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/libqtwebengineplugin.so
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/plugin/qmldir 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/plugin/plugins.qmltypes 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/
+install -m 755 -p ../../../../qml/QtWebEngine/experimental/libqtwebengineexperimentalplugin.so 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/experimental/libqtwebengineexperimentalplugin.so
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/plugin/experimental/qmldir 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/experimental/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/qmldir 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/AuthenticationDialog.qml 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/AlertDialog.qml 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/ConfirmDialog.qml 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/FilePicker.qml 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/PromptDialog.qml 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/Menu.qml 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/MenuItem.qml 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/MenuSeparator.qml 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webengine/ui/MessageBubble.qml 
+usr/lib/x86_64-linux-gnu/qt5/qml/QtWebEngine/UIDelegates/
+install -m 755 -p ../../lib/libQt5WebEngineWidgets.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.so.5.6.0
+ln -f -s libQt5WebEngineWidgets.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.so
+ln -f -s libQt5WebEngineWidgets.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.so.5
+ln -f -s libQt5WebEngineWidgets.so.5.6.0 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.so.5.6
+sed -e 's,[^ '\'']*/build/libqt5-qtwebengine-5.6.0+git+bsos/lib,,g' ../../lib/libQt5WebEngineWidgets.prl > 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.prl
+sed -e 's,[^ '\'']*/build/libqt5-qtwebengine-5.6.0+git+bsos/lib,,g' ../../lib/libQt5WebEngineWidgets.la > 
+usr/lib/x86_64-linux-gnu/libQt5WebEngineWidgets.la
+sed -e 's,[^ '\'']*/build/libqt5-qtwebengine-5.6.0+git+bsos/lib,,g' ../../lib/pkgconfig/Qt5WebEngineWidgets.pc > 
+usr/lib/x86_64-linux-gnu/pkgconfig/Qt5WebEngineWidgets.pc
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineCertificateError 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineDownloadItem 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineFullScreenRequest 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineHistoryItem 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineHistory 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEnginePage 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineProfile 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineScript 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineScriptCollection 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineSettings 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QWebEngineView 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QtWebEngineWidgetsVersion 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qtwebenginewidgetsglobal.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginecertificateerror.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginedownloaditem.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginefullscreenrequest.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginehistory.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginepage.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebengineprofile.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginescript.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginescriptcollection.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginesettings.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebengineview.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/qtwebenginewidgetsversion.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QtWebEngineWidgets 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/include/QtWebEngineWidgets/QtWebEngineWidgetsDepends 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginedownloaditem_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/5.6.0/QtWebEngineWidgets/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginehistory_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/5.6.0/QtWebEngineWidgets/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginepage_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/5.6.0/QtWebEngineWidgets/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebengineprofile_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/5.6.0/QtWebEngineWidgets/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebenginescriptcollection_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/5.6.0/QtWebEngineWidgets/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/src/webenginewidgets/api/qwebengineview_p.h 
+usr/include/x86_64-linux-gnu/qt5/QtWebEngineWidgets/5.6.0/QtWebEngineWidgets/private/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/mkspecs/modules-inst/qt_lib_webenginewidgets.pri 
+usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/
+install -m 644 -p /build/libqt5-qtwebengine-5.6.0+git+bsos/mkspecs/modules-inst/qt_lib_webenginewidgets_private.pri 
+usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/
+install -m 755 -p quicknanobrowser 
+usr/lib/x86_64-linux-gnu/qt5/examples/webengine/quicknanobrowser/quicknanobrowser
+Makefile install
+install -m 755 -p contentmanipulation 
+usr/lib/x86_64-linux-gnu/qt5/examples/webenginewidgets/contentmanipulation/contentmanipulation
+install -m 755 -p demobrowser 
+usr/lib/x86_64-linux-gnu/qt5/examples/webenginewidgets/demobrowser/demobrowser
+install
+install -m 755 -p markdowneditor 
+usr/lib/x86_64-linux-gnu/qt5/examples/webenginewidgets/markdowneditor/markdowneditor
+

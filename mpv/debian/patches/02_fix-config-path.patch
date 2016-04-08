@@ -1,13 +1,6 @@
-Description: System-wide config directory is /etc/mpv
-Origin: vendor
-Bug-Debian: http://bugs.debian.org/732214
-Forwarded: not-needed
-Author: Alessandro Ghedini <ghedo@debian.org>
-Last-Update: 2015-05-03
-
 --- a/DOCS/man/mpv.rst
 +++ b/DOCS/man/mpv.rst
-@@ -824,7 +824,7 @@
+@@ -912,7 +912,7 @@
  
  For Windows-specifics, see `FILES ON WINDOWS`_ section.
  

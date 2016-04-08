@@ -1,4 +1,4 @@
-./src/plexmediaplayer           /usr/local/bin
-./src/pmphelper                 /usr/local/bin
-plex-media-player.png           /usr/share/pixmaps
-debian/plex-media-player.desktop       /usr/share/applications/
+./src/plexmediaplayer               /usr/local/bin
+./src/pmphelper                     /usr/local/bin
+plex-media-player.png               /usr/share/pixmaps
+debian/plex-media-player.desktop    /usr/share/applications/

@@ -81,7 +81,6 @@ Vcs-Git: http://code.qt.io/cgit/qt/qtwebengine.git/
 
 Package: libqt5-qtwebengine
 Architecture: amd64
-Multi-Arch: same
 Provides: qtwebengine
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Chromium integration into Qt with QtWebEngine.
@@ -97,21 +96,18 @@ Description: Chromium integration into Qt with QtWebEngine.
  
 Package: libqt5-qtwebengine-dev
 Architecture: amd64
-Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webengine dev package (experimental).
 
 Package: libqt5-qtwebengine-private-dev
 Architecture: amd64
-Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webengine private headers package (experimental)
 
 Package: libqt5-qtwebengine-examples
 Architecture: amd64
-Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webengine examples package (experimental).

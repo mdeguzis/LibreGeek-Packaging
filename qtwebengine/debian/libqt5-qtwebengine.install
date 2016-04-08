@@ -1,0 +1,12 @@
+lib/libQt*Web*.so.*                                               /usr/lib/@DEB_HOST_MULTIARCH@/
+src/core/Release/gen/repack/qtwebengine_locales/*.pak             /usr/share/qt5/translations/qtwebengine_locales/
+src/core/Release/icudtl.dat                                       /usr/share/qt5/resources/
+src/core/Release/gen/repack/*.pak                                 /usr/share/qt5/resources/
+libexec/QtWebEngineProcess                                        /usr/lib/@DEB_HOST_MULTIARCH@/qt5/libexec/
+qml/QtWebEngine                                                   /usr/lib/@DEB_HOST_MULTIARCH@/qt5/
+src/webengine/plugin/qmldir                                       /usr/lib/@DEB_HOST_MULTIARCH@/qt5/qml/QtWebEngine/
+src/webengine/plugin/plugins.qmltypes                             /usr/lib/@DEB_HOST_MULTIARCH@/qt5/qml/QtWebEngine/
+src/webengine/plugin/experimental/qmldir                          /usr/lib/@DEB_HOST_MULTIARCH@/qt5/qml/QtWebEngine/experimental/
+qml/QtWebEngine/libqtwebengineplugin.so                           /usr/lib/@DEB_HOST_MULTIARCH@/qt5/qml/QtWebEngine/
+qml/QtWebEngine/experimental/libqtwebengineexperimentalplugin.so  /usr/lib/@DEB_HOST_MULTIARCH@/qt5/qml/QtWebEngine/experimental/
+## NOT FOUND ## %{_libqt5_plugindir}/designer/

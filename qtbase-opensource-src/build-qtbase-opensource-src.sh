@@ -119,9 +119,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	if [[ -d "${git_dir}" ]]; then
+	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
 
-		echo -e "==Info==\nGit folder already exists! Remove and [r]eclone or [k]eep? ?\n"
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 
@@ -129,8 +129,18 @@ main()
 
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			cd "${git_dir}" && git submodule update --init
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
 
 		fi
 
@@ -138,9 +148,12 @@ main()
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
+			# reset retry flag
+			retry="no"
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
 			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			cd "${git_dir}" && git submodule update --init
 
 	fi
 
@@ -154,12 +167,31 @@ main()
 	# Prep source
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
 	# create source tarball
-	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+	
+	if [[ "${retry}" == "no" ]]; then
+
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		
+	else
+	
+		echo -e "\n==> Cleaning old source foldrers for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
+		mkdir -p "${git_dir}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
+		sleep 2s
+
+	fi
 
 	# Try using upstream debian/
 	cp -r "${scriptdir}/debian" "${git_dir}"

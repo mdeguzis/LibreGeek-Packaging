@@ -129,14 +129,17 @@ main()
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
-		
+	
+	# Add extra files for orig tarball
+	cp -r "${scriptdir}/plex-media-player.png" "${git_dir}"
+	
 	# enter git dir
 	cd "${git_dir}"
-	
+
 	#################################################
 	# Build PMP source
 	#################################################
-	
+
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
@@ -146,7 +149,6 @@ main()
 
 	# copy in debian folder and other files
         cp -r "${scriptdir}/debian" "${git_dir}"
-        cp -r "${scriptdir}/plex-media-player.png" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -170,21 +172,21 @@ main()
 		nano "debian/changelog"
 
 	fi
-	
+
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
@@ -192,14 +194,14 @@ main()
 
 	# inform user of packages
 	cat<<-EOF
-	
+
 	###############################################################
 	If package was built without errors you will see it below.
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
-	
+
 	Showing contents of: ${build_dir}
-	
+
 	EOF
 
 	ls "${build_dir}" | grep -E "${pkgver}" 

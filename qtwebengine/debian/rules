@@ -39,7 +39,7 @@ myconf = " -Duse_system_expat=1 \
 	-Duse_system_openssl=1 \
 	-Duse_system_re2=1 \
 	-Duse_system_zlib=1 \
-	-Duse_system_sqlite=1"
+	-Duse_system_sqlite=0"
 
 %:
 	dh $@

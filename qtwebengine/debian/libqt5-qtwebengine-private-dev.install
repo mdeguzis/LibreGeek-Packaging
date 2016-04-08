@@ -1,0 +1,6 @@
+src/core/api/qtwebenginecoreglobal_p.h    /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebEngineCore/@SO_VERSION@/QtWebEngineCore/private
+src/core/api/qwebenginecallback_p.h       /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebEngineCore/@SO_VERSION@/QtWebEngineCore/private
+src/core/api/qwebenginecookiestore_p.h    /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebEngineCore/@SO_VERSION@/QtWebEngineCore/private
+src/core/api/qwebengineurlrequestinfo_p.h /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebEngineCore/@SO_VERSION@/QtWebEngineCore/private
+src/webengine/api/qquickwebengine*_p.h    /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebEngine/@SO_VERSION@/QtWebEngine/private/
+src/webenginewidgets/api/qwebengine*_p.h  /usr/include/@DEB_HOST_MULTIARCH@/qt5/QtWebEngineWidgets/@SO_VERSION@/QtWebEngineWidgets/private/

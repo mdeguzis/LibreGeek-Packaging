@@ -1,0 +1,4 @@
+quicknanobrowser        /usr/lib/@DEB_HOST_MULTIARCH@/qt5/examples/webengine/quicknanobrowser/
+contentmanipulation     /usr/lib/@DEB_HOST_MULTIARCH@/qt5/examples/webenginewidgets/contentmanipulation/
+demobrowser             /usr/lib/@DEB_HOST_MULTIARCH@/qt5/examples/webenginewidgets/demobrowser/
+markdowneditor          /usr/lib/@DEB_HOST_MULTIARCH@/qt5/examples/webenginewidgets/markdowneditor/

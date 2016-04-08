@@ -94,52 +94,99 @@ install_prereqs()
 main()
 {
 	
-	#################################################
-	# Fetch source
-	#################################################
+	# install prereqs for build
 
-	# create and enter build_dir
-	if [[ -d "${build_dir}" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
+		# handle prereqs on host machine
+		install_prereqs
 
 	else
 
-		mkdir -p "${build_dir}"
+		# required for dh_clean
+		sudo apt-get install -y --force-yes pkg-kde-tools
 
 	fi
-	
-	# Enter build dir
-	cd "${build_dir}"
+
+	echo -e "\n==> Obtaining upstream source code\n"
+
+	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			cd "${git_dir}" && git submodule update --init
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${build_dir}" || exit 1
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			cd "${git_dir}" && git submodule update --init
+
+	fi
 
 	#################################################
 	# Prepare sources
 	#################################################
 
-	# Get helper script
-	git clone "${git_url}" "${git_dir}"
-	cd "${git_dir}"
+	# create source tarball
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+	
+	if [[ "${retry}" == "no" ]]; then
 
-	# check for updates only on release tags
-	./update --release
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		
+	else
+	
+		echo -e "\n==> Cleaning old source folders for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
+		mkdir -p "${git_dir}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
+		sleep 2s
 
-	# Get base version from latest tag
-	cd "${git_dir}/mpv"
-	base_release=$(git describe --abbrev=0 --tags)
-	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
+	fi
+	
+	# add debian here, after unpack or creation
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# Sources are all inside mpv_builder_dir, not pkgname, as it is normally
-	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${mpv_builder_dir}"
+	###############################################################
+	# build package
+	###############################################################
 
 	# enter source dir
 	cd "${git_dir}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -147,14 +194,17 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Update release"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Initial upload"
+		nano "debian/changelog"
 
 	fi
-
 	
 	echo -e "\n==> Building Debian package from source\n"
 	sleep 2s
@@ -164,7 +214,7 @@ main()
 	#################################################
 	
 	# build debian package
-	${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 	
 	#################################################
 	# Cleanup
@@ -180,21 +230,19 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}"
-	else
-		cd "${HOME}"
-	fi
-	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
-	
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep $pkgver
+	cat<<-EOF
+
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+
+	Showing contents of: ${build_dir}
+
+	EOF
+
+	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -205,9 +253,11 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then
@@ -217,12 +267,4 @@ main()
 }
 
 # start main
-
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
-
-		# handle prereqs on host machine
-		install_prereqs
-
-	fi
-
 main

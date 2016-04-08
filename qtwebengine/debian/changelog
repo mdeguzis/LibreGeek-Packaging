@@ -1,0 +1,11 @@
+libqt5-qtwebengine (5.6.0+git+bsos-1) brewmaster; urgency=low
+
+  * Initial release
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 07 Apr 2016 15:22:52 -0400
+
+libqt5-qtwebengine (0.0.1+git+bsos-1) brewmaster; urgency=low
+
+  * Dummy changelog
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 04 Apr 2016 13:44:10 -0400

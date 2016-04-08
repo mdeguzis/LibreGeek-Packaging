@@ -22,14 +22,14 @@ override_dh_auto_clean:
 	dh_auto_clean
 	rm -fv .qmake.cache
 
-#override_dh_auto_build-indep:
-#	cd src; qmake
-#	dh_auto_build -- -Csrc sub-qdoc
-#	cd src/assistant; qmake
-#	dh_auto_build -- -Csrc/assistant sub-qhelpgenerator
-#	cd src/qdoc; qmake
-#	cd src/assistant/help; qmake
-#	dh_auto_build -- docs
+override_dh_auto_build-indep:
+	cd src; qmake
+	dh_auto_build -- -Csrc sub-qdoc
+	cd src/assistant; qmake
+	dh_auto_build -- -Csrc/assistant sub-qhelpgenerator
+	cd src/qdoc; qmake
+	cd src/assistant/help; qmake
+	dh_auto_build -- docs
 
 override_dh_auto_install-arch:
 	dh_auto_install
@@ -40,11 +40,11 @@ override_dh_auto_install-arch:
 	# Remove CMake files for plugins.
 	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/cmake/Qt5Designer/*Plugin.cmake
 
-#override_dh_auto_install-indep:
-#	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+override_dh_auto_install-indep:
+	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
 
-#override_dh_install:
-#	dh_install --fail-missing
+override_dh_install:
+	dh_install --fail-missing
 
 override_dh_strip:
 	dh_strip -pqttools5-examples --dbg-package=qttools5-examples-dbg

@@ -170,30 +170,30 @@ Description: Qt 5 tools examples debugging symbols
  .
  This package contains the debugging symbols for the Qt 5 tools examples.
 
-#Package: qttools5-doc
-#Priority: extra
-#Architecture: all
-#Section: doc
-#Depends: ${misc:Depends}
-#Breaks: qtbase5-doc (<< 5.6.0~)
-#Replaces: qtbase5-doc (<< 5.6.0~)
-#Description: Qt 5 tools documentation
-# Qt is a cross-platform C++ application framework. Qt's primary feature
-# is its rich set of widgets that provide standard GUI functionality.
-# .
-# This package contains the documentation for the Qt 5 tools libraries
-# and binaries.
+Package: qttools5-doc
+Priority: extra
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Breaks: qtbase5-doc (<< 5.6.0~)
+Replaces: qtbase5-doc (<< 5.6.0~)
+Description: Qt 5 tools documentation
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the documentation for the Qt 5 tools libraries
+ and binaries.
 
-#Package: qttools5-doc-html
-#Priority: extra
-#Architecture: all
-#Section: doc
-#Depends: ${misc:Depends}
-#Breaks: qtbase5-doc-html (<< 5.6.0~)
-#Replaces: qtbase5-doc-html (<< 5.6.0~)
-#Description: Qt 5 tools HTML documentation
-# Qt is a cross-platform C++ application framework. Qt's primary feature
-# is its rich set of widgets that provide standard GUI functionality.
-# .
-# This package contains the HTML documentation for the Qt 5 tools
-# libraries and binaries.
+Package: qttools5-doc-html
+Priority: extra
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Breaks: qtbase5-doc-html (<< 5.6.0~)
+Replaces: qtbase5-doc-html (<< 5.6.0~)
+Description: Qt 5 tools HTML documentation
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the HTML documentation for the Qt 5 tools
+ libraries and binaries.

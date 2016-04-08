@@ -24,7 +24,7 @@ Vcs-Git: https://github.com/qtproject/qtwebchannel/.git
 Vcs-Browser: https://github.com/qtproject/qtwebchannel.git
 
 Package: libqt5-qtwebchannel
-Architecture: any
+Architecture: amd64
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
@@ -39,29 +39,25 @@ Description: Qt 5 webchannel package (experimental).
  support Qt WebChannel-based communication.
  
 Package: libqt5-qtwebchannel-dev
-Architecture: any
-Multi-Arch: same
+Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webchannel dev package (experimental).
 
 Package: libqt5-qtwebchannel-examples
-Architecture: any
-Multi-Arch: same
+Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webchannel examples package (experimental).
 
 Package: libqt5-qtwebchannel-imports
-Architecture: any
-Multi-Arch: same
+Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webchannel imports package (experimental).
 
 Package: libqt5-qtwebchannel-private-dev
-Architecture: any
-Multi-Arch: same
+Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webchannel private headers package (experimental).

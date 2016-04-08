@@ -46,13 +46,17 @@ else
 	
 fi
 
+# upstream URL
+git_url="https://github.com/mpv-player/mpv"
+branch="v0.16.0"
+
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
-export STEAMOS_TOOLS_BETA_HOOK="false"
+BUILDOPTS="--debbuildopts -nc"
+export STEAMOS_TOOLS_BETA_HOOK="true"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="mpv"
 BUILDER="pdebuild"
@@ -62,16 +66,10 @@ DIST="brewmaster"
 urgency="low"
 maintainer="ProfessorKaos64"
 
-# build dirs
-export build_dir="/home/desktop/build-${pkgname}-temp"
+# set build directories
+export build_dir="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-
-# deps
-# Use the build-wrapper instead of the main mpv source
-# See: https://github.com/mpv-player/mpv/blob/master/README.md
-git_url="https://github.com/mpv-player/mpv-build"
-mpv_builder_dir="mpv-builder-dir"
-git_dir="${build_dir}/${mpv_builder_dir}"
+git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {

@@ -1,0 +1,17 @@
+Description: Fix typo
+Origin: vendor
+Author: Alessandro Ghedini <ghedo@debian.org>
+Last-Update: 2015-12-27
+Applied-Upstream: commit:https://github.com/mpv-player/mpv/commit/1f62f38106e9de88b277e5e8df359d31f544ed08
+
+--- a/video/out/wayland_common.c
++++ b/video/out/wayland_common.c
+@@ -1135,7 +1135,7 @@
+ 
+         if (poll(&fd, 1, 0) > 0) {
+             if (fd.revents & POLLERR) {
+-                MP_ERR(wl, "error occured on the drag&drop fd\n");
++                MP_ERR(wl, "error occurred on the drag&drop fd\n");
+                 close(wl->input.dnd_fd);
+                 wl->input.dnd_fd = -1;
+             }

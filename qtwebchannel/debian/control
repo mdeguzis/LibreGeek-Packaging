@@ -39,6 +39,7 @@ Description: Qt 5 webchannel package (experimental).
  support Qt WebChannel-based communication.
  
 Package: libqt5-qtwebchannel-dev
+Replaces: libqt5-qtwebchannel
 Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}

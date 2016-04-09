@@ -35,6 +35,12 @@ ifeq ($(filter stage1,$(DEB_BUILD_PROFILES)),)
 endif
 #	$(call $(flag_action),BUILD_DOCUMENTATION,ON)
 
+# Set lib options
+# Disable use of system-curl so that curl is built, which allows SSL suppport to be enabled
+
+LIB_OPTIONS = --no-system-curl --system-expat --system-jsoncpp --system-zlib --system-bzip2 \
+--system-liblzma --system-libarchive
+
 $(BUILD_FLAGS_FILE): flag_action := set_build_flag
 verify-build-flags: flag_action := verify_build_flag
 .PHONY: verify-build-flags
@@ -42,7 +48,7 @@ verify-build-flags: flag_action := verify_build_flag
 override_dh_auto_configure: $(BUILD_FLAGS_FILE)
 	rm -rf Build && mkdir -p Build
 	cd Build && ../bootstrap --prefix=/usr --docdir=/share/doc/cmake --mandir=/share/man \
-	                         --init=../$(BUILD_FLAGS_FILE) --system-libs \
+	                         --init=../$(BUILD_FLAGS_FILE) $(LIB_OPTIONS) \
 	                         --sphinx-man --sphinx-html --sphinx-flags="-D today=\"$(BUILD_DATE)\"" \
 	                         $(BOOTSTRAP_PARALLEL) --verbose
 override_dh_auto_test:
@@ -69,3 +75,4 @@ override_dh_sphinxdoc:
 	dh $@ --with=sphinxdoc --parallel --builddirectory=Build --dbg-package=cmake-dbg
 
 .PHONY: override_dh_auto_configure override_dh_auto_clean
+

@@ -66,7 +66,7 @@ urgency="low"
 maintainer="ProfessorKaos64"
 
 # build dirs
-export build_dir="/home/desktop/build-${pkgname}-temp"
+export build_dir="$HOME/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"
 

@@ -22,6 +22,7 @@ verify_build_flag = @grep \
     --exclude=$(BUILD_FLAGS_FILE) -rqs '\b$(1)\b' . || echo '$(1) flag is obsolete'
 
 $(BUILD_FLAGS_FILE) verify-build-flags:
+	$(call $(flag_action),CMAKE_USE_OPENSSL,ON,"Use OpenSSL")
 	$(call $(flag_action),CMAKE_SKIP_RPATH,ON,"Skip rpath")
 	$(call $(flag_action),CMAKE_USE_RELATIVE_PATHS,ON,"Use relative paths")
 	$(call $(flag_action),CMAKE_VERBOSE_MAKEFILE,ON,"Verbose build")

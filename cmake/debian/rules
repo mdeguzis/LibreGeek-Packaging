@@ -44,8 +44,6 @@ override_dh_auto_configure: $(BUILD_FLAGS_FILE)
 	                         --init=../$(BUILD_FLAGS_FILE) --system-libs \
 	                         --sphinx-man --sphinx-html --sphinx-flags="-D today=\"$(BUILD_DATE)\"" \
 	                         $(BOOTSTRAP_PARALLEL) --verbose
--DOPENSSL_LIBRARIES=/usr/lib/x86_64-linux-gnu/libssl.so
--DOPENSSL_INCLUDE_DIR=/usr/lib/openssl
 override_dh_auto_test:
 	HOME="`pwd`/Build" dh_auto_test -- ARGS="-E CTestTestUpload"
 

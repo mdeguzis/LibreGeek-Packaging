@@ -54,7 +54,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="cmake"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -126,73 +126,18 @@ main()
 	echo -e "\n==> Fetching upstream source\n"
 
 	# Get upstream source
-
-	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
-
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
-		sleep 1s
-		read -ep "Choice: " git_choice
-
-		if [[ "$git_choice" == "r" ]]; then
-
-			echo -e "\n==> Removing and cloning repository again...\n"
-			sleep 2s
-			# reset retry flag
-			retry="no"
-			# clean and clone
-			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone -b "v${pkgver}" "${git_url}" "${git_dir}"
-
-		else
-
-			# Unpack the original source later on for  clean retry
-			# set retry flag
-			retry="yes"
-
-		fi
-
-	else
-
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
-			sleep 2s
-			# reset retry flag
-			retry="no"
-			# create and clone to current dir
-			mkdir -p "${build_dir}" || exit 1
-			git clone -b "v${pkgver}" "${git_url}" "${git_dir}"
-
-	fi
+	git clone -b "v${pkgver}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build cmake source
 	#################################################
 
-	cd "${build_dir}" || exit 1
-	
+	echo -e "\n==> Creating original tarball\n"sleep 2s
+	sleep 2s
+
 	# create source tarball
-	# For now, do not recreate the tarball if keep was used above (to keep it clean)
-	# This way, we can try again with the orig source intact
-	
-	if [[ "${retry}" == "no" ]]; then
-
-		echo -e "\n==> Creating original tarball\n"
-		sleep 2s
-		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}-${pkgrev}.orig.tar.gz" "${src_dir}"
-		
-	else
-	
-		echo -e "\n==> Cleaning old source folders for retry"
-		sleep 2s
-		
-		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
-		mkdir -p "${git_dir}"
-	
-		echo -e "\n==> Retrying with prior source tarball\n"
-		sleep 2s
-		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}-${pkgrev}.orig.tar.gz" -C "${build_dir}" --totals
-		sleep 2s
-
-	fi
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"

@@ -126,18 +126,73 @@ main()
 	echo -e "\n==> Fetching upstream source\n"
 
 	# Get upstream source
-	git clone -b "v${pkgver}" "${git_url}" "${git_dir}"
+
+	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+			git clone -b "v${pkgver}" "${git_url}" "${git_dir}"
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${build_dir}" || exit 1
+			git clone -b "v${pkgver}" "${git_url}" "${git_dir}"
+
+	fi
 
 	#################################################
 	# Build cmake source
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"sleep 2s
-	sleep 2s
-
+	cd "${build_dir}" || exit 1
+	
 	# create source tarball
-	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	
+	if [[ "${retry}" == "no" ]]; then
+
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}-${pkgrev}.orig.tar.gz" "${src_dir}"
+		
+	else
+	
+		echo -e "\n==> Cleaning old source folders for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
+		mkdir -p "${git_dir}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}-${pkgrev}.orig.tar.gz" -C "${build_dir}" --totals
+		sleep 2s
+
+	fi
 
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"

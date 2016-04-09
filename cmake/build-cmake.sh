@@ -59,7 +59,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="cmake"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgver="3.5.0"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -155,7 +155,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Initial upload"
+		-D "${DIST}" -u "${urgency}" "Enable OpenSSL support"
 		nano "debian/changelog"
 
 	else

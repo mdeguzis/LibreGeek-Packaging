@@ -220,7 +220,7 @@ src_dir="${pkgname}-${pkgver}"
 	
 		# transfer files
 		if -d $git_dir/ build; then
-			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv -e --progress "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 

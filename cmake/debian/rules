@@ -28,6 +28,7 @@ $(BUILD_FLAGS_FILE) verify-build-flags:
 	$(call $(flag_action),CMAKE_C_FLAGS,"$(CFLAGS)","C flags")
 	$(call $(flag_action),CMAKE_CXX_FLAGS,"$(CXXFLAGS)","C++ flags")
 	$(call $(flag_action),CMAKE_SKIP_BOOTSTRAP_TEST,ON,"Skip BootstrapTest")
+	$(call $(flag_action),CMAKE_USE_OPENSSL,ON,"Enable use of OpenSSL")
 	$(call $(flag_action),BUILD_CursesDialog,ON,"Build curses GUI")
 ifeq ($(filter stage1,$(DEB_BUILD_PROFILES)),)
 	$(call $(flag_action),BUILD_QtDialog,ON,"Build Qt GUI")
@@ -44,7 +45,8 @@ override_dh_auto_configure: $(BUILD_FLAGS_FILE)
 	                         --init=../$(BUILD_FLAGS_FILE) --system-libs \
 	                         --sphinx-man --sphinx-html --sphinx-flags="-D today=\"$(BUILD_DATE)\"" \
 	                         $(BOOTSTRAP_PARALLEL) --verbose
-
+-DOPENSSL_LIBRARIES=/usr/lib/x86_64-linux-gnu/libssl.so
+-DOPENSSL_INCLUDE_DIR=/usr/lib/openssl
 override_dh_auto_test:
 	HOME="`pwd`/Build" dh_auto_test -- ARGS="-E CTestTestUpload"
 

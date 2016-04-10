@@ -1,5 +1,5 @@
---- a/plex-media-player/src/shared/CMakeLists.txt
-+++ b/plex-media-player/src/shared/CMakeLists.txt
+--- a/src/shared/CMakeLists.txt
++++ b/src/shared/CMakeLists.txt
 @@ -5,7 +5,7 @@ add_library(shared STATIC
    LocalJsonClient.cpp LocalJsonClient.h
    LocalJsonServer.cpp LocalJsonServer.h

@@ -11,4 +11,4 @@ override_dh_auto_configure:
 		-DCMAKE_INSTALL_PREFIX=output ..
 
 override_dh_auto_build:
-	ninja-build
+	ninja

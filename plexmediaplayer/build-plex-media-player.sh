@@ -49,7 +49,10 @@ src_cmd=""
 
 # upstream URL
 git_url="https://github.com/plexinc/plex-media-player"
-branch="v1.0.6.229-1ce41570"
+# Hash mismatch error fixed in master, and will be for future releases
+# For now, use master tree
+#branch="v1.0.6.229-1ce41570"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

@@ -1,0 +1,263 @@
+--- libvpx-1.5.0.orig/vp8/common/treecoder.c
++++ libvpx-1.5.0/vp8/common/treecoder.c
+@@ -18,7 +18,7 @@
+ 
+ static void tree2tok(
+     struct vp8_token_struct *const p,
+-    vp8_tree t,
++    vp8_tree_p t,
+     int i,
+     int v,
+     int L
+@@ -42,12 +42,12 @@ static void tree2tok(
+     while (++v & 1);
+ }
+ 
+-void vp8_tokens_from_tree(struct vp8_token_struct *p, vp8_tree t)
++void vp8_tokens_from_tree(struct vp8_token_struct *p, vp8_tree_p t)
+ {
+     tree2tok(p, t, 0, 0, 0);
+ }
+ 
+-void vp8_tokens_from_tree_offset(struct vp8_token_struct *p, vp8_tree t,
++void vp8_tokens_from_tree_offset(struct vp8_token_struct *p, vp8_tree_p t,
+                                  int offset)
+ {
+     tree2tok(p - offset, t, 0, 0, 0);
+@@ -56,7 +56,7 @@ void vp8_tokens_from_tree_offset(struct
+ static void branch_counts(
+     int n,                      /* n = size of alphabet */
+     vp8_token tok               [ /* n */ ],
+-    vp8_tree tree,
++    vp8_tree_p tree,
+     unsigned int branch_ct       [ /* n-1 */ ] [2],
+     const unsigned int num_events[ /* n */ ]
+ )
+@@ -109,7 +109,7 @@ static void branch_counts(
+ void vp8_tree_probs_from_distribution(
+     int n,                      /* n = size of alphabet */
+     vp8_token tok               [ /* n */ ],
+-    vp8_tree tree,
++    vp8_tree_p tree,
+     vp8_prob probs          [ /* n-1 */ ],
+     unsigned int branch_ct       [ /* n-1 */ ] [2],
+     const unsigned int num_events[ /* n */ ],
+--- libvpx-1.5.0.orig/vp8/common/treecoder.h
++++ libvpx-1.5.0/vp8/common/treecoder.h
+@@ -57,8 +57,8 @@ typedef const struct vp8_token_struct
+ 
+ /* Construct encoding array from tree. */
+ 
+-void vp8_tokens_from_tree(struct vp8_token_struct *, vp8_tree);
+-void vp8_tokens_from_tree_offset(struct vp8_token_struct *, vp8_tree,
++void vp8_tokens_from_tree(struct vp8_token_struct *, vp8_tree_p);
++void vp8_tokens_from_tree_offset(struct vp8_token_struct *, vp8_tree_p,
+                                  int offset);
+ 
+ 
+@@ -70,7 +70,7 @@ void vp8_tokens_from_tree_offset(struct
+ void vp8_tree_probs_from_distribution(
+     int n,                      /* n = size of alphabet */
+     vp8_token tok               [ /* n */ ],
+-    vp8_tree tree,
++    vp8_tree_p tree,
+     vp8_prob probs          [ /* n-1 */ ],
+     unsigned int branch_ct       [ /* n-1 */ ] [2],
+     const unsigned int num_events[ /* n */ ],
+@@ -83,7 +83,7 @@ void vp8_tree_probs_from_distribution(
+ void vp8bc_tree_probs_from_distribution(
+     int n,                      /* n = size of alphabet */
+     vp8_token tok               [ /* n */ ],
+-    vp8_tree tree,
++    vp8_tree_p tree,
+     vp8_prob probs          [ /* n-1 */ ],
+     unsigned int branch_ct       [ /* n-1 */ ] [2],
+     const unsigned int num_events[ /* n */ ],
+--- libvpx-1.5.0.orig/vp8/decoder/treereader.h
++++ libvpx-1.5.0/vp8/decoder/treereader.h
+@@ -31,7 +31,7 @@ typedef BOOL_DECODER vp8_reader;
+ 
+ static INLINE int vp8_treed_read(
+     vp8_reader *const r,        /* !!! must return a 0 or 1 !!! */
+-    vp8_tree t,
++    vp8_tree_p t,
+     const vp8_prob *const p
+ )
+ {
+--- libvpx-1.5.0.orig/vp8/encoder/bitstream.c
++++ libvpx-1.5.0/vp8/encoder/bitstream.c
+@@ -64,7 +64,7 @@ static void update_mode(
+     vp8_writer *const w,
+     int n,
+     vp8_token tok               [/* n */],
+-    vp8_tree tree,
++    vp8_tree_p tree,
+     vp8_prob Pnew               [/* n-1 */],
+     vp8_prob Pcur               [/* n-1 */],
+     unsigned int bct            [/* n-1 */] [2],
+--- libvpx-1.5.0.orig/vp8/encoder/treewriter.c
++++ libvpx-1.5.0/vp8/encoder/treewriter.c
+@@ -13,7 +13,7 @@
+ 
+ static void cost(
+     int *const C,
+-    vp8_tree T,
++    vp8_tree_p T,
+     const vp8_prob *const P,
+     int i,
+     int c
+@@ -33,11 +33,11 @@ static void cost(
+     }
+     while (++i & 1);
+ }
+-void vp8_cost_tokens(int *c, const vp8_prob *p, vp8_tree t)
++void vp8_cost_tokens(int *c, const vp8_prob *p, vp8_tree_p t)
+ {
+     cost(c, t, p, 0, 0);
+ }
+-void vp8_cost_tokens2(int *c, const vp8_prob *p, vp8_tree t,int start)
++void vp8_cost_tokens2(int *c, const vp8_prob *p, vp8_tree_p t,int start)
+ {
+     cost(c, t, p, start, 0);
+ }
+--- libvpx-1.5.0.orig/vp8/encoder/treewriter.h
++++ libvpx-1.5.0/vp8/encoder/treewriter.h
+@@ -61,7 +61,7 @@ static INLINE unsigned int vp8_cost_bran
+ static void vp8_treed_write
+ (
+     vp8_writer *const w,
+-    vp8_tree t,
++    vp8_tree_p t,
+     const vp8_prob *const p,
+     int v,
+     int n               /* number of bits in v, assumed nonzero */
+@@ -80,7 +80,7 @@ static void vp8_treed_write
+ static INLINE void vp8_write_token
+ (
+     vp8_writer *const w,
+-    vp8_tree t,
++    vp8_tree_p t,
+     const vp8_prob *const p,
+     vp8_token *const x
+ )
+@@ -89,7 +89,7 @@ static INLINE void vp8_write_token
+ }
+ 
+ static int vp8_treed_cost(
+-    vp8_tree t,
++    vp8_tree_p t,
+     const vp8_prob *const p,
+     int v,
+     int n               /* number of bits in v, assumed nonzero */
+@@ -110,7 +110,7 @@ static int vp8_treed_cost(
+ }
+ static INLINE int vp8_cost_token
+ (
+-    vp8_tree t,
++    vp8_tree_p t,
+     const vp8_prob *const p,
+     vp8_token *const x
+ )
+@@ -121,11 +121,11 @@ static INLINE int vp8_cost_token
+ /* Fill array of costs for all possible token values. */
+ 
+ void vp8_cost_tokens(
+-    int *Costs, const vp8_prob *, vp8_tree
++    int *Costs, const vp8_prob *, vp8_tree_p
+ );
+ 
+ void vp8_cost_tokens2(
+-    int *Costs, const vp8_prob *, vp8_tree, int
++    int *Costs, const vp8_prob *, vp8_tree_p, int
+ );
+ 
+ #ifdef __cplusplus
+--- libvpx-1.5.0.orig/vp9/encoder/vp9_cost.c
++++ libvpx-1.5.0/vp9/encoder/vp9_cost.c
+@@ -35,7 +35,7 @@ const unsigned int vp9_prob_cost[256] =
+   22,   21,   19,   18,   16,   15,   13,   12,   10,   9,    7,    6,
+   4,    3,    1,    1};
+ 
+-static void cost(int *costs, vpx_tree tree, const vpx_prob *probs,
++static void cost(int *costs, vpx_tree_p tree, const vpx_prob *probs,
+                  int i, int c) {
+   const vpx_prob prob = probs[i / 2];
+   int b;
+@@ -51,11 +51,11 @@ static void cost(int *costs, vpx_tree tr
+   }
+ }
+ 
+-void vp9_cost_tokens(int *costs, const vpx_prob *probs, vpx_tree tree) {
++void vp9_cost_tokens(int *costs, const vpx_prob *probs, vpx_tree_p tree) {
+   cost(costs, tree, probs, 0, 0);
+ }
+ 
+-void vp9_cost_tokens_skip(int *costs, const vpx_prob *probs, vpx_tree tree) {
++void vp9_cost_tokens_skip(int *costs, const vpx_prob *probs, vpx_tree_p tree) {
+   assert(tree[0] <= 0 && tree[1] > 0);
+ 
+   costs[-tree[0]] = vp9_cost_bit(probs[0], 0);
+--- libvpx-1.5.0.orig/vp9/encoder/vp9_cost.h
++++ libvpx-1.5.0/vp9/encoder/vp9_cost.h
+@@ -31,7 +31,7 @@ static INLINE unsigned int cost_branch25
+   return ct[0] * vp9_cost_zero(p) + ct[1] * vp9_cost_one(p);
+ }
+ 
+-static INLINE int treed_cost(vpx_tree tree, const vpx_prob *probs,
++static INLINE int treed_cost(vpx_tree_p tree, const vpx_prob *probs,
+                              int bits, int len) {
+   int cost = 0;
+   vpx_tree_index i = 0;
+@@ -45,8 +45,8 @@ static INLINE int treed_cost(vpx_tree tr
+   return cost;
+ }
+ 
+-void vp9_cost_tokens(int *costs, const vpx_prob *probs, vpx_tree tree);
+-void vp9_cost_tokens_skip(int *costs, const vpx_prob *probs, vpx_tree tree);
++void vp9_cost_tokens(int *costs, const vpx_prob *probs, vpx_tree_p tree);
++void vp9_cost_tokens_skip(int *costs, const vpx_prob *probs, vpx_tree_p tree);
+ 
+ #ifdef __cplusplus
+ }  // extern "C"
+--- libvpx-1.5.0.orig/vp9/encoder/vp9_treewriter.c
++++ libvpx-1.5.0/vp9/encoder/vp9_treewriter.c
+@@ -31,7 +31,7 @@ void vp9_tokens_from_tree(struct vp9_tok
+   tree2tok(tokens, tree, 0, 0, 0);
+ }
+ 
+-static unsigned int convert_distribution(unsigned int i, vpx_tree tree,
++static unsigned int convert_distribution(unsigned int i, vpx_tree_p tree,
+                                          unsigned int branch_ct[][2],
+                                          const unsigned int num_events[]) {
+   unsigned int left, right;
+@@ -51,7 +51,7 @@ static unsigned int convert_distribution
+   return left + right;
+ }
+ 
+-void vp9_tree_probs_from_distribution(vpx_tree tree,
++void vp9_tree_probs_from_distribution(vpx_tree_p tree,
+                                       unsigned int branch_ct[/* n-1 */][2],
+                                       const unsigned int num_events[/* n */]) {
+   convert_distribution(0, tree, branch_ct, num_events);
+--- libvpx-1.5.0.orig/vp9/encoder/vp9_treewriter.h
++++ libvpx-1.5.0/vp9/encoder/vp9_treewriter.h
+@@ -17,7 +17,7 @@
+ extern "C" {
+ #endif
+ 
+-void vp9_tree_probs_from_distribution(vpx_tree tree,
++void vp9_tree_probs_from_distribution(vpx_tree_p tree,
+                                       unsigned int branch_ct[ /* n - 1 */ ][2],
+                                       const unsigned int num_events[ /* n */ ]);
+ 
+--- libvpx-1.5.0.orig/vpx_dsp/prob.h
++++ libvpx-1.5.0/vpx_dsp/prob.h
+@@ -41,7 +41,7 @@ typedef int8_t vpx_tree_index;
+    Index > 0 means need another bit, specification at index.
+    Nonnegative indices are always even;  processing begins at node 0. */
+ 
+-typedef const vpx_tree_index vpx_tree[];
++typedef const vpx_tree_index vpx_tree[], *vpx_tree_p;
+ 
+ static INLINE vpx_prob clip_prob(int p) {
+   return (p > 255) ? 255 : (p < 1) ? 1 : p;

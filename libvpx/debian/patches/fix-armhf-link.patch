@@ -1,0 +1,10 @@
+--- a/build/make/configure.sh	2013-12-17 18:18:46.904410454 +0100
++++ b/build/make/configure.sh	2013-12-17 18:19:58.720758736 +0100
+@@ -824,7 +824,6 @@
+ 
+       case ${tgt_cc} in
+         gcc)
+-          CROSS=${CROSS:-arm-none-linux-gnueabi-}
+           link_with_cc=gcc
+           setup_gnu_toolchain
+           arch_int=${tgt_isa##armv}

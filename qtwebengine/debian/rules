@@ -37,7 +37,7 @@ myconf = " -Duse_system_expat=1 \
 	-Duse_system_snappy=1 \
 	-Duse_system_speex=1 \
 	-Duse_system_harfbuzz=0 \
-	-Duse_system_icu=0 \
+	-Duse_system_icu=1 \
 	-Duse_system_libwebp=1 \
 	-Duse_system_libvpx=0 \
 	-Duse_system_openssl=1 \

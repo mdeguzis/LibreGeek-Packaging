@@ -24,5 +24,5 @@ Homepage: https://github.com/plexinc/plex-media-player/
 
 Package: plex-media-player
 Architecture: amd64
-Depends: ${misc:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Next generation Plex client.

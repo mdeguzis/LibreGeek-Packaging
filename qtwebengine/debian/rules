@@ -59,3 +59,9 @@ override_dh_auto_configure:
 	$(current_dir)/src/3rdparty/chromium/build/linux/unbundle/replace_gyp_files.py "$(myconf)"
 	# configure
 	qmake -r
+
+override_dh_builddeb:
+	# override to trip shell to investigate icu problem
+	# Need to find icudtl.dat! 
+	# Needs to go in /usr/share/qt5/resources
+	cp blah blah

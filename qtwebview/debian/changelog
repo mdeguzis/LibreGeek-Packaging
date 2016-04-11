@@ -1,0 +1,11 @@
+qtxmlpatterns-opensource-src (5.6.0+git+bsos-1) brewmaster; urgency=low
+
+  * Attempt to work in upstream Stretch packaging
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 03 Apr 2016 08:37:11 -0400
+
+qtxmlpatterns-opensource-src (0.0.1-1) brewmaster; urgency=medium
+
+  * Dummy changelog
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 17 Mar 2016 18:29:07 -0400

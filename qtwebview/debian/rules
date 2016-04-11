@@ -1,0 +1,39 @@
+#!/usr/bin/make -f
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+export CFLAGS := $(shell dpkg-buildflags --get CFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export CXXFLAGS := $(shell dpkg-buildflags --get CXXFLAGS) $(shell dpkg-buildflags --get CPPFLAGS)
+export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
+export QT_SELECT := qt5
+
+%:
+	dh $@ --parallel --with pkgkde_symbolshelper
+
+override_dh_auto_configure:
+	qmake QT_BUILD_PARTS+=tests
+
+override_dh_auto_build-indep:
+	dh_auto_build -- docs
+
+override_dh_auto_install-arch:
+	dh_auto_install
+
+	# Remove private headers and the .pri file
+	rm -rfv debian/tmp/usr/include/$(DEB_HOST_MULTIARCH)/qt5/QtXmlPatterns/*/QtXmlPatterns/private/
+	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qt5/mkspecs/modules/qt_lib_xmlpatterns_private.pri
+
+	# Remove libtool-like file
+	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
+
+override_dh_auto_install-indep:
+	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+
+override_dh_install:
+	dh_install --fail-missing
+
+override_dh_makeshlibs:
+	dh_makeshlibs -V

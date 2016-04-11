@@ -4,9 +4,9 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-sprunge.sh
 # Script Ver:	1.0.0
-# Description:	Builds package of QT 5.6.0 webchannel
+# Description:	Builds package of QT 5.6.0 web controls
 #
-# See:		https://github.com/qtproject/qtwebchannel
+# See:		https://github.com/qtproject/qtquickcontrols
 #		https://wiki.qt.io/Building-Qt-5-from-Git
 #
 # Usage:	build-sprunge.sh
@@ -48,7 +48,7 @@ else
 
 fi
 
-git_url="https://github.com/qtproject/qtwebchannel"
+git_url="https://github.com/qtproject/qtquickcontrols"
 branch="v5.6.0"
 
 # package vars
@@ -56,9 +56,9 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgname="libqt5-qtwebchannel"
+pkgname="qtquickcontrols-opensource-src"
 pkgver="5.6.0"
 pkgrev="1"
 pkgsuffix="git+bsos"
@@ -80,7 +80,12 @@ install_prereqs()
 	sleep 2s
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes debhelper dpkg-dev pkg-kde-tools qtbase5-private-dev
+	sudo apt-get install -y --force-yes debhelper dpkg-dev pkg-kde-tools qtbase5-private-dev \
+	qtdeclarative5-private-dev 
+	
+	# build indep pkgs
+	sudo apt-get install -y --force-yes libqt5sql5-sqlite qtbase5-doc-html qtdeclarative5-doc-html \
+	qttools5-dev-tools
 
 }
 

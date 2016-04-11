@@ -1,6 +1,6 @@
 usr/include/@DEB_HOST_MULTIARCH@/qt5/*
 usr/lib/@DEB_HOST_MULTIARCH@/cmake/*
-usr/lib/@DEB_HOST_MULTIARCH@/libQt*Web*.so*
+usr/lib/@DEB_HOST_MULTIARCH@/libQt*Web*.so
 usr/lib/@DEB_HOST_MULTIARCH@/libQt*Web*.prl
 usr/lib/@DEB_HOST_MULTIARCH@/qt5/mkspecs/modules/qt_lib_*.pri
 usr/lib/@DEB_HOST_MULTIARCH@/pkgconfig/Qt*Web*.pc

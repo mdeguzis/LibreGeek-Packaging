@@ -113,7 +113,7 @@ main()
 
 	# Clone upstream source code and branch
 
-	echo -e "\n==> Obtaining upstream source code\n"
+	echo -e "\n==> Obtaining upstream source code"
 
 	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
 

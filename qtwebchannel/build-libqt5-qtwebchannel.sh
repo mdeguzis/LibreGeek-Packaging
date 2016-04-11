@@ -60,7 +60,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgname="libqt5-qtwebchannel"
 pkgver="5.6.0"
-pkgrev="5"
+pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -152,7 +152,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Correct the dev package (non-private)"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Update build"
 		nano "debian/changelog"
 
 	else

@@ -28,5 +28,5 @@ Depends: ${misc:Depends}, ${shlibs:Depends},
  libmpv1 (>= 0.15),
  libqt5xml5 (>= 5.6.0~),
  libsdl2-2.0-0,
- libcec-dev,
+ libcec-dev
 Description: Next generation Plex client.

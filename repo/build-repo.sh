@@ -81,9 +81,6 @@ install_prereqs()
 main()
 {
 
-main()
-{
-
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then
 

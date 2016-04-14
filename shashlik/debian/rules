@@ -2,3 +2,7 @@
 
 %:
 	dh $@
+
+override_dh_builddeb:
+	# if we even get this fair, stop to checkout files for initial build
+	cp blah blah

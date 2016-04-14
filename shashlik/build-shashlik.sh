@@ -81,7 +81,7 @@ install_prereqs()
 	sudo apt-get install -y --force-yes build-essential bc debhelper git-core curl repo
 	
 	# Get repo
-	sudo wget -P /usr/bin "https://storage.googleapis.com/git-repo-downloads/repo" -q --nc --show-progress
+	sudo wget -P /usr/bin "https://storage.googleapis.com/git-repo-downloads/repo" -q -nc --show-progress
 	sudo chmod +x /usr/bin/repo
 
 }
@@ -98,7 +98,7 @@ main()
 	else
 
 		# Still need to clone and install repo
-		sudo wget -P /usr/bin "https://storage.googleapis.com/git-repo-downloads/repo" -q --nc --show-progress
+		sudo wget -P /usr/bin "https://storage.googleapis.com/git-repo-downloads/repo" -q -nc --show-progress
 		sudo chmod +x /usr/bin/repo
 
 	fi

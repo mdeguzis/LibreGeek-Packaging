@@ -171,7 +171,7 @@ main()
 		# clean specific files
 		rm -rf *.dsc *.xz *.build *.changes
 		# clean directories
-		find . -type d -exec rm -rf
+		find . -type d -exec rm -rf {} \;
 		mkdir -p "${build_dir}"
 sleep 100s
 		echo -e "\n==> Retrying with prior source tarball\n"

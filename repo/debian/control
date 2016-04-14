@@ -8,6 +8,6 @@ Homepage: https://storage.googleapis.com/git-repo-downloads/
 
 Package: repo
 Architecture: any
-Depends: curl
+Depends:  ${misc:Depends}, ${shlibs:Depends}
 Description: Manage multiple repos with repo from Google.
   A tool that makes it easier to work with multiple git repositories at once.

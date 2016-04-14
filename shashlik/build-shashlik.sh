@@ -79,11 +79,29 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential bc debhelper git-core curl repo
+	
+	# Get repo
+	sudo wget -P /usr/bin "https://storage.googleapis.com/git-repo-downloads/repo"
+	sudo chmod +x /usr/bin/repo
 
 }
 
 main()
 {
+	
+	# install prereqs for build
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# handle prereqs on host machine
+		install_prereqs
+		
+	else
+
+		# Still need to clone and install repo
+		sudo wget -P /usr/bin "https://storage.googleapis.com/git-repo-downloads/repo"
+		sudo chmod +x /usr/bin/repo
+
+	fi
 
 	# This repo is HUGE, so allow it to be kept for subsequent tries
 	

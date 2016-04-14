@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Capture command to run
+read -erp "Enter command to capture: " command
+
+# replace ~ if invoked in weird ways
+# Check for combinations first, then single ~'s
+
+if echo "$command" | grep -w "~+" &> /dev/null; then
+
+        command="${command/\~+/.$pwd}"
+
+elif echo "$command" | grep -w "~-" &> /dev/null; then
+
+        command="${command/\~-/..}"
+
+elif echo "$command" | grep -w "~" &> /dev/null; then
+
+	command="${command/\~/$HOME}"
+
+elif echo "$command" | grep -w "~$USER" &> /dev/null; then
+
+	command="${command/\~$USER/$HOME}"
+
+fi
+
+# send to sprunge
+${command} | curl -F 'sprunge=<-' http://sprunge.us

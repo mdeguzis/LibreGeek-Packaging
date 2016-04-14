@@ -3,14 +3,45 @@ Section: utils
 Priority: extra
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
+ cmake,
  curl,
+ gcc:i386,
+ g++:i386,
+ giflib-tools:i386,
  git-core,
- ninja-build
+ kwayland-dev:i386,
+ libcap-dev,
+ libcurl4-openssl-dev:i386,
+ libdrm-dev:i386,
+ libexpat1-dev:i386,
+ libffi-dev:i386,
+ libfontconfig1-dev:i386,
+ libfreetype6-dev:i386,
+ libharfbuzz-dev,
+ libharfbuzz-icu0,
+ libicu-dev:i386,
+ libjarjar-java,
+ libjpeg62-turbo-dev:i386,
+ libpng12-dev:i386,
+ libselinux1-dev,
+ libstdc++-4.9-dev,
+ libqt5core5a:i386,
+ libqt5widgets5:i386,
+ libwayland-dev:i386,
+ libwebp-dev,
+ libwebp-dev:i386,
+ libwebpdemux1:i386,
+ libwebpmux1:i386,
+ openjdk-8-jre,
+ ninja-build,
+ qtbase5-private-dev,
+ qtbase5-dev,
+ zlib1g-dev:i386
 Standards-Version: 3.9.5
 Homepage: http://www.shashlik.io/
 
 Package: shashlik-unstable
-Architecture: all
+Architecture: i386 amd64
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: Stripped down Android emulator for Linux
  Shashlik provides an incredibly stripped down Android base which 

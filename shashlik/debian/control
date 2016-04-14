@@ -1,17 +1,17 @@
-Source: sprunge
+Source: shashlik
 Section: utils
 Priority: extra
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9),
+ git-core
+ curl
 Standards-Version: 3.9.5
-Homepage: http://github.com/rupa/sprunge
-Vcs-Git: git://github.com/rupa/sprunge.git
-Vcs-Browser: http://github.com/rupa/sprunge
+Homepage: http://www.shashlik.io/
 
 Package: sprunge
 Architecture: all
-Depends: curl
-Description: Sprunge is a command line pastebin that uses curl.
- This package was created to provide an easy way to capture output
- of commands for SteamOS. For whatever reason, piping to pastebin
- produces "Bad API request, invalid api_dev_key".
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Stripped down Android emulator for Linux
+ Shashlik provides an incredibly stripped down Android base which 
+ boots directly into the loaded app, but with a running activity 
+ manager and daemons so that intents still work correctly..

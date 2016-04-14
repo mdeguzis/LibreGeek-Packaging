@@ -171,9 +171,9 @@ main()
 		# clean specific files
 		rm -rf *.dsc *.xz *.build *.changes
 		# clean directories
-		find . -type d -exec rm -rf {} \;
+		find "${build_dir}" -type d -exec rm -rf {} \;
 		mkdir -p "${build_dir}"
-sleep 100s
+
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
 		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals

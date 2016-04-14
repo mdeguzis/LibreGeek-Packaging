@@ -154,8 +154,8 @@ main()
 	# prep source
 	#################################################
 
-	# Enter main build dir to pack the tarball
-	cd "${build_dir}"
+	# Enter main build dir to pack the tarball or try again
+	cd "${build_dir}" || exit 1
 
 	if [[ "${retry}" == "no" ]]; then
 
@@ -169,10 +169,7 @@ main()
 		sleep 2s
 
 		# clean specific files
-		rm -rf *.dsc *.xz *.build *.changes
-		# clean directories
-		find "${build_dir}" -type d -exec rm -rf {} \;
-		mkdir -p "${build_dir}"
+		rm -rf *.dsc *.xz *.build *.changes "${src_dir}"
 
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s

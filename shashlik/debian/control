@@ -3,8 +3,9 @@ Section: utils
 Priority: extra
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
- git-core
- curl
+ curl,
+ git-core,
+ repo
 Standards-Version: 3.9.5
 Homepage: http://www.shashlik.io/
 

@@ -150,6 +150,7 @@ main()
 		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
 		sleep 2s
 
+	fi
 
 	# Add required files
 	cp -r "${scriptdir}/debian" "${git_dir}"

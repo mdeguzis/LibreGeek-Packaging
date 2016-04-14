@@ -108,7 +108,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	if [[ -f ${build_dir}/*.orig.tar.gz ]]; then
+	if [[ -f "${build_dir}/${pkgname}+${pkgsuffix}.orig.tar.gz" ]]; then
 
 		echo -e "==Info==\nSource files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s

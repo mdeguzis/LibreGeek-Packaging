@@ -2,11 +2,11 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-sprunge.sh
+# Scipt Name:	build-shashlik.sh
 # Script Ver:	1.0.0
-# Description:	Builds simple pacakge for using sprunge
+# Description:	Builds simple pacakge for using shashlik, and Android emulator
 #
-# See:		http://github.com/rupa/sprunge
+# See:		https://github.com/shashlik/old-shashlik/wiki/Building
 #
 # Usage:	build-sprunge.sh
 # Opts:		[--testing]
@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/rupa/sprunge"
+git_url="https://github.com/shashlik/shashlik-manifest"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,9 +57,11 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="sprunge"
-pkgver="1.0.0+git+bsos"
+export USE_NETWORK="yes"
+pkgname="shashlik"
+pkgver="0.9.3"
 pkgrev="1"
+pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -68,7 +70,7 @@ maintainer="ProfessorKaos64"
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-sprunge_dir="${build_dir}/${pkgname}"
+git_dir="${build_dir}/${pkgname}"
 
 install_prereqs()
 {
@@ -76,80 +78,106 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper
+	sudo apt-get install -y --force-yes build-essential bc debhelper git-core curl repo
 
 }
 
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
+	# This repo is HUGE, so allow it to be kept for subsequent tries
+	
+	echo -e "\n==> Obtaining upstream source code\n"
+	
+		if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
 
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}" && cd "${build_dir}"
+			repo init -u "${git_url}"
+			repo sync
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
 
 	else
 
-		mkdir -p "${build_dir}"
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${build_dir}" && cd "${build_dir}" || exit 1
+			repo init -u "${git_url}"
+			repo sync
 
 	fi
 
-        # Inject our script
-	mkdir "$sprunge_dir"
-        cp sprunge ${sprunge_dir}
+	#################################################
+	# prep source
+	#################################################
 
-	# enter build dir
-	cd "${build_dir}" || exit
+	if [[ "${retry}" == "no" ]]; then
 
-	# install prereqs for build
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		
+	else
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+		echo -e "\n==> Cleaning old source foldrers for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
+		mkdir -p "${git_dir}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
+		sleep 2s
 
-		# handle prereqs on host machine
-		install_prereqs
 
-	fi
-
-
+	# Add required files
+	cp -r "${scriptdir}/debian" "${git_dir}"
+	
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
-	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
-
-	# copy in debian folder
-	cp -r ""$scriptdir/debian"" "${pkgname}"
-
-	###############################################################
-	# correct any files needed here that you can ahead of time
-	###############################################################
 
 	# enter source dir
-	cd "${sprunge_dir}"
-
+	cd "${git_dir}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
-
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Update to the latest commits"
+		nano "debian/changelog"
+	
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Initial upload"
+		nano "debian/changelog"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -158,47 +186,39 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
-	#################################################
-	# Post install configuration
-	#################################################
-	
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
+
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
+
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
-	
+	cat<<- EOF
+	#################################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+
+	EOF
+
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep $pkgname_$pkgver
+	ls "${build_dir}" | grep -E *${pkgver}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -207,10 +227,15 @@ main()
 
 	if [[ "$transfer_choice" == "y" ]]; then
 
-		# transfer files
 		if [[ -d "${build_dir}" ]]; then
+
+			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+
+			# uplaod local repo changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 
@@ -222,4 +247,3 @@ main()
 
 # start main
 main
-

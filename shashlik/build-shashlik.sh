@@ -137,7 +137,7 @@ main()
 
 	else
 
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			echo -e "\n==> Source directory files do not exist, or are incomplete. Cloning now...\n"
 			sleep 2s
 			# reset retry flag
 			retry="no"

@@ -59,10 +59,10 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="yes"
-pkgname="shashlik"
+pkgname="shashlik-unstable"
 pkgver="0.9.3"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -179,14 +179,14 @@ main()
 	fi
 
 	# Add required files
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${src_dir}"
 	
 	#################################################
 	# Build package
 	#################################################
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${src_dir}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

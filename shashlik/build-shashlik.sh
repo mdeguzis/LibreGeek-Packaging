@@ -110,9 +110,9 @@ main()
 	
 	if [[ -f ${build_dir}/*.orig.tar.gz ]]; then
 
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		echo -e "==Info==\nSource files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
-		read -ep "Choice: " git_choice
+		read -erp "Choice: " git_choice
 
 		if [[ "$git_choice" == "r" ]]; then
 

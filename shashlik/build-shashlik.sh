@@ -55,7 +55,8 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+# Are we going to distribute the orig. souce here? The archive is huge.
+BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="yes"
 pkgname="shashlik"

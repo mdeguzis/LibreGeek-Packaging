@@ -3,6 +3,10 @@
 %:
 	dh $@
 
+override_dh_auto_configure:
+	# set build env
+	source build/envsetup.sh
+
 override_dh_builddeb:
 	# if we even get this fair, stop to checkout files for initial build
 	cp blah blah

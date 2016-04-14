@@ -162,15 +162,18 @@ main()
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-		
+
 	else
-	
+
 		echo -e "\n==> Cleaning old source foldrers for retry"
 		sleep 2s
-		
-		rm -rf *.dsc *.xz *.build *.changes ${build_dir}
+
+		# clean specific files
+		rm -rf *.dsc *.xz *.build *.changes
+		# clean directories
+		find . -d -type d -exec rm -rf
 		mkdir -p "${build_dir}"
-	
+sleep 100s
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
 		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
@@ -180,7 +183,7 @@ main()
 
 	# Add required files
 	cp -r "${scriptdir}/debian" "${src_dir}" || exit 1
-	
+
 	#################################################
 	# Build package
 	#################################################

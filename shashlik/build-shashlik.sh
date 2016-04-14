@@ -179,7 +179,7 @@ main()
 	fi
 
 	# Add required files
-	cp -r "${scriptdir}/debian" "${src_dir}"
+	cp -r "${scriptdir}/debian" "${src_dir}" || exit 1
 	
 	#################################################
 	# Build package

@@ -121,7 +121,9 @@ main()
 			# reset retry flag
 			retry="no"
 			# clean and clone
+			# We are dumping a lof of repo's into the build dir, so compact them into src_dir
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}" && cd "${build_dir}"
+			mkdir -p "${src_dir}" && cd "${src_dir}"
 			repo init -u "${git_url}"
 			repo sync
 
@@ -140,7 +142,9 @@ main()
 			# reset retry flag
 			retry="no"
 			# create and clone to current dir
-			mkdir -p "${build_dir}" && cd "${build_dir}" || exit 1
+			# We are dumping a lof of repo's into the build dir, so compact them into src_dir
+			mkdir -p "${build_dir}" && cd "${build_dir}"
+			mkdir -p "${src_dir}" && cd "${src_dir}"
 			repo init -u "${git_url}"
 			repo sync
 
@@ -149,6 +153,9 @@ main()
 	#################################################
 	# prep source
 	#################################################
+
+	# Enter main build dir to pack the tarball
+	cd "${build_dir}"
 
 	if [[ "${retry}" == "no" ]]; then
 

@@ -335,7 +335,8 @@ fi
 
 echo -e "\n==> Setting host/network information"
 
-echo -e "\nSetup remote user/host for repository pool?"
+
+echo -e "\nSetup/Reset remote user/host for repository pool?"
 echo -e "This is suggested if you are using a remote host"
 read -erp "Choice [y/n]: " set_host_user
 

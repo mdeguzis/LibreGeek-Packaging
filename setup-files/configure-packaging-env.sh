@@ -46,8 +46,19 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	echo -e "\nInstalling main packages\n"
 	sleep 2s
 
-	sudo apt-get install -y --force-yes pbuilder libselinux1 libselinux1:i386 \
-	lsb-release bc devscripts sudo screen
+	pkgs=$(pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo screen)
+
+	for pkg in ${pkgs};
+	do
+
+		if ! sudo apt-get install -yq --force-yes; then
+		
+			# echo and exit if package install fails
+			echo -e "\n==ERROR==\nInstallation of ${pkg} failed! Exiting..."
+			sleep 2s
+			exit 1
+
+	done
 	
 	# Open Build System
 	#echo "\nInstalling Open Build System package\n"
@@ -81,8 +92,32 @@ elif [[ "${OS}" == "Arch" ]]; then
 
 	else
 
-		# just update pacaur target (don't reinstall if up to date)
-		pacaur -Sa ${AUROPTS} pacaur
+		# just update pacaur targets (don't reinstall if up to date)
+		pacaur -Sa ${AUROPTS} pacaur apt
+
+	fi
+	
+
+	# Finally, get build tools needed out of the AUR
+	# Pass -S to invoke pacman
+	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-archive-keyring apt devscripts
+	
+	# Do we need custom AUR packages that are out of date?
+	CUSTOM_AUR_PKGS="false"
+	
+	# OBS Open Build System
+	if [[ $(grep "openSUSE_Tools_Arch_Extra" "/etc/pacman.conf") == "" ]]; then
+
+		sudo su -c "echo '[openSUSE_Tools_Arch_Extra]' >> /etc/pacman.conf"
+		sudo su -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
+		sudo su -c "echo 'Server = http://download.opensuse.org/repositories/openSUSE:/Tools/Arch_Extra/$arch' >> /etc/pacman.conf"
+
+		if [[ $(pacman -Qs osc) == "" ]]; then
+
+			sudo pacman -Syu
+			sudo pacman -S openSUSE_Tools_Arch_Extra/osc
+
+		fi
 
 	fi
 	
@@ -92,12 +127,13 @@ elif [[ "${OS}" == "Arch" ]]; then
 	# https://github.com/ProfessorKaos64/arch-aur-packages
 	
 	# Don't clone this repo if they are found
-	if [[ ! $(pacaur -Qs apt) || ! $(pacaur -Qs devscripts) ]]; then
+	# Not used right now, but keep if needed for the future
+	if [[ "${CUSTOM_AUR_PKGS}" == "true" ]]; then
 
 		git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
 		root_dir="${PWD}"
 		aur_install_dir="${root_dir}/arch-aur-packages"
-		my_arch_pkgs="devscripts apt"
+		my_arch_pkgs="devscripts"
 		
 		for pkgs in ${my_arch_pkgs};
 		do
@@ -120,26 +156,6 @@ elif [[ "${OS}" == "Arch" ]]; then
 	# Clean up manual AUR package installation directory
 	cd "${root_dir}"
 	rm -rf "arch-aur-packages"
-
-	# Finally, get build tools and pbuilder-ubuntu
-	# Pass -S to invoke pacman
-	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-archive-keyring
-	
-	# OBS Open Build System
-	if [[ $(grep "openSUSE_Tools_Arch_Extra" "/etc/pacman.conf") == "" ]]; then
-
-		sudo su -c "echo '[openSUSE_Tools_Arch_Extra]' >> /etc/pacman.conf"
-		sudo su -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
-		sudo su -c "echo 'Server = http://download.opensuse.org/repositories/openSUSE:/Tools/Arch_Extra/$arch' >> /etc/pacman.conf"
-
-		if [[ $(pacman -Qs osc) == "" ]]; then
-
-			sudo pacman -Syu
-			sudo pacman -S openSUSE_Tools_Arch_Extra/osc
-
-		fi
-
-	fi
 
 else
 
@@ -176,27 +192,38 @@ done
 echo -e "\n==> Adding and configuring dotfiles"
 sleep 2s
 
-# Reset setup?
+#####################
+# bashrc
+#####################
 
-echo -e "\nReset .bashrc? setup?"
-echo -e "This will remove GitHub, quilt, and host setups, etc."
-sleep 0.5s
+# Reset setup? Check for headers
+bashrc_test_start=$(grep "##### DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
+bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
 
-# info may already be setup, allow people to ignore it.
+if [[ "${bashrc_test_start}" != "" && "${bashrc_test_start}" != "" ]]; then
 
-read -erp "Choice [y/n]: " bashrc_choice
-
-if [[ "${bashrc_choice}" == "y" ]]; then
-
-	# Check for block of text
-	bashrc_test_start=$(grep "##### DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
-	bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
+	echo -e "\nReset .bashrc? setup?"
+	echo -e "This will remove GitHub, quilt, and host setups, etc."
+	sleep 0.5s
 	
-	# Reset setup for incoming vars
-	sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
+	# info may already be setup, allow people to ignore it.
 	
+	read -erp "Choice [y/n]: " bashrc_choice
+	
+	if [[ "${bashrc_choice}" == "y" ]]; then
+	
+		# Reset setup for incoming vars
+		sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
+		
+		cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
+	
+	fi
+	
+else
+
+	# copy in template
 	cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
-
+	
 fi
 
 # Assess if TEMP vars exist, replace them
@@ -216,12 +243,24 @@ if [[ $(grep "EMAIL_TEMP" "${HOME}/.bashrc") != "" ]]; then
 
 fi
 
+#####################
+# Quilt
+#####################
+
 # Setup Quilt rc file for dpkg
 cp "$scriptdir/.quiltrc-dpkg" "$HOME"
 cp "$scriptdir/.quiltrc" "$HOME"
 
+#####################
+# devscripts
+#####################
+
 # devscripts
 cp "$scriptdir/.devscripts" "$HOME"
+
+#####################
+# pbuilder
+#####################
 
 # pbuilder
 cp "$scriptdir/.pbuilderrc" "$HOME/"
@@ -258,9 +297,18 @@ fi
 
 if [[ $(git config --global user.email) == "" ]]; then
 
-	echo -e "Please set your GitHub email: "
-	read -erp "Email: " GITEMAIL
-	git config --global user.email "${GITEMAIL}"
+	# The email may already by sourced during the bashrc setup, check
+	if [[ ${EMAIL_TEMP} != "" ]]; then
+
+		git config --global user.email "${EMAIL_TEMP}"
+
+	else
+
+		echo -e "Please set your GitHub email: "
+		read -erp "Email: " GITEMAIL
+		git config --global user.email "${GITEMAIL}"
+		
+	fi
 	
 else
 
@@ -378,6 +426,9 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	# Setup common packages
 	
+	# clean packages if a prior attempt was used or source files were manually removed
+	sudo apt-get remove -y libregeek-archive-keyring* steamos-tools-repo* 
+	
 	# Libregeek keyrings
 	wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
 	wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
@@ -390,7 +441,6 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	rm -f valve-archive-keyring*.deb
 	
 	# update for keyrings
-	
 	echo -e "\nUpdating system for newly added keyrings\n"
 	sleep 2s
 	sudo apt-key update
@@ -398,7 +448,6 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 elif [[ "${OS}" == "Arch" ]]; then
 
-	
 	# obtain keyring source for Valve archive keyring and convert it, not provided in AUR
 	mkdir -p "$HOME/setup-temp" && cd "$HOME/setup-temp"
 	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q -nc --show-progress
@@ -408,7 +457,7 @@ elif [[ "${OS}" == "Arch" ]]; then
 	tar -xvf data.tar.xz
 	sudo cp "etc/apt/trusted.gpg.d/valve-archive-keyring.gpg" "/etc/apt/trusted.gpg.d/"
 	sudo cp "usr/share/keyrings/valve-archive-keyring.gpg" "/usr/share/keyrings"
-	
+
 	# cleanup
 	cd ..
 	rm -rf "$HOME/setup-temp"
@@ -442,7 +491,7 @@ if [[ "${OS}" == "SteamOS" ]]; then
 	rm -rf "${HOME}/pbuilder/hooks"
 	mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
 	cp -r "${scriptdir}/hooks" "${HOME}/pbuilder/"
-	
+
 else
 
 	sudo rm -rf "/var/cache/pbuilder/hooks"
@@ -484,14 +533,9 @@ cat <<-EOF
 ################################################################
 Summary
 ################################################################
-Creating:
-sudo DIST=[DIST] ARCH=[ARCH] pbuilder [OPERATION]
 
-Creation on SteamOS:
+Creating a pbuilder chroot setup:
 sudo -E DIST=[DIST] ARCH=[ARCH] pbuilder create
-
-Common Operations:
-[create|login|login|login --save-after-login|update]
 
 EOF
 

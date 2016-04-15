@@ -13,10 +13,6 @@
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
 
-#################################################
-# Set variables
-#################################################
-
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
@@ -165,13 +161,13 @@ main()
 
 	else
 
-		echo -e "\n==> Cleaning old source foldrers for retry"
+		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
 
 		# clean specific files
 		rm -rf *.dsc *.xz *.build *.changes "${src_dir}"
 
-		echo -e "\n==> Retrying with prior source tarball\n"
+		echo -e "\n==> Retrying with prior source tarball. Unpacking, please wait...\n"
 		sleep 2s
 		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
 		sleep 2s

@@ -25,6 +25,6 @@ export MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}"
 # If necessary detach and logout remotely first. 
 # If it was not running, create it and notify the user.
 
-if [[ -z "$STY" ]]; then screen -D -R; fi
+# if [[ -z "$STY" ]]; then screen -D -R; fi
 
 ##### END DEBIAN PACKAGING SETUP #####

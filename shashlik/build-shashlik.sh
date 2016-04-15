@@ -186,7 +186,7 @@ main()
 	#################################################
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${src_dir}" || exit 1
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

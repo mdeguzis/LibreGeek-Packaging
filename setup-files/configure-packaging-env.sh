@@ -46,7 +46,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	echo -e "\n==> Installing main packages\n"
 	sleep 2s
 
-	pkgs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo screen"
+	pkgs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo screen pv"
 
 	for pkg in ${pkgs};
 	do

@@ -57,6 +57,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 			echo -e "\n==ERROR==\nInstallation of ${pkg} failed! Exiting..."
 			sleep 2s
 			exit 1
+		fi
 
 	done
 	

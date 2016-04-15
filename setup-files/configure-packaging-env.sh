@@ -16,7 +16,7 @@ export scriptdir=$(pwd)
 BASHRC_RESET="false"
 
 clear
-echo -e "\n==> Installing basic packages\n"
+echo -e "==> Installing basic packages\n"
 sleep 2s
 
 ##################################################
@@ -43,7 +43,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	fi
 
 	# Standard packages
-	echo -e "\nInstalling main packages\n"
+	echo -e "\n==> Installing main packages\n"
 	sleep 2s
 
 	pkgs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo screen"

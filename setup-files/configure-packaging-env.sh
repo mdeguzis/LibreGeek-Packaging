@@ -51,7 +51,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	for pkg in ${pkgs};
 	do
 
-		if ! sudo apt-get install -yqq --force-yes ${pkg}; then
+		if ! sudo apt-get install -yq --force-yes ${pkg}; then
 		
 			# echo and exit if package install fails
 			echo -e "\n==ERROR==\nInstallation of ${pkg} failed! Exiting..."

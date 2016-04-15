@@ -428,7 +428,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	# Setup common packages
 	
 	# clean packages if a prior attempt was used or source files were manually removed
-	sudo apt-get remove -y libregeek-archive-keyring* steamos-tools-repo* 
+	sudo apt-get remove -yqq libregeek-archive-keyring* steamos-tools-repo* 
 	
 	# Libregeek keyrings
 	wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc

@@ -51,7 +51,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/rust-lang/cargo"
-branch="0.9.0"
+branch="0.10.0"
 
 
 # package vars
@@ -145,14 +145,14 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
-		"Initial upload attempt"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
+		-D $DIST -u "${urgency}" "Update release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" \
-		-u "${urgency}" "Initial upload attempt"
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
 	fi
@@ -164,7 +164,7 @@ main()
 	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	#  build
+	# build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################

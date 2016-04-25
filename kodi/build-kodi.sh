@@ -76,7 +76,7 @@ set_vars()
 	pkgname="kodi"
 	uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 	maintainer="ProfessorKaos64"
-	pkgrev="2"
+	pkgrev="1"
 	DIST="brewmaster"
 	urgency="low"
 	BUILDER="pdebuild"

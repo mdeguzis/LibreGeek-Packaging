@@ -58,7 +58,10 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="retroarch"
+
+# DO NO BUILD 1.3.2, only here as a marker. This release was very buggy.
 pkgver="1.3.2"
+
 pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"

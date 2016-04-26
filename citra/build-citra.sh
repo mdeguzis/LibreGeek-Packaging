@@ -82,7 +82,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch
+	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch \
+	qtbase5-dev libqt5opengl5-dev build-essential cmake
 
 }
 

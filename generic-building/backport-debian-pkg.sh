@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-rustc.sh
-# Script Ver:	1.1.9
+# Script Ver:	1.3.1
 # Description:	Attempts to build a deb package from backported stretch package
 #
 # See:		https://github.com/rust-lang/rust
@@ -167,10 +167,19 @@ main()
 		if ! sudo mk-build-deps --install --remove; then
 		
 			# back out to scriptdir
-			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"
+			echo -e "\n!!! FAILED TO ACQUIRE BUILD-DEPS. See output!!! \n"
 			cd "${scritpdir}"
 	
 		fi
+		
+		# If build deps pass above, go ahead
+		dch --local ~bpo80+ --distribution ${DIST} "Rebuild for jessie-backports."
+		
+		# Test if we can successfully build the package
+		fakeroot debian/rules binary
+		
+		# Build a package properly , without GPG signing the package
+		dpkg-buildpackage -us -uc
 
 	fi
 

@@ -1,13 +1,15 @@
 Source: citra
 Section: games
 Priority: optional
-Build-Depends: debhelper,
- gcc (>= 5),
+Build-Depends: cmake (>= 3.1),
+ debhelper,
+ gcc,
  libsdl2-dev,
  libqt5opengl5-dev,
+ lib32stdc++6,
  python-pkgconfig,
  qtbase5-dev,
- cmake (>= 3.1)
+ xorg-dev
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
 Standards-Version: 3.9.5
 Homepage: https://github.com/citra-emu

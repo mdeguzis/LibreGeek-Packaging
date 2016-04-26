@@ -95,7 +95,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper
+	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper \
+	packaging-dev debian-keyring devscripts equivs
 
 }
 
@@ -142,12 +143,34 @@ main()
 
 	#  build
 	wget "${DSC}" -q -nc --show-progress
+	
+	# Ask what method
+	
+	echo -e "\n==> Use what method? [pbuilder|local]"
+	read -erp "Choice: " METHOD
 
-	if ! sudo -E build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} "${BUILDER}" build \
-	"${DSC_FILENAME}" && rm -f ${DSC_FILENAME}; then
+	if [[ "${METHOD}" == "pbuilder" ]]; then
 
-		# back out to scriptdir
-		cd "${scritpdir}"
+		if ! sudo -E build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} "${BUILDER}" build \
+		"${DSC_FILENAME}" && rm -f ${DSC_FILENAME}; then
+
+			# back out to scriptdir
+			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"
+			cd "${scritpdir}"
+
+		fi
+		
+	elif [[ "${METHOD}" == "local" ]]; then
+
+		# enter dir and attemp to satisfy build deps
+		cd ${PKGNAME}*
+		if ! sudo mk-build-deps --install --remove; then
+		
+			# back out to scriptdir
+			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"
+			cd "${scritpdir}"
+	
+		fi
 
 	fi
 

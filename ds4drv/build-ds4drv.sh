@@ -64,7 +64,8 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="ds4drv"
-pkgver="0:0.5.0"
+epoch="0"
+pkgver="0.5.0"
 pkgsuffix="${date_short}git+bsos"
 BUILDER="pdebuild"
 BUILDOPTS=""
@@ -152,13 +153,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Update release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Update release with Ryochan's updated fork"
 		nano "debian/changelog"
 

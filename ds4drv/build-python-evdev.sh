@@ -134,7 +134,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/ds4drv/debian" "${git_dir}"
+	cp -r "$scriptdir/python-evdev/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${src_dir}"

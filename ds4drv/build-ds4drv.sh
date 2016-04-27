@@ -141,7 +141,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/python-evdev/debian" "${git_dir}"
+	cp -r "$scriptdir/ds4drv/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${src_dir}"
@@ -216,7 +216,7 @@ main()
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${git_dir}/debian/changelog" "${scriptdir}/ds4drv/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

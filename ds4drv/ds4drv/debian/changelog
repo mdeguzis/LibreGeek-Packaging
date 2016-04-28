@@ -1,0 +1,17 @@
+ds4drv (1:0.5.0+20160428git+bsos-1) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 28 Apr 2016 08:24:18 -0400
+
+ds4drv (0:0.5.0+20160428git+bsos-1) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 28 Apr 2016 08:11:49 -0400
+
+ds4drv (0:0.5.0+20160427git+bsos-1) brewmaster; urgency=low
+
+  * Update release with Ryochan's updated fork
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 27 Apr 2016 16:02:05 -0400

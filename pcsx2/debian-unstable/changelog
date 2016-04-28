@@ -1,3 +1,9 @@
+pcsx2-unstable (1.5.0+20160425git+bsos-1) brewmaster; urgency=low
+
+  * Update build to latest upstream commit [8ec1461]
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 25 Apr 2016 08:48:00 -0400
+
 pcsx2-unstable (1.5.0+20160330git+bsos-1) brewmaster; urgency=low
 
   * Update build to latest upstream commit [7f3f6e9]

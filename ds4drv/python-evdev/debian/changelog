@@ -1,0 +1,5 @@
+python-evdev (0.6.0+git+bsos-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 27 Apr 2016 15:44:56 -0400

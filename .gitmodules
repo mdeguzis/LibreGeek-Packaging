@@ -1,0 +1,4 @@
+[submodule "documents"]
+	path = documents
+	url = https://github.com/professorkaos64/documents.git
+	branch = master

@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/ProfessorKaos64/libframetime"
+git_url="https://github.com/clbr/libframetime"
 branch="master"
 
 # package vars

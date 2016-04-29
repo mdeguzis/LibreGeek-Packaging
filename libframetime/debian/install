@@ -1,2 +1,1 @@
-libframetime32.so /usr/lib/@DEB_HOST_MULTIARCH@/
-libframetime64.so /usr/lib/@DEB_HOST_MULTIARCH@/
+libframetime.so /usr/lib/@DEB_HOST_MULTIARCH@/

@@ -18,7 +18,7 @@
 # Set variables
 #################################################
 
-arg1="$1"
+ARCH="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)

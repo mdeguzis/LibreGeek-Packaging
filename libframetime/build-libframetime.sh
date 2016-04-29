@@ -59,7 +59,6 @@ BUILDER="pdebuild"
 #BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-pkgname="libframetime"
 pkgver="0.${date_short}"
 pkgrev="1"
 pkgsuffix="git+bsos"
@@ -136,12 +135,14 @@ main()
 	if [[ "${ARCH}" == "" || "${ARCH}" == "i386" ]]; then
 
 		ARCH=i386
+		pkgname="libframetime32"
 		sed -i "s/Source\: libframetime/Source\: libframetime32/g" "${git_dir}/debian/control"
 		sed -i "s/Package\: libframetime/Package\: libframetime32/g" "${git_dir}/debian/control"
 
 	elif [[ "${ARCH}" == "amd64" ]]; then
 
 		ARCH=amd64
+		pkgname="libframetime64"
 		sed -i "s/Source\: libframetime/Source\: libframetime64/g" "${git_dir}/debian/control"
 		sed -i "s/Package\: libframetime/Package\: libframetime64/g" "${git_dir}/debian/control"
 

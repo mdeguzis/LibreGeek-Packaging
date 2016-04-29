@@ -1,33 +1,19 @@
-Source: godot
+Source: libframetime
 Section: devel
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
-Build-Depends: debhelper (>= 7),
+Build-Depends: debhelper,
  build-essential,
- gcc,
- pkg-config,
- python,
- libasound2-dev,
- libfreetype6-dev,
- libgl1-mesa-dev,
- libglu-dev,
- libpulse-dev,
- libssl-dev,
- libudev-dev,
- libx11-dev,
- libxinerama-dev,
- libxcursor-dev,
- scons
-Standards-Version: 3.9.6
-Homepage: http://rust-lang.org
+ gcc
+Standards-Version: 3.9.7
+Homepage: https://github.com/professorkaos64/libframetime
 
-Package: godot
+Package: libframetime
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Godot game engine
- Godot is a fully featured, open source, MIT licensed, game engine.
+Description: A preloadable library to count OpenGL frame time
+ libframetime is a preloadable library, able to dump the frame
+ times of any OpenGL application on Linux, on any driver.
  .
- It focuses on having great tools, and a visual oriented workflow that
- can export to PC, Mobile and Web platforms with no hassle. The editor,
- language and APIs are feature rich, yet simple to learn, allowing you
- to become productive in a matter of hours.
+ Original source: https://github.com/clbr/libframetime
+ Fork: https://github.com/professorkaos64/libframetime

@@ -10,7 +10,7 @@
 # See:		https://github.com/ProfessorKaos64/libframetime (fork)
 #		https://github.com/clbr/libframetime (upstream)
 # Usage:	build-libframetime.sh
-# Opts:		[--testing]
+# Opts:		[--testing|--i386|--amd64]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ branch="master"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-ARCH="i386"
+ARCH="$ARCH"
 BUILDER="pdebuild"
 #BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
@@ -130,6 +130,23 @@ main()
 	# Add debian dir
 	cp -r "${scriptdir}/debian" "${git_dir}"
 
+	# Not multilib right now, configure on the fly
+	# set default to i386 if not specified and set variable for deb folder
+	
+	if [[ "${ARCH}" == "" || "${ARCH}" == "i386" ]]; then
+
+		ARCH=i386
+		sed -i "s/Source\: libframetime/Source\: libframetime32/g" "${git_dir}/debian/control"
+		sed -i "s/Package\: libframetime/Package\: libframetime32/g" "${git_dir}/debian/control"
+
+	elif [[ "${ARCH}" == "amd64" ]]; then
+
+		ARCH=amd64
+		sed -i "s/Source\: libframetime/Source\: libframetime64/g" "${git_dir}/debian/control"
+		sed -i "s/Package\: libframetime/Package\: libframetime64/g" "${git_dir}/debian/control"
+
+	fi
+	
 	# enter source dir
 	cd "${git_dir}"
 

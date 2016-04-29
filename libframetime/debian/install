@@ -1,2 +1,2 @@
-bin/godot.x11.tools.64 /usr/bin/godot
-godot.png /usr/share/pixmaps/
+libframetime32.so /usr/lib/@DEB_HOST_MULTIARCH@/
+libframetime64.so /usr/lib/@DEB_HOST_MULTIARCH@/

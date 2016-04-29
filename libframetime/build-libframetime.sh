@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-godot.sh
+# Scipt Name:	build-libframetime.sh
 # Script Ver:	0.5.1
-# Description:	Attempts to build a deb package from latest godot
+# Description:	Attempts to build a deb package from latest libframetime
 #		github release
 #
-# See:		https://github.com/godotengine/godot
-#
-# Usage:	build-.sh
+# See:		https://github.com/ProfessorKaos64/libframetime (fork)
+#		https://github.com/clbr/libframetime (upstream)
+# Usage:	build-libframetime.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -49,9 +49,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/godotengine/godot"
-branch="2.0-stable"
-
+git_url="https://github.com/ProfessorKaos64/libframetime"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,11 +60,11 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-pkgname="godot"
-pkgver="2.0"
+pkgname="libframetime"
+pkgver="0.${date_short}"
 upstream_rev="1"
 pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -82,10 +81,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential bc debhelper \
- 	gcc python scons libx11-dev pkg-config libxcursor-dev libasound2-dev libfreetype6-dev \
- 	libgl1-mesa-dev libglu-dev libssl-dev libxinerama-dev libudev-dev
-
+	sudo apt-get -y --force-yes install gcc build-essential bc debhelper
 }
 
 main()
@@ -122,9 +118,6 @@ main()
 	# clone
 	git clone  -b "${branch}" "${git_url}" "${git_dir}"
 
-	# Add art / other files
-	cp "${scriptdir}/godot.png" "${git_dir}"
-
 	#################################################
 	# Build package
 	#################################################
@@ -148,14 +141,14 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
-		"Initial upload attempt"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D $DIST -u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" \
-		-u "${urgency}" "Initial upload attempt"
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
 	fi

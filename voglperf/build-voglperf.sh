@@ -55,13 +55,13 @@ branch="brewmaster"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="debuild"
+BUILDER="pdebuild"
 BUILDOPTS="-b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="voglperf"
 pkgver="0.1"
 pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -126,10 +126,8 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
@@ -140,13 +138,13 @@ main()
 
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
-	
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package $pkgname -D $DIST -u "${urgency}"
-		
+
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package $pkgname -D $DIST -u "${urgency}"
+
 	else
-	
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
-	
+
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+
 	fi
 
 	#################################################

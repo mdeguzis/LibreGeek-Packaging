@@ -4,7 +4,8 @@ Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper,
  build-essential,
- gcc
+ gcc,
+ mesa-common-dev
 Standards-Version: 3.9.7
 Homepage: https://github.com/professorkaos64/libframetime
 

@@ -19,6 +19,7 @@
 #################################################
 
 ARCH="$1"
+FINAL_ARG=$(echo "${@: -1}")
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
@@ -37,7 +38,7 @@ fi
 
 
 
-if [[ "$arg1" == "--testing" ]]; then
+if [[ "$FINAL_ARG" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
 

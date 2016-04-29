@@ -5,6 +5,7 @@ Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper,
  build-essential,
  gcc,
+ libegl1-mesa-dev,
  mesa-common-dev
 Standards-Version: 3.9.7
 Homepage: https://github.com/professorkaos64/libframetime

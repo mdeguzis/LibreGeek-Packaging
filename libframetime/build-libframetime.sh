@@ -51,6 +51,24 @@ fi
 git_url="https://github.com/clbr/libframetime"
 branch="master"
 
+# Set 32/64 bit destinations
+if [[ "${ARCH}" == "amd64" ]]; then
+
+	ARCH="amd64"
+	pkgname=libframetime64
+
+elif [[ "${ARCH}" == "i386" ]]; then
+
+	ARCH="i386"
+	pkgname=libframetime32
+
+else
+
+	ARCH="i386"
+	pkgname=libframetime32
+
+fi
+
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
@@ -134,15 +152,11 @@ main()
 	
 	if [[ "${ARCH}" == "" || "${ARCH}" == "i386" ]]; then
 
-		ARCH=i386
-		pkgname="libframetime32"
 		sed -i "s/Source\: libframetime/Source\: libframetime32/g" "${git_dir}/debian/control"
 		sed -i "s/Package\: libframetime/Package\: libframetime32/g" "${git_dir}/debian/control"
 
 	elif [[ "${ARCH}" == "amd64" ]]; then
 
-		ARCH=amd64
-		pkgname="libframetime64"
 		sed -i "s/Source\: libframetime/Source\: libframetime64/g" "${git_dir}/debian/control"
 		sed -i "s/Package\: libframetime/Package\: libframetime64/g" "${git_dir}/debian/control"
 

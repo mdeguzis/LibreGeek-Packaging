@@ -1,0 +1,8 @@
+laser-tank			/usr/bin/
+Build/LaserTank			/usr/share/laser-tank/
+data.lvl 			/usr/share/laser-tank/
+data01.pak			/usr/share/laser-tank/
+data02.pak			/usr/share/laser-tank/
+DejaVuSans.ttf			/usr/share/laser-tank/
+#laser-tank.png			/usr/share/pixmaps
+debian/laser-tank.desktop	/usr/share/applications/

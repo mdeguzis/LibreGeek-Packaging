@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Laser Tank
+GenericName=Laser Tank
+Comment=Linux port of Laser Tank
+Exec=LaserTank
+Icon=/usr/share/pixmaps/laser-tank.png
+Terminal=false
+Type=Application

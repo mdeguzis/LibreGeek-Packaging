@@ -1,0 +1,17 @@
+Source: laser-tank
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ libsdl2-dev,
+ libsdl2-ttf-dev,
+ cmake,
+ g++
+Standards-Version: 3.9.7
+Homepage: https://github.com/h4tr3d/laser-tank
+
+Package: laser-tank
+Architecture: amd64
+Depends: ${misc:Depends}, ${shlibs:Depends},
+Description: Laser Tank for GNU/Linux.
+ Port of the Laser Tank game to Linux initially written for KolibriOS.

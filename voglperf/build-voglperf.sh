@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-voglperf.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.4.1
 # Description:	Attempts to build a deb package from latest voglperf
 #		github release
 #
@@ -56,7 +56,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="-b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="voglperf"
 pkgver="0.1"
@@ -128,7 +128,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -139,11 +139,15 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package $pkgname -D $DIST -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package $pkgname -D $DIST -u "${urgency}" "Initial upload"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
+		nano "debian/changelog"
 
 	fi
 

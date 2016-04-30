@@ -56,7 +56,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="voglperf"
 pkgver="0.2"
@@ -140,7 +140,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package $pkgname -D $DIST -u "${urgency}" "Modify LD_PRELOAD to point to standard location"
+		--package $pkgname -D $DIST -u "${urgency}" "Modify LD_PRELOAD/links to point to standard loc."
 		nano "debian/changelog"
 
 	else

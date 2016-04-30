@@ -140,13 +140,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package $pkgname -D $DIST -u "${urgency}" "Initial upload"
+		--package $pkgname -D $DIST -u "${urgency}" "Modify LD_PRELOAD to point to standard location"
 		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Modify LD_PRELOAD to point to standard location"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi

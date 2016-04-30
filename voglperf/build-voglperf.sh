@@ -59,7 +59,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="voglperf"
-pkgver="0.2"
+pkgver="0.3"
 pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
@@ -140,7 +140,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package $pkgname -D $DIST -u "${urgency}" "Modify LD_PRELOAD/links to point to standard loc."
+		--package $pkgname -D $DIST -u "${urgency}" "Fix run-time dep (libgl1-mesa-dev)"
 		nano "debian/changelog"
 
 	else
@@ -195,12 +195,14 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		
 			# Update changelog
-			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin brewmaster
+			cd "${git_dir}" && git add debian/changelog && \
+			git commit -m "update changelog" && git push origin brewmaster
 			cd "${scriptdir}"
 		fi
 

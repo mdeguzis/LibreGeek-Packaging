@@ -54,8 +54,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$final_opts" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
@@ -80,7 +78,7 @@ set_vars()
 	DIST="brewmaster"
 	urgency="low"
 	BUILDER="pdebuild"
-	BUILDOPTS="--debbuildopts \"-j4\""
+	BUILDOPTS="--debbuildopts -nc --debbuildopts \"-j4\""
 	export STEAMOS_TOOLS_BETA_HOOK="false"
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -136,7 +134,6 @@ set_vars()
 		# default to 2 cores as fallback
 		cores="2"
 	fi
-
 
 	# Set script defaults for building packages or source directly
 	if [[ "$extra_opts" == "--source" || "$arg1" == "--source" ]]; then
@@ -235,10 +232,10 @@ kodi_prereqs()
 		libcdio-dev libcec-dev libcurl4-openssl-dev libcwiid-dev libdbus-1-dev \
 		libegl1-mesa-dev libfontconfig1-dev libfribidi-dev libgif-dev libgl1-mesa-dev \
 		libiso9660-dev libjpeg-dev libltdl-dev liblzo2-dev libmicrohttpd-dev \
-		libmodplug-dev libmpcdec-dev libmysqlclient-dev libnfs-dev libogg-dev libpcre3-dev \
+		libmodplug-dev libmpcdec-dev libmysqlclient-dev libnfs-dev libpcre3-dev \
 		libplist-dev libpng12-dev libpulse-dev librtmp-dev libsdl2-dev libshairplay-dev \
 		libsmbclient-dev libsqlite3-dev libssh-dev libssl-dev libswscale-dev libtag1-dev \
-		libtinyxml-dev libtool libudev-dev libusb-dev libva-dev libvdpau-dev libvorbis-dev \
+		libtinyxml-dev libtool libudev-dev libusb-dev libva-dev libvdpau-dev \
 		libxinerama-dev libxml2-dev libxmu-dev libxrandr-dev libxslt1-dev libxt-dev libyajl-dev \
 		lsb-release nasm:i386 python-dev python-imaging python-support swig unzip uuid-dev yasm \
 		zip zlib1g-dev libcrossguid-dev libglew-dev libjasper-dev libmpeg2-4-dev"

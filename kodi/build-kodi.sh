@@ -318,6 +318,7 @@ kodi_package_deb()
 		if echo $kodi_tag | grep -e "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
 		if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
 		if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
+		if echo $kodi_tag | grep -e "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
 
 		# If the tag is left blank, set to master
 
@@ -326,12 +327,6 @@ kodi_package_deb()
 
 			# Check out requested tag
 			git checkout "tags/${kodi_tag}"
-
-		else
-
-			# Tags for Krypton are not yet added, add below manually
-			#kodi_release="Krypton"
-			kodi_tag="auto"
 
 		fi
 

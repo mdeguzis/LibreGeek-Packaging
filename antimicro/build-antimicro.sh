@@ -36,10 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-echo $REMOTE_USER
-echo $REMOTE_HOST
-#exit 1
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
@@ -51,8 +47,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/Ryochan7/antimicro"
-branch="2.21"
+git_url="https://github.com/ProfessorKaos64/antimicro"
+branch="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,9 +58,10 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="antimicro"
-pkgrev="3"
-pkgver="${branch}"
-pkgsuffix="git+bsos${pkgrev}"
+epoch="1"
+pkgrev="4"
+pkgver="2.21"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -130,10 +127,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
-
-	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
 	cd "${src_dir}"
@@ -144,14 +138,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update release"
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Configure with SDL2 support"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update release"
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
 		nano "debian/changelog"
 
 	fi
@@ -207,7 +201,9 @@ main()
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cd "${git_dir}" && git add "debian/changelog" && git push origin "${branch}"
+			cd "${scriptdir}"
+
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

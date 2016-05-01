@@ -1,0 +1,5 @@
+repo (0.20160414+git+bsos-1) brewmaster; urgency=low
+
+  * Initial build
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 14 Apr 2016 11:14:22 -0400

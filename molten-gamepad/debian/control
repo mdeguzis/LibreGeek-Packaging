@@ -1,0 +1,14 @@
+Source: molten-gamepad
+Section: utils
+Priority: extra
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ build-essential,
+ libudev-dev
+Standards-Version: 3.9.7
+Homepage: https://github.com/jgeumlek/MoltenGamepad
+
+Package: molten-gamepad
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Flexible input device remapper, geared towards gamepads.

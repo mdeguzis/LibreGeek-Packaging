@@ -1,0 +1,11 @@
+cmake (3.5.0+git+bsos-2) brewmaster; urgency=low
+
+  * Enable OpenSSL support
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 09 Apr 2016 18:07:56 -0400
+
+cmake (3.5.0+git+bsos-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 09 Apr 2016 11:30:53 -0400

@@ -78,7 +78,7 @@ set_vars()
 	DIST="brewmaster"
 	urgency="low"
 	BUILDER="pdebuild"
-	BUILDOPTS="--debbuildopts -nc --debbuildopts \"-j4\""
+	BUILDOPTS="--debbuildopts \"-j4\""
 	export STEAMOS_TOOLS_BETA_HOOK="false"
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

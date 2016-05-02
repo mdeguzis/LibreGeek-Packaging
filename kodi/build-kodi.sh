@@ -82,24 +82,51 @@ set_vars()
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
-	
-	# source vars
-	git_url="git://github.com/xbmc/xbmc.git"
-	export build_dir="$HOME/build-${pkgname}-temp"
+	export build_dir="${HOME}/build-kodi-temp"
 	src_dir="${pkgname}-${pkgver}"
-	git_dir="${build_dir}/${src_dir}"
 
 	# Set target for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
-	kodi_tag="master"
+	repo_target="xbmc"
+	kodi_tag="17.0a1-Krypton"
 
-	if [[ "${kodi_tag}" == "" ]]; then
+	if [[ "${kodi_tag}" == "" ]];
 
 		# use master as default clone target
 		kodi_tag="master"
 
 	fi
-	
+
+	###################################
+	# build vars
+	###################################
+
+	# Set path for build dir
+	if [[ ! -d "${build_dir}" ]]; then
+
+		mkdir -p "${build_dir}"
+
+	else
+
+		rm -rf "${build_dir}"
+		mkdir -p "${build_dir}"
+
+	fi
+
+	# Set git dir based on repo target to avoid recloning for different targets
+	if [[ "$repo_target" != "xbmc" ]]; then
+
+		# set git dir to alternate
+		export git_dir="${HOME}/kodi-${repo_target}"
+	else
+		# set build dir to default
+		export git_dir="${HOME}/kodi-source"
+
+	fi
+
+	# Set Git URL
+	git_url="git://github.com/${repo_target}/xbmc.git"
+
 	###################
 	# global vars
 	###################
@@ -113,7 +140,7 @@ set_vars()
 	else
 
 		# default to 2 cores as fallback
-		cores="4"
+		cores="2"
 	fi
 
 	# Set script defaults for building packages or source directly
@@ -151,48 +178,6 @@ set_vars()
 
 	# Current checkinstall config:
 	# cfgs/source-builds/kodi-checkinstall.txt
-
-}
-
-kodi_clone()
-{
-
-	echo -e "\n==> Obtaining upstream source code"
-
-	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
-
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [p]ull? ?\n"
-		sleep 1s
-		read -ep "Choice: " git_choice
-
-		if [[ "$git_choice" == "r" ]]; then
-
-			echo -e "\n==> Removing and cloning repository again...\n"
-			sleep 2s
-			# reset retry flag
-			retry="no"
-			# clean and clone
-			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone -b "${kodi_tag}" "${git_url}" "${git_dir}"
-
-		else
-
-			# just try a pull
-			cd "${git_dir}" && git pull || exit 1
-
-		fi
-
-	else
-
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
-			sleep 2s
-			# reset retry flag
-			retry="no"
-			# create and clone to current dir
-			mkdir -p "${build_dir}" || exit 1
-			git clone -b "${kodi_tag}" "${git_url}" "${git_dir}"
-
-	fi
 
 }
 
@@ -334,16 +319,6 @@ kodi_package_deb()
 		sleep 0.2s
 		read -erp "Release Choice: " kodi_tag
 
-		# If the tag is left blank, set to master
-	
-		# checkout proper release from list
-		if [[ "$kodi_tag" != "master" ]]; then
-	
-			# Check out requested tag
-			git checkout "tags/${kodi_tag}"
-	
-		fi
-
 	fi
 
 	# set release for upstream xbmc packaging fork
@@ -351,6 +326,16 @@ kodi_package_deb()
 	if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
 	if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
 	if echo $kodi_tag | grep -e "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
+
+	# If the tag is left blank, set to master
+
+	# checkout proper release
+	if [[ "$kodi_tag" != "master" ]]; then
+
+		# Check out requested tag
+		git checkout "tags/${kodi_tag}"
+
+	fi
 
 	# set release for changelog
         pkgver="${kodi_release}+git+bsos${pkgrev}"
@@ -376,13 +361,6 @@ kodi_package_deb()
 	# Create setup 
 	############################################################
 
-	# Set numerical version if using master
-	if [[ "${kodi_tag}" == "master" ]]; then
-
-		kodi_tag="17"
-
-	fi
-
 	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER}" == "pdebuild" ]]; then
 
 		# Assess where pbuilder base config is, for multi-box installations
@@ -402,11 +380,76 @@ kodi_package_deb()
 		tools/Linux/packaging/mk-debian-package.sh
 
 	else
-
+	
 		RELEASEV="$kodi_tag" \
 		BUILDER="$BUILDER" \
 		PDEBUILD_OPTS="$BUILDOPTS" \
 		tools/Linux/packaging/mk-debian-package.sh
+
+	fi
+
+}
+
+kodi_clone()
+{
+
+	echo -e "\n==> Cloning the Kodi repository:"
+	echo -e "    $git_url"
+
+	# If git folder exists, evaluate it
+	# Avoiding a large download again is much desired.
+	# If the DIR is already there, the fetch info should be intact
+
+	if [[ -d "$git_dir" ]]; then
+
+		echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "p" ]]; then
+			# attempt to pull the latest source first
+			echo -e "\n==> Attempting git pull..."
+			sleep 2s
+
+			# attempt git pull, if it doesn't complete reclone
+			if ! git pull; then
+
+				# command failure
+				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
+				sleep 2s
+				rm -rf "$git_dir"
+				# create and clone to merge ${HOME}/kodi
+				cd
+				git clone -b ${kodi_tag} ${git_url} ${git_dir}
+
+			fi
+
+		elif [[ "$git_choice" == "r" ]]; then
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			sudo rm -rf "$git_dir"
+			# create and clone to merge ${HOME}/kodi
+			cd
+			git clone -b ${kodi_tag} ${git_url} ${git_dir}
+
+		else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# create and clone to merge ${HOME}/kodi
+			cd
+			git clone -b ${kodi_tag} ${git_url} ${git_dir}
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# create DIRS
+			cd
+			# create and clone to current dir
+			git clone -b ${kodi_tag} ${git_url} ${git_dir}
 
 	fi
 

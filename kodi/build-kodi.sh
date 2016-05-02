@@ -90,7 +90,7 @@ set_vars()
 	repo_target="xbmc"
 	kodi_tag="17.0a1-Krypton"
 
-	if [[ "${kodi_tag}" == "" ]];
+	if [[ "${kodi_tag}" == "" ]]; then
 
 		# use master as default clone target
 		kodi_tag="master"
@@ -380,7 +380,7 @@ kodi_package_deb()
 		tools/Linux/packaging/mk-debian-package.sh
 
 	else
-	
+
 		RELEASEV="$kodi_tag" \
 		BUILDER="$BUILDER" \
 		PDEBUILD_OPTS="$BUILDOPTS" \

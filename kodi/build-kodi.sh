@@ -82,8 +82,12 @@ set_vars()
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
-	export build_dir="${HOME}/build-kodi-temp"
+	
+	# source vars
+	git_url="git://github.com/${repo_target}/xbmc.git"
+	export build_dir="$HOME/build-${pkgname}-temp"
 	src_dir="${pkgname}-${pkgver}"
+	git_dir="${build_dir}/${src_dir}
 
 	# Set target for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
@@ -96,37 +100,7 @@ set_vars()
 		kodi_tag="master"
 
 	fi
-
-	###################################
-	# build vars
-	###################################
-
-	# Set path for build dir
-	if [[ ! -d "${build_dir}" ]]; then
-
-		mkdir -p "${build_dir}"
-
-	else
-
-		rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
-
-	fi
-
-	# Set git dir based on repo target to avoid recloning for different targets
-	if [[ "$repo_target" != "xbmc" ]]; then
-
-		# set git dir to alternate
-		export git_dir="${HOME}/kodi-${repo_target}"
-	else
-		# set build dir to default
-		export git_dir="${HOME}/kodi-source"
-
-	fi
-
-	# Set Git URL
-	git_url="git://github.com/${repo_target}/xbmc.git"
-
+	
 	###################
 	# global vars
 	###################
@@ -140,7 +114,7 @@ set_vars()
 	else
 
 		# default to 2 cores as fallback
-		cores="2"
+		cores="4"
 	fi
 
 	# Set script defaults for building packages or source directly
@@ -178,6 +152,51 @@ set_vars()
 
 	# Current checkinstall config:
 	# cfgs/source-builds/kodi-checkinstall.txt
+
+}
+
+kodi_clone()
+{
+
+	echo -e "\n==> Obtaining upstream source code"
+
+	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			cd "${git_dir}" && git submodule update --init
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${build_dir}" || exit 1
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			cd "${git_dir}" && git submodule update --init
+
+	fi
 
 }
 
@@ -385,71 +404,6 @@ kodi_package_deb()
 		BUILDER="$BUILDER" \
 		PDEBUILD_OPTS="$BUILDOPTS" \
 		tools/Linux/packaging/mk-debian-package.sh
-
-	fi
-
-}
-
-kodi_clone()
-{
-
-	echo -e "\n==> Cloning the Kodi repository:"
-	echo -e "    $git_url"
-
-	# If git folder exists, evaluate it
-	# Avoiding a large download again is much desired.
-	# If the DIR is already there, the fetch info should be intact
-
-	if [[ -d "$git_dir" ]]; then
-
-		echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
-		sleep 1s
-		read -ep "Choice: " git_choice
-
-		if [[ "$git_choice" == "p" ]]; then
-			# attempt to pull the latest source first
-			echo -e "\n==> Attempting git pull..."
-			sleep 2s
-
-			# attempt git pull, if it doesn't complete reclone
-			if ! git pull; then
-
-				# command failure
-				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
-				sleep 2s
-				rm -rf "$git_dir"
-				# create and clone to merge ${HOME}/kodi
-				cd
-				git clone -b ${kodi_tag} ${git_url} ${git_dir}
-
-			fi
-
-		elif [[ "$git_choice" == "r" ]]; then
-			echo -e "\n==> Removing and cloning repository again...\n"
-			sleep 2s
-			sudo rm -rf "$git_dir"
-			# create and clone to merge ${HOME}/kodi
-			cd
-			git clone -b ${kodi_tag} ${git_url} ${git_dir}
-
-		else
-
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
-			sleep 2s
-			# create and clone to merge ${HOME}/kodi
-			cd
-			git clone -b ${kodi_tag} ${git_url} ${git_dir}
-
-		fi
-
-	else
-
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
-			sleep 2s
-			# create DIRS
-			cd
-			# create and clone to current dir
-			git clone -b ${kodi_tag} ${git_url} ${git_dir}
 
 	fi
 

@@ -377,7 +377,7 @@ kodi_package_deb()
 	############################################################
 
 	# Set numerical version if using master
-	if [[ "${kodi_tag" == "master" ]]; then
+	if [[ "${kodi_tag}" == "master" ]]; then
 
 		kodi_tag="17"
 

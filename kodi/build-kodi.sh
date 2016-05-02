@@ -91,7 +91,7 @@ set_vars()
 
 	# Set target for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
-	kodi_tag="master
+	kodi_tag="master"
 
 	if [[ "${kodi_tag}" == "" ]]; then
 

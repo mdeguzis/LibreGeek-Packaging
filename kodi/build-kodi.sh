@@ -159,7 +159,7 @@ kodi_clone()
 
 	echo -e "\n==> Obtaining upstream source code"
 
-	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
+	if [[ -d "${git_dir}" ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [p]ull? ?\n"
 		sleep 1s

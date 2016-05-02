@@ -376,6 +376,10 @@ kodi_package_deb()
 	# Create setup 
 	############################################################
 
+	# Having issues with the symlinks in project/cmake/scripts/rbpi, try reading
+	# links to resolve the paths
+	./read-links.sh --depth 5
+
 	# Set numerical version if using master
 	if [[ "${kodi_tag}" == "master" ]]; then
 

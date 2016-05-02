@@ -41,7 +41,6 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -86,8 +85,17 @@ set_vars()
 	export build_dir="${HOME}/build-kodi-temp"
 	src_dir="${pkgname}-${pkgver}"
 
-	# Set target for git source author
+	# Set target for xbmc sources
+	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
 	repo_target="xbmc"
+	kodi_tag="17.0a1-Krypton"
+
+	if [[ "${kodi_tag}" == "" ]];
+
+		# use master as default clone target
+		kodi_tag="master"
+
+	fi
 
 	###################################
 	# build vars
@@ -299,7 +307,7 @@ kodi_package_deb()
 	cd "$git_dir"
 
 	# only call if not auto-building
-	if [[ "$build_all" != "yes" ]]; then
+	if [[ "$kodi_tag" == "" ]]; then
 
 		# show tags instead of branches
 		git tag -l --column
@@ -311,26 +319,26 @@ kodi_package_deb()
 		sleep 0.2s
 		read -erp "Release Choice: " kodi_tag
 
-		# set release for upstream xbmc packaging fork
-		if echo $kodi_tag | grep -e "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
-		if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
-		if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
-		if echo $kodi_tag | grep -e "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
+	fi
 
-		# If the tag is left blank, set to master
+	# set release for upstream xbmc packaging fork
+	if echo $kodi_tag | grep -e "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
+	if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
+	if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
+	if echo $kodi_tag | grep -e "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
 
-		# checkout proper release
-		if [[ "$kodi_tag" != "master" ]]; then
+	# If the tag is left blank, set to master
 
-			# Check out requested tag
-			git checkout "tags/${kodi_tag}"
+	# checkout proper release
+	if [[ "$kodi_tag" != "master" ]]; then
 
-		fi
-
-		# set release for changelog
-        	pkgver="${kodi_release}+git+bsos${pkgrev}"
+		# Check out requested tag
+		git checkout "tags/${kodi_tag}"
 
 	fi
+
+	# set release for changelog
+        pkgver="${kodi_release}+git+bsos${pkgrev}"
 
 	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh 
 	# See: http://unix.stackexchange.com/a/16274
@@ -412,7 +420,7 @@ kodi_clone()
 				rm -rf "$git_dir"
 				# create and clone to merge ${HOME}/kodi
 				cd
-				git clone ${git_url} ${git_dir}
+				git clone -b ${kodi_tag} ${git_url} ${git_dir}
 
 			fi
 
@@ -422,7 +430,7 @@ kodi_clone()
 			sudo rm -rf "$git_dir"
 			# create and clone to merge ${HOME}/kodi
 			cd
-			git clone ${git_url} ${git_dir}
+			git clone -b ${kodi_tag} ${git_url} ${git_dir}
 
 		else
 
@@ -430,7 +438,7 @@ kodi_clone()
 			sleep 2s
 			# create and clone to merge ${HOME}/kodi
 			cd
-			git clone ${git_url} ${git_dir}
+			git clone -b ${kodi_tag} ${git_url} ${git_dir}
 
 		fi
 
@@ -441,7 +449,7 @@ kodi_clone()
 			# create DIRS
 			cd
 			# create and clone to current dir
-			git clone ${git_url} ${git_dir}
+			git clone -b ${kodi_tag} ${git_url} ${git_dir}
 
 	fi
 

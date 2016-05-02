@@ -376,6 +376,13 @@ kodi_package_deb()
 	# Create setup 
 	############################################################
 
+	# Set numerical version if using master
+	if [[ "${kodi_tag" == "master" ]]; then
+
+		kodi_tag="17"
+
+	fi
+
 	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER}" == "pdebuild" ]]; then
 
 		# Assess where pbuilder base config is, for multi-box installations

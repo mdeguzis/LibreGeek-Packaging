@@ -87,7 +87,7 @@ set_vars()
 	git_url="git://github.com/${repo_target}/xbmc.git"
 	export build_dir="$HOME/build-${pkgname}-temp"
 	src_dir="${pkgname}-${pkgver}"
-	git_dir="${build_dir}/${src_dir}
+	git_dir="${build_dir}/${src_dir}"
 
 	# Set target for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser

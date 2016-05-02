@@ -84,14 +84,13 @@ set_vars()
 	date_short=$(date +%Y%m%d)
 	
 	# source vars
-	git_url="git://github.com/${repo_target}/xbmc.git"
+	git_url="git://github.com/xbmc/xbmc.git"
 	export build_dir="$HOME/build-${pkgname}-temp"
 	src_dir="${pkgname}-${pkgver}"
 	git_dir="${build_dir}/${src_dir}"
 
 	# Set target for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
-	repo_target="xbmc"
 	kodi_tag="17.0a1-Krypton"
 
 	if [[ "${kodi_tag}" == "" ]]; then
@@ -162,7 +161,7 @@ kodi_clone()
 
 	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
 
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [p]ull? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 
@@ -174,14 +173,12 @@ kodi_clone()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
-			cd "${git_dir}" && git submodule update --init
+			git clone -b "${kodi_tag}" "${git_url}" "${git_dir}"
 
 		else
 
-			# Unpack the original source later on for  clean retry
-			# set retry flag
-			retry="yes"
+			# just try a pull
+			cd "${git_dir}" && git pull || exit 1
 
 		fi
 
@@ -193,8 +190,7 @@ kodi_clone()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
-			cd "${git_dir}" && git submodule update --init
+			git clone -b "${kodi_tag}" "${git_url}" "${git_dir}"
 
 	fi
 

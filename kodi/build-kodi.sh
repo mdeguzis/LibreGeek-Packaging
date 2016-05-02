@@ -319,6 +319,16 @@ kodi_package_deb()
 		sleep 0.2s
 		read -erp "Release Choice: " kodi_tag
 
+		# If the tag is left blank, set to master
+	
+		# checkout proper release from list
+		if [[ "$kodi_tag" != "master" ]]; then
+	
+			# Check out requested tag
+			git checkout "tags/${kodi_tag}"
+	
+		fi
+
 	fi
 
 	# set release for upstream xbmc packaging fork
@@ -326,16 +336,6 @@ kodi_package_deb()
 	if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
 	if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
 	if echo $kodi_tag | grep -e "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
-
-	# If the tag is left blank, set to master
-
-	# checkout proper release
-	if [[ "$kodi_tag" != "master" ]]; then
-
-		# Check out requested tag
-		git checkout "tags/${kodi_tag}"
-
-	fi
 
 	# set release for changelog
         pkgver="${kodi_release}+git+bsos${pkgrev}"

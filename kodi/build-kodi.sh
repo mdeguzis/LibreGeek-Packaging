@@ -400,16 +400,14 @@ kodi_package_deb()
 		BUILDER="$BUILDER" \
 		PDEBUILD_OPTS="$BUILDOPTS" \
 		PBUILDER_BASE="$PBUILDER_BASE" \
-		#tools/Linux/packaging/mk-debian-package.sh
-		./mk-debian-package.sh
+		tools/Linux/packaging/mk-debian-package.sh
 
 	else
 
 		RELEASEV="$kodi_tag" \
 		BUILDER="$BUILDER" \
 		PDEBUILD_OPTS="$BUILDOPTS" \
-		#tools/Linux/packaging/mk-debian-package.sh
-		./mk-debian-package.sh
+		tools/Linux/packaging/mk-debian-package.sh
 
 	fi
 

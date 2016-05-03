@@ -171,8 +171,8 @@ kodi_clone()
 
 		else
 
-			# just try a pull
-			cd "${git_dir}" && git pull || exit 1
+			# Clean up and changes
+			cd "${git_dir}" && git clean -xfd || exit 1
 
 		fi
 

@@ -14,7 +14,7 @@ do
   ORIG=$(echo ${LINE})
   ACTUAL_FILE=$(realpath ${LINE})
   cp --remove-destination "${ACTUAL_FILE}" "${ORIG}"
-  echo "Resolved link:" "${LINE}" && sleep 0.5s
+  echo "Resolved link:" "${LINE}" && sleep 0.3s
 done
 
 echo ""

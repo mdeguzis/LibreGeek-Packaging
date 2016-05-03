@@ -11,4 +11,5 @@ fi
 find . -maxdepth $depth -type l | while read LINE; 
 do 
   echo link: $LINE resolved: `readlink $LINE`
+  cp --remove-destination `readlink $LINE` $LINE
 done

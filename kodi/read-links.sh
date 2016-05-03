@@ -9,7 +9,9 @@ if [[ "${depth}" == "" ]]; then
 fi
 
 find . -maxdepth $depth -type l | while read LINE; 
-do 
-  echo link: $LINE resolved: `readlink $LINE`
-  cp --remove-destination `readlink $LINE` $LINE
+do
+  ORIG=$(echo ${LINE})
+  ACTUAL_FILE=$(realpath ${LINE})
+  cp --remove-destination "${ACTUAL_FILE}" "${ORIG}"
+  echo "Resolved link:" "${LINE}" && sleep 0.5s
 done

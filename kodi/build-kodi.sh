@@ -380,8 +380,8 @@ kodi_package_deb()
 	# For now, resolve the symlinks in a "dirty way" :P
 	
 	# Specify depth as an argument
-	cp -"${scriptdir}/read-links.sh" "${git_dir}"
-	./read-links.sh --depth 5
+	cp "${scriptdir}/read-links.sh" "${git_dir}"
+	./read-links.sh --depth 5 || exit 1
 
 	# Perform build with script tool
 	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER}" == "pdebuild" ]]; then

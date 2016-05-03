@@ -155,7 +155,7 @@ kodi_clone()
 
 	if [[ -d "${git_dir}" ]]; then
 
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [c]lean? ?\n"
+		echo -e "\n==Info==\nGit source files already exist! Remove and [r]eclone or [c]lean? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 

@@ -154,12 +154,13 @@ function buildDebianPackages {
 }
 
 function uploadPkg {
-    PKG="${PBUILDER_BASE}/${dist}-${arch}/result/${DEST/-/_}-${TAGREV}_${arch}.changes"
-    echo "signing package"
-    debsign $PKG
-    echo "uploading $PKG to $DPUT_TARGET"
-    dput $DPUT_TARGET $PKG
-    UPLOAD_DONE=$?
+    echo "Uploading currently disabled"
+    #PKG="${PBUILDER_BASE}/${dist}-${arch}/result/${DEST/-/_}-${TAGREV}_${arch}.changes"
+    #echo "signing package"
+    #debsign $PKG
+    #echo "uploading $PKG to $DPUT_TARGET"
+    #dput $DPUT_TARGET $PKG
+    #UPLOAD_DONE=$?
 }
 
 function cleanup {

@@ -374,7 +374,16 @@ kodi_package_deb()
 		kodi_tag="17"
 
 	fi
+	
+	# kodi's mk-debian-package.sh dereferences the symlinks when making the tarball, so the original
+	# source folder is left with a diff of a symlink vs the orig tarball being resolved. 
+	# For now, resolve the symlinks in a "dirty way" :P
+	
+	# Specify depth as an argument
+	cp -"${scriptdir}/read-links.sh" "${git_dir}"
+	./read-links.sh --depth 5
 
+	# Perform build with script tool
 	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER}" == "pdebuild" ]]; then
 
 		# Assess where pbuilder base config is, for multi-box installations
@@ -391,14 +400,16 @@ kodi_package_deb()
 		BUILDER="$BUILDER" \
 		PDEBUILD_OPTS="$BUILDOPTS" \
 		PBUILDER_BASE="$PBUILDER_BASE" \
-		tools/Linux/packaging/mk-debian-package.sh
+		#tools/Linux/packaging/mk-debian-package.sh
+		./mk-debian-package.sh
 
 	else
 
 		RELEASEV="$kodi_tag" \
 		BUILDER="$BUILDER" \
 		PDEBUILD_OPTS="$BUILDOPTS" \
-		tools/Linux/packaging/mk-debian-package.sh
+		#tools/Linux/packaging/mk-debian-package.sh
+		./mk-debian-package.sh
 
 	fi
 

@@ -1,5 +1,5 @@
 # Build list
-1. dcadec, platform, crossguid, giflib
+1. dcadec, platform (p8-plaform for Kodi 17+), crossguid, giflib
 2. Sync packages from #1 to pool, or manually installed
 3. kodi
 4. Sync kodi to pool, or manually install it

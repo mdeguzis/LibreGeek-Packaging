@@ -20,11 +20,26 @@ export EDITOR="/usr/bin/EDITOR_TEMP"
 NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 export MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}"
 
-# Test whether we're in a screen session and runs screen -RR if you aren't. 
-# Attach here and now. In detail this means: If a session is running, then reattach. 
-# If necessary detach and logout remotely first. 
-# If it was not running, create it and notify the user.
+##################################################################
+# Outside connection behvaior (e.g. SSH from an Android device)
+##################################################################
 
-# if [[ -z "$STY" ]]; then screen -D -R; fi
+# Only do this when connecting via SSH outside our network
+# SSH_CONNECTION shows the address of the client, the outgoing port on the client, the 
+# address of the server and the incoming port on the server.
+
+# We want to check $SSH_CLIENT instead, since that only *client/origin*  ip info
+# Don't launch this behavior if using SSH internally.
+# This -assumes- your internal network starts with a traditional 192 address!
+
+# Is our SSH connection on the local network or external?
+if [[ "$(echo "${SSH_CLIENT}" | grep 192)" == "" ]]; then
+
+  # If screen is not running, create it and notify the user.
+  if [[ -z "$STY" ]]; then 
+    screen -D -R; 
+  fi
+  
+fi
 
 ##### END DEBIAN PACKAGING SETUP #####

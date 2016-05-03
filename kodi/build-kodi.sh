@@ -99,7 +99,7 @@ set_vars()
 		kodi_tag="master"
 
 	fi
-	
+
 	###################
 	# global vars
 	###################
@@ -248,7 +248,7 @@ kodi_prereqs()
 
 		# Javis control file lists 'libglew-dev libjasper-dev libmpeg2-4-dev', but they are not
 		# in the linux readme
-	
+
 		PKGS="autoconf automake autopoint autotools-dev cmake curl dcadec-dev default-jre \
 		gawk gperf libao-dev libasound2-dev libass-dev libavahi-client-dev libavahi-common-dev \
 		libbluetooth-dev libbluray-dev libboost-dev libboost-thread-dev libbz2-dev libcap-dev \
@@ -262,10 +262,10 @@ kodi_prereqs()
 		libxinerama-dev libxml2-dev libxmu-dev libxrandr-dev libxslt1-dev libxt-dev libyajl-dev \
 		lsb-release nasm:i386 python-dev python-imaging python-support swig unzip uuid-dev yasm \
 		zip zlib1g-dev libcrossguid-dev libglew-dev libjasper-dev libmpeg2-4-dev"
-	
+
 		# install dependencies / packages
 		function_install_pkgs
-	
+
 		#####################################
 		# Dependencies - Debian sourced
 		#####################################
@@ -335,13 +335,13 @@ kodi_package_deb()
 		read -erp "Release Choice: " kodi_tag
 
 		# If the tag is left blank, set to master
-	
+
 		# checkout proper release from list
 		if [[ "$kodi_tag" != "master" ]]; then
-	
+
 			# Check out requested tag
 			git checkout "tags/${kodi_tag}"
-	
+
 		fi
 
 	fi
@@ -373,12 +373,13 @@ kodi_package_deb()
 	fi
 
 	############################################################
-	# Create setup 
+	# Create setup
 	############################################################
 
 	# Having issues with the symlinks in project/cmake/scripts/rbpi, try reading
 	# links to resolve the paths
-	./read-links.sh --depth 5
+	cp "${scriptdir}/read-links.sh" "${git_dir}"
+	./read-links.sh 5
 
 	# Set numerical version if using master
 	if [[ "${kodi_tag}" == "master" ]]; then

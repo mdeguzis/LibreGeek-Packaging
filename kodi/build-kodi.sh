@@ -91,14 +91,7 @@ set_vars()
 
 	# Set target for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
-	kodi_tag="master"
-
-	if [[ "${kodi_tag}" == "" ]]; then
-
-		# use master as default clone target
-		kodi_tag="master"
-
-	fi
+	kodi_tag=""
 
 	###################
 	# global vars
@@ -173,7 +166,7 @@ kodi_clone()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone -b "${kodi_tag}" "${git_url}" "${git_dir}"
+			git clone "${git_url}" "${git_dir}"
 
 		else
 
@@ -190,7 +183,7 @@ kodi_clone()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
-			git clone -b "${kodi_tag}" "${git_url}" "${git_dir}"
+			git clone "${git_url}" "${git_dir}"
 
 	fi
 
@@ -321,28 +314,23 @@ kodi_package_deb()
 	# Ensure we are in the proper directory
 	cd "$git_dir"
 
-	# only call if not auto-building
-	if [[ "$kodi_tag" == "" ]]; then
+	# show tags instead of branches
+	git tag -l --column
 
-		# show tags instead of branches
-		git tag -l --column
+	echo -e "\nWhich Kodi release do you wish to build for:"
+	echo -e "Type 'master' to use the master tree\n"
 
-		echo -e "\nWhich Kodi release do you wish to build for:"
-		echo -e "Type 'master' to use the master tree\n"
+	# get user choice
+	sleep 0.2s
+	read -erp "Release Choice: " kodi_tag
 
-		# get user choice
-		sleep 0.2s
-		read -erp "Release Choice: " kodi_tag
+	# If the tag is left blank, set to master
 
-		# If the tag is left blank, set to master
+	# checkout proper release from list
+	if [[ "$kodi_tag" != "master" ]]; then
 
-		# checkout proper release from list
-		if [[ "$kodi_tag" != "master" ]]; then
-
-			# Check out requested tag
-			git checkout "tags/${kodi_tag}"
-
-		fi
+		# Check out requested tag
+		git checkout "tags/${kodi_tag}"
 
 	fi
 
@@ -375,11 +363,6 @@ kodi_package_deb()
 	############################################################
 	# Create setup
 	############################################################
-
-	# Having issues with the symlinks in project/cmake/scripts/rbpi, try reading
-	# links to resolve the paths
-	cp "${scriptdir}/read-links.sh" "${git_dir}"
-	./read-links.sh 5
 
 	# Set numerical version if using master
 	if [[ "${kodi_tag}" == "master" ]]; then

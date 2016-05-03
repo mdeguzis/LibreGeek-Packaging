@@ -336,6 +336,9 @@ kodi_package_deb()
 	fi
 
 	# set release for upstream xbmc packaging fork
+	# Krypton does not have packaging upstream and the master tree does not work.
+	# Therefore, work was done to package Krypton. 
+	# See: github.com/ProfessorKaos64/xbmc-packaging/
 	if echo $kodi_tag | grep -e "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
 	if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
 	if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
@@ -343,6 +346,10 @@ kodi_package_deb()
 
 	# set release for changelog
         pkgver="${kodi_release}+git+bsos${pkgrev}"
+
+	############################################################
+	# Add any overrides for setup below
+	############################################################
 
 	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh 
 	# See: http://unix.stackexchange.com/a/16274
@@ -353,19 +360,15 @@ kodi_package_deb()
 	# However, this is still used to adjust the changelog structure
 	# This may be dropped in the future
 
-	# Add any overrides to the build host/arch options below
-
+	# Use our fork for packaging to control the version name
 	if [[ "${kodi_release}" != "" ]]; then
 
 		sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
 	fi
 
-	############################################################
-	# Create setup
-	############################################################
-
 	# Set numerical version if using master
+
 	if [[ "${kodi_tag}" == "master" ]]; then
 
 		kodi_tag="17"

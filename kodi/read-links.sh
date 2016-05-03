@@ -3,7 +3,6 @@
 # Reads and resolves symbolic links
 
 depth="$1"
-echo ""
 
 if [[ "${depth}" == "" ]]; then
   depth="1"
@@ -16,5 +15,3 @@ do
   cp --remove-destination "${ACTUAL_FILE}" "${ORIG}"
   echo "Resolved link:" "${LINE}" && sleep 0.3s
 done
-
-echo ""

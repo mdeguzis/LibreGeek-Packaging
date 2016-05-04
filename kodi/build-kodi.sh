@@ -332,6 +332,11 @@ kodi_package_deb()
 
 		# Check out requested tag
 		git checkout "tags/${kodi_tag}"
+		
+	else
+		
+		# use master branch, set version tag
+		kodi_tag="17.0-Krypton-master"
 
 	fi
 
@@ -367,14 +372,6 @@ kodi_package_deb()
 
 	fi
 
-	# Set numerical version if using master
-
-	if [[ "${kodi_tag}" == "master" ]]; then
-
-		kodi_tag="17"
-
-	fi
-	
 	# kodi's mk-debian-package.sh dereferences the symlinks when making the tarball, so the original
 	# source folder is left with a diff of a symlink vs the orig tarball being resolved. 
 	# For now, resolve the symlinks in a "dirty way" :P

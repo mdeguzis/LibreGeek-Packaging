@@ -53,7 +53,7 @@ git_url="https://github.com/Pulse-Eight/libcec"
 # For now, use the commit before this was changed or the release tree (uses platform)
 # The appropirate commit would possibly be "4905a70" for this.
 branch="release"
-tag="libcec-3.0.1"
+tag="libcec-3.1.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -63,8 +63,8 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libcec"
-pkgver="3.0.1"
-pkgrev="3"
+pkgver="3.1.0"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"

@@ -328,7 +328,7 @@ kodi_package_deb()
 	# If the tag is left blank, set to master
 
 	# checkout proper release from list
-	if [[ "$kodi_tag" != "master" ]]; then
+	if [[ "${kodi_tag}" != "master" && "${kodi_tag}" != "" ]]; then
 
 		# Check out requested tag
 		git checkout "tags/${kodi_tag}"

@@ -390,6 +390,13 @@ kodi_package_deb()
 		sleep 0.3s
 		read -erp "Location: " PBUILDER_BASE
 
+		if [[ "${PBUILDER_BASE}" == "" ]]; then
+			
+			# set to default on most systems
+			PBUILDER_BASE="/var/cache/pbuilder/"
+			
+		fi
+
 		# Add any overrides for mk-debian-package.sh below
 		# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 

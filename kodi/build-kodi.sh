@@ -339,10 +339,6 @@ kodi_package_deb()
 		kodi_tag="17.0-Krypton-master"
 
 	fi
-	
-	# override the linux script for now
-	# Old script still uses tar -h option, PR is upsteram at xbmc/pull/9753
-	cp "${scriptdir}/extra/mk-debian-package.sh" "${git_dir}/tools/Linux/packaging/"
 
 	# set release for upstream xbmc packaging fork
 	# Krypton does not have packaging upstream and the master tree does not work.
@@ -375,16 +371,6 @@ kodi_package_deb()
 		sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
 	fi
-
-	# kodi's mk-debian-package.sh dereferences the symlinks when making the tarball, so the original
-	# source folder is left with a diff of a symlink vs the orig tarball being resolved. 
-	# For now, resolve the symlinks in a "dirty way" :P
-	
-	# Specify depth as an argument
-	#echo -e "\n==> Resolving symlinks in source dir\n"
-	#cp "${scriptdir}/read-links.sh" "${git_dir}"
-	#./read-links.sh 5 || exit 1
-	#echo ""
 
 	# Perform build with script tool
 	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER}" == "pdebuild" ]]; then

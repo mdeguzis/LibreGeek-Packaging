@@ -377,10 +377,13 @@ kodi_package_deb()
 	# For now, resolve the symlinks in a "dirty way" :P
 	
 	# Specify depth as an argument
-	echo -e "\n==> Resolving symlinks in source dir\n"
-	cp "${scriptdir}/read-links.sh" "${git_dir}"
-	./read-links.sh 5 || exit 1
-	echo ""
+	#echo -e "\n==> Resolving symlinks in source dir\n"
+	#cp "${scriptdir}/read-links.sh" "${git_dir}"
+	#./read-links.sh 5 || exit 1
+	#echo ""
+
+	# override the linux script for now
+	cp "${scriptdir}/extra/mk-debian-package.sh" "${git_dir}/tools/Linux/packaging/"
 
 	# Perform build with script tool
 	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER}" == "pdebuild" ]]; then

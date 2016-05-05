@@ -1,0 +1,1 @@
+obj-$(DEB_HOST_MULTIARCH)/koku-xinput-wine.so     /usr/lib/$(DEB_HOST_MULTIARCH)/

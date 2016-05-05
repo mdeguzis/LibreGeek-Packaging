@@ -48,20 +48,19 @@ fi
 
 # upstream vars
 git_url="https://github.com/libretro/RetroArch"
-rel_target="v1.3.2"
+rel_target="v1.3.4"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="retroarch"
 
 # DO NO BUILD 1.3.2, only here as a marker. This release was very buggy.
-pkgver="1.3.2"
-
+pkgver="1.3.4"
 pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
@@ -124,11 +123,11 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "${rel_target}" "${git_url}" "${git_dir}"
 
 	# inject .desktop file (not found in release archives) and image
-	cp -r "$scriptdir/retroarch.png" "$git_dir"
-	cp -r "$scriptdir/retroarch.desktop" "$git_dir"
+	cp -r "$scriptdir/retroarch.png" "${git_dir}"
+	cp -r "$scriptdir/retroarch.desktop" "${git_dir}"
 	
 	###############################################################
 	# correct any files needed here that you can ahead of time
@@ -146,6 +145,7 @@ main()
 	sleep 2s
 
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
@@ -162,7 +162,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Switch to quilt"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "New release"
 		nano "debian/changelog"
 
 	else

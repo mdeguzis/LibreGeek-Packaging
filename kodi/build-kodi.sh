@@ -77,7 +77,7 @@ set_vars()
 	DIST="brewmaster"
 	urgency="low"
 	BUILDER="pdebuild"
-	BUILDOPTS="--debbuildopts -b --debbuildopts \"-j4\""
+	BUILDOPTS="--debbuildopts \"-j4\""
 	export USE_NETWORK="yes"
 	export STEAMOS_TOOLS_BETA_HOOK="true"
 	ARCH="amd64"

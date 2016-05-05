@@ -344,10 +344,10 @@ kodi_package_deb()
 	# Krypton does not have packaging upstream and the master tree does not work.
 	# Therefore, work was done to package Krypton. 
 	# See: github.com/ProfessorKaos64/xbmc-packaging/
-	if echo $kodi_tag | grep -e "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
-	if echo $kodi_tag | grep -e "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
-	if echo $kodi_tag | grep -e "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
-	if echo $kodi_tag | grep -e "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
+	if echo $kodi_tag | grep -i "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
+	if echo $kodi_tag | grep -i "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
+	if echo $kodi_tag | grep -i "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
+	if echo $kodi_tag | grep -i "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
 
 	# set release for changelog
         pkgver="${kodi_release}+git+bsos${pkgrev}"

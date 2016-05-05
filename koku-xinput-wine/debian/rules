@@ -8,7 +8,8 @@ export DEB_HOST_GNU_CPU    ?= $(shell dpkg-architecture -qDEB_HOST_GNU_CPU)
 %:
 	dh $@
 
-override_dh_configure:
-	dh_configure
+override_dh_auto_configure:
+	dh_auto_configure
 	# Replace var placeholders with multi-arch equiv. and so ver.
-	find . -name *.install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
+	find . -iname *install* -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
+	find . -iname *links* -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"

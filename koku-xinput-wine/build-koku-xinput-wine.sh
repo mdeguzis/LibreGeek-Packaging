@@ -63,7 +63,6 @@ pkgname="koku-xinput-wine"
 pkgver="1.1.2"
 upstream_rev="1"
 pkgrev="1"
-upstream_suffix="1ug"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -122,7 +121,7 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Alter pkg suffix based on commit
-	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
+	pkgsuffix="${latest_commit}git+bsos"
 	
 	#################################################
 	# Build package

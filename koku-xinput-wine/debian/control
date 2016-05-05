@@ -7,7 +7,7 @@ Build-Depends:	debhelper (>= 9),
  libsdl1.2-dev,
  cmake,
  dpatch,
- lib32stdc++-4.9-dev
+ libstdc++-4.9-dev | lib32stdc++-4.9-dev
 Standards-Version: 3.9.5
 Homepage: https://github.com/ProfessorKaos64/koku-xinput-wine
 

@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.4.1
+# Script Ver:		1.4.3
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -172,6 +172,9 @@ kodi_clone()
 		else
 
 			# Clean up and changes
+			echo "Removing temp files and other cruft from build dir and source dir"
+			find "${build_dir}" -name '*.dsc' -o -name '*.deb' -o -name '*.build' \
+			-exec rm -rf "{}" \;
 			cd "${git_dir}" && git clean -xfd || exit 1
 
 		fi
@@ -335,8 +338,8 @@ kodi_package_deb()
 		
 	else
 		
-		# use master branch, set version tag
-		kodi_tag="17.0-Krypton-master"
+		# use master branch, set version tag to current latest tag
+		kodi_tag="17.0a1-Krypton"
 
 	fi
 

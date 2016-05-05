@@ -1,0 +1,13 @@
+koku-xinput-wine (1.0+74cae24git+bsos1-2) brewmaster; urgency=low
+
+  * 32-bit library to add xinput support to Wine
+  * Fixed up CmakeLists.txt to handle finding SDL dynamically
+  * Symlinked library from /usr/lib/DEB_HOST_MULTIARCH/ to /usr/lib/
+  * See upstream README.md for details
+  * Largely untested at this time
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Forked source: https://github.com/ProfessorKaos64/koku-xinput-wine
+  * Upstream authors and source: https://github.com/KoKuToru/koku-xinput-wine
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 12 Feb 2016 10:38:51 -0500

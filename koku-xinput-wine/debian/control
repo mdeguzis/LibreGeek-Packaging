@@ -2,7 +2,7 @@
 Source: koku-xinput-wine
 Section: utils
 Priority: optional
-Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends:	debhelper (>= 9),
  libsdl1.2-dev,
  cmake,
@@ -12,7 +12,7 @@ Standards-Version: 3.9.5
 Homepage: https://github.com/ProfessorKaos64/koku-xinput-wine
 
 Package:koku-xinput-wine
-Architecture: all
+Architecture: i386
 Depends: ${misc:Depends},
 	 libsdl1.2debian	 
 Description: Adds xinput support to wine, without changing the source of wine.

@@ -48,8 +48,9 @@ else
 	
 fi
 # upstream vars
-git_url="https://github.com/ProfessorKaos64/koku-xinput-wine"
-branch="master"
+#git_url="https://github.com/ProfessorKaos64/koku-xinput-wine"
+git_url="https://github.com/KoKuToru/koku-xinput-wine"
+branch="v1.1.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,9 +60,9 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="koku-xinput-wine"
-pkgver="1.0"
+pkgver="1.1.2"
 upstream_rev="1"
-pkgrev="2"
+pkgrev="1"
 upstream_suffix="1ug"
 DIST="brewmaster"
 urgency="low"
@@ -110,7 +111,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -137,18 +137,20 @@ main()
 	# enter source dir
 	cd "${git_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Use upstream fork now, new release"
+		nano "debian changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -211,9 +213,9 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 
 			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin master
@@ -228,4 +230,3 @@ main()
 
 # start main
 main
-

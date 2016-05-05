@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-koku-xinput-wine.sh
-# Script Ver:	0.1.1
+# Script Ver:	0.3.1
 # Description:	Attempts to build a deb package from latest koku-xinput-wine
 #		github release
 #
@@ -55,7 +55,7 @@ branch="v1.1.2"
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-ARCH="amd64"
+ARCH="i386"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
@@ -80,7 +80,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc libsdl1.2-dev
+	# 32 bit, requirese multilib!
+	sudo apt-get install -y --force-yes build-essential:i386 pkg-config:i386 bc:i386 libsdl1.2-dev:i386
 
 }
 
@@ -146,14 +147,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Use upstream fork now, new release"
-		nano "debian changelog"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
 

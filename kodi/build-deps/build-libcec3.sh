@@ -51,9 +51,7 @@ fi
 git_url="https://github.com/Pulse-Eight/libcec"
 # For Kodi's Jarvis release, it is more than likely platform will still be used
 # For now, use the commit before this was changed or the release tree (uses platform)
-# The appropirate commit would possibly be "4905a70" for this.
-branch="release"
-tag="libcec-3.1.0"
+branch="libcec-3.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -64,7 +62,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libcec"
 pkgver="3.1.0"
-pkgrev="2"
+pkgrev="3"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -151,7 +149,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "update build"
+		-D "${DIST}" -u "${urgency}" "Update build with p8-platform rename build dep"
 		nano "debian/changelog"
 
 	else
@@ -203,7 +201,8 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 		fi
 	elif [[ "$transfer_choice" == "n" ]]; then

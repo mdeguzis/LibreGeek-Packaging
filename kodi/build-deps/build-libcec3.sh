@@ -51,7 +51,7 @@ fi
 git_url="https://github.com/Pulse-Eight/libcec"
 # For Kodi's Jarvis release, it is more than likely platform will still be used
 # For now, use the commit before this was changed or the release tree (uses platform)
-branch="libcec-3.1"
+branch="libcec-3.1.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

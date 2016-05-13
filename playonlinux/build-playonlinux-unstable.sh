@@ -59,8 +59,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="playonlinux-unstable"
-upstream_rev="1"
-pkgrev="1"
+pkgrev="2"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -121,7 +120,7 @@ main()
 	pkgver=$(git describe --abbrev=0 --tags)
 
 	# Alter pkg suffix based on commit
-	pkgsuffix="${latest_commit}git+bsos${pkgrev}"
+	pkgsuffix="${latest_commit}git+bsos"
 
 	#################################################
 	# Prepare
@@ -146,14 +145,14 @@ main()
 	# update changelog with dch
         if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" \
+		dch -p --force-distribution -v "${pkgver}.${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
         else
 
-		dch -p --force-distribution --create -v "${pkgver}.${pkgsuffix}-${upstream_rev}" \
+		dch -p --force-distribution --create -v "${pkgver}.${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"

@@ -1,2 +1,3 @@
 set_debian_env
 remove_binary_plugin
+wxpython2.8-patch

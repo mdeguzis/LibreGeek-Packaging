@@ -59,6 +59,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="playonlinux-unstable"
+epoch="1"
 pkgrev="2"
 DIST="brewmaster"
 urgency="low"
@@ -145,14 +146,14 @@ main()
 	# update changelog with dch
         if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}.${pkgsuffix}-${pkgrev}" \
+		dch -p --force-distribution -v "${epoch}:${pkgver}.${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
         else
 
-		dch -p --force-distribution --create -v "${pkgver}.${pkgsuffix}-${pkgrev}" \
+		dch -p --force-distribution --create -v "${epoch}:${pkgver}.${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"

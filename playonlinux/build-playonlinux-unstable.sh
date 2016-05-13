@@ -146,13 +146,15 @@ main()
 	# update changelog with dch
         if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
         else
 
-		dch -p --force-distribution --create -v "${pkgver}.${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution --create -v "${pkgver}.${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
@@ -216,7 +218,8 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 
 			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 

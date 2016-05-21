@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 pkgver="2.7.0.2"
-orig_tarball="https://launchpad.net/~nilarimogard/+archive/ubuntu/webupd8/+files/pulseaudio-equalizer_${target_version}.orig.tar.gz"
+orig_tarball="https://launchpad.net/~nilarimogard/+archive/ubuntu/webupd8/+files/pulseaudio-equalizer_${pkgver}.orig.tar.gz"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

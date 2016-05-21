@@ -127,7 +127,7 @@ main()
 
 	# Already have the tarball, so just rename
 	cd "${build_dir}"
-	mv ${src_dir}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" 
+	mv ${pkgname}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" 
 
 	# Add debian dir
 	cp -r "${scriptdir}/debian" "${ppa_dir}"

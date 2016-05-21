@@ -117,6 +117,7 @@ main()
 
 	# get source
 	wget "${orig_tarball}" -q -nc --show-progress
+	mv pulseaudio-equalizer*.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
 
 	#################################################
 	# Build package
@@ -127,7 +128,7 @@ main()
 
 	# Already have the tarball, so just rename
 	cd "${build_dir}"
-	mv ${pkgname}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" 
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${pkgname}"
 
 	# Add debian dir
 	cp -r "${scriptdir}/debian" "${ppa_dir}"

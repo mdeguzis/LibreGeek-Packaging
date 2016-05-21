@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-godot.sh
-# Script Ver:	0.5.1
-# Description:	Attempts to build a deb package from latest godot
-#		github release
+# Scipt Name:	build-pulseaudio-equalizer.sh
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from latest build-pulseaudio-equalizer
+#		PPA release for Vivid
 #
-# See:		https://github.com/godotengine/godot
+# See:		https://launchpad.net/~nilarimogard/+archive/ubuntu/webupd8
 #
-# Usage:	build-.sh
+# Usage:	./build-pulseaudio-equalizer.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -49,23 +49,21 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/godotengine/godot"
-branch="2.0-stable"
-
+pkgver="2.7.0.2"
+orig_tarball="https://launchpad.net/~nilarimogard/+archive/ubuntu/webupd8/+files/pulseaudio-equalizer_${target_version}.orig.tar.gz"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-pkgname="godot"
-pkgver="2.0"
+pkgname="pulseaudio-equalizer"
 upstream_rev="1"
 pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+pkgsuffix="bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -74,7 +72,7 @@ maintainer="ProfessorKaos64"
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-git_dir="${build_dir}/${src_dir}"
+ppa_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
@@ -82,9 +80,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential bc debhelper \
- 	gcc python scons libx11-dev pkg-config libxcursor-dev libasound2-dev libfreetype6-dev \
- 	libgl1-mesa-dev libglu-dev libssl-dev libxinerama-dev libudev-dev
+	sudo apt-get -y --force-yes install cdbs debhelper 
 
 }
 
@@ -119,11 +115,8 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
-	git clone  -b "${branch}" "${git_url}" "${git_dir}"
-
-	# Add art / other files
-	cp "${scriptdir}/godot.png" "${git_dir}"
+	# get source
+	wget "${orig_tarball}" -q -nc --show-progress
 
 	#################################################
 	# Build package
@@ -132,15 +125,15 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create source tarball
+	# Already have the tarball, so just rename
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	mv ${src_dir}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" 
 
 	# Add debian dir
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${ppa_dir}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${ppa_dir}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -148,14 +141,14 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
-		"Initial upload attempt"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D $DIST -u "${urgency}" "Update to upstream package ${pkgver}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" \
-		-u "${urgency}" "Initial upload attempt"
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
 	fi

@@ -1,0 +1,4 @@
+usr/bin/* /usr/bin/
+usr/share/pulseaudio-equalizer/pulseaudio-equalizer.py /usr/share/pulseaudio-equalizer/
+usr/share/pulseaudio-equalizer/presets/* /usr/share/pulseaudio-equalizer/presets/
+usr/share/applications/pulseaudio-equalizer.desktop /usr/share/applications/

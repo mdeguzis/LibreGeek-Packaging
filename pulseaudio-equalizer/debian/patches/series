@@ -1,0 +1,6 @@
+pulseaudio-equalizer-2.7-pulse-path.patch
+pulseaudio-equalizer-2.7-remove-preamp.patch
+pulseaudio-equalizer-2.7-force-default-persistence-value.patch
+pulseaudio-equalizer-2.7-do-not-crash-on-missing-preset.patch
+pulseaudio-equalizer-2.7-window-icon.patch
+pulseaudio-equalizer-2.7-current-volume.patch

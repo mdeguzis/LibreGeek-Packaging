@@ -1,0 +1,2 @@
+?package(pulseaudio-equalizer):needs="X11" section="Applications/Sound"\
+  title="pulseaudio-equalizer" command="/usr/share/pulseaudio-equalizer/pulseaudio-equalizer.py"

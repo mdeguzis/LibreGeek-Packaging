@@ -1,21 +1,20 @@
 #!/usr/bin/make -f
 
-# Copyright (C) 2010 Hunter Kaller
+# Copyright (C) 2012-2015 Hunter Kaller
 # Copyright (C) 2014-2016 Sergio Benjamim
 
-# This program is free software; you can redistribute it and/or modify
+# This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2, or (at your option)
-# any later version.
-
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-
+#
 # You should have received a copy of the GNU General Public License
-# along with this program; if not, write to the Free Software Foundation,
-# Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 export DEB_CXXFLAGS_MAINT_STRIP=-O2
 export DEB_CFLAGS_MAINT_STRIP=-O2
@@ -25,13 +24,15 @@ ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
 ifeq ($(ARCH), $(filter $(ARCH), amd64 i386))
 	CONFIG_EXTRA_FLAGS=--enable-sse
 else ifeq ($(ARCH),armhf)
-	CONFIG_EXTRA_FLAGS=--disable-vg --disable-cg --enable-gles --enable-neon --enable-floathard
+	CONFIG_EXTRA_FLAGS=--disable-cg --enable-gles --enable-neon --enable-floathard
+else ifeq ($(ARCH),arm64)
+	CONFIG_EXTRA_FLAGS=--disable-cg --enable-gles
 endif
 
 # Needs to install lsb-release package
-STEAMOS_VERSION=$(shell lsb_release -c | cut -f2)
+UBUNTU_VERSION=$(shell lsb_release -c | cut -f2)
 
-ifeq ($(STEAMOS_VERSION),brewmaster)
+ifeq ($(UBUNTU_VERSION),trusty|vivid)
 	CONFIG_FFMPEG=--disable-ffmpeg
 endif
 
@@ -43,7 +44,7 @@ override_dh_auto_configure:
 		debian/retroarch.cfg.in > debian/retroarch.cfg
 	# See ./configure --help for valid flags
 	# disable flags (i.e. --disable-ffmpeg for example) if there is no package relative to the feature in Build-Depends
-	./configure --prefix=/usr --disable-oss $(CONFIG_FFMPEG) $(CONFIG_EXTRA_FLAGS)
+	./configure --prefix=/usr --disable-oss --disable-vg $(CONFIG_FFMPEG) $(CONFIG_EXTRA_FLAGS)
 
 override_dh_auto_build:
 	dh_auto_build

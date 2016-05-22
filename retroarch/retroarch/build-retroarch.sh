@@ -62,7 +62,7 @@ pkgname="retroarch"
 # DO NO BUILD 1.3.2, only here as a marker. This release was very buggy.
 pkgver="1.3.4"
 pkgrev="1"
-pkgsuffix="git+bsos"
+pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -146,7 +146,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
 	cp -r "${scriptdir}/debian" "${git_dir}"
@@ -161,13 +161,13 @@ main()
  	# Maybe include static message: "Update to release: ${rel_target}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "New release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi

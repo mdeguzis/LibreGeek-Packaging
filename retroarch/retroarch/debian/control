@@ -40,7 +40,7 @@ Architecture: any
 Depends: fonts-dejavu-core,
          libretro-core-info,
          retroarch-assets,
-	 retroach-joypad-autoconfig,
+	 retroarch-joypad-autoconfig,
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Simple frontend for the libretro library

@@ -9,9 +9,13 @@ override_dh_auto_configure:
 			--prefix=/usr					\
 			--libdir=/usr/lib/$(DEB_HOST_MULTIARCH)		\
 			--confdir=/etc/mpv				\
-			--enable-libmpv-shared				\
+			--zshdir=/usr/share/zsh/vendor-completions	\
+			--enable-cdda \
+			--enable-sdl2 \
+			--enable-sndio	\
+			--enable-zsh-comp \
+			--enable-libmpv-shared	\
 			--disable-build-date
-
 
 override_dh_auto_build:
 	python ./waf -v build

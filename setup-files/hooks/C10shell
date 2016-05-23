@@ -4,6 +4,6 @@
 # invoke shell if build fails.
 
 BUILDDIR="${BUILDDIR:-/tmp/buildd}"
-apt-get install -y "${APTGETOPT[@]}" vim less 
+apt-get install -y "${APTGETOPT[@]}" vim less devscripts
 cd "$BUILDDIR"/*/debian/..
 /bin/bash < /dev/tty > /dev/tty 2> /dev/tty

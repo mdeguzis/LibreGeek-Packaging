@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/jp9000/obs-studio"
-rel_target="0.14.1"
+rel_target="0.14.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,7 +58,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="obs-studio"
-pkgver="$rel_target"
+pkgver="${rel_target}"
 pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"

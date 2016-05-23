@@ -1,7 +1,7 @@
 Source: mpv
 Section: video
 Priority: optional
-Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alioth.debian.org>
+Maintainer: Michael DeGuzis (mdeguzis@gmail.com)
 Build-Depends: debhelper (>= 9),
  libasound2-dev [linux-any],
  libass-dev (>= 0.12.1~),
@@ -27,7 +27,7 @@ Build-Depends: debhelper (>= 9),
  libpulse-dev,
  librubberband-dev,
  libsdl2-dev,
- libroar-dev,
+ libsndio-dev,
  libswscale-ffmpeg-dev,
  libva-dev,
  libvdpau-dev,

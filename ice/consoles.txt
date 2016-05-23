@@ -78,7 +78,7 @@ emulator=RetroArch_NES
 
 [Nintendo Gameboy]
 nickname=Gameboy
-emulator=RetroArch_GB
+emulator=RetroArch_GBA
 
 [Nintendo Gameboy Advance]
 nickname=GBA

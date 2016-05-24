@@ -119,7 +119,7 @@ main()
 	wget "${orig_tarball}" -q -nc --show-progress
 	tar -xf ${pkgname}*.orig.tar.gz
 	# Rename src dir to match our conventions
-	find . -type d exec mv {} ${src_dir} \;
+	find . -type d -exec mv {} ${src_dir} \;
 	
 	#################################################
 	# Build package
@@ -130,7 +130,7 @@ main()
 
 	# Already have the tarball, so just rename
 	cd "${build_dir}"
-	mv  ${pkgname}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
+	mv  -v ${pkgname}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
 
 	# Add debian dir
 	cp -r "${scriptdir}/debian" "${ppa_dir}"

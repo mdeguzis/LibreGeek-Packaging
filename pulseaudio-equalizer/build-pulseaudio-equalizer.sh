@@ -114,9 +114,11 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# get source
+	# get source and extract
 	wget "${orig_tarball}" -q -nc --show-progress
 	tar -xf ${pkgname}*.orig.tar.gz
+	# Rename tarball
+	mv ${pkgname}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
 	# Rename src dir to match our conventions
 	mv ${pkgname} ${src_dir}
 	

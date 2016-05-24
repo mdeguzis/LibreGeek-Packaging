@@ -61,7 +61,7 @@ pkgname="retroarch"
 
 # DO NO BUILD 1.3.2, only here as a marker. This release was very buggy.
 pkgver="1.3.4"
-pkgrev="2"
+pkgrev="3"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"

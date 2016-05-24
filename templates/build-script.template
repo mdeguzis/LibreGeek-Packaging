@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-PKGNAME.sh
-# Script Ver:	0.1.9
+# Script Ver:	0.2.3
 # Description:	Attempts to build a deb package from latest PKGNAME
 #		github release
 #
@@ -26,6 +26,7 @@ time_stamp_start=(`date +"%T"`)
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
+# For local targets, adjust as necessary below
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 	# fallback to local repo pool target(s)
@@ -35,6 +36,7 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
+# Adjust target folder as need be below
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
@@ -45,19 +47,22 @@ else
 
 fi
 
+#################################################
+# Set variables
+#################################################h
+
 # upstream vars
-git_url="GITURL"
-branch="BRANCH"
+# You can use a git source, ppa orig tarball source etc. here. 
+# A Target is only used really for git sources
+src_url="SOURCE_URL"
+target="BRANCH"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="ARCH"
-BUILDER="BUILDER"
-BUILDOPTS=""
-export BUILD_DEBUG="true"
-export STEAMOS_TOOLS_BETA_HOOK="false"
-export USE_NETWORK="yes"
+BUILDER="BUILDER (such as pdebuild,debuild,dpgk-buildpackage)"
+BUILDOPTS="Build options to pass to the builder"
 pkgname="PKGNAME"
 pkgver="PKGVER"
 upstream_rev="1"
@@ -68,18 +73,24 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dir
+# builder vars
+# You can omit these if need be (network is usually disabled for pbuilder)
+export STEAMOS_TOOLS_BETA_HOOK="false"
+export USE_NETWORK="yes"
+
+# set build directories for output/input
 export build_dir="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
+
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper
+	sudo apt-get -y --force-yes install build-essential bc debhelper devscripts
 
 }
 
@@ -110,25 +121,39 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	#################################################
+	# Acquire source
+	#################################################h
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
-	git clone  -b "${branch}" "${git_url}" "${git_dir}"
+	# clone the git source
+	git clone  -b "${target}" "${src_url}" "${git_dir}"
+	
+	# If you are pulling an original tarball, use the below instead.
+	# If you go this route, you should be able to skip the tarball creation
+	
+	# get source and extract
+	#wget "${orig_tarball}" -q -nc --show-progress
+	#tar -xf ${pkgname}*.orig.tar.gz
+	# Rename tarball
+	#mv ${pkgname}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
+	# Rename src dir to match our conventions
+	#mv ${pkgname} ${src_dir}
 
 	#################################################
-	# Build package
+	# Prepare package
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
 	# create source tarball
+	# skip this section piece if you used wget above
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
-	# Add debian dir
+	# Add debian files
 	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# enter source dir
@@ -140,13 +165,15 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D $DIST -u "${urgency}" \
 		"Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" \
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
@@ -176,7 +203,8 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	# inform user of packages
+	# inform user of packages transfer packages, and cleanup after
+
 	cat<<-EOF
 
 	###############################################################
@@ -192,7 +220,7 @@ main()
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
-	# capture command
+
 	read -erp "Choice: " transfer_choice
 
 	if [[ "$transfer_choice" == "y" ]]; then
@@ -206,11 +234,19 @@ main()
             		cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 
 		fi
-
-	elif [[ "$transfer_choice" == "n" ]]; then
-		echo -e "Upload not requested\n"
 	fi
+	
+	# cleanup if requested
+	echo -e "\n==> Would you like to clean up the build files? [y/n]"
+	sleep 0.5s
+	# capture command
+	read -erp "Choice: "clean_choice
+	
+	if [[ "${clean_choice}" == "y" ]]; then
+	
+		rm -rf "${build_dir}"
 
+	fi
 }
 
 # start main

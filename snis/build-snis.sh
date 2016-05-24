@@ -51,7 +51,7 @@ fi
 # upstream vars
 #git_url="https://github.com/smcameron/space-nerds-in-space"
 git_url="https://github.com/ProfessorKaos64/space-nerds-in-space"
-branch="v20160330"
+branch="v20160524"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,8 +62,8 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="snis"
 pkgrev="1"
-pkgver="20160330"
-pkgsuffix="git+bsos${pkgrev}"
+pkgver="20160524"
+pkgsuffix="git+bsos"
 BUILDER="pdebuild"
 DIST="brewmaster"
 urgency="low"
@@ -119,7 +119,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$branch" "$git_url" "$git_dir"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build platform
@@ -129,7 +129,8 @@ main()
 	sleep 2s
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${git_dir}"
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -146,13 +147,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "update release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}"
 
 	fi

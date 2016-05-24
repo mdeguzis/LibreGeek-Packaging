@@ -39,6 +39,7 @@ Package: retroarch
 Architecture: any
 Depends: fonts-dejavu-core,
          libretro-core-info,
+         libegl-nvidia0,
          retroarch-assets,
 	 retroarch-joypad-autoconfig,
          ${misc:Depends},

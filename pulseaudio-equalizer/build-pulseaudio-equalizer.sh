@@ -138,13 +138,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D $DIST -u "${urgency}" "Update to upstream package ${pkgver}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
@@ -197,7 +197,8 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		fi

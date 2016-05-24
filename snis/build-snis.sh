@@ -51,7 +51,8 @@ fi
 # upstream vars
 #git_url="https://github.com/smcameron/space-nerds-in-space"
 git_url="https://github.com/ProfessorKaos64/space-nerds-in-space"
-branch="v20160524-3"
+#target="v20160524-3"
+target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -119,7 +120,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${target}" "${git_url}" "${git_dir}"
 	
 	# trim .git (large repo)
 	rm -rf "${git_dir}/.git"

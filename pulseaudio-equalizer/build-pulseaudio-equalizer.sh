@@ -61,7 +61,6 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 pkgname="pulseaudio-equalizer"
-upstream_rev="1"
 pkgrev="1"
 pkgsuffix="bsos"
 DIST="brewmaster"
@@ -119,18 +118,11 @@ main()
 	wget "${orig_tarball}" -q -nc --show-progress
 	tar -xf ${pkgname}*.orig.tar.gz
 	# Rename src dir to match our conventions
-	find . -type d -exec mv {} ${src_dir} \;
+	find . -depth -type d -exec mv {} ${src_dir} \;
 	
 	#################################################
 	# Build package
 	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# Already have the tarball, so just rename
-	cd "${build_dir}"
-	mv  -v ${pkgname}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
 
 	# Add debian dir
 	cp -r "${scriptdir}/debian" "${ppa_dir}"

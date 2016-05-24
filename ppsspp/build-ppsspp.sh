@@ -51,16 +51,17 @@ fi
 
 # upstream vars
 git_url="https://github.com/hrydgard/ppsspp"
-branch="master"
+branch="v1.2.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="ppsspp"
+pkgver="1.2.2"
 upsteam_rev="1"
 pkgrev="1"
 pkgsuffix="bsos${pkgrev}"
@@ -151,12 +152,6 @@ main()
 			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
 
 	fi
-
-
-	# Get base version from latest tag
-	cd "${git_dir}"
-	base_release=$(git describe --abbrev=0 --tags)
-	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
 	# clean out .git (large amount of space taken up)
 	rm -rf "${git_dir}/.git"
@@ -250,7 +245,8 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog

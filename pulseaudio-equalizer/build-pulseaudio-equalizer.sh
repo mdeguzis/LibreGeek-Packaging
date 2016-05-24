@@ -118,8 +118,9 @@ main()
 	# get source
 	wget "${orig_tarball}" -q -nc --show-progress
 	tar -xf ${pkgname}*.orig.tar.gz
+	rm -f ${orig_tarball}
 	mv ${pkgname}* ${src_dir}
-
+	
 	#################################################
 	# Build package
 	#################################################

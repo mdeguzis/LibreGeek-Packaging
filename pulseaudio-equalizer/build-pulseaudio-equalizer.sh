@@ -118,7 +118,7 @@ main()
 	wget "${orig_tarball}" -q -nc --show-progress
 	tar -xf ${pkgname}*.orig.tar.gz
 	# Rename src dir to match our conventions
-	find . -depth -type d -exec mv {} ${src_dir} \;
+	mv ${pkgname} ${src_dir}
 	
 	#################################################
 	# Build package

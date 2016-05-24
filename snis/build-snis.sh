@@ -51,7 +51,7 @@ fi
 # upstream vars
 #git_url="https://github.com/smcameron/space-nerds-in-space"
 git_url="https://github.com/ProfessorKaos64/space-nerds-in-space"
-branch="v20160524-2"
+branch="v20160524-3"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

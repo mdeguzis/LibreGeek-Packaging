@@ -120,6 +120,9 @@ main()
 
 	# clone
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	
+	# trim .git (large repo)
+	rm -rf "${git_dir}/.git"
 
 	#################################################
 	# Build platform
@@ -134,13 +137,6 @@ main()
 
 	# enter source dir
 	cd "${git_dir}"
-
-	# There seems to be a missing man page, corrected in forked makefile
-	# See: https://github.com/smcameron/space-nerds-in-space/issues/72
-	commits_full=$(git log --pretty=format:"  * %h %s")
-
-	# trim .git (large repo)
-	rm -rf "${git_dir}/.git"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

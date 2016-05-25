@@ -51,22 +51,21 @@ fi
 
 # upstream vars
 git_url="https://github.com/rust-lang/rust"
-branch="1.7.0"
-
+branch="1.8.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="yes"
 pkgname="rustc"
 pkgver="${branch}"
 upstream_rev="1"
 pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+pkgsuffix="bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -148,13 +147,15 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D $DIST -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D $DIST -u "${urgency}" \
 		"Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" \
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		--package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 

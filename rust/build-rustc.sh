@@ -120,9 +120,9 @@ main()
 
 	# clone
 	# Do not use `--recursive ` here. While the submodules will recurse fine,
-	# This conflicts then with the pathing wiht a later usage of git within the makefile
+	# This conflicts then with the pathing with a later usage of git within the makefile
 	# Let the make file fetch the first batch of main submodules usually obtained by --recursive
-	git clone  -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package

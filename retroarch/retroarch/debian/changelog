@@ -1,3 +1,11 @@
+retroarch (1.3.4+git+bsos3) brewmaster; urgency=low
+
+  * New release
+  * Includes libegl-nvidia0 missing that provides libEGL_nvidia.so*
+  * The above fixes the segfault
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 23 May 2016 20:14:26 -0400
+
 retroarch (1.3.1+git+bsos2) brewmaster; urgency=low
 
   * Enabled joypad autoconfig (upstream borked it)

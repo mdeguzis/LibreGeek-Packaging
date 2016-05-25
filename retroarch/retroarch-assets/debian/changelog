@@ -1,3 +1,9 @@
+retroarch-assets (0.1+20160522git+bsos1) brewmaster; urgency=low
+
+  * Update release for v1.3.4
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 22 May 2016 14:58:55 -0400
+
 retroarch-assets (0.1+20160316git+bsos1) brewmaster; urgency=low
 
   * Update assets

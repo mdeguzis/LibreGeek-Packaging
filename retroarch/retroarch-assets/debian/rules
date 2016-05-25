@@ -24,6 +24,6 @@
 override_dh_auto_build:
 
 override_dh_auto_install:
-	rsync -av --progress . debian/retroarch-*/usr/share/libretro/assets/ --exclude debian --exclude lakka/monochrome/src --exclude lakka/flatui/src --exclude .bzr --exclude .bzrignore --exclude .git
+	rsync -av --progress . debian/retroarch-*/usr/share/libretro/assets/ --exclude debian --exclude xmb/flatui/src --exclude xmb/monochrome/src --exclude xmb/retroactive/src --exclude .bzr --exclude .bzrignore --exclude .git
 
 override_dh_auto_clean:

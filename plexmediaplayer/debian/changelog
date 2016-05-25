@@ -1,0 +1,11 @@
+plex-media-player (1.1.1.293+git+bsos-1) brewmaster; urgency=low
+
+  * Update to latest commit [cc2cc06]
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 24 May 2016 20:31:33 -0400
+
+plex-media-player (1.0.6.229+git+bsos-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 24 May 2016 20:23:23 -0400

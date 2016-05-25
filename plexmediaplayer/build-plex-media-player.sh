@@ -49,22 +49,19 @@ src_cmd=""
 
 # upstream URL
 git_url="https://github.com/plexinc/plex-media-player"
-# Hash mismatch error fixed in master, and will be for future releases
-# For now, use master tree
-#branch="v1.0.6.229-1ce41570"
-branch="master"
+branch="v1.1.1.293-cc2cc067"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 export USE_NETWORK="yes"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="plex-media-player"
-pkgver="1.0.6.229"
+pkgver="1.1.1.293"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgrev="1"

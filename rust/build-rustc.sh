@@ -149,7 +149,7 @@ main()
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
 		--package "${pkgname}" -D $DIST -u "${urgency}" \
-		"Initial upload attempt"
+		"Update release to ${pkgver}"
 		nano "debian/changelog"
 
 	else
@@ -208,7 +208,8 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		fi

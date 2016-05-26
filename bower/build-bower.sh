@@ -120,7 +120,6 @@ main()
 
 	fi
 
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
@@ -134,7 +133,8 @@ main()
 	sleep 2s
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "$pkgname"
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Enter git dir to build
 	cd "${git_dir}"
@@ -146,14 +146,16 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "initial upload"
 
 	fi
-
 
 	#################################################
 	# Build Debian package

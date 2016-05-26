@@ -1,3 +1,9 @@
+dolphin-emu-master (4.0.20160523git+bsos1-1) brewmaster; urgency=low
+
+  * Built against latest commit: [08d45b9]
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 23 May 2016 10:20:47 -0400
+
 dolphin-emu-master (4.0.20160425git+bsos1-1) brewmaster; urgency=low
 
   * Built against latest commit: [3033096]

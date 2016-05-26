@@ -147,7 +147,7 @@ main()
 	git clone -b "${rel_target}" "${git_url}" "${git_dir}"
 
 	# upstream missing a build dep
-	cp "$scriptdir/debian" "${git_dir}"
+	cp -r "$scriptdir/debian" "${git_dir}"
 
 	#################################################
 	# Build platform
@@ -162,9 +162,7 @@ main()
 
 	# enter source dir
 	cd "${src_dir}"
-
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

@@ -25,7 +25,7 @@
 # https://github.com/sass/sassc/blob/master/docs/building/unix-instructions.md 
 
 # Unsure:
-# Install the javascript dependencies:
+# Install the javascript dependencies during build? These should be Debianzed
 # npm install
 
 # Building notes
@@ -71,7 +71,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/itchio/itch"
-rel_target="v0.13.2"
+rel_target="v17.6.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -80,9 +80,10 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
+export USE_NETWORK="yes"
 pkgname="itch"
 pkgver="0.3.7"
-pkgsuffix="bsos${pkgrev}"
+pkgsuffix="bsos"
 pkgrev="1"
 DIST="brewmaster"
 urgency="low"

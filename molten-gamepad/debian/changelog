@@ -1,3 +1,9 @@
+molten-gamepad (0.20160523+c8d09aegit+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit c8d09ae
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 23 May 2016 12:40:47 -0400
+
 molten-gamepad (0.1.1+138377bgit+bsos-1) brewmaster; urgency=low
 
   * Initial upload

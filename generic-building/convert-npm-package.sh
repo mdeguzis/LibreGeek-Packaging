@@ -244,7 +244,7 @@ main()
 	
 	read -erp "Choice [y/n]: " npm_exists
 	
-	if [[ "$npm_exists" == "n" ]]; then
+	if [[ "${npm_exists}" == "n" ]]; then
 		
 	
 		# create
@@ -272,9 +272,10 @@ main()
 
 	if [[ "$git_missing" != "" ]]; then
 		
-		echo -e "\nRepository seems to be missing. Fork an upstream repository or create a new one?\n"
+		echo -e "\nRepository seems to be missing. Fork an upstream repository, \
+		create a new one, or just make debian files?\n"
 		sleep 0.5s
-		read -erp "Choice: [fork|new]: " git_choice
+		read -erp "Choice: [fork|new|just-debian]: " git_choice
 		
 		# create repo using git api
 		# This is too tricky with globbing/expanding the repo vars, so create a temp command
@@ -292,10 +293,22 @@ main()
 			git clone "${git_url}" "${local_git_dir}"
 			hub-linux-amd64*/bin/hub fork
 			
+			# change into dir
+			cd "${local_git_dir}"
+			
+		elif [[ "$git_choice" == "just-debian" ]]; then
+		
+			# Just make an empty shell
+			debian_dir="${npm_pkgname}-debian"
+			mkdir "${debian_dir}"
+			
 		else
 		
 			# use function to create
 			create_new_repo
+			
+			# change into dir
+			cd "${local_git_dir}"
 		
 		fi
 		
@@ -318,7 +331,6 @@ main()
 	echo -e "\n==> Injecting Debian files\n"
 	
 	sleep 2s
-	cd "${local_git_dir}"
 	cp -ri ${debian_dir} .
 	
 	#################################################
@@ -385,8 +397,6 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-
-	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)

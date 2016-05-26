@@ -49,8 +49,10 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/ProfessorKaos64/grunt-cli"
-rel_target="v0.1.13"
+# NOTE: It may be a good idea to refresh packaging in major releases using npm2deb
+# See: https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
+git_url="https://github.com/gruntjs/grunt-cli"
+target="v1.2.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,10 +62,9 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="node-grunt-cli"
-pkgver="0.1.13"
-upstream_rev="1"
+pkgver="1.2.0"
 pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+pkgsuffix="bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -124,7 +125,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_target" "$git_url" "${git_dir}"
+	git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -133,15 +134,15 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "$pkgname"
+	cd "${build_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+
+	# Copy in debian files from npm2deb conversion
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# Enter git dir to build
 	cd "${git_dir}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -149,11 +150,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
 
@@ -171,8 +175,6 @@ main()
 	# Cleanup
 	#################################################
 
-	# clean up dirs
-
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -183,46 +185,35 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-
 	# inform user of packages
 	echo -e "\n############################################################"
 	echo -e "If package was built without errors you will see it below."
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
-
+	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep ${pkgver}
+	ls "${build_dir}" | grep $pkgver
 
-	if [[ "$autobuild" != "yes" ]]; then
+	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+	sleep 0.5s
+	# capture command
+	read -erp "Choice: " transfer_choice
 
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-		sleep 0.5s
-		# capture command
-		read -erp "Transfer files: [y/n] " transfer_choice
+	if [[ "$transfer_choice" == "y" ]]; then
 
-		if [[ "$transfer_choice" == "y" ]]; then
-
-			# transfer packages
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+		# transfer files
+		if [[ -d "${build_dir}" ]]; then
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 
-			# Preserve changelog
-			cd "${git_dir}" && git add debian/changelog && git push origin master
-			cd "${scriptdir}"
-
-		elif [[ "$transfer_chice" == "n" ]]; then
-			echo -e "Upload not requested\n"
 		fi
+
+	elif [[ "$transfer_choice" == "n" ]]; then
+		echo -e "Upload not requested\n"
 	fi
 
 }

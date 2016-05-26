@@ -7,9 +7,10 @@ Build-Depends: debhelper (>=9),
  nodejs-legacy,
  golang,
  node-bower,
- node-grunt-cli
+ node-grunt-cli,
+ mode-grunt-known-options
 Standards-Version: 3.9.7
-Homepage: https://github.com/itchio/itch
+Homepage: https://github.com/bastimeyer/livestreamer-twitch-gui
 
 Package: livestreamer-twitch-gui
 Architecture: any

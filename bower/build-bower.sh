@@ -61,7 +61,6 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="node-bower"
 pkgver="0.7.6"
-upstream_rev="1"
 pkgrev="1"
 pkgsuffix="bsos"
 DIST="brewmaster"
@@ -145,13 +144,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "initial upload"
 
 	fi

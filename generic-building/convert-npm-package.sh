@@ -202,7 +202,7 @@ update_debian_files()
 	EOF
 
 	# changelog
-	sed -i "s|UNRELEASED|$dist_rel|g" "${local_git_dir}/debian/changelog"
+	sed -i "s|UNRELEASED|${dist_rel}|g" "${local_git_dir}/debian/changelog"
 	sed -i "s|FIX_ME debian author|${uploader}|g" "${local_git_dir}/debian/changelog"
 	sed -i "s| (Closes: #nnnn)||g" "${local_git_dir}/debian/changelog"
 	# control
@@ -331,7 +331,7 @@ main()
 	# Process options
 	#################################################
 	
-	echo -e "\n==> Checking for existance of our GitHub repository"
+	echo -e "\n==> Checking for existance of our GitHub repository..."
 	sleep 2s
 	
 	# create repository if it does not exist
@@ -341,6 +341,7 @@ main()
 	if [[ "$git_missing" != "" ]]; then
 		
 		cat<<- EOF
+
 		==> It doesn't seem we have a github repository. Fork an upstream repository, \
 		    create a new one, or just make debian files?\n"
 		

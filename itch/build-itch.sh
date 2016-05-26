@@ -158,7 +158,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
 	cd "${src_dir}"
@@ -170,12 +170,12 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	fi

@@ -49,8 +49,10 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/ProfessorKaos64/bower"
-rel_target="v1.7.6-2"
+# NOTE: For major releases, it may be a good idea to ensure packaging is up to date with npm2deb
+# See: https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
+git_url="https://github.com/bower/bower"
+rel_target="v1.7.9"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,7 +62,7 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="node-bower"
-pkgver="0.7.6"
+pkgver="1.7.9"
 pkgrev="1"
 pkgsuffix="bsos"
 DIST="brewmaster"
@@ -134,6 +136,9 @@ main()
 	# create source tarball
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+
+	# Add debian files from converted package (via npm2deb)
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# Enter git dir to build
 	cd "${git_dir}"

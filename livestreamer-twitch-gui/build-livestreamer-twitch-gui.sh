@@ -2,38 +2,15 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-itch.sh
+# Scipt Name:	./build-livestreamer-twitch-gui.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from latest itch
-#		github release. DOES NOT CURRENTLY BUILD.
+# Description:	Attempts to build a deb package from latest livestreamer-twitch-gui
+#		github release. 
 #
-# See:		https://github.com/itchio/itch
-#		https://github.com/itchio/itch/issues/41
+# See:		https://github.com/bastimeyer/livestreamer-twitch-gui
 #
-# Usage:	build-itch.sh
+# Usage:	./build-livestreamer-twitch-gui.sh
 #-------------------------------------------------------------------------------
-
-###############################
-# TODO
-###############################
-
-# Rebuild nodejs for brewmaster off of sid:
-# https://packages.debian.org/sid/nodejs
-
-# Build sassc 
-# https://github.com/sass/sassc
-# https://github.com/sass/sassc/blob/master/docs/building/unix-instructions.md 
-
-# Unsure:
-# Install the javascript dependencies during build? These should be Debianzed
-# npm install
-
-# Building notes
-# CI Job definitions: https://github.com/itchio/ci.itch.ovh/blob/master/src/jobs/itch.yml
-
-# Opts:		[--testing]
-#		Modifys build script to denote this is a test package build.
-# -------------------------------------------------------------------------------
 
 #################################################
 # Set variables
@@ -57,8 +34,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
@@ -70,8 +45,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/itchio/itch"
-rel_target="v17.6.2"
+git_url="https://github.com/bastimeyer/livestreamer-twitch-gui"
+target="v0.13.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -81,8 +56,8 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="yes"
-pkgname="itch"
-pkgver="0.3.7"
+pkgname="livestreamer-twitch-gui"
+pkgver="0.13.0"
 pkgsuffix="bsos"
 pkgrev="1"
 DIST="brewmaster"
@@ -101,14 +76,9 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages - TODO
-	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper npm
-	
-	# Setup npm
-	npm config set spin false
-	
-	# Install build-specific extra packages
-	npm install -g electron-prebuilt@0.35.4
-	
+	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper npm \
+	node-grunt-cli node-bower
+
 }
 
 main()
@@ -138,16 +108,12 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${rel_target}" "${git_url}" "${git_dir}"
-
-	# upstream missing a build dep
-	cp -r "$scriptdir/debian" "${git_dir}"
+	git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build platform
@@ -160,9 +126,11 @@ main()
 	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
+	# copy in debian files
+	cp -r "$scriptdir/debian" "${git_dir}"
+
 	# enter source dir
-	cd "${src_dir}"
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
+	cd "${git_dir}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -172,11 +140,12 @@ main()
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
+		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial release"
 
 	fi
 

@@ -1,7 +1,7 @@
 # main packaging script based on dh7 syntax
 
 %:
-	dh $@ 
+	dh $@ --parallel
 
 #override_dh_auto_test:
 

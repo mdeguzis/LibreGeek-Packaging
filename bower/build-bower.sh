@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/ProfessorKaos64/bower"
-rel_target="v1.7.6"
+rel_target="v1.7.6-2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -138,7 +138,6 @@ main()
 
 	# Enter git dir to build
 	cd "${git_dir}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

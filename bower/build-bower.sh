@@ -183,46 +183,35 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-
 	# inform user of packages
 	echo -e "\n############################################################"
 	echo -e "If package was built without errors you will see it below."
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
-
+	
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep ${pkgver}
+	ls "${build_dir}" | grep $pkgver
 
-	if [[ "$autobuild" != "yes" ]]; then
+	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+	sleep 0.5s
+	# capture command
+	read -erp "Choice: " transfer_choice
 
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-		sleep 0.5s
-		# capture command
-		read -erp "Transfer files: [y/n] " transfer_choice
+	if [[ "$transfer_choice" == "y" ]]; then
 
-		if [[ "$transfer_choice" == "y" ]]; then
-
-			# transfer packages
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+		# transfer files
+		if [[ -d "${build_dir}" ]]; then
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 
-			# Preserve changelog
-			cd "${git_dir}" && git add debian/changelog && git push origin master
-			cd "${scriptdir}"
-
-		elif [[ "$transfer_chice" == "n" ]]; then
-			echo -e "Upload not requested\n"
 		fi
+
+	elif [[ "$transfer_choice" == "n" ]]; then
+		echo -e "Upload not requested\n"
 	fi
 
 }

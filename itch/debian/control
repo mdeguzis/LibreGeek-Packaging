@@ -9,8 +9,8 @@ Build-Depends: debhelper (>=9),
  node-findup-sync,
  node-nopt,
  node-resolve,
- grunt-cli
-Standards-Version: 3.9.4
+ node-grunt-cli
+Standards-Version: 3.9.7
 Homepage: https://github.com/itchio/itch
 
 Package: xwiimote

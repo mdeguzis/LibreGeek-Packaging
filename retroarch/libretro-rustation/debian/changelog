@@ -1,3 +1,10 @@
+libretro-rustation (0.20160526+git+bsos-2) brewmaster; urgency=low
+
+  * Fix linking
+  * Use quilt
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 26 May 2016 09:47:19 -0400
+
 libretro-rustation (0.0.1+20160317git+bsos1) brewmaster; urgency=low
 
   * Initial upload

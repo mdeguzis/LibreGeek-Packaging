@@ -6,9 +6,7 @@ Build-Depends: debhelper (>=9),
  npm,
  nodejs,
  golang,
- node-findup-sync,
- node-nopt,
- node-resolve,
+ node-bower,
  node-grunt-cli
 Standards-Version: 3.9.7
 Homepage: https://github.com/itchio/itch

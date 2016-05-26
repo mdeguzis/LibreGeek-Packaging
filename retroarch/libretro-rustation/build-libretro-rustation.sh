@@ -154,7 +154,7 @@ main()
 
 		dch --create -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		"Fix linking"
 		nano "debian/changelog"
 
 	fi

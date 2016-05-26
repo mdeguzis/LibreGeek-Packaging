@@ -150,13 +150,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}=${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi

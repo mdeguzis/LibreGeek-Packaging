@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	convert-npm-package.sh
-# Script Ver:	0.9.5
+# Script Ver:	1.3.5
 # Description:	Builds simple Debian package from npm module and uploads to 
 #		GitHub. Creates repo if it doesn't exist.
 #
@@ -59,7 +59,8 @@ git_url="https://github.com/${GIT_USERNAME}/${pkgname}.git"
 # set build_dirs
 npm_tmp_dir="$HOME/${pkgname}-temp"
 local_git_dir="$HOME/${pkgname}-git"
-debian_dir="${npm_tmp_dir}/${npm_pkgname}/node-${npm_pkgname}/debian"
+npm_top_dir="${npm_tmp_dir}/${npm_pkgname}/node-${npm_pkgname}"
+debian_dir="${npm_top_dir}/debian"
 
 # bail out if not arg
 if [[ "$npm_pkgname" == "" ]]; then
@@ -183,6 +184,73 @@ create_new_repo()
 	
 }
 
+update_debian_files()
+{
+
+	#################################################
+	# Alter Debian packaging files
+	#################################################
+	
+	echo -e "\n==> Modifying Debian package files"
+	sleep 2s
+
+	# add basic readme
+	touch README.md
+	cat <<-EOF > README.md
+	# ${pkgname}
+	Converted NPM package
+	EOF
+
+	# changelog
+	sed -i "s|UNRELEASED|$dist_rel|g" "${local_git_dir}/debian/changelog"
+	sed -i "s|FIX_ME debian author|${uploader}|g" "${local_git_dir}/debian/changelog"
+	sed -i "s| (Closes: #nnnn)||g" "${local_git_dir}/debian/changelog"
+	# control
+	sed -i "s|FIX_ME debian author|${uploader}|g" "${local_git_dir}/debian/control"
+	sed -i "s|FIX_ME repo url|${upstream_source}|g" "${local_git_dir}/debian/control"
+	sed -i "s|FIX_ME debian author|${maintainer}|g" "${local_git_dir}/debian/control"
+	sed -i "s|FIX_ME long description|${description_long}|g" "${local_git_dir}/debian/control"
+	# copyright
+	sed -i "s|FIX_ME debian author|${maintainer}|g" "${local_git_dir}/debian/copyright"
+	# watch (optional)
+	sed -i "s|# Origin url: FIX_ME repo url|Origin url: ${upstream_source}|g" "${local_git_dir}/debian/watch"
+	sed -i '/fakeupstream/d' "${local_git_dir}/debian/watch"
+
+	# Open debian files for confirmation
+	files="changelog control copyright watch"
+
+	# only edit file if it exists
+	for file in ${files};
+	do
+		if [[ -f "${local_git_dir}/debian/$file" ]]; then
+
+			nano "${local_git_dir}/debian/$file"
+
+		fi
+
+	done
+
+	# update if watch file exists with github url 
+	if grep "${upstream_source}" "${local_git_dir}/debian/watch"; then
+
+		# pull upstream source based on watch file
+		echo -e "Updating against upstream from info in debian/watch\n"
+		uscan --download-current-version
+
+	fi
+
+}
+
+git_sync_to_remote()
+{
+
+	# push changes
+	git add .
+	git commit -m "update source code from npm2deb"
+	git push origin $branch
+
+}
+
 main()
 {
 
@@ -233,7 +301,7 @@ main()
 	echo -e "\n==> Checking if someone else has already started working on this module..."
 	sleep 2s
 	
-	npm2deb search bower
+	npm2deb search "${npm_pkgname}"
 	
 	#################################################
 	# Create package files
@@ -260,7 +328,7 @@ main()
 	fi
 	
 	#################################################
-	# Create/sync files to github repository
+	# Process options
 	#################################################
 	
 	echo -e "\n==> Checking for existance of our GitHub repository"
@@ -272,8 +340,12 @@ main()
 
 	if [[ "$git_missing" != "" ]]; then
 		
-		echo -e "\nRepository seems to be missing. Fork an upstream repository, \
-		create a new one, or just make debian files?\n"
+		cat<<- EOF
+		==> It doesn't seem we have a github repository. Fork an upstream repository, \
+		    create a new one, or just make debian files?\n"
+		
+		EOF
+
 		sleep 0.5s
 		read -erp "Choice: [fork|new|just-debian]: " git_choice
 		
@@ -293,107 +365,80 @@ main()
 			git clone "${git_url}" "${local_git_dir}"
 			hub-linux-amd64*/bin/hub fork
 			
-			# change into dir
+			# Add Debianized files to repo
+			echo -e "\n==> Injecting Debian files\n"
+
+			sleep 2s
 			cd "${local_git_dir}"
+			cp -ri ${debian_dir} .
 			
+			# update debian files
+			update_debian_files
+			
+			# Update git repo
+			git_sync_to_remote
+
 		elif [[ "$git_choice" == "just-debian" ]]; then
-		
-			# Just make an empty shell
-			debian_dir="${npm_pkgname}-debian"
-			mkdir "${debian_dir}"
-			
+
+			# Setup fake target
+			local_git_dir="${npm_top_dir}"
+			update_debian_files
+
+			# Ask to copy elsewhere, if desired
+			echo -e "\n==> Copy debian files to alternate location? [y/n]"
+			sleep 0.3s && read -erp "Choice: " copy_debian
+
+			if [[ "${copy_debian}" == "y" ]]; then
+
+				read -erp "Location: " debian_target_path
+				cp -r "${debian_dir}" "${debian_target_path}"
+	
+			fi
+
 		else
-		
+
 			# use function to create
 			create_new_repo
-			
-			# change into dir
+
+			# Add Debianized files to repo
+			echo -e "\n==> Injecting Debian files\n"
+
+			sleep 2s
 			cd "${local_git_dir}"
-		
+			cp -ri ${debian_dir} .
+
+			# Update debian files
+			update_debian_files
+
+			# Update git repo
+			git_sync_to_remote
+
 		fi
-		
-	else
 	
-		# update existing repo
-		if [[ -d "${local_git_dir}" ]]; then
-		
-			cd "${local_git_dir}" && git pull
-			
-		else
-		
+	# git repo upstream exists	
+	else
+
+		# clone
+		if [[ ! -d "${local_git_dir}" ]]; then
+
 			git clone "${git_url}" "${local_git_dir}"
 			
+		else 
+
+			cd "${local_git_dir}"
+			git pull
+
 		fi
 		
-	fi
-	
-	# Add Debianized files to repo
-	echo -e "\n==> Injecting Debian files\n"
-	
-	sleep 2s
-	cp -ri ${debian_dir} .
-	
-	#################################################
-	# Alter Debian packaging files
-	#################################################
-	
-	echo -e "\n==> Modifying Debian package files"
-	sleep 2s
-	
-	# add basic readme
-	touch README.md
-	cat <<-EOF > README.md
-	# ${pkgname}
-	Converted NPM package
-	EOF
-	
-	# changelog
-	sed -i "s|UNRELEASED|$dist_rel|g" "$local_git_dir/debian/changelog"
-	sed -i "s|FIX_ME debian author|$uploader|g" "$local_git_dir/debian/changelog"
-	sed -i "s| (Closes: #nnnn)||g" "$local_git_dir/debian/changelog"
-	# control
-	sed -i "s|FIX_ME debian author|$uploader|g" "$local_git_dir/debian/control"
-	sed -i "s|FIX_ME repo url|$upstream_source|g" "$local_git_dir/debian/control"
-	sed -i "s|FIX_ME debian author|$maintainer|g" "$local_git_dir/debian/control"
-	sed -i "s|FIX_ME long description|$description_long|g" "$local_git_dir/debian/control"
-	# copyright
-	sed -i "s|FIX_ME debian author|$maintainer|g" "$local_git_dir/debian/copyright"
-	# watch (optional)
-	sed -i "s|# Origin url: FIX_ME repo url|Origin url: $upstream_source|g" "$local_git_dir/debian/watch"
-	sed -i '/fakeupstream/d' "$local_git_dir/debian/watch"
-	
-	# Open debian files for confirmation
-	files="changelog control copyright watch"
+		# update debian files
+		update_debian_files
+		
+		# Update git repo
+		git_sync_to_remote
 
-	# only edit file if it exists
-	for file in ${files};
-	do
-		if [[ -f "$local_git_dir/debian/$file" ]]; then
-		
-			nano "$local_git_dir/debian/$file"
-		
-		fi
-		
-	done
-	
-	# update if watch file exists with github url 
-	if grep "$upstream_source" "${local_git_dir}/debian/watch"; then
-	
-		# pull upstream source based on watch file
-		echo -e "Updating against upstream from info in debian/watch\n"
-		uscan --download-current-version
-	
+	# end debian/github logic
 	fi
 
-	#################################################
-	# Sync to remote
-	#################################################
-
-	# push changes
-	git add .
-	git commit -m "update source code from npm2deb"
-	git push origin $branch
-	
 	#################################################
 	# Cleanup
 	#################################################

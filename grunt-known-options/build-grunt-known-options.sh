@@ -155,7 +155,7 @@ main()
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}=${pkgrev}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi

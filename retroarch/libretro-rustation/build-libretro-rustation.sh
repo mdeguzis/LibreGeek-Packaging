@@ -62,9 +62,9 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
 BUILDOPTS="--debbuildopts -b"
 pkgname="libretro-rustation"
-pkgver="0.0.1"
-pkgrev="1"
-pkgsuffix="${date_short}git+bsos${pkgrev}"
+pkgver="0.${date_short}"
+pkgrev="2"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -131,7 +131,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${git_dir}"
@@ -145,13 +145,15 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch --create -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch --create -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 

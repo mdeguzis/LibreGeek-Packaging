@@ -1,0 +1,2 @@
+Tests: require
+Depends: node-grunt-cli

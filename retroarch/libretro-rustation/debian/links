@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/craft_libretro.so usr/lib/libretro/craft_libretro.so"
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/librustation_retro.so usr/lib/libretro/librustation_retro.so"

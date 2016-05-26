@@ -1,0 +1,24 @@
+Source: node-grunt-known-options
+Section: web
+Priority: extra
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends:
+ debhelper (>= 8)
+ , dh-buildinfo
+ , nodejs
+Standards-Version: 3.9.6
+Homepage: http://gruntjs.com/
+Vcs-Git: git://anonscm.debian.org/pkg-javascript/node-grunt-known-options.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-javascript/node-grunt-known-options.git
+XS-Testsuite: autopkgtest
+
+Package: node-grunt-known-options
+Architecture: all
+Depends:
+ ${misc:Depends}
+ , nodejs
+Description: The known options used in Grunt
+ Converted Debain package using npm2deb
+ .
+ Node.js is an event-based server-side JavaScript engine.

@@ -1,0 +1,29 @@
+Source: livestreamer-twitch-gui
+Priority: extra
+Section: games
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>=9),
+ npm,
+ nodejs,
+ golang,
+ node-findup-sync,
+ node-nopt,
+ node-resolve,
+ node-grunt-cli
+Standards-Version: 3.9.7
+Homepage: https://github.com/itchio/itch
+
+Package: livestreamer-twitch-gui
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Multi-plat Twitch.tv browser for Livestreamer
+  This is just a graphical user interface (GUI) on top 
+  of the Livestreamer command line interface (CLI).
+  Livestreamer Twitch GUI is a NW.js application, which 
+  means that it is a web application written in JavaScript 
+  (EmberJS), HTML (Handlebars) and CSS (LessCSS) and is 
+  being run by a Node.js powered version of Chromium.
+  .
+  This software is hosted at:
+  https://github.com/bastimeyer/livestreamer-twitch-gui/
+  

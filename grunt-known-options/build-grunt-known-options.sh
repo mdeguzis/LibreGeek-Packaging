@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-grunt-cli.sh
-# Script Ver:	1.9.5
-# Description:	Builds simple pacakge for using grunt-cli based of of master upstream
-#		git source
+# Scipt Name:	build-grunt-known-options.sh
+# Script Ver:	1.0.0
+# Description:	Builds simple pacakge for using grunt-known-options based of of 
+#		master upstream	git source
 #
-# See:		https://github.com/scottrgrunt-cli/grunt-cli
+# See:		https://github.com/gruntjs/grunt-known-options
 #
-# Usage:	./build-grunt-cli-steamos.sh
+# Usage:	./build-grunt-known-options.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -51,8 +51,8 @@ fi
 # upstream vars
 # NOTE: It may be a good idea to refresh packaging in major releases using npm2deb
 # See: https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
-git_url="https://github.com/gruntjs/grunt-cli"
-target="v1.2.0"
+git_url="https://github.com/gruntjs/grunt-known-options"
+target="1.0.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,8 +61,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="node-grunt-cli"
-pkgver="1.2.0"
+pkgname="grunt-known-options"
+pkgver="1.0.0"
 pkgrev="1"
 pkgsuffix="bsos"
 DIST="brewmaster"
@@ -90,7 +90,7 @@ install_prereqs()
 
 	# install basic build packages
 	# Additional suggested packages added per: https://wiki.debian.org/Python/LibraryStyleGuide
-	sudo apt-get install -y --force-yes build-essential bc  debhelper dh-buildinfo nodejs
+	sudo apt-get install -y --force-yes build-essential bc debhelper dh-buildinfo nodejs
 
 }
 
@@ -120,7 +120,6 @@ main()
 		install_prereqs
 
 	fi
-
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
@@ -186,11 +185,14 @@ main()
 	echo -e "Total Runtime (minutes): $runtime\n"
 
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<- EOF
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
 	
+	EOF
+
 	echo -e "Showing contents of: ${build_dir}: \n"
 	ls "${build_dir}" | grep $pkgver
 

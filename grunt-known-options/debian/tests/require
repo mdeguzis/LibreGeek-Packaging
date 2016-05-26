@@ -1,3 +1,0 @@
-#!/bin/sh
-set -e
-nodejs -e "require('grunt-cli');"

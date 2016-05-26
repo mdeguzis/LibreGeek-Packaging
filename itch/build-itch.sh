@@ -5,7 +5,7 @@
 # Scipt Name:	build-itch.sh
 # Script Ver:	0.1.1
 # Description:	Attempts to build a deb package from latest itch
-#		github release
+#		github release. DOES NOT CURRENTLY BUILD.
 #
 # See:		https://github.com/itchio/itch
 #		https://github.com/itchio/itch/issues/41

@@ -190,17 +190,11 @@ main()
 
 	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -223,12 +217,16 @@ main()
 	fi
 	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
+	cat<<- EOF
+	##############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	##############################################################
 	
-	echo -e "Showing contents of: ${build_dir}: \n"
+	echo -e "Showing contents of: ${build_dir}:
+	
+	EOF
+
 	ls "${build_dir}" | grep $pkgname_$pkgver
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
@@ -240,7 +238,8 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		fi

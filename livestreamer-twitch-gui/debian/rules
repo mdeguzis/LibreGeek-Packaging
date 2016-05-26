@@ -21,7 +21,7 @@ override_dh_auto_install:
 	# see: https://github.com/npm/npm/issues/1116
 	mkdir -p $HOME
 	npm install
-	grunt-release
+	grunt release
 
 #override_dh_strip:
 

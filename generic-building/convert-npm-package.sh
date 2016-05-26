@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	convert-npm-package.sh
-# Script Ver:	1.3.5
+# Script Ver:	1.3.8
 # Description:	Builds simple Debian package from npm module and uploads to 
 #		GitHub. Creates repo if it doesn't exist.
 #
@@ -342,8 +342,8 @@ main()
 		
 		cat<<- EOF
 
-		==> It doesn't seem we have a github repository. Fork an upstream repository, \
-		    create a new one, or just make debian files?\n"
+		==> It doesn't seem we have a github repository. Fork an 
+		    upstream repository, create a new one, or just make debian files?\n"
 		
 		EOF
 
@@ -386,7 +386,13 @@ main()
 			update_debian_files
 
 			# Ask to copy elsewhere, if desired
-			echo -e "\n==> Copy debian files to alternate location? [y/n]"
+			cat<<- EOF
+
+			==> Copy debian files to alternate location? 
+			    Please use an absolute path. [y/n]"
+			
+			EOF
+
 			sleep 0.3s && read -erp "Choice: " copy_debian
 
 			if [[ "${copy_debian}" == "y" ]]; then

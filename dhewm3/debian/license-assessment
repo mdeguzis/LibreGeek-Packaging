@@ -1,0 +1,81 @@
+GPL-3-with-idsoft-extra-terms
+
+Summary:
+Id software added several terms to the software license, ammending the GPL-3.
+
+This is NOT in a contradiction to the GPL-3 §10, as GPL-3 §7 explictly allows
+to override the paragraphs idsoft does.
+
+This was also discussed on debian-legal with the same conclusion:
+The extra terms are comptabile with the GPL. (Doom3BFG has the same license)
+See https://lists.debian.org/debian-legal/2014/10/msg00003.html
+
+Analysis after initial reject:
+
+GPL V3 in §10:
+You may not impose any further restrictions on the exercise of the> > rights
+granted or affirmed under this License.
+
+However, §7, "Addtional Terms" has an exception to this: (I'll quote
+only the important sections here):
+
+  7. Additional Terms.
+  (...)
+  Notwithstanding any other provision of this License, for material you
+  add to a covered work, you may (if authorized by the copyright
+  holders of that material) supplement the terms of this License with
+  terms:
+
+    a) Disclaiming warranty or limiting liability differently from the
+    terms of sections 15 and 16 of this License; or
+    b) Requiring preservation of specified reasonable legal notices or
+    author attributions in that material or in the Appropriate Legal
+    Notices displayed by works containing it; or
+    c) Prohibiting misrepresentation of the origin of that material,
+    or requiring that modified versions of such material be marked in
+    reasonable ways as different from the original version; or
+    d) Limiting the use for publicity purposes of names of licensors or
+    authors of the material; or
+    e) Declining to grant rights under trademark law for use of some
+    trade names, trademarks, or service marks; or
+    f) Requiring indemnification of licensors and authors of that
+    material by anyone who conveys the material (or modified versions
+    of it) with contractual assumptions of liability to the recipient,
+    for any liability that these contractual assumptions directly
+    impose on those licensors and authors.
+
+  All other non-permissive additional terms are considered “further
+  restrictions” within the meaning of section 10.
+
+The last quoted sentence makes it clear that other changes except the
+ones from the list in §7 are "further restrictions" and implicitly says
+"those in the list are not". For now a) is the important one.
+
+idsoft utilizes this exceptions and overrides §15 and §16 with their
+own versions, but IMHO above shows that they are free to do that.
+
+There is also nothing in that point a) that disallow to say "I
+completely manage §15 and §16 myself, thus the original ones are void",
+so saying "Replacement of Section 15.  Section 15 of the GPL shall be
+deleted in its entirety and replaced with the following:" and
+accordingly "2. Replacement of Section 16.  Section 16 of the GPL shall
+be deleted in its entirety and replaced with the following:"
+is OK too.
+
+Looking at idsofts §15, this is a just a rephrased version of the GPL
+15, with nothing special in it. [1]
+
+§16 idsoft is also not really fancy rewrite of GPL §16. [2]
+
+There is also a third point in idsofts' additional terms: [3]
+3. LEGAL NOTICES; NO TRADEMARK LICENSE; ORIGIN.
+but that is also covered but the exceptions in the GPL,
+bullet poinst b), c), d) and e)
+
+And finally, point 4 in idsofts addendum, INDEMNIFICATION
+is covered by bullet point f). [4]
+
+Bottom line, I'm sure that this license is perfectly fine and distributeable.
+
+-- 
+tobi

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=DOOM³: Resurrection of Evil
+GenericName=DOOM³: Resurrection of Evil
+TryExec=dhewm3
+Exec=dhewm3 +set fs_game d3xp
+Icon=doom3.png
+Terminal=false
+Type=Application
+Categories=Game
+Keywords=doom3,game,First-Person-Shooter

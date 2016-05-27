@@ -1,0 +1,64 @@
+Source: dhewm3
+Section: contrib/games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: cmake,
+               debhelper (>= 9),
+               libcurl4-gnutls-dev,
+               libjpeg-dev,
+               libogg-dev,
+               libopenal-dev,
+               libsdl2-dev,
+               libvorbis-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/dhewm/dhewm3
+VCS-Browser: https://alioth.debian.org/anonscm/git/pkg-games/dhewm3.git
+VCS-Git: git://anonscm.debian.org/pkg-games/dhewm3.git
+
+Package: dhewm3-doom3
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: dhewm3 (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: doom3-data | game-data-packager (>=40)
+Description: dhewm3's gamelibrary for the title DOOM³
+ This package contains the shared library containing the game logic for DOOM³
+ .
+ Please note that this package does not contain any game data, which is
+ required to actually play the game.
+ .
+ The package game-data-packager can help you to package your copy of the
+ game data. Please see README.Debian for details.
+
+Package: dhewm3-d3xp
+Architecture: any
+Pre-Depends: ${misc:Pre-Depends}
+Depends: dhewm3-doom3 (= ${binary:Version}),
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: doom3-resurrection-data | game-data-packager (>=40)
+Description: dhewm3's gamelibrary for the title DOOM³: Resurrection of Evil
+ This package contains the shared library containing the game logic for
+ the add-on DOOM3³: Resurrection of Evil
+ .
+ Please note that this package does not contain any game data, which is
+ required to actually play the game.
+ .
+ The package game-data-packager can help you to package your copy of the
+ game data. Please see README.Debian for details.
+
+Package: dhewm3
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Suggests: dhewm3-doom3, dhewm3-d3xp
+Description: GPL Doom 3 game engine
+ The goal of dhewm 3 is bring the DOOM3 engine with the help of SDL to all
+ suitable plaforms.
+ .
+ This game engine is compatible with the original Doom3 data files and the
+ Resurrection of Evil extension. To play it, you need to own the game data.
+ .
+ Bugs present in the original DOOM 3 will be fixed (when identified) without
+ altering the original gameplay.

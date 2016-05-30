@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt name:	build-dhewm3.sh 
-# Script Ver:	0.1.1.
+# Script Ver:	0.1.3
 # Description:	Attempts to build a deb package from the laest dwehm3
 #		release
 #
@@ -36,8 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
@@ -47,6 +45,7 @@ else
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
 
 fi
+
 # upstream vars
 git_url="https://github.com/dhewm/dhewm3"
 branch="1.4.1_RC1"
@@ -111,7 +110,6 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -143,7 +141,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to latest release "${pkgver}"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to latest release ${pkgver}"
 
 	else
 

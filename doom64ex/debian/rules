@@ -4,6 +4,6 @@
 	dh $@
 
 override_dh_auto_build:
-	mkdir Build && cd Build
-	cmake ..
+	rm -rf Build && mkdir -p Build
+	cd Build && cmake ..
 	make

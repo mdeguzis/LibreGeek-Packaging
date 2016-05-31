@@ -1,7 +1,8 @@
 Source: doom64ex
 Section: games
 Priority: optional
-Build-Depends: debhelper,
+Build-Depends: cmake,
+ debhelper,
  libsdl2-dev,
  libsdl2-net-dev,
  zlib1g-dev,

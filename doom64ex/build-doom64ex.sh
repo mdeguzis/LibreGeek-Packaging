@@ -61,7 +61,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="doom64ex"
 pkgver="0.${date_short}"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -78,7 +78,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y debhelper libsdl2-dev  libsdl2-net-dev  zlib1g-dev \
+	sudo apt-get install -y debhelper libsdl2-dev libsdl2-net-dev zlib1g-dev \
 	libpng12-dev libfluidsynth-dev
 
 }
@@ -111,7 +111,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${target}" "${git_url} "${git_dir}" 
+	git clone -b "${target}" "${git_url}" "${git_dir}" 
 
 	#################################################
 	# Build package

@@ -3,7 +3,7 @@
 %:
 	dh $@
 
-override_dh_auto_build:
+override_dh_auto_configure:
+	rm -rf build
 	rm -rf Build && mkdir -p Build
-	cd Build && cmake ..
-	make
+	cd Build && cmake .. && make

@@ -1,10 +1,9 @@
 [Desktop Entry]
 Version=1.0
-Name=The Dark Mod
-GenericName=The Dark Mod
+Name=Doom64ex
+GenericName=Doom64ex
 Type=Application
-Comment=Launcher script for The Dark Mod
-Icon=/usr/share/pixmaps/thedarkmod.png
-Exec=darkmod
+Icon=/usr/share/pixmaps/doom64ex.png
+Exec=doom64ex
 Terminal=false
 Categories=Game

@@ -370,13 +370,15 @@ function_pbuilder_build()
 	
 	clear 
 	# Get DSC
-	read -erp "\n==> Using pbuilder. Enter URL to DSC file: " DSC_FILE_URL
+	echo -e "\n==> Using pbuilder. Enter URL to DSC file: "
+	sleep 0.2s
+	read -erp "URL: " DSC_FILE_URL
 	
 	echo -e "\nBuidling package\n"
 	
 	wget "${DSC_FILE_URL}" -q -nc --show-progress
 	
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS} --build *.dsc
+	sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS} --build *.dsc
 	
 }
 

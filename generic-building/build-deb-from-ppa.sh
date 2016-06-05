@@ -316,13 +316,15 @@ main()
 		
 		if [[ -f "debian/changelog" ]]; then
 
-			dch -p --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package \
+			dch -p --force-distribution --allow-lower-version -v \
+			"${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package 
 			"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild for SteamOS"
 			nano "debian/changelog"
 
 		else
 
-			dch -p --create --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package \
+			dch -p --create --force-distribution --allow-lower-version \
+			-v "${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package \
 			"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild for SteamOS"
 
 		fi

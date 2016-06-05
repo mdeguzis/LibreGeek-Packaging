@@ -382,14 +382,15 @@ function_pbuilder_build()
 	echo -e "\n==> Using pbuilder. Enter URL to DSC file: "
 	sleep 0.2s
 	read -erp "URL: " DSC_FILE_URL
-	
-	echo -e "\nEditing DSC file. Be sure to adjust as needed\n"
-	nano *.dsc
-	
-	echo -e "\nBuidling package\n"
-	
+
+	echo -e "\n Fetching DSC file\n"
 	wget "${DSC_FILE_URL}" -q -nc --show-progress
-	
+
+	echo -e "\nEditing DSC file. Be sure to adjust as needed\n"
+	sleep 2s
+	nano *.dsc
+
+	echo -e "\nBuidling package\n"
 	sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS} --build *.dsc
 	
 }

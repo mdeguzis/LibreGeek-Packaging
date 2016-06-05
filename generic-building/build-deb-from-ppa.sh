@@ -28,10 +28,12 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
+# builder varzs
 BUILDER="pbuilder"
 DIST="brewmaster"
 ARCH="amd64"
 BUILDOPTS="--debbuildopts -b"
+export build_dir="${build_dir}"
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -383,7 +385,7 @@ function_pbuilder_build()
 	sleep 0.2s
 	read -erp "URL: " DSC_FILE_URL
 	
-	echo -e "\n Fetching source filse\n"
+	echo -e "\nFetching source filse\n"
 	dget -xu "${DSC_FILE_URL}"
 
 	echo -e "\nEditing DSC file. Be sure to adjust as needed\n"

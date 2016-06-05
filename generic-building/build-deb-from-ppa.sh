@@ -28,7 +28,7 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-BUILDER="pdebuild"
+BUILDER="pbuilder"
 DIST="brewmaster"
 ARCH="amd64"
 BUILDOPTS="--debbuildopts -b"

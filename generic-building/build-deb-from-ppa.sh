@@ -391,7 +391,7 @@ function_pbuilder_build()
 	nano *.dsc
 
 	echo -e "\nBuidling package\n"
-	sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS} --build *.dsc
+	sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} --build *.dsc
 	
 }
 

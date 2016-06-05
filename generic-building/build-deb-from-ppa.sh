@@ -316,18 +316,26 @@ function_build_locally()
 	else
 		cd "${HOME}"
 	fi
+}
+
+function_show_summary()
+{
 
 	# inform user of packages
-	echo -e "\n###################################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you do not, please check build dependcy errors listed above."
-	echo -e "You could also try manually building outside of this script with"
-	echo -e "the following commands (at your own risk!)\n"
-	echo -e "cd $build_dir"
-	echo -e "cd $build_folder"
-	echo -e "sudo dpkg-buildpackage -b -d -uc"
-	echo -e "###################################################################\n"
+	cat<<- EOF
+	###################################################################
+	If package was built without errors you will see it below.
+	If you do not, please check build dependcy errors listed above.
+	You could also try manually building outside of this script with
+	the following commands (at your own risk!)
 	
+	cd $build_dir"
+	cd $build_folder"
+	sudo dpkg-buildpackage -b -d -uc"
+	###################################################################
+	
+	EOF
+
 	ls "${HOME}/build-deb-temp"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
@@ -338,7 +346,8 @@ function_build_locally()
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# transfer files
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		
@@ -410,6 +419,8 @@ main()
 		
 	fi
 
+	# show end summary
+	function_show_summary
 }
 
 # start main

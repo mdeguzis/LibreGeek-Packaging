@@ -307,8 +307,8 @@ main()
 		find . -maxdepth 1 -exec rename "s|~ubuntu|+$pkgsuffix|" {} \;
 		
 		# Get versioning
-		pkgname_pkgver=$(find "${build_dir}" -maxdepth 1 -type d -iname "${pkgname}*" \
-		-exec basename {} \; | sed "s|-|_|")
+		pkgver=$(find "${build_dir}" -maxdepth 1 -type d -iname "${pkgname}*" \
+		-exec basename {} \; | sed "s|${pkgname}-||") && echo $pkgver
 
 		# Enter source dir
 		cd ${pkgname}* || exit 1
@@ -318,14 +318,14 @@ main()
 		if [[ -f "debian/changelog" ]]; then
 
 			dch -p --force-bad-version -v \
-			"${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package \
+			"${pkgname}_${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 			"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild for SteamOS"
 			nano "debian/changelog"
 
 		else
 
 			dch -p --create --force-bad-version --allow-lower-version \
-			-v "${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package \
+			-v "${pkgname}_${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 			"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild for SteamOS"
 
 		fi

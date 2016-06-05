@@ -263,8 +263,7 @@ main()
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
-	# assess if depdencies should be ignored.
-	# If no argument used, build normally
+	# assess if depdencies should be installed locally.
 
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
@@ -284,6 +283,13 @@ main()
 
 		fi
 		
+	fi
+	
+	
+	# assess arguments
+
+	if [[ "$arg1" == "" ]]; then
+	
 		#################################################
 		# Prepare
 		#################################################
@@ -303,13 +309,13 @@ main()
 		
 		if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}"
+			dch -p --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}" --package \
+			"${pkgname}" -D "${DIST}" -u "${urgency}"
 
 		else
 
-		dch -p --create --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}"
+			dch -p --create --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}" --package \
+			"${pkgname}" -D "${DIST}" -u "${urgency}"
 
 		fi
 		
@@ -322,6 +328,7 @@ main()
 	
 		#  build
 		sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+
 
 	elif [[ "$arg1" == "--ignore_deps" ]]; then
 

@@ -395,7 +395,7 @@ main()
 	mkdir -p "${build_dir}"
 	cd "${build_dir}"
 	
-	if [[ "${BUILDER}" == "pdebuild" ]]; then
+	if [[ "${BUILDER}" == "pbuilder" ]]; then
 	
 		function_pbuilder_build
 		

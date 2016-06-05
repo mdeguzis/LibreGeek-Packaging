@@ -46,11 +46,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-	
+
 fi
 
 ###############################
@@ -66,25 +66,25 @@ show_help()
 	clear
 	cat <<-EOF
 	####################################################
-	Usage:	
+	Usage:
 	####################################################
 	./build-deb-from-PPA.sh
 	./build-deb-from-PPA.sh --help
 	./build-deb-from-PPA.sh --ignore-deps
 	source ./build-deb-from-PPA.sh
-	
+
 	The fourth option, preeceded by 'source' will 
 	execute the script in the context of the calling 
 	shell and preserve vars for the next run.
-	
+9
 	IF you see the message:
 	WARNING: The following packages cannot be authenticated!...
 	Look above in the output for apt-get update. You will see a
 	line for 'NO_PUBKEY 3B4FE6ACC0B21F32'. Import this key string
 	by issuing 'gpg_import.sh <key>' from the extra DIR of this repo.
-	
+
 	EOF
-	
+
 }
 
 if [[ "$arg1" == "--help" ]]; then
@@ -101,13 +101,13 @@ install_prereqs()
 	clear
 	# set scriptdir
 	scriptdir="$pwd"
-	
+
 	echo -e "==> Checking for Debian sources..."
-	
+
 	# check for repos
 	sources_check=$(sudo find /etc/apt -type f -name "jessie*.list")
 	sources_check2=$(grep -r jessie /etc/apt/sources.list)
-	
+
 	if [[ "$sources_check" == "" && "$sources_check2" == "" ]]; then
                 echo -e "\n==INFO==\nSources do *NOT* appear to be added at first glance. Adding now..."
                 sleep 2s
@@ -116,33 +116,33 @@ install_prereqs()
                 echo -e "\n==INFO==\nJessie sources appear to be added."
                 sleep 2s
         fi
-        
+
         echo -e "\n==> Installing build tools...\n"
         sleep 2s
-        
+
         sudo apt-get install -y --force-yes devscripts build-essential checkinstall ubuntu-archive-keyring
 
 }
 
 main()
 {
-	
+
 	export build_dir="${HOME}/build-deb-temp"
-src_dir="${pkgname}-${pkgver}"
-	
+	src_dir="${pkgname}-${pkgver}"
+
 	# remove previous dirs if they exist
 	if [[ -d "${build_dir}" ]]; then
 		sudo rm -rf "${build_dir}"
 	fi
-	
+
 	# create build dir and enter it
 	mkdir -p "${build_dir}"
 	cd "${build_dir}"
-	
+
 	# Ask user for repos / vars
 	echo -e "\n==> Please enter or paste the deb-src URL now:"
 	echo -e "    [Press ENTER to use last: $repo_src]\n"
-	
+
 	# set tmp var for last run, if exists
 	repo_src_tmp="$repo_src"
 	if [[ "$repo_src" == "" ]]; then
@@ -158,12 +158,12 @@ src_dir="${pkgname}-${pkgver}"
 			repo_src="$repo_src"
 		fi
 	fi
-	
+
 	echo -e "\n==> Use a public key (s)tring or URL to public key (f)ile [s/f]?"
 	echo -e "    [Press ENTER to use string (default)\n"
 	sleep .2s
 	read -erp "Type: " gpg_type
-	
+
 	echo -e "\n==> Please enter or paste the GPG key/url for this repo now: "
 	echo -e "    (Press ENTER when done)"
 
@@ -174,8 +174,8 @@ src_dir="${pkgname}-${pkgver}"
 
 		while [[ "${gpg_pub_key}" != "" ]];
 		do
-			read -ep "GPG Public Key: " gpg_pub_key
-			echo "${gpg_pub_key}" >> gpg_strings.txt
+			read -erp "GPG Public Key: " gpg_pub_key
+			echo "${gpg_pub_key}" >> gpg-strings.txt
 
 		done
 
@@ -191,7 +191,7 @@ src_dir="${pkgname}-${pkgver}"
 			gpg_pub_key="$gpg_pub_key"
 		fi
 	fi
-	
+
 	echo -e "\n==> Please enter or paste the desired package name now:"
 	echo -e "    [Press ENTER to use last: $target]\n"
 	target_tmp="$target"
@@ -208,114 +208,114 @@ src_dir="${pkgname}-${pkgver}"
 			target="$target"
 		fi
 	fi
-	
+
 	# prechecks
 	echo -e "\n==> Attempting to add source list"
 	sleep 2s
-	
+
 	# check for existance of target, backup if it exists
 	if [[ -f /etc/apt/sources.list.d/${target}.list ]]; then
 		echo -e "\n==> Backing up ${target}.list to ${target}.list.bak"
 		sudo mv "/etc/apt/sources.list.d/${target}.list" "/etc/apt/sources.list.d/${target}.list.bak"
 	fi
-	
+
 	# add source to sources.list.d/
 	echo ${repo_src} > "${target}.list.tmp"
 	sudo mv "${target}.list.tmp" "/etc/apt/sources.list.d/${target}.list"
-	
+
 	echo -e "\n==> Adding GPG keys:\n"
 	sleep 2s
-	
+
 	if [[ "$gpg_type" == "s" ]]; then
 
 		# loop until there are no more keys in the file
-		input="gpg_strings.txt"
-		while IFS= read -r $gpg_string
+		while read -r $gpg_string
 		do
-		  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_string
-		done < "$input"
-
+			#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_string
+			echo $gpg_string
+		done < gpg-strings.txt
+exit 1
 		# cleanup
-		rm -f gpg_strings.txt
+		rm -f gpg-strings.txt
 
 	elif [[ "$gpg_type" == "f" ]]; then
-	
+
 		# add key by specifying URL to public.key equivalent file
 		wget -q -O- $gpg_pub_key | sudo apt-key add -
-		
+
 	else
-	
+
 		# add gpg key by string from keyserver (fallback default)
 		sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_pub_key
-		
+
 	fi
-	
+
 	echo -e "\n==> Updating system package listings...\n"
 	sleep 2s
 	sudo apt-key update
 	sudo apt-get update
-	
+
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
+
 	# assess if depdencies should be ignored.
 	# If no argument used, build normally
 
 	if [[ "$arg1" == "" ]]; then
-	
+
 		echo -e "\n==> Attempting to auto-install build dependencies\n"
-	
+
 		# attempt to get build deps
 		if sudo apt-get build-dep ${target} -y --force-yes; then
-		
+
 			echo -e "\n==INFO==\nSource package dependencies successfully installed."
-			
+
 		else
-			
+
 			echo -e "\n==ERROR==\nSource package dependencies coud not be installed!"
 			echo -e "Press CTRL+C to exit now. Exiting in 15 seconds."
 			sleep 15s
 			exit 1
-			
+
 		fi
-	
+
 		# Attempt to build target
 		echo -e "\n==> Attempting to build ${target}:\n"
 		sleep 2s
-	
+
 		# build normally using apt-get source
 		if apt-get source --build ${target}; then
-			
+
 			echo -e "\n==INFO==\nBuild successfull"
-			
+
 		else
-		
+
 			echo -e "\n==INFO==\nBuild FAILED"
-			
+
 		fi
-	
+
 	elif [[ "$arg1" == "--ignore_deps" ]]; then
-	
+
 		# There are times when specific packages are specific in the depends lines
 		# of Ubuntu control files are satisfied by other packages.
-		
+
 		# One example is libstdc++6.4.4-dev, which seems to be satisfiable by 
 		# libstdc6 in Jessie, where only higher ver. dbg packages are available
 		# Ex. https://packages.debian.org/search?suite=jessie&searchon=names&keywords=libstdc%2B%2B6
-	
+
 		echo -e "\n==INFO==\nIgnoring depedencies for build\n"
 		sleep 2s
-		
+
 		# download source 
 		apt-get source ${target}
-		
+
 		# identify folder
 		cd $build_dir
 		build_source_dir=$(ls -d */)
-	
+
 		# build using typicaly commands + override option
 		cd ${build_source_dir} && dpkg-buildpackage -b -rfakeroot -us -uc -d
-	
+
 
 	elif [[ "$arg1" == "--binary-only" ]]; then
 
@@ -352,16 +352,16 @@ src_dir="${pkgname}-${pkgver}"
 	echo -e "cd $build_folder"
 	echo -e "sudo dpkg-buildpackage -b -d -uc"
 	echo -e "###################################################################\n"
-	
+
 	ls "${HOME}/build-deb-temp"
-	
+
 	echo -e "\n==> Would you like to trim tar.gz, dsc files, and folders for uploading? [y/n]"
 	sleep 0.5s
 	# capture command
 	read -ep "Choice: " trim_choice
-	
+
 	if [[ "$trim_choice" == "y" ]]; then
-		
+
 		# transfer files so we just have our deb pkg
 		rm -f $build_dir/*.tar.gz
 		rm -f $build_dir/*.dsc
@@ -369,12 +369,12 @@ src_dir="${pkgname}-${pkgver}"
 		rm -f $build_dir/*-dbg
 		rm -f $build_dir/*-dev
 		rm -f $build_dir/*-compat
-		
+
 		# remove source directory that was made
 		find $build_dir -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
-		
+
 	elif [[ "$trim_choice" == "n" ]]; then
-	
+
 		echo -e "File trim not requested"
 	fi
 
@@ -382,35 +382,35 @@ src_dir="${pkgname}-${pkgver}"
 	sleep 0.5s
 	# capture command
 	read -ep "Choice: " transfer_choice
-	
+
 	if [[ "$transfer_choice" == "y" ]]; then
-	
+
 		# transfer files
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
-		
+
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"
 	fi
-	
+
 	echo -e "\n==> Would you like to purge this source list addition? [y/n]"
 	sleep 0.5s
 	# capture command
 	read -ep "Choice: " purge_choice
-	
+
 	if [[ "$purge_choice" == "y" ]]; then
-	
+
 		# remove list
 		sudo rm -f /etc/apt/sources.list.d/${target}.list
 		sudo apt-get update
-		
+
 	elif [[ "$purge_choice" == "n" ]]; then
-	
+
 		echo -e "Purge not requested\n"
 	fi
 
-	
+
 }
 
 #prereqs

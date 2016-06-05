@@ -4,8 +4,9 @@
 # Author:    	Michael DeGuzis
 # Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-deb-from-PPA.sh
-# Script Ver:	0.5.6
-# Description:	Attempts to build a deb package from a PPA
+# Script Ver:	1.1.6
+# Description:	Attempts to build a deb package from a PPA. Designed only for
+#		Debian systems.
 #
 # See also:	Generate a source list: http://repogen.simplylinux.ch/
 #		Command 'rmadison' from devscripts to see arch's
@@ -33,7 +34,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-suffix="bsos"
+pkgsuffix="bsos"
+urgency="low"
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -46,7 +48,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 	REMOTE_PORT="22"
 
 fi
-
 
 
 if [[ "$arg1" == "--testing" ]]; then
@@ -188,8 +189,8 @@ main()
 		while [[ "${gpg_pub_key}" != "" ]];
 		do
 			read -erp "Enter GPG public key string: " gpg_pub_key
-			if [[ "$gpg_pub_key" != "" ]]; then
-				echo "$gpg_pub_key" >> /tmp/gpg-strings.txt
+			if [[ "${gpg_pub_key}" != "" ]]; then
+				echo "${gpg_pub_key}" >> /tmp/gpg-strings.txt
 			fi
 
 		done
@@ -236,6 +237,7 @@ main()
 		while read -r gpg_string
 		do
 			sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_string
+
 		done < /tmp/gpg-strings.txt
 
 		# cleanup
@@ -244,12 +246,12 @@ main()
 	elif [[ "$gpg_type" == "f" ]]; then
 
 		# add key by specifying URL to public.key equivalent file
-		wget -q -O- $gpg_pub_key | sudo apt-key add -
+		wget -q -O- ${gpg_pub_key} | sudo apt-key add -
 
 	else
 
 		# add gpg key by string from keyserver (fallback default)
-		sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_pub_key
+		sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys ${gpg_pub_key}
 
 	fi
 
@@ -264,7 +266,7 @@ main()
 	# assess if depdencies should be ignored.
 	# If no argument used, build normally
 
-	if [[ "$arg1" == "" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		echo -e "\n==> Attempting to auto-install build dependencies\n"
 
@@ -281,23 +283,45 @@ main()
 			exit 1
 
 		fi
+		
+		#################################################
+		# Prepare
+		#################################################
 
 		# Get source
 		apt-get source "${target}"
 		
 		# rename source files so they reflect our steamos target
 		# Account for bp08 / ubuntu
-		find . -maxdepth 1 -exec rename "s|~bpo8|+$suffix|" {} \;
-		find . -maxdepth 1 -exec rename "s|~ubuntu|+$suffix|" {} \;
+		find . -maxdepth 1 -exec rename "s|~bpo8|+$pkgsuffix|" {} \;
+		find . -maxdepth 1 -exec rename "s|~ubuntu|+$pkgsuffix|" {} \;
+		
+		# Get versioning
+		pkgname_pkgver=$(find "${build_dir}" -maxdepth 1 -type d -ianem ${target}* -exec basename {} \;)
 
 		echo -e "\nUpdating Changlog"
-		dch -i
+		
+		if [[ -f "debian/changelog" ]]; then
+
+		dch -p --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}" --package \
+		"${pkgname}" -D "${DIST}" -u "${urgency}"
+
+		else
+
+		dch -p --create --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}" --package \
+		"${pkgname}" -D "${DIST}" -u "${urgency}"
+
+		fi
+		
+		#################################################
+		# Build package
+		#################################################
 	
 		echo -e "\n==> Building Debian package ${target} from PPA source\n"
 		sleep 2s
 	
 		#  build
-		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+		sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	elif [[ "$arg1" == "--ignore_deps" ]]; then
 
@@ -319,7 +343,7 @@ main()
 		build_source_dir=$(ls -d */)
 
 		# build using typicaly commands + override option
-		cd ${build_source_dir} && dpkg-buildpackage -b -rfakeroot -us -uc -d
+		cd ${build_source_dir} && sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 
 	elif [[ "$arg1" == "--binary-only" ]]; then
@@ -336,7 +360,7 @@ main()
                 build_source_dir=$(ls -d */)
 
                 # build using typicaly commands + override option
-                cd ${build_source_dir} && dpkg-buildpackage -b -rfakeroot -us -uc
+                cd ${build_source_dir} && sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	fi
 
@@ -348,40 +372,22 @@ main()
 	fi
 
 	# inform user of packages
-	echo -e "\n###################################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you do not, please check build dependcy errors listed above."
-	echo -e "You could also try manually building outside of this script with"
-	echo -e "the following commands (at your own risk!)\n"
-	echo -e "cd $build_dir"
-	echo -e "cd $build_folder"
-	echo -e "sudo dpkg-buildpackage -b -d -uc"
-	echo -e "###################################################################\n"
+	cat<<- EOF
+	###################################################################
+	If package was built without errors you will see it below.
+	If you do not, please check build dependcy errors listed above.
+	You could also try manually building outside of this script with
+	the following commands (at your own risk!)
+	
+	cd $build_dir
+	cd $build_folder
+	sudo dpkg-buildpackage -b -d -uc
+	###################################################################
 
+	EOF
+	
 	ls "${HOME}/build-deb-temp"
 
-	echo -e "\n==> Would you like to trim tar.gz, dsc files, and folders for uploading? [y/n]"
-	sleep 0.5s
-	# capture command
-	read -ep "Choice: " trim_choice
-
-	if [[ "$trim_choice" == "y" ]]; then
-
-		# transfer files so we just have our deb pkg
-		rm -f $build_dir/*.tar.gz
-		rm -f $build_dir/*.dsc
-		rm -f $build_dir/*.changes
-		rm -f $build_dir/*-dbg
-		rm -f $build_dir/*-dev
-		rm -f $build_dir/*-compat
-
-		# remove source directory that was made
-		find $build_dir -mindepth 1 -maxdepth 1 -type d -exec rm -r {} \;
-
-	elif [[ "$trim_choice" == "n" ]]; then
-
-		echo -e "File trim not requested"
-	fi
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

@@ -29,7 +29,6 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # builder varzs
-BUILDER="pbuilder"
 DIST="brewmaster"
 ARCH="amd64"
 BUILDOPTS="--debbuildopts -b"
@@ -380,7 +379,6 @@ function_show_summary()
 function_pbuilder_build()
 {
 	
-	clear 
 	# Get DSC
 	echo -e "\n==> Using pbuilder. Enter URL to DSC file: "
 	sleep 0.2s
@@ -400,6 +398,10 @@ function_pbuilder_build()
 
 main()
 {
+	
+	clear
+	echo -e "\n==> Choose your builder: "
+	read -erp "[pbuilder|local]" BUILDER
 	
 	export build_dir="${HOME}/build-deb-temp"
 	src_dir="${pkgname}-${pkgver}"

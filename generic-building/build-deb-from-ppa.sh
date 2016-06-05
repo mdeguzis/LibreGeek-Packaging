@@ -317,7 +317,7 @@ main()
 		if [[ -f "debian/changelog" ]]; then
 
 			dch -p --force-distribution --allow-lower-version -v \
-			"${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package 
+			"${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package \
 			"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild for SteamOS"
 			nano "debian/changelog"
 
@@ -414,7 +414,8 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 

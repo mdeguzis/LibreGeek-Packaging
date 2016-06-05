@@ -384,7 +384,7 @@ function_pbuilder_build()
 	read -erp "URL: " DSC_FILE_URL
 	
 	echo -e "\n Fetching source filse\n"
-	dget -xu "${ORIG_FILE_URL}"
+	dget -xu "${DSC_FILE_URL}"
 
 	echo -e "\nEditing DSC file. Be sure to adjust as needed\n"
 	sleep 2s

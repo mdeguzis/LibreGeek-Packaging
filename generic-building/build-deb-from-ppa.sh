@@ -36,6 +36,7 @@ BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgsuffix="bsos"
 urgency="low"
+pkgrev="1"
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -140,7 +141,12 @@ main()
 
 	# remove previous dirs if they exist
 	if [[ -d "${build_dir}" ]]; then
+	
 		sudo rm -rf "${build_dir}"
+		
+		# cleanup gpg list
+		rm -f /tmp/gpg-strings.txt
+
 	fi
 
 	# create build dir and enter it
@@ -153,6 +159,7 @@ main()
 
 	# set tmp var for last run, if exists
 	repo_src_tmp="$repo_src"
+	
 	if [[ "$repo_src" == "" ]]; then
 		# var blank this run, get input
 		read -ep "deb-src URL: " repo_src
@@ -231,7 +238,7 @@ main()
 	echo -e "\n==> Adding GPG keys:\n"
 	sleep 2s
 
-	if [[ "$gpg_type" == "s" ]]; then
+	if [[ "$gpg_type" == "s" && -f /tmp/gpg-strings.txt ]]; then
 
 		# loop until there are no more keys in the file
 		while read -r gpg_string
@@ -239,9 +246,6 @@ main()
 			sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_string
 
 		done < /tmp/gpg-strings.txt
-
-		# cleanup
-		rm -f gpg-strings.txt
 
 	elif [[ "$gpg_type" == "f" ]]; then
 
@@ -303,19 +307,23 @@ main()
 		find . -maxdepth 1 -exec rename "s|~ubuntu|+$pkgsuffix|" {} \;
 		
 		# Get versioning
-		pkgname_pkgver=$(find "${build_dir}" -maxdepth 1 -type d -ianem ${target}* -exec basename {} \;)
+		pkgname_pkgver=$(find "${build_dir}" -maxdepth 1 -type d -iname ${target}* -exec basename {} \;)
+
+		# Enter source dir
+		cd ${target}* || exit 1
 
 		echo -e "\nUpdating Changlog"
 		
 		if [[ -f "debian/changelog" ]]; then
 
-			dch -p --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}" --package \
-			"${pkgname}" -D "${DIST}" -u "${urgency}"
+			dch -p --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package \
+			"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild for SteamOS"
+			nano "debian/changelog"
 
 		else
 
-			dch -p --create --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}" --package \
-			"${pkgname}" -D "${DIST}" -u "${urgency}"
+			dch -p --create --force-distribution -v "${pkgname_pkgver}+${pkgsuffix}-${pkgrev}" --package \
+			"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild for SteamOS"
 
 		fi
 		
@@ -430,16 +438,6 @@ main()
 
 
 }
-
-#prereqs
-
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
-
-		# handle prereqs on host machine
-		install_prereqs
-
-	fi
-
 
 # start main
 main

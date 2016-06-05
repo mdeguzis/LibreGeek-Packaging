@@ -28,6 +28,12 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
+# build vars
+ARCH="amd64"
+BUILDER="pdebuild"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+export STEAMOS_TOOLS_BETA_HOOK="false"
+suffix="bsos"
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -275,20 +281,34 @@ main()
 
 		fi
 
-		# Attempt to build target
-		echo -e "\n==> Attempting to build ${target}:\n"
-		sleep 2s
+		# Get source
+		apt-get source "${target}"
+		
+		# rename source files so they reflect our steamos target
+		# Account for bp08 / ubuntu
+		find . -maxdepth 1 -exec rename "s|bpo8|$suffix|" {} \;
+		find . -maxdepth 1 -exec rename "s|ubuntu|$suffix|" {} \;
 
-		# build normally using apt-get source
-		if apt-get source --build ${target}; then
+		echo -e "\nUpdating Changlog"
+		
+		# update changelog with dch
+		if [[ -f "debian/changelog" ]]; then
 
-			echo -e "\n==INFO==\nBuild successfull"
+			dch -p --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+			"Rebuild for latest source version"
 
 		else
 
-			echo -e "\n==INFO==\nBuild FAILED"
+			dch -p --create --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+			"Rebuild for SteamOS"
 
 		fi
+	
+		echo -e "\n==> Building Debian package ${target} from PPA source\n"
+		sleep 2s
+	
+		#  build
+		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	elif [[ "$arg1" == "--ignore_deps" ]]; then
 

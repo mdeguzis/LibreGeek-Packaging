@@ -374,6 +374,9 @@ function_pbuilder_build()
 	sleep 0.2s
 	read -erp "URL: " DSC_FILE_URL
 	
+	echo -e "\nEditing DSC file. Be sure to adjust as needed\n"
+	nano *.dsc
+	
 	echo -e "\nBuidling package\n"
 	
 	wget "${DSC_FILE_URL}" -q -nc --show-progress

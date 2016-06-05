@@ -43,7 +43,7 @@ pkgrev="1"
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool pkgname(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -205,19 +205,19 @@ main()
 	fi
 
 	echo -e "\n==> Please enter or paste the desired package name now:"
-	echo -e "    [Press ENTER to use last: $target]\n"
-	target_tmp="$target"
-	if [[ "$target" == "" ]]; then
+	echo -e "    [Press ENTER to use last: $pkgname]\n"
+	pkgname_tmp="$pkgname"
+	if [[ "$pkgname" == "" ]]; then
 		# var blank this run, get input
-		read -ep "Package Name: " target
+		read -ep "Package Name: " pkgname
 	else
-		read -ep "Package Name: " target
+		read -ep "Package Name: " pkgname
 		# user chose to keep var value from last
-		if [[ "$target" == "" ]]; then
-			target="$target_tmp"
+		if [[ "$pkgname" == "" ]]; then
+			pkgname="$pkgname_tmp"
 		else
 			# keep user choice
-			target="$target"
+			pkgname="$pkgname"
 		fi
 	fi
 
@@ -225,15 +225,15 @@ main()
 	echo -e "\n==> Attempting to add source list"
 	sleep 2s
 
-	# check for existance of target, backup if it exists
-	if [[ -f /etc/apt/sources.list.d/${target}.list ]]; then
-		echo -e "\n==> Backing up ${target}.list to ${target}.list.bak"
-		sudo mv "/etc/apt/sources.list.d/${target}.list" "/etc/apt/sources.list.d/${target}.list.bak"
+	# check for existance of pkgname, backup if it exists
+	if [[ -f /etc/apt/sources.list.d/${pkgname}.list ]]; then
+		echo -e "\n==> Backing up ${pkgname}.list to ${pkgname}.list.bak"
+		sudo mv "/etc/apt/sources.list.d/${pkgname}.list" "/etc/apt/sources.list.d/${pkgname}.list.bak"
 	fi
 
 	# add source to sources.list.d/
-	echo ${repo_src} > "${target}.list.tmp"
-	sudo mv "${target}.list.tmp" "/etc/apt/sources.list.d/${target}.list"
+	echo ${repo_src} > "${pkgname}.list.tmp"
+	sudo mv "${pkgname}.list.tmp" "/etc/apt/sources.list.d/${pkgname}.list"
 
 	echo -e "\n==> Adding GPG keys:\n"
 	sleep 2s
@@ -274,7 +274,7 @@ main()
 		echo -e "\n==> Attempting to auto-install build dependencies\n"
 
 		# attempt to get build deps
-		if sudo apt-get build-dep ${target} -y --force-yes; then
+		if sudo apt-get build-dep ${pkgname} -y --force-yes; then
 
 			echo -e "\n==INFO==\nSource package dependencies successfully installed."
 
@@ -299,18 +299,18 @@ main()
 		#################################################
 
 		# Get source
-		apt-get source "${target}"
+		apt-get source "${pkgname}"
 		
-		# rename source files so they reflect our steamos target
+		# rename source files so they reflect our steamos pkgname
 		# Account for bp08 / ubuntu
 		find . -maxdepth 1 -exec rename "s|~bpo8|+$pkgsuffix|" {} \;
 		find . -maxdepth 1 -exec rename "s|~ubuntu|+$pkgsuffix|" {} \;
 		
 		# Get versioning
-		pkgname_pkgver=$(find "${build_dir}" -maxdepth 1 -type d -iname ${target}* -exec basename {} \;)
+		pkgname_pkgver=$(find "${build_dir}" -maxdepth 1 -type d -iname ${pkgname}* -exec basename {} \;)
 
 		# Enter source dir
-		cd ${target}* || exit 1
+		cd ${pkgname}* || exit 1
 
 		echo -e "\nUpdating Changlog"
 		
@@ -333,7 +333,7 @@ main()
 		# Build package
 		#################################################
 	
-		echo -e "\n==> Building Debian package ${target} from PPA source\n"
+		echo -e "\n==> Building Debian package ${pkgname} from PPA source\n"
 		sleep 2s
 	
 		#  build
@@ -353,7 +353,7 @@ main()
 		sleep 2s
 
 		# download source
-		apt-get source ${target}
+		apt-get source ${pkgname}
 
 		# identify folder
 		cd $build_dir
@@ -370,7 +370,7 @@ main()
                 sleep 2s
 
                 # download source
-                apt-get source ${target}
+                apt-get source ${pkgname}
 
                 # identify folder
                 cd $build_dir
@@ -430,7 +430,7 @@ main()
 	if [[ "$purge_choice" == "y" ]]; then
 
 		# remove list
-		sudo rm -f /etc/apt/sources.list.d/${target}.list
+		sudo rm -f /etc/apt/sources.list.d/${pkgname}.list
 		sudo apt-get update
 
 	elif [[ "$purge_choice" == "n" ]]; then

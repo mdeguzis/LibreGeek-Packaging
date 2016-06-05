@@ -368,8 +368,9 @@ function_build_locally()
 function_pbuilder_build()
 {
 	
+	clear 
 	# Get DSC
-	read -erp "Enter URL to DSC file: " DSC_FILE_URL
+	read -erp "\n==> Using pbuilder. Enter URL to DSC file: " DSC_FILE_URL
 	
 	echo -e "\nBuidling package\n"
 	

@@ -383,8 +383,15 @@ function_pbuilder_build()
 	sleep 0.2s
 	read -erp "URL: " DSC_FILE_URL
 
-	echo -e "\n Fetching DSC file\n"
+	echo -e "\n==> Enter URL to .org.tar.gz file: "
+	sleep 0.2s
+	read -erp "URL: " ORIG_FILE_URL
+
+	echo -e "\n Fetching source filse\n"
 	wget "${DSC_FILE_URL}" -q -nc --show-progress
+	
+	echo -e "\n Fetching source filse\n"
+	wget "${ORIG_FILE_URL}" -q -nc --show-progress
 
 	echo -e "\nEditing DSC file. Be sure to adjust as needed\n"
 	sleep 2s

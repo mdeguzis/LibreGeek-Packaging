@@ -58,7 +58,7 @@ fi
 ###############################
 
 # Ubuntu packages are not "PPA's" so example deb-src lines are:
-# deb-src http://archive.ubuntu.com/ubuntu vivid main restricted universe multiverse
+# deb-src http://archive.ubuntu.com/ubuntu wily main restricted universe multiverse
 # GPG-key(s): 437D05B5, C0B21F32
 
 show_help()
@@ -120,7 +120,7 @@ install_prereqs()
         echo -e "\n==> Installing build tools...\n"
         sleep 2s
         
-        sudo apt-get install -y --force-yes devscripts build-essential checkinstall
+        sudo apt-get install -y --force-yes devscripts build-essential checkinstall ubuntu-archive-keyring
 
 }
 
@@ -159,19 +159,30 @@ src_dir="${pkgname}-${pkgver}"
 		fi
 	fi
 	
-	echo -e "\n==> Use a public key string or URL to public key file [s/u]?"
+	echo -e "\n==> Use a public key (s)tring or URL to public key (f)ile [s/f]?"
 	echo -e "    [Press ENTER to use string (default)\n"
 	sleep .2s
 	read -erp "Type: " gpg_type
 	
-	echo -e "\n==> Please enter or paste the GPG key/url for this repo now:"
+	echo -e "\n==> Please enter or paste the GPG key/url for this repo now: (Press ENTER when done)"
 	echo -e "    [Press ENTER to use last: $gpg_pub_key]\n"
 	gpg_pub_key_tmp="$gpg_pub_key"
+
 	if [[ "$gpg_pub_key" == "" ]]; then
+
 		# var blank this run, get input
-		read -ep "GPG Public Key: " gpg_pub_key
+		while [[ "${gpg_pub_key}" != "" ]];
+		do
+			read -ep "GPG Public Key: " gpg_pub_key
+			echo "${gpg_pub_key}" >> gpg_strings.txt
+			unset gpg_pub_key
+
+		done
+
 	else
+
 		read -ep "GPG Public Key: " gpg_pub_key
+
 		# user chose to keep var value from last
 		if [[ "$gpg_pub_key" == "" ]]; then
 			gpg_pub_key="$gpg_pub_key_tmp"
@@ -212,15 +223,22 @@ src_dir="${pkgname}-${pkgver}"
 	echo ${repo_src} > "${target}.list.tmp"
 	sudo mv "${target}.list.tmp" "/etc/apt/sources.list.d/${target}.list"
 	
-	echo -e "\n==> Adding GPG key:\n"
+	echo -e "\n==> Adding GPG keys:\n"
 	sleep 2s
 	
 	if [[ "$gpg_type" == "s" ]]; then
-	
-		# add gpg key by string from keyserver
-		sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_pub_key
-		
-	elif [[ "$gpg_type" == "u" ]]; then
+
+		# loop until there are no more keys in the file
+		input="gpg_strings.txt"
+		while IFS= read -r $gpg_string
+		do
+		  sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_string
+		done < "$input"
+
+		# cleanup
+		rm -f gpg_strings.txt
+
+	elif [[ "$gpg_type" == "f" ]]; then
 	
 		# add key by specifying URL to public.key equivalent file
 		wget -q -O- $gpg_pub_key | sudo apt-key add -

@@ -318,14 +318,14 @@ main()
 		if [[ -f "debian/changelog" ]]; then
 
 			dch -p --force-bad-version -v \
-			"${pkgname}_${pkgver}+${pkgsuffix}-${pkgrev}" --package \
+			"${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 			"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild for SteamOS"
 			nano "debian/changelog"
 
 		else
 
 			dch -p --create --force-bad-version --allow-lower-version \
-			-v "${pkgname}_${pkgver}+${pkgsuffix}-${pkgrev}" --package \
+			-v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 			"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild for SteamOS"
 
 		fi

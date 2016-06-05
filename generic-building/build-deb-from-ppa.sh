@@ -171,6 +171,8 @@ src_dir="${pkgname}-${pkgver}"
 	if [[ "$gpg_pub_key" == "" ]]; then
 
 		# var blank this run, get input
+		gpg_pub_key="temp"
+
 		while [[ "${gpg_pub_key}" != "" ]];
 		do
 			read -ep "GPG Public Key: " gpg_pub_key
@@ -254,7 +256,6 @@ src_dir="${pkgname}-${pkgver}"
 	sleep 2s
 	sudo apt-key update
 	sudo apt-get update
-	
 	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)

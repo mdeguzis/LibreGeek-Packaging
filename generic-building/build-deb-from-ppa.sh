@@ -307,7 +307,8 @@ main()
 		find . -maxdepth 1 -exec rename "s|~ubuntu|+$pkgsuffix|" {} \;
 		
 		# Get versioning
-		pkgname_pkgver=$(find "${build_dir}" -maxdepth 1 -type d -iname "${pkgname}*" -exec basename {} \;)
+		pkgname_pkgver=$(find "${build_dir}" -maxdepth 1 -type d -iname "${pkgname}*" \
+		-exec basename {} \; | sed "s|-|_|")
 
 		# Enter source dir
 		cd ${pkgname}* || exit 1

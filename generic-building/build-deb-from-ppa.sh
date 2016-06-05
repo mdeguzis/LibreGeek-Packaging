@@ -318,6 +318,23 @@ function_build_locally()
 	else
 		cd "${HOME}"
 	fi
+	
+		echo -e "\n==> Would you like to purge this source list addition? [y/n]"
+	sleep 0.5s
+	# capture command
+	read -ep "Choice: " purge_choice
+	
+	if [[ "$purge_choice" == "y" ]]; then
+	
+		# remove list
+		sudo rm -f /etc/apt/sources.list.d/${target}.list
+		sudo apt-get update
+		
+	elif [[ "$purge_choice" == "n" ]]; then
+	
+		echo -e "Purge not requested\n"
+	fi
+
 }
 
 function_show_summary()
@@ -356,22 +373,6 @@ function_show_summary()
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"
 	fi
-	
-	echo -e "\n==> Would you like to purge this source list addition? [y/n]"
-	sleep 0.5s
-	# capture command
-	read -ep "Choice: " purge_choice
-	
-	if [[ "$purge_choice" == "y" ]]; then
-	
-		# remove list
-		sudo rm -f /etc/apt/sources.list.d/${target}.list
-		sudo apt-get update
-		
-	elif [[ "$purge_choice" == "n" ]]; then
-	
-		echo -e "Purge not requested\n"
-	fi
 
 	
 }
@@ -385,14 +386,14 @@ function_pbuilder_build()
 	sleep 0.2s
 	read -erp "URL: " DSC_FILE_URL
 	
-	echo -e "\nFetching source filse\n"
+	echo -e "\n==> Fetching source filse\n"
 	dget -xu "${DSC_FILE_URL}"
 
-	echo -e "\nEditing DSC file. Be sure to adjust as needed\n"
+	echo -e "\n==> Editing DSC file. Be sure to adjust as needed\n"
 	sleep 2s
 	nano *.dsc
 
-	echo -e "\nBuidling package\n"
+	echo -e "\n==> Buidling package\n"
 	sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} --build *.dsc
 	
 }

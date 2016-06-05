@@ -164,9 +164,8 @@ src_dir="${pkgname}-${pkgver}"
 	sleep .2s
 	read -erp "Type: " gpg_type
 	
-	echo -e "\n==> Please enter or paste the GPG key/url for this repo now: (Press ENTER when done)"
-	echo -e "    [Press ENTER to use last: $gpg_pub_key]\n"
-	gpg_pub_key_tmp="$gpg_pub_key"
+	echo -e "\n==> Please enter or paste the GPG key/url for this repo now: "
+	echo -e "    (Press ENTER when done)"
 
 	if [[ "$gpg_pub_key" == "" ]]; then
 
@@ -177,7 +176,6 @@ src_dir="${pkgname}-${pkgver}"
 		do
 			read -ep "GPG Public Key: " gpg_pub_key
 			echo "${gpg_pub_key}" >> gpg_strings.txt
-			unset gpg_pub_key
 
 		done
 

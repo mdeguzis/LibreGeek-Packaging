@@ -160,36 +160,33 @@ main()
 	fi
 
 	echo -e "\n==> Use a public key (s)tring or URL to public key (f)ile [s/f]?"
-	echo -e "    [Press ENTER to use string (default)\n"
 	sleep .2s
 	read -erp "Type: " gpg_type
+	echo ""
 
-	echo -e "\n==> Please enter or paste the GPG key/url for this repo now: "
-	echo -e "    (Press ENTER when done)"
+	if [[ "$gpg_type" == "f" ]]; then
 
-	if [[ "$gpg_pub_key" == "" ]]; then
-
-		# var blank this run, get input
-		gpg_pub_key="temp"
-
-		while [[ "${gpg_pub_key}" != "" ]];
-		do
-			read -erp "GPG Public Key: " gpg_pub_key
-			echo "${gpg_pub_key}" >> gpg-strings.txt
-
-		done
+                # var blank this run, get input
+		read -erp "Enter path to gpg file: " gpg_pub_key
 
 	else
 
-		read -ep "GPG Public Key: " gpg_pub_key
+		# Asume GPG string type s
+		gpg_type="s"
 
-		# user chose to keep var value from last
-		if [[ "$gpg_pub_key" == "" ]]; then
-			gpg_pub_key="$gpg_pub_key_tmp"
-		else
-			# keep user choice
-			gpg_pub_key="$gpg_pub_key"
-		fi
+		# var blank this run, get input
+		gpg_pub_key="temp"
+		rm -f /tmp/gpg-strings.txt
+
+		while [[ "${gpg_pub_key}" != "" ]];
+		do
+			read -erp "Enter GPG public key string: " gpg_pub_key
+			if [[ "$gpg_pub_key" != "" ]]; then
+				echo "$gpg_pub_key" >> /tmp/gpg-strings.txt
+			fi
+
+		done
+
 	fi
 
 	echo -e "\n==> Please enter or paste the desired package name now:"
@@ -229,12 +226,11 @@ main()
 	if [[ "$gpg_type" == "s" ]]; then
 
 		# loop until there are no more keys in the file
-		while read -r $gpg_string
+		while read -r gpg_string
 		do
-			#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_string
-			echo $gpg_string
-		done < gpg-strings.txt
-exit 1
+			sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys $gpg_string
+		done < /tmp/gpg-strings.txt
+
 		# cleanup
 		rm -f gpg-strings.txt
 
@@ -306,7 +302,7 @@ exit 1
 		echo -e "\n==INFO==\nIgnoring depedencies for build\n"
 		sleep 2s
 
-		# download source 
+		# download source
 		apt-get source ${target}
 
 		# identify folder

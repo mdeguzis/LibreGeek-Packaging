@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-sprunge.sh
+# Scipt Name:	build-qtbase-opensource-src.sh.sh
 # Script Ver:	1.0.0
 # Description:	Builds package of QT 5.6.0 alpha
 #
 # See:		https://github.com/ProfessorKaos64/qt
 #		https://wiki.qt.io/Building-Qt-5-from-Git
 #
-# Usage:	build-sprunge.sh
+# Usage:	./build-qtbase-opensource-src.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------

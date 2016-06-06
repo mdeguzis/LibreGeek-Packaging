@@ -10,8 +10,7 @@ The "debian_experimental" folder is for work on trying to build the individual p
 
 # Build status
 
-Main package: **[WIP]**  
-Experimental Status: **[WIP]**
+Main package (base): **[done]** - 5.6.1
 
 # Configure options sourced in debian/rules via conditional statements
 

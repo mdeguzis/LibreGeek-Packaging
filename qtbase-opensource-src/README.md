@@ -16,6 +16,7 @@ The "debian_experimental" folder is for work on trying to build the individual p
 * [QT5 structure](https://wiki.qt.io/Qt_5_Structure)
 * [QT Cross-dependencies](https://wiki.qt.io/Qt_Library_Cross_Dependencies)
 * [KDE QT team](http://pkg-kde.alioth.debian.org/)
+* [LibreGeek Qt package list](http://packages.libregeek.org/SteamOS-Tools/package_lists/brewmaster_testing_qt.txt)
 
 # Build status
 

@@ -8,6 +8,15 @@ Please see [configure-test.sh](https://github.com/ProfessorKaos64/LibreGeek-Pack
 
 The "debian_experimental" folder is for work on trying to build the individual packages of Qt 5.6.0+. The debian folder present installs everything made during the install. Once more is known about the build process, the experimental set can possibly be fixed up.
 
+## Notes
+
+* [**My document repository setion on qt**](https://github.com/ProfessorKaos64/documents/tree/master/qt)
+* [Working with symbols files](http://pkg-kde.alioth.debian.org/symbolfiles.html)
+* [Pool for qtbase](http://ftp.debian.org/debian/pool/main/q/qtbase-opensource-src/)
+* [QT5 structure](https://wiki.qt.io/Qt_5_Structure)
+* [QT Cross-dependencies](https://wiki.qt.io/Qt_Library_Cross_Dependencies)
+* [KDE QT team](http://pkg-kde.alioth.debian.org/)
+
 # Build status
 
 Main package (base): **[done]** - 5.6.1
@@ -50,6 +59,8 @@ occuren when a debian/ file set surfaces under Stretch for 5.6.0~.
 Bootstrapping the docs packages
 -------------------------------
 
+See the [Module hierarchy](http://pkg-kde.alioth.debian.org/images/qt5_build_deps.png) layout for more.
+
 In Qt 5.6 the qdoc tool was moved to qttools source, so qtbase got a
 Build-Depends-Indep on qttools5-dev-tools. Thus you need to do the following
 steps if you want to rebuild the whole Qt stack from scratch:
@@ -62,21 +73,28 @@ steps if you want to rebuild the whole Qt stack from scratch:
 * Build the arch-independent packages (-doc and -doc-html) of the above sources.
 * Build the rest of the Qt stack in the usual way.
 
-Note: the docs packages should not be a problem when bootstrapping a new
+**Note:**
+
+The docs packages should not be a problem when bootstrapping a new
 Debian architecture, because the arch-independent packages are already available
 in Debian archive.
+
+**Updating/Rebuilding**
+
+Once the above is built, you should not need to build arch-dependent first, and just update targets normally (albeit in order of course). These set of packages mainly exist for experimental software, such as Plex Media Player. 
+
+The complete build list available from libregeek follows the below build order. Pacakges in each phase should be synced to the repo completely before moving on, so that depdencenies are using the update packages. See qt_provides_depends.txt in this folder for complete details.
+
+1. qtbase-opensource-src
+2. qtxmlpatterns-opensource-src
+3  qtdeclarative-opensource-src
+4. qtwebkit-opensource-src / qtwebengine
 
 # Symbols
 
 ## WARNING!
 
 Please advise the below notes are "right" for doing a backport of this package. It is highly urged you read throughly through the "Working with symbols files" link below for complete information.
-
-## Notes
-
-* [Working with symbols files](http://pkg-kde.alioth.debian.org/symbolfiles.html)
-* [Pool for qtbase](ftp://ftp.debian.org/debian/pool/main/q/qtbase-opensource-src/)
- * File: "qtbase-opensource-src_5.3.2+dfsg-4.debian.tar.xz"
 
 ## Updating Symbols:
 

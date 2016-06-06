@@ -8,6 +8,9 @@ Please see [configure-test.sh](https://github.com/ProfessorKaos64/LibreGeek-Pack
 
 The "debian_experimental" folder is for work on trying to build the individual packages of Qt 5.6.0+. The debian folder present installs everything made during the install. Once more is known about the build process, the experimental set can possibly be fixed up.
 
+Detailed informatoin is available at:  
+https://github.com/ProfessorKaos64/documents/blob/master/qt/
+
 ## Notes
 
 * [**My document repository setion on qt**](https://github.com/ProfessorKaos64/documents/tree/master/qt)
@@ -55,7 +58,9 @@ occuren when a debian/ file set surfaces under Stretch for 5.6.0~.
 *ibase.install
 ```
 
-# Build order notes (from README.source)
+# Building
+
+See: [qt-requires-provides.md](https://github.com/ProfessorKaos64/documents/blob/master/qt/qt-requires-provides.md) for a complete list for determining what requires what, and what provides what.
 
 Bootstrapping the docs packages
 -------------------------------
@@ -70,7 +75,7 @@ steps if you want to rebuild the whole Qt stack from scratch:
   - qtbase-opensource-src
   - qtxmlpatterns-opensource-src
   - qtdeclarative-opensource-src
-  - qtwebkit-opensource-src / qtwebengine
+  - qtwebengine
 * Build the arch-independent packages (-doc and -doc-html) of the above sources.
 * Build the rest of the Qt stack in the usual way.
 
@@ -84,12 +89,15 @@ in Debian archive.
 
 Once the above is built, you should not need to build arch-dependent first, and just update targets normally (albeit in order of course). These set of packages mainly exist for experimental software, such as Plex Media Player. 
 
-The complete build list available from libregeek follows the below build order. Pacakges in each phase should be synced to the repo completely before moving on, so that depdencenies are using the update packages. See qt_provides_depends.txt in this folder for complete details.
+**Build Order**
 
-1. qtbase-opensource-src
-2. qtxmlpatterns-opensource-src
-3  qtdeclarative-opensource-src
-4. qtwebkit-opensource-src / qtwebengine
+The complete build list available from libregeek follows the below build order. Pacakges in each phase should be synced to the repo completely before moving on, so that depdencenies are using the update packages. See each link below for dependencies/provides information. 
+
+1. [qtbase-opensource-src](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtbase-opensource-src/debian/control)
+2. [qtxmlpatterns-opensource-src](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtxmlpatterns-opensource-src/debian/control)
+3  [qtdeclarative-opensource-src](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtdeclarative-opensource-src/debian/control)
+4. [qtwebchannel](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtwebchannel/debian/control)
+5. [qtwebengine](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtwebengine/debian/control)
 
 # Symbols
 

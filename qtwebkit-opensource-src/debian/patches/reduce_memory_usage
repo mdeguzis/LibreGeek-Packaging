@@ -1,9 +1,0 @@
---- a/Tools/qmake/mkspecs/features/unix/default_post.prf
-+++ b/Tools/qmake/mkspecs/features/unix/default_post.prf
-@@ -69,3 +69,6 @@ CONFIG(debug, debug|release)|force_debug
- }
- 
- load(default_post)
-+
-+# Make ld not cache the symbol tables of input files in memory to avoid memory exhaustion during the linking phase.
-++QMAKE_LFLAGS += -Wl,--no-keep-memory

@@ -1,5 +1,0 @@
-leveldb_memenv_path
-fix_nonlinux_glibc_linkage
-no_gc_sections
-reduce_memory_usage
-webkit_qt_hide_symbols

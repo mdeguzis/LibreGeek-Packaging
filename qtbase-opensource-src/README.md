@@ -62,8 +62,7 @@ occuren when a debian/ file set surfaces under Stretch for 5.6.0~.
 
 See: [qt-requires-provides.md](https://github.com/ProfessorKaos64/documents/blob/master/qt/qt-requires-provides.md) for a complete list for determining what requires what, and what provides what.
 
-Bootstrapping the docs packages
--------------------------------
+## Bootstrapping the docs packages 
 
 See the [Module hierarchy](http://pkg-kde.alioth.debian.org/images/qt5_build_deps.png) layout for more.
 
@@ -85,11 +84,11 @@ The docs packages should not be a problem when bootstrapping a new
 Debian architecture, because the arch-independent packages are already available
 in Debian archive.
 
-**Updating/Rebuilding**
+## Updating/Rebuilding
 
 Once the above is built, you should not need to build arch-dependent first, and just update targets normally (albeit in order of course). These set of packages mainly exist for experimental software, such as Plex Media Player. 
 
-**Build Order**
+## Build Order
 
 The complete build list available from libregeek follows the below build order. Pacakges in each phase should be synced to the repo completely before moving on, so that depdencenies are using the update packages. See each link below for dependencies/provides information. 
 

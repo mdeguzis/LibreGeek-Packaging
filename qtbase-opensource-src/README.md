@@ -94,7 +94,7 @@ The complete build list available from libregeek follows the below build order. 
 
 1. [qtbase-opensource-src](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtbase-opensource-src/debian/control)
 2. [qtxmlpatterns-opensource-src](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtxmlpatterns-opensource-src/debian/control)
-3  [qtdeclarative-opensource-src](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtdeclarative-opensource-src/debian/control)
+3.  [qtdeclarative-opensource-src](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtdeclarative-opensource-src/debian/control)
 4. [qtwebchannel](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtwebchannel/debian/control)
 5. [qtwebengine](https://github.com/ProfessorKaos64/LibreGeek-Packaging/blob/brewmaster/qtwebengine/debian/control)
 

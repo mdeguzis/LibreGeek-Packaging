@@ -55,7 +55,7 @@ fi
 #git_url="https://github.com/plexinc/plex-home-theater-public"
 #git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
 git_url="https://github.com/RasPlex/OpenPHT"
-branch="v1.5.2.514-310d4f7e"
+branch="v1.6.0.113-46fadd5e"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -65,10 +65,9 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="openpht"
-pkgver="1.5.2"
-upstream_rev="1"
+pkgver="1.6.0"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -168,11 +167,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	fi
 

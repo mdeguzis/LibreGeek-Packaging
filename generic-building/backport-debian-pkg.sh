@@ -99,7 +99,7 @@ main()
 	
 	echo -e "\nPress ENTER to use last: ${OLD_DIST}"
 	read -erp "Distribution target: " DIST
-	if  [[ "${DIST}" == "" ]]; then ARCH="${OLD_DIST}"; fi
+	if  [[ "${DIST}" == "" ]]; then DIST="${OLD_DIST}"; fi
 	export OLD_DIST="${DIST}"
 	
 	echo -e "\nPress ENTER to use last: ${OLD_DSC}"

@@ -44,29 +44,6 @@ else
 
 fi
 
-# Gather vars
-echo -e "\n==> Setting vars\n"
-
-echo -e "\nPress ENTER to use last: ${OLD_PKGNAME}"
-read -erp "Target package name: " PKGNAME
-if  [[ "${PKGNAME}" == "" ]]; then PKGNAME="${OLD_PKGNAME}"; fi
-export OLD_PKGNAME="${PKGNAME}"
-
-echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
-read -erp "Target package version: " PKGVER
-if [[ "${PKGVER}" == "" ]]; then PKGVER="${OLD_PKGVER}"; fi
-export OLD_PKGVER="${PKGVER}"
-
-echo -e "\nPress ENTER to use last: ${OLD_ARCH}"
-read -erp "Arch target: " ARCH
-if  [[ "${ARCH}" == "" ]]; then ARCH="${OLD_ARCH}"; fi
-export OLD_ARCH="${ARCH}"
-
-echo -e "\nPress ENTER to use last: ${OLD_DSC}"
-read -erp "Paste link to upsteam .dsc: " DSC
-if  [[ "${DSC}" == "" ]]; then DSC="${OLD_DSC}"; fi
-export OLD_DSC="${DSC}"
-
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
@@ -78,7 +55,6 @@ pkgver="$PKGVER"
 upstream_rev="1"
 pkgrev="1"
 pkgsuffix="bpo8+bsos${pkgrev}"
-DIST="jessie"
 DSC_FILENAME=$(basename "${DSC}")
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -102,6 +78,34 @@ install_prereqs()
 
 main()
 {
+
+	# get vars
+	echo -e "\n==> Setting vars\n"
+	
+	echo -e "\nPress ENTER to use last: ${OLD_PKGNAME}"
+	read -erp "Target package name: " PKGNAME
+	if  [[ "${PKGNAME}" == "" ]]; then PKGNAME="${OLD_PKGNAME}"; fi
+	export OLD_PKGNAME="${PKGNAME}"
+	
+	echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
+	read -erp "Target package version: " PKGVER
+	if [[ "${PKGVER}" == "" ]]; then PKGVER="${OLD_PKGVER}"; fi
+	export OLD_PKGVER="${PKGVER}"
+	
+	echo -e "\nPress ENTER to use last: ${OLD_ARCH}"
+	read -erp "Arch target: " ARCH
+	if  [[ "${ARCH}" == "" ]]; then ARCH="${OLD_ARCH}"; fi
+	export OLD_ARCH="${ARCH}"
+	
+	echo -e "\nPress ENTER to use last: ${OLD_DIST}"
+	read -erp "Distribution target: " DIST
+	if  [[ "${DIST}" == "" ]]; then ARCH="${OLD_DIST}"; fi
+	export OLD_DIST="${DIST}"
+	
+	echo -e "\nPress ENTER to use last: ${OLD_DSC}"
+	read -erp "Paste link to upsteam .dsc: " DSC
+	if  [[ "${DSC}" == "" ]]; then DSC="${OLD_DSC}"; fi
+	export OLD_DSC="${DSC}"
 
 	# create build_dir
 	if [[ -d "${build_dir}" ]]; then

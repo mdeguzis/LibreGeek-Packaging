@@ -177,7 +177,7 @@ main()
 		fi
 		
 		# If build deps pass above, go ahead
-		dch --local ~bpo80+ --distribution ${DIST} "Rebuild for jessie-backports."
+		dch --local ~bpo80+ --distribution ${DIST} "Rebuild for ${DIST}."
 		
 		# Test if we can successfully build the package
 		fakeroot debian/rules binary
@@ -224,7 +224,8 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge \
+			${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		fi

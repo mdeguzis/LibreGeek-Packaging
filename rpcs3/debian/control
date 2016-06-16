@@ -3,7 +3,7 @@ Section: games
 Priority: optional
 Build-Depends: debhelper,
  build-essential,
- clang (>=3.6),
+ clang (>=3.6.1),
  cmake,
  g++ (>=5),
  gcc (>=5),
@@ -15,8 +15,8 @@ Build-Depends: debhelper,
  lib32stdc++6,
  libwxgtk3.0-dev,
  zlib1g-dev
-Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
-Standards-Version: 3.9.5
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Standards-Version: 3.9.7
 Homepage: https://github.com/RPCS3/rpcs3
 
 Package: rpcs3

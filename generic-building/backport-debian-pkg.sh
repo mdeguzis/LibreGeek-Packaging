@@ -78,7 +78,7 @@ pkgver="$PKGVER"
 upstream_rev="1"
 pkgrev="1"
 pkgsuffix="bpo8+bsos${pkgrev}"
-DIST="jessie-backports"
+DIST="jessie"
 DSC_FILENAME=$(basename "${DSC}")
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -138,7 +138,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Backporting Debian package ${pkgname} from source\n"
+	echo -e "\n==> Backporting Debian package ${pkgname} from source"
 	sleep 2s
 
 	#  build

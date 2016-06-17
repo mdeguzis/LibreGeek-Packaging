@@ -19,6 +19,5 @@ override_dh_auto_build:
 			-DDEFAULT_QUEST=/usr/share/solarus/zsdx \
 			.. && make -j4
 
-#override_dh_auto_test:
-#	# This fails for some reason, but works if run manually outside of debhelper?
-#	make -C build/ test
+override_dh_auto_test:
+	make -C build/ test

@@ -9,18 +9,8 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
-DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
-DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
-DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
-DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
-
 %:
 	dh $@ 
-
-#override_dh_auto_configure:
-	# Replace var placeholders with multi-arch equiv.
-	# find . -name *install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
 	
 override_dh_auto_build:
 	rm -rf Build && mkdir -p Build
@@ -28,9 +18,9 @@ override_dh_auto_build:
 			-DCMAKE_BUILD_TYPE=Release \
 			-DDEFAULT_QUEST=/usr/share/solarus/zsdx \
 			.. && make
-			
+
 override_dh_auto_test:
-	$(MAKE) -C Build/ test
+	make -C Build/ test
 
 override_dh_auto_install:
-	$(MAKE) Build DESTDIR=debian/tmp PREFIX=/usr install
+	make Build/ DESTDIR=debian/tmp PREFIX=/usr install

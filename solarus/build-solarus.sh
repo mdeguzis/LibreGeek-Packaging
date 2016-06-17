@@ -115,7 +115,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${target}" "${git_url}" "${git_dir}"
+	git clone --recursive -b "${target}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package

@@ -4,7 +4,7 @@ Priority: optional
 Build-Depends: debhelper,
  build-essential,
  cmake,
- gcc (>=5),
+ clang (>=3.6),
  libc6-dev,
  libedit-dev,
  libopenal-dev,

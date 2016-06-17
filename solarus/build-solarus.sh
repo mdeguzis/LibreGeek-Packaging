@@ -2,12 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-godot.sh
+# Scipt Name:	build-solarus.sh
 # Script Ver:	0.5.1
-# Description:	Attempts to build a deb package from latest godot
+# Description:	Attempts to build a deb package from latest solarus
 #		github release
 #
-# See:		https://github.com/godotengine/godot
+# See:		https://github.com/https://github.com/christopho/solarus
 #
 # Usage:	build-.sh
 # Opts:		[--testing]
@@ -49,23 +49,21 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/godotengine/godot"
-branch="2.0.3-stable"
-
+git_url="https://github.com/christopho/solarus"
+target="v1.4.5"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-pkgname="godot"
-pkgver="2.0.3"
-upstream_rev="1"
+pkgname="solarus"
+pkgver="1.4.5"
 pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+pkgsuffix="bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -82,9 +80,6 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential bc debhelper \
- 	gcc python scons libx11-dev pkg-config libxcursor-dev libasound2-dev libfreetype6-dev \
- 	libgl1-mesa-dev libglu-dev libssl-dev libxinerama-dev libudev-dev
 
 }
 
@@ -120,10 +115,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone  -b "${branch}" "${git_url}" "${git_dir}"
-
-	# Add art / other files
-	cp "${scriptdir}/godot.png" "${git_dir}"
+	git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -148,14 +140,14 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D $DIST -u "${urgency}" \
 		"Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" \
 		-u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"

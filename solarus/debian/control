@@ -1,33 +1,27 @@
-Source: godot
+Source: solarus
 Section: devel
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 7),
- build-essential,
- gcc,
- pkg-config,
- python,
- libasound2-dev,
- libfreetype6-dev,
- libgl1-mesa-dev,
- libglu-dev,
- libpulse-dev,
- libssl-dev,
- libudev-dev,
- libx11-dev,
- libxinerama-dev,
- libxcursor-dev,
- scons
-Standards-Version: 3.9.6
-Homepage: http://rust-lang.org
+ cmake (>= 2.8.11),
+ libsdl2-dev (>= 2.0.1),
+ libsdl2-image-dev,
+ libsdl2-ttf-dev (>= 2.0.12),
+ libluajit-5.1-dev, 
+ libphysfs-dev,
+ libopenal-dev,
+ libmodplug-dev (>= 0.8.8.4),
+ qtbase5-dev (>=5.2.0~),
+ libvorbis-dev
+Standards-Version: 3.9.7
+Homepage: http://www.solarus-games.org/games/zelda-mystery-of-solarus-dx/
 
-Package: godot
+Package: solarus
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Godot game engine
- Godot is a fully featured, open source, MIT licensed, game engine.
+Description: solarus game engine
+ Solarus is an open-source Zelda-like 2D game engine
  .
- It focuses on having great tools, and a visual oriented workflow that
- can export to PC, Mobile and Web platforms with no hassle. The editor,
- language and APIs are feature rich, yet simple to learn, allowing you
- to become productive in a matter of hours.
+ Solarus is an open-source Zelda-like 2D game engine written in C++. 
+ It can run games scripted in Lua. This engine is used by our Zelda 
+ fangames. Solarus is licensed under GPL v3.

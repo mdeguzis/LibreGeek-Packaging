@@ -1,2 +1,3 @@
-bin/godot.x11.tools.64 /usr/bin/godot
-godot.png /usr/share/pixmaps/
+Build/solarus_run 		/usr/bin/
+Build/Build/libsolarus.so	/usr/lib/@DEB_HOST_MULTIARCH@/
+test test test

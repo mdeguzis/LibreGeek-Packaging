@@ -9,12 +9,18 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+
 %:
 	dh $@ 
 
-override_dh_auto_clean:
-
-override_dh_clean:
-
-override_dh_auto_build:
-	scons platform=x11
+override_dh_auto_configure:
+	# Replace var placeholders with multi-arch equiv.
+	find . -name *install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
+	# Configure
+	rm -rf Build && mkdir -p Build
+	cd Build && cmake -DSOLARUS_GUI=ON .. && make

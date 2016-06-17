@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Solarus
+Comment=Solarus is an open-source Zelda-like 2D game engine
+Exec=/usr/bin/solarus
+Icon=/usr/share/pixmaps/solarus_icon.png
+Terminal=false
+Type=Application
+Categories=Development;

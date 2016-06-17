@@ -18,10 +18,9 @@ DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 %:
 	dh $@ 
 
-override_dh_auto_configure:
+#override_dh_auto_configure:
 	# Replace var placeholders with multi-arch equiv.
-	find . -name *install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
-	# build
+	# find . -name *install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
 	
 override_dh_auto_build:
 	rm -rf Build && mkdir -p Build

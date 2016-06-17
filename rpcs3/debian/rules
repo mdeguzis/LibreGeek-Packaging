@@ -18,8 +18,10 @@
 override_dh_auto_clean:
 
 override_dh_clean:
+	rm -rf Build
 
 override_dh_auto_build:
-	cmake -DCMAKE_CXX_COMPILER=clang++ \
-	-DCMAKE_C_COMPILER=clang \
-	-DCMAKE_INSTALL_PREFIX=/usr \
+	rm -rf Build && mkdir -p Build
+	cd Build && cmake -DCMAKE_CXX_COMPILER=clang++ \
+			-DCMAKE_C_COMPILER=clang \
+			-DCMAKE_INSTALL_PREFIX=/usr ..

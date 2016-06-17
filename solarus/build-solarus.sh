@@ -49,6 +49,8 @@ else
 fi
 
 # upstream vars
+# NOTE! - The tagged releases do not include the gui source directory
+# This is required to build the gui. Use master or dev if that is desired.
 git_url="https://github.com/christopho/solarus"
 target="v1.4.5"
 

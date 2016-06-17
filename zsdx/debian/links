@@ -1,0 +1,2 @@
+# provide compatibility with old quest packages
+ln -s Build/solarus_run   /usr/bin/solarus

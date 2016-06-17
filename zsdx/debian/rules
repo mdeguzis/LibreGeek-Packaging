@@ -7,14 +7,17 @@
 # This special exception was added by Craig Small in version 0.37 of dh-make.
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
 %:
 	dh $@ 
-
-override_dh_auto_clean:
-
-override_dh_clean:
-
+	
 override_dh_auto_build:
-	scons platform=x11
+	rm -rf build && mkdir -p build
+	cd build && cmake -DCMAKE_INSTALL_PREFIX="/usr" \
+			-DCMAKE_build_TYPE=Release \
+			.. && make -j4
+
+override_dh_auto_test:
+	# For some reason this fails right now, but will run inside the shell
+	make -C build/ test

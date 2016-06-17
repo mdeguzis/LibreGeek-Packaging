@@ -1,33 +1,22 @@
-Source: godot
-Section: devel
-Priority: extra
+Source: zsdx
+Section: games
+Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 7),
- build-essential,
- gcc,
- pkg-config,
- python,
- libasound2-dev,
- libfreetype6-dev,
- libgl1-mesa-dev,
- libglu-dev,
- libpulse-dev,
- libssl-dev,
- libudev-dev,
- libx11-dev,
- libxinerama-dev,
- libxcursor-dev,
- scons
-Standards-Version: 3.9.6
-Homepage: http://rust-lang.org
+ cmake (>= 2.8.11),
+ solarus,
+ zip
+Standards-Version: 3.9.7
+Homepage: http://www.zsdx-games.org/games/zelda-mystery-of-zsdx-dx/
 
-Package: godot
+Package: zsdx
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Godot game engine
- Godot is a fully featured, open source, MIT licensed, game engine.
+Description: zsdx game engine
+ zsdx is an open-source Zelda-like 2D game
  .
- It focuses on having great tools, and a visual oriented workflow that
- can export to PC, Mobile and Web platforms with no hassle. The editor,
- language and APIs are feature rich, yet simple to learn, allowing you
- to become productive in a matter of hours.
+ This package contains the data files of the game Zelda: 
+ Mystery of Solarus DX. This quest is a free, open-source 
+ game that works with Solarus, an open-source Zelda-like 
+ 2D game engine. To play this game, you need Solarus.
+

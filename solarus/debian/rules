@@ -30,7 +30,7 @@ override_dh_auto_build:
 			.. && make
 			
 override_dh_auto_test:
-	cd Build && dh_auto_test
+	$(MAKE) -C Build/ test
 
 override_dh_auto_install:
 	$(MAKE) Build DESTDIR=debian/tmp PREFIX=/usr install

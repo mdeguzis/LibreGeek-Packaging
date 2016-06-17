@@ -3,7 +3,7 @@ Section: games
 Priority: optional
 Build-Depends: debhelper,
  build-essential,
- clang (>=3.6.1),
+ clang (>=3.6),
  cmake,
  g++ (>=5),
  gcc (>=5),

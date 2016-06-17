@@ -18,6 +18,3 @@ override_dh_auto_build:
 			-DCMAKE_build_TYPE=Release \
 			.. && make -j4
 
-override_dh_auto_test:
-	# For some reason this fails right now, but will run inside the shell
-	make -C build/ test

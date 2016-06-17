@@ -68,7 +68,6 @@ pkgver="$PKGVER"
 upstream_rev="1"
 pkgrev="1"
 pkgsuffix="bpo8+bsos${pkgrev}"
-DSC_FILENAME=$(basename "${DSC}")
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -152,6 +151,9 @@ main()
 
 	# Obtain all necessary vias via dget
 	dget "${DSC}"
+	
+	# Get filename only from DSC URL
+	DSC_FILENAME=$(basename "${DSC}")
 
 	#################################################
 	# Build Debian package

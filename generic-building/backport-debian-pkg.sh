@@ -2,13 +2,13 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-rustc.sh
+# Scipt Name:	backport-debian-pkg.sh.sh
 # Script Ver:	1.3.1
 # Description:	Attempts to build a deb package from backported stretch package
 #
 # See:		https://github.com/rust-lang/rust
 #
-# Usage:	build-rustc.sh
+# Usage:	./backport-debian-pkg.sh.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -17,9 +17,11 @@
 # Set variables
 #################################################
 
+arg1="$1"
 scriptdir="${PWD}"
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
+final_opts=$(echo "${@: -1}")
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -34,7 +36,7 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 fi
 
 
-if [[ "$arg1" == "--testing" ]]; then
+if [[ "${arg1}" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
 
@@ -44,12 +46,22 @@ else
 
 fi
 
+if [[ "${final_opts}" == "--beta-repo" ]]; then
+
+	BETA_REPO="true"
+
+else
+
+	BETA_REPO="false"
+
+fo
+
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="$ARCH"
 BUILDER="pbuilder"
-export STEAMOS_TOOLS_BETA_HOOK="false"
+export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 pkgname="$PKGNAME"
 pkgver="$PKGVER"
 upstream_rev="1"

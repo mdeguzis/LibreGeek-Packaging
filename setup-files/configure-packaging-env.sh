@@ -83,7 +83,7 @@ elif [[ "${OS}" == "Arch" ]]; then
 	sudo pacman -S ${PACOPTS} bc
 
 	# install pacaur if not installed
-	if ! pacaur -Qs pacaur; then
+	if ! pacman -Qs pacaur; then
 
 		# Install pacaur
 		wget "https://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz" -q -nc --show-progress
@@ -107,20 +107,22 @@ elif [[ "${OS}" == "Arch" ]]; then
 	CUSTOM_AUR_PKGS="false"
 	
 	# OBS Open Build System
-	if [[ $(grep "openSUSE_Tools_Arch_Extra" "/etc/pacman.conf") == "" ]]; then
+	# Disable this for now.
 
-		sudo su -c "echo '[openSUSE_Tools_Arch_Extra]' >> /etc/pacman.conf"
-		sudo su -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
-		sudo su -c "echo 'Server = http://download.opensuse.org/repositories/openSUSE:/Tools/Arch_Extra/$arch' >> /etc/pacman.conf"
+	#if [[ $(grep "openSUSE_Tools_Arch_Extra" "/etc/pacman.conf") == "" ]]; then
+#
+#		sudo su -c "echo '[openSUSE_Tools_Arch_Extra]' >> /etc/pacman.conf"
+#		sudo su -c "echo 'SigLevel = Never' >> /etc/pacman.conf"
+#		sudo su -c "echo 'Server = http://download.opensuse.org/repositories/openSUSE:/Tools/Arch_Extra/$arch' >> /etc/pacman.conf"
 
-		if [[ $(pacman -Qs osc) == "" ]]; then
+#		if [[ $(pacman -Qs osc) == "" ]]; then
+#
+#			sudo pacman -Syu
+#			sudo pacman -S openSUSE_Tools_Arch_Extra/osc
+#
+#		fi
 
-			sudo pacman -Syu
-			sudo pacman -S openSUSE_Tools_Arch_Extra/osc
-
-		fi
-
-	fi
+#	fi
 	
 	# <!> Evaluate packages that are broken or out of date in the AUR
 	# <!> 'apt' in the AUR is out of date, so it was added to my repo and fixed

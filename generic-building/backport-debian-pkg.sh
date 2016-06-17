@@ -73,8 +73,7 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dir
-export build_dir="${HOME}/build-${pkgname}-temp"
+# set build dirs
 src_dir="${pkgname}-${pkgver}"
 git_dir="${build_dir}/${src_dir}"
 
@@ -99,6 +98,9 @@ main()
 	read -erp "Target package name: " PKGNAME
 	if  [[ "${PKGNAME}" == "" ]]; then PKGNAME="${OLD_PKGNAME}"; fi
 	export OLD_PKGNAME="${PKGNAME}"
+	
+	# now set the build dir for results
+	export build_dir="${HOME}/build-${PKGNAME}-temp"
 	
 	echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
 	read -erp "Target package version: " PKGVER
@@ -165,7 +167,7 @@ main()
 
 	if [[ "${METHOD}" == "pbuilder" ]]; then
 
-		if ! sudo -E build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} ${BUILDER}
+		if ! sudo -E build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
 		\ --build "${DSC_FILENAME}" --distribution=${DIST} ${BUILDOPTS} \
 		&& rm -f ${DSC_FILENAME}; then
 

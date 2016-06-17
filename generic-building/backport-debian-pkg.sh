@@ -170,7 +170,7 @@ main()
 	if [[ "${METHOD}" == "pbuilder" ]]; then
 
 		if ! sudo -E build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
-		\ --build "${DSC_FILENAME}" --distribution=${DIST} ${BUILDOPTS} \
+		--build "${DSC_FILENAME}" --distribution=${DIST} ${BUILDOPTS} \
 		&& rm -f ${DSC_FILENAME}; then
 
 			# back out to scriptdir

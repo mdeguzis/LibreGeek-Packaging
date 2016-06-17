@@ -15,6 +15,7 @@ Build-Depends: debhelper (>= 7),
  qttools5-dev (>=5.2.0~),
  qttools5-dev-tools (>=5.2.0~),
  libvorbis-dev
+Suggests: zsdx, zsxd
 Standards-Version: 3.9.7
 Homepage: http://www.solarus-games.org/games/zelda-mystery-of-solarus-dx/
 

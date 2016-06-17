@@ -1,3 +1,0 @@
-Build/solarus_run 		/usr/bin/
-Build/Build/libsolarus.so	/usr/lib/@DEB_HOST_MULTIARCH@/
-test test test

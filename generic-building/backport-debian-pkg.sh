@@ -61,6 +61,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
 BUILDER="pbuilder"
+BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 pkgname="$PKGNAME"
 pkgver="$PKGVER"
@@ -157,9 +158,6 @@ main()
 	echo -e "\n==> Backporting Debian package ${pkgname} from source"
 	sleep 2s
 
-	#  build
-	wget "${DSC}" -q -nc --show-progress
-	
 	# Ask what method
 	
 	echo -e "\n==> Use what method? [pbuilder|local]"
@@ -167,7 +165,8 @@ main()
 
 	if [[ "${METHOD}" == "pbuilder" ]]; then
 
-		if ! sudo -E build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} "${BUILDER}" build \
+		if ! sudo -E build_dir=${build_dir} DIST=${DIST} ARCH=${ARCH} "${BUILDER}" 
+		\ --distribution="${DIST}  ${BUILDOPTS} --build
 		"${DSC_FILENAME}" && rm -f ${DSC_FILENAME}; then
 
 			# back out to scriptdir

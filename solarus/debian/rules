@@ -28,6 +28,9 @@ override_dh_auto_build:
 			-DCMAKE_BUILD_TYPE=Release \
 			-DDEFAULT_QUEST=/usr/share/solarus/zsdx \
 			.. && make
+			
+override_dh_auto_test:
+	cd Build && dh_auto_test
 
 override_dh_auto_install:
 	$(MAKE) Build DESTDIR=debian/tmp PREFIX=/usr install

@@ -21,6 +21,14 @@ DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 override_dh_auto_configure:
 	# Replace var placeholders with multi-arch equiv.
 	find . -name *install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
-	# Configure
+	# build
+	
+override_dh_auto_build:
 	rm -rf Build && mkdir -p Build
-	cd Build && cmake -DSOLARUS_GUI=ON .. && make
+	cd Build && cmake -DCMAKE_INSTALL_PREFIX="/usr" \
+			-DCMAKE_BUILD_TYPE=Release \
+			-DDEFAULT_QUEST=/usr/share/solarus/zsdx \
+			-DSOLARUS_GUI=ON ..
+
+override_dh_auto_install:
+	$(MAKE) Build DESTDIR=debian/tmp PREFIX=/usr install

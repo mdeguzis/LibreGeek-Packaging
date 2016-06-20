@@ -1,3 +1,9 @@
+qtx11extras-opensource-src (5.6.0+git+bsos-2) brewmaster; urgency=low
+
+  * Build arch-independent packages (-doc and -doc-html)
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 20 Jun 2016 12:27:34 -0400
+
 qtx11extras-opensource-src (5.6.0+git+bsos-1) brewmaster; urgency=low
 
   * Initial upload

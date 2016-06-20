@@ -175,6 +175,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
+		cd "${build_dir}"
 		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 		
 	else
@@ -187,6 +188,7 @@ main()
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
+		cd "${build_dir}"
 		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
 		sleep 2s
 

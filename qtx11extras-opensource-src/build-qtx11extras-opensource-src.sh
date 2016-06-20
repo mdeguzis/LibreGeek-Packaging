@@ -22,7 +22,7 @@ arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-
+retry="no"
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -49,7 +49,7 @@ else
 fi
 
 git_url="https://github.com/qtproject/qtx11extras/"
-branch="v5.6.0"
+target="v5.6.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,7 +60,7 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgname="qtx11extras-opensource-src"
 pkgver="5.6.0"
-pkgrev="2"
+pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -113,7 +113,7 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and target
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
@@ -132,7 +132,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			git clone -b "${target}" "${git_url}" "${git_dir}"
 			cd "${git_dir}" && git submodule update --init
 
 		else
@@ -151,16 +151,13 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			git clone -b "${target}" "${git_url}" "${git_dir}"
 			cd "${git_dir}" && git submodule update --init
 
 	fi
 
 	# trim git (after confimed working build)
 	# rm -rf "${git_dir}/.git"
-	
-	# Checkout our desired branch now
-	cd "${git_dir}" && git checkout "${target_branch}" || exit 1
 
 	#################################################
 	# Prep source
@@ -175,6 +172,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
+		cd "${build_dir}"
 		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 		
 	else
@@ -187,6 +185,7 @@ main()
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
+		cd "${build_dir}"
 		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
 		sleep 2s
 

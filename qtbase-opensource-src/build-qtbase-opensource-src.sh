@@ -4,7 +4,7 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-qtbase-opensource-src.sh.sh
 # Script Ver:	1.0.0
-# Description:	Builds package of QT 5.6.0 alpha
+# Description:	Builds package of QT base
 #
 # See:		https://github.com/ProfessorKaos64/qt
 #		https://wiki.qt.io/Building-Qt-5-from-Git
@@ -49,7 +49,7 @@ else
 fi
 
 git_url="https://github.com/qtproject/qtbase/"
-branch="v5.6.0"
+branch="v5.7.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,10 +58,9 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-#pkgname="qt"
 pkgname="qtbase-opensource-src"
-pkgver="5.6.0"
-pkgrev="2"
+pkgver="5.7.0"
+pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -210,7 +209,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Build arch-independent packages (-doc and -doc-html)"
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Update to version ${pkgver}"
 		nano "debian/changelog"
 
 	else

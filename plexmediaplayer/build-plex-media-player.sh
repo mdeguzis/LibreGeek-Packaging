@@ -49,7 +49,7 @@ src_cmd=""
 
 # upstream URL
 git_url="https://github.com/plexinc/plex-media-player"
-branch="v1.1.1.293-cc2cc067"
+target="v1.1.2.359-2b757d45"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,7 +61,7 @@ export USE_NETWORK="yes"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 pkgname="plex-media-player"
-pkgver="1.1.1.293"
+pkgver="1.1.2.359"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgrev="1"
@@ -126,7 +126,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${target}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	

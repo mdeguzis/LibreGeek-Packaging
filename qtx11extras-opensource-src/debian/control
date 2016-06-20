@@ -55,26 +55,26 @@ Description: Qt 5 X11 extras libraries debugging symbols
  .
  This package contains the debugging symbols for the Qt 5 X11 extras library.
 
-Package: qtx11extras5-doc
-Priority: extra
-Architecture: all
-Section: doc
-Depends: ${misc:Depends}
-Description: Qt 5 X11 extras documentation
- Qt is a cross-platform C++ application framework. Qt's primary feature
- is its rich set of widgets that provide standard GUI functionality.
- .
- This package contains the documentation for the Qt 5 X11 extras libraries
- and binaries.
+#Package: qtx11extras5-doc
+#Priority: extra
+#Architecture: all
+#Section: doc
+#Depends: ${misc:Depends}
+#Description: Qt 5 X11 extras documentation
+# Qt is a cross-platform C++ application framework. Qt's primary feature
+# is its rich set of widgets that provide standard GUI functionality.
+# .
+# This package contains the documentation for the Qt 5 X11 extras libraries
+# and binaries.
 
-Package: qtx11extras5-doc-html
-Priority: extra
-Architecture: all
-Section: doc
-Depends: ${misc:Depends}
-Description: Qt 5 X11 extras HTML documentation
- Qt is a cross-platform C++ application framework. Qt's primary feature
- is its rich set of widgets that provide standard GUI functionality.
- .
- This package contains the HTML documentation for the Qt 5 X11 extras
- libraries and binaries.
+#Package: qtx11extras5-doc-html
+#Priority: extra
+#Architecture: all
+#Section: doc
+#Depends: ${misc:Depends}
+#Description: Qt 5 X11 extras HTML documentation
+# Qt is a cross-platform C++ application framework. Qt's primary feature
+# is its rich set of widgets that provide standard GUI functionality.
+# .
+# This package contains the HTML documentation for the Qt 5 X11 extras
+# libraries and binaries.

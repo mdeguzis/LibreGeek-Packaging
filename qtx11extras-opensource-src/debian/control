@@ -2,18 +2,12 @@ Source: qtx11extras-opensource-src
 Section: libs
 Priority: optional
 Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
-Uploaders: Sune Vuorela <debian@pusling.com>,
-           Pino Toscano <pino@debian.org>,
-           Lisandro Damián Nicanor Pérez Meyer <lisandro@debian.org>,
-           Felix Geyer <fgeyer@debian.org>,
-           Timo Jyrinki <timo@debian.org>,
-           Dmitry Shachnev <mitya57@debian.org>
 Build-Depends: debhelper (>= 9),
                pkg-kde-tools,
-               qtbase5-dev (>= 5.6.1+dfsg~),
-               qtbase5-private-dev (>= 5.6.1+dfsg~)
-Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.1+dfsg~),
-                     qtbase5-doc-html (>= 5.6.1+dfsg~),
+               qtbase5-dev (>= 5.6.1~),
+               qtbase5-private-dev (>= 5.6.1~)
+Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.1~),
+                     qtbase5-doc-html (>= 5.6.1~),
                      qttools5-dev-tools (>= 5.6.1~)
 Standards-Version: 3.9.8
 Homepage: http://qt-project.org/

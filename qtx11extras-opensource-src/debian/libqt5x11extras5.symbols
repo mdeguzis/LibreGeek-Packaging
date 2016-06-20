@@ -1,0 +1,27 @@
+# SymbolsHelper-Confirmed: 5.6.1 amd64
+libQt5X11Extras.so.5 libqt5x11extras5 #MINVER#
+ Qt_5.0@Qt_5.0 5.6.1
+ Qt_5.1@Qt_5.1 5.6.1
+ Qt_5.2@Qt_5.2 5.6.1
+ Qt_5.3@Qt_5.3 5.6.1
+ Qt_5.4@Qt_5.4 5.6.1
+ Qt_5.5@Qt_5.5 5.6.1
+ Qt_5.6@Qt_5.6 5.6.1
+ Qt_5@Qt_5 5.6.1
+ Qt_5_PRIVATE_API@Qt_5_PRIVATE_API 5.6.1
+ _ZN8QX11Info10connectionEv@Qt_5 5.6.0
+ _ZN8QX11Info10setAppTimeEm@Qt_5 5.6.0
+ _ZN8QX11Info11appUserTimeEv@Qt_5 5.6.0
+ _ZN8QX11Info12getTimestampEv@Qt_5 5.6.0
+ _ZN8QX11Info13appRootWindowEi@Qt_5 5.6.0
+ _ZN8QX11Info13isPlatformX11Ev@Qt_5 5.6.0
+ _ZN8QX11Info13nextStartupIdEv@Qt_5 5.6.0
+ _ZN8QX11Info14setAppUserTimeEm@Qt_5 5.6.0
+ _ZN8QX11Info16setNextStartupIdERK10QByteArray@Qt_5 5.6.0
+ _ZN8QX11Info7appDpiXEi@Qt_5 5.6.0
+ _ZN8QX11Info7appDpiYEi@Qt_5 5.6.0
+ _ZN8QX11Info7appTimeEv@Qt_5 5.6.0
+ _ZN8QX11Info7displayEv@Qt_5 5.6.0
+ _ZN8QX11Info9appScreenEv@Qt_5 5.6.0
+ _ZN8QX11InfoC1Ev@Qt_5 5.6.0
+ _ZN8QX11InfoC2Ev@Qt_5 5.6.0

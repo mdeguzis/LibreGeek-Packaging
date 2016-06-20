@@ -1,0 +1,31 @@
+openpht (1.5.2+git+bsos1-1) brewmaster; urgency=low
+
+  * New 1.5.2 release (pre-release)
+  * Fixes / improvements noted by upstream:      
+  * New
+   * Play from here added to episodes context menu on home screen
+   * Updated default CEC remote keymap for Guide/Info and color buttons
+   * Smaller gui updates to video osd, codec info and preferences in default skin
+   * Use same subtitle name format as Plex Web
+   * Now uses https when checking for updates and sending crash reports
+   * Code can now be compiled with VS2013 on windows
+   * Linux improvements in preparation for embedded builds
+  * Fixes
+   * Fix french translations (thanks @Maxou44)
+   * Fixes VC-1 decoding on windows with newer Intel graphics
+   * Fix use of cache when loading preplay screen
+   * Fix subtitle selection for transcoded media and after a vobsub has been selected
+   * Fixes for crashes on application shutdown
+   * OpenPHT.app should now be correctly signed on osx
+   * Backport of final fixes from RasPlex 
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 22:05:31 -0500
+
+openpht (1.5.1+git+bsos3-3) brewmaster; urgency=low
+
+  * Packaged deb for SteamOS-Tools
+  * See: packages.libregeek.org
+  * Upstream authors and source: https://github.com/RasPlex/OpenPHT
+  * This pacakge is made using the OpenPHT fork of PHT
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 02 Feb 2016 21:33:50 -0500

@@ -141,7 +141,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${target}" "${git_url}" "${git_dir}"
 
         # copy in debian folder and other files
         cp -r "$scriptdir/debian" "${git_dir}"

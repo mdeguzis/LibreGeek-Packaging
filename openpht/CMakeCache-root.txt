@@ -1,0 +1,463 @@
+-- Cache values
+// Path to a program.
+CMAKE_AR:FILEPATH=/usr/bin/ar
+
+// Choose the type of build.
+CMAKE_BUILD_TYPE:STRING=Debug
+
+// Enable/Disable color output during build.
+CMAKE_COLOR_MAKEFILE:BOOL=ON
+
+// CXX compiler
+CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/c++
+
+// Flags used by the compiler during all build types.
+CMAKE_CXX_FLAGS:STRING=
+
+// Flags used by the compiler during debug builds.
+CMAKE_CXX_FLAGS_DEBUG:STRING=-g
+
+// Flags used by the compiler during release builds for minimum size.
+CMAKE_CXX_FLAGS_MINSIZEREL:STRING=-Os -DNDEBUG
+
+// Flags used by the compiler during release builds.
+CMAKE_CXX_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
+
+// Flags used by the compiler during release builds with debug info.
+CMAKE_CXX_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
+
+// C compiler
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/cc
+
+// Flags used by the compiler during all build types.
+CMAKE_C_FLAGS:STRING=
+
+// Flags used by the compiler during debug builds.
+CMAKE_C_FLAGS_DEBUG:STRING=-g
+
+// Flags used by the compiler during release builds for minimum size.
+CMAKE_C_FLAGS_MINSIZEREL:STRING=-Os -DNDEBUG
+
+// Flags used by the compiler during release builds.
+CMAKE_C_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
+
+// Flags used by the compiler during release builds with debug info.
+CMAKE_C_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
+
+// Flags used by the linker.
+CMAKE_EXE_LINKER_FLAGS:STRING=
+
+// Flags used by the linker during debug builds.
+CMAKE_EXE_LINKER_FLAGS_DEBUG:STRING=
+
+// Flags used by the linker during release minsize builds.
+CMAKE_EXE_LINKER_FLAGS_MINSIZEREL:STRING=
+
+// Flags used by the linker during release builds.
+CMAKE_EXE_LINKER_FLAGS_RELEASE:STRING=
+
+// Flags used by the linker during Release with Debug Info builds.
+CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
+
+// Enable/Disable output of compile commands during generation.
+CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=OFF
+
+// Install path prefix, prepended onto install directories.
+CMAKE_INSTALL_PREFIX:PATH=/usr/local
+
+// Path to a program.
+CMAKE_LINKER:FILEPATH=/usr/bin/ld
+
+// Path to a program.
+CMAKE_MAKE_PROGRAM:FILEPATH=/usr/bin/make
+
+// Flags used by the linker during the creation of modules.
+CMAKE_MODULE_LINKER_FLAGS:STRING=
+
+// Flags used by the linker during debug builds.
+CMAKE_MODULE_LINKER_FLAGS_DEBUG:STRING=
+
+// Flags used by the linker during release minsize builds.
+CMAKE_MODULE_LINKER_FLAGS_MINSIZEREL:STRING=
+
+// Flags used by the linker during release builds.
+CMAKE_MODULE_LINKER_FLAGS_RELEASE:STRING=
+
+// Flags used by the linker during Release with Debug Info builds.
+CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO:STRING=
+
+// Path to a program.
+CMAKE_NM:FILEPATH=/usr/bin/nm
+
+// Path to a program.
+CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
+
+// Path to a program.
+CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
+
+// Path to a program.
+CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
+
+// Flags used by the linker during the creation of dll's.
+CMAKE_SHARED_LINKER_FLAGS:STRING=
+
+// Flags used by the linker during debug builds.
+CMAKE_SHARED_LINKER_FLAGS_DEBUG:STRING=
+
+// Flags used by the linker during release minsize builds.
+CMAKE_SHARED_LINKER_FLAGS_MINSIZEREL:STRING=
+
+// Flags used by the linker during release builds.
+CMAKE_SHARED_LINKER_FLAGS_RELEASE:STRING=
+
+// Flags used by the linker during Release with Debug Info builds.
+CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO:STRING=
+
+// If set, runtime paths are not added when installing shared libraries, but are added when building.
+CMAKE_SKIP_INSTALL_RPATH:BOOL=NO
+
+// If set, runtime paths are not added when using shared libraries.
+CMAKE_SKIP_RPATH:BOOL=NO
+
+// Flags used by the linker during the creation of static libraries.
+CMAKE_STATIC_LINKER_FLAGS:STRING=
+
+// Flags used by the linker during debug builds.
+CMAKE_STATIC_LINKER_FLAGS_DEBUG:STRING=
+
+// Flags used by the linker during release minsize builds.
+CMAKE_STATIC_LINKER_FLAGS_MINSIZEREL:STRING=
+
+// Flags used by the linker during release builds.
+CMAKE_STATIC_LINKER_FLAGS_RELEASE:STRING=
+
+// Flags used by the linker during Release with Debug Info builds.
+CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO:STRING=
+
+// Path to a program.
+CMAKE_STRIP:FILEPATH=/usr/bin/strip
+
+// If this value is on, makefiles will be generated without the .SILENT directive, and all commands will be echoed to the console during the make.  This is useful for debugging only. With Visual Studio IDE projects all commands are done without /nologo.
+CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
+
+// If we should compress the textures or not
+COMPRESS_TEXTURES:BOOL=ON
+
+// Create the finished bundle
+CREATE_BUNDLE:BOOL=ON
+
+// Enable the cool autoupdate system
+ENABLE_AUTOUPDATE:BOOL=ON
+
+// Enable the DVD drive
+ENABLE_DVD_DRIVE:BOOL=OFF
+
+// Enable Python addon support
+ENABLE_PYTHON:BOOL=OFF
+
+// Enable unit testing
+ENABLE_TESTING:BOOL=OFF
+
+// Path to a file.
+FREETYPE_INCLUDE_DIR_freetype2:PATH=/usr/include/freetype2
+
+// Path to a file.
+FREETYPE_INCLUDE_DIR_ft2build:PATH=/usr/include/freetype2
+
+// Path to a library.
+FREETYPE_LIBRARY:FILEPATH=/usr/lib64/libfreetype.so
+
+// Path to a library.
+FRIBIDI_LIBRARY:FILEPATH=/usr/lib64/libfribidi.so
+
+// if this lib is around or not
+HAVE_LIBFREETYPE:STRING=1
+
+// if this lib is around or not
+HAVE_LIBJPEG:STRING=1
+
+// if this lib is around or not
+HAVE_LIBLZO2:STRING=1
+
+// if this lib is around or not
+HAVE_LIBOPENGL:STRING=1
+
+// if this lib is around or not
+HAVE_LIBPCRE:STRING=1
+
+// if this lib is around or not
+HAVE_LIBSDL:STRING=1
+
+// if this lib is around or not
+HAVE_LIBSQLITE3:STRING=1
+
+// if this lib is around or not
+HAVE_LIBX11:STRING=1
+
+// if this lib is around or not
+HAVE_LIBZLIB:STRING=1
+
+// Path to a file.
+JPEG_INCLUDE_DIR:PATH=/usr/include
+
+// Path to a library.
+JPEG_LIBRARY:FILEPATH=/usr/lib64/libjpeg.so
+
+// Path to a file.
+LZO2_INCLUDE_DIR:PATH=/usr/include/lzo
+
+// Path to a library.
+LZO2_LIBRARIES:FILEPATH=/usr/lib64/liblzo2.so
+
+// Path to a file.
+OPENGL_INCLUDE_DIR:PATH=/usr/include
+
+// Path to a library.
+OPENGL_gl_LIBRARY:FILEPATH=/usr/lib64/libGL.so
+
+// Path to a library.
+OPENGL_glu_LIBRARY:FILEPATH=/usr/lib64/libGLU.so
+
+// Path to a file.
+OPENGL_xmesa_INCLUDE_DIR:PATH=OPENGL_xmesa_INCLUDE_DIR-NOTFOUND
+
+// Path to a file.
+PCRE_INCLUDE_DIR:PATH=/usr/include
+
+// Path to a library.
+PCRE_PCRECPP_LIBRARY:FILEPATH=/usr/lib64/libpcrecpp.so
+
+// Path to a library.
+PCRE_PCRE_LIBRARY:FILEPATH=/usr/lib64/libpcre.so
+
+// pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
+// Path to a library.
+SDLMAIN_LIBRARY:FILEPATH=/usr/lib64/libSDLmain.a
+
+// Path to a file.
+SDL_INCLUDE_DIR:PATH=/usr/include/SDL
+
+// Where the SDL Library can be found
+SDL_LIBRARY:STRING=/usr/lib64/libSDLmain.a;/usr/lib64/libSDL.so;-lpthread
+
+// Path to a file.
+SQLITE3_INCLUDE_DIR:PATH=/usr/include
+
+// Path to a library.
+SQLITE3_LIBRARY:FILEPATH=/usr/lib64/libsqlite3.so
+
+// Common Linux platforms
+TARGET_COMMON_LINUX:BOOL=1
+
+// Target is Linux
+TARGET_LINUX:BOOL=1
+
+// Platform string
+TARGET_PLATFORM:STRING=LINUX
+
+// POSIX platform
+TARGET_POSIX:BOOL=1
+
+// Use internal FFmpeg?
+USE_INTERNAL_FFMPEG:BOOL=ON
+
+// Enable media section paging
+USE_PAGING:BOOL=ON
+
+// Path to a file.
+X11_ICE_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_ICE_LIB:FILEPATH=/usr/lib64/libICE.so
+
+// Path to a file.
+X11_SM_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_SM_LIB:FILEPATH=/usr/lib64/libSM.so
+
+// Path to a file.
+X11_X11_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_X11_LIB:FILEPATH=/usr/lib64/libX11.so
+
+// Path to a file.
+X11_XRes_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_XRes_LIB:FILEPATH=/usr/lib64/libXRes.so
+
+// Path to a file.
+X11_XShm_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_XSync_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_XTest_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_XTest_LIB:FILEPATH=/usr/lib64/libXtst.so
+
+// Path to a file.
+X11_Xaccessrules_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_Xaccessstr_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_Xau_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xau_LIB:FILEPATH=/usr/lib64/libXau.so
+
+// Path to a file.
+X11_Xcomposite_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xcomposite_LIB:FILEPATH=/usr/lib64/libXcomposite.so
+
+// Path to a file.
+X11_Xcursor_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xcursor_LIB:FILEPATH=/usr/lib64/libXcursor.so
+
+// Path to a file.
+X11_Xdamage_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xdamage_LIB:FILEPATH=/usr/lib64/libXdamage.so
+
+// Path to a file.
+X11_Xdmcp_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xdmcp_LIB:FILEPATH=/usr/lib64/libXdmcp.so
+
+// Path to a library.
+X11_Xext_LIB:FILEPATH=/usr/lib64/libXext.so
+
+// Path to a file.
+X11_Xfixes_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xfixes_LIB:FILEPATH=/usr/lib64/libXfixes.so
+
+// Path to a file.
+X11_Xft_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xft_LIB:FILEPATH=/usr/lib64/libXft.so
+
+// Path to a file.
+X11_Xi_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xi_LIB:FILEPATH=/usr/lib64/libXi.so
+
+// Path to a file.
+X11_Xinerama_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xinerama_LIB:FILEPATH=/usr/lib64/libXinerama.so
+
+// Path to a file.
+X11_Xinput_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xinput_LIB:FILEPATH=/usr/lib64/libXi.so
+
+// Path to a file.
+X11_Xkb_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_Xkbfile_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xkbfile_LIB:FILEPATH=/usr/lib64/libxkbfile.so
+
+// Path to a file.
+X11_Xkblib_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_Xlib_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_Xmu_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xmu_LIB:FILEPATH=/usr/lib64/libXmu.so
+
+// Path to a file.
+X11_Xpm_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xpm_LIB:FILEPATH=/usr/lib64/libXpm.so
+
+// Path to a file.
+X11_Xrandr_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xrandr_LIB:FILEPATH=/usr/lib64/libXrandr.so
+
+// Path to a file.
+X11_Xrender_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xrender_LIB:FILEPATH=/usr/lib64/libXrender.so
+
+// Path to a file.
+X11_Xscreensaver_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xscreensaver_LIB:FILEPATH=/usr/lib64/libXss.so
+
+// Path to a file.
+X11_Xshape_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_Xt_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xt_LIB:FILEPATH=/usr/lib64/libXt.so
+
+// Path to a file.
+X11_Xutil_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_Xv_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a library.
+X11_Xv_LIB:FILEPATH=/usr/lib64/libXv.so
+
+// Path to a library.
+X11_Xxf86misc_LIB:FILEPATH=X11_Xxf86misc_LIB-NOTFOUND
+
+// Path to a library.
+X11_Xxf86vm_LIB:FILEPATH=/usr/lib64/libXxf86vm.so
+
+// Path to a file.
+X11_dpms_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+X11_xf86misc_INCLUDE_PATH:PATH=X11_xf86misc_INCLUDE_PATH-NOTFOUND
+
+// Path to a file.
+X11_xf86vmode_INCLUDE_PATH:PATH=/usr/include
+
+// Path to a file.
+ZLIB_INCLUDE_DIR:PATH=/usr/include
+
+// Path to a library.
+ZLIB_LIBRARY_DEBUG:FILEPATH=ZLIB_LIBRARY_DEBUG-NOTFOUND
+
+// Path to a library.
+ZLIB_LIBRARY_RELEASE:FILEPATH=/usr/lib64/libz.so
+
+// Path to a file.
+xFRIBIDI_INCLUDE_DIR:PATH=/usr/include/fribidi
+

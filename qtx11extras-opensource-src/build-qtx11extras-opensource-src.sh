@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-qtbase-opensource-src.sh.sh
+# Scipt Name:	build-qtx11extras-opensource-src.sh.sh
 # Script Ver:	1.0.0
 # Description:	Builds package of QT 5.6.0 alpha
 #
-# See:		https://github.com/ProfessorKaos64/qt
+# See:		
 #		https://wiki.qt.io/Building-Qt-5-from-Git
 #
-# Usage:	./build-qtbase-opensource-src.sh
+# Usage:	./build-qtx11extras-opensource-src.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ else
 
 fi
 
-git_url="https://github.com/qtproject/qtbase/"
+git_url="https://github.com/qtproject/qtx11extras/"
 branch="v5.6.0"
 
 # package vars
@@ -58,8 +58,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-#pkgname="qt"
-pkgname="qtbase-opensource-src"
+pkgname="qtx11extras-opensource-src"
 pkgver="5.6.0"
 pkgrev="2"
 pkgsuffix="git+bsos"

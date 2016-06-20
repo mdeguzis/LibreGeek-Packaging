@@ -107,30 +107,15 @@ install_prereqs()
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
-
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
-
-	else
-
-		mkdir -p "${build_dir}"
-
-	fi
-
-	# enter build dir
-	cd "${build_dir}" || exit
-
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
-	
+
 	else
-	
+
 		# cdbs needed for build clean
 		sudo apt-get install -y cdbs
 
@@ -156,7 +141,6 @@ main()
 			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
 			git clone -b "${target}" "${git_url}" "${git_dir}"
-			cd "${git_dir}" && git submodule update --init
 
 		else
 
@@ -175,7 +159,6 @@ main()
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
 			git clone -b "${target}" "${git_url}" "${git_dir}"
-			cd "${git_dir}" && git submodule update --init
 
 	fi
 

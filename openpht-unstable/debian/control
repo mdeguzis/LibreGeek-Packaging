@@ -1,8 +1,9 @@
-Source: openpht
+Source: openpht-unstable
 Section: universe/video
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
-Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
+Build-Depends: cmake (>= 2.8.8), 
+ debhelper (>= 9),
  cdbs,
  unzip,
  libboost-dev,
@@ -64,19 +65,24 @@ Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
  libtinyxml-dev (>= 2.6.2),
  libmp3lame-dev,
  libva-dev,
- yasm 
-# libavcodec-dev (>= 0.10),
-# libavfilter-dev (>= 0.10),
-# libavformat-dev (>= 0.10),
-# libavutil-dev (>= 0.10),
-# libpostproc-dev (>= 0.10),
-# libswscale-dev (>= 0.10),
-# libswresample-dev (>= 0.10),
-# libavdevice-dev (>= 0.10)
+ yasm, 
+ libavcodec-ffmpeg-dev (>= 2.5),
+ libavfilter-ffmpeg-dev (>= 2.5),
+ libavformat-ffmpeg-dev (>= 2.5),
+ libavutil-ffmpeg-dev (>= 2.5),
+ libpostproc-ffmpeg-dev (>= 2.5),
+ libswscale-ffmpeg-dev (>= 2.5),
+ libswresample-ffmpeg-dev (>= 2.5),
+ libavdevice-ffmpeg-dev (>= 2.5)
  
-Package: openpht
-Replaces: openpht (<= 20151207+git+bsos~)
+Package: openpht-unstable
+Replaces: openpht
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, ttf-ubuntu-font-family, libshairport1 | libshairport2, libcec (>= 2.1) | libcec2, libplist1 | libplist2
+Depends: ${misc:Depends}, ${shlibs:Depends}, 
+ ttf-ubuntu-font-family, 
+ libshairport1 | libshairport2,
+ libcec (>= 2.1) | libcec2,
+ libplist1 | libplist2
 Description: The most awesome Media Center you'll ever need.
-  Find more info at http://plexapp.com/
+  Find more info at http://plexapp.com/. This pacakge version
+  Uses system-FFMPEG.

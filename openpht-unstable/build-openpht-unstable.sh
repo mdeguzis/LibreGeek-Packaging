@@ -185,11 +185,12 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
+		cd "${build_dir}"
 		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 		
 	else
 	
-		echo -e "\n==> Cleaning old source foldrers for retry"
+		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
 		
 		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
@@ -197,6 +198,7 @@ main()
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
+		cd "${build_dir}"
 		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
 		sleep 2s
 

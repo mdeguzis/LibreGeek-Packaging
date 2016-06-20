@@ -65,8 +65,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
-pkgname="openpht"
-pkgver="1.6.2"
+pkgname="openpht-unstable"
+pkgver="1.6"
 pkgrev="1"
 pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"
@@ -146,6 +146,10 @@ main()
         # copy in debian folder and other files
         cp -r "$scriptdir/debian" "${git_dir}"
 	
+	# Get latest commit
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	
 	# Trim out .git
 	rm -rf "${git_dir}/.git"
 	
@@ -157,6 +161,7 @@ main()
 	sleep 2s
 
 	# create source tarball
+	cd "${build_dir}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
@@ -169,8 +174,8 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update build/release"
-		nano "debian/changelog"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Update build/release to latest commit ${latest_commit}" && nano "debian/changelog"
 
 	else
 

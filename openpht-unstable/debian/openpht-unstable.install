@@ -1,6 +1,6 @@
 #!/usr/bin/dh-exec
 
-debian/openpht.sh /usr/bin
+debian/openpht-unstable.sh /usr/bin
 debian/openpht-unstable.desktop /usr/share/applications
 plex/Resources/plexhometheater.png /usr/share/pixmaps
 debian/openpht-steamtile_460x215.png /usr/share/pixmaps

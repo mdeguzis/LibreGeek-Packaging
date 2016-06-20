@@ -4,14 +4,13 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-openpht.sh
 # Script Ver:	1.0.8
-# Description:	Attempts to builad a deb package from latest plexhometheater
-#		github release
+# Description:	Attempts to build a deb package from latest openpht
+#		github release. This script builds a variant that uses internal
+#		ffmpeg
 #
 # See:		https://github.com/RasPlex/OpenPHT
 #		https://github.com/plexinc/plex-home-theater-public/blob/pht-frodo/README-BUILD-PLEX.md
-#		https://forums.plex.tv/discussion/196117/linux-build#latest
 #
-# Track:	http://www.preining.info/blog/2015/05/plex-home-theater-1-4-1-for-debian-jessie-and-sid/
 # Usage:	./build-openpht.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
@@ -55,7 +54,6 @@ fi
 #git_url="https://github.com/plexinc/plex-home-theater-public"
 #git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
 git_url="https://github.com/RasPlex/OpenPHT"
-#target="v1.6.0.113-46fadd5e"
 target="openpht-1.6"
 
 # package vars
@@ -97,7 +95,9 @@ install_prereqs()
 	libflac-dev zlib1g-dev libsmbclient-dev libiso9660-dev libssl-dev libvdpau-dev \
 	libmicrohttpd-dev libmodplug-dev librtmp-dev curl libyajl-dev libboost-thread-dev \
 	libboost-system-dev libplist-dev libcec-dev libudev-dev libshairport-dev libtiff5-dev \
-	libtinyxml-dev libmp3lame-dev libva-dev yasm quilt
+	libtinyxml-dev libmp3lame-dev libva-dev yasm quilt libavcodec-ffmpeg-dev \
+	libavfilter-ffmpeg-dev libavformat-ffmpeg-dev libavutil-ffmpeg-dev \
+	libpostproc-ffmpeg-dev libswscale-ffmpeg-dev libswresample-ffmpeg-dev libavdevice-ffmpeg-dev
 
 	# libcec
 	sudo apt-get install -y --force-yes libcec3 dcadec1
@@ -203,6 +203,10 @@ main()
 		sleep 2s
 
 	fi
+
+	#################################################
+	# Build package
+	#################################################
 
 	# enter source dir
 	cd "${src_dir}"

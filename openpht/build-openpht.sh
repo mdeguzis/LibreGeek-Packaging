@@ -107,21 +107,6 @@ install_prereqs()
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
-
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
-
-	else
-
-		mkdir -p "${build_dir}"
-
-	fi
-
-	# enter build dir
-	cd "${build_dir}" || exit
-
 	# install prereqs for build
 	
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
@@ -141,23 +126,87 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${target}" "${git_url}" "${git_dir}"
+	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+			git clone -b "${target}" "${git_url}" "${git_dir}"
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${build_dir}" || exit 1
+			git clone -b "${target}" "${git_url}" "${git_dir}"
+
+	fi
 
         # copy in debian folder and other files
         cp -r "$scriptdir/debian" "${git_dir}"
+	
+	# Get latest commit
+	cd "${git_dir}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# Trim out .git
 	rm -rf "${git_dir}/.git"
 	
 	#################################################
-	# Build package
+	# Prep source
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+	
+	if [[ "${retry}" == "no" ]]; then
+
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		cd "${build_dir}"
+		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		
+	else
+	
+		echo -e "\n==> Cleaning old source folders for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
+		mkdir -p "${git_dir}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		cd "${build_dir}"
+		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
+		sleep 2s
+
+	fi
+
+	#################################################
+	# Build package
+	#################################################
 
 	# enter source dir
 	cd "${src_dir}"

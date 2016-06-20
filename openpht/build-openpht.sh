@@ -56,7 +56,7 @@ fi
 #git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
 git_url="https://github.com/RasPlex/OpenPHT"
 #target="v1.6.0.113-46fadd5e"
-target="master"
+target="1.6"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

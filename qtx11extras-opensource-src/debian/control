@@ -4,11 +4,11 @@ Priority: optional
 Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
 Build-Depends: debhelper (>= 9),
                pkg-kde-tools,
-               qtbase5-dev (>= 5.6.1~),
-               qtbase5-private-dev (>= 5.6.1~)
-Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.1~),
-                     qtbase5-doc-html (>= 5.6.1~),
-                     qttools5-dev-tools (>= 5.6.1~)
+               qtbase5-dev (>= 5.6.0~),
+               qtbase5-private-dev (>= 5.6.0~)
+Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.0~),
+                     qtbase5-doc-html (>= 5.6.0~),
+                     qttools5-dev-tools (>= 5.6.0~)
 Standards-Version: 3.9.8
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qtx11extras.git

@@ -18,14 +18,14 @@
 # -------------------------------------------------------------------------------
 
 #################################################
-# Set variables
+# Set default variables
 #################################################
 
 arg1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-
+retry="no"
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script

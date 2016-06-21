@@ -57,6 +57,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="ffmpeg"
+epoch="7"
 pkgver="2.7.6"
 pkgrev="2"
 pkgsuffix="bsos"
@@ -198,13 +199,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 		"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild of Ubuntu FFMPEG ${pkgver}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi

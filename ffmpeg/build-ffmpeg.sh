@@ -106,7 +106,7 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and target
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
@@ -125,7 +125,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 		else
 
@@ -143,7 +143,7 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	fi
 

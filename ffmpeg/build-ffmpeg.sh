@@ -3,12 +3,14 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ffmpeg.sh
-# Script Ver:	0.7.7
-# Description:	Attempts to build a deb package from ffmpeg git source
+# Script Ver:	0.8.9
+# Description:	Attempts to build a deb package from ffmpeg git source,
+#		This is a *rebuild* of the Ubuntu package.
 #
 # See:		https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 #		http://archive.ubuntu.com/ubuntu/pool/universe/f/ffmpeg/ffmpeg_2.5.8-0ubuntu0.15.04.1.dsc
-# Usage:	build-ffmpeg.sh
+#		http://packages.ubuntu.com/wily/ffmpeg
+# Usage:	./build-ffmpeg.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -22,7 +24,6 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -35,8 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
@@ -47,27 +46,29 @@ else
 	
 fi
 
-# reset source command for while loop
-src_cmd="
-
-# upstream URL
 git_url="https://github.com/FFmpeg/FFmpeg"
+target="release/2.7"
 
 # package vars
+date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
+date_short=$(date +%Y%m%d)
+ARCH="amd64"
+BUILDER="pdebuild"
+BUILDOPTS="--debbuildopts -b"
+export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="ffmpeg"
-pkgrel="1"
+pkgver="2.7.6"
+pkgrev="2"
+pkgsuffix="bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-provides="ffmpeg"
-pkggroup="video"
-requires="
-replaces="ffmpeg"
 
 # set build_dir
 export build_dir="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
+git_dir="${build_dir}/${src_dir}"
 
 install_prereqs()
 {
@@ -90,217 +91,160 @@ install_prereqs()
 
 main()
 {
+
+	# install prereqs for build
+
+	if [[ "${BUILDER}" != "pdebuild" ]]; then
+
+		# handle prereqs on host machine
+		install_prereqs
+
+	else
+
+		# required for dh_clean
+		sudo apt-get install -y --force-yes pkg-kde-tools
+
+	fi
+
+	# Clone upstream source code and branch
+
+	echo -e "\n==> Obtaining upstream source code\n"
+	sleep 2s
+
+	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${build_dir}" || exit 1
+			git clone -b "${branch}" "${git_url}" "${git_dir}"
+
+	fi
+
+	# trim git (after confimed working build)
+	rm -rf "${git_dir}/.git"
+
+	#################################################
+	# Prep source
+	#################################################
+
+	# create source tarball
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
 	
-	# create and enter build_dir
-	if [[ -d "${build_dir}" ]]; then
-	
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
+	if [[ "${retry}" == "no" ]]; then
+
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		cd "${build_dir}"
+		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 		
 	else
 	
-		mkdir -p "${build_dir}"
-		
-	fi
-	
-	# Enter build dir
-	cd "${build_dir}" || exit
- 
- 	#################################################
-	# Build libfdk-aac
-	#################################################
-
-	echo -e "\n==> Bulding libfdk-aac\n"
-	sleep 3s
-
-	wget -O fdk-aac.tar.gz https://github.com/mstorsjo/fdk-aac/tarball/master
-	tar xzvf fdk-aac.tar.gz
-	cd mstorsjo-fdk-aac* || exit
-	autoreconf -fiv
-	./configure --prefix="merge ${HOME}/ffmpeg_build" --disable-shared
-	
-	if make; then
-
-	echo -e "\n==INFO==\nlibfdk-aac build successful"
-	sleep 2s
-		
-	else 
-	
-		echo -e "\n==ERROR==\nlibfdk-aac build FAILED. Exiting in 15 seconds"
-		sleep 15s
-		exit 1
-		
-	fi
-	
-	# Install build and clean
-	# Must be installed in order to buld ffmpeg properly
-	make install
-	make clean
-  
-	#################################################
-	# Build libvpx
-	#################################################
-	
-	echo -e "\n==> Bulding libvpx\n"
-	sleep 3s
-  
-	wget http://storage.googleapis.com/downloads.webmproject.org/releases/webm/libvpx-1.4.0.tar.bz2
-	tar xjvf libvpx-1.4.0.tar.bz2
-	cd libvpx-1.4.0  || exit
-	PATH="${HOME}/bin:$PATH" ./configure --prefix="merge ${HOME}/ffmpeg_build" --disable-examples --disable-unit-tests
-	PATH="${HOME}/bin:$PATH"
-	
-	if make; then
-	
-		echo -e "\n==INFO==\nlibvpx build successful"
+		echo -e "\n==> Cleaning old source foldrers for retry"
 		sleep 2s
 		
-	else 
+		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
+		mkdir -p "${git_dir}"
 	
-		echo -e "\n==ERROR==\nlibvpx build FAILED. Exiting in 15 seconds"
-		sleep 15s
-		exit 1
-		
-	fi
-	
-	# Install build and clean
-	# Must be installed in order to buld ffmpeg properly
-	make install
-	make clean
-	
-	#################################################
-	# Build lix265
-	#################################################
-	
-	echo -e "\n==> Bulding libx265\n"
-	sleep 3s
-  	
-  	git clone https://github.com/videolan/x265
-	cd x265/build/linux  || exit
-	PATH="${HOME}/bin:$PATH" cmake -G "Unix Makefiles" -DCMAKE_INSTALL_PREFIX="merge ${HOME}/ffmpeg_build" -DENABLE_SHARED:bool=off ../../source
-
-	if make; then
-	
-		echo -e "\n==INFO==\nlix265 build successful"
+		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
-		
-	else 
-	
-		echo -e "\n==ERROR==\nlix265 build FAILED. Exiting in 15 seconds"
-		sleep 15s
-		exit 1
-		
-	fi
-	
-	# Install build and clean
-	# Must be installed in order to buld ffmpeg properly
-	make install
-	make distclean
-	
-	#################################################
-	# Build fmpeg
-	#################################################
-	
-	echo -e "\n==> Bulding ffmpeg\n"
-	sleep 3s
-	
-	wget http://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
-	tar xjvf ffmpeg-snapshot.tar.bz2
-	cd ffmpeg  || exit
-	PATH="${HOME}/bin:$PATH" PKG_CONFIG_PATH="merge ${HOME}/ffmpeg_build/lib/pkgconfig" ./configure \
-	  --prefix="merge ${HOME}/ffmpeg_build" \
-	  --pkg-config-flags="--static" \
-	  --extra-cflags="-Imerge ${HOME}/ffmpeg_build/include" \
-	  --extra-ldflags="-Lmerge ${HOME}/ffmpeg_build/lib" \
-	  --bindir="${HOME}/bin" \
-	  --enable-gpl \
-	  --enable-libass \
-	  --enable-libfdk-aac \
-	  --enable-libfreetype \
-	  --enable-libmp3lame \
-	  --enable-libopus \
-	  --enable-libtheora \
-	  --enable-libvorbis \
-	  --enable-libvpx \
-	  --enable-libx264 \
-	  --enable-libx265 \
-	  --enable-nonfree
-	PATH="${HOME}/bin:$PATH"
-	
-	if make; then
+		cd "${build_dir}"
+		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
+		sleep 2s
 
-	echo -e "\n==INFO==\nffmpeg build successful"
-	sleep 2s
-		
-	else 
-	
-		echo -e "\n==ERROR==\nffmpeg build FAILED. Exiting in 15 seconds"
-		sleep 15s
-		exit 1
-		
 	fi
-	
-	# clean
-	make distclean
-	hash -r
- 
+
+	# Try using upstream debian/
+	cp -r "${scriptdir}/debian" "${git_dir}"
+
+	###############################################################
+	# build package
+	###############################################################
+
+	# enter source dir
+	cd "${git_dir}"
+
+	echo -e "\n==> Updating changelog"
+	sleep 2s
+
+ 	# update changelog with dch
+	if [[ -f "debian/changelog" ]]; then
+
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild of Ubuntu FFMPEG ${pkgver}"
+		nano "debian/changelog"
+
+	else
+
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
+		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+
+	fi
+
 	#################################################
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package $pkgname from source\n"
+	echo -e "\n==> Building Debian package ${pkgname} from source\n"
 	sleep 2s
 
-	sudo checkinstall --pkgname="$pkgname" --fstrans="no" --backup="no" \
-	--pkgversion="$(date +%Y%m%d)+git" --pkgrelease="$pkgrel" \
-	--deldoc="yes" --maintainer="$maintainer" --provides="$provides" --replaces="$replaces" \
-	--pkggroup="$pkggroup" --requires="$requires" --exclude="/home"
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
-	#################################################
-	# Post install configuration
-	#################################################
-	
-	cat <<-EOF
-	Installation is now complete and ffmpeg is now ready for use. 
-	Your newly compiled FFmpeg programs are in ~/bin.
-	
-	EOF
-	
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
-	
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep $pkgname_$pkgver
+	cat<<-EOF
+
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+
+	Showing contents of: ${build_dir}
+
+	EOF
+
+	ls "${build_dir}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -311,9 +255,12 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
+			# Keep changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then
@@ -323,12 +270,4 @@ main()
 }
 
 # start main
-
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
-
-		# handle prereqs on host machine
-		install_prereqs
-
-	fi
-
 main

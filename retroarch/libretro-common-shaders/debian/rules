@@ -41,8 +41,8 @@ ifeq ($(ARCH), $(filter $(ARCH), amd64 i386))
 		rm $(SHADERSPATH)/crt/shaders/crt-royale/LICENSE.TXT
 	mv $(SHADERSPATH)/dithering/shaders/gdapt/README.md $(DOCPATH)/README-dithering_gdapt
 	mv $(SHADERSPATH)/dithering/shaders/mdapt/README.md $(DOCPATH)/README-dithering_mdapt
-	mv $(SHADERSPATH)/handheld/gameboy/README.md $(DOCPATH)/README-gameboy
-	mv $(SHADERSPATH)/handheld/lcd-shader/README.md $(DOCPATH)/README-lcd-shader
+	mv $(SHADERSPATH)/handheld/shaders/gameboy/README.md $(DOCPATH)/README-gameboy
+	mv $(SHADERSPATH)/handheld/shaders/lcd-shader/README.md $(DOCPATH)/README-lcd-shader
 	mv $(SHADERSPATH)/hqx/README.md $(DOCPATH)/README-hqx
 	mv $(SHADERSPATH)/srgb-helpers/README.txt $(DOCPATH)/README-srgb-helpers
 	mv $(SHADERSPATH)/windowed/README.md $(DOCPATH)/README-windowed

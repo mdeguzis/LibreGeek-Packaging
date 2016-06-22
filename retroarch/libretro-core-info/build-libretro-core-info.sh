@@ -61,9 +61,10 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libretro-core-info"
+epoch="1"
 pkgver="0.1"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="${date_short}git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -149,14 +150,17 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Initial upload"
+		nano "debian/changelog"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -184,45 +188,30 @@ main()
 	echo -e "Total Runtime (minutes): $runtime\n"
 
 	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build temp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
 	# inform user of packages
-	echo -e "\n############################################################"
-	echo -e "If package was built without errors you will see it below."
-	echo -e "If you don't, please check build dependcy errors listed above."
-	echo -e "############################################################\n"
-	
+	cat<<- EOF
+	#################################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+	EOF
 	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep -E "${pkgver}" 
-
+	ls "${build_dir}" | grep -E *${pkgver}*
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
 	read -erp "Choice: " transfer_choice
-
 	if [[ "$transfer_choice" == "y" ]]; then
-
-		# transfer files
 		if [[ -d "${build_dir}" ]]; then
+			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
+			# uplaod local repo changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 		fi
-
 	elif [[ "$transfer_choice" == "n" ]]; then
 		echo -e "Upload not requested\n"
 	fi
-
 }
-
 # start main
 main
-

@@ -1,3 +1,9 @@
+libretro-fba (0.2.97.38+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 13f8a05
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 14:28:16 -0400
+
 libretro-fba (0.2.97.37+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 6545f7c

@@ -60,8 +60,9 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libretro-beetle-gba"
+epoch="1"
 pkgver="0.9.36"
-pkgrev="3"
+pkgrev="1"
 pkgsuffix="${date_short}git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -142,13 +143,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}" \
 		nano "debian/changelog"
  
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}" \
 		nano "debian/changelog"
 

@@ -50,8 +50,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/libretro/libretro-super"
-#rel_target="v1.2.2"
-rel_target="master"
+target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -113,12 +112,12 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and target
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${target}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 

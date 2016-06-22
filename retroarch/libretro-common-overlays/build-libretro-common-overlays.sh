@@ -60,9 +60,10 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libretro-common-overlays"
+epoch="1"
 pkgver="0.1"
 pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+pkgsuffix="${date_short}git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -144,14 +145,17 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Initial upload"
+		nano "debian/changelog"
 
 	fi
-
 
 	#################################################
 	# Build Debian package

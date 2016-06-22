@@ -150,8 +150,7 @@ main()
 	else
 
 		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi

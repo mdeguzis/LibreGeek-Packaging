@@ -1,3 +1,9 @@
+libretro-beetle-vb (1:0.9.36+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 0ef92e1
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 10:05:53 -0400
+
 libretro-beetle-vb (0.9.36+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit c350453

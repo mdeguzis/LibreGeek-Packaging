@@ -1,3 +1,9 @@
+libretro-craft (1:1.0+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit bf6cc82
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 12:50:04 -0400
+
 libretro-craft (1.0+git+bsos1) brewmaster; urgency=low
 
   * Initial upload

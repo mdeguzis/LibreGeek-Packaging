@@ -1,3 +1,9 @@
+libretro-beetle-lynx (1:0.9.32+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 2fdef6a
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 09:48:06 -0400
+
 libretro-beetle-lynx (0.9.32+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 6dbf5b4

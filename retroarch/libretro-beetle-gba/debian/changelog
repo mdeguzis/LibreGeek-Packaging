@@ -1,3 +1,9 @@
+libretro-beetle-gba (1:0.9.36+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit a40d7ca nano debian/changelog
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 09:44:46 -0400
+
 libretro-beetle-gba (0.9.36+git+bsos2) brewmaster; urgency=low
 
   * update to latest commits upstream

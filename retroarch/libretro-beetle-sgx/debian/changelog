@@ -1,3 +1,9 @@
+libretro-beetle-sgx (1:0.9.36+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit db2e712
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 10:01:42 -0400
+
 libretro-beetle-sgx (0.9.36+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit edb41ba

@@ -1,1 +1,2 @@
-usr/lib/libretro/mednafen_psx_libretro.so usr/lib/libretro/beetle_psx_libretro.so
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/mednafen_psx_libretro.so usr/lib/libretro/mednafen_psx_libretro.so"

@@ -1,3 +1,9 @@
+libretro-beetle-ngp (1:0.9.36+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 836fc8e nano debian/changelog
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 09:53:22 -0400
+
 libretro-beetle-ngp (0.9.36+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 3760b92

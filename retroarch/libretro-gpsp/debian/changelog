@@ -1,3 +1,9 @@
+libretro-gpsp (1:0.9+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit c11bdbc
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 14:45:38 -0400
+
 libretro-gpsp (0.9+git+bsos3) brewmaster; urgency=low
 
   * Update to the latest commit 5c11ca1

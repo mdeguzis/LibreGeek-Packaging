@@ -1,3 +1,9 @@
+libretro-gambatte (1:0.5.0+git+bsos2) brewmaster; urgency=low
+
+  * Update to the latest commit da7e367
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 14:41:37 -0400
+
 libretro-gambatte (0.5.0+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 4ad3a4d

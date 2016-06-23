@@ -1,3 +1,9 @@
+libretro-desmume (1:2.9.11+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 4c60f9d
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 12:53:31 -0400
+
 libretro-desmume (0.9.11+git+bsos3) brewmaster; urgency=low
 
   * Update to the latest commit 7f345fb

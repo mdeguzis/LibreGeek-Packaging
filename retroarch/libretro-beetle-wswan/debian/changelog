@@ -1,3 +1,9 @@
+libretro-beetle-wswan (1:0.9.35.1+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 3eef7e6
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 10:07:42 -0400
+
 libretro-beetle-wswan (0.9.35.1+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 83a8a54

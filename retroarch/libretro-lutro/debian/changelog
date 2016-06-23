@@ -1,3 +1,9 @@
+libretro-lutro (1:1.0+20160622git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 335e8e6
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 15:50:29 -0400
+
 libretro-lutro (1.0+git+bsos2) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

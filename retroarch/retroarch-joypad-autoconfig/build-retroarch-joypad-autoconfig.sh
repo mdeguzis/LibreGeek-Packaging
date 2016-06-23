@@ -153,14 +153,14 @@ main()
 
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to the latest commit [${latest_commit}]"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi

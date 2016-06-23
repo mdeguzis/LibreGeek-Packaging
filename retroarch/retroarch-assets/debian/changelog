@@ -1,3 +1,15 @@
+retroarch-assets (0.1+20160623git+bsos1) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 23 Jun 2016 10:54:50 -0400
+
+retroarch-assets (0.1+20160623git+bsos1) brewmaster; urgency=low
+
+  * Update release for v1.3.4
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 23 Jun 2016 10:46:43 -0400
+
 retroarch-assets (0.1+20160522git+bsos1) brewmaster; urgency=low
 
   * Update release for v1.3.4

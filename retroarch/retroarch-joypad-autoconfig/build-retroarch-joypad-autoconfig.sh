@@ -122,9 +122,6 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
 
-	# Alter pkg suffix based on commit
-	pkgsuffix="${latest_commit}git+bsos"
-
 	#################################################
 	# Build platform
 	#################################################

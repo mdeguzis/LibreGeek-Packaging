@@ -56,7 +56,7 @@ branch="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="pdebuild"
+BUILDER="debuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libretro-mame2003"
@@ -81,7 +81,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc \
-	gcc-4.8 g++-4.8 zlib1g-dev
+	gcc-4.9 g++-4.9 zlib1g-dev
 
 }
 

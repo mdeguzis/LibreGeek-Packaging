@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-mednafen-psx.sh
+# Scipt Name:	build-libretro-beetle-psx.sh
 # Script Ver:	1.0.0
 # Description:	Attempts to builad a deb package from latest libretro mednafen-psx
 #		github release
 #
-# See:		https://github.com/libretro/mednafen-psx-libretro
+# See:		https://github.com/libretro/beetle-psx-libretro
 #
-# Usage:	build-libretro-mednafen-psx.sh
+# Usage:	./build-libretro-beetle-psx.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/libretro/mednafen-psx-libretro"
+git_url="https://github.com/libretro/beetle-psx-libretro"
 branch="master"
 
 # package vars
@@ -60,9 +60,10 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libretro-mednafen-psx"
+epoch="1"
 pkgver="0.9.38.6"
-pkgrev="3"
-pkgsuffix="git+bsos${pkgrev}"
+pkgrev="1"
+pkgsuffix="${date_short}git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -136,21 +137,20 @@ main()
 	# enter source dir
 	cd "${src_dir}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi
@@ -202,9 +202,9 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
 
 			# Keep changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"

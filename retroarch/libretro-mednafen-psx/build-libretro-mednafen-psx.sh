@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-beetle-psx.sh
+# Scipt Name:	build-libretro-mednafen-psx.sh
 # Script Ver:	1.0.0
 # Description:	Attempts to builad a deb package from latest libretro mednafen-psx
 #		github release
 #
 # See:		https://github.com/libretro/beetle-psx-libretro
 #
-# Usage:	./build-libretro-beetle-psx.sh
+# Usage:	./build-libretro-mednafen-psx.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------

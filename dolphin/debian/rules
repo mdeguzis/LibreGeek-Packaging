@@ -20,16 +20,28 @@
 # On Debian systems, the complete text of the GNU General Public License
 # version 2 can be found in `/usr/share/common-licenses/GPL-2'
 
+export DEB_LDFLAGS_MAINT_APPEND=-Wl,--as-needed
+
+export DEB_CXXFLAGS_MAINT_STRIP=-O2
+export DEB_CFLAGS_MAINT_STRIP=-O2
+export DEB_CXXFLAGS_MAINT_PREPEND=-O3
+export DEB_CFLAGS_MAINT_PREPEND=-O3
+
 %:
 	dh $@
 
 CMAKE_OPTIONS =					\
-	-DDOLPHIN_WC_REVISION="5.0-RC-34"	\
-	-DDOLPHIN_WC_DESCRIBE="5.0-RC-34"	\
-	-DDOLPHIN_WC_BRANCH="stable"		\
 	-Dbindir=/usr/games			\
 	-Ddatadir=/usr/share/games/dolphin-emu	\
 	-DUSE_SHARED_ENET=ON
+
+ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+ifeq ($(ARCH),arm64)
+	CMAKE_OPTIONS+=-DUSE_EGL=True
+endif
+
+CPPFLAGS+=-DNDEBUG
 
 override_dh_auto_configure:
 	dh_auto_configure -- $(CMAKE_OPTIONS)
@@ -37,3 +49,6 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	dh_auto_build
 	(cd obj-$(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE) && make unittests)
+
+override_dh_strip:
+	dh_strip -pdolphin-emu --dbg-package=dolphin-emu-dbg

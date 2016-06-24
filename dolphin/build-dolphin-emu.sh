@@ -169,7 +169,7 @@ main()
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
-		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${build_dir}" --totals
+		tar -xzf "${pkgname}_*.orig.tar.gz" -C "${build_dir}" --totals
 		sleep 2s
 
 	fi

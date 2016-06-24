@@ -47,7 +47,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/dolphin-emu/dolphin/"
-rel_target="5.0"
+target="5.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -102,7 +102,7 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and target
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
@@ -120,7 +120,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 		else
 
@@ -138,7 +138,7 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
-			git clone -b "${branch}" "${git_url}" "${git_dir}"
+			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	fi
 

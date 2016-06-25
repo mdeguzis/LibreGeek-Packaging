@@ -92,30 +92,30 @@ main()
 
 	# get vars
 	echo -e "\n==> Setting vars\n"
-	
+
 	echo -e "\nPress ENTER to use last: ${OLD_PKGNAME}"
 	read -erp "Target package name: " PKGNAME
 	if  [[ "${PKGNAME}" == "" ]]; then PKGNAME="${OLD_PKGNAME}"; fi
 	export OLD_PKGNAME="${PKGNAME}"
-	
+
 	# now set the build dir for results
 	export build_dir="${HOME}/build-${PKGNAME}-temp"
-	
+
 	echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
 	read -erp "Target package version: " PKGVER
 	if [[ "${PKGVER}" == "" ]]; then PKGVER="${OLD_PKGVER}"; fi
 	export OLD_PKGVER="${PKGVER}"
-	
+
 	echo -e "\nPress ENTER to use last: ${OLD_ARCH}"
 	read -erp "Arch target: " ARCH
 	if  [[ "${ARCH}" == "" ]]; then ARCH="${OLD_ARCH}"; fi
 	export OLD_ARCH="${ARCH}"
-	
+
 	echo -e "\nPress ENTER to use last: ${OLD_DIST}"
 	read -erp "Distribution target: " DIST
 	if  [[ "${DIST}" == "" ]]; then DIST="${OLD_DIST}"; fi
 	export OLD_DIST="${DIST}"
-	
+
 	echo -e "\nPress ENTER to use last: ${OLD_DSC}"
 	read -erp "Paste link to upsteam .dsc: " DSC
 	if  [[ "${DSC}" == "" ]]; then DSC="${OLD_DSC}"; fi
@@ -178,25 +178,25 @@ main()
 			cd "${scritpdir}"
 
 		fi
-		
+
 	elif [[ "${METHOD}" == "local" ]]; then
 
 		# enter dir and attemp to satisfy build deps
 		cd ${PKGNAME}*
 		if ! sudo mk-build-deps --install --remove; then
-		
+
 			# back out to scriptdir
 			echo -e "\n!!! FAILED TO ACQUIRE BUILD-DEPS. See output!!! \n"
 			cd "${scritpdir}"
-	
+
 		fi
-		
+
 		# If build deps pass above, go ahead
 		dch --local ~bpo80+ --distribution ${DIST} "Rebuild for ${DIST}."
-		
+
 		# Test if we can successfully build the package
 		fakeroot debian/rules binary
-		
+
 		# Build a package properly , without GPG signing the package
 		dpkg-buildpackage -us -uc
 
@@ -239,8 +239,8 @@ main()
 
 		# transfer files
 		if [[ -d "${build_dir}" ]]; then
-			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge \
-			${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		fi

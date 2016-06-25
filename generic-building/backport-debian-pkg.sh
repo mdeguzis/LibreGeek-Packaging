@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	backport-debian-pkg.sh.sh
-# Script Ver:	1.3.1
+# Script Ver:	1.4.1
 # Description:	Attempts to build a deb package from backported stretch package
 #
 # See:		https://github.com/rust-lang/rust
@@ -61,7 +61,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
 BUILDER="pbuilder"
-BUILDOPTS="--debbuildopts -sa"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 pkgname="$PKGNAME"
 pkgver="$PKGVER"

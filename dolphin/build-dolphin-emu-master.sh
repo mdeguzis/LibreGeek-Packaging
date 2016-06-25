@@ -89,9 +89,6 @@ install_prereqs()
 main()
 {
 
-	# enter build dir
-	cd "${build_dir}" || exit
-
 	# install prereqs for build
 
 	if [[ "${BUILDER}" != "pdebuild" ]]; then

@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/dolphin-emu/dolphin/"
-rel_target="master"
+target="master"
 
 # package vars
 # Check https://launchpad.net/~dolphin-emu/+archive/ubuntu/ppa for base version

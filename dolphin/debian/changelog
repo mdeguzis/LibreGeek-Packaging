@@ -1,0 +1,5 @@
+dolphin-emu (5.0+git+bsos1-1) brewmaster; urgency=low
+
+  * Initial build for SteamOS
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 24 Jun 2016 21:53:25 -0400

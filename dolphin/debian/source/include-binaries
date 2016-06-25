@@ -1,0 +1,9 @@
+debian/toolbar-icons/toolbar_add_breakpoint.png
+debian/toolbar-icons/toolbar_add_memorycheck.png
+debian/toolbar-icons/toolbar_debugger_delete.png
+debian/toolbar-icons/toolbar_debugger_goto_pc.png
+debian/toolbar-icons/toolbar_debugger_set_pc.png
+debian/toolbar-icons/toolbar_debugger_skip.png
+debian/toolbar-icons/toolbar_debugger_step.png
+debian/toolbar-icons/toolbar_debugger_step_out.png
+debian/toolbar-icons/toolbar_debugger_step_over.png

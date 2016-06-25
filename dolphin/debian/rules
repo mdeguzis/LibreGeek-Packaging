@@ -1,54 +1,30 @@
 #!/usr/bin/make -f
 
-# Copyright (C) 2010-2015 Glenn Rice
-# Copyright (C) 2015 Sergio Benjamim
+# dolphin does not work with -fPIE
+export DEB_BUILD_MAINT_OPTIONS := hardening=+all,-pie
+export DEB_LDFLAGS_MAINT_APPEND := -Wl,--as-needed
 
-# This program is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 2 of the License, or
-# (at your option) any later version.
-#
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License along
-# with this program; if not, write to the Free Software Foundation, Inc.,
-# 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-
-# On Debian systems, the complete text of the GNU General Public License
-# version 2 can be found in `/usr/share/common-licenses/GPL-2'
-
-export DEB_LDFLAGS_MAINT_APPEND=-Wl,--as-needed
-
-export DEB_CXXFLAGS_MAINT_STRIP=-O2
-export DEB_CFLAGS_MAINT_STRIP=-O2
-export DEB_CXXFLAGS_MAINT_PREPEND=-O3
-export DEB_CFLAGS_MAINT_PREPEND=-O3
-
-%:
-	dh $@
-
-CMAKE_OPTIONS =					\
-	-Dbindir=/usr/games			\
-	-Ddatadir=/usr/share/games/dolphin-emu	\
-	-DUSE_SHARED_ENET=ON
-
-ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
-
-ifeq ($(ARCH),arm64)
-	CMAKE_OPTIONS+=-DUSE_EGL=True
+# distributor is used by the opt-in analytics
+ifeq ($(shell dpkg-vendor --derives-from Ubuntu; echo $$?),0)
+	DISTRIBUTOR := ubuntu.com
+else
+	DISTRIBUTOR := debian.org
 endif
 
-CPPFLAGS+=-DNDEBUG
+%:
+	dh $@ --parallel -Bbuild
+
+CMAKE_OPTIONS := \
+	-Dbindir=/usr/games \
+	-Ddatadir=/usr/share/games/dolphin-emu \
+	-DDISTRIBUTOR=$(DISTRIBUTOR) \
+	-DUSE_SHARED_ENET=ON \
+	-DGTEST_DIR=/usr/src/gtest
 
 override_dh_auto_configure:
 	dh_auto_configure -- $(CMAKE_OPTIONS)
 
-override_dh_auto_build:
-	dh_auto_build
-	(cd obj-$(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE) && make unittests)
-
-override_dh_strip:
-	dh_strip -pdolphin-emu --dbg-package=dolphin-emu-dbg
+override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS)))
+	CTEST_OUTPUT_ON_FAILURE=1 $(MAKE) -C build unittests
+endif

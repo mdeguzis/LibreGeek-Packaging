@@ -1,0 +1,30 @@
+Description: Debian only ships the source of gtest rather than a library.
+ Add GTEST_DIR to specify the location of the gtest SOURCE to be built along
+ with dolphin.
+Author: James Cowgill <jcowgill@debian.org>
+Forwarded: not-needed
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -8,6 +8,7 @@ option(USE_EGL "Enables EGL OpenGL Inter
+ option(TRY_X11 "Enables X11 Support" ON)
+ option(USE_SHARED_ENET "Use shared libenet if found rather than Dolphin's soon-to-compatibly-diverge version" OFF)
+ option(USE_SHARED_GTEST "Use shared gtest library if found" OFF)
++set(GTEST_DIR "" CACHE STRING "Optional path to a gtest source")
+ option(USE_UPNP "Enables UPnP port mapping support" ON)
+ option(DISABLE_WX "Disable wxWidgets (use Qt or CLI interface)" OFF)
+ option(ENABLE_QT2 "Enable Qt2 (use the other experimental Qt interface)" OFF)
+@@ -909,7 +910,11 @@ include_directories("${PROJECT_BINARY_DI
+ # Unit testing.
+ #
+ include(FindGTest)
+-if(GTEST_FOUND AND USE_SHARED_GTEST)
++if(NOT ("${GTEST_DIR}" STREQUAL ""))
++	message("Using shared gtest in ${GTEST_DIR}")
++	include_directories(${GTEST_DIR} ${GTEST_DIR}/include)
++	add_library(gtest EXCLUDE_FROM_ALL ${GTEST_DIR}/src/gtest-all.cc ${GTEST_DIR}/src/gtest_main.cc)
++elseif(GTEST_FOUND AND USE_SHARED_GTEST)
+ 	message("Using shared gtest")
+ 	include_directories(${GTEST_INCLUDE_DIRS})
+ else()

@@ -1,75 +1,69 @@
 Source: dolphin-emu
 Section: games
-Priority: extra
-Maintainer: Glenn Rice <glennricster@gmail.com>
-Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
-Build-Depends:	debhelper (>= 9),
- cmake (>= 2.8.8),
- git,
- pkg-config,
- lsb-release,
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Build-Depends:
+ debhelper (>= 9),
+ cmake,
+ dpkg-dev (>= 1.17.17),
+ gettext,
  libao-dev,
  libasound2-dev,
  libavcodec-dev,
  libavformat-dev,
+ libavutil-dev,
  libbluetooth-dev,
- libenet-dev (>= 1.3.12),
+ libcurl4-gnutls-dev,
+ libenet-dev,
  libevdev-dev,
+ libgl1-mesa-dev,
+ libgtest-dev,
  libgtk2.0-dev,
- liblzo2-dev (>= 2.04),
- libminiupnpc-dev (>= 1.8),
+ liblzo2-dev,
+ libmbedtls-dev (>= 2.1.1),
+ libminiupnpc-dev (>= 1.7),
  libopenal-dev,
- libpolarssl-dev (>= 1.3.8),
+ libpng-dev,
  libpulse-dev,
- libreadline-dev,
- libsdl2-dev,
  libsfml-dev (>= 2.1),
  libsoil-dev,
+ libsoundtouch-dev,
  libswscale-dev,
- libudev-dev,
- libusb-1.0-0-dev (>= 1.0.19),
- libwxbase3.0-dev (>= 3.0.1),
- libwxgtk3.0-dev (>= 3.0.1),
- libxext-dev,
+ libwxgtk3.0-dev,
+ libx11-dev,
+ libxi-dev (>= 2:1.5),
  libxrandr-dev,
+ libudev-dev,
+ libusb-1.0-0-dev,
+ lsb-release,
+ pkg-config,
  portaudio19-dev,
- zlib1g-dev (>= 1.2.8)
-Standards-Version: 3.9.5
+ zlib1g-dev
+Standards-Version: 3.9.8
 Homepage: http://dolphin-emu.org/
+Vcs-Git: https://anonscm.debian.org/git/pkg-games/dolphin-emu.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-games/dolphin-emu.git
 
 Package: dolphin-emu
-Architecture: amd64
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Conflicts: dolphin-emu-master, dolphin-emu-trunk
-Description: GameCube, Wii and Triforce emulator
- Dolphin is a GameCube, Wii and Triforce (the arcade machine based on the
- GameCube) emulator.
- .
- Game compatibility is very good: a lot of GameCube and Wii titles work, but
- the emulator might require a lot of processing power in order to run some
- games at full speed.
- .
- GameCube, Wii and Triforce are registered trademarks of Nintendo of
- America Inc. Dolphin is not affiliated with or endorsed by the company
- mentioned.
-
-Package: dolphin-emu-dbg
-Section: debug
-Priority: extra
 Architecture: amd64 arm64
-Depends: dolphin-emu-master (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
-Conflicts: dolphin-emu-dbg, dolphin-emu-trunk-dbg
-Replaces: dolphin-emu-dbg, dolphin-emu-trunk-dbg
-Description: GameCube, Wii and Triforce emulator - debug symbols
- Dolphin is a GameCube, Wii and Triforce (the arcade machine based on the
- GameCube) emulator.
+Depends: ${shlibs:Depends}, ${misc:Depends}, dolphin-emu-data (= ${source:Version})
+Conflicts: dolphin-emu-master
+Replaces: dolphin-emu-master
+Description: Gamecube and Wii emulator
+ Dolphin is an emulator for two recent Nintendo video game consoles: the
+ GameCube and the Wii. It allows PC gamers to enjoy games for these two
+ consoles in full HD (1080p) with several enhancements: compatibility with all
+ PC controllers, turbo speed, networked multiplayer, and even more.
+
+Package: dolphin-emu-data
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends}
+Suggests: dolphin-emu
+Description: Gamecube and Wii emulator - data files
+ Dolphin is an emulator for two recent Nintendo video game consoles: the
+ GameCube and the Wii. It allows PC gamers to enjoy games for these two
+ consoles in full HD (1080p) with several enhancements: compatibility with all
+ PC controllers, turbo speed, networked multiplayer, and even more.
  .
- Game compatibility is very good: a lot of GameCube and Wii titles work, but
- the emulator might require a lot of processing power in order to run some
- games at full speed.
- .
- GameCube, Wii and Triforce are registered trademarks of Nintendo of
- America Inc. Dolphin is not affiliated with or endorsed by the company
- mentioned.
- .
- This package provides the debug symbols for dolphin-emu-master.
+ This package contains the platform independent data files for Dolphin.

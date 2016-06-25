@@ -60,9 +60,8 @@ BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="dolphin-emu-master"
 pkgver="5.0"
-upstream_rev="1"
 pkgrev="1"
-pkgsuffix="${date_short}git+bsos${pkgrev}"
+pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -201,13 +200,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" \
+		dch -p --force-distribution -v "${pkgver}.${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Built against latest commit: [${latest_commit}]"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}.${pkgsuffix}-${upstream_rev}" \
+		dch -p --create --force-distribution -v "${pkgver}.${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 

@@ -12,9 +12,7 @@ Packaging scripts and files for SteamOS-Tools
 
 # Packages built using simple-backport creation
 
-See: generic-building/backport-debian-package.sh
-
-* [libmbedtls-dev](https://packages.debian.org/stretch/libmbedtls-dev)
+See debian-bacports/ in this repository.
 
 # Working with pbuilder and the SteamOS-Tools beta repo
 

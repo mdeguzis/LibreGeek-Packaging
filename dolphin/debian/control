@@ -52,3 +52,24 @@ Description: GameCube, Wii and Triforce emulator
  GameCube, Wii and Triforce are registered trademarks of Nintendo of
  America Inc. Dolphin is not affiliated with or endorsed by the company
  mentioned.
+
+Package: dolphin-emu-dbg
+Section: debug
+Priority: extra
+Architecture: amd64 arm64
+Depends: dolphin-emu-master (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Conflicts: dolphin-emu-dbg, dolphin-emu-trunk-dbg
+Replaces: dolphin-emu-dbg, dolphin-emu-trunk-dbg
+Description: GameCube, Wii and Triforce emulator - debug symbols
+ Dolphin is a GameCube, Wii and Triforce (the arcade machine based on the
+ GameCube) emulator.
+ .
+ Game compatibility is very good: a lot of GameCube and Wii titles work, but
+ the emulator might require a lot of processing power in order to run some
+ games at full speed.
+ .
+ GameCube, Wii and Triforce are registered trademarks of Nintendo of
+ America Inc. Dolphin is not affiliated with or endorsed by the company
+ mentioned.
+ .
+ This package provides the debug symbols for dolphin-emu-master.

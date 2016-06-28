@@ -113,7 +113,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone --recursive -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 		else
 
@@ -131,12 +131,13 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${build_dir}" || exit 1
-			git clone --recursive -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	fi
 	
-	# Get latest commit
+	# Get latest commit and update submodules
 	cd "${git_dir}"
+	git submodule update --init
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
         
         # There are a LOT of submodules/history, trim them

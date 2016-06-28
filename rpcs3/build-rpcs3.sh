@@ -140,8 +140,8 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
         
         # There are a LOT of submodules/history, trim them
-        echo -e "\nTrimming .git folders"
-        find "${git_dir}" -name "*.git" -print0 | xargs -0 rm -rf
+        #echo -e "\nTrimming .git folders"
+        #find "${git_dir}" -name "*.git" -print0 | xargs -0 rm -rf
 
 	# Add image to git dir
 	# cp -r "${scriptdir}/rpcs3.png" "${git_dir}"

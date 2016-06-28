@@ -47,7 +47,7 @@ else
 fi
 # upstream vars
 git_url="https://github.com/RPCS3/rpcs3"
-branch="master"
+target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

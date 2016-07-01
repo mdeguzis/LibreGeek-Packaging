@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@ 
+
+# Version of love to build against
+LOVER="0.9.1"
+VER="$pkgver"
+
+#override_dh_auto_build:
+#	# may not be needed, this is close to how the Win platform is built
+#	# VER is the same as pkgver in the build script
+#	love-release -t "nova-pinball-$VER" -l $LOVER -v $VER -x image-sources\/\* -x dev\/\* -x nova-pinball-engine\/editor\/\*

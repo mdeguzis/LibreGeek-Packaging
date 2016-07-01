@@ -115,6 +115,10 @@ main()
 
 	# clone
 	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+	
+	# Add extra files
+	cp "$scriptdir/nova-pinball" "${git_dir}"
+	cp "$scriptdir/nova-pinball.png" "${git_dir}"
 
 	#################################################
 	# Prepare package

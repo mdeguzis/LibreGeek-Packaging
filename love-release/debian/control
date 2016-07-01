@@ -3,7 +3,7 @@ Section: devel
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 8.0.0),
- love (>= 0.9.1)
+ love (>= 0.9.1),
  luarocks
 Standards-Version: 3.9.8
 Homepage: https://github.com/MisterDA/love-release

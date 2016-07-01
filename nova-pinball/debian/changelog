@@ -1,0 +1,27 @@
+dhewm3 (1.4.0+dfsg-1) unstable; urgency=medium
+
+  * New upstream release. (Closes: #802676)
+    - Refresh patch
+  * d/copyright: Remove jpeg_memory_src.* from Files-Excluded, as removed
+    upstream.
+  * Typo in d/control
+  * Update d/watch to also mangle RC versions
+
+ -- Tobias Frost <tobi@debian.org>  Sat, 21 Nov 2015 23:43:04 +0100
+
+dhewm3 (0+git20150724+dfsg-1) unstable; urgency=medium
+
+  * New upstream git snapshot
+  * Remove patch 02-remove-jpeg_memory_src.patch -- applied upstream
+  * Fix recommends to point to dhewm3-d3xp instead of non-existing package
+    dhewm3-dx3p (Closes: #795979)
+  * Fix description of d/control: It's README.Debian.
+  * Fix typo in d/copyright
+
+ -- Tobias Frost <tobi@debian.org>  Sun, 13 Sep 2015 21:25:15 +0200
+
+dhewm3 (0+git20150226+dfsg-1) unstable; urgency=medium
+
+  * Initial release (Closes: #777373)
+
+ -- Tobias Frost <tobi@debian.org>  Tue, 04 Aug 2015 22:51:30 +0200

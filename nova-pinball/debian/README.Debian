@@ -1,0 +1,82 @@
+dhewm3 for Debian
+-----------------
+
+Selecting the game to play
+============================
+
+By default DOOM³ will be launched. For exmaple, to launch a mod or Resurrection
+of Evil:
+
+   dhewm3 +set fs_game d3xp
+
+
+Game Data
+==========
+
+This source release does not contain any game data, the game data is still
+covered by the original EULA and must be obeyed as usual.
+
+For global installation, the game data should be put into
+/usr/share/games/doom3/, for local installation the game will look
+for the data at $HOME/.config/dhewm3/ or $HOME/.local/share/dhewm3
+
+The package game-data-packager(6) supports dhewm3 to create convenience, easy
+installable data pacakges and should also be able to update the data
+automatically to the latest version.
+
+For example, you can create your game data package with:
+
+   game-data-packager [--no-search] doom3 [path-to-game-files ...]
+
+This will also download patches to get your data to the latest version.  If it
+cannot find the datafiles or takes ages, hint the location by adding the
+directory to the commandline and not to search for the data (as indicated above
+with the optional parameters in brackets)
+
+Note: This process might take some time. Be patient!
+
+
+Manually upgrading the game data
+================================
+
+(This is not needed if you use game-data-packager)
+
+You must patch the game data to the latest version. The patch can be obtained
+from idsoft's ftp server:
+
+ftp://ftp.idsoftware.com/idstuff/doom3/linux/doom3-linux-1.3.1.1304.x86.run
+
+Please check file integrity:
+ md5:  6325f0936f59420d33668754032141cb  doom3-linux-1.3.1.1304.x86.run
+ sha1: 028dd18e5bada1e563c2a0d3bf5e77572d78e6b9  doom3-linux-1.3.1.1304.x86.run
+
+To update your game data, extract the embedded tar by
+  dd if=doom3-linux-1.3.1.1304.x86.run of=doom3-linux-1.3.1.1304.tar.gz \
+     ibs=8736 skip=1 obs=1024
+
+and copy the (base|d3xp)/pak*.pk4 files to the data directory.
+
+
+List of game data files
+=======================
+
+For DOOM³, you need the following files:
+
+MD5 (base/pak000.pk4) = 71b8d37b2444d3d86a36fd61783844fe
+MD5 (base/pak001.pk4) = 4bc4f3ba04ec2b4f4837be40e840a3c1
+MD5 (base/pak002.pk4) = fa84069e9642ad9aa4b49624150cc345
+MD5 (base/pak003.pk4) = f22d8464997924e4913e467e7d62d5fe
+MD5 (base/pak004.pk4) = 38561a3c73f93f2e6fd31abf1d4e9102
+MD5 (base/pak005.pk4) = 2afd4ece27d36393b7538d55a345b90d*
+MD5 (base/pak006.pk4) = a6e7003fa9dcc75073dc02b56399b370*
+MD5 (base/pak007.pk4) = 6319f086f930ec1618ab09b4c20c268c*
+MD5 (base/pak008.pk4) = 28750b7841de9453eb335bad6841a2a5*
+
+For the expansion pack Resurrection of Evil:
+
+MD5 (d3xp/pak000.pk4) = a883fef0fd10aadeb73d34c462ff865d
+MD5 (d3xp/pak001.pk4) = 06fc9be965e345587064056bf22236d2*
+
+(The ones with * come with the patch)
+
+ -- Tobias Frost <tobi@debian.org>  Wed, 24 Sep 2014 21:23:18 +0200

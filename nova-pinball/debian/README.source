@@ -1,0 +1,49 @@
+dhewm3 for Debian
+-----------------
+
+Upstream did not do any release yet, so dhewm3 is directly from its git
+repository. Therefore, there is a get-orig-source target in debian/rules.
+
+With the help of this target, the upstream tarball can be regenerated.
+
+Several files will removed from the archive: Binaries, Windows executeables,
+dlls and files only needed to build non-Unix architectures.
+neo/renderer/jpeg_memory_src.* has been removed as the README describing the
+distribution license is not in the tarball. (removed for DFSG compliance).
+
+Please the Files-Excluded entry in debian/copyright for the complete list
+of removed files.
+
+To retrieve the latest upstream version you can set the date with the VER
+variable, set to the format YYYYMMDD. If not set, the date from
+debian/changelog will be used. This can also be used to obtain any older
+version
+
+To override the relase version, for example if upstream bumped the version, you
+can set USVER. This only sets the name in the tarball and is not checked if it
+is correlating to the real upstream version. If not set, the version from
+d/changelog will be used.
+
+For example,
+
+  VER=$(date +%Y%m%d) make -f debian/rules get-orig-source
+
+will fetch the latest upstream version (at least commits up to today midnight)
+
+  USVER=1.0.0 VER=20150215 make -f debian/rules get-orig-source
+
+wil retrieve the git version from February 14th 205, and names the tarball
+with the upstream version 1.0.0 -> the tarball will be named
+dhewm3_1.0.0~git20150214+repack.orig.tar.xz
+
+Note: When packaging a upstream release (in contrast to a git snapshot),
+use uscan.
+
+contrib section
+---------------
+
+The game engine is currently packed for the contrib section, aa there is no
+free game data known. If you know about DFSG-free content, please let me
+know.
+
+ -- Tobias Frost <tobi@debian.org>  Thu, 12 Mar 2015 09:24:14 +0100

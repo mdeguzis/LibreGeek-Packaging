@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=Mari0
+GenericName=Mari0
+Type=Application
+Comment=Mario+Portals! Ported for SteamOS
+Icon=/home/steam/Pictures/mari0.png
+Exec=mari0
+Terminal=false
+StartupNotify=false
+Keywords=multi;engine;emulator;xmb;
+Categories=Game;

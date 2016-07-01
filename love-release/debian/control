@@ -1,17 +1,14 @@
-Source: nova-pinball
-Section: games
+Source: love-release
+Section: devel
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 8.0.0),
  love (>= 0.9.1)
+ luarocks
 Standards-Version: 3.9.8
-Homepage: https://github.com/wesleywerner/nova-pinball
+Homepage: https://github.com/MisterDA/love-release
 
-Package: nova-pinball
+Package:  love-release
 Architecture: all
 Depends: ${misc:Depends}, ${shlibs:Depends},
- love (>= 0.9.1)
-Description: Pinball game
- Make the star go nova. There are in-game hints that 
- point out the next target to achieve your goal.
- Made with Lua / LÖVE.
+Description: Lua 5.1 script that makes LÖVE game release easier

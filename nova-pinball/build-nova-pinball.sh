@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-dhewm3.sh 
-# Script Ver:	0.1.3
-# Description:	Attempts to build a deb package from the laest dwehm3
+# Scipt name:	build-nova-pinball.sh 
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from the laest nova-pinball
 #		release
 #
-# See:		https://github.com/dhewm/dhewm3
+# See:		https://github.com/wesleywerner/nova-pinball
 #
-# Usage:	./build-dwehm3.sh
+# Usage:	./build-nova-pinball.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -47,8 +47,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/dhewm/dhewm3"
-branch="1.4.1_RC1"
+git_url="https://github.com/wesleywerner/nova-pinball"
+branch="v0.2.2.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,11 +57,11 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="dhewm3"
-pkgver="1.4.1"
+pkgname="nova-pinball"
+pkgver="0.2.2.2"
 pkgrev="1"
 upstream_rev="1"
-pkgsuffix="RC1+bsos"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -79,8 +79,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y make debhelper libcurl4-gnutls-dev libjpeg-dev libogg-dev \
-	libopenal-dev libsdl2-dev libvorbis-dev
+	sudo apt-get install -y love
 
 }
 

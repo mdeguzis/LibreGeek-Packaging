@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-set -e
-
-love /usr/share/games/nova-pinball/nova.pinball

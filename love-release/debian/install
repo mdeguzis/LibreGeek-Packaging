@@ -1,4 +1,1 @@
-nova-pinball-*.love           /usr/share/games/nova-pinball/
-nova-pinball                  /usr/bin/
-nova-pinball.png              /usr/share/pixmaps/
-debian/nova-pinball.desktop   /usr/share/applications/
+love-release                 /usr/bin/

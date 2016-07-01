@@ -11,3 +11,12 @@
 
 %:
 	dh $@ 
+
+# Version of love to build against
+LOVER="0.9.1"
+VER="$pkgver"
+
+#override_dh_auto_build:
+#	# may not be needed, this is close to how the Win platform is built
+#	# VER is the same as pkgver in the build script
+#	love-release -t "nova-pinball-$VER" -l $LOVER -v $VER -x image-sources\/\* -x dev\/\* -x nova-pinball-engine\/editor\/\*

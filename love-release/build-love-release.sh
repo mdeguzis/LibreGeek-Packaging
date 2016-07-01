@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-nova-pinball.sh 
+# Scipt name:	build-love-release.sh 
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from the laest nova-pinball
+# Description:	Attempts to build a deb package from the laest love-release
 #		release
 #
-# See:		https://github.com/wesleywerner/nova-pinball
+# See:		https://github.com/MisterDA/love-release
 #
-# Usage:	./build-nova-pinball.sh
+# Usage:	./build-love-release.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -47,8 +47,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/wesleywerner/nova-pinball"
-branch="v0.2.2.2"
+git_url="https://github.com/MisterDA/love-release"
+branch="v2.0.3"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,8 +57,9 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="nova-pinball"
-pkgver="0.2.2.2"
+export USE_NETWORK="yes"
+pkgname="love-release"
+pkgver="2.0.3"
 pkgrev="1"
 upstream_rev="1"
 pkgsuffix="git+bsos"
@@ -79,7 +80,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y love
+	sudo apt-get install -y love luarocks
 
 }
 
@@ -115,10 +116,6 @@ main()
 
 	# clone
 	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
-	
-	# Add extra files
-	cp "$scriptdir/nova-pinball" "${git_dir}"
-	cp "$scriptdir/nova-pinball.png" "${git_dir}"
 
 	#################################################
 	# Prepare package

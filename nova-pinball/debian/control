@@ -1,19 +1,16 @@
-Source: mari0
+Source: nova-pinball
 Section: games
 Priority: extra
-Maintainer: Mike Williamson <blessedbyvirtuosity@gmail.com>
-Build-Depends: debhelper (>= 8.0.0),
- wget
-Standards-Version: 3.9.2
-Homepage: http://stabyourself.net/mari0/
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.8
+Homepage: https://github.com/wesleywerner/nova-pinball
 
-Package: mari0
+Package: nova-pinball
 Architecture: all
-Depends: ${misc:Depends},
- love (=0.8.0-1+deb7u1)
-Description: Mario Bros. with Portal guns!
- Two genre defining games from completely different eras, Nintendo's Super
- Mario Bros. and Valve's Portal. These two games managed to give Platformers and
- First-Person Puzzle Games a solid place in the video game world. But what if
- Nintendo teamed up with Valve and recreated the famous Mario game with Portal
- gun mechanics?
+Depends: ${misc:Depends}, ${shlibs:Depends},
+ love
+Description: Pinball game
+ Make the star go nova. There are in-game hints that 
+ point out the next target to achieve your goal.
+ Made with Lua / LÖVE.

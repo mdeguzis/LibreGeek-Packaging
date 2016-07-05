@@ -39,12 +39,12 @@ def capture_environment():
         #
         # Slurp the steam client version out of the manifest file
         #
-        manifest = "%s/.steam/steam/package/steam_client_publicbeta_ubuntu12.manifest" % os.environ["HOME"]
+        manifest = "%s/.steam/steam/package/steam_client_ubuntu12.manifest" % os.environ["HOME"]
         if not os.path.exists(manifest):
             #
             # check the steam user directory
             #
-            manifest = "/home/steam/.steam/steam/package/steam_client_publicbeta_ubuntu12.manifest"
+            manifest = "/home/steam/.steam/steam/package/steam_clienta_ubuntu12.manifest"
 
         if os.path.exists(manifest):
 
@@ -247,10 +247,11 @@ class IssueDlg(Gtk.Window):
         return buf2text(self.desc_buff())
 
     def OnSummaryChanged (self, entry):
+        # Disable OK button since they should not* be used for official bug reporting
         if (len(entry.get_text()) > 0):
-            self.OkButton.set_sensitive(True)
+            #self.OkButton.set_sensitive(True)
         else:
-            self.OkButton.set_sensitive(False)
+            #self.OkButton.set_sensitive(False)
 
         #
         # Pop up the file chooser dialog so the user can add

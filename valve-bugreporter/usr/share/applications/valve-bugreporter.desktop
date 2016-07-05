@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Valve Bug Reporter
+Comment=Application for Reporting Bugs and Issues to Valve
+Exec=/usr/bin/valve-bugreporter
+Icon=valve-bugreporter
+Terminal=false
+Type=Application
+Categories=Game
+

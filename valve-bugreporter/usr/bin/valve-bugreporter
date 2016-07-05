@@ -1,0 +1,486 @@
+#!/usr/bin/python
+import sys,os,glob,time,subprocess, re, datetime
+from gi.repository import Gtk, Gdk, GObject
+import urllib2, json, zipfile, tempfile, mimetypes, cairo, ConfigParser, base64
+
+# Mapping from Area to Project
+area2project = {"SteamOS" : "STEAMBOX",
+                "Big Picture" : "STEAMBOX",
+                "Valve Game" : "STEAMBOX",
+                "Third Party Game" : "STEAMBOX",
+                "Bug Reporter" : "STEAMBOX",
+                "Controller" : "STEAMBOX",
+                "Video Driver" : "STEAMBOX",
+                "Streaming" : "STEAMBOX",
+                }
+JIRAurl = "https://valvesoftware.atlassian.net/rest/api/2/issue"
+
+g_configFile = os.path.expanduser('~/.valve-bugreporter.cfg')
+g_config = ConfigParser.SafeConfigParser({'username':'', 'password':'', 'steamid':''})
+g_config.read(g_configFile)
+if not g_config.has_section('credentials'):
+    g_config.add_section('credentials')
+
+def buf2text(buff):
+    return buff.get_text(buff.get_start_iter(), buff.get_end_iter(),True)
+
+#
+# Capture various interesting information about the system
+#
+def capture_environment():
+    env = ""
+    try:
+        #
+        # Steambox image date
+        #
+        verfile = "%s/.imageversion" % os.environ["HOME"]
+        if os.path.exists(verfile):
+            env += "Steambox Image: " + open(verfile,"r").read()
+        #
+        # Slurp the steam client version out of the manifest file
+        #
+        manifest = "%s/.steam/steam/package/steam_client_publicbeta_ubuntu12.manifest" % os.environ["HOME"]
+        if not os.path.exists(manifest):
+            #
+            # check the steam user directory
+            #
+            manifest = "/home/steam/.steam/steam/package/steam_client_publicbeta_ubuntu12.manifest"
+
+        if os.path.exists(manifest):
+
+            # looking for "version" "nnn" string in the manifest file
+            match = re.search('\s*"version"\s+"(\d+)"',open(manifest,"r").read())
+            if match:
+                timestamp = match.groups()[0]
+                dt = datetime.datetime.fromtimestamp(float(timestamp))
+                env += "Steam Client: %s (%s)\n" % (timestamp, dt.strftime("%c"))
+
+        #
+        #
+        # Installed packages
+        #
+        env += subprocess.check_output(["dpkg-query", "-W", "--showformat=${Package}\t${Architecture}\t${Status}\t${Version}\n", "valve-*","*steam*","nvidia*", "fglrx*", "*mesa*"]) + "\n"
+
+    except Exception, ex:
+        env += "\nEXCEPTION:" + str(ex)
+    return env
+
+#
+# Code for encoding multipart/form-data based on http://code.activestate.com/recipes/146306/
+#
+
+def encode_multipart_formdata(files):
+    """
+    files is a list of filenames to be uploaded
+    """
+    BOUNDARY = '----------ThIs_Is_tHe_bouNdaRY_$'
+    CRLF = '\r\n'
+    L = []
+    for filename in files:
+        L.append('--' + BOUNDARY)
+        L.append('Content-Disposition: form-data; name="file"; filename="%s"' % os.path.split(filename)[1])
+        L.append('Content-Type: %s' % get_content_type(filename))
+        L.append('')
+        L.append(open(filename, "r").read())
+    L.append('--' + BOUNDARY + '--')
+    L.append('')
+    body = CRLF.join(L)
+    content_type = 'multipart/form-data; boundary=%s' % BOUNDARY
+    return content_type, body
+
+def get_content_type(filename):
+    return mimetypes.guess_type(filename)[0] or 'application/octet-stream'
+
+#
+# Screenshot support
+#   Takes a screenshot of the entire desktop and returns it as
+#   a cairo surface
+#
+def screenshot(window):
+    wnd_surface = window.cairo_create().get_target()
+    out_surface = cairo.ImageSurface(cairo.FORMAT_RGB24,window.get_width(), window.get_height())
+    out_context = cairo.Context(out_surface)
+    out_context.set_source_surface(wnd_surface)
+    out_context.paint()
+    return out_surface
+
+#
+# Class for encapsulating an Issue
+#
+class Issue:
+    def __init__ (self, dlg):
+        self.area       = dlg.area()
+        self.issue_type = dlg.issue_type()
+        self.summary    = dlg.summary()
+        self.priority   = dlg.priority()
+        self.environment= dlg.environment()
+        self.description= dlg.description()
+        self.steam_id   = dlg.steam_id.get_text()
+
+    def to_json (self):
+        data = { "fields" : {
+            "project" : {"key" : area2project[self.area]},
+            "issuetype"     : {"name" : self.issue_type},
+            "summary"       : self.summary,
+            "priority"      : dict(id=str(dict(Critical=1, Blocker=2, Major=3, Minor=4, Trivial=5)[self.priority])),
+            "environment"   : self.environment,
+            "description"   : self.description,
+            "labels"        : [self.area.replace(" ","_")], # label
+            "customfield_10024" : self.steam_id
+            }
+        }
+        return json.dumps(data);
+
+    def submit (self, url, creds=None):
+        req = urllib2.Request(url = url,data = self.to_json())
+        if creds:
+            req.add_header("Authorization", creds.basic_auth_header())
+        req.add_header("Content-Type", "application/json")
+        resp = urllib2.urlopen(req);
+        js = json.load(resp);
+        self.id = js["id"]
+        self.key = js["key"]
+        self.url = str(js["self"])
+        return js
+
+    def attach_files (self, files, creds=None):
+        content_type, body = encode_multipart_formdata(files)
+        req = urllib2.Request(url = self.url+"/attachments",data = body)
+        if creds:
+            req.add_header("Authorization", creds.basic_auth_header())
+        req.add_header('content-type', content_type)
+        req.add_header('content-length', str(len(body)))
+        req.add_header('X-Atlassian-Token', "nocheck")
+        resp = urllib2.urlopen(req);
+        return json.load(resp)
+
+#
+# GTK dialog for collecting issue information
+#
+class IssueDlg(Gtk.Window):
+
+    def __init__(self):
+        super(IssueDlg, self).__init__()
+        builder = Gtk.Builder()
+
+        # look for our UI file in the same directory first,
+        # if it's not there, fallback to /usr/share/valve-bugreporter
+        uipath = sys.argv[0] + ".ui"
+        if not os.path.exists(uipath):
+            basefile = os.path.split(sys.argv[0])[1]
+            uipath = "/usr/share/%s/%s.ui" % (basefile, basefile)
+        builder.add_from_file(uipath) 
+        builder.connect_signals(self)
+        
+        self.window = builder.get_object("dialog1")
+        self.fileview = builder.get_object("file_view")
+
+        #
+        # for some reason the active selection is not getting set by
+        # the builder, so do it in code instead
+        #
+        builder.get_object("area_combo").set_active(0)
+        builder.get_object("issue_type_combo").set_active(0)
+        builder.get_object("priority_combo").set_active(3)
+
+        # 
+        # Accessors for dialog items
+        #
+        self.area       = builder.get_object("area_combo").get_active_text
+        self.issue_type = builder.get_object("issue_type_combo").get_active_text
+        self.summary    = builder.get_object("summary_text").get_text
+        self.priority   = builder.get_object("priority_combo").get_active_text
+        self.env_buff   = builder.get_object("environment_text").get_buffer
+        self.desc_buff  = builder.get_object("description_text").get_buffer
+        self.steam_id   = builder.get_object("steam_text")
+        self.file_list  = self.fileview.get_model
+        self.screenshot = builder.get_object("img_screenshot")
+        self.attach_screenshot = builder.get_object("screenshot_chk")
+        self.username = builder.get_object("username_text")
+        self.password = builder.get_object("password_text")
+        self.cachecreds = builder.get_object("credentials_check")
+        
+        #
+        # widgets we'll need access to later
+        #
+        self.OkButton = builder.get_object("create_button")
+
+        self.OkButton.connect("clicked", self.DoSubmit)
+
+    def DoSubmit (self, button):
+        if self.username.get_text() != '':
+            self.creds = Credentials(win.username.get_text(), win.password.get_text())
+        else:
+            self.creds = None
+
+        wait_cursor = Gdk.Cursor(Gdk.CursorType.WATCH)
+        self.window.get_window().set_cursor(wait_cursor)
+        self.issue = Issue(self)
+        GObject.idle_add(self.idle_cb)
+
+
+    #
+    # Do the actual submission in the idle callback so our cursor
+    # change has a chance to take effect (see http://faq.pygtk.org/index.py?req=show&file=faq05.006.htp)
+    #
+    def idle_cb (self):
+        try:
+            self.issue.submit(url = JIRAurl, creds=self.creds)
+            self.window.response(Gtk.ResponseType.OK)
+
+        except urllib2.URLError, ex:
+            msg = Gtk.MessageDialog(win.window, 
+                                    Gtk.DialogFlags.MODAL,
+                                    Gtk.MessageType.ERROR, 
+                                    Gtk.ButtonsType.CLOSE, 
+                                    "An error occurred trying to create the issue.\n" + str(ex))
+            msg.run()
+            print ex.reason
+            msg.destroy();
+
+        self.window.get_window().set_cursor(None)
+
+    def environment(self):
+        return buf2text(self.env_buff())
+
+    def description (self):
+        return buf2text(self.desc_buff())
+
+    def OnSummaryChanged (self, entry):
+        if (len(entry.get_text()) > 0):
+            self.OkButton.set_sensitive(True)
+        else:
+            self.OkButton.set_sensitive(False)
+
+        #
+        # Pop up the file chooser dialog so the user can add
+        # files to the selection list
+        #
+    def OnAddFiles (self, btn):
+        fileDlg = Gtk.FileChooserDialog("Choose Files to Attach", 
+                                        self.window, 
+                                        Gtk.FileChooserAction.OPEN, 
+                                        (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                                         "Select", Gtk.ResponseType.OK))        
+        fileDlg.set_select_multiple(True)
+        response = fileDlg.run()
+        for f in fileDlg.get_filenames():
+            self.file_list().append([f])
+        fileDlg.destroy()
+
+        #
+        # Remove the selected files from the file list
+        #
+    def OnDeleteFiles (self, btn):
+        (model, paths) = self.fileview.get_selection().get_selected_rows()
+        #
+        # We have to do this little TreeRowReference->get_path() dance
+        # because all the path IDs change when anything is deleted
+        #
+        refs = []
+        for f in paths :
+            refs.append(Gtk.TreeRowReference.new(model, f))
+
+        for ref in refs :
+            del model[ref.get_path()]
+
+        #
+        # GtkImage resize handler for resizing the screenshot 
+        #
+    def on_img_screenshot_size_allocate (self, image, rect):
+        scale = min(float(rect.width)/self.screen_surface.get_width(), float(rect.height)/self.screen_surface.get_height())
+        thumb_surface = cairo.ImageSurface(cairo.FORMAT_RGB24, rect.width, rect.height)
+        thumb_context = cairo.Context(thumb_surface)
+        thumb_context.scale(scale, scale)
+        thumb_context.set_source_surface(self.screen_surface)
+        thumb_context.paint()
+        self.screenshot.set_from_pixbuf(Gdk.pixbuf_get_from_surface(thumb_surface, 0, 0, rect.width, rect.height))
+
+class Credentials:
+    def __init__ (self, username, password):
+        self.username = username
+        self.password = password
+
+    def basic_auth_header(self):
+        return "Basic " + base64.encodestring("%s:%s" % (self.username, self.password)).replace('\n','')
+
+#
+# Class for caching credentials across runs
+#
+class CredCache:
+    def __init__(self):
+
+        username = g_config.get('credentials', 'username')
+        password = g_config.get('credentials', 'password')
+        if username != '' and password != '':
+            self.credentials = Credentials(username, password)
+        else:
+            self.credentials = None
+
+    def update (self, newcreds):
+        if not newcreds:
+            return self.delete()
+
+        if (self.credentials is None) or (self.credentials.username != newcreds.username) or (self.credentials.password != newcreds.password):
+            g_config.set('credentials', 'username', newcreds.username);
+            g_config.set('credentials', 'password', newcreds.password);
+            g_config.write(open(g_configFile,'w'))
+            self.credentials = newcreds
+
+    def delete (self):
+        if (self.credentials):
+            g_config.remove_option('credentials', 'username')
+            g_config.remove_option('credentials', 'password')
+            g_config.write(open(g_configFile,'w'))
+            self.credentials = None
+
+    def basic_auth_header(self):
+        return "Basic " + base64.encodestring("%s:%s" % (self.username, self.password)).replace('\n','')
+
+
+if __name__ == "__main__":
+    win = IssueDlg()
+
+    externalscreenshot = len(sys.argv) > 1 and os.path.exists(sys.argv[1])
+    #
+    # Take a screenshot before showing our window
+    #
+    if (externalscreenshot):
+        screen_surface = cairo.ImageSurface.create_from_png(sys.argv[1])
+
+        #
+        # default to including the screenshot since someone went 
+        # to the trouble of creating it and passing it in.
+        #
+        win.attach_screenshot.set_active(True)      
+    else:
+        root = win.get_root_window()
+        screen_surface = screenshot(root)
+        
+    win.screen_surface = screen_surface
+
+    # 
+    # Populate any cached credentials
+    #
+    credcache = CredCache();
+    if credcache.credentials:
+        if credcache.credentials.username:
+            win.username.set_text(credcache.credentials.username)
+        if credcache.credentials.password:
+            win.password.set_text(credcache.credentials.password)
+
+    #
+    # Populate Steam id from config file
+    #
+    win.steam_id.set_text(g_config.get('credentials', 'steamid'))
+
+    #
+    # Populate environment text box with any interesting information about the system
+    #
+    env = capture_environment()
+    win.env_buff().set_text(env)
+
+    #
+    # add loginusers.vdf and loginusers.vdf.error files if either exists
+    #
+    for f in glob.glob("%s/.steam/root/config/loginusers.vdf*" % os.environ["HOME"]):
+        if (os.path.exists(f)) and os.access(f, os.R_OK):
+            win.file_list().append([f])
+
+    #
+    # Prepopulate the attached files list with the steam logs
+    #
+    for log in ['/tmp/dumps/%s_log.txt', '/tmp/dumps/%s_stdout.txt']:
+        log = log % os.environ["USER"]
+        if (os.path.exists(log)) and os.access(log, os.R_OK):
+            win.file_list().append([log])
+
+    #
+    # If there are any .dmp files created in the last 24 hours, include
+    # them as well
+    #
+    yesterday = time.time() - 60*60*24
+    for dmp in glob.glob("/tmp/dumps/*.dmp"):
+        if (os.path.getctime(dmp) > yesterday) and os.access(dmp, os.R_OK):
+            win.file_list().append([dmp])
+
+    #
+    # Add any recent log files from Steam/logs
+    #
+    for log in glob.glob("%s/.steam/steam/logs/*" % os.environ["HOME"]):
+        if (os.path.getctime(log) > yesterday) and os.access(log, os.R_OK):
+            win.file_list().append([log])
+
+    response = win.window.run()
+    if (response == Gtk.ResponseType.OK):
+        #
+        # Cache credentials if they have changed and the checkbox said to
+        #
+        if win.cachecreds.get_active():
+            credcache.update(win.creds)
+        else:
+            credcache.delete()
+
+        #
+        # remember steam id
+        #
+        g_config.set('credentials', 'steamid', win.steam_id.get_text())
+        g_config.write(open(g_configFile,'w'))
+
+        #
+        # pump the message loop to make sure the idle callback
+        # runs (that is where the submit actually happens)
+        #
+        while Gtk.events_pending():
+            Gtk.main_iteration()
+
+        #
+        # Check whether screenshot should be included
+        #
+        attached_files = [];
+        if (win.attach_screenshot.get_active()):
+            if (externalscreenshot):
+                attached_files.append(sys.argv[1])
+            else:
+                pngfile = tempfile.NamedTemporaryFile(suffix = ".png", prefix = "screenshot")
+                screen_surface.write_to_png(pngfile)
+                attached_files.append(pngfile.name)
+
+        #
+        # If there are any other files to attach, zip them up and 
+        # post them to the issue.
+        #
+        if (len(win.file_list()) > 0):
+            tmpzip = tempfile.NamedTemporaryFile(suffix = ".zip", prefix = "VBR")
+            zip = zipfile.ZipFile(tmpzip, "w")
+            for f in win.file_list():
+                try:
+                    zip.write(f[0])
+                except IOError:
+                    print "Cannot attach file %s" % f[0]
+                    pass
+            zip.close()
+            if (len(zip.namelist()) != 0):
+                attached_files.append(tmpzip.name)
+
+        if (len(attached_files) > 0):
+            try:
+                win.issue.attach_files(attached_files, creds=win.creds)
+            except urllib2.URLError, ex:
+                msg = Gtk.MessageDialog(win.window, 
+                                        Gtk.DialogFlags.MODAL,
+                                        Gtk.MessageType.ERROR, 
+                                        Gtk.ButtonsType.CLOSE, 
+                                        "An error occurred trying to attach the files to the issue.\n" + str(ex))
+                msg.run()
+                print ex.reason
+
+
+        msg = Gtk.MessageDialog(win.window, 
+                                Gtk.DialogFlags.MODAL,
+                                Gtk.MessageType.INFO, 
+                                Gtk.ButtonsType.OK, 
+                                "Issue successfully filed.\nThe issue identifier is %s" % win.issue.key)
+        msg.run()
+
+    win.window.destroy()

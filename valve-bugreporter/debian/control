@@ -1,0 +1,23 @@
+Source: valve-bugreporter
+Priority: optional
+Section: x11
+Maintainer: Valve Corporation <linux@steampowered.com>
+Build-Depends: debhelper (>= 8.0.0), python, python-all-dev
+Standards-Version: 3.9.3
+Homepage: http://www.steampowered.com/
+
+Package: valve-bugreporter
+Architecture: all
+Depends: python,
+         python-gobject,
+         libgtk-3-0,
+         python-keyring,
+         python-gnomekeyring,
+         gir1.2-gtk-3.0, 
+         python-gi-cairo
+Description: Valve Bug Reporting Tool
+ valve-bugreporter is a tool for customers to submit bugs or issues directly 
+ to Valve
+ .
+ This package contains the Valve Bug Reporting Tool
+

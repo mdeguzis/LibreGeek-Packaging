@@ -1,0 +1,216 @@
+valve-bugreporter (2.12) alchemist; urgency=low
+
+  * include more package versions
+  * add Streaming as an area 
+
+ -- John Vert <johnv@valvesoftware.com>  Tue, 11 Feb 2014 11:25:54 -0800
+
+valve-bugreporter (2.11) alchemist; urgency=low
+
+  * Set default priority to minor
+  * Add critical priority
+  * Fix issue submission to include priority
+
+ -- Scott Ludwig <scottlu@valvesoftware.com>  Thu, 5 Dec 2013 10:31:00 -0800
+
+valve-bugreporter (2.10) alchemist; urgency=low
+
+  * default to include screenshot if one was passed on the command line
+
+ -- John Vert <johnv@valvesoftware.com>  Wed, 20 Nov 2013 10:12:42 -0800
+
+valve-bugreporter (2.9) alchemist; urgency=low
+
+  * update copyright
+
+ -- John Vert <johnv@valvesoftware.com>  Tue, 19 Nov 2013 11:23:00 -0800
+
+valve-bugreporter (2.8) alchemist; urgency=low
+
+  * Fix UI to return the right OK code for the OK button
+  * Wait for idle callback to complete submission before trying to attach files
+
+ -- John Vert <johnv@valvesoftware.com>  Mon, 11 Nov 2013 12:05:04 -0800
+
+valve-bugreporter (2.7) alchemist; urgency=low
+
+  * Fix typo in sudo cmd line
+
+ -- Alfred Reynolds <alfred@valvesoftware.com>  Wed, 06 Nov 2013 18:18:02 -0800
+
+valve-bugreporter (2.6+steamos1) alchemist; urgency=low
+
+  * Update the desktop shortcut to run as steam user
+
+ -- John Vert <johnv@valvesoftware.com>  Wed, 06 Nov 2013 17:10:12 -0800
+
+valve-bugreporter (2.6) alchemist; urgency=low
+
+  * One more SteamOS change
+
+ -- John Vert <johnv@valvesoftware.com>  Wed, 06 Nov 2013 10:27:29 -0800
+
+valve-bugreporter (2.5) alchemist; urgency=low
+
+  * Add 'Controller' area and use SteamOS instead of Steambox
+  * Fix dpkg output in environment
+
+ -- John Vert <johnv@valvesoftware.com>  Tue, 05 Nov 2013 14:06:44 -0800
+
+valve-bugreporter (2.4) alchemist; urgency=low
+
+  * Don't die when failing to access files to attach (Scott)
+  * Attach LoginUsers.vdf (Scott)
+  * Stop using the GNOME keyring for storing passwords since we don't have
+    a keyring daemon running in the SteamOS session
+  * Support external screenshots passed through the commandline
+
+ -- Pierre-Loup A. Griffais <pgriffais@valvesoftware.com>  Tue, 29 Oct 2013 10:06:40 -0700
+
+valve-bugreporter (2.3) alchemist; urgency=low
+
+  * fix hitting enter in password entry fields to submit bug
+  * fix resetting wait cursor on failed submission
+
+ -- Valve Corporation <linux@steampowered.com>  Mon, 19 Aug 2013 14:29:06 -0700
+
+valve-bugreporter (2.2) precise; urgency=low
+
+  * add dependency on python-gnomekeyring so password caching works
+
+ -- Valve Corporation <linux@steampowered.com>  Thu, 25 Jul 2013 10:21:58 -0700
+
+valve-bugreporter (2.1) precise; urgency=low
+
+  * Don't close the dialog and lose all the data if there is an error on submission
+  * put up the wait cursor while submitting so it is clear what's happening
+
+ -- Valve Corporation <linux@steampowered.com>  Wed, 24 Jul 2013 13:59:02 -0700
+
+valve-bugreporter (2.0) precise; urgency=low
+
+  * attach loginusers.vdf instead of loginusers.cfg
+  * reduce dialog height to fit in 720p resolution
+
+ -- Valve Corporation <linux@steampowered.com>  Tue, 23 Jul 2013 11:23:10 -0700
+
+valve-bugreporter (1.9) precise; urgency=low
+
+  * Handle and ignore exceptions from credential API
+
+ -- Valve Corporation <linux@steampowered.com>  Tue, 16 Jul 2013 14:47:44 -0700
+
+valve-bugreporter (1.8) precise; urgency=low
+
+  * Fix crash if username is cached but password isn't
+
+ -- Valve Corporation <linux@steampowered.com>  Tue, 16 Jul 2013 14:06:44 -0700
+
+valve-bugreporter (1.7) precise; urgency=low
+                  
+ * Remember user's Steam ID between runs
+
+ -- Valve Corporation <linux@steampowered.com>  Wed, 03 Jul 2013 17:59:55 -0700
+                  
+valve-bugreporter (1.6) precise; urgency=low
+                  
+  * Point back to https://valvesoftware.atlassian.net
+  
+ -- Valve Corporation <linux@steampowered.com>  Wed, 03 Jul 2013 12:12:26 -0700
+  
+valve-bugreporter (1.5) precise; urgency=low
+
+  * Added credential UI and caching of credentials
+  * re-layed out UI
+
+ -- Valve Corporation <linux@steampowered.com>  Wed, 19 Jun 2013 18:54:01 -0700
+
+valve-bugreporter (1.4) precise; urgency=low
+
+  * make attached files multi-select again
+
+ -- Valve Corporation <linux@steampowered.com>  Thu, 13 Jun 2013 15:10:20 -0700
+
+valve-bugreporter (1.3) precise; urgency=low
+
+  * Switch from valvesoftware.atlassian.com to jira.valvesoftware.com
+
+ -- Valve Corporation <linux@steampowered.com>  Tue, 11 Jun 2013 16:04:50 -0700
+
+valve-bugreporter (1.2) precise; urgency=low
+
+  * put description and environment inside scrolling windows
+  * add steam client version to environment
+
+ -- Valve Corporation <linux@steampowered.com>  Fri, 24 May 2013 14:07:04 -0700
+
+valve-bugreporter (1.1) precise; urgency=low
+
+  * add keyboard mnemonics to dialog
+  * autopopulate Environment text with install state and nvidia information
+
+ -- Valve Corporation <linux@steampowered.com>  Fri, 24 May 2013 11:32:25 -0700
+
+valve-bugreporter (1.0) precise; urgency=low
+
+  * rejigger UI, split screenshot out of ZIP into separate attachment
+
+ -- Valve Corporation <linux@steampowered.com>  Thu, 23 May 2013 15:54:01 -0700
+
+valve-bugreporter (0.9) precise; urgency=low
+
+  * add loginusers.cfg to file upload list
+
+ -- Valve Corporation <linux@steampowered.com>  Wed, 22 May 2013 17:46:30 -0700
+
+valve-bugreporter (0.8) precise; urgency=low
+
+  * fix gconftool issues
+
+ -- Valve Corporation <linux@steampowered.com>  Wed, 22 May 2013 17:12:34 -0700
+
+valve-bugreporter (0.7) precise; urgency=low
+
+  * Screenshot support
+  * Add Win-B shortcut to launch bug reporter
+
+ -- Valve Corporation <linux@steampowered.com>  Wed, 22 May 2013 14:01:34 -0700
+
+valve-bugreporter (0.6) precise; urgency=low
+
+  * Implement file uploading
+
+ -- Valve Corporation <linux@steampowered.com>  Fri, 17 May 2013 17:05:39 -0700
+
+valve-bugreporter (0.5) precise; urgency=low
+
+  * Fix tab and ENTER handling
+  * Add Bug Reporter as a bug area
+
+ -- Valve Corporation <linux@steampowered.com>  Fri, 17 May 2013 17:05:39 -0700
+
+valve-bugreporter (0.4) precise; urgency=low
+
+  * Fix error dialog
+
+ -- Valve Corporation <linux@steampowered.com>  Fri, 17 May 2013 14:30:02 -0700
+
+valve-bugreporter (0.3) precise; urgency=low
+
+  * UI improvements and fixes
+
+ -- Valve Corporation <linux@steampowered.com>  Fri, 17 May 2013 10:53:42 -0700
+
+valve-bugreporter (0.2) precise; urgency=low
+
+  * Added desktop icon
+
+ -- Valve Corporation <linux@steampowered.com>  Thu, 16 May 2013 17:22:47 -0700
+
+valve-bugreporter (0.1) precise; urgency=low
+
+  * Created
+
+ -- Valve Corporation <linux@steampowered.com>  Thu, 16 May 2013 16:05:06 -0700
+
+

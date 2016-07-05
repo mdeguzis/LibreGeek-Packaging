@@ -3,8 +3,8 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt name:	steamos-info-tool.sh
-# Script Ver:	0.1.3
-# Description: Tool to collect some information for troubleshooting
+# Script Ver:	0.1.7
+# Description:	Tool to collect some information for troubleshooting
 #		release
 #
 # See:		
@@ -13,6 +13,14 @@
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
+
+function_install_utilities()
+{
+	
+	# need just a few things
+	sudo apt-get install -yqq p7zip
+	
+}
 
 fuction_set_vars()
 {
@@ -50,58 +58,58 @@ function_gather_info()
 function_gather_logs()
 {
   
-  # Simply copy logs to temp log folder to be tarballed later
+	# Simply copy logs to temp log folder to be tarballed later
 	pathlist=()
 	pathlist+=("/tmp/dumps/steam_stdout.txt")
-  pathlist+=("/home/steam/.steam/steam/package/steam_client_ubuntu12.manifest")
-  pathlist+=("/var/log/unattended-upgrades/unattended-upgrades-dpkg.log")
-  pathlist+=("/var/log/unattended-upgrades/unattended-upgrades-shutdown.log")
-  pathlist+=("/var/log/unattended-upgrades/unattended-upgrades.log")
-  pathlist+=("/var/log/unattended-upgrades/unattended-upgrades-shutdown-output.log")
-  pathlist+=("/run/unattended-upgrades/ready.json")
-  
-  for file in "${pathlist[@]}"
-  do
-    cp ${LOG_FOLDER} ${file}
-    
-  done
-  
-  # Notable logs not included right now
-  # /home/steam/.steam/steam/logs*
+	pathlist+=("/home/steam/.steam/steam/package/steam_client_ubuntu12.manifest")
+	pathlist+=("/var/log/unattended-upgrades/unattended-upgrades-dpkg.log")
+	pathlist+=("/var/log/unattended-upgrades/unattended-upgrades-shutdown.log")
+	pathlist+=("/var/log/unattended-upgrades/unattended-upgrades.log")
+	pathlist+=("/var/log/unattended-upgrades/unattended-upgrades-shutdown-output.log")
+	pathlist+=("/run/unattended-upgrades/ready.json")
+	
+	for file in "${pathlist[@]}"
+	do
+		cp ${LOG_FOLDER} ${file}
+	done
+	
+	# Notable logs not included right now
+	# /home/steam/.steam/steam/logs*
   
 }
 
 main()
 {
-  
-  # Set vars
-  function_set_vars
-  
-  # Create log folder if it does not exist
-  if [[ !-d "${LOG_FOLDER}" ]]; then
-  
-    mkdir -p "${LOG_FOLDER}"
-    
-  fi
-  
-  # Remove old logs to old folder and clean folder
-  mv ${LOG_FOLDER} ${LOG_FOLDER}.old
-  rm -rf ${LOG_FOLDER}/*
 
-  echo -e "==================================="
-  echo -e "SteamOS Info Tool"
-  echo -e "===================================\n"
-
-  # get info about system
-  function_gather_info
+	# Install software
+	function_install_utilities
   
-  # Get logs
-  function_gather_logs
+	# Set vars
+	function_set_vars
   
-  # Archive log filer with date
-  cd ${LOG_FOLDER}
-  tar -cvzf "${LOG_FOLDER}_${DATE_SHORT}.tar.gz" "${LOG_FOLDER}"
-  cd ${TOP}
+	# Create log folder if it does not exist
+	if [[ !-d "${LOG_FOLDER}" ]]; then
+	
+	mkdir -p "${LOG_FOLDER}"
+	
+	fi
+	
+	# Remove old logs to old folder and clean folder
+	mv ${LOG_FOLDER} ${LOG_FOLDER}.old
+	rm -rf ${LOG_FOLDER}/*
+	
+	echo -e "==================================="
+	echo -e "SteamOS Info Tool"
+	echo -e "===================================\n"
+	
+	# get info about system
+	function_gather_info
+	
+	# Get logs
+	function_gather_logs
+	
+	# Archive log filer with date
+	7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}\* -w "/tmp"
   
 }
 

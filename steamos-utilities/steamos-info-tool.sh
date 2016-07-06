@@ -25,10 +25,14 @@ function_install_utilities()
 fuction_set_vars()
 {
 	
+	# Remove old logs to old folder and clean folder
+	mv ${LOG_FOLDER} ${LOG_FOLDER}.old
+	rm -rf ${LOG_FOLDER}/*
+	
 	# Create log folder if it does not exist
 	if [[ ! -d "${LOG_FOLDER}" ]]; then
 	
-	mkdir -p "${LOG_FOLDER}"
+		mkdir -p "${LOG_FOLDER}"
 	
 	fi
   
@@ -94,10 +98,6 @@ main()
 	# Set vars
 	function_set_vars
 	
-	# Remove old logs to old folder and clean folder
-	mv ${LOG_FOLDER} ${LOG_FOLDER}.old
-	rm -rf ${LOG_FOLDER}/*
-	
 	echo -e "==================================="
 	echo -e "SteamOS Info Tool"
 	echo -e "===================================\n"
@@ -116,4 +116,4 @@ main()
 # Main
 clear
 fuction_set_vars
-main &> ${LOGFILE}
+main | tee ${LOGFILE}

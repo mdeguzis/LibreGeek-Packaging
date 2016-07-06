@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.4.3
+# Script Ver:		1.5.5
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -85,10 +85,10 @@ set_vars()
 	date_short=$(date +%Y%m%d)
 	
 	# source vars
-	git_url="git://github.com/xbmc/xbmc.git"
+	GIT_URL="git://github.com/xbmc/xbmc.git"
 	export build_dir="$HOME/build-${pkgname}-temp"
-	src_dir="${pkgname}-source"
-	git_dir="${build_dir}/${src_dir}"
+	SRC_DIR="${pkgname}-source"
+	GIT_DIR="${BUILD_DIR}/${src_dir}"
 
 	# Set target for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
@@ -114,19 +114,19 @@ set_vars()
 	if [[ "$extra_opts" == "--source" || "$arg1" == "--source" ]]; then
 
 		# set package to yes if deb generation is requested
-		package_deb="no"
+		PACKAGE_DEB="no"
 
 	elif [[ "$extra_opts" == "--skip-build" || "$arg1" == "--skip-build" ]]; then
 
 		# If Kodi is confirmed by user to be built already, allow build
 		# to be skipped and packaging to be attempted directly
 		skip_build="yes"
-		package_deb="yes"
+		PACKAGE_DEB="yes"
 
 	else
 
 		# Proceed with default actions
-		package_deb="yes"
+		PACKAGE_DEB="yes"
 
 	fi
 
@@ -153,7 +153,7 @@ kodi_clone()
 
 	echo -e "\n==> Obtaining upstream source code"
 
-	if [[ -d "${git_dir}" ]]; then
+	if [[ -d "${GIT_DIR}" ]]; then
 
 		echo -e "\n==Info==\nGit source files already exist! Remove and [r]eclone or [c]lean? ?\n"
 		sleep 1s
@@ -166,16 +166,16 @@ kodi_clone()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
-			git clone "${git_url}" "${git_dir}"
+			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
+			git clone "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
 			# Clean up and changes
 			echo "Removing temp files and other cruft from build dir and source dir"
-			find "${build_dir}" -name '*.dsc' -o -name '*.deb' -o -name '*.build' \
+			find "${BUILD_DIR}" -name '*.dsc' -o -name '*.deb' -o -name '*.build' \
 			-exec rm -rf "{}" \;
-			cd "${git_dir}" && git clean -xfd || exit 1
+			cd "${GIT_DIR}" && git clean -xfd || exit 1
 
 		fi
 
@@ -186,8 +186,8 @@ kodi_clone()
 			# reset retry flag
 			retry="no"
 			# create and clone to current dir
-			mkdir -p "${build_dir}" || exit 1
-			git clone "${git_url}" "${git_dir}"
+			mkdir -p "${BUILD_DIR}" || exit 1
+			git clone "${GIT_URL}" "${GIT_DIR}"
 
 	fi
 
@@ -241,7 +241,7 @@ kodi_prereqs()
 	echo -e "\n==> Installing main deps for building\n"
 	sleep 2s
 
-	if [[ "${BUILDER}" != "pdebuild" && "${package_deb}" == "yes" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" && "${PACKAGE_DEB}" == "yes" ]]; then
 
 		# Javis control file lists 'libglew-dev libjasper-dev libmpeg2-4-dev', but they are not
 		# in the linux readme
@@ -294,7 +294,7 @@ kodi_prereqs()
 		# install dependencies / packages
 		function_install_pkgs
 
-	elif [[ "${BUILDER}" == "pdebuild" &&  "${package_deb}" == "yes" ]]; then
+	elif [[ "${BUILDER}" == "pdebuild" &&  "${PACKAGE_DEB}" == "yes" ]]; then
 
 		# Still need a few basic packages
 		sudo apt-get install -y --force-yes curl
@@ -302,13 +302,13 @@ kodi_prereqs()
 	else
 
 		# If we are not packaging a deb, set to master branch build
-        	branch="master"
-        	pkgver="$kodi_tag"
+        	TARGET="master"
+        	pkgver="${KODI_TAG}"
 
 	fi
 }
 
-kodi_package_deb()
+kodi_PACKAGE_DEB()
 {
 
 	# Debian link: 	    https://wiki.debian.org/BuildingTutorial
@@ -316,7 +316,7 @@ kodi_package_deb()
 	# XBMC/Kodi readme: https://github.com/xbmc/xbmc/blob/master/tools/Linux/packaging/README.debian
 
 	# Ensure we are in the proper directory
-	cd "$git_dir"
+	cd "${GIT_DIR}"
 
 	# show tags instead of branches
 	git tag -l --column
@@ -331,15 +331,15 @@ kodi_package_deb()
 	# If the tag is left blank, set to master
 
 	# checkout proper release from list
-	if [[ "${kodi_tag}" != "master" && "${kodi_tag}" != "" ]]; then
+	if [[ "${KODI_TAG}" != "master" && "${KODI_TAG}" != "" ]]; then
 
 		# Check out requested tag
-		git checkout "tags/${kodi_tag}"
+		git checkout "tags/${KODI_TAG}"
 		
 	else
 		
 		# use master branch, set version tag to current latest tag
-		kodi_tag="17.0a1-Krypton"
+		kodi_tag=$(git describe --abbrev=0 --tags)
 
 	fi
 
@@ -347,10 +347,10 @@ kodi_package_deb()
 	# Krypton does not have packaging upstream and the master tree does not work.
 	# Therefore, work was done to package Krypton. 
 	# See: github.com/ProfessorKaos64/xbmc-packaging/
-	if echo $kodi_tag | grep -i "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
-	if echo $kodi_tag | grep -i "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
-	if echo $kodi_tag | grep -i "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
-	if echo $kodi_tag | grep -i "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
+	if echo ${KODI_TAG} | grep -i "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
+	if echo ${KODI_TAG} | grep -i "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
+	if echo ${KODI_TAG} | grep -i "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
+	if echo ${KODI_TAG} | grep -i "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
 
 	# set release for changelog
         pkgver="${kodi_release}+git+bsos${pkgrev}"
@@ -393,19 +393,19 @@ kodi_package_deb()
 		# Add any overrides for mk-debian-package.sh below
 		# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
 
-		RELEASEV="$kodi_tag" \
-		DISTS="$DIST" \
-		ARCHS="$ARCH" \
-		BUILDER="$BUILDER" \
-		PDEBUILD_OPTS="$BUILDOPTS" \
-		PBUILDER_BASE="$PBUILDER_BASE" \
+		RELEASEV="${KODI_TAG}" \
+		DISTS="${DIST}" \
+		ARCHS="${ARCH}" \
+		BUILDER="${BUILDER}" \
+		PDEBUILD_OPTS="${BUILDOPTS}" \
+		PBUILDER_BASE="${PBUILDER_BASE}" \
 		tools/Linux/packaging/mk-debian-package.sh
 
 	else
 
-		RELEASEV="$kodi_tag" \
-		BUILDER="$BUILDER" \
-		PDEBUILD_OPTS="$BUILDOPTS" \
+		RELEASEV="${KODI_TAG}" \
+		BUILDER="${BUILDER}" \
+		PDEBUILD_OPTS="${BUILDOPTS}" \
 		tools/Linux/packaging/mk-debian-package.sh
 
 	fi
@@ -419,13 +419,13 @@ kodi_build_src()
 	# Build Kodi source
 	#################################################
 
-	echo -e "\n==> Building Kodi in $git_dir\n"
+	echo -e "\n==> Building Kodi in ${GIT_DIR}\n"
 
 	# enter build dir
-	cd "$git_dir"
+	cd "${GIT_DIR}"
 
 	# checkout target release
-	git checkout "$branch"
+	git checkout "${TARGET}"
 
   	# create the Kodi executable manually perform these steps:
 	if ./bootstrap; then
@@ -490,11 +490,11 @@ kodi_build_src()
 	sleep 0.2s
 	read -erp "Choice: " install_choice
 
-	if [[ "$install_choice" == "y" ]]; then
+	if [[ "${INSTALL_CHOICE}" == "y" ]]; then
 
 		sudo make install
 
-	elif [[ "$install_choice" == "n" ]]; then
+	elif [[ "${INSTALL_CHOICE}" == "n" ]]; then
 
 		echo -e "\nInstallation skipped"
 
@@ -571,7 +571,7 @@ show_build_summary()
 	# Display output based on if we were source building or building
 	# a Debian package
 
-	if [[ "$package_deb" == "no" ]]; then
+	if [[ "${PACKGE_DEB}" == "no" ]]; then
 
 		cat <<-EOF
 		If you chose to build from source code, you should now be able 
@@ -580,7 +580,7 @@ show_build_summary()
 
 		EOF
 
-	elif [[ "$package_deb" == "yes" ]]; then
+	elif [[ "${PACKGE_DEB}" == "yes" ]]; then
 
 		cat <<-EOF
 		###############################################################
@@ -590,25 +590,25 @@ show_build_summary()
 
 		EOF
 
-		echo -e "Showing contents of: ${build_dir}: \n"
-		ls "${build_dir}"
+		echo -e "Showing contents of: ${BUILD_DIR}: \n"
+		ls "${BUILD_DIR}"
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
 		read -ep "Choice: " transfer_choice
 
-		if [[ "$transfer_choice" == "y" ]]; then
+		if [[ "${TRANSFER_CHOICE}" == "y" ]]; then
 
 			# transfer files
-			if [[ -d "${build_dir}" ]]; then
+			if [[ -d "${BUILD_DIR}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			fi
 
-		elif [[ "$transfer_choice" == "n" ]]; then
+		elif [[ "${TRANSFER_CHOICE}" == "n" ]]; then
 			echo -e "Upload not requested\n"
 		fi
 
@@ -630,9 +630,9 @@ main()
 	kodi_clone
 
 	# Process how we are building
-	if [[ "$package_deb" == "yes" ]]; then
+	if [[ "${PACKGE_DEB}" == "yes" ]]; then
 
-		kodi_package_deb
+		kodi_PACKAGE_DEB
 
 	else
 		kodi_build_src

@@ -24,17 +24,6 @@ function_install_utilities()
 
 fuction_set_vars()
 {
-	
-	# Remove old logs to old folder and clean folder
-	mv ${LOG_FOLDER} ${LOG_FOLDER}.old
-	rm -rf ${LOG_FOLDER}/*
-	
-	# Create log folder if it does not exist
-	if [[ ! -d "${LOG_FOLDER}" ]]; then
-	
-		mkdir -p "${LOG_FOLDER}"
-	
-	fi
   
 	TOP=${PWD}
 	
@@ -43,6 +32,18 @@ fuction_set_vars()
 	
 	LOG_FOLDER="/tmp/steamos-logs"
 	LOGFILE="${LOG_FOLDER}/steam_info.txt"
+	
+	# Remove old logs to old folder and clean folder
+	
+	mv ${LOG_FOLDER} ${LOG_FOLDER}.old
+	sudo rm -rf ${LOG_FOLDER}/*
+	
+	# Create log folder if it does not exist
+	if [[ ! -d "${LOG_FOLDER}" ]]; then
+	
+		mkdir -p "${LOG_FOLDER}"
+	
+	fi
 	
 	STEAM_CLIENT_VER=$(grep "version" /home/steam/.steam/steam/package/steam_client_ubuntu12.manifest \
 	| awk '{print $2}' | sed 's/"//g')

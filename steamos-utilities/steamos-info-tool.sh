@@ -17,9 +17,9 @@
 function_install_utilities()
 {
 	
-	echo -e "Installing needed software...\n"
+	echo -e "==> Installing needed software...\n"
 
-	PKGS="p7zip"
+	PKGS="p7zip-full"
 
 	for PKG in ${PKGS};
 	do
@@ -29,7 +29,7 @@ function_install_utilities()
 			sudo apt-get install -y ${PKG}
 		else
 	
-			echo "Package: ${PKG} [OK]"
+			echo -e "Package: ${PKG} [OK]\n"
 	
 		fi
 
@@ -94,6 +94,8 @@ function_gather_info()
 
 function_gather_logs()
 {
+	
+	echo -e "\n==> Gathering logs (sudo required for system paths)\n"
   
 	# Simply copy logs to temp log folder to be tarballed later
 	pathlist=()
@@ -107,7 +109,7 @@ function_gather_logs()
 	
 	for file in "${pathlist[@]}"
 	do
-		cp ${file} ${LOG_FOLDER}
+		sudo cp -v ${file} ${LOG_FOLDER} 
 	done
 	
 	# Notable logs not included right now
@@ -117,20 +119,20 @@ function_gather_logs()
 
 main()
 {
-
-	# Install software
-	function_install_utilities
 	
 	echo -e "=============================================="
 	echo -e "SteamOS Info Tool"
 	echo -e "==============================================\n"
-	
+
+	# Install software
+	function_install_utilities
+
 	# get info about system
 	function_gather_info
-	
+
 	# Get logs
 	function_gather_logs
-	
+
 	# Archive log filer with date
 	7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}\* -w "/tmp"
   

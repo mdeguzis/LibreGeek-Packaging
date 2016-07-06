@@ -30,13 +30,13 @@ fuction_set_vars()
 	DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	DATE_SHORT=$(date +%Y%m%d)
 	
-	LOG_FOLDER="/tmp/steamos-logs"
+	LOG_FOLDER="/$HOME/logs/steamos-logs"
 	LOGFILE="${LOG_FOLDER}/steam_info.txt"
 	
 	# Remove old logs to old folder and clean folder
 	
 	mv ${LOG_FOLDER} ${LOG_FOLDER}.old
-	sudo rm -rf ${LOG_FOLDER}/*
+	rm -rf ${LOG_FOLDER}/*
 	
 	# Create log folder if it does not exist
 	if [[ ! -d "${LOG_FOLDER}" ]]; then
@@ -62,11 +62,11 @@ function_gather_info()
 	lsb_release -a
 	
 	# Software
-	echo -e "==================================="
+	echo -e "\n==================================="
 	echo -e "Software Information"
 	echo -e "===================================\n"
 
-	dpkg-query -W -f='${Package}\t${Architecture}\t${Status}\t${Version}\n' valve-* *steam* nvidia*, fglrx* *mesa*
+	dpkg-query -W -f='${Package}\t${Architecture}\t${Status}\t${Version}\n' "valve-*" "*steam*" "nvidia*" "fglrx*" "*mesa*"
 	
 	echo -e "==================================="
 	echo -e "Steam Information"
@@ -92,7 +92,7 @@ function_gather_logs()
 	
 	for file in "${pathlist[@]}"
 	do
-		cp ${LOG_FOLDER} ${file}
+		cp ${file} ${LOG_FOLDER}
 	done
 	
 	# Notable logs not included right now
@@ -109,18 +109,18 @@ main()
 	# Set vars
 	function_set_vars
 	
-	echo -e "=================================================="
+	echo -e "=============================================="
 	echo -e "SteamOS Info Tool"
-	echo -e "==================================================\n"
+	echo -e "==============================================\n"
 	
 	# get info about system
 	function_gather_info
 	
 	# Get logs
-	function_gather_logs
+	#function_gather_logs
 	
 	# Archive log filer with date
-	7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}\* -w "/tmp"
+	#7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}\* -w "/tmp"
   
 }
 

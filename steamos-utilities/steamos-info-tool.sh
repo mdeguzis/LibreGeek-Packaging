@@ -115,5 +115,5 @@ main()
 
 # Main
 clear
-function_set_vars
+fuction_set_vars
 main &> ${LOGFILE}

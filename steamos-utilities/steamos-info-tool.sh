@@ -17,9 +17,24 @@
 function_install_utilities()
 {
 	
-	# need just a few things
-	sudo apt-get install -yqq p7zip
+	echo -e "Installing needed software\n"
+
+	PKGS="p7zip"
+
+	for PKG in ${PKGS}; 
+	do
+
+		if ! $(dpkg-query -W --showformat='${Status}\n' ${PKG} | grep "installed"); then
 	
+			sudo apt-get install -y ${PKG}
+		else
+	
+			echo "Packge: ${PKG} [OK]"
+	
+		fi
+
+	done
+
 }
 
 function_set_vars()
@@ -114,10 +129,10 @@ main()
 	function_gather_info
 	
 	# Get logs
-	#function_gather_logs
+	function_gather_logs
 	
 	# Archive log filer with date
-	#7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}\* -w "/tmp"
+	7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}\* -w "/tmp"
   
 }
 

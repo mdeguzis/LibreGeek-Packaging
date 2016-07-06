@@ -31,7 +31,6 @@ fuction_set_vars()
   DATE_SHORT=$(date +%Y%m%d)
   
   LOG_FOLDER="/tmp/steamos-logs"
-  LOGFILE="${LOG_FOLDER}/steam_info.txt"
   
   STEAM_CLIENT_VER=$(grep "version" /home/steam/.steam/steam/package/steam_client_ubuntu12.manifest \
   | awk '{print $2}' | sed 's/"//g')
@@ -115,9 +114,5 @@ main()
 
 # Main
 clear
+LOGFILE="${LOG_FOLDER}/steam_info.txt"
 main &> ${LOGFILE}
-
-cat<<-EOF
-Log information: ${LOGFILE}"
-echo -n "Web Link to log information: " && cat ${LOGFILE} | curl -F 'sprunge=<-' http://sprunge.us
-EOF

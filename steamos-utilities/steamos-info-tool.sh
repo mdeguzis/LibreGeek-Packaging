@@ -136,7 +136,8 @@ main()
 	function_gather_logs
 
 	# Archive log filer with date
-	7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}\* -w "/tmp"
+	echo -e "\n==> Archiving logs\n"
+	7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}/* -w "/tmp"
   
 }
 

@@ -46,13 +46,18 @@ function_set_vars()
 	DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	DATE_SHORT=$(date +%Y%m%d)
 
-	LOG_FOLDER="${HOME}/logs/steamos-logs"
+	LOG_ROOT="${HOME}/logs"
+	LOG_FOLDER="${LOG_ROOT}/steamos-logs"
 	LOG_FILE="${LOG_FOLDER}/steam_info.txt"
 
 	# Remove old logs to old folder and clean folder
 
 	cp -r ${LOG_FOLDER} ${LOG_FOLDER}.old &> /dev/null
 	rm -rf ${LOG_FOLDER}/*
+	
+	# Remove old zip files to avoid clutter.
+	# Max: 90 days
+	find ${LOG_ROOT} -mtime +90 -type f -name "steamos-logs*.zip" -exec rm {} \;
 
 	# Create log folder if it does not exist
 	if [[ ! -d "${LOG_FOLDER}" ]]; then

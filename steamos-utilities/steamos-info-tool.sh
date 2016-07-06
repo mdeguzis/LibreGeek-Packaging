@@ -24,7 +24,7 @@ function_install_utilities()
 	for PKG in ${PKGS};
 	do
 
-		if ! dpkg-query -W --showformat='${Status}\n' ${PKG}; then
+		if ! dpkg-query -W --showformat='${Status}\n' ${PKG} | grep "installed"; then
 	
 			sudo apt-get install -y ${PKG}
 		else

@@ -24,34 +24,41 @@ function_install_utilities()
 
 fuction_set_vars()
 {
+	
+	# Create log folder if it does not exist
+	if [[ ! -d "${LOG_FOLDER}" ]]; then
+	
+	mkdir -p "${LOG_FOLDER}"
+	
+	fi
   
-  TOP=${PWD}
-  
-  DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
-  DATE_SHORT=$(date +%Y%m%d)
-  
-  LOG_FOLDER="/tmp/steamos-logs"
-  LOGFILE="${LOG_FOLDER}/steam_info.txt"
-  
-  STEAM_CLIENT_VER=$(grep "version" /home/steam/.steam/steam/package/steam_client_ubuntu12.manifest \
-  | awk '{print $2}' | sed 's/"//g')
+	TOP=${PWD}
+	
+	DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+	DATE_SHORT=$(date +%Y%m%d)
+	
+	LOG_FOLDER="/tmp/steamos-logs"
+	LOGFILE="${LOG_FOLDER}/steam_info.txt"
+	
+	STEAM_CLIENT_VER=$(grep "version" /home/steam/.steam/steam/package/steam_client_ubuntu12.manifest \
+	| awk '{print $2}' | sed 's/"//g')
   
 }
 
 function_gather_info()
 {
 
-  # OS
-  echo -e "==================================="
-  echo -e "OS Information"
-  echo -e "===================================\n"
-  lsb_release -a
-
-  echo -e "==================================="
-  echo -e "Steam Information"
-  echo -e "===================================\n"
-
-  Steam client version: "${STEAM_CLIENT_VER}"
+	# OS
+	echo -e "==================================="
+	echo -e "OS Information"
+	echo -e "===================================\n"
+	lsb_release -a
+	
+	echo -e "==================================="
+	echo -e "Steam Information"
+	echo -e "===================================\n"
+	
+	Steam client version: "${STEAM_CLIENT_VER}"
 
 }
 
@@ -86,13 +93,6 @@ main()
   
 	# Set vars
 	function_set_vars
-  
-	# Create log folder if it does not exist
-	if [[ ! -d "${LOG_FOLDER}" ]]; then
-	
-	mkdir -p "${LOG_FOLDER}"
-	
-	fi
 	
 	# Remove old logs to old folder and clean folder
 	mv ${LOG_FOLDER} ${LOG_FOLDER}.old

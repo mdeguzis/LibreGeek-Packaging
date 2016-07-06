@@ -126,5 +126,5 @@ main()
 
 # Main
 clear
-fuction_set_vars
+function_set_vars
 main | tee ${LOGFILE}

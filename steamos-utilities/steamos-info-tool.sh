@@ -30,7 +30,7 @@ function_set_vars()
 	DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	DATE_SHORT=$(date +%Y%m%d)
 	
-	LOG_FOLDER="/$HOME/logs/steamos-logs"
+	LOG_FOLDER="${HOME}/logs/steamos-logs"
 	LOGFILE="${LOG_FOLDER}/steam_info.txt"
 	
 	# Remove old logs to old folder and clean folder

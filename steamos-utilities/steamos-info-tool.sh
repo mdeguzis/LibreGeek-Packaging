@@ -137,7 +137,7 @@ main()
 
 	# Archive log filer with date
 	echo -e "\n==> Archiving logs\n"
-	7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}/* -w "/tmp"
+	7za a "${LOG_FOLDER}_${DATE_SHORT}.zip" ${LOG_FOLDER}/*
   
 }
 

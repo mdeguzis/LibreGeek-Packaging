@@ -33,7 +33,8 @@ fuction_set_vars()
   LOG_FOLDER="/tmp/steamos-logs"
   LOGFILE="${LOG_FOLDER}/steam_info.txt"
   
-  STEAM_CLIENT_VER=$(grep "version" /home/steam/.steam/steam/package/steam_client_ubuntu12.manifest) | awk '{print $2}' | sed 's/"//g')
+  STEAM_CLIENT_VER=$(grep "version" /home/steam/.steam/steam/package/steam_client_ubuntu12.manifest \
+  | awk '{print $2}' | sed 's/"//g')
   
 }
 

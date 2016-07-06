@@ -26,29 +26,29 @@ function_set_vars()
 {
   
 	TOP=${PWD}
-	
+
 	DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	DATE_SHORT=$(date +%Y%m%d)
-	
+
 	LOG_FOLDER="${HOME}/logs/steamos-logs"
-	LOGFILE="${LOG_FOLDER}/steam_info.txt"
-	
+	LOG_FILE="${LOG_FOLDER}/steam_info.txt"
+
 	# Remove old logs to old folder and clean folder
-	
-	cp -r ${LOG_FOLDER} ${LOG_FOLDER}.old
+
+	cp -r ${LOG_FOLDER} ${LOG_FOLDER}.old &> /dev/null
 	rm -rf ${LOG_FOLDER}/*
-	
+
 	# Create log folder if it does not exist
 	if [[ ! -d "${LOG_FOLDER}" ]]; then
-	
+
 		mkdir -p "${LOG_FOLDER}"
-	
+
 	fi
-	
+
 	STEAM_CLIENT_VER=$(grep "version" /home/steam/.steam/steam/package/steam_client_ubuntu12.manifest \
 	| awk '{print $2}' | sed 's/"//g')
 	STEAM_CLIENT_BUILT=$(date -d @${STEAM_CLIENT_VER})
-  
+
 }
 
 function_gather_info()
@@ -105,9 +105,6 @@ main()
 
 	# Install software
 	function_install_utilities
-  
-	# Set vars
-	function_set_vars
 	
 	echo -e "=============================================="
 	echo -e "SteamOS Info Tool"
@@ -127,4 +124,4 @@ main()
 # Main
 clear
 function_set_vars
-main | tee ${LOGFILE}
+main | tee ${LOG_FILE}

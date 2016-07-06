@@ -17,19 +17,19 @@
 function_install_utilities()
 {
 	
-	echo -e "Installing needed software\n"
+	echo -e "Installing needed software...\n"
 
 	PKGS="p7zip"
 
-	for PKG in ${PKGS}; 
+	for PKG in ${PKGS};
 	do
 
-		if ! $(dpkg-query -W --showformat='${Status}\n' ${PKG} | grep "installed"); then
+		if ! $(dpkg-query -W --showformat='${Status}\n' ${PKG} &> /dev/null); then
 	
 			sudo apt-get install -y ${PKG}
 		else
 	
-			echo "Packge: ${PKG} [OK]"
+			echo "Package: ${PKG} [OK]"
 	
 		fi
 

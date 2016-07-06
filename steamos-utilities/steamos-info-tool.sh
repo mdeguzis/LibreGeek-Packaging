@@ -35,7 +35,7 @@ function_set_vars()
 	
 	# Remove old logs to old folder and clean folder
 	
-	mv ${LOG_FOLDER} ${LOG_FOLDER}.old
+	cp -r ${LOG_FOLDER} ${LOG_FOLDER}.old
 	rm -rf ${LOG_FOLDER}/*
 	
 	# Create log folder if it does not exist

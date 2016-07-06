@@ -88,7 +88,7 @@ main()
 	function_set_vars
   
 	# Create log folder if it does not exist
-	if [[ !-d "${LOG_FOLDER}" ]]; then
+	if [[ ! -d "${LOG_FOLDER}" ]]; then
 	
 	mkdir -p "${LOG_FOLDER}"
 	

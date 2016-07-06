@@ -24,7 +24,7 @@ function_install_utilities()
 	for PKG in ${PKGS};
 	do
 
-		if ! $(dpkg-query -W --showformat='${Status}\n' ${PKG} &> /dev/null); then
+		if ! dpkg-query -W --showformat='${Status}\n' ${PKG}; then
 	
 			sudo apt-get install -y ${PKG}
 		else
@@ -109,7 +109,8 @@ function_gather_logs()
 	
 	for file in "${pathlist[@]}"
 	do
-		sudo cp -v ${file} ${LOG_FOLDER} 
+		# Suprress only when error/not found
+		sudo cp -v ${file} ${LOG_FOLDER} 2>/dev/null
 	done
 	
 	# Notable logs not included right now

@@ -87,7 +87,8 @@ function_gather_info()
 	echo -e "Software Information"
 	echo -e "===================================\n"
 
-	dpkg-query -W -f='${Package}\t${Architecture}\t${Status}\t${Version}\n' "valve-*" "*steam*" "nvidia*" "fglrx*" "*mesa*"
+	dpkg-query -W -f='${Package}\t${Architecture}\t${Status}\t${Version}\n' "valve-*" \
+	"*steam*" "nvidia*" "fglrx*" "*mesa*" "*libregeek*"
 	
 	echo -e "\n==================================="
 	echo -e "Steam Information"

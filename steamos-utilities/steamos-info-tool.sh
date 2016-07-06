@@ -22,7 +22,7 @@ function_install_utilities()
 	
 }
 
-fuction_set_vars()
+function_set_vars()
 {
   
 	TOP=${PWD}
@@ -68,7 +68,7 @@ function_gather_info()
 
 	dpkg-query -W -f='${Package}\t${Architecture}\t${Status}\t${Version}\n' "valve-*" "*steam*" "nvidia*" "fglrx*" "*mesa*"
 	
-	echo -e "==================================="
+	echo -e "\n==================================="
 	echo -e "Steam Information"
 	echo -e "===================================\n"
 	

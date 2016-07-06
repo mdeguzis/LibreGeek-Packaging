@@ -47,6 +47,7 @@ fuction_set_vars()
 	
 	STEAM_CLIENT_VER=$(grep "version" /home/steam/.steam/steam/package/steam_client_ubuntu12.manifest \
 	| awk '{print $2}' | sed 's/"//g')
+	STEAM_CLIENT_BUILT=$(date -d @${STEAM_CLIENT_VER})
   
 }
 
@@ -57,13 +58,22 @@ function_gather_info()
 	echo -e "==================================="
 	echo -e "OS Information"
 	echo -e "===================================\n"
+
 	lsb_release -a
+	
+	# Software
+	echo -e "==================================="
+	echo -e "Software Information"
+	echo -e "===================================\n"
+
+	dpkg-query -W -f='${Package}\t${Architecture}\t${Status}\t${Version}\n' valve-* *steam* nvidia*, fglrx* *mesa*
 	
 	echo -e "==================================="
 	echo -e "Steam Information"
 	echo -e "===================================\n"
 	
-	Steam client version: "${STEAM_CLIENT_VER}"
+	echo "Steam client version: ${STEAM_CLIENT_VER}" 
+	echo "Steam client built: ${STEAM_CLIENT_BUILT}"
 
 }
 
@@ -99,9 +109,9 @@ main()
 	# Set vars
 	function_set_vars
 	
-	echo -e "==================================="
+	echo -e "=================================================="
 	echo -e "SteamOS Info Tool"
-	echo -e "===================================\n"
+	echo -e "==================================================\n"
 	
 	# get info about system
 	function_gather_info

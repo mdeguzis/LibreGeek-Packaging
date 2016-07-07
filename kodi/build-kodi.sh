@@ -303,7 +303,7 @@ kodi_prereqs()
 
 		# If we are not packaging a deb, set to master branch build
         	TARGET="master"
-        	pkgver="${KODI_TAG}"
+        	PKGVER="${KODI_TAG}"
 
 	fi
 }
@@ -326,7 +326,8 @@ kodi_package_deb()
 
 	# get user choice
 	sleep 0.2s
-	read -erp "Release Choice: " kodi_tag
+	read -erp "Release Choice: " 
+KOD_TAG
 
 	# If the tag is left blank, set to master
 
@@ -339,7 +340,7 @@ kodi_package_deb()
 	else
 		
 		# use master branch, set version tag to current latest tag
-		kodi_tag=$(git describe --abbrev=0 --tags)
+		KODI_TAG=$(git describe --abbrev=0 --tags)
 
 	fi
 
@@ -347,13 +348,13 @@ kodi_package_deb()
 	# Krypton does not have packaging upstream and the master tree does not work.
 	# Therefore, work was done to package Krypton. 
 	# See: github.com/ProfessorKaos64/xbmc-packaging/
-	if echo ${KODI_TAG} | grep -i "Gotham" 1> /dev/null; then kodi_release="Gotham"; fi
-	if echo ${KODI_TAG} | grep -i "Isengard" 1> /dev/null; then kodi_release="Isengard"; fi
-	if echo ${KODI_TAG} | grep -i "Jarvis" 1> /dev/null; then kodi_release="Jarvis"; fi
-	if echo ${KODI_TAG} | grep -i "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
+	if echo ${KODI_TAG} | grep -i "Gotham" 1> /dev/null; then KODI_RELEASE="Gotham"; fi
+	if echo ${KODI_TAG} | grep -i "Isengard" 1> /dev/null; then KODI_RELEASE="Isengard"; fi
+	if echo ${KODI_TAG} | grep -i "Jarvis" 1> /dev/null; then KODI_RELEASE="Jarvis"; fi
+	if echo ${KODI_TAG} | grep -i "Krypton" 1> /dev/null; then KODI_RELEASE="Krypton"; fi
 
 	# set release for changelog
-        pkgver="${kodi_release}+git+bsos${PKGREV}"
+        PKGVER="${KODI_RELEASE}+git+bsos${PKGREV}"
 
 	############################################################
 	# Add any overrides for setup below
@@ -369,9 +370,9 @@ kodi_package_deb()
 	# This may be dropped in the future
 
 	# Use our fork for packaging to control the version name
-	if [[ "${kodi_release}" != "" ]]; then
+	if [[ "${KODI_RELEASE}" != "" ]]; then
 
-		sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${kodi_release}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
+		sed -i "s|\bxbmc/xbmc-packaging/archive/master.tar.gz\b|ProfessorKaos64/xbmc-packaging/archive/${KODI_RELEASE}.tar.gz|g" "tools/Linux/packaging/mk-debian-package.sh"
 
 	fi
 
@@ -571,7 +572,7 @@ show_build_summary()
 	# Display output based on if we were source building or building
 	# a Debian package
 
-	if [[ "${PACKGE_DEB}" == "no" ]]; then
+	if [[ "${PACKAGE_DEB}" == "no" ]]; then
 
 		cat <<-EOF
 		If you chose to build from source code, you should now be able 
@@ -580,7 +581,7 @@ show_build_summary()
 
 		EOF
 
-	elif [[ "${PACKGE_DEB}" == "yes" ]]; then
+	elif [[ "${PACKAGE_DEB}" == "yes" ]]; then
 
 		cat <<-EOF
 		###############################################################
@@ -596,7 +597,7 @@ show_build_summary()
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
-		read -ep "Choice: " transfer_choice
+		read -ep "Choice: " TRANSFER_CHOICE
 
 		if [[ "${TRANSFER_CHOICE}" == "y" ]]; then
 

@@ -46,8 +46,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
@@ -400,8 +398,8 @@ main()
 {
 	
 	clear
-	echo -e "\n==> Choose your builder: "
-	read -erp "[pbuilder|local]" BUILDER
+	echo -e "\n==> Choose your builder: [pbuilder|local]\n"
+	read -erp "Choice: " BUILDER
 	
 	export build_dir="${HOME}/build-deb-temp"
 	src_dir="${pkgname}-${pkgver}"

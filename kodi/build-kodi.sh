@@ -36,7 +36,7 @@ rm -f "kodi-build-log.txt"
 # See: http://www.cyberciti.biz/faq/linux-unix-bsd-apple-osx-bash-get-last-argument/
 export final_opts=$(echo "${@: -1}")
 
-arg1="$1"
+ARG1="$1"
 scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
@@ -111,12 +111,12 @@ set_vars()
 	fi
 
 	# Set script defaults for building packages or source directly
-	if [[ "$extra_opts" == "--source" || "$arg1" == "--source" ]]; then
+	if [[ "$extra_opts" == "--source" || "$ARG1" == "--source" ]]; then
 
 		# set package to yes if deb generation is requested
 		PACKAGE_DEB="no"
 
-	elif [[ "$extra_opts" == "--skip-build" || "$arg1" == "--skip-build" ]]; then
+	elif [[ "$extra_opts" == "--skip-build" || "$ARG1" == "--skip-build" ]]; then
 
 		# If Kodi is confirmed by user to be built already, allow build
 		# to be skipped and packaging to be attempted directly
@@ -308,7 +308,7 @@ kodi_prereqs()
 	fi
 }
 
-kodi_PACKAGE_DEB()
+kodi_package_deb()
 {
 
 	# Debian link: 	    https://wiki.debian.org/BuildingTutorial
@@ -630,12 +630,18 @@ main()
 	kodi_clone
 
 	# Process how we are building
-	if [[ "${PACKGE_DEB}" == "yes" ]]; then
+	if [[ "${PACKAGE_DEB}" == "yes" ]]; then
 
-		kodi_PACKAGE_DEB
+		kodi_package_deb
+
+	elif [[ "${PACKAGE_DEB}" == "no" ]]; then
+
+		kodi_build_src
 
 	else
-		kodi_build_src
+
+		echo -e "Invalid package options detected. Exiting"
+		sleep 2s && exit 1
 
 	fi
 

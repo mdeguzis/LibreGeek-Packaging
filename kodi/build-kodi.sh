@@ -3,7 +3,7 @@
 # Author:    		Michael DeGuzis
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
-# Script Ver:		1.5.5
+# Script Ver:		1.5.7
 # Description:		Attempts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
@@ -70,12 +70,12 @@ set_vars()
 	# package vars
 	###################################
 
-	pkgname="kodi"
-	uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-	maintainer="ProfessorKaos64"
-	pkgrev="1"
+	PKGNAME="kodi"
+	UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+	MAINTAINER="ProfessorKaos64"
+	PKGREV="1"
 	DIST="brewmaster"
-	urgency="low"
+	URGENCY="low"
 	BUILDER="pdebuild"
 	BUILDOPTS="--debbuildopts \"-j4\""
 	export USE_NETWORK="yes"
@@ -86,9 +86,9 @@ set_vars()
 	
 	# source vars
 	GIT_URL="git://github.com/xbmc/xbmc.git"
-	export build_dir="$HOME/build-${pkgname}-temp"
-	SRC_DIR="${pkgname}-source"
-	GIT_DIR="${BUILD_DIR}/${src_dir}"
+	export BUILD_DIR="$HOME/build-${PKGNAME}-temp"
+	SRC_DIR="${PKGNAME}-source"
+	GIT_DIR="${BUILD_DIR}/${SRC_DIR}"
 
 	# Set target for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
@@ -120,7 +120,7 @@ set_vars()
 
 		# If Kodi is confirmed by user to be built already, allow build
 		# to be skipped and packaging to be attempted directly
-		skip_build="yes"
+		SKIP_BUILD="yes"
 		PACKAGE_DEB="yes"
 
 	else
@@ -353,7 +353,7 @@ kodi_PACKAGE_DEB()
 	if echo ${KODI_TAG} | grep -i "Krypton" 1> /dev/null; then kodi_release="Krypton"; fi
 
 	# set release for changelog
-        pkgver="${kodi_release}+git+bsos${pkgrev}"
+        pkgver="${kodi_release}+git+bsos${PKGREV}"
 
 	############################################################
 	# Add any overrides for setup below

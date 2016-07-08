@@ -1,0 +1,14 @@
+Source: nfs2se
+Section: devel
+Priority: optional
+Maintainer: Michael DeGuzis (mdeguzis@gmail.com)
+Build-Depends: debhelper (>= 9.20141010~),
+ gcc,
+ sdl2-dev,
+Standards-Version: 3.9.8
+Homepage: https://github.com/zaps166/NFSIISE/
+
+Package: nfs2se
+Architecture: i386
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: NFSII SE Linux Engine Port

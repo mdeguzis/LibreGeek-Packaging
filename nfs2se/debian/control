@@ -1,7 +1,7 @@
 Source: nfs2se
 Section: devel
 Priority: optional
-Maintainer: Michael DeGuzis (mdeguzis@gmail.com)
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9.20141010~),
  gcc,
  libsdl2-dev,

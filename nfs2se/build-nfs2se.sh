@@ -112,7 +112,7 @@ main()
 	
 	# Add some files upstream pulls down in real-time
 	mkdir -p "${git_dir}/src/game-obj/"
-	wget -P "${git_dir}/src/game-obj/" "http://zaps166.sourceforge.net/downloads/nfs2se-obj/NFS2SE.Win32.o" -q -nc --show-progress
+	wget -P "${git_dir}/src/game-obj/" "http://zaps166.sourceforge.net/downloads/nfs2se-obj/NFS2SE.Linux.o" -q -nc --show-progress
 
 	#################################################
 	# Build package

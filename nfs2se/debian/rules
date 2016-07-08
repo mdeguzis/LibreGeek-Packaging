@@ -1,9 +1,9 @@
 #!/usr/bin/make -f
 
-export CC="gcc"
-export C_FLAGS="-Wall -m32 -O2 $CPU_FLAGS"
-STRIP='-s'
-LIB32_DIR="/usr/lib"
+export CC=gcc
+export C_FLAGS=-Wall -m32 -O2 $CPU_FLAGS
+STRIP=-s
+LIB32_DIR=/usr/lib
 
 %:
 	dh $@

@@ -2,7 +2,7 @@
 
 export CPU_FLAGS=-mno-sse2 -mno-sse -mno-mmx
 export CC=gcc
-export C_FLAGS=-Wall -m32 -O2 $CPU_FLAGS
+export C_FLAGS=-Wall -m32 -O2 $(CPU_FLAGS)
 export STRIP=-s
 export LIB32_DIR=/usr/lib
 

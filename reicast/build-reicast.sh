@@ -46,7 +46,9 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/reicast/reicast-emulator"
+# build fails with softrend error, try using some PRs to fix for now...
+git_url="https://github.com/professorkaos64/reicast-emulator"
+#git_url="https://github.com/reicast/reicast-emulator"
 target="master"
 
 # package vars

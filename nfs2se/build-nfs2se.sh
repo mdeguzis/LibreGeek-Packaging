@@ -111,6 +111,10 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "${target}" "${git_url}" "${git_dir}"
+	
+	# Add some files upstream pulls down in real-time
+	mkdir -p "${git_dir}/game-obj"
+	wget -P "${git_dir}/game-obj/" "http://zaps166.sourceforge.net/downloads/nfs2se-obj/NFS2SE.Win32.o" -q -nc --show-progress
 
 	#################################################
 	# Build package
@@ -123,12 +127,11 @@ main()
 	cd "${BUILD_DIR}" || exit
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
+	# Add debian dir
+	cp -r "${script_dir}/debian" "${git_dir}"
+
 	# enter source dir
 	cd "${git_dir}"
-
-	# Add some files upstream pulls down in real-time
-	mkdir -p "${git_dir}/game-obj"
-	wget -P "${git_dir}/game-obj/" "http://zaps166.sourceforge.net/downloads/nfs2se-obj/NFS2SE.Win32.o" -q -nc --show-progress
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

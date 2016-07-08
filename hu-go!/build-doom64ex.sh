@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-doom64ex.sh
+# Scipt name:	build-hugo.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from the laest "Doom64ex"
+# Description:	Attempts to build a deb package from the laest "hugo"
 #		release
 #
-# See:		https://github.com/svkaiser/Doom64EX
+# See:		https://github.com/svkaiser/hugo
 #
-# Usage:	./build-doom64ex.sh
+# Usage:	./build-hugo.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/svkaiser/Doom64EX"
+git_url="https://github.com/ProfessorKaos64/hu-go"
 target="master"
 
 # package vars
@@ -58,8 +58,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="doom64ex"
-pkgver="0.${date_short}"
+pkgname="hugo"
+pkgver="2.12"
 pkgrev="1"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
@@ -78,8 +78,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y debhelper libsdl2-dev libsdl2-net-dev zlib1g-dev \
-	libpng12-dev libfluidsynth-dev
+	sudo apt-get install -y debhelper gcc libsdl1.2-dev zlib1-dev
 
 }
 
@@ -123,9 +122,6 @@ main()
 	# create source tarball
 	cd "${build_dir}" || exit
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-
-	# Add debian folder
-	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -198,16 +194,13 @@ main()
 		if [[ -d "${build_dir}" ]]; then
 
 			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
-
-			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
-
-			# If using a fork instead with debiain/ upstream
-			#cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog" && git push origin "${branch}"
-			#cd "${scriptdir}"
+			# upload changelog
+			cp "${git_dir}" && git add debian/changelog && git commit -m "update changelog"
+			git push origin master
 
 		fi
 

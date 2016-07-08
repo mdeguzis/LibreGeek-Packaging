@@ -36,8 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
@@ -128,7 +126,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add debian dir
-	cp -r "${script_dir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

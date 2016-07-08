@@ -1,6 +1,8 @@
 # Note
 
-Doom64ex, due to build system limitations,  only builds with the manual steps in the repository readme, not dpkg-buildpackage etc. See [this](https://github.com/svkaiser/Doom64EX/issues/22#issuecomment-223948340) issue for more.
+The source code last got an update in 2005.
+
+See: www.zeograd.com/hugo_download.php
 
 # Manual building:
 

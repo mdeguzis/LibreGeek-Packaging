@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Michael DeGuzis (mdeguzis@gmail.com)
 Build-Depends: debhelper (>= 9.20141010~),
  gcc,
- sdl2-dev,
+ libsdl2-dev,
 Standards-Version: 3.9.8
 Homepage: https://github.com/zaps166/NFSIISE/
 

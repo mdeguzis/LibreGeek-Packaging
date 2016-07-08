@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-rpcs3.sh
+# Scipt name:	build-reicast.sh
 # Script Ver:	0.3.1
-# Description:	Attempts to build a deb package from the latest rpcs3 source
+# Description:	Attempts to build a deb package from the latest reicast source
 #		code.
 #
-# See:		https://github.com/RPCS3/rpcs3
+# See:		https://github.com/reicast/reicast
 #
-# Usage:	./build-rpcs3.sh
+# Usage:	./build-reicast.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/RPCS3/rpcs3"
+git_url="https://github.com/reicast/reicast-emulator"
 target="master"
 
 # package vars
@@ -54,10 +54,10 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
-export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgver="0.0.0.6"
-pkgname="rpcs3"
+BUILDOPTS=""
+export STEAMOS_TOOLS_BETA_HOOK="false"
+pkgver="0.${date_short}"
+pkgname="reicast"
 pkgrev="1"
 # Base version sourced from ZIP file version
 pkgsuffix="${date_short}git+bsos"
@@ -76,12 +76,13 @@ git_dir="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
 {
+
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch \
-	libopenal-dev libwxgtk3.0-dev build-essential libglew-dev
+	sudo apt-get install -y --force-yes build-essential libasound2 libegl1-mesa-dev \
+	libgles2-mesa-dev libasound2-dev mesa-common-dev libgl1-mesa-dev
 
 }
 
@@ -139,13 +140,6 @@ main()
 	cd "${git_dir}"
 	git submodule update --init
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
-        
-        # There are a LOT of submodules/history, trim them
-        #echo -e "\nTrimming .git folders"
-        #find "${git_dir}" -name "*.git" -print0 | xargs -0 rm -rf
-
-	# Add image to git dir
-	# cp -r "${scriptdir}/rpcs3.png" "${git_dir}"
 
 	#################################################
 	# Prepare sources
@@ -258,9 +252,9 @@ main()
 		if [[ -d "${BUILD_DIR}" ]]; then
 
 			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
 
 			# uplaod local repo changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"

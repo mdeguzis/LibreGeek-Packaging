@@ -276,7 +276,7 @@ sudo cp "${SCRIPTDIR}/.pbuilderrc" "/root/"
 # very nice visual CLI tool for gdb
 # See: https://github.com/cyrus-and/gdb-dashboard
 
-wget -P ${HOME} git.io/.gdbinit
+wget -P ${HOME} git.io/.gdbinit -q -nc --show-progress
 
 #################################################
 # GitHub Setup

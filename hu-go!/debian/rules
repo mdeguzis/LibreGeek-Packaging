@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -rf build
+	rm -rf Build && mkdir -p Build
+	cd Build && cmake .. && make

@@ -111,8 +111,8 @@ main()
 	git clone -b "${target}" "${git_url}" "${git_dir}"
 	
 	# Add some files upstream pulls down in real-time
-	mkdir -p "${git_dir}/game-obj"
-	wget -P "${git_dir}/game-obj/" "http://zaps166.sourceforge.net/downloads/nfs2se-obj/NFS2SE.Win32.o" -q -nc --show-progress
+	mkdir -p "${git_dir}/src/game-obj/"
+	wget -P "${git_dir}/src/game-obj/" "http://zaps166.sourceforge.net/downloads/nfs2se-obj/NFS2SE.Win32.o" -q -nc --show-progress
 
 	#################################################
 	# Build package

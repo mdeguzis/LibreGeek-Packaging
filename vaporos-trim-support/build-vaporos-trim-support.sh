@@ -68,9 +68,9 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build directories
-export build_dir="${HOME}/build-${pkgname}-temp"
+export BUILD_DIR="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-git_dir="${build_dir}/${src_dir}"
+git_dir="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
 {
@@ -86,20 +86,20 @@ install_prereqs()
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
+	# create BUILD_DIR
+	if [[ -d "${BUILD_DIR}" ]]; then
 
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
+		sudo rm -rf "${BUILD_DIR}"
+		mkdir -p "${BUILD_DIR}"
 
 	else
 
-		mkdir -p "${build_dir}"
+		mkdir -p "${BUILD_DIR}"
 
 	fi
 
 	# enter build dir
-	cd "${build_dir}" || exit
+	cd "${BUILD_DIR}" || exit
 
 	# install prereqs for build
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
@@ -131,7 +131,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${build_dir}" || exit
+	cd "${BUILD_DIR}" || exit
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add required files
@@ -192,8 +192,8 @@ main()
 
 	EOF
 
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep -E *${pkgver}*
+	echo -e "Showing contents of: ${BUILD_DIR}: \n"
+	ls "${BUILD_DIR}" | grep -E *${pkgver}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -202,11 +202,11 @@ main()
 
 	if [[ "$transfer_choice" == "y" ]]; then
 
-		if [[ -d "${build_dir}" ]]; then
+		if [[ -d "${BUILD_DIR}" ]]; then
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			# uplaod local repo changelog

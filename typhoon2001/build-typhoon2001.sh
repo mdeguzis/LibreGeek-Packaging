@@ -68,10 +68,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dir
-export build_dir="${HOME}/build-${pkgname}-temp"
+# set BUILD_DIR
+export BUILD_DIR="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-git_dir="${build_dir}/${src_dir}"
+git_dir="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
 {
@@ -96,20 +96,20 @@ install_prereqs()
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
+	# create BUILD_DIR
+	if [[ -d "${BUILD_DIR}" ]]; then
 
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
+		sudo rm -rf "${BUILD_DIR}"
+		mkdir -p "${BUILD_DIR}"
 
 	else
 
-		mkdir -p "${build_dir}"
+		mkdir -p "${BUILD_DIR}"
 
 	fi
 
 	# enter build dir
-	cd "${build_dir}" || exit
+	cd "${BUILD_DIR}" || exit
 
 	# install prereqs for build
 	
@@ -199,8 +199,8 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 
-	echo -e "Showing contents of: ${build_dir}: \n"
-	ls "${build_dir}" | grep ${pkgver}
+	echo -e "Showing contents of: ${BUILD_DIR}: \n"
+	ls "${BUILD_DIR}" | grep ${pkgver}
 
 	if [[ "$autobuild" != "yes" ]]; then
 
@@ -213,7 +213,7 @@ main()
 
 			# transfer packages
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			# Preserve changelog

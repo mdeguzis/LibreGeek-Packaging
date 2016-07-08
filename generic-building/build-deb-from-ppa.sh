@@ -32,7 +32,7 @@ time_stamp_start=(`date +"%T"`)
 DIST="brewmaster"
 ARCH="amd64"
 BUILDOPTS="--debbuildopts -b"
-export build_dir="${build_dir}"
+export BUILD_DIR="${BUILD_DIR}"
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -284,7 +284,7 @@ function_build_locally()
 		apt-get source ${target}
 		
 		# identify folder
-		cd $build_dir
+		cd $BUILD_DIR
 		build_source_dir=$(ls -d */)
 	
 		# build using typicaly commands + override option
@@ -301,7 +301,7 @@ function_build_locally()
                 apt-get source ${target}
 
                 # identify folder
-                cd $build_dir
+                cd $BUILD_DIR
                 build_source_dir=$(ls -d */)
 
                 # build using typicaly commands + override option
@@ -345,7 +345,7 @@ function_show_summary()
 	You could also try manually building outside of this script with
 	the following commands (at your own risk!)
 	
-	cd $build_dir"
+	cd $BUILD_DIR"
 	cd $build_folder"
 	sudo dpkg-buildpackage -b -d -uc"
 	###################################################################
@@ -364,7 +364,7 @@ function_show_summary()
 		# transfer files
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		
 	elif [[ "$transfer_choice" == "n" ]]; then
@@ -401,17 +401,17 @@ main()
 	echo -e "\n==> Choose your builder: [pbuilder|local]\n"
 	read -erp "Choice: " BUILDER
 	
-	export build_dir="${HOME}/build-deb-temp"
+	export BUILD_DIR="${HOME}/build-deb-temp"
 	src_dir="${pkgname}-${pkgver}"
 	
 	# remove previous dirs if they exist
-	if [[ -d "${build_dir}" ]]; then
-		sudo rm -rf "${build_dir}"
+	if [[ -d "${BUILD_DIR}" ]]; then
+		sudo rm -rf "${BUILD_DIR}"
 	fi
 	
 	# create build dir and enter it
-	mkdir -p "${build_dir}"
-	cd "${build_dir}"
+	mkdir -p "${BUILD_DIR}"
+	cd "${BUILD_DIR}"
 	
 	if [[ "${BUILDER}" == "pbuilder" ]]; then
 	

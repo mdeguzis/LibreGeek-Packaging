@@ -58,8 +58,8 @@ pkgver="20151001+git2"
 pkgrev="1"
 pkgrel="wily"
 
-# build_dirs
-export build_dir="${HOME}/pkg-build-dir"
+# BUILD_DIRs
+export BUILD_DIR="${HOME}/pkg-build-dir"
 src_dir="${pkgname}-${pkgver}"
 pkg_folder="${pkgname}-${pkgver}-${pkgrev}~${pkgrel}"
 
@@ -117,21 +117,21 @@ Setup build directory
 
 EOF
 
-echo -e "\n==> Setup $build_dir\n"
+echo -e "\n==> Setup $BUILD_DIR\n"
 
 # setup build directory
-if [[ -d "${build_dir}" ]]; then
+if [[ -d "${BUILD_DIR}" ]]; then
 
   # reset dir
-  rm -rf "${build_dir}"
-  mkdir -p "${build_dir}"
-  cd "${build_dir}"
+  rm -rf "${BUILD_DIR}"
+  mkdir -p "${BUILD_DIR}"
+  cd "${BUILD_DIR}"
 
 else
 
   # setup build dir
-  mkdir -p "${build_dir}"
-  cd "${build_dir}"
+  mkdir -p "${BUILD_DIR}"
+  cd "${BUILD_DIR}"
 
 fi
 
@@ -258,7 +258,7 @@ EOF
 
       if [ $? -eq 0 ]; then
         echo "
-        ls -lah "${build_dir}"
+        ls -lah "${BUILD_DIR}"
         echo "
         echo "all good"
         echo "
@@ -266,7 +266,7 @@ EOF
         while true; do
             read -rp "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:mdeguzis/steamos-tools ${build_dir}/${pkgname}-${pkgver}-${pkgrev}~${pkgrel}_source.changes; break;;
+                [Yy]* ) dput ppa:mdeguzis/steamos-tools ${BUILD_DIR}/${pkgname}-${pkgver}-${pkgrev}~${pkgrel}_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

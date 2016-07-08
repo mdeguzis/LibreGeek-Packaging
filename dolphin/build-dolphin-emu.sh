@@ -65,10 +65,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dir
-export build_dir="${HOME}/build-${pkgname}-temp"
+# set BUILD_DIR
+export BUILD_DIR="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-git_dir="${build_dir}/${src_dir}"
+git_dir="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
 {
@@ -106,7 +106,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	if [[ -d "${git_dir}" || -f ${build_dir}/*.orig.tar.gz ]]; then
+	if [[ -d "${git_dir}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -119,7 +119,7 @@ main()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${build_dir}" && mkdir -p "${build_dir}"
+			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
 			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 		else
@@ -137,7 +137,7 @@ main()
 			# reset retry flag
 			retry="no"
 			# create and clone to current dir
-			mkdir -p "${build_dir}" || exit 1
+			mkdir -p "${BUILD_DIR}" || exit 1
 			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	fi
@@ -146,7 +146,7 @@ main()
 	# Prepare sources
 	#################################################
 
-	cd "${build_dir}" || exit 1
+	cd "${BUILD_DIR}" || exit 1
 
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)
@@ -169,7 +169,7 @@ main()
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
-		tar -xzf ${pkgname}_*.orig.tar.gz -C "${build_dir}" --totals
+		tar -xzf ${pkgname}_*.orig.tar.gz -C "${BUILD_DIR}" --totals
 		sleep 2s
 
 	fi
@@ -236,11 +236,11 @@ main()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 
-	Showing contents of: ${build_dir}
+	Showing contents of: ${BUILD_DIR}
 
 	EOF
 
-	ls "${build_dir}" | grep ${pkgver}
+	ls "${BUILD_DIR}" | grep ${pkgver}
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -250,10 +250,10 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${build_dir}" ]]; then
+		if [[ -d "${BUILD_DIR}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"

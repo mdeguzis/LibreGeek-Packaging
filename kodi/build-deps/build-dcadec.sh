@@ -71,10 +71,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dir
-export build_dir="${HOME}/build-${pkgname}-temp"
+# set BUILD_DIR
+export BUILD_DIR="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-git_dir="${build_dir}/${src_dir}"
+git_dir="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
 {
@@ -89,20 +89,20 @@ install_prereqs()
 main()
 {
 	
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
+	# create BUILD_DIR
+	if [[ -d "${BUILD_DIR}" ]]; then
 
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
+		sudo rm -rf "${BUILD_DIR}"
+		mkdir -p "${BUILD_DIR}"
 
 	else
 
-		mkdir -p "${build_dir}"
+		mkdir -p "${BUILD_DIR}"
 
 	fi
 
 	# enter build dir
-	cd "${build_dir}" || exit
+	cd "${BUILD_DIR}" || exit
 
 	# install prereqs for build
 	
@@ -137,7 +137,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	cd ${build_dir}
+	cd ${BUILD_DIR}
 	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
 
 	# emter source dir
@@ -199,7 +199,7 @@ main()
 	if [[ "$build_all" == "yes" ]]; then
 
 		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${build_dir}/*.deb "$auto_build_dir"
+		mv ${BUILD_DIR}/*.deb "$auto_BUILD_DIR"
 		sleep 2s
 
 	else
@@ -210,8 +210,8 @@ main()
 		echo -e "If you don't, please check build dependcy errors listed above."
 		echo -e "############################################################\n"
 
-		echo -e "Showing contents of: ${build_dir}: \n"
-		ls "${build_dir}" | grep "$pkgver"
+		echo -e "Showing contents of: ${BUILD_DIR}: \n"
+		ls "${BUILD_DIR}" | grep "$pkgver"
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -221,9 +221,9 @@ main()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer files
-			if [[ -d "${build_dir}" ]]; then
+			if [[ -d "${BUILD_DIR}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 				
 				# keep changelog rolling since we maintain the debian folder

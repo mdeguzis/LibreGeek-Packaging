@@ -49,7 +49,7 @@ else
 fi
 
 # pass build dir var to all scripts
-export auto_export build_dir="merge ${HOME}/kodi-all-tmp"
+export auto_export BUILD_DIR="merge ${HOME}/kodi-all-tmp"
 src_dir="${pkgname}-${pkgver}"
 
 # pass auto-build flag
@@ -68,15 +68,15 @@ install_prereqs()
 	sudo apt-get install -y --force-yes autoconf automake autopoint autotools-dev bc ccache cmake \
 	build-essential
 
-	# create and enter build_dir
-	if [[ -d "$auto_build_dir" ]]; then
+	# create and enter BUILD_DIR
+	if [[ -d "$auto_BUILD_DIR" ]]; then
 
-		sudo rm -rf "$auto_build_dir"
-		mkdir -p "$auto_build_dir"
+		sudo rm -rf "$auto_BUILD_DIR"
+		mkdir -p "$auto_BUILD_DIR"
 
 	else
 
-		mkdir -p "$auto_build_dir"
+		mkdir -p "$auto_BUILD_DIR"
 
 	fi
 
@@ -151,8 +151,8 @@ build_all()
 	# Install packages to clean build environment
 	echo -e "\v==> Installing Stage 1 prerequisite build packages\n"
 	sleep 2s
-	echo "y" | sudo gdebi $auto_build_dir/*dcadec*.deb
-	echo "y" | sudo gdebi $auto_build_dir/*platform*.deb
+	echo "y" | sudo gdebi $auto_BUILD_DIR/*dcadec*.deb
+	echo "y" | sudo gdebi $auto_BUILD_DIR/*platform*.deb
 
 
 	cat <<-EOF
@@ -199,12 +199,12 @@ build_all()
 	done
 
 	echo -e "\v==> Installing Stage 2 prerequisite build packages\n"
-	echo "y" | sudo gdebi $auto_build_dir/libkodiplatform-dev*.deb
-	echo "y" | sudo gdebi $auto_build_dir/libcec*.deb
-	echo "y" | sudo gdebi $auto_build_dir/afpfs-ng*.deb
-	echo "y" | sudo gdebi $auto_build_dir/taglib*.deb
-	echo "y" | sudo gdebi $auto_build_dir/libshair*.deb 
-	echo "y" | sudo gdebi $auto_build_dir/shairplay*.deb
+	echo "y" | sudo gdebi $auto_BUILD_DIR/libkodiplatform-dev*.deb
+	echo "y" | sudo gdebi $auto_BUILD_DIR/libcec*.deb
+	echo "y" | sudo gdebi $auto_BUILD_DIR/afpfs-ng*.deb
+	echo "y" | sudo gdebi $auto_BUILD_DIR/taglib*.deb
+	echo "y" | sudo gdebi $auto_BUILD_DIR/libshair*.deb 
+	echo "y" | sudo gdebi $auto_BUILD_DIR/shairplay*.deb
 	
 	# TESTING ONLY
 	echo -e "\nExiting stage 1 builds"
@@ -267,7 +267,7 @@ build_all()
 	done
 	
 	echo -e "\v==> Installing packages required for addon building\n"
-	echo "y" | sudo gdebi $auto_build_dir/kodi-addon-dev*.deb
+	echo "y" | sudo gdebi $auto_BUILD_DIR/kodi-addon-dev*.deb
 
 	cat <<-EOF
 	
@@ -331,7 +331,7 @@ build_all()
 	
 	######################################################################
 	If all kodi packages were built without errors you will see them below.
-	If you don't, please check the $build_dir/build-log.txt log.
+	If you don't, please check the $BUILD_DIR/build-log.txt log.
 	
 	Please remember to update version numbers in the individual build
 	scripts if they have changed!
@@ -339,8 +339,8 @@ build_all()
 
 	EOF
 
-	echo -e "Showing contents of: $auto_build_dir: \n"
-	ls "${auto_build_dir}" | grep -E "${pkgver}" *.deb
+	echo -e "Showing contents of: $auto_BUILD_DIR: \n"
+	ls "${auto_BUILD_DIR}" | grep -E "${pkgver}" *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -350,9 +350,9 @@ build_all()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${auto_build_dir}/" ]]; then
+		if [[ -d "${auto_BUILD_DIR}/" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 		fi
@@ -365,4 +365,4 @@ build_all()
 }
 
 # start functions
-build_all | tee $auto_build_dir/build-log.txt
+build_all | tee $auto_BUILD_DIR/build-log.txt

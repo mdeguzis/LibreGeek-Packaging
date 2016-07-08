@@ -66,9 +66,9 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # build dirs
-export build_dir="/home/desktop/build-${pkgname}-temp"
+export BUILD_DIR="/home/desktop/build-${pkgname}-temp"
 src_dir="${pkgname}"
-git_dir="${build_dir}/${src_dir}"
+git_dir="${BUILD_DIR}/${src_dir}"
 git_url="https://github.com/PCSX2/pcsx2"
 branch="master"
 
@@ -121,20 +121,20 @@ main()
 	# Note: based on:
 	# https://github.com/PCSX2/pcsx2/blob/master/debian-packager/create_built_tarball.sh
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
+	# create BUILD_DIR
+	if [[ -d "${BUILD_DIR}" ]]; then
 
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
+		sudo rm -rf "${BUILD_DIR}"
+		mkdir -p "${BUILD_DIR}"
 
 	else
 
-		mkdir -p "${build_dir}"
+		mkdir -p "${BUILD_DIR}"
 
 	fi
 
 	# enter build dir
-	cd "${build_dir}" || exit
+	cd "${BUILD_DIR}" || exit
 
 	# install prereqs for build
 
@@ -201,7 +201,7 @@ main()
 	sleep 2s
 
 	# enter build dir to create tarball
-	cd "${build_dir}"
+	cd "${BUILD_DIR}"
 
 	# create source tarball
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
@@ -263,11 +263,11 @@ main()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 	
-	Showing contents of: ${build_dir}
+	Showing contents of: ${BUILD_DIR}
 	
 	EOF
 
-	ls "${build_dir}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -277,9 +277,9 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${build_dir}" ]]; then
+		if [[ -d "${BUILD_DIR}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			# Keep changelog

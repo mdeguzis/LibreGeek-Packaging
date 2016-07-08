@@ -60,14 +60,11 @@ pkgver="0.${date_short}"
 pkgname="reicast"
 pkgrev="1"
 # Base version sourced from ZIP file version
-pkgsuffix="${date_short}git+bsos"
+pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-
-# Need network for pbuilder to pull down ut4 zip
-export NETWORK="no"
 
 # set build directories
 export BUILD_DIR="${HOME}/build-${pkgname}-temp"

@@ -12,7 +12,7 @@
 # -------------------------------------------------------------------------------
 
 # Main vars
-export scriptdir=$(pwd)
+export SCRIPTDIR=$(pwd)
 BASHRC_RESET="false"
 
 clear
@@ -28,14 +28,14 @@ sleep 2s
 
 # Test OS first, so we can allow configuration on multiple distros
 OS=$(lsb_release -si)
-MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
+MULTIARCH=$(dPKG --print-foreign-architectures | grep i386)
 
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	# add multiarch if it is missing
 	if [[ "${MULTIARCH}" == "" ]]; then
 
-		sudo dpkg --add-architecture i386
+		sudo dPKG --add-architecture i386
 		echo -e "Updating for multiarch\n" 
 		sleep 2s
 		sudo apt-get update
@@ -46,15 +46,15 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	echo -e "\n==> Installing main packages\n"
 	sleep 2s
 
-	pkgs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo screen pv"
+	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo screen pv"
 
-	for pkg in ${pkgs};
+	for PKG in ${PKGs};
 	do
 
-		if ! sudo apt-get install -yq --force-yes ${pkg}; then
+		if ! sudo apt-get install -yq --force-yes ${PKG}; then
 		
 			# echo and exit if package install fails
-			echo -e "\n==ERROR==\nInstallation of ${pkg} failed! Exiting..."
+			echo -e "\n==ERROR==\nInstallation of ${PKG} failed! Exiting..."
 			sleep 2s
 			exit 1
 		fi
@@ -65,7 +65,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	#echo "\nInstalling Open Build System package\n"
 	#sleep 2s
 
-	#sudo cp "${scriptdir}/etc/apt/sources.list.d/osc.list" "/etc/apt/sources.list.d/"
+	#sudo cp "${SCRIPTDIR}/etc/apt/sources.list.d/osc.list" "/etc/apt/sources.list.d/"
 	#apt-get update -y
 	#apt-get install -y --force-yes osc
 
@@ -88,8 +88,8 @@ elif [[ "${OS}" == "Arch" ]]; then
 		# Install pacaur
 		wget "https://aur.archlinux.org/cgit/aur.git/snapshot/pacaur.tar.gz" -q -nc --show-progress
 		tar zxvf pacaur.tar.gz
-		cd pacaur && makepkg
-		sudo pacman -U ${PACOPTS} pacaur*.pkg.tar.xz
+		cd pacaur && makePKG
+		sudo pacman -U ${PACOPTS} pacaur*.PKG.tar.xz
 
 	else
 
@@ -134,20 +134,20 @@ elif [[ "${OS}" == "Arch" ]]; then
 	if [[ "${CUSTOM_AUR_PKGS}" == "true" ]]; then
 
 		git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
-		root_dir="${PWD}"
-		aur_install_dir="${root_dir}/arch-aur-packages"
-		my_arch_pkgs="devscripts"
+		ROOT_DIR="${PWD}"
+		AUR_INSTALL_DIR="${ROOT_DIR}/arch-aur-packages"
+		MY_ARCH_PKGS="devscripts"
 		
-		for pkgs in ${my_arch_pkgs};
+		for PKGs in ${MY_ARCH_PKGS};
 		do
 
-			cd "${aur_install_dir}/${pkg}" || exit 1
-			makepkg -s
+			cd "${AUR_INSTALL_DIR}/${PKG}" || exit 1
+			makePKG -s
 	
 			# No 'else' logic here, we can't check for updates, no AUR of course.
-			if ! sudo pacman -U ${PACOPTS} ${pkg}*.pkg.tar.gz; then
+			if ! sudo pacman -U ${PACOPTS} ${PKG}*.PKG.tar.gz; then
 	
-				echo "ERROR: Installation of ${pkg} failed. Exiting"
+				echo "ERROR: Installation of ${PKG} failed. Exiting"
 				exit 1
 	
 			fi
@@ -156,8 +156,8 @@ elif [[ "${OS}" == "Arch" ]]; then
 
 	fi
 
-	# Clean up manual AUR package installation directory
-	cd "${root_dir}"
+	# Clean up manual AUR package installation DIRectory
+	cd "${ROOT_DIR}"
 	rm -rf "arch-aur-packages"
 
 else
@@ -168,21 +168,21 @@ else
 fi
 
 #################################################
-# Create directories
+# Create DIRectories
 #################################################
 
-echo -e "\n==> Adding needed directories"
+echo -e "\n==> Adding needed DIRectories"
 sleep 2s
 
-steamos_tools_configs="$HOME/.config/SteamOS-Tools"
+STEAMOS_TOOLS_CONFIGS="${HOME}/.config/SteamOS-Tools"
 
-dirs="${steamos_tools_configs}"
+DIRs="${STEAMOS_TOOLS_CONFIGS}"
 
-for dir in ${dirs};
+for DIR in ${DIRs};
 do
-	if [[ ! -d "${dir}" ]]; then
+	if [[ ! -d "${DIR}" ]]; then
 
-		mkdir -p "${dir}"
+		mkdir -p "${DIR}"
 
 	fi
 
@@ -200,8 +200,8 @@ sleep 2s
 #####################
 
 # Reset setup? Check for headers
-bashrc_test_start=$(grep "##### DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
-bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "$HOME/.bashrc")
+bashrc_test_start=$(grep "##### DEBIAN PACKAGING SETUP #####" "${HOME}/.bashrc")
+bashrc_test_end=$(grep "##### END DEBIAN PACKAGING SETUP #####" "${HOME}/.bashrc")
 
 if [[ "${bashrc_test_start}" != "" && "${bashrc_test_start}" != "" ]]; then
 
@@ -216,16 +216,16 @@ if [[ "${bashrc_test_start}" != "" && "${bashrc_test_start}" != "" ]]; then
 	if [[ "${bashrc_choice}" == "y" ]]; then
 	
 		# Reset setup for incoming vars
-		sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "$HOME/.bashrc"
+		sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "${HOME}/.bashrc"
 		
-		cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
+		cat "${SCRIPTDIR}/.bashrc" >> "${HOME}/.bashrc"
 	
 	fi
 	
 else
 
 	# copy in template
-	cat "$scriptdir/.bashrc" >> "$HOME/.bashrc"
+	cat "${SCRIPTDIR}/.bashrc" >> "${HOME}/.bashrc"
 	
 fi
 
@@ -235,14 +235,14 @@ fi
 if [[ $(grep "FULLNAME_TEMP" "${HOME}/.bashrc") != "" ]]; then
 
 	read -erp "Maintainer full name: " FULLNAME_TEMP
-	sed -i "s|FULLNAME_TEMP|$FULLNAME_TEMP|" "$HOME/.bashrc"
+	sed -i "s|FULLNAME_TEMP|${FULLNAME_TEMP}|" "${HOME}/.bashrc"
 
 fi
 
 if [[ $(grep "EMAIL_TEMP" "${HOME}/.bashrc") != "" ]]; then
 
 	read -erp "GitHub Email: " EMAIL_TEMP
-	sed -i "s|EMAIL_TEMP|$EMAIL_TEMP|" "$HOME/.bashrc"
+	sed -i "s|EMAIL_TEMP|${EMAIL_TEMP}|" "${HOME}/.bashrc"
 
 fi
 
@@ -250,24 +250,33 @@ fi
 # Quilt
 #####################
 
-# Setup Quilt rc file for dpkg
-cp "$scriptdir/.quiltrc-dpkg" "$HOME"
-cp "$scriptdir/.quiltrc" "$HOME"
+# Setup Quilt rc file for dPKG
+cp "${SCRIPTDIR}/.quiltrc-dPKG" "${HOME}"
+cp "${SCRIPTDIR}/.quiltrc" "${HOME}"
 
 #####################
 # devscripts
 #####################
 
 # devscripts
-cp "$scriptdir/.devscripts" "$HOME"
+cp "${SCRIPTDIR}/.devscripts" "${HOME}"
 
 #####################
 # pbuilder
 #####################
 
 # pbuilder
-cp "$scriptdir/.pbuilderrc" "$HOME/"
-sudo cp "$scriptdir/.pbuilderrc" "/root/"
+cp "${SCRIPTDIR}/.pbuilderrc" "${HOME}/"
+sudo cp "${SCRIPTDIR}/.pbuilderrc" "/root/"
+
+#####################
+# gdb
+#####################
+
+# very nice visual CLI tool for gdb
+# See: https://github.com/cyrus-and/gdb-dashboard
+
+wget -P ${HOME} git.io/.gdbinit
 
 #################################################
 # GitHub Setup
@@ -286,9 +295,9 @@ if [[ $(git config --global user.name) == "" ]]; then
 else
 
 	echo -e "GitHub global username set. Reset?"
-	read -erp "Choice [y/n]: " reset_username
+	read -erp "Choice [y/n]: " RESET_USERNAME
 
-	if [[ "${reset_username}"  == "y" ]]; then
+	if [[ "${RESET_USERNAME}"  == "y" ]]; then
 
 		echo -e "Please set your GitHub username: "
 		read -erp "Username: " GITUSER
@@ -340,9 +349,9 @@ echo -e "\n==> Setting host/network information"
 
 echo -e "\nSetup/Reset remote user/host for repository pool?"
 echo -e "This is suggested if you are using a remote host"
-read -erp "Choice [y/n]: " set_host_user
+read -erp "Choice [y/n]: " SET_HOST_USER
 
-if [[ "${set_host_user}" == "y" ]]; then
+if [[ "${SET_HOST_USER}" == "y" ]]; then
 
 	read -erp "Remote username: " REMOTE_USER_TEMP
 	read -erp "Remote host: " REMOTE_HOST_TEMP
@@ -350,17 +359,17 @@ if [[ "${set_host_user}" == "y" ]]; then
 
 	# Use wildcard to assume if it was set to something else before, clear it
 	# when using double quotes here, you do not need to escape $ or =
-	sed -i "s|REMOTE_USER.*|REMOTE_USER=\"${REMOTE_USER_TEMP}\"|" "$HOME/.bashrc"
-	sed -i "s|REMOTE_HOST.*|REMOTE_HOST=\"${REMOTE_HOST_TEMP}\"|" "$HOME/.bashrc"
-	sed -i "s|REMOTE_PORT.*|REMOTE_PORT=\"${REMOTE_PORT_TEMP}\"|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_USER.*|REMOTE_USER=\"${REMOTE_USER_TEMP}\"|" "${HOME}/.bashrc"
+	sed -i "s|REMOTE_HOST.*|REMOTE_HOST=\"${REMOTE_HOST_TEMP}\"|" "${HOME}/.bashrc"
+	sed -i "s|REMOTE_PORT.*|REMOTE_PORT=\"${REMOTE_PORT_TEMP}\"|" "${HOME}/.bashrc"
 
 else
 	
 	# Set var to blank string so value inside build script is taken	
 	# Use wildcard to assume if it was set to something else before, clear it
-	sed -i "s|REMOTE_USER.*|REMOTE_USER=\"\"|" "$HOME/.bashrc"
-	sed -i "s|REMOTE_HOST.*|REMOTE_HOST=\"\"|" "$HOME/.bashrc"
-	sed -i "s|REMOTE_PORT.*|REMOTE_PORT=\"\"|" "$HOME/.bashrc"
+	sed -i "s|REMOTE_USER.*|REMOTE_USER=\"\"|" "${HOME}/.bashrc"
+	sed -i "s|REMOTE_HOST.*|REMOTE_HOST=\"\"|" "${HOME}/.bashrc"
+	sed -i "s|REMOTE_PORT.*|REMOTE_PORT=\"\"|" "${HOME}/.bashrc"
 
 fi
 
@@ -371,9 +380,9 @@ fi
 echo -e "\n==> Adding other configuration files"
 sleep 2s
 
-cp "$scriptdir/repo-exclude.txt" "${steamos_tools_configs}"
-cp "$scriptdir/repo-include.txt" "${steamos_tools_configs}"
-cp "$scriptdir/repo-filter.txt" "${steamos_tools_configs}"
+cp "${SCRIPTDIR}/repo-exclude.txt" "${STEAMOS_TOOLS_CONFIGS}"
+cp "${SCRIPTDIR}/repo-include.txt" "${STEAMOS_TOOLS_CONFIGS}"
+cp "${SCRIPTDIR}/repo-filter.txt" "${STEAMOS_TOOLS_CONFIGS}"
 
 #################################################
 # Preferences
@@ -387,7 +396,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	select-editor
 
 	# disable this line in bashrc if it exists so it does not interfere:
-	sed -i "s|export EDITOR=.*|#export EDITOR=\"\"|g" "$HOME/.bashrc"
+	sed -i "s|export EDITOR=.*|#export EDITOR=\"\"|g" "${HOME}/.bashrc"
 
 else
 
@@ -405,7 +414,7 @@ else
 	# List editors and set
 	ls "/usr/bin" | grep -xE 'vi|vim|nano|emacs|gvim' && echo ""
 	read -erp "Default editor to use: " EDITOR
-	sed -i "s|EDITOR_TEMP|$EDITOR|" "$HOME/.bashrc"
+	sed -i "s|EDITOR_TEMP|$EDITOR|" "${HOME}/.bashrc"
 	
 fi
 
@@ -421,7 +430,7 @@ echo -e "Installing keyrings\n"
 sleep 2s
 
 # Set vars
-valve_keyring="valve-archive-keyring_0.5+bsos3_all"
+VALVE_KEYRING="valve-archive-keyring_0.5+bsos3_all"
 
 # Test OS first, so we can allow configuration on multiple distros
 OS=$(lsb_release -si)
@@ -436,8 +445,8 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	# Libregeek keyrings
 	wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
 	wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
-	sudo dpkg -i libregeek-archive-keyring-latest.deb
-	sudo dpkg -i steamos-tools-repo-latest.deb
+	sudo dPKG -i libregeek-archive-keyring-latest.deb
+	sudo dPKG -i steamos-tools-repo-latest.deb
 	
 	# cleanup
 	rm -f steamos-tools-repo-latest.deb
@@ -453,18 +462,18 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 elif [[ "${OS}" == "Arch" ]]; then
 
 	# obtain keyring source for Valve archive keyring and convert it, not provided in AUR
-	mkdir -p "$HOME/setup-temp" && cd "$HOME/setup-temp"
-	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q -nc --show-progress
+	mkDIR -p "${HOME}/setup-temp" && cd "${HOME}/setup-temp"
+	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q -nc --show-progress
 
 	# Convert
-	ar xv "${valve_keyring}.deb"
+	ar xv "${VALVE_KEYRING}.deb"
 	tar -xvf data.tar.xz
 	sudo cp "etc/apt/trusted.gpg.d/valve-archive-keyring.gpg" "/etc/apt/trusted.gpg.d/"
 	sudo cp "usr/share/keyrings/valve-archive-keyring.gpg" "/usr/share/keyrings"
 
 	# cleanup
 	cd ..
-	rm -rf "$HOME/setup-temp"
+	rm -rf "${HOME}/setup-temp"
 
 fi
 
@@ -474,8 +483,8 @@ fi
 if [[ "${OS}" == "Debian" ]]; then
 
 	# Obtain valve keyring
-	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${valve_keyring}.deb" -q --show-progress -nc 
-	sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q --show-progress -nc 
+	sudo dPKG -i "valve-archive-keyring_0.5+bsos3_all.deb"
 
 fi
 
@@ -486,20 +495,20 @@ fi
 echo -e "\nAdding pbuilder folders"
 sleep 1s
 
-# root on SteamOS is small, divert cache dir if applicable
+# root on SteamOS is small, divert cache DIR if applicable
 # Also adjust for other locations, due to limited space on root
 OS=$(lsb_release -si)
 
 if [[ "${OS}" == "SteamOS" ]]; then
 
 	rm -rf "${HOME}/pbuilder/hooks"
-	mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
-	cp -r "${scriptdir}/hooks" "${HOME}/pbuilder/"
+	mkDIR -p "${HOME}/pbuilder/${DIST}/aptcache/"
+	cp -r "${SCRIPTDIR}/hooks" "${HOME}/pbuilder/"
 
 else
 
 	sudo rm -rf "/var/cache/pbuilder/hooks"
-	sudo cp -r "${scriptdir}/hooks" "/var/cache/pbuilder/"
+	sudo cp -r "${SCRIPTDIR}/hooks" "/var/cache/pbuilder/"
 
 fi
 
@@ -548,4 +557,4 @@ EOF
 #################################################
 
 # source bashrc for this session
-. $HOME/.bashrc
+. ${HOME}/.bashrc

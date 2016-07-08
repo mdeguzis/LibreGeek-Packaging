@@ -1,2 +1,2 @@
-debian/rpcs3.desktop /usr/share/applications/
+usr/bin/reicast
 rpcs3.png /usr/share/pixmaps/

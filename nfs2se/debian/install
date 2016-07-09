@@ -1,0 +1,4 @@
+# The folders before for NFS will have dashes removed in postinst
+Need-For-Speed-II-SE/                   /usr/share/games/
+Need-For-Speed-II-SE/nfs2se.desktop     /usr/share/applications/
+Need-For-Speed-II-SE/nfs2se.png         /usr/share/pixmaps/

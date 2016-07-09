@@ -171,7 +171,7 @@ fi
 # Create DIRectories
 #################################################
 
-echo -e "\n==> Adding needed DIRectories"
+echo -e "\n==> Adding needed Directories"
 sleep 2s
 
 STEAMOS_TOOLS_CONFIGS="${HOME}/.config/SteamOS-Tools"

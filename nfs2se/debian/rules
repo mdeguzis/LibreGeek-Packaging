@@ -14,6 +14,7 @@ override_dh_auto_build:
 	# Need two $$ for $ to appear 
 	cd src/ && $(CC) $(C_FLAGS) -DSTACK_REALIGN -c *.c && \
 	ld -m elf_i386 -dynamic-linker /lib/ld-linux.so.2 -o "../Need For Speed II SE/nfs2se" \
-	*.o game-obj/NFS2SE.Linux.o -L$(LIB32_DIR) -lc -lSDL2 -lGL $(STRIP) -rpath=$$ORIGIN -e start
+	*.o game-obj/NFS2SE.Linux.o -L$(LIB32_DIR) -lc -lSDL2 -lGL $(STRIP) -rpath=$$ORIGIN -e start \
+	&& echo "Compile and linking OK!"
 	# cleanup
-	find $(CURDIR) -name *.o -exec rm -f
+	find $(CURDIR) -name *.o -exec rm -f "{}" \;

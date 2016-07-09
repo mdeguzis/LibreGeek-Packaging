@@ -1,3 +1,0 @@
-#!/bin/bash
-# fix the dashes we had to use in preinst
-mv "/usr/share/games/Need-For-Speed-II-SE" "/usr/share/games/Need For Speed II SE"

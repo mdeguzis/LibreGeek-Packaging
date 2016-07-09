@@ -10,5 +10,8 @@ Homepage: https://github.com/zaps166/NFSIISE/
 
 Package: nfs2se
 Architecture: i386
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends},
+ libdrm2:i386,
+ libglapi-mesa:i386,
+ libgl1-mesa-dri:i386
 Description: NFSII SE Linux Engine Port

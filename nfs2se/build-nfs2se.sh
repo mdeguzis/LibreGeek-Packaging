@@ -204,8 +204,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# upload changelog
-			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog"
-			git push origin master
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
 
 		fi
 

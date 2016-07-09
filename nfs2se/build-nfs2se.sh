@@ -47,7 +47,7 @@ else
 fi
 # upstream vars
 git_url="https://github.com/zaps166/NFSIISE/"
-target="v1.0.0"
+target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

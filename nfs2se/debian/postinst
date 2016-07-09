@@ -1,0 +1,2 @@
+# fix the dashes we had to use in preinst
+sed -i "s/Need-For-Speed-II-SE/Need For Speed II SE/" /usr/share/games

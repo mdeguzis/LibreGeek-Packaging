@@ -9,6 +9,9 @@ export LIB32_DIR=/usr/lib/i386-linux-gnu/
 %:
 	dh $@
 
+#override_dh_installdirs:
+#	dh_installdirs "/usr/share/games/Need For Speed II SE"
+
 override_dh_auto_build:
 	# build
 	# Need two $$ for $ to appear 
@@ -18,3 +21,9 @@ override_dh_auto_build:
 	&& echo "Compile and linking OK!"
 	# cleanup
 	find $(CURDIR) -name *.o -exec rm -f "{}" \;
+
+override_dh_auto_install:
+	dh_auto_install
+	install -m 644 "Need For Speed II SE" /usr/share/games/
+	install -m 644 "Need For Speed II SE/nfs2se.desktop" /usr/share/applications/
+	install -m 644 "Need For Speed II SE/nfs2se.png" /usr/share/pixmaps/

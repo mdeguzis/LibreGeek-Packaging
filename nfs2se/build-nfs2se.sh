@@ -114,7 +114,7 @@ main()
 	wget -P "${git_dir}/src/game-obj/" "http://zaps166.sourceforge.net/downloads/nfs2se-obj/NFS2SE.Linux.o" -q -nc --show-progress
 
 	# modify desktop file
-	sed -i 's/Icon\=nfs2se/Icon\=/usr/share/pixmaps/nfs2se.png/' "${gid_dir}/Need For Speed II SE/nfs2se.desktop"
+	sed -i 's/Icon\=nfs2se/Icon\=\/usr\/share\/pixmaps\/nfs2se.png/' "${gid_dir}/Need For Speed II SE/nfs2se.desktop"
 
 	#################################################
 	# Build package

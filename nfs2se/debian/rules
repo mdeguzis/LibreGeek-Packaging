@@ -18,4 +18,5 @@ override_dh_auto_build:
 	&& echo "Compile and linking OK!"
 	# cleanup
 	find $(CURDIR) -name *.o -exec rm -f "{}" \;
-
+	# debian/install hates spaces, for... reassons.. workaround this
+	mv  "Need For Speed II SE" "Need-For-Speed-II-SE" 

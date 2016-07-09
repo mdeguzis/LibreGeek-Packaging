@@ -23,7 +23,6 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -58,7 +57,7 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="nfs2se"
 pkgver="1.0.0"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"

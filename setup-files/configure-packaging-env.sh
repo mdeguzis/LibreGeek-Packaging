@@ -28,7 +28,7 @@ sleep 2s
 
 # Test OS first, so we can allow configuration on multiple distros
 OS=$(lsb_release -si)
-MULTIARCH=$(dPKG --print-foreign-architectures | grep i386)
+MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
 
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
@@ -250,8 +250,8 @@ fi
 # Quilt
 #####################
 
-# Setup Quilt rc file for dPKG
-cp "${SCRIPTDIR}/.quiltrc-dPKG" "${HOME}"
+# Setup Quilt rc file for dpkg
+cp "${SCRIPTDIR}/.quiltrc-dpkg" "${HOME}"
 cp "${SCRIPTDIR}/.quiltrc" "${HOME}"
 
 #####################
@@ -445,8 +445,8 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	# Libregeek keyrings
 	wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
 	wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
-	sudo dPKG -i libregeek-archive-keyring-latest.deb
-	sudo dPKG -i steamos-tools-repo-latest.deb
+	sudo dpkg -i libregeek-archive-keyring-latest.deb
+	sudo dpkg -i steamos-tools-repo-latest.deb
 	
 	# cleanup
 	rm -f steamos-tools-repo-latest.deb
@@ -484,7 +484,7 @@ if [[ "${OS}" == "Debian" ]]; then
 
 	# Obtain valve keyring
 	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q --show-progress -nc 
-	sudo dPKG -i "valve-archive-keyring_0.5+bsos3_all.deb"
+	sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
 
 fi
 

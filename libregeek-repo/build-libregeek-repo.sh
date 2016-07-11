@@ -58,7 +58,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-repo"
 pkgver="0.7"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"
 DIST="brewmaster"
@@ -135,7 +135,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Always use new conf file to avoid conflicts"
+		-D "${DIST}" -u "${urgency}" "Remove Jessie backports, improve prefs"
 		nano "debian/changelog"
 
 	else

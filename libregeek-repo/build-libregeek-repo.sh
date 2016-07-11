@@ -135,7 +135,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Make jessie-backports optinal. Lines commented out."
+		-D "${DIST}" -u "${urgency}" "Make jessie-backports optional. Lines commented out."
 		nano "debian/changelog"
 
 	else

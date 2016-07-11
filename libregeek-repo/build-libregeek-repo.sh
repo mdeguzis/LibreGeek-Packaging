@@ -57,7 +57,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-repo"
-pkgver="0.6"
+pkgver="0.7"
 pkgrev="1"
 pkgsuffix="bsos${pkgrev}"
 upstream_rev="1"
@@ -135,7 +135,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Make jessie-backports optional. Lines commented out."
+		-D "${DIST}" -u "${urgency}" "Always use new conf file to avoid conflicts"
 		nano "debian/changelog"
 
 	else

@@ -135,13 +135,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Improve pinning for jessie/jessie-backports"
+		-D "${DIST}" -u "${urgency}" "Make jessie-backports optinal. Lines commented out."
 		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}"\
-		-D "${DIST}" -u "${urgency}" "Improve pinning for jessie/jessie-backports"
+		-D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi

@@ -57,10 +57,9 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-repo"
-pkgver="0.7"
-pkgrev="2"
+pkgver="0.8"
+pkgrev="1"
 pkgsuffix="bsos"
-upstream_rev="2"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -134,13 +133,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Remove Jessie backports, improve prefs"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}"\
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}"\
 		-D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 

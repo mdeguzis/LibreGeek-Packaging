@@ -121,9 +121,6 @@ main()
 
 	# clone
 	git clone -b "${target}" "${git_url}" "${git_dir}"
-	
-	# trim .git (large repo)
-	rm -rf "${git_dir}/.git"
 
 	#################################################
 	# Build platform

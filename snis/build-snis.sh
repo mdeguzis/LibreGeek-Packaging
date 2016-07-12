@@ -51,7 +51,7 @@ fi
 # upstream vars
 #git_url="https://github.com/smcameron/space-nerds-in-space"
 git_url="https://github.com/ProfessorKaos64/space-nerds-in-space"
-target="v20160525"
+target="v20160711"
 #target="master"
 
 # package vars
@@ -63,7 +63,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="snis"
 pkgrev="1"
-pkgver="20160524"
+pkgver="20160711"
 pkgsuffix="git+bsos"
 BUILDER="pdebuild"
 DIST="brewmaster"
@@ -146,7 +146,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "update release"
+		-D "${DIST}" -u "${urgency}" "update release to ${pkgver}"
 		nano "debian/changelog"
 
 	else

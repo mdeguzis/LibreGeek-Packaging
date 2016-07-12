@@ -42,11 +42,11 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
 	
 else
 
-	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
 	
 fi
 

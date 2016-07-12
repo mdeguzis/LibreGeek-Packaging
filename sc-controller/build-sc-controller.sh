@@ -9,7 +9,7 @@
 #
 # See:		https://github.com/kozec/sc-controller/blob/master/PKGBUILD
 #
-# Usage:	./build-sc-controlle.sh
+# Usage:	./build-sc-controller.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------

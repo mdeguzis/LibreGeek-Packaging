@@ -58,7 +58,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-repo"
 pkgver="0.8"
-pkgrev="3"
+pkgrev="4"
 pkgsuffix="bsos"
 DIST="brewmaster"
 urgency="low"
@@ -134,7 +134,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Test 2 - Remove Jessie backports, improve prefs"
+		-D "${DIST}" -u "${urgency}" "/etc/apt/preferences.d/steamos spec was not broad enough"
 		nano "debian/changelog"
 
 	else
@@ -199,13 +199,14 @@ main()
 		if [[ "$transfer_choice" == "y" ]]; then
 
 			# transfer packages
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			# update changelog
-			cd "${git_dir}" && git add debian/changelog  && git commit -m "Update changelog" && git push origin master
-			cd "${scriptdir}"
+			cd "${git_dir}" && git add debian/changelog  && git commit -m "Update changelog"
+			git push origin master && cd "${scriptdir}"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

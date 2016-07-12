@@ -7,14 +7,15 @@
 # This special exception was added by Craig Small in version 0.37 of dh-make.
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
+
+# Use pybuild
+export PYBUILD_NAME = sc-controller
+
+# Don't let pybuild screw with proxy
+# Common errors: "[Errno 111] Connection refused -- Some packages may not be found!"
+export http_proxy=
+export https_proxy=
 
 %:
-	dh $@ 
-
-override_dh_auto_clean:
-
-override_dh_clean:
-
-override_dh_auto_build:
-	scons platform=x11
+	dh $@ --with python2 --buildsystem=pybuild

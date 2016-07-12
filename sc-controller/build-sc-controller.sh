@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/Libregeek-Packaging
-# Scipt Name:	build-godot.sh
-# Script Ver:	0.5.1
-# Description:	Attempts to build a deb package from latest godot
+# Scipt Name:	build-sc-controller.sh
+# Script Ver:	0.1.1
+# Description:	Attempts to build a deb package from latest sc-controller
 #		github release
 #
-# See:		https://github.com/godotengine/godot
+# See:		https://github.com/kozec/sc-controller/blob/master/PKGBUILD
 #
-# Usage:	build-.sh
+# Usage:	./build-sc-controlle.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -47,8 +47,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/godotengine/godot"
-branch="2.0.3-stable"
+git_url="https://github.com/kozec/sc-controller/blob/master/PKGBUILD"
+target="v0.2.10"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -56,14 +56,11 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-export BUILD_DEBUG="true"
-export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-pkgname="godot"
-pkgver="2.0.3"
-upstream_rev="1"
+pkgname="sc-controller"
+pkgver="0.2.10"
 pkgrev="1"
-pkgsuffix=""
+pkgsuffix="git+debu8"
 DIST="jessie"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -80,9 +77,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential bc debhelper \
- 	gcc python scons libx11-dev pkg-config libxcursor-dev libasound2-dev libfreetype6-dev \
- 	libgl1-mesa-dev libglu-dev libssl-dev libxinerama-dev libudev-dev
+	sudo apt-get -y --force-yes install python
 
 }
 
@@ -113,15 +108,12 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and target
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone  -b "${branch}" "${git_url}" "${git_dir}"
-
-	# Add art / other files
-	cp "${scriptdir}/godot.png" "${git_dir}"
+	git clone  -b "${target}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package
@@ -132,7 +124,7 @@ main()
 
 	# create source tarball
 	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add debian dir
 	cp -r "${scriptdir}/debian" "${git_dir}"
@@ -146,17 +138,15 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}-${pkgrev}" \
+		dch -p --force-distribution -v "${pkgver}-${pkgrev}-${pkgrev}" \
 		--package "${pkgname}" -D $DIST -u "${urgency}" \
-		"Initial upload attempt"
-		nano "debian/changelog"
+		"Update release to ${pkgver}" && nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}-${pkgrev}" \
+		dch -p --force-distribution --create -v "${pkgver}-${pkgrev}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" \
-		-u "${urgency}" "Initial upload attempt"
-		nano "debian/changelog"
+		-u "${urgency}" "Initial upload attempt" && nano "debian/changelog"
 
 	fi
 

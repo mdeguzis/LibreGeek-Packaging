@@ -58,7 +58,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-repo"
 pkgver="0.8"
-pkgrev="4"
+pkgrev="5"
 pkgsuffix="bsos"
 DIST="brewmaster"
 urgency="low"
@@ -134,7 +134,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "/etc/apt/preferences.d/steamos spec was not broad enough"
+		-D "${DIST}" -u "${urgency}" "Case conversion on repo folder name"
 		nano "debian/changelog"
 
 	else

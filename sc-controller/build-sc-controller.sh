@@ -77,7 +77,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install python
+	sudo apt-get -y --force-yes install python dh-python libgtk-3-dev  python-all-dev \
+	python-gobject-2-dev python-pylibacl
 
 }
 

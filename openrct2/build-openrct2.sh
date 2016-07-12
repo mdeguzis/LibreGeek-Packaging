@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/OpenRCT2/OpenRCT2"
-rel_target="v0.0.4"
+target="v0.0.4"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -116,7 +116,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	#################################################
 	# Build package

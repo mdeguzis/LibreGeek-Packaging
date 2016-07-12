@@ -55,7 +55,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export USE_NETWORK="no"
 pkgname="sc-controller"
 pkgver="0.2.10"
@@ -201,6 +201,9 @@ main()
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			# Preserve changelog
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/changelog" 
 
 		fi
 

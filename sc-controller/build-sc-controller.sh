@@ -47,7 +47,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/kozec/sc-controller/blob/master/PKGBUILD"
+git_url="https://github.com/kozec/sc-controller/"
 target="v0.2.10"
 
 # package vars

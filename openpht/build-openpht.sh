@@ -26,7 +26,6 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -38,8 +37,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 	REMOTE_PORT="22"
 
 fi
-
-
 
 if [[ "$arg1" == "--testing" ]]; then
 
@@ -55,19 +52,19 @@ fi
 #git_url="https://github.com/plexinc/plex-home-theater-public"
 #git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
 git_url="https://github.com/RasPlex/OpenPHT"
-#target="v1.6.0.113-46fadd5e"
-target="openpht-1.6"
+target="v1.6.2.123-e23a7eef"
+#target="openpht-1.6"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
 pkgname="openpht"
 pkgver="1.6.2"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"

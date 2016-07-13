@@ -6,5 +6,7 @@ See: generic-building/backport-debian-package.sh
 
 # Backport package list
 
-* [libmbedtls-dev](https://packages.debian.org/stretch/libmbedtls-dev)
-* [x265-79](https://packages.debian.org/jessie-backports/libx265-79)
+|   package name   |      release     |    version    |           link             | Short description | 
+|------------------|------------------|---------------|----------------------------|-------------------|
+| libmbedtls-dev | sid |  2.3.0 | [Debian](https://packages.debian.org/stretch/libmbedtls-dev)| libmbedtls-dev|
+| x265-79 | jessie-backports |  1.9.3 | [Debian](https://packages.debian.org/jessie-backports/libx265-79)| x265-79|

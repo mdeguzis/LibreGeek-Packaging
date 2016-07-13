@@ -1,0 +1,11 @@
+openrct2 (0.0.4+git+bsos-1) brewmaster; urgency=low
+
+  * Rebuild of 0.0.4 for SteamOS
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 13 Jul 2016 12:13:00 -0400
+
+openrct2 (0.0.4-master-1) unstable; urgency=medium
+
+  * Third stable release. (Closes: #XXXXXX)
+
+ -- Michał Janiszewski <janisozaur+openrct2@gmail.com>  Sun, 10 Jan 2016 23:41:16 +0100

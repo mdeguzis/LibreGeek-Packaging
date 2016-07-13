@@ -178,22 +178,22 @@ main()
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)
 	# This way, we can try again with the orig source intact
 	# Keep this method until a build is good to go, without error.
-	
+
 	if [[ "${retry}" == "no" ]]; then
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		cd "${BUILD_DIR}"
 		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-		
+
 	else
-	
+
 		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
-		
+
 		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
 		mkdir -p "${git_dir}"
-	
+
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
 		cd "${BUILD_DIR}"
@@ -244,7 +244,7 @@ main()
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${time_stamp_start}"
 	echo -e "Time started: ${time_stamp_end}"
@@ -252,14 +252,14 @@ main()
 
 	# inform user of packages
 	cat<<-EOF
-	
+
 	###############################################################
 	If package was built without errors you will see it below.
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
-	
+
 	Showing contents of: ${BUILD_DIR}
-	
+
 	EOF
 
 	ls "${BUILD_DIR}" | grep -E "${pkgver}" 

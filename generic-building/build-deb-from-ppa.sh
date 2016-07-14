@@ -61,7 +61,7 @@ fi
 ###############################
 
 # Ubuntu packages are not "PPA's" so example deb-src lines are:
-# deb-src http://archive.ubuntu.com/ubuntu vivid main restricted universe multiverse
+# deb-src http://archive.ubuntu.com/ubuntu wily main restricted universe multiverse
 # GPG-key(s): 437D05B5, C0B21F32
 
 show_help()

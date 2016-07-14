@@ -61,7 +61,6 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
 BUILDER="pbuilder"
-BUILDOPTS="--debbuildopts \"-sa -v1.0\""
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 pkgname="$PKGNAME"
 pkgver="$PKGVER"
@@ -121,6 +120,20 @@ main()
 	if  [[ "${DSC}" == "" ]]; then DSC="${OLD_DSC}"; fi
 	export OLD_DSC="${DSC}"
 
+	# Set build opts vars based on the above
+	if [[ "${DIST}" == "brewmaster" ]]; then
+
+		pkgsuffix="bsos"
+
+	elif [[ "${DIST}" == "jessie" ]]; then
+
+		pkgsuffix="bpo8"
+
+	fi	
+	
+	# Set build opts final args
+	BUILDOPTS="--debbuildopts \"-sa -v1.0\" --debbuildopts '-v${PKGVER}+${pkgsuffix}-${pkgrev}'"
+
 	# create BUILD_DIR
 	if [[ -d "${BUILD_DIR}" ]]; then
 
@@ -170,7 +183,7 @@ main()
 	if [[ "${METHOD}" == "pbuilder" ]]; then
 
 		if ! sudo -E BUILD_DIR=${BUILD_DIR} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
-		build ${DSC_FILENAME} ${BUILDOPTS};  then
+		build ${BUILDOPTS} ${DSC_FILENAME};  then
 
 			# back out to scriptdir
 			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"

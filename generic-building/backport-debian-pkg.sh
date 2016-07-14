@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	backport-debian-pkg.sh.sh
-# Script Ver:	1.4.1
+# Script Ver:	1.8.1
 # Description:	Attempts to build a deb package from backported stretch package
 #
 # See:		https://github.com/rust-lang/rust
@@ -191,7 +191,7 @@ main()
 	# Remove dash for formatting
 	
 	# TARBALL_RENAME=$(basename `find .. -maxdepth 1 -type d | grep ${PKGNAME}` | sed 's/-/_/')
-	mv ../*.orig.tar.gz ../${pkgver}+${pkgsuffix}.orig.tar.gz
+	mv ../*.orig.tar.gz ../${PKGNAME}_${pkgver}+${pkgsuffix}.orig.tar.gz
 	
 	#################################################
 	# Build Debian package

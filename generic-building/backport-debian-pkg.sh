@@ -63,17 +63,15 @@ ARCH="${ARCH}"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
-pkgname="$PKGNAME"
-pkgver="$PKGVER"
-upstream_rev="1"
-pkgrev="1"
-pkgsuffix="bpo8+bsos${pkgrev}"
-urgency="low"
+PKGNAME="$PKGNAME"
+PKGVER="$PKGVER"
+PKGREV="1"
+URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build dirs
-src_dir="${pkgname}-${pkgver}"
+src_dir="${PKGNAME}-${PKGVER}"
 git_dir="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
@@ -105,6 +103,11 @@ main()
 	read -erp "Target package version: " PKGVER
 	if [[ "${PKGVER}" == "" ]]; then PKGVER="${OLD_PKGVER}"; fi
 	export OLD_PKGVER="${PKGVER}"
+	
+	echo -e "\nPress ENTER to use last: ${OLD_PKGREV}"
+	read -erp "Package revision / attempt: " PKGREV
+	if [[ "${PKGREV}" == "" ]]; then PKGREV="${OLD_PKGREV}"; fi
+	export OLD_PKGREV="${PKGREV}"
 
 	echo -e "\nPress ENTER to use last: ${OLD_ARCH}"
 	read -erp "Arch target: " ARCH
@@ -124,11 +127,11 @@ main()
 	# Set build opts vars based on the above
 	if [[ "${DIST}" == "brewmaster" ]]; then
 
-		pkgsuffix="bsos"
+		PKGSUFFIX="bsos"
 
 	elif [[ "${DIST}" == "jessie" ]]; then
 
-		pkgsuffix="bpo8"
+		PKGSUFFIX="bpo8"
 
 	fi	
 
@@ -176,14 +179,14 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D $DIST -u "${urgency}" "Backported package. No changes made."
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Backported package. No changes made."
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload attempt"
+		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 	fi
 	
@@ -191,13 +194,13 @@ main()
 	# Remove dash for formatting
 	
 	# TARBALL_RENAME=$(basename `find .. -maxdepth 1 -type d | grep ${PKGNAME}` | sed 's/-/_/')
-	mv ../*.orig.tar.gz ../${PKGNAME}_${pkgver}+${pkgsuffix}.orig.tar.gz
+	mv ../*.orig.tar.gz ../${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz
 	
 	#################################################
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Backporting Debian package ${pkgname} from source"
+	echo -e "\n==> Backporting Debian package ${PKGNAME} from source"
 	sleep 2s
 
 	# Ask what method
@@ -267,7 +270,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

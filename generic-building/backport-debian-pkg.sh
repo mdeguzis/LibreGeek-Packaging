@@ -132,7 +132,7 @@ main()
 	fi	
 	
 	# Set build opts final args
-	BUILDOPTS="--debbuildopts \"-sa -v1.0\" --debbuildopts '-v${PKGVER}+${pkgsuffix}-${pkgrev}'"
+	BUILDOPTS="--debbuildopts -sa -v${PKGVER}+${pkgsuffix}-${pkgrev}"
 
 	# create BUILD_DIR
 	if [[ -d "${BUILD_DIR}" ]]; then

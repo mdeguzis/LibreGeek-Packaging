@@ -61,6 +61,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
 BUILDER="pdebuild"
+BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 pkgname="$PKGNAME"
 pkgver="$PKGVER"
@@ -130,9 +131,6 @@ main()
 		pkgsuffix="bpo8"
 
 	fi	
-	
-	# Set build opts final args
-	BUILDOPTS="--debbuildopts -sa -v${PKGVER}+${pkgsuffix}-${pkgrev}"
 
 	# create BUILD_DIR
 	if [[ -d "${BUILD_DIR}" ]]; then
@@ -174,7 +172,20 @@ main()
 	sleep 2s
 	
 	cd ${PKGNAME}* || exit
-	dch || exit
+	
+	# Create basic changelog format if it does exist or update
+	if [[ -f "debian/changelog" ]]; then
+
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D $DIST -u "${urgency}" "Backported package. No changes made."
+		nano "debian/changelog"
+
+	else
+
+		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload attempt"
+
+	fi
 	
 	# rename original tarball with what dch generates from chagnelog update
 	# Remove dash for formatting

@@ -60,7 +60,7 @@ fi
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
-BUILDER="pbuilder"
+BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 pkgname="$PKGNAME"
 pkgver="$PKGVER"
@@ -167,7 +167,20 @@ main()
 	
 	# Get filename only from DSC URL
 	DSC_FILENAME=$(basename "${DSC}")
-
+	
+	# update changelog
+	# Be sure to include a pacakge revision (e.g. "-1" with "bc_1.0.0+bsos-1") if needed!
+	echo -e "\n==> Updating changelog with dch. Adjust as necessary"
+	sleep 2s
+	
+	cd ${PKGNAME}* || exit
+	dch || exit
+	
+	# rename original tarball with what dch generates from chagnelog update
+	# Remove dash for formatting
+	TARBALL_RENAME=$(basename `find .. -maxdepth 1 -type d | grep ${PKGNAME}` | sed 's/-/_/')
+	mv ../*.orig.tar.gz ../${TARBALL_RENAME}.orig.tar.gz
+	
 	#################################################
 	# Build Debian package
 	#################################################
@@ -183,7 +196,7 @@ main()
 	if [[ "${METHOD}" == "pbuilder" ]]; then
 
 		if ! sudo -E BUILD_DIR=${BUILD_DIR} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
-		build ${BUILDOPTS} ${DSC_FILENAME};  then
+		${BUILDOPTS}; then
 
 			# back out to scriptdir
 			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"

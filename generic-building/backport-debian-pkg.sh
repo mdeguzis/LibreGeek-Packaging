@@ -189,8 +189,9 @@ main()
 	
 	# rename original tarball with what dch generates from chagnelog update
 	# Remove dash for formatting
-	TARBALL_RENAME=$(basename `find .. -maxdepth 1 -type d | grep ${PKGNAME}` | sed 's/-/_/')
-	mv ../*.orig.tar.gz ../${TARBALL_RENAME}.orig.tar.gz
+	
+	# TARBALL_RENAME=$(basename `find .. -maxdepth 1 -type d | grep ${PKGNAME}` | sed 's/-/_/')
+	mv ../*.orig.tar.gz ../${pkgver}+${pkgsuffix}.orig.tar.gz
 	
 	#################################################
 	# Build Debian package

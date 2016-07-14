@@ -61,7 +61,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
 BUILDER="pbuilder"
-BUILDOPTS="--debbuildopts -sa"
+BUILDOPTS="--debbuildopts \"-sa -v1.0\""
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 pkgname="$PKGNAME"
 pkgver="$PKGVER"
@@ -170,8 +170,7 @@ main()
 	if [[ "${METHOD}" == "pbuilder" ]]; then
 
 		if ! sudo -E BUILD_DIR=${BUILD_DIR} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
-		--build "${DSC_FILENAME}" ${BUILDOPTS} --distribution=${DIST} \
-		&& rm -f ${DSC_FILENAME}; then
+		build ${DSC_FILENAME} ${BUILDOPTS};  then
 
 			# back out to scriptdir
 			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"
@@ -205,6 +204,8 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
+
+	rm -f ${DSC_FILENAME}
 
 	# note time ended
 	time_end=$(date +%s)

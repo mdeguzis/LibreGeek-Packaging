@@ -196,11 +196,11 @@ main()
 
 	if [[ "${DIST}" == "brewmaster" ]]; then
 
-		DIST_CODE="bsos"
+		DIST_CODE="~bsos"
 
 	elif [[ "${DIST}" == "jessie" ]]; then
 
-		DIST_CODE="bpo8"
+		DIST_CODE="~bpo8"
 
 	fi
 
@@ -251,7 +251,7 @@ main()
 	# Calculate the ending suffix 
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
-		PKGSUFFIX="${DIST_CODE}-${PKGREV}"
+		PKGSUFFIX="${DIST_CODE}+${PKGREV}"
 
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 

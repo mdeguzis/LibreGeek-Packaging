@@ -149,7 +149,7 @@ main()
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIR}" || && sleep 5s && exit 1
+	cd "${BUILD_DIR}" || echo "Cannot enter build directory!" && sleep 5s
 
 	# install prereqs for build
 

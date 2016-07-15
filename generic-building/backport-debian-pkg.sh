@@ -149,7 +149,7 @@ main()
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIR}" || exit
+	cd "${BUILD_DIR}" || && sleep 5s && exit 1
 
 	# install prereqs for build
 
@@ -208,7 +208,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGNAME}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
-	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 5s &&  exit 1
+	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 5s
 
 	# Last safey check - debian folder
 

@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	backport-debian-pkg.sh.sh
-# Script Ver:	3.3.1
+# Script Ver:	3.6.1
 # Description:	Attempts to build a deb package from upstream Debian source code.
 #		files. Currently only Ubuntu and Debian .dsc files are supported.
 #		Supports full package name/versioning changes to match your repo.
@@ -34,27 +34,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
-
-fi
-
-
-if [[ "${arg1}" == "--testing" ]]; then
-
-	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
-
-else
-
-	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
-
-fi
-
-if [[ "${final_opts}" == "--beta-repo" ]]; then
-
-	BETA_REPO="true"
-
-else
-
-	BETA_REPO="false"
 
 fi
 
@@ -126,14 +105,21 @@ main()
 	if  [[ "${DSC}" == "" ]]; then DSC="${OLD_DSC}"; fi
 	export OLD_DSC="${DSC}"
 
-	# Set build opts vars based on the above
-	if [[ "${DIST}" == "brewmaster" ]]; then
+	# Set projet folder name for uploading built packages
 
-		PKGSUFFIX="bsos"
+	if [[ "${DIST}" == "brewmaster" ]]; then PROJECT_FOLDER="steamos-tools"; fi
+	if [[ "${DIST}" == "jessie" ]]; then PROJECT_FOLDER="debian"; fi
+	if [[ "${DIST}" == "jessie-backports" ]]; then PROJECT_FOLDER="debian"; fi
 
-	elif [[ "${DIST}" == "jessie" ]]; then
+	# Set repo folder full path for rsync
 
-		PKGSUFFIX="bpo8"
+	if [[ "${arg1}" == "--testing" ]]; then
+
+		REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
+
+	else
+
+		REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
 
 	fi
 
@@ -166,9 +152,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	# Obtain all necessary vias via dget
-	# download only, as unverified sources (say a Ubuntu pkg build on Debian) will not extar t automagically
-	# Also do not want dpkg-source applying patches before build...
+	# Obtain all necessary files specified in .dsc via dget
+	# Download only, as unverified sources (say a Ubuntu pkg build on Debian) will not auto-extract
+	# Also do not want dpkg-source applying patches before build...(issues then with pbuilder)
 	dget -d "${DSC}"
 
 	# Get filename only from DSC URL
@@ -186,42 +172,55 @@ main()
 
 	# Add more cases below at some point..
 
-	if [[ "${SOURCE_UNPACK_TEST}" == "" ]]; then
+	echo -e "\n==> Unpacking original source\n"
+	sleep 2s
 
-		echo -e "\n==>Unpacking original source\n"
-		sleep 2s
+	# Unpack the original tarball
+	case "${ORIG_TARBALL_FILENAME}" in
 
-		# No source is unpacked, unpack the original tarball
-		case "${ORIG_TARBALL_FILENAME}" in
+		*.tar.xz)
+		tar -xvf *.orig.tar.xz
+		;;
 
-			*.tar.xz)
-			tar -xvf *.orig.tar.xz
-			;;
+		*.tar.gz)
+		tar -xzvf *.orig.tar.gz
+		;;
 
-			*.tar.gz)
-			tar -xzvf *.orig.tar.gz
-			;;
+	esac
 
-		esac
+	# Set the source dir
+	SRC_DIR=$(basename `find "${BUILD_DIR}" -maxdepth 1 -type d -name "${PKGNAME}*"`)
+
+	# Set our suffix for backporting
+	# Update any of the below if distro versions change
+
+	if [[ "${DIST}" == "brewmaster" ]]; then
+
+		DIST_CODE="bsos"
+
+	elif [[ "${DIST}" == "jessie" ]]; then
+
+		DIST_CODE="bpo8"
 
 	fi
 
-	# Set the source dir
-	SRC_DIR=$(basename `find "${PWD}" -maxdepth 1 -type d -name "${PKGNAME}*"`)
-
 	# Create our new orig tarball after removing the current one
-	# Use original format
-	rm -f *.orig.tar.*
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
+	# Do this rather than rename, so an xz archive is not renamed as a fake gz archive
+	# Reminder: the orig tarball does NOT get a revision number!	
+
+	rm -f ${BUILD_DIR}/*.orig.tar.*
+	tar -cvzf "${PKGNAME}_${PKGVER}+${DIST_CODE}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
 	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 5s
 
 	# Last safey check - debian folder
+	# If the debian folder is in the original souce, keep it.
 
 	if [[ ! -d "${SRC_DIR}/debian" ]]; then
 
-		echo -e "\n==INFO==\ndebian folder NOT found! unpacking existing\n"
+		echo -e "==> debian folder NOT found! unpacking existing\n"
+
 		# no debian folder find and unpack the dget sourced file
 		DEBIAN_FOLDER=$(find "${BUILD_DIR}" -type f -name "*.debian.*")
 
@@ -243,18 +242,20 @@ main()
 
 	fi
 
-	# clean renaining files
+	# clean renaining files (not necessary, but keeps temp build dir clean ^_^ )
 	rm ${BUILD_DIR}/*.debian.* ${BUILD_DIR}/*.dsc
+
 	# Check source format
 	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')
 
+	# Calculate the ending suffix 
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
-		SUFFIX="${PKGSUFFIX}-${PKGREV}"
+		PKGSUFFIX="${DIST_CODE}-${PKGREV}"
 
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
-		SUFFIX="${PKGSUFFIX}${PKGREV}"
+		PKGSUFFIX="${DIST_CODE}${PKGREV}"
 
 	fi
 
@@ -269,13 +270,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-bad-version --force-distribution -v "${PKGVER}+${SUFFIX}" \
+		dch -p --force-bad-version --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Backported package. No changes made."
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-bad-version --force-distribution --create -v "${PKGVER}+${SUFFIX}" \
+		dch -p --force-bad-version --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 	fi
@@ -299,7 +300,7 @@ main()
 
 			# back out to scriptdir
 			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"
-			cd "${scritpdir}"
+			cd "${scriptdir}"
 
 		fi
 
@@ -329,8 +330,6 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-
-	rm -f ${DSC_FILENAME}
 
 	# note time ended
 	time_end=$(date +%s)

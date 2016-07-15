@@ -164,6 +164,7 @@ main()
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
+	sleep 2s
 
 	# Obtain all necessary vias via dget
 	# download only, as unverified sources (say a Ubuntu pkg build on Debian) will not extar t automagically

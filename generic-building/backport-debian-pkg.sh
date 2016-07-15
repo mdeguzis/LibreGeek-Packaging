@@ -100,10 +100,10 @@ main()
 	# now set the build dir for results
 	export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
 
-	echo -e "\nPress ENTER to use last: ${OLD_PKGNAME}"
-	read -erp "Target package version: " PKGNAME
-	if [[ "${PKGNAME}" == "" ]]; then PKGNAME="${OLD_PKGNAME}"; fi
-	export OLD_PKGNAME="${PKGNAME}"
+	echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
+	read -erp "Target package version: " PKGVER
+	if [[ "${PKGVER}" == "" ]]; then PKGVER="${OLD_PKGVER}"; fi
+	export OLD_PKGVER="${PKGVER}"
 
 	echo -e "\nPress ENTER to use last: ${OLD_PKGREV}"
 	read -erp "Package revision / attempt: " PKGREV

@@ -3,9 +3,10 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	backport-debian-pkg.sh.sh
-# Script Ver:	3.1.1
+# Script Ver:	3.3.1
 # Description:	Attempts to build a deb package from upstream Debian source code.
 #		files. Currently only Ubuntu and Debian .dsc files are supported.
+#		Supports full package name/versioning changes to match your repo.
 #
 # See:		https://wiki.debian.org/BuildingFormalBackports
 #

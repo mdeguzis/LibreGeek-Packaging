@@ -166,7 +166,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# Obtain all necessary vias via dget
-	dget "${DSC}"
+	# download only, as unverified sources (say a Ubuntu pkg build on Debian) will not extar t automagically
+	# Also do not want dpkg-source applying patches before build...
+	dget -d "${DSC}"
 
 	# Get filename only from DSC URL
 	DSC_FILENAME=$(basename "${DSC}")
@@ -179,13 +181,16 @@ main()
 	SOURCE_UNPACK_TEST=$(find "${BUILD_DIR}" -maxdepth 1 -type d -name "${PKGNAME}-${PKGNAME}")
 	ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*.orig.*")
 	ORIG_TARBALL_FILENAME=$(basename ${ORIG_TARBALL})
-	ORIG_TARBALL_EXT=$(echo ${ORIG_TARBALL_FILENAME | awk -F . '{print $NF}'})
+	ORIG_TARBALL_EXT=$(echo ${ORIG_TARBALL_FILENAME} | awk -F . '{print $NF}'})
 
 	# Add more cases below at some point..
 
 	if [[ "${SOURCE_UNPACK_TEST}" == "" ]]; then
 
-		# No souce is unpacked, unpack the original tarball
+		echo -e "\n==>Unpacking original source\n"
+		sleep 2s
+
+		# No source is unpacked, unpack the original tarball
 		case "${ORIG_TARBALL_FILENAME}" in
 
 			*.tar.xz)
@@ -199,10 +204,10 @@ main()
 		esac
 
 	fi
-	
+
 	# Set the source dir
 	SRC_DIR=$(basename `find "${PWD}" -maxdepth 1 -type d -name "${PKGNAME}*"`)
-	
+
 	# Create our new orig tarball after removing the current one
 	# Use original format
 	rm -f *.orig.tar.*
@@ -213,8 +218,9 @@ main()
 
 	# Last safey check - debian folder
 
-	if [[ ! -d "debian" ]]; then
+	if [[ ! -d "${SRC_DIR}/debian" ]]; then
 
+		echo -e "\n==INFO==\ndebian folder NOT found! unpacking existing\n"
 		# no debian folder find and unpack the dget sourced file
 		DEBIAN_FOLDER=$(find "${BUILD_DIR}" -type f -name "*.debian.*")
 
@@ -230,15 +236,21 @@ main()
 
 		esac
 
+	else
+
+		echo "debian dir found!"
+
 	fi
 
+	# clean renaining files
+	rm ${BUILD_DIR}/*.debian.* ${BUILD_DIR}/*.dsc
 	# Check source format
 	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')
-	
+
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
 		SUFFIX="${PKGSUFFIX}-${PKGREV}"
-	
+
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
 		SUFFIX="${PKGSUFFIX}${PKGREV}"

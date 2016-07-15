@@ -65,15 +65,15 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 PKGNAME="$PKGNAME"
-PKGVER="$PKGVER"
+PKGNAME="$PKGNAME"
 PKGREV="1"
 URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build dirs
-src_dir="${PKGNAME}-${PKGVER}"
-git_dir="${BUILD_DIR}/${src_dir}"
+SRC_DIR="${PKGNAME}-${PKGNAME}"
+git_dir="${BUILD_DIR}/${SRC_DIR}"
 
 install_prereqs()
 {
@@ -100,10 +100,10 @@ main()
 	# now set the build dir for results
 	export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
 
-	echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
-	read -erp "Target package version: " PKGVER
-	if [[ "${PKGVER}" == "" ]]; then PKGVER="${OLD_PKGVER}"; fi
-	export OLD_PKGVER="${PKGVER}"
+	echo -e "\nPress ENTER to use last: ${OLD_PKGNAME}"
+	read -erp "Target package version: " PKGNAME
+	if [[ "${PKGNAME}" == "" ]]; then PKGNAME="${OLD_PKGNAME}"; fi
+	export OLD_PKGNAME="${PKGNAME}"
 
 	echo -e "\nPress ENTER to use last: ${OLD_PKGREV}"
 	read -erp "Package revision / attempt: " PKGREV
@@ -172,10 +172,13 @@ main()
 
 	# Test if we have an unpacked source or not
 	# Ubuntu tends to not have an unpacked source
+	# The “-F” marks the delimiter, “$NF” means the last field generated. 
+	# You can also use extension="${orig##*.}"
 
-	SOURCE_UNPACK_TEST=$(find "${BUILD_DIR}" -maxdepth 1 -type d -name "${PKGNAME}-${PKGVER}")
+	SOURCE_UNPACK_TEST=$(find "${BUILD_DIR}" -maxdepth 1 -type d -name "${PKGNAME}-${PKGNAME}")
 	ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*.orig.*")
 	ORIG_TARBALL_FILENAME=$(basename ${ORIG_TARBALL})
+	ORIG_TARBALL_EXT=$(echo ${ORIG_TARBALL_FILENAME | awk -F . '{print $NF}'})
 
 	# Add more cases below at some point..
 
@@ -195,9 +198,17 @@ main()
 		esac
 
 	fi
+	
+	# Set the source dir
+	SRC_DIR=$(basename `find "${PWD}" -maxdepth 1 -type d -name "${PKGNAME}*"`)
+	
+	# Create our new orig tarball after removing the current one
+	# Use original format
+	rm -f *.orig.tar.*
+	tar -cvzf "${PKGNAME}_${PKGNAME}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
-	cd ${PKGNAME}* || exit 1
+	cd ${SRC_DIR} || echo "Cannot enter source directory!" && exit 1
 
 	# Last safey check - debian folder
 
@@ -220,6 +231,19 @@ main()
 
 	fi
 
+	# Check source format
+	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')
+	
+	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
+
+		SUFFIX="${PKGSUFFIX}-${PKGREV}"
+	
+	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
+
+		SUFFIX="${PKGSUFFIX}${PKGREV}"
+
+	fi
+
 	# update changelog
 	# Be sure to include a pacakge revision (e.g. "-1" with "bc_1.0.0+bsos-1") if needed!
 	echo -e "\n==> Updating changelog with dch. Adjust as necessary"
@@ -228,22 +252,17 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGNAME}+${SUFFIX}" \
 		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Backported package. No changes made."
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution --create -v "${PKGNAME}+${SUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 	fi
 
-	# rename original tarball with what dch generates from chagnelog update
-	# Remove dash for formatting
-
-	# TARBALL_RENAME=$(basename `find .. -maxdepth 1 -type d | grep ${PKGNAME}` | sed 's/-/_/')
-	mv ../*.orig.tar.gz ../${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz
 
 	#################################################
 	# Build Debian package
@@ -319,7 +338,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGNAME}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

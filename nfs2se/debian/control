@@ -5,6 +5,7 @@ Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9.20141010~),
  gcc:i386,
  libsdl2-dev:i386
+ yasm:i386
 Standards-Version: 3.9.8
 Homepage: https://github.com/zaps166/NFSIISE/
 

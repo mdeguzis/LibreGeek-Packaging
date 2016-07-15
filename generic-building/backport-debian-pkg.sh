@@ -247,8 +247,11 @@ main()
 
 	# update changelog
 	# Be sure to include a pacakge revision (e.g. "-1" with "bc_1.0.0+bsos-1") if needed!
-	echo -e "\n==> Updating changelog with dch. Adjust as necessary"
-	sleep 2s
+	# If a package has an epoch such as "7:ffmpeg_2.7.6-ubuntu", be sure to bump this number 
+	# if you already have a package in your repository with a lesser or equal epoch.
+
+	echo -e "\n==> Updating changelog with dch. Adjust as necessary. Be mindful of epochs!"
+	sleep 4s
 
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
@@ -263,7 +266,6 @@ main()
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 	fi
-
 
 	#################################################
 	# Build Debian package

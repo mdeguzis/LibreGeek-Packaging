@@ -107,11 +107,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${target}" "${git_url}" "${git_dir}"
-	
-	# Add some files upstream pulls down in real-time
-	mkdir -p "${git_dir}/src/game-obj/"
-	wget -P "${git_dir}/src/game-obj/" "http://zaps166.sourceforge.net/downloads/nfs2se-obj/NFS2SE.Linux.o" -q -nc --show-progress
+	git clone --recursive -b "${target}" "${git_url}" "${git_dir}"
 
 	# modify desktop file
 	sed -i 's/Icon\=nfs2se/Icon\=\/usr\/share\/pixmaps\/nfs2se.png/' "${gid_dir}/Need For Speed II SE/nfs2se.desktop"

@@ -208,7 +208,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGNAME}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
-	cd ${SRC_DIR} || echo "Cannot enter source directory!" && exit 1
+	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 5s &&  exit 1
 
 	# Last safey check - debian folder
 

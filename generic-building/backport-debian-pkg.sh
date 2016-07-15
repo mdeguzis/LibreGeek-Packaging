@@ -182,7 +182,7 @@ main()
 	SOURCE_UNPACK_TEST=$(find "${BUILD_DIR}" -maxdepth 1 -type d -name "${PKGNAME}-${PKGNAME}")
 	ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*.orig.*")
 	ORIG_TARBALL_FILENAME=$(basename ${ORIG_TARBALL})
-	ORIG_TARBALL_EXT=$(echo ${ORIG_TARBALL_FILENAME} | awk -F . '{print $NF}'})
+	ORIG_TARBALL_EXT=$(echo ${ORIG_TARBALL_FILENAME} | awk -F . '{print $NF}')
 
 	# Add more cases below at some point..
 

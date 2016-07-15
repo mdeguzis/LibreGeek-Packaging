@@ -204,7 +204,7 @@ main()
 	if [[ ! -d "debian" ]]; then
 
 		# no debian folder find and unpack the dget sourced file
-		DEBIAN_FOLDER=$(find "${BUILD_DIR}" -type f -name "*.debian.*)
+		DEBIAN_FOLDER=$(find "${BUILD_DIR}" -type f -name "*.debian.*")
 
 		case "${DEBIAN_FOLDER}" in
 

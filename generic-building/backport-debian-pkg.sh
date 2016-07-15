@@ -252,13 +252,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGNAME}+${SUFFIX}" \
+		dch -p --force-bad-version --force-distribution -v "${PKGNAME}+${SUFFIX}" \
 		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Backported package. No changes made."
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${PKGNAME}+${SUFFIX}" \
+		dch -p --force-bad-version --force-distribution --create -v "${PKGNAME}+${SUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 	fi

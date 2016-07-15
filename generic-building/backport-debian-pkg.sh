@@ -205,7 +205,7 @@ main()
 	# Create our new orig tarball after removing the current one
 	# Use original format
 	rm -f *.orig.tar.*
-	tar -cvzf "${PKGNAME}_${PKGNAME}.orig.tar.gz" "${SRC_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
 	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 5s

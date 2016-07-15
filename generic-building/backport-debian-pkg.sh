@@ -3,10 +3,11 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	backport-debian-pkg.sh.sh
-# Script Ver:	1.8.1
-# Description:	Attempts to build a deb package from backported stretch package
+# Script Ver:	3.1.1
+# Description:	Attempts to build a deb package from upstream Debian source code.
+#		files. Currently only Ubuntu and Debian .dsc files are supported.
 #
-# See:		https://github.com/rust-lang/rust
+# See:		https://wiki.debian.org/BuildingFormalBackports
 #
 # Usage:	./backport-debian-pkg.sh.sh
 # Opts:		[--testing]
@@ -103,7 +104,7 @@ main()
 	read -erp "Target package version: " PKGVER
 	if [[ "${PKGVER}" == "" ]]; then PKGVER="${OLD_PKGVER}"; fi
 	export OLD_PKGVER="${PKGVER}"
-	
+
 	echo -e "\nPress ENTER to use last: ${OLD_PKGREV}"
 	read -erp "Package revision / attempt: " PKGREV
 	if [[ "${PKGREV}" == "" ]]; then PKGREV="${OLD_PKGREV}"; fi
@@ -133,7 +134,7 @@ main()
 
 		PKGSUFFIX="bpo8"
 
-	fi	
+	fi
 
 	# create BUILD_DIR
 	if [[ -d "${BUILD_DIR}" ]]; then
@@ -165,17 +166,65 @@ main()
 
 	# Obtain all necessary vias via dget
 	dget "${DSC}"
-	
+
 	# Get filename only from DSC URL
 	DSC_FILENAME=$(basename "${DSC}")
-	
+
+	# Test if we have an unpacked source or not
+	# Ubuntu tends to not have an unpacked source
+
+	SOURCE_UNPACK_TEST=$(find "${BUILD_DIR}" -maxdepth 1 -type d -name "${PKGNAME}-${PKGVER}")
+	ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*.orig.*")
+	ORIG_TARBALL_FILENAME=$(basename ${ORIG_TARBALL})
+
+	# Add more cases below at some point..
+
+	if [[ "${SOURCE_UNPACK_TEST}" == "" ]]; then
+
+		# No souce is unpacked, unpack the original tarball
+		case "${ORIG_TARBALL_FILENAME}" in
+
+			*.tar.xz)
+			tar -xvf *.orig.tar.xz
+			;;
+
+			*.tar.gz)
+			tar -xzvf *.orig.tar.gz
+			;;
+
+		esac
+
+	fi
+
+	# Enter source dir
+	cd ${PKGNAME}* || exit 1
+
+	# Last safey check - debian folder
+
+	if [[ ! -d "debian" ]]; then
+
+		# no debian folder find and unpack the dget sourced file
+		DEBIAN_FOLDER=$(find "${BUILD_DIR}" -type f -name "*.debian.*)
+
+		case "${DEBIAN_FOLDER}" in
+
+			*.tar.xz)
+			tar -xvf "${DEBIAN_FOLDER}" -C "${PWD}"
+			;;
+
+			*.tar.gz)
+			tar -xzvf "${DEBIAN_FOLDER}" -C "${PWD}"
+			;;
+
+		esac
+
+	fi
+
 	# update changelog
 	# Be sure to include a pacakge revision (e.g. "-1" with "bc_1.0.0+bsos-1") if needed!
 	echo -e "\n==> Updating changelog with dch. Adjust as necessary"
 	sleep 2s
-	
-	cd ${PKGNAME}* || exit
-	
+
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
@@ -189,13 +238,13 @@ main()
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 	fi
-	
+
 	# rename original tarball with what dch generates from chagnelog update
 	# Remove dash for formatting
-	
+
 	# TARBALL_RENAME=$(basename `find .. -maxdepth 1 -type d | grep ${PKGNAME}` | sed 's/-/_/')
 	mv ../*.orig.tar.gz ../${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz
-	
+
 	#################################################
 	# Build Debian package
 	#################################################
@@ -204,7 +253,7 @@ main()
 	sleep 2s
 
 	# Ask what method
-	
+
 	echo -e "\n==> Use what method? [pbuilder|local]"
 	read -erp "Choice: " METHOD
 

@@ -6,7 +6,7 @@ export C_FLAGS=-Wall -m32 -O2 $(CPU_FLAGS)
 export STRIP=-s
 export LIB32_DIR=/usr/lib/i386-linux-gnu/
 export GAME_DIR=Need For Speed II SE
-# export DEBUG_ASM='-g dwarf2'
+export DEBUG_ASM='-g dwarf2'
 
 %:
 	dh $@

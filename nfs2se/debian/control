@@ -4,8 +4,8 @@ Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9.20141010~),
  gcc:i386,
- libsdl2-dev:i386
- yasm:i386
+ libsdl2-dev:i386,
+ yasm
 Standards-Version: 3.9.8
 Homepage: https://github.com/zaps166/NFSIISE/
 
@@ -14,5 +14,6 @@ Architecture: i386
 Depends: ${misc:Depends}, ${shlibs:Depends},
  libdrm2:i386,
  libglapi-mesa:i386,
- libgl1-mesa-dri:i386
+ libgl1-mesa-dri:i386,
+ libsdl2-2.0-0:i386
 Description: NFSII SE Linux Engine Port

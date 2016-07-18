@@ -162,10 +162,10 @@ main()
 
 	# Test if we have an unpacked source or not
 	# Ubuntu tends to not have an unpacked source
-	# The “-F” marks the delimiter, “$NF” means the last field generated. 
+	# The “-F” marks the delimiter, “$NF” means the last field generated.
 	# You can also use extension="${orig##*.}"
 
-	SOURCE_UNPACK_TEST=$(find "${BUILD_DIR}" -maxdepth 1 -type d -name "${PKGNAME}-${PKGNAME}")
+	SOURCE_UNPACK_TEST=$(find ${BUILD_DIR} -maxdepth 1 -type d -iname ${PKGNAME}-${PKGVER})
 	ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*.orig.*")
 	ORIG_TARBALL_FILENAME=$(basename ${ORIG_TARBALL})
 	ORIG_TARBALL_EXT=$(echo ${ORIG_TARBALL_FILENAME} | awk -F . '{print $NF}')
@@ -189,14 +189,14 @@ main()
 	esac
 
 	# Set the source dir
-	SRC_DIR=$(basename `find "${BUILD_DIR}" -maxdepth 1 -type d -name "${PKGNAME}*"`)
+	SRC_DIR=$(basename `find "${BUILD_DIR}" -maxdepth 1 -type d -iname "${PKGNAME}*"`)
 
 	# Set our suffix for backporting
 	# Update any of the below if distro versions change
 
 	if [[ "${DIST}" == "brewmaster" ]]; then
 
-		DIST_CODE="~bsos"
+		DIST_CODE="+bsos"
 
 	elif [[ "${DIST}" == "jessie" ]]; then
 
@@ -209,7 +209,7 @@ main()
 	# Reminder: the orig tarball does NOT get a revision number!	
 
 	rm -f ${BUILD_DIR}/*.orig.tar.*
-	tar -cvzf "${PKGNAME}_${PKGVER}+${DIST_CODE}.orig.tar.gz" "${SRC_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
 	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 5s
@@ -251,7 +251,7 @@ main()
 	# Calculate the ending suffix 
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
-		PKGSUFFIX="${DIST_CODE}+${PKGREV}"
+		PKGSUFFIX="${DIST_CODE}-${PKGREV}"
 
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
@@ -270,13 +270,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-bad-version --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		dch -p --force-bad-version --force-distribution -v "${PKGVER}${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Backported package. No changes made."
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-bad-version --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}" \
+		dch -p --force-bad-version --force-distribution --create -v "${PKGVER}${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 	fi

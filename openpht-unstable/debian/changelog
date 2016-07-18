@@ -1,3 +1,9 @@
+openpht-unstable (1.6+20160713git+bsos-1) brewmaster; urgency=low
+
+  * Update build/release to latest commit
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 13 Jul 2016 20:14:52 -0400
+
 openpht (1.5.2+git+bsos1-1) brewmaster; urgency=low
 
   * New 1.5.2 release (pre-release)

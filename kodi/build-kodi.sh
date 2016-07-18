@@ -83,7 +83,7 @@ set_vars()
 	ARCH="amd64"
 	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 	date_short=$(date +%Y%m%d)
-	
+
 	# source vars
 	GIT_URL="git://github.com/xbmc/xbmc.git"
 	export BUILD_DIR="$HOME/build-${PKGNAME}-temp"
@@ -92,7 +92,7 @@ set_vars()
 
 	# Set target for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
-	kodi_tag=""
+	KODI_TAG=""
 
 	###################
 	# global vars
@@ -326,8 +326,7 @@ kodi_package_deb()
 
 	# get user choice
 	sleep 0.2s
-	read -erp "Release Choice: " 
-KOD_TAG
+	read -erp "Release Choice: " KODI_TAG
 
 	# If the tag is left blank, set to master
 
@@ -336,9 +335,9 @@ KOD_TAG
 
 		# Check out requested tag
 		git checkout "tags/${KODI_TAG}"
-		
+
 	else
-		
+
 		# use master branch, set version tag to current latest tag
 		KODI_TAG=$(git describe --abbrev=0 --tags)
 
@@ -385,10 +384,10 @@ KOD_TAG
 		read -erp "Location: " PBUILDER_BASE
 
 		if [[ "${PBUILDER_BASE}" == "" ]]; then
-			
+
 			# set to default on most systems
 			PBUILDER_BASE="/var/cache/pbuilder/"
-			
+
 		fi
 
 		# Add any overrides for mk-debian-package.sh below
@@ -448,7 +447,7 @@ kodi_build_src()
 
 	# FOR PACKAGING DEB ONLY (TESTING)
 	# It may seem that per "http://forum.kodi.tv/showthread.php?tid=80754", we need to
-	# export package config. 
+	# export package config.
 
 	# Configure with bluray support
 	# Rmove --disable-airplay --disable-airtunes, not working right now

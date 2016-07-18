@@ -51,7 +51,7 @@ fi
 git_url="https://github.com/Pulse-Eight/libcec"
 # For Kodi's Jarvis release, it is more than likely platform will still be used
 # For now, use the commit before this was changed or the release tree (uses platform)
-branch="libcec-3.1.0"
+branch="libcec-3.0.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,8 +61,9 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libcec"
-pkgver="3.1.0"
-pkgrev="3"
+pkgver="3.0.1"
+pkgrev="1"
+epoch="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"
@@ -123,9 +124,8 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "${branch}" "${git_url}" "${git_dir}"
-	cd "${git_dir}" && git checkout "${tag}"
 
-	# Upsteam has split control files ATM, remove precise file that conflicts in build
+6	# Upsteam has split control files ATM, remove precise file that conflicts in build
 	rm -f "${git_dir}/debian/control.precise"
 
 	#################################################
@@ -148,13 +148,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Update build with p8-platform rename build dep"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Inital build"
 		nano "debian/changelog"
 

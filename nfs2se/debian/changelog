@@ -1,3 +1,9 @@
+nfs2se (1.0.0+20160717git+bsos-1) brewmaster; urgency=low
+
+  * Test new submodule build process
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 17 Jul 2016 09:55:05 -0400
+
 nfs2se (1.0.0+20160708git+bsos-2) brewmaster; urgency=low
 
   * Initial upload

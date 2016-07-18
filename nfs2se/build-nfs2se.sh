@@ -57,7 +57,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="nfs2se"
 pkgver="1.0.0"
-pkgrev="2"
+pkgrev="1"
 pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -110,7 +110,7 @@ main()
 	git clone --recursive -b "${target}" "${git_url}" "${git_dir}"
 
 	# modify desktop file
-	sed -i 's/Icon\=nfs2se/Icon\=\/usr\/share\/pixmaps\/nfs2se.png/' "${gid_dir}/Need For Speed II SE/nfs2se.desktop"
+	sed -i 's/Icon\=nfs2se/Icon\=\/usr\/share\/pixmaps\/nfs2se.png/' "${git_dir}/Need For Speed II SE/nfs2se.desktop"
 
 	#################################################
 	# Build package
@@ -136,7 +136,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to latest release"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Test new submodule build process"
 		nano "debian/changelog"
 
 	else

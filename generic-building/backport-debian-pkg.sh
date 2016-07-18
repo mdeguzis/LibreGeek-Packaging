@@ -7,6 +7,8 @@
 # Description:	Attempts to build a deb package from upstream Debian source code.
 #		files. Currently only Ubuntu and Debian .dsc files are supported.
 #		Supports full package name/versioning changes to match your repo.
+#		<!-- This script does not yet support multi-orig tarballs / bz2
+#		files, such as llvm-defaults-3-8 -->
 #
 # See:		https://wiki.debian.org/BuildingFormalBackports
 #

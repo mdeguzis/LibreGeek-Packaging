@@ -17,11 +17,15 @@
 
 override_dh_auto_clean:
 
-override_dh_clean:
-	rm -rf Build
+override_dh_auto_configure:
 
 override_dh_auto_build:
-	rm -rf Build && mkdir -p Build
-	cd Build && cmake -DCMAKE_CXX_COMPILER=clang++ \
+	rm -rf rpcs3/build && mkdir -p rpcs3/build
+	cd rpcs3/build && cmake .. 
+			-DCMAKE_BUILD_TYPE='Release' \ 
+			-DCMAKE_CXX_COMPILER=clang++ \
 			-DCMAKE_C_COMPILER=clang \
-			-DCMAKE_INSTALL_PREFIX=/usr ..
+			-DUSE_SYSTEM_LIBPNG='ON' \ 
+			-DUSE_SYSTEM_FFMPEG='ON' \
+			-DCMAKE_INSTALL_PREFIX=/usr
+	make

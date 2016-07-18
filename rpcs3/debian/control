@@ -4,7 +4,7 @@ Priority: optional
 Build-Depends: debhelper,
  build-essential,
  cmake,
- clang (>= 3.6),
+ clang (>= 3.8),
  git-core,
  libc6-dev,
  libedit-dev,
@@ -12,6 +12,7 @@ Build-Depends: debhelper,
  libglew-dev,
  libstdc++-4.8-dev,
  lib32stdc++6,
+ libvulkan-dev,
  libwxgtk3.0-dev,
  zlib1g-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>

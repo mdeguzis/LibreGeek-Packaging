@@ -68,10 +68,9 @@ install_prereqs()
 
 }
 
-main()
+function_set_vars()
 {
-
-	# get vars
+	
 	echo -e "\n==> Setting vars\n"
 
 	echo -e "\nPress ENTER to use last: ${OLD_PKGNAME}"
@@ -124,8 +123,12 @@ main()
 		REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
 
 	fi
+	
+}
 
-	# create BUILD_DIR
+function_setup_env()
+{
+
 	if [[ -d "${BUILD_DIR}" ]]; then
 
 		sudo rm -rf "${BUILD_DIR}"
@@ -148,6 +151,11 @@ main()
 		install_prereqs
 
 	fi
+	
+}
+
+function_get_source()
+{
 
 	# Clone upstream source code and branch
 
@@ -162,13 +170,57 @@ main()
 	# Get filename only from DSC URL
 	DSC_FILENAME=$(basename "${DSC}")
 
+	# Test first If we have multiple original archives
+	# Some packages, like llvm-toolchain, contain multiple bz2 archives
+	# This is tough to handle automatically, so care must be taken outside of this
+	# script to backport the package.
+
+	if [[ "$(find ${PWD} -name "*.bz2*" | wc)" -gt "1" ]]; then
+	
+		# Set flag
+		ORIG_MULTI="yes"
+
+		# dealing with multiple bz2 archives
+		cat<<-EOF
+
+		==INFO==
+		Changing versioning for multiple archives is not supported
+		Retaining existing versioning scheme. 
+
+		EOF
+
+		# kick off function
+		function_backport_multi_orig && show_summary || exit 1
+		
+	else
+	
+		# set flag
+		ORIG_MULTI="no"
+
+	fi
+
+}
+
+function_backport_pkg()
+{
+	
 	# Test if we have an unpacked source or not
 	# Ubuntu tends to not have an unpacked source
 	# The “-F” marks the delimiter, “$NF” means the last field generated.
 	# You can also use extension="${orig##*.}"
 
-	SOURCE_UNPACK_TEST=$(find ${BUILD_DIR} -maxdepth 1 -type d -iname ${PKGNAME}-${PKGVER})
-	ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*.orig.*")
+	SOURCE_UNPACK_TEST=$(find ${BUILD_DIR} -maxdepth 1 -type d -iname ${PKGNAME}*)
+	ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*orig*")
+
+	# Account for pacakges (like quake2) that only list a dsc and xz archive
+	if [[ "${ORIG_TARBALL}" == "" ]]; then
+
+		# we must be working only with a .xz archive, sans "orig" in filename
+		ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*.xz")
+
+	fi
+	
+	# Declare rest of original source
 	ORIG_TARBALL_FILENAME=$(basename ${ORIG_TARBALL})
 	ORIG_TARBALL_EXT=$(echo ${ORIG_TARBALL_FILENAME} | awk -F . '{print $NF}')
 
@@ -179,6 +231,10 @@ main()
 
 	# Unpack the original tarball
 	case "${ORIG_TARBALL_FILENAME}" in
+
+		*.tar.bz2)
+		tar -vxjf *.tar.bz2
+		;;
 
 		*.tar.xz)
 		tar -xvf *.orig.tar.xz
@@ -328,6 +384,66 @@ main()
 		dpkg-buildpackage -us -uc
 
 	fi
+	
+	
+}
+
+function_backport_pkg_multi()
+{
+	
+	# TODO
+	:
+	
+}
+
+
+main()
+{
+
+	# set vars
+	function_set_vars
+
+	# Setup
+	function_setup_env
+
+	# Get source
+	function_get_source
+	
+	# Backport
+	if [[ "${ORIG_MULTI}" == "no" ]]; then
+
+		# Dealing with a single original source archive
+		function_backport_pkg
+
+		# Show summary
+		function_show_summary
+
+	elif [[ "${ORIG_MULTI}" == "yes" ]]; then
+
+		# This involves mutliple original source archives
+		function_backport_pkg_multi
+		
+		# Show summary
+		function_show_summary
+
+	else
+		
+		cat<<-EOF
+
+		==INFO==
+		It is not currently possible to backport this package using 
+		this automated script. Please do so manually
+
+		EOF
+
+		sleep 5s && exit 1
+
+	fi
+
+}
+
+function_show_summary()
+{
 
 	#################################################
 	# Cleanup

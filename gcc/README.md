@@ -10,7 +10,7 @@ Adventures in building the GNU Cross Compiler / Binutils.
 
 # Apporaches that don't really work
 
-* Building binutils directly from the .dsc file (seperately), using pbuilder, dist jessie
+* ([log](http://sprunge.us/KQXh)) Building binutils directly from the .dsc file (seperately), using pbuilder, dist jessie
 * Building gcc-# directly from the .dsc file (seperately), using pbuilder, dist jessie
 
 # Approaches not yet tested

@@ -21,11 +21,11 @@ override_dh_auto_configure:
 
 override_dh_auto_build:
 	rm -rf rpcs3/build && mkdir -p rpcs3/build
-	cd rpcs3/build && cmake .. 
+	cd rpcs3/build && cmake \
 			-DCMAKE_BUILD_TYPE='Release' \ 
 			-DCMAKE_CXX_COMPILER=clang++ \
 			-DCMAKE_C_COMPILER=clang \
 			-DUSE_SYSTEM_LIBPNG='ON' \ 
 			-DUSE_SYSTEM_FFMPEG='ON' \
-			-DCMAKE_INSTALL_PREFIX=/usr
+			-DCMAKE_INSTALL_PREFIX=/usr ..
 	make

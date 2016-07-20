@@ -146,11 +146,6 @@ main()
 
 	# Add image to git dir
 	# cp -r "${scriptdir}/rpcs3.png" "${git_dir}"
-	
-	# Get latest commit and update submodules
-	cd "${git_dir}"
-	git submodule update --init
-	latest_commit=$(git log -n 1 --pretty=format:"%h" &>)
 
 	#################################################
 	# Prepare sources
@@ -193,6 +188,9 @@ main()
 
 	# enter source dir
 	cd "${git_dir}"
+	
+	# Get latest commit and update submodules
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

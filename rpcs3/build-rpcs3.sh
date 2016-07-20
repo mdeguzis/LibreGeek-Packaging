@@ -134,12 +134,7 @@ main()
 			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	fi
-	
-	# Get latest commit and update submodules
-	cd "${git_dir}"
-	git submodule update --init
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	
+
 	# Source latest release version from .git?
 	#release_tag=$(git describe --abbrev=0 --tags)
 	# Set pkg version
@@ -151,6 +146,11 @@ main()
 
 	# Add image to git dir
 	# cp -r "${scriptdir}/rpcs3.png" "${git_dir}"
+	
+	# Get latest commit and update submodules
+	cd "${git_dir}"
+	git submodule update --init
+	latest_commit=$(git log -n 1 --pretty=format:"%h" &>)
 
 	#################################################
 	# Prepare sources

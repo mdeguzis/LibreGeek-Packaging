@@ -5,3 +5,7 @@ LLVM 3.8 seems to be configured wrong. This prevents projects from working fully
 See:
 
 https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819072
+
+# Update
+
+Actually, the 3rd revision seems to have fixed this. Try building:

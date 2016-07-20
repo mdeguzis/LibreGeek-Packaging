@@ -38,7 +38,7 @@ gcc-5 steps to backport to Jessie:
 # General notes
 
 * [Cross-compiling tools package guidelines (Arch Linux)](How to Build a GCC Cross-Compiler)
-
+* [Build profile spec](https://wiki.debian.org/BuildProfileSpec)
 
 The general approach to building a cross compiler is:
 

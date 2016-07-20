@@ -4,9 +4,10 @@
 
 ##############################################################
 # Clang and GCC are too old on Debian Jessie, use Stretch
+# Must provide full path to binary or add to path
 ##############################################################
 # Using clang:
-# cmake -DCMAKE_CXX_COMPILER=clang++ -DCMAKE_C_COMPILER=clang
+# cmake -DCMAKE_CXX_COMPILER=clang++-3.8 -DCMAKE_C_COMPILER=clang-3.8
 
 # Using gcc
 # cmake -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc
@@ -14,6 +15,8 @@
 
 %:
 	dh $@
+
+override_dh_clean:
 
 override_dh_auto_clean:
 
@@ -23,8 +26,8 @@ override_dh_auto_build:
 	rm -rf build && mkdir build
 	cd build && cmake \
 			-DCMAKE_BUILD_TYPE='Release' \
-			-DCMAKE_CXX_COMPILER=clang++ \
-			-DCMAKE_C_COMPILER=clang \
+			-DCMAKE_CXX_COMPILER=clang++-3.8 \
+			-DCMAKE_C_COMPILER=clang-3.8 \
 			-DUSE_SYSTEM_LIBPNG='ON' \
 			-DUSE_SYSTEM_FFMPEG='ON' \
 			-DCMAKE_INSTALL_PREFIX=/usr ..

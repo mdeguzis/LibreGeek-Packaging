@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt name:	build-rpcs3.sh
-# Script Ver:	0.3.1
+# Script Ver:	0.4.1
 # Description:	Attempts to build a deb package from the latest rpcs3 source
 #		code.
 #
@@ -56,7 +56,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgver="0.0.0.6"
+#pkgver="0.0.0.6" 	# sourced from .git folder
 pkgname="rpcs3"
 pkgrev="1"
 # Base version sourced from ZIP file version
@@ -139,6 +139,10 @@ main()
 	cd "${git_dir}"
 	git submodule update --init
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	release_tag=$(git describe --abbrev=0 --tags)
+	
+	# Set pkg version
+	pkgver="${release_tag}"
         
         # There are a LOT of submodules/history, trim them
         #echo -e "\nTrimming .git folders"

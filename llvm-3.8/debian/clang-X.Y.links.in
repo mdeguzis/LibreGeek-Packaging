@@ -1,0 +1,3 @@
+usr/share/clang/scan-build-@LLVM_VERSION@/bin/scan-build  usr/bin/scan-build-@LLVM_VERSION@
+usr/share/clang/scan-view-@LLVM_VERSION@/bin/scan-view    usr/bin/scan-view-@LLVM_VERSION@
+

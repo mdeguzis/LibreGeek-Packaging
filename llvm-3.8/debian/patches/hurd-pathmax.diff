@@ -1,0 +1,59 @@
+Index: llvm-toolchain-snapshot_3.8~svn249277/clang/lib/Basic/FileManager.cpp
+===================================================================
+--- llvm-toolchain-snapshot_3.8~svn249277.orig/clang/lib/Basic/FileManager.cpp
++++ llvm-toolchain-snapshot_3.8~svn249277/clang/lib/Basic/FileManager.cpp
+@@ -499,6 +499,10 @@ void FileManager::invalidateCache(const
+   UniqueRealFiles.erase(Entry->getUniqueID());
+ }
+ 
++// For GNU Hurd
++#if defined(__GNU__) && !defined(PATH_MAX)
++# define PATH_MAX 4096
++#endif
+ 
+ void FileManager::GetUniqueIDMapping(
+                    SmallVectorImpl<const FileEntry *> &UIDToFiles) const {
+Index: llvm-toolchain-snapshot_3.8~svn249277/lldb/include/lldb/lldb-defines.h
+===================================================================
+--- llvm-toolchain-snapshot_3.8~svn249277.orig/lldb/include/lldb/lldb-defines.h
++++ llvm-toolchain-snapshot_3.8~svn249277/lldb/include/lldb/lldb-defines.h
+@@ -28,6 +28,11 @@
+     #define INT32_MAX 2147483647
+ #endif
+ 
++// For GNU Hurd
++#if defined(__GNU__) && !defined(PATH_MAX)
++# define PATH_MAX 4096
++#endif
++
+ #if !defined(UINT32_MAX)
+     #define UINT32_MAX 4294967295U
+ #endif
+Index: llvm-toolchain-snapshot_3.8~svn249277/lib/Support/Unix/Path.inc
+===================================================================
+--- llvm-toolchain-snapshot_3.8~svn249277.orig/lib/Support/Unix/Path.inc
++++ llvm-toolchain-snapshot_3.8~svn249277/lib/Support/Unix/Path.inc
+@@ -58,6 +58,7 @@
+ // For GNU Hurd
+ #if defined(__GNU__) && !defined(PATH_MAX)
+ # define PATH_MAX 4096
++# define MAXPATHLEN 4096
+ #endif
+ 
+ using namespace llvm;
+Index: llvm-toolchain-snapshot_3.8~svn249277/tools/dsymutil/DwarfLinker.cpp
+===================================================================
+--- llvm-toolchain-snapshot_3.8~svn249277.orig/tools/dsymutil/DwarfLinker.cpp
++++ llvm-toolchain-snapshot_3.8~svn249277/tools/dsymutil/DwarfLinker.cpp
+@@ -40,6 +40,11 @@
+ #include <string>
+ #include <tuple>
+ 
++// For GNU Hurd
++#if defined(__GNU__) && !defined(PATH_MAX)
++# define PATH_MAX 4096
++#endif
++
+ namespace llvm {
+ namespace dsymutil {
+ 

@@ -1,0 +1,40 @@
+usr/lib/llvm-@LLVM_VERSION@/bin/clang
+usr/lib/llvm-@LLVM_VERSION@/bin/clang++
+usr/lib/llvm-@LLVM_VERSION@/bin/clang-check
+usr/lib/llvm-@LLVM_VERSION@/bin/clang-apply-replacements
+usr/lib/llvm-@LLVM_VERSION@/bin/clang-query
+usr/lib/llvm-@LLVM_VERSION@/bin/clang-rename
+usr/lib/llvm-@LLVM_VERSION@/bin/sancov
+usr/lib/llvm-@LLVM_VERSION@/share/scan-view/
+usr/lib/llvm-@LLVM_VERSION@/share/scan-build/
+usr/lib/llvm-@LLVM_VERSION@/share/man/man1/scan-build.1
+usr/lib/llvm-@LLVM_VERSION@/libexec/ccc-analyzer
+usr/lib/llvm-@LLVM_VERSION@/libexec/c++-analyzer
+
+usr/lib/llvm-@LLVM_VERSION@/bin/scan-view
+usr/lib/llvm-@LLVM_VERSION@/bin/clang-cl
+
+usr/lib/llvm-@LLVM_VERSION@/bin/scan-build
+usr/lib/llvm-@LLVM_VERSION@/bin/modularize
+usr/lib/llvm-@LLVM_VERSION@/bin/c-index-test
+
+usr/bin/c-index-test-@LLVM_VERSION@
+
+tools/clang/tools/scan-build-@LLVM_VERSION@      usr/share/clang/
+tools/clang/tools/scan-view-@LLVM_VERSION@       usr/share/clang/
+#usr/share/man/man1/clang.1     usr/share/man/man1/
+usr/lib/llvm-@LLVM_VERSION@/share/clang/cmake/
+# todo: check if it is not be moved
+#usr/lib/llvm-@LLVM_VERSION@/lib/cmake/clang/*.cmake usr/share/llvm-@LLVM_VERSION@/cmake/
+
+usr/bin/clang-@LLVM_VERSION@
+usr/bin/clang++-@LLVM_VERSION@
+usr/bin/clang-check-@LLVM_VERSION@
+usr/bin/clang-apply-replacements-@LLVM_VERSION@
+usr/bin/clang-query-@LLVM_VERSION@
+usr/bin/clang-rename-@LLVM_VERSION@
+usr/bin/sancov-@LLVM_VERSION@
+usr/bin/clang-cl-@LLVM_VERSION@
+usr/bin/modularize-@LLVM_VERSION@
+usr/bin/scan-build-@LLVM_VERSION@
+usr/bin/scan-view-@LLVM_VERSION@

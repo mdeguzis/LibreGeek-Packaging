@@ -1,0 +1,13 @@
+Index: llvm-toolchain-snapshot_3.8~svn256489/utils/lit/lit/Test.py
+===================================================================
+--- llvm-toolchain-snapshot_3.8~svn256489.orig/utils/lit/lit/Test.py
++++ llvm-toolchain-snapshot_3.8~svn256489/utils/lit/lit/Test.py
+@@ -30,7 +30,7 @@ PASS        = ResultCode('PASS', False)
+ FLAKYPASS   = ResultCode('FLAKYPASS', False)
+ XFAIL       = ResultCode('XFAIL', False)
+ FAIL        = ResultCode('FAIL', True)
+-XPASS       = ResultCode('XPASS', True)
++XPASS       = ResultCode('XPASS', False)
+ UNRESOLVED  = ResultCode('UNRESOLVED', True)
+ UNSUPPORTED = ResultCode('UNSUPPORTED', False)
+ TIMEOUT     = ResultCode('TIMEOUT', True)

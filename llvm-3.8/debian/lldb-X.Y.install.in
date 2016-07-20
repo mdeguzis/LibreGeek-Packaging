@@ -1,0 +1,9 @@
+usr/lib/llvm-@LLVM_VERSION@/bin/lldb*
+usr/lib/llvm-@LLVM_VERSION@/bin/lldb-mi*
+usr/lib/llvm-@LLVM_VERSION@/bin/lldb-server*
+usr/lib/llvm-@LLVM_VERSION@/bin/lldb-argdumper
+
+usr/bin/lldb-@LLVM_VERSION@*
+usr/bin/lldb-server-@LLVM_VERSION@*
+usr/bin/lldb-mi-@LLVM_VERSION@*
+usr/bin/lldb-argdumper-@LLVM_VERSION@

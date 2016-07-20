@@ -1,0 +1,16 @@
+Index: llvm-toolchain-3.8_3.8~+rc1/tools/llvm-config/llvm-config.cpp
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc1.orig/tools/llvm-config/llvm-config.cpp
++++ llvm-toolchain-3.8_3.8~+rc1/tools/llvm-config/llvm-config.cpp
+@@ -498,9 +498,9 @@ int main(int argc, char **argv) {
+       } else if (Arg == "--shared-mode") {
+         PrintSharedMode = true;
+       } else if (Arg == "--obj-root") {
+-        OS << ActivePrefix << '\n';
++        OS << ActivePrefix << "/build/" << '\n';
+       } else if (Arg == "--src-root") {
+-        OS << LLVM_SRC_ROOT << '\n';
++        OS << ActivePrefix << "/build/" << '\n';
+       } else {
+         usage();
+       }

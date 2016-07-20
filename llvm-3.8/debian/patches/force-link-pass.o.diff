@@ -1,0 +1,28 @@
+Index: llvm-toolchain-snapshot_3.7~svn231588/tools/bugpoint/Makefile
+===================================================================
+--- llvm-toolchain-snapshot_3.7~svn231588.orig/tools/bugpoint/Makefile
++++ llvm-toolchain-snapshot_3.7~svn231588/tools/bugpoint/Makefile
+@@ -12,6 +12,9 @@ TOOLNAME := bugpoint
+ LINK_COMPONENTS := asmparser instrumentation scalaropts ipo linker bitreader \
+                    bitwriter irreader vectorize objcarcopts codegen
+ 
++# Crappy workaround to make sure it links correctly.
++LLVMLibsOptions := ../../lib/IR/Release*/Pass.o
++
+ # Support plugins.
+ NO_DEAD_STRIP := 1
+ 
+Index: llvm-toolchain-snapshot_3.7~svn231588/tools/opt/Makefile
+===================================================================
+--- llvm-toolchain-snapshot_3.7~svn231588.orig/tools/opt/Makefile
++++ llvm-toolchain-snapshot_3.7~svn231588/tools/opt/Makefile
+@@ -11,6 +11,9 @@ LEVEL := ../..
+ TOOLNAME := opt
+ LINK_COMPONENTS := bitreader bitwriter asmparser irreader instrumentation scalaropts objcarcopts ipo vectorize all-targets codegen passes
+ 
++# Crappy workaround to make sure it links correctly.
++LLVMLibsOptions := ../../lib/IR/Release*/Pass.o
++
+ # Support plugins.
+ NO_DEAD_STRIP := 1
+ 

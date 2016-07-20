@@ -1,0 +1,9 @@
+usr/lib/llvm-@LLVM_VERSION@/include/clang
+usr/lib/llvm-@LLVM_VERSION@/include/clang-c
+usr/lib/llvm-@LLVM_VERSION@/lib/libclang*a
+usr/lib/llvm-@LLVM_VERSION@/lib/libclang*so
+
+#usr/include/clang                  /usr/include/
+#usr/include/clang-c                /usr/include/
+#usr/lib/libclang.so                /usr/lib/
+#usr/lib/libclang*a                 /usr/lib/

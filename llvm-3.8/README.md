@@ -8,7 +8,7 @@ https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819072
 
 # Update
 
-Actually, the 3rd revision seems to have fixed this ([thread](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819072#85). 
+Actually, the 3rd revision seems to have fixed this ([thread)](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819072#85). 
 
 Try building:
 

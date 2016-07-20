@@ -46,7 +46,8 @@ else
 fi
 # upstream vars
 git_url="https://github.com/zaps166/NFSIISE/"
-target="master"
+#target="master"
+target="v1.1.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -56,7 +57,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="nfs2se"
-pkgver="1.0.0"
+pkgver="1.1.0"
 pkgrev="1"
 pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"

@@ -34,3 +34,19 @@ gcc-5 steps to backport to Jessie:
 # Cross compiling
 
 * [Cross-compiling / Debbootstrap](https://wiki.debian.org/DebianBootstrap)
+
+# General notes
+
+* [Cross-compiling tools package guidelines (Arch Linux)](How to Build a GCC Cross-Compiler)
+
+
+The general approach to building a cross compiler is:
+
+1. binutils: Build a cross-binutils, which links and processes for the target architecture
+2. headers: Install a set of C library and kernel headers for the target architecture
+ 1. use linux-api-headers as reference and pass ARCH=target-architecture to make
+ 2. create libc headers package (process for Glibc is described here)
+3. gcc-stage-1: Build a basic (stage 1) gcc cross-compiler. This will be used to compile the C library. It will be unable to build almost anything else (because it can't link against the C library it doesn't have).
+4. libc: Build the cross-compiled C library (using the stage 1 cross compiler).
+5. gcc-stage-2: Build a full (stage 2) C cross-compiler
+

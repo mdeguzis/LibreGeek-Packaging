@@ -11,6 +11,10 @@
 
 # Using gcc
 # cmake -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc
+
+# Define LLVM
+# Project has issues (for some reason) finding all the cmake configs
+# add '-DLLVM_DIR=/usr/share/llvm-3.8/cmake
 ##############################################################
 
 %:
@@ -25,6 +29,7 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	rm -rf build && mkdir build
 	cd build && cmake \
+			-DLLVM_DIR=/usr/share/llvm-3.8/cmake \
 			-DCMAKE_BUILD_TYPE='Release' \
 			-DCMAKE_CXX_COMPILER=clang++-3.8 \
 			-DCMAKE_C_COMPILER=clang-3.8 \

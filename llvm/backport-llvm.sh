@@ -32,7 +32,7 @@ DIST_TARGET="brewmaster"
 SCRIPTDIR="${PWD}"
 TEMP_DIR="$HOME/temp"
 RESULT_DIR="${TEMP_DIR}/result"
-SRC_DIR="${TEMP_DIR}/llvm-toolchain-snapshot_3.8~svn249699.orig"
+SRC_DIR="${TEMP_DIR}/SRC_DIR"
 
 #################
 # build
@@ -59,6 +59,7 @@ sleep 2s
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
 tar -xf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
 cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}/"
+tar -xf ${TEMP_DIR}/*debian.tar.xz
 
 echo -e "\n==> Extracting original sources\n"
 sleep 2s
@@ -101,7 +102,7 @@ unset LLVM_VERSION
 
 cd ${SRC_DIR}
 BUILDER="pdebuild"
-BUILDOPTS="--buildresult ${RESULT_DIR} --debbuildopts -sa"
+BUILDOPTS="--debbuildopts -sa --debbuildopts -nc --buildresult ${RESULT_DIR}"
 DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 # Show result (if good)

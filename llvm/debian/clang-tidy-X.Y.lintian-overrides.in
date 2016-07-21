@@ -1,3 +1,0 @@
-# I know but well...
-clang-tidy-@LLVM_VERSION@: manpage-has-useless-whatis-entry usr/share/man/man1/clang-tidy-@LLVM_VERSION@.1.gz
-

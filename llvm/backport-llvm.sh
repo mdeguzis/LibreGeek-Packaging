@@ -1,15 +1,15 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
-# Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	backport-llvm.sh
-# Script Ver:	0.4.1
-# Description:	Attempts to backport the llvm package from Debian
+# Author:					Michael DeGuzis
+# Git:						https://github.com/ProfessorKaos64/SteamOS-Tools
+# Scipt name:			backport-llvm.sh
+# Script Ver:			0.4.1
+# Description:		Attempts to backport the llvm package from Debian
 #		code.
 #
-# NOTE: Requires pbuilder!
+# NOTE:						Requires pbuilder!
 #
-# Usage:	./backport-llvm.sh
+# Usage:					./backport-llvm.sh
 # -------------------------------------------------------------------------------
 
 echo -e "\n==> Seeting vars" && sleep 2s

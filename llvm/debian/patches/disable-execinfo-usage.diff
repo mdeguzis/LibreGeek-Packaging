@@ -1,0 +1,13 @@
+Index: llvm-toolchain-snapshot_3.8~svn253186/lldb/lib/Makefile
+===================================================================
+--- llvm-toolchain-snapshot_3.8~svn253186.orig/lldb/lib/Makefile
++++ llvm-toolchain-snapshot_3.8~svn253186/lldb/lib/Makefile
+@@ -201,7 +201,7 @@ ifeq ($(HOST_OS),FreeBSD)
+     # Allow unresolved symbols.
+     LLVMLibsOptions += -Wl,--allow-shlib-undefined
+     # Link in python
+-    LLVMLibsOptions += $(PYTHON_BUILD_FLAGS) -lrt -L/usr/local/lib -lexecinfo \
++    LLVMLibsOptions += $(PYTHON_BUILD_FLAGS) -lrt \
+                        -ledit -lncurses -lpanel -lpthread
+ endif
+ 

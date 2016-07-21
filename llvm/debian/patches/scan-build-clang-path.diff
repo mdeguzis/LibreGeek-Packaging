@@ -1,0 +1,13 @@
+Index: llvm-toolchain-snapshot_3.8~svn253186/clang/tools/scan-build/bin/scan-build
+===================================================================
+--- llvm-toolchain-snapshot_3.8~svn253186.orig/clang/tools/scan-build/bin/scan-build
++++ llvm-toolchain-snapshot_3.8~svn253186/clang/tools/scan-build/bin/scan-build
+@@ -1407,7 +1407,7 @@ sub FindClang {
+   if (!defined $Options{AnalyzerDiscoveryMethod}) {
+     $Clang = Cwd::realpath("$RealBin/bin/clang") if (-f "$RealBin/bin/clang");
+     if (!defined $Clang || ! -x $Clang) {
+-      $Clang = Cwd::realpath("$RealBin/clang") if (-f "$RealBin/clang");
++      $Clang = Cwd::realpath("/usr/lib/llvm-3.8/bin/clang");
+     }
+     if (!defined $Clang || ! -x $Clang) {
+       return "error: Cannot find an executable 'clang' relative to" .

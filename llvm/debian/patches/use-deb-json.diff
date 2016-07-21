@@ -1,0 +1,62 @@
+Index: llvm-toolchain-3.8_3.8~+rc1/polly/lib/Makefile
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc1.orig/polly/lib/Makefile
++++ llvm-toolchain-3.8_3.8~+rc1/polly/lib/Makefile
+@@ -26,9 +26,9 @@ ISL_CODEGEN_FILES= CodeGen/IslAst.cpp \
+                    CodeGen/IslNodeBuilder.cpp \
+                    CodeGen/CodeGeneration.cpp
+ 
+-POLLY_JSON_FILES= JSON/json_reader.cpp \
+-                  JSON/json_value.cpp \
+-                  JSON/json_writer.cpp
++#POLLY_JSON_FILES= JSON/json_reader.cpp \
++#                  JSON/json_value.cpp \
++#                  JSON/json_writer.cpp
+ 
+ ISL_FILES= External/isl/basis_reduction_tab.c \
+            External/isl/isl_aff.c \
+@@ -146,4 +146,5 @@ SOURCES= Polly.cpp \
+ #
+ include $(LEVEL)/Makefile.common
+ 
+-LIBS += $(POLLY_LD) $(POLLY_LIB)
++LIBS += $(POLLY_LD) $(POLLY_LIB) -ljsoncpp
++
+Index: llvm-toolchain-3.8_3.8~+rc1/polly/lib/CMakeLists.txt
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc1.orig/polly/lib/CMakeLists.txt
++++ llvm-toolchain-3.8_3.8~+rc1/polly/lib/CMakeLists.txt
+@@ -1,10 +1,10 @@
+ set(LLVM_NO_RTTI 1)
+ 
+-set(POLLY_JSON_FILES
+-    JSON/json_reader.cpp
+-    JSON/json_value.cpp
+-    JSON/json_writer.cpp
+-)
++# set(POLLY_JSON_FILES
++#     JSON/json_reader.cpp
++#     JSON/json_value.cpp
++#     JSON/json_writer.cpp
++# )
+ 
+ set(ISL_CODEGEN_FILES
+     CodeGen/IslAst.cpp
+@@ -46,7 +46,7 @@ add_polly_library(Polly
+   Support/RegisterPasses.cpp
+   Support/ScopHelper.cpp
+   Support/ScopLocation.cpp
+-  ${POLLY_JSON_FILES}
++#  ${POLLY_JSON_FILES}
+   Transform/Canonicalization.cpp
+   Transform/CodePreparation.cpp
+   Transform/DeadCodeElimination.cpp
+@@ -54,7 +54,7 @@ add_polly_library(Polly
+   ${POLLY_HEADER_FILES}
+   )
+ 
+-target_link_libraries(Polly PollyISL)
++target_link_libraries(Polly PollyISL jsoncpp)
+ 
+ if (BUILD_SHARED_LIBS)
+   target_link_libraries(Polly

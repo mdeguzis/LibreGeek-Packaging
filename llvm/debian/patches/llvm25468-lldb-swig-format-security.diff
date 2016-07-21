@@ -1,0 +1,14 @@
+--- a/lldb/scripts/interface/SBError.i
++++ b/lldb/scripts/interface/SBError.i
+@@ -57,6 +57,11 @@
+ condition and we get back a void process object.
+ ") SBError;
+ 
++%{
++// https://llvm.org/bugs/show_bug.cgi?id=25468
++#pragma GCC diagnostic ignored "-Wformat-security"
++%}
++
+ class SBError {
+ public:
+     SBError ();

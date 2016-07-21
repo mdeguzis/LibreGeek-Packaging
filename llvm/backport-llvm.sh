@@ -60,8 +60,11 @@ cp -r "${SCRIPTDIR}/rules" "${TEMP_DIR}/debian/"
 #tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
 #rm -rf "debian"
 
+echo -e "\n==> Extracting original sources\n"
+sleep 2s
+
 # Extact the orig archives
-for filename in *.tarxvfj
+for filename in *.tar.bz2
 do
   tar xvfj ${filename}
 done

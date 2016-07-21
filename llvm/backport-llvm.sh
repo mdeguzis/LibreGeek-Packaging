@@ -56,8 +56,20 @@ sleep 2s
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
 tar -xvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
 cp -r "${SCRIPTDIR}/rules" "${TEMP_DIR}/debian/"
-tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
-rm -rf "debian"
+
+#tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
+#rm -rf "debian"
+
+# Extact the orig archives
+for filename in *.tarxvfj
+do
+  tar xvfj ${filename}
+done
+
+# Remove original archives so they are not used
+# We are extracting the source manually since the original DSC is obviously signed with a PGP key
+
+rm -rf *.bz2 *.xz *.dsc
 
 # ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
@@ -76,8 +88,15 @@ unset BUILD_DIR
 unset TARGET_BUILD
 unset LLVM_VERSION
 
-sudo -E DIST=${DIST_TARGET} pbuilder --build --distribution ${DIST_TARGET} --buildresult ${RESULT_DIR} \
---debbuildopts -sa --debbuildopts -nc ${PKG_NAME}-${DSC_VER}.dsc
+# For when upstream is fixed
+
+#sudo -E DIST=${DIST_TARGET} pbuilder --build --distribution ${DIST_TARGET} --buildresult ${RESULT_DIR} \
+#--debbuildopts -sa --debbuildopts -nc ${PKG_NAME}-${DSC_VER}.dsc
+
+cd ${RESULT_DIR}
+BUILDER="pdebuild"
+BUILDOPTS="--buildresult --debbuildopts -sa --debbuildopts -nc"
+DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 # Show result (if good)
 

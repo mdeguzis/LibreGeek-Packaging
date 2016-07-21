@@ -47,13 +47,16 @@ mkdir -p ${RESULT_DIR}
 DSC_URL="http://http.debian.net/debian/${POOL}/${PKGNAME}-${PKG_VER}/${PKG_NAME}-${DSC_VER}.dsc"
 
 # get source
+# download only, don't unpack
 dget ${DSC_URL} -d
 
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
-rm "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
-cp -r "${SCRIPTDIR}/debian" "${TEMP_DIR}"
-tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" debian
+tar -xvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
+cp -r "${SCRIPTDIR}/rules" "${TEMP_DIR}/debian/"
+tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
 rm -rf "debian"
+
+# ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
 echo -e "==> Backporting package" && sleep 2s
 

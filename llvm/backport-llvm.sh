@@ -87,7 +87,7 @@ done
 # recreate as single tarball
 echo -e "\n==> Creating original tarball" && sleep 2s
 echo -e "    File: ${ORIG_TARBALL_VER}.orig.tar.gz"
-tar -czf "${ORIG_TARBALL_VER}.orig.tar.gz" "${SRC_DIR}"
+tar -czf "${ORIG_TARBALL_VER}.orig.tar.gz" "$(basename ${SRC_DIR})"
 
 # Add debian 
 cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"

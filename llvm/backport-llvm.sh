@@ -50,7 +50,7 @@ DSC_URL="http://http.debian.net/debian/${POOL}/${PKG_NAME}-${PKG_VER}/${PKG_NAME
 # download only, don't unpack
 dget ${DSC_URL} -d
 
-echo -e "==> Patching debian/rules"
+echo -e "\n==> Patching debian/rules\n"
 sleep 2s
 
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
@@ -61,10 +61,10 @@ rm -rf "debian"
 
 # ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
-echo -e "==> Finished patching debian/rules"
+echo -e "\n==> Finished patching debian/rules\n"
 sleep 2s
 
-echo -e "==> Backporting package" && sleep 2s
+echo -e "\n==> Backporting package\n" && sleep 2s
 
 # Do NOT pass "-E" to sudo below!
 # For some reason, this particular build picks up environment information, and uses it 

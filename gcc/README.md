@@ -58,3 +58,4 @@ Apparently (assumming you don't touch gcc-defaults), as of Stretch, you can inst
 
 * [Multiarch Cross-Toolchain Build (Debian wiki)](https://wiki.debian.org/MultiarchCrossToolchainBuild)
 * [Automated script](https://gist.github.com/preshing/41d5c7248dea16238b60)
+* [gcc-cross-compiler (github fork)](https://github.com/ProfessorKaos64/gcc-cross-compiler)

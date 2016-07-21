@@ -40,8 +40,8 @@ SRC_DIR="${SCRIPTDIR}/SRC_DIR"
 
 # Enter working env
 rm -rf ${TEMP_DIR}
-mkdir ${TEMP_DIR}
-mkdir ${SRC_DIR}
+mkdir -p ${TEMP_DIR}
+mkdir -p ${SRC_DIR}
 cd ${TEMP_DIR}
 
 # Make result dir

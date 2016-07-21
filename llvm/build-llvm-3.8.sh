@@ -51,7 +51,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="llvm-toolchain-3.8"
 PKGVER="3.8.1"
@@ -100,6 +100,11 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
+		
+	else
+
+		# still need this helper
+		sudo apt-get install -y --force-yes dh-ocaml
 
 	fi
 

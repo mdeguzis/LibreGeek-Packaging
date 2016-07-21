@@ -2,7 +2,8 @@
 
 # vars
 temp_dir="$HOME/temp"
-result_dir="${temp_dir}/result
+result_dir="${temp_dir}/result"
+scriptdir="${PWD}"
 
 # Set target LLVM version
 PKG_VER="3.8"
@@ -27,3 +28,4 @@ sudo -E DIST=brewmaster pbuilder --build --distribution brewmaster --buildresult
 # Show result (if good)
 
 ls ${result_dir}
+cd ${scriptdir}

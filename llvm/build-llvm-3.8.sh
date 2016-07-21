@@ -15,8 +15,8 @@
 # Set variables
 #################################################
 
-arg1="$1"
-scriptdir=$(pwd)
+ARG1="$1"
+SCRIPTDIR=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
@@ -32,7 +32,7 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-if [[ "$arg1" == "--testing" ]]; then
+if [[ "$ARG1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
 
@@ -164,8 +164,8 @@ main()
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi
@@ -208,7 +208,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep ${PKGVER}
+	ls "${BUILD_DIR}"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -224,7 +224,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${git_dir}/debian/changelog" "${SCRIPTDIR}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

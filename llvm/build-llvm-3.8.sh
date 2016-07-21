@@ -94,31 +94,32 @@ main()
 	#################################################
 
 	# Clone upstream source code and target
-
+	
 	echo -e "\n==> Obtaining upstream source code\n"
-  dget -d http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1-4.dsc
+	mkdir -p "${SRC_DIR}"
+	dget -d http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1-4.dsc
+	
+	echo -e "\n==> Extracting original sources\n"
+	sleep 2s
+	
+	# Extact the orig archives into one directory to use for original source
+	ORIG_TARBALL_VER="${PKG_NAME}-${FULL_VER}"
+	
+	for filename in *.tar.bz2
+	do
+		echo "Extracting ${filename}"
+		tar xfj ${filename} -C "${SRC_DIR}"
+	done
 
-  echo -e "\n==> Extracting original sources\n"
-  sleep 2s
-  
-  # Extact the orig archives into one directory to use for original source
-  ORIG_TARBALL_VER="${PKG_NAME}-${FULL_VER}"
-  
-  for filename in *.tar.bz2
-  do
-    echo "Extracting ${filename}"
-    tar xfj ${filename} -C "${SRC_DIR}"
-  done
-
-  # ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
-
+	# ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
+	
 	################################################
 	# Prepare sources
 	#################################################
-
-  # Back out to create the orig. tarball
+	
+	# Back out to create the orig. tarball
 	cd "${BUILD_DIR}" || exit 1
-
+	
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 	tar -cvzf "${ORIG_TARBALL_VER}.orig.tar.gz" "$(basename ${SRC_DIR})"
@@ -127,16 +128,16 @@ main()
 	################################################
 	# Build package
 	#################################################
-
-  # Remove cruft
-  rm -rf *.xz *.bz2 *.dsc
-
+	
+	# Remove cruft
+	rm -rf *.xz *.bz2 *.dsc
+	
 	# enter source dir
 	cd "${SRC_DIR}"
-
+	
 	echo -e "\n==> Updating changelog"
 	sleep 2s
-
+	
 	# update changelog with dch
 	dch -i
 

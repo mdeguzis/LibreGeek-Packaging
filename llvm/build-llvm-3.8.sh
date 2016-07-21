@@ -135,13 +135,13 @@ main()
 	
 	echo -e "\n==> Creating original tarball"
 	sleep 2s
-	echo "    File: ${PKGNAME}_${PKGVER}.orig.tar.gz\n"
+	echo -e "    File: ${PKGNAME}_${PKGVER}.orig.tar.gz\n"
 	tar -czf "${PKGNAME}_${PKGVER}.orig.tar.gz" "$(basename ${SRC_DIR})"
 
 	# There is an issue with debian/rules and "BUILD_DIR", use our copy
-	tar -xf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" -C "${SRC_DIR}"
+	tar -xf "${BUILD_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" -C "${SRC_DIR}"
 	cp -r "${SCRIPTDIR}/rules" "${SRC_DIR}/debian/"
-	rm -f ${TEMP_DIR}/*debian.tar.xz
+	rm -f ${BUILD_DIR}/*debian.tar.xz
 
 	# Remove cruft
 	rm -rf *.xz *.bz2 *.dsc

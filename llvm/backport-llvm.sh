@@ -66,7 +66,7 @@ sleep 2s
 
 # Extact the orig archives into one directory to use for original source
 ORIG_TARBALL_VER="${PKG_NAME}-${FULL_VER}"
-mkdir ${TEMP_EXTRACT}
+mkdir TEMP_EXTRACT
 
 for filename in *.tar.bz2
 do

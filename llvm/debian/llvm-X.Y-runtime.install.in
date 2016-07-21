@@ -1,6 +1,0 @@
-usr/lib/llvm-@LLVM_VERSION@/bin/lli
-
-usr/bin/lli-@LLVM_VERSION@
-
-debian/llvm-@LLVM_VERSION@-runtime.binfmt                  usr/share/binfmts/
-

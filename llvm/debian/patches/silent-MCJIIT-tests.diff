@@ -1,0 +1,250 @@
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/cross-module-sm-pic-a.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/MCJIT/cross-module-sm-pic-a.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/cross-module-sm-pic-a.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -extra-module=%p/Inputs/cross-module-b.ll -relocation-model=pic -code-model=small %s > /dev/null
+-; XFAIL: mips-, mipsel-, i686, i386
++; XFAIL: *
+ 
+ declare i32 @FB()
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/eh-lg-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/MCJIT/eh-lg-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/eh-lg-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -relocation-model=pic -code-model=large %s
+-; XFAIL: cygwin, win32, mingw, mips-, mipsel-, i686, i386, aarch64, arm
++; XFAIL: *
+ declare i8* @__cxa_allocate_exception(i64)
+ declare void @__cxa_throw(i8*, i8*, i8*)
+ declare i32 @__gxx_personality_v0(...)
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/eh-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/MCJIT/eh-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/eh-sm-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -relocation-model=pic -code-model=small %s
+-; XFAIL: cygwin, win32, mingw, mips-, mipsel-, i686, i386, darwin, aarch64, arm
++; XFAIL: *
+ declare i8* @__cxa_allocate_exception(i64)
+ declare void @__cxa_throw(i8*, i8*, i8*)
+ declare i32 @__gxx_personality_v0(...)
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/multi-module-sm-pic-a.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/MCJIT/multi-module-sm-pic-a.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/multi-module-sm-pic-a.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -extra-module=%p/Inputs/multi-module-b.ll -extra-module=%p/Inputs/multi-module-c.ll -relocation-model=pic -code-model=small %s > /dev/null
+-; XFAIL: mips-, mipsel-, i686, i386
++; XFAIL: *
+ 
+ declare i32 @FB()
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/stubs-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/MCJIT/stubs-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/stubs-sm-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -disable-lazy-compilation=false -relocation-model=pic -code-model=small %s
+-; XFAIL: mips-, mipsel-, i686, i386, aarch64, arm
++; XFAIL: *
+ 
+ define i32 @main() nounwind {
+ entry:
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/test-global-init-nonzero-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/MCJIT/test-global-init-nonzero-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/test-global-init-nonzero-sm-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -relocation-model=pic -code-model=small %s > /dev/null
+-; XFAIL: mips-, mipsel-, aarch64, arm, i686, i386
++; XFAIL: *
+ 
+ @count = global i32 1, align 4
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/test-ptr-reloc-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/MCJIT/test-ptr-reloc-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/test-ptr-reloc-sm-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -O0 -relocation-model=pic -code-model=small %s
+-; XFAIL: mips-, mipsel-, aarch64, arm, i686, i386
++; XFAIL: *
+ 
+ @.str = private unnamed_addr constant [6 x i8] c"data1\00", align 1
+ @ptr = global i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str, i32 0, i32 0), align 4
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/remote/test-global-init-nonzero-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/MCJIT/remote/test-global-init-nonzero-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/remote/test-global-init-nonzero-sm-pic.ll
+@@ -1,6 +1,6 @@
+ ; RUN: %lli -remote-mcjit -mcjit-remote-process=lli-child-target%exeext \
+ ; RUN:   -relocation-model=pic -code-model=small %s > /dev/null
+-; XFAIL: mips-, mipsel-, aarch64, arm, i686, i386, mingw32, win32
++; XFAIL: *
+ 
+ @count = global i32 1, align 4
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/remote/test-ptr-reloc-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/MCJIT/remote/test-ptr-reloc-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/MCJIT/remote/test-ptr-reloc-sm-pic.ll
+@@ -1,6 +1,6 @@
+ ; RUN: %lli -remote-mcjit -mcjit-remote-process=lli-child-target%exeext \
+ ; RUN:   -O0 -relocation-model=pic -code-model=small %s
+-; XFAIL: mips-, mipsel-, aarch64, arm, i686, i386, mingw32, win32
++; XFAIL: *
+ 
+ @.str = private unnamed_addr constant [6 x i8] c"data1\00", align 1
+ @ptr = global i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str, i32 0, i32 0), align 4
+Index: llvm-toolchain-3.8_3.8~+rc2/test/BugPoint/crash-narrowfunctiontest.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/BugPoint/crash-narrowfunctiontest.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/BugPoint/crash-narrowfunctiontest.ll
+@@ -2,7 +2,6 @@
+ ;
+ ; RUN: bugpoint -load %llvmshlibdir/BugpointPasses%shlibext %s -output-prefix %t -bugpoint-crashcalls -silence-passes > /dev/null
+ ; REQUIRES: loadable_module
+-; XFAIL: *
+ 
+ define i32 @foo() { ret i32 1 }
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/BugPoint/metadata.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/BugPoint/metadata.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/BugPoint/metadata.ll
+@@ -1,7 +1,6 @@
+ ; RUN: bugpoint -load %llvmshlibdir/BugpointPasses%shlibext %s -output-prefix %t -bugpoint-crashcalls -silence-passes > /dev/null
+ ; RUN: llvm-dis %t-reduced-simplified.bc -o - | FileCheck %s
+ ; REQUIRES: loadable_module
+-; XFAIL: *
+ 
+ ; Bugpoint should keep the call's metadata attached to the call.
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/BugPoint/remove_arguments_test.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/BugPoint/remove_arguments_test.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/BugPoint/remove_arguments_test.ll
+@@ -1,7 +1,6 @@
+ ; RUN: bugpoint -load %llvmshlibdir/BugpointPasses%shlibext %s -output-prefix %t -bugpoint-crashcalls -silence-passes
+ ; RUN: llvm-dis %t-reduced-simplified.bc -o - | FileCheck %s
+ ; REQUIRES: loadable_module
+-; XFAIL: *
+ 
+ ; Test to make sure that arguments are removed from the function if they are
+ ; unnecessary. And clean up any types that frees up too.
+Index: llvm-toolchain-3.8_3.8~+rc2/test/Feature/load_module.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/Feature/load_module.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/Feature/load_module.ll
+@@ -3,7 +3,6 @@
+ ; RUN:   -disable-output 2>&1 | grep Hello
+ ; REQUIRES: loadable_module
+ ; FIXME: On Cygming, it might fail without building LLVMHello manually.
+-; XFAIL: *
+ 
+ @junk = global i32 0
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/cross-module-sm-pic-a.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/OrcMCJIT/cross-module-sm-pic-a.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/cross-module-sm-pic-a.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -jit-kind=orc-mcjit -extra-module=%p/Inputs/cross-module-b.ll -relocation-model=pic -code-model=small %s > /dev/null
+-; XFAIL: mips-, mipsel-, i686, i386
++; XFAIL: *
+ 
+ declare i32 @FB()
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/eh-lg-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/OrcMCJIT/eh-lg-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/eh-lg-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -jit-kind=orc-mcjit -relocation-model=pic -code-model=large %s
+-; XFAIL: cygwin, win32, mingw, mips-, mipsel-, i686, i386, aarch64, arm
++; XFAIL: *
+ declare i8* @__cxa_allocate_exception(i64)
+ declare void @__cxa_throw(i8*, i8*, i8*)
+ declare i32 @__gxx_personality_v0(...)
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/eh-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/OrcMCJIT/eh-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/eh-sm-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -jit-kind=orc-mcjit -relocation-model=pic -code-model=small %s
+-; XFAIL: cygwin, win32, mingw, mips-, mipsel-, i686, i386, darwin, aarch64, arm
++; XFAIL: *
+ declare i8* @__cxa_allocate_exception(i64)
+ declare void @__cxa_throw(i8*, i8*, i8*)
+ declare i32 @__gxx_personality_v0(...)
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/multi-module-sm-pic-a.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/OrcMCJIT/multi-module-sm-pic-a.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/multi-module-sm-pic-a.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -jit-kind=orc-mcjit -extra-module=%p/Inputs/multi-module-b.ll -extra-module=%p/Inputs/multi-module-c.ll -relocation-model=pic -code-model=small %s > /dev/null
+-; XFAIL: mips-, mipsel-, i686, i386
++; XFAIL: *
+ 
+ declare i32 @FB()
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/remote/test-global-init-nonzero-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/OrcMCJIT/remote/test-global-init-nonzero-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/remote/test-global-init-nonzero-sm-pic.ll
+@@ -1,6 +1,6 @@
+ ; RUN: %lli -jit-kind=orc-mcjit -remote-mcjit -mcjit-remote-process=lli-child-target%exeext \
+ ; RUN:   -relocation-model=pic -code-model=small %s > /dev/null
+-; XFAIL: mips-, mipsel-, aarch64, arm, i686, i386, mingw32, win32
++; XFAIL: *
+ 
+ @count = global i32 1, align 4
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/remote/test-ptr-reloc-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/OrcMCJIT/remote/test-ptr-reloc-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/remote/test-ptr-reloc-sm-pic.ll
+@@ -1,6 +1,6 @@
+ ; RUN: %lli -jit-kind=orc-mcjit -remote-mcjit -mcjit-remote-process=lli-child-target%exeext \
+ ; RUN:   -O0 -relocation-model=pic -code-model=small %s
+-; XFAIL: mips-, mipsel-, aarch64, arm, i686, i386, mingw32, win32
++; XFAIL: *
+ 
+ @.str = private unnamed_addr constant [6 x i8] c"data1\00", align 1
+ @ptr = global i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str, i32 0, i32 0), align 4
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/stubs-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/OrcMCJIT/stubs-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/stubs-sm-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -jit-kind=orc-mcjit -disable-lazy-compilation=false -relocation-model=pic -code-model=small %s
+-; XFAIL: mips-, mipsel-, i686, i386, aarch64, arm
++; XFAIL: *
+ 
+ define i32 @main() nounwind {
+ entry:
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/test-global-init-nonzero-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/OrcMCJIT/test-global-init-nonzero-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/test-global-init-nonzero-sm-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -jit-kind=orc-mcjit -relocation-model=pic -code-model=small %s > /dev/null
+-; XFAIL: mips-, mipsel-, aarch64, arm, i686, i386
++; XFAIL: *
+ 
+ @count = global i32 1, align 4
+ 
+Index: llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/test-ptr-reloc-sm-pic.ll
+===================================================================
+--- llvm-toolchain-3.8_3.8~+rc2.orig/test/ExecutionEngine/OrcMCJIT/test-ptr-reloc-sm-pic.ll
++++ llvm-toolchain-3.8_3.8~+rc2/test/ExecutionEngine/OrcMCJIT/test-ptr-reloc-sm-pic.ll
+@@ -1,5 +1,5 @@
+ ; RUN: %lli -jit-kind=orc-mcjit -O0 -relocation-model=pic -code-model=small %s
+-; XFAIL: mips-, mipsel-, aarch64, arm, i686, i386
++; XFAIL: *
+ 
+ @.str = private unnamed_addr constant [6 x i8] c"data1\00", align 1
+ @ptr = global i8* getelementptr inbounds ([6 x i8], [6 x i8]* @.str, i32 0, i32 0), align 4

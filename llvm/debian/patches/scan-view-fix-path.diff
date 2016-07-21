@@ -1,0 +1,11 @@
+--- llvm-toolchain-snapshot_3.8~svn253186.orig/clang/tools/scan-view/bin/scan-view.old    2016-05-23 15:27:03.278422015 +0200
++++ llvm-toolchain-snapshot_3.8~svn253186/clang/tools/scan-view/bin/scan-view        2016-05-23 15:34:30.517953399 +0200
+@@ -61,7 +61,7 @@
+
+ def run(port, options, root):
+     # Prefer to look relative to the installed binary
+-    share = os.path.dirname(__file__) + "/../share/scan-view"
++    share = os.path.dirname(__file__) + "/../share/"
+     if not os.path.isdir(share):
+         # Otherwise look relative to the source
+         share = os.path.dirname(__file__) + "/../../scan-view/share"

@@ -1,6 +1,5 @@
 #!/usr/bin/make -f
 
-TARGET_BUILD	:= build-llvm
 DEB_INST		:= $(CURDIR)/debian/tmp/
 #GCC_VERSION     := 4.8
 # The 5| in the regexp is a crappy workaround. g++ 5.2 in Debian is not providing a g++-5.2 binary (only g++-5)
@@ -18,8 +17,14 @@ endif
 VENDOR=$(shell lsb_release -is)
 
 AUTOCONF_BUILD=no
+
+# Set target root and build directory, based on autoconf use
+TARGET_ROOT=build-llvm
+
 ifeq (${AUTOCONF_BUILD},yes)
-BUILD_DIR=Release
+TARGET_BUILD=$(TARGET_ROOT)/Release
+else
+TARGET_BUILD=$(TARGET_ROOT)
 endif
 
 DEB_HOST_MULTIARCH  = $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
@@ -154,7 +159,7 @@ override_dh_ocamlclean:
 override_dh_auto_configure: preconfigure
 	echo "Using gcc: "
 	$(CC) -v
-	mkdir -p $(TARGET_BUILD)
+	mkdir -p $(TARGET_ROOT)
 	mkdir -p clang/include/clang/Debian
 	sed -e "s|@DEB_PATCHSETVERSION@|$(DEBIAN_REVISION)|" \
 		debian/debian_path.h > clang/include/clang/Debian/debian_path.h
@@ -214,7 +219,7 @@ override_dh_auto_configure: preconfigure
 	fi; \
 	echo "Using cmake: $$CMAKE_BIN"; \
 	if test $(AUTOCONF_BUILD) = yes; then \
-		cd $(TARGET_BUILD); \
+		cd $(TARGET_ROOT); \
 		$(PRE_PROCESS_CONF) \
 		../configure $(confargs) \
 		--prefix=/usr/lib/llvm-$(LLVM_VERSION) \
@@ -235,7 +240,7 @@ override_dh_auto_configure: preconfigure
 		$(CONFIGURE_EXTRA) \
 		CLANG_VENDOR=$(VENDOR) || { cat config.log tools/polly/config.log; exit 1; }; \
 	else \
-		cd $(TARGET_BUILD) && \
+		cd $(TARGET_ROOT) && \
 		$$CMAKE_BIN ../ \
 		-DCMAKE_INSTALL_PREFIX=/usr/lib/llvm-$(LLVM_VERSION) \
 		-DCMAKE_VERBOSE_MAKEFILE=ON \
@@ -253,12 +258,12 @@ override_dh_auto_configure: preconfigure
 
 
 override_dh_auto_build:
-	$(PRE_PROCESS) $(MAKE) $(NJOBS) -C $(TARGET_BUILD) VERBOSE=1 CLANG_VENDOR=$(VENDOR) CXXFLAGS="$(CXXFLAGS_EXTRA)"  LDFLAGS="$(LDFLAGS_EXTRA)" REQUIRES_RTTI=1 DEBUGMAKE=1
+	$(PRE_PROCESS) $(MAKE) $(NJOBS) -C $(TARGET_ROOT) VERBOSE=1 CLANG_VENDOR=$(VENDOR) CXXFLAGS="$(CXXFLAGS_EXTRA)"  LDFLAGS="$(LDFLAGS_EXTRA)" REQUIRES_RTTI=1 DEBUGMAKE=1
 
 ifeq (${AUTOCONF_BUILD},yes)
 # We run the build with the Asserts, new directory, make a symlink to make
 # sure the rest still work
-	cd $(TARGET_BUILD) \
+	cd $(TARGET_ROOT) \
 	if test -d Release+Asserts -a ! -e Release; then \
 		ln -s Release+Asserts Release; \
 	fi
@@ -294,11 +299,11 @@ build_doc:
 	CMDS="llvm-dwarfdump llvm-mc llvm-mcmarkup llvm-objdump llvm-rtdyld llvm-size llvm-ranlib lldb clang-format clang clang-tblgen clang-check clang-tidy clang-apply-replacements pp-trace sancov"; \
 	for f in $$CMDS; do \
 		echo "Generating manpage of $$f"; \
-		LD_LIBRARY_PATH=$(DEB_INST)/usr/lib/llvm-$(LLVM_VERSION)/lib/:/usr/lib/*/libfakeroot help2man --no-discard-stderr --version-string=$(LLVM_VERSION) $(TARGET_BUILD)/$(BUILD_DIR)/bin/$$f > debian/man/$$f-$(LLVM_VERSION).1; \
+		LD_LIBRARY_PATH=$(DEB_INST)/usr/lib/llvm-$(LLVM_VERSION)/lib/:/usr/lib/*/libfakeroot help2man --no-discard-stderr --version-string=$(LLVM_VERSION) $(TARGET_BUILD)/bin/$$f > debian/man/$$f-$(LLVM_VERSION).1; \
 	done
 
 override_dh_auto_install:
-	$(MAKE) -C $(TARGET_BUILD) VERBOSE=1 install DESTDIR=$(DEB_INST)/
+	$(MAKE) -C $(TARGET_ROOT) VERBOSE=1 install DESTDIR=$(DEB_INST)/
 
 	# Not used on Linux.
 	rm -f $(DEB_INST)/usr/lib/llvm-$(LLVM_VERSION)/bin/argdumper
@@ -427,8 +432,7 @@ endif
 
 # Delete the target build directory to save some space on the build systems
 # All the files have been installed in $(CURDIR)/debian/tmp/ already
-	rm -rf $(TARGET_BUILD)
-
+	rm -rf $(TARGET_ROOT)
 
 override_dh_shlibdeps:
 #	cd $(DEB_INST)/usr/lib/llvm-$(LLVM_VERSION)/lib/ && ln -s libLLVM-$(LLVM_VERSION).so.1 libLLVM-$(LLVM_VERSION).so
@@ -439,13 +443,11 @@ override_dh_installman:
 # Make sure that lli manpage is only in llvm-3.2-runtime (See #697117)
 	rm -f $(CURDIR)/debian/llvm-$(LLVM_VERSION)/usr/share/man/man1/lli*
 
-
 override_dh_strip:
 	dh_strip -p libclang$(SONAME_EXT)-$(LLVM_VERSION) --dbg-package=libclang$(SONAME_EXT)-$(LLVM_VERSION)-dbg
 	dh_strip -p libllvm$(LLVM_VERSION) --dbg-package=libllvm$(LLVM_VERSION)-dbg
 	dh_strip -p liblldb-$(LLVM_VERSION) --dbg-package=liblldb-$(LLVM_VERSION)-dbg
 	dh_strip -a
-
 
 override_dh_install:
 	dh_install --fail-missing
@@ -461,9 +463,6 @@ override_dh_installdeb:
 # Remove auto generated python pyc
 	find $(CURDIR)/debian/llvm-$(LLVM_VERSION)-tools/usr/lib/llvm-$(LLVM_VERSION)/ -name '*.pyc' | xargs -r rm -f
 
-
-
-
 ifeq (,$(filter nocheck, $(DEB_BUILD_OPTIONS)))
 # List of the archs we know we have 100 % tests working
 ARCH_LLVM_TEST_OK := i386
@@ -474,24 +473,24 @@ ifneq (${AUTOCONF_BUILD},yes)
 
 # LLVM tests (CMake)
 ifneq (,$(findstring $(DEB_HOST_ARCH),$(ARCH_LLVM_TEST_OK)))
-	$(MAKE) $(NJOBS) -C $(TARGET_BUILD) check-llvm
+	$(MAKE) $(NJOBS) -C $(TARGET_ROOT) check-llvm
 else
-	$(MAKE) $(NJOBS) -C $(TARGET_BUILD) check-llvm || true
+	$(MAKE) $(NJOBS) -C $(TARGET_ROOT) check-llvm || true
 endif
 
 # Clang tests (CMake)
-	$(MAKE) $(NJOBS) -C $(TARGET_BUILD) check-clang || true
+	$(MAKE) $(NJOBS) -C $(TARGET_ROOT) check-clang || true
 
 # LLDB tests (CMake)
 ifeq (,$(filter $(DEB_HOST_ARCH), $(LLDB_DISABLE_ARCHS) armhf armel))
 ifneq (,$(filter codecoverage,$(DEB_BUILD_OPTIONS)))
-	$(MAKE) $(NJOBS) -C $(TARGET_BUILD) check-lldb || true
+	$(MAKE) $(NJOBS) -C $(TARGET_ROOT) check-lldb || true
 endif
 endif
 
 # Polly tests (CMake)
 ifeq (${POLLY_ENABLE},yes)
-	$(MAKE) $(NJOBS) -C $(TARGET_BUILD) check-polly || true
+	$(MAKE) $(NJOBS) -C $(TARGET_ROOT) check-polly || true
 endif
 
 else # Autoconf build
@@ -499,22 +498,22 @@ else # Autoconf build
 # LLVM tests
 ifneq (,$(findstring $(DEB_HOST_ARCH),$(ARCH_LLVM_TEST_OK)))
 # Fail the build if the test fails
-	NJOBS="$(NJOBS)" LD_LIBRARY_PATH=$(CURDIR)/$(TARGET_BUILD)/$(BUILD_DIR)/lib/ $(MAKE) -C $(TARGET_BUILD) check
+	NJOBS="$(NJOBS)" LD_LIBRARY_PATH=$(CURDIR)/$(TARGET_BUILD)/lib/ $(MAKE) -C $(TARGET_ROOT) check
 else
-	NJOBS="$(NJOBS)" LD_LIBRARY_PATH=$(CURDIR)/$(TARGET_BUILD)/$(BUILD_DIR)/lib/ $(MAKE) -C $(TARGET_BUILD) check || true
+	NJOBS="$(NJOBS)" LD_LIBRARY_PATH=$(CURDIR)/$(TARGET_BUILD)/lib/ $(MAKE) -C $(TARGET_ROOT) check || true
 endif
 
 # clang tests
 # setup the env
-	cd $(TARGET_BUILD)/$(BUILD_DIR)/lib/ && ln -s libclang.so libclang.so.1 && ln -s libclang.so libclang-$(LLVM_VERSION).so.1
-	cd $(TARGET_BUILD)/ && $(MAKE) -C tools/clang/ test || true
-	rm -f $(TARGET_BUILD)/$(BUILD_DIR)/lib/libclang.so.1 $(TARGET_BUILD)/$(BUILD_DIR)/lib/libclang-$(LLVM_VERSION).so.1
+	cd $(TARGET_BUILD)/lib/ && ln -s libclang.so libclang.so.1 && ln -s libclang.so libclang-$(LLVM_VERSION).so.1
+	cd $(TARGET_ROOT)/ && $(MAKE) -C tools/clang/ test || true
+	rm -f $(TARGET_BUILD)/lib/libclang.so.1 $(TARGET_BUILD)/lib/libclang-$(LLVM_VERSION).so.1
 
 
 # lldb tests
 ifeq (,$(filter $(DEB_HOST_ARCH), $(LLDB_DISABLE_ARCHS) armhf armel))
 	if test "$(LLDB_ENABLE)" = yes; then \
-	cd $(TARGET_BUILD)/$(BUILD_DIR)/lib/python2.7/site-packages/lldb && if test ! -h _lldb.so -o ! -f _lldb.so; then ln -s ../../../liblldb.so _lldb.so; fi; \
+	cd $(TARGET_BUILD)/lib/python2.7/site-packages/lldb && if test ! -h _lldb.so -o ! -f _lldb.so; then ln -s ../../../liblldb.so _lldb.so; fi; \
 	if test ! -h libLLVM-$(LLVM_VERSION).so.$(SONAME_EXT) -o ! -f _lldb.so; then \
 		ln -s ../../../libLLVM-$(LLVM_VERSION_FULL).so libLLVM-$(LLVM_VERSION).so.$(SONAME_EXT); \
 	fi; \
@@ -523,7 +522,7 @@ ifeq (,$(filter $(DEB_HOST_ARCH), $(LLDB_DISABLE_ARCHS) armhf armel))
 	fi; \
 	fi
 
-	cd $(TARGET_BUILD)/$(BUILD_DIR)/lib && \
+	cd $(TARGET_BUILD)/lib && \
 	rm -f liblldb-$(LLVM_VERSION).so && \
 	ln -s liblldb.so liblldb-$(LLVM_VERSION).so
 
@@ -534,12 +533,12 @@ ifeq (,$(filter $(DEB_HOST_ARCH), $(LLDB_DISABLE_ARCHS) armhf armel))
 endif
 
 # Managed by debian build system
-	rm -f $(CURDIR)/$(TARGET_BUILD)/$(BUILD_DIR)/lib/python*/site-packages/lldb/_lldb.so $(TARGET_BUILD)/$(BUILD_DIR)/lib/liblldb-$(LLVM_VERSION).so
+	rm -f $(CURDIR)/$(TARGET_BUILD)/lib/python*/site-packages/lldb/_lldb.so $(TARGET_BUILD)/lib/liblldb-$(LLVM_VERSION).so
 
 # polly tests
 	if test "$(POLLY_ENABLE)" = yes; then \
-		cd $(TARGET_BUILD)/ && LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:$(DEB_INST)/usr/lib/llvm-$(LLVM_VERSION)/lib/ $(MAKE) -C tools/polly/test/ check-polly || true; \
-    fi
+		cd $(TARGET_BUILD) && LD_LIBRARY_PATH=$$LD_LIBRARY_PATH:$(DEB_INST)/usr/lib/llvm-$(LLVM_VERSION)/lib/ $(MAKE) -C tools/polly/test/ check-polly || true; \
+    	fi
 
 # The compression of the code coverage report is done in the
 # hook B21GetCoverageResults on the server
@@ -574,6 +573,5 @@ override_dh_auto_clean:
 	rm -f $(CURDIR)/utils/vim/llvm-$(LLVM_VERSION).vim $(CURDIR)/utils/vim/tablegen-$(LLVM_VERSION).vim
 	rm -f $(CURDIR)/clang/tools/clang-format/clang-format-diff-$(LLVM_VERSION)
 	rm -f $(CURDIR)/clang/tools/clang-format/clang-format-$(LLVM_VERSION).py
-
 
 .PHONY: override_dh_strip preconfigure

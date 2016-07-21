@@ -44,7 +44,7 @@ cd ${TEMP_DIR}
 # Make result dir
 mkdir -p ${RESULT_DIR}
 
-DSC_URL="http://http.debian.net/debian/${POOL}/${PKGNAME}-${PKG_VER}/${PKG_NAME}-${DSC_VER}.dsc"
+DSC_URL="http://http.debian.net/debian/${POOL}/${PKG_NAME}-${PKG_VER}/${PKG_NAME}-${DSC_VER}.dsc"
 
 # get source
 # download only, don't unpack

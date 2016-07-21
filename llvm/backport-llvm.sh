@@ -32,7 +32,7 @@ DIST_TARGET="brewmaster"
 SCRIPTDIR="${PWD}"
 TEMP_DIR="$HOME/temp"
 RESULT_DIR="${TEMP_DIR}/result"
-SRC_DIR="${TEMP_DIR}/SRC_DIR"
+SRC_DIR="${TEMP_DIR}/llvm-toolchain-snapshot_3.8~svn249699.orig"
 
 #################
 # build
@@ -101,7 +101,7 @@ unset LLVM_VERSION
 
 cd ${SRC_DIR}
 BUILDER="pdebuild"
-BUILDOPTS="--buildresult ${RESULT_DIR} --debbuildopts -sa --debbuildopts -nc"
+BUILDOPTS="--buildresult ${RESULT_DIR} --debbuildopts -sa"
 DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 # Show result (if good)

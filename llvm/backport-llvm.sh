@@ -90,7 +90,7 @@ echo -e "    File: ${ORIG_TARBALL_VER}.orig.tar.gz"
 tar -czf "${ORIG_TARBALL_VER}.orig.tar.gz" "$(basename ${SRC_DIR})"
 
 # Add debian 
-cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+cp -r "${TEMP_DIR}/debian" "${SRC_DIR}"
 
 # Remove cruft
 rm -rf *.xz *.bz2 *.dsc

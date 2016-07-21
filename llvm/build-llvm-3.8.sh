@@ -139,7 +139,7 @@ main()
 	tar -czf "${PKGNAME}_${PKGVER}.orig.tar.gz" "$(basename ${SRC_DIR})"
 
 	# There is an issue with debian/rules and "BUILD_DIR", use our copy
-	tar -xf "${BUILD_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" -C "${SRC_DIR}"
+	tar -xf ${BUILD_DIR}/${PKG_NAME}*.debian.tar.xz -C "${SRC_DIR}"
 	cp -r "${SCRIPTDIR}/rules" "${SRC_DIR}/debian/"
 	rm -f ${BUILD_DIR}/*debian.tar.xz
 
@@ -155,7 +155,7 @@ main()
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
-	
+
 	# update changelog with dch
 	dch -i
 

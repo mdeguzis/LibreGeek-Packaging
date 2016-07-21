@@ -159,10 +159,9 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Backport for brewmaster"
+		dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
 		nano "debian/changelog"
-	
+
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \

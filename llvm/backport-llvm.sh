@@ -14,14 +14,22 @@
 
 echo -e "\n==> Setting vars" && sleep 2s
 
+#################
 # vars
-temp_dir="$HOME/temp"
-result_dir="${temp_dir}/result"
-scriptdir="${PWD}"
+#################
 
 # Set target LLVM version
 PKG_VER="3.8"
 DSC_VER="3.8_3.8.1-4"
+
+# dirs
+temp_dir="$HOME/temp"
+result_dir="${temp_dir}/result"
+scriptdir="${PWD}"
+
+#################
+# build
+#################
 
 # Enter working env
 rm -rf ${temp_dir}
@@ -40,7 +48,7 @@ echo -e "==> Backporting package" && sleep 2s
 
 # Do NOT pass "-E" to sudo below!
 # For some reason, this particular build picks up environment information, and uses it 
-# strangely with pbuilder
+# strangely with pbuilder (need to confirm)
 
 # Unset vars used in debian/rules (for safety)
 # For one, BUILD_DIR is normally used by my build scripts.

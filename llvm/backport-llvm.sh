@@ -76,7 +76,8 @@ do
 done
 
 # recreate as single tarball
-echo -e "\n==> Creating original tarball\n" && sleep 2s
+echo -e "\n==> Creating original tarball" && sleep 2s
+echo -e "    File: "${ORIG_TARBALL_VER}.orig.tar.gz"
 tar -cvzf "${ORIG_TARBALL_VER}.orig.tar.gz" "${SRC_DIR}"
 
 # Remove cruft

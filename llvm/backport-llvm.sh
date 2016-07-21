@@ -97,9 +97,11 @@ unset LLVM_VERSION
 #sudo -E DIST=${DIST_TARGET} pbuilder --build --distribution ${DIST_TARGET} --buildresult ${RESULT_DIR} \
 #--debbuildopts -sa --debbuildopts -nc ${PKG_NAME}-${DSC_VER}.dsc
 
-cd ${RESULT_DIR}
+cd ${TEMP_DIR}
 BUILDER="pdebuild"
-BUILDOPTS="--buildresult --debbuildopts -sa --debbuildopts -nc"
+DIST="brewmaster"
+ARCH="amd64"
+BUILDOPTS="--buildresult ${RESULT_DIR} --debbuildopts -sa --debbuildopts -nc"
 DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 # Show result (if good)

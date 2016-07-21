@@ -1,0 +1,6 @@
+usr/lib/@DEB_HOST_MULTIARCH@/libLLVM-@LLVM_VERSION_FULL@.so.1 usr/lib/llvm-@LLVM_VERSION@/lib/python2.7/site-packages/lldb/libLLVM-@LLVM_VERSION_FULL@.so.1
+usr/lib/@DEB_HOST_MULTIARCH@/libLLVM-@LLVM_VERSION_FULL@.so.1 usr/lib/llvm-@LLVM_VERSION@/lib/python2.7/site-packages/lldb/libLLVM-@LLVM_VERSION@.so.1
+usr/lib/@DEB_HOST_MULTIARCH@/liblldb-@LLVM_VERSION@.so.1      usr/lib/llvm-@LLVM_VERSION@/lib/python2.7/site-packages/lldb/_lldb.so
+usr/lib/llvm-@LLVM_VERSION@/lib/python2.7/site-packages/lldb/ usr/lib/python2.7/dist-packages/lldb
+
+

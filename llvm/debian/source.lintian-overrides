@@ -1,0 +1,6 @@
+# Removed by patch remove-dbtree.diff
+source: source-is-missing clang/www/analyzer/scripts/dbtree.js
+# No longer used (we are using cmake now)
+source: outdated-autotools-helper-file autoconf/config.guess 2011-08-20
+source: outdated-autotools-helper-file autoconf/config.sub 2011-11-02
+

@@ -122,7 +122,7 @@ main()
 	
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-	tar -cvzf "${ORIG_TARBALL_VER}.orig.tar.gz" "$(basename ${SRC_DIR})"
+	tar -czf "${ORIG_TARBALL_VER}.orig.tar.gz" "$(basename ${SRC_DIR})"
 
 
 	################################################

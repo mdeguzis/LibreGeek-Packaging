@@ -50,8 +50,8 @@ target="5.0"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -sa"
+BUILDER="debuild"
+BUILDOPTS="-b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="llvm-toolchain-3.8"
 PKGVER="3.8.1"
@@ -65,7 +65,7 @@ maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
 export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
-SRC_DIR="${BUILD_DIR}/llvm-3.8-source"
+SRC_DIR="${BUILD_DIR}/llvm-toolchain-3.8-3.8.1"
 
 install_prereqs()
 {
@@ -73,7 +73,9 @@ install_prereqs()
 	echo -e "\n==> Installing $PKGNAME build dependencies...\n"
 	sleep 2s
 
-	sudo apt-get install -y --force-yes debhelper 
+	sudo apt-get install -y --force-yes debhelper flex bison dejagnu tcl expect \
+	cmake libtool chrpath sharutils libffi-dev, python-dev libedit-dev \
+	swig python-sphinx binutils-dev libjsoncpp-dev lcov help2man zlib1g-dev
 
 }
 
@@ -116,18 +118,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	mkdir -p "${SRC_DIR}"
-	dget -d http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1-4.dsc
-
-	echo -e "\n==> Extracting original sources\n"
-	sleep 2s
-
-	# Extact the orig archives into one directory to use for original source
-
-	for filename in *.tar.bz2
-	do
-		echo "Extracting ${filename}"
-		tar xfj ${filename} -C "${SRC_DIR}"
-	done
+	dget http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1-4.dsc
 
 	# ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
@@ -135,46 +126,33 @@ main()
 	# Prepare sources
 	#################################################
 
-	# Back out to create the orig. tarball
-	cd "${BUILD_DIR}" || exit 1
-
-	echo -e "\n==> Creating original tarball"
-	sleep 2s
-	echo -e "    File: ${PKGNAME}_${PKGVER}.orig.tar.gz\n"
-	tar -czf "${PKGNAME}_${PKGVER}.orig.tar.gz" "$(basename ${SRC_DIR})"
-
-	# There is an issue with debian/rules and "BUILD_DIR", use our copy
-	tar -xf ${BUILD_DIR}/${PKG_NAME}*.debian.tar.xz -C "${SRC_DIR}"
-	cp -r "${SCRIPTDIR}/rules" "${SRC_DIR}/debian/"
-	rm -f ${BUILD_DIR}/*debian.tar.xz
-
-
-	# Remove cruft
-	rm -rf *.xz *.bz2 *.dsc
+	# add patched rules file and series
+	cp -r "${SCRIPTDIR}/patches/*" "${SRC_DIR}/debian/patches/"
 
 	################################################
 	# Build package
 	#################################################
 
-	# enter source dir
+	# enter source dir if not already
 	cd "${SRC_DIR}"
 
-	echo -e "\n==> Updating changelog"
-	sleep 2s
+	
+	#echo -e "\n==> Updating changelog"
+	#sleep 2s
 
 	# update changelog with dch
-	if [[ -f "debian/changelog" ]]; then
+	#if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
-		nano "debian/changelog"
+	#	dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
+	#	nano "debian/changelog"
 
-	else
+	#else
 
-		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Initial upload"
-		nano "debian/changelog"
+	#	dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${pkgname}" \
+	#	-D "${DIST}" -u "${urgency}" "Initial upload"
+	#	nano "debian/changelog"
 
-	fi
+	#fi
 
 	#################################################
 	# Build Debian package

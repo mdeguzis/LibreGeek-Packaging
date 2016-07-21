@@ -80,8 +80,22 @@ install_prereqs()
 main()
 {
 
-	# install prereqs for build
+	# create BUILD_DIR
+	if [[ -d "${BUILD_DIR}" ]]; then
 
+		sudo rm -rf "${BUILD_DIR}"
+		mkdir -p "${BUILD_DIR}"
+
+	else
+
+		mkdir -p "${BUILD_DIR}"
+
+	fi
+
+	# enter build dir
+	cd "${BUILD_DIR}" || exit
+
+	# install prereqs for build
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine

@@ -107,10 +107,10 @@ unset LLVM_VERSION
 
 cd ${SRC_DIR}
 BUILDER="pdebuild"
-BUILDOPTS="--buildresult --debbuildopts -sa --debbuildopts -nc"
+BUILDOPTS="--buildresult ${RESULT_DIR} --debbuildopts -sa --debbuildopts -nc"
 DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 # Show result (if good)
 
-ls ${result_dir}
+ls ${RESULT_DIR}
 cd ${SCRIPTDIR}

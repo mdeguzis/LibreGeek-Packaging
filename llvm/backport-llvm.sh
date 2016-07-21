@@ -12,7 +12,7 @@
 # Usage:        ./backport-llvm.sh
 # -------------------------------------------------------------------------------
 
-echo -e "\n==> Setting vars" && sleep 2s
+echo -e "\n==> Setting vars\n" && sleep 2s
 
 #################
 # vars

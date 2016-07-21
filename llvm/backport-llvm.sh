@@ -55,8 +55,11 @@ echo -e "\n==> Patching debian/rules\n"
 sleep 2s
 
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
-tar -xvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
+tar -xf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
 cp -r "${SCRIPTDIR}/rules" "${TEMP_DIR}/debian/"
+
+echo -e "\n==> Finished patching debian/rules"
+sleep 2s
 
 #tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
 #rm -rf "debian"
@@ -78,15 +81,12 @@ done
 # recreate as single tarball
 echo -e "\n==> Creating original tarball" && sleep 2s
 echo -e "    File: ${ORIG_TARBALL_VER}.orig.tar.gz"
-tar -cvzf "${ORIG_TARBALL_VER}.orig.tar.gz" "${SRC_DIR}"
+tar -czf "${ORIG_TARBALL_VER}.orig.tar.gz" "${SRC_DIR}"
 
 # Remove cruft
 rm -rf *.xz *.bz2 *.dsc
 
 # ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
-
-echo -e "\n==> Finished patching debian/rules"
-sleep 2s
 
 echo -e "\n==> Backporting package\n" && sleep 2s
 

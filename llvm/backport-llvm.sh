@@ -17,10 +17,10 @@ cd ${temp_dir}
 # Make result dir
 mkdir -p ${result_dir}
 
+DSC_URL="http://http.debian.net/debian/pool/main/l/llvm-toolchain-${PKG_VER}/llvm-toolchain-${DSC_VER}.dsc"
+
 # get source
 dget ${DSC_URL} -d
-
-DSC_URL="http://http.debian.net/debian/pool/main/l/llvm-toolchain-${PKG_VER}/llvm-toolchain-${DSC_VER}.dsc"
 
 sudo -E DIST=brewmaster pbuilder --build --distribution brewmaster --buildresult result_dir \
 --debbuildopts -sa --debbuildopts -nc llvm-toolchain-${DSC_VER}.dsc

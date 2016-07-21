@@ -385,6 +385,39 @@ cp "${SCRIPTDIR}/repo-include.txt" "${STEAMOS_TOOLS_CONFIGS}"
 cp "${SCRIPTDIR}/repo-filter.txt" "${STEAMOS_TOOLS_CONFIGS}"
 
 #################################################
+# swap
+#################################################
+
+SYSTEM_SWAP_KB=$(cat /proc/meminfo | awk '/SwapTotal/{print $2}')
+SYSTEM_SWAP_GB=$(echo "scale=2; ${SYSTEM_SWAP_KB}/1024/1024" | bc)
+
+if [[ ${SYSTEM_SWAP_KB} == "0" ]]; then
+
+	cat<<- EOF
+	==> SWAP space warning!
+	    It appears there is no swap space in use. This is a bad idea
+	    for large builds on low-spec VPS instances. Setup?
+
+	EOF
+	
+	read -erp "Choice [y/n]: " SETUP_SWAP
+	
+	if [[ "${SETUP_SWAP}" == "y" ]]; then
+
+		read -erp "Size of swap spce in GB: " SWAP_SIZE_TEMP
+		SWAP_SIZE=$((SWAP_SIZE_TEMP * 1000))
+		sudo touch /var/swap.img
+		sudo chmod 600 /var/swap.img
+		sudo dd if=/dev/zero of=/var/swap.img bs=1024k count=${SWAP_SIZE}
+		sudo mkswap /var/swap.img
+		sudo swapon /var/swap.img
+		echo "# Manual setup swap space" | sudo tee -a /etc/fstab
+		echo "/var/swap.img    none    swap    sw    0    0" | sudo tee -a /etc/fstab
+
+	fi
+	
+fi
+#################################################
 # Preferences
 #################################################
 

@@ -1,0 +1,120 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+dh-ocaml is already the newest version.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+
+==> Obtaining upstream source code
+
+dget: retrieving http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1-4.dsc
+dget: retrieving http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1.orig-clang-tools-extra.tar.bz2
+dget: retrieving http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1.orig-clang.tar.bz2
+dget: retrieving http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1.orig-compiler-rt.tar.bz2
+dget: retrieving http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1.orig-lldb.tar.bz2
+dget: retrieving http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1.orig-polly.tar.bz2
+dget: retrieving http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1.orig.tar.bz2
+dget: retrieving http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1-4.debian.tar.xz
+llvm-toolchain-3.8_3.8.1-4.dsc:
+      Good signature found
+   validating llvm-toolchain-3.8_3.8.1.orig-clang-tools-extra.tar.bz2
+   validating llvm-toolchain-3.8_3.8.1.orig-clang.tar.bz2
+   validating llvm-toolchain-3.8_3.8.1.orig-compiler-rt.tar.bz2
+   validating llvm-toolchain-3.8_3.8.1.orig-lldb.tar.bz2
+   validating llvm-toolchain-3.8_3.8.1.orig-polly.tar.bz2
+   validating llvm-toolchain-3.8_3.8.1.orig.tar.bz2
+   validating llvm-toolchain-3.8_3.8.1-4.debian.tar.xz
+All files validated successfully.
+
+==> Extracting original sources
+
+Extracting llvm-toolchain-3.8_3.8.1.orig-clang.tar.bz2
+Extracting llvm-toolchain-3.8_3.8.1.orig-clang-tools-extra.tar.bz2
+Extracting llvm-toolchain-3.8_3.8.1.orig-compiler-rt.tar.bz2
+Extracting llvm-toolchain-3.8_3.8.1.orig-lldb.tar.bz2
+Extracting llvm-toolchain-3.8_3.8.1.orig-polly.tar.bz2
+Extracting llvm-toolchain-3.8_3.8.1.orig.tar.bz2
+
+==> Creating original tarball
+    File: llvm-toolchain-3.8_3.8.1.orig.tar.gz
+
+
+==> Updating changelog
+(B)0[?1049h[1;16r[m[4l[34h[?25h[?1h=[?1h=[?1h=[39;49m[39;49m[m[H[J[0;7m  GNU nano 2.2File: ...an/changelog           [3;1H[mllvm-toolchain-3.8 (1:3.8.1-4.1) brewmaster; $[5;3H* Non-maintainer upload.[6;3H* Backport for SteamOS brewmaster
+[2B -- Michael DeGuzis <mdeguzis@gmail.com>  Thu$[10;1Hllvm-toolchain-3.8 (1:3.8.1-4) unstable; urge$[12;3H* Fix the FTBFS under mips/mipsel? (enable $[13;5H(Closes: #820537)[14;14H[0;7m[ Read 1168 lines ]
+[1B^G[m Get [0;7m^O[m Writ[0;7m^R[m Read[0;7m^Y[m Prev[0;7m^K[m Cut [0;7m^C[m Cur Pos
+[1B[0;7m^X[m Exit[0;7m^J[m Just[0;7m^W[m Wher[0;7m^V[m Next[0;7m^U[m UnCu[0;7m^T[m To Spell[1@l
+[13A[12B[J[16;46H[16;1H[?1049l
+[?1l>
+==> Building Debian package llvm-toolchain-3.8 from source
+
+dpkg-checkbuilddeps: Unmet build dependencies: flex bison dejagnu tcl expect cmake libtool chrpath sharutils libffi-dev (>= 3.0.9) python-dev libedit-dev swig python-sphinx binutils-dev libjsoncpp-dev lcov help2man zlib1g-dev
+W: Unmet build-dependency in source
+dpkg-buildpackage: source package llvm-toolchain-3.8
+dpkg-buildpackage: source version 1:3.8.1-4.1
+dpkg-buildpackage: source distribution brewmaster
+dpkg-buildpackage: source changed by Michael DeGuzis <mdeguzis@gmail.com>
+ dpkg-source --before-build llvm-3.8-source
+dpkg-checkbuilddeps: Unmet build dependencies: flex bison dejagnu tcl expect cmake libtool chrpath sharutils libffi-dev (>= 3.0.9) python-dev libedit-dev swig python-sphinx binutils-dev libjsoncpp-dev lcov help2man zlib1g-dev
+dpkg-buildpackage: warning: build dependencies/conflicts unsatisfied; aborting
+dpkg-buildpackage: warning: (Use -d flag to override.)
+dpkg-buildpackage: warning: this is currently a non-fatal warning with -S, but will probably become fatal in the future
+ fakeroot debian/rules clean
+dh clean --with ocaml
+   dh_testdir
+   debian/rules override_dh_auto_clean
+make[1]: Entering directory '/home/desktop/build-llvm-toolchain-3.8-temp/llvm-3.8-source'
+rm -rf build-llvm tools/clang/include/clang/Debian/debian_path.h docs/_build/ clang/docs/_build tools/clang/docs/_html/
+rm -rf cov-int/ reports/
+rm -f `ls debian/*.in|sed -e "s|.in$||g"`
+find utils -name '*.pyc' | xargs -r rm -f
+find: `utils': No such file or directory
+# Use -I because a test has a space in its name
+find lldb/test -iname '*.pyc' | xargs -I{} -r rm -f {}
+find: `lldb/test': No such file or directory
+find test -name '*.pyc' -o -name '*.cm[ix]' | xargs -r rm -f
+find: `test': No such file or directory
+find test/Bindings -name '*.o' | xargs -r rm -f
+find: `test/Bindings': No such file or directory
+rm -f tools/clang tools/polly tools/lldb projects/compiler-rt
+rm -rf tools/clang/tools/extra clang/tools/extra/
+rm -f /home/desktop/build-llvm-toolchain-3.8-temp/llvm-3.8-source/utils/vim/llvm-3.8.vim /home/desktop/build-llvm-toolchain-3.8-temp/llvm-3.8-source/utils/vim/tablegen-3.8.vim
+rm -f /home/desktop/build-llvm-toolchain-3.8-temp/llvm-3.8-source/clang/tools/clang-format/clang-format-diff-3.8
+rm -f /home/desktop/build-llvm-toolchain-3.8-temp/llvm-3.8-source/clang/tools/clang-format/clang-format-3.8.py
+make[1]: Leaving directory '/home/desktop/build-llvm-toolchain-3.8-temp/llvm-3.8-source'
+   dh_clean
+ dpkg-source -b llvm-3.8-source
+dpkg-source: info: using source format `3.0 (quilt)'
+dpkg-source: info: building llvm-toolchain-3.8 using existing ./llvm-toolchain-3.8_3.8.1.orig.tar.gz
+can't find file to patch at input line 5
+Perhaps you used the wrong -p or --strip option?
+The text leading up to this was:
+--------------------------
+|Index: llvm-toolchain-snapshot_3.7~svn241915/clang/tools/libclang/Makefile
+|===================================================================
+|--- llvm-toolchain-snapshot_3.7~svn241915.orig/clang/tools/libclang/Makefile
+|+++ llvm-toolchain-snapshot_3.7~svn241915/clang/tools/libclang/Makefile
+--------------------------
+No file to patch.  Skipping patch.
+2 out of 2 hunks ignored
+dpkg-source: info: the patch has fuzz which is not allowed, or is malformed
+dpkg-source: info: if patch '18-soname.patch' is correctly applied by quilt, use 'quilt refresh' to update it
+dpkg-source: error: LC_ALL=C patch -t -F 0 -N -p1 -u -V never -g0 -E -b -B .pc/18-soname.patch/ --reject-file=- < llvm-3.8-source.orig.vklDV5/debian/patches/18-soname.patch gave error exit status 1
+dpkg-buildpackage: error: dpkg-source -b llvm-3.8-source gave error exit status 2
+
+Time started: 16:07:30
+Time started: 16:09:21
+Total Runtime (minutes): 1.85
+
+
+###############################################################
+If package was built without errors you will see it below.
+If you don't, please check build dependcy errors listed above.
+###############################################################
+
+Showing contents of: /home/desktop/build-llvm-toolchain-3.8-temp
+
+llvm-3.8-source
+llvm-toolchain-3.8_3.8.1-4.1_amd64.build
+llvm-toolchain-3.8_3.8.1.orig.tar.gz
+
+==> Would you like to transfer any packages that were built? [y/n]

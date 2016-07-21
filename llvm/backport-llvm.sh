@@ -58,19 +58,7 @@ sleep 2s
 
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
 tar -xf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
-cp -r "${SCRIPTDIR}/rules" "${TEMP_DIR}/debian/"
-
-echo -e "\n==> Patching paths in debian/patches"
-sleep 2s
-
-# This is set to a long directory that was likely applied at the top level
-# We are usign pbuilder and not applying patches before build
-
-find "${TEMP_DIR}/debian/patches" -name "*.diff*" -print0 | xargs -0 \
-sed -i "s|llvm-toolchain-snapshot_3.7~svn241915.orig/||"
-
-#tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
-#rm -rf "debian"
+cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}/"
 
 echo -e "\n==> Extracting original sources\n"
 sleep 2s
@@ -88,9 +76,6 @@ done
 echo -e "\n==> Creating original tarball" && sleep 2s
 echo -e "    File: ${ORIG_TARBALL_VER}.orig.tar.gz"
 tar -czf "${ORIG_TARBALL_VER}.orig.tar.gz" "$(basename ${SRC_DIR})"
-
-# Add debian 
-cp -r "${TEMP_DIR}/debian" "${SRC_DIR}"
 
 # Remove cruft
 rm -rf *.xz *.bz2 *.dsc

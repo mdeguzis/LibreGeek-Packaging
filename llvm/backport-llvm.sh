@@ -61,7 +61,7 @@ rm -rf "debian"
 
 # ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
-echo -e "\n==> Finished patching debian/rules\n"
+echo -e "\n==> Finished patching debian/rules"
 sleep 2s
 
 echo -e "\n==> Backporting package\n" && sleep 2s

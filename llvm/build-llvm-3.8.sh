@@ -117,7 +117,6 @@ main()
 	sleep 2s
 	
 	# Extact the orig archives into one directory to use for original source
-	ORIG_TARBALL_VER="${PKG_NAME}-${FULL_VER}"
 	
 	for filename in *.tar.bz2
 	do
@@ -136,8 +135,7 @@ main()
 	
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-	tar -czf "${ORIG_TARBALL_VER}.orig.tar.gz" "$(basename ${SRC_DIR})"
-
+	tar -czf "${PKGNAME}_${PKGVER}.orig.tar.gz" "$(basename ${SRC_DIR})"
 
 	################################################
 	# Build package

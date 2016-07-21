@@ -56,24 +56,8 @@ sleep 2s
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
 tar -xvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
 cp -r "${SCRIPTDIR}/rules" "${TEMP_DIR}/debian/"
-
-#tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
-#rm -rf "debian"
-
-echo -e "\n==> Extracting original sources\n"
-sleep 2s
-
-# Extact the orig archives
-for filename in *.tar.bz2
-do
-  echo "Extracting ${filename}"
-  tar xfj ${filename}
-done
-
-# Remove original archives so they are not used
-# We are extracting the source manually since the original DSC is obviously signed with a PGP key
-
-rm -rf *.bz2 *.xz *.dsc
+tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
+rm -rf "debian"
 
 # ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
@@ -92,17 +76,11 @@ unset BUILD_DIR
 unset TARGET_BUILD
 unset LLVM_VERSION
 
-# For when upstream is fixed
+# Need --allow-untrusted temporarily so we can use our modified debian archive
 
-#sudo -E DIST=${DIST_TARGET} pbuilder --build --distribution ${DIST_TARGET} --buildresult ${RESULT_DIR} \
-#--debbuildopts -sa --debbuildopts -nc ${PKG_NAME}-${DSC_VER}.dsc
+sudo DIST=${DIST_TARGET} pbuilder --build --distribution ${DIST_TARGET} --buildresult ${RESULT_DIR} \
+--debbuildopts -sa --debbuildopts -nc --allow-untrusted ${PKG_NAME}-${DSC_VER}.dsc
 
-cd ${TEMP_DIR}
-BUILDER="pdebuild"
-DIST="brewmaster"
-ARCH="amd64"
-BUILDOPTS="--buildresult ${RESULT_DIR} --debbuildopts -sa --debbuildopts -nc"
-DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 # Show result (if good)
 

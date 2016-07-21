@@ -100,7 +100,7 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
-		
+
 	else
 
 		# still need this helper
@@ -113,16 +113,16 @@ main()
 	#################################################
 
 	# Clone upstream source code and target
-	
+
 	echo -e "\n==> Obtaining upstream source code\n"
 	mkdir -p "${SRC_DIR}"
 	dget -d http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1-4.dsc
-	
+
 	echo -e "\n==> Extracting original sources\n"
 	sleep 2s
-	
+
 	# Extact the orig archives into one directory to use for original source
-	
+
 	for filename in *.tar.bz2
 	do
 		echo "Extracting ${filename}"
@@ -130,14 +130,14 @@ main()
 	done
 
 	# ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
-	
+
 	################################################
 	# Prepare sources
 	#################################################
-	
+
 	# Back out to create the orig. tarball
 	cd "${BUILD_DIR}" || exit 1
-	
+
 	echo -e "\n==> Creating original tarball"
 	sleep 2s
 	echo -e "    File: ${PKGNAME}_${PKGVER}.orig.tar.gz\n"
@@ -147,6 +147,7 @@ main()
 	tar -xf ${BUILD_DIR}/${PKG_NAME}*.debian.tar.xz -C "${SRC_DIR}"
 	cp -r "${SCRIPTDIR}/rules" "${SRC_DIR}/debian/"
 	rm -f ${BUILD_DIR}/*debian.tar.xz
+
 
 	# Remove cruft
 	rm -rf *.xz *.bz2 *.dsc

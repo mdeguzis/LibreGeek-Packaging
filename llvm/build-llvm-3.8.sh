@@ -55,7 +55,7 @@ BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="llvm-3.8"
 PKGVER="3.8.1"
-PKGREV="1"
+PKGREV="4"
 EPOCH="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
@@ -157,7 +157,19 @@ main()
 	sleep 2s
 
 	# update changelog with dch
-	dch -i
+	if [[ -f "debian/changelog" ]]; then
+
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Backport for brewmaster"
+		nano "debian/changelog"
+	
+	else
+
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		"Initial upload"
+		nano "debian/changelog"
+
+	fi
 
 	#################################################
 	# Build Debian package

@@ -66,8 +66,8 @@ sleep 2s
 # Extact the orig archives
 for filename in *.tar.bz2
 do
-  tar xfj ${filename}
   echo "Extracting ${filename}"
+  tar xfj ${filename}
 done
 
 # Remove original archives so they are not used

@@ -57,9 +57,9 @@ echo -e "\n==> Patching debian/rules"
 sleep 2s
 
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
-tar -xf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
-cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}/"
-tar -xf ${TEMP_DIR}/*debian.tar.xz
+tar -xf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" -C "${SRC_DIR}"
+cp -r "${SCRIPTDIR}/rules" "${SRC_DIR}/debian/"
+rm -f ${TEMP_DIR}/*debian.tar.xz
 
 echo -e "\n==> Extracting original sources\n"
 sleep 2s

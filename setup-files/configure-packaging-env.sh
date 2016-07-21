@@ -462,7 +462,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 elif [[ "${OS}" == "Arch" ]]; then
 
 	# obtain keyring source for Valve archive keyring and convert it, not provided in AUR
-	mkDIR -p "${HOME}/setup-temp" && cd "${HOME}/setup-temp"
+	mkdir -p "${HOME}/setup-temp" && cd "${HOME}/setup-temp"
 	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q -nc --show-progress
 
 	# Convert
@@ -502,7 +502,7 @@ OS=$(lsb_release -si)
 if [[ "${OS}" == "SteamOS" ]]; then
 
 	rm -rf "${HOME}/pbuilder/hooks"
-	mkDIR -p "${HOME}/pbuilder/${DIST}/aptcache/"
+	mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
 	cp -r "${SCRIPTDIR}/hooks" "${HOME}/pbuilder/"
 
 else

@@ -32,10 +32,7 @@ DIST_TARGET="brewmaster"
 TEMP_DIR="$HOME/temp"
 RESULT_DIR="${TEMP_DIR}/result"
 SCRIPTDIR="${PWD}"
-SRC_DIR="SRC_DIR"
-
-# make any dirs necessary
-mkdir ${SRC_DIR}
+SRC_DIR="${SCRIPTDIR}/SRC_DIR"
 
 #################
 # build
@@ -44,6 +41,7 @@ mkdir ${SRC_DIR}
 # Enter working env
 rm -rf ${TEMP_DIR}
 mkdir ${TEMP_DIR}
+mkdir ${SRC_DIR}
 cd ${TEMP_DIR}
 
 # Make result dir

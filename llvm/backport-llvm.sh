@@ -66,18 +66,21 @@ sleep 2s
 
 # Extact the orig archives into one directory to use for original source
 ORIG_TARBALL_VER="${PKG_NAME}-${FULL_VER}"
-mkdir TEMP_EXTRACT
+SRC_DIR="SRC_DIR"
+mkdir ${SRC_DIR}
 
 for filename in *.tar.bz2
 do
   echo "Extracting ${filename}"
-  tar xfj ${filename} -C "TEMP_EXTRACT"
+  tar xfj ${filename} -C "${SRC_DIR}"
 done
 
 # recreate as single tarball
-tar -czvf 
-tar -cvzf "${ORIG_TARBALL_VER}.orig.tar.gz" "TEMP_EXTRACT"
-rm -rf "TEMP_EXTRACT"
+echo -e "\n==> Creating original tarball\n" && sleep 2s
+tar -cvzf "${ORIG_TARBALL_VER}.orig.tar.gz" "${SRC_DIR}"
+
+# Remove cruft
+rm -rf *.xz *.bz2 *.dsc
 
 # ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
@@ -101,7 +104,7 @@ unset LLVM_VERSION
 #sudo -E DIST=${DIST_TARGET} pbuilder --build --distribution ${DIST_TARGET} --buildresult ${RESULT_DIR} \
 #--debbuildopts -sa --debbuildopts -nc ${PKG_NAME}-${DSC_VER}.dsc
 
-cd ${RESULT_DIR}
+cd ${SRC_DIR}
 BUILDER="pdebuild"
 BUILDOPTS="--buildresult --debbuildopts -sa --debbuildopts -nc"
 DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}

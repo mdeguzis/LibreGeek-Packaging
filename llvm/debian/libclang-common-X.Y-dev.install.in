@@ -1,0 +1,14 @@
+usr/lib/llvm-@LLVM_VERSION@/lib/clang/@LLVM_VERSION_FULL@/include
+
+usr/lib/llvm-@LLVM_VERSION@/lib/clang/@LLVM_VERSION_FULL@/lib
+usr/lib/llvm-@LLVM_VERSION@/lib/clang/@LLVM_VERSION_FULL@/*.txt
+
+#usr/lib/clang/@LLVM_VERSION_FULL@/lib             /usr/lib/clang/@LLVM_VERSION@/
+#usr/lib/clang/@LLVM_VERSION_FULL@/include/         /usr/include/clang/@LLVM_VERSION@/
+
+usr/lib/llvm-@LLVM_VERSION@/bin/clang-tblgen
+usr/lib/llvm-@LLVM_VERSION@/bin/yaml-bench
+
+usr/bin/clang-tblgen-@LLVM_VERSION@
+usr/bin/yaml-bench-@LLVM_VERSION@
+

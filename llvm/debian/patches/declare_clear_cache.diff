@@ -1,0 +1,13 @@
+Index: llvm-toolchain-snapshot_3.7~svn241915/lib/Support/Unix/Memory.inc
+===================================================================
+--- llvm-toolchain-snapshot_3.7~svn241915.orig/lib/Support/Unix/Memory.inc
++++ llvm-toolchain-snapshot_3.7~svn241915/lib/Support/Unix/Memory.inc
+@@ -338,7 +338,7 @@ void Memory::InvalidateInstructionCache(
+   // FIXME: Can we safely always call this for __GNUC__ everywhere?
+   const char *Start = static_cast<const char *>(Addr);
+   const char *End = Start + Len;
+-  __clear_cache(const_cast<char *>(Start), const_cast<char *>(End));
++  __builtin___clear_cache(const_cast<char *>(Start), const_cast<char *>(End));
+ #  endif
+ 
+ #endif  // end apple

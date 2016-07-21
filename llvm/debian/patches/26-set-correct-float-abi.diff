@@ -1,0 +1,33 @@
+Description: set correct float abi settings for armel and armhf
+ debian armel supports systems that don't have a fpu so should use a "float abi"
+ setting of soft by default.
+ 
+ Debian armhf needs a float abi setting of "hard"
+Author: Peter Michael Green <plugwash@debian.org>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+Index: llvm-toolchain-snapshot_3.8~svn248088/clang/lib/Driver/Tools.cpp
+===================================================================
+--- llvm-toolchain-snapshot_3.8~svn248088.orig/clang/lib/Driver/Tools.cpp
++++ llvm-toolchain-snapshot_3.8~svn248088/clang/lib/Driver/Tools.cpp
+@@ -643,7 +643,7 @@ arm::FloatABI arm::getARMFloatABI(const
+       case llvm::Triple::GNUEABI:
+       case llvm::Triple::EABI:
+         // EABI is always AAPCS, and if it was not marked 'hard', it's softfp
+-        ABI = FloatABI::SoftFP;
++        ABI = FloatABI::Soft;
+         break;
+       case llvm::Triple::Android:
+         ABI = (SubArch == 7) ? FloatABI::SoftFP : FloatABI::Soft;

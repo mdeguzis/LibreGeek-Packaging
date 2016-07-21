@@ -1,0 +1,67 @@
+--- a/lldb/lib/Makefile
++++ b/lldb/lib/Makefile
+@@ -16,6 +16,7 @@
+ NO_BUILD_ARCHIVE = 1
+ LINK_LIBS_IN_SHARED = 1
+ SHARED_LIBRARY = 1
++SONAME_EXTENSION = 1
+ 
+ ifeq (,$(findstring -DLLDB_DISABLE_PYTHON,$(CXXFLAGS)))
+ PYTHON_CONFIG?=	python-config
+@@ -191,7 +192,7 @@
+     LLVMLibsOptions += -Wl,--no-undefined
+     # Link in python
+     LLVMLibsOptions += $(PYTHON_BUILD_FLAGS) -lrt -ledit -lncurses -lpanel -lpthread
+-    LLVMLibsOptions += -Wl,--soname,lib$(LIBRARYNAME)$(SHLIBEXT)
++    LLVMLibsOptions += -Wl,--soname,lib$(LIBRARYNAME)$(SHLIBEXT).$(SONAME_EXTENSION)
+     ifneq (,$(filter $(shell dpkg-architecture -qDEB_HOST_ARCH), mips mipsel powerpc powerpcspe))
+      # Link GCC atomic helper library
+      LLVMLibsOptions += -latomic
+--- a/lldb/source/API/CMakeLists.txt
++++ b/lldb/source/API/CMakeLists.txt
+@@ -6,7 +6,12 @@
+ # for liblldb to link against
+ include(${LLDB_PROJECT_ROOT}/cmake/LLDBDependencies.cmake)
+ 
+-add_lldb_library(liblldb SHARED
++set(output_name lldb)
++if (CMAKE_SYSTEM_NAME MATCHES "Windows")
++  set(output_name liblldb)
++endif()
++
++add_lldb_library(liblldb SHARED OUTPUT_NAME ${output_name} SONAME
+   SBAddress.cpp
+   SBAttachInfo.cpp
+   SBBlock.cpp
+@@ -78,7 +83,7 @@
+ 
+ set_target_properties(liblldb
+   PROPERTIES
+-  VERSION ${LLDB_VERSION}
++  VERSION 1
+   )
+ 
+ if (NOT CMAKE_SYSTEM_NAME MATCHES "Windows")
+@@ -105,11 +110,6 @@
+   if (MSVC AND NOT LLDB_DISABLE_PYTHON)
+     target_link_libraries(liblldb PRIVATE ${PYTHON_LIBRARY})
+   endif()
+-else()
+-  set_target_properties(liblldb
+-    PROPERTIES
+-    OUTPUT_NAME lldb
+-    )
+ endif()
+ 
+ if (LLDB_WRAP_PYTHON)
+--- a/lldb/scripts/Python/finishSwigPythonLLDB.py
++++ b/lldb/scripts/Python/finishSwigPythonLLDB.py
+@@ -379,7 +379,7 @@
+             if eOSType == utilsOsType.EnumOsType.Darwin:
+                 strLibFileExtn = ".dylib"
+             else:
+-                strLibFileExtn = ".so"
++                strLibFileExtn = "-3.8.so.1"
+             strSrc = os.path.join(vstrLldbLibDir, "liblldb" + strLibFileExtn)
+ 
+     bOk, strErrMsg = make_symlink(vDictArgs, vstrFrameworkPythonDir, strSrc, strTarget)

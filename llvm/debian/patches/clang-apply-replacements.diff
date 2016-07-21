@@ -1,0 +1,35 @@
+Index: llvm-toolchain-3.7-3.7/clang-tools-extra/clang-modernize/Core/ReplacementHandling.cpp
+===================================================================
+--- llvm-toolchain-3.7-3.7.orig/clang-tools-extra/clang-modernize/Core/ReplacementHandling.cpp
++++ llvm-toolchain-3.7-3.7/clang-tools-extra/clang-modernize/Core/ReplacementHandling.cpp
+@@ -26,7 +26,7 @@ using namespace clang::tooling;
+ 
+ bool ReplacementHandling::findClangApplyReplacements(const char *Argv0) {
+   ErrorOr<std::string> CARPathOrErr =
+-      findProgramByName("clang-apply-replacements");
++      findProgramByName("clang-apply-replacements-3.8");
+   if (!CARPathOrErr)
+     return true;
+ 
+@@ -34,7 +34,7 @@ bool ReplacementHandling::findClangApply
+   static int StaticSymbol;
+   std::string ClangModernizePath = fs::getMainExecutable(Argv0, &StaticSymbol);
+   SmallString<128> TestPath = path::parent_path(ClangModernizePath);
+-  path::append(TestPath, "clang-apply-replacements");
++  path::append(TestPath, "clang-apply-replacements-3.8");
+   if (fs::can_execute(Twine(TestPath)))
+     CARPath = TestPath.str();
+ 
+Index: llvm-toolchain-3.7-3.7/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py
+===================================================================
+--- llvm-toolchain-3.7-3.7.orig/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py
++++ llvm-toolchain-3.7-3.7/clang-tools-extra/clang-tidy/tool/run-clang-tidy.py
+@@ -111,7 +111,7 @@ def main():
+                       default='clang-tidy',
+                       help='path to clang-tidy binary')
+   parser.add_argument('-clang-apply-replacements-binary', metavar='PATH',
+-                      default='clang-apply-replacements',
++                      default='clang-apply-replacements-3.8',
+                       help='path to clang-apply-replacements binary')
+   parser.add_argument('-checks', default=None,
+                       help='checks filter, when not specified, use clang-tidy '

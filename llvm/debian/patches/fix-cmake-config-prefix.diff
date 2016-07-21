@@ -1,0 +1,46 @@
+## Description: add some description
+## Origin/Author: add some origin or author
+## Bug: bug URL
+--- a/cmake/modules/Makefile
++++ b/cmake/modules/Makefile
+@@ -62,17 +62,9 @@
+ 
+ LLVM_CONFIG_CODE := \
+ \# Compute the CMake directory from the LLVMConfig.cmake file location.\n\
+-get_filename_component(_LLVM_CMAKE_DIR "$${CMAKE_CURRENT_LIST_FILE}" PATH)\n\
+-\# Compute the installation prefix from the LLVMConfig.cmake file location.\n\
+-get_filename_component(LLVM_INSTALL_PREFIX "$${CMAKE_CURRENT_LIST_FILE}" PATH)\n
++get_filename_component(_LLVM_CMAKE_DIR "$${CMAKE_CURRENT_LIST_FILE}" PATH)\n
+ 
+-# Compute number of levels (typically 3 - ``share/llvm/cmake/``) to PROJ_prefix
+-# from PROJ_cmake, then emit the appropriate number of calls to
+-# get_filename_components(). Note this assumes there are no spaces in the
+-# cmake_path_suffix variable.
+-cmake_path_suffix := $(subst $(PROJ_prefix),,$(subst $(DESTDIR),,$(PROJ_cmake)))
+-cmake_path_dirs := $(subst /, ,$(cmake_path_suffix))
+-LLVM_CONFIG_CODE += $(foreach __not_used,$(cmake_path_dirs),get_filename_component(LLVM_INSTALL_PREFIX "$${LLVM_INSTALL_PREFIX}" PATH)\n)
++LLVM_CONFIG_CODE += set(LLVM_INSTALL_PREFIX "$(subst /,\/,$(PROJ_prefix))")\n
+ 
+ LLVM_CONFIG_CODE += set(_LLVM_LIBRARY_DIR "$${LLVM_INSTALL_PREFIX}\/lib")
+ 
+--- a/cmake/modules/CMakeLists.txt
++++ b/cmake/modules/CMakeLists.txt
+@@ -47,16 +47,7 @@ file(COPY .
+   )
+ 
+ # Generate LLVMConfig.cmake for the install tree.
+-set(LLVM_CONFIG_CODE "
+-# Compute the installation prefix from this LLVMConfig.cmake file location.
+-get_filename_component(LLVM_INSTALL_PREFIX \"\${CMAKE_CURRENT_LIST_FILE}\" PATH)")
+-# Construct the proper number of get_filename_component(... PATH)
+-# calls to compute the installation prefix.
+-string(REGEX REPLACE "/" ";" _count "${LLVM_INSTALL_PACKAGE_DIR}")
+-foreach(p ${_count})
+-  set(LLVM_CONFIG_CODE "${LLVM_CONFIG_CODE}
+-get_filename_component(LLVM_INSTALL_PREFIX \"\${LLVM_INSTALL_PREFIX}\" PATH)")
+-endforeach(p)
++set(LLVM_CONFIG_CODE "set(LLVM_INSTALL_PREFIX \"${CMAKE_INSTALL_PREFIX}\")")
+ set(LLVM_CONFIG_INCLUDE_DIRS "\${LLVM_INSTALL_PREFIX}/include")
+ set(LLVM_CONFIG_LIBRARY_DIRS "\${LLVM_INSTALL_PREFIX}/lib\${LLVM_LIBDIR_SUFFIX}")
+ set(LLVM_CONFIG_CMAKE_DIR "\${LLVM_INSTALL_PREFIX}/${LLVM_INSTALL_PACKAGE_DIR}")
+

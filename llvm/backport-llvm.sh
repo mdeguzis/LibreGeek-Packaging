@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "\n==> Seeting vars" && sleep 2s
+
 # vars
 temp_dir="$HOME/temp"
 result_dir="${temp_dir}/result"
@@ -21,6 +23,8 @@ DSC_URL="http://http.debian.net/debian/pool/main/l/llvm-toolchain-${PKG_VER}/llv
 
 # get source
 dget ${DSC_URL} -d
+
+echo -e "==> Backporting package" && sleep 2s
 
 sudo -E DIST=brewmaster pbuilder --build --distribution brewmaster --buildresult result_dir \
 --debbuildopts -sa --debbuildopts -nc llvm-toolchain-${DSC_VER}.dsc

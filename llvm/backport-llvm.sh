@@ -32,6 +32,10 @@ DIST_TARGET="brewmaster"
 TEMP_DIR="$HOME/temp"
 RESULT_DIR="${TEMP_DIR}/result"
 SCRIPTDIR="${PWD}"
+SRC_DIR="SRC_DIR"
+
+# make any dirs necessary
+mkdir ${SRC_DIR}
 
 #################
 # build
@@ -51,7 +55,7 @@ DSC_URL="http://http.debian.net/debian/${POOL}/${PKG_NAME}-${PKG_VER}/${PKG_NAME
 # download only, don't unpack
 dget ${DSC_URL} -d
 
-echo -e "\n==> Patching debian/rules\n"
+echo -e "\n==> Patching debian/rules"
 sleep 2s
 
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
@@ -75,8 +79,6 @@ sleep 2s
 
 # Extact the orig archives into one directory to use for original source
 ORIG_TARBALL_VER="${PKG_NAME}-${FULL_VER}"
-SRC_DIR="SRC_DIR"
-mkdir ${SRC_DIR}
 
 for filename in *.tar.bz2
 do
@@ -88,6 +90,9 @@ done
 echo -e "\n==> Creating original tarball" && sleep 2s
 echo -e "    File: ${ORIG_TARBALL_VER}.orig.tar.gz"
 tar -czf "${ORIG_TARBALL_VER}.orig.tar.gz" "${SRC_DIR}"
+
+# Add debian 
+cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 # Remove cruft
 rm -rf *.xz *.bz2 *.dsc

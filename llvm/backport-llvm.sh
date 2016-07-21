@@ -22,7 +22,8 @@ echo -e "\n==> Setting vars\n" && sleep 2s
 POOL="pool/main/l"
 PKG_NAME="llvm-toolchain"
 PKG_VER="3.8"
-DSC_VER="3.8_3.8.1-4"
+FULL_VER="3.8_3.8.1"
+DSC_VER="${FULL_VER}-4"
 
 # Other vars
 DIST_TARGET="brewmaster"
@@ -56,8 +57,27 @@ sleep 2s
 # There is an issue with debian/rules and "BUILD_DIR", use our copy
 tar -xvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
 cp -r "${SCRIPTDIR}/rules" "${TEMP_DIR}/debian/"
-tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
-rm -rf "debian"
+
+#tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" "debian"
+#rm -rf "debian"
+
+echo -e "\n==> Extracting original sources\n"
+sleep 2s
+
+# Extact the orig archives into one directory to use for original source
+ORIG_TARBALL_VER="${PKG_NAME}-${FULL_VER}"
+mkdir ${TEMP_EXTRACT}
+
+for filename in *.tar.bz2
+do
+  echo "Extracting ${filename}"
+  tar xfj ${filename} -C "TEMP_EXTRACT"
+done
+
+# recreate as single tarball
+tar -czvf 
+tar -cvzf "${ORIG_TARBALL_VER}.orig.tar.gz" "TEMP_EXTRACT"
+rm -rf "TEMP_EXTRACT"
 
 # ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
@@ -76,11 +96,15 @@ unset BUILD_DIR
 unset TARGET_BUILD
 unset LLVM_VERSION
 
-# Need --allow-untrusted temporarily so we can use our modified debian archive
+# For when upstream is fixed
 
-sudo DIST=${DIST_TARGET} pbuilder --build --distribution ${DIST_TARGET} --buildresult ${RESULT_DIR} \
---debbuildopts -sa --debbuildopts -nc --allow-untrusted ${PKG_NAME}-${DSC_VER}.dsc
+#sudo -E DIST=${DIST_TARGET} pbuilder --build --distribution ${DIST_TARGET} --buildresult ${RESULT_DIR} \
+#--debbuildopts -sa --debbuildopts -nc ${PKG_NAME}-${DSC_VER}.dsc
 
+cd ${RESULT_DIR}
+BUILDER="pdebuild"
+BUILDOPTS="--buildresult --debbuildopts -sa --debbuildopts -nc"
+DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 # Show result (if good)
 

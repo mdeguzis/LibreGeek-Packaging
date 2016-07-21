@@ -29,10 +29,10 @@ DSC_VER="${FULL_VER}-4"
 DIST_TARGET="brewmaster"
 
 # dirs
+SCRIPTDIR="${PWD}"
 TEMP_DIR="$HOME/temp"
 RESULT_DIR="${TEMP_DIR}/result"
-SCRIPTDIR="${PWD}"
-SRC_DIR="${SCRIPTDIR}/SRC_DIR"
+SRC_DIR="${TEMP_DIR}/SRC_DIR"
 
 #################
 # build

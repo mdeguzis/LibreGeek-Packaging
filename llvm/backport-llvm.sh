@@ -19,32 +19,44 @@ echo -e "\n==> Setting vars" && sleep 2s
 #################
 
 # Set target LLVM version
+POOL="pool/main/l"
+PKG_NAME="llvm-toolchain"
 PKG_VER="3.8"
 DSC_VER="3.8_3.8.1-4"
 
+# Other vars
+DIST_TARGET="brewmaster"
+
 # dirs
-temp_dir="$HOME/temp"
-result_dir="${temp_dir}/result"
-scriptdir="${PWD}"
+TEMP_DIR="$HOME/temp"
+RESULT_DIR="${TEMP_DIR}/result"
+SCRIPTDIR="${PWD}"
 
 #################
 # build
 #################
 
 # Enter working env
-rm -rf ${temp_dir}
-mkdir ${temp_dir}
-cd ${temp_dir}
+rm -rf ${TEMP_DIR}
+mkdir ${TEMP_DIR}
+cd ${TEMP_DIR}
 
 # Make result dir
-mkdir -p ${result_dir}
+mkdir -p ${RESULT_DIR}
 
-DSC_URL="http://http.debian.net/debian/pool/main/l/llvm-toolchain-${PKG_VER}/llvm-toolchain-${DSC_VER}.dsc"
+DSC_URL="http://http.debian.net/debian/${POOL}/${PKGNAME}-${PKG_VER}/${PKG_NAME}-${DSC_VER}.dsc"
 
 # get source
 dget ${DSC_URL} -d
 
+# There is an issue with debian/rules and "BUILD_DIR", use our copy
+rm "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz"
+cp -r "${SCRIPTDIR}/debian" "${TEMP_DIR}"
+tar -cvf "${TEMP_DIR}/${PKG_NAME}-${DSC_VER}.debian.tar.xz" debian
+rm -rf "debian"
+
 echo -e "==> Backporting package" && sleep 2s
+
 
 # Do NOT pass "-E" to sudo below!
 # For some reason, this particular build picks up environment information, and uses it 
@@ -56,10 +68,10 @@ unset BUILD_DIR
 unset TARGET_BUILD
 unset LLVM_VERSION
 
-sudo -E DIST=brewmaster pbuilder --build --distribution brewmaster --buildresult result_dir \
---debbuildopts -sa --debbuildopts -nc llvm-toolchain-${DSC_VER}.dsc
+sudo -E DIST=${DIST_TARGET} pbuilder --build --distribution ${DIST_TARGET} --buildresult ${RESULT_DIR} \
+--debbuildopts -sa --debbuildopts -nc ${PKG_NAME}-${DSC_VER}.dsc
 
 # Show result (if good)
 
 ls ${result_dir}
-cd ${scriptdir}
+cd ${SCRIPTDIR}

@@ -57,3 +57,4 @@ Apparently (assumming you don't touch gcc-defaults), as of Stretch, you can inst
 >If you just just want working binaries, you can now (2014/10/22) get them from the main Debian/unstable repo! Note that they are uninstallable for a while (up to a few days on slow architectures) after a new gcc-4.9, libc or linux upload as the multiarch libraries have to be in sync across architectures, so the cross-toolchains need to be rebuilt against the [sic]" (cuts off).
 
 * [Multiarch Cross-Toolchain Build (Debian wiki)](https://wiki.debian.org/MultiarchCrossToolchainBuild)
+* [Automated script](https://gist.github.com/preshing/41d5c7248dea16238b60)

@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -46,8 +46,8 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/RPCS3/rpcs3"
-target="master"
+GIT_URL="https://github.com/RPCS3/rpcs3"
+TARGET="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -72,7 +72,7 @@ export NETWORK="no"
 # set build directories
 export BUILD_DIR="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+GIT_DIR="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
 {
@@ -99,7 +99,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	if [[ -d "${git_dir}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
+	if [[ -d "${GIT_DIR}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -109,17 +109,17 @@ main()
 
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
-			# reset retry flag
-			retry="no"
+			# reset RETRY flag
+			RETRY="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
-			# Unpack the original source later on for  clean retry
-			# set retry flag
-			retry="yes"
+			# Unpack the original source later on for  clean RETRY
+			# set RETRY flag
+			RETRY="yes"
 
 		fi
 
@@ -127,11 +127,11 @@ main()
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
-			# reset retry flag
-			retry="no"
+			# reset RETRY flag
+			RETRY="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_DIR}" || exit 1
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
 
@@ -142,10 +142,10 @@ main()
         
         # There are a LOT of submodules/history, trim them
         #echo -e "\nTrimming .git folders"
-        #find "${git_dir}" -name "*.git" -print0 | xargs -0 rm -rf
+        #find "${GIT_DIR}" -name "*.git" -print0 | xargs -0 rm -rf
 
 	# Add image to git dir
-	# cp -r "${scriptdir}/rpcs3.png" "${git_dir}"
+	# cp -r "${scriptdir}/rpcs3.png" "${GIT_DIR}"
 
 	#################################################
 	# Prepare sources
@@ -158,7 +158,7 @@ main()
 	# This way, we can try again with the orig source intact
 	# Keep this method until a build is good to go, without error.
 	
-	if [[ "${retry}" == "no" ]]; then
+	if [[ "${RETRY}" == "no" ]]; then
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
@@ -166,13 +166,13 @@ main()
 		
 	else
 	
-		echo -e "\n==> Cleaning old source folders for retry"
+		echo -e "\n==> Cleaning old source folders for RETRY"
 		sleep 2s
 		
-		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
-		mkdir -p "${git_dir}"
+		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		mkdir -p "${GIT_DIR}"
 	
-		echo -e "\n==> Retrying with prior source tarball\n"
+		echo -e "\n==> RETRYing with prior source tarball\n"
 		sleep 2s
 		tar -xzf ${pkgname}_*.orig.tar.gz -C "${BUILD_DIR}" --totals
 		sleep 2s
@@ -180,14 +180,14 @@ main()
 	fi
 
 	# Add required files
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	#################################################
 	# Build package
 	#################################################
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 	
 	# Get latest commit and update submodules
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
@@ -266,7 +266,7 @@ main()
 
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

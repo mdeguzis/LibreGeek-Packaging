@@ -27,7 +27,7 @@
 override_dh_auto_configure:
 
 override_dh_auto_build:
-	rm -rf build/rpcs3 && mkdir -p build/rpcs3
+	rm -rf rpcs3/build && mkdir -p rpcs3/build
 	cd rpcs3/build && cmake \
 			-DCMAKE_BUILD_TYPE='Release' \
 			-DCMAKE_CXX_COMPILER=clang++-3.8 \

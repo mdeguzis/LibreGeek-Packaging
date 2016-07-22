@@ -24,19 +24,15 @@
 %:
 	dh $@
 
-override_dh_clean:
-
-override_dh_auto_clean:
-
 override_dh_auto_configure:
 
 override_dh_auto_build:
-	rm -rf build && mkdir build
-	cd build && cmake \
+	rm -rf build/rpcs3 && mkdir -p build/rpcs3
+	cd rpcs3/build && cmake \
 			-DCMAKE_BUILD_TYPE='Release' \
 			-DCMAKE_CXX_COMPILER=clang++-3.8 \
 			-DCMAKE_C_COMPILER=clang-3.8 \
 			-DUSE_SYSTEM_LIBPNG='ON' \
 			-DUSE_SYSTEM_FFMPEG='ON' \
-			-DCMAKE_INSTALL_PREFIX=/usr ..
-	make
+			-DCMAKE_INSTALL_PREFIX=/usr .. && \
+			make

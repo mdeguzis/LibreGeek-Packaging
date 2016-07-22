@@ -75,7 +75,8 @@ install_prereqs()
 
 	sudo apt-get install -y --force-yes debhelper flex bison dejagnu tcl expect \
 	cmake libtool chrpath sharutils libffi-dev python-dev libedit-dev \
-	swig python-sphinx binutils-dev libjsoncpp-dev lcov help2man zlib1g-dev
+	swig python-sphinx binutils-dev libjsoncpp-dev lcov help2man zlib1g-dev \
+	texinfo python-six
 
 }
 

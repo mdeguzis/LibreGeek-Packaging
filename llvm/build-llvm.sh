@@ -16,7 +16,7 @@
 #################################################
 
 ARG1="$1"
-SCRIPTDIR=$(pwd)
+SCRIPTDIR="${PWD}"
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
@@ -74,7 +74,7 @@ install_prereqs()
 	sleep 2s
 
 	sudo apt-get install -y --force-yes debhelper flex bison dejagnu tcl expect \
-	cmake libtool chrpath sharutils libffi-dev, python-dev libedit-dev \
+	cmake libtool chrpath sharutils libffi-dev python-dev libedit-dev \
 	swig python-sphinx binutils-dev libjsoncpp-dev lcov help2man zlib1g-dev
 
 }
@@ -126,8 +126,16 @@ main()
 	# Prepare sources
 	#################################################
 
+	echo -e "\n==> Patching"
+	sleep 2s
+
 	# add patched rules file and series
-	cp -r "${SCRIPTDIR}/patches/*" "${SRC_DIR}/debian/patches/"
+	cp -r "${SCRIPTDIR}/patches/series" "${SRC_DIR}/debian/patches/"
+	cp -r "${SCRIPTDIR}/patches/fix-rules-build-dir" "${SRC_DIR}/debian/patches/"
+
+	# Patch
+	cd "${SRC_DIR}"
+	quilt push fix-rules-build-dir 
 
 	################################################
 	# Build package
@@ -135,7 +143,6 @@ main()
 
 	# enter source dir if not already
 	cd "${SRC_DIR}"
-
 	
 	#echo -e "\n==> Updating changelog"
 	#sleep 2s

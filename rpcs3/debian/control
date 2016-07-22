@@ -20,6 +20,7 @@ Build-Depends: debhelper,
  libvulkan-dev,
  libwxgtk3.0-dev,
  llvm-3.8-dev,
+ pkg-config,
  zlib1g-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.8

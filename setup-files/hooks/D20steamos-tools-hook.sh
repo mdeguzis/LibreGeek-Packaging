@@ -42,6 +42,24 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
 	# END BETA REPO HANDLING
 	fi
+	
+	####################################
+	# Dirty hacks
+	####################################
+
+	# We use ffmpeg backported from Ubuntu, as it's configured differently (non-free elements?)
+	# Use a dirty hack to remove our /etc/apt/preferences.d/steamos file (if requested)
+	# This has only been needed so far with packages such as RPCS3
+	# This section is subject to change/deletion
+
+	if [[ "$APT_PREFS_HACK" == "true" ]]; then
+
+		echo "W: STEAMOS-TOOLS: Removing /etc/apt/preferences.d/steamos"
+
+		# Delete
+		rm -f /etc/apt/preferences.d/steamos
+
+	fi
 
 	####################################
 	# Update

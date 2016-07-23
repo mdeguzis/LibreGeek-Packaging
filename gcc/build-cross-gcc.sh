@@ -206,7 +206,7 @@ else
 	sudo make install-bootstrap-headers=yes install-headers
 	make $PARALLEL_MAKE csu/subdir_lib
 	sudo install csu/crt1.o csu/crti.o csu/crtn.o $INSTALL_PATH/$TARGET/lib
-	$TARGET-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $INSTALL_PATH/$TARGET/lib/libc.so
+	sudo $TARGET-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $INSTALL_PATH/$TARGET/lib/libc.so
 	sudo touch $INSTALL_PATH/$TARGET/include/gnu/stubs.h
 	cd ..
 	

@@ -13,12 +13,24 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 # Package versions: https://ftp.gnu.org/gnu/
 # ISL/CLOG: ftp://gcc.gnu.org/pub/gcc/infrastructure
 #
-# Usage ./build_cross_gcc.sh [install path] [--full-rebuild]
+# Usage ./build_cross_gcc.sh [options]
 #-------------------------------------------------------------------------------------------
 
-# VARS
-INSTALL_PATH="$1"
-FINAL_OPTS=$(echo "${@: -1}")
+# reset path
+INSTALL_PATH=""
+
+# source options
+while getopts "--install-path" opt; do
+  case $opt in
+    --install-path)
+      echo INSTALL_PATH="$OPTARG"
+      sleep 10s 
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      ;;
+  esac
+done
 
 if [[ "$INSTALL_PATH" == "" ]]; then
 
@@ -26,7 +38,6 @@ if [[ "$INSTALL_PATH" == "" ]]; then
 
 fi
 
-# Assess final vars
 
 if [[ "$FINAL_OPTS" == "--" ]]; then
 

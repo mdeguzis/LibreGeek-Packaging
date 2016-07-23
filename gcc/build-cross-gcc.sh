@@ -24,13 +24,18 @@ while :; do
 	case $1 in
 		-i|--install-path)       # Takes an option argument, ensuring it has been specified.
 			if [ -n "$2" ]; then
-				file=$2
+				INSTALL_PATH=$2
 				shift
 			else
-				printf 'ERROR: "--install-path" requires a non-empty option argument.\n' >&2
+				printf 'ERROR: "--install-path" requires an argument.\n' >&2
 				exit 1
 			fi
 		;;
+
+	esac
+	
+	# shift args
+	shift
 done
 
 if [[ "$INSTALL_PATH" == "" ]]; then

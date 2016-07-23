@@ -20,6 +20,11 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 INSTALL_PATH=""
 BUILD_DIR="$HOME/build-cross-gcc"
 
+# Ensure BUILD_DIR exists
+if [[ ! -d $BUILD_DIR ]]; then
+	mkdir -p $BUILD_DIR
+fi
+
 echo -e "\n==> Sourcing any options\n"
 
 # source options
@@ -41,6 +46,7 @@ while :; do
 				echo -e "\n==> Cleaning build dir and install files..."
 				sudo rm -rf $INSTALL_PATH
 				sudo rm -rf $BUILD_DIR
+				mkdir -p $BUILD_DIR
 			else
 				echo -e "ERROR: no path set to clean. Please use --install-path [PATH] --rebuild--all"
 			fi

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=xenia
+Comment=Xenia is an experimental emulator for the Xbox 360
+Exec=/usr/bin/xenia
+Icon=/usr/share/pixmaps/xenia.png
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/steam;

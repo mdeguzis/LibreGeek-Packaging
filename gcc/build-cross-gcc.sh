@@ -213,14 +213,14 @@ else
 	# Step 6. Compiler Support Library
 	echo -e "\n==> Building stage 5: gcc support library\n" && sleep 2s
 	cd build-gcc
-	make $PARALLEL_MAKE all-target-libgcc
+	sudo make $PARALLEL_MAKE all-target-libgcc
 	sudo make install-target-libgcc
 	cd ..
 	
 	# Step 7. Standard C Library & the rest of Glibc
 	echo -e "\n==> Building stage 6: C library and rest glibc\n" && sleep 2s
 	cd build-glibc
-	make $PARALLEL_MAKE
+	sudo make $PARALLEL_MAKE
 	sudo make install
 	cd ..
 

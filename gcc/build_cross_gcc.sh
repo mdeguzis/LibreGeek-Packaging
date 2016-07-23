@@ -120,7 +120,8 @@ echo -e "\n==> Building stage 2: kernel headers\n" && sleep 2s
 
 if [ $USE_NEWLIB -eq 0 ]; then
 	cd $LINUX_KERNEL_VERSION
-	make ARCH=$LINUX_ARCH INSTALL_HDR_PATH=$INSTALL_PATH/$TARGET headers_install
+	# This makefile does a lot of installing to the INSTALL_PATH, elevate privs
+	sudo make ARCH=$LINUX_ARCH INSTALL_HDR_PATH=$INSTALL_PATH/$TARGET headers_install
 	cd ..
 fi
 

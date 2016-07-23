@@ -23,17 +23,26 @@ INSTALL_PATH=""
 while :; do
 	case $1 in
 		-i|--install-path)       # Takes an option argument, ensuring it has been specified.
-			if [ -n "$2" ]; then
+			if [[ -n "$2" ]]; then
 				INSTALL_PATH=$2
 				shift
 			else
-				printf 'ERROR: "--install-path" requires an argument.\n' >&2
+				echo -e "ERROR: --install-path requires an argument.\n" >&2
 				exit 1
 			fi
 		;;
 
+		-r|--rebuild-all)
+			if [[ "$INSTALL_PATH" != "" ]]
+				echo -e "\n==> Cleaning old install directory: $INSTALL_PATH"
+				sudo rm -rf $INSTALL_PATH
+			else
+				echo -e "ERROR: no path set to clean. Please use --install-path [PATH] --rebuild--all"
+			fi
+		;;
+
 	esac
-	
+
 	# shift args
 	shift
 done
@@ -41,15 +50,6 @@ done
 if [[ "$INSTALL_PATH" == "" ]]; then
 
 	INSTALL_PATH=/opt/cross-gcc
-
-fi
-
-
-if [[ "$FINAL_OPTS" == "--" ]]; then
-
-	# clean the build dir
-	echo -e "\n==> Cleaning old install directory: $INSTALL_PATH"
-	sudo rm -rf $INSTALL_PATH
 
 fi
 

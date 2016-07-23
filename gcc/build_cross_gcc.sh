@@ -14,7 +14,7 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 # ISL/CLOG: ftp://gcc.gnu.org/pub/gcc/infrastructure
 #-------------------------------------------------------------------------------------------
 
-INSTALL_PATH=/opt/cross
+INSTALL_PATH=/opt/cross-gcc
 TARGET=x86_64-linux-gnu
 USE_NEWLIB=0
 LINUX_ARCH=amd64
@@ -53,6 +53,15 @@ if [[ -d "$BUILD_DIR" ]]; then
 else
 
 	mkdir -p $BUILD_DIR
+
+fi
+
+# Clean install path
+
+if [[ -d "$INSTALL_PATH" ]]; then
+
+	echo -e "\n==> Cleaning old files\n"
+	sudo rm -rf $INSTALL_PATH
 
 fi
 

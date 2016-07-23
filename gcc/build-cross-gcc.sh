@@ -35,7 +35,7 @@ while :; do
 			fi
 		;;
 
-		-r|--rebuild-all)
+		-r|--rebuild)
 			if [[ "$INSTALL_PATH" != "" ]]; then
 				echo -e "\n==> Cleaning old install directory: $INSTALL_PATH"
 				sudo rm -rf $INSTALL_PATH

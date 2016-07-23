@@ -12,9 +12,19 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 # See: http://preshing.com/20141119/how-to-build-a-gcc-cross-compiler
 # Package versions: https://ftp.gnu.org/gnu/
 # ISL/CLOG: ftp://gcc.gnu.org/pub/gcc/infrastructure
+#
+# Usage ./build_cross_gcc.sh [install path]
 #-------------------------------------------------------------------------------------------
 
-INSTALL_PATH=/opt/cross-gcc
+# set install
+INSTALL_PATH="$1"
+
+if [[ "$INSTALL_PATH" == "" ]]; then
+
+	INSTALL_PATH=/opt/cross-gcc
+
+fi
+
 TARGET=x86_64-linux-gnu
 USE_NEWLIB=0
 LINUX_ARCH=x86_64

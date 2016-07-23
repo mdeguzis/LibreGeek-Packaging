@@ -19,12 +19,15 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 # reset path
 INSTALL_PATH=""
 
+echo -e "\n==> Sourcing any options\n"
+
 # source options
 while :; do
 	case $1 in
 		-i|--install-path)       # Takes an option argument, ensuring it has been specified.
 			if [[ -n "$2" ]]; then
 				INSTALL_PATH=$2
+				echo "INSTALL PATH: $INSTALL_PATH"
 				shift
 			else
 				echo -e "ERROR: --install-path requires an argument.\n" >&2

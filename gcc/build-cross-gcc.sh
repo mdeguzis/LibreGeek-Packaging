@@ -20,16 +20,16 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 INSTALL_PATH=""
 
 # source options
-while getopts ":install-path:" opt; do
-  case $opt in
-    install-path)
-      echo INSTALL_PATH="$OPTARG"
-      sleep 10s 
-      ;;
-    \?)
-      echo "Invalid option: -$OPTARG" >&2
-      ;;
-  esac
+while :; do
+	case $1 in
+		-f|--file)       # Takes an option argument, ensuring it has been specified.
+			if [ -n "$2" ]; then
+				file=$2
+				shift
+			else
+				printf 'ERROR: "--install-path" requires a non-empty option argument.\n' >&2
+				exit 1
+			fi
 done
 
 if [[ "$INSTALL_PATH" == "" ]]; then

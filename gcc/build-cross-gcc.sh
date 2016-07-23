@@ -140,6 +140,7 @@ done
 # Make symbolic links
 cd $GCC_VERSION
 ln -sf `ls -1d ../mpfr-*/` mpfr
+ln -sf `ls -1d ../gawk-*/` gawk
 ln -sf `ls -1d ../gmp-*/` gmp
 ln -sf `ls -1d ../mpc-*/` mpc
 ln -sf `ls -1d ../isl-*/` isl

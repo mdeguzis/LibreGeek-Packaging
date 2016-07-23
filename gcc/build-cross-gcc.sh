@@ -133,6 +133,8 @@ wget -nc https://ftp.gnu.org/gnu/mpc/$MPC_VERSION.tar.gz
 wget -nc ftp://gcc.gnu.org/pub/gcc/infrastructure/$ISL_VERSION.tar.bz2
 wget -nc ftp://gcc.gnu.org/pub/gcc/infrastructure/$CLOOG_VERSION.tar.gz
 
+echo ""
+
 # Extract everything
 for f in *.tar*; 
 do 

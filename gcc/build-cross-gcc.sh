@@ -38,7 +38,7 @@ while :; do
 
 		-r|--rebuild)
 			if [[ "$INSTALL_PATH" != "" ]]; then
-				echo -e "\n==> Cleaning build dir and install files: $INSTALL_PATH"
+				echo -e "\n==> Cleaning build dir and install files..."
 				sudo rm -rf $INSTALL_PATH
 				sudo rm -rf $BUILD_DIR
 			else

@@ -10,22 +10,24 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 # just delete/comment the preceding lines before running it again.
 #
 # See: http://preshing.com/20141119/how-to-build-a-gcc-cross-compiler
+# Package versions: https://ftp.gnu.org/gnu/
+# ISL/CLOG: ftp://gcc.gnu.org/pub/gcc/infrastructure
 #-------------------------------------------------------------------------------------------
 
 INSTALL_PATH=/opt/cross
-TARGET=aarch64-linux
+TARGET=amd64
 USE_NEWLIB=0
 LINUX_ARCH=arm64
 CONFIGURATION_OPTIONS="--disable-multilib" # --disable-threads --disable-shared
 PARALLEL_MAKE=-j4
-BINUTILS_VERSION=binutils-2.24
-GCC_VERSION=gcc-4.9.2
-LINUX_KERNEL_VERSION=linux-3.17.2
-GLIBC_VERSION=glibc-2.20
-MPFR_VERSION=mpfr-3.1.2
-GMP_VERSION=gmp-6.0.0a
-MPC_VERSION=mpc-1.0.2
-ISL_VERSION=isl-0.12.2
+BINUTILS_VERSION=binutils-2.26
+GCC_VERSION=gcc-6.1.0
+LINUX_KERNEL_VERSION=$(uname -r | sed 's/-.*//')
+GLIBC_VERSION=glibc-2.23
+MPFR_VERSION=mpfr-3.1.4
+GMP_VERSION=gmp-6.1.1
+MPC_VERSION=mpc-1.0.3
+ISL_VERSION=isl-0.16.1
 CLOOG_VERSION=cloog-0.18.1
 export PATH=$INSTALL_PATH/bin:$PATH
 

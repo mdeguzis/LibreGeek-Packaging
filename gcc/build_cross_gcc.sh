@@ -59,7 +59,11 @@ wget -nc ftp://gcc.gnu.org/pub/gcc/infrastructure/$ISL_VERSION.tar.bz2
 wget -nc ftp://gcc.gnu.org/pub/gcc/infrastructure/$CLOOG_VERSION.tar.gz
 
 # Extract everything
-for f in *.tar*; do tar xfk $f; done
+for f in *.tar*; 
+do 
+    echo -e "Extracting archive: $f"
+    tar xfk $f; 
+done
 
 # Make symbolic links
 cd $GCC_VERSION
@@ -71,6 +75,7 @@ ln -sf `ls -1d ../cloog-*/` cloog
 cd ..
 
 # Step 1. Binutils
+echo -e "\n==> Building stage 1: binutils\n" && sleep 2s
 mkdir -p build-binutils
 cd build-binutils
 ../$BINUTILS_VERSION/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
@@ -79,6 +84,7 @@ make install
 cd ..
 
 # Step 2. Linux Kernel Headers
+echo -e "\n==> Building stage 2: kernel headers\n" && sleep 2s
 if [ $USE_NEWLIB -eq 0 ]; then
     cd $LINUX_KERNEL_VERSION
     make ARCH=$LINUX_ARCH INSTALL_HDR_PATH=$INSTALL_PATH/$TARGET headers_install
@@ -86,6 +92,7 @@ if [ $USE_NEWLIB -eq 0 ]; then
 fi
 
 # Step 3. C/C++ Compilers
+echo -e "\n==> Building stage 3: C/C++ compilers\n" && sleep 2s
 mkdir -p build-gcc
 cd build-gcc
 if [ $USE_NEWLIB -ne 0 ]; then
@@ -98,6 +105,7 @@ cd ..
 
 if [ $USE_NEWLIB -ne 0 ]; then
     # Steps 4-6: Newlib
+    echo -e "\n==> Building stage 4-6: newlibs\n" && sleep 2s
     mkdir -p build-newlib
     cd build-newlib
     ../newlib-master/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
@@ -106,6 +114,7 @@ if [ $USE_NEWLIB -ne 0 ]; then
     cd ..
 else
     # Step 4. Standard C Library Headers and Startup Files
+    echo -e "\n==> Building stage 4: glibc/gcc\n" && sleep 2s
     mkdir -p build-glibc
     cd build-glibc
     ../$GLIBC_VERSION/configure --prefix=$INSTALL_PATH/$TARGET --build=$MACHTYPE --host=$TARGET --target=$TARGET --with-headers=$INSTALL_PATH/$TARGET/include $CONFIGURATION_OPTIONS libc_cv_forced_unwind=yes
@@ -117,12 +126,14 @@ else
     cd ..
 
     # Step 5. Compiler Support Library
+    echo -e "\n==> Building stage 5: gcc support library\n" && sleep 2s
     cd build-gcc
     make $PARALLEL_MAKE all-target-libgcc
     make install-target-libgcc
     cd ..
 
     # Step 6. Standard C Library & the rest of Glibc
+    echo -e "\n==> Building stage 6: C library and rest glibc\n" && sleep 2s
     cd build-glibc
     make $PARALLEL_MAKE
     make install
@@ -130,6 +141,7 @@ else
 fi
 
 # Step 7. Standard C++ Library & the rest of GCC
+echo -e "\n==> Building stage 7: C++ library and rest glibc\n" && sleep 2s
 cd build-gcc
 make $PARALLEL_MAKE all
 make install

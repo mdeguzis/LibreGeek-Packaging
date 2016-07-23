@@ -46,7 +46,7 @@ BUILD_DIR="$HOME/build-cross-gcc"
 
 if [[ -d "$BUILD_DIR" ]]; then
 
-	echo -e "\n==> Cleaning old files\n"
+	echo -e "\n==> Cleaning old files"
 	rm -rf $BUILD_DIR
 	mkdir -p $BUILD_DIR
 
@@ -60,7 +60,7 @@ fi
 
 if [[ -d "$INSTALL_PATH" ]]; then
 
-	echo -e "\n==> Cleaning old install directory\n"
+	echo -e "\n==> Cleaning old install directory"
 	sudo rm -rf $INSTALL_PATH
 
 fi

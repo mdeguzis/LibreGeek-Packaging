@@ -16,8 +16,9 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 # Usage ./build_cross_gcc.sh [options]
 #-------------------------------------------------------------------------------------------
 
-# reset path
+# Set initial vars
 INSTALL_PATH=""
+BUILD_DIR="$HOME/build-cross-gcc"
 
 echo -e "\n==> Sourcing any options\n"
 
@@ -37,8 +38,9 @@ while :; do
 
 		-r|--rebuild)
 			if [[ "$INSTALL_PATH" != "" ]]; then
-				echo -e "\n==> Cleaning old install directory: $INSTALL_PATH"
+				echo -e "\n==> Cleaning build dir and install files: $INSTALL_PATH"
 				sudo rm -rf $INSTALL_PATH
+				sudo rm -rf $BUILD_DIR
 			else
 				echo -e "ERROR: no path set to clean. Please use --install-path [PATH] --rebuild--all"
 			fi
@@ -92,21 +94,6 @@ export PATH=$INSTALL_PATH/bin:$PATH
 if [[ $(echo $LINUX_KERNEL_VERSION | grep ".0" ) != "" ]]; then 
 
 	LINUX_KERNEL_VERSION=linux-$(uname -r | sed 's/-.*//' | sed 's/.0//')
-
-fi
-
-# Use a build dir so we don't have a messy directory wherever we are
-BUILD_DIR="$HOME/build-cross-gcc"
-
-if [[ -d "$BUILD_DIR" ]]; then
-
-	echo -e "\n==> Cleaning old files"
-	sudo rm -rf $BUILD_DIR
-	mkdir -p $BUILD_DIR
-
-else
-
-	mkdir -p $BUILD_DIR
 
 fi
 

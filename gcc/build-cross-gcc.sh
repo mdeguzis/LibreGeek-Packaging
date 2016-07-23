@@ -86,7 +86,6 @@ BINUTILS_VERSION=binutils-2.26
 GCC_VERSION=gcc-6.1.0
 LINUX_KERNEL_VERSION=linux-$(uname -r | sed 's/-.*//')
 KERNEL_SERIES=v$(uname -r | cut -c 1).x
-GAWK_VERSION=gawk-4.1.3
 GLIBC_VERSION=glibc-2.23
 MPFR_VERSION=mpfr-3.1.4
 GMP_VERSION=gmp-6.1.1
@@ -106,6 +105,11 @@ fi
 
 # Enter build dir
 cd $BUILD_DIR
+
+echo -e "\n==> Obtaining needed pacakges\n"
+sleep 2s
+
+sudo apt-get install -y --force-yes wget unzip gawk
 
 # Get sources
 echo -e "\n==> Obtaining sources\n"
@@ -166,20 +170,8 @@ if [ $USE_NEWLIB -eq 0 ]; then
 	cd ..
 fi
 
-# Step 3. Linux Kernel Headers
-echo -e "\n==> Building stage 3: gawk \n" && sleep 2s
-
-if [ $USE_NEWLIB -eq 0 ]; then
-	mkdir -p build-gawk
-	cd build-gawk
-	../$BINUTILS_VERSION/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
-	make
-	sudo make install
-	cd ..
-fi
-
 # Step 4. C/C++ Compilers
-echo -e "\n==> Building stage 4: C/C++ compilers\n" && sleep 2s
+echo -e "\n==> Building stage 3: C/C++ compilers\n" && sleep 2s
 mkdir -p build-gcc
 cd build-gcc
 

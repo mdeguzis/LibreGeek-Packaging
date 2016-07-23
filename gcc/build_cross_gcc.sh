@@ -103,7 +103,7 @@ mkdir -p build-binutils
 cd build-binutils
 ../$BINUTILS_VERSION/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
 make $PARALLEL_MAKE
-sudo make i
+sudo make install
 cd ..
 
 # Step 2. Linux Kernel Headers
@@ -136,7 +136,7 @@ if [ $USE_NEWLIB -ne 0 ]; then
 	cd build-newlib
 	../newlib-master/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
 	make $PARALLEL_MAKE
-	sudo make i
+	sudo make install
 	cd ..
 else
 	# Step 4. Standard C Library Headers and Startup Files

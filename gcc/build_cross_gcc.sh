@@ -15,7 +15,7 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 #-------------------------------------------------------------------------------------------
 
 INSTALL_PATH=/opt/cross
-TARGET=amd64
+TARGET=x86_64
 USE_NEWLIB=0
 LINUX_ARCH=arm64
 CONFIGURATION_OPTIONS="--disable-multilib" # --disable-threads --disable-shared

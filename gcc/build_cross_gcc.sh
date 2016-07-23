@@ -17,7 +17,7 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 INSTALL_PATH=/opt/cross-gcc
 TARGET=x86_64-linux-gnu
 USE_NEWLIB=0
-LINUX_ARCH=amd64
+LINUX_ARCH=x86_64
 CONFIGURATION_OPTIONS="--disable-multilib" # --disable-threads --disable-shared
 PARALLEL_MAKE=-j4
 BINUTILS_VERSION=binutils-2.26

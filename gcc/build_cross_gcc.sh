@@ -103,7 +103,7 @@ mkdir -p build-binutils
 cd build-binutils
 ../$BINUTILS_VERSION/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
 make $PARALLEL_MAKE
-make install
+sudo make i
 cd ..
 
 # Step 2. Linux Kernel Headers
@@ -136,7 +136,7 @@ if [ $USE_NEWLIB -ne 0 ]; then
 	cd build-newlib
 	../newlib-master/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
 	make $PARALLEL_MAKE
-	make install
+	sudo make i
 	cd ..
 else
 	# Step 4. Standard C Library Headers and Startup Files
@@ -146,9 +146,9 @@ else
 	../$GLIBC_VERSION/configure --prefix=$INSTALL_PATH/$TARGET --build=$MACHTYPE --host=$TARGET --target=$TARGET --with-headers=$INSTALL_PATH/$TARGET/include $CONFIGURATION_OPTIONS libc_cv_forced_unwind=yes
 	make install-bootstrap-headers=yes install-headers
 	make $PARALLEL_MAKE csu/subdir_lib
-	install csu/crt1.o csu/crti.o csu/crtn.o $INSTALL_PATH/$TARGET/lib
+	sudo install csu/crt1.o csu/crti.o csu/crtn.o $INSTALL_PATH/$TARGET/lib
 	$TARGET-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $INSTALL_PATH/$TARGET/lib/libc.so
-	touch $INSTALL_PATH/$TARGET/include/gnu/stubs.h
+	sudo touch $INSTALL_PATH/$TARGET/include/gnu/stubs.h
 	cd ..
 	
 	# Step 5. Compiler Support Library
@@ -162,7 +162,7 @@ else
 	echo -e "\n==> Building stage 6: C library and rest glibc\n" && sleep 2s
 	cd build-glibc
 	make $PARALLEL_MAKE
-	make install
+	sudo make install
 	cd ..
 fi
 
@@ -170,7 +170,7 @@ fi
 echo -e "\n==> Building stage 7: C++ library and rest glibc\n" && sleep 2s
 cd build-gcc
 make $PARALLEL_MAKE all
-make install
+sudo make install
 cd ..
 
 trap - EXIT

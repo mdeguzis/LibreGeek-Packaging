@@ -22,7 +22,8 @@ CONFIGURATION_OPTIONS="--disable-multilib" # --disable-threads --disable-shared
 PARALLEL_MAKE=-j4
 BINUTILS_VERSION=binutils-2.26
 GCC_VERSION=gcc-6.1.0
-LINUX_KERNEL_VERSION=$(uname -r | sed 's/-.*//')
+LINUX_KERNEL_VERSION=linux-$(uname -r | sed 's/-.*//')
+KERNEL_SERIES=v$(uname -r |f cut -c 1).x
 GLIBC_VERSION=glibc-2.23
 MPFR_VERSION=mpfr-3.1.4
 GMP_VERSION=gmp-6.1.1
@@ -39,7 +40,7 @@ if [ $USE_NEWLIB -ne 0 ]; then
     wget -nc -O newlib-master.zip https://github.com/bminor/newlib/archive/master.zip || true
     unzip -qo newlib-master.zip
 else
-    wget -nc https://www.kernel.org/pub/linux/kernel/v3.x/$LINUX_KERNEL_VERSION.tar.xz
+    wget -nc https://www.kernel.org/pub/linux/kernel/$KERNEL_SERIES/$LINUX_KERNEL_VERSION.tar.xz
     wget -nc https://ftp.gnu.org/gnu/glibc/$GLIBC_VERSION.tar.xz
 fi
 wget -nc https://ftp.gnu.org/gnu/mpfr/$MPFR_VERSION.tar.xz

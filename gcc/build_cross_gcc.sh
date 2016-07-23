@@ -60,7 +60,7 @@ fi
 
 if [[ -d "$INSTALL_PATH" ]]; then
 
-	echo -e "\n==> Cleaning old files\n"
+	echo -e "\n==> Cleaning old install directory\n"
 	sudo rm -rf $INSTALL_PATH
 
 fi

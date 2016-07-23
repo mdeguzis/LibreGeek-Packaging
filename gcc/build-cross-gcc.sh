@@ -13,15 +13,26 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 # Package versions: https://ftp.gnu.org/gnu/
 # ISL/CLOG: ftp://gcc.gnu.org/pub/gcc/infrastructure
 #
-# Usage ./build_cross_gcc.sh [install path]
+# Usage ./build_cross_gcc.sh [install path] [--full-rebuild]
 #-------------------------------------------------------------------------------------------
 
-# set install
+# VARS
 INSTALL_PATH="$1"
+FINAL_OPTS=$(echo "${@: -1}")
 
 if [[ "$INSTALL_PATH" == "" ]]; then
 
 	INSTALL_PATH=/opt/cross-gcc
+
+fi
+
+# Assess final vars
+
+if [[ "$FINAL_OPTS" == "--" ]]; then
+
+	# clean the build dir
+	echo -e "\n==> Cleaning old install directory: $INSTALL_PATH"
+	sudo rm -rf $INSTALL_PATH
 
 fi
 
@@ -63,15 +74,6 @@ if [[ -d "$BUILD_DIR" ]]; then
 else
 
 	mkdir -p $BUILD_DIR
-
-fi
-
-# Clean install path
-
-if [[ -d "$INSTALL_PATH" ]]; then
-
-	echo -e "\n==> Cleaning old install directory"
-	sudo rm -rf $INSTALL_PATH
 
 fi
 

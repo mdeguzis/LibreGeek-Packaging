@@ -17,7 +17,7 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 #-------------------------------------------------------------------------------------------
 
 # Set initial vars
-INSTALL_PATH=""
+INSTALL_PATH="/opt/cross-gcc"
 BUILD_DIR="$HOME/build-cross-gcc"
 
 # Ensure BUILD_DIR exists

@@ -76,6 +76,9 @@ export BUILD_DIR="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
 GIT_DIR="${BUILD_DIR}/${src_dir}"
 
+# Compiler options
+COMPILER="gcc"
+
 install_prereqs()
 {
 	clear
@@ -96,6 +99,20 @@ main()
 		# handle prereqs on host machine
 		install_prereqs
 
+	fi
+	
+	# If we are using gcc, it has to be 5.x
+	# Currently (20160723), this is compiled manually into /opt/cross-gcc
+	
+	if [[ " ${COMPILER}" == "gcc" ]]; then
+
+		if [[ ! -d "/opt/cross-gcc/bin/x86_64-linux-gnu-gcc" ]]; then
+
+			echo -e "\nERROR: expected location for gcc not found!"
+			exit 1
+
+		fi
+	
 	fi
 
 	echo -e "\n==> Obtaining upstream source code\n"

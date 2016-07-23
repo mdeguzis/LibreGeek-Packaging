@@ -20,7 +20,7 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 INSTALL_PATH=""
 
 # source options
-while getopts "::install-path" opt; do
+while getopts ":install-path:" opt; do
   case $opt in
     install-path)
       echo INSTALL_PATH="$OPTARG"

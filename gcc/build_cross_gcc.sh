@@ -73,6 +73,9 @@ else
 fi
 
 # Get sources
+
+echo -e "\n==> Obtaining sources\n"
+
 wget -nc https://ftp.gnu.org/gnu/mpfr/$MPFR_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/gmp/$GMP_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/mpc/$MPC_VERSION.tar.gz

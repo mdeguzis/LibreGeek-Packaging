@@ -137,7 +137,7 @@ wget -nc ftp://gcc.gnu.org/pub/gcc/infrastructure/$CLOOG_VERSION.tar.gz
 for f in *.tar*; 
 do 
 	echo -e "Extracting archive: $f"
-	tar xfk $f; 
+	tar xfk $f 2> /dev/null; 
 done
 
 # Make symbolic links

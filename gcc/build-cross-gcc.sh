@@ -146,7 +146,7 @@ fi
 
 ../$GCC_VERSION/configure --prefix=$INSTALL_PATH --target=$TARGET --enable-languages=c,c++ $CONFIGURATION_OPTIONS $NEWLIB_OPTION
 make $PARALLEL_MAKE all-gcc
-make install-gcc
+sudo make install-gcc
 cd ..
 
 if [ $USE_NEWLIB -ne 0 ]; then
@@ -175,7 +175,7 @@ else
 	echo -e "\n==> Building stage 5: gcc support library\n" && sleep 2s
 	cd build-gcc
 	make $PARALLEL_MAKE all-target-libgcc
-	make install-target-libgcc
+	sudo make install-target-libgcc
 	cd ..
 	
 	# Step 6. Standard C Library & the rest of Glibc

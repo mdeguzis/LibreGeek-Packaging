@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 set -e
 trap 'previous_command=$this_command; this_command=$BASH_COMMAND' DEBUG
 trap 'echo FAILED COMMAND: $previous_command' EXIT
@@ -40,6 +40,19 @@ while :; do
 				echo -e "ERROR: no path set to clean. Please use --install-path [PATH] --rebuild--all"
 			fi
 		;;
+		
+		--)
+		# End of all options.
+		shift
+		break
+		;;
+
+		-?*)
+		printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+		;;
+  
+		*)  # Default case: If no more options then break out of the loop.
+		break
 
 	esac
 

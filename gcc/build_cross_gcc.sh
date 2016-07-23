@@ -32,6 +32,15 @@ ISL_VERSION=isl-0.16.1
 CLOOG_VERSION=cloog-0.18.1
 export PATH=$INSTALL_PATH/bin:$PATH
 
+# if the kernel version ends in .0, cut this, as the ftp site will list
+# just 3.16 for 3.16.0
+
+if [[ $(echo $LINUX_KERNEL_VERSION | grep ".0" ) != "" ]]; then 
+
+    LINUX_KERNEL_VERSION=linux-$(uname -r | sed 's/-.*//' | sed 's/.0//')
+
+fi
+
 # Download packages
 export http_proxy=$HTTP_PROXY https_proxy=$HTTP_PROXY ftp_proxy=$HTTP_PROXY
 wget -nc https://ftp.gnu.org/gnu/binutils/$BINUTILS_VERSION.tar.gz

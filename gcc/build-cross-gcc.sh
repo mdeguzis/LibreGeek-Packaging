@@ -203,7 +203,7 @@ else
 	mkdir -p build-glibc
 	cd build-glibc
 	../$GLIBC_VERSION/configure --prefix=$INSTALL_PATH/$TARGET --build=$MACHTYPE --host=$TARGET --target=$TARGET --with-headers=$INSTALL_PATH/$TARGET/include $CONFIGURATION_OPTIONS libc_cv_forced_unwind=yes
-	make install-bootstrap-headers=yes install-headers
+	sudo make install-bootstrap-headers=yes install-headers
 	make $PARALLEL_MAKE csu/subdir_lib
 	sudo install csu/crt1.o csu/crti.o csu/crtn.o $INSTALL_PATH/$TARGET/lib
 	$TARGET-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $INSTALL_PATH/$TARGET/lib/libc.so

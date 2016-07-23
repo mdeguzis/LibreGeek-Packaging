@@ -59,6 +59,9 @@ fi
 # Enter build dir
 cd $BUILD_DIR
 
+# Get sources
+echo -e "\n==> Obtaining sources\n"
+
 # Download packages
 export http_proxy=$HTTP_PROXY https_proxy=$HTTP_PROXY ftp_proxy=$HTTP_PROXY
 wget -nc https://ftp.gnu.org/gnu/binutils/$BINUTILS_VERSION.tar.gz
@@ -71,10 +74,6 @@ else
 	wget -nc https://www.kernel.org/pub/linux/kernel/$KERNEL_SERIES/$LINUX_KERNEL_VERSION.tar.xz
 	wget -nc https://ftp.gnu.org/gnu/glibc/$GLIBC_VERSION.tar.xz
 fi
-
-# Get sources
-
-echo -e "\n==> Obtaining sources\n"
 
 wget -nc https://ftp.gnu.org/gnu/mpfr/$MPFR_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/gmp/$GMP_VERSION.tar.xz

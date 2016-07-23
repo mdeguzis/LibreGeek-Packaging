@@ -68,7 +68,7 @@ BUILD_DIR="$HOME/build-cross-gcc"
 if [[ -d "$BUILD_DIR" ]]; then
 
 	echo -e "\n==> Cleaning old files"
-	rm -rf $BUILD_DIR
+	sudo rm -rf $BUILD_DIR
 	mkdir -p $BUILD_DIR
 
 else

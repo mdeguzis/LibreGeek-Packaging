@@ -86,6 +86,7 @@ BINUTILS_VERSION=binutils-2.26
 GCC_VERSION=gcc-6.1.0
 LINUX_KERNEL_VERSION=linux-$(uname -r | sed 's/-.*//')
 KERNEL_SERIES=v$(uname -r | cut -c 1).x
+GAWK_VERSIN=gawk-4.1.3
 GLIBC_VERSION=glibc-2.23
 MPFR_VERSION=mpfr-3.1.4
 GMP_VERSION=gmp-6.1.1
@@ -121,7 +122,7 @@ else
 	wget -nc https://www.kernel.org/pub/linux/kernel/$KERNEL_SERIES/$LINUX_KERNEL_VERSION.tar.xz
 	wget -nc https://ftp.gnu.org/gnu/glibc/$GLIBC_VERSION.tar.xz
 fi
-
+wget -nc https://ftp.gnu.org/gnu/gawk/$GAWK_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/mpfr/$MPFR_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/gmp/$GMP_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/mpc/$MPC_VERSION.tar.gz
@@ -163,8 +164,20 @@ if [ $USE_NEWLIB -eq 0 ]; then
 	cd ..
 fi
 
-# Step 3. C/C++ Compilers
-echo -e "\n==> Building stage 3: C/C++ compilers\n" && sleep 2s
+# Step 3. Linux Kernel Headers
+echo -e "\n==> Building stage 3: gawk \n" && sleep 2s
+
+if [ $USE_NEWLIB -eq 0 ]; then
+	mkdir -p build-gawk
+	cd build-gawk
+	../$BINUTILS_VERSION/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
+	make
+	sudo make install
+	cd ..
+fi
+
+# Step 4. C/C++ Compilers
+echo -e "\n==> Building stage 4: C/C++ compilers\n" && sleep 2s
 mkdir -p build-gcc
 cd build-gcc
 
@@ -178,7 +191,7 @@ sudo make install-gcc
 cd ..
 
 if [ $USE_NEWLIB -ne 0 ]; then
-	# Steps 4-6: Newlib
+	# Steps 5-7: Newlib
 	echo -e "\n==> Building stage 4-6: newlibs\n" && sleep 2s
 	mkdir -p build-newlib
 	cd build-newlib
@@ -187,7 +200,7 @@ if [ $USE_NEWLIB -ne 0 ]; then
 	sudo make install
 	cd ..
 else
-	# Step 4. Standard C Library Headers and Startup Files
+	# Step 5. Standard C Library Headers and Startup Files
 	echo -e "\n==> Building stage 4: glibc/gcc\n" && sleep 2s
 	mkdir -p build-glibc
 	cd build-glibc
@@ -199,14 +212,14 @@ else
 	sudo touch $INSTALL_PATH/$TARGET/include/gnu/stubs.h
 	cd ..
 	
-	# Step 5. Compiler Support Library
+	# Step 6. Compiler Support Library
 	echo -e "\n==> Building stage 5: gcc support library\n" && sleep 2s
 	cd build-gcc
 	make $PARALLEL_MAKE all-target-libgcc
 	sudo make install-target-libgcc
 	cd ..
 	
-	# Step 6. Standard C Library & the rest of Glibc
+	# Step 7. Standard C Library & the rest of Glibc
 	echo -e "\n==> Building stage 6: C library and rest glibc\n" && sleep 2s
 	cd build-glibc
 	make $PARALLEL_MAKE
@@ -214,7 +227,7 @@ else
 	cd ..
 fi
 
-# Step 7. Standard C++ Library & the rest of GCC
+# Step 8. Standard C++ Library & the rest of GCC
 echo -e "\n==> Building stage 7: C++ library and rest glibc\n" && sleep 2s
 cd build-gcc
 make $PARALLEL_MAKE all

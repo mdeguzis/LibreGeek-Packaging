@@ -37,21 +37,41 @@ export PATH=$INSTALL_PATH/bin:$PATH
 
 if [[ $(echo $LINUX_KERNEL_VERSION | grep ".0" ) != "" ]]; then 
 
-    LINUX_KERNEL_VERSION=linux-$(uname -r | sed 's/-.*//' | sed 's/.0//')
+	LINUX_KERNEL_VERSION=linux-$(uname -r | sed 's/-.*//' | sed 's/.0//')
 
 fi
+
+# Use a build dir so we don't have a messy directory wherever we are
+BUILD_DIR="$HOME/build-cross-gcc"
+
+if [[ -d "$BUILD_DIR" ]]; then
+
+	rm -rf $BUILD_DIR
+	mkdir -p $BUILD_DIR
+
+else
+
+	mkdir -p $BUILD_DIR
+
+fi
+
+# Enter build dir
+cd $BUILD_DIR
 
 # Download packages
 export http_proxy=$HTTP_PROXY https_proxy=$HTTP_PROXY ftp_proxy=$HTTP_PROXY
 wget -nc https://ftp.gnu.org/gnu/binutils/$BINUTILS_VERSION.tar.gz
 wget -nc https://ftp.gnu.org/gnu/gcc/$GCC_VERSION/$GCC_VERSION.tar.gz
+
 if [ $USE_NEWLIB -ne 0 ]; then
-    wget -nc -O newlib-master.zip https://github.com/bminor/newlib/archive/master.zip || true
-    unzip -qo newlib-master.zip
+	wget -nc -O newlib-master.zip https://github.com/bminor/newlib/archive/master.zip || true
+	unzip -qo newlib-master.zip
 else
-    wget -nc https://www.kernel.org/pub/linux/kernel/$KERNEL_SERIES/$LINUX_KERNEL_VERSION.tar.xz
-    wget -nc https://ftp.gnu.org/gnu/glibc/$GLIBC_VERSION.tar.xz
+	wget -nc https://www.kernel.org/pub/linux/kernel/$KERNEL_SERIES/$LINUX_KERNEL_VERSION.tar.xz
+	wget -nc https://ftp.gnu.org/gnu/glibc/$GLIBC_VERSION.tar.xz
 fi
+
+# Get sources
 wget -nc https://ftp.gnu.org/gnu/mpfr/$MPFR_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/gmp/$GMP_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/mpc/$MPC_VERSION.tar.gz
@@ -61,8 +81,8 @@ wget -nc ftp://gcc.gnu.org/pub/gcc/infrastructure/$CLOOG_VERSION.tar.gz
 # Extract everything
 for f in *.tar*; 
 do 
-    echo -e "Extracting archive: $f"
-    tar xfk $f; 
+	echo -e "Extracting archive: $f"
+	tar xfk $f; 
 done
 
 # Make symbolic links
@@ -85,59 +105,62 @@ cd ..
 
 # Step 2. Linux Kernel Headers
 echo -e "\n==> Building stage 2: kernel headers\n" && sleep 2s
+
 if [ $USE_NEWLIB -eq 0 ]; then
-    cd $LINUX_KERNEL_VERSION
-    make ARCH=$LINUX_ARCH INSTALL_HDR_PATH=$INSTALL_PATH/$TARGET headers_install
-    cd ..
+	cd $LINUX_KERNEL_VERSION
+	make ARCH=$LINUX_ARCH INSTALL_HDR_PATH=$INSTALL_PATH/$TARGET headers_install
+	cd ..
 fi
 
 # Step 3. C/C++ Compilers
 echo -e "\n==> Building stage 3: C/C++ compilers\n" && sleep 2s
 mkdir -p build-gcc
 cd build-gcc
+
 if [ $USE_NEWLIB -ne 0 ]; then
-    NEWLIB_OPTION=--with-newlib
+	NEWLIB_OPTION=--with-newlib
 fi
+
 ../$GCC_VERSION/configure --prefix=$INSTALL_PATH --target=$TARGET --enable-languages=c,c++ $CONFIGURATION_OPTIONS $NEWLIB_OPTION
 make $PARALLEL_MAKE all-gcc
 make install-gcc
 cd ..
 
 if [ $USE_NEWLIB -ne 0 ]; then
-    # Steps 4-6: Newlib
-    echo -e "\n==> Building stage 4-6: newlibs\n" && sleep 2s
-    mkdir -p build-newlib
-    cd build-newlib
-    ../newlib-master/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
-    make $PARALLEL_MAKE
-    make install
-    cd ..
+	# Steps 4-6: Newlib
+	echo -e "\n==> Building stage 4-6: newlibs\n" && sleep 2s
+	mkdir -p build-newlib
+	cd build-newlib
+	../newlib-master/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
+	make $PARALLEL_MAKE
+	make install
+	cd ..
 else
-    # Step 4. Standard C Library Headers and Startup Files
-    echo -e "\n==> Building stage 4: glibc/gcc\n" && sleep 2s
-    mkdir -p build-glibc
-    cd build-glibc
-    ../$GLIBC_VERSION/configure --prefix=$INSTALL_PATH/$TARGET --build=$MACHTYPE --host=$TARGET --target=$TARGET --with-headers=$INSTALL_PATH/$TARGET/include $CONFIGURATION_OPTIONS libc_cv_forced_unwind=yes
-    make install-bootstrap-headers=yes install-headers
-    make $PARALLEL_MAKE csu/subdir_lib
-    install csu/crt1.o csu/crti.o csu/crtn.o $INSTALL_PATH/$TARGET/lib
-    $TARGET-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $INSTALL_PATH/$TARGET/lib/libc.so
-    touch $INSTALL_PATH/$TARGET/include/gnu/stubs.h
-    cd ..
-
-    # Step 5. Compiler Support Library
-    echo -e "\n==> Building stage 5: gcc support library\n" && sleep 2s
-    cd build-gcc
-    make $PARALLEL_MAKE all-target-libgcc
-    make install-target-libgcc
-    cd ..
-
-    # Step 6. Standard C Library & the rest of Glibc
-    echo -e "\n==> Building stage 6: C library and rest glibc\n" && sleep 2s
-    cd build-glibc
-    make $PARALLEL_MAKE
-    make install
-    cd ..
+	# Step 4. Standard C Library Headers and Startup Files
+	echo -e "\n==> Building stage 4: glibc/gcc\n" && sleep 2s
+	mkdir -p build-glibc
+	cd build-glibc
+	../$GLIBC_VERSION/configure --prefix=$INSTALL_PATH/$TARGET --build=$MACHTYPE --host=$TARGET --target=$TARGET --with-headers=$INSTALL_PATH/$TARGET/include $CONFIGURATION_OPTIONS libc_cv_forced_unwind=yes
+	make install-bootstrap-headers=yes install-headers
+	make $PARALLEL_MAKE csu/subdir_lib
+	install csu/crt1.o csu/crti.o csu/crtn.o $INSTALL_PATH/$TARGET/lib
+	$TARGET-gcc -nostdlib -nostartfiles -shared -x c /dev/null -o $INSTALL_PATH/$TARGET/lib/libc.so
+	touch $INSTALL_PATH/$TARGET/include/gnu/stubs.h
+	cd ..
+	
+	# Step 5. Compiler Support Library
+	echo -e "\n==> Building stage 5: gcc support library\n" && sleep 2s
+	cd build-gcc
+	make $PARALLEL_MAKE all-target-libgcc
+	make install-target-libgcc
+	cd ..
+	
+	# Step 6. Standard C Library & the rest of Glibc
+	echo -e "\n==> Building stage 6: C library and rest glibc\n" && sleep 2s
+	cd build-glibc
+	make $PARALLEL_MAKE
+	make install
+	cd ..
 fi
 
 # Step 7. Standard C++ Library & the rest of GCC

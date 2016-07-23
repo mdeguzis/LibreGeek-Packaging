@@ -127,7 +127,6 @@ else
 	wget -nc https://ftp.gnu.org/gnu/glibc/$GLIBC_VERSION.tar.xz
 fi
 
-wget -nc https://ftp.gnu.org/gnu/gawk/$GAWK_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/mpfr/$MPFR_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/gmp/$GMP_VERSION.tar.xz
 wget -nc https://ftp.gnu.org/gnu/mpc/$MPC_VERSION.tar.gz
@@ -185,6 +184,7 @@ sudo make install-gcc
 cd ..
 
 if [ $USE_NEWLIB -ne 0 ]; then
+
 	# Steps 5-7: Newlib
 	echo -e "\n==> Building stage 4-6: newlibs\n" && sleep 2s
 	mkdir -p build-newlib
@@ -193,7 +193,9 @@ if [ $USE_NEWLIB -ne 0 ]; then
 	make $PARALLEL_MAKE
 	sudo make install
 	cd ..
+
 else
+
 	# Step 5. Standard C Library Headers and Startup Files
 	echo -e "\n==> Building stage 4: glibc/gcc\n" && sleep 2s
 	mkdir -p build-glibc
@@ -219,6 +221,7 @@ else
 	make $PARALLEL_MAKE
 	sudo make install
 	cd ..
+
 fi
 
 # Step 8. Standard C++ Library & the rest of GCC

@@ -60,7 +60,8 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="lgogdownloader"
-PKGVER=$(echo $TARGET | sed 's/v//')
+PKGVER=$(echo ${TARGET} | sed 's/v//')
+EPOCH="1"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
@@ -117,7 +118,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$TARGET" "$GIT_URL" "$GIT_DIR"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build platform
@@ -128,7 +129,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRC_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
 	# copy in debian folder
 	cp -r "$scriptdir/debian" "${GIT_DIR}"
@@ -142,14 +143,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${urgency}" "Update packge to release $PKGVER"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update packge to release $PKGVER"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
 

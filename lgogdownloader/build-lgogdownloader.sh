@@ -19,7 +19,7 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
+SCRIPTDIR=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
@@ -35,7 +35,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 	REMOTE_PORT="22"
 
 fi
-
 
 
 if [[ "$arg1" == "--testing" ]]; then
@@ -132,7 +131,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${GIT_DIR}"
+	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -207,7 +206,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

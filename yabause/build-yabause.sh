@@ -7,8 +7,7 @@
 # Description:	Attempts to build a deb package from the latest yabause source
 #		code.
 #
-# See:		https://github.com/yabause-emu/
-#		https://github.com/yabause-emu/yabause/wiki/Linux-Build
+# See:		https://github.com/Yabause/yabause
 #
 # Usage:	./build-yabause.sh
 # Opts:		[--testing]
@@ -47,8 +46,7 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/yabause-emu/yabause"
-#git_url="https://github.com/ProfessorKaos64/yabause"
+git_url="https://github.com/Yabause/yabause"
 branch="master"
 
 # package vars
@@ -56,15 +54,15 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
-export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgname="yabause"
-pkgver="0.${date_short}"
-pkgrev="1"
+BUILDOPTS=""
+# This can be sourced from yabause/yabause/ChangeLog
+PKGNAME="yabause"
+PKGVER="0.9.15"
+PKGREV="1"
 # Base version sourced from ZIP file version
-pkgsuffix="git+bsos"
+PKGSUFFIX="${date_short}git+bsos"
 DIST="brewmaster"
-urgency="low"
+URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
@@ -72,9 +70,9 @@ maintainer="ProfessorKaos64"
 export NETWORK="yes"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+src_dir="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
 {
@@ -82,8 +80,9 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch \
-	qtbase5-dev libqt5opengl5-dev build-essential cmake
+	sudo apt-get install -y --force-yes build-essential bc debhelper debhelper (>= 9) cmake pkg-config
+	libgl1-mesa-dev libsdl1.2-dev libglib2.0-dev libgtk2.0-dev libgtkglext1-dev libqt4-dev \
+	libqt4-opengl-dev libmini18n-dev libopenal-dev	dh-autoreconf
 
 }
 
@@ -116,15 +115,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
-	cd "${git_dir}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	
-	# Add image to git dir
-	cp -r "${scriptdir}/yabause.png" "${git_dir}"
-	
-	# Swap version text, since the project assumes yabause is being ran in the git dir
-	sed -i "s|GIT-NOTFOUND|${pkgver}git|g" "${git_dir}/externals/cmake-modules/GetGitRevisionDescription.cmake"
+	git clone --recursive -b "${branch}" "${git_url}" "${GIT_DIR}"
+	cd "${GIT_DIR}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
 	# Build package
@@ -135,14 +128,13 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}" || exit
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${src_dir}"
 
 	# Add required files
-	cp -r "${scriptdir}/debian" "${git_dir}"
-	cp "${git_dir}/license.txt" "${git_dir}/debian/LICENSE"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -150,14 +142,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${LATEST_COMMIT}"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}"\
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${LATEST_COMMIT}"
 		nano "debian/changelog"
 
 	fi
@@ -166,7 +158,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -201,7 +193,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -218,7 +210,7 @@ main()
 
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

@@ -1,0 +1,17 @@
+Source: vkqake
+Section: games
+Priority: optional
+Build-Depends: cmake (>= 3.1),
+ debhelper,
+ gcc,
+ libsdl2-dev,
+ vulkan-dev
+Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
+Standards-Version: 3.9.8
+Homepage: https://github.com/Novum/vkQuake
+
+Package: vkqake
+Architecture: all
+Depends: ${misc:Depends},
+ ${shlibs:Depends}
+Description: vkqake is an port of Quake to the Vulkan API.

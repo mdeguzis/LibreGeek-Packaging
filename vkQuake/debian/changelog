@@ -1,0 +1,65 @@
+citra (0.20160715+git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit f95d119
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 15 Jul 2016 20:36:26 -0400
+
+citra (0.20160523+git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit e054e55
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 23 May 2016 09:59:55 -0400
+
+citra (0.20160426+git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit dc42175
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 26 Apr 2016 16:37:13 -0400
+
+citra (0.20160330+git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit 7e2c0c5
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 30 Mar 2016 17:34:00 -0400
+
+citra (0.20160321+git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit 446d7c7
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 21 Mar 2016 16:04:20 -0400
+
+citra (0.20160312+git+bsos1-1) brewmaster; urgency=low
+
+  * Change ver to include preceeding 0.
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 13 Mar 2016 10:49:32 -0400
+ 
+citra (20160313+git+bsos1-1) brewmaster; urgency=low
+
+  * Update to the latest commit f62935d
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 13 Mar 2016 10:49:32 -0400
+
+citra (20160311+git+bsos2-1) brewmaster; urgency=low
+
+  * Update to the latest commit 3789de6
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 11 Mar 2016 20:45:45 -0500
+
+citra (20160304+git+bsos1-1) brewmaster; urgency=low
+
+  * Update to the latest commit 878562c
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Fri, 04 Mar 2016 19:43:07 -0500
+
+citra (20160302+git+bsos1-1) brewmaster; urgency=low
+
+  * Intial test build
+
+ -- SteamOS-Tools-Signing Key <mdeguzis@gmail.com>  Wed, 02 Mar 2016 18:50:00 -0500
+
+citra (0.0.0+git+bsos1-1) brewmaster; urgency=low
+
+  * Dummy changelog
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 25 Feb 2016 06:41:48 -0500

@@ -47,6 +47,7 @@ else
 fi
 # upstream vars
 git_url="https://github.com/Yabause/yabause"
+# Try to base this off of the commit where the changelog is updated
 branch="master"
 
 # package vars

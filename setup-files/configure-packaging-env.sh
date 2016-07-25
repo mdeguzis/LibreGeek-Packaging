@@ -492,7 +492,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	rm -f valve-archive-keyring*.deb
 	
 	# update for keyrings
-	echo -e "\nUpdating system for newly added keyrings\n"
+	echo -e "\n==> Updating system for newly added keyrings\n"
 	sleep 2s
 	sudo apt-key update
 	sudo apt-get update

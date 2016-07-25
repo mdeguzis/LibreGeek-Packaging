@@ -80,9 +80,9 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc debhelper debhelper (>= 9) cmake pkg-config
+	sudo apt-get install -y --force-yes build-essential bc debhelper debhelper cmake pkg-config
 	libgl1-mesa-dev libsdl1.2-dev libglib2.0-dev libgtk2.0-dev libgtkglext1-dev libqt4-dev \
-	libqt4-opengl-dev libmini18n-dev libopenal-dev	dh-autoreconf
+	libqt4-opengl-dev libmini18n-dev libopenal-dev dh-autoreconf
 
 }
 

@@ -3,6 +3,8 @@
 
 # CMake doesn't use CPPFLAGS, pass them to CFLAGS/CXXFLAGS to enable the
 # missing (hardening) flags.
+# See: http://wiki.yabause.org/index.php5?title=Readme_QT#Linux
+
 export DEB_CFLAGS_MAINT_APPEND   = $(shell dpkg-buildflags --get CPPFLAGS)
 export DEB_CXXFLAGS_MAINT_APPEND = $(shell dpkg-buildflags --get CPPFLAGS)
 
@@ -13,10 +15,9 @@ export DEB_LDFLAGS_MAINT_APPEND  = -Wl,-z,defs -Wl,--as-needed
 
 override_dh_auto_build:
 	rm -rf yabause/build && mkdir -p yabause/build
-	cd yabause/build && cmake -DCMAKE_PREFIX=/usr \
-				-DYAB_WERROR=ON \
+	cd yabause/build && cmake -DYAB_WERROR=ON \
 				-DYAB_FORCE_SECURE_STRINGS=ON \
 				-DYAB_PORTS=qt \
 				-DYAB_USE_QT5=ON \
 				-DCMAKE_BUILD_TYPE=Release .. \
-				&& make
+				&& $(MAKE) DESTDIR=$(CURDIR)/debian/tmp PREFIX=/usr

@@ -1,0 +1,4 @@
+?package(yabause-qt): needs="X11" \
+        section="Applications/Emulators" \
+        title="Yabause Qt" command="yabause-qt"
+

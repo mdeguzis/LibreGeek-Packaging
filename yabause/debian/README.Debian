@@ -1,0 +1,23 @@
+Yabause for Debian
+==================
+
+1. Do I need a BIOS?
+--------------------
+Yabause usually can emulate the Sega Saturn BIOS quite well, so you can play
+games without specifying a BIOS file in the preferences.
+However there are games which will need an original BIOS from a Sega Saturn.
+As this one is non-free, it cannot be shipped inside this package and you will
+need to obtain one by yourself.
+
+2. Where can I get games?
+-------------------------
+If you have original Sega Saturn games, you can play them directly from CD-ROM.
+You also can get many free games on the Internet. Rockin-B has some of those
+on his homepage [1][2], but they seem to be only free as in beer. If you want
+free as in speech games, you can obtain some under the GPL from SSMTF [3].
+
+[1] http://rockin-b.de/saturn.html
+[2] http://rockin-b.de/c4-2005-cd.html
+[3] http://vieille.merde.free.fr/
+
+ -- Evgeni Golov <sargentd@die-welt.net>  Wed, 09 Jul 2008 09:37:54 +0200

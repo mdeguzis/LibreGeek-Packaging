@@ -1,0 +1,4 @@
+?package(yabause-gtk): needs="X11" \
+        section="Applications/Emulators" \
+        title="Yabause GTK" command="yabause-gtk"
+

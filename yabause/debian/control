@@ -1,0 +1,84 @@
+Source: yabause
+Section: otherosfs
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Evgeni Golov <evgeni@debian.org>, Matt Arnold <adeodatus@sdf.org>
+Build-Depends: debhelper (>= 9), cmake, pkg-config,
+ libgl1-mesa-dev | libgl-dev, freeglut3-dev | libglut-dev, libglu1-mesa-dev | libglu-dev,
+ libsdl1.2-dev, libglib2.0-dev, libgtk2.0-dev, libgtkglext1-dev,
+ libqt4-dev, libqt4-opengl-dev, libmini18n-dev, libopenal-dev,
+ dh-autoreconf
+Standards-Version: 3.9.6
+Homepage: http://yabause.org
+Vcs-Svn: svn://anonscm.debian.org/pkg-games/packages/trunk/yabause/
+Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-games/packages/trunk/yabause/
+
+Package: yabause
+Architecture: all
+Depends: yabause-qt | yabause-gtk, ${misc:Depends}
+Description: beautiful and under-rated Saturn emulator
+ Yabause is a Sega Saturn emulator. It has the following features:
+  * booting games from CD-ROM and ISO files
+  * booting games with either an emulated or original BIOS
+  * screenshot support
+  * savegame backups
+  * cheat system
+  * fullscreen playing
+  * multiple debugging options
+  * joystick support
+  * region select 
+ .
+ This package is a metapackage, which installs either the Qt or the Gtk
+ version of Yabause.
+
+Package: yabause-common
+Architecture: all
+Depends: ${misc:Depends}
+Recommends: yabause-qt | yabause-gtk
+Description: beautiful and under-rated Saturn emulator - common files
+ Yabause is a Sega Saturn emulator. It has the following features:
+  * booting games from CD-ROM and ISO files
+  * booting games with either an emulated or original BIOS
+  * screenshot support
+  * savegame backups
+  * cheat system
+  * fullscreen playing
+  * multiple debugging options
+  * joystick support
+  * region select
+ .
+ This package contains arch-independend files like images and translations.
+
+Package: yabause-gtk
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, yabause-common (= ${source:Version})
+Description: beautiful and under-rated Saturn emulator - Gtk port
+ Yabause is a Sega Saturn emulator. It has the following features:
+  * booting games from CD-ROM and ISO files
+  * booting games with either an emulated or original BIOS
+  * screenshot support
+  * savegame backups
+  * cheat system
+  * fullscreen playing
+  * multiple debugging options
+  * joystick support
+  * region select
+ .
+ This package contains the Gtk version of Yabause.
+
+Package: yabause-qt
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, yabause-common (= ${source:Version})
+Description: beautiful and under-rated Saturn emulator - Qt port
+ Yabause is a Sega Saturn emulator. It has the following features:
+  * booting games from CD-ROM and ISO files
+  * booting games with either an emulated or original BIOS
+  * screenshot support
+  * savegame backups
+  * cheat system
+  * fullscreen playing
+  * multiple debugging options
+  * joystick support
+  * region select
+ .
+ This package contains the Qt version of Yabause.

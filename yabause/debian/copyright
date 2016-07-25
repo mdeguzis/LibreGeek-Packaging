@@ -1,0 +1,297 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Yabause
+Upstream-Contact: Theo Berkau, Guillaume Duhamel, Fabien Coulon
+Source: http://sourceforge.net/projects/yabause/
+
+Files: *
+Copyright: 2004-2009 Theo Berkau
+           2003-2013 Guillaume Duhamel
+           2005-2006 Fabien Coulon
+License: GPL-2+
+
+Files: src/cdbase.* src/cd-linux.c src/cd-freebsd.c src/cd-netbsd.c
+Copyright: 2004-2008 Theo Berkau
+           2004-2006 Guillaume Duhamel
+           2005 Joost Peters
+License: GPL-2+
+
+Files: src/cd-macosx.c
+Copyright: 2005 Weston Yager
+           2006-2008 Guillaume Duhamel
+           2004-2005 Theo Berkau
+           2004-2005 Lucas Newman
+License: GPL-2+
+
+Files: src/coffelf.c
+Copyright: 2007 Theo Berkau 
+           2009 Lawrence Sebald
+License: GPL-2+
+
+Files: src/cs0.c
+Copyright: 2006 Ex-Cyber
+           2005 Guillaume Duhamel
+           2004-2005 Theo Berkau
+License: GPL-2+
+
+Files: src/m68kq68.c src/sh2trace.h
+Copyright: 2009 Andrew Church
+License: GPL-2+
+
+Files: src/profile.*
+Copyright: 2002 Patrick Kooman
+License: other
+ The header of these files says "You are free to use, modify,
+ re-distribute this code.", which wasn't enough in my understanding,
+ so I asked Patrick about it. This is what I got as a reply:
+ .
+ From: "Patrick Kooman" <pkooman@gmail.com>
+ To: "Evgeni Golov" <sargentd@die-welt.net>
+ Subject: Re: license of your profile.(c|h)
+ Date: Mon, 30 Jun 2008 15:43:27 +0200
+ .
+ [...]feel free to use the code like you'd use any MIT licensed stuff[...]
+
+Files: src/scsp.c
+Copyright: 2004 Stephane Dallongeville
+           2004-2007 Theo Berkau
+           2006 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/scsp.h
+Copyright: 2004 Stephane Dallongeville
+           2004-2006 Theo Berkau
+License: GPL-2+
+
+Files: src/sh2d.c
+Copyright: 2000 Bart Trzynadlowski
+License: public-domain
+ The file originates from Bart's "sh2d v0.2: Hitachi SH-1/SH-2 disassembler",
+ which was put into public domain by the author.
+ See https://web.archive.org/web/20100326175421/http://www.trzy.org/
+
+Files: src/sh2idle.c
+Copyright: 2005-2006 Fabien Coulon
+License: GPL-2+
+
+Files: src/sh2int.c
+Copyright: 2004-2007 Theo Berkau
+           2003-2005 Guillaume Duhamel
+           2005 Fabien Coulon
+License: GPL-2+
+
+Files: src/sndal.c
+Copyright: 2005-2006 Theo Berkau
+           2009 Lawrence Sebald
+License: GPL-2+
+
+Files: src/sndal.h src/permacjoy.*
+Copyright: 2009 Lawrence Sebald
+License: GPL-2+
+
+Files: src/macjoy.*
+Copyright: 2008 Lawrence Sebald
+License: GPL-2
+
+Files: src/vidogl.c src/vdp1.c
+Copyright: 2003-2006 Guillaume Duhamel
+           2004-2007 Theo Berkau
+           2004 Lawrence Sebald
+License: GPL-2+
+
+Files: src/vidsoft.c
+Copyright: 2006 Fabien Coulon
+           2004-2008 Theo Berkau
+           2003-2004 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/yabause.*
+Copyright: 2006 Anders Montonen
+           2004-2006 Theo Berkau
+           2003-2005 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/m68kcore.* src/m68kc68k.* src/perlinuxjoy.* src/sh2d.h src/sh2idle.c
+Copyright: 2004-2009 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/sh2int.h src/cs0.h src/core.h src/smpc.* src/debug.* src/scu.*
+ src/vdp2.* src/sh2core.* src/ygl.* src/vidshared.* src/vdp1.h src/cs1.*
+ src/cs2.* src/yui.h src/memory.* src/peripheral.*
+Copyright: 2004-2007 Theo Berkau
+           2003-2006 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/vidsoft.h src/m68kd.c src/error.* src/persdljoy.h src/bios.*
+ src/sh2idle.h src/vidogl.h src/sndsdl.* src/coffelf.h src/cheat.*
+ src/vdp2debug.* src/netlink.*
+Copyright: 2005-2008 Theo Berkau
+License: GPL-2+
+
+Files: src/carbon/settings.c src/carbon/main.c
+Copyright: 2006 Anders Montonen
+           2006 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/carbon/settings.h
+Copyright: 2006 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/carbon/cpustatus.*
+Copyright: 2006 Anders Montonen
+License: GPL-2+
+
+Files: src/carbon/build_dmg.sh
+Copyright: 2007 Anders Montonen
+           2006 Lawrence Sebald
+           2006 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/c68k/c68kexec.c src/c68k/gen68k.c src/c68k/c68k.c
+Copyright: 2003-2004 Stephane Dallongeville
+License: GPL-2+
+
+Files: src/c68k/c68k.h src/c68k/gen68k.h
+Copyright: 2004 Theo Berkau
+           2003-2004 Stephane Dallongeville
+License: GPL-2+
+
+Files: src/dreamcast/cd.s
+Copyright: 2008 Lawrence Sebald
+License: GPL-2+
+
+Files: src/dreamcast/localtime.c
+Copyright: none    
+License: public-domain
+ Derived from code in the public domain, the header says:
+ /* This file was taken from newlib <http://sourceware.org/newlib>, it's a
+  * modified version of Arthur David Olsons localtime.c from tzcode which
+  * is under Public Domain */
+
+Files: src/dreamcast/yui.c
+Copyright: 2004-2008 Lawrence Sebald
+           2003 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/dreamcast/viddc.c
+Copyright: 2006 Fabien Coulon
+           2003-2006 Guillaume Duhamel
+           2004-2006 Theo Berkau
+           2004-2007 Lawrence Sebald
+License: GPL-2+
+
+Files: src/dreamcast/perdc.* src/dreamcast/viddc.h
+Copyright: 2005-2008 Lawrence Sebald
+License: GPL-2+
+
+Files: src/gtk/*
+Copyright: 2005-2006 Fabien Coulon
+           2006-2008 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/gtk/main.c
+Copyright: 2006 Fabien Coulon
+           2006 Guillaume Duhamel
+           2005 Joost Peters
+License: GPL-2+
+
+Files: src/gtk/pergtk.c
+Copyright: 2005-2006 Theo Berkau
+           2005-2006 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/gtk/pergtk.h src/gtk/gtk-compat.* src/gtk/yuipage.*
+ src/gtk/yuiwindow.*
+Copyright: 2005-2006 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/gtk/yuim68k.* src/gtk/yuiscudsp.*
+Copyright: 2005-2006 Fabien Coulon
+License: GPL-2+
+
+Files: src/psp/*
+Copyright: 2009 Andrew Church
+License: GPL-2+
+
+Files: src/q68/*
+Copyright: 2009 Andrew Church
+License: GPL-2+
+
+Files: src/qt/Settings.* src/qt/YabauseThread.* src/qt/QtYabause.*
+ src/qt/YabauseGL.* src/qt/PerQt.* src/qt/main.cpp
+ src/qt/ui/UIAbout.* src/qt/ui/UIYabause.* src/qt/ui/UISettings.*
+ src/persdljoy.c
+Copyright: 2005-2006 Theo Berkau
+           2008 Filipe Azevedo <pasnox@gmail.com>
+           2005 Guillaume Duhamel
+License: GPL-2+
+
+Files: src/qt/CommonDialogs.*
+ src/qt/ui/UICheatRaw.* src/qt/ui/UIWaitInput.* src/qt/ui/UIBackupRam.*
+ src/qt/ui/UICheatAR.* src/qt/ui/UICheats.* src/qt/ui/UIPortManager.*
+ src/qt/ui/UIPadSetting.*
+Copyright: 2008 Filipe Azevedo <pasnox@gmail.com>
+License: GPL-2+
+
+Files: src/qt/mkspecs/*
+Copyright: 1992-2007 Trolltech ASA
+License: GPL-2
+
+Files: src/wii/*
+Copyright: 2008 Theo Berkau
+License: GPL-2+
+
+Files: src/wii/perwii.c
+Copyright: 2008 Theo Berkau
+           2008 Romulo
+License: GPL-2+
+
+Files: src/windows/*
+Copyright: 2004-2009 Theo Berkau
+License: GPL-2+
+
+Files: src/windows/cpudebug/*
+Copyright: 2004-2008 Theo Berkau
+           2004 Guillaume Duhamel
+           2005 Joost Peters
+License: GPL-2+
+
+Files: src/windows/cpudebug/yuidebug.h
+Copyright: 2004-2009 Theo Berkau
+License: GPL-2+
+
+Files: src/windows/aviout.c
+Copyright: 2006-2008 Zeromus
+License: GPL-2+
+
+Files: src/windows/ramwatch.*
+Copyright: 2009 Upthorn
+           2009 Nitsuja
+           2009 adelikat
+License: GPL-2+
+
+Files: src/windows/yui.c
+Copyright: 2004-2008 Theo Berkau
+           2004 Guillaume Duhamel
+           2005 Joost Peters
+License: GPL-2+
+
+Files: src/windows/cd.h src/cd-windows.c
+Copyright: 2004-2005 Theo Berkau
+           2005 Joost Peters
+License: GPL-2+
+
+Files: src/windows/settings/*
+Copyright: 2004-2009 Theo Berkau
+License: GPL-2+
+
+Files: debian/*
+Copyright: 2008-2013 Evgeni Golov <evgeni@debian.org>
+License: GPL-2+
+
+License: GPL-2
+ On Debian systems, the complete text of the GNU General Public
+ License version 2 can be found in `/usr/share/common-licenses/GPL-2'.
+
+License: GPL-2+
+ On Debian systems, the complete text of the GNU General Public
+ License version 2 can be found in `/usr/share/common-licenses/GPL-2'.

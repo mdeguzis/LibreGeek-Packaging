@@ -1,0 +1,184 @@
+yabause (0.9.14-1) unstable; urgency=medium
+
+  * New upstream release
+  * Add myself to Uploaders
+  * Add menu files
+    Closes: #726907
+  * Standards-Version: 3.9.6
+
+ -- Matt Arnold <adeodatus@sdf.org>  Fri, 29 May 2015 22:39:31 -0400
+
+yabause (0.9.13.1-1) unstable; urgency=medium
+
+  * New upstream bugfix release.
+
+ -- Evgeni Golov <evgeni@debian.org>  Sat, 04 Jan 2014 10:58:24 +0100
+
+yabause (0.9.13-2) unstable; urgency=medium
+
+  * Do not crash settings, if there is no optical drive in the system.
+    Patch imported from upstream.
+    Closes: #732804
+  * Standards-Version: 3.9.5
+  * Update debian/copyright to final machine readable format
+
+ -- Evgeni Golov <evgeni@debian.org>  Mon, 23 Dec 2013 16:52:53 +0100
+
+yabause (0.9.13-1) unstable; urgency=low
+
+  * New upstream release.
+  * Correct Vcs-* URLs to point to anonscm.debian.org
+
+ -- Evgeni Golov <evgeni@debian.org>  Mon, 15 Jul 2013 22:22:25 +0200
+
+yabause (0.9.12-2) unstable; urgency=low
+
+  * Upload to unstable.
+  * Standards-Version: 3.9.4
+
+ -- Evgeni Golov <evgeni@debian.org>  Thu, 16 May 2013 07:13:36 +0200
+
+yabause (0.9.12-1) experimental; urgency=low
+
+  * New upstream release.
+  * Drop use_dpkg_buildflags.patch and disable_dynarec_on_arm.patch
+    Applied and/or deprecated upstream.
+  * Set YAB_OPTIMIZATION="" to force using Debian's -O2 and not upstreams -O3.
+  * Build-Depend on debhelper (>= 9)
+
+ -- Evgeni Golov <evgeni@debian.org>  Fri, 25 Jan 2013 20:59:56 +0100
+
+yabause (0.9.11.1-1) unstable; urgency=low
+
+  * New upstream bugfix release.
+  * Drop all patches, they were either taken from upstream SVN or
+    were applied upstream in this release.
+  * Properly enable hardening flags.
+    Thanks: Simon Ruderich <simon@ruderich.org>
+    Closes: #662969
+    Added patch: use_dpkg_buildflags.patch
+  * Disable dynarec on armel/armhf.
+    Added patch: disable_dynarec_on_arm.patch
+    Closes: #654615
+    LP: #944749
+  * Standards-Version: 3.9.3
+
+ -- Evgeni Golov <evgeni@debian.org>  Sat, 05 May 2012 17:16:08 +0200
+
+yabause (0.9.11-1) unstable; urgency=low
+
+  * New upstream release.
+    + Switch build system from autotools to cmake.
+    + Closes: #650255
+  * Switch to dh7 "tiny" rules.
+  * Fix typos spotted by lintian.
+    + 02_typos.patch added
+  * Use debhelper compat 9 for hardening buildflags.
+    + also fix build with -Werror=format-security with
+      03_fix_build_with_hardeningflags.patch
+  * Update binutils-gold patch.
+    + Renamed patch to 01_link_with_libm.patch
+  * Fix segfault in dynarec sh2 deinit with patch from upstream
+    + 04_dynarec_segfault_fix.patch added
+
+ -- Evgeni Golov <evgeni@debian.org>  Tue, 29 Nov 2011 13:05:24 +0100
+
+yabause (0.9.10-2) unstable; urgency=low
+
+  * debian/control:
+    + Really remove DM-Upload-allowed.
+    + Section: otherosfs as suggested by the ftp-masters.
+    + Add dh-autoreconf build-dep.
+    + Standards-Version: 3.9.2
+    + Drop quilt build-dep.
+  * Add 01_link_with_pthread.patch to fix FTBFS with binutils-gold.
+    Closes: #556767
+  * debian/rules:
+    + Call dh_autoreconf(_clean) where needed.
+    + Drop quilt calls.
+  * Switch to format "3.0 (quilt)".
+
+ -- Evgeni Golov <evgeni@debian.org>  Thu, 05 May 2011 11:13:35 +0200
+
+yabause (0.9.10-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    + Update my email-address.
+    + Remove DM-Upload-Allowed: yes.
+    + Standards-Version: 3.8.1.
+    + Add B-D on libopenal-dev.
+  * debian/patches/01-fix_qt_build.patch:
+    + Remove patch, it was taken from upstream CVS and is present in
+      the current release.
+  * debian/rules:
+    + Do not sed the desktop files, upstream does this for us.
+    + Do not install gtk manpage as qt one, qt port has an own now.
+  * debian/yabause-qt.install:
+    + Install upstream manpage.
+  * debian/copyright:
+    + Update copyright information and refresh dates.
+
+ -- Evgeni Golov <evgeni@debian.org>  Tue, 02 Jun 2009 09:32:34 +0200
+
+yabause (0.9.9-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    + Update the short-descriptions to reflect upstream naming change.
+    + Add a new yabause-common package, containing images and translations.
+    + Add Build-Dep on libmini18n-dev, so we can enable translations.
+      Closes: #508166
+    + Set DM-Upload-Allowed: yes - I am DM now.
+  * debian/rules:
+    + Upstream now supports --programm-suffix, so we don't need to rename
+      files on our own so much.
+    + Rename build-%/Makefile to build-%/config-stamp, so the Makefile
+      isn't erased.
+    + Don't change the Icon-field in the .desktop files.
+  * debian/yabause-{gtk,qt}.install:
+    + yabause-common contains yabause.png, so no need to install
+      yabause-{gtk,qt}.png in the appropriate packages.
+  * debian/patches:
+    + Add 01-fix_qt_build.patch so the Qt build does not FTBFS when built
+      out of source, imported from Upstream.
+
+ -- Evgeni Golov <sargentd@die-welt.net>  Sat, 07 Mar 2009 22:15:38 +0100
+
+yabause (0.9.8-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/rules:
+    + Don't use rm in the clean target, use dh_clean instead.
+    + Use more debhelper 7 helpers.
+    + Use $(QUILT_STAMPFN) instead of patch, so configure isn't run twice.
+    + Use more make magic to build the two interfaces.
+  * debian/control:
+    + Add alternatives to Build-Depends.
+    + Build-Depend on debhelper 7.
+    + Add ${misc:Depends} to yabause's Depends to please lintian.
+  * debian/series:
+    + Make lintian happy by putting a single # into series.
+
+ -- Evgeni Golov <sargentd@die-welt.net>  Wed, 03 Dec 2008 19:41:09 +0100
+
+yabause (0.9.7-1) unstable; urgency=low
+
+  * New upstream release.
+    + Drop patches/updates_from_cvs_since_0.9.6.patch.
+
+ -- Evgeni Golov <sargentd@die-welt.net>  Thu, 04 Sep 2008 00:05:47 +0200
+
+yabause (0.9.6-2) unstable; urgency=low
+
+  * Import some changes from upstream CVS to improve stability and the GUI.
+    + Use quilt for handling this patch.
+    + Add README.Debian about quilt-usage. 
+
+ -- Evgeni Golov <sargentd@die-welt.net>  Fri, 08 Aug 2008 21:45:46 +0200
+
+yabause (0.9.6-1) unstable; urgency=low
+
+  * Initial release (Closes: #483124)
+
+ -- Evgeni Golov <sargentd@die-welt.net>  Wed, 09 Jul 2008 09:37:54 +0200

@@ -4,6 +4,8 @@
 # invoke shell if build fails.
 
 BUILDDIR="${BUILDDIR:-/tmp/buildd}"
-apt-get install -y "${APTGETOPT[@]}" vim less devscripts nano
+# Reduce package install output here, annoying when there is an error above it.
+echo -e "E: ERROR: build failed, installing helper packages"
+apt-get install -y "${APTGETOPT[@]}" vim less devscripts nano &> /dev/null
 cd "$BUILDDIR"/*/debian/..
 /bin/bash < /dev/tty > /dev/tty 2> /dev/tty

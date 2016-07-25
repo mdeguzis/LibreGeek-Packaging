@@ -11,16 +11,12 @@ export DEB_LDFLAGS_MAINT_APPEND  = -Wl,-z,defs -Wl,--as-needed
 %:
 	dh $@
 
-override_dh_auto_configure:
-	dh_auto_configure -- -DYAB_MULTIBUILD=1 -DYAB_OPTIMIZATION=""
-
 override_dh_auto_build:
 	rm -rf yabause/build && mkdir -p yabause/build
-	cd yabause/build && cmake -DCMAKE_PREFIX=/usr \ 
+	cd yabause/build && cmake -DCMAKE_PREFIX=/usr \
 				-DYAB_WERROR=ON \
 				-DYAB_FORCE_SECURE_STRINGS=ON \
 				-DYAB_PORTS=qt \
 				-DYAB_USE_QT5=ON \
-				-DCMAKE_BUILD_TYPE=Release ..
-				..
-	cd yabause/build && make
+				-DCMAKE_BUILD_TYPE=Release .. \
+				&& make

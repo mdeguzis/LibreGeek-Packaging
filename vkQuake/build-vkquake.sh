@@ -2,15 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-citra.sh
+# Scipt name:	build-vkquake.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from the latest Citra source
+# Description:	Attempts to build a deb package from the latest vkquake source
 #		code.
 #
-# See:		https://github.com/citra-emu/
-#		https://github.com/citra-emu/citra/wiki/Linux-Build
+# See:		https://github.com/Novum/vkQuake
 #
-# Usage:	./build-citra.sh
+# Usage:	./build-vkquake.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -47,8 +46,7 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/citra-emu/citra"
-#git_url="https://github.com/ProfessorKaos64/citra"
+git_url="https://github.com/Novum/vkQuake"
 branch="master"
 
 # package vars
@@ -56,9 +54,9 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgname="citra"
+pkgname="vkquake"
 pkgver="0.${date_short}"
 pkgrev="1"
 # Base version sourced from ZIP file version
@@ -82,8 +80,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch \
-	qtbase5-dev libqt5opengl5-dev build-essential cmake
+	sudo apt-get install -y --force-yes build-essential vulkan-dev libsdl2-dev
 
 }
 
@@ -116,15 +113,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${branch}" "${git_url}" "${git_dir}"
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	
-	# Add image to git dir
-	cp -r "${scriptdir}/Citra.png" "${git_dir}"
-	
-	# Swap version text, since the project assumes citra is being ran in the git dir
-	sed -i "s|GIT-NOTFOUND|${pkgver}git|g" "${git_dir}/externals/cmake-modules/GetGitRevisionDescription.cmake"
 
 	#################################################
 	# Build package
@@ -139,7 +130,7 @@ main()
 
 	# Add required files
 	cp -r "${scriptdir}/debian" "${git_dir}"
-	cp "${git_dir}/license.txt" "${git_dir}/debian/LICENSE"
+	cp "${git_dir}/LICENSE.txt" "${git_dir}/debian/LICENSE"
 
 	# enter source dir
 	cd "${git_dir}"
@@ -150,14 +141,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build"
 		nano "debian/changelog"
 
 	fi

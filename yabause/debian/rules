@@ -30,6 +30,6 @@ override_dh_auto_build:
 				-DYAB_WERROR=ON \
 				-DYAB_FORCE_SECURE_STRINGS=ON \
 				-DYAB_NETWORK=ON \
-				-DYAB_PORTS=gtk;qt .. \
+				-DYAB_USE_QT5=ON  .. \
 	# Install files to top directory
 	make -C yabause/build DESTDIR=$(TOP) install

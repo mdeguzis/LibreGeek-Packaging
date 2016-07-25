@@ -16,7 +16,8 @@ Build-Depends: debhelper (>= 9),
  libqt5opengl5-dev,
  libmini18n-dev, 
  libopenal-dev,
- qtmultimedia5-dev,
+ qtbase5-dev,
+ qtmultimedia5-dev
 Standards-Version: 3.9.6
 Homepage: http://yabause.org
 Vcs-Svn: svn://anonscm.debian.org/pkg-games/packages/trunk/yabause/

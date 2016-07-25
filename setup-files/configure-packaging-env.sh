@@ -55,11 +55,16 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 		
 			# echo and exit if package install fails
 			echo -e "\n==ERROR==\nInstallation of ${PKG} failed! Exiting..."
-			sleep 2s
 			exit 1
 		fi
 
 	done
+	
+	echo -e "\b==> Updating cache for apt-file\n"
+	sleep 2s
+	
+	# apt-file is a nice tool to search for packages/contents of packages in a CLI
+	sudo apt-file update
 	
 	# Open Build System
 	#echo "\nInstalling Open Build System package\n"

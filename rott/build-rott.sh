@@ -205,7 +205,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cd "${git_dir}" && git add "debian/changelog" && git push origin master
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -1,2 +1,3 @@
-debian/citra.desktop /usr/share/applications/
-Citra.png /usr/share/pixmaps/
+debian/vkquake.desktop        /usr/share/applications/
+# /usr/games/ binary is handled in makefile.
+# Merge that later or create a patch?

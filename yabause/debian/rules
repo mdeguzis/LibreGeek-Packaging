@@ -22,12 +22,14 @@ TOP = $(shell pwd)
 	dh $@
 
 override_dh_auto_build:
+	# clean build files
 	rm -rf yabause/build && mkdir -p yabause/build
-	
+	# call cmake with options
 	cd yabause/build && cmake -DCMAKE_INSTALL_PREFIX=/usr \
+				-DCMAKE_BUILD_TYPE=Release \
 				-DYAB_WERROR=ON \
 				-DYAB_FORCE_SECURE_STRINGS=ON \
-				-DYAB_PORTS=qt \
-				-DYAB_USE_QT5=ON \
-				-DCMAKE_BUILD_TYPE=Release .. \
-				&& make
+				-DYAB_NETWORK=ON \
+				-DYAB_PORTS=gtk;qt .. \
+	# Install files to top directory
+	make -C yabause/build DESTDIR=$(TOP) install

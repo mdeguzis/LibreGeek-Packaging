@@ -16,5 +16,5 @@ override_dh_auto_configure:
 
 override_dh_auto_build:
 	rm -rf yabause/build && mkdir -p yabause/build
-	cd yabause/build && cmake -DYAB_WERROR=ON -DYAB_FORCE_SECURE_STRINGS=ON
+	cd yabause/build && cmake -DYAB_WERROR=ON -DYAB_FORCE_SECURE_STRINGS=ON ..
 	cd yabause/build && make

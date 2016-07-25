@@ -2,7 +2,6 @@ Source: yabause
 Section: otherosfs
 Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
-Uploaders: Evgeni Golov <evgeni@debian.org>, Matt Arnold <adeodatus@sdf.org>
 Build-Depends: debhelper (>= 9), cmake, pkg-config,
  libgl1-mesa-dev | libgl-dev, freeglut3-dev | libglut-dev, libglu1-mesa-dev | libglu-dev,
  libsdl1.2-dev, libglib2.0-dev, libgtk2.0-dev, libgtkglext1-dev,

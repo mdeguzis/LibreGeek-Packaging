@@ -1,3 +1,13 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# CMake doesn't use CPPFLAGS, pass them to CFLAGS/CXXFLAGS to enable the
+# missing (hardening) flags.
+# See: http://wiki.yabause.org/index.php5?title=Readme_QT#Linux
+
+export DEB_CFLAGS_MAINT_APPEND   = $(shell dpkg-buildflags --get CPPFLAGS)
+export DEB_CXXFLAGS_MAINT_APPEND = $(shell dpkg-buildflags --get CPPFLAGS)
+
 export DEB_LDFLAGS_MAINT_APPEND  = -Wl,-z,defs -Wl,--as-needed
 
 # Set top dir

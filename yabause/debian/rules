@@ -10,14 +10,18 @@ export DEB_CXXFLAGS_MAINT_APPEND = $(shell dpkg-buildflags --get CPPFLAGS)
 
 export DEB_LDFLAGS_MAINT_APPEND  = -Wl,-z,defs -Wl,--as-needed
 
+# Set top dir
+TOP = $(shell pwd)
+
 %:
 	dh $@
 
 override_dh_auto_build:
 	rm -rf yabause/build && mkdir -p yabause/build
+	mkdir -p $(TOP)/debian/tmp
 	cd yabause/build && cmake -DYAB_WERROR=ON \
 				-DYAB_FORCE_SECURE_STRINGS=ON \
 				-DYAB_PORTS=qt \
 				-DYAB_USE_QT5=ON \
 				-DCMAKE_BUILD_TYPE=Release .. \
-				&& $(MAKE) DESTDIR=$(CURDIR)/debian/tmp PREFIX=/usr
+				&& $(MAKE) DESTDIR=$(TOP)/debian/tmp PREFIX=/usr

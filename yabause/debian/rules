@@ -13,3 +13,8 @@ export DEB_LDFLAGS_MAINT_APPEND  = -Wl,-z,defs -Wl,--as-needed
 
 override_dh_auto_configure:
 	dh_auto_configure -- -DYAB_MULTIBUILD=1 -DYAB_OPTIMIZATION=""
+
+override_dh_auto_build:
+	rm -rf yabause/build && mkdir -p yabause/build
+	cd yabause/build && cmake -DYAB_WERROR=ON -DYAB_FORCE_SECURE_STRINGS=ON
+	cd yabause/build && make

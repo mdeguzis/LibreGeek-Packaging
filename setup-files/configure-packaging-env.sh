@@ -60,7 +60,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	done
 	
-	echo -e "\b==> Updating cache for apt-file\n"
+	echo -e "\n==> Updating cache for apt-file\n"
 	sleep 2s
 	
 	# apt-file is a nice tool to search for packages/contents of packages in a CLI

@@ -11,17 +11,23 @@ export DEB_CXXFLAGS_MAINT_APPEND = $(shell dpkg-buildflags --get CPPFLAGS)
 export DEB_LDFLAGS_MAINT_APPEND  = -Wl,-z,defs -Wl,--as-needed
 
 # Set top dir
+# Since this build uses autoreconf, we should be able to specify DESTDIR with make.
 TOP = $(shell pwd)
+
+# Altenate method to install files to desired location?
+# mkdir -p $(TOP)/debian/tmp
+# $(MAKE) DESTDIR=$(TOP)/debian/tmp PREFIX=/usr
 
 %:
 	dh $@
 
 override_dh_auto_build:
 	rm -rf yabause/build && mkdir -p yabause/build
-	mkdir -p $(TOP)/debian/tmp
-	cd yabause/build && cmake -DYAB_WERROR=ON \
+	
+	cd yabause/build && cmake -DCMAKE_INSTALL_PREFIX=/usr \
+				-DYAB_WERROR=ON \
 				-DYAB_FORCE_SECURE_STRINGS=ON \
 				-DYAB_PORTS=qt \
 				-DYAB_USE_QT5=ON \
 				-DCMAKE_BUILD_TYPE=Release .. \
-				&& $(MAKE) DESTDIR=$(TOP)/debian/tmp PREFIX=/usr
+				&& make

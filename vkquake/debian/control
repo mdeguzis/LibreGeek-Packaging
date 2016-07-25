@@ -5,7 +5,7 @@ Build-Depends: cmake (>= 3.1),
  debhelper,
  gcc,
  libsdl2-dev,
- vulkan-dev
+ libvulkan-dev
 Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
 Standards-Version: 3.9.8
 Homepage: https://github.com/Novum/vkQuake

@@ -1,5 +1,0 @@
-remove-redundant-linking.patch
-#mp3-copyright.patch
-use-inherited-build-flags.patch
-mkpak-bashism.patch
-reproducible-build.patch

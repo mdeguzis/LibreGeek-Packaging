@@ -70,7 +70,10 @@ export BUILD_DIR="/home/desktop/build-${pkgname}-temp"
 src_dir="${pkgname}"
 git_dir="${BUILD_DIR}/${src_dir}"
 git_url="https://github.com/PCSX2/pcsx2"
-branch="master"
+# Try new PR to fix laod state input issue
+# See:  https://github.com/PCSX2/pcsx2/issues/205#issuecomment-235249649
+branch="onepad-input-state"
+$branch="master"
 
 # package vars
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

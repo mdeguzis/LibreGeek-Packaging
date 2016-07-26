@@ -152,13 +152,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M --package \
 		"${pkgname}" -D "${DIST}" -u "${urgency}" "Bump version of virtual package."
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
 		-M --package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi

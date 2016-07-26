@@ -1,3 +1,12 @@
+vkquake (0.20160725+git+bsos-1) brewmaster; urgency=low
+
+  * Thanks to Novum who added Vulkan API support to quakespasm!
+  * Initial build for SteamOS-brewmaster
+  * Fixed compiler on Quake/Makefile
+  * Fix exec bit on mkpak.sh
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 25 Jul 2016 22:57:10 -0400
+
 quakespasm (0.91.0+dfsg-1) unstable; urgency=medium
 
   * New upstream release.

@@ -130,7 +130,8 @@ main()
 	cd "${BUILD_DIR}" || exit
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
-	# Add required files
+	# Add required files and artwork
+	cp -r "${scriptdir}/vkquake.png" "${git_dir}"
 	cp -r "${scriptdir}/debian" "${git_dir}"
 	cp "${git_dir}/LICENSE.txt" "${git_dir}/debian/LICENSE"
 

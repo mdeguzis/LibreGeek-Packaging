@@ -46,8 +46,10 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/Novum/vkQuake"
-branch="master"
+# There are some issues to fix yet, use my fork
+git_url="https://github.com/ProfessorKaos64/vkQuake"
+#git_url="https://github.com/Novum/vkQuake"
+branch="linux-fixes"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

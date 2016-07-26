@@ -5,7 +5,8 @@
 # Scipt name:	build-darkmod.sh
 # Script Ver:	0.6.1
 # Description:	Attempts to build a deb package from the laest "The Dark Mod"
-#		release
+#		release. This is more of a virtual package that deploys and updater
+#		Which is run post-install.
 #
 # See:		https://github.com/ProfessorKaos64/tdm
 #		http://wiki.darkmod.com/index.php?title=The_Dark_Mod_-_Compilation_Guide
@@ -63,8 +64,8 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 # required to run postinstall
 USENETWORK="yes"
 pkgname="darkmod"
-pkgver="2.0.3"
-pkgrev="3"
+pkgver="2.0.4"
+pkgrev="1"
 upstream_rev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
@@ -152,11 +153,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package \
+		"${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" -M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
+		-M --package "${pkgname}" -D "${DIST}" -u "${urgency}"
 
 	fi
 

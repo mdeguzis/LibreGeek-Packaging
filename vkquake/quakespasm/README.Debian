@@ -1,0 +1,46 @@
+Providing Quake data files
+==========================
+
+As with any Quake engine, you will need the data files in order to use it.
+
+The first episode of Quake is available gratis as shareware from iD.
+Of course the data from the full version of the game will also work fine,
+if you have it.
+
+Using the quake and game-data-packager packages
+-----------------------------------------------
+
+The Debian package "quake" contains a wrapper script which expects the
+"quake-data" package to have been built and installed, using
+the "game-data-packager" package.  This is recommended.
+
+Running the engine manually
+---------------------------
+
+The engine looks for the data in the *current directory* by default, so it
+expects to find 'id1/pak0.pak' wherever you started the game.  You can
+specify another directory using the -basedir option.
+
+  # use the quake-data package
+  quakespasm -basedir /usr/share/quake
+  # use some data files in your home directory
+  quakespasm -basedir ~/my-quake-install
+
+Please see this thread for discussion of Quakespasm:
+http://www.celephais.net/board/view_thread.php?id=60452
+
+There is lots of free beer content available on the above site also.
+
+Audio output
+============
+
+Quakespasm uses SDL for sound by default.  It doesn't know about Pulseaudio and
+such.  To use Pulse with Quakespasm, you can create the 'pulse' device as shown
+in [1], and then start quakespasm setting the AUDIODEV environment variable.
+Like so:
+
+  AUDIODEV=pulse quakespasm
+
+This channels sound through SDL, to ALSA, then to the Pulseaudio server.
+
+[1] http://www.pulseaudio.org/wiki/PerfectSetup#ALSAApplications

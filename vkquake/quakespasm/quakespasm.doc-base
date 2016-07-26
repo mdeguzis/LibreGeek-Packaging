@@ -1,0 +1,11 @@
+Document: quakespasm
+Title: README
+Abstract: Documentation for Quakespasm, including changelog and TODO
+Section: Games/Action
+
+Format: HTML
+Index: /usr/share/doc/quakespasm/Quakespasm.html
+Files: /usr/share/doc/quakespasm/Quakespasm.html
+
+Format: Text
+Files: /usr/share/doc/quakespasm/Quakespasm.txt.gz

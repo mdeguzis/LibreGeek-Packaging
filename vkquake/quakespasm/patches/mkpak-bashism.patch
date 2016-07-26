@@ -1,0 +1,11 @@
+Description: Use bash for mkpak.sh
+Author: Stephen Kitt <skitt@debian.org>
+
+--- a/Misc/qs_pak/mkpak.sh
++++ b/Misc/qs_pak/mkpak.sh
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/bin/bash
+ #
+ # Copyright (c) 2014, Sander van Dijk <a.h.vandijk@gmail.com>
+ #

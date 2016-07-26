@@ -31,7 +31,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -65,12 +65,12 @@ URGENCY="low"
 
 # build dirs
 export BUILD_DIR="/home/desktop/build-${PKGNAME}-temp"
-src_dir="${PKGNAME}"
-GIT_DIR="${BUILD_DIR}/${src_dir}"
-git_url="https://github.com/PCSX2/pcsx2"
+SRC_DIR="${PKGNAME}"
+GIT_DIR="${BUILD_DIR}/${SRC_DIR}"
+GIT_URL="https://github.com/PCSX2/pcsx2"
 
-#target="onepad-input-state"
-#target="master"
+#TARGET="onepad-input-state"
+#TARGET="master"
 
 # package vars
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -145,12 +145,12 @@ main()
 
 	fi
 
-	# Clone upstream source code and target
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-        git clone -b "${target}" "${git_url}" "${GIT_DIR}"
+        git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
         cd "${GIT_DIR}"
         latest_commit=$(git log -n 1 --pretty=format:"%h")
         
@@ -212,7 +212,7 @@ main()
 	cd "${BUILD_DIR}"
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${GIT_DIR}"

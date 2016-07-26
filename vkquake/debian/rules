@@ -30,6 +30,3 @@ override_dh_auto_build:
 		USE_CODEC_MIKMOD=1 \
 		USE_CODEC_UMX=1
 	make -C Misc/qs_pak
-
-override_dh_strip:
-	dh_strip --ddeb-migration='quakespasm-dbg (<< 0.90.1+dfsg-2~)'

@@ -58,22 +58,19 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 ARCH="i386"
-pkgname="pcsx2-unstable"
-pkgrev="1"
+PKGNAME="pcsx2-unstable"
+PKGREV="1"
 DIST="brewmaster"
-urgency="low"
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+URGENCY="low"
 
 # build dirs
-export BUILD_DIR="/home/desktop/build-${pkgname}-temp"
-src_dir="${pkgname}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="/home/desktop/build-${PKGNAME}-temp"
+src_dir="${PKGNAME}"
+GIT_DIR="${BUILD_DIR}/${src_dir}"
 git_url="https://github.com/PCSX2/pcsx2"
-# Try new PR to fix laod state input issue
-# See:  https://github.com/PCSX2/pcsx2/issues/205#issuecomment-235249649
-branch="onepad-input-state"
-$branch="master"
+
+#target="onepad-input-state"
+#target="master"
 
 # package vars
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -148,15 +145,23 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and target
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-        git clone -b "${branch}" "${git_url}" "${git_dir}"
-        cd "${git_dir}"
+        git clone -b "${target}" "${git_url}" "${GIT_DIR}"
+        cd "${GIT_DIR}"
         latest_commit=$(git log -n 1 --pretty=format:"%h")
-        git checkout $latest_commit 1> /dev/null
+        
+        # Try new PR to fix laod state input issue
+        # See:  https://github.com/PCSX2/pcsx2/issues/205#issuecomment-235249649
+
+	echo -e "\nTesting PR  #1476\n" && sleep 3s
+
+	git stash
+	git fetch
+	git checkout onepad-input-state
 
 	# get latest base release for changelog
 	# This is used because upstream does tend to use release tags
@@ -171,30 +176,30 @@ main()
 	#################################################
 
 	echo -e "\nRemove 3rdparty code"
-	rm -fr "$git_dir/3rdparty"
-	rm -fr "$git_dir/fps2bios"
-	rm -fr "$git_dir/tools"
+	rm -fr "${GIT_DIR}/3rdparty"
+	rm -fr "${GIT_DIR}/fps2bios"
+	rm -fr "${GIT_DIR}/tools"
 
 	echo "Remove non free plugins"
 	# remove also deprecated plugins
 	for plugin in CDVDiso CDVDisoEFP CDVDlinuz CDVDolio CDVDpeops dev9ghzdrk \
 	PeopsSPU2 SSSPSXPAD USBqemu xpad zerogs zerospu2
 	do
-		rm -fr "$git_dir/plugins/$plugin"
+		rm -fr "${GIT_DIR}/plugins/$plugin"
 	done
 
 	echo "Remove remaining non free file. TODO UPSTREAM"
 
-	rm -rf $git_dir/unfree
-	rm -rf $git_dir/plugins/GSdx/baseclasses
-	rm -f  $git_dir/plugins/zzogl-pg/opengl/Win32/aviUtil.h
-	rm -f  $git_dir/common/src/Utilities/x86/MemcpyFast.cpp
+	rm -rf ${GIT_DIR}/unfree
+	rm -rf ${GIT_DIR}/plugins/GSdx/baseclasses
+	rm -f  ${GIT_DIR}/plugins/zzogl-pg/opengl/Win32/aviUtil.h
+	rm -f  ${GIT_DIR}/common/src/Utilities/x86/MemcpyFast.cpp
 
 	# To save 66% of the package size
-	rm -rf  $git_dir/.git
+	rm -rf  ${GIT_DIR}/.git
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
+	cp -r "$scriptdir/debian-unstable" "${GIT_DIR}/debian"
 
 	#################################################
 	# Build platform
@@ -207,10 +212,10 @@ main()
 	cd "${BUILD_DIR}"
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -218,13 +223,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update build to latest upstream commit [$latest_commit]"
 		nano debian/changelog
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update build to latest upstream commit [$latest_commit]"
 		nano debian/changelog
 
@@ -234,7 +239,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -286,7 +291,7 @@ main()
 
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian-unstable/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian-unstable/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -1,3 +1,12 @@
+Note regaring this package
+==========================
+
+This is a port of quakespasm to to the Vulkan API. This Debian package is provided as-is. Please submit any issues 
+to package maintainer. If you are using SteamOS, you can submit as issues ticket to 
+https://github.com/ProfessorKaos64/SteamOS-Tools.
+
+For more, see https://github.com/Novum/vkQuake
+
 Providing Quake data files
 ==========================
 
@@ -30,6 +39,16 @@ Please see this thread for discussion of Quakespasm:
 http://www.celephais.net/board/view_thread.php?id=60452
 
 There is lots of free beer content available on the above site also.
+
+Troubleshooting
+---------------
+
+See: http://www.tldp.org/HOWTO/Quake-HOWTO-8.html if you have trouble with using this port.
+
+Tips and Tricks
+---------------
+
+You can also run this port of quakespasm to the Vulkan API with the command `vkquake`.
 
 Audio output
 ============

@@ -6,6 +6,7 @@ cat<<-EOF
 Please complete your installation by running the Darkmod updater:
 
 You can run the updater at any time by issuing the command:
-'/usr/share/games/darkmod/darkmod-updater.sh'
+'/usr/share/games/darkmod/darkmod-updater.sh' or 'darkmod-updater.sh'
+from within the same directory.
 
 EOF

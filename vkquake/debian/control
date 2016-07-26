@@ -1,4 +1,4 @@
-Source: quakespasm
+Source: vkquake
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Uploaders:
  David Banks <amoebae@gmail.com>,
@@ -16,11 +16,11 @@ Build-Depends:
  libsdl2-dev,
  libvorbis-dev
 Standards-Version: 3.9.6
-Homepage: http://quakespasm.sourceforge.net/
-Vcs-Git: git://anonscm.debian.org/pkg-games/quakespasm.git
-Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-games/quakespasm.git
+Homepage: http://vkquake.sourceforge.net/
+Vcs-Git: git://anonscm.debian.org/pkg-games/vkquake.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-games/vkquake.git
 
-Package: quakespasm
+Package: vkquake
 Architecture: any
 Depends:
  ${misc:Depends},
@@ -29,7 +29,9 @@ Provides:
  quake-engine,
  quake-engine-server
 Description: engine for iD software's Quake
- QuakeSpasm is a Unix-friendly Quake engine based on the SDL port of the
+ This is a Vulkan API port of Quakespasm
+ .
+ vkquake is a Unix-friendly Quake engine based on the SDL port of the
  popular FitzQuake. It includes some new features, important fixes, and aims
  for portability and correctness.
  .

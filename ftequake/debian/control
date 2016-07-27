@@ -5,6 +5,7 @@ Priority: optional
 Build-Depends:
  build-essential,
  debhelper (>= 9~),
+ libegl1-mesa-dev,
  libjpeg-dev,
  libogg-dev,
  libpng-dev,

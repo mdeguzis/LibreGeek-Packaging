@@ -11,4 +11,4 @@ override_dh_auto_build:
 	$(MAKE) -C engine gl-rel -j4 PREFIX=/usr
 	
 override_dh_auto_install:
-	$(MAKE) PREFIX=/usr DESTDIR=debian/tmp install
+	$(MAKE) install

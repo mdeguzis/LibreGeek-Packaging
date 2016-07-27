@@ -6,6 +6,8 @@ else
 maybe_debug = DEBUG=1
 endif
 
+TOP = $(shell pwd)
+
 %:
 	dh $@
 
@@ -13,8 +15,5 @@ override_dh_auto_clean:
 	make -C engine clean
 
 override_dh_auto_build:
-	$(MAKE) -C engine sv-rel -j4 PREFIX=/usr
-	$(MAKE) -C engine gl-rel -j4 PREFIX=/usr
-	
-override_dh_auto_install:
-	$(MAKE) install
+	$(MAKE) -C engine sv-rel -j4 DESTDIR=$(TOP) PREFIX=/usr install
+	$(MAKE) -C engine gl-rel -j4 DESTDIR=$(TOP) PREFIX=/usr install

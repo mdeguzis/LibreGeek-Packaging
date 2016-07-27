@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-fte-quake.sh
+# Scipt name:	build-ftequake.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from the latest fte-quake source
+# Description:	Attempts to build a deb package from the latest ftequake source
 #		code.
 #
-# See:		https://github.com/Novum/fte-quake
+# See:		https://github.com/Novum/ftequake
 #
-# Usage:	./build-fte-quake.sh
+# Usage:	./build-ftequake.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-PKGNAME="fte-quake"
+PKGNAME="ftequake"
 PKGVER="0.1.0"
 PKGREV="1"
 PKGSUFFIX="${date_short}git+bsos"
@@ -131,7 +131,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
 	# Add required files and artwork
-	#cp -r "${scriptdir}/fte-quake.png" "${SVN_DIR}"
+	#cp -r "${scriptdir}/ftequake.png" "${SVN_DIR}"
 	cp -r "${scriptdir}/debian" "${SVN_DIR}"
 
 	# enter source dir

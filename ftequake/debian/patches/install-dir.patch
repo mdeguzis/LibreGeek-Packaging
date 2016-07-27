@@ -1,15 +1,16 @@
 --- a/engine/Makefile
 +++ b/engine/Makefile
-@@ -1936,7 +1936,7 @@
+@@ -1936,14 +1936,14 @@
  endif
  
  
 -prefix ?= /usr/local
 +prefix ?= /usr
  exec_prefix ?= $(prefix)
- bindir ?= $(exec_prefix)/bin
+-bindir ?= $(exec_prefix)/bin
++bindir ?= $(exec_prefix)/games
  sbindir ?= $(exec_prefix)/sbin
-@@ -1944,6 +1944,6 @@
+ INSTALL ?= install
  INSTALL_PROGRAM ?= $(INSTALL)
  INSTALL_DATA ?= ${INSTALL} -m 644
  install: sv-rel gl-rel mingl-rel qcc-rel

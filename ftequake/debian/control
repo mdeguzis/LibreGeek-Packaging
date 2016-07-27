@@ -5,12 +5,14 @@ Priority: optional
 Build-Depends:
  build-essential,
  debhelper (>= 9~),
+ libasound2-dev,
  libegl1-mesa-dev,
  libjpeg-dev,
  libogg-dev,
  libpng-dev,
  libvorbis-dev,
  libvulkan-dev,
+ mesa-common-dev,
  subversion,
  zlib1g-dev
 Standards-Version: 3.9.8

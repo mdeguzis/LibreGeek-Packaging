@@ -7,6 +7,7 @@ maybe_debug = DEBUG=1
 endif
 
 TOP = $(shell pwd)
+DEB_INST := $(CURDIR)/debian/tmp
 
 %:
 	dh $@
@@ -14,6 +15,6 @@ TOP = $(shell pwd)
 override_dh_auto_clean:
 	make -C engine clean
 
-override_dh_auto_build:
-	$(MAKE) -C engine sv-rel -j4 DESTDIR=$(TOP) PREFIX=/usr install
-	$(MAKE) -C engine gl-rel -j4 DESTDIR=$(TOP) PREFIX=/usr install
+override_dh_auto_install:
+	$(MAKE) -C engine sv-rel -j4 DESTDIR=$(DEB_INST) PREFIX=/usr install
+	$(MAKE) -C engine gl-rel -j4 DESTDIR=$(DEB_INST) PREFIX=/usr install

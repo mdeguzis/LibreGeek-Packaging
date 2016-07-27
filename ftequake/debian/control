@@ -11,6 +11,7 @@ Build-Depends:
  libpng-dev,
  libvorbis-dev,
  libvulkan-dev,
+ subversion,
  zlib1g-dev
 Standards-Version: 3.9.8
 Homepage: https://github.com/Novum/ftequake

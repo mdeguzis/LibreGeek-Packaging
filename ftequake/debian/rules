@@ -1,32 +1,13 @@
 #!/usr/bin/make -f
 
-DPKG_EXPORT_BUILDFLAGS = 1
-include /usr/share/dpkg/buildflags.mk
-CFLAGS+=$(CPPFLAGS)
-CXXFLAGS+=$(CPPFLAGS)
-
-DESTDIR = $(CURDIR)/debian/quakespasm
-
 %:
 	dh $@
 
-ifeq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-maybe_debug = DEBUG=0
-else
-maybe_debug = DEBUG=1
-endif
-
 override_dh_auto_clean:
-	make -C Quake clean
+	make -C engine clean
 
 override_dh_auto_build:
-	make -C Quake \
-		$(maybe_debug) \
-		STRIP=": do not strip:" \
-		DO_USERDIRS=1 \
-		USE_SDL2=1 \
-		USE_CODEC_FLAC=1 \
-		USE_CODEC_OPUS=1 \
-		USE_CODEC_MIKMOD=1 \
-		USE_CODEC_UMX=1
-	make -C Misc/qs_pak
+	make -C engine/sv-rel -j4
+	make -C engine/gl-rel -j4
+	engine/release/fteqw.sv -nohome -basedir ~/quake
+	engine/release/fteqw.gl -nohome -basedir ~/quake

@@ -1,24 +1,17 @@
 #!/usr/bin/make -f
 
-ifeq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
-maybe_debug = DEBUG=0
-else
-maybe_debug = DEBUG=1
-endif
-
-TOP = $(shell pwd)
-DEB_INST := $(CURDIR)/debian/tmp
+export prefix = /usr
+export bindir = /usr/games
+export DESTDIR=$(CURDIR)/debian/ftequake
 
 %:
 	dh $@
 
-override_dh_auto_clean:
-	make -C engine clean
+override_dh_auto_build:
+	$(MAKE) -C engine sv-rel -j4
+	$(MAKE) -C engine gl-rel -j4
 
 override_dh_auto_install:
-	# build and install
-	$(MAKE) -C engine sv-rel -j4 DESTDIR=$(DEB_INST) PREFIX=/usr install
-	$(MAKE) -C engine gl-rel -j4 DESTDIR=$(DEB_INST) PREFIX=/usr install
-	# extra files
-	install -m 644 debian/ftequake.desktop debian/tmp/usr/share/applications/
-
+	$(MAKE) -C engine sv-rel install
+	$(MAKE) -C engine gl-rel install
+	dh_auto_install

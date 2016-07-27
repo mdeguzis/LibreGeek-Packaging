@@ -150,7 +150,7 @@ main()
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial build"
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial build, revision ${LATEST_REV}"
 		nano "debian/changelog"
 
 	fi
@@ -206,7 +206,8 @@ main()
 		if [[ -d "${BUILD_DIR}" ]]; then
 
 			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog

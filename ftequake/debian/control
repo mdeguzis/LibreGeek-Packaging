@@ -1,38 +1,27 @@
-Source: vkquake
+Source: ftequake
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Section: games
 Priority: optional
 Build-Depends:
+ build-essential,
  debhelper (>= 9~),
- dpkg-dev (>= 1.16.1~),
- libflac-dev,
- libmad0-dev,
- libmikmod-dev,
- libopusfile-dev,
- libsdl2-dev,
+ libjpeg-dev,
+ libogg-dev,
+ libpng-dev,
  libvorbis-dev,
- libvulkan-dev
-Standards-Version: 3.9.6
-Homepage: https://github.com/Novum/vkQuake
+ libvulkan-dev,
+ zlib1g-dev
+Standards-Version: 3.9.8
+Homepage: https://github.com/Novum/ftequake
 
-Package: vkquake
+Package: ftequake
 Architecture: any
 Depends:
  ${misc:Depends},
  ${shlibs:Depends}
-Provides:
- quake-engine,
- quake-engine-server
-Description: engine for iD software's Quake
- This is a Vulkan API port of Quakespasm
- .
- vkquake is a Unix-friendly Quake engine based on the SDL port of the
- popular FitzQuake. It includes some new features, important fixes, and aims
- for portability and correctness.
- .
- This package contains no data files. To use it, you will need to either
- install the commercial Quake data, or alternative free data files such as
- OpenQuartz.
- .
- This engine is typically used via a script that launches it with a particular
- data set, such as the one found in the "quake" package.
+Description: engine for iD software's Quake games.
+ FTE QuakeWorld is a QuakeWorld derivative which mainly 
+ focuses on modding and additional features for both users 
+ and servers. Supports NetQuake gamecode and protocol, 
+ Hexen 2/Quake 2/Quake 3 maps and models, many QuakeC 
+ builtin extensions, and more.

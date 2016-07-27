@@ -16,5 +16,7 @@ override_dh_auto_clean:
 	make -C engine clean
 
 override_dh_auto_install:
+	# These dirs are not created by the Makefile
+	mkdir -p debian/tmp/usr/games debian/tmp/usr/share/pixmaps
 	$(MAKE) -C engine sv-rel -j4 DESTDIR=$(DEB_INST) PREFIX=/usr install
 	$(MAKE) -C engine gl-rel -j4 DESTDIR=$(DEB_INST) PREFIX=/usr install

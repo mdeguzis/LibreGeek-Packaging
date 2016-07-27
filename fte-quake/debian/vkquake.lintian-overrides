@@ -1,0 +1,2 @@
+# intentional, to put the quake-engine alternative in
+quakespasm: package-contains-empty-directory usr/lib/quake/

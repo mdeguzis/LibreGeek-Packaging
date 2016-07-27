@@ -1,0 +1,159 @@
+vkquake (0.20160725+git+bsos-1) brewmaster; urgency=low
+
+  * Thanks to Novum who added Vulkan API support to quakespasm!
+  * Initial build for SteamOS-brewmaster
+  * Fixed compiler on Quake/Makefile
+  * Fix exec bit on mkpak.sh
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 25 Jul 2016 22:57:10 -0400
+
+quakespasm (0.91.0+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Migrate to dbgsym debug packages.
+  * Clean up debian/rules.
+  * Drop upstream-changelog (the user-readable changelog is in the
+    documentation).
+
+ -- Stephen Kitt <skitt@debian.org>  Wed, 20 Jan 2016 13:53:31 +0100
+
+quakespasm (0.90.1+dfsg-1) unstable; urgency=medium
+
+  * New upstream release.
+  * Remove the Mac OS X and Windows binaries using "Files-Excluded" in
+    debian/copyright rather than filtering in gbp.conf.
+  * Rename "[git-import-orig]" to "[import-orig]" in gbp.conf.
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 22 Jun 2015 07:23:12 +0200
+
+quakespasm (0.90.0-3) unstable; urgency=medium
+
+  * Drop another use of __DATE__ and __TIME__...
+  * Identify the games team as "Maintainer:", and move David Banks to
+    "Uploaders:".
+
+ -- Stephen Kitt <skitt@debian.org>  Sun, 03 May 2015 19:04:01 +0200
+
+quakespasm (0.90.0-2) unstable; urgency=medium
+
+  * Drop __DATE__ and __TIME__ to make the build reproducible.
+  * Upload to unstable.
+
+ -- Stephen Kitt <skitt@debian.org>  Thu, 30 Apr 2015 17:20:34 +0200
+
+quakespasm (0.90.0-1) experimental; urgency=medium
+
+  * New upstream release.
+  * Switch to my Debian address.
+  * Build with SDL2, FLAC, OPUS and MikMod.
+  * Rework debian/copyright.
+  * wrap-and-sort.
+  * Build and install quakespasm.pak.
+  * Standards-Version 3.9.6, no change required.
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 23 Mar 2015 23:46:26 +0100
+
+quakespasm (0.85.9-1) unstable; urgency=low
+
+  [ David Banks ]
+  * New upstream release.
+  * Refresh upstream changelog.
+
+  [ Simon McVittie ]
+  * Update debian/copyright
+  * Upload to unstable
+
+ -- Simon McVittie <smcv@debian.org>  Wed, 25 Sep 2013 10:32:48 +0100
+
+quakespasm (0.85.8-1) unstable; urgency=low
+
+  [ David Banks ]
+  * New upstream release.
+  * Refresh patches: remove-redundant-linking.patch, mp3-copyright.patch.
+  * Delete hurd/kFreeBSD compatibility patch gnu.patch, obsoleted by
+    substantial changes in the upstream Makefile machinery.
+  * Refresh the user directory support patch with trivial changes from upstream.
+  * Bump debhelper version to 9 to avoid spurious python warning on build.
+  * Add use-inherited-build-flags.patch to use hardening flags during build
+
+  [ Simon McVittie ]
+  * Update debian/copyright.
+  * Adjust mp3-copyright.patch so it doesn't reduce the range of copyright
+    years asserted.
+  * Remove unused history-in-dotfile.patch.
+  * Refresh patches to git format-patch format, as used by gbp-pq.
+  * Discard changes from experimental's 0.85.7-2, no longer relevant:
+    - upstream now has the equivalent of Svante Signell's patch to make
+      networking work on Hurd (Closes: #671014)
+    - David added support for CFLAGS/LDFLAGS/CPPFLAGS differently
+  * Upload to unstable.
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 12 May 2013 11:22:45 +0100
+
+quakespasm (0.85.7-1) unstable; urgency=low
+
+  [ David Banks ]
+  * New upstream release.
+    - Use the correct definition of sockaddr for kFreeBSD (Closes: #657793)
+  * Update to latest policy and DEP-5 version.
+  * Refresh support-user-directories.patch and gnu.patch.
+  * Refresh upstream changelog.
+  * Drop use of ${shlib:Depends} for the debug package.
+  * Update manual page: drop dead options, update option descriptions
+
+  [ Simon McVittie ]
+  * Configure git-buildpackage to filter Windows and Mac binaries out of
+    the "orig" tarball as well as the git repository, and re-import the orig
+    tarball
+
+ -- Simon McVittie <smcv@debian.org>  Tue, 01 May 2012 10:36:36 +0100
+
+quakespasm (0.85.6-1) unstable; urgency=low
+
+  [ Stephen Kitt ]
+  * New upstream release:
+    - Drop debian/patches/history-in-dotfile.patch, fixed differently
+      upstream.
+    - Refresh debian/patches/support-user-directories.patch using the
+      upstream-provided patch in Misc/homedir_0.patch.
+  * Add the VCS URLs.
+  * Add myself to uploaders.
+  
+  [ Simon McVittie ]
+  * debian/patches/gnu.patch: add "gnu" as an OS type, so compilation can at
+    least be attempted on Hurd and kFreeBSD
+  * Remove explicit compression=gzip from gbp.conf so it can cope with
+    bzip2 too
+  * Add the license and copyright holder of OpenBSD strlcpy/strlcat to the
+    copyright file
+
+ -- Simon McVittie <smcv@debian.org>  Fri, 27 Jan 2012 11:05:02 +0000
+
+quakespasm (0.85.4-1) unstable; urgency=low
+
+  [ David Banks ]
+  * Initial release to Debian. (Closes: #615090)
+  * Repack source tarball to exclude non-free components.
+  * Build with user directories patch from upstream.
+  * Add note about pulseaudio in README.Debian.
+
+  [ Simon McVittie ]
+  * Merge unreleased changelog entries
+  * Add complete statement of license to copyright file
+  * Add some missing copyright holders to copyright file
+  * Use install(1) to ensure permissions are appropriate
+  * Add some section headings to README.Debian
+  * Recommend using game-data-packager for the data
+  * Do not Recommend quake-data: this engine could be used with unpackaged
+    free data such as OpenQuartz, and the quake package acts as the
+    metapackage for "non-free Quake data and an engine"
+  * Mention the quake package, and OpenQuartz, in the package description
+  * Attribute copyright for snd_mp3.c more precisely, and reproduce all
+    necessary copyright notices
+  * Participate in the quake-engine and quake-engine-server alternatives as
+    defined by the quake package
+  * Add debian/source/local-options to unapply patches after building from
+    git, and a .gitignore
+  * Standards-Version: 3.9.2 (no changes)
+
+ -- Simon McVittie <smcv@debian.org>  Fri, 15 Jul 2011 17:36:33 +0100

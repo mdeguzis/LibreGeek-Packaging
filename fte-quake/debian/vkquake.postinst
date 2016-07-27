@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+update-alternatives --quiet --install /usr/lib/quake/quake-engine \
+    quake-engine /usr/games/quakespasm 0
+update-alternatives --quiet --install /usr/lib/quake/quake-engine-server \
+    quake-engine-server /usr/games/quakespasm 0
+
+#DEBHELPER#
+
+#vim:set sw=4 sts=4 et:

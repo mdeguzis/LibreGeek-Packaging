@@ -1,0 +1,5 @@
+Quake/quakespasm            /usr/games
+Misc/qs_pak/quakespasm.pak  /usr/share/games/quake
+debian/README.Debian        /usr/share/games/quake
+debian/vkquake.desktop      /usr/share/applications/
+vkquake.png                 /usr/share/pixmaps/

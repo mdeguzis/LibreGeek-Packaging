@@ -140,7 +140,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${urgency}" "Update to the latest commit svn commit ${LATEST_REV}"
+		-D "${DIST}" -u "${urgency}" "Update to the  svn revision ${SVN_REV}"
 		nano "debian/changelog"
 	
 	else

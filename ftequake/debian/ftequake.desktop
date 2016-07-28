@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=FTE Quake
-Comment=FTE Quake
-Exec=/usr/games/fteqw.gl
+Name=FTE Quake (OpenGL)
+Comment=FTE Quake OpenGL
+Exec=/usr/games/fteqw-gl
 Icon=/usr/share/pixmaps/ftequake.png
 Terminal=false
 Type=Application

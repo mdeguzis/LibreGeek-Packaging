@@ -23,7 +23,7 @@ Depends:
 Provides:
  quake-engine,
  quake-engine-server
-Description: engine for iD software's Quake
+Description: engine for iD Software's Quake
  This is a Vulkan API port of Quakespasm
  .
  vkquake is a Unix-friendly Quake engine based on the SDL port of the

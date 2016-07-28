@@ -121,6 +121,7 @@ main()
 	# Get desired revision
 	echo -e "\n==> Showing last 5 revisions"
 	
+	cd  "${SVN_DIR}"
 	svn log | grep -e ^r[0-9] | cut -d " " -f 1 | head -n 5
 	
 	echo -e "\n==> Use which revision?"

@@ -56,7 +56,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 PKGNAME="ftequake-unstable"
-PKGVER="0.1.0"
+PKGVER="1.0.0"
 PKGREV="1"
 # PKGSUFFIX set below
 DIST="brewmaster"

@@ -23,7 +23,6 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -54,7 +53,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 PKGNAME="ftequake"
 PKGVER="0.1.0"
 PKGREV="1"

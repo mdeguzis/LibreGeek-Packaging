@@ -110,6 +110,10 @@ main()
 
 	fi
 
+	#################################################
+	# prepare package
+	#################################################
+
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone

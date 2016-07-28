@@ -1,1 +1,3 @@
-debian/ftequake.desktop usr/share/applications
+debian/ftequake-gl.desktop usr/share/applications
+debian/ftequake-sv.desktop usr/share/applications
+debian/ftequake-vk.desktop usr/share/applications

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-ftequake.sh
+# Scipt name:	build-ftequake-unstable.sh
 # Script Ver:	0.1.1
 # Description:	Attempts to build a deb package from the latest ftequake source
-#		code.
+#		code. This pacakge tracks the latest SVN revision.
 #
-# See:		https://github.com/Novum/ftequake
+# See:		https://github.com/Novum/ftequake-unstable
 #
-# Usage:	./build-ftequake.sh
+# Usage:	./build-ftequake-unstable.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ else
 fi
 # upstream vars
 SVN_URL="http://svn.code.sf.net/p/fteqw/code/trunk"
-SVN_REV="r5010"
+BRANCH=""
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -55,10 +55,10 @@ date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-PKGNAME="ftequake"
+PKGNAME="ftequake-unstable"
 PKGVER="0.1.0"
 PKGREV="1"
-PKGSUFFIX="${SVN_REV}svn+bsos"
+# PKGSUFFIX set below
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -112,11 +112,15 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# checkout desired revision
-	svn checkout -r "${SVN_REV}" "${SVN_URL}" "${SVN_DIR}"
+	# clone
+	svn checkout "${SVN_URL}" "${SVN_DIR}"
 	
-	# Add extras
-	cp -r "${scriptdir}/ftequake.png" "${SVN_DIR}"
+	# Get latest revision
+	cd "${SVN_DIR}"
+	LATEST_REV=$(svn info | grep Revision | cut -d " " -f 2)
+	
+	# Set pkgsuffix
+	PKGSUFFIX="r${LATEST_REV}svn+bsos"
 
 	#################################################
 	# Build package
@@ -129,7 +133,8 @@ main()
 	cd "${BUILD_DIR}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
-	# Add required debian files
+	# Add required files and artwork
+	#cp -r "${scriptdir}/ftequake-unstable.png" "${SVN_DIR}"
 	cp -r "${scriptdir}/debian" "${SVN_DIR}"
 
 	# enter source dir
@@ -142,7 +147,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${urgency}" "Update to svn revision ${SVN_REV}"
+		-D "${DIST}" -u "${urgency}" "Update to the latest commit svn revision ${LATEST_REV}"
 		nano "debian/changelog"
 	
 	else

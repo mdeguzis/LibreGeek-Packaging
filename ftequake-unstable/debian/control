@@ -1,4 +1,4 @@
-Source: ftequake
+Source: ftequake-unstable
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Section: games
 Priority: optional
@@ -16,9 +16,11 @@ Build-Depends:
  subversion,
  zlib1g-dev
 Standards-Version: 3.9.8
-Homepage: https://github.com/Novum/ftequake
+Homepage: https://sourceforge.net/projects/fteqw
 
-Package: ftequake
+Package: ftequake-unstable
+Replaces: ftequake
+Conflicts: ftequake
 Architecture: any
 Depends:
  ${misc:Depends},

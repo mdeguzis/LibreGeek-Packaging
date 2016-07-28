@@ -119,7 +119,7 @@ main()
 	svn checkout "${SVN_URL}" "${SVN_DIR}"
 	
 	# Get desired revision
-	echo -e "\n==> Showing last 5 revisions"
+	echo -e "\n==> Showing last 5 revisions\n"
 	
 	cd  "${SVN_DIR}"
 	svn log | grep -e ^r[0-9] | cut -d " " -f 1 | head -n 5
@@ -127,6 +127,7 @@ main()
 	echo -e "\n==> Use which revision?"
 	sleep 0.3s
 	read -erp "Choice: " SVN_REV
+	echo ""
 	svn update "${SVN_REV}"
 	
 	# Set package suffix

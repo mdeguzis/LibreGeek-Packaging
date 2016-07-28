@@ -47,7 +47,7 @@ else
 fi
 # upstream vars
 SVN_URL="http://svn.code.sf.net/p/fteqw/code/trunk"
-BRANCH=""
+SVN_REV="r5010"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,7 +58,7 @@ BUILDOPTS=""
 PKGNAME="ftequake"
 PKGVER="0.1.0"
 PKGREV="1"
-# PKGSUFFIX set below
+PKGSUFFIX="${SVN_REV}svn+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -112,15 +112,8 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
-	svn checkout "${SVN_URL}" "${SVN_DIR}"
-	
-	# Get latest revision
-	cd "${SVN_DIR}"
-	LATEST_REV=$(svn info | grep Revision | cut -d " " -f 2)
-	
-	# Set pkgsuffix
-	PKGSUFFIX="r${LATEST_REV}svn+bsos"
+	# checkout desired revision
+	svn checkout -r "${SVN_REV}" "${SVN_URL}" "${SVN_DIR}"
 
 	#################################################
 	# Build package
@@ -134,7 +127,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
 	# Add required files and artwork
-	#cp -r "${scriptdir}/ftequake.png" "${SVN_DIR}"
+	cp -r "${scriptdir}/ftequake.png" "${SVN_DIR}"
 	cp -r "${scriptdir}/debian" "${SVN_DIR}"
 
 	# enter source dir

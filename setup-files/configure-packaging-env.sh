@@ -342,6 +342,10 @@ else
 
 fi
 
+# git uses x11-ssh-askpass if installed (GUI)
+
+git config --global core.askpass ""
+
 ##################################################
 # Host / Network
 #################################################

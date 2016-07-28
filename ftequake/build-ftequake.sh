@@ -57,7 +57,7 @@ BUILDOPTS="--debbuildopts -b"
 PKGNAME="ftequake"
 PKGVER="1.0.0"
 PKGREV="1"
-PKGSUFFIX="${SVN_REV}svn+bsos"
+# PKGSUFFIX set below
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -108,11 +108,28 @@ main()
 	  sudo apt-get install -y --force-yes subversion
 
 	fi
+	
+	#################################################
+	# prepare package
+	#################################################
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# checkout desired revision
-	svn checkout -r "${SVN_REV}" "${SVN_URL}" "${SVN_DIR}"
+	svn checkout "${SVN_URL}" "${SVN_DIR}"
+	
+	# Get desired revision
+	echo -e "\n==> Showing last 5 revisions"
+	
+	svn log | grep -e ^r[0-9] | cut -d " " -f 1 | head -n 5
+	
+	echo -e "\n==> Use which revision?"
+	sleep 0.3s
+	read -erp "Choice: " SVN_REV
+	svn update "${SVN_REV}"
+	
+	# Set package suffix
+	PKGSUFFIX="${SVN_REV}svn+bsos"
 	
 	# Add extras
 	cp -r "${scriptdir}/ftequake.png" "${SVN_DIR}"
@@ -141,7 +158,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${urgency}" "Update to svn revision ${SVN_REV}"
+		-D "${DIST}" -u "${urgency}" "Update to SVN revision ${SVN_REV}"
 		nano "debian/changelog"
 	
 	else

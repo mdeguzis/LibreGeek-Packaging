@@ -58,7 +58,7 @@ BUILDOPTS=""
 PKGNAME="ftequake"
 PKGVER="0.1.0"
 PKGREV="1"
-PKGSUFFIX="${date_short}git+bsos"
+# PKGSUFFIX set below
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -118,6 +118,9 @@ main()
 	# Get latest revision
 	cd "${SVN_DIR}"
 	LATEST_REV=$(svn info | grep Revision | cut -d " " -f 2)
+	
+	# Set pkgsuffix
+	PKGSUFFIX="r${LATEST_REV}svn+bsos"
 
 	#################################################
 	# Build package

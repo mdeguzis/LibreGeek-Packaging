@@ -114,6 +114,9 @@ main()
 
 	# checkout desired revision
 	svn checkout -r "${SVN_REV}" "${SVN_URL}" "${SVN_DIR}"
+	
+	# Add extras
+	cp -r "${scriptdir}/ftequake.png" "${SVN_DIR}"
 
 	#################################################
 	# Build package
@@ -126,8 +129,7 @@ main()
 	cd "${BUILD_DIR}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
-	# Add required files and artwork
-	cp -r "${scriptdir}/ftequake.png" "${SVN_DIR}"
+	# Add required debian files
 	cp -r "${scriptdir}/debian" "${SVN_DIR}"
 
 	# enter source dir
@@ -140,7 +142,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${urgency}" "Update to the  svn revision ${SVN_REV}"
+		-D "${DIST}" -u "${urgency}" "Update to svn revision ${SVN_REV}"
 		nano "debian/changelog"
 	
 	else

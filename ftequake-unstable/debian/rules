@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+# Adjust vars in makefile
+# `var  ?= VALUE'. only has an effect if the variable is not yet defined.
+
+export prefix = /usr
+export bindir = /usr/games
+export DESTDIR=$(CURDIR)/debian/ftequake
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	# build OpenGL, Vulkan, and server targets
+	$(MAKE) -C engine gl-rel vk-rel sv-rel -j4
+
+override_dh_auto_install:
+	# install OpenGL, Vulkan, and server targets
+	$(MAKE) -C engine gl-rel vk-rel sv-rel install

@@ -1,0 +1,13 @@
+ftequake (0.1.0+r5010svn+bsos-1) brewmaster; urgency=low
+
+  * Update to svn revision r5010
+  * Add desktop files
+  * Add Vulkan target binary
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 28 Jul 2016 11:02:01 -0400
+
+ftequake (0.1.0+r5009svn+bsos-1) brewmaster; urgency=low
+
+  * Initial build, revision 5009
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 27 Jul 2016 22:13:10 -0400

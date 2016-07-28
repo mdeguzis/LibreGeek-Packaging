@@ -1,0 +1,23 @@
+--- a/engine/Makefile
++++ b/engine/Makefile
+@@ -1936,14 +1936,15 @@
+ endif
+ 
+ 
+-prefix ?= /usr/local
++prefix ?= /usr
+ exec_prefix ?= $(prefix)
+-bindir ?= $(exec_prefix)/bin
++bindir ?= $(exec_prefix)/games
+ sbindir ?= $(exec_prefix)/sbin
+ INSTALL ?= install
+ INSTALL_PROGRAM ?= $(INSTALL)
+ INSTALL_DATA ?= ${INSTALL} -m 644
+-install: sv-rel gl-rel mingl-rel qcc-rel
+-	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw $(DESTDIR)$(bindir)/fteqw
+-	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqwsv $(DESTDIR)$(bindir)/fteqwsv
++install: sv-rel gl-rel mingl-rel qcc-rel vk-rel
++	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw.gl $(DESTDIR)$(bindir)/fteqw-gl
++	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw.sv $(DESTDIR)$(bindir)/fteqw-sv
+ 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqcc $(DESTDIR)$(bindir)/fteqcc
++	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw_vk $(DESTDIR)$(bindir)/fteqw-vk

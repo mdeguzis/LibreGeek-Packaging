@@ -143,10 +143,11 @@ main()
 	sleep 2s
 
 	# update changelog with dch
+	# "Update to the latest commit ${latest_commit}"
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
+		-D "${DIST}" -u "${urgency}" "Fix DESTDIR in debian/rules" "Improveme Makefile install"
 		nano "debian/changelog"
 	
 	else

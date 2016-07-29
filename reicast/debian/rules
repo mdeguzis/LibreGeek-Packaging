@@ -3,8 +3,14 @@
 # Allow DH to be verbose
 DH_VERBOSE=1
 
+export PREFIX = /usr
+export DESTDIR=$(CURDIR)/debian/reicast
+
 %:
 	dh $@
 
 override_dh_auto_build:
 	cd $(CURDIR)/shell/linux && make
+
+override_dh_auto_install:
+	$(MAKE) -C $(CURDIR)/shell/linux install

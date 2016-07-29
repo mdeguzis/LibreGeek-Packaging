@@ -1,3 +1,10 @@
+ftequake (1.0.0+r5012svn+bsos-1) brewmaster; urgency=low
+
+  * Update to SVN revision r5012
+  * This revision contains some SDL2 fixes
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 29 Jul 2016 14:22:22 -0400
+
 ftequake (1.0.0+r5011svn+bsos-2) brewmaster; urgency=low
 
   * Add steam banner and icon

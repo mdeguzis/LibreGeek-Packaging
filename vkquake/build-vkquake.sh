@@ -46,9 +46,9 @@ else
 
 fi
 # upstream vars
-# There are some issues to fix yet, use my fork
-#git_url="https://github.com/ProfessorKaos64/vkQuake"
-git_url="https://github.com/Novum/vkQuake"
+# Use my fork right now, corrects makefile with improvements
+git_url="https://github.com/ProfessorKaos64/vkQuake"
+#git_url="https://github.com/Novum/vkQuake"
 branch="master"
 
 # package vars

@@ -7,7 +7,7 @@
 # Description:	Attempts to build a deb package from the latest reicast source
 #		code.
 #
-# See:		https://github.com/reicast/reicast
+# See:		https://github.com/reicast/reicast-emulator
 #
 # Usage:	./build-reicast.sh
 # Opts:		[--testing]

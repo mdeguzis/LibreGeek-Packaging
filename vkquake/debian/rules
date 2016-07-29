@@ -5,7 +5,7 @@ include /usr/share/dpkg/buildflags.mk
 CFLAGS+=$(CPPFLAGS)
 CXXFLAGS+=$(CPPFLAGS)
 
-DESTDIR = $(CURDIR)/debian/quakespasm
+DESTDIR = $(CURDIR)/debian/vkquake
 
 %:
 	dh $@

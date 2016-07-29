@@ -15,5 +15,6 @@ Homepage: https://github.com/reicast/reicast-emulator
 
 Package: reicast
 Architecture: all
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends}, ${shlibs:Depends},
+ 	libevdev-dev
 Description: An open-source Dreamcast emulator

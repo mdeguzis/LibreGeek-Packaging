@@ -61,6 +61,7 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgname="vkquake"
 pkgver="0.1.0"
 pkgrev="1"
+epoch="1"
 # Base version sourced from ZIP file version
 pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"
@@ -144,13 +145,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
+		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \
 		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build"
 		nano "debian/changelog"
 

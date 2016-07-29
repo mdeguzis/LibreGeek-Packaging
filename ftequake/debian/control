@@ -24,7 +24,10 @@ Conflicts: ftequake-unstable
 Architecture: any
 Depends:
  ${misc:Depends},
- ${shlibs:Depends}
+ ${shlibs:Depends},
+ libvulkan1,
+ libpng12-dev,
+ libsdl2-dev
 Description: engine for iD software's Quake games.
  FTE QuakeWorld is a QuakeWorld derivative which mainly 
  focuses on modding and additional features for both users 

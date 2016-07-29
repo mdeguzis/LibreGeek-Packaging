@@ -120,6 +120,11 @@ main()
 	cd "${git_dir}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
+	# Add required files and artwork
+	cp -r "${scriptdir}/vkquake.png" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp "${git_dir}/LICENSE.txt" "${git_dir}/debian/LICENSE"
+
 	#################################################
 	# Build package
 	#################################################
@@ -130,11 +135,6 @@ main()
 	# create source tarball
 	cd "${BUILD_DIR}" || exit
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-
-	# Add required files and artwork
-	cp -r "${scriptdir}/vkquake.png" "${git_dir}"
-	cp -r "${scriptdir}/debian" "${git_dir}"
-	cp "${git_dir}/LICENSE.txt" "${git_dir}/debian/LICENSE"
 
 	# enter source dir
 	cd "${git_dir}"

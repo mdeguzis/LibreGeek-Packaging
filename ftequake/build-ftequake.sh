@@ -56,7 +56,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 PKGNAME="ftequake"
 PKGVER="1.0.0"
-PKGREV="1"
+PKGREV="2"
 # PKGSUFFIX set below
 DIST="brewmaster"
 urgency="low"

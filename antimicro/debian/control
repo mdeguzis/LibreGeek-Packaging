@@ -15,7 +15,7 @@ Build-Depends:	debhelper (>= 9),
  libx11-dev,
  libxtst-dev
 Standards-Version: 3.9.5
-Homepage: https://github.com/Ryochan7/antimicro
+Homepage: https://github.com/AntiMicro/antimicro
 
 Package:antimicro
 Architecture: all

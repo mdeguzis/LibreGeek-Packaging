@@ -3,9 +3,11 @@
 %:
 	dh $@
 
+override_dh_auto_configure:
+
 override_dh_auto_build:
 	mkdir build && cd build
-	cd build && cmake -DCMAKE_INSTALL_PREFIX=/usr
+	cd build && cmake -DCMAKE_INSTALL_PREFIX=/usr \
 			-DUSE_SDL_2=ON \
 			-DWITH_XTEST=ON \
 			-DWITH_UINPUT=ON \

@@ -5,7 +5,10 @@ include /usr/share/dpkg/buildflags.mk
 CFLAGS+=$(CPPFLAGS)
 CXXFLAGS+=$(CPPFLAGS)
 
-DESTDIR = $(CURDIR)/debian/vkquake
+
+export prefix = /usr
+export bindir = /usr/games
+export DESTDIR = $(CURDIR)/debian/vkquake
 
 %:
 	dh $@

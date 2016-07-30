@@ -137,7 +137,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to latest release"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Fix missing kex.wad"
 		nano "debian/changelog"
 
 	else
@@ -198,7 +198,8 @@ main()
 		if [[ -d "${BUILD_DIR}" ]]; then
 
 			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 

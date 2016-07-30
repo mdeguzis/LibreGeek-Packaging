@@ -60,7 +60,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="doom64ex"
 pkgver="0.${date_short}"
-pkgrev="1"
+pkgrev="2"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -137,7 +137,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Fix missing kex.wad"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Binary harcoded to bin destination in cmakelists"
 		nano "debian/changelog"
 
 	else

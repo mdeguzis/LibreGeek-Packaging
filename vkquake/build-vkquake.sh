@@ -47,8 +47,8 @@ else
 fi
 # upstream vars
 # Use my fork right now, corrects makefile with improvements
-git_url="https://github.com/ProfessorKaos64/vkQuake"
-#git_url="https://github.com/Novum/vkQuake"
+#git_url="https://github.com/ProfessorKaos64/vkQuake"
+git_url="https://github.com/Novum/vkQuake"
 branch="master"
 
 # package vars
@@ -147,7 +147,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Fix DESTDIR in debian/rules" "Improveme Makefile install"
+		-D "${DIST}" -u "${urgency}" "Fix DESTDIR in debian/rules, Improve Makefile install"
 		nano "debian/changelog"
 	
 	else

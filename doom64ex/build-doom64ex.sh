@@ -60,7 +60,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="doom64ex"
 pkgver="0.${date_short}"
-pkgrev="3"
+pkgrev="4"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -112,9 +112,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "${target}" "${git_url}" "${git_dir}" 
-	
+
 	# add extras
-	cp "${scriptdir}/doom64.png" "${git_dir}"
+	cp "${scriptdir}/doom64ex.png" "${git_dir}"
 
 	#################################################
 	# Build package

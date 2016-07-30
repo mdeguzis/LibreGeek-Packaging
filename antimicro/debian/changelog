@@ -1,0 +1,7 @@
+antimicro (2.22+git-1) jessie; urgency=low
+
+  * Update release to version 2.22
+  * Antimicro developement is under new leadership
+  * See "About" in the program menu
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 30 Jul 2016 18:25:02 -0400

@@ -14,3 +14,6 @@ override_dh_auto_build:
 			-DAPPDATA=ON \
 			-DUSE_SDL_2=ON ..
 	make -C build
+
+override_dh_auto_install:
+	make -c build install

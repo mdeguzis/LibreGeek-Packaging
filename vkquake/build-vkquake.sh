@@ -121,10 +121,10 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Add required files and artwork
-	cp "${scriptdir}/vkquake.png" "${git_dir}"
 	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp "${scriptdir}/vkquake.png" "${git_dir}"
 	cp "${git_dir}/LICENSE.txt" "${git_dir}/debian/LICENSE"
-	cp "${git_dir}/vkquake-launch.sh" "${git_dir}/vkquake-launch"
+	cp "${scriptdir}/vkquake-launch.sh" "${git_dir}/vkquake-launch"
 
 	#################################################
 	# Build package

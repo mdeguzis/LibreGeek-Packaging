@@ -130,6 +130,9 @@ main()
 	cd "${BUILD_DIR}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
+	# Add debian files
+	cp -r "${scriptdir}/debian" "${git_dir}"
+
 	# enter source dir
 	cd "${src_dir}"
 

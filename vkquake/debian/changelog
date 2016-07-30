@@ -1,3 +1,10 @@
+vkquake (1:0.1.0+20160729git+bsos-1) brewmaster; urgency=low
+
+  * Fix DESTDIR in debian/rules
+  * Improve Makefile install
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 29 Jul 2016 21:11:35 -0400
+
 vkquake (0.20160725+git+bsos-1) brewmaster; urgency=low
 
   * Thanks to Novum who added Vulkan API support to quakespasm!

@@ -121,9 +121,10 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Add required files and artwork
-	cp -r "${scriptdir}/vkquake.png" "${git_dir}"
+	cp "${scriptdir}/vkquake.png" "${git_dir}"
 	cp -r "${scriptdir}/debian" "${git_dir}"
 	cp "${git_dir}/LICENSE.txt" "${git_dir}/debian/LICENSE"
+	cp "${git_dir}/vkquake-launch.sh" "${git_dir}/vkquake-launch"
 
 	#################################################
 	# Build package
@@ -149,7 +150,7 @@ main()
 		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
 		-D "${DIST}" -u "${urgency}" "Fix DESTDIR in debian/rules, Improve Makefile install"
 		nano "debian/changelog"
-	
+
 	else
 
 		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=vkquake
 Comment=Port of Quake I to the Vulkan API
-Exec=/usr/games/vkquake
+Exec=/usr/games/vkquake-launch
 Icon=/usr/share/pixmaps/vkquake.png
 Terminal=false
 Type=Application

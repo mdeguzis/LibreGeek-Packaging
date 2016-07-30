@@ -9,6 +9,6 @@ override_dh_auto_build:
 			-DUSE_SDL_2=ON \
 			-DWITH_XTEST=ON \
 			-DWITH_UINPUT=ON \
-			-DAPPDATA=ON
+			-DAPPDATA=ON \
 			-DUSE_SDL_2=ON .. && \
 			make

@@ -16,7 +16,8 @@ Homepage: https://doom64ex.wordpress.com
 Package: doom64ex
 Architecture: all
 Depends: ${misc:Depends},
- ${shlibs:Depends}
+ ${shlibs:Depends},
+ libsdl2-net-2.0-0
 Description: Reverse-engineered Doom64 with improvements.
  .
  Doom64EX is a reverse-engineering project aimed to recreate 

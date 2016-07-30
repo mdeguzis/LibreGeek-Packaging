@@ -112,6 +112,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "${target}" "${git_url}" "${git_dir}" 
+	
+	# add extras
+	cp "${scriptdir}/doom64.png" "${git_dir}"
 
 	#################################################
 	# Build package

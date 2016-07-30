@@ -1,2 +1,3 @@
-Build/src/engine/doom64ex   /usr/games
-README.md                   /usr/share/games/doom64ex
+Build/src/engine/doom64ex/kex.wad       /usr/share/games/doom64ex
+Build/src/engine/doom64ex               /usr/games
+README.md                               /usr/share/games/doom64ex

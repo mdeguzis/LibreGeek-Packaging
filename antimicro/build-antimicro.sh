@@ -47,7 +47,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/ProfessorKaos64/antimicro"
+#git_url="https://github.com/ProfessorKaos64/antimicro"
+git_url="https://github.com/AntiMicro/antimicro"
 branch="master"
 
 # package vars
@@ -55,12 +56,12 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="antimicro"
 epoch="1"
-pkgrev="4"
-pkgver="2.21"
+pkgrev="1"
+pkgver="2.22"
 pkgsuffix="git+bsos"
 DIST="brewmaster"
 urgency="low"
@@ -139,7 +140,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Configure with SDL2 support"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to new 2.22 release"
 		nano "debian/changelog"
 
 	else
@@ -197,12 +198,12 @@ main()
 
 		# transfer files
 		if [[ -d "${BUILD_DIR}" ]]; then
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cd "${git_dir}" && git add "debian/changelog" && git push origin "${branch}"
-			cd "${scriptdir}"
+			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

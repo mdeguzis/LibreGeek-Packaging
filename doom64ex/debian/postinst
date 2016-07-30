@@ -3,8 +3,6 @@
 cat<<-EOF
 
 ==NOTICE==
-Please check /usr/share/games/doom64ex/README.md for further instructions
-on how to handle the Doom64 data. The required kex.wad is installed to
-/usr/share/games/doom64ex.
+Please check /usr/share/games/doom64ex/README.md for further instructions on how to handle the Doom64 data. The required kex.wad is installed to /usr/share/games/doom64ex.
 
 EOF

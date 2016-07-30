@@ -1,3 +1,9 @@
+antimicro (1:2.22+git+bsos-2) brewmaster; urgency=low
+
+  * Update to new 2.22 release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 30 Jul 2016 18:08:01 -0400
+
 antimicro (1:2.21+git+bsos-4) brewmaster; urgency=low
 
   * Configure with SDL2 support

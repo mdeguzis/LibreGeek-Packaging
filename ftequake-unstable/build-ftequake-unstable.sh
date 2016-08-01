@@ -47,7 +47,7 @@ else
 fi
 # upstream vars
 SVN_URL="http://svn.code.sf.net/p/fteqw/code/trunk"
-BRANCH=""
+SVN_REV=""
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -56,7 +56,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 PKGNAME="ftequake-unstable"
-PKGVER="1.0.0"
+# Base version sourced from latest milestone on SF
+PKGVER="1.04.0"
 PKGREV="1"
 # PKGSUFFIX set below
 DIST="brewmaster"

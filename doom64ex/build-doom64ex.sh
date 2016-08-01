@@ -117,7 +117,6 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "${target}" "${git_url}" "${git_dir}" 
-	cd "${git_dir}" && git checkout "${commit}"
 
 	# add extras
 	cp "${scriptdir}/doom64ex.png" "${git_dir}"
@@ -134,7 +133,8 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add debian folder stuff
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	# debian folder not used right now, since I have a fork
+	# cp -r "${scriptdir}/debian" "${git_dir}"
 	cp "${git_dir}/COPYING" "${git_dir}/debian/copyright"
 
 	# enter source dir

@@ -128,8 +128,8 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add debian folder stuff
-	cp "${git_dir}/COPYING" "${git_dir}/debian/copyright"
 	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp "${git_dir}/COPYING" "${git_dir}/debian/copyright"
 
 	# enter source dir
 	cd "${git_dir}"

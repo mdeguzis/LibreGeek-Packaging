@@ -14,7 +14,7 @@ echo -e "\n+++ lintian output +++\n"
 #su -c "lintian -I --show-overrides /tmp/buildd/*.changes" - pbuilder
 
 # use this version if you don't want lintian to fail the build
-su -c "lintian -I --show-overrides /tmp/buildd/*.changes; :" - pbuilder
+su -c "lintian -Ii --show-overrides /tmp/buildd/*.changes; :" - pbuilder
 
 echo -e "\n+++ end of lintian output +++\n"
 

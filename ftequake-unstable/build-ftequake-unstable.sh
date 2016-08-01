@@ -54,7 +54,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
 PKGNAME="ftequake-unstable"
 # Base version sourced from latest milestone on SF
 PKGVER="1.04.0"

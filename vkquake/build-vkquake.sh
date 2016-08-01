@@ -60,7 +60,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgname="vkquake"
 pkgver="0.1.0"
-pkgrev="2"
+pkgrev="1"
 epoch="1"
 # Base version sourced from ZIP file version
 pkgsuffix="${date_short}git+bsos"

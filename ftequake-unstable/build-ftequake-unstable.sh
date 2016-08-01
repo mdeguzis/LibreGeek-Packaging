@@ -128,7 +128,7 @@ main()
 	PKGSUFFIX="r${LATEST_REV}svn+bsos"
 
 	# Add extras
-	cp -r "${scriptdir}/ftequake" "${SVN_DIR}"
+	cp -r "${scriptdir}/ftequake.png" "${SVN_DIR}"
 
 	#################################################
 	# Build package

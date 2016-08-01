@@ -60,7 +60,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 pkgname="vkquake"
 pkgver="0.1.0"
-pkgrev="1"
+pkgrev="2"
 epoch="1"
 # Base version sourced from ZIP file version
 pkgsuffix="${date_short}git+bsos"
@@ -148,7 +148,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Add launcher to better handle data dir"
+		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else

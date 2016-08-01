@@ -4,10 +4,10 @@ set -e
 
 install_packages() {
     echo "I: Installing lintian"
-    apt-get -y "${APTGETOPT[@]}" install "$@" &> /dev/null
+    apt-get -y "${APTGETOPT[@]}" install "$@"
 }
 
-install_packages lintian
+install_packages lintian &> /dev/null
 
 echo "+++ lintian output +++"
 

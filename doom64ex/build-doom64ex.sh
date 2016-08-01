@@ -50,7 +50,8 @@ fi
 # upstream vars
 git_url="https://github.com/svkaiser/Doom64EX"
 # Lots of errors onthe latest build, use prior commit to fix lintian stuff
-target="572fe6c"
+target="master"
+commit="572fe6c"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -113,6 +114,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "${target}" "${git_url}" "${git_dir}" 
+	cd "${git_dir}" && git checkout "${commit}"
 
 	# add extras
 	cp "${scriptdir}/doom64ex.png" "${git_dir}"

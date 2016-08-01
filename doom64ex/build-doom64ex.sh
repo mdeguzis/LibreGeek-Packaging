@@ -48,10 +48,13 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/svkaiser/Doom64EX"
-# Lots of errors onthe latest build, use prior commit to fix lintian stuff
-target="master"
-commit="c029261"
+# git_url="https://github.com/svkaiser/Doom64EX"
+
+# Use our branch to target stable snapshots and avoid untested builds
+# Upstream does not maintain releases
+git_url="https://github.com/ProfessorKaos64/Doom64EX"
+target="release"
+
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

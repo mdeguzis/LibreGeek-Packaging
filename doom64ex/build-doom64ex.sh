@@ -53,7 +53,7 @@ fi
 # Use our branch to target stable snapshots and avoid untested builds
 # Upstream does not maintain releases
 git_url="https://github.com/ProfessorKaos64/Doom64EX"
-target="release"
+target="master"
 
 
 # package vars
@@ -133,8 +133,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add debian folder stuff
-	# debian folder not used right now, since I have a fork
-	# cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${git_dir}"
 	cp "${git_dir}/COPYING" "${git_dir}/debian/copyright"
 
 	# enter source dir

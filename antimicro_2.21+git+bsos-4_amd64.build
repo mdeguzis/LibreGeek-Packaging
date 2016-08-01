@@ -1,0 +1,10 @@
+ dpkg-buildpackage -rfakeroot -D -us -uc -b
+dpkg-buildpackage: source package antimicro
+dpkg-buildpackage: source version 1:2.21+git+bsos-4
+dpkg-buildpackage: source distribution brewmaster
+dpkg-buildpackage: source changed by SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+ dpkg-source --before-build antimicro
+dpkg-buildpackage: host architecture amd64
+dpkg-checkbuilddeps: Unmet build dependencies: itstool qttools5-dev qttools5-dev-tools libxi-dev libsdl2-dev libxtst-dev
+dpkg-buildpackage: warning: build dependencies/conflicts unsatisfied; aborting
+dpkg-buildpackage: warning: (Use -d flag to override.)

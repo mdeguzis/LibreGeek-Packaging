@@ -102,9 +102,9 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
-		
+
 	else
-	
+
 	  # still need subversion
 	  sudo apt-get install -y --force-yes subversion
 
@@ -118,13 +118,16 @@ main()
 
 	# clone
 	svn checkout "${SVN_URL}" "${SVN_DIR}"
-	
+
 	# Get latest revision
 	cd "${SVN_DIR}"
 	LATEST_REV=$(svn info | grep Revision | cut -d " " -f 2)
-	
+
 	# Set pkgsuffix
 	PKGSUFFIX="r${LATEST_REV}svn+bsos"
+
+	# Add extras
+	cp -r "${scriptdir}/ftequake" "${SVN_DIR}"
 
 	#################################################
 	# Build package
@@ -138,7 +141,6 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
 	# Add required files and artwork
-	#cp -r "${scriptdir}/ftequake-unstable.png" "${SVN_DIR}"
 	cp -r "${scriptdir}/debian" "${SVN_DIR}"
 
 	# enter source dir
@@ -153,7 +155,7 @@ main()
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Update to the latest commit svn revision ${LATEST_REV}"
 		nano "debian/changelog"
-	
+
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \

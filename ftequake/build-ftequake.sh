@@ -101,14 +101,14 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
-		
+
 	else
-	
+
 	  # still need subversion
 	  sudo apt-get install -y --force-yes subversion
 
 	fi
-	
+
 	#################################################
 	# prepare package
 	#################################################
@@ -117,22 +117,22 @@ main()
 
 	# checkout desired revision
 	svn checkout "${SVN_URL}" "${SVN_DIR}"
-	
+
 	# Get desired revision
 	echo -e "\n==> Showing last 5 revisions\n"
-	
+
 	cd  "${SVN_DIR}"
 	svn log | grep -e ^r[0-9] | cut -d " " -f 1 | head -n 5
-	
+
 	echo -e "\n==> Use which revision?"
 	sleep 0.3s
 	read -erp "Choice: " SVN_REV
 	echo ""
 	svn update "${SVN_REV}"
-	
+
 	# Set package suffix
 	PKGSUFFIX="${SVN_REV}svn+bsos"
-	
+
 	# Add extras
 	cp "${scriptdir}/ftequake.png" "${SVN_DIR}"
 	cp "${scriptdir}/quake-icon.png" "${SVN_DIR}"
@@ -163,7 +163,7 @@ main()
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Update to SVN revision ${SVN_REV}"
 		nano "debian/changelog"
-	
+
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \

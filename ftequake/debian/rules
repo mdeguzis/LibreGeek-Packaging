@@ -11,9 +11,9 @@ export DESTDIR=$(CURDIR)/debian/ftequake
 	dh $@
 
 override_dh_auto_build:
-	# build OpenGL, Vulkan, and server targets
-	$(MAKE) -C engine gl-rel vk-rel sv-rel -j4
+	# build OpenGL and server targets
+	$(MAKE) -C engine gl-rel sv-rel -j4
 
 override_dh_auto_install:
-	# install OpenGL, Vulkan, and server targets
-	$(MAKE) -C engine gl-rel vk-rel sv-rel install
+	# install OpenGL and server targets
+	$(MAKE) -C engine gl-rel sv-rel install

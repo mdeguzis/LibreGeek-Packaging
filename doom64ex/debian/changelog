@@ -1,3 +1,9 @@
+doom64ex (0.20160730+git+bsos-6) brewmaster; urgency=low
+
+  * Reupload, original source wasn't included right
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 30 Jul 2016 17:25:31 -0400
+
 doom64ex (0.20160730+git+bsos-3) brewmaster; urgency=low
 
   * Binary harcoded to bin destination in cmakelists

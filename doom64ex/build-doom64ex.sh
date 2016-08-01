@@ -23,7 +23,6 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -35,8 +34,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 	REMOTE_PORT="22"
 
 fi
-
-
 
 if [[ "$arg1" == "--testing" ]]; then
 
@@ -54,7 +51,6 @@ fi
 # Upstream does not maintain releases
 git_url="https://github.com/ProfessorKaos64/Doom64EX"
 target="master"
-
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

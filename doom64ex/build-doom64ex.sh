@@ -49,7 +49,8 @@ else
 fi
 # upstream vars
 git_url="https://github.com/svkaiser/Doom64EX"
-target="master"
+# Lots of errors onthe latest build, use prior commit to fix lintian stuff
+target="572fe6c"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

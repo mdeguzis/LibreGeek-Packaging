@@ -6,7 +6,7 @@ This should be fixed if plans for forward to submit to Debian
 
 +++ lintian output +++
 
-- [ ] E: doom64ex changes: bad-distribution-in-changes-file brewmaster  
+- [ ] E: doom64ex changes: bad-distribution-in-changes-file brewmaster (ignore for now, using SteamOS)
 - [ ] W: doom64ex source: maintainer-script-lacks-debhelper-token debian/postinst  
 - [ ] W: doom64ex source: package-needs-versioned-debhelper-build-depends 9  
 - [ ] W: doom64ex source: no-debian-copyright  

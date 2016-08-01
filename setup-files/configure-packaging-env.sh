@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	configure-packaging-env.sh
-# Script Ver:	2.9.1
+# Script Ver:	2.9.4
 # Description:	Installs basic packaging tools suggested by the Debian
 #               maintainers guide and configures various packaging options
 #
@@ -181,9 +181,9 @@ sleep 2s
 
 STEAMOS_TOOLS_CONFIGS="${HOME}/.config/SteamOS-Tools"
 
-DIRs="${STEAMOS_TOOLS_CONFIGS}"
+DIRS="${STEAMOS_TOOLS_CONFIGS}"
 
-for DIR in ${DIRs};
+for DIR in ${DIRS};
 do
 	if [[ ! -d "${DIR}" ]]; then
 

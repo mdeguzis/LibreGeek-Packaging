@@ -31,6 +31,7 @@ Depends: ${misc:Depends},
  wget:amd64,
  unzip:amd64,
  zip:amd64
-Description: The Dark Mod is a fan-made game in the style of the original Thief.
- This is a virtual package that provides run-time depedencies. The pacakge will run the
- updater after installation, and create the necessary links and shortcuts.
+Description: The Dark Mod is a fan-game in the style of the orig. Thief.
+ This is a virtual package that provides run-time depedencies. 
+ The package will  run the updater after installation, and 
+ create the necessary links and shortcuts.

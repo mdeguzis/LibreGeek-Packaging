@@ -3,7 +3,7 @@
 set -e
 
 install_packages() {
-    apt-get -y "${APTGETOPT[@]}" install "$@"
+    apt-get install -y -f "${APTGETOPT[@]}"
 }
 
 install_packages lintian

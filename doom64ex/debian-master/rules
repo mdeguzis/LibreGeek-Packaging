@@ -1,5 +1,11 @@
 #!/usr/bin/make -f
 
+# Upstream now using gcc5, which Jessie does not have
+# Use clang
+
+export CC=clang
+export CXX=clang++
+
 %:
 	dh $@
 

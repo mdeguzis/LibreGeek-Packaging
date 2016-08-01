@@ -62,7 +62,6 @@ pkgname="vkquake"
 pkgver="0.1.0"
 pkgrev="2"
 epoch="1"
-# Base version sourced from ZIP file version
 pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"

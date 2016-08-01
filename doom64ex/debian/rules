@@ -5,5 +5,5 @@
 
 override_dh_auto_configure:
 	rm -rf build
-	rm -rf Build && mkdir -p Build
+	rm -rf build && mkdir -p build
 	cd Build && cmake .. && make

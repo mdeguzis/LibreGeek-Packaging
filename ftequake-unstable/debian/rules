@@ -17,4 +17,3 @@ override_dh_auto_build:
 override_dh_auto_install:
 	# install OpenGL, Vulkan, and server targets
 	$(MAKE) -C engine gl-rel vk-rel sv-rel gl-dbg vk-dbg sv-dbg install
-	CP X X D

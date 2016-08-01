@@ -1,6 +1,6 @@
 --- a/engine/Makefile
 +++ b/engine/Makefile
-@@ -1936,14 +1936,15 @@
+@@ -1936,14 +1936,20 @@
  endif
  
  
@@ -16,8 +16,13 @@
 -install: sv-rel gl-rel mingl-rel qcc-rel
 -	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw $(DESTDIR)$(bindir)/fteqw
 -	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqwsv $(DESTDIR)$(bindir)/fteqwsv
-+install: sv-rel gl-rel mingl-rel qcc-rel vk-rel
++install: sv-rel gl-rel mingl-rel qcc-rel vk-rel sv-dbg gl-dbg vk-dbg
++	# standard targets
 +	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw.gl $(DESTDIR)$(bindir)/fteqw-gl
 +	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw.sv $(DESTDIR)$(bindir)/fteqw-sv
  	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqcc $(DESTDIR)$(bindir)/fteqcc
 +	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw_vk $(DESTDIR)$(bindir)/fteqw-vk
++	# debug targets
++	$(INSTALL_PROGRAM) $(DEBUG_DIR)/fteqw.sv $(DESTDIR)$(bindir)/fteqw-sv-dbg
++	$(INSTALL_PROGRAM) $(DEBUG_DIR)/fteqw.gl $(DESTDIR)$(bindir)/fteqw-gl-dbg $(DESTDIR)$(bindir)/fteqw-gl-dbg
++	$(INSTALL_PROGRAM) $(DEBUG_DIR)/fteqw_vk $(DESTDIR)$(bindir)/fteqw-vk-dbg

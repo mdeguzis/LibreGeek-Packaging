@@ -115,9 +115,6 @@ main()
 
 	# add extras
 	cp "${scriptdir}/doom64ex.png" "${git_dir}"
-	
-	# Fix up what lintian needs to be happy...
-	cp "${git_dir}/COPYING" "${git_dir}/debian/copyright"
 
 	#################################################
 	# Build package
@@ -130,7 +127,8 @@ main()
 	cd "${BUILD_DIR}" || exit
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
-	# Add debian folder
+	# Add debian folder stuff
+	cp "${git_dir}/COPYING" "${git_dir}/debian/copyright"
 	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# enter source dir

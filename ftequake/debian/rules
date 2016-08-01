@@ -16,4 +16,4 @@ override_dh_auto_build:
 
 override_dh_auto_install:
 	# install OpenGL and server targets
-	$(MAKE) -C engine gl-rel sv-rel install
+	$(MAKE) -C engine install

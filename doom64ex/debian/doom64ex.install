@@ -1,5 +1,5 @@
-Build/src/engine/doom64ex     /usr/bin
-Build/kex.wad                 /usr/share/games/doom64ex
+build/src/engine/doom64ex     /usr/bin
+build/kex.wad                 /usr/share/games/doom64ex
 README.md                     /usr/share/games/doom64ex
 debian/doom64ex.desktop       /usr/share/applications
-doom64ex.png                   /usr/share/pixmaps
+doom64ex.png                  /usr/share/pixmaps

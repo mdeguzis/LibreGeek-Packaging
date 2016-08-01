@@ -14,7 +14,7 @@ Vcs-Git: https://github.com/svkaiser/Doom64EX
 Homepage: https://doom64ex.wordpress.com
 
 Package: doom64ex
-Architecture: amd64
+Architecture: any
 Depends: ${misc:Depends},
  ${shlibs:Depends},
  libsdl2-net-2.0-0

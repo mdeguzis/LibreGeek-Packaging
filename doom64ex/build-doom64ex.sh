@@ -51,7 +51,7 @@ fi
 git_url="https://github.com/svkaiser/Doom64EX"
 # Lots of errors onthe latest build, use prior commit to fix lintian stuff
 target="master"
-commit="572fe6c"
+commit="c029261"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

@@ -115,6 +115,9 @@ main()
 
 	# add extras
 	cp "${scriptdir}/doom64ex.png" "${git_dir}"
+	
+	# Fix up what lintian needs to be happy...
+	cp "${git_dir}/COPYING" "${git_dir}/debian/copyright"
 
 	#################################################
 	# Build package

@@ -154,7 +154,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Master build, using clang"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Fix binary target to be /usr/games"
 		nano "debian/changelog"
 
 	else

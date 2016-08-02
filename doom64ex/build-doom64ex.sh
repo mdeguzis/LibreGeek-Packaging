@@ -135,10 +135,12 @@ main()
 	if [[ "${target}" == "release" ]]; then
 
 		cp -r "${scriptdir}/debian" "${git_dir}"
+		DEBIAN_DIR="debian"
 	
 	else
 
-		cp -r "${scriptdir}/debian-master" "${git_dir}/debian"		
+		cp -r "${scriptdir}/debian-master" "${git_dir}/debian"	
+		DEBIAN_DIR="debian-master"
 
 	fi
 
@@ -218,7 +220,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${git_dir}/debian/changelog" "${scriptdir}/${DEBIAN_DIR}"
 
 		fi
 

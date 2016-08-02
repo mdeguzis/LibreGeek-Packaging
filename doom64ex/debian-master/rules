@@ -6,6 +6,7 @@
 # If only c++11 was required, clang 3.5 would be fine.
 # Avoid errors (see: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=800483)
 
+export DEB_BUILD_HARDENING=1
 export CC=clang-3.8
 export CXX=clang++-3.8
 

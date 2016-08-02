@@ -56,12 +56,12 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
 pkgver="0.30"
-pkgrev="2"
+pkgrev="3"
 epoch="1"
 pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"

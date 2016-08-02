@@ -1,6 +1,6 @@
 # Note
 
-I have no idea how to build this project. TODO?
+I have no idea how to build this project. TODO? This is an Xcode project, so not likely...
 
 # Options
 

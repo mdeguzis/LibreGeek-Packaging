@@ -3,7 +3,7 @@ Section: games
 Priority: optional
 Build-Depends: cmake,
  debhelper (>=9),
- clang,
+ clang-3.8,
  libsdl2-dev,
  libsdl2-net-dev,
  zlib1g-dev,

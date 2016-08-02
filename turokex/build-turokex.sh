@@ -125,17 +125,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add debian folder stuff
-	if [[ "${target}" == "release" ]]; then
-
-		cp -r "${scriptdir}/debian" "${git_dir}"
-
-	else
-
-		cp -r "${scriptdir}/debian-master" "${git_dir}/debian"
-
-	fi
-
-	cp "${git_dir}/COPYING" "${git_dir}/debian/copyright"
+	cp -r "${scriptdir}/debian" "${git_dir}"
 
 	# enter source dir
 	cd "${git_dir}"

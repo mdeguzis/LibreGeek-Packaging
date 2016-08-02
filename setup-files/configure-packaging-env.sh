@@ -356,9 +356,9 @@ git config --global core.askpass ""
 echo -e "\n==> Setting host/network information"
 
 
-echo -e "\nSetup/Reset remote user/host for repository pool?"
+echo -e "\nSetup/reset remote user/host for repository pool?"
 echo -e "This is suggested if you are using a remote host"
-read -erp "Choice [y/n]: " SET_HOST_USER
+read -erp "Choice [y/n/r]: " SET_HOST_USER
 
 if [[ "${SET_HOST_USER}" == "y" ]]; then
 
@@ -372,13 +372,18 @@ if [[ "${SET_HOST_USER}" == "y" ]]; then
 	sed -i "s|REMOTE_HOST.*|REMOTE_HOST=\"${REMOTE_HOST_TEMP}\"|" "${HOME}/.bashrc"
 	sed -i "s|REMOTE_PORT.*|REMOTE_PORT=\"${REMOTE_PORT_TEMP}\"|" "${HOME}/.bashrc"
 
-else
-	
+elif [[ "${SET_HOST_USER}" == "r" ]]; then
+
 	# Set var to blank string so value inside build script is taken	
 	# Use wildcard to assume if it was set to something else before, clear it
 	sed -i "s|REMOTE_USER.*|REMOTE_USER=\"\"|" "${HOME}/.bashrc"
 	sed -i "s|REMOTE_HOST.*|REMOTE_HOST=\"\"|" "${HOME}/.bashrc"
 	sed -i "s|REMOTE_PORT.*|REMOTE_PORT=\"\"|" "${HOME}/.bashrc"
+	
+else
+
+	# do nothing, assume n was answered, or wrong key entered
+	:
 
 fi
 

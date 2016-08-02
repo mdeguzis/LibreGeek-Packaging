@@ -11,4 +11,9 @@ export CXX=clang++
 
 override_dh_auto_configure:
 	rm -rf build && mkdir -p build
-	cd build && cmake ..
+	cd build && cmake \
+		-DCMAKE_C_COMPILER="/usr/bin/clang" \
+		-DCMAKE_CXX_COMPILER="/usr/bin/clang++" \
+		-DCMAKE_C_FLAGS="-Wall -std=c99" \
+		-DCMAKE_CXX_FLAGS="-Wall -std=c++11" \
+		.. && make

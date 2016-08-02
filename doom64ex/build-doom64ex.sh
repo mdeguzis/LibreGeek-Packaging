@@ -44,14 +44,16 @@ else
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
 
 fi
-# upstream vars
-# git_url="https://github.com/svkaiser/Doom64EX"
+# upstream var for master build
+git_url="https://github.com/svkaiser/Doom64EX"
+target="master"
 
 # Use our branch to target stable snapshots and avoid untested builds
 # Upstream does not maintain releases
 # Use clang branch to work on new gcc-5 support (upstream switched for some reason...)
-git_url="https://github.com/ProfessorKaos64/Doom64EX"
-target="clang"
+
+#git_url="https://github.com/ProfessorKaos64/Doom64EX"
+# target="clang"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

@@ -154,7 +154,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Binary harcoded to bin destination in cmakelists"
+		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Master build, using clang"
 		nano "debian/changelog"
 
 	else

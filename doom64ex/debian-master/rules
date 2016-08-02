@@ -2,18 +2,16 @@
 
 # Upstream now using gcc5, which Jessie does not have
 # Use clang
+# Upstream defines use of C=++ which requires Clang >= 3.6 to 
+# If only c++11 was required, clang 3.5 would be fine.
+# Avoid errors (see: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=800483)
 
-export CC=clang
-export CXX=clang++
+export CC=clang-3.8
+export CXX=clang++-3.8
 
 %:
 	dh $@
 
 override_dh_auto_configure:
 	rm -rf build && mkdir -p build
-	cd build && cmake \
-		-DCMAKE_C_COMPILER="/usr/bin/clang" \
-		-DCMAKE_CXX_COMPILER="/usr/bin/clang++" \
-		-DCMAKE_C_FLAGS="-Wall -std=c99" \
-		-DCMAKE_CXX_FLAGS="-Wall -std=c++11 -std=c++1y" \
-		.. && make
+	cd build && cmake .. && make

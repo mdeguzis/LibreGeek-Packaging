@@ -61,7 +61,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
 pkgver="0.30"
-pkgrev="1"
+pkgrev="2"
 epoch="1"
 pkgsuffix="${date_short}git+bsos"
 DIST="brewmaster"

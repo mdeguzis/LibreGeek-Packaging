@@ -1,0 +1,20 @@
+Source: turokex
+Section: games
+Priority: optional
+Build-Depends: cmake,
+ debhelper (>=9),
+ libsdl2-dev,
+ libsdl2-net-dev,
+ zlib1g-dev,
+ libpng12-dev,
+ libfluidsynth-dev
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Standards-Version: 3.9.6
+Homepage: https://github.com/svkaiser/TurokEX
+
+Package: turokex
+Architecture: amd64
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ libsdl2-net-2.0-0
+Description: Reverse-engineered Turok with improvements.

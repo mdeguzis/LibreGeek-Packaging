@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=turokex
+GenericName=turokex
+Type=Application
+Icon=/usr/share/pixmaps/turokex.png
+Exec=turokex
+Keywords=game;engine;port;
+Terminal=false
+Categories=Game

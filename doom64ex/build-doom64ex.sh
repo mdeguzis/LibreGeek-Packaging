@@ -49,8 +49,9 @@ fi
 
 # Use our branch to target stable snapshots and avoid untested builds
 # Upstream does not maintain releases
+# Use clang branch to work on new gcc-5 support (upstream switched for some reason...)
 git_url="https://github.com/ProfessorKaos64/Doom64EX"
-target="master"
+target="clang"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

@@ -55,13 +55,12 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="retroarch"
 
-# DO NO BUILD 1.3.2, only here as a marker. This release was very buggy.
-pkgver="1.3.4"
-pkgrev="3"
+pkgver="1.3.6"
+pkgrev="1"
 pkgsuffix="git+bsos${pkgrev}"
 DIST="brewmaster"
 urgency="low"

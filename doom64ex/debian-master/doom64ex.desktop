@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Doom64ex
+GenericName=Doom64ex
+Type=Application
+Icon=/usr/share/pixmaps/doom64ex.png
+Exec=doom64ex
+Keywords=game;engine;port;
+Terminal=false
+Categories=Game

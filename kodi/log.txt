@@ -1,0 +1,205 @@
+
+==> Installing main deps for building
+
+Reading package lists...
+Building dependency tree...
+
+==> Obtaining upstream source code
+==Info==
+Git source files already exist! Remove and [r]eclone or [p]ull? ?
+
+Removing VERSION
+Removing debian/
+Removing tools/depends/target/ffmpeg/ffmpeg-release-3.0-xbmc.tar.gz
+10.0-Dharma           14.2b1-Helix          Dharma_rc2
+10.1-Dharma           14.2rc1-Helix         Eden_beta1
+11.0-Eden             15.0-Isengard         Eden_beta2
+11.0-Eden-ATV2-iOS5   15.0a1-Isengard       Eden_beta3
+11.0-Eden-r2          15.0a2-Isengard       Eden_beta3.1
+12.0-Frodo            15.0b1-Isengard       Eden_rc1
+12.0-Frodo-ATV2-IOS6  15.0b2-Isengard       Eden_rc2
+12.1-Frodo            15.0rc1-Isengard      Frodo_alpha1
+12.2-Frodo            15.0rc2-Isengard      Frodo_alpha2
+12.3-Frodo            15.1-Isengard         Frodo_alpha3
+13.0-Gotham           15.1rc1-Isengard      Frodo_alpha4
+13.0-Gotham_r2        15.2-1-Isengard-IOS9  Frodo_alpha5
+13.1-Gotham           15.2-Isengard         Frodo_alpha6
+13.1b1-Gotham         15.2rc1-Isengard      Frodo_alpha7
+13.1b2-Gotham         15.2rc2-Isengard      Frodo_beta1
+13.1rc1-Gotham        15.2rc3-Isengard      Frodo_beta2
+13.2-1-Gotham-IOS8    16.0-Jarvis           Frodo_beta3
+13.2-2-Gotham-IOS8    16.0a1-Jarvis         Frodo_rc1
+13.2-3-Gotham-IOS8    16.0a2-Jarvis         Frodo_rc2
+13.2-Gotham           16.0a3-Jarvis         Frodo_rc3
+13.2b1-Gotham         16.0a4-Jarvis         Gotham-beta1
+13.2b2-Gotham         16.0b1-Jarvis         Gotham_alpha1
+13.2b3-Gotham         16.0b2-Jarvis         Gotham_alpha10
+13.2rc1-Gotham        16.0b3-Jarvis         Gotham_alpha11
+14.0-Helix            16.0b4-Jarvis         Gotham_alpha2
+14.0a2-Helix          16.0b5-Jarvis         Gotham_alpha3
+14.0a3-Helix          16.0rc1-Jarvis        Gotham_alpha4
+14.0a4-Helix          16.0rc2-Jarvis        Gotham_alpha5
+14.0b1-Helix          16.0rc3-Jarvis        Gotham_alpha6
+14.0b2-Helix          16.1-Jarvis           Gotham_alpha7
+14.0b3-Helix          16.1rc1-Jarvis        Gotham_alpha8
+14.0b4-Helix          16.1rc2-Jarvis        Gotham_alpha9
+14.0b5-Helix          17.0a1-Krypton        Gotham_beta2
+14.0rc1-Helix         Dharma_beta1          Gotham_beta3
+14.0rc2-Helix         Dharma_beta2          Gotham_beta4
+14.0rc3-Helix         Dharma_beta3          Gotham_rc1
+14.1-Helix            Dharma_beta4
+14.2-Helix            Dharma_rc1
+
+Which Kodi release do you wish to build for:
+Type 'master' to use the master tree
+
+M	tools/Linux/packaging/mk-debian-package.sh
+Where is your pbuilder base folder?
+#------ build environment ------#
+REPO_DIR: /home/mikeyd/build-kodi-temp/kodi-source
+RELEASEV: 17.0a1-Krypton
+TAG: bee0201
+DISTS: brewmaster
+ARCHS: amd64
+DEBIAN: https://github.com/ProfessorKaos64/xbmc-packaging/archive/Krypton.tar.gz
+BUILDER: pdebuild
+CONFIGURATION: 
+PBUILDER_BASE: /var/cache/pbuilder/
+PDEBUILD_OPTS: --debbuildopts "-j4"
+#-------------------------------#
+Output Archive: kodi-17.0a1-Krypton~git20160503.1600-bee0201.tar.gz
+building: DIST=brewmaster ARCH=amd64
+dpkg-checkbuilddeps: Unmet build dependencies: build-essential:native debhelper (>= 7.0.50~) autoconf automake autopoint gettext autotools-dev cmake curl cvs dcadec-dev default-jre | openjdk-7-jre | openjdk-6-jre fpc gawk gcc (>= 4.8) gdc git-core gperf libafpclient-dev libasound2-dev | libasound-dev libass-dev (>= 0.9.8) libavahi-client-dev libavahi-common-dev libbluetooth-dev libbluray-dev libboost-dev libboost-thread-dev libbz2-dev libcdio-dev libcec3 libcec-dev (>= 3) libcrossguid-dev libcurl4-openssl-dev | libcurl4-gnutls-dev | libcurl-dev libcwiid-dev libdbus-1-dev libenca-dev libflac-dev libfontconfig-dev libfreetype6-dev libfribidi-dev libgif-dev (>= 5.0.5) libgl1-mesa-dev | libgl-dev libglew-dev libglu1-mesa-dev | libglu-dev libgnutls-dev | libgnutls28-dev libiso9660-dev libjasper-dev libjpeg-dev libltdl-dev liblzo2-dev libmad0-dev libmicrohttpd-dev libmodplug-dev libmp3lame-dev libmpeg2-4-dev libmysqlclient-dev libnfs-dev libogg-dev libpcre3-dev libplatform-dev libplist-dev libpng12-dev | libpng-dev libpulse-dev librtmp-dev libsamplerate-dev libsdl2-dev libshairplay-dev libsmbclient-dev libsqlite3-dev libssh-dev libssl-dev libtag1-dev (>= 1.8) | libtag1x8 libtiff5-dev | libtiff-dev | libtiff4-dev libtinyxml-dev libtool libudev-dev libva-dev libvdpau-dev libvorbis-dev libxmu-dev libxrandr-dev libxslt1-dev | libxslt-dev libxt-dev libyajl-dev lsb-release python-dev python-imaging python-support swig unzip uuid-dev yasm zip zlib1g-dev
+W: Unmet build-dependency in source
+dpkg-buildpackage: source package kodi
+dpkg-buildpackage: source version 17.0a1-Krypton~git20160503.1600-bee0201-0
+dpkg-buildpackage: source distribution brewmaster
+dpkg-buildpackage: source changed by SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+ dpkg-source --before-build kodi-source
+ fakeroot debian/rules clean
+dh clean --parallel
+   dh_testdir -O--parallel
+   dh_auto_clean -O--parallel
+   debian/rules override_dh_clean
+make[1]: Entering directory '/home/mikeyd/build-kodi-temp/kodi-source'
+dh_clean
+	rm -f debian/kodi.substvars
+	rm -f debian/kodi.*.debhelper
+	rm -rf debian/kodi/
+	rm -f debian/kodi-bin.substvars
+	rm -f debian/kodi-bin.*.debhelper
+	rm -rf debian/kodi-bin/
+	rm -f debian/kodi-eventclients-common.substvars
+	rm -f debian/kodi-eventclients-common.*.debhelper
+	rm -rf debian/kodi-eventclients-common/
+	rm -f debian/kodi-eventclients-dev.substvars
+	rm -f debian/kodi-eventclients-dev.*.debhelper
+	rm -rf debian/kodi-eventclients-dev/
+	rm -f debian/kodi-eventclients-wiiremote.substvars
+	rm -f debian/kodi-eventclients-wiiremote.*.debhelper
+	rm -rf debian/kodi-eventclients-wiiremote/
+	rm -f debian/kodi-eventclients-j2me.substvars
+	rm -f debian/kodi-eventclients-j2me.*.debhelper
+	rm -rf debian/kodi-eventclients-j2me/
+	rm -f debian/kodi-eventclients-ps3.substvars
+	rm -f debian/kodi-eventclients-ps3.*.debhelper
+	rm -rf debian/kodi-eventclients-ps3/
+	rm -f debian/kodi-eventclients-xbmc-send.substvars
+	rm -f debian/kodi-eventclients-xbmc-send.*.debhelper
+	rm -rf debian/kodi-eventclients-xbmc-send/
+	rm -f debian/kodi-addon-dev.substvars
+	rm -f debian/kodi-addon-dev.*.debhelper
+	rm -rf debian/kodi-addon-dev/
+	rm -f debian/kodi-screensaver-dev.substvars
+	rm -f debian/kodi-screensaver-dev.*.debhelper
+	rm -rf debian/kodi-screensaver-dev/
+	rm -f debian/kodi-visualization-dev.substvars
+	rm -f debian/kodi-visualization-dev.*.debhelper
+	rm -rf debian/kodi-visualization-dev/
+	rm -f debian/kodi-pvr-dev.substvars
+	rm -f debian/kodi-pvr-dev.*.debhelper
+	rm -rf debian/kodi-pvr-dev/
+	rm -f debian/kodi-audio-dev.substvars
+	rm -f debian/kodi-audio-dev.*.debhelper
+	rm -rf debian/kodi-audio-dev/
+	rm -f debian/kodi-tools-texturepacker.substvars
+	rm -f debian/kodi-tools-texturepacker.*.debhelper
+	rm -rf debian/kodi-tools-texturepacker/
+	rm -f debian/xbmc.substvars
+	rm -f debian/xbmc.*.debhelper
+	rm -rf debian/xbmc/
+	rm -f debian/*.debhelper.log
+	rm -f debian/files
+	find .  \( \( -type f -a \
+	        \( -name '#*#' -o -name '.*~' -o -name '*~' -o -name DEADJOE \
+		 -o -name '*.orig' -o -name '*.rej' -o -name '*.bak' \
+		 -o -name '.*.orig' -o -name .*.rej -o -name '.SUMS' \
+		 -o -name TAGS -o \( -path '*/.deps/*' -a -name '*.P' \) \
+		\) -exec rm -f {} + \) -o \
+		\( -type d -a -name autom4te.cache -prune -exec rm -rf {} + \) \)
+	rm -f *-stamp
+find . -name config.status -o -name config.cache -o -name config.log \
+	-exec rm -f "{}" \;
+debian/rules debian/control.in
+make[2]: Entering directory '/home/mikeyd/build-kodi-temp/kodi-source'
+Generating debian/control from debian/control.in
+perl -p \
+-e 's{#BUILD_DEPENDS#}{qx(sh debian/var_info BUILD_DEPENDS)}ge;' \
+< debian/control.in > $(echo debian/control.in | sed 's/\.in$//')
+make[2]: Leaving directory '/home/mikeyd/build-kodi-temp/kodi-source'
+make[1]: Leaving directory '/home/mikeyd/build-kodi-temp/kodi-source'
+ dpkg-source -b kodi-source
+dpkg-source: info: using source format `3.0 (quilt)'
+dpkg-source: info: building kodi using existing ./kodi_17.0a1-Krypton~git20160503.1600-bee0201.orig.tar.gz
+dpkg-source: error: cannot represent change to project/cmake/scripts/ios/install.cmake:
+dpkg-source: error:   new version is symlink to ../darwin/install.cmake
+dpkg-source: error:   old version is plain file
+dpkg-source: error: cannot represent change to project/cmake/scripts/ios/pathsetup.cmake:
+dpkg-source: error:   new version is symlink to ../darwin/pathsetup.cmake
+dpkg-source: error:   old version is plain file
+dpkg-source: error: cannot represent change to project/cmake/scripts/ios/macros.cmake:
+dpkg-source: error:   new version is symlink to ../darwin/macros.cmake
+dpkg-source: error:   old version is plain file
+dpkg-source: error: cannot represent change to project/cmake/scripts/android/pathsetup.cmake:
+dpkg-source: error:   new version is symlink to ../linux/pathsetup.cmake
+dpkg-source: error:   old version is plain file
+dpkg-source: error: cannot represent change to project/cmake/scripts/android/macros.cmake:
+dpkg-source: error:   new version is symlink to ../linux/macros.cmake
+dpkg-source: error:   old version is plain file
+dpkg-source: error: cannot represent change to project/cmake/scripts/rbpi/install.cmake:
+dpkg-source: error:   new version is symlink to ../linux/install.cmake
+dpkg-source: error:   old version is plain file
+dpkg-source: error: cannot represent change to project/cmake/scripts/rbpi/pathsetup.cmake:
+dpkg-source: error:   new version is symlink to ../linux/pathsetup.cmake
+dpkg-source: error:   old version is plain file
+dpkg-source: error: cannot represent change to project/cmake/scripts/rbpi/macros.cmake:
+dpkg-source: error:   new version is symlink to ../linux/macros.cmake
+dpkg-source: error:   old version is plain file
+dpkg-source: error: unrepresentable changes to source
+dpkg-buildpackage: error: dpkg-source -b kodi-source gave error exit status 2
+----------------------------------------------------------------
+Summary
+----------------------------------------------------------------
+Time started: 15:59:30
+Time end: 16:00:14
+Total Runtime (minutes): .73
+
+###############################################################
+If package was built without errors you will see it below.
+If you don't, please check build dependcy errors listed above.
+###############################################################
+
+Showing contents of: /home/mikeyd/build-kodi-temp: 
+
+kodi_17.0a1-Krypton~git20160503.1546-bee0201-0_amd64.build
+kodi_17.0a1-Krypton~git20160503.1546-bee0201.orig.tar.gz
+kodi-17.0a1-Krypton~git20160503.1546-bee0201.tar.gz
+kodi_17.0a1-Krypton~git20160503.1547-bee0201-0_amd64.build
+kodi_17.0a1-Krypton~git20160503.1547-bee0201.orig.tar.gz
+kodi-17.0a1-Krypton~git20160503.1547-bee0201.tar.gz
+kodi_17.0a1-Krypton~git20160503.1600-bee0201-0_amd64.build
+kodi_17.0a1-Krypton~git20160503.1600-bee0201.orig.tar.gz
+kodi-17.0a1-Krypton~git20160503.1600-bee0201.tar.gz
+kodi-source
+
+==> Would you like to transfer any packages that were built? [y/n]

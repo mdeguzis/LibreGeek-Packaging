@@ -1,0 +1,3517 @@
+
+==> Obtaining upstream source code
+
+
+==> Creating original tarball
+
+retroarch-1.3.4/
+retroarch-1.3.4/COPYING
+retroarch-1.3.4/retroarch.h
+retroarch-1.3.4/general.h
+retroarch-1.3.4/README-exynos.md
+retroarch-1.3.4/menu/
+retroarch-1.3.4/menu/menu_entry.c
+retroarch-1.3.4/menu/menu_driver.h
+retroarch-1.3.4/menu/menu_animation.h
+retroarch-1.3.4/menu/menu_display.c
+retroarch-1.3.4/menu/menu_cbs.c
+retroarch-1.3.4/menu/menu_navigation.h
+retroarch-1.3.4/menu/menu_entries.c
+retroarch-1.3.4/menu/menu_input.c
+retroarch-1.3.4/menu/menu_display.h
+retroarch-1.3.4/menu/menu_entry.h
+retroarch-1.3.4/menu/menu_setting.h
+retroarch-1.3.4/menu/menu_cbs.h
+retroarch-1.3.4/menu/menu_setting.c
+retroarch-1.3.4/menu/intl/
+retroarch-1.3.4/menu/intl/menu_hash_de.c
+retroarch-1.3.4/menu/intl/menu_hash_eo.c
+retroarch-1.3.4/menu/intl/pseudolocalize.py
+retroarch-1.3.4/menu/intl/menu_hash_es.c
+retroarch-1.3.4/menu/intl/menu_hash_fr.c
+retroarch-1.3.4/menu/intl/menu_hash_nl.c
+retroarch-1.3.4/menu/intl/menu_hash_it.c
+retroarch-1.3.4/menu/intl/menu_hash_pl.c
+retroarch-1.3.4/menu/intl/menu_hash_pt.c
+retroarch-1.3.4/menu/intl/menu_hash_us.c
+retroarch-1.3.4/menu/intl/menu_hash_uspseudo.c
+retroarch-1.3.4/menu/cbs/
+retroarch-1.3.4/menu/cbs/menu_cbs_get_value.c
+retroarch-1.3.4/menu/cbs/menu_cbs_select.c
+retroarch-1.3.4/menu/cbs/menu_cbs_scan.c
+retroarch-1.3.4/menu/cbs/menu_cbs_title.c
+retroarch-1.3.4/menu/cbs/menu_cbs_contentlist_switch.c
+retroarch-1.3.4/menu/cbs/menu_cbs_start.c
+retroarch-1.3.4/menu/cbs/menu_cbs_deferred_push.c
+retroarch-1.3.4/menu/cbs/menu_cbs_down.c
+retroarch-1.3.4/menu/cbs/menu_cbs_up.c
+retroarch-1.3.4/menu/cbs/menu_cbs_left.c
+retroarch-1.3.4/menu/cbs/menu_cbs_info.c
+retroarch-1.3.4/menu/cbs/menu_cbs_ok.c
+retroarch-1.3.4/menu/cbs/menu_cbs_right.c
+retroarch-1.3.4/menu/cbs/menu_cbs_refresh.c
+retroarch-1.3.4/menu/cbs/menu_cbs_cancel.c
+retroarch-1.3.4/menu/menu_content.c
+retroarch-1.3.4/menu/menu_hash.c
+retroarch-1.3.4/menu/menu_animation.c
+retroarch-1.3.4/menu/menu_driver.c
+retroarch-1.3.4/menu/menu_shader.h
+retroarch-1.3.4/menu/menu_shader.c
+retroarch-1.3.4/menu/menu_navigation.c
+retroarch-1.3.4/menu/menu_displaylist.h
+retroarch-1.3.4/menu/drivers/
+retroarch-1.3.4/menu/drivers/menu_generic.c
+retroarch-1.3.4/menu/drivers/nk_common.c
+retroarch-1.3.4/menu/drivers/nuklear.c
+retroarch-1.3.4/menu/drivers/xmb.c
+retroarch-1.3.4/menu/drivers/materialui.c
+retroarch-1.3.4/menu/drivers/zarch.c
+retroarch-1.3.4/menu/drivers/nk_menu.c
+retroarch-1.3.4/menu/drivers/nk_common.h
+retroarch-1.3.4/menu/drivers/nk_menu.h
+retroarch-1.3.4/menu/drivers/menu_generic.h
+retroarch-1.3.4/menu/drivers/xui.cpp
+retroarch-1.3.4/menu/drivers/rgui.c
+retroarch-1.3.4/menu/drivers/null.c
+retroarch-1.3.4/menu/menu_displaylist.c
+retroarch-1.3.4/menu/menu_entries.h
+retroarch-1.3.4/menu/drivers_display/
+retroarch-1.3.4/menu/drivers_display/menu_display_vulkan.c
+retroarch-1.3.4/menu/drivers_display/menu_display_null.c
+retroarch-1.3.4/menu/drivers_display/menu_display_gl.c
+retroarch-1.3.4/menu/drivers_display/menu_display_d3d.cpp
+retroarch-1.3.4/menu/menu_content.h
+retroarch-1.3.4/menu/menu_hash.h
+retroarch-1.3.4/menu/menu_input.h
+retroarch-1.3.4/libretro_version_1.c
+retroarch-1.3.4/remote.h
+retroarch-1.3.4/list_special.c
+retroarch-1.3.4/screenshot.h
+retroarch-1.3.4/libretro-common/
+retroarch-1.3.4/libretro-common/queues/
+retroarch-1.3.4/libretro-common/queues/message_queue.c
+retroarch-1.3.4/libretro-common/queues/fifo_queue.c
+retroarch-1.3.4/libretro-common/queues/task_queue.c
+retroarch-1.3.4/libretro-common/glsm/
+retroarch-1.3.4/libretro-common/glsm/glsm.c
+retroarch-1.3.4/libretro-common/glsym/
+retroarch-1.3.4/libretro-common/glsym/README.md
+retroarch-1.3.4/libretro-common/glsym/rglgen.c
+retroarch-1.3.4/libretro-common/glsym/glsym_gl.c
+retroarch-1.3.4/libretro-common/glsym/glgen.py
+retroarch-1.3.4/libretro-common/glsym/glsym_es2.c
+retroarch-1.3.4/libretro-common/net/
+retroarch-1.3.4/libretro-common/net/net_socket.c
+retroarch-1.3.4/libretro-common/net/test/
+retroarch-1.3.4/libretro-common/net/test/net_http_test.c
+retroarch-1.3.4/libretro-common/net/test/net_ifinfo_test.c
+retroarch-1.3.4/libretro-common/net/test/Makefile
+retroarch-1.3.4/libretro-common/net/net_compat.c
+retroarch-1.3.4/libretro-common/net/net_ifinfo.c
+retroarch-1.3.4/libretro-common/net/net_http.c
+retroarch-1.3.4/libretro-common/encodings/
+retroarch-1.3.4/libretro-common/encodings/encoding_utf.c
+retroarch-1.3.4/libretro-common/lists/
+retroarch-1.3.4/libretro-common/lists/file_list.c
+retroarch-1.3.4/libretro-common/lists/string_list.c
+retroarch-1.3.4/libretro-common/lists/dir_list.c
+retroarch-1.3.4/libretro-common/crt/
+retroarch-1.3.4/libretro-common/crt/include/
+retroarch-1.3.4/libretro-common/crt/include/string.h
+retroarch-1.3.4/libretro-common/crt/string.c
+retroarch-1.3.4/libretro-common/hash/
+retroarch-1.3.4/libretro-common/hash/rhash.c
+retroarch-1.3.4/libretro-common/rthreads/
+retroarch-1.3.4/libretro-common/rthreads/rthreads.c
+retroarch-1.3.4/libretro-common/rthreads/rsemaphore.c
+retroarch-1.3.4/libretro-common/rthreads/async_job.c
+retroarch-1.3.4/libretro-common/rthreads/gx_pthread.h
+retroarch-1.3.4/libretro-common/rthreads/xenon_sdl_threads.c
+retroarch-1.3.4/libretro-common/rthreads/psp_pthread.h
+retroarch-1.3.4/libretro-common/gfx/
+retroarch-1.3.4/libretro-common/gfx/scaler/
+retroarch-1.3.4/libretro-common/gfx/scaler/scaler.c
+retroarch-1.3.4/libretro-common/gfx/scaler/scaler_int.c
+retroarch-1.3.4/libretro-common/gfx/scaler/scaler_filter.c
+retroarch-1.3.4/libretro-common/gfx/scaler/pixconv.c
+retroarch-1.3.4/libretro-common/gfx/math/
+retroarch-1.3.4/libretro-common/gfx/math/matrix_3x3.c
+retroarch-1.3.4/libretro-common/gfx/math/matrix_4x4.c
+retroarch-1.3.4/libretro-common/utils/
+retroarch-1.3.4/libretro-common/utils/djb2.c
+retroarch-1.3.4/libretro-common/utils/udp-test.c
+retroarch-1.3.4/libretro-common/utils/sha1.c
+retroarch-1.3.4/libretro-common/utils/crc32.c
+retroarch-1.3.4/libretro-common/utils/Makefile
+retroarch-1.3.4/libretro-common/utils/md5.c
+retroarch-1.3.4/libretro-common/dynamic/
+retroarch-1.3.4/libretro-common/dynamic/dylib.c
+retroarch-1.3.4/libretro-common/compat/
+retroarch-1.3.4/libretro-common/compat/compat_ifaddrs.c
+retroarch-1.3.4/libretro-common/compat/compat_getopt.c
+retroarch-1.3.4/libretro-common/compat/compat_snprintf.c
+retroarch-1.3.4/libretro-common/compat/compat_strl.c
+retroarch-1.3.4/libretro-common/compat/compat_strcasestr.c
+retroarch-1.3.4/libretro-common/compat/compat_posix_string.c
+retroarch-1.3.4/libretro-common/compat/compat_fnmatch.c
+retroarch-1.3.4/libretro-common/libco/
+retroarch-1.3.4/libretro-common/libco/sjlj.c
+retroarch-1.3.4/libretro-common/libco/x86.c
+retroarch-1.3.4/libretro-common/libco/armeabi.c
+retroarch-1.3.4/libretro-common/libco/libco.c
+retroarch-1.3.4/libretro-common/libco/fiber.c
+retroarch-1.3.4/libretro-common/libco/amd64.c
+retroarch-1.3.4/libretro-common/libco/ucontext.c
+retroarch-1.3.4/libretro-common/libco/ppc.c
+retroarch-1.3.4/libretro-common/memmap/
+retroarch-1.3.4/libretro-common/memmap/memmap.c
+retroarch-1.3.4/libretro-common/memmap/memalign.c
+retroarch-1.3.4/libretro-common/include/
+retroarch-1.3.4/libretro-common/include/clamping.h
+retroarch-1.3.4/libretro-common/include/queues/
+retroarch-1.3.4/libretro-common/include/queues/task_queue.h
+retroarch-1.3.4/libretro-common/include/queues/fifo_queue.h
+retroarch-1.3.4/libretro-common/include/queues/message_queue.h
+retroarch-1.3.4/libretro-common/include/glsm/
+retroarch-1.3.4/libretro-common/include/glsm/glsmsym.h
+retroarch-1.3.4/libretro-common/include/glsm/glsm.h
+retroarch-1.3.4/libretro-common/include/boolean.h
+retroarch-1.3.4/libretro-common/include/glsym/
+retroarch-1.3.4/libretro-common/include/glsym/rglgen_headers.h
+retroarch-1.3.4/libretro-common/include/glsym/glsym.h
+retroarch-1.3.4/libretro-common/include/glsym/glsym_es2.h
+retroarch-1.3.4/libretro-common/include/glsym/glsym_gl.h
+retroarch-1.3.4/libretro-common/include/glsym/rglgen.h
+retroarch-1.3.4/libretro-common/include/retro_endianness.h
+retroarch-1.3.4/libretro-common/include/net/
+retroarch-1.3.4/libretro-common/include/net/net_ifinfo.h
+retroarch-1.3.4/libretro-common/include/net/net_http.h
+retroarch-1.3.4/libretro-common/include/net/net_socket.h
+retroarch-1.3.4/libretro-common/include/net/net_compat.h
+retroarch-1.3.4/libretro-common/include/encodings/
+retroarch-1.3.4/libretro-common/include/encodings/utf.h
+retroarch-1.3.4/libretro-common/include/lists/
+retroarch-1.3.4/libretro-common/include/lists/string_list.h
+retroarch-1.3.4/libretro-common/include/lists/file_list.h
+retroarch-1.3.4/libretro-common/include/lists/dir_list.h
+retroarch-1.3.4/libretro-common/include/retro_common.h
+retroarch-1.3.4/libretro-common/include/filters.h
+retroarch-1.3.4/libretro-common/include/retro_common_api.h
+retroarch-1.3.4/libretro-common/include/rhash.h
+retroarch-1.3.4/libretro-common/include/retro_miscellaneous.h
+retroarch-1.3.4/libretro-common/include/rthreads/
+retroarch-1.3.4/libretro-common/include/rthreads/rsemaphore.h
+retroarch-1.3.4/libretro-common/include/rthreads/rthreads.h
+retroarch-1.3.4/libretro-common/include/rthreads/async_job.h
+retroarch-1.3.4/libretro-common/include/gfx/
+retroarch-1.3.4/libretro-common/include/gfx/scaler/
+retroarch-1.3.4/libretro-common/include/gfx/scaler/filter.h
+retroarch-1.3.4/libretro-common/include/gfx/scaler/pixconv.h
+retroarch-1.3.4/libretro-common/include/gfx/scaler/scaler_int.h
+retroarch-1.3.4/libretro-common/include/gfx/scaler/scaler.h
+retroarch-1.3.4/libretro-common/include/gfx/math/
+retroarch-1.3.4/libretro-common/include/gfx/math/matrix_4x4.h
+retroarch-1.3.4/libretro-common/include/gfx/math/matrix_3x3.h
+retroarch-1.3.4/libretro-common/include/retro_environment.h
+retroarch-1.3.4/libretro-common/include/memalign.h
+retroarch-1.3.4/libretro-common/include/dynamic/
+retroarch-1.3.4/libretro-common/include/dynamic/dylib.h
+retroarch-1.3.4/libretro-common/include/compat/
+retroarch-1.3.4/libretro-common/include/compat/strcasestr.h
+retroarch-1.3.4/libretro-common/include/compat/zlib.h
+retroarch-1.3.4/libretro-common/include/compat/fnmatch.h
+retroarch-1.3.4/libretro-common/include/compat/apple_compat.h
+retroarch-1.3.4/libretro-common/include/compat/strl.h
+retroarch-1.3.4/libretro-common/include/compat/ifaddrs.h
+retroarch-1.3.4/libretro-common/include/compat/zutil.h
+retroarch-1.3.4/libretro-common/include/compat/msvc/
+retroarch-1.3.4/libretro-common/include/compat/msvc/stdint.h
+retroarch-1.3.4/libretro-common/include/compat/getopt.h
+retroarch-1.3.4/libretro-common/include/compat/posix_string.h
+retroarch-1.3.4/libretro-common/include/compat/msvc.h
+retroarch-1.3.4/libretro-common/include/retro_stat.h
+retroarch-1.3.4/libretro-common/include/streams/
+retroarch-1.3.4/libretro-common/include/streams/interface_stream.h
+retroarch-1.3.4/libretro-common/include/streams/memory_stream.h
+retroarch-1.3.4/libretro-common/include/streams/file_stream.h
+retroarch-1.3.4/libretro-common/include/libco.h
+retroarch-1.3.4/libretro-common/include/string/
+retroarch-1.3.4/libretro-common/include/string/stdstring.h
+retroarch-1.3.4/libretro-common/include/formats/
+retroarch-1.3.4/libretro-common/include/formats/image.h
+retroarch-1.3.4/libretro-common/include/formats/tga.h
+retroarch-1.3.4/libretro-common/include/formats/rbmp.h
+retroarch-1.3.4/libretro-common/include/formats/rxml.h
+retroarch-1.3.4/libretro-common/include/formats/rpng.h
+retroarch-1.3.4/libretro-common/include/formats/jsonsax.h
+retroarch-1.3.4/libretro-common/include/retro_dirent.h
+retroarch-1.3.4/libretro-common/include/file/
+retroarch-1.3.4/libretro-common/include/file/nbio.h
+retroarch-1.3.4/libretro-common/include/file/file_path.h
+retroarch-1.3.4/libretro-common/include/file/archive_file.h
+retroarch-1.3.4/libretro-common/include/file/config_file.h
+retroarch-1.3.4/libretro-common/include/retro_assert.h
+retroarch-1.3.4/libretro-common/include/memmap.h
+retroarch-1.3.4/libretro-common/include/retro_inline.h
+retroarch-1.3.4/libretro-common/streams/
+retroarch-1.3.4/libretro-common/streams/memory_stream.c
+retroarch-1.3.4/libretro-common/streams/interface_stream.c
+retroarch-1.3.4/libretro-common/streams/file_stream.c
+retroarch-1.3.4/libretro-common/string/
+retroarch-1.3.4/libretro-common/string/stdstring.c
+retroarch-1.3.4/libretro-common/formats/
+retroarch-1.3.4/libretro-common/formats/json/
+retroarch-1.3.4/libretro-common/formats/json/jsonsax.c
+retroarch-1.3.4/libretro-common/formats/xml/
+retroarch-1.3.4/libretro-common/formats/xml/test/
+retroarch-1.3.4/libretro-common/formats/xml/test/rxml_test.c
+retroarch-1.3.4/libretro-common/formats/xml/test/Makefile
+retroarch-1.3.4/libretro-common/formats/xml/rxml.c
+retroarch-1.3.4/libretro-common/formats/png/
+retroarch-1.3.4/libretro-common/formats/png/rpng_encode.c
+retroarch-1.3.4/libretro-common/formats/png/test/
+retroarch-1.3.4/libretro-common/formats/png/test/rpng_test.c
+retroarch-1.3.4/libretro-common/formats/png/test/Makefile
+retroarch-1.3.4/libretro-common/formats/png/rpng.c
+retroarch-1.3.4/libretro-common/formats/png/rpng_internal.h
+retroarch-1.3.4/libretro-common/formats/bmp/
+retroarch-1.3.4/libretro-common/formats/bmp/rbmp_encode.c
+retroarch-1.3.4/libretro-common/formats/tga/
+retroarch-1.3.4/libretro-common/formats/tga/rtga.c
+retroarch-1.3.4/libretro-common/.gitignore
+retroarch-1.3.4/libretro-common/file/
+retroarch-1.3.4/libretro-common/file/file_path.c
+retroarch-1.3.4/libretro-common/file/retro_stat.c
+retroarch-1.3.4/libretro-common/file/archive_file.c
+retroarch-1.3.4/libretro-common/file/nbio/
+retroarch-1.3.4/libretro-common/file/nbio/test/
+retroarch-1.3.4/libretro-common/file/nbio/test/nbio_test.c
+retroarch-1.3.4/libretro-common/file/nbio/test/Makefile
+retroarch-1.3.4/libretro-common/file/nbio/test/nbio_test
+retroarch-1.3.4/libretro-common/file/nbio/nbio_stdio.c
+retroarch-1.3.4/libretro-common/file/config_file.c
+retroarch-1.3.4/libretro-common/file/retro_dirent.c
+retroarch-1.3.4/libretro-common/file/archive_file_zlib.c
+retroarch-1.3.4/retroarch.png
+retroarch-1.3.4/config.features.h
+retroarch-1.3.4/retroarch.cfg
+retroarch-1.3.4/retroarch.cfge
+retroarch-1.3.4/tests/
+retroarch-1.3.4/tests/test_reentrancy.c
+retroarch-1.3.4/pkg/
+retroarch-1.3.4/pkg/ps3/
+retroarch-1.3.4/pkg/ps3/ICON0.PNG
+retroarch-1.3.4/pkg/ps3/PARAM.SFO
+retroarch-1.3.4/pkg/ps3/package.conf
+retroarch-1.3.4/pkg/ps3/USRDIR/
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/presets/
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/presets/.empty
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/sram/
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/sram/.empty
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/savestates/
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/savestates/.empty
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/system/
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/system/.empty
+retroarch-1.3.4/pkg/ps3/USRDIR/cores/.empty
+retroarch-1.3.4/pkg/ps3/USRDIR/.empty
+retroarch-1.3.4/pkg/qnx/
+retroarch-1.3.4/pkg/qnx/bb10/
+retroarch-1.3.4/pkg/qnx/bb10/.cproject
+retroarch-1.3.4/pkg/qnx/bb10/.project
+retroarch-1.3.4/pkg/qnx/bb10/bar-descriptor.xml
+retroarch-1.3.4/pkg/qnx/bb10/lib/
+retroarch-1.3.4/pkg/qnx/bb10/lib/.empty
+retroarch-1.3.4/pkg/qnx/playbook/
+retroarch-1.3.4/pkg/qnx/playbook/.cproject
+retroarch-1.3.4/pkg/qnx/playbook/.project
+retroarch-1.3.4/pkg/qnx/playbook/bar-descriptor.xml
+retroarch-1.3.4/pkg/qnx/playbook/.settings/
+retroarch-1.3.4/pkg/qnx/playbook/.settings/org.eclipse.cdt.codan.core.prefs
+retroarch-1.3.4/pkg/debian/
+retroarch-1.3.4/pkg/debian/control
+retroarch-1.3.4/pkg/debian/retroarch.lintian-overrides
+retroarch-1.3.4/pkg/debian/rules
+retroarch-1.3.4/pkg/debian/copyright
+retroarch-1.3.4/pkg/debian/compat
+retroarch-1.3.4/pkg/debian/source/
+retroarch-1.3.4/pkg/debian/source/format
+retroarch-1.3.4/pkg/debian/docs
+retroarch-1.3.4/pkg/debian/dirs
+retroarch-1.3.4/pkg/debian/changelog
+retroarch-1.3.4/pkg/msvc/
+retroarch-1.3.4/pkg/msvc/RetroArch-360.sln
+retroarch-1.3.4/pkg/msvc/RetroArch-msvc2010.sln
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1/
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1/system/
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1/system/.empty
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1/screenshots/
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1/screenshots/.empty
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1/roms/
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1/roms/.empty
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1/RetroArch-Xbox1.vcproj
+retroarch-1.3.4/pkg/msvc/RetroArch-360/
+retroarch-1.3.4/pkg/msvc/RetroArch-360/RetroArch-360.vcxproj
+retroarch-1.3.4/pkg/msvc/RetroArch-360/RetroArch-360.vcxproj.filters
+retroarch-1.3.4/pkg/msvc/RetroArch-360-Salamander/
+retroarch-1.3.4/pkg/msvc/RetroArch-360-Salamander/RetroArch-Salamander.vcxproj
+retroarch-1.3.4/pkg/msvc/RetroArch-360-Salamander/RetroArch-Salamander.vcxproj.filters
+retroarch-1.3.4/pkg/msvc/msvc-2010/
+retroarch-1.3.4/pkg/msvc/msvc-2010/RetroArch-msvc2010.vcxproj.filters
+retroarch-1.3.4/pkg/msvc/msvc-2010/GL/
+retroarch-1.3.4/pkg/msvc/msvc-2010/GL/glext.h
+retroarch-1.3.4/pkg/msvc/msvc-2010/RetroArch-msvc2010.vcxproj
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1.sln
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1-Salamander/
+retroarch-1.3.4/pkg/msvc/RetroArch-Xbox1-Salamander/RetroArch-Salamander.vcproj
+retroarch-1.3.4/pkg/vita/
+retroarch-1.3.4/pkg/vita/.empty
+retroarch-1.3.4/pkg/ngc/
+retroarch-1.3.4/pkg/ngc/.empty
+retroarch-1.3.4/pkg/android/
+retroarch-1.3.4/pkg/android/phoenix/
+retroarch-1.3.4/pkg/android/phoenix/res/
+retroarch-1.3.4/pkg/android/phoenix/res/drawable/
+retroarch-1.3.4/pkg/android/phoenix/res/drawable/banner.png
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-xhdpi/
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-xhdpi/ic_launcher.png
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-xhdpi/ouya_icon.png
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-xhdpi/banner.png
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-ldpi/
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-ldpi/ic_launcher.png
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-mdpi/
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-mdpi/ic_launcher.png
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-hdpi/
+retroarch-1.3.4/pkg/android/phoenix/res/drawable-hdpi/ic_launcher.png
+retroarch-1.3.4/pkg/android/phoenix/AndroidManifest.xml
+retroarch-1.3.4/pkg/android/phoenix/build.xml
+retroarch-1.3.4/pkg/android/phoenix/Readme.md
+retroarch-1.3.4/pkg/android/phoenix/project.properties
+retroarch-1.3.4/pkg/android/phoenix/src/
+retroarch-1.3.4/pkg/android/phoenix/src/com/
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/preferences/
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/preferences/util/
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/preferences/util/UserPreferences.java
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/preferences/util/ConfigFile.java
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/retroactivity/
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/retroactivity/RetroActivityCommon.java
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/retroactivity/RetroActivityLocation.java
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/retroactivity/RetroActivityIntent.java
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/retroactivity/RetroActivityFuture.java
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/retroactivity/RetroActivityPast.java
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/retroactivity/RetroActivityCamera.java
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/mainmenu/
+retroarch-1.3.4/pkg/android/phoenix/src/com/retroarch/browser/mainmenu/MainMenuActivity.java
+retroarch-1.3.4/pkg/android/phoenix/.project
+retroarch-1.3.4/pkg/android/phoenix/docs/
+retroarch-1.3.4/pkg/android/phoenix/docs/Building in Eclipse.md
+retroarch-1.3.4/pkg/android/phoenix/libs/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-en-rGB/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-en-rGB/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-uk/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-uk/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/ic_plusone_tall_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_normal_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_disabled_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_normal_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_disabled_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_normal_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_disabled_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_disabled_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/ic_plusone_medium_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/ic_plusone_small_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_pressed_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_normal_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_pressed_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_pressed_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_disabled_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_disabled_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/ic_plusone_standard_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_disabled_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_text_pressed_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xxhdpi/common_signin_btn_icon_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ru/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ru/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-pt-rPT/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-pt-rPT/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-hu/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-hu/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values/ads_attrs.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values/colors.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values/version.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values/maps_attrs.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-da/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-da/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-cs/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-cs/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-es/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-es/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sl/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sl/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ja/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ja/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-lt/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-lt/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-tl/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-tl/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ko/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ko/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ro/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ro/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-hy-rAM/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-hy-rAM/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sk/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sk/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-af/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-af/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-et-rEE/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-et-rEE/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-zh-rCN/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-zh-rCN/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-am/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-am/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-hi/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-hi/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-zh-rHK/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-zh-rHK/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable/common_signin_btn_text_light.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable/common_signin_btn_text_dark.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable/common_signin_btn_icon_dark.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable/common_signin_btn_icon_light.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-km-rKH/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-km-rKH/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ka-rGE/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ka-rGE/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-nl/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-nl/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-be/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-be/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-fr-rCA/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-fr-rCA/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-it/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-it/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-en-rIN/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-en-rIN/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sw/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sw/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-th/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-th/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-lv/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-lv/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-tr/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-tr/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-lo-rLA/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-lo-rLA/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/ic_plusone_tall_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_normal_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_disabled_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_normal_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_disabled_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_normal_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_disabled_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_disabled_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/ic_plusone_medium_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/ic_plusone_small_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_pressed_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_normal_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_pressed_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_pressed_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_disabled_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_disabled_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/ic_plusone_standard_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_disabled_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_text_pressed_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-xhdpi/common_signin_btn_icon_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-bg/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-bg/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-fa/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-fa/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-nb/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-nb/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-iw/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-iw/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/color/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/color/common_signin_btn_text_light.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/color/common_signin_btn_text_dark.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ar/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ar/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-hr/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-hr/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ms/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ms/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ca/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ca/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-fi/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-fi/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-pt-rBR/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-pt-rBR/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sr/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sr/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-zh-rTW/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-zh-rTW/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-fr/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-fr/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/ic_plusone_tall_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_normal_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_disabled_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_normal_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_disabled_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_normal_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_disabled_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_disabled_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/ic_plusone_medium_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/ic_plusone_small_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_pressed_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_normal_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_pressed_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_pressed_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_disabled_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_disabled_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/ic_plusone_standard_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_disabled_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_text_pressed_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-mdpi/common_signin_btn_icon_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-zu/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-zu/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sv/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-sv/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ms-rMY/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-ms-rMY/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-el/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-el/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-et/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-et/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-pt/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-pt/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-de/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-de/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/ic_plusone_tall_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_normal_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_disabled_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_normal_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_disabled_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_normal_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_disabled_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_disabled_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/ic_plusone_medium_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/ic_plusone_small_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_pressed_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_normal_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_pressed_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_pressed_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_disabled_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_disabled_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/ic_plusone_standard_off_client.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_disabled_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_disabled_focus_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_text_pressed_dark.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/drawable-hdpi/common_signin_btn_icon_focus_light.9.png
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-vi/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-vi/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-mn-rMN/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-mn-rMN/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-in/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-in/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-es-rUS/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-es-rUS/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-pl/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/res/values-pl/strings.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/AndroidManifest.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/build.xml
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/README.txt
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/project.properties
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/src/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/src/android/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/src/android/.readme
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/.project
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/libs/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/libs/google-play-services.jar
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/.classpath
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/proguard.txt
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/.settings/
+retroarch-1.3.4/pkg/android/phoenix/libs/googleplay/.settings/org.eclipse.jdt.core.prefs
+retroarch-1.3.4/pkg/android/phoenix/jni/
+retroarch-1.3.4/pkg/android/phoenix/jni/Android2.mk
+retroarch-1.3.4/pkg/android/phoenix/jni/Android.mk
+retroarch-1.3.4/pkg/android/phoenix/jni/Application.mk
+retroarch-1.3.4/pkg/android/phoenix/ant.properties
+retroarch-1.3.4/pkg/android/phoenix/version_increment.py
+retroarch-1.3.4/pkg/android/phoenix/.gitignore
+retroarch-1.3.4/pkg/android/phoenix/.classpath
+retroarch-1.3.4/pkg/android/phoenix/.settings/
+retroarch-1.3.4/pkg/android/phoenix/.settings/org.eclipse.jdt.core.prefs
+retroarch-1.3.4/pkg/android/phoenix/proguard-project.txt
+retroarch-1.3.4/pkg/wii/
+retroarch-1.3.4/pkg/wii/icon.png
+retroarch-1.3.4/pkg/wii/.empty
+retroarch-1.3.4/pkg/wii/meta.xml
+retroarch-1.3.4/pkg/apple/
+retroarch-1.3.4/pkg/apple/iOS/
+retroarch-1.3.4/pkg/apple/iOS/control
+retroarch-1.3.4/pkg/apple/iOS/README.md
+retroarch-1.3.4/pkg/apple/iOS/BUILDING
+retroarch-1.3.4/pkg/apple/iOS/Info.plist
+retroarch-1.3.4/pkg/apple/iOS/package.sh
+retroarch-1.3.4/pkg/apple/iOS/Resources/
+retroarch-1.3.4/pkg/apple/iOS/Resources/ic_pause.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/PauseIndicatorView.nib/
+retroarch-1.3.4/pkg/apple/iOS/Resources/PauseIndicatorView.nib/designtime.nib
+retroarch-1.3.4/pkg/apple/iOS/Resources/PauseIndicatorView.nib/runtime.nib
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/portrait-320x480.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/portrait-640x960.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/landscape-2048x1496.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/landscape-1024x768.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/portrait-768x1004.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/landscape-1024x748.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/portrait-768x1024.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/landscape-2208x1242.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/Contents.json
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/portrait-1536x2048.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/portrait-1536x2008.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/portrait-750x1334.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/portrait-1242x2208.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/landscape-2048x1536.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/LaunchImage.launchimage/portrait-640x1136.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-72-2.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-76-1.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-50-1.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-29-1.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-60-2.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-76-2.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Contents.json
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-50-2.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-60-3.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-40-2.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-29-2.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-72-1.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-57-1.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-29-3.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-40-1.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-57-2.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/Media.xcassets/AppIcon.appiconset/Icon-40-3.png
+retroarch-1.3.4/pkg/apple/iOS/Resources/PauseIndicatorView.xib
+retroarch-1.3.4/pkg/apple/iOS/modules/
+retroarch-1.3.4/pkg/apple/iOS/modules/.empty
+retroarch-1.3.4/pkg/apple/iOS/en.lproj/
+retroarch-1.3.4/pkg/apple/iOS/en.lproj/InfoPlist.strings
+retroarch-1.3.4/pkg/apple/iOS/Makefile
+retroarch-1.3.4/pkg/apple/RetroArch_iOS.xcodeproj/
+retroarch-1.3.4/pkg/apple/RetroArch_iOS.xcodeproj/project.xcworkspace/
+retroarch-1.3.4/pkg/apple/RetroArch_iOS.xcodeproj/project.xcworkspace/xcshareddata/
+retroarch-1.3.4/pkg/apple/RetroArch_iOS.xcodeproj/project.xcworkspace/xcshareddata/RetroArch_iOS.xccheckout
+retroarch-1.3.4/pkg/apple/RetroArch_iOS.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+retroarch-1.3.4/pkg/apple/RetroArch_iOS.xcodeproj/project.pbxproj
+retroarch-1.3.4/pkg/apple/RetroArch_iOS9-Info.plist
+retroarch-1.3.4/pkg/apple/script/
+retroarch-1.3.4/pkg/apple/script/build
+retroarch-1.3.4/pkg/apple/script/build.config
+retroarch-1.3.4/pkg/apple/script/mobileprovisionParser
+retroarch-1.3.4/pkg/apple/RetroArch_PPC.xcodeproj/
+retroarch-1.3.4/pkg/apple/RetroArch_PPC.xcodeproj/project.xcworkspace/
+retroarch-1.3.4/pkg/apple/RetroArch_PPC.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+retroarch-1.3.4/pkg/apple/RetroArch_PPC.xcodeproj/project.pbxproj
+retroarch-1.3.4/pkg/apple/RetroArch.xcodeproj/
+retroarch-1.3.4/pkg/apple/RetroArch.xcodeproj/project.xcworkspace/
+retroarch-1.3.4/pkg/apple/RetroArch.xcodeproj/project.xcworkspace/xcshareddata/
+retroarch-1.3.4/pkg/apple/RetroArch.xcodeproj/project.xcworkspace/xcshareddata/RetroArch_OSX.xccheckout
+retroarch-1.3.4/pkg/apple/RetroArch.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+retroarch-1.3.4/pkg/apple/RetroArch.xcodeproj/project.pbxproj
+retroarch-1.3.4/pkg/apple/OSX/
+retroarch-1.3.4/pkg/apple/OSX/Info.plist
+retroarch-1.3.4/pkg/apple/OSX/Resources/
+retroarch-1.3.4/pkg/apple/OSX/Resources/en.lproj/
+retroarch-1.3.4/pkg/apple/OSX/Resources/en.lproj/MainMenu.nib/
+retroarch-1.3.4/pkg/apple/OSX/Resources/en.lproj/MainMenu.nib/keyedobjects.nib
+retroarch-1.3.4/pkg/apple/OSX/Resources/en.lproj/MainMenu.nib/designable.nib
+retroarch-1.3.4/pkg/apple/OSX/modules/
+retroarch-1.3.4/pkg/apple/OSX/modules/.empty
+retroarch-1.3.4/pkg/apple/OSX/en.lproj/
+retroarch-1.3.4/pkg/apple/OSX/en.lproj/MainMenu.xib
+retroarch-1.3.4/pkg/apple/OSX/en.lproj/InfoPlist.strings
+retroarch-1.3.4/pkg/apple/OSX/en.lproj/Settings.xib
+retroarch-1.3.4/pkg/apple/OSX/modules_ppc/
+retroarch-1.3.4/pkg/apple/OSX/modules_ppc/.empty
+retroarch-1.3.4/pkg/psp1/
+retroarch-1.3.4/pkg/psp1/ICON0.PNG
+retroarch-1.3.4/pkg/psp1/PIC1.PNG
+retroarch-1.3.4/pkg/psp1/.empty
+retroarch-1.3.4/pkg/pandora/
+retroarch-1.3.4/pkg/pandora/retroarch/
+retroarch-1.3.4/pkg/pandora/retroarch/retroarch.cfg
+retroarch-1.3.4/pkg/pandora/retroarch/phoenix.cfg
+retroarch-1.3.4/pkg/pandora/icon.png
+retroarch-1.3.4/pkg/pandora/scripts/
+retroarch-1.3.4/pkg/pandora/scripts/env-vars.sh
+retroarch-1.3.4/pkg/pandora/scripts/retroarch-phoenix.sh
+retroarch-1.3.4/pkg/pandora/scripts/retroarch.sh
+retroarch-1.3.4/pkg/pandora/previews/
+retroarch-1.3.4/pkg/pandora/previews/retroarch.png
+retroarch-1.3.4/pkg/pandora/previews/retroarch-phoenix.png
+retroarch-1.3.4/pkg/pandora/PXML.xml
+retroarch-1.3.4/pkg/ps3_iso/
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/ICON0.PNG
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/PARAM.SFO
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/PS3LOGO.DAT
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/presets/
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/presets/.empty
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/sram/
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/sram/.empty
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/savestates/
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/savestates/.empty
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/system/
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/system/.empty
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/cores/.empty
+retroarch-1.3.4/pkg/ps3_iso/PS3_GAME/USRDIR/.empty
+retroarch-1.3.4/pkg/ps3_iso/PS3_UPDATE/
+retroarch-1.3.4/pkg/ps3_iso/PS3_UPDATE/PS3UPDAT.PUP
+retroarch-1.3.4/pkg/ps3_iso/PS3_DISC.SFB
+retroarch-1.3.4/pkg/360/
+retroarch-1.3.4/pkg/360/Arial_12.rdf
+retroarch-1.3.4/pkg/360/hd/
+retroarch-1.3.4/pkg/360/hd/rarch_main.xui
+retroarch-1.3.4/pkg/360/shaders/
+retroarch-1.3.4/pkg/360/shaders/.empty
+retroarch-1.3.4/pkg/360/sd/
+retroarch-1.3.4/pkg/360/sd/rarch_main.xui
+retroarch-1.3.4/pkg/360/rarch_scene_skin.xui
+retroarch-1.3.4/pkg/360/Arial_12.abc
+retroarch-1.3.4/pkg/360/Arial_12.tga
+retroarch-1.3.4/pkg/360/rarch.ttf
+retroarch-1.3.4/database_info.h
+retroarch-1.3.4/config_file_userdata.h
+retroarch-1.3.4/griffin/
+retroarch-1.3.4/griffin/griffin_cpp.cpp
+retroarch-1.3.4/griffin/griffin_objc.m
+retroarch-1.3.4/griffin/griffin.c
+retroarch-1.3.4/Makefile.ps3.cobra
+retroarch-1.3.4/core_type.h
+retroarch-1.3.4/dynamic.c
+retroarch-1.3.4/config.def.h
+retroarch-1.3.4/Makefile.emscripten
+retroarch-1.3.4/README.md
+retroarch-1.3.4/list_special.h
+retroarch-1.3.4/configuration.c
+retroarch-1.3.4/file_path_special.h
+retroarch-1.3.4/verbosity.c
+retroarch-1.3.4/defines/
+retroarch-1.3.4/defines/gx_defines.h
+retroarch-1.3.4/defines/xdk_defines.h
+retroarch-1.3.4/defines/d3d_defines.h
+retroarch-1.3.4/defines/psp_defines.h
+retroarch-1.3.4/defines/ps3_defines.h
+retroarch-1.3.4/git_version.c
+retroarch-1.3.4/retroarch-mingw-build.sh
+retroarch-1.3.4/gfx/
+retroarch-1.3.4/gfx/drivers_context/
+retroarch-1.3.4/gfx/drivers_context/vivante_fbdev_ctx.c
+retroarch-1.3.4/gfx/drivers_context/d3d_ctx.cpp
+retroarch-1.3.4/gfx/drivers_context/android_ctx.c
+retroarch-1.3.4/gfx/drivers_context/emscriptenegl_ctx.c
+retroarch-1.3.4/gfx/drivers_context/cgl_ctx.c
+retroarch-1.3.4/gfx/drivers_context/ps3_ctx.c
+retroarch-1.3.4/gfx/drivers_context/sdl_gl_ctx.c
+retroarch-1.3.4/gfx/drivers_context/bbqnx_ctx.c
+retroarch-1.3.4/gfx/drivers_context/mali_fbdev_ctx.c
+retroarch-1.3.4/gfx/drivers_context/opendingux_fbdev_ctx.c
+retroarch-1.3.4/gfx/drivers_context/x_ctx.c
+retroarch-1.3.4/gfx/drivers_context/wayland_ctx.c
+retroarch-1.3.4/gfx/drivers_context/vc_egl_ctx.c
+retroarch-1.3.4/gfx/drivers_context/wgl_ctx.cpp
+retroarch-1.3.4/gfx/drivers_context/drm_ctx.c
+retroarch-1.3.4/gfx/drivers_context/cocoa_gl_ctx.m
+retroarch-1.3.4/gfx/drivers_context/xegl_ctx.c
+retroarch-1.3.4/gfx/drivers_context/gfx_null_ctx.c
+retroarch-1.3.4/gfx/video_context_driver.h
+retroarch-1.3.4/gfx/font_driver.c
+retroarch-1.3.4/gfx/video_filter.c
+retroarch-1.3.4/gfx/video_driver.h
+retroarch-1.3.4/gfx/drivers_shader/
+retroarch-1.3.4/gfx/drivers_shader/slang_reflection.cpp
+retroarch-1.3.4/gfx/drivers_shader/shader_vulkan.cpp
+retroarch-1.3.4/gfx/drivers_shader/shader_glsl.h
+retroarch-1.3.4/gfx/drivers_shader/shader_vulkan.h
+retroarch-1.3.4/gfx/drivers_shader/shader_hlsl.h
+retroarch-1.3.4/gfx/drivers_shader/slang_reflection.hpp
+retroarch-1.3.4/gfx/drivers_shader/shader_gl_cg.c
+retroarch-1.3.4/gfx/drivers_shader/shader_null.c
+retroarch-1.3.4/gfx/drivers_shader/shader_hlsl.c
+retroarch-1.3.4/gfx/drivers_shader/glslang_util.hpp
+retroarch-1.3.4/gfx/drivers_shader/glslang_util.cpp
+retroarch-1.3.4/gfx/drivers_shader/shader_glsl.c
+retroarch-1.3.4/gfx/font_driver.h
+retroarch-1.3.4/gfx/video_shader_parse.c
+retroarch-1.3.4/gfx/video_filters/
+retroarch-1.3.4/gfx/video_filters/Blargg_NTSC_SNES_RGB.filt
+retroarch-1.3.4/gfx/video_filters/scale2x.c
+retroarch-1.3.4/gfx/video_filters/link.T
+retroarch-1.3.4/gfx/video_filters/supereagle.c
+retroarch-1.3.4/gfx/video_filters/snes_ntsc/
+retroarch-1.3.4/gfx/video_filters/snes_ntsc/snes_ntsc.h
+retroarch-1.3.4/gfx/video_filters/snes_ntsc/snes_ntsc_impl.h
+retroarch-1.3.4/gfx/video_filters/snes_ntsc/snes_ntsc.c
+retroarch-1.3.4/gfx/video_filters/snes_ntsc/snes_ntsc_config.h
+retroarch-1.3.4/gfx/video_filters/Phosphor2x.filt
+retroarch-1.3.4/gfx/video_filters/blargg_ntsc_snes.c
+retroarch-1.3.4/gfx/video_filters/super2xsai.c
+retroarch-1.3.4/gfx/video_filters/2xsai.c
+retroarch-1.3.4/gfx/video_filters/2xBR.filt
+retroarch-1.3.4/gfx/video_filters/lq2x.c
+retroarch-1.3.4/gfx/video_filters/Blargg_NTSC_SNES_S-Video.filt
+retroarch-1.3.4/gfx/video_filters/SuperEagle.filt
+retroarch-1.3.4/gfx/video_filters/2xbr.c
+retroarch-1.3.4/gfx/video_filters/2xSaI.filt
+retroarch-1.3.4/gfx/video_filters/phosphor2x.c
+retroarch-1.3.4/gfx/video_filters/Darken.filt
+retroarch-1.3.4/gfx/video_filters/Scale2x.filt
+retroarch-1.3.4/gfx/video_filters/Super2xSaI.filt
+retroarch-1.3.4/gfx/video_filters/epx.c
+retroarch-1.3.4/gfx/video_filters/LQ2x.filt
+retroarch-1.3.4/gfx/video_filters/EPX.filt
+retroarch-1.3.4/gfx/video_filters/softfilter.h
+retroarch-1.3.4/gfx/video_filters/Blargg_NTSC_SNES_RF.filt
+retroarch-1.3.4/gfx/video_filters/Makefile
+retroarch-1.3.4/gfx/video_filters/darken.c
+retroarch-1.3.4/gfx/video_filters/Blargg_NTSC_SNES_Composite.filt
+retroarch-1.3.4/gfx/d3d/
+retroarch-1.3.4/gfx/d3d/render_chain_null.c
+retroarch-1.3.4/gfx/d3d/d3d.cpp
+retroarch-1.3.4/gfx/d3d/render_chain_xdk.cpp
+retroarch-1.3.4/gfx/d3d/render_chain_driver.h
+retroarch-1.3.4/gfx/d3d/render_chain_cg.cpp
+retroarch-1.3.4/gfx/d3d/render_chain_driver.c
+retroarch-1.3.4/gfx/d3d/d3d.h
+retroarch-1.3.4/gfx/video_thread_wrapper.c
+retroarch-1.3.4/gfx/video_state_python.h
+retroarch-1.3.4/gfx/video_state_tracker.h
+retroarch-1.3.4/gfx/video_thread_wrapper.h
+retroarch-1.3.4/gfx/video_state_python.c
+retroarch-1.3.4/gfx/drivers/
+retroarch-1.3.4/gfx/drivers/psp1_gfx.c
+retroarch-1.3.4/gfx/drivers/omap_gfx.c
+retroarch-1.3.4/gfx/drivers/vg.c
+retroarch-1.3.4/gfx/drivers/vita2d_gfx.c
+retroarch-1.3.4/gfx/drivers/vulkan.c
+retroarch-1.3.4/gfx/drivers/gl.c
+retroarch-1.3.4/gfx/drivers/xvideo.c
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/alpha_blend.vert
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/opaque.vert
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/opaque.vert.inc
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/font.frag.inc
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/alpha_blend.vert.inc
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/font.frag
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/opaque.frag
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/opaque.frag.inc
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/alpha_blend.frag.inc
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/alpha_blend.frag
+retroarch-1.3.4/gfx/drivers/vulkan_shaders/Makefile
+retroarch-1.3.4/gfx/drivers/nullgfx.c
+retroarch-1.3.4/gfx/drivers/xenon360_gfx.c
+retroarch-1.3.4/gfx/drivers/ctr_gfx.c
+retroarch-1.3.4/gfx/drivers/exynos_gfx.c
+retroarch-1.3.4/gfx/drivers/sdl_gfx.c
+retroarch-1.3.4/gfx/drivers/sdl2_gfx.c
+retroarch-1.3.4/gfx/drivers/psp1_gfx.h
+retroarch-1.3.4/gfx/drivers/gx_gfx.c
+retroarch-1.3.4/gfx/drivers/ctr_shaders/
+retroarch-1.3.4/gfx/drivers/ctr_shaders/ctr_sprite.vsh
+retroarch-1.3.4/gfx/drivers/ctr_shaders/ctr_sprite.gsh
+retroarch-1.3.4/gfx/drivers/gx_gfx_vi_encoder.c
+retroarch-1.3.4/gfx/drivers/sunxi_gfx.c
+retroarch-1.3.4/gfx/drivers/ctr_gu.h
+retroarch-1.3.4/gfx/drivers/dispmanx_gfx.c
+retroarch-1.3.4/gfx/drivers/gl_shaders/
+retroarch-1.3.4/gfx/drivers/gl_shaders/core_opaque.glsl.frag.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/pipeline_zahnrad.cg.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/pipeline_xmb_ribbon.glsl.vert.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/opaque.cg.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/core_alpha_blend.glsl.vert.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/pipeline_xmb_ribbon_simple.glsl.frag.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/modern_opaque.glsl.vert.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/core_opaque.glsl.vert.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/pipeline_zahnrad.glsl.vert.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/legacy_opaque.glsl.frag.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/legacy_opaque.glsl.vert.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/pipeline_xmb_ribbon.glsl.frag.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/pipeline_xmb_ribbon_simple.cg.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/modern_alpha_blend.glsl.frag.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/modern_opaque.glsl.frag.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/core_alpha_blend.glsl.frag.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/pipeline_zahnrad.glsl.frag.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/pipeline_xmb_ribbon_simple.glsl.vert.h
+retroarch-1.3.4/gfx/drivers/gl_shaders/modern_alpha_blend.glsl.vert.h
+retroarch-1.3.4/gfx/drivers/d3d_shaders/
+retroarch-1.3.4/gfx/drivers/d3d_shaders/opaque.hlsl.d3d9.h
+retroarch-1.3.4/gfx/drivers/d3d_shaders/opaque.cg.d3d9.h
+retroarch-1.3.4/gfx/drivers/d3d_shaders/font.hlsl.d3d9.h
+retroarch-1.3.4/gfx/include/
+retroarch-1.3.4/gfx/include/d3d9/
+retroarch-1.3.4/gfx/include/d3d9/d3dx9math.inl
+retroarch-1.3.4/gfx/include/d3d9/d3dx9xof.h
+retroarch-1.3.4/gfx/include/d3d9/d3dx9.h
+retroarch-1.3.4/gfx/include/d3d9/d3dx9tex.h
+retroarch-1.3.4/gfx/include/d3d9/d3dx9mesh.h
+retroarch-1.3.4/gfx/include/d3d9/d3dx9effect.h
+retroarch-1.3.4/gfx/include/d3d9/d3dx9shape.h
+retroarch-1.3.4/gfx/include/d3d9/d3dx9math.h
+retroarch-1.3.4/gfx/include/d3d9/d3dx9shader.h
+retroarch-1.3.4/gfx/include/d3d9/d3dx9core.h
+retroarch-1.3.4/gfx/include/d3d9/d3dx9anim.h
+retroarch-1.3.4/gfx/include/Cg/
+retroarch-1.3.4/gfx/include/Cg/cg.h
+retroarch-1.3.4/gfx/include/Cg/cgGL.h
+retroarch-1.3.4/gfx/include/Cg/cgD3D9.h
+retroarch-1.3.4/gfx/include/vulkan/
+retroarch-1.3.4/gfx/include/vulkan/vulkan_intel.h
+retroarch-1.3.4/gfx/include/vulkan/vk_platform.h
+retroarch-1.3.4/gfx/include/vulkan/vulkan.h
+retroarch-1.3.4/gfx/include/vulkan/vk_icd.h
+retroarch-1.3.4/gfx/video_state_tracker.c
+retroarch-1.3.4/gfx/video_shader_parse.h
+retroarch-1.3.4/gfx/drivers_font_renderer/
+retroarch-1.3.4/gfx/drivers_font_renderer/freetype.c
+retroarch-1.3.4/gfx/drivers_font_renderer/bitmap.bin
+retroarch-1.3.4/gfx/drivers_font_renderer/bitmapfont.c
+retroarch-1.3.4/gfx/drivers_font_renderer/bitmap.bmp
+retroarch-1.3.4/gfx/drivers_font_renderer/coretext.c
+retroarch-1.3.4/gfx/drivers_font_renderer/bitmap.h
+retroarch-1.3.4/gfx/drivers_font_renderer/stb.c
+retroarch-1.3.4/gfx/common/
+retroarch-1.3.4/gfx/common/x11_common.c
+retroarch-1.3.4/gfx/common/vulkan_common.c
+retroarch-1.3.4/gfx/common/x11_common.h
+retroarch-1.3.4/gfx/common/vksym.h
+retroarch-1.3.4/gfx/common/drm_common.c
+retroarch-1.3.4/gfx/common/drm_common.h
+retroarch-1.3.4/gfx/common/d3d_common.cpp
+retroarch-1.3.4/gfx/common/win32_common.cpp
+retroarch-1.3.4/gfx/common/gl_common.h
+retroarch-1.3.4/gfx/common/d3d_common.h
+retroarch-1.3.4/gfx/common/egl_common.c
+retroarch-1.3.4/gfx/common/gl_common.c
+retroarch-1.3.4/gfx/common/vulkan_common.h
+retroarch-1.3.4/gfx/common/egl_common.h
+retroarch-1.3.4/gfx/common/win32_common.h
+retroarch-1.3.4/gfx/video_driver.c
+retroarch-1.3.4/gfx/video_shader_driver.c
+retroarch-1.3.4/gfx/video_coord_array.h
+retroarch-1.3.4/gfx/video_coord_array.c
+retroarch-1.3.4/gfx/video_context_driver.c
+retroarch-1.3.4/gfx/video_shader_driver.h
+retroarch-1.3.4/gfx/video_texture_image.c
+retroarch-1.3.4/gfx/drivers_font/
+retroarch-1.3.4/gfx/drivers_font/d3d_w32_font.cpp
+retroarch-1.3.4/gfx/drivers_font/ps_libdbgfont.c
+retroarch-1.3.4/gfx/drivers_font/gl_raster_font.c
+retroarch-1.3.4/gfx/drivers_font/vulkan_raster_font.c
+retroarch-1.3.4/gfx/drivers_font/xdk1_xfonts.c
+retroarch-1.3.4/gfx/drivers_font/xdk360_fonts.cpp
+retroarch-1.3.4/gfx/drivers_font/vita2d_font.c
+retroarch-1.3.4/gfx/video_filter.h
+retroarch-1.3.4/msg_hash.c
+retroarch-1.3.4/msg_hash.h
+retroarch-1.3.4/playlist.h
+retroarch-1.3.4/tasks/
+retroarch-1.3.4/tasks/task_database_cue.c
+retroarch-1.3.4/tasks/task_decompress.c
+retroarch-1.3.4/tasks/tasks_internal.c
+retroarch-1.3.4/tasks/tasks_internal.h
+retroarch-1.3.4/tasks/task_database.c
+retroarch-1.3.4/tasks/task_content.c
+retroarch-1.3.4/tasks/task_http.c
+retroarch-1.3.4/tasks/task_file_transfer.c
+retroarch-1.3.4/tasks/task_overlay.c
+retroarch-1.3.4/cores/
+retroarch-1.3.4/cores/libretro-test-gl/
+retroarch-1.3.4/cores/libretro-test-gl/link.T
+retroarch-1.3.4/cores/libretro-test-gl/libretro_gl_test.c
+retroarch-1.3.4/cores/libretro-test-gl/jni/
+retroarch-1.3.4/cores/libretro-test-gl/jni/Android.mk
+retroarch-1.3.4/cores/libretro-test-gl/jni/Application.mk
+retroarch-1.3.4/cores/libretro-test-gl/Makefile
+retroarch-1.3.4/cores/libretro-test-vulkan/
+retroarch-1.3.4/cores/libretro-test-vulkan/link.T
+retroarch-1.3.4/cores/libretro-test-vulkan/shaders/
+retroarch-1.3.4/cores/libretro-test-vulkan/shaders/triangle.vert.inc
+retroarch-1.3.4/cores/libretro-test-vulkan/shaders/triangle.frag
+retroarch-1.3.4/cores/libretro-test-vulkan/shaders/triangle.frag.inc
+retroarch-1.3.4/cores/libretro-test-vulkan/shaders/triangle.vert
+retroarch-1.3.4/cores/libretro-test-vulkan/shaders/Makefile
+retroarch-1.3.4/cores/libretro-test-vulkan/libretro-test.c
+retroarch-1.3.4/cores/libretro-test-vulkan/Makefile
+retroarch-1.3.4/cores/internal_cores.h
+retroarch-1.3.4/cores/libretro-ffmpeg/
+retroarch-1.3.4/cores/libretro-ffmpeg/ffmpeg_core.c
+retroarch-1.3.4/cores/libretro-ffmpeg/link.T
+retroarch-1.3.4/cores/libretro-ffmpeg/internal_cores.h
+retroarch-1.3.4/cores/libretro-ffmpeg/libretro.h
+retroarch-1.3.4/cores/libretro-ffmpeg/Makefile
+retroarch-1.3.4/cores/libretro-imageviewer/
+retroarch-1.3.4/cores/libretro-imageviewer/internal_cores.h
+retroarch-1.3.4/cores/libretro-imageviewer/image_core.c
+retroarch-1.3.4/cores/retropad/
+retroarch-1.3.4/cores/retropad/link.T
+retroarch-1.3.4/cores/retropad/retropad.c
+retroarch-1.3.4/cores/retropad/jni/
+retroarch-1.3.4/cores/retropad/jni/Android.mk
+retroarch-1.3.4/cores/retropad/jni/Application.mk
+retroarch-1.3.4/cores/retropad/Makefile
+retroarch-1.3.4/cores/libretro-test/
+retroarch-1.3.4/cores/libretro-test/link.T
+retroarch-1.3.4/cores/libretro-test/libretro-test.c
+retroarch-1.3.4/cores/libretro-test/jni/
+retroarch-1.3.4/cores/libretro-test/jni/Android.mk
+retroarch-1.3.4/cores/libretro-test/jni/Application.mk
+retroarch-1.3.4/cores/libretro-test/Makefile
+retroarch-1.3.4/cores/libretro-test-gl-ff/
+retroarch-1.3.4/cores/libretro-test-gl-ff/link.T
+retroarch-1.3.4/cores/libretro-test-gl-ff/libretro_gl_ff_test.c
+retroarch-1.3.4/cores/libretro-test-gl-ff/jni/
+retroarch-1.3.4/cores/libretro-test-gl-ff/jni/Android.mk
+retroarch-1.3.4/cores/libretro-test-gl-ff/jni/Application.mk
+retroarch-1.3.4/cores/libretro-test-gl-ff/Makefile
+retroarch-1.3.4/cores/dynamic_dummy.c
+retroarch-1.3.4/net_http_special.h
+retroarch-1.3.4/driver.h
+retroarch-1.3.4/movie.h
+retroarch-1.3.4/libretro-db/
+retroarch-1.3.4/libretro-db/query.h
+retroarch-1.3.4/libretro-db/query.c
+retroarch-1.3.4/libretro-db/rmsgpack.c
+retroarch-1.3.4/libretro-db/rmsgpack_dom.h
+retroarch-1.3.4/libretro-db/libretrodb.h
+retroarch-1.3.4/libretro-db/README.md
+retroarch-1.3.4/libretro-db/rmsgpack_dom.c
+retroarch-1.3.4/libretro-db/bintree.c
+retroarch-1.3.4/libretro-db/libretrodb_tool.c
+retroarch-1.3.4/libretro-db/bintree.h
+retroarch-1.3.4/libretro-db/libretrodb.c
+retroarch-1.3.4/libretro-db/rmsgpack.h
+retroarch-1.3.4/libretro-db/rmsgpack_test.c
+retroarch-1.3.4/libretro-db/c_converter.c
+retroarch-1.3.4/libretro-db/dat_converter
+retroarch-1.3.4/libretro-db/c_converter_test.sh
+retroarch-1.3.4/libretro-db/Makefile
+retroarch-1.3.4/libretro-db/lua/
+retroarch-1.3.4/libretro-db/lua/tests.lua
+retroarch-1.3.4/libretro-db/lua/testlib.c
+retroarch-1.3.4/libretro-db/lua/lua_common.h
+retroarch-1.3.4/libretro-db/lua/dat_converter.lua
+retroarch-1.3.4/libretro-db/lua/lua_converter.c
+retroarch-1.3.4/libretro-db/lua/lua_common.c
+retroarch-1.3.4/libretro-db/lua/Makefile
+retroarch-1.3.4/intl/
+retroarch-1.3.4/intl/msg_hash_de.c
+retroarch-1.3.4/intl/msg_hash_fr.c
+retroarch-1.3.4/intl/msg_hash_ru.c
+retroarch-1.3.4/intl/msg_hash_eo.c
+retroarch-1.3.4/intl/intl.h
+retroarch-1.3.4/intl/msg_hash_us.c
+retroarch-1.3.4/intl/russian.h
+retroarch-1.3.4/intl/msg_hash_pt.c
+retroarch-1.3.4/intl/english.h
+retroarch-1.3.4/intl/msg_hash_es.c
+retroarch-1.3.4/intl/msg_hash_nl.c
+retroarch-1.3.4/intl/msg_hash_it.c
+retroarch-1.3.4/intl/msg_hash_pl.c
+retroarch-1.3.4/intl/spanish.h
+retroarch-1.3.4/verbosity.h
+retroarch-1.3.4/patch.c
+retroarch-1.3.4/qb/
+retroarch-1.3.4/qb/qb.system.sh
+retroarch-1.3.4/qb/config.comp.sh
+retroarch-1.3.4/qb/qb.comp.sh
+retroarch-1.3.4/qb/qb.params.sh
+retroarch-1.3.4/qb/config.libs.sh
+retroarch-1.3.4/qb/qb.libs.sh
+retroarch-1.3.4/qb/config.params.sh
+retroarch-1.3.4/defaults.h
+retroarch-1.3.4/database_info.c
+retroarch-1.3.4/content.c
+retroarch-1.3.4/core_info.h
+retroarch-1.3.4/patch.h
+retroarch-1.3.4/input/
+retroarch-1.3.4/input/input_joypad_driver.c
+retroarch-1.3.4/input/autoconf/
+retroarch-1.3.4/input/autoconf/builtin_ps3.c
+retroarch-1.3.4/input/autoconf/builtin_xdk.c
+retroarch-1.3.4/input/autoconf/builtin_ctr.c
+retroarch-1.3.4/input/autoconf/builtin_psp.c
+retroarch-1.3.4/input/autoconf/builtin.h
+retroarch-1.3.4/input/autoconf/builtin_gx.c
+retroarch-1.3.4/input/autoconf/builtin_win.c
+retroarch-1.3.4/input/drivers_keyboard/
+retroarch-1.3.4/input/drivers_keyboard/keyboard_event_apple.h
+retroarch-1.3.4/input/drivers_keyboard/keyboard_event_udev.c
+retroarch-1.3.4/input/drivers_keyboard/keyboard_event_android.h
+retroarch-1.3.4/input/drivers_keyboard/keyboard_event_apple.c
+retroarch-1.3.4/input/drivers_keyboard/keyboard_event_win32.cpp
+retroarch-1.3.4/input/drivers_keyboard/keyboard_event_x11.c
+retroarch-1.3.4/input/drivers_keyboard/keyboard_event_xkb.c
+retroarch-1.3.4/input/drivers_keyboard/keyboard_event_udev.h
+retroarch-1.3.4/input/drivers_keyboard/keyboard_event_android.c
+retroarch-1.3.4/input/input_overlay.h
+retroarch-1.3.4/input/input_driver.h
+retroarch-1.3.4/input/drivers_hid/
+retroarch-1.3.4/input/drivers_hid/iohidmanager_hid.c
+retroarch-1.3.4/input/drivers_hid/wiiusb_hid.c
+retroarch-1.3.4/input/drivers_hid/libusb_hid.c
+retroarch-1.3.4/input/drivers_hid/null_hid.c
+retroarch-1.3.4/input/drivers_hid/btstack_hid.c
+retroarch-1.3.4/input/input_driver.c
+retroarch-1.3.4/input/input_joypad_driver.h
+retroarch-1.3.4/input/connect/
+retroarch-1.3.4/input/connect/connect_snesusb.c
+retroarch-1.3.4/input/connect/joypad_connection.c
+retroarch-1.3.4/input/connect/connect_wii.c
+retroarch-1.3.4/input/connect/connect_wiiupro.c
+retroarch-1.3.4/input/connect/connect_wiiugca.c
+retroarch-1.3.4/input/connect/connect_ps2adapter.c
+retroarch-1.3.4/input/connect/connect_ps3.c
+retroarch-1.3.4/input/connect/connect_ps4.c
+retroarch-1.3.4/input/connect/connect_nesusb.c
+retroarch-1.3.4/input/connect/joypad_connection.h
+retroarch-1.3.4/input/input_keymaps.c
+retroarch-1.3.4/input/input_config.h
+retroarch-1.3.4/input/input_keyboard.h
+retroarch-1.3.4/input/input_remapping.c
+retroarch-1.3.4/input/input_keymaps.h
+retroarch-1.3.4/input/input_defines.h
+retroarch-1.3.4/input/drivers/
+retroarch-1.3.4/input/drivers/qnx_input.c
+retroarch-1.3.4/input/drivers/android_input.c
+retroarch-1.3.4/input/drivers/gx_input.c
+retroarch-1.3.4/input/drivers/rwebinput_input.c
+retroarch-1.3.4/input/drivers/dinput.c
+retroarch-1.3.4/input/drivers/psp_input.c
+retroarch-1.3.4/input/drivers/cocoa_input.h
+retroarch-1.3.4/input/drivers/x11_input.c
+retroarch-1.3.4/input/drivers/ps3_input.c
+retroarch-1.3.4/input/drivers/xenon360_input.c
+retroarch-1.3.4/input/drivers/udev_input.c
+retroarch-1.3.4/input/drivers/xdk_xinput_input.c
+retroarch-1.3.4/input/drivers/nullinput.c
+retroarch-1.3.4/input/drivers/cocoa_input.c
+retroarch-1.3.4/input/drivers/ctr_input.c
+retroarch-1.3.4/input/drivers/linuxraw_input.c
+retroarch-1.3.4/input/drivers/sdl_input.c
+retroarch-1.3.4/input/drivers_joypad/
+retroarch-1.3.4/input/drivers_joypad/qnx_joypad.c
+retroarch-1.3.4/input/drivers_joypad/gx_joypad.c
+retroarch-1.3.4/input/drivers_joypad/mfi_joypad.m
+retroarch-1.3.4/input/drivers_joypad/xinput_joypad.c
+retroarch-1.3.4/input/drivers_joypad/xdk_joypad.c
+retroarch-1.3.4/input/drivers_joypad/sdl_joypad.c
+retroarch-1.3.4/input/drivers_joypad/psp_joypad.c
+retroarch-1.3.4/input/drivers_joypad/hid_joypad.c
+retroarch-1.3.4/input/drivers_joypad/dinput_joypad.c
+retroarch-1.3.4/input/drivers_joypad/parport_joypad.c
+retroarch-1.3.4/input/drivers_joypad/ps3_joypad.c
+retroarch-1.3.4/input/drivers_joypad/udev_joypad.c
+retroarch-1.3.4/input/drivers_joypad/ctr_joypad.c
+retroarch-1.3.4/input/drivers_joypad/null_joypad.c
+retroarch-1.3.4/input/drivers_joypad/linuxraw_joypad.c
+retroarch-1.3.4/input/drivers_joypad/android_joypad.c
+retroarch-1.3.4/input/include/
+retroarch-1.3.4/input/include/GameController/
+retroarch-1.3.4/input/include/GameController/GameController.h
+retroarch-1.3.4/input/include/GameController/GCGamepadSnapshot.h
+retroarch-1.3.4/input/include/GameController/GCGamepad.h
+retroarch-1.3.4/input/include/GameController/GCControllerElement.h
+retroarch-1.3.4/input/include/GameController/GCControllerDirectionPad.h
+retroarch-1.3.4/input/include/GameController/GCExtendedGamepad.h
+retroarch-1.3.4/input/include/GameController/GCController.h
+retroarch-1.3.4/input/include/GameController/GCExtendedGamepadSnapshot.h
+retroarch-1.3.4/input/include/GameController/GCControllerButtonInput.h
+retroarch-1.3.4/input/include/GameController/GCControllerAxisInput.h
+retroarch-1.3.4/input/input_overlay.c
+retroarch-1.3.4/input/input_autodetect.c
+retroarch-1.3.4/input/common/
+retroarch-1.3.4/input/common/epoll_common.h
+retroarch-1.3.4/input/common/input_x11_common.h
+retroarch-1.3.4/input/common/linux_common.c
+retroarch-1.3.4/input/common/linux_common.h
+retroarch-1.3.4/input/common/epoll_common.c
+retroarch-1.3.4/input/common/input_x11_common.c
+retroarch-1.3.4/input/input_keyboard.c
+retroarch-1.3.4/input/input_autodetect.h
+retroarch-1.3.4/input/input_hid_driver.h
+retroarch-1.3.4/input/input_remapping.h
+retroarch-1.3.4/input/input_hid_driver.c
+retroarch-1.3.4/input/input_config.c
+retroarch-1.3.4/Makefile.win
+retroarch-1.3.4/fetch-submodules.sh
+retroarch-1.3.4/net_http_special.c
+retroarch-1.3.4/rewind.h
+retroarch-1.3.4/system.h
+retroarch-1.3.4/movie.c
+retroarch-1.3.4/.gitmodules
+retroarch-1.3.4/record/
+retroarch-1.3.4/record/record_driver.h
+retroarch-1.3.4/record/drivers/
+retroarch-1.3.4/record/drivers/record_null.c
+retroarch-1.3.4/record/drivers/record_ffmpeg.c
+retroarch-1.3.4/record/record_driver.c
+retroarch-1.3.4/Makefile.ps3.salamander
+retroarch-1.3.4/Makefile.pandora
+retroarch-1.3.4/Makefile.griffin
+retroarch-1.3.4/content.h
+retroarch-1.3.4/.project
+retroarch-1.3.4/netlogger.c
+retroarch-1.3.4/dynamic.h
+retroarch-1.3.4/README-OMAP.md
+retroarch-1.3.4/ctr/
+retroarch-1.3.4/ctr/ctr_memory.c
+retroarch-1.3.4/ctr/assets/
+retroarch-1.3.4/ctr/assets/nestopia.png
+retroarch-1.3.4/ctr/assets/fmsx.png
+retroarch-1.3.4/ctr/assets/genesis_plus_gx.png
+retroarch-1.3.4/ctr/assets/silent.wav
+retroarch-1.3.4/ctr/assets/fb_alpha_neo.png
+retroarch-1.3.4/ctr/assets/picodrive.png
+retroarch-1.3.4/ctr/assets/default.png
+retroarch-1.3.4/ctr/assets/2048.png
+retroarch-1.3.4/ctr/assets/pocketsnes.png
+retroarch-1.3.4/ctr/assets/quicknes.png
+retroarch-1.3.4/ctr/assets/mednafen_ngp.png
+retroarch-1.3.4/ctr/assets/catsfc_banner.png
+retroarch-1.3.4/ctr/assets/mednafen_vb.png
+retroarch-1.3.4/ctr/assets/pocketsnes_banner.png
+retroarch-1.3.4/ctr/assets/mame.png
+retroarch-1.3.4/ctr/assets/gpsp.png
+retroarch-1.3.4/ctr/assets/gambatte.png
+retroarch-1.3.4/ctr/assets/mednafen_pce_fast.png
+retroarch-1.3.4/ctr/assets/libretro_banner.png
+retroarch-1.3.4/ctr/assets/catsfc.png
+retroarch-1.3.4/ctr/assets/dosbox.png
+retroarch-1.3.4/ctr/assets/mednafen_wswan.png
+retroarch-1.3.4/ctr/assets/pcsx_rearmed.png
+retroarch-1.3.4/ctr/assets/catsfc_plus.png
+retroarch-1.3.4/ctr/assets/mgba.png
+retroarch-1.3.4/ctr/assets/nxengine.png
+retroarch-1.3.4/ctr/assets/fceumm.png
+retroarch-1.3.4/ctr/assets/picodrive_banner.png
+retroarch-1.3.4/ctr/assets/snes9x_next.png
+retroarch-1.3.4/ctr/assets/fb_alpha_cps1.png
+retroarch-1.3.4/ctr/assets/fb_alpha_cps2.png
+retroarch-1.3.4/ctr/Makefile.cores
+retroarch-1.3.4/ctr/ctr_system.c
+retroarch-1.3.4/ctr/ctr_svchax.c
+retroarch-1.3.4/ctr/3dsx_custom.specs
+retroarch-1.3.4/ctr/3dsx_custom_crt0.s
+retroarch-1.3.4/ctr/big_text_section.xml
+retroarch-1.3.4/ctr/ctr_linear.cpp
+retroarch-1.3.4/ctr/ctr_debug.h
+retroarch-1.3.4/ctr/tools/
+retroarch-1.3.4/ctr/tools/bannertool.exe
+retroarch-1.3.4/ctr/tools/makerom-mac
+retroarch-1.3.4/ctr/tools/template.rsf
+retroarch-1.3.4/ctr/tools/makerom.exe
+retroarch-1.3.4/ctr/tools/bannertool-linux
+retroarch-1.3.4/ctr/tools/makerom-linux
+retroarch-1.3.4/ctr/tools/bannertool-mac
+retroarch-1.3.4/libretro.h
+retroarch-1.3.4/camera/
+retroarch-1.3.4/camera/camera_driver.c
+retroarch-1.3.4/camera/drivers/
+retroarch-1.3.4/camera/drivers/rwebcam.c
+retroarch-1.3.4/camera/drivers/nullcamera.c
+retroarch-1.3.4/camera/drivers/android.c
+retroarch-1.3.4/camera/drivers/video4linux2.c
+retroarch-1.3.4/camera/camera_driver.h
+retroarch-1.3.4/frontend/
+retroarch-1.3.4/frontend/frontend_driver.c
+retroarch-1.3.4/frontend/frontend_driver.h
+retroarch-1.3.4/frontend/frontend_salamander.c
+retroarch-1.3.4/frontend/frontend.h
+retroarch-1.3.4/frontend/drivers/
+retroarch-1.3.4/frontend/drivers/platform_gx.c
+retroarch-1.3.4/frontend/drivers/platform_wii.c
+retroarch-1.3.4/frontend/drivers/platform_xdk.cpp
+retroarch-1.3.4/frontend/drivers/platform_xenon.c
+retroarch-1.3.4/frontend/drivers/platform_null.c
+retroarch-1.3.4/frontend/drivers/platform_linux.c
+retroarch-1.3.4/frontend/drivers/platform_ps3.c
+retroarch-1.3.4/frontend/drivers/platform_win32.c
+retroarch-1.3.4/frontend/drivers/platform_linux.h
+retroarch-1.3.4/frontend/drivers/platform_emscripten.c
+retroarch-1.3.4/frontend/drivers/platform_psp.c
+retroarch-1.3.4/frontend/drivers/platform_ctr.c
+retroarch-1.3.4/frontend/drivers/platform_qnx.c
+retroarch-1.3.4/frontend/drivers/platform_darwin.m
+retroarch-1.3.4/frontend/frontend.c
+retroarch-1.3.4/docs/
+retroarch-1.3.4/docs/retroarch.1
+retroarch-1.3.4/docs/retroarch-cg2glsl.1
+retroarch-1.3.4/docs/retroarch-joyconfig.1
+retroarch-1.3.4/CONTRIBUTING.md
+retroarch-1.3.4/Makefile.common
+retroarch-1.3.4/cheevos.c
+retroarch-1.3.4/command_event.h
+retroarch-1.3.4/git_version.h
+retroarch-1.3.4/remote.c
+retroarch-1.3.4/ui/
+retroarch-1.3.4/ui/ui_companion_driver.c
+retroarch-1.3.4/ui/drivers/
+retroarch-1.3.4/ui/drivers/ui_cocoatouch.m
+retroarch-1.3.4/ui/drivers/cocoa/
+retroarch-1.3.4/ui/drivers/cocoa/cocoa_common.m
+retroarch-1.3.4/ui/drivers/cocoa/cocoatouch_menu.m
+retroarch-1.3.4/ui/drivers/cocoa/cocoa_common.h
+retroarch-1.3.4/ui/drivers/ui_win32.c
+retroarch-1.3.4/ui/drivers/ui_win32_resource.h
+retroarch-1.3.4/ui/drivers/ui_null.c
+retroarch-1.3.4/ui/drivers/qt/
+retroarch-1.3.4/ui/drivers/qt/wimp/
+retroarch-1.3.4/ui/drivers/qt/wimp/wimp.h
+retroarch-1.3.4/ui/drivers/qt/wimp/wimp.pro
+retroarch-1.3.4/ui/drivers/qt/wimp/wimp_global.h
+retroarch-1.3.4/ui/drivers/qt/wimp/qml.qrc
+retroarch-1.3.4/ui/drivers/qt/wimp/wimp.cpp
+retroarch-1.3.4/ui/drivers/qt/wimp/main.qml
+retroarch-1.3.4/ui/drivers/qt/wrapper/
+retroarch-1.3.4/ui/drivers/qt/wrapper/deployment.pri
+retroarch-1.3.4/ui/drivers/qt/wrapper/wrapper.pro
+retroarch-1.3.4/ui/drivers/qt/wrapper/wrapper.h
+retroarch-1.3.4/ui/drivers/qt/wrapper/wrapper.cpp
+retroarch-1.3.4/ui/drivers/qt/wimp-test/
+retroarch-1.3.4/ui/drivers/qt/wimp-test/main.cpp
+retroarch-1.3.4/ui/drivers/qt/wimp-test/wimp-test.pro
+retroarch-1.3.4/ui/drivers/ui_qt.c
+retroarch-1.3.4/ui/drivers/ui_cocoa.m
+retroarch-1.3.4/ui/ui_companion_driver.h
+retroarch-1.3.4/retroarch.c
+retroarch-1.3.4/command_event.c
+retroarch-1.3.4/deps/
+retroarch-1.3.4/deps/stb/
+retroarch-1.3.4/deps/stb/stb_truetype.h
+retroarch-1.3.4/deps/stb/stb_image.h
+retroarch-1.3.4/deps/stb/stb_rect_pack.h
+retroarch-1.3.4/deps/zlib/
+retroarch-1.3.4/deps/zlib/inffixed.h
+retroarch-1.3.4/deps/zlib/gzlib.c
+retroarch-1.3.4/deps/zlib/gzwrite.c
+retroarch-1.3.4/deps/zlib/trees.h
+retroarch-1.3.4/deps/zlib/inffast.c
+retroarch-1.3.4/deps/zlib/deflate.h
+retroarch-1.3.4/deps/zlib/zconf.h
+retroarch-1.3.4/deps/zlib/trees.c
+retroarch-1.3.4/deps/zlib/uncompr.c
+retroarch-1.3.4/deps/zlib/gzguts.h
+retroarch-1.3.4/deps/zlib/inftrees.c
+retroarch-1.3.4/deps/zlib/zconf.h.in
+retroarch-1.3.4/deps/zlib/inflate.h
+retroarch-1.3.4/deps/zlib/inflate.c
+retroarch-1.3.4/deps/zlib/inffast.h
+retroarch-1.3.4/deps/zlib/gzread.c
+retroarch-1.3.4/deps/zlib/adler32.c
+retroarch-1.3.4/deps/zlib/gzclose.c
+retroarch-1.3.4/deps/zlib/gzfile.h
+retroarch-1.3.4/deps/zlib/crc32.c
+retroarch-1.3.4/deps/zlib/compress.c
+retroarch-1.3.4/deps/zlib/infback.c
+retroarch-1.3.4/deps/zlib/deflate.c
+retroarch-1.3.4/deps/zlib/zutil.c
+retroarch-1.3.4/deps/zlib/inftrees.h
+retroarch-1.3.4/deps/7zip/
+retroarch-1.3.4/deps/7zip/7zStream.c
+retroarch-1.3.4/deps/7zip/RotateDefs.h
+retroarch-1.3.4/deps/7zip/Types.h
+retroarch-1.3.4/deps/7zip/7zBuf.h
+retroarch-1.3.4/deps/7zip/7zVersion.h
+retroarch-1.3.4/deps/7zip/7z.h
+retroarch-1.3.4/deps/7zip/7zFile.c
+retroarch-1.3.4/deps/7zip/Lzma2Dec.h
+retroarch-1.3.4/deps/7zip/7zFile.h
+retroarch-1.3.4/deps/7zip/LzmaDec.h
+retroarch-1.3.4/deps/7zip/7zIn.c
+retroarch-1.3.4/deps/7zip/Bra.c
+retroarch-1.3.4/deps/7zip/7zBuf.c
+retroarch-1.3.4/deps/7zip/7zCrc.h
+retroarch-1.3.4/deps/7zip/7zCrc.c
+retroarch-1.3.4/deps/7zip/CpuArch.h
+retroarch-1.3.4/deps/7zip/Bra86.c
+retroarch-1.3.4/deps/7zip/7zDec.c
+retroarch-1.3.4/deps/7zip/Bra.h
+retroarch-1.3.4/deps/7zip/7zAlloc.h
+retroarch-1.3.4/deps/7zip/Lzma2Dec.c
+retroarch-1.3.4/deps/7zip/7zAlloc.c
+retroarch-1.3.4/deps/7zip/Bcj2.c
+retroarch-1.3.4/deps/7zip/LzmaDec.c
+retroarch-1.3.4/deps/7zip/7zCrcOpt.c
+retroarch-1.3.4/deps/7zip/Bcj2.h
+retroarch-1.3.4/deps/7zip/7zBuf2.c
+retroarch-1.3.4/deps/spir2cross/
+retroarch-1.3.4/deps/glslang/
+retroarch-1.3.4/deps/glslang/glslang.hpp
+retroarch-1.3.4/deps/glslang/glslang.cpp
+retroarch-1.3.4/deps/glslang/glslang/
+retroarch-1.3.4/deps/zahnrad/
+retroarch-1.3.4/deps/zahnrad/nuklear.h
+retroarch-1.3.4/Makefile.wii.salamander
+retroarch-1.3.4/memory/
+retroarch-1.3.4/memory/neon/
+retroarch-1.3.4/memory/neon/memcpy-neon.S
+retroarch-1.3.4/memory/ngc/
+retroarch-1.3.4/memory/ngc/ssaram.h
+retroarch-1.3.4/memory/ngc/ssaram.c
+retroarch-1.3.4/memory/wii/
+retroarch-1.3.4/memory/wii/mem2_manager.h
+retroarch-1.3.4/memory/wii/mem2_manager.c
+retroarch-1.3.4/command.h
+retroarch-1.3.4/Makefile.openpandora
+retroarch-1.3.4/autosave.h
+retroarch-1.3.4/retroarch.desktop
+retroarch-1.3.4/wii/
+retroarch-1.3.4/wii/app_booter/
+retroarch-1.3.4/wii/app_booter/elf_abi.h
+retroarch-1.3.4/wii/app_booter/link.ld
+retroarch-1.3.4/wii/app_booter/main.c
+retroarch-1.3.4/wii/app_booter/crt0.s
+retroarch-1.3.4/wii/app_booter/Makefile
+retroarch-1.3.4/Makefile.psp1.salamander
+retroarch-1.3.4/command.c
+retroarch-1.3.4/lakka.h
+retroarch-1.3.4/.empty
+retroarch-1.3.4/configuration.h
+retroarch-1.3.4/location/
+retroarch-1.3.4/location/location_driver.h
+retroarch-1.3.4/location/drivers/
+retroarch-1.3.4/location/drivers/nulllocation.c
+retroarch-1.3.4/location/drivers/android.c
+retroarch-1.3.4/location/location_driver.c
+retroarch-1.3.4/rewind.c
+retroarch-1.3.4/emscripten/
+retroarch-1.3.4/emscripten/template.html
+retroarch-1.3.4/emscripten/modernizr.js
+retroarch-1.3.4/emscripten/browserfs.js
+retroarch-1.3.4/emscripten/library_rwebaudio.js
+retroarch-1.3.4/emscripten/library_rwebinput.js
+retroarch-1.3.4/emscripten/library_rwebcam.js
+retroarch-1.3.4/emscripten/browserfs.min.js
+retroarch-1.3.4/emscripten/web.js
+retroarch-1.3.4/emscripten/template2.html
+retroarch-1.3.4/libretro_vulkan.h
+retroarch-1.3.4/autosave.c
+retroarch-1.3.4/.gitignore
+retroarch-1.3.4/cheats.c
+retroarch-1.3.4/config_file_userdata.c
+retroarch-1.3.4/performance.c
+retroarch-1.3.4/core_info.c
+retroarch-1.3.4/runloop.h
+retroarch-1.3.4/media/
+retroarch-1.3.4/media/render-ios-icons.sh
+retroarch-1.3.4/media/retroarch-16x16.png
+retroarch-1.3.4/media/retroarch-16x16.ico
+retroarch-1.3.4/media/rarch.rc
+retroarch-1.3.4/media/retroarch-96x96.png
+retroarch-1.3.4/media/icon_dark.ico
+retroarch-1.3.4/media/retroarch.icns
+retroarch-1.3.4/media/retroarch.svg
+retroarch-1.3.4/media/rarch.manifest
+retroarch-1.3.4/media/android/
+retroarch-1.3.4/media/android/dark/
+retroarch-1.3.4/media/android/dark/res/
+retroarch-1.3.4/media/android/dark/res/mipmap-mdpi/
+retroarch-1.3.4/media/android/dark/res/mipmap-mdpi/ic_launcher.png
+retroarch-1.3.4/media/android/dark/res/mipmap-xxhdpi/
+retroarch-1.3.4/media/android/dark/res/mipmap-xxhdpi/ic_launcher.png
+retroarch-1.3.4/media/android/dark/res/mipmap-hdpi/
+retroarch-1.3.4/media/android/dark/res/mipmap-hdpi/ic_launcher.png
+retroarch-1.3.4/media/android/dark/res/mipmap-xxxhdpi/
+retroarch-1.3.4/media/android/dark/res/mipmap-xxxhdpi/ic_launcher.png
+retroarch-1.3.4/media/android/dark/res/mipmap-xhdpi/
+retroarch-1.3.4/media/android/dark/res/mipmap-xhdpi/ic_launcher.png
+retroarch-1.3.4/media/android/dark/web_hi_res_512.png
+retroarch-1.3.4/media/android/light/
+retroarch-1.3.4/media/android/light/res/
+retroarch-1.3.4/media/android/light/res/mipmap-mdpi/
+retroarch-1.3.4/media/android/light/res/mipmap-mdpi/ic_launcher.png
+retroarch-1.3.4/media/android/light/res/mipmap-xxhdpi/
+retroarch-1.3.4/media/android/light/res/mipmap-xxhdpi/ic_launcher.png
+retroarch-1.3.4/media/android/light/res/mipmap-hdpi/
+retroarch-1.3.4/media/android/light/res/mipmap-hdpi/ic_launcher.png
+retroarch-1.3.4/media/android/light/res/mipmap-xxxhdpi/
+retroarch-1.3.4/media/android/light/res/mipmap-xxxhdpi/ic_launcher.png
+retroarch-1.3.4/media/android/light/res/mipmap-xhdpi/
+retroarch-1.3.4/media/android/light/res/mipmap-xhdpi/ic_launcher.png
+retroarch-1.3.4/media/android/light/web_hi_res_512.png
+retroarch-1.3.4/media/invader_light.png
+retroarch-1.3.4/media/invader_dark.png
+retroarch-1.3.4/media/icon_light.ico
+retroarch-1.3.4/Makefile.ctr
+retroarch-1.3.4/cheats.h
+retroarch-1.3.4/core_options.h
+retroarch-1.3.4/Makefile.ps3
+retroarch-1.3.4/netplay/
+retroarch-1.3.4/netplay/netplay_spectate.c
+retroarch-1.3.4/netplay/netplay.c
+retroarch-1.3.4/netplay/netplay.h
+retroarch-1.3.4/netplay/netplay_private.h
+retroarch-1.3.4/netplay/netplay_net.c
+retroarch-1.3.4/netplay/netplay_common.c
+retroarch-1.3.4/.git/
+retroarch-1.3.4/.git/refs/
+retroarch-1.3.4/.git/refs/tags/
+retroarch-1.3.4/.git/refs/heads/
+retroarch-1.3.4/.git/refs/remotes/
+retroarch-1.3.4/.git/refs/remotes/origin/
+retroarch-1.3.4/.git/refs/remotes/origin/HEAD
+retroarch-1.3.4/.git/branches/
+retroarch-1.3.4/.git/packed-refs
+retroarch-1.3.4/.git/index
+retroarch-1.3.4/.git/HEAD
+retroarch-1.3.4/.git/logs/
+retroarch-1.3.4/.git/logs/refs/
+retroarch-1.3.4/.git/logs/refs/remotes/
+retroarch-1.3.4/.git/logs/refs/remotes/origin/
+retroarch-1.3.4/.git/logs/refs/remotes/origin/HEAD
+retroarch-1.3.4/.git/logs/HEAD
+retroarch-1.3.4/.git/description
+retroarch-1.3.4/.git/objects/
+retroarch-1.3.4/.git/objects/pack/
+retroarch-1.3.4/.git/objects/pack/pack-e1f6696c3dbe5adfadff35bee82790d6d1a2167b.idx
+retroarch-1.3.4/.git/objects/pack/pack-e1f6696c3dbe5adfadff35bee82790d6d1a2167b.pack
+retroarch-1.3.4/.git/objects/info/
+retroarch-1.3.4/.git/hooks/
+retroarch-1.3.4/.git/hooks/commit-msg.sample
+retroarch-1.3.4/.git/hooks/pre-rebase.sample
+retroarch-1.3.4/.git/hooks/pre-applypatch.sample
+retroarch-1.3.4/.git/hooks/update.sample
+retroarch-1.3.4/.git/hooks/pre-push.sample
+retroarch-1.3.4/.git/hooks/prepare-commit-msg.sample
+retroarch-1.3.4/.git/hooks/pre-commit.sample
+retroarch-1.3.4/.git/hooks/post-update.sample
+retroarch-1.3.4/.git/hooks/applypatch-msg.sample
+retroarch-1.3.4/.git/info/
+retroarch-1.3.4/.git/info/exclude
+retroarch-1.3.4/.git/config
+retroarch-1.3.4/tools/
+retroarch-1.3.4/tools/ps3/
+retroarch-1.3.4/tools/ps3/ps3py/
+retroarch-1.3.4/tools/ps3/ps3py/crypt.c
+retroarch-1.3.4/tools/ps3/ps3py/pkg.py
+retroarch-1.3.4/tools/ps3/ps3py/setup.py
+retroarch-1.3.4/tools/cg2glsl.py
+retroarch-1.3.4/tools/gas-preprocessor.pl
+retroarch-1.3.4/configure
+retroarch-1.3.4/libretro_version_1.h
+retroarch-1.3.4/Makefile.psp1
+retroarch-1.3.4/dist-scripts/
+retroarch-1.3.4/dist-scripts/xdk360_env.bat
+retroarch-1.3.4/dist-scripts/xdk1_env_bigstack.bat
+retroarch-1.3.4/dist-scripts/xdk1_env.bat
+retroarch-1.3.4/dist-scripts/xdk360-cores.sh
+retroarch-1.3.4/dist-scripts/dist-cores.sh
+retroarch-1.3.4/dist-scripts/xdk1-cores.sh
+retroarch-1.3.4/driver.c
+retroarch-1.3.4/README-mali_fbdev_r4p0.md
+retroarch-1.3.4/playlist.c
+retroarch-1.3.4/audio/
+retroarch-1.3.4/audio/audio_driver.c
+retroarch-1.3.4/audio/audio_thread_wrapper.c
+retroarch-1.3.4/audio/audio_thread_wrapper.h
+retroarch-1.3.4/audio/audio_utils_neon.S
+retroarch-1.3.4/audio/audio_dsp_filter.h
+retroarch-1.3.4/audio/test/
+retroarch-1.3.4/audio/test/test-rate-control.sh
+retroarch-1.3.4/audio/test/sinc_test.m
+retroarch-1.3.4/audio/test/modified_bessel.m
+retroarch-1.3.4/audio/test/kaiser_window.m
+retroarch-1.3.4/audio/test/main.c
+retroarch-1.3.4/audio/test/snr.c
+retroarch-1.3.4/audio/test/Makefile
+retroarch-1.3.4/audio/audio_resampler_driver.c
+retroarch-1.3.4/audio/audio_resampler_driver.h
+retroarch-1.3.4/audio/audio_utils.h
+retroarch-1.3.4/audio/librsound.c
+retroarch-1.3.4/audio/drivers_resampler/
+retroarch-1.3.4/audio/drivers_resampler/null_resampler.c
+retroarch-1.3.4/audio/drivers_resampler/nearest_resampler.c
+retroarch-1.3.4/audio/drivers_resampler/sinc_resampler.c
+retroarch-1.3.4/audio/drivers_resampler/cc_resampler_neon.S
+retroarch-1.3.4/audio/drivers_resampler/cc_resampler.c
+retroarch-1.3.4/audio/drivers_resampler/sinc_resampler_neon.S
+retroarch-1.3.4/audio/audio_driver.h
+retroarch-1.3.4/audio/audio_dsp_filter.c
+retroarch-1.3.4/audio/drivers/
+retroarch-1.3.4/audio/drivers/alsa_qsa.c
+retroarch-1.3.4/audio/drivers/ctr_csnd_audio.c
+retroarch-1.3.4/audio/drivers/sdl_audio.c
+retroarch-1.3.4/audio/drivers/jack.c
+retroarch-1.3.4/audio/drivers/alsathread.c
+retroarch-1.3.4/audio/drivers/rsound.c
+retroarch-1.3.4/audio/drivers/pulse.c
+retroarch-1.3.4/audio/drivers/psp_audio.c
+retroarch-1.3.4/audio/drivers/gx_audio.c
+retroarch-1.3.4/audio/drivers/ps3_audio.c
+retroarch-1.3.4/audio/drivers/xaudio.h
+retroarch-1.3.4/audio/drivers/xaudio.cpp
+retroarch-1.3.4/audio/drivers/dsound.c
+retroarch-1.3.4/audio/drivers/roar.c
+retroarch-1.3.4/audio/drivers/xenon360_audio.c
+retroarch-1.3.4/audio/drivers/nullaudio.c
+retroarch-1.3.4/audio/drivers/ctr_dsp_audio.c
+retroarch-1.3.4/audio/drivers/openal.c
+retroarch-1.3.4/audio/drivers/coreaudio.c
+retroarch-1.3.4/audio/drivers/oss.c
+retroarch-1.3.4/audio/drivers/alsa.c
+retroarch-1.3.4/audio/drivers/rsound.h
+retroarch-1.3.4/audio/drivers/opensl.c
+retroarch-1.3.4/audio/drivers/rwebaudio.c
+retroarch-1.3.4/audio/audio_filters/
+retroarch-1.3.4/audio/audio_filters/LowPassCPS.dsp
+retroarch-1.3.4/audio/audio_filters/Reverb.dsp
+retroarch-1.3.4/audio/audio_filters/WahWah.dsp
+retroarch-1.3.4/audio/audio_filters/wahwah.c
+retroarch-1.3.4/audio/audio_filters/link.T
+retroarch-1.3.4/audio/audio_filters/chorus.c
+retroarch-1.3.4/audio/audio_filters/reverb.c
+retroarch-1.3.4/audio/audio_filters/IIR.dsp
+retroarch-1.3.4/audio/audio_filters/dspfilter.h
+retroarch-1.3.4/audio/audio_filters/EchoReverb.dsp
+retroarch-1.3.4/audio/audio_filters/echo.c
+retroarch-1.3.4/audio/audio_filters/panning.c
+retroarch-1.3.4/audio/audio_filters/Echo.dsp
+retroarch-1.3.4/audio/audio_filters/Chorus.dsp
+retroarch-1.3.4/audio/audio_filters/Panning.dsp
+retroarch-1.3.4/audio/audio_filters/phaser.c
+retroarch-1.3.4/audio/audio_filters/fft/
+retroarch-1.3.4/audio/audio_filters/fft/fft.c
+retroarch-1.3.4/audio/audio_filters/fft/fft.h
+retroarch-1.3.4/audio/audio_filters/eq.c
+retroarch-1.3.4/audio/audio_filters/iir.c
+retroarch-1.3.4/audio/audio_filters/EQ.dsp
+retroarch-1.3.4/audio/audio_filters/Makefile
+retroarch-1.3.4/audio/audio_filters/BassBoost.dsp
+retroarch-1.3.4/audio/audio_filters/HighShelfDampen.dsp
+retroarch-1.3.4/audio/audio_filters/Phaser.dsp
+retroarch-1.3.4/audio/audio_utils.c
+retroarch-1.3.4/cheevos.h
+retroarch-1.3.4/core_options.c
+retroarch-1.3.4/bootstrap/
+retroarch-1.3.4/bootstrap/gx/
+retroarch-1.3.4/bootstrap/gx/rvl.ld
+retroarch-1.3.4/bootstrap/gx/ogc.ld
+retroarch-1.3.4/bootstrap/psp1/
+retroarch-1.3.4/bootstrap/psp1/kernel_functions_prx/
+retroarch-1.3.4/bootstrap/psp1/kernel_functions_prx/kernel_functions.exp
+retroarch-1.3.4/bootstrap/psp1/kernel_functions_prx/main.c
+retroarch-1.3.4/bootstrap/psp1/kernel_functions_prx/kernel_functions.h
+retroarch-1.3.4/bootstrap/psp1/kernel_functions_prx/Makefile
+retroarch-1.3.4/Makefile
+retroarch-1.3.4/runloop.c
+retroarch-1.3.4/file_path_special.c
+retroarch-1.3.4/performance.h
+retroarch-1.3.4/screenshot.c
+retroarch-1.3.4/no-xib.diff
+retroarch-1.3.4/Makefile.psl1ght
+
+==> Updating changelog
+libdistro-info-perl is not installed, Debian release names are not known.
+libdistro-info-perl is not installed, Ubuntu release names are not known.
+[?1049h[1;17r(B[m[4l[?7h[?1h=[?1h=[?1h=[39;49m[?25l[39;49m(B[m[H[2J[15;30H(B[0;7m[ Reading File ][3d(B[m[15;29H(B[0;7m[ Read 32 lines[3d(B[m[?12l[?25h[H[39;49m(B[0;7m  GNU nano 2.5.3          File: debian/changelog                          [3;1H(B[mretroarch (1.3.4+git+bsos2) brewmaster; urgency=low[5;3H* New release[7d -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 23 May 2016 17:5$[9;1Hretroarch (1.3.1+git+bsos2) brewmaster; urgency=low[11;3H* Enabled joypad autoconfig (upstream borked it)[12;3H* Set autoconfig path to traditional /usr/share/libretro/autoconfig[13;3H* Packaged deb for SteamOS-Tools[14;3H* See: packages.libregeek.org[16d(B[0;7m^G(B[m Get Help   (B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut Text   (B[0;7m^J(B[m Justify[17d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Uncut Text (B[0;7m^T(B[m To Spell[3d[15d[J[17;74H[17;1H[?1049l[?1l>
+==> Building Debian package retroarch from source
+
+dpkg-checkbuilddeps: Unmet build dependencies: build-essential:native debhelper (>= 9) libasound2-dev libavcodec-dev libavdevice-dev libavformat-dev libavutil-dev libc6-dev (>= 2.13) libdrm-dev libegl1-mesa-dev libfreetype6-dev libgbm-dev libjack-jackd2-dev libopenal-dev libpulse-dev libsdl2-dev libswscale-dev libudev-dev libusb-1.0-0-dev libv4l-dev libxinerama-dev libxml2-dev libxv-dev libxxf86vm-dev lsb-release nvidia-cg-dev pkg-config python3-dev x11proto-xext-dev zlib1g-dev
+W: Unmet build-dependency in source
+dpkg-buildpackage: source package retroarch
+dpkg-buildpackage: source version 1.3.4+git+bsos2
+dpkg-buildpackage: source distribution brewmaster
+dpkg-buildpackage: source changed by SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+ dpkg-source --before-build retroarch-1.3.4
+ fakeroot debian/rules clean
+dh clean --parallel
+   dh_testdir -O--parallel
+   debian/rules override_dh_auto_clean
+make[1]: Entering directory '/home/mikeyd/build-retroarch-temp/retroarch-1.3.4'
+touch config.mk
+dh_auto_clean
+make[2]: Entering directory '/home/mikeyd/build-retroarch-temp/retroarch-1.3.4'
+rm -rf obj-unix
+rm -f retroarch
+rm -f *.d
+make[2]: Leaving directory '/home/mikeyd/build-retroarch-temp/retroarch-1.3.4'
+dh_auto_clean -- -C gfx/video_filters/ clean
+make[2]: Entering directory '/home/mikeyd/build-retroarch-temp/retroarch-1.3.4/gfx/video_filters'
+rm -f *.o
+rm -f *.so
+make[2]: 'clean' is up to date.
+make[2]: Leaving directory '/home/mikeyd/build-retroarch-temp/retroarch-1.3.4/gfx/video_filters'
+dh_auto_clean -- -C audio/audio_filters/ clean
+make[2]: Entering directory '/home/mikeyd/build-retroarch-temp/retroarch-1.3.4/audio/audio_filters'
+rm -f *.o
+rm -f *.so
+make[2]: 'clean' is up to date.
+make[2]: Leaving directory '/home/mikeyd/build-retroarch-temp/retroarch-1.3.4/audio/audio_filters'
+make[1]: Leaving directory '/home/mikeyd/build-retroarch-temp/retroarch-1.3.4'
+   dh_clean -O--parallel
+ dpkg-source -b retroarch-1.3.4
+dpkg-source: info: using source format `3.0 (native)'
+dpkg-source: info: building retroarch in retroarch_1.3.4+git+bsos2.tar.xz
+dpkg-source: info: building retroarch in retroarch_1.3.4+git+bsos2.dsc
+ dpkg-genchanges -S >../retroarch_1.3.4+git+bsos2_source.changes
+dpkg-genchanges: including full source code in upload
+ dpkg-source --after-build retroarch-1.3.4
+dpkg-buildpackage: source-only upload: Debian-native package
+I: using fakeroot in build.
+I: pbuilder: network access will be disabled during build
+I: Current time: Mon May 23 17:58:42 EDT 2016
+I: pbuilder-time-stamp: 1464040722
+I: Building the build Environment
+I: extracting base tarball [/var/cache/pbuilder/brewmaster-amd64-base.tgz]
+I: copying local configuration
+W: No local /etc/mailname to copy, relying on /var/cache/pbuilder/brewmaster/build/14925/etc/mailname to be correct
+I: mounting /proc filesystem
+I: mounting /run/shm filesystem
+I: mounting /dev/pts filesystem
+I: policy-rc.d already exists
+W: no hooks of type H found -- ignoring
+I: Obtaining the cached apt archive contents
+I: Installing the build-deps
+I: user script /var/cache/pbuilder/brewmaster/build/14925/tmp/hooks/D10-check-multiarch starting
+I: CUSTOM ACTION (Multiarch): Checking for multi-arch support
+I: CUSTOM ACTION (Multiarch): Multiarch not found
+I: CUSTOM ACTION (Multiarch): Multiarch [Added]
+I: user script /var/cache/pbuilder/brewmaster/build/14925/tmp/hooks/D10-check-multiarch finished
+I: user script /var/cache/pbuilder/brewmaster/build/14925/tmp/hooks/D20steamos-tools-hook.sh starting
+I: STEAMOS-TOOLS: Adding repository configuration
+I: STEAMOS-TOOLS: Updating package listings
+I: STEAMOS-TOOLS: Repository validation [PASSED]
+I: user script /var/cache/pbuilder/brewmaster/build/14925/tmp/hooks/D20steamos-tools-hook.sh finished
+ -> Attempting to satisfy build-dependencies
+ -> Creating pbuilder-satisfydepends-dummy package
+Package: pbuilder-satisfydepends-dummy
+Version: 0.invalid.0
+Architecture: amd64
+Maintainer: Debian Pbuilder Team <pbuilder-maint@lists.alioth.debian.org>
+Description: Dummy package to satisfy dependencies with aptitude - created by pbuilder
+ This package was created automatically by pbuilder to satisfy the
+ build-dependencies of the package being currently built.
+Depends: debhelper (>= 9), libasound2-dev, libavcodec-dev, libavdevice-dev, libavformat-dev, libavutil-dev, libc6-dev (>= 2.13), libdrm-dev, libegl1-mesa-dev, libfreetype6-dev, libgbm-dev, libjack-jackd2-dev, libopenal-dev, libpulse-dev, libsdl2-dev, libswscale-dev, libudev-dev, libusb-1.0-0-dev, libv4l-dev, libxinerama-dev, libxml2-dev, libxv-dev, libxxf86vm-dev, lsb-release, nvidia-cg-dev, pkg-config, python3-dev, x11proto-xext-dev, zlib1g-dev
+dpkg-deb: building package `pbuilder-satisfydepends-dummy' in `/tmp/satisfydepends-aptitude/pbuilder-satisfydepends-dummy.deb'.
+Selecting previously unselected package pbuilder-satisfydepends-dummy.
+(Reading database ... 13727 files and directories currently installed.)
+Preparing to unpack .../pbuilder-satisfydepends-dummy.deb ...
+Unpacking pbuilder-satisfydepends-dummy (0.invalid.0) ...
+dpkg: pbuilder-satisfydepends-dummy: dependency problems, but configuring anyway as you requested:
+ pbuilder-satisfydepends-dummy depends on debhelper (>= 9); however:
+  Package debhelper is not installed.
+ pbuilder-satisfydepends-dummy depends on libasound2-dev; however:
+  Package libasound2-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libavcodec-dev; however:
+  Package libavcodec-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libavdevice-dev; however:
+  Package libavdevice-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libavformat-dev; however:
+  Package libavformat-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libavutil-dev; however:
+  Package libavutil-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libdrm-dev; however:
+  Package libdrm-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libegl1-mesa-dev; however:
+  Package libegl1-mesa-dev is not installed.
+ pbuilder-satisfydepends-dummy depends on libfreetype6-
+Setting up pbuilder-satisfydepends-dummy (0.invalid.0) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Initializing package states...
+Writing extended state information...
+Building tag database...
+The following NEW packages will be installed:
+  bsdmainutils{a} debhelper{a} gettext{a} gettext-base{a} groff-base{a} 
+  intltool-debian{a} libasound2{a} libasound2-data{a} libasound2-dev{a} 
+  libasprintf0c2{a} libasyncns0{a} libavahi-client-dev{a} 
+  libavahi-client3{a} libavahi-common-data{a} libavahi-common-dev{a} 
+  libavahi-common3{a} libavcodec-dev{a} libavcodec56{a} libavdevice-dev{a} 
+  libavdevice55{a} libavformat-dev{a} libavformat56{a} libavresample-dev{a} 
+  libavresample2{a} libavutil-dev{a} libavutil54{a} libcdio-cdda1{a} 
+  libcdio-paranoia1{a} libcdio13{a} libcg{a} libcggl{a} libcroco3{a} 
+  libdbus-1-3{a} libdbus-1-dev{a} libdc1394-22{a} libdrm-dev{a} 
+  libdrm-intel1{a} libdrm-nouveau2{a} libdrm-radeon1{a} libdrm2{a} 
+  libegl1-mesa{a} libegl1-mesa-dev{a} libelfg0{a} libexpat1-dev{a} 
+  libflac8{a} libfreetype6{a} libfreetype6-dev{a} libgbm-dev{a} libgbm1{a} 
+  libgl1-mesa-dev{a} libgl1-mesa-glx{a} libglapi-mesa{a} libgles2-mesa{a} 
+  libgles2-mesa-dev{a} libglib2.0-0{a} libglib2.0-bin{a} libglib2.0-data{a} 
+  libglib2.0-dev{a} libglu1-mesa{a} libglu1-mesa-dev{a} libgsm1{a} 
+  libice-dev{a} libice6{a} libjack-jackd2-0{a} libjack-jackd2-dev{a} 
+  libjpeg62-turbo{a} libjson-c2{a} libmp3lame0{a} libogg0{a} 
+  libopenal-data{a} libopenal-dev{a} libopenal1{a} libopenjpeg5{a} 
+  libopus0{a} liborc-0.4-0{a} libpciaccess0{a} libpcre3-dev{a} 
+  libpcrecpp0{a} libpipeline1{a} libpng12-0{a} libpng12-dev{a} 
+  libpthread-stubs0-dev{a} libpulse-dev{a} libpulse-mainloop-glib0{a} 
+  libpulse0{a} libpython-stdlib{a} libpython2.7-minimal{a} 
+  libpython2.7-stdlib{a} libpython3-dev{a} libpython3.4{a} 
+  libpython3.4-dev{a} libraw1394-11{a} librtmp1{a} libsamplerate0{a} 
+  libschroedinger-1.0-0{a} libsdl2-2.0-0{a} libsdl2-dev{a} libsm-dev{a} 
+  libsm6{a} libsndfile1{a} libspeex1{a} libswscale-dev{a} libswscale3{a} 
+  libtheora0{a} libudev-dev{a} libunistring0{a} libusb-1.0-0{a} 
+  libusb-1.0-0-dev{a} libv4l-0{a} libv4l-dev{a} libv4l2rds0{a} 
+  libv4lconvert0{a} libva1{a} libvorbis0a{a} libvorbisenc2{a} libvpx1{a} 
+  libwayland-client0{a} libwayland-cursor0{a} libwayland-dev{a} 
+  libwayland-egl1-mesa{a} libwayland-server0{a} libwrap0{a} libx11-6{a} 
+  libx11-data{a} libx11-dev{a} libx11-xcb-dev{a} libx11-xcb1{a} 
+  libx264-142{a} libxau-dev{a} libxau6{a} libxcb-dri2-0{a} 
+  libxcb-dri2-0-dev{a} libxcb-dri3-0{a} libxcb-dri3-dev{a} libxcb-glx0{a} 
+  libxcb-glx0-dev{a} libxcb-present-dev{a} libxcb-present0{a} 
+  libxcb-randr0{a} libxcb-randr0-dev{a} libxcb-render0{a} 
+  libxcb-render0-dev{a} libxcb-shape0{a} libxcb-shape0-dev{a} 
+  libxcb-sync-dev{a} libxcb-sync1{a} libxcb-xfixes0{a} 
+  libxcb-xfixes0-dev{a} libxcb1{a} libxcb1-dev{a} libxcursor-dev{a} 
+  libxcursor1{a} libxdamage-dev{a} libxdamage1{a} libxdmcp-dev{a} 
+  libxdmcp6{a} libxext-dev{a} libxext6{a} libxfixes-dev{a} libxfixes3{a} 
+  libxi-dev{a} libxi6{a} libxinerama-dev{a} libxinerama1{a} 
+  libxkbcommon-dev{a} libxkbcommon0{a} libxml2{a} libxml2-dev{a} 
+  libxrandr-dev{a} libxrandr2{a} libxrender-dev{a} libxrender1{a} 
+  libxshmfence-dev{a} libxshmfence1{a} libxss-dev{a} libxss1{a} 
+  libxt-dev{a} libxt6{a} libxtst6{a} libxv-dev{a} libxv1{a} libxvidcore4{a} 
+  libxxf86vm-dev{a} libxxf86vm1{a} lsb-release{a} man-db{a} 
+  mesa-common-dev{a} nvidia-cg-dev{a} pkg-config{a} po-debconf{a} python{a} 
+  python-minimal{a} python2.7{a} python2.7-minimal{a} python3-dev{a} 
+  python3.4-dev{a} x11-common{a} x11proto-core-dev{a} 
+  x11proto-damage-dev{a} x11proto-dri2-dev{a} x11proto-fixes-dev{a} 
+  x11proto-gl-dev{a} x11proto-input-dev{a} x11proto-kb-dev{a} 
+  x11proto-randr-dev{a} x11proto-render-dev{a} x11proto-scrnsaver-dev{a} 
+  x11proto-video-dev{a} x11proto-xext-dev{a} x11proto-xf86vidmode-dev{a} 
+  x11proto-xinerama-dev{a} xkb-data{a} xorg-sgml-doctools{a} xtrans-dev{a} 
+  zlib1g-dev{a} 
+The following packages will be upgraded:
+  libpcre3 
+1 packages upgraded, 215 newly installed, 0 to remove and 11 not upgraded.
+Need to get 0 B/93.3 MB of archives. After unpacking 250 MB will be used.
+Writing extended state information...
+debconf: delaying package configuration, since apt-utils is not installed
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13727 files and directories currently installed.)
+Preparing to unpack .../libpcre3_2%3a8.35-3.3+deb8u4+bsos1_amd64.deb ...
+Unpacking libpcre3:amd64 (2:8.35-3.3+deb8u4+bsos1) over (2:8.35-3.3+deb8u2+bsos1) ...
+Setting up libpcre3:amd64 (2:8.35-3.3+deb8u4+bsos1) ...
+Processing triggers for libc-bin (2.19-18+steamos1+deb8u3+bsos1) ...
+Selecting previously unselected package libpipeline1:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 13727 files and directories currently installed.)
+Preparing to unpack .../libpipeline1_1.4.0-1+bsos3_amd64.deb ...
+Unpacking libpipeline1:amd64 (1.4.0-1+bsos3) ...
+Selecting previously unselected package groff-base.
+Preparing to unpack .../groff-base_1.22.2-8+bsos3_amd64.deb ...
+Unpacking groff-base (1.22.2-8+bsos3) ...
+Selecting previously unselected package bsdmainutils.
+Preparing to unpack .../bsdmainutils_9.0.6+bsos3_amd64.deb ...
+Unpacking bsdmainutils (9.0.6+bsos3) ...
+Selecting previously unselected package man-db.
+Preparing to unpack .../man-db_2.7.0.2-5+bsos3_amd64.deb ...
+Unpacking man-db (2.7.0.2-5+bsos3) ...
+Selecting previously unselected package libasprintf0c2:amd64.
+Preparing to unpack .../libasprintf0c2_0.19.3-2+bsos2_amd64.deb ...
+Unpacking libasprintf0c2:amd64 (0.19.3-2+bsos2) ...
+Selecting previously unselected package libwrap0:amd64.
+Preparing to unpack .../libwrap0_7.6.q-25+bsos5_amd64.deb ...
+Unpacking libwrap0:amd64 (7.6.q-25+bsos5) ...
+Selecting previously unselected package libxml2:amd64.
+Preparing to unpack .../libxml2_2.9.1+dfsg1-5+deb8u1+bsos1_amd64.deb ...
+Unpacking libxml2:amd64 (2.9.1+dfsg1-5+deb8u1+bsos1) ...
+Selecting previously unselected package libpython2.7-minimal:amd64.
+Preparing to unpack .../libpython2.7-minimal_2.7.9-2+bsos2_amd64.deb ...
+Unpacking libpython2.7-minimal:amd64 (2.7.9-2+bsos2) ...
+Selecting previously unselected package python2.7-minimal.
+Preparing to unpack .../python2.7-minimal_2.7.9-2+bsos2_amd64.deb ...
+Unpacking python2.7-minimal (2.7.9-2+bsos2) ...
+Selecting previously unselected package python-minimal.
+Preparing to unpack .../python-minimal_2.7.9-1+bsos4_amd64.deb ...
+Unpacking python-minimal (2.7.9-1+bsos4) ...
+Selecting previously unselected package libpython2.7-stdlib:amd64.
+Preparing to unpack .../libpython2.7-stdlib_2.7.9-2+bsos2_amd64.deb ...
+Unpacking libpython2.7-stdlib:amd64 (2.7.9-2+bsos2) ...
+Selecting previously unselected package python2.7.
+Preparing to unpack .../python2.7_2.7.9-2+bsos2_amd64.deb ...
+Unpacking python2.7 (2.7.9-2+bsos2) ...
+Selecting previously unselected package libpython-stdlib:amd64.
+Preparing to unpack .../libpython-stdlib_2.7.9-1+bsos4_amd64.deb ...
+Unpacking libpython-stdlib:amd64 (2.7.9-1+bsos4) ...
+Processing triggers for mime-support (3.58+bsos3) ...
+Setting up libpython2.7-minimal:amd64 (2.7.9-2+bsos2) ...
+Setting up python2.7-minimal (2.7.9-2+bsos2) ...
+Setting up python-minimal (2.7.9-1+bsos4) ...
+Selecting previously unselected package python.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 15052 files and directories currently installed.)
+Preparing to unpack .../python_2.7.9-1+bsos4_amd64.deb ...
+Unpacking python (2.7.9-1+bsos4) ...
+Selecting previously unselected package libasound2-data.
+Preparing to unpack .../libasound2-data_1.0.28-1+bsos3_all.deb ...
+Unpacking libasound2-data (1.0.28-1+bsos3) ...
+Selecting previously unselected package libasound2:amd64.
+Preparing to unpack .../libasound2_1.0.28-1+bsos3_amd64.deb ...
+Unpacking libasound2:amd64 (1.0.28-1+bsos3) ...
+Selecting previously unselected package libasyncns0:amd64.
+Preparing to unpack .../libasyncns0_0.8-5+bsos3_amd64.deb ...
+Unpacking libasyncns0:amd64 (0.8-5+bsos3) ...
+Selecting previously unselected package libavahi-common-data:amd64.
+Preparing to unpack .../libavahi-common-data_0.6.31-5+bsos1_amd64.deb ...
+Unpacking libavahi-common-data:amd64 (0.6.31-5+bsos1) ...
+Selecting previously unselected package libavahi-common3:amd64.
+Preparing to unpack .../libavahi-common3_0.6.31-5+bsos1_amd64.deb ...
+Unpacking libavahi-common3:amd64 (0.6.31-5+bsos1) ...
+Selecting previously unselected package libdbus-1-3:amd64.
+Preparing to unpack .../libdbus-1-3_1.8.20-0+deb8u1+bsos1_amd64.deb ...
+Unpacking libdbus-1-3:amd64 (1.8.20-0+deb8u1+bsos1) ...
+Selecting previously unselected package libavahi-client3:amd64.
+Preparing to unpack .../libavahi-client3_0.6.31-5+bsos1_amd64.deb ...
+Unpacking libavahi-client3:amd64 (0.6.31-5+bsos1) ...
+Selecting previously unselected package libavutil54:amd64.
+Preparing to unpack .../libavutil54_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavutil54:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libavresample2:amd64.
+Preparing to unpack .../libavresample2_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavresample2:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libgsm1:amd64.
+Preparing to unpack .../libgsm1_1.0.13-4+bsos3_amd64.deb ...
+Unpacking libgsm1:amd64 (1.0.13-4+bsos3) ...
+Selecting previously unselected package libmp3lame0:amd64.
+Preparing to unpack .../libmp3lame0_3.99.5+repack1-7+deb8u1+bsos1_amd64.deb ...
+Unpacking libmp3lame0:amd64 (3.99.5+repack1-7+deb8u1+bsos1) ...
+Selecting previously unselected package libopenjpeg5:amd64.
+Preparing to unpack .../libopenjpeg5_1%3a1.5.2-32+bsos1_amd64.deb ...
+Unpacking libopenjpeg5:amd64 (1:1.5.2-32+bsos1) ...
+Selecting previously unselected package libopus0:amd64.
+Preparing to unpack .../libopus0_1.1-2+bsos3_amd64.deb ...
+Unpacking libopus0:amd64 (1.1-2+bsos3) ...
+Selecting previously unselected package liborc-0.4-0:amd64.
+Preparing to unpack .../liborc-0.4-0_1%3a0.4.22-1+bsos3_amd64.deb ...
+Unpacking liborc-0.4-0:amd64 (1:0.4.22-1+bsos3) ...
+Selecting previously unselected package libschroedinger-1.0-0:amd64.
+Preparing to unpack .../libschroedinger-1.0-0_1.0.11-2.1+bsos3_amd64.deb ...
+Unpacking libschroedinger-1.0-0:amd64 (1.0.11-2.1+bsos3) ...
+Selecting previously unselected package libspeex1:amd64.
+Preparing to unpack .../libspeex1_1.2~rc1.2-1+bsos3_amd64.deb ...
+Unpacking libspeex1:amd64 (1.2~rc1.2-1+bsos3) ...
+Selecting previously unselected package libogg0:amd64.
+Preparing to unpack .../libogg0_1.3.2-1+bsos3_amd64.deb ...
+Unpacking libogg0:amd64 (1.3.2-1+bsos3) ...
+Selecting previously unselected package libtheora0:amd64.
+Preparing to unpack .../libtheora0_1.1.1+dfsg.1-62+bsos1_amd64.deb ...
+Unpacking libtheora0:amd64 (1.1.1+dfsg.1-62+bsos1) ...
+Selecting previously unselected package libva1:amd64.
+Preparing to unpack .../libva1_1.4.1-1+steamos1+bsos1_amd64.deb ...
+Unpacking libva1:amd64 (1.4.1-1+steamos1+bsos1) ...
+Selecting previously unselected package libvorbis0a:amd64.
+Preparing to unpack .../libvorbis0a_1.3.4-2+bsos3_amd64.deb ...
+Unpacking libvorbis0a:amd64 (1.3.4-2+bsos3) ...
+Selecting previously unselected package libvorbisenc2:amd64.
+Preparing to unpack .../libvorbisenc2_1.3.4-2+bsos3_amd64.deb ...
+Unpacking libvorbisenc2:amd64 (1.3.4-2+bsos3) ...
+Selecting previously unselected package libvpx1:amd64.
+Preparing to unpack .../libvpx1_1.3.0-3+bsos3_amd64.deb ...
+Unpacking libvpx1:amd64 (1.3.0-3+bsos3) ...
+Selecting previously unselected package libx264-142:amd64.
+Preparing to unpack .../libx264-142_2%3a0.142.2431+gita5831aa-1+bsos3_amd64.deb ...
+Unpacking libx264-142:amd64 (2:0.142.2431+gita5831aa-1+bsos3) ...
+Selecting previously unselected package libxvidcore4:amd64.
+Preparing to unpack .../libxvidcore4_2%3a1.3.3-1+bsos3_amd64.deb ...
+Unpacking libxvidcore4:amd64 (2:1.3.3-1+bsos3) ...
+Selecting previously unselected package libavcodec56:amd64.
+Preparing to unpack .../libavcodec56_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavcodec56:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package librtmp1:amd64.
+Preparing to unpack .../librtmp1_2.4+20150115.gita107cef-1+bsos3_amd64.deb ...
+Unpacking librtmp1:amd64 (2.4+20150115.gita107cef-1+bsos3) ...
+Selecting previously unselected package libavformat56:amd64.
+Preparing to unpack .../libavformat56_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavformat56:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libcdio13.
+Preparing to unpack .../libcdio13_0.83-4.2+bsos3_amd64.deb ...
+Unpacking libcdio13 (0.83-4.2+bsos3) ...
+Selecting previously unselected package libcdio-cdda1.
+Preparing to unpack .../libcdio-cdda1_0.83-4.2+bsos3_amd64.deb ...
+Unpacking libcdio-cdda1 (0.83-4.2+bsos3) ...
+Selecting previously unselected package libcdio-paranoia1.
+Preparing to unpack .../libcdio-paranoia1_0.83-4.2+bsos3_amd64.deb ...
+Unpacking libcdio-paranoia1 (0.83-4.2+bsos3) ...
+Selecting previously unselected package libraw1394-11:amd64.
+Preparing to unpack .../libraw1394-11_2.1.0-3+bsos3_amd64.deb ...
+Unpacking libraw1394-11:amd64 (2.1.0-3+bsos3) ...
+Selecting previously unselected package libusb-1.0-0:amd64.
+Preparing to unpack .../libusb-1.0-0_2%3a1.0.19-1+bsos2_amd64.deb ...
+Unpacking libusb-1.0-0:amd64 (2:1.0.19-1+bsos2) ...
+Selecting previously unselected package libdc1394-22:amd64.
+Preparing to unpack .../libdc1394-22_2.2.3-1+bsos3_amd64.deb ...
+Unpacking libdc1394-22:amd64 (2.2.3-1+bsos3) ...
+Selecting previously unselected package libsamplerate0:amd64.
+Preparing to unpack .../libsamplerate0_0.1.8-8+bsos3_amd64.deb ...
+Unpacking libsamplerate0:amd64 (0.1.8-8+bsos3) ...
+Selecting previously unselected package libjack-jackd2-0:amd64.
+Preparing to unpack .../libjack-jackd2-0_1.9.10+20140719git3eb0ae6a~dfsg-2+bsos3_amd64.deb ...
+Unpacking libjack-jackd2-0:amd64 (1.9.10+20140719git3eb0ae6a~dfsg-2+bsos3) ...
+Selecting previously unselected package x11-common.
+Preparing to unpack .../x11-common_1%3a7.7+7+bsos2_all.deb ...
+Unpacking x11-common (1:7.7+7+bsos2) ...
+Selecting previously unselected package libice6:amd64.
+Preparing to unpack .../libice6_2%3a1.0.9-1+bsos3_amd64.deb ...
+Unpacking libice6:amd64 (2:1.0.9-1+bsos3) ...
+Selecting previously unselected package libjson-c2:amd64.
+Preparing to unpack .../libjson-c2_0.11-4+bsos3_amd64.deb ...
+Unpacking libjson-c2:amd64 (0.11-4+bsos3) ...
+Selecting previously unselected package libsm6:amd64.
+Preparing to unpack .../libsm6_2%3a1.2.2-1+bsos3_amd64.deb ...
+Unpacking libsm6:amd64 (2:1.2.2-1+bsos3) ...
+Selecting previously unselected package libflac8:amd64.
+Preparing to unpack .../libflac8_1.3.0-3+bsos3_amd64.deb ...
+Unpacking libflac8:amd64 (1.3.0-3+bsos3) ...
+Selecting previously unselected package libsndfile1:amd64.
+Preparing to unpack .../libsndfile1_1.0.25-9.1+deb8u1+bsos1_amd64.deb ...
+Unpacking libsndfile1:amd64 (1.0.25-9.1+deb8u1+bsos1) ...
+Selecting previously unselected package libxau6:amd64.
+Preparing to unpack .../libxau6_1%3a1.0.8-1+bsos3_amd64.deb ...
+Unpacking libxau6:amd64 (1:1.0.8-1+bsos3) ...
+Selecting previously unselected package libxdmcp6:amd64.
+Preparing to unpack .../libxdmcp6_1%3a1.1.1-1_amd64.deb ...
+Unpacking libxdmcp6:amd64 (1:1.1.1-1) ...
+Selecting previously unselected package libxcb1:amd64.
+Preparing to unpack .../libxcb1_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb1:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libx11-data.
+Preparing to unpack .../libx11-data_2%3a1.6.2-3+bsos3_all.deb ...
+Unpacking libx11-data (2:1.6.2-3+bsos3) ...
+Selecting previously unselected package libx11-6:amd64.
+Preparing to unpack .../libx11-6_2%3a1.6.2-3+bsos3_amd64.deb ...
+Unpacking libx11-6:amd64 (2:1.6.2-3+bsos3) ...
+Selecting previously unselected package libx11-xcb1:amd64.
+Preparing to unpack .../libx11-xcb1_2%3a1.6.2-3+bsos3_amd64.deb ...
+Unpacking libx11-xcb1:amd64 (2:1.6.2-3+bsos3) ...
+Selecting previously unselected package libxext6:amd64.
+Preparing to unpack .../libxext6_2%3a1.3.3-1+bsos3_amd64.deb ...
+Unpacking libxext6:amd64 (2:1.3.3-1+bsos3) ...
+Selecting previously unselected package libxi6:amd64.
+Preparing to unpack .../libxi6_2%3a1.7.4-1+bsos2_amd64.deb ...
+Unpacking libxi6:amd64 (2:1.7.4-1+bsos2) ...
+Selecting previously unselected package libxtst6:amd64.
+Preparing to unpack .../libxtst6_2%3a1.2.2-1+bsos3_amd64.deb ...
+Unpacking libxtst6:amd64 (2:1.2.2-1+bsos3) ...
+Selecting previously unselected package libpulse0:amd64.
+Preparing to unpack .../libpulse0_5.0-13+streamos7+bsos1_amd64.deb ...
+Unpacking libpulse0:amd64 (5.0-13+streamos7+bsos1) ...
+Selecting previously unselected package libxfixes3:amd64.
+Preparing to unpack .../libxfixes3_1%3a5.0.1-2+bsos3_amd64.deb ...
+Unpacking libxfixes3:amd64 (1:5.0.1-2+bsos3) ...
+Selecting previously unselected package libavdevice55:amd64.
+Preparing to unpack .../libavdevice55_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavdevice55:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libglib2.0-0:amd64.
+Preparing to unpack .../libglib2.0-0_2.42.1-1+bsos3_amd64.deb ...
+Unpacking libglib2.0-0:amd64 (2.42.1-1+bsos3) ...
+Selecting previously unselected package libcroco3:amd64.
+Preparing to unpack .../libcroco3_0.6.8-3+bsos2_amd64.deb ...
+Unpacking libcroco3:amd64 (0.6.8-3+bsos2) ...
+Selecting previously unselected package libdrm2:amd64.
+Preparing to unpack .../libdrm2_2.4.62-1+bsos1_amd64.deb ...
+Unpacking libdrm2:amd64 (2.4.62-1+bsos1) ...
+Selecting previously unselected package libpciaccess0:amd64.
+Preparing to unpack .../libpciaccess0_0.13.2-3+bsos3_amd64.deb ...
+Unpacking libpciaccess0:amd64 (0.13.2-3+bsos3) ...
+Selecting previously unselected package libdrm-intel1:amd64.
+Preparing to unpack .../libdrm-intel1_2.4.62-1+bsos1_amd64.deb ...
+Unpacking libdrm-intel1:amd64 (2.4.62-1+bsos1) ...
+Selecting previously unselected package libdrm-nouveau2:amd64.
+Preparing to unpack .../libdrm-nouveau2_2.4.62-1+bsos1_amd64.deb ...
+Unpacking libdrm-nouveau2:amd64 (2.4.62-1+bsos1) ...
+Selecting previously unselected package libdrm-radeon1:amd64.
+Preparing to unpack .../libdrm-radeon1_2.4.62-1+bsos1_amd64.deb ...
+Unpacking libdrm-radeon1:amd64 (2.4.62-1+bsos1) ...
+Selecting previously unselected package libwayland-client0:amd64.
+Preparing to unpack .../libwayland-client0_1.6.0-2+bsos3_amd64.deb ...
+Unpacking libwayland-client0:amd64 (1.6.0-2+bsos3) ...
+Selecting previously unselected package libwayland-server0:amd64.
+Preparing to unpack .../libwayland-server0_1.6.0-2+bsos3_amd64.deb ...
+Unpacking libwayland-server0:amd64 (1.6.0-2+bsos3) ...
+Selecting previously unselected package libgbm1:amd64.
+Preparing to unpack .../libgbm1_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libgbm1:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package libxcb-dri2-0:amd64.
+Preparing to unpack .../libxcb-dri2-0_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-dri2-0:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-render0:amd64.
+Preparing to unpack .../libxcb-render0_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-render0:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-shape0:amd64.
+Preparing to unpack .../libxcb-shape0_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-shape0:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-xfixes0:amd64.
+Preparing to unpack .../libxcb-xfixes0_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-xfixes0:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libegl1-mesa:amd64.
+Preparing to unpack .../libegl1-mesa_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libegl1-mesa:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package libelfg0:amd64.
+Preparing to unpack .../libelfg0_0.8.13-5+bsos3_amd64.deb ...
+Unpacking libelfg0:amd64 (0.8.13-5+bsos3) ...
+Selecting previously unselected package libpng12-0:amd64.
+Preparing to unpack .../libpng12-0_1.2.50-2+deb8u2+bsos1_amd64.deb ...
+Unpacking libpng12-0:amd64 (1.2.50-2+deb8u2+bsos1) ...
+Selecting previously unselected package libfreetype6:amd64.
+Preparing to unpack .../libfreetype6_2.5.2-3+deb8u1+bsos1_amd64.deb ...
+Unpacking libfreetype6:amd64 (2.5.2-3+deb8u1+bsos1) ...
+Selecting previously unselected package libglapi-mesa:amd64.
+Preparing to unpack .../libglapi-mesa_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libglapi-mesa:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package libxcb-dri3-0:amd64.
+Preparing to unpack .../libxcb-dri3-0_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-dri3-0:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-glx0:amd64.
+Preparing to unpack .../libxcb-glx0_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-glx0:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-present0:amd64.
+Preparing to unpack .../libxcb-present0_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-present0:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-sync1:amd64.
+Preparing to unpack .../libxcb-sync1_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-sync1:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxdamage1:amd64.
+Preparing to unpack .../libxdamage1_1%3a1.1.4-2+bsos3_amd64.deb ...
+Unpacking libxdamage1:amd64 (1:1.1.4-2+bsos3) ...
+Selecting previously unselected package libxshmfence1:amd64.
+Preparing to unpack .../libxshmfence1_1.1-4+bsos2_amd64.deb ...
+Unpacking libxshmfence1:amd64 (1.1-4+bsos2) ...
+Selecting previously unselected package libxxf86vm1:amd64.
+Preparing to unpack .../libxxf86vm1_1%3a1.1.3-1+bsos2_amd64.deb ...
+Unpacking libxxf86vm1:amd64 (1:1.1.3-1+bsos2) ...
+Selecting previously unselected package libgl1-mesa-glx:amd64.
+Preparing to unpack .../libgl1-mesa-glx_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libgl1-mesa-glx:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package libgles2-mesa:amd64.
+Preparing to unpack .../libgles2-mesa_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libgles2-mesa:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package libglu1-mesa:amd64.
+Preparing to unpack .../libglu1-mesa_9.0.0-2+bsos3_amd64.deb ...
+Unpacking libglu1-mesa:amd64 (9.0.0-2+bsos3) ...
+Selecting previously unselected package libopenal-data.
+Preparing to unpack .../libopenal-data_1%3a1.15.1-5+bsos2_all.deb ...
+Unpacking libopenal-data (1:1.15.1-5+bsos2) ...
+Selecting previously unselected package libopenal1:amd64.
+Preparing to unpack .../libopenal1_1%3a1.15.1-5+bsos2_amd64.deb ...
+Unpacking libopenal1:amd64 (1:1.15.1-5+bsos2) ...
+Selecting previously unselected package libpcrecpp0:amd64.
+Preparing to unpack .../libpcrecpp0_2%3a8.35-3.3+deb8u4+bsos1_amd64.deb ...
+Unpacking libpcrecpp0:amd64 (2:8.35-3.3+deb8u4+bsos1) ...
+Selecting previously unselected package libpulse-mainloop-glib0:amd64.
+Preparing to unpack .../libpulse-mainloop-glib0_5.0-13+streamos7+bsos1_amd64.deb ...
+Unpacking libpulse-mainloop-glib0:amd64 (5.0-13+streamos7+bsos1) ...
+Selecting previously unselected package libpython3.4:amd64.
+Preparing to unpack .../libpython3.4_3.4.2-1+bsos2_amd64.deb ...
+Unpacking libpython3.4:amd64 (3.4.2-1+bsos2) ...
+Selecting previously unselected package libexpat1-dev:amd64.
+Preparing to unpack .../libexpat1-dev_2.1.0-6+deb8u1+bsos1_amd64.deb ...
+Unpacking libexpat1-dev:amd64 (2.1.0-6+deb8u1+bsos1) ...
+Selecting previously unselected package libpython3.4-dev:amd64.
+Preparing to unpack .../libpython3.4-dev_3.4.2-1+bsos2_amd64.deb ...
+Unpacking libpython3.4-dev:amd64 (3.4.2-1+bsos2) ...
+Selecting previously unselected package libwayland-cursor0:amd64.
+Preparing to unpack .../libwayland-cursor0_1.6.0-2+bsos3_amd64.deb ...
+Unpacking libwayland-cursor0:amd64 (1.6.0-2+bsos3) ...
+Selecting previously unselected package libwayland-egl1-mesa:amd64.
+Preparing to unpack .../libwayland-egl1-mesa_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libwayland-egl1-mesa:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package libxrender1:amd64.
+Preparing to unpack .../libxrender1_1%3a0.9.8-1+bsos3_amd64.deb ...
+Unpacking libxrender1:amd64 (1:0.9.8-1+bsos3) ...
+Selecting previously unselected package libxcursor1:amd64.
+Preparing to unpack .../libxcursor1_1%3a1.1.14-1+bsos3_amd64.deb ...
+Unpacking libxcursor1:amd64 (1:1.1.14-1+bsos3) ...
+Selecting previously unselected package libxinerama1:amd64.
+Preparing to unpack .../libxinerama1_2%3a1.1.3-1+bsos3_amd64.deb ...
+Unpacking libxinerama1:amd64 (2:1.1.3-1+bsos3) ...
+Selecting previously unselected package xkb-data.
+Preparing to unpack .../xkb-data_2.12-1+bsos2_all.deb ...
+Unpacking xkb-data (2.12-1+bsos2) ...
+Selecting previously unselected package libxkbcommon0:amd64.
+Preparing to unpack .../libxkbcommon0_0.4.3-2+bsos2_amd64.deb ...
+Unpacking libxkbcommon0:amd64 (0.4.3-2+bsos2) ...
+Selecting previously unselected package libxrandr2:amd64.
+Preparing to unpack .../libxrandr2_2%3a1.4.2-1+bsos3_amd64.deb ...
+Unpacking libxrandr2:amd64 (2:1.4.2-1+bsos3) ...
+Selecting previously unselected package libxss1:amd64.
+Preparing to unpack .../libxss1_1%3a1.2.2-1+bsos3_amd64.deb ...
+Unpacking libxss1:amd64 (1:1.2.2-1+bsos3) ...
+Selecting previously unselected package libsdl2-2.0-0:amd64.
+Preparing to unpack .../libsdl2-2.0-0_2.0.2+dfsg1-6+bsos1_amd64.deb ...
+Unpacking libsdl2-2.0-0:amd64 (2.0.2+dfsg1-6+bsos1) ...
+Selecting previously unselected package libswscale3:amd64.
+Preparing to unpack .../libswscale3_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libswscale3:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libunistring0:amd64.
+Preparing to unpack .../libunistring0_0.9.3-5.2+bsos3_amd64.deb ...
+Unpacking libunistring0:amd64 (0.9.3-5.2+bsos3) ...
+Selecting previously unselected package libjpeg62-turbo:amd64.
+Preparing to unpack .../libjpeg62-turbo_1%3a1.3.1-12+bsos2_amd64.deb ...
+Unpacking libjpeg62-turbo:amd64 (1:1.3.1-12+bsos2) ...
+Selecting previously unselected package libv4lconvert0:amd64.
+Preparing to unpack .../libv4lconvert0_1.6.0-2+bsos2_amd64.deb ...
+Unpacking libv4lconvert0:amd64 (1.6.0-2+bsos2) ...
+Selecting previously unselected package libv4l-0:amd64.
+Preparing to unpack .../libv4l-0_1.6.0-2+bsos2_amd64.deb ...
+Unpacking libv4l-0:amd64 (1.6.0-2+bsos2) ...
+Selecting previously unselected package libv4l2rds0:amd64.
+Preparing to unpack .../libv4l2rds0_1.6.0-2+bsos2_amd64.deb ...
+Unpacking libv4l2rds0:amd64 (1.6.0-2+bsos2) ...
+Selecting previously unselected package libxcb-randr0:amd64.
+Preparing to unpack .../libxcb-randr0_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-randr0:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxt6:amd64.
+Preparing to unpack .../libxt6_1%3a1.1.4-1+bsos2_amd64.deb ...
+Unpacking libxt6:amd64 (1:1.1.4-1+bsos2) ...
+Selecting previously unselected package libxv1:amd64.
+Preparing to unpack .../libxv1_2%3a1.0.10-1+bsos3_amd64.deb ...
+Unpacking libxv1:amd64 (2:1.0.10-1+bsos3) ...
+Selecting previously unselected package libcg:amd64.
+Preparing to unpack .../libcg_3.1.0013-2_amd64.deb ...
+Unpacking libcg:amd64 (3.1.0013-2) ...
+Selecting previously unselected package libcggl:amd64.
+Preparing to unpack .../libcggl_3.1.0013-2_amd64.deb ...
+Unpacking libcggl:amd64 (3.1.0013-2) ...
+Selecting previously unselected package gettext-base.
+Preparing to unpack .../gettext-base_0.19.3-2+bsos2_amd64.deb ...
+Unpacking gettext-base (0.19.3-2+bsos2) ...
+Selecting previously unselected package gettext.
+Preparing to unpack .../gettext_0.19.3-2+bsos2_amd64.deb ...
+Unpacking gettext (0.19.3-2+bsos2) ...
+Selecting previously unselected package intltool-debian.
+Preparing to unpack .../intltool-debian_0.35.0+20060710.1_all.deb ...
+Unpacking intltool-debian (0.35.0+20060710.1) ...
+Selecting previously unselected package po-debconf.
+Preparing to unpack .../po-debconf_1.0.16+nmu3_all.deb ...
+Unpacking po-debconf (1.0.16+nmu3) ...
+Selecting previously unselected package debhelper.
+Preparing to unpack .../debhelper_9.20150101+streamos2+bsos1_all.deb ...
+Unpacking debhelper (9.20150101+streamos2+bsos1) ...
+Selecting previously unselected package libasound2-dev:amd64.
+Preparing to unpack .../libasound2-dev_1.0.28-1+bsos3_amd64.deb ...
+Unpacking libasound2-dev:amd64 (1.0.28-1+bsos3) ...
+Selecting previously unselected package libavahi-common-dev.
+Preparing to unpack .../libavahi-common-dev_0.6.31-5+bsos1_amd64.deb ...
+Unpacking libavahi-common-dev (0.6.31-5+bsos1) ...
+Selecting previously unselected package pkg-config.
+Preparing to unpack .../pkg-config_0.28-1+bsos2_amd64.deb ...
+Unpacking pkg-config (0.28-1+bsos2) ...
+Selecting previously unselected package libdbus-1-dev:amd64.
+Preparing to unpack .../libdbus-1-dev_1.8.20-0+deb8u1+bsos1_amd64.deb ...
+Unpacking libdbus-1-dev:amd64 (1.8.20-0+deb8u1+bsos1) ...
+Selecting previously unselected package libavahi-client-dev.
+Preparing to unpack .../libavahi-client-dev_0.6.31-5+bsos1_amd64.deb ...
+Unpacking libavahi-client-dev (0.6.31-5+bsos1) ...
+Selecting previously unselected package libavutil-dev.
+Preparing to unpack .../libavutil-dev_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavutil-dev (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libavresample-dev.
+Preparing to unpack .../libavresample-dev_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavresample-dev (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libavcodec-dev.
+Preparing to unpack .../libavcodec-dev_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavcodec-dev (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libavformat-dev.
+Preparing to unpack .../libavformat-dev_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavformat-dev (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libavdevice-dev.
+Preparing to unpack .../libavdevice-dev_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libavdevice-dev (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libdrm-dev:amd64.
+Preparing to unpack .../libdrm-dev_2.4.62-1+bsos1_amd64.deb ...
+Unpacking libdrm-dev:amd64 (2.4.62-1+bsos1) ...
+Selecting previously unselected package x11proto-dri2-dev.
+Preparing to unpack .../x11proto-dri2-dev_2.8-2_all.deb ...
+Unpacking x11proto-dri2-dev (2.8-2) ...
+Selecting previously unselected package x11proto-gl-dev.
+Preparing to unpack .../x11proto-gl-dev_1.4.17-1_all.deb ...
+Unpacking x11proto-gl-dev (1.4.17-1) ...
+Selecting previously unselected package xorg-sgml-doctools.
+Preparing to unpack .../xorg-sgml-doctools_1%3a1.11-1_all.deb ...
+Unpacking xorg-sgml-doctools (1:1.11-1) ...
+Selecting previously unselected package x11proto-core-dev.
+Preparing to unpack .../x11proto-core-dev_7.0.26-1_all.deb ...
+Unpacking x11proto-core-dev (7.0.26-1) ...
+Selecting previously unselected package libxau-dev:amd64.
+Preparing to unpack .../libxau-dev_1%3a1.0.8-1+bsos3_amd64.deb ...
+Unpacking libxau-dev:amd64 (1:1.0.8-1+bsos3) ...
+Selecting previously unselected package libxdmcp-dev:amd64.
+Preparing to unpack .../libxdmcp-dev_1%3a1.1.1-1_amd64.deb ...
+Unpacking libxdmcp-dev:amd64 (1:1.1.1-1) ...
+Selecting previously unselected package x11proto-input-dev.
+Preparing to unpack .../x11proto-input-dev_2.3.1-1_all.deb ...
+Unpacking x11proto-input-dev (2.3.1-1) ...
+Selecting previously unselected package x11proto-kb-dev.
+Preparing to unpack .../x11proto-kb-dev_1.0.6-2_all.deb ...
+Unpacking x11proto-kb-dev (1.0.6-2) ...
+Selecting previously unselected package xtrans-dev.
+Preparing to unpack .../xtrans-dev_1.3.4-1_all.deb ...
+Unpacking xtrans-dev (1.3.4-1) ...
+Selecting previously unselected package libpthread-stubs0-dev:amd64.
+Preparing to unpack .../libpthread-stubs0-dev_0.3-4_amd64.deb ...
+Unpacking libpthread-stubs0-dev:amd64 (0.3-4) ...
+Selecting previously unselected package libxcb1-dev:amd64.
+Preparing to unpack .../libxcb1-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb1-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libx11-dev:amd64.
+Preparing to unpack .../libx11-dev_2%3a1.6.2-3+bsos3_amd64.deb ...
+Unpacking libx11-dev:amd64 (2:1.6.2-3+bsos3) ...
+Selecting previously unselected package x11proto-xext-dev.
+Preparing to unpack .../x11proto-xext-dev_7.3.0-1_all.deb ...
+Unpacking x11proto-xext-dev (7.3.0-1) ...
+Selecting previously unselected package libxext-dev:amd64.
+Preparing to unpack .../libxext-dev_2%3a1.3.3-1+bsos3_amd64.deb ...
+Unpacking libxext-dev:amd64 (2:1.3.3-1+bsos3) ...
+Selecting previously unselected package x11proto-xf86vidmode-dev.
+Preparing to unpack .../x11proto-xf86vidmode-dev_2.3.1-2_all.deb ...
+Unpacking x11proto-xf86vidmode-dev (2.3.1-2) ...
+Selecting previously unselected package libxxf86vm-dev:amd64.
+Preparing to unpack .../libxxf86vm-dev_1%3a1.1.3-1+bsos2_amd64.deb ...
+Unpacking libxxf86vm-dev:amd64 (1:1.1.3-1+bsos2) ...
+Selecting previously unselected package x11proto-fixes-dev.
+Preparing to unpack .../x11proto-fixes-dev_1%3a5.0-2_all.deb ...
+Unpacking x11proto-fixes-dev (1:5.0-2) ...
+Selecting previously unselected package libxfixes-dev:amd64.
+Preparing to unpack .../libxfixes-dev_1%3a5.0.1-2+bsos3_amd64.deb ...
+Unpacking libxfixes-dev:amd64 (1:5.0.1-2+bsos3) ...
+Selecting previously unselected package x11proto-damage-dev.
+Preparing to unpack .../x11proto-damage-dev_1%3a1.2.1-2_all.deb ...
+Unpacking x11proto-damage-dev (1:1.2.1-2) ...
+Selecting previously unselected package libxdamage-dev:amd64.
+Preparing to unpack .../libxdamage-dev_1%3a1.1.4-2+bsos3_amd64.deb ...
+Unpacking libxdamage-dev:amd64 (1:1.1.4-2+bsos3) ...
+Selecting previously unselected package libxcb-glx0-dev:amd64.
+Preparing to unpack .../libxcb-glx0-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-glx0-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-dri2-0-dev:amd64.
+Preparing to unpack .../libxcb-dri2-0-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-dri2-0-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-dri3-dev:amd64.
+Preparing to unpack .../libxcb-dri3-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-dri3-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-render0-dev:amd64.
+Preparing to unpack .../libxcb-render0-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-render0-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-randr0-dev:amd64.
+Preparing to unpack .../libxcb-randr0-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-randr0-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-shape0-dev:amd64.
+Preparing to unpack .../libxcb-shape0-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-shape0-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-xfixes0-dev:amd64.
+Preparing to unpack .../libxcb-xfixes0-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-xfixes0-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-sync-dev:amd64.
+Preparing to unpack .../libxcb-sync-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-sync-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxcb-present-dev:amd64.
+Preparing to unpack .../libxcb-present-dev_1.10-3+bsos3_amd64.deb ...
+Unpacking libxcb-present-dev:amd64 (1.10-3+bsos3) ...
+Selecting previously unselected package libxshmfence-dev:amd64.
+Preparing to unpack .../libxshmfence-dev_1.1-4+bsos2_amd64.deb ...
+Unpacking libxshmfence-dev:amd64 (1.1-4+bsos2) ...
+Selecting previously unselected package libx11-xcb-dev:amd64.
+Preparing to unpack .../libx11-xcb-dev_2%3a1.6.2-3+bsos3_amd64.deb ...
+Unpacking libx11-xcb-dev:amd64 (2:1.6.2-3+bsos3) ...
+Selecting previously unselected package libwayland-dev.
+Preparing to unpack .../libwayland-dev_1.6.0-2+bsos3_amd64.deb ...
+Unpacking libwayland-dev (1.6.0-2+bsos3) ...
+Selecting previously unselected package libegl1-mesa-dev:amd64.
+Preparing to unpack .../libegl1-mesa-dev_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libegl1-mesa-dev:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package zlib1g-dev:amd64.
+Preparing to unpack .../zlib1g-dev_1%3a1.2.8.dfsg-2+bsos3_amd64.deb ...
+Unpacking zlib1g-dev:amd64 (1:1.2.8.dfsg-2+bsos3) ...
+Selecting previously unselected package libpng12-dev:amd64.
+Preparing to unpack .../libpng12-dev_1.2.50-2+deb8u2+bsos1_amd64.deb ...
+Unpacking libpng12-dev:amd64 (1.2.50-2+deb8u2+bsos1) ...
+Selecting previously unselected package libfreetype6-dev.
+Preparing to unpack .../libfreetype6-dev_2.5.2-3+deb8u1+bsos1_amd64.deb ...
+Unpacking libfreetype6-dev (2.5.2-3+deb8u1+bsos1) ...
+Selecting previously unselected package libudev-dev:amd64.
+Preparing to unpack .../libudev-dev_215-17+steamos1+bsos1_amd64.deb ...
+Unpacking libudev-dev:amd64 (215-17+steamos1+bsos1) ...
+Selecting previously unselected package libgbm-dev:amd64.
+Preparing to unpack .../libgbm-dev_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libgbm-dev:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package mesa-common-dev:amd64.
+Preparing to unpack .../mesa-common-dev_10.6.3-2+bsos1_amd64.deb ...
+Unpacking mesa-common-dev:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package libgl1-mesa-dev:amd64.
+Preparing to unpack .../libgl1-mesa-dev_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libgl1-mesa-dev:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package libgles2-mesa-dev:amd64.
+Preparing to unpack .../libgles2-mesa-dev_10.6.3-2+bsos1_amd64.deb ...
+Unpacking libgles2-mesa-dev:amd64 (10.6.3-2+bsos1) ...
+Selecting previously unselected package libglib2.0-data.
+Preparing to unpack .../libglib2.0-data_2.42.1-1+bsos3_all.deb ...
+Unpacking libglib2.0-data (2.42.1-1+bsos3) ...
+Selecting previously unselected package libglib2.0-bin.
+Preparing to unpack .../libglib2.0-bin_2.42.1-1+bsos3_amd64.deb ...
+Unpacking libglib2.0-bin (2.42.1-1+bsos3) ...
+Selecting previously unselected package libpcre3-dev:amd64.
+Preparing to unpack .../libpcre3-dev_2%3a8.35-3.3+deb8u4+bsos1_amd64.deb ...
+Unpacking libpcre3-dev:amd64 (2:8.35-3.3+deb8u4+bsos1) ...
+Selecting previously unselected package libglib2.0-dev.
+Preparing to unpack .../libglib2.0-dev_2.42.1-1+bsos3_amd64.deb ...
+Unpacking libglib2.0-dev (2.42.1-1+bsos3) ...
+Selecting previously unselected package libglu1-mesa-dev.
+Preparing to unpack .../libglu1-mesa-dev_9.0.0-2+bsos3_amd64.deb ...
+Unpacking libglu1-mesa-dev (9.0.0-2+bsos3) ...
+Selecting previously unselected package libice-dev:amd64.
+Preparing to unpack .../libice-dev_2%3a1.0.9-1+bsos3_amd64.deb ...
+Unpacking libice-dev:amd64 (2:1.0.9-1+bsos3) ...
+Selecting previously unselected package libjack-jackd2-dev:amd64.
+Preparing to unpack .../libjack-jackd2-dev_1.9.10+20140719git3eb0ae6a~dfsg-2+bsos3_amd64.deb ...
+Unpacking libjack-jackd2-dev:amd64 (1.9.10+20140719git3eb0ae6a~dfsg-2+bsos3) ...
+Selecting previously unselected package libopenal-dev:amd64.
+Preparing to unpack .../libopenal-dev_1%3a1.15.1-5+bsos2_amd64.deb ...
+Unpacking libopenal-dev:amd64 (1:1.15.1-5+bsos2) ...
+Selecting previously unselected package libpulse-dev:amd64.
+Preparing to unpack .../libpulse-dev_5.0-13+streamos7+bsos1_amd64.deb ...
+Unpacking libpulse-dev:amd64 (5.0-13+streamos7+bsos1) ...
+Selecting previously unselected package libpython3-dev:amd64.
+Preparing to unpack .../libpython3-dev_3.4.2-2+bsos3_amd64.deb ...
+Unpacking libpython3-dev:amd64 (3.4.2-2+bsos3) ...
+Selecting previously unselected package x11proto-render-dev.
+Preparing to unpack .../x11proto-render-dev_2%3a0.11.1-2_all.deb ...
+Unpacking x11proto-render-dev (2:0.11.1-2) ...
+Selecting previously unselected package libxrender-dev:amd64.
+Preparing to unpack .../libxrender-dev_1%3a0.9.8-1+bsos3_amd64.deb ...
+Unpacking libxrender-dev:amd64 (1:0.9.8-1+bsos3) ...
+Selecting previously unselected package libxcursor-dev:amd64.
+Preparing to unpack .../libxcursor-dev_1%3a1.1.14-1+bsos3_amd64.deb ...
+Unpacking libxcursor-dev:amd64 (1:1.1.14-1+bsos3) ...
+Selecting previously unselected package libxi-dev.
+Preparing to unpack .../libxi-dev_2%3a1.7.4-1+bsos2_amd64.deb ...
+Unpacking libxi-dev (2:1.7.4-1+bsos2) ...
+Selecting previously unselected package x11proto-xinerama-dev.
+Preparing to unpack .../x11proto-xinerama-dev_1.2.1-2_all.deb ...
+Unpacking x11proto-xinerama-dev (1.2.1-2) ...
+Selecting previously unselected package libxinerama-dev:amd64.
+Preparing to unpack .../libxinerama-dev_2%3a1.1.3-1+bsos3_amd64.deb ...
+Unpacking libxinerama-dev:amd64 (2:1.1.3-1+bsos3) ...
+Selecting previously unselected package libxkbcommon-dev.
+Preparing to unpack .../libxkbcommon-dev_0.4.3-2+bsos2_amd64.deb ...
+Unpacking libxkbcommon-dev (0.4.3-2+bsos2) ...
+Selecting previously unselected package x11proto-randr-dev.
+Preparing to unpack .../x11proto-randr-dev_1.4.0-2_all.deb ...
+Unpacking x11proto-randr-dev (1.4.0-2) ...
+Selecting previously unselected package libxrandr-dev:amd64.
+Preparing to unpack .../libxrandr-dev_2%3a1.4.2-1+bsos3_amd64.deb ...
+Unpacking libxrandr-dev:amd64 (2:1.4.2-1+bsos3) ...
+Selecting previously unselected package x11proto-scrnsaver-dev.
+Preparing to unpack .../x11proto-scrnsaver-dev_1.2.2-1_all.deb ...
+Unpacking x11proto-scrnsaver-dev (1.2.2-1) ...
+Selecting previously unselected package libxss-dev:amd64.
+Preparing to unpack .../libxss-dev_1%3a1.2.2-1+bsos3_amd64.deb ...
+Unpacking libxss-dev:amd64 (1:1.2.2-1+bsos3) ...
+Selecting previously unselected package libsm-dev:amd64.
+Preparing to unpack .../libsm-dev_2%3a1.2.2-1+bsos3_amd64.deb ...
+Unpacking libsm-dev:amd64 (2:1.2.2-1+bsos3) ...
+Selecting previously unselected package libxt-dev:amd64.
+Preparing to unpack .../libxt-dev_1%3a1.1.4-1+bsos2_amd64.deb ...
+Unpacking libxt-dev:amd64 (1:1.1.4-1+bsos2) ...
+Selecting previously unselected package x11proto-video-dev.
+Preparing to unpack .../x11proto-video-dev_2.3.2-1_all.deb ...
+Unpacking x11proto-video-dev (2.3.2-1) ...
+Selecting previously unselected package libxv-dev:amd64.
+Preparing to unpack .../libxv-dev_2%3a1.0.10-1+bsos3_amd64.deb ...
+Unpacking libxv-dev:amd64 (2:1.0.10-1+bsos3) ...
+Selecting previously unselected package libsdl2-dev.
+Preparing to unpack .../libsdl2-dev_2.0.2+dfsg1-6+bsos1_amd64.deb ...
+Unpacking libsdl2-dev (2.0.2+dfsg1-6+bsos1) ...
+Selecting previously unselected package libswscale-dev.
+Preparing to unpack .../libswscale-dev_6%3a11.4-1~deb8u1+bsos1_amd64.deb ...
+Unpacking libswscale-dev (6:11.4-1~deb8u1+bsos1) ...
+Selecting previously unselected package libusb-1.0-0-dev:amd64.
+Preparing to unpack .../libusb-1.0-0-dev_2%3a1.0.19-1+bsos2_amd64.deb ...
+Unpacking libusb-1.0-0-dev:amd64 (2:1.0.19-1+bsos2) ...
+Selecting previously unselected package libv4l-dev:amd64.
+Preparing to unpack .../libv4l-dev_1.6.0-2+bsos2_amd64.deb ...
+Unpacking libv4l-dev:amd64 (1.6.0-2+bsos2) ...
+Selecting previously unselected package libxml2-dev:amd64.
+Preparing to unpack .../libxml2-dev_2.9.1+dfsg1-5+deb8u1+bsos1_amd64.deb ...
+Unpacking libxml2-dev:amd64 (2.9.1+dfsg1-5+deb8u1+bsos1) ...
+Selecting previously unselected package lsb-release.
+Preparing to unpack .../lsb-release_4.1+Debian13+nmu1+bsos3_all.deb ...
+Unpacking lsb-release (4.1+Debian13+nmu1+bsos3) ...
+Selecting previously unselected package python3.4-dev.
+Preparing to unpack .../python3.4-dev_3.4.2-1+bsos2_amd64.deb ...
+Unpacking python3.4-dev (3.4.2-1+bsos2) ...
+Selecting previously unselected package python3-dev.
+Preparing to unpack .../python3-dev_3.4.2-2+bsos3_amd64.deb ...
+Unpacking python3-dev (3.4.2-2+bsos3) ...
+Selecting previously unselected package nvidia-cg-dev:amd64.
+Preparing to unpack .../nvidia-cg-dev_3.1.0013-2_amd64.deb ...
+Unpacking nvidia-cg-dev:amd64 (3.1.0013-2) ...
+Processing triggers for systemd (215-17+steamos1+bsos1) ...
+Setting up libpipeline1:amd64 (1.4.0-1+bsos3) ...
+Setting up groff-base (1.22.2-8+bsos3) ...
+Setting up bsdmainutils (9.0.6+bsos3) ...
+update-alternatives: using /usr/bin/bsd-write to provide /usr/bin/write (write) in auto mode
+update-alternatives: using /usr/bin/bsd-from to provide /usr/bin/from (from) in auto mode
+Setting up man-db (2.7.0.2-5+bsos3) ...
+Building database of manual pages ...
+Setting up libasprintf0c2:amd64 (0.19.3-2+bsos2) ...
+Setting up libwrap0:amd64 (7.6.q-25+bsos5) ...
+Setting up libxml2:amd64 (2.9.1+dfsg1-5+deb8u1+bsos1) ...
+Setting up libpython2.7-stdlib:amd64 (2.7.9-2+bsos2) ...
+Setting up python2.7 (2.7.9-2+bsos2) ...
+Setting up libpython-stdlib:amd64 (2.7.9-1+bsos4) ...
+Setting up python (2.7.9-1+bsos4) ...
+Setting up libasound2-data (1.0.28-1+bsos3) ...
+Setting up libasound2:amd64 (1.0.28-1+bsos3) ...
+Setting up libasyncns0:amd64 (0.8-5+bsos3) ...
+Setting up libavahi-common-data:amd64 (0.6.31-5+bsos1) ...
+Setting up libavahi-common3:amd64 (0.6.31-5+bsos1) ...
+Setting up libdbus-1-3:amd64 (1.8.20-0+deb8u1+bsos1) ...
+Setting up libavahi-client3:amd64 (0.6.31-5+bsos1) ...
+Setting up libavutil54:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Setting up libavresample2:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Setting up libgsm1:amd64 (1.0.13-4+bsos3) ...
+Setting up libmp3lame0:amd64 (3.99.5+repack1-7+deb8u1+bsos1) ...
+Setting up libopenjpeg5:amd64 (1:1.5.2-32+bsos1) ...
+Setting up libopus0:amd64 (1.1-2+bsos3) ...
+Setting up liborc-0.4-0:amd64 (1:0.4.22-1+bsos3) ...
+Setting up libschroedinger-1.0-0:amd64 (1.0.11-2.1+bsos3) ...
+Setting up libspeex1:amd64 (1.2~rc1.2-1+bsos3) ...
+Setting up libogg0:amd64 (1.3.2-1+bsos3) ...
+Setting up libtheora0:amd64 (1.1.1+dfsg.1-62+bsos1) ...
+Setting up libva1:amd64 (1.4.1-1+steamos1+bsos1) ...
+Setting up libvorbis0a:amd64 (1.3.4-2+bsos3) ...
+Setting up libvorbisenc2:amd64 (1.3.4-2+bsos3) ...
+Setting up libvpx1:amd64 (1.3.0-3+bsos3) ...
+Setting up libx264-142:amd64 (2:0.142.2431+gita5831aa-1+bsos3) ...
+Setting up libxvidcore4:amd64 (2:1.3.3-1+bsos3) ...
+Setting up libavcodec56:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Setting up librtmp1:amd64 (2.4+20150115.gita107cef-1+bsos3) ...
+Setting up libavformat56:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Setting up libcdio13 (0.83-4.2+bsos3) ...
+Setting up libcdio-cdda1 (0.83-4.2+bsos3) ...
+Setting up libcdio-paranoia1 (0.83-4.2+bsos3) ...
+Setting up libraw1394-11:amd64 (2.1.0-3+bsos3) ...
+Setting up libusb-1.0-0:amd64 (2:1.0.19-1+bsos2) ...
+Setting up libdc1394-22:amd64 (2.2.3-1+bsos3) ...
+Setting up libsamplerate0:amd64 (0.1.8-8+bsos3) ...
+Setting up libjack-jackd2-0:amd64 (1.9.10+20140719git3eb0ae6a~dfsg-2+bsos3) ...
+Setting up x11-common (1:7.7+7+bsos2) ...
+update-rc.d: warning: start and stop actions are no longer supported; falling back to defaults
+[....] Setting up X socket directories... /tmp/.X11-unix /tmp/.ICE-unix[?25l7[1G[[32m ok [39;49m8[?12l[?25h.
+Setting up libice6:amd64 (2:1.0.9-1+bsos3) ...
+Setting up libjson-c2:amd64 (0.11-4+bsos3) ...
+Setting up libsm6:amd64 (2:1.2.2-1+bsos3) ...
+Setting up libflac8:amd64 (1.3.0-3+bsos3) ...
+Setting up libsndfile1:amd64 (1.0.25-9.1+deb8u1+bsos1) ...
+Setting up libxau6:amd64 (1:1.0.8-1+bsos3) ...
+Setting up libxdmcp6:amd64 (1:1.1.1-1) ...
+Setting up libxcb1:amd64 (1.10-3+bsos3) ...
+Setting up libx11-data (2:1.6.2-3+bsos3) ...
+Setting up libx11-6:amd64 (2:1.6.2-3+bsos3) ...
+Setting up libx11-xcb1:amd64 (2:1.6.2-3+bsos3) ...
+Setting up libxext6:amd64 (2:1.3.3-1+bsos3) ...
+Setting up libxi6:amd64 (2:1.7.4-1+bsos2) ...
+Setting up libxtst6:amd64 (2:1.2.2-1+bsos3) ...
+Setting up libpulse0:amd64 (5.0-13+streamos7+bsos1) ...
+Setting up libxfixes3:amd64 (1:5.0.1-2+bsos3) ...
+Setting up libavdevice55:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Setting up libglib2.0-0:amd64 (2.42.1-1+bsos3) ...
+No schema files found: doing nothing.
+Setting up libcroco3:amd64 (0.6.8-3+bsos2) ...
+Setting up libdrm2:amd64 (2.4.62-1+bsos1) ...
+Setting up libpciaccess0:amd64 (0.13.2-3+bsos3) ...
+Setting up libdrm-intel1:amd64 (2.4.62-1+bsos1) ...
+Setting up libdrm-nouveau2:amd64 (2.4.62-1+bsos1) ...
+Setting up libdrm-radeon1:amd64 (2.4.62-1+bsos1) ...
+Setting up libwayland-client0:amd64 (1.6.0-2+bsos3) ...
+Setting up libwayland-server0:amd64 (1.6.0-2+bsos3) ...
+Setting up libgbm1:amd64 (10.6.3-2+bsos1) ...
+Setting up libxcb-dri2-0:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-render0:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-shape0:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-xfixes0:amd64 (1.10-3+bsos3) ...
+Setting up libegl1-mesa:amd64 (10.6.3-2+bsos1) ...
+Setting up libelfg0:amd64 (0.8.13-5+bsos3) ...
+Setting up libpng12-0:amd64 (1.2.50-2+deb8u2+bsos1) ...
+Setting up libfreetype6:amd64 (2.5.2-3+deb8u1+bsos1) ...
+Setting up libglapi-mesa:amd64 (10.6.3-2+bsos1) ...
+Setting up libxcb-dri3-0:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-glx0:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-present0:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-sync1:amd64 (1.10-3+bsos3) ...
+Setting up libxdamage1:amd64 (1:1.1.4-2+bsos3) ...
+Setting up libxshmfence1:amd64 (1.1-4+bsos2) ...
+Setting up libxxf86vm1:amd64 (1:1.1.3-1+bsos2) ...
+Setting up libgl1-mesa-glx:amd64 (10.6.3-2+bsos1) ...
+Setting up libgles2-mesa:amd64 (10.6.3-2+bsos1) ...
+Setting up libglu1-mesa:amd64 (9.0.0-2+bsos3) ...
+Setting up libopenal-data (1:1.15.1-5+bsos2) ...
+Setting up libopenal1:amd64 (1:1.15.1-5+bsos2) ...
+Setting up libpcrecpp0:amd64 (2:8.35-3.3+deb8u4+bsos1) ...
+Setting up libpulse-mainloop-glib0:amd64 (5.0-13+streamos7+bsos1) ...
+Setting up libpython3.4:amd64 (3.4.2-1+bsos2) ...
+Setting up libexpat1-dev:amd64 (2.1.0-6+deb8u1+bsos1) ...
+Setting up libpython3.4-dev:amd64 (3.4.2-1+bsos2) ...
+Setting up libwayland-cursor0:amd64 (1.6.0-2+bsos3) ...
+Setting up libwayland-egl1-mesa:amd64 (10.6.3-2+bsos1) ...
+Setting up libxrender1:amd64 (1:0.9.8-1+bsos3) ...
+Setting up libxcursor1:amd64 (1:1.1.14-1+bsos3) ...
+Setting up libxinerama1:amd64 (2:1.1.3-1+bsos3) ...
+Setting up xkb-data (2.12-1+bsos2) ...
+Setting up libxkbcommon0:amd64 (0.4.3-2+bsos2) ...
+Setting up libxrandr2:amd64 (2:1.4.2-1+bsos3) ...
+Setting up libxss1:amd64 (1:1.2.2-1+bsos3) ...
+Setting up libsdl2-2.0-0:amd64 (2.0.2+dfsg1-6+bsos1) ...
+Setting up libswscale3:amd64 (6:11.4-1~deb8u1+bsos1) ...
+Setting up libunistring0:amd64 (0.9.3-5.2+bsos3) ...
+Setting up libjpeg62-turbo:amd64 (1:1.3.1-12+bsos2) ...
+Setting up libv4lconvert0:amd64 (1.6.0-2+bsos2) ...
+Setting up libv4l-0:amd64 (1.6.0-2+bsos2) ...
+Setting up libv4l2rds0:amd64 (1.6.0-2+bsos2) ...
+Setting up libxcb-randr0:amd64 (1.10-3+bsos3) ...
+Setting up libxt6:amd64 (1:1.1.4-1+bsos2) ...
+Setting up libxv1:amd64 (2:1.0.10-1+bsos3) ...
+Setting up libcg:amd64 (3.1.0013-2) ...
+Setting up libcggl:amd64 (3.1.0013-2) ...
+Setting up gettext-base (0.19.3-2+bsos2) ...
+Setting up gettext (0.19.3-2+bsos2) ...
+Setting up intltool-debian (0.35.0+20060710.1) ...
+Setting up po-debconf (1.0.16+nmu3) ...
+Setting up debhelper (9.20150101+streamos2+bsos1) ...
+Setting up libasound2-dev:amd64 (1.0.28-1+bsos3) ...
+Setting up libavahi-common-dev (0.6.31-5+bsos1) ...
+Setting up pkg-config (0.28-1+bsos2) ...
+Setting up libdbus-1-dev:amd64 (1.8.20-0+deb8u1+bsos1) ...
+Setting up libavahi-client-dev (0.6.31-5+bsos1) ...
+Setting up libavutil-dev (6:11.4-1~deb8u1+bsos1) ...
+Setting up libavresample-dev (6:11.4-1~deb8u1+bsos1) ...
+Setting up libavcodec-dev (6:11.4-1~deb8u1+bsos1) ...
+Setting up libavformat-dev (6:11.4-1~deb8u1+bsos1) ...
+Setting up libavdevice-dev (6:11.4-1~deb8u1+bsos1) ...
+Setting up libdrm-dev:amd64 (2.4.62-1+bsos1) ...
+Setting up x11proto-dri2-dev (2.8-2) ...
+Setting up x11proto-gl-dev (1.4.17-1) ...
+Setting up xorg-sgml-doctools (1:1.11-1) ...
+Setting up x11proto-core-dev (7.0.26-1) ...
+Setting up libxau-dev:amd64 (1:1.0.8-1+bsos3) ...
+Setting up libxdmcp-dev:amd64 (1:1.1.1-1) ...
+Setting up x11proto-input-dev (2.3.1-1) ...
+Setting up x11proto-kb-dev (1.0.6-2) ...
+Setting up xtrans-dev (1.3.4-1) ...
+Setting up libpthread-stubs0-dev:amd64 (0.3-4) ...
+Setting up libxcb1-dev:amd64 (1.10-3+bsos3) ...
+Setting up libx11-dev:amd64 (2:1.6.2-3+bsos3) ...
+Setting up x11proto-xext-dev (7.3.0-1) ...
+Setting up libxext-dev:amd64 (2:1.3.3-1+bsos3) ...
+Setting up x11proto-xf86vidmode-dev (2.3.1-2) ...
+Setting up libxxf86vm-dev:amd64 (1:1.1.3-1+bsos2) ...
+Setting up x11proto-fixes-dev (1:5.0-2) ...
+Setting up libxfixes-dev:amd64 (1:5.0.1-2+bsos3) ...
+Setting up x11proto-damage-dev (1:1.2.1-2) ...
+Setting up libxdamage-dev:amd64 (1:1.1.4-2+bsos3) ...
+Setting up libxcb-glx0-dev:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-dri2-0-dev:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-dri3-dev:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-render0-dev:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-randr0-dev:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-shape0-dev:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-xfixes0-dev:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-sync-dev:amd64 (1.10-3+bsos3) ...
+Setting up libxcb-present-dev:amd64 (1.10-3+bsos3) ...
+Setting up libxshmfence-dev:amd64 (1.1-4+bsos2) ...
+Setting up libx11-xcb-dev:amd64 (2:1.6.2-3+bsos3) ...
+Setting up libwayland-dev (1.6.0-2+bsos3) ...
+Setting up libegl1-mesa-dev:amd64 (10.6.3-2+bsos1) ...
+Setting up zlib1g-dev:amd64 (1:1.2.8.dfsg-2+bsos3) ...
+Setting up libpng12-dev:amd64 (1.2.50-2+deb8u2+bsos1) ...
+Setting up libfreetype6-dev (2.5.2-3+deb8u1+bsos1) ...
+Setting up libudev-dev:amd64 (215-17+steamos1+bsos1) ...
+Setting up libgbm-dev:amd64 (10.6.3-2+bsos1) ...
+Setting up mesa-common-dev:amd64 (10.6.3-2+bsos1) ...
+Setting up libgl1-mesa-dev:amd64 (10.6.3-2+bsos1) ...
+Setting up libgles2-mesa-dev:amd64 (10.6.3-2+bsos1) ...
+Setting up libglib2.0-data (2.42.1-1+bsos3) ...
+Setting up libglib2.0-bin (2.42.1-1+bsos3) ...
+Setting up libpcre3-dev:amd64 (2:8.35-3.3+deb8u4+bsos1) ...
+Setting up libglib2.0-dev (2.42.1-1+bsos3) ...
+Setting up libglu1-mesa-dev (9.0.0-2+bsos3) ...
+Setting up libice-dev:amd64 (2:1.0.9-1+bsos3) ...
+Setting up libjack-jackd2-dev:amd64 (1.9.10+20140719git3eb0ae6a~dfsg-2+bsos3) ...
+Setting up libopenal-dev:amd64 (1:1.15.1-5+bsos2) ...
+Setting up libpulse-dev:amd64 (5.0-13+streamos7+bsos1) ...
+Setting up libpython3-dev:amd64 (3.4.2-2+bsos3) ...
+Setting up x11proto-render-dev (2:0.11.1-2) ...
+Setting up libxrender-dev:amd64 (1:0.9.8-1+bsos3) ...
+Setting up libxcursor-dev:amd64 (1:1.1.14-1+bsos3) ...
+Setting up libxi-dev (2:1.7.4-1+bsos2) ...
+Setting up x11proto-xinerama-dev (1.2.1-2) ...
+Setting up libxinerama-dev:amd64 (2:1.1.3-1+bsos3) ...
+Setting up libxkbcommon-dev (0.4.3-2+bsos2) ...
+Setting up x11proto-randr-dev (1.4.0-2) ...
+Setting up libxrandr-dev:amd64 (2:1.4.2-1+bsos3) ...
+Setting up x11proto-scrnsaver-dev (1.2.2-1) ...
+Setting up libxss-dev:amd64 (1:1.2.2-1+bsos3) ...
+Setting up libsm-dev:amd64 (2:1.2.2-1+bsos3) ...
+Setting up libxt-dev:amd64 (1:1.1.4-1+bsos2) ...
+Setting up x11proto-video-dev (2.3.2-1) ...
+Setting up libxv-dev:amd64 (2:1.0.10-1+bsos3) ...
+Setting up libsdl2-dev (2.0.2+dfsg1-6+bsos1) ...
+Setting up libswscale-dev (6:11.4-1~deb8u1+bsos1) ...
+Setting up libusb-1.0-0-dev:amd64 (2:1.0.19-1+bsos2) ...
+Setting up libv4l-dev:amd64 (1.6.0-2+bsos2) ...
+Setting up libxml2-dev:amd64 (2.9.1+dfsg1-5+deb8u1+bsos1) ...
+Setting up lsb-release (4.1+Debian13+nmu1+bsos3) ...
+Setting up python3.4-dev (3.4.2-1+bsos2) ...
+Setting up python3-dev (3.4.2-2+bsos3) ...
+Setting up nvidia-cg-dev:amd64 (3.1.0013-2) ...
+Processing triggers for libc-bin (2.19-18+steamos1+deb8u3+bsos1) ...
+Processing triggers for systemd (215-17+steamos1+bsos1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Reading extended state information...
+Initializing package states...
+Writing extended state information...
+Building tag database...
+ -> Finished parsing the build-deps
+Reading package lists...
+Building dependency tree...
+Reading state information...
+aptitude is already the newest version.
+ca-certificates is already the newest version.
+gdebi-core is already the newest version.
+wget is already the newest version.
+The following extra packages will be installed:
+  libfakeroot
+The following NEW packages will be installed:
+  fakeroot libfakeroot
+debconf: delaying package configuration, since apt-utils is not installed
+0 upgraded, 2 newly installed, 0 to remove and 11 not upgraded.
+Need to get 0 B/130 kB of archives.
+After this operation, 434 kB of additional disk space will be used.
+Selecting previously unselected package libfakeroot:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 20501 files and directories currently installed.)
+Preparing to unpack .../libfakeroot_1.20.2-1+bsos3_amd64.deb ...
+Unpacking libfakeroot:amd64 (1.20.2-1+bsos3) ...
+Selecting previously unselected package fakeroot.
+Preparing to unpack .../fakeroot_1.20.2-1+bsos3_amd64.deb ...
+Unpacking fakeroot (1.20.2-1+bsos3) ...
+Processing triggers for man-db (2.7.0.2-5+bsos3) ...
+Setting up libfakeroot:amd64 (1.20.2-1+bsos3) ...
+Setting up fakeroot (1.20.2-1+bsos3) ...
+update-alternatives: using /usr/bin/fakeroot-sysv to provide /usr/bin/fakeroot (fakeroot) in auto mode
+I: Copying back the cached apt archive contents
+I: Copying source file
+I: copying [../retroarch_1.3.4+git+bsos2.dsc]
+I: copying [../retroarch_1.3.4+git+bsos2.tar.xz]
+I: Extracting source
+dpkg-source: warning: extracting unsigned source package (retroarch_1.3.4+git+bsos2.dsc)
+dpkg-source: info: extracting retroarch in retroarch-1.3.4+git+bsos2
+dpkg-source: info: unpacking retroarch_1.3.4+git+bsos2.tar.xz
+I: Building the package
+W: no hooks of type A found -- ignoring
+I: Running cd /build/*/ && env PATH="/usr/sbin:/usr/bin:/sbin:/bin" HOME="/nonexistent" dpkg-buildpackage -us -uc  -b -rfakeroot
+dpkg-buildpackage: source package retroarch
+dpkg-buildpackage: source version 1.3.4+git+bsos2
+dpkg-buildpackage: source distribution brewmaster
+dpkg-buildpackage: source changed by SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+ dpkg-source --before-build retroarch-1.3.4+git+bsos2
+dpkg-buildpackage: host architecture amd64
+ fakeroot debian/rules clean
+dh clean --parallel
+   dh_testdir -O--parallel
+   debian/rules override_dh_auto_clean
+make[1]: Entering directory '/build/retroarch-1.3.4+git+bsos2'
+touch config.mk
+dh_auto_clean
+make[2]: Entering directory '/build/retroarch-1.3.4+git+bsos2'
+rm -rf obj-unix
+rm -f retroarch
+rm -f *.d
+make[2]: Leaving directory '/build/retroarch-1.3.4+git+bsos2'
+dh_auto_clean -- -C gfx/video_filters/ clean
+make[2]: Entering directory '/build/retroarch-1.3.4+git+bsos2/gfx/video_filters'
+rm -f *.o
+rm -f *.so
+make[2]: 'clean' is up to date.
+make[2]: Leaving directory '/build/retroarch-1.3.4+git+bsos2/gfx/video_filters'
+dh_auto_clean -- -C audio/audio_filters/ clean
+make[2]: Entering directory '/build/retroarch-1.3.4+git+bsos2/audio/audio_filters'
+rm -f *.o
+rm -f *.so
+make[2]: 'clean' is up to date.
+make[2]: Leaving directory '/build/retroarch-1.3.4+git+bsos2/audio/audio_filters'
+make[1]: Leaving directory '/build/retroarch-1.3.4+git+bsos2'
+   dh_clean -O--parallel
+ debian/rules build
+dh build --parallel
+   dh_testdir -O--parallel
+   debian/rules override_dh_auto_configure
+make[1]: Entering directory '/build/retroarch-1.3.4+git+bsos2'
+sed 's/@DEB_HOST_MULTIARCH@/x86_64-linux-gnu/g' \
+	debian/retroarch.cfg.in > debian/retroarch.cfg
+# See ./configure --help for valid flags
+# disable flags (i.e. --disable-ffmpeg for example) if there is no package relative to the feature in Build-Depends
+./configure --prefix=/usr --disable-oss --disable-vg  --enable-sse
+Checking operating system ... Linux (SteamOS 2.0 2.0)
+Checking for suitable working C compiler ... /usr/bin/gcc works
+Checking for suitable working C++ compiler ... /usr/bin/g++ works
+Checking for pkg-config ... /usr/bin/pkg-config
+Checking for availability of switch -std=gnu99 in /usr/bin/gcc ... yes
+Checking for availability of switch -Wno-unused-result in /usr/bin/gcc ... yes
+Checking for availability of switch -Wno-unused-variable in /usr/bin/gcc ... yes
+Checking function bcm_host_init in -lbcm_host ... no
+Checking function sd_get_machine_names in -lsystemd ... no
+Checking presence of package egl ... 10.6.3
+Checking function ass_library_init in -lass ... no
+Checking function pthread_create in -lpthread ... yes
+Checking function dlopen in -ldl ... yes
+Checking function socket in -lc ... yes
+Checking function getaddrinfo in -lc ... yes
+Checking function fcntl in -lc ... yes
+Checking function getopt_long in -lc ... yes
+Checking presence of package alsa ... 1.0.28
+Checking presence of header file soundcard.h ... no
+Checking existence of -lossaudio ... no
+Checking function alcOpenDevice in -lopenal ... yes
+Checking presence of package rsound >= 1.1 ... no
+Checking presence of package libroar ... no
+Checking presence of package jack >= 0.120.1 ... 1.9.10
+Checking presence of package libpulse ... 5.0
+Checking presence of package sdl >= 1.2.10 ... no
+Checking presence of package sdl2 >= 2.0.0 ... 2.0.2
+Checking presence of package libusb-1.0 >= 1.0.16 ... 1.0.19
+Checking presence of header file GL/gl.h ... yes
+Checking existence of -lGL ... yes
+Checking function cgCreateContext in -lCg ... yes
+Checking presence of package zlib ... 1.2.8
+Checking presence of package libavcodec >= 54 ... 56.1.0
+Checking presence of package libavformat >= 54 ... 56.1.0
+Checking presence of package libswresample ... no
+Checking presence of package libavutil >= 51 ... 54.3.0
+Checking presence of package libswscale >= 2.1 ... 3.0.0
+Checking presence of header file libavutil/channel_layout.h ... yes
+Notice: FFmpeg recording disabled due to missing or unsuitable packages.
+Checking function dlopen in -ldl ... yes
+Checking presence of package gbm >= 9.0 ... 10.6.3
+Checking presence of package libdrm ... 2.4.62
+Checking presence of package libxml-2.0 ... 2.9.1
+Checking presence of package libv4l2 ... 1.6.0
+Checking function glFramebufferTexture2D in -lGL ... yes
+Checking presence of package freetype2 ... 17.1.11
+Checking presence of package x11 ... 1.6.2
+Checking presence of package xcb ... 1.10
+Checking presence of package wayland-egl ... 10.6.3
+Checking presence of package xkbcommon >= 0.3.2 ... 0.4.3
+Checking presence of package xext ... 1.3.3
+Checking presence of package xxf86vm ... 1.1.3
+Checking presence of package xinerama ... 1.1.3
+Checking presence of package xv ... 1.0.10
+Checking presence of package libudev ... 215
+Checking presence of header file linux/parport.h ... yes
+Checking presence of header file linux/ppdev.h ... yes
+Checking function strlcpy in -lc ... no
+Checking function strcasestr in -lc ... yes
+Checking function mmap in -lc ... yes
+Checking function vkCreateInstance in -lvulkan ... no
+Checking presence of package python3 ... 3.4
+Creating make config: config.mk
+Creating config header: config.h
+make[1]: Leaving directory '/build/retroarch-1.3.4+git+bsos2'
+   debian/rules override_dh_auto_build
+make[1]: Entering directory '/build/retroarch-1.3.4+git+bsos2'
+dh_auto_build
+make[2]: Entering directory '/build/retroarch-1.3.4+git+bsos2'
+CC input/drivers/linuxraw_input.c
+CC input/common/linux_common.c
+CC input/common/epoll_common.c
+CC input/drivers_joypad/linuxraw_joypad.c
+CC frontend/drivers/platform_linux.c
+CC frontend/frontend.c
+CC frontend/frontend_driver.c
+CC frontend/drivers/platform_null.c
+CC ui/ui_companion_driver.c
+CC ui/drivers/ui_null.c
+CC libretro_version_1.c
+CC retroarch.c
+CC input/input_keyboard.c
+CC command_event.c
+CC msg_hash.c
+CC intl/msg_hash_de.c
+CC intl/msg_hash_eo.c
+CC intl/msg_hash_es.c
+CC intl/msg_hash_fr.c
+CC intl/msg_hash_it.c
+CC intl/msg_hash_nl.c
+CC intl/msg_hash_pl.c
+CC intl/msg_hash_pt.c
+CC intl/msg_hash_us.c
+CC runloop.c
+CC libretro-common/queues/task_queue.c
+CC tasks/tasks_internal.c
+CC tasks/task_content.c
+CC tasks/task_file_transfer.c
+CC content.c
+CC libretro-common/encodings/encoding_utf.c
+CC libretro-common/lists/file_list.c
+CC libretro-common/lists/dir_list.c
+CC libretro-common/file/retro_dirent.c
+CC libretro-common/streams/file_stream.c
+CC libretro-common/streams/interface_stream.c
+CC libretro-common/streams/memory_stream.c
+CC libretro-common/file/retro_stat.c
+CC libretro-common/lists/string_list.c
+CC libretro-common/string/stdstring.c
+CC libretro-common/memmap/memalign.c
+CC list_special.c
+CC libretro-common/file/nbio/nbio_stdio.c
+CC libretro-common/file/file_path.c
+CC file_path_special.c
+CC libretro-common/hash/rhash.c
+CC audio/audio_driver.c
+CC input/input_driver.c
+CC input/input_hid_driver.c
+CC gfx/video_coord_array.c
+CC gfx/video_driver.c
+CC camera/camera_driver.c
+CC location/location_driver.c
+CC driver.c
+CC configuration.c
+CC libretro-common/dynamic/dylib.c
+CC dynamic.c
+CC cores/dynamic_dummy.c
+CC libretro-common/queues/message_queue.c
+CC rewind.c
+CC gfx/drivers_font_renderer/bitmapfont.c
+CC input/input_autodetect.c
+CC input/input_joypad_driver.c
+CC input/input_config.c
+CC input/input_keymaps.c
+CC input/input_remapping.c
+CC tasks/task_overlay.c
+CC input/input_overlay.c
+CC patch.c
+CC libretro-common/queues/fifo_queue.c
+CC core_options.c
+CC libretro-common/compat/compat_fnmatch.c
+CC libretro-common/compat/compat_posix_string.c
+CC cheats.c
+CC core_info.c
+CC libretro-common/file/config_file.c
+CC config_file_userdata.c
+CC screenshot.c
+CC libretro-common/gfx/scaler/scaler.c
+CC gfx/drivers_shader/shader_null.c
+CC gfx/video_shader_driver.c
+CC gfx/video_shader_parse.c
+CC libretro-common/gfx/scaler/pixconv.c
+CC libretro-common/gfx/scaler/scaler_int.c
+CC libretro-common/gfx/scaler/scaler_filter.c
+CC gfx/font_driver.c
+CC gfx/video_filter.c
+CC audio/audio_resampler_driver.c
+CC audio/audio_dsp_filter.c
+CC audio/drivers_resampler/sinc_resampler.c
+CC audio/drivers_resampler/nearest_resampler.c
+CC audio/drivers_resampler/null_resampler.c
+CC audio/drivers_resampler/cc_resampler.c
+CC location/drivers/nulllocation.c
+CC camera/drivers/nullcamera.c
+CC gfx/drivers/nullgfx.c
+CC audio/drivers/nullaudio.c
+CC input/drivers/nullinput.c
+CC input/drivers_hid/null_hid.c
+CC input/drivers_joypad/null_joypad.c
+CC input/drivers_joypad/hid_joypad.c
+CC playlist.c
+CC movie.c
+CC record/record_driver.c
+CC record/drivers/record_null.c
+CC performance.c
+CC verbosity.c
+CC libretro-common/compat/compat_strl.c
+CC gfx/video_texture_image.c
+CC cores/libretro-imageviewer/image_core.c
+CC libretro-db/bintree.c
+CC libretro-db/libretrodb.c
+CC libretro-db/query.c
+CC libretro-db/rmsgpack.c
+CC libretro-db/rmsgpack_dom.c
+CC database_info.c
+CC tasks/task_database.c
+CC tasks/task_database_cue.c
+CC gfx/video_state_python.c
+CC audio/drivers/alsa.c
+CC audio/drivers/alsathread.c
+CC audio/drivers/openal.c
+CC audio/drivers/jack.c
+CC audio/drivers/pulse.c
+CC audio/audio_utils.c
+CC menu/drivers/rgui.c
+CC menu/drivers/materialui.c
+CC menu/drivers/zarch.c
+CC menu/drivers/xmb.c
+CC menu/menu_hash.c
+CC menu/menu_driver.c
+CC menu/menu_content.c
+CC menu/intl/menu_hash_de.c
+CC menu/intl/menu_hash_es.c
+CC menu/intl/menu_hash_eo.c
+CC menu/intl/menu_hash_fr.c
+CC menu/intl/menu_hash_it.c
+CC menu/intl/menu_hash_nl.c
+CC menu/intl/menu_hash_pl.c
+CC menu/intl/menu_hash_pt.c
+CC menu/intl/menu_hash_us.c
+CC menu/menu_input.c
+CC menu/menu_entry.c
+CC menu/menu_entries.c
+CC menu/menu_navigation.c
+CC menu/menu_setting.c
+CC menu/menu_shader.c
+CC menu/menu_cbs.c
+CC menu/cbs/menu_cbs_ok.c
+CC menu/cbs/menu_cbs_cancel.c
+CC menu/cbs/menu_cbs_select.c
+CC menu/cbs/menu_cbs_start.c
+CC menu/cbs/menu_cbs_info.c
+CC menu/cbs/menu_cbs_refresh.c
+CC menu/cbs/menu_cbs_left.c
+CC menu/cbs/menu_cbs_right.c
+CC menu/cbs/menu_cbs_deferred_push.c
+CC menu/cbs/menu_cbs_scan.c
+CC menu/cbs/menu_cbs_get_value.c
+CC menu/cbs/menu_cbs_title.c
+CC menu/cbs/menu_cbs_up.c
+CC menu/cbs/menu_cbs_down.c
+CC menu/cbs/menu_cbs_contentlist_switch.c
+CC menu/menu_display.c
+CC menu/menu_displaylist.c
+CC menu/menu_animation.c
+CC menu/drivers_display/menu_display_null.c
+CC menu/drivers/menu_generic.c
+CC menu/drivers/null.c
+CC gfx/drivers_font_renderer/stb.c
+CC gfx/drivers_font_renderer/freetype.c
+CC autosave.c
+CC libretro-common/rthreads/rthreads.c
+CC libretro-common/rthreads/rsemaphore.c
+CC libretro-common/rthreads/async_job.c
+CC gfx/video_thread_wrapper.c
+CC audio/audio_thread_wrapper.c
+CC command.c
+CC gfx/drivers_context/wayland_ctx.c
+CC input/common/input_x11_common.c
+CC input/drivers/x11_input.c
+CC gfx/common/x11_common.c
+CC input/drivers_keyboard/keyboard_event_x11.c
+CC gfx/drivers_context/x_ctx.c
+CC input/drivers_keyboard/keyboard_event_xkb.c
+CC input/drivers/udev_input.c
+CC input/drivers_keyboard/keyboard_event_udev.c
+CC input/drivers_joypad/udev_joypad.c
+CC input/drivers_hid/libusb_hid.c
+CC input/connect/joypad_connection.c
+CC input/connect/connect_ps2adapter.c
+CC input/connect/connect_ps3.c
+CC input/connect/connect_ps4.c
+CC input/connect/connect_wii.c
+CC input/connect/connect_nesusb.c
+CC input/connect/connect_snesusb.c
+CC input/connect/connect_wiiupro.c
+CC input/connect/connect_wiiugca.c
+CC input/drivers_joypad/parport_joypad.c
+CC gfx/video_context_driver.c
+CC gfx/drivers_context/gfx_null_ctx.c
+CC gfx/video_state_tracker.c
+CC libretro-common/gfx/math/matrix_4x4.c
+CC libretro-common/gfx/math/matrix_3x3.c
+CC gfx/drivers_context/drm_ctx.c
+CC gfx/drivers/gl.c
+CC gfx/common/gl_common.c
+CC gfx/drivers_font/gl_raster_font.c
+CC libretro-common/glsym/rglgen.c
+CC menu/drivers_display/menu_display_gl.c
+CC gfx/drivers_context/xegl_ctx.c
+CC libretro-common/glsym/glsym_gl.c
+CC gfx/drivers_shader/shader_glsl.c
+CC gfx/common/egl_common.c
+CC gfx/drivers/sdl2_gfx.c
+CC input/drivers/sdl_input.c
+CC input/drivers_joypad/sdl_joypad.c
+CC audio/drivers/sdl_audio.c
+CC gfx/drivers_context/sdl_gl_ctx.c
+CC gfx/common/drm_common.c
+CC gfx/drivers/xvideo.c
+CC gfx/drivers_shader/shader_gl_cg.c
+CC deps/7zip/7zIn.c
+CC deps/7zip/7zAlloc.c
+CC deps/7zip/Bra86.c
+CC deps/7zip/7zFile.c
+CC deps/7zip/7zStream.c
+CC deps/7zip/7zBuf2.c
+CC deps/7zip/LzmaDec.c
+CC deps/7zip/7zCrcOpt.c
+CC deps/7zip/Bra.c
+CC deps/7zip/7zDec.c
+CC deps/7zip/Bcj2.c
+CC deps/7zip/7zCrc.c
+CC deps/7zip/Lzma2Dec.c
+CC deps/7zip/7zBuf.c
+CC libretro-common/file/archive_file.c
+CC libretro-common/file/archive_file_zlib.c
+CC tasks/task_decompress.c
+CC libretro-common/formats/png/rpng.c
+CC libretro-common/formats/png/rpng_encode.c
+CC libretro-common/formats/bmp/rbmp_encode.c
+CC libretro-common/formats/tga/rtga.c
+CC libretro-common/formats/json/jsonsax.c
+CC camera/drivers/video4linux2.c
+CC libretro-common/net/net_compat.c
+CC libretro-common/net/net_http.c
+CC libretro-common/net/net_socket.c
+CC net_http_special.c
+CC tasks/task_http.c
+CC libretro-common/net/net_ifinfo.c
+CC netplay/netplay_net.c
+CC netplay/netplay_spectate.c
+CC netplay/netplay_common.c
+CC netplay/netplay.c
+CC cheevos.c
+CC libretro-common/utils/md5.c
+CC remote.c
+LD retroarch
+make[2]: Leaving directory '/build/retroarch-1.3.4+git+bsos2'
+# SoftFilters
+dh_auto_build -- -C gfx/video_filters/
+make[2]: Entering directory '/build/retroarch-1.3.4+git+bsos2/gfx/video_filters'
+gcc -c -o blargg_ntsc_snes.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 blargg_ntsc_snes.c
+gcc -o blargg_ntsc_snes.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 blargg_ntsc_snes.o
+gcc -c -o phosphor2x.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 phosphor2x.c
+gcc -o phosphor2x.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 phosphor2x.o
+gcc -c -o epx.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 epx.c
+gcc -o epx.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 epx.o
+gcc -c -o lq2x.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 lq2x.c
+gcc -o lq2x.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 lq2x.o
+gcc -c -o 2xsai.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 2xsai.c
+gcc -o 2xsai.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 2xsai.o
+gcc -c -o super2xsai.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 super2xsai.c
+gcc -o super2xsai.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 super2xsai.o
+gcc -c -o supereagle.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 supereagle.c
+gcc -o supereagle.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 supereagle.o
+gcc -c -o 2xbr.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 2xbr.c
+gcc -o 2xbr.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 2xbr.o
+gcc -c -o darken.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 darken.c
+gcc -o darken.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 darken.o
+gcc -c -o scale2x.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 scale2x.c
+gcc -o scale2x.so -Wl,-z,relro -shared -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -I../../libretro-common/include -std=c99 scale2x.o
+rm darken.o 2xsai.o blargg_ntsc_snes.o super2xsai.o lq2x.o 2xbr.o scale2x.o epx.o phosphor2x.o supereagle.o
+make[2]: Leaving directory '/build/retroarch-1.3.4+git+bsos2/gfx/video_filters'
+# Audio DSP plugins
+dh_auto_build -- -C audio/audio_filters/
+make[2]: Entering directory '/build/retroarch-1.3.4+git+bsos2/audio/audio_filters'
+gcc -Wall -c -o echo.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include echo.c
+gcc -Wall -o echo.so -Wl,-z,relro -shared -lm -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include echo.o
+gcc -Wall -c -o iir.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include iir.c
+gcc -Wall -o iir.so -Wl,-z,relro -shared -lm -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include iir.o
+gcc -Wall -c -o reverb.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include reverb.c
+gcc -Wall -o reverb.so -Wl,-z,relro -shared -lm -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include reverb.o
+gcc -Wall -c -o panning.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include panning.c
+gcc -Wall -o panning.so -Wl,-z,relro -shared -lm -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include panning.o
+gcc -Wall -c -o phaser.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include phaser.c
+gcc -Wall -o phaser.so -Wl,-z,relro -shared -lm -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include phaser.o
+gcc -Wall -c -o wahwah.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include wahwah.c
+gcc -Wall -o wahwah.so -Wl,-z,relro -shared -lm -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include wahwah.o
+gcc -Wall -c -o eq.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include eq.c
+gcc -Wall -o eq.so -Wl,-z,relro -shared -lm -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include eq.o
+gcc -Wall -c -o chorus.o -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include chorus.c
+gcc -Wall -o chorus.so -Wl,-z,relro -shared -lm -Wl,--version-script=link.T -g -fstack-protector-strong -Wformat -Werror=format-security -fPIC  -O2 -I../../libretro-common/include chorus.o
+rm iir.o phaser.o wahwah.o panning.o eq.o reverb.o echo.o chorus.o
+make[2]: Leaving directory '/build/retroarch-1.3.4+git+bsos2/audio/audio_filters'
+make[1]: Leaving directory '/build/retroarch-1.3.4+git+bsos2'
+   dh_auto_test -O--parallel
+ fakeroot debian/rules binary
+dh binary --parallel
+   dh_testroot -O--parallel
+   dh_prep -O--parallel
+   dh_installdirs -O--parallel
+   dh_auto_install -O--parallel
+make[1]: Entering directory '/build/retroarch-1.3.4+git+bsos2'
+rm -f obj-unix/git_version.o
+mkdir -p /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/bin 2>/dev/null || /bin/true
+mkdir -p /build/retroarch-1.3.4+git+bsos2/debian/tmp/etc 2>/dev/null || /bin/true
+mkdir -p /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/share/applications 2>/dev/null || /bin/true
+mkdir -p /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/share/man/man1 2>/dev/null || /bin/true
+mkdir -p /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/share/pixmaps 2>/dev/null || /bin/true
+install -m755 retroarch /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/bin 
+install -m755 tools/cg2glsl.py /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/bin/retroarch-cg2glsl
+install -m644 retroarch.cfg /build/retroarch-1.3.4+git+bsos2/debian/tmp/etc/retroarch.cfg
+install -m644 retroarch.desktop /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/share/applications
+install -m644 docs/retroarch.1 /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/share/man/man1
+install -m644 docs/retroarch-cg2glsl.1 /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/share/man/man1
+install -m644 media/retroarch.svg /build/retroarch-1.3.4+git+bsos2/debian/tmp/usr/share/pixmaps
+make[1]: Leaving directory '/build/retroarch-1.3.4+git+bsos2'
+   dh_install -O--parallel
+   dh_installdocs -O--parallel
+   dh_installchangelogs -O--parallel
+   dh_installman -O--parallel
+   dh_lintian -O--parallel
+   dh_perl -O--parallel
+   dh_link -O--parallel
+   dh_compress -O--parallel
+   dh_fixperms -O--parallel
+   debian/rules override_dh_strip
+make[1]: Entering directory '/build/retroarch-1.3.4+git+bsos2'
+dh_strip -pretroarch --dbg-package=retroarch-dbg
+make[1]: Leaving directory '/build/retroarch-1.3.4+git+bsos2'
+   dh_makeshlibs -O--parallel
+   dh_shlibdeps -O--parallel
+dpkg-shlibdeps: warning: package could avoid a useless dependency if debian/retroarch/usr/bin/retroarch was not linked against libxcb.so.1 (it uses none of the library's symbols)
+dpkg-shlibdeps: warning: package could avoid a useless dependency if debian/retroarch/usr/bin/retroarch was not linked against libX11-xcb.so.1 (it uses none of the library's symbols)
+   dh_installdeb -O--parallel
+   dh_gencontrol -O--parallel
+dpkg-gencontrol: warning: File::FcntlLock not available; using flock which is not NFS-safe
+dpkg-gencontrol: warning: Depends field of package retroarch-dbg: unknown substitution variable ${shlibs:Depends}
+dpkg-gencontrol: warning: File::FcntlLock not available; using flock which is not NFS-safe
+dpkg-gencontrol: warning: Depends field of package retroarch-cg2glsl: unknown substitution variable ${shlibs:Depends}
+dpkg-gencontrol: warning: File::FcntlLock not available; using flock which is not NFS-safe
+   dh_md5sums -O--parallel
+   dh_builddeb -O--parallel
+dpkg-deb: building package `retroarch' in `../retroarch_1.3.4+git+bsos2_amd64.deb'.
+dpkg-deb: building package `retroarch-dbg' in `../retroarch-dbg_1.3.4+git+bsos2_amd64.deb'.
+dpkg-deb: building package `retroarch-cg2glsl' in `../retroarch-cg2glsl_1.3.4+git+bsos2_amd64.deb'.
+ dpkg-genchanges -b >../retroarch_1.3.4+git+bsos2_amd64.changes
+dpkg-genchanges: binary-only upload (no source code included)
+ dpkg-source --after-build retroarch-1.3.4+git+bsos2
+dpkg-buildpackage: binary-only upload (no source included)
+I: copying local configuration
+I: user script /var/cache/pbuilder/brewmaster/build/14925/tmp/hooks/B92test-pkg starting
+Installing the prerequisites
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following extra packages will be installed:
+  freeglut3 nvidia-cg-toolkit
+Suggested packages:
+  nvidia-cg-doc
+The following NEW packages will be installed:
+  freeglut3 nvidia-cg-toolkit retroarch-cg2glsl
+debconf: delaying package configuration, since apt-utils is not installed
+0 upgraded, 3 newly installed, 0 to remove and 11 not upgraded.
+Need to get 0 B/1663 kB of archives.
+After this operation, 11.6 MB of additional disk space will be used.
+Selecting previously unselected package freeglut3:amd64.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 20549 files and directories currently installed.)
+Preparing to unpack .../freeglut3_2.8.1-2_amd64.deb ...
+Unpacking freeglut3:amd64 (2.8.1-2) ...
+Selecting previously unselected package nvidia-cg-toolkit.
+Preparing to unpack .../nvidia-cg-toolkit_3.1.0013-2_amd64.deb ...
+Unpacking nvidia-cg-toolkit (3.1.0013-2) ...
+Selecting previously unselected package retroarch-cg2glsl.
+Preparing to unpack .../retroarch-cg2glsl_1.2.2+git+bsos1_amd64.deb ...
+Unpacking retroarch-cg2glsl (1.2.2+git+bsos1) ...
+Processing triggers for man-db (2.7.0.2-5+bsos3) ...
+Setting up freeglut3:amd64 (2.8.1-2) ...
+Setting up nvidia-cg-toolkit (3.1.0013-2) ...
+Setting up retroarch-cg2glsl (1.2.2+git+bsos1) ...
+Processing triggers for libc-bin (2.19-18+steamos1+deb8u3+bsos1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  freeglut3 nvidia-cg-toolkit
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  retroarch-cg2glsl
+0 upgraded, 0 newly installed, 1 to remove and 11 not upgraded.
+After this operation, 69.6 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 20571 files and directories currently installed.)
+Removing retroarch-cg2glsl (1.2.2+git+bsos1) ...
+Processing triggers for man-db (2.7.0.2-5+bsos3) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  freeglut3 nvidia-cg-toolkit
+Use 'apt-get autoremove' to remove them.
+The following extra packages will be installed:
+  fonts-dejavu-core libretro-core-info retroarch
+Suggested packages:
+  retroarch-assets retroarch-joypad-autoconfig
+The following NEW packages will be installed:
+  fonts-dejavu-core libretro-core-info retroarch retroarch-dbg
+debconf: delaying package configuration, since apt-utils is not installed
+0 upgraded, 4 newly installed, 0 to remove and 11 not upgraded.
+Need to get 0 B/3995 kB of archives.
+After this operation, 7864 kB of additional disk space will be used.
+Selecting previously unselected package fonts-dejavu-core.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 20566 files and directories currently installed.)
+Preparing to unpack .../fonts-dejavu-core_2.34-1+bsos2_all.deb ...
+Unpacking fonts-dejavu-core (2.34-1+bsos2) ...
+Selecting previously unselected package libretro-core-info.
+Preparing to unpack .../libretro-core-info_0.1+git+bsos1_all.deb ...
+Unpacking libretro-core-info (0.1+git+bsos1) ...
+Selecting previously unselected package retroarch.
+Preparing to unpack .../retroarch_1.2.2+git+bsos1_amd64.deb ...
+Unpacking retroarch (1.2.2+git+bsos1) ...
+Selecting previously unselected package retroarch-dbg.
+Preparing to unpack .../retroarch-dbg_1.2.2+git+bsos1_amd64.deb ...
+Unpacking retroarch-dbg (1.2.2+git+bsos1) ...
+Processing triggers for mime-support (3.58+bsos3) ...
+Processing triggers for man-db (2.7.0.2-5+bsos3) ...
+Setting up fonts-dejavu-core (2.34-1+bsos2) ...
+Setting up libretro-core-info (0.1+git+bsos1) ...
+Setting up retroarch (1.2.2+git+bsos1) ...
+Setting up retroarch-dbg (1.2.2+git+bsos1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  fonts-dejavu-core freeglut3 libretro-core-info nvidia-cg-toolkit retroarch
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  retroarch-dbg
+0 upgraded, 0 newly installed, 1 to remove and 11 not upgraded.
+After this operation, 2806 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 20817 files and directories currently installed.)
+Removing retroarch-dbg (1.2.2+git+bsos1) ...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+retroarch is already the newest version.
+retroarch set to manually installed.
+The following packages were automatically installed and are no longer required:
+  freeglut3 nvidia-cg-toolkit
+Use 'apt-get autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 11 not upgraded.
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  fonts-dejavu-core freeglut3 libretro-core-info nvidia-cg-toolkit
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  retroarch
+0 upgraded, 0 newly installed, 1 to remove and 11 not upgraded.
+After this operation, 2003 kB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 20776 files and directories currently installed.)
+Removing retroarch (1.2.2+git+bsos1) ...
+Processing triggers for man-db (2.7.0.2-5+bsos3) ...
+Processing triggers for mime-support (3.58+bsos3) ...
+Selecting previously unselected package retroarch-cg2glsl.
+(Reading database ... 20713 files and directories currently installed.)
+Preparing to unpack .../retroarch-cg2glsl_1.3.4+git+bsos2_amd64.deb ...
+Unpacking retroarch-cg2glsl (1.3.4+git+bsos2) ...
+Selecting previously unselected package retroarch-dbg.
+Preparing to unpack .../retroarch-dbg_1.3.4+git+bsos2_amd64.deb ...
+Unpacking retroarch-dbg (1.3.4+git+bsos2) ...
+Selecting previously unselected package retroarch.
+Preparing to unpack .../retroarch_1.3.4+git+bsos2_amd64.deb ...
+Unpacking retroarch (1.3.4+git+bsos2) ...
+Setting up retroarch-cg2glsl (1.3.4+git+bsos2) ...
+dpkg: dependency problems prevent configuration of retroarch:
+ retroarch depends on retroarch-assets; however:
+  Package retroarch-assets is not installed.
+ retroarch depends on retroarch-joypad-autoconfig; however:
+  Package retroarch-joypad-autoconfig is not installed.
+
+dpkg: error processing package retroarch (--install):
+ dependency problems - leaving unconfigured
+dpkg: dependency problems prevent configuration of retroarch-dbg:
+ retroarch-dbg depends on retroarch (= 1.3.4+git+bsos2); however:
+  Package retroarch is not configured yet.
+
+dpkg: error processing package retroarch-dbg (--install):
+ dependency problems - leaving unconfigured
+Processing triggers for man-db (2.7.0.2-5+bsos3) ...
+Processing triggers for mime-support (3.58+bsos3) ...
+Errors were encountered while processing:
+ retroarch
+ retroarch-dbg
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Correcting dependencies... Done
+The following extra packages will be installed:
+  retroarch-assets retroarch-joypad-autoconfig
+The following NEW packages will be installed:
+  retroarch-assets retroarch-joypad-autoconfig
+debconf: delaying package configuration, since apt-utils is not installed
+0 upgraded, 2 newly installed, 0 to remove and 11 not upgraded.
+2 not fully installed or removed.
+Need to get 0 B/41.3 MB of archives.
+After this operation, 50.2 MB of additional disk space will be used.
+Selecting previously unselected package retroarch-assets.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 20823 files and directories currently installed.)
+Preparing to unpack .../retroarch-assets_0.1+20160316git+bsos1_all.deb ...
+Unpacking retroarch-assets (0.1+20160316git+bsos1) ...
+Selecting previously unselected package retroarch-joypad-autoconfig.
+Preparing to unpack .../retroarch-joypad-autoconfig_0.1.1+f7f6107git+bsos-1_all.deb ...
+Unpacking retroarch-joypad-autoconfig (0.1.1+f7f6107git+bsos-1) ...
+Setting up retroarch-assets (0.1+20160316git+bsos1) ...
+Setting up retroarch-joypad-autoconfig (0.1.1+f7f6107git+bsos-1) ...
+Setting up retroarch (1.3.4+git+bsos2) ...
+Installing new version of config file /etc/retroarch.cfg ...
+Setting up retroarch-dbg (1.3.4+git+bsos2) ...
+W: no pbuilder-test script found, skipping
+I: user script /var/cache/pbuilder/brewmaster/build/14925/tmp/hooks/B92test-pkg finished
+W: no hooks of type I found -- ignoring
+I: Copying back the cached apt archive contents
+I: unmounting dev/pts filesystem
+I: unmounting run/shm filesystem
+I: unmounting proc filesystem
+I: cleaning the build env 
+I: removing directory /var/cache/pbuilder/brewmaster/build/14925 and its subdirectories
+I: Current time: Mon May 23 18:00:32 EDT 2016
+I: pbuilder-time-stamp: 1464040832
+
+Time started: 17:57:45
+Time started: 18:00:32
+Total Runtime (minutes): 2.78
+
+#################################################################
+If package was built without errors you will see it below.
+If you don't, please check build dependency errors listed above.
+#################################################################
+
+Showing contents of: /home/mikeyd/build-retroarch-temp: 
+
+retroarch-1.3.4
+retroarch_1.3.4+git+bsos2_amd64.build
+retroarch_1.3.4+git+bsos2_amd64.changes
+retroarch_1.3.4+git+bsos2_amd64.deb
+retroarch_1.3.4+git+bsos2.dsc
+retroarch_1.3.4+git+bsos2_source.changes
+retroarch_1.3.4+git+bsos2.tar.xz
+retroarch_1.3.4.orig.tar.gz
+retroarch-cg2glsl_1.3.4+git+bsos2_amd64.deb
+retroarch-dbg_1.3.4+git+bsos2_amd64.deb
+
+==> Would you like to transfer any packages that were built? [y/n]
+Upload not requested
+

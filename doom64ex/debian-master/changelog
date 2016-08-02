@@ -1,0 +1,29 @@
+doom64ex (0.20160730+git+bsos-6) brewmaster; urgency=low
+
+  * Reupload, original source wasn't included right
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 30 Jul 2016 17:25:31 -0400
+
+doom64ex (0.20160730+git+bsos-3) brewmaster; urgency=low
+
+  * Binary harcoded to bin destination in cmakelists
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 30 Jul 2016 10:13:54 -0400
+
+doom64ex (0.20160730+git+bsos-2) brewmaster; urgency=low
+
+  * Reupload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 30 Jul 2016 10:00:18 -0400
+
+doom64ex (0.20160730+git+bsos-1) brewmaster; urgency=low
+
+  * Fix missing kex.wad
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 30 Jul 2016 09:33:27 -0400
+
+doom64ex (0.20160729+git+bsos-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 30 Jul 2016 09:18:23 -0400

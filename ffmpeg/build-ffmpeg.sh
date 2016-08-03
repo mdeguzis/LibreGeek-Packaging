@@ -57,10 +57,10 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="ffmpeg"
-epoch="7"
+epoch="8"
 pkgver="2.7.6"
 pkgrev="2"
-pkgsuffix="bsos"
+pkgsuffix="nvenc1+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -147,6 +147,18 @@ main()
 			git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	fi
+	
+	# Add files necessary for nvenc
+	echo -e "\n==> Installing the NVidia Video SDK for build-time only\n"
+	
+	export NVENC_INC_DIR="${BUILD_DIR}/nvenc"
+	mkdir -p "${NVENC_INC_DIR}"
+	SDK_VER="6.0.1"
+	SDK_BASENAME="nvidia_video_sdk_${SDK_VER}"
+	SDK_URL="http://developer.download.nvidia.com/assets/cuda/files/${SDK_BASENAME}.zip"
+	wget -P "${BUILD_DIR}" "${SDK_URL}"
+	unzip "${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
+	cp -r ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
 
 	# trim git (after confimed working build)
 	rm -rf "${git_dir}/.git"

@@ -58,7 +58,7 @@ FLAVORS = extra
 #  * With --build-suffix="-ffmpeg" the library names are changed, so there can't be a conflict with Libav.
 CONFIG := --prefix=/usr \
 	--extra-version="$(DEB_REVISION)" \
-	--extra-cflags="-fPIC -m64 -I${NVENC_INC_DIR}" \
+	--extra-cflags="-fPIC -m64 -I$(NVENC_INC_DIR)" \
 	--build-suffix="-ffmpeg" \
 	--toolchain=hardened \
 	--libdir=/usr/lib/$(DEB_HOST_MULTIARCH) \

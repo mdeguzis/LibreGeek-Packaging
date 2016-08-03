@@ -48,7 +48,11 @@ fi
 
 # upstream vars
 git_url="https://github.com/libretro/RetroArch"
-rel_target="v1.3.4"
+#target="v1.3.4"
+
+# Man page error in current release.
+# Master is close enough, use that
+target="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -122,7 +126,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${rel_target}" "${git_url}" "${git_dir}"
+	git clone -b "${target}" "${git_url}" "${git_dir}"
 
 	# inject .desktop file (not found in release archives) and image
 	cp -r "$scriptdir/retroarch.png" "${git_dir}"
@@ -157,7 +161,7 @@ main()
 	sleep 2s
 
  	# update changelog with dch
- 	# Maybe include static message: "Update to release: ${rel_target}"
+ 	# Maybe include static message: "Update to release: ${target}"
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \

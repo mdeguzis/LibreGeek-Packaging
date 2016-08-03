@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -46,8 +46,8 @@ else
 	
 fi
 
-git_url="https://github.com/FFmpeg/FFmpeg"
-target="release/3.1"
+GIT_URL="https://github.com/FFmpeg/FFmpeg"
+TARGET="release/3.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -69,7 +69,7 @@ maintainer="ProfessorKaos64"
 # set BUILD_DIR
 export BUILD_DIR="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+GIT_DIR="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
 {
@@ -107,12 +107,12 @@ main()
 
 	fi
 
-	# Clone upstream source code and target
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	if [[ -d "${git_dir}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
+	if [[ -d "${GIT_DIR}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -126,7 +126,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
@@ -144,7 +144,7 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_DIR}" || exit 1
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
 	
@@ -165,7 +165,7 @@ main()
 	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
 
 	# trim git (after confimed working build)
-	rm -rf "${git_dir}/.git"
+	rm -rf "${GIT_DIR}/.git"
 
 	#################################################
 	# Prep source
@@ -188,8 +188,8 @@ main()
 		echo -e "\n==> Cleaning old source foldrers for retry"
 		sleep 2s
 
-		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
-		mkdir -p "${git_dir}"
+		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		mkdir -p "${GIT_DIR}"
 
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
@@ -200,14 +200,14 @@ main()
 	fi
 
 	# Try using upstream debian/
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	###############################################################
 	# build package
 	###############################################################
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -277,7 +277,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

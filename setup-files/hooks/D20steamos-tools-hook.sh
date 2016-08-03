@@ -6,17 +6,6 @@
 
 # Add SteamOS tools into chroot environment if we are using a brewmaster DIST
 
-# let all output flow if requested
-if [[ "${DEBUG}" == "true" ]]; then
-
-	OUTPUT_OPTS=""
-
-else
-
-	OUTPUT_OPTS="&> /dev/null"
-
-fi
-
 if [[ "$DIST" == "brewmaster" ]]; then
 
 	echo "I: STEAMOS-TOOLS: Adding repository configuration"
@@ -34,7 +23,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	sed -i '/sleep/d' configure-repos.sh
 
 	# Run setup
-	if ! ./configure-repos.sh "${OUTPUT_OPTS}"; then
+	if ! ./configure-repos.sh &> /dev/null; then
 		echo "E: STEAMOS-TOOLS: SteamOS-Tools configuration [FAILED]. Exiting."
 		exit 1
 	fi
@@ -46,7 +35,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 		# Get this manually so we only have to update package listings once below
 		wget "http://packages.libregeek.org/steamos-tools-beta-repo-latest.deb" -q -nc
 		
-		if ! dpkg -i "steamos-tools-beta-repo-latest.deb" "${OUTPUT_OPTS}"; then
+		if ! dpkg -i "steamos-tools-beta-repo-latest.deb" &> /dev/null; then
 			echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools beta repository. Exiting"
 			exit 1
 		fi
@@ -78,7 +67,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	
 	echo "I: STEAMOS-TOOLS: Updating package listings"
 	
-	if ! apt-get update -y -q "${OUTPUT_OPTS}"; then
+	if ! apt-get update -y -q &> /dev/null; then
 	
 		echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
 		exit 1

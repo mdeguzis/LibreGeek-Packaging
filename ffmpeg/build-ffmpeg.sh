@@ -150,11 +150,13 @@ main()
 	
 	# Add files necessary for nvenc
 	# Adapted from https://github.com/lutris/ffmpeg-nvenc/blob/master/build.sh
+	# NVENC_INC_DIR is defined inside debian/rules to be $(CURDIR)/nvenc
 
 	echo -e "\n==> Installing the NVidia Video SDK for build-time only\n"
 	sleep 2s
 
-	export NVENC_INC_DIR="${GIT_DIR}/nvenc-sdk/"
+	export NVENC_INC_DIR="${GIT_DIR}/nvenc-sdk/include"
+	
 	rm -f ${BUILD_DIR}/*.zip* "${NVENC_INC_DIR}"
 	mkdir -p "${NVENC_INC_DIR}"
 	SDK_VER="6.0.1"

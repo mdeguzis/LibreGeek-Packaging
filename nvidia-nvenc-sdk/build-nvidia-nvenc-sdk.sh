@@ -138,7 +138,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" $(basename "${SRC_DIR})
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add debian files from converted package (via npm2deb)
 	cp -r "${scriptdir}/debian" "${SRC_DIR}"

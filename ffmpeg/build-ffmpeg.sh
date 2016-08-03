@@ -47,7 +47,7 @@ else
 fi
 
 git_url="https://github.com/FFmpeg/FFmpeg"
-target="release/2.7"
+target="release/3.1"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,7 +58,7 @@ BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="ffmpeg"
 epoch="8"
-pkgver="2.7.6"
+pkgver="3.1.0"
 pkgrev="1"
 pkgsuffix="nvenc1+bsos"
 DIST="brewmaster"
@@ -80,10 +80,10 @@ install_prereqs()
 	sudo apt-get -y --force-yes install autoconf automake build-essential libass-dev libfreetype6-dev \
 	libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \
 	libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev bc checkinstall
-	
+
 	echo -e "\n==> Installing $pkgname build dependencies...\n"
 	sleep 2s
-	
+
 	### REPLACE THESE WITH PACKAGES SPECIFIED BY UPSTREAM SOURCE ###
 	sudo apt-get -y --force-yes install yasm libx264-dev cmake mercurial libmp3lame-dev \
 	libopus-dev
@@ -149,20 +149,22 @@ main()
 	fi
 	
 	# Add files necessary for nvenc
-	echo -e "\n==> Installing the NVidia Video SDK for build-time only\n"
-	sleep 2s
-	
-	export NVENC_INC_DIR="${BUILD_DIR}/nvenc/"
-	rm -f ${BUILD_DIR}/*.zip* "${NVENC_INC_DIR}"
-	mkdir -p "${NVENC_INC_DIR}"
-	SDK_VER="6.0.1"
-	SDK_BASENAME="nvidia_video_sdk_${SDK_VER}"
-	SDK_URL="http://developer.download.nvidia.com/assets/cuda/files/${SDK_BASENAME}.zip"
-	wget -P "${BUILD_DIR}" "${SDK_URL}"
-	unzip -o "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
-	
+	# Adapted from https://github.com/lutris/ffmpeg-nvenc/blob/master/build.sh
+
+#	echo -e "\n==> Installing the NVidia Video SDK for build-time only\n"
+#	sleep 2s
+#
+#	export NVENC_INC_DIR="${BUILD_DIR}/nvenc/"
+#	rm -f ${BUILD_DIR}/*.zip* "${NVENC_INC_DIR}"
+#	mkdir -p "${NVENC_INC_DIR}"
+#	SDK_VER="6.0.1"
+#	SDK_BASENAME="nvidia_video_sdk_${SDK_VER}"
+#	SDK_URL="http://developer.download.nvidia.com/assets/cuda/files/${SDK_BASENAME}.zip"
+#	wget -P "${BUILD_DIR}" "${SDK_URL}"
+#	unzip -o "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
+
 	# Idk why, but examples will not copy without elevated privs...
-	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
+#	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
 
 	# trim git (after confimed working build)
 	rm -rf "${git_dir}/.git"
@@ -182,15 +184,15 @@ main()
 		sleep 2s
 		cd "${BUILD_DIR}"
 		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
-		
+
 	else
-	
+
 		echo -e "\n==> Cleaning old source foldrers for retry"
 		sleep 2s
-		
+
 		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
 		mkdir -p "${git_dir}"
-	
+
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
 		cd "${BUILD_DIR}"
@@ -217,7 +219,6 @@ main()
 
 		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 		"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild of Ubuntu FFMPEG ${pkgver}"
-		sleep 8s
 		nano "debian/changelog"
 
 	else

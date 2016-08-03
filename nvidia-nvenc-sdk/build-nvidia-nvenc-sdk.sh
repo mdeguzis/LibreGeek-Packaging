@@ -73,8 +73,7 @@ maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
 export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-pkg_dir="${pkgname}-${pkgver}"
-src_dir="${BUILD_DIR}/${src_dir}"
+SRC_DIR="${BUILD_DIR}/${pkgname}-${pkgver}"
 
 install_prereqs()
 {
@@ -125,10 +124,10 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	mkdir -p ${pkg_dir}
+	mkdir -p ${SRC_DIR}
 	wget -P "${BUILD_DIR}" "${SDK_URL}"
 	unzip -o "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
-	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${pkg_dir}"
+	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -139,13 +138,13 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" $(basename "${SRC_DIR})
 
 	# Add debian files from converted package (via npm2deb)
-	cp -r "${scriptdir}/debian" "${pkg_dir}"
+	cp -r "${scriptdir}/debian" "${SRC_DIR}"
 
-	# Enter git dir to build
-	cd "${git_dir}"
+	# Enter src dir to build
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

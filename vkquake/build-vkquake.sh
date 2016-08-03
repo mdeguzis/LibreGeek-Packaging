@@ -60,7 +60,7 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-pkgver="0.30"
+pkgver="0.40"
 pkgrev="1"
 epoch="1"
 pkgsuffix="${date_short}git+bsos"
@@ -210,9 +210,9 @@ main()
 		if [[ -d "${BUILD_DIR}" ]]; then
 
 			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
 
 			# uplaod local repo changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"

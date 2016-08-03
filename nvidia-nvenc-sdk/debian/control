@@ -1,0 +1,24 @@
+Source: node-bower
+Section: web
+Priority: extra
+Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
+Uploaders: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends:
+ debhelper (>= 8)
+ , dh-buildinfo
+ , nodejs
+Standards-Version: 3.9.6
+Homepage: http://bower.io
+Vcs-Git: git://anonscm.debian.org/pkg-javascript/node-bower.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-javascript/node-bower.git
+XS-Testsuite: autopkgtest
+
+Package: node-bower
+Architecture: all
+Depends:
+ ${misc:Depends}
+ , nodejs
+Description: The browser package manager
+ Converted Debain package using npm2deb
+ .
+ Node.js is an event-based server-side JavaScript engine.

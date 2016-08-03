@@ -1,0 +1,6 @@
+version=3
+Origin url: 
+# Take a look at https://wiki.debian.org/debian/watch/
+opts=\
+dversionmangle=s/\+(debian|dfsg|ds|deb)(\.\d+)?$//,\
+filenamemangle=s/.*=// \

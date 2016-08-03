@@ -1,3 +1,9 @@
+vkquake (1:0.30+20160802git+bsos1-1) brewmaster; urgency=low
+
+  * Update to the latest commit 38a2337
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 02 Aug 2016 18:23:31 -0400
+
 vkquake (1:0.30+20160731git+bsos-1) brewmaster; urgency=low
 
   * Fix versioning

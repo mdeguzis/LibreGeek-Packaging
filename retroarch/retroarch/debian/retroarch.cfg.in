@@ -89,8 +89,8 @@ assets_directory = "/usr/share/libretro/assets/"
 # loaded by the menu depending on context.
 # dynamic_wallpapers_directory =
 
-# Boxarts directory. To store boxart PNG files.
-# boxarts_directory =
+# Thumbnails directory. To store thumbnail PNG files.
+# thumbnails_directory =
 
 # Sets start directory for menu config browser.
 rgui_config_directory = "~/.config/retroarch/"
@@ -259,7 +259,7 @@ video_filter_dir = "/usr/lib/retroarch/filters/video/"
 # audio_resampler =
 
 # Audio driver backend. Depending on configuration possible candidates are: alsa, pulse, oss, jack, rsound, roar, openal, sdl, xaudio.
-audio_driver = "pulse"
+# audio_driver = "pulse"
 
 # Override the default audio device the audio_driver uses. This is driver dependant. E.g. ALSA wants a PCM device, OSS wants a path (e.g. /dev/dsp), Jack wants portnames (e.g. system:playback1,system:playback_2), and so on ...
 # audio_device =
@@ -363,6 +363,20 @@ audio_filter_dir = "/usr/lib/retroarch/filters/audio/"
 
 # Hide input descriptors that were not set by the core.
 # input_descriptor_hide_unbound = false
+
+# Influence how input polling is done inside RetroArch.
+# 0 : Early  - Input polling is performed before call to retro_run.
+# 1 : Normal - Input polling is performend when retro_input_poll is
+#     requested.
+# 2 : Late   - Input polling is performed on first call to retro_input_state
+#     per frame
+# 
+# Setting it to 0 or 2 can result in less latency depending on
+# your configuration. 
+#
+# When netplay is enabled, the default polling behavior (1) will
+# be used regardless of the value set here.
+# input_poll_type_behavior = 1
 
 # Directory for joypad autoconfigs.
 # If a joypad is plugged in, that joypad will be autoconfigured if a config file
@@ -628,8 +642,8 @@ menu_driver = "xmb"
 # Dynamically load a new wallpaper depending on context.
 # menu_dynamic_wallpaper_enable = false
 
-# Display boxart in place of the content icon if available
-# menu_boxart_enable = false
+# Type of thumbnail to display. 0 = none, 1 = snaps, 2 = titles, 3 = boxarts
+# menu_thumbnails = 0
 
 # Wrap-around toe beginning and/or end if boundary of list reached horizontally
 # menu_navigation_wraparound_horizontal_enable = false
@@ -771,3 +785,6 @@ menu_driver = "xmb"
 
 # This option in "true" is only for consoles, fix libretro/RetroArch#1158 issue
 load_dummy_on_core_shutdown = "false"
+
+# Seems ribbon is slow in some hardwares, let's use "Ribbon (simplified)"
+menu_shader_pipeline = "1"

@@ -1,3 +1,9 @@
+retroarch-assets (0.1+20160802git+bsos1) brewmaster; urgency=low
+
+  * Update asset pack for v1.3.6
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 02 Aug 2016 18:58:43 -0400
+
 retroarch-assets (0.1+20160623git+bsos1) brewmaster; urgency=low
 
   * Update release

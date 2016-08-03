@@ -1,3 +1,9 @@
+retroarch-joypad-autoconfig (1:0.1.1+20160802git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit [3010d5f]
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 02 Aug 2016 19:01:00 -0400
+
 retroarch-joypad-autoconfig (0.1.1+f7f6107git+bsos-1) brewmaster; urgency=low
 
   * Update to latest commit [f7f6107]

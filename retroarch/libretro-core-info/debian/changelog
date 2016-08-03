@@ -1,3 +1,9 @@
+libretro-core-info (1:0.1+20160802git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 82369bf
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 02 Aug 2016 21:58:34 -0400
+
 libretro-core-info (1:0.1+20160622git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 8c353a6

@@ -213,6 +213,7 @@ main()
 
 		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package \
 		"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild of Ubuntu FFMPEG ${pkgver}"
+		sleep 8s
 		nano "debian/changelog"
 
 	else

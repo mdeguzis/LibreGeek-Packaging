@@ -157,7 +157,7 @@ main()
 	SDK_BASENAME="nvidia_video_sdk_${SDK_VER}"
 	SDK_URL="http://developer.download.nvidia.com/assets/cuda/files/${SDK_BASENAME}.zip"
 	wget -P "${BUILD_DIR}" "${SDK_URL}"
-	unzip "${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
+	unzip "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
 	cp -r ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
 
 	# trim git (after confimed working build)

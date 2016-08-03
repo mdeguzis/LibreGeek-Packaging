@@ -1,4 +1,2 @@
-package.json usr/lib/nodejs/bower/
-bin usr/lib/nodejs/bower/
-lib usr/lib/nodejs/bower/
-lib usr/lib/nodejs/bower/
+Samples/common/inc/GL/*     /usr/include/GL/
+Samples/common/inc/*.h      /usr/include/

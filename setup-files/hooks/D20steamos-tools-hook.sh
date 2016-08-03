@@ -9,11 +9,11 @@
 # let all output flow if requested
 if [[ "${DEBUG}" == "true" ]]; then
 
-	OUTPUT_OPTS="&> /dev/null"
+	OUTPUT_OPTS=""
 
 else
 
-	OUTPUT_OPTS=""
+	OUTPUT_OPTS="&> /dev/null"
 
 fi
 

@@ -147,38 +147,6 @@ main()
 			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
-	
-	# Add files necessary for nvenc
-	# Adapted from https://github.com/lutris/ffmpeg-nvenc/blob/master/build.sh
-	# NVENC_INC_DIR is defined inside debian/rules to be $(CURDIR)/nvenc
-
-	echo -e "\n==> Installing the NVidia Video SDK for build-time only\n"
-	sleep 2s
-
-	export NVENC_INC_DIR="${GIT_DIR}/nvenc-sdk/include"
-
-	if [[ -d "${NVENC_INC_DIR}" ]]; then
-
-		echo -e "\nIt seems this step was aleady down, redownload?\n"
-		read -erp "Choice [y/n]: " NVENC_AGAIN
-
-	fi
-
-	if [[ "${NVENC_AGAIN}" == "y" ]]; then
-
-		rm -f ${BUILD_DIR}/*.zip* "${NVENC_INC_DIR}"
-		mkdir -p "${NVENC_INC_DIR}"
-		SDK_VER="6.0.1"
-		SDK_BASENAME="nvidia_video_sdk_${SDK_VER}"
-		SDK_URL="http://developer.download.nvidia.com/assets/cuda/files/${SDK_BASENAME}.zip"
-		wget -P "${BUILD_DIR}" "${SDK_URL}"
-		unzip -o "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
-		cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
-
-		# trim git (after confimed working build)
-		rm -rf "${GIT_DIR}/.git"
-
-	fi
 
 	#################################################
 	# Prep source

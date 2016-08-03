@@ -57,8 +57,8 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="libregeek-repo"
-pkgver="0.8"
-pkgrev="5"
+pkgver="0.9"
+pkgrev="1"
 pkgsuffix="bsos"
 DIST="brewmaster"
 urgency="low"
@@ -134,7 +134,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "Case conversion on repo folder name"
+		-D "${DIST}" -u "${urgency}" "Incorrect source list for beta channel"
 		nano "debian/changelog"
 
 	else

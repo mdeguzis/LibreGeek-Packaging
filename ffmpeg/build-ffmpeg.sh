@@ -154,7 +154,7 @@ main()
 	echo -e "\n==> Installing the NVidia Video SDK for build-time only\n"
 	sleep 2s
 
-	export NVENC_INC_DIR="${BUILD_DIR}/nvenc/"
+	export NVENC_INC_DIR="${GIT_DIR}/nvenc-sdk/"
 	rm -f ${BUILD_DIR}/*.zip* "${NVENC_INC_DIR}"
 	mkdir -p "${NVENC_INC_DIR}"
 	SDK_VER="6.0.1"

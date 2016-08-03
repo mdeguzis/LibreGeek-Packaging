@@ -20,7 +20,7 @@ DEB_HOST_ARCH_OS   ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
 DEB_HOST_ARCH      ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
 
 # Nvenc header dir dumped in before build-time
-NVENC_INC_DIR="$(CURDIR)/nvenc-sdk/include"
+export NVENC_INC_DIR="$(CURDIR)/nvenc-sdk/include"
 
 # Ubuntu ld adds -Bsymbolic-functions by default, but that prevents FFmpeg from building.
 export DEB_LDFLAGS_MAINT_STRIP=-Wl,-Bsymbolic-functions

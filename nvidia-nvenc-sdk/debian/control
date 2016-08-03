@@ -3,7 +3,27 @@ Section: devel
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Uploaders: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9),
+ glew-utils,
+ libglew-dbg,
+ libglew-dev,
+ libglew1.13,
+ libglewmx-dev,
+ libglewmx-dbg,
+ freeglut3,
+ freeglut3-dev,
+ freeglut3-dbg,
+ libghc-glut-dev,
+ libghc-glut-doc,
+ libghc-glut-prof,
+ libalut-dev,
+ libxmu-dev,
+ libxmu-headers,
+ libxmu6,
+ libxmu6-dbg,
+ libxmuu-dev,
+ libxmuu1,
+ libxmuu1-dbg
 Standards-Version: 3.9.6
 Homepage: https://developer.nvidia.com/
 

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-bower.sh
+# Scipt Name:	build-nvidia-nvenc-sdk.sh
 # Script Ver:	0.1.1
-# Description:	Builds simple pacakge for using bower based of of master upstream
+# Description:	Builds simple pacakge for using nvidia-nvenc-sdk based of of master upstream
 #		git source
 #
-# See:		https://github.com/ProfessorKaos64/bower/
+# See:		https://developer.nvidia.com/video-sdk
 #
-# Usage:	./build-bower.sh
+# Usage:	./build-nvidia-nvenc-sdk.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -51,8 +51,9 @@ fi
 # upstream vars
 # NOTE: For major releases, it may be a good idea to ensure packaging is up to date with npm2deb
 # See: https://wiki.debian.org/Javascript/Nodejs/Npm2Deb
-git_url="https://github.com/bower/bower"
-rel_target="v1.7.9"
+SDK_VER="6.0.1"
+SDK_BASENAME="nvidia_video_sdk_${SDK_VER}"
+SDK_URL="http://developer.download.nvidia.com/assets/cuda/files/${SDK_BASENAME}.zip"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,8 +62,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="node-bower"
-pkgver="1.7.9"
+pkgname="nvidia-nvenc-sdk"
+pkgver="6.0.1"
 pkgrev="1"
 pkgsuffix="bsos"
 DIST="brewmaster"
@@ -72,8 +73,8 @@ maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
 export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+pkg_dir="${pkgname}-${pkgver}"
+src_dir="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
 {
@@ -90,7 +91,7 @@ install_prereqs()
 
 	# install basic build packages
 	# Additional suggested packages added per: https://wiki.debian.org/Python/LibraryStyleGuide
-	sudo apt-get install -y --force-yes build-essential bc  debhelper dh-buildinfo nodejs
+	sudo apt-get install -y --force-yes build-essential bc debhelper 
 
 }
 
@@ -124,7 +125,10 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_target" "$git_url" "${git_dir}"
+	mkdir -p ${pkg_dir}
+	wget -P "${BUILD_DIR}" "${SDK_URL}"
+	unzip -o "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
+	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${pkg_dir}"
 
 	#################################################
 	# Build package
@@ -138,7 +142,7 @@ main()
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add debian files from converted package (via npm2deb)
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${pkg_dir}"
 
 	# Enter git dir to build
 	cd "${git_dir}"

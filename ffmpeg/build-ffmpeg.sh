@@ -198,7 +198,7 @@ main()
 
 	else
 
-		echo -e "\n==> Cleaning old source foldrers for retry"
+		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
 
 		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}

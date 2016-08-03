@@ -122,12 +122,13 @@ main()
 	fi
 
 	echo -e "\n==> Obtaining upstream source code\n"
+	sleep 2s
 
 	# clone and checkout desired commit
 	mkdir -p ${SRC_DIR}
 	wget -P "${BUILD_DIR}" "${SDK_URL}"
 	unzip -o "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
-	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${SRC_DIR}"
+	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/* "${SRC_DIR}"
 
 	#################################################
 	# Build package

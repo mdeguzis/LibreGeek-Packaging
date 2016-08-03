@@ -151,20 +151,18 @@ main()
 	# Add files necessary for nvenc
 	# Adapted from https://github.com/lutris/ffmpeg-nvenc/blob/master/build.sh
 
-#	echo -e "\n==> Installing the NVidia Video SDK for build-time only\n"
-#	sleep 2s
-#
-#	export NVENC_INC_DIR="${BUILD_DIR}/nvenc/"
-#	rm -f ${BUILD_DIR}/*.zip* "${NVENC_INC_DIR}"
-#	mkdir -p "${NVENC_INC_DIR}"
-#	SDK_VER="6.0.1"
-#	SDK_BASENAME="nvidia_video_sdk_${SDK_VER}"
-#	SDK_URL="http://developer.download.nvidia.com/assets/cuda/files/${SDK_BASENAME}.zip"
-#	wget -P "${BUILD_DIR}" "${SDK_URL}"
-#	unzip -o "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
+	echo -e "\n==> Installing the NVidia Video SDK for build-time only\n"
+	sleep 2s
 
-	# Idk why, but examples will not copy without elevated privs...
-#	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
+	export NVENC_INC_DIR="${BUILD_DIR}/nvenc/"
+	rm -f ${BUILD_DIR}/*.zip* "${NVENC_INC_DIR}"
+	mkdir -p "${NVENC_INC_DIR}"
+	SDK_VER="6.0.1"
+	SDK_BASENAME="nvidia_video_sdk_${SDK_VER}"
+	SDK_URL="http://developer.download.nvidia.com/assets/cuda/files/${SDK_BASENAME}.zip"
+	wget -P "${BUILD_DIR}" "${SDK_URL}"
+	unzip -o "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
+	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
 
 	# trim git (after confimed working build)
 	rm -rf "${git_dir}/.git"

@@ -148,7 +148,9 @@ Build-Depends:
 # HTML documentation
  texinfo,
 # assembler optimizations
- yasm
+ yasm,
+# Custom nvenc pacakge that includes the headers
+nvidia-nvenc-sdk
 
 Package: ffmpeg
 Architecture: any

@@ -55,7 +55,7 @@ maintainer="ProfessorKaos64"
 
 # set build dirs
 SRC_DIR="${PKGNAME}-${PKGNAME}"
-git_dir="${BUILD_DIR}/${SRC_DIR}"
+GIT_DIR="${BUILD_TMP}/${SRC_DIR}"
 
 install_prereqs()
 {
@@ -79,7 +79,7 @@ function_set_vars()
 	export OLD_PKGNAME="${PKGNAME}"
 
 	# now set the build dir for results
-	export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+	export BUILD_TMP="${HOME}/build-${PKGNAME}-temp"
 
 	echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
 	read -erp "Target package version: " PKGVER
@@ -129,19 +129,19 @@ function_set_vars()
 function_setup_env()
 {
 
-	if [[ -d "${BUILD_DIR}" ]]; then
+	if [[ -d "${BUILD_TMP}" ]]; then
 
-		sudo rm -rf "${BUILD_DIR}"
-		mkdir -p "${BUILD_DIR}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-		mkdir -p "${BUILD_DIR}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIR}" || echo "Cannot enter build directory!" && sleep 5s
+	cd "${BUILD_TMP}" || echo "Cannot enter build directory!" && sleep 5s
 
 	# install prereqs for build
 
@@ -164,7 +164,7 @@ function_get_source()
 
 	# Obtain all necessary files specified in .dsc via dget
 	# Download only, as unverified sources (say a Ubuntu pkg build on Debian) will not auto-extract
-	# Also do not want dpkg-source applying patches before build...(issues then with pbuilder)
+	# This is also a good approach if using an unsupported distro like Arch Linux
 	dget -d "${DSC}" || exit 1
 
 	# Get filename only from DSC URL
@@ -176,7 +176,7 @@ function_get_source()
 	# script to backport the package.
 
 	if [[ "$(find ${PWD} -name "*.bz2*" | wc)" -gt "1" ]]; then
-	
+
 		# Set flag
 		ORIG_MULTI="yes"
 
@@ -191,9 +191,9 @@ function_get_source()
 
 		# kick off function
 		function_backport_multi_orig && show_summary || exit 1
-		
+
 	else
-	
+
 		# set flag
 		ORIG_MULTI="no"
 
@@ -209,14 +209,14 @@ function_backport_pkg()
 	# The “-F” marks the delimiter, “$NF” means the last field generated.
 	# You can also use extension="${orig##*.}"
 
-	SOURCE_UNPACK_TEST=$(find ${BUILD_DIR} -maxdepth 1 -type d -iname ${PKGNAME}*)
-	ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*orig*")
+	SOURCE_UNPACK_TEST=$(find ${BUILD_TMP} -maxdepth 1 -type d -iname ${PKGNAME}*)
+	ORIG_TARBALL=$(find ${BUILD_TMP} -type f -name "*orig*")
 
 	# Account for pacakges (like quake2) that only list a dsc and xz archive
 	if [[ "${ORIG_TARBALL}" == "" ]]; then
 
 		# we must be working only with a .xz archive, sans "orig" in filename
-		ORIG_TARBALL=$(find ${BUILD_DIR} -type f -name "*.xz")
+		ORIG_TARBALL=$(find ${BUILD_TMP} -type f -name "*.xz")
 
 	fi
 	
@@ -247,7 +247,7 @@ function_backport_pkg()
 	esac
 
 	# Set the source dir
-	SRC_DIR=$(basename `find "${BUILD_DIR}" -maxdepth 1 -type d -iname "${PKGNAME}*"`)
+	SRC_DIR=$(basename `find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*"`)
 
 	# Set our suffix for backporting
 	# Update any of the below if distro versions change
@@ -266,7 +266,7 @@ function_backport_pkg()
 	# Do this rather than rename, so an xz archive is not renamed as a fake gz archive
 	# Reminder: the orig tarball does NOT get a revision number!	
 
-	rm -f ${BUILD_DIR}/*.orig.tar.*
+	rm -f ${BUILD_TMP}/*.orig.tar.*
 	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
@@ -280,7 +280,7 @@ function_backport_pkg()
 		echo -e "==> debian folder NOT found! unpacking existing\n"
 
 		# no debian folder find and unpack the dget sourced file
-		DEBIAN_FOLDER=$(find "${BUILD_DIR}" -type f -name "*.debian.*")
+		DEBIAN_FOLDER=$(find "${BUILD_TMP}" -type f -name "*.debian.*")
 
 		case "${DEBIAN_FOLDER}" in
 
@@ -301,7 +301,7 @@ function_backport_pkg()
 	fi
 
 	# clean renaining files (not necessary, but keeps temp build dir clean ^_^ )
-	rm ${BUILD_DIR}/*.debian.* ${BUILD_DIR}/*.dsc
+	rm ${BUILD_TMP}/*.debian.* ${BUILD_TMP}/*.dsc
 
 	# Check source format
 	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')
@@ -353,7 +353,7 @@ function_backport_pkg()
 
 	if [[ "${METHOD}" == "pbuilder" ]]; then
 
-		if ! sudo -E BUILD_DIR=${BUILD_DIR} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
+		if ! sudo -E BUILD_TMP=${BUILD_TMP} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
 		${BUILDOPTS}; then
 
 			# back out to scriptdir
@@ -467,11 +467,11 @@ function_show_summary()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 
-	Showing contents of: ${BUILD_DIR}
+	Showing contents of: ${BUILD_TMP}
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${PKGNAME}" 
+	ls "${BUILD_TMP}" | grep -E "${PKGNAME}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -481,10 +481,10 @@ function_show_summary()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIR}" ]]; then
+		if [[ -d "${BUILD_TMP}" ]]; then
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		fi
 

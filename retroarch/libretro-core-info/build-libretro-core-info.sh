@@ -4,7 +4,7 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	bbuild-libretro-core-info.sh
 # Script Ver:	1.0.0
-# Description:	Attempts to build a deb package from latest libretro-core-info
+# Description:	Attmpts to build a deb package from latest libretro-core-info
 #		github release
 #
 # See:		https://github.com/libretro/libretro-super
@@ -69,10 +69,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+# set BUILD_DIRECTORY
+export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIR}/${SRCDIR}"
+GIT_DIR="${BUILD_DIRECTORY}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -87,20 +87,20 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIR
-	if [[ -d "${BUILD_DIR}" ]]; then
+	# create BUILD_DIRECTORY
+	if [[ -d "${BUILD_DIRECTORY}" ]]; then
 
-		sudo rm -rf "${BUILD_DIR}"
-		mkdir -p "${BUILD_DIR}"
+		sudo rm -rf "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_DIRECTORY}"
 
 	else
 
-		mkdir -p "${BUILD_DIR}"
+		mkdir -p "${BUILD_DIRECTORY}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIR}" || exit
+	cd "${BUILD_DIRECTORY}" || exit
 
 	# install prereqs for build
 	
@@ -129,7 +129,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIR}"
+	cd "${BUILD_DIRECTORY}"
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
@@ -194,17 +194,17 @@ main()
 	If you don't, please check build dependency errors listed above.
 	#################################################################
 	EOF
-	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
+	echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
+	ls "${BUILD_DIRECTORY}" | grep -E *${PKGVER}*
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
 	read -erp "Choice: " transfer_choice
 	if [[ "$transfer_choice" == "y" ]]; then
-		if [[ -d "${BUILD_DIR}" ]]; then
+		if [[ -d "${BUILD_DIRECTORY}" ]]; then
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 			# uplaod local repo changelog
 			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 		fi

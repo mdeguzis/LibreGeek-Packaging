@@ -4,7 +4,7 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-koku-xinput-wine.sh
 # Script Ver:	0.3.1
-# Description:	Attempts to build a deb package from latest koku-xinput-wine
+# Description:	Attmpts to build a deb package from latest koku-xinput-wine
 #		github release
 #
 # See:		https://github.com/ProfessorKaos64/koku-xinput-wine
@@ -68,10 +68,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set BUILD_DIRs
-export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+# set BUILD_DIRECTORYs
+export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIR}/${SRCDIR}"
+GIT_DIR="${BUILD_DIRECTORY}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -87,20 +87,20 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIR
-	if [[ -d "${BUILD_DIR}" ]]; then
+	# create BUILD_DIRECTORY
+	if [[ -d "${BUILD_DIRECTORY}" ]]; then
 
-		sudo rm -rf "${BUILD_DIR}"
-		mkdir -p "${BUILD_DIR}"
+		sudo rm -rf "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_DIRECTORY}"
 
 	else
 
-		mkdir -p "${BUILD_DIR}"
+		mkdir -p "${BUILD_DIRECTORY}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIR}" || exit
+	cd "${BUILD_DIRECTORY}" || exit
 
 	# install prereqs for build
 	
@@ -131,7 +131,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIR}" || exit
+	cd "${BUILD_DIRECTORY}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add debian files
@@ -187,7 +187,7 @@ main()
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
-	# back out of build temp to script dir if called from git clone
+	# back out of build tmp to script dir if called from git clone
 	if [[ "${scriptdir}" != "" ]]; then
 		cd "${scriptdir}" || exit
 	else
@@ -203,8 +203,8 @@ main()
 
 	EOF
 
-	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
+	echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
+	ls "${BUILD_DIRECTORY}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -213,12 +213,12 @@ main()
 
 	if [[ "$transfer_choice" == "y" ]]; then
 
-		if [[ -d "${BUILD_DIR}" ]]; then
+		if [[ -d "${BUILD_DIRECTORY}" ]]; then
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			cd "${GIT_DIR}" && git add debian/changelog && git commit -m "update changelog" && git push origin master

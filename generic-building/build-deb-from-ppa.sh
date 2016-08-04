@@ -5,7 +5,7 @@
 # Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-deb-from-PPA.sh
 # Script Ver:	0.5.6
-# Description:	Attempts to build a deb package from a PPA
+# Description:	Attmpts to build a deb package from a PPA
 #
 # See also:	Generate a source list: http://repogen.simplylinux.ch/
 #		Command 'rmadison' from devscripts to see arch's
@@ -32,7 +32,7 @@ time_stamp_start=(`date +"%T"`)
 DIST="brewmaster"
 ARCH="amd64"
 BUILDOPTS="--debbuildopts -b"
-export BUILD_DIR="${BUILD_DIR}"
+export BUILD_DIRECTORY="${BUILD_DIR}"
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -190,7 +190,7 @@ function_build_locally()
 	fi
 	
 	# prechecks
-	echo -e "\n==> Attempting to add source list"
+	echo -e "\n==> Attmpting to add source list"
 	sleep 2s
 	
 	# check for existance of TARGET, backup if it exists
@@ -237,9 +237,9 @@ function_build_locally()
 
 	if [[ "$arg1" == "" ]]; then
 	
-		echo -e "\n==> Attempting to auto-install build dependencies\n"
+		echo -e "\n==> Attmpting to auto-install build dependencies\n"
 	
-		# attempt to get build deps
+		# attmpt to get build deps
 		if sudo apt-get build-dep ${TARGET} -y --force-yes; then
 		
 			echo -e "\n==INFO==\nSource package dependencies successfully installed."
@@ -253,8 +253,8 @@ function_build_locally()
 			
 		fi
 	
-		# Attempt to build TARGET
-		echo -e "\n==> Attempting to build ${TARGET}:\n"
+		# Attmpt to build TARGET
+		echo -e "\n==> Attmpting to build ${TARGET}:\n"
 		sleep 2s
 	
 		# build normally using apt-get source
@@ -284,7 +284,7 @@ function_build_locally()
 		apt-get source ${TARGET}
 		
 		# identify folder
-		cd $BUILD_DIR
+		cd $BUILD_DIRECTORY
 		build_source_dir=$(ls -d */)
 	
 		# build using typicaly commands + override option
@@ -301,7 +301,7 @@ function_build_locally()
                 apt-get source ${TARGET}
 
                 # identify folder
-                cd $BUILD_DIR
+                cd $BUILD_DIRECTORY
                 build_source_dir=$(ls -d */)
 
                 # build using typicaly commands + override option
@@ -309,7 +309,7 @@ function_build_locally()
 
 	fi
 
-	# back out of build temp to script dir if called from git clone
+	# back out of build tmp to script dir if called from git clone
 	if [[ "${scriptdir}" != "" ]]; then
 		cd "$scriptdir/generic-building"
 	else
@@ -345,14 +345,14 @@ function_show_summary()
 	You could also try manually building outside of this script with
 	the following commands (at your own risk!)
 	
-	cd $BUILD_DIR"
+	cd $BUILD_DIRECTORY"
 	cd $build_folder"
 	sudo dpkg-buildpackage -b -d -uc"
 	###################################################################
 	
 	EOF
 
-	ls "${HOME}/build-deb-temp"
+	ls "${HOME}/build-deb-tmp"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -364,7 +364,7 @@ function_show_summary()
 		# transfer files
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		
 	elif [[ "$transfer_choice" == "n" ]]; then
@@ -401,17 +401,17 @@ main()
 	echo -e "\n==> Choose your builder: [pbuilder|local]\n"
 	read -erp "Choice: " BUILDER
 	
-	export BUILD_DIR="${HOME}/build-deb-temp"
+	export BUILD_DIRECTORY="${HOME}/build-deb-tmp"
 	SRCDIR="${PKGNAME}-${PKGVER}"
 	
 	# remove previous dirs if they exist
-	if [[ -d "${BUILD_DIR}" ]]; then
-		sudo rm -rf "${BUILD_DIR}"
+	if [[ -d "${BUILD_DIRECTORY}" ]]; then
+		sudo rm -rf "${BUILD_DIRECTORY}"
 	fi
 	
 	# create build dir and enter it
-	mkdir -p "${BUILD_DIR}"
-	cd "${BUILD_DIR}"
+	mkdir -p "${BUILD_DIRECTORY}"
+	cd "${BUILD_DIRECTORY}"
 	
 	if [[ "${BUILDER}" == "pbuilder" ]]; then
 	

@@ -4,7 +4,7 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ffmpeg.sh
 # Script Ver:	0.8.9
-# Description:	Attempts to build a deb package from ffmpeg git source,
+# Description:	Attmpts to build a deb package from ffmpeg git source,
 #		This is a *rebuild* of the Ubuntu package.
 #
 # See:		https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
@@ -66,10 +66,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+# set BUILD_DIRECTORY
+export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIR}/${SRCDIR}"
+GIT_DIR="${BUILD_DIRECTORY}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -112,7 +112,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	if [[ -d "${GIT_DIR}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
+	if [[ -d "${GIT_DIR}" || -f ${BUILD_DIRECTORY}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -125,7 +125,7 @@ main()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
+			sudo rm -rf "${BUILD_DIRECTORY}" && mkdir -p "${BUILD_DIR}"
 			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
@@ -143,7 +143,7 @@ main()
 			# reset retry flag
 			retry="no"
 			# create and clone to current dir
-			mkdir -p "${BUILD_DIR}" || exit 1
+			mkdir -p "${BUILD_DIRECTORY}" || exit 1
 			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
@@ -157,14 +157,14 @@ main()
 
 	export NVENC_INC_DIR="${GIT_DIR}/nvenc-sdk/include"
 
-	rm -f ${BUILD_DIR}/*.zip* "${NVENC_INC_DIR}"
+	rm -f ${BUILD_DIRECTORY}/*.zip* "${NVENC_INC_DIR}"
 	mkdir -p "${NVENC_INC_DIR}"
 	SDK_VER="6.0.1"
 	SDK_BASENAME="nvidia_video_sdk_${SDK_VER}"
 	SDK_URL="http://developer.download.nvidia.com/assets/cuda/files/${SDK_BASENAME}.zip"
-	wget -P "${BUILD_DIR}" "${SDK_URL}"
-	unzip -o "${BUILD_DIR}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
-	cp -rv ${BUILD_DIR}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
+	wget -P "${BUILD_DIRECTORY}" "${SDK_URL}"
+	unzip -o "${BUILD_DIRECTORY}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
+	cp -rv ${BUILD_DIRECTORY}/${SDK_BASENAME}/Samples/common/inc/* "${NVENC_INC_DIR}"
 
 	# trim git (after confimed working build)
 	rm -rf "${GIT_DIR}/.git"
@@ -182,7 +182,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		cd "${BUILD_DIR}"
+		cd "${BUILD_DIRECTORY}"
 		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	else
@@ -195,8 +195,8 @@ main()
 
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
-		cd "${BUILD_DIR}"
-		tar -xzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" -C "${BUILD_DIR}" --totals
+		cd "${BUILD_DIRECTORY}"
+		tar -xzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" -C "${BUILD_DIRECTORY}" --totals
 		sleep 2s
 
 	fi
@@ -259,11 +259,11 @@ main()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 
-	Showing contents of: ${BUILD_DIR}
+	Showing contents of: ${BUILD_DIRECTORY}
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
+	ls "${BUILD_DIRECTORY}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -273,10 +273,10 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIR}" ]]; then
+		if [[ -d "${BUILD_DIRECTORY}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"

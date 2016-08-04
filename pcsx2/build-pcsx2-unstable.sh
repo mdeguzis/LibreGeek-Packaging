@@ -5,7 +5,7 @@
 # Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-pcsx2-unstable.sh
 # Script Ver:	0.9.9
-# Description:	Attempts to build a deb package from PCSX2 git source
+# Description:	Attmpts to build a deb package from PCSX2 git source
 #		It is highly suggested to build in a 32 bit environment!!!
 #		Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
 #
@@ -64,9 +64,9 @@ DIST="brewmaster"
 URGENCY="low"
 
 # build dirs
-export BUILD_DIR="/home/desktop/build-${PKGNAME}-temp"
+export BUILD_DIRECTORY="/home/desktop/build-${PKGNAME}-tmp"
 SRC_DIR="${PKGNAME}"
-GIT_DIR="${BUILD_DIR}/${SRC_DIR}"
+GIT_DIR="${BUILD_DIRECTORY}/${SRC_DIR}"
 GIT_URL="https://github.com/PCSX2/pcsx2"
 
 #TARGET="onepad-input-state"
@@ -121,20 +121,20 @@ main()
 	# Note: based on:
 	# https://github.com/PCSX2/pcsx2/blob/master/debian-packager/create_built_tarball.sh
 
-	# create BUILD_DIR
-	if [[ -d "${BUILD_DIR}" ]]; then
+	# create BUILD_DIRECTORY
+	if [[ -d "${BUILD_DIRECTORY}" ]]; then
 
-		sudo rm -rf "${BUILD_DIR}"
-		mkdir -p "${BUILD_DIR}"
+		sudo rm -rf "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_DIRECTORY}"
 
 	else
 
-		mkdir -p "${BUILD_DIR}"
+		mkdir -p "${BUILD_DIRECTORY}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIR}" || exit
+	cd "${BUILD_DIRECTORY}" || exit
 
 	# install prereqs for build
 
@@ -209,7 +209,7 @@ main()
 	sleep 2s
 
 	# enter build dir to create tarball
-	cd "${BUILD_DIR}"
+	cd "${BUILD_DIRECTORY}"
 
 	# create source tarball
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
@@ -272,11 +272,11 @@ main()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 	
-	Showing contents of: ${BUILD_DIR}
+	Showing contents of: ${BUILD_DIRECTORY}
 	
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
+	ls "${BUILD_DIRECTORY}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -286,10 +286,10 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIR}" ]]; then
+		if [[ -d "${BUILD_DIRECTORY}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			# Keep changelog

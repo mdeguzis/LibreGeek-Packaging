@@ -18,11 +18,11 @@ trap 'echo FAILED COMMAND: $previous_command' EXIT
 
 # Set initial vars
 INSTALL_PATH="/opt/cross-gcc"
-BUILD_DIR="$HOME/build-cross-gcc"
+BUILD_DIRECTORY="$HOME/build-cross-gcc"
 
-# Ensure BUILD_DIR exists
-if [[ ! -d $BUILD_DIR ]]; then
-	mkdir -p $BUILD_DIR
+# Ensure BUILD_DIRECTORY exists
+if [[ ! -d $BUILD_DIRECTORY ]]; then
+	mkdir -p $BUILD_DIRECTORY
 fi
 
 echo -e "\n==> Sourcing any options\n"
@@ -45,8 +45,8 @@ while :; do
 			if [[ "$INSTALL_PATH" != "" ]]; then
 				echo -e "\n==> Cleaning build dir and install files..."
 				sudo rm -rf $INSTALL_PATH
-				sudo rm -rf $BUILD_DIR
-				mkdir -p $BUILD_DIR
+				sudo rm -rf $BUILD_DIRECTORY
+				mkdir -p $BUILD_DIRECTORY
 			else
 				echo -e "ERROR: no path set to clean. Please use --install-path [PATH] --rebuild--all"
 			fi
@@ -104,7 +104,7 @@ if [[ $(echo $LINUX_KERNEL_VERSION | grep ".0" ) != "" ]]; then
 fi
 
 # Enter build dir
-cd $BUILD_DIR
+cd $BUILD_DIRECTORY
 
 echo -e "\n==> Obtaining needed pacakges\n"
 sleep 2s

@@ -4,7 +4,7 @@
 # Git:			https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	  	build-kodi.sh
 # Script Ver:		1.5.7
-# Description:		Attempts to build a deb package from kodi-src
+# Description:		Attmpts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
 #               	This is a fork of the build-deb-from-src.sh script. Due to the 
 #               	amount of steps to build kodi, it was decided to have it's own 
@@ -86,9 +86,9 @@ set_vars()
 
 	# source vars
 	GIT_URL="git://github.com/xbmc/xbmc.git"
-	export BUILD_DIR="$HOME/build-${PKGNAME}-temp"
+	export BUILD_DIRECTORY="$HOME/build-${PKGNAME}-tmp"
 	SRC_DIR="${PKGNAME}-source"
-	GIT_DIR="${BUILD_DIR}/${SRC_DIR}"
+	GIT_DIR="${BUILD_DIRECTORY}/${SRC_DIR}"
 
 	# Set TARGET for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
@@ -119,7 +119,7 @@ set_vars()
 	elif [[ "$extra_opts" == "--skip-build" || "$ARG1" == "--skip-build" ]]; then
 
 		# If Kodi is confirmed by user to be built already, allow build
-		# to be skipped and packaging to be attempted directly
+		# to be skipped and packaging to be attmpted directly
 		SKIP_BUILD="yes"
 		PACKAGE_DEB="yes"
 
@@ -166,14 +166,14 @@ kodi_clone()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
+			sudo rm -rf "${BUILD_DIRECTORY}" && mkdir -p "${BUILD_DIR}"
 			git clone "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
 			# Clean up and changes
-			echo "Removing temp files and other cruft from build dir and source dir"
-			find "${BUILD_DIR}" -name '*.dsc' -o -name '*.deb' -o -name '*.build' \
+			echo "Removing tmp files and other cruft from build dir and source dir"
+			find "${BUILD_DIRECTORY}" -name '*.dsc' -o -name '*.deb' -o -name '*.build' \
 			-exec rm -rf "{}" \;
 			cd "${GIT_DIR}" && git clean -xfd || exit 1
 
@@ -186,7 +186,7 @@ kodi_clone()
 			# reset retry flag
 			retry="no"
 			# create and clone to current dir
-			mkdir -p "${BUILD_DIR}" || exit 1
+			mkdir -p "${BUILD_DIRECTORY}" || exit 1
 			git clone "${GIT_URL}" "${GIT_DIR}"
 
 	fi
@@ -391,7 +391,7 @@ kodi_package_deb()
 		fi
 
 		# Add any overrides for mk-debian-package.sh below
-		# The default in the script is '"${BUILDER}"' which will attempt to sign the pkg
+		# The default in the script is '"${BUILDER}"' which will attmpt to sign the pkg
 
 		RELEASEV="${KODI_TAG}" \
 		DISTS="${DIST}" \
@@ -590,8 +590,8 @@ show_build_summary()
 
 		EOF
 
-		echo -e "Showing contents of: ${BUILD_DIR}: \n"
-		ls "${BUILD_DIR}"
+		echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
+		ls "${BUILD_DIRECTORY}"
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -601,9 +601,9 @@ show_build_summary()
 		if [[ "${TRANSFER_CHOICE}" == "y" ]]; then
 
 			# transfer files
-			if [[ -d "${BUILD_DIR}" ]]; then
+			if [[ -d "${BUILD_DIRECTORY}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			fi
@@ -653,18 +653,18 @@ main()
 #####################################################
 # MAIN
 #####################################################
-main | tee log_temp.txt
+main | tee log_tmp.txt
 
 #####################################################
 # cleanup
 #####################################################
 
 # convert log file to Unix compatible ASCII
-strings log_temp.txt > kodi-build-log.txt &> /dev/null
+strings log_tmp.txt > kodi-build-log.txt &> /dev/null
 
 # strings does catch all characters that I could
 # work with, final cleanup
 sed -i 's|\[J||g' kodi-build-log.txt
 
 # remove file not needed anymore
-rm -f "log_temp.txt"
+rm -f "log_tmp.txt"

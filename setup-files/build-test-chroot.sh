@@ -507,4 +507,4 @@ sed -i 's|\[J||g' /tmp/chroot_log.txt
 
 # remove files not needed anymore
 rm -f "custom-pkg.txt"
-rm -f "log_temp.txt"
+rm -f "log_tmp.txt"

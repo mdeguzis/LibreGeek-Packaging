@@ -4,7 +4,7 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-ppsspp.sh
 # Script Ver:	1.1.9
-# Description:	Attempts to builad a deb package from latest ppsspp
+# Description:	Attmpts to builad a deb package from latest ppsspp
 #		github release
 #
 # See:		https://github.com/hrydgard/ppsspp
@@ -69,10 +69,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+# set BUILD_DIRECTORY
+export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIR}/${SRCDIR}"
+GIT_DIR="${BUILD_DIRECTORY}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -112,17 +112,17 @@ main()
 		read -ep "Choice: " git_choice
 
 		if [[ "$git_choice" == "p" ]]; then
-			# attempt to pull the latest source first
-			echo -e "\n==> Attempting git pull..."
+			# attmpt to pull the latest source first
+			echo -e "\n==> Attmpting git pull..."
 			sleep 2s
 
-			# attempt git pull, if it doesn't complete reclone
+			# attmpt git pull, if it doesn't complete reclone
 			if ! git pull; then
 
 				# command failure
 				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 				sleep 2s
-				rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
+				rm -rf "${BUILD_DIRECTORY}" && mkdir -p "${BUILD_DIR}"
 				git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 			fi
@@ -130,14 +130,14 @@ main()
 		elif [[ "$git_choice" == "r" ]]; then
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
-			rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
+			rm -rf "${BUILD_DIRECTORY}" && mkdir -p "${BUILD_DIR}"
 			git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
-			mkdir -p  "${BUILD_DIR}"
+			mkdir -p  "${BUILD_DIRECTORY}"
 			git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 		fi
@@ -146,7 +146,7 @@ main()
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
-			mkdir -p  "${BUILD_DIR}"
+			mkdir -p  "${BUILD_DIRECTORY}"
 			# create and clone to current dir
 			git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
@@ -166,7 +166,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIR}"
+	cd "${BUILD_DIRECTORY}"
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# enter source dir
@@ -219,7 +219,7 @@ main()
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
-	# back out of build temp to script dir if called from git clone
+	# back out of build tmp to script dir if called from git clone
 	if [[ "${scriptdir}" != "" ]]; then
 		cd "${scriptdir}" || exit
 	else
@@ -232,8 +232,8 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep $PKGVER
+	echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
+	ls "${BUILD_DIRECTORY}" | grep $PKGVER
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -243,10 +243,10 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIR}" ]]; then
+		if [[ -d "${BUILD_DIRECTORY}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"

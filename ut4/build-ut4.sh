@@ -4,7 +4,7 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt name:	build-ut4.sh
 # Script Ver:	0.1.1
-# Description:	Attempts to build a deb package from the latest UT4 Linux
+# Description:	Attmpts to build a deb package from the latest UT4 Linux
 #		release.
 #
 # See:		https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=ut4
@@ -74,9 +74,9 @@ maintainer="ProfessorKaos64"
 export NETWORK="yes"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIR}/${SRCDIR}"
+GIT_DIR="${BUILD_DIRECTORY}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -91,20 +91,20 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIR
-	if [[ -d "${BUILD_DIR}" ]]; then
+	# create BUILD_DIRECTORY
+	if [[ -d "${BUILD_DIRECTORY}" ]]; then
 
-		sudo rm -rf "${BUILD_DIR}"
-		mkdir -p "${BUILD_DIR}"
+		sudo rm -rf "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_DIRECTORY}"
 
 	else
 
-		mkdir -p "${BUILD_DIR}"
+		mkdir -p "${BUILD_DIRECTORY}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIR}" || exit
+	cd "${BUILD_DIRECTORY}" || exit
 
 	# install prereqs for build
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
@@ -132,7 +132,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIR}" || exit
+	cd "${BUILD_DIRECTORY}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add debian folder for current virtual package implementation
@@ -193,8 +193,8 @@ main()
 
 	EOF
 
-	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
+	echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
+	ls "${BUILD_DIRECTORY}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -203,11 +203,11 @@ main()
 
 	if [[ "$transfer_choice" == "y" ]]; then
 
-		if [[ -d "${BUILD_DIR}" ]]; then
+		if [[ -d "${BUILD_DIRECTORY}" ]]; then
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			# uplaod local repo changelog

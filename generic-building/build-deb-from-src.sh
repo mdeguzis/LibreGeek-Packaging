@@ -5,7 +5,7 @@
 # Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-deb-from-PPA.sh
 # Script Ver:	0.1.7
-# Description:	Attempts to build a deb package from a git src
+# Description:	Attmpts to build a deb package from a git src
 #
 # Usage:	sudo ./build-deb-from-src.sh
 #		source ./build-deb-from-src.sh
@@ -88,9 +88,9 @@ install_prereqs()
 
 main()
 {
-	export BUILD_DIR="/home/desktop/build-deb-temp"
+	export BUILD_DIRECTORY="/home/desktop/build-deb-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-	GIT_DIR="$BUILD_DIR/git-temp"
+	GIT_DIR="$BUILD_DIRECTORY/git-tmp"
 	
 	clear
 	# create build dir and git dir, enter it
@@ -195,7 +195,7 @@ SRCDIR="${PKGNAME}-${PKGVER}"
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
-	# back out of build temp to script dir if called from git clone
+	# back out of build tmp to script dir if called from git clone
 	if [[ "${scriptdir}" != "" ]]; then
 		cd "${scriptdir}"
 	else
@@ -221,7 +221,7 @@ SRCDIR="${PKGNAME}-${PKGVER}"
 		# transfer files
 		if -d $GIT_DIR/ build; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 		fi

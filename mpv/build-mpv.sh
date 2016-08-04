@@ -66,9 +66,9 @@ urgency="low"
 maintainer="ProfessorKaos64"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIR}/${SRCDIR}"
+GIT_DIR="${BUILD_DIRECTORY}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -109,7 +109,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	if [[ -d "${GIT_DIR}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
+	if [[ -d "${GIT_DIR}" || -f ${BUILD_DIRECTORY}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -122,7 +122,7 @@ main()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
+			sudo rm -rf "${BUILD_DIRECTORY}" && mkdir -p "${BUILD_DIR}"
 			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
@@ -140,7 +140,7 @@ main()
 			# reset retry flag
 			retry="no"
 			# create and clone to current dir
-			mkdir -p "${BUILD_DIR}" || exit 1
+			mkdir -p "${BUILD_DIRECTORY}" || exit 1
 			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
@@ -149,7 +149,7 @@ main()
 	# Prepare sources
 	#################################################
 
-	cd "${BUILD_DIR}" || exit 1
+	cd "${BUILD_DIRECTORY}" || exit 1
 
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)
@@ -172,7 +172,7 @@ main()
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
-		tar -xzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" -C "${BUILD_DIR}" --totals
+		tar -xzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" -C "${BUILD_DIRECTORY}" --totals
 		sleep 2s
 
 	fi
@@ -237,11 +237,11 @@ main()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 
-	Showing contents of: ${BUILD_DIR}
+	Showing contents of: ${BUILD_DIRECTORY}
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
+	ls "${BUILD_DIRECTORY}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -251,9 +251,9 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIR}" ]]; then
+		if [[ -d "${BUILD_DIRECTORY}" ]]; then
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"

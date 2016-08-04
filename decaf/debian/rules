@@ -17,9 +17,9 @@ override_dh_auto_configure:
 	# Generate makefiles
 	rm -rf build && mkdir -p build
 	cd build && cmake -D CMAKE_INSTALL_PREFIX 
-		-DCMAKE_C_COMPILER="/usr/bin/clang" \
-		-DCMAKE_CXX_COMPILER="/usr/bin/clang++" \
+		-DCMAKE_C_COMPILER="/usr/bin/clang-3.8" \
+		-DCMAKE_CXX_COMPILER="/usr/bin/clang++-3.8" \
 		-DCMAKE_C_FLAGS="-Wall -std=c99" \
-		-DCMAKE_CXX_FLAGS="-Wall -std=c++14 -std=c++1y" ..
+		-DCMAKE_CXX_FLAGS="-Wall -std=c++14 -std=c++1z" ..
 	# Build
 	make -C build -j4

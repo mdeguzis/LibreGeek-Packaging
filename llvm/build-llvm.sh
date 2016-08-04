@@ -46,7 +46,8 @@ BASEURL="http://http.debian.net/debian/pool/main/l"
 PKGNAME="llvm-toolchain-snapshot"
 LLVM_VER="3.9"
 PKGREV="1"
-PKGSUFFIX="~svn274438-${PKGREV}"
+PKGSUFFIX="~svn274438"
+PKGREV="1"
 LLVM_DSC_URL="${BASEURL}/${PKGNAME}/${PKGNAME}_${LLVM_VER}${PKGSUFFIX}.dsc"
 
 # package vars

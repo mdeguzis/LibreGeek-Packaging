@@ -42,9 +42,6 @@ else
 
 fi
 
-# upstream vars
-#GIT_URL="https://github.com/llvm-3.8/dolphin/"
-
 BASEURL="http://http.debian.net/debian/pool/main/l"
 PKGNAME="llvm-toolchain-snapshot"
 LLVM_VER="3.9"
@@ -57,12 +54,11 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="debuild"
-BUILDOPTS=""
-export STEAMOS_TOOLS_BETA_HOOK="false"
+BUILDOPTS="--debbuildopts -nc"
+export STEAMOS_TOOLS_BETA_HOOK="true"
 #PKGNAME="llvm-toolchain-3.8"
 PKGVER="${LLVM_VER}"
 EPOCH="1"
-PKGSUFFIX=""
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -109,11 +105,6 @@ main()
 		# handle prereqs on host machine
 		install_prereqs
 
-	else
-
-		# still need this helper
-		sudo apt-get install -y --force-yes dh-ocaml
-
 	fi
 
 	################################################
@@ -124,7 +115,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	mkdir -p "${SRC_DIR}"
-	dget "http://http.debian.net/debian/pool/main/l/${LLVM_DSC_URL}"
+	dget "${LLVM_DSC_URL}"
 
 	# ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 

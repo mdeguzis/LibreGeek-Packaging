@@ -125,21 +125,6 @@ main()
 	# ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
 	################################################
-	# Prepare sources
-	#################################################
-
-	echo -e "\n==> Patching"
-	sleep 2s
-
-	# add patched rules file and series
-	cp -r "${SCRIPTDIR}/patches/series" "${SRCDIR}/debian/patches/"
-	cp -r "${SCRIPTDIR}/patches/fix-rules-build-dir" "${SRCDIR}/debian/patches/"
-
-	# Patch
-	cd "${SRCDIR}"
-	quilt push fix-rules-build-dir || exit 1
-
-	################################################
 	# Build package
 	#################################################
 

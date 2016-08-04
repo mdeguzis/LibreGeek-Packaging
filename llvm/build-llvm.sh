@@ -65,6 +65,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
+# 
 export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
 SRCDIR="${BUILD_DIR}/${PKGNAME}-${PKGVER}${PKGSUFFIX}"
 
@@ -126,16 +127,16 @@ main()
 	# Prepare sources
 	#################################################
 
-	#echo -e "\n==> Patching"
-	#sleep 2s
+	echo -e "\n==> Patching"
+	sleep 2s
 
 	# add patched rules file and series
-	#cp -r "${SCRIPTDIR}/patches/series" "${SRCDIR}/debian/patches/"
-	#cp -r "${SCRIPTDIR}/patches/fix-rules-build-dir" "${SRCDIR}/debian/patches/"
+	cp -r "${SCRIPTDIR}/patches/series" "${SRCDIR}/debian/patches/"
+	cp -r "${SCRIPTDIR}/patches/fix-rules-build-dir" "${SRCDIR}/debian/patches/"
 
 	# Patch
-	#cd "${SRCDIR}"
-	#quilt push fix-rules-build-dir 
+	cd "${SRCDIR}"
+	quilt push fix-rules-build-dir 
 
 	################################################
 	# Build package
@@ -175,7 +176,6 @@ main()
 	# Cleanup
 	#################################################
 
-	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)

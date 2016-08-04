@@ -1,26 +1,25 @@
-Source: doom64ex
+Source: decaf
 Section: games
 Priority: optional
 Build-Depends: cmake,
  debhelper (>=9),
  clang-3.8,
+ libglu1-mesa-dev,
  libsdl2-dev,
- libsdl2-net-dev,
- zlib1g-dev,
- libpng12-dev,
- libfluidsynth-dev
+ libx11-dev,
+ libxcursor-dev,
+ xorg-dev,
+ zlib1g-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.6
-Vcs-Git: https://github.com/svkaiser/Doom64EX
-Homepage: https://doom64ex.wordpress.com
+Homepage: https://decaf.wordpress.com
 
-Package: doom64ex
+Package: decaf
 Architecture: amd64
 Depends: ${misc:Depends},
- ${shlibs:Depends},
- libsdl2-net-2.0-0
-Description: Reverse-engineered Doom64 with improvements
+ ${shlibs:Depends}
+Description: Researching Wii U emulation. 
  .
- Doom64EX is a reverse-engineering project aimed to recreate 
- Doom64 as close as possible with additional modding features.
- Please see: https://doom64ex.wordpress.com for more
+ Licensed under the terms of the GNU General 
+ Public License, version 2 or later (GPLv2+). 
+ You can find us at #wiiu-emu on freenode.

@@ -73,7 +73,7 @@ if [ -n "${DIST}" ]; then
 	# Set locations
 	ARCHITECTURE="${ARCH}"
 	BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
-	BUILDRESULT="$BUILD_DIRECTORY"
+	BUILDRESULT="${BUILD_TMP}"
 	BUILDPLACE="${BASEDIR}/${DIST}/build"
 	APTCACHE="${BASEDIR}/${DIST}/aptcache/"
 	HOOKDIR="${BASEDIR}/hooks"

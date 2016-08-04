@@ -66,7 +66,7 @@ maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
 export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
-SRC_DIR="${BUILD_DIR}/llvm-toolchain-3.8-3.8.1"
+SRC_DIR="${BUILD_DIR}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {

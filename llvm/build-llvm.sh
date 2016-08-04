@@ -137,7 +137,7 @@ main()
 
 	# Patch
 	cd "${SRCDIR}"
-	quilt push fix-rules-build-dir 
+	quilt push fix-rules-build-dir || exit 1
 
 	################################################
 	# Build package

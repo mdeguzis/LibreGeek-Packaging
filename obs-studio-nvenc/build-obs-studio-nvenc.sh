@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/jp9000/obs-studio"
-rel_TARGET="0.14.2"
+TARGET="0.15.2"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,7 +58,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="obs-studio-nvenc"
-PKGVER="${rel_TARGET}"
+PKGVER="${TARGET}"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
@@ -133,7 +133,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${rel_TARGET}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build platform
@@ -165,7 +165,7 @@ main()
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${urgency}" "Update release"
+		-D "${DIST}" -u "${urgency}" "Initial build"
 		nano "debian/changelog"
 
 	fi

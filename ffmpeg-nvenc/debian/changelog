@@ -1,3 +1,9 @@
+ffmpeg-nvenc (8:3.1.0+nvenc1+bsos-2) brewmaster; urgency=low
+
+  * Correct depends files of debian/control
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 03 Aug 2016 21:11:58 -0400
+
 ffmpeg-nvenc (8:3.1.0+nvenc1+bsos-1) brewmaster; urgency=low
 
   * FFMPEG 3.1.0 with nvenc support

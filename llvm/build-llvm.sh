@@ -66,7 +66,7 @@ maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
 export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
-SRC_DIR="${BUILD_DIR}/${PKGNAME}-${PKGVER}"
+SRCDIR="${BUILD_DIR}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -116,8 +116,8 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	rm -rf "${SRC_DIR}" 
-	mkdir -p "${SRC_DIR}"
+	rm -rf "${SRCDIR}" 
+	mkdir -p "${SRCDIR}"
 	dget "${LLVM_DSC_URL}"
 
 	# ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
@@ -130,11 +130,11 @@ main()
 	#sleep 2s
 
 	# add patched rules file and series
-	#cp -r "${SCRIPTDIR}/patches/series" "${SRC_DIR}/debian/patches/"
-	#cp -r "${SCRIPTDIR}/patches/fix-rules-build-dir" "${SRC_DIR}/debian/patches/"
+	#cp -r "${SCRIPTDIR}/patches/series" "${SRCDIR}/debian/patches/"
+	#cp -r "${SCRIPTDIR}/patches/fix-rules-build-dir" "${SRCDIR}/debian/patches/"
 
 	# Patch
-	#cd "${SRC_DIR}"
+	#cd "${SRCDIR}"
 	#quilt push fix-rules-build-dir 
 
 	################################################
@@ -142,7 +142,7 @@ main()
 	#################################################
 
 	# enter source dir if not already
-	cd "${SRC_DIR}"
+	cd "${SRCDIR}"
 	
 #	echo -e "\n==> Updating changelog"
 #	sleep 2s

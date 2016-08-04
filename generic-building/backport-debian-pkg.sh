@@ -165,7 +165,7 @@ function_get_source()
 	# Obtain all necessary files specified in .dsc via dget
 	# Download only, as unverified sources (say a Ubuntu pkg build on Debian) will not auto-extract
 	# Also do not want dpkg-source applying patches before build...(issues then with pbuilder)
-	dget -d "${DSC}"
+	dget -d "${DSC}" || exit 1
 
 	# Get filename only from DSC URL
 	DSC_FILENAME=$(basename "${DSC}")

@@ -48,7 +48,7 @@ LLVM_VER="3.9"
 PKGREV="1"
 PKGSUFFIX="~svn274438"
 PKGREV="1"
-LLVM_DSC_URL="${BASEURL}/${PKGNAME}/${PKGNAME}_${LLVM_VER}${PKGSUFFIX}.dsc"
+LLVM_DSC_URL="${BASEURL}/${PKGNAME}/${PKGNAME}_${LLVM_VER}${PKGSUFFIX}-${PKGREV}.dsc"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")

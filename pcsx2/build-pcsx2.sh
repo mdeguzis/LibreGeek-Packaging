@@ -69,9 +69,9 @@ maintainer="ProfessorKaos64"
 subpkg1="pcsx2-dbg"
 
 # build dirs
-export BUILD_DIRECTORY="/home/desktop/build-pcsx2-tmp"
+export BUILD_TMP="/home/desktop/build-pcsx2-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="$BUILD_DIRECTORY/${PKGNAME}"
+GIT_DIR="$BUILD_TMP/${PKGNAME}"
 GIT_URL="https://github.com/PCSX2/pcsx2"
 branch="master"
 
@@ -124,20 +124,20 @@ main()
 	# Note: based on:
 	# https://github.com/PCSX2/pcsx2/blob/master/debian-packager/create_built_tarball.sh
 
-	# create BUILD_DIRECTORY
-	if [[ -d "${BUILD_DIRECTORY}" ]]; then
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
 
-		sudo rm -rf "${BUILD_DIRECTORY}"
-		mkdir -p "${BUILD_DIRECTORY}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-		mkdir -p "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIRECTORY}" || exit
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 	
@@ -272,8 +272,8 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
-	ls "${BUILD_DIRECTORY}" | grep $PKGVER
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep $PKGVER
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -283,9 +283,9 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIRECTORY}" ]]; then
+		if [[ -d "${BUILD_TMP}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			# Only move the old changelog if transfer occurs to keep final changelog 

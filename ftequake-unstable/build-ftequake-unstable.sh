@@ -66,9 +66,9 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build directories
-export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
+export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRC_DIR="${PKGNAME}-${PKGVER}"
-SVN_DIR="${BUILD_DIRECTORY}/${SRC_DIR}"
+SVN_DIR="${BUILD_TMP}/${SRC_DIR}"
 
 install_prereqs()
 {
@@ -83,20 +83,20 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIRECTORY
-	if [[ -d "${BUILD_DIRECTORY}" ]]; then
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
 
-		sudo rm -rf "${BUILD_DIRECTORY}"
-		mkdir -p "${BUILD_DIRECTORY}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-		mkdir -p "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIRECTORY}" || exit
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
@@ -138,7 +138,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIRECTORY}" || exit
+	cd "${BUILD_TMP}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
 	# Add required files and artwork
@@ -203,8 +203,8 @@ main()
 
 	EOF
 
-	echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
-	ls "${BUILD_DIRECTORY}" | grep -E *${PKGVER}*
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -213,12 +213,12 @@ main()
 
 	if [[ "$transfer_choice" == "y" ]]; then
 
-		if [[ -d "${BUILD_DIRECTORY}" ]]; then
+		if [[ -d "${BUILD_TMP}" ]]; then
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
 			cp "${SVN_DIR}/debian/changelog" "${scriptdir}/debian"

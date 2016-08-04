@@ -88,9 +88,9 @@ install_prereqs()
 
 main()
 {
-	export BUILD_DIRECTORY="/home/desktop/build-deb-tmp"
+	export BUILD_TMP="/home/desktop/build-deb-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-	GIT_DIR="$BUILD_DIRECTORY/git-tmp"
+	GIT_DIR="$BUILD_TMP/git-tmp"
 	
 	clear
 	# create build dir and git dir, enter it
@@ -221,7 +221,7 @@ SRCDIR="${PKGNAME}-${PKGVER}"
 		# transfer files
 		if -d $GIT_DIR/ build; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 		fi

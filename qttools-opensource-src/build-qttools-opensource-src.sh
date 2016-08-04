@@ -68,10 +68,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set BUILD_DIRECTORY
-export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
+# set BUILD_TMP
+export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIRECTORY}/${SRCDIR}"
+GIT_DIR="${BUILD_TMP}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -100,23 +100,23 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIRECTORY
-	if [[ -d "${BUILD_DIRECTORY}" ]]; then
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
 
 
-		sudo rm -rf "${BUILD_DIRECTORY}"
-		mkdir -p "${BUILD_DIRECTORY}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
 		# initialize main build dir if it doesn't exist
-		mkdir -p "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 
 	# enter build dir
-	cd "${BUILD_DIRECTORY}" || exit
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 
@@ -147,7 +147,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIRECTORY}"
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Try using upstream debian/
@@ -209,11 +209,11 @@ main()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 
-	Showing contents of: ${BUILD_DIRECTORY}
+	Showing contents of: ${BUILD_TMP}
 
 	EOF
 
-	ls "${BUILD_DIRECTORY}" | grep -E "${PKGVER}" 
+	ls "${BUILD_TMP}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -223,9 +223,9 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIRECTORY}" ]]; then
+		if [[ -d "${BUILD_TMP}" ]]; then
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"

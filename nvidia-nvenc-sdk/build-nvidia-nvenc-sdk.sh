@@ -71,9 +71,9 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set BUILD_DIRECTORY
-export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
-SRC_DIR="${BUILD_DIRECTORY}/${PKGNAME}-${PKGVER}"
+# set BUILD_TMP
+export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -97,20 +97,20 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIRECTORY
-	if [[ -d "${BUILD_DIRECTORY}" ]]; then
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
 
-		sudo rm -rf "${BUILD_DIRECTORY}"
-		mkdir -p "${BUILD_DIRECTORY}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-		mkdir -p "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIRECTORY}" || exit
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 
@@ -126,9 +126,9 @@ main()
 
 	# clone and checkout desired commit
 	mkdir -p ${SRC_DIR}
-	wget -P "${BUILD_DIRECTORY}" "${SDK_URL}"
-	unzip -o "${BUILD_DIRECTORY}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
-	cp -rv ${BUILD_DIRECTORY}/${SDK_BASENAME}/* "${SRC_DIR}"
+	wget -P "${BUILD_TMP}" "${SDK_URL}"
+	unzip -o "${BUILD_TMP}/${SDK_BASENAME}.zip" -d "${BUILD_DIR}" && rm -f "${SDK_BASENAME}.zip"
+	cp -rv ${BUILD_TMP}/${SDK_BASENAME}/* "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -138,7 +138,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIRECTORY}"
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add debian files from converted package (via npm2deb)
@@ -193,8 +193,8 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
-	ls "${BUILD_DIRECTORY}" | grep $PKGVER
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep $PKGVER
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -204,10 +204,10 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIRECTORY}" ]]; then
+		if [[ -d "${BUILD_TMP}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"

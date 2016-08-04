@@ -65,10 +65,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set BUILD_DIRECTORY
-export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
+# set BUILD_TMP
+export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIRECTORY}/${SRCDIR}"
+GIT_DIR="${BUILD_TMP}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -84,20 +84,20 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIRECTORY
-	if [[ -d "${BUILD_DIRECTORY}" ]]; then
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
 
-		sudo rm -rf "${BUILD_DIRECTORY}"
-		mkdir -p "${BUILD_DIRECTORY}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-		mkdir -p "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIRECTORY}" || exit
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 	
@@ -121,7 +121,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIRECTORY}"
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Enter git dir to build
@@ -186,8 +186,8 @@ main()
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 
-	echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
-	ls "${BUILD_DIRECTORY}" | grep ${PKGVER}
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep ${PKGVER}
 
 	if [[ "$autobuild" != "yes" ]]; then
 
@@ -201,7 +201,7 @@ main()
 			# transfer packages
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			# update changelog

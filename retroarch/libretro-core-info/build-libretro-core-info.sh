@@ -69,10 +69,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set BUILD_DIRECTORY
-export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
+# set BUILD_TMP
+export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIRECTORY}/${SRCDIR}"
+GIT_DIR="${BUILD_TMP}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -87,20 +87,20 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIRECTORY
-	if [[ -d "${BUILD_DIRECTORY}" ]]; then
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
 
-		sudo rm -rf "${BUILD_DIRECTORY}"
-		mkdir -p "${BUILD_DIRECTORY}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-		mkdir -p "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIRECTORY}" || exit
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 	
@@ -129,7 +129,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIRECTORY}"
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
@@ -194,17 +194,17 @@ main()
 	If you don't, please check build dependency errors listed above.
 	#################################################################
 	EOF
-	echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
-	ls "${BUILD_DIRECTORY}" | grep -E *${PKGVER}*
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
 	# capture command
 	read -erp "Choice: " transfer_choice
 	if [[ "$transfer_choice" == "y" ]]; then
-		if [[ -d "${BUILD_DIRECTORY}" ]]; then
+		if [[ -d "${BUILD_TMP}" ]]; then
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 			# uplaod local repo changelog
 			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 		fi

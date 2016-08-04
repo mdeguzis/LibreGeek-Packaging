@@ -65,10 +65,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set BUILD_DIRECTORY
+# set BUILD_TMP
 # 
-export BUILD_DIRECTORY="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${BUILD_DIRECTORY}/${PKGNAME}-${PKGVER}${PKGSUFFIX}"
+export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
+SRCDIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}${PKGSUFFIX}"
 
 install_prereqs()
 {
@@ -86,20 +86,20 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIRECTORY
-	if [[ -d "${BUILD_DIRECTORY}" ]]; then
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
 
-		sudo rm -rf "${BUILD_DIRECTORY}"
-		mkdir -p "${BUILD_DIRECTORY}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-		mkdir -p "${BUILD_DIRECTORY}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIRECTORY}" || exit
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
@@ -181,11 +181,11 @@ main()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 
-	Showing contents of: ${BUILD_DIRECTORY}
+	Showing contents of: ${BUILD_TMP}
 
 	EOF
 
-	ls "${BUILD_DIRECTORY}"
+	ls "${BUILD_TMP}"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -195,10 +195,10 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIRECTORY}" ]]; then
+		if [[ -d "${BUILD_TMP}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
 			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian/"

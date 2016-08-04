@@ -86,9 +86,9 @@ set_vars()
 
 	# source vars
 	GIT_URL="git://github.com/xbmc/xbmc.git"
-	export BUILD_DIRECTORY="$HOME/build-${PKGNAME}-tmp"
+	export BUILD_TMP="$HOME/build-${PKGNAME}-tmp"
 	SRC_DIR="${PKGNAME}-source"
-	GIT_DIR="${BUILD_DIRECTORY}/${SRC_DIR}"
+	GIT_DIR="${BUILD_TMP}/${SRC_DIR}"
 
 	# Set TARGET for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
@@ -166,14 +166,14 @@ kodi_clone()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${BUILD_DIRECTORY}" && mkdir -p "${BUILD_DIR}"
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
 			git clone "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
 			# Clean up and changes
 			echo "Removing tmp files and other cruft from build dir and source dir"
-			find "${BUILD_DIRECTORY}" -name '*.dsc' -o -name '*.deb' -o -name '*.build' \
+			find "${BUILD_TMP}" -name '*.dsc' -o -name '*.deb' -o -name '*.build' \
 			-exec rm -rf "{}" \;
 			cd "${GIT_DIR}" && git clean -xfd || exit 1
 
@@ -186,7 +186,7 @@ kodi_clone()
 			# reset retry flag
 			retry="no"
 			# create and clone to current dir
-			mkdir -p "${BUILD_DIRECTORY}" || exit 1
+			mkdir -p "${BUILD_TMP}" || exit 1
 			git clone "${GIT_URL}" "${GIT_DIR}"
 
 	fi
@@ -590,8 +590,8 @@ show_build_summary()
 
 		EOF
 
-		echo -e "Showing contents of: ${BUILD_DIRECTORY}: \n"
-		ls "${BUILD_DIRECTORY}"
+		echo -e "Showing contents of: ${BUILD_TMP}: \n"
+		ls "${BUILD_TMP}"
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -601,9 +601,9 @@ show_build_summary()
 		if [[ "${TRANSFER_CHOICE}" == "y" ]]; then
 
 			# transfer files
-			if [[ -d "${BUILD_DIRECTORY}" ]]; then
+			if [[ -d "${BUILD_TMP}" ]]; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIRECTORY}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 
 			fi

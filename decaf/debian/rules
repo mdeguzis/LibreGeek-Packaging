@@ -14,4 +14,4 @@ export CXX=clang++-3.8
 
 override_dh_auto_configure:
 	rm -rf build && mkdir -p build
-	cd build && cmake .. && make
+	cd build && cmake .. && make -j4

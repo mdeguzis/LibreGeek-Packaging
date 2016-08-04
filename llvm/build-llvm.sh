@@ -66,7 +66,7 @@ maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
 export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
-SRCDIR="${BUILD_DIR}/${PKGNAME}-${PKGVER}"
+SRCDIR="${BUILD_DIR}/${PKGNAME}-${PKGVER}${PKGSUFFIX}"
 
 install_prereqs()
 {

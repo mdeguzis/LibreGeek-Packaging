@@ -114,6 +114,8 @@ main()
 	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
+	sleep 2s
+
 	mkdir -p "${SRC_DIR}"
 	dget "${LLVM_DSC_URL}"
 
@@ -123,16 +125,16 @@ main()
 	# Prepare sources
 	#################################################
 
-	echo -e "\n==> Patching"
-	sleep 2s
+	#echo -e "\n==> Patching"
+	#sleep 2s
 
 	# add patched rules file and series
-	cp -r "${SCRIPTDIR}/patches/series" "${SRC_DIR}/debian/patches/"
-	cp -r "${SCRIPTDIR}/patches/fix-rules-build-dir" "${SRC_DIR}/debian/patches/"
+	#cp -r "${SCRIPTDIR}/patches/series" "${SRC_DIR}/debian/patches/"
+	#cp -r "${SCRIPTDIR}/patches/fix-rules-build-dir" "${SRC_DIR}/debian/patches/"
 
 	# Patch
-	cd "${SRC_DIR}"
-	quilt push fix-rules-build-dir 
+	#cd "${SRC_DIR}"
+	#quilt push fix-rules-build-dir 
 
 	################################################
 	# Build package
@@ -148,7 +150,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
-	#	nano "debian/changelog"
+		nano "debian/changelog"
 
 	else
 

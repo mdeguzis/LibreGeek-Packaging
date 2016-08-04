@@ -143,22 +143,22 @@ main()
 	# enter source dir if not already
 	cd "${SRC_DIR}"
 	
-	echo -e "\n==> Updating changelog"
-	sleep 2s
+#	echo -e "\n==> Updating changelog"
+#	sleep 2s
 
 	# update changelog with dch
-	if [[ -f "debian/changelog" ]]; then
-
-		dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
-		nano "debian/changelog"
-
-	else
-
-		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${urgency}" "Initial upload"
-		nano "debian/changelog"
-
-	fi
+#	if [[ -f "debian/changelog" ]]; then
+#
+#		dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
+#		nano "debian/changelog"
+#
+#	else
+#
+#		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
+#		-D "${DIST}" -u "${urgency}" "Initial upload"
+#		nano "debian/changelog"
+#
+#	fi
 
 	#################################################
 	# Build Debian package

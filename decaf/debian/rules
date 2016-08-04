@@ -5,16 +5,21 @@
 # If only c++11 was required, clang 3.5 would be fine.
 # Avoid errors (see: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=800483)
 
-export DEB_BUILD_HARDENING=1
-export CC=clang-3.8
-export CXX=clang++-3.8
+export DEB_BUILD_HARDENING="1"
+export CC="clang-3.8"
+export CXX="clang++-3.8"
 
 %:
+
 	dh $@
 
 override_dh_auto_configure:
 	# Generate makefiles
 	rm -rf build && mkdir -p build
-	cd build && cmake -D CMAKE_INSTALL_PREFIX ..
+	cd build && cmake -D CMAKE_INSTALL_PREFIX 
+		-DCMAKE_C_COMPILER="/usr/bin/clang" \
+		-DCMAKE_CXX_COMPILER="/usr/bin/clang++" \
+		-DCMAKE_C_FLAGS="-Wall -std=c99" \
+		-DCMAKE_CXX_FLAGS="-Wall -std=c++14 -std=c++1y" ..
 	# Build
 	make -C build -j4

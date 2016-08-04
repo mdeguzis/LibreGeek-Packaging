@@ -1,7 +1,7 @@
 Source: ffmpeg-nvenc
 Section: video
 Priority: optional
-Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 XSBC-Original-Maintainer: Debian Multimedia Maintainers <pkg-multimedia-maintainers@lists.alioth.debian.org>
 Homepage: https://ffmpeg.org/
 Standards-Version: 3.9.6
@@ -367,12 +367,12 @@ Depends:
  libavcodec-dev (= ${binary:Version}),
  libavdevice-ffmpeg-nvenc56 (= ${binary:Version}),
  libavfilter-dev (= ${binary:Version}),
- libavformat-dev (= ${binary:Version}),
- libavresample-dev (= ${binary:Version}),
- libavutil-dev (= ${binary:Version}),
- libpostproc-dev (= ${binary:Version}),
- libswscale-dev (= ${binary:Version}),
- libswresample-dev (= ${binary:Version}),
+ libavformat-nvenc-dev (= ${binary:Version}),
+ libavresample-nvenc-dev (= ${binary:Version}),
+ libavutil-nvenc-dev (= ${binary:Version}),
+ libpostproc-nvenc-dev (= ${binary:Version}),
+ libswscale-nvenc-dev (= ${binary:Version}),
+ libswresample-nvenc-dev (= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavdevice-dev
 Replaces: libavdevice-dev
@@ -417,14 +417,14 @@ Multi-Arch: same
 Conflicts:
  libavfilter-libav-dev
 Depends:
- libavcodec-dev (= ${binary:Version}),
+ libavcodec-nvenc-dev (= ${binary:Version}),
  libavfilter-ffmpeg-nvenc5 (= ${binary:Version}),
- libavformat-dev (= ${binary:Version}),
- libavresample-dev (= ${binary:Version}),
- libavutil-dev (= ${binary:Version}),
- libpostproc-dev (= ${binary:Version}),
- libswresample-dev (= ${binary:Version}),
- libswscale-dev (= ${binary:Version}),
+ libavformat-nvenc-dev (= ${binary:Version}),
+ libavresample-nvenc-dev (= ${binary:Version}),
+ libavutil-nvenc-dev (= ${binary:Version}),
+ libpostproc-nvenc-dev (= ${binary:Version}),
+ libswresample-nvenc-dev (= ${binary:Version}),
+ libswscale-nvenc-dev (= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavfilter-dev
 Replaces: libavfilter-dev
@@ -470,10 +470,10 @@ Multi-Arch: same
 Conflicts:
  libavformat-libav-dev
 Depends:
- libavcodec-dev (= ${binary:Version}),
+ libavcodec-nvenc-dev (= ${binary:Version}),
  libavformat-ffmpeg-nvenc56 (= ${binary:Version}),
- libavutil-dev (= ${binary:Version}),
- libswresample-dev (= ${binary:Version}),
+ libavutil-nvenc-dev (= ${binary:Version}),
+ libswresample-nvenc-dev (= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavformat-dev
 Replaces: libavformat-dev
@@ -519,7 +519,7 @@ Multi-Arch: same
 Conflicts:
  libavresample-libav-dev
 Depends:
- libavutil-dev (= ${binary:Version}),
+ libavutil-nvenc-dev (= ${binary:Version}),
  libavresample-ffmpeg-nvenc2 (= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavresample-dev
@@ -615,7 +615,7 @@ Multi-Arch: same
 Conflicts:
  libpostproc-libav-dev
 Depends:
- libavutil-dev (= ${binary:Version}),
+ libavutil-nvenc-dev (= ${binary:Version}),
  libpostproc-ffmpeg-nvenc53 (= ${binary:Version}),
  ${misc:Depends}
 Breaks: libpostproc-dev
@@ -673,7 +673,7 @@ Architecture: any
 Section: libdevel
 Multi-Arch: same
 Depends:
- libavutil-dev (= ${binary:Version}),
+ libavutil-nvenc-dev (= ${binary:Version}),
  libswresample-ffmpeg-nvenc1 (= ${binary:Version}),
  ${misc:Depends}
 Breaks: libswresample-dev
@@ -744,7 +744,7 @@ Multi-Arch: same
 Conflicts:
  libswscale-libav-dev
 Depends:
- libavutil-dev (= ${binary:Version}),
+ libavutil-nvenc-dev (= ${binary:Version}),
  libswscale-ffmpeg-nvenc3 (= ${binary:Version}),
  ${misc:Depends}
 Breaks: libswscale-dev
@@ -800,7 +800,7 @@ Section: oldlibs
 Priority: extra
 Multi-Arch: foreign
 Depends:
- libavcodec-dev (>= ${binary:Version}),
+ libavcodec-nvenc-dev (>= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavcodec-ffmpeg-dev
 Replaces: libavcodec-ffmepg-dev
@@ -818,7 +818,7 @@ Section: oldlibs
 Priority: extra
 Multi-Arch: foreign
 Depends:
- libavdevice-dev (>= ${binary:Version}),
+ libavdevice-nvenc-dev (>= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavdevice-ffmpeg-dev
 Replaces: libavdevice-ffmpeg-dev
@@ -836,7 +836,7 @@ Section: oldlibs
 Priority: extra
 Multi-Arch: foreign
 Depends:
- libavfilter-dev (>= ${binary:Version}),
+ libavfilter-nvenc-dev (>= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavfilter-ffmpeg-dev
 Replaces: libavfilter-ffmpeg-dev
@@ -854,7 +854,7 @@ Section: oldlibs
 Priority: extra
 Multi-Arch: foreign
 Depends:
- libavformat-dev (>= ${binary:Version}),
+ libavformat-nvenc-dev (>= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavformat-ffmpeg-dev
 Replaces: libavformat-ffmpeg-dev
@@ -872,7 +872,7 @@ Section: oldlibs
 Priority: extra
 Multi-Arch: foreign
 Depends:
- libavresample-dev (>= ${binary:Version}),
+ libavresample-nvenc-dev (>= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavresample-ffmpeg-dev
 Replaces: libavresample-ffmpeg-dev
@@ -890,7 +890,7 @@ Section: oldlibs
 Priority: extra
 Multi-Arch: foreign
 Depends:
- libavutil-dev (>= ${binary:Version}),
+ libavutil-nvenc-dev (>= ${binary:Version}),
  ${misc:Depends}
 Breaks: libavutil-ffmpeg-dev
 Replaces: libavutil-ffmpeg-dev
@@ -908,7 +908,7 @@ Section: oldlibs
 Priority: extra
 Multi-Arch: foreign
 Depends:
- libpostproc-dev (>= ${binary:Version}),
+ libpostproc-nvenc-dev (>= ${binary:Version}),
  ${misc:Depends}
 Breaks: libpostproc-ffmpeg-dev
 Replaces: libpostproc-ffmpeg-dev
@@ -926,7 +926,7 @@ Section: oldlibs
 Priority: extra
 Multi-Arch: foreign
 Depends:
- libswresample-dev (>= ${binary:Version}),
+ libswresample-nvenc-dev (>= ${binary:Version}),
  ${misc:Depends}
 Breaks: libswresample-ffmpeg-dev
 Replaces: libswresample-ffmpeg-dev
@@ -944,7 +944,7 @@ Section: oldlibs
 Priority: extra
 Multi-Arch: foreign
 Depends:
- libswscale-dev (>= ${binary:Version}),
+ libswscale-nvenc-dev (>= ${binary:Version}),
  ${misc:Depends}
 Breaks: libswscale-ffmpeg-dev
 Replaces: libswscale-ffmpeg-dev

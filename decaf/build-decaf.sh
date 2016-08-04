@@ -107,7 +107,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}" 
+	git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}" 
 
 	# add extras
 	cp "${scriptdir}/decaf.png" "${GIT_DIR}"

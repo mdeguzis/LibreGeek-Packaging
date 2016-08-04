@@ -1,4 +1,4 @@
-Source: obs-studio
+Source: obs-studio-nvenc
 Section: video
 Priority: optional
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
@@ -16,17 +16,17 @@ Build-Depends: debhelper (>= 9),
  libqt5x11extras5-dev,
  libx264-dev, libxcb-xinerama0-dev,
  libxcb-shm0-dev,
- libavformat-ffmpeg-dev,
- libswscale-ffmpeg-dev,
- libswresample-ffmpeg-dev,
- libavdevice-ffmpeg-dev,
- libavfilter-ffmpeg-dev,
+ libavformat-ffmpeg-nvenc-dev,
+ libswscale-ffmpeg-nvenc-dev,
+ libswresample-ffmpeg-nvenc-dev,
+ libavdevice-ffmpeg-nvenc-dev,
+ libavfilter-ffmpeg-nvenc-dev,
  libfdk-aac-dev,
  libjack-jackd2-dev,
  libcurl4-openssl-dev
 Homepage: http://obsproject.org
 
-Package: obs-studio
+Package: obs-studio-nvenc
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
 Description: OBS Studio for Steam OS Brewmaster

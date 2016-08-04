@@ -56,20 +56,20 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="ffmpeg"
+PKGNAME="ffmpeg"
 epoch="8"
-pkgver="3.1.0"
-pkgrev="1"
-pkgsuffix="nvenc1+bsos"
+PKGVER="3.1.0"
+PKGREV="1"
+PKGSUFFIX="nvenc1+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-GIT_DIR="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -81,7 +81,7 @@ install_prereqs()
 	libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev \
 	libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev bc checkinstall
 
-	echo -e "\n==> Installing $pkgname build dependencies...\n"
+	echo -e "\n==> Installing $PKGNAME build dependencies...\n"
 	sleep 2s
 
 	### REPLACE THESE WITH PACKAGES SPECIFIED BY UPSTREAM SOURCE ###
@@ -183,7 +183,7 @@ main()
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		cd "${BUILD_DIR}"
-		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	else
 
@@ -196,7 +196,7 @@ main()
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
 		cd "${BUILD_DIR}"
-		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${BUILD_DIR}" --totals
+		tar -xzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" -C "${BUILD_DIR}" --totals
 		sleep 2s
 
 	fi
@@ -217,14 +217,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Rebuild of Ubuntu FFMPEG ${pkgver}"
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Rebuild of Ubuntu FFMPEG ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
 
@@ -232,7 +232,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -263,7 +263,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

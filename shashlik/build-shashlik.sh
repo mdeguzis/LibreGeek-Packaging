@@ -24,7 +24,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -44,7 +44,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/shashlik/shashlik-manifest"
+GIT_URL="https://github.com/shashlik/shashlik-manifest"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -55,19 +55,19 @@ BUILDER="debuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="yes"
-pkgname="shashlik-unstable"
-pkgver="0.9.3"
-pkgrev="1"
-pkgsuffix="${date_short}git+bsos"
+PKGNAME="shashlik-unstable"
+PKGVER="0.9.3"
+PKGREV="1"
+PKGSUFFIX="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${pkgname}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${PKGNAME}"
 
 install_prereqs()
 {
@@ -104,7 +104,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	if [[ -f "${BUILD_DIR}/${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" ]]; then
+	if [[ -f "${BUILD_DIR}/${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" ]]; then
 
 		echo -e "==Info==\nSource files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -117,10 +117,10 @@ main()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			# We are dumping a lof of repo's into the build dir, so compact them into src_dir
+			# We are dumping a lof of repo's into the build dir, so compact them into SRCDIR
 			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}" && cd "${BUILD_DIR}"
-			mkdir -p "${src_dir}" && cd "${src_dir}"
-			repo init -u "${git_url}"
+			mkdir -p "${SRCDIR}" && cd "${SRCDIR}"
+			repo init -u "${GIT_URL}"
 			repo sync
 
 		else
@@ -138,10 +138,10 @@ main()
 			# reset retry flag
 			retry="no"
 			# create and clone to current dir
-			# We are dumping a lof of repo's into the build dir, so compact them into src_dir
+			# We are dumping a lof of repo's into the build dir, so compact them into SRCDIR
 			mkdir -p "${BUILD_DIR}" && cd "${BUILD_DIR}"
-			mkdir -p "${src_dir}" && cd "${src_dir}"
-			repo init -u "${git_url}"
+			mkdir -p "${SRCDIR}" && cd "${SRCDIR}"
+			repo init -u "${GIT_URL}"
 			repo sync
 
 	fi
@@ -157,7 +157,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	else
 
@@ -165,24 +165,24 @@ main()
 		sleep 2s
 
 		# clean specific files
-		rm -rf *.dsc *.xz *.build *.changes "${src_dir}"
+		rm -rf *.dsc *.xz *.build *.changes "${SRCDIR}"
 
 		echo -e "\n==> Retrying with prior source tarball. Unpacking, please wait...\n"
 		sleep 2s
-		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${BUILD_DIR}" --totals
+		tar -xzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" -C "${BUILD_DIR}" --totals
 		sleep 2s
 
 	fi
 
 	# Add required files
-	cp -r "${scriptdir}/debian" "${src_dir}" || exit 1
+	cp -r "${scriptdir}/debian" "${SRCDIR}" || exit 1
 
 	#################################################
 	# Build package
 	#################################################
 
 	# enter source dir
-	cd "${src_dir}" || exit 1
+	cd "${SRCDIR}" || exit 1
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -190,13 +190,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Update to the latest commits"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
@@ -206,7 +206,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -240,7 +240,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -257,7 +257,7 @@ main()
 
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

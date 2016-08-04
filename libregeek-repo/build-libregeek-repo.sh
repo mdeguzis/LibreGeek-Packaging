@@ -23,7 +23,7 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # git vars
-git_url="https://github.com/ProfessorKaos64/libregeek-repo"
+GIT_URL="https://github.com/ProfessorKaos64/libregeek-repo"
 branch="master"
 
 
@@ -32,7 +32,7 @@ branch="master"
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -56,19 +56,19 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="libregeek-repo"
-pkgver="0.9.1"
-pkgrev="1"
-pkgsuffix="bsos"
+PKGNAME="libregeek-repo"
+PKGVER="0.9.1"
+PKGREV="1"
+PKGSUFFIX="bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -111,7 +111,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -122,10 +122,10 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Enter git dir to build
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -133,13 +133,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Incorrect source list for beta channel"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}"\
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}"\
 		-D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
@@ -149,7 +149,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -187,7 +187,7 @@ main()
 	echo -e "############################################################\n"
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep ${pkgver}
+	ls "${BUILD_DIR}" | grep ${PKGVER}
 
 	if [[ "$autobuild" != "yes" ]]; then
 
@@ -205,7 +205,7 @@ main()
 
 
 			# update changelog
-			cd "${git_dir}" && git add debian/changelog  && git commit -m "Update changelog"
+			cd "${GIT_DIR}" && git add debian/changelog  && git commit -m "Update changelog"
 			git push origin master && cd "${scriptdir}"
 
 		elif [[ "$transfer_choice" == "n" ]]; then

@@ -114,7 +114,7 @@ elif [[ "$type" != "steamos" &&
 	"$type" != "debian" &&
 	"$type" != "ubuntu" ]]; then
 
-	echo -e "\nType detected was $type. Distribution target not supported. Dying."
+	echo -e "\nType detected was $type. Distribution TARGET not supported. Dying."
 	sleep 3s
 	exit 1
 
@@ -194,23 +194,23 @@ funct_prereqs()
 
 }
 
-funct_set_target()
+funct_set_TARGET()
 {
 
-	# Setup targets for appropriate details
+	# Setup TARGETs for appropriate details
 	# Note: in the future, possibly allow users to specify localized mirrors
 
 	if [[ "$type" == "debian" ]]; then
 
-		target_URL="http://http.debian.net/debian"
+		TARGET_URL="http://http.debian.net/debian"
 
 	elif [[ "$type" == "steamos" ]]; then
 
-		target_URL="http://repo.steampowered.com/steamos"
+		TARGET_URL="http://repo.steampowered.com/steamos"
 
 	elif [[ "$type" == "ubuntu" ]]; then
 
-		target_URL="http://mirrors.mit.edu/ubuntu/"
+		TARGET_URL="http://mirrors.mit.edu/ubuntu/"
 
 	elif [[ "$type" == "--help" ]]; then
 
@@ -218,7 +218,7 @@ funct_set_target()
 
 	fi
 
-	# correct targets for beta releases to reflect root release
+	# correct TARGETs for beta releases to reflect root release
 	# The beta opt-in will be handled in the post install script
 	if [[ "$release" == "alchemist-beta" ]]; then
 
@@ -232,10 +232,10 @@ funct_set_target()
 
 	fi
 
-	# Set final targets
-	target="${type}-${real_release}-${arch}"
+	# Set final TARGETs
+	TARGET="${type}-${real_release}-${arch}"
 	stock_choice=""
-	chroot_dir="${user_home}/chroots/${target}"
+	chroot_dir="${user_home}/chroots/${TARGET}"
 
 }
 
@@ -266,7 +266,7 @@ funct_create_chroot()
 		sudo umount "${chroot_dir}/sys" &> /dev/null
 
 		# remove old /etc/fstab entries
-		sudo sed -ie "\:#chroot ${target}:,+2d" "/etc/fstab"
+		sudo sed -ie "\:#chroot ${TARGET}:,+2d" "/etc/fstab"
 
 		# remove DIR
 		# Fail out if unsuccessful
@@ -321,7 +321,7 @@ funct_create_chroot()
 
 		# handle SteamOS
 		if ! sudo /usr/sbin/debootstrap --keyring="/usr/share/keyrings/valve-archive-keyring.gpg" \
-		--arch ${arch} ${release} ${chroot_dir} ${target_URL}; then
+		--arch ${arch} ${release} ${chroot_dir} ${TARGET_URL}; then
 
 			echo -e "\n==ERROR==\nBootstrap configure failed! Please check /tmp/chroot_log.txt\n"
 			exit 1
@@ -332,7 +332,7 @@ funct_create_chroot()
 
 		# handle Debian
 		if ! sudo /usr/sbin/debootstrap --components=main,contrib,non-free --arch ${arch} ${release} \
-		${chroot_dir} ${target_URL}; then
+		${chroot_dir} ${TARGET_URL}; then
 
 			echo -e "\n==ERROR==\nBootstrap configure failed! Please check /tmp/chroot_log.txt\n"
 			exit 1
@@ -342,7 +342,7 @@ funct_create_chroot()
 
 		# handle Ubuntu
 		if ! sudo /usr/sbin/debootstrap --components=main,multiverse,restricted,universe --arch ${arch} ${release} \
-		${chroot_dir} ${target_URL}; then
+		${chroot_dir} ${TARGET_URL}; then
 
 			echo -e "\n==ERROR==\nBootstrap configure failed! Please check /tmp/chroot_log.txt\n"
 			exit 1
@@ -355,11 +355,11 @@ funct_create_chroot()
 	sleep 1s
 
 	# add to fstab
-	fstab_check=$(cat /etc/fstab | grep ${target})
+	fstab_check=$(cat /etc/fstab | grep ${TARGET})
 	if [[ "$fstab_check" == "" ]]; then
 
 		# Mount proc and dev filesystem (add to **host** fstab)
-		sudo su -c "echo '#chroot ${target}' >> /etc/fstab"
+		sudo su -c "echo '#chroot ${TARGET}' >> /etc/fstab"
 		sudo su -c "echo '/dev/pts ${chroot_dir}/dev/pts none bind 0 4' >> /etc/fstab"
 		sudo su -c "echo 'proc ${chroot_dir}/proc proc defaults 0 4' >> /etc/fstab"
 		sudo su -c "echo 'sysfs ${chroot_dir}/sys sysfs defaults 0 4' >> /etc/fstab"
@@ -384,14 +384,14 @@ funct_create_chroot()
 	fi
 
 	# create alias for easy use of command
-	alias_check=$(cat "${alias_file}" | grep chroot-${target})
+	alias_check=$(cat "${alias_file}" | grep chroot-${TARGET})
 
 
 	if [[ "$alias_check" == "" ]]; then
 
 		cat <<-EOF >> "${alias_file}"
-		# chroot alias for ${target}
-		alias chroot-${target}='sudo /usr/sbin/chroot /home/desktop/chroots/${target}'
+		# chroot alias for ${TARGET}
+		alias chroot-${TARGET}='sudo /usr/sbin/chroot /home/desktop/chroots/${TARGET}'
 		EOF
 
 	fi
@@ -421,12 +421,12 @@ funct_create_chroot()
 	a basic setup or more advanced optoins (e.g. SteamOS). 
 	Please hit [ENTER] now. 
 
-	You may use 'sudo /usr/sbin/chroot /home/desktop/chroots/${target}' to 
+	You may use 'sudo /usr/sbin/chroot /home/desktop/chroots/${TARGET}' to 
 	enter the chroot again. You can also use the newly created ${chroot_dir} listed below
 
 	EOF
 
-	echo -e "\tchroot-${target}\n"
+	echo -e "\tchroot-${TARGET}\n"
 
 	# Capture input for enter
 	read -r ENTER_KEY
@@ -480,7 +480,7 @@ main()
 
 	clear
 	funct_set_arch
-	funct_set_target
+	funct_set_TARGET
 	check_sources
 	funct_prereqs
 	funct_create_chroot

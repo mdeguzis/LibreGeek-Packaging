@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -47,12 +47,12 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/libretro/RetroArch"
-#target="v1.3.4"
+GIT_URL="https://github.com/libretro/RetroArch"
+#TARGET="v1.3.4"
 
 # Man page error in current release.
 # Master is close enough, use that
-target="master"
+TARGET="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,20 +61,20 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="retroarch"
+PKGNAME="retroarch"
 
-pkgver="1.3.6"
-pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+PKGVER="1.3.6"
+PKGREV="1"
+PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -126,11 +126,11 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${target}" "${git_url}" "${git_dir}"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	# inject .desktop file (not found in release archives) and image
-	cp -r "$scriptdir/retroarch.png" "${git_dir}"
-	cp -r "$scriptdir/retroarch.desktop" "${git_dir}"
+	cp -r "$scriptdir/retroarch.png" "${GIT_DIR}"
+	cp -r "$scriptdir/retroarch.desktop" "${GIT_DIR}"
 	
 	###############################################################
 	# correct any files needed here that you can ahead of time
@@ -138,7 +138,7 @@ main()
 
 	# For whatever reason, some "defaults" don't quite work
 	# Mayeb ship a config file in the future instead
-	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${git_dir}/retroarch.cfg"
+	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${GIT_DIR}/retroarch.cfg"
 
 	#################################################
 	# Build package
@@ -149,29 +149,29 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
- 	# Maybe include static message: "Update to release: ${target}"
+ 	# Maybe include static message: "Update to release: ${TARGET}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "New release"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "New release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
 
@@ -179,7 +179,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -208,7 +208,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -226,7 +226,7 @@ main()
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

@@ -23,7 +23,7 @@ time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
 # git vars
-git_url="https://github.com/ProfessorKaos64/libregeek-archive-keyring"
+GIT_URL="https://github.com/ProfessorKaos64/libregeek-archive-keyring"
 branch="master"
 
 
@@ -32,7 +32,7 @@ branch="master"
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -58,20 +58,20 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="libregeek-archive-keyring"
-pkgver="0.3"
-pkgsuffix="bsos${pkgrev}"
+PKGNAME="libregeek-archive-keyring"
+PKGVER="0.3"
+PKGSUFFIX="bsos${PKGREV}"
 upstream_rev="1"
-pkgrev="1"
+PKGREV="1"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -113,7 +113,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -124,10 +124,10 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Enter git dir to build
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -135,13 +135,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -150,7 +150,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -183,7 +183,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -197,7 +197,7 @@ main()
 			rsync -arv --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" ${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog"
+			cd "${GIT_DIR}" && git add debian/changelog && git commit -m "update changelog"
 			git push origin master && cd "${scriptdir}"
 		fi
 

@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -46,7 +46,7 @@ else
 
 fi
 # upstream vars
-git_url=""
+GIT_URL=""
 branch="master"
 
 # package vars
@@ -56,21 +56,21 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="vaporos-trim-support2"
-pkgver="2.1"
-pkgrev="2"
+PKGNAME="vaporos-trim-support2"
+PKGVER="2.1"
+PKGREV="2"
 upstream_rev="1"
 # Base version sourced from ZIP file version
-pkgsuffix="bsos${pkgrev}"
+PKGSUFFIX="bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -112,14 +112,14 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# Not using git source, make directory
-	mkdir -p "${git_dir}"
+	mkdir -p "${GIT_DIR}"
 
 	# Add files to fake git dir
 	files="fstrim.service fstrim.timer"
 
 	for file in ${files};
 	do
-		cp -v "${scriptdir}/${file}" "${git_dir}"
+		cp -v "${scriptdir}/${file}" "${GIT_DIR}"
 
 	done
 
@@ -132,13 +132,13 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}" || exit
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add required files
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -146,13 +146,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Re-upload for SteamOS-Tools"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Re-upload for SteamOS-Tools"
 		nano "debian/changelog"
 
@@ -162,7 +162,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -193,7 +193,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -210,7 +210,7 @@ main()
 
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 
 		fi
 

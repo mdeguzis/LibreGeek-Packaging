@@ -166,10 +166,10 @@ main()
 	# get latest base release for changelog
 	# This is used because upstream does tend to use release tags
 	base_release=$(git describe --abbrev=0 --tags)
-	pkgver=$(sed "s|[-|a-z]||g" <<<"$base_release")
+	PKGVER=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
         # Alter pkg suffix based on commit
-        pkgsuffix="${date_short}git+bsos"
+        PKGSUFFIX="${date_short}git+bsos"
 
 	#################################################
 	# Prepare build (upstream-specific)
@@ -212,7 +212,7 @@ main()
 	cd "${BUILD_DIR}"
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${SRC_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${GIT_DIR}"
@@ -224,13 +224,13 @@ main()
  	# "Update build to latest upstream commit [$latest_commit]"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${PKGREV}" --package "${PKGNAME}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Testing PR 1476"
 		nano debian/changelog
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${PKGREV}" --package \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
 		nano debian/changelog
 
@@ -276,7 +276,7 @@ main()
 	
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

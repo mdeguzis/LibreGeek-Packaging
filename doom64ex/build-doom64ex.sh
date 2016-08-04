@@ -28,7 +28,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -45,15 +45,15 @@ else
 
 fi
 # upstream var for master build
-git_url="https://github.com/svkaiser/Doom64EX"
-target="master"
+GIT_URL="https://github.com/svkaiser/Doom64EX"
+TARGET="master"
 
-# Use our branch to target stable snapshots and avoid untested builds
+# Use our branch to TARGET stable snapshots and avoid untested builds
 # Upstream does not maintain releases
 # Use clang branch to work on new gcc-5 support (upstream switched for some reason...)
 
-#git_url="https://github.com/ProfessorKaos64/Doom64EX"
-# target="clang"
+#GIT_URL="https://github.com/ProfessorKaos64/Doom64EX"
+# TARGET="clang"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,19 +62,19 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgname="doom64ex"
-pkgver="0.${date_short}"
-pkgrev="1"
-pkgsuffix="git+bsos"
+PKGNAME="doom64ex"
+PKGVER="0.${date_short}"
+PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIRs
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -115,10 +115,10 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${target}" "${git_url}" "${git_dir}" 
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}" 
 
 	# add extras
-	cp "${scriptdir}/doom64ex.png" "${git_dir}"
+	cp "${scriptdir}/doom64ex.png" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -129,25 +129,25 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}" || exit
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add debian folder stuff
-	if [[ "${target}" == "release" ]]; then
+	if [[ "${TARGET}" == "release" ]]; then
 
-		cp -r "${scriptdir}/debian" "${git_dir}"
+		cp -r "${scriptdir}/debian" "${GIT_DIR}"
 		DEBIAN_DIR="debian"
 	
 	else
 
-		cp -r "${scriptdir}/debian-master" "${git_dir}/debian"	
+		cp -r "${scriptdir}/debian-master" "${GIT_DIR}/debian"	
 		DEBIAN_DIR="debian-master"
 
 	fi
 
-	cp "${git_dir}/COPYING" "${git_dir}/debian/copyright"
+	cp "${GIT_DIR}/COPYING" "${GIT_DIR}/debian/copyright"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -155,14 +155,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Fix binary target to be /usr/games"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Fix binary TARGET to be /usr/games"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi
@@ -171,7 +171,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$USENETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -203,7 +203,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -220,7 +220,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/${DEBIAN_DIR}"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/${DEBIAN_DIR}"
 
 		fi
 

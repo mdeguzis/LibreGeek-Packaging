@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,24 +49,24 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/clbr/libframetime"
+GIT_URL="https://github.com/clbr/libframetime"
 branch="master"
 
 # Set 32/64 bit destinations
 if [[ "${ARCH}" == "amd64" ]]; then
 
 	ARCH="amd64"
-	pkgname=libframetime64
+	PKGNAME=libframetime64
 
 elif [[ "${ARCH}" == "i386" ]]; then
 
 	ARCH="i386"
-	pkgname=libframetime32
+	PKGNAME=libframetime32
 
 else
 
 	ARCH="i386"
-	pkgname=libframetime32
+	PKGNAME=libframetime32
 
 fi
 
@@ -78,18 +78,18 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-pkgver="0.${date_short}"
-pkgrev="1"
-pkgsuffix="git+bsos"
+PKGVER="0.${date_short}"
+PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -132,7 +132,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone  -b "${branch}" "${git_url}" "${git_dir}"
+	git clone  -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -143,28 +143,28 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add debian dir
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	# Not multilib right now, configure on the fly
 	# set default to i386 if not specified and set variable for deb folder
 	
 	if [[ "${ARCH}" == "" || "${ARCH}" == "i386" ]]; then
 
-		sed -i "s/Source\: libframetime/Source\: libframetime32/g" "${git_dir}/debian/control"
-		sed -i "s/Package\: libframetime/Package\: libframetime32/g" "${git_dir}/debian/control"
+		sed -i "s/Source\: libframetime/Source\: libframetime32/g" "${GIT_DIR}/debian/control"
+		sed -i "s/Package\: libframetime/Package\: libframetime32/g" "${GIT_DIR}/debian/control"
 
 	elif [[ "${ARCH}" == "amd64" ]]; then
 
-		sed -i "s/Source\: libframetime/Source\: libframetime64/g" "${git_dir}/debian/control"
-		sed -i "s/Package\: libframetime/Package\: libframetime64/g" "${git_dir}/debian/control"
+		sed -i "s/Source\: libframetime/Source\: libframetime64/g" "${GIT_DIR}/debian/control"
+		sed -i "s/Package\: libframetime/Package\: libframetime64/g" "${GIT_DIR}/debian/control"
 
 	fi
 	
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -172,14 +172,14 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D $DIST -u "${urgency}" "Initial upload attempt"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D $DIST -u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload attempt"
+		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
 	fi
@@ -188,7 +188,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -220,7 +220,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -237,7 +237,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 			
 			# keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 
 		fi
 

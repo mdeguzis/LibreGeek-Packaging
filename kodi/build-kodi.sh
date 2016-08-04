@@ -46,7 +46,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -90,7 +90,7 @@ set_vars()
 	SRC_DIR="${PKGNAME}-source"
 	GIT_DIR="${BUILD_DIR}/${SRC_DIR}"
 
-	# Set target for xbmc sources
+	# Set TARGET for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
 	KODI_TAG=""
 
@@ -424,7 +424,7 @@ kodi_build_src()
 	# enter build dir
 	cd "${GIT_DIR}"
 
-	# checkout target release
+	# checkout TARGET release
 	git checkout "${TARGET}"
 
   	# create the Kodi executable manually perform these steps:
@@ -507,7 +507,7 @@ kodi_build_src()
 	# From v14 with commit 4090a5f a new API for binary addons is available. 
 	# Not used for now ...
 
-	# make -C tools/depends/target/binary-addons
+	# make -C tools/depends/TARGET/binary-addons
 
 	####################################
 	# (Optional) build Kodi test suite

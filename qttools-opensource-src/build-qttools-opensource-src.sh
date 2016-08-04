@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,7 +49,7 @@ else
 fi
 
 # Upstream vars
-git_url="https://github.com/qtproject/qttools"
+GIT_URL="https://github.com/qtproject/qttools"
 branch="v5.6.0"
 
 # package vars
@@ -59,19 +59,19 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=" --debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgname="qttools-opensource-src"
-pkgver="5.6.0"
-pkgrev="2"
-pkgsuffix="git+bsos"
+PKGNAME="qttools-opensource-src"
+PKGVER="5.6.0"
+PKGREV="2"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -137,7 +137,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	git clone -b ${branch} ${git_url} ${git_dir}
+	git clone -b ${branch} ${GIT_URL} ${GIT_DIR}
 
 	#################################################
 	# Prep source
@@ -148,18 +148,18 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Try using upstream debian/
 
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	###############################################################
 	# build package
 	###############################################################
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -167,14 +167,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Add new symbosl and docs packages"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Add new symbosl and docs packages"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
 
@@ -182,7 +182,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -213,7 +213,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -228,7 +228,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

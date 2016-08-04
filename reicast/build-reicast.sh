@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -47,9 +47,9 @@ else
 fi
 # upstream vars
 # build fails with softrend error, try using some PRs to fix for now...
-git_url="https://github.com/professorkaos64/reicast-emulator"
-#git_url="https://github.com/reicast/reicast-emulator"
-target="master"
+GIT_URL="https://github.com/professorkaos64/reicast-emulator"
+#GIT_URL="https://github.com/reicast/reicast-emulator"
+TARGET="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,20 +58,20 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgver="0.${date_short}"
-pkgname="reicast"
-pkgrev="1"
+PKGVER="0.${date_short}"
+PKGNAME="reicast"
+PKGREV="1"
 # Base version sourced from ZIP file version
-pkgsuffix="git+bsos"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -99,7 +99,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	if [[ -d "${git_dir}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
+	if [[ -d "${GIT_DIR}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -113,7 +113,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
@@ -131,12 +131,12 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_DIR}" || exit 1
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
 	
 	# Get latest commit and update submodules
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 	git submodule update --init
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
@@ -155,32 +155,32 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 		
 	else
 	
 		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
 		
-		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
-		mkdir -p "${git_dir}"
+		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		mkdir -p "${GIT_DIR}"
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
-		tar -xzf ${pkgname}_*.orig.tar.gz -C "${BUILD_DIR}" --totals
+		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_DIR}" --totals
 		sleep 2s
 
 	fi
 
 	# Add required files
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	#################################################
 	# Build package
 	#################################################
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -188,14 +188,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial build"
 		nano "debian/changelog"
 
 	fi
@@ -204,7 +204,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -239,7 +239,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -256,7 +256,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

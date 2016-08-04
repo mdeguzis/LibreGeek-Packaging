@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -47,8 +47,8 @@ else
 fi
 # upstream vars
 # Use my fork right now, corrects makefile with improvements
-#git_url="https://github.com/ProfessorKaos64/vkQuake"
-git_url="https://github.com/Novum/vkQuake"
+#GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
+GIT_URL="https://github.com/Novum/vkQuake"
 branch="master"
 
 # package vars
@@ -58,12 +58,12 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="vkquake"
+PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-pkgver="0.40"
-pkgrev="1"
+PKGVER="0.40"
+PKGREV="1"
 epoch="1"
-pkgsuffix="${date_short}git+bsos"
+PKGSUFFIX="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -73,9 +73,9 @@ maintainer="ProfessorKaos64"
 export NETWORK="yes"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -116,15 +116,15 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
-	cd "${git_dir}"
+	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Add required files and artwork
-	cp -r "${scriptdir}/debian" "${git_dir}"
-	cp "${scriptdir}/vkquake.png" "${git_dir}"
-	cp "${git_dir}/LICENSE.txt" "${git_dir}/debian/LICENSE"
-	cp "${scriptdir}/vkquake-launch.sh" "${git_dir}/vkquake-launch"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
+	cp "${scriptdir}/vkquake.png" "${GIT_DIR}"
+	cp "${GIT_DIR}/LICENSE.txt" "${GIT_DIR}/debian/LICENSE"
+	cp "${scriptdir}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
 
 	#################################################
 	# Build package
@@ -135,10 +135,10 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}" || exit
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -147,14 +147,14 @@ main()
 	# "Update to the latest commit ${latest_commit}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build"
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial build"
 		nano "debian/changelog"
 
 	fi
@@ -163,7 +163,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -198,7 +198,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -215,7 +215,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

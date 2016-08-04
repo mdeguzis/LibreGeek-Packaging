@@ -30,7 +30,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -89,36 +89,36 @@ install_prereqs()
 main()
 {
 	export BUILD_DIR="/home/desktop/build-deb-temp"
-src_dir="${pkgname}-${pkgver}"
-	git_dir="$BUILD_DIR/git-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+	GIT_DIR="$BUILD_DIR/git-temp"
 	
 	clear
 	# create build dir and git dir, enter it
-	# mkdir -p "$git_dir"
-	# cd "$git_dir"
+	# mkdir -p "$GIT_DIR"
+	# cd "$GIT_DIR"
 	
 	# Ask user for repos / vars
 	echo -e "==> Please enter or paste the git URL now:"
-	echo -e "[ENTER to use last: $git_url]\n"
+	echo -e "[ENTER to use last: $GIT_URL]\n"
 	
 	# set tmp var for last run, if exists
-	git_url_tmp="$git_url"
-	if [[ "$git_url" == " ]]; then
+	GIT_URL_tmp="$GIT_URL"
+	if [[ "$GIT_URL" == " ]]; then
 		# var blank this run, get input
-		read -ep "Git source URL: " git_url
+		read -ep "Git source URL: " GIT_URL
 	else
-		read -ep "Git source URL: " git_url
+		read -ep "Git source URL: " GIT_URL
 		# user chose to keep var value from last
-		if [[ "$git_url" == " ]]; then
-			git_url="$git_url_tmp"
+		if [[ "$GIT_URL" == " ]]; then
+			GIT_URL="$GIT_URL_tmp"
 		else
 			# keep user choice
-			git_url="$git_url"
+			GIT_URL="$GIT_URL"
 		fi
 	fi
 	
 	# Clone git upstream source
-	git clone "$git_url" "$git_dir"	
+	git clone "$GIT_URL" "$GIT_DIR"	
 	
 	#################################################
 	# Build PKG
@@ -164,7 +164,7 @@ src_dir="${pkgname}-${pkgver}"
 	
 	# build deb package
 	sudo checkinstall --fstrans="no" --backup="no" \
-	--pkgversion="$(date +%Y%m%d)+git" --deldoc="yes" --exclude="/home"
+	--PKGVERsion="$(date +%Y%m%d)+git" --deldoc="yes" --exclude="/home"
 
 	# Alternate method
 	# dpkg-buildpackage -us -uc -nc
@@ -208,8 +208,8 @@ src_dir="${pkgname}-${pkgver}"
 	echo -e "If you don't, please check build dependcy errors listed above."
 	echo -e "############################################################\n"
 	
-	echo -e "Showing contents of: $git_dir: \n"
-	ls "$git_dir"
+	echo -e "Showing contents of: $GIT_DIR: \n"
+	ls "$GIT_DIR"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -219,7 +219,7 @@ src_dir="${pkgname}-${pkgver}"
 	if [[ "$transfer_choice" == "y" ]]; then
 	
 		# transfer files
-		if -d $git_dir/ build; then
+		if -d $GIT_DIR/ build; then
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 

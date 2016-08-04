@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-"
-rel_target="3.0.0"
+GIT_URL="https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-"
+rel_TARGET="3.0.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,20 +59,20 @@ ARCH="amd64"
 BUILDER="debuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="google-play-music-desktop-player"
-pkgver="3.0.0"
+PKGNAME="google-play-music-desktop-player"
+PKGVER="3.0.0"
 upstream_rev="1"
-pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+PKGREV="1"
+PKGSUFFIX="bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -117,10 +117,10 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "${rel_target}" "${git_url}" "${git_dir}"
+	git clone -b "${rel_TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	# Enter git dir to build
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	# Since this uses npm and has a lot of depedencies that woudl take a long
 	# time to convert to Debian packages, build manually for now.
@@ -160,7 +160,7 @@ main()
 	echo -e "############################################################\n"
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep ${pkgver}
+	ls "${BUILD_DIR}" | grep ${PKGVER}
 
 	if [[ "$autobuild" != "yes" ]]; then
 

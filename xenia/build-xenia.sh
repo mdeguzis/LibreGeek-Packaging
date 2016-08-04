@@ -56,11 +56,11 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgver="0.${date_short}"
-pkgname="xenia"
-pkgrev="1"
+PKGVER="0.${date_short}"
+PKGNAME="xenia"
+PKGREV="1"
 # Base version sourced from ZIP file version
-pkgsuffix="git+bsos"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -72,9 +72,9 @@ export NETWORK="no"
 export APT_PREFS_HACK="true"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-GIT_DIR="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -139,7 +139,7 @@ main()
 	# Source latest release version from .git?
 	#release_tag=$(git describe --abbrev=0 --tags)
 	# Set pkg version
-	# pkgver="${release_tag}"
+	# PKGVER="${release_tag}"
 
 	# Add image to git dir
 	# cp -r "${scriptdir}/xenia.png" "${GIT_DIR}"
@@ -159,7 +159,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	else
 
@@ -171,7 +171,7 @@ main()
 
 		echo -e "\n==> RETRYing with prior source tarball\n"
 		sleep 2s
-		tar -xzf ${pkgname}_*.orig.tar.gz -C "${BUILD_DIR}" --totals
+		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_DIR}" --totals
 		sleep 2s
 
 	fi
@@ -195,14 +195,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial build"
 		nano "debian/changelog"
 
 	fi
@@ -211,7 +211,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -246,7 +246,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

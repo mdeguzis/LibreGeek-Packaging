@@ -1,0 +1,10 @@
+ dpkg-buildpackage -rfakeroot -D -us -uc -b
+dpkg-buildpackage: info: source package ffmpeg
+dpkg-buildpackage: info: source version 7:2.7.5-0ubuntu0.15.10.1
+dpkg-buildpackage: info: source distribution wily-security
+dpkg-buildpackage: info: source changed by Andreas Cadhalpun <Andreas.Cadhalpun@googlemail.com>
+ dpkg-source --before-build ffmpeg
+dpkg-buildpackage: info: host architecture amd64
+dpkg-checkbuilddeps: error: Unmet build dependencies: debhelper (>= 9) flite1-dev frei0r-plugins-dev ladspa-sdk libass-dev libbluray-dev libbs2b-dev libbz2-dev libcaca-dev libcdio-paranoia-dev libcrystalhd-dev libdc1394-22-dev libfontconfig1-dev libfreetype6-dev libfribidi-dev libgl1-mesa-dev libgme-dev libgnutls28-dev | libgnutls-dev libgsm1-dev libiec61883-dev libavc1394-dev libjack-jackd2-dev liblzma-dev libmodplug-dev libmp3lame-dev libopenal-dev libopencore-amrnb-dev libopencore-amrwb-dev libopencv-dev libopenjpeg-dev libopus-dev libpulse-dev librtmp-dev libschroedinger-dev libsctp-dev libsdl-dev libshine-dev (>= 3.0.0) libsoxr-dev libspeex-dev libssh-gcrypt-dev libtheora-dev libtwolame-dev libfdk-aac-dev libva-dev libvdpau-dev libvo-aacenc-dev libvo-amrwbenc-dev libvorbis-dev libvpx-dev libwavpack-dev libwebp-dev libx264-dev libx265-dev libxext-dev libxvidcore-dev libxvmc-dev libzmq3-dev libzvbi-dev pkg-config texinfo yasm cleancss doxygen node-less
+dpkg-buildpackage: warning: build dependencies/conflicts unsatisfied; aborting
+dpkg-buildpackage: warning: (Use -d flag to override.)

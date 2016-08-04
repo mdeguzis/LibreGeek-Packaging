@@ -30,7 +30,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -50,7 +50,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/hrydgard/ppsspp"
+GIT_URL="https://github.com/hrydgard/ppsspp"
 branch="v1.2.2"
 
 # package vars
@@ -60,19 +60,19 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="ppsspp"
-pkgver="1.2.2"
-pkgrev="2"
-pkgsuffix="bsos${pkgrev}"
+PKGNAME="ppsspp"
+PKGVER="1.2.2"
+PKGREV="2"
+PKGSUFFIX="bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -105,7 +105,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 1s
 	
-	if [[ -d "$git_dir" ]]; then
+	if [[ -d "$GIT_DIR" ]]; then
 
 		echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
 		sleep 1s
@@ -123,7 +123,7 @@ main()
 				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 				sleep 2s
 				rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
-				git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+				git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 			fi
 
@@ -131,14 +131,14 @@ main()
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
 			rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
-			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+			git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
 			mkdir -p  "${BUILD_DIR}"
-			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+			git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 		fi
 
@@ -148,15 +148,15 @@ main()
 			sleep 2s
 			mkdir -p  "${BUILD_DIR}"
 			# create and clone to current dir
-			git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+			git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
 
 	# clean out .git (large amount of space taken up)
-	rm -rf "${git_dir}/.git"
+	rm -rf "${GIT_DIR}/.git"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	cp -r "$scriptdir/debian" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -167,10 +167,10 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -178,14 +178,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial build"
 		nano "debian/changelog"
 
 	fi
@@ -195,7 +195,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -233,7 +233,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep $pkgver
+	ls "${BUILD_DIR}" | grep $PKGVER
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -249,7 +249,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 
 		fi
 

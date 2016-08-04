@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/libretro/rustation-libretro"
+GIT_URL="https://github.com/libretro/rustation-libretro"
 branch="master"
 
 # package vars
@@ -60,19 +60,19 @@ BUILDER="debuild"
 BUILDOPTS="-b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
-pkgname="libretro-rustation"
-pkgver="0.0.1"
-pkgrev="1"
-pkgsuffix="${date_short}git+bsos${pkgrev}"
+PKGNAME="libretro-rustation"
+PKGVER="0.0.1"
+PKGREV="1"
+PKGSUFFIX="${date_short}git+bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -126,8 +126,8 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
-	cd "${git_dir}"
+	git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
@@ -139,17 +139,17 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
 	wget "https://github.com/ProfessorKaos64/LibreGeek-Packaging/raw/brewmaster/retroarch/libretro-rustation/debian.tar.gz" \
 	-q -nc --show-progress
 	tar -xzf debian.tar.gz
-	cp -r "debian" "${git_dir}"
+	cp -r "debian" "${GIT_DIR}"
 	rm debian.tar.gz
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -157,13 +157,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Initial upload"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Initial upload"
 		nano "debian/changelog"
 
@@ -173,7 +173,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -205,7 +205,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -220,7 +220,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

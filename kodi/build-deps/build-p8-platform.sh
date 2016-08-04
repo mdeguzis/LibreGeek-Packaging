@@ -35,7 +35,7 @@ else
 fi
 
 # upstream URL
-git_url="https://github.com/Pulse-Eight/platform/"
+GIT_URL="https://github.com/Pulse-Eight/platform/"
 branch="p8-platform-2.0.1"
 
 # package vars
@@ -45,19 +45,19 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="p8-platform"
-pkgver="2.0.1"
-pkgrev="2"
-pkgsuffix="git+bsos${pkgrev}"
+PKGNAME="p8-platform"
+PKGVER="2.0.1"
+PKGREV="2"
+PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -102,7 +102,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
  
 	#################################################
 	# Build platform
@@ -113,22 +113,22 @@ main()
 	
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 	
 	# emter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest release, $pkgver"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest release, $PKGVER"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest release, $pkgver"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
+		"Update to the latest release, $PKGVER"
 		nano "debian/changelog"
 
 	fi
@@ -137,7 +137,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	# build
@@ -172,7 +172,7 @@ main()
 	
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

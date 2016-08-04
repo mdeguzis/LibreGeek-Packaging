@@ -25,7 +25,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -43,8 +43,8 @@ else
 fi
 
 # upstream vars
-#git_url="https://github.com/llvm-3.8/dolphin/"
-target="5.0"
+#GIT_URL="https://github.com/llvm-3.8/dolphin/"
+TARGET="5.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -115,7 +115,7 @@ main()
 	# obtain sources
 	#################################################
 
-	# Clone upstream source code and target
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	mkdir -p "${SRC_DIR}"
@@ -156,7 +156,7 @@ main()
 
 	#else
 
-	#	dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${pkgname}" \
+	#	dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
 	#	-D "${DIST}" -u "${urgency}" "Initial upload"
 	#	nano "debian/changelog"
 
@@ -216,7 +216,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${SCRIPTDIR}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

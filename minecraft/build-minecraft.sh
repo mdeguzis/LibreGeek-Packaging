@@ -29,7 +29,7 @@ time_stamp_start=$(date +"%T")
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-git_url=""
+GIT_URL=""
 branch="master"
 
 # package vars
@@ -59,11 +59,11 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="minecraft"
-pkgver="1.9"
-pkgrev="2"
+PKGNAME="minecraft"
+PKGVER="1.9"
+PKGREV="2"
 upstream_rev="1"
-pkgsuffix="bsos${pkgrev}"
+PKGSUFFIX="bsos${PKGREV}"
 BUILDER="pdebuild"
 DIST="brewmaster"
 urgency="low"
@@ -71,9 +71,9 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -117,17 +117,17 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	#git clone -b "$branch" "$git_url" "$git_dir"
+	#git clone -b "$branch" "$GIT_URL" "$GIT_DIR"
 
 	# Create empty git dir to just store debian/ files
-	mkdir -p "${git_dir}"
+	mkdir -p "${GIT_DIR}"
 
 	# Get jar file
-	curl -o "${git_dir}/Minecraft.jar" "https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar" -#
+	curl -o "${GIT_DIR}/Minecraft.jar" "https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar" -#
 	
 	# Inject other files from scriptdir
-	cp "${scriptdir}/minecraft.png" "${git_dir}"
-	cp "${scriptdir}/minecraft-launcher.sh" "${git_dir}/minecraft"
+	cp "${scriptdir}/minecraft.png" "${GIT_DIR}"
+	cp "${scriptdir}/minecraft-launcher.sh" "${GIT_DIR}/minecraft"
 
 	#################################################
 	# Build package
@@ -140,13 +140,13 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -154,11 +154,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -167,7 +167,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -207,7 +207,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep $pkgver
+	ls "${BUILD_DIR}" | grep $PKGVER
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -225,7 +225,7 @@ main()
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 
@@ -236,14 +236,14 @@ main()
 }
 
 # start main and log to tmp
-main | tee "/tmp/${pkgname}-build-log-temp.txt"
+main | tee "/tmp/${PKGNAME}-build-log-temp.txt"
 
 # convert log file to Unix compatible ASCII
-strings "/tmp/${pkgname}-build-log-temp.txt" > "/tmp/${pkgname}-build-log.txt"
+strings "/tmp/${PKGNAME}-build-log-temp.txt" > "/tmp/${PKGNAME}-build-log.txt"
 
 # strings does catch all characters that I could 
 # work with, final cleanup
-sed -i 's|\[J||g' "/tmp/${pkgname}-build-log.txt"
+sed -i 's|\[J||g' "/tmp/${PKGNAME}-build-log.txt"
 
 # remove file not needed anymore
-rm -f "/tmp/${pkgname}-build-log-temp.txt"
+rm -f "/tmp/${PKGNAME}-build-log-temp.txt"

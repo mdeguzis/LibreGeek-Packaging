@@ -27,7 +27,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -47,7 +47,7 @@ else
 fi
 
 # upstream URL
-git_url="https://cmake.org/cmake.git"
+GIT_URL="https://cmake.org/cmake.git"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,19 +57,19 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export USE_NETWORK="yes"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="cmake"
+PKGNAME="cmake"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-pkgver="3.5.0"
-pkgrev="2"
-pkgsuffix="git+bsos"
+PKGVER="3.5.0"
+PKGREV="2"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 maintainer="ProfessorKaos64"
 
 # build dirs
-export BUILD_DIR="$HOME/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="$HOME/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -127,7 +127,7 @@ main()
 	echo -e "\n==> Fetching upstream source\n"
 
 	# Get upstream source
-	git clone -b "v${pkgver}" "${git_url}" "${git_dir}"
+	git clone -b "v${PKGVER}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build cmake source
@@ -138,13 +138,13 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	cp -r "$scriptdir/debian" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	# gather commits
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
@@ -155,13 +155,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Enable OpenSSL support"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
@@ -170,7 +170,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -197,7 +197,7 @@ main()
 	
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -212,7 +212,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

@@ -31,7 +31,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -52,9 +52,9 @@ fi
 
 # upstream vars
 # build from specific commit for stability
-#git_url="https://github.com/STJr/SRB2"
-git_url="https://github.com/ProfessorKaos64/SRB2"
-rel_target="brewmaster"
+#GIT_URL="https://github.com/STJr/SRB2"
+GIT_URL="https://github.com/ProfessorKaos64/SRB2"
+rel_TARGET="brewmaster"
 commit="5c09c31"
 
 # package vars
@@ -64,19 +64,19 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="srb2"
-pkgver="2.1.14"
+PKGNAME="srb2"
+PKGVER="2.1.14"
 upstream_rev="1"
-pkgrev="1"
+PKGREV="1"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -129,16 +129,16 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone (use recursive to get the assets folder)
-	git clone -b "$rel_target" "$git_url" "$git_dir"
+	git clone -b "$rel_TARGET" "$GIT_URL" "$GIT_DIR"
 
-	# get suffix from target commit (stable targets for now)
-	cd "${git_dir}"
+	# get suffix from TARGET commit (stable TARGETs for now)
+	cd "${GIT_DIR}"
 	#git checkout $commit 1> /dev/null
 	commit=$(git log -n 1 --pretty=format:"%h")
-	pkgsuffix="git${commit}+bsos${pkgrev}"
+	PKGSUFFIX="git${commit}+bsos${PKGREV}"
 
 	# copy in modified files until fixed upstream
-	# cp "$scriptdir/rules" "${git_dir}/debian"
+	# cp "$scriptdir/rules" "${GIT_DIR}/debian"
 
 	#################################################
 	# Prepare package (main)
@@ -154,10 +154,10 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 
 	echo -e "\n==> Updating changelog"
@@ -166,11 +166,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -179,7 +179,7 @@ main()
 	# Build Debian package (main)
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -194,21 +194,21 @@ main()
 		# now we need to build the data package
 		# Pkg ver is independent* of the version of srb2
 		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
-		pkgver_data="2.1.14"
-		pkgname_data="srb2-data"
+		PKGVER_data="2.1.14"
+		PKGNAME_data="srb2-data"
 		data_dir="assets"
 
-		echo -e "\n==> Building Debian package ${pkgname_data} from source\n"
+		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
 		sleep 2s
 
 		# enter build dir to package attempt
-		cd "${git_dir}"
+		cd "${GIT_DIR}"
 
 		# create the tarball from latest tarball creation script
 		# use latest revision designated at the top of this script
 
 		# create source tarball
-		tar -cvzf "${pkgname_data}_${pkgver_data}.orig.tar.gz" "${data_dir}"
+		tar -cvzf "${PKGNAME_data}_${PKGVER_data}.orig.tar.gz" "${data_dir}"
 
 		# enter source dir
 		cd "${data_dir}"
@@ -216,11 +216,11 @@ main()
 		# Create basic changelog format
 
 		cat <<-EOF> changelog.in
-		$pkgname_data (${pkgver_data}) $DIST; urgency=low
+		$PKGNAME_data (${PKGVER_data}) $DIST; urgency=low
 
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
-		  * Upstream authors and source: $git_url
+		  * Upstream authors and source: $GIT_URL
 
 		 -- $uploader  $date_long
 
@@ -241,11 +241,11 @@ main()
 	 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -254,14 +254,14 @@ main()
 		# Build Debian package (data)
 		#################################################
 
-		echo -e "\n==> Building Debian package ${pkgname_data} from source\n"
+		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
 		sleep 2s
 
 		#  build
 		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 		# Move packages to build dir
-		mv ${git_dir}/*${pkgver_data}* "${BUILD_DIR}"
+		mv ${GIT_DIR}/*${PKGVER_data}* "${BUILD_DIR}"
 
 	# end build data run
 	fi
@@ -300,7 +300,7 @@ main()
 	echo -e "############################################################\n"
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" "srb2"
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" "srb2"
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -326,14 +326,14 @@ main()
 }
 
 # start main and log to tmp
-main | tee "/tmp/${pkgname}-build-log-temp.txt"
+main | tee "/tmp/${PKGNAME}-build-log-temp.txt"
 
 # convert log file to Unix compatible ASCII
-strings "/tmp/${pkgname}-build-log-temp.txt" > "/tmp/${pkgname}-build-log.txt"
+strings "/tmp/${PKGNAME}-build-log-temp.txt" > "/tmp/${PKGNAME}-build-log.txt"
 
 # strings does catch all characters that I could 
 # work with, final cleanup
-sed -i 's|\[J||g' "/tmp/${pkgname}-build-log.txt"
+sed -i 's|\[J||g' "/tmp/${PKGNAME}-build-log.txt"
 
 # remove file not needed anymore
-rm -f "/tmp/${pkgname}-build-log-temp.txt"
+rm -f "/tmp/${PKGNAME}-build-log-temp.txt"

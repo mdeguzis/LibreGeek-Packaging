@@ -30,7 +30,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -56,8 +56,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="pcsx2"
-pkgrev="1"
+PKGNAME="pcsx2"
+PKGREV="1"
 DIST="brewmaster"
 urgency="low"
 ARCH="i386"
@@ -70,9 +70,9 @@ subpkg1="pcsx2-dbg"
 
 # build dirs
 export BUILD_DIR="/home/desktop/build-pcsx2-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="$BUILD_DIR/${pkgname}"
-git_url="https://github.com/PCSX2/pcsx2"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="$BUILD_DIR/${PKGNAME}"
+GIT_URL="https://github.com/PCSX2/pcsx2"
 branch="master"
 
 # package vars
@@ -154,8 +154,8 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	
 	# clone and checkout desired commit
-        git clone -b "$branch" "$git_url" "${git_dir}"
-        cd "${git_dir}"
+        git clone -b "$branch" "$GIT_URL" "${GIT_DIR}"
+        cd "${GIT_DIR}"
         
 	# get latest base release
 	# This is used because upstream does tends to use release tags
@@ -163,39 +163,39 @@ main()
 	git checkout $release_tag 1> /dev/null
 	
 	# cleanup for pkg version naming
-	pkgver=$(sed "s|[-|a-z]||g" <<<"$release_tag")
+	PKGVER=$(sed "s|[-|a-z]||g" <<<"$release_tag")
 
         # Alter pkg suffix based on commit
-        pkgsuffix="git+bsos${pkgrev}"
+        PKGSUFFIX="git+bsos${PKGREV}"
 
 	#################################################
 	# Prepare build (upstream-specific)
 	#################################################
 
 	echo -e "\nRemove 3rdparty code"
-	rm -fr "$git_dir/3rdparty"
-	rm -fr "$git_dir/fps2bios"
-	rm -fr "$git_dir/tools"
+	rm -fr "$GIT_DIR/3rdparty"
+	rm -fr "$GIT_DIR/fps2bios"
+	rm -fr "$GIT_DIR/tools"
 	
 	echo "Remove non free plugins"
 	# remove also deprecated plugins
 	for plugin in CDVDiso CDVDisoEFP CDVDlinuz CDVDolio CDVDpeops dev9ghzdrk \
 	PeopsSPU2 SSSPSXPAD USBqemu xpad zerogs zerospu2
 	do
-		rm -fr "$git_dir/plugins/$plugin"
+		rm -fr "$GIT_DIR/plugins/$plugin"
 	done
 
 	echo "Remove remaining non free file. TODO UPSTREAM"
-	rm -rf $git_dir/unfree
-	rm -rf $git_dir/plugins/GSdx/baseclasses
-	rm -f  $git_dir/plugins/zzogl-pg/opengl/Win32/aviUtil.h
-	rm -f  $git_dir/common/src/Utilities/x86/MemcpyFast.cpp
+	rm -rf $GIT_DIR/unfree
+	rm -rf $GIT_DIR/plugins/GSdx/baseclasses
+	rm -f  $GIT_DIR/plugins/zzogl-pg/opengl/Win32/aviUtil.h
+	rm -f  $GIT_DIR/common/src/Utilities/x86/MemcpyFast.cpp
 	
 	# To save 66% of the package size
-	# rm -rf  $git_dir/.git
+	# rm -rf  $GIT_DIR/.git
 	
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}/debian"
+	cp -r "$scriptdir/debian" "${GIT_DIR}/debian"
 
 	#################################################
 	# Build platform
@@ -208,10 +208,10 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 
 	echo -e "\n==> Updating changelog"
@@ -220,11 +220,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -233,7 +233,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build within i386 environment
@@ -273,7 +273,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep $pkgver
+	ls "${BUILD_DIR}" | grep $PKGVER
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -290,7 +290,7 @@ main()
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

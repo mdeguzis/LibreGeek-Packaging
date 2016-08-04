@@ -34,8 +34,8 @@ elif [[ "$1" == "--show-supported" ]]; then
 fi
 
 # set args
-os_target="$1"
-rel_target="$2"
+os_TARGET="$1"
+rel_TARGET="$2"
 
 show_help()
 {
@@ -70,7 +70,7 @@ show_supported()
 	
 	cat <<-EOF
 	#####################################################
-	Supported OS targets and release targets:
+	Supported OS TARGETs and release TARGETs:
 	#####################################################
 	
 	OS: steamos
@@ -243,15 +243,15 @@ create_docker()
 	# See: https://github.com/tianon/gentoo-overlay/blob/master/dev-util/debootstrap-valve/debootstrap-valve-0.0.2.ebuild
 	
 	
-	if [[ "$os_target" == "steamos" ]]; then
+	if [[ "$os_TARGET" == "steamos" ]]; then
 	
-		if [[ "$rel_target" == "alchemist" ]]; then
+		if [[ "$rel_TARGET" == "alchemist" ]]; then
 		
 			# latest steamos tag, using container from tianon/steamos/
 			# See: https://hub.docker.com/r/tianon/steamos/
 			sudo docker pull tianon/steamos
 			
-		elif [[ "$rel_target" == "brewmaster" ]]; then
+		elif [[ "$rel_TARGET" == "brewmaster" ]]; then
 	
 			:
 				

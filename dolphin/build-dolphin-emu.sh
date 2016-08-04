@@ -28,7 +28,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -46,8 +46,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/dolphin-emu/dolphin/"
-target="5.0"
+GIT_URL="https://github.com/dolphin-emu/dolphin/"
+TARGET="5.0"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -56,25 +56,25 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="dolphin-emu"
-pkgver="5.0"
-pkgrev="3"
+PKGNAME="dolphin-emu"
+PKGVER="5.0"
+PKGREV="3"
 epoch="1"
-pkgsuffix="git+bsos"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
 
-	echo -e "\n==> Installing $pkgname build dependencies...\n"
+	echo -e "\n==> Installing $PKGNAME build dependencies...\n"
 	sleep 2s
 
 	sudo apt-get install -y --force-yes debhelper cmake pkg-config lsb-release libao-dev libasound2-dev \
@@ -103,11 +103,11 @@ main()
 	fi
 
 
-	# Clone upstream source code and target
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	if [[ -d "${git_dir}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
+	if [[ -d "${GIT_DIR}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -121,7 +121,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
@@ -139,7 +139,7 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_DIR}" || exit 1
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
 
@@ -158,32 +158,32 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 		
 	else
 	
 		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
 		
-		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
-		mkdir -p "${git_dir}"
+		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		mkdir -p "${GIT_DIR}"
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
-		tar -xzf ${pkgname}_*.orig.tar.gz -C "${BUILD_DIR}" --totals
+		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_DIR}" --totals
 		sleep 2s
 
 	fi
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${git_dir}"
+	cp -r "$scriptdir/debian" "${GIT_DIR}"
 
 	################################################
 	# Build package
 	#################################################
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -191,14 +191,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update release to ${pkgver}"
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update release to ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build for SteamOS"
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial build for SteamOS"
 		nano "debian/changelog"
 
 	fi
@@ -207,7 +207,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -241,7 +241,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep ${pkgver}
+	ls "${BUILD_DIR}" | grep ${PKGVER}
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -257,7 +257,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

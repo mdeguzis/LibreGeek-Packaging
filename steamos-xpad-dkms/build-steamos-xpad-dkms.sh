@@ -27,7 +27,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -53,33 +53,33 @@ xpadsteamoscommit_short='9ce95a1'
 xpad_source_file="https://github.com/ValveSoftware/steamos_kernel/raw/9ce95a199ff868f76b059338ee8d5760aa33a064/drivers/input/joystick/xpad.c"
 
 # define base version
-pkgname="steamos-xpad-dkms"
-pkgver="20151001+git2"
-pkgrev="1"
+PKGNAME="steamos-xpad-dkms"
+PKGVER="20151001+git2"
+PKGREV="1"
 pkgrel="wily"
 
 # BUILD_DIRs
 export BUILD_DIR="${HOME}/pkg-build-dir"
-src_dir="${pkgname}-${pkgver}"
-pkg_folder="${pkgname}-${pkgver}-${pkgrev}~${pkgrel}"
+SRCDIR="${PKGNAME}-${PKGVER}"
+pkg_folder="${PKGNAME}-${PKGVER}-${PKGREV}~${pkgrel}"
 
 # Define branch
 BRANCH="master"
 
-# Define upload target
+# Define upload TARGET
 LAUNCHPAD_PPA="ppa:mdeguzis/steamos-tools"
 
 # Define uploader for changelog
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
-# Define package maintainer for dsc and $pkgname-$pkgver-$pkgrel file 
+# Define package maintainer for dsc and $PKGNAME-$PKGVER-$pkgrel file 
 pkgmaintainer="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
 clear
 
 cat<<- EOF
 #####################################################################
-Building ${pkgname}-${pkgver}-${pkgrev}~${pkgrel}
+Building ${PKGNAME}-${PKGVER}-${PKGREV}~${pkgrel}
 #####################################################################
 
 EOF
@@ -87,11 +87,11 @@ EOF
 if [[ -n "$1" ]]; then
 
   echo "
-  echo -e "==INFO==\nbuild target is $1"
+  echo -e "==INFO==\nbuild TARGET is $1"
   echo "
 
 else
-  echo -e "==INFO==\nbuild target is source"
+  echo -e "==INFO==\nbuild TARGET is source"
   echo "
 fi
 
@@ -170,7 +170,7 @@ echo -e "\n==> Creating archive\n"
 cd .. || exit
 tar cfj steamos-xpad-dkms.orig.tar.bz2 "$pkg_folder"
 # The original tarball should not have the revision and release tacked on
-mv "steamos-xpad-dkms.orig.tar.bz2" "${pkgname}-${pkgver}.orig.tar.bz2"
+mv "steamos-xpad-dkms.orig.tar.bz2" "${PKGNAME}-${PKGVER}.orig.tar.bz2"
 
 cat <<-EOF
 ##########################################
@@ -188,7 +188,7 @@ cd "$pkg_folder"
 
 echo -e "\n==> changelog"
 # Change version, uploader, insert change log comments
-sed -i "s|version_placeholder|$pkgname_$pkgver-$pkgrev~$pkgrel|g" debian/changelog
+sed -i "s|version_placeholder|$PKGNAME_$PKGVER-$PKGREV~$pkgrel|g" debian/changelog
 sed -i "s|uploader|$uploader|g" debian/changelog
 sed -i "s|DIST|$pkgrel|g" debian/changelog
 
@@ -200,7 +200,7 @@ echo -e "\n==> control"
 sed -i "s|pkgmaintainer|$pkgmaintainer|g" debian/control
 
 echo -e "\n==> rules\n"
-sed -i "s|pkgver|$pkgver|g" debian/rules
+sed -i "s|PKGVER|$PKGVER|g" debian/rules
 sed -i "s|pkgrel|$pkgrel|g" debian/rules
 
 if [[ -n "$1" ]]; then
@@ -266,7 +266,7 @@ EOF
         while true; do
             read -rp "Do you wish to upload the source package?    " yn
             case $yn in
-                [Yy]* ) dput ppa:mdeguzis/steamos-tools ${BUILD_DIR}/${pkgname}-${pkgver}-${pkgrev}~${pkgrel}_source.changes; break;;
+                [Yy]* ) dput ppa:mdeguzis/steamos-tools ${BUILD_DIR}/${PKGNAME}-${PKGVER}-${PKGREV}~${pkgrel}_source.changes; break;;
                 [Nn]* ) break;;
                 * ) echo "Please answer yes or no.";;
             esac

@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -47,7 +47,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/dhewm/dhewm3"
+GIT_URL="https://github.com/dhewm/dhewm3"
 branch="1.4.1_RC1"
 
 # package vars
@@ -57,20 +57,20 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="dhewm3"
-pkgver="1.4.1"
-pkgrev="1"
+PKGNAME="dhewm3"
+PKGVER="1.4.1"
+PKGREV="1"
 upstream_rev="1"
-pkgsuffix="RC1+bsos"
+PKGSUFFIX="RC1+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIRs
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -115,7 +115,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
+	git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Prepare package
@@ -126,13 +126,13 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}" || exit
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add debian folder for current virtual package implementation
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -140,13 +140,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update to latest release ${pkgver}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update to latest release ${PKGVER}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 
 	fi
 
@@ -154,7 +154,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$USENETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -189,7 +189,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -207,7 +207,7 @@ main()
 
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

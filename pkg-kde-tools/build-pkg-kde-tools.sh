@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -48,7 +48,7 @@ else
 
 fi
 
-git_url="https://github.com/ProfessorKaos64/pkg-kde-tools"
+GIT_URL="https://github.com/ProfessorKaos64/pkg-kde-tools"
 branch="master"
 
 # package vars
@@ -58,20 +58,20 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-#pkgname="qt"
-pkgname="pkg-kde-tools"
-pkgver="0.15.20"
-pkgrev="1"
-pkgsuffix="git+bsos"
+#PKGNAME="qt"
+PKGNAME="pkg-kde-tools"
+PKGVER="0.15.20"
+PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -120,7 +120,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Prep source
@@ -131,14 +131,14 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	###############################################################
 	# build package
 	###############################################################
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -146,14 +146,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Build arch-independent packages (-doc and -doc-html)"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Build arch-independent packages (-doc and -doc-html)"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi
@@ -162,7 +162,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -193,7 +193,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -208,7 +208,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cd "${git_dir}" && git add debian/changelog && git commit -m "update changelog"
+			cd "${GIT_DIR}" && git add debian/changelog && git commit -m "update changelog"
 			git push origin master && cd "${scriptdir}"
 
 		fi

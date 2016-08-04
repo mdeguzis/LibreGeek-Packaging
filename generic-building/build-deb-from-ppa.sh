@@ -39,7 +39,7 @@ export BUILD_DIR="${BUILD_DIR}"
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -173,19 +173,19 @@ function_build_locally()
 	fi
 	
 	echo -e "\n==> Please enter or paste the desired package name now:"
-	echo -e "    [Press ENTER to use last: $target]\n"
-	target_tmp="$target"
-	if [[ "$target" == "" ]]; then
+	echo -e "    [Press ENTER to use last: $TARGET]\n"
+	TARGET_tmp="$TARGET"
+	if [[ "$TARGET" == "" ]]; then
 		# var blank this run, get input
-		read -ep "Package Name: " target
+		read -ep "Package Name: " TARGET
 	else
-		read -ep "Package Name: " target
+		read -ep "Package Name: " TARGET
 		# user chose to keep var value from last
-		if [[ "$target" == "" ]]; then
-			target="$target_tmp"
+		if [[ "$TARGET" == "" ]]; then
+			TARGET="$TARGET_tmp"
 		else
 			# keep user choice
-			target="$target"
+			TARGET="$TARGET"
 		fi
 	fi
 	
@@ -193,15 +193,15 @@ function_build_locally()
 	echo -e "\n==> Attempting to add source list"
 	sleep 2s
 	
-	# check for existance of target, backup if it exists
-	if [[ -f /etc/apt/sources.list.d/${target}.list ]]; then
-		echo -e "\n==> Backing up ${target}.list to ${target}.list.bak"
-		sudo mv "/etc/apt/sources.list.d/${target}.list" "/etc/apt/sources.list.d/${target}.list.bak"
+	# check for existance of TARGET, backup if it exists
+	if [[ -f /etc/apt/sources.list.d/${TARGET}.list ]]; then
+		echo -e "\n==> Backing up ${TARGET}.list to ${TARGET}.list.bak"
+		sudo mv "/etc/apt/sources.list.d/${TARGET}.list" "/etc/apt/sources.list.d/${TARGET}.list.bak"
 	fi
 	
 	# add source to sources.list.d/
-	echo ${repo_src} > "${target}.list.tmp"
-	sudo mv "${target}.list.tmp" "/etc/apt/sources.list.d/${target}.list"
+	echo ${repo_src} > "${TARGET}.list.tmp"
+	sudo mv "${TARGET}.list.tmp" "/etc/apt/sources.list.d/${TARGET}.list"
 	
 	echo -e "\n==> Adding GPG key:\n"
 	sleep 2s
@@ -240,7 +240,7 @@ function_build_locally()
 		echo -e "\n==> Attempting to auto-install build dependencies\n"
 	
 		# attempt to get build deps
-		if sudo apt-get build-dep ${target} -y --force-yes; then
+		if sudo apt-get build-dep ${TARGET} -y --force-yes; then
 		
 			echo -e "\n==INFO==\nSource package dependencies successfully installed."
 			
@@ -253,12 +253,12 @@ function_build_locally()
 			
 		fi
 	
-		# Attempt to build target
-		echo -e "\n==> Attempting to build ${target}:\n"
+		# Attempt to build TARGET
+		echo -e "\n==> Attempting to build ${TARGET}:\n"
 		sleep 2s
 	
 		# build normally using apt-get source
-		if apt-get source --build ${target}; then
+		if apt-get source --build ${TARGET}; then
 			
 			echo -e "\n==INFO==\nBuild successfull"
 			
@@ -281,7 +281,7 @@ function_build_locally()
 		sleep 2s
 		
 		# download source 
-		apt-get source ${target}
+		apt-get source ${TARGET}
 		
 		# identify folder
 		cd $BUILD_DIR
@@ -298,7 +298,7 @@ function_build_locally()
                 sleep 2s
 
                 # download source
-                apt-get source ${target}
+                apt-get source ${TARGET}
 
                 # identify folder
                 cd $BUILD_DIR
@@ -324,7 +324,7 @@ function_build_locally()
 	if [[ "$purge_choice" == "y" ]]; then
 	
 		# remove list
-		sudo rm -f /etc/apt/sources.list.d/${target}.list
+		sudo rm -f /etc/apt/sources.list.d/${TARGET}.list
 		sudo apt-get update
 		
 	elif [[ "$purge_choice" == "n" ]]; then
@@ -402,7 +402,7 @@ main()
 	read -erp "Choice: " BUILDER
 	
 	export BUILD_DIR="${HOME}/build-deb-temp"
-	src_dir="${pkgname}-${pkgver}"
+	SRCDIR="${PKGNAME}-${PKGVER}"
 	
 	# remove previous dirs if they exist
 	if [[ -d "${BUILD_DIR}" ]]; then

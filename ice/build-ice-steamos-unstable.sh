@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/scottrice/Ice"
-rel_target="master"
+GIT_URL="https://github.com/scottrice/Ice"
+rel_TARGET="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,20 +59,20 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="ice-steamos-unstable"
-pkgver="${date_short}"
+PKGNAME="ice-steamos-unstable"
+PKGVER="${date_short}"
 BUILDER="pdebuild"
 upstream_rev="1"
-pkgrev="4"
+PKGREV="4"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -131,23 +131,23 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_target" "$git_url" "${git_dir}"
-	cd "${git_dir}"
+	git clone -b "$rel_TARGET" "$GIT_URL" "${GIT_DIR}"
+	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
 
 	# Alter pkg suffix based on commit
-	pkgsuffix="git${latest_commit}+bsos${pkgrev}"
+	PKGSUFFIX="git${latest_commit}+bsos${PKGREV}"
 
 	# Add debian folder
-        cp -r "$scriptdir/debian-unstable" "${git_dir}/debian"
+        cp -r "$scriptdir/debian-unstable" "${GIT_DIR}/debian"
 
 	# inject iur modified files
-	cp "$scriptdir/emulators.txt" "${git_dir}"
-	cp "$scriptdir/config.txt" "${git_dir}"
-	cp "$scriptdir/consoles.txt" "${git_dir}"
-	cp "$scriptdir/ice-steamos.sh" "${git_dir}/ice-steamos"
-	cp "$scriptdir/debian/README.md" "${git_dir}"
+	cp "$scriptdir/emulators.txt" "${GIT_DIR}"
+	cp "$scriptdir/config.txt" "${GIT_DIR}"
+	cp "$scriptdir/consoles.txt" "${GIT_DIR}"
+	cp "$scriptdir/ice-steamos.sh" "${GIT_DIR}/ice-steamos"
+	cp "$scriptdir/debian/README.md" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -163,10 +163,10 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}.${pkgsuffix}.orig.tar.gz" "$pkgname"
+	tar -cvzf "${PKGNAME}_${PKGVER}.${PKGSUFFIX}.orig.tar.gz" "$PKGNAME"
 
 	# Enter git dir to build
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 
 	echo -e "\n==> Updating changelog"
@@ -175,11 +175,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -188,7 +188,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -226,7 +226,7 @@ main()
 	echo -e "############################################################\n"
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep ${pkgver}
+	ls "${BUILD_DIR}" | grep ${PKGVER}
 
 	if [[ "$autobuild" != "yes" ]]; then
 
@@ -243,7 +243,7 @@ main()
 
 
 			# Preserve changelog
-			mv "${git_dir}/debian/changelog" ""$scriptdir/debian"-unstable/"
+			mv "${GIT_DIR}/debian/changelog" ""$scriptdir/debian"-unstable/"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

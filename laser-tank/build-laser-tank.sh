@@ -26,7 +26,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -44,7 +44,7 @@ else
 fi
 
 # upstream URL
-git_url="https://github.com/h4tr3d/laser-tank"
+GIT_URL="https://github.com/h4tr3d/laser-tank"
 branch="master"
 
 # package vars
@@ -56,20 +56,20 @@ BUILDOPTS=""
 export USE_NETWORK="no"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-pkgname="laser-tank"
-pkgver="0.${date_short}"
+PKGNAME="laser-tank"
+PKGVER="0.${date_short}"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgrev="1"
-pkgsuffix="git+bsos"
+PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 maintainer="ProfessorKaos64"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -118,15 +118,15 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
-	cd "${git_dir}"
+	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Add launcher script
-	cp -r "${scriptdir}/laser-tank.sh" "${git_dir}/laser-tank"
+	cp -r "${scriptdir}/laser-tank.sh" "${GIT_DIR}/laser-tank"
 
 	# enter git dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	#################################################
 	# Build package source
@@ -137,13 +137,13 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder and other files
-        cp -r "${scriptdir}/debian" "${git_dir}"
+        cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 
@@ -153,14 +153,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Update to latest commit [${latest_commit}]"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update to latest commit [${latest_commit}]"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi
@@ -196,7 +196,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -211,7 +211,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

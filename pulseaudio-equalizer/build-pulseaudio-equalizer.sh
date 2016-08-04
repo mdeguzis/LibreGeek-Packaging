@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-pkgver="2.7.0.2"
-orig_tarball="https://launchpad.net/~nilarimogard/+archive/ubuntu/webupd8/+files/pulseaudio-equalizer_${pkgver}.orig.tar.gz"
+PKGVER="2.7.0.2"
+orig_tarball="https://launchpad.net/~nilarimogard/+archive/ubuntu/webupd8/+files/pulseaudio-equalizer_${PKGVER}.orig.tar.gz"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,18 +60,18 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-pkgname="pulseaudio-equalizer"
-pkgrev="1"
-pkgsuffix="bsos"
+PKGNAME="pulseaudio-equalizer"
+PKGREV="1"
+PKGSUFFIX="bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-ppa_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+ppa_dir="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -116,11 +116,11 @@ main()
 
 	# get source and extract
 	wget "${orig_tarball}" -q -nc --show-progress
-	tar -xf ${pkgname}*.orig.tar.gz
+	tar -xf ${PKGNAME}*.orig.tar.gz
 	# Rename tarball
-	mv ${pkgname}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
+	mv ${PKGNAME}*.orig.tar.gz "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz"
 	# Rename src dir to match our conventions
-	mv ${pkgname} ${src_dir}
+	mv ${PKGNAME} ${SRCDIR}
 	
 	#################################################
 	# Build package
@@ -138,14 +138,14 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D $DIST -u "${urgency}" "Update to upstream package ${pkgver}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D $DIST -u "${urgency}" "Update to upstream package ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload attempt"
+		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
 	fi
@@ -154,7 +154,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -186,7 +186,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

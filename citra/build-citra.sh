@@ -30,7 +30,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -47,8 +47,8 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/citra-emu/citra"
-#git_url="https://github.com/ProfessorKaos64/citra"
+GIT_URL="https://github.com/citra-emu/citra"
+#GIT_URL="https://github.com/ProfessorKaos64/citra"
 branch="master"
 
 # package vars
@@ -58,11 +58,11 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgname="citra"
-pkgver="0.${date_short}"
-pkgrev="1"
+PKGNAME="citra"
+PKGVER="0.${date_short}"
+PKGREV="1"
 # Base version sourced from ZIP file version
-pkgsuffix="git+bsos"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -72,9 +72,9 @@ maintainer="ProfessorKaos64"
 export NETWORK="yes"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -116,15 +116,15 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone --recursive -b "${branch}" "${git_url}" "${git_dir}"
-	cd "${git_dir}"
+	git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# Add image to git dir
-	cp -r "${scriptdir}/Citra.png" "${git_dir}"
+	cp -r "${scriptdir}/Citra.png" "${GIT_DIR}"
 	
 	# Swap version text, since the project assumes citra is being ran in the git dir
-	sed -i "s|GIT-NOTFOUND|${pkgver}git|g" "${git_dir}/externals/cmake-modules/GetGitRevisionDescription.cmake"
+	sed -i "s|GIT-NOTFOUND|${PKGVER}git|g" "${GIT_DIR}/externals/cmake-modules/GetGitRevisionDescription.cmake"
 
 	#################################################
 	# Build package
@@ -135,14 +135,14 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}" || exit
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add required files
-	cp -r "${scriptdir}/debian" "${git_dir}"
-	cp "${git_dir}/license.txt" "${git_dir}/debian/LICENSE"
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
+	cp "${GIT_DIR}/license.txt" "${GIT_DIR}/debian/LICENSE"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -150,13 +150,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
@@ -166,7 +166,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -201,7 +201,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -218,7 +218,7 @@ main()
 
 
 			# uplaod local repo changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

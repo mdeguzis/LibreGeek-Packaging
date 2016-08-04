@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/Stabyourself/mari0"
-rel_target="master"
+GIT_URL="https://github.com/Stabyourself/mari0"
+rel_TARGET="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,19 +59,19 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="mari0"
-pkgver="1.6"
-pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+PKGNAME="mari0"
+PKGVER="1.6"
+PKGREV="1"
+PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-export git_dir="${BUILD_DIR}/${src_dir}"
+export export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+export GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -121,13 +121,13 @@ main()
 	echo -e "\n==> Obtaining upstream source code"
 
 	# clone
-	#git clone -b "$rel_target" "$git_url" "$git_dir"
+	#git clone -b "$rel_TARGET" "$GIT_URL" "$GIT_DIR"
 
 	# For now, use prebuilt files
-	mkdir -p "$git_dir"
-	cp "$scriptdir/mari0_1.6.love" "$git_dir"
-	cp "$scriptdir/mari0" "$git_dir"
-	cp "$scriptdir/mari0.png" "$git_dir"
+	mkdir -p "$GIT_DIR"
+	cp "$scriptdir/mari0_1.6.love" "$GIT_DIR"
+	cp "$scriptdir/mari0" "$GIT_DIR"
+	cp "$scriptdir/mari0.png" "$GIT_DIR"
 
 	#################################################
 	# Build package
@@ -140,13 +140,13 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
-	cp -r ""$scriptdir/debian"" "${git_dir}"
+	cp -r ""$scriptdir/debian"" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 
 	echo -e "\n==> Updating changelog"
@@ -155,11 +155,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -168,7 +168,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -210,7 +210,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" ${pkgver}
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" ${PKGVER}
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -228,7 +228,7 @@ main()
 
 			# Only move the old changelog if transfer occurs to keep final changelog 
 			# out of the picture until a confirmed build is made. Remove if upstream has their own.
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		fi
 

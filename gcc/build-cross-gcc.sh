@@ -156,7 +156,7 @@ cd ..
 echo -e "\n==> Building stage 1: binutils\n" && sleep 2s
 mkdir -p build-binutils
 cd build-binutils
-../$BINUTILS_VERSION/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
+../$BINUTILS_VERSION/configure --prefix=$INSTALL_PATH --TARGET=$TARGET $CONFIGURATION_OPTIONS
 make $PARALLEL_MAKE
 sudo make install
 cd ..
@@ -180,7 +180,7 @@ if [ $USE_NEWLIB -ne 0 ]; then
 	NEWLIB_OPTION=--with-newlib
 fi
 
-../$GCC_VERSION/configure --prefix=$INSTALL_PATH --target=$TARGET --enable-languages=c,c++ $CONFIGURATION_OPTIONS $NEWLIB_OPTION
+../$GCC_VERSION/configure --prefix=$INSTALL_PATH --TARGET=$TARGET --enable-languages=c,c++ $CONFIGURATION_OPTIONS $NEWLIB_OPTION
 make $PARALLEL_MAKE all-gcc
 sudo make install-gcc
 cd ..
@@ -191,7 +191,7 @@ if [ $USE_NEWLIB -ne 0 ]; then
 	echo -e "\n==> Building stage 4-6: newlibs\n" && sleep 2s
 	mkdir -p build-newlib
 	cd build-newlib
-	../newlib-master/configure --prefix=$INSTALL_PATH --target=$TARGET $CONFIGURATION_OPTIONS
+	../newlib-master/configure --prefix=$INSTALL_PATH --TARGET=$TARGET $CONFIGURATION_OPTIONS
 	make $PARALLEL_MAKE
 	sudo make install
 	cd ..
@@ -202,7 +202,7 @@ else
 	echo -e "\n==> Building stage 4: glibc/gcc\n" && sleep 2s
 	mkdir -p build-glibc
 	cd build-glibc
-	../$GLIBC_VERSION/configure --prefix=$INSTALL_PATH/$TARGET --build=$MACHTYPE --host=$TARGET --target=$TARGET --with-headers=$INSTALL_PATH/$TARGET/include $CONFIGURATION_OPTIONS libc_cv_forced_unwind=yes
+	../$GLIBC_VERSION/configure --prefix=$INSTALL_PATH/$TARGET --build=$MACHTYPE --host=$TARGET --TARGET=$TARGET --with-headers=$INSTALL_PATH/$TARGET/include $CONFIGURATION_OPTIONS libc_cv_forced_unwind=yes
 	sudo make install-bootstrap-headers=yes install-headers
 	make $PARALLEL_MAKE csu/subdir_lib
 	sudo install csu/crt1.o csu/crti.o csu/crtn.o $INSTALL_PATH/$TARGET/lib
@@ -213,8 +213,8 @@ else
 	# Step 6. Compiler Support Library
 	echo -e "\n==> Building stage 5: gcc support library\n" && sleep 2s
 	cd build-gcc
-	sudo make $PARALLEL_MAKE all-target-libgcc
-	sudo make install-target-libgcc
+	sudo make $PARALLEL_MAKE all-TARGET-libgcc
+	sudo make install-TARGET-libgcc
 	cd ..
 	
 	# Step 7. Standard C Library & the rest of Glibc

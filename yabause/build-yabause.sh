@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -46,7 +46,7 @@ else
 
 fi
 # upstream vars
-git_url="https://github.com/Yabause/yabause"
+GIT_URL="https://github.com/Yabause/yabause"
 # Try to base this off of the commit where the changelog is updated
 branch="master"
 
@@ -72,8 +72,8 @@ export NETWORK="yes"
 
 # set build directories
 export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
-src_dir="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_DIR}/${src_dir}"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -116,7 +116,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone --recursive -b "${branch}" "${git_url}" "${GIT_DIR}"
+	git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 	cd "${GIT_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
@@ -129,7 +129,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add required files
 	cp -r "${scriptdir}/debian" "${GIT_DIR}"

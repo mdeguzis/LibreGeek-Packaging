@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/meancoot/stonesoup-libretro"
+GIT_URL="https://github.com/meancoot/stonesoup-libretro"
 branch="master"
 
 # package vars
@@ -59,19 +59,19 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="libretro-stonesoup"
-pkgver="0.15.2"
-pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+PKGNAME="libretro-stonesoup"
+PKGVER="0.15.2"
+PKGREV="1"
+PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -114,7 +114,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	#git clone --recursive -b "$branch" "$git_url" "$git_dir"
+	#git clone --recursive -b "$branch" "$GIT_URL" "$GIT_DIR"
 
 	# The git source is very old (2014), source latest PPA source code
 	# from libretro PPA unstable repo
@@ -122,8 +122,8 @@ main()
 	wget "https://launchpad.net/~libretro/+archive/ubuntu/testing/+files/${latest_file}"
 	tar -xf "${latest_file}"
 	rm -rf *.tar.xz
-	mv libretro-stonesoup* "${src_dir}"
-	rm -rf "${src_dir}/debian/bzr-manifest"
+	mv libretro-stonesoup* "${SRCDIR}"
+	rm -rf "${SRCDIR}/debian/bzr-manifest"
 
 	#################################################
 	# Build package
@@ -137,19 +137,19 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# Reset changelog and copy in old one
-	rm -f "${src_dir}/debian/changelog"
+	rm -f "${SRCDIR}/debian/changelog"
 	
 	if [[ -f "${scriptdir}/changelog" ]]; then
 	
-		cp "${scriptdir}/changelog" "${src_dir}/debian"
+		cp "${scriptdir}/changelog" "${SRCDIR}/debian"
 		
 	fi
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -157,13 +157,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest source push upstream, as of ${date_short}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest source push upstream, as of ${date_short}"
 		nano "debian/changelog"
 
@@ -173,7 +173,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -205,7 +205,7 @@ main()
 	
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -221,7 +221,7 @@ main()
 
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

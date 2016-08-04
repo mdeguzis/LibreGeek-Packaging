@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -50,7 +50,7 @@ fi
 
 # pass build dir var to all scripts
 export auto_export BUILD_DIR="merge ${HOME}/kodi-all-tmp"
-src_dir="${pkgname}-${pkgver}"
+SRCDIR="${PKGNAME}-${PKGVER}"
 
 # pass auto-build flag
 export build_all="yes"
@@ -340,7 +340,7 @@ build_all()
 	EOF
 
 	echo -e "Showing contents of: $auto_BUILD_DIR: \n"
-	ls "${auto_BUILD_DIR}" | grep -E "${pkgver}" *.deb
+	ls "${auto_BUILD_DIR}" | grep -E "${PKGVER}" *.deb
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

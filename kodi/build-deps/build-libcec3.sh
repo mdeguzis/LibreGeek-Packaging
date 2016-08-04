@@ -28,7 +28,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/Pulse-Eight/libcec"
+GIT_URL="https://github.com/Pulse-Eight/libcec"
 # For Kodi's Jarvis release, it is more than likely platform will still be used
 # For now, use the commit before this was changed or the release tree (uses platform)
 branch="libcec-3.0.1"
@@ -60,20 +60,20 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="libcec"
-pkgver="3.0.1"
-pkgrev="1"
+PKGNAME="libcec"
+PKGVER="3.0.1"
+PKGREV="1"
 epoch="1"
-pkgsuffix="git+bsos${pkgrev}"
+PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -87,7 +87,7 @@ install_prereqs()
  	python-dev swig libxrandr-dev libncurses5-dev
 
  	# See: https://github.com/xbmc/kodi-platform/pull/16
- 	# For now, the likely target package for Jarvis will be platform, not the renamed p8-platform
+ 	# For now, the likely TARGET package for Jarvis will be platform, not the renamed p8-platform
 
 }
 
@@ -123,10 +123,10 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
+	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 6	# Upsteam has split control files ATM, remove precise file that conflicts in build
-	rm -f "${git_dir}/debian/control.precise"
+	rm -f "${GIT_DIR}/debian/control.precise"
 
 	#################################################
 	# Build platform
@@ -137,10 +137,10 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# emter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -148,13 +148,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Update build with p8-platform rename build dep"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${pkgver}+${pkgsuffix}" --package "${pkgname}" \
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}" "Inital build"
 		nano "debian/changelog"
 
@@ -164,7 +164,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -190,7 +190,7 @@ main()
 	echo -e "############################################################\n"
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -124,7 +124,7 @@ main()
 	cd "${SVN_DIR}"
 	LATEST_REV=$(svn info | grep Revision | cut -d " " -f 2)
 
-	# Set pkgsuffix
+	# Set PKGSUFFIX
 	PKGSUFFIX="r${LATEST_REV}svn+bsos"
 
 	# Add extras

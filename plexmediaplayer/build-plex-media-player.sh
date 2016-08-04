@@ -27,7 +27,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -48,8 +48,8 @@ fi
 src_cmd=""
 
 # upstream URL
-git_url="https://github.com/plexinc/plex-media-player"
-target="v1.1.2.359-2b757d45"
+GIT_URL="https://github.com/plexinc/plex-media-player"
+TARGET="v1.1.2.359-2b757d45"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,20 +60,20 @@ BUILDOPTS="--debbuildopts -b"
 export USE_NETWORK="yes"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-pkgname="plex-media-player"
-pkgver="1.1.2.359"
+PKGNAME="plex-media-player"
+PKGVER="1.1.2.359"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-pkgrev="1"
-pkgsuffix="git+bsos"
+PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 maintainer="ProfessorKaos64"
 
 # set build directories
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -126,15 +126,15 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone -b "${target}" "${git_url}" "${git_dir}"
-	cd "${git_dir}"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# Add extra files for orig tarball
-	cp -r "${scriptdir}/plex-media-player.png" "${git_dir}"
+	cp -r "${scriptdir}/plex-media-player.png" "${GIT_DIR}"
 	
 	# enter git dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	#################################################
 	# Build PMP source
@@ -145,13 +145,13 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder and other files
-        cp -r "${scriptdir}/debian" "${git_dir}"
+        cp -r "${scriptdir}/debian" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 
@@ -161,14 +161,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Update to latest commit [${latest_commit}]"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update to latest commit [${latest_commit}]"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package \
-		"${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi
@@ -204,7 +204,7 @@ main()
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -219,7 +219,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

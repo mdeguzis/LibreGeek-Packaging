@@ -27,7 +27,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -47,7 +47,7 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/taglib/taglib"
+GIT_URL="https://github.com/taglib/taglib"
 git_branch="v1.10"
 
 # package vars
@@ -57,20 +57,20 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="taglib"
-pkgver="1.10"
+PKGNAME="taglib"
+PKGVER="1.10"
 upstream_rev="1"
-pkgrev="1"
-pkgsuffix="bsos${pkgrev}"
+PKGREV="1"
+PKGSUFFIX="bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -114,7 +114,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "$git_branch" "$git_url" "$git_dir"
+	git clone -b "$git_branch" "$GIT_URL" "$GIT_DIR"
 
 	#################################################
 	# Build platform
@@ -127,13 +127,13 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
         # funnel old changelog.in to changelog or create basic file
-        cp -r "$scriptdir/$pkgname/debian" "${git_dir}"
+        cp -r "$scriptdir/$PKGNAME/debian" "${GIT_DIR}"
 
 	# emter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 
 	echo -e "\n==> Updating changelog"
@@ -142,11 +142,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -155,7 +155,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -204,7 +204,7 @@ main()
 		echo -e "############################################################\n"
 
 		echo -e "Showing contents of: ${BUILD_DIR}: \n"
-		ls "${BUILD_DIR}" | grep -E "${pkgver}" "$pkgver"
+		ls "${BUILD_DIR}" | grep -E "${PKGVER}" "$PKGVER"
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -220,7 +220,7 @@ main()
 
 			
 				# Only move the old changelog if transfer occurs to keep final changelog
-				cp "${git_dir}/debian/changelog" "${scriptdir}/debian"
+				cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 			
 			fi
 

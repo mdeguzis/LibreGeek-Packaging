@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-git_url="https://github.com/syncthing/syncthing"
-rel_target="v0.12.4"
+GIT_URL="https://github.com/syncthing/syncthing"
+rel_TARGET="v0.12.4"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,9 +59,9 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="syncthing"
-pkgver="0.12.4+git+SteamOS2"
-pkgrev="1"
+PKGNAME="syncthing"
+PKGVER="0.12.4+git+SteamOS2"
+PKGREV="1"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -69,7 +69,7 @@ maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
 export BUILD_DIR="merge ${HOME}/src/github.com/syncthing"
-src_dir="${pkgname}-${pkgver}"
+SRCDIR="${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -115,7 +115,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_target" "$git_url" "$pkgname"
+	git clone -b "$rel_TARGET" "$GIT_URL" "$PKGNAME"
 
 	#################################################
 	# Build platform
@@ -128,21 +128,21 @@ main()
 	# use latest revision designated at the top of this script
 
 	# create source tarball
-#	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+#	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian" "${pkgname}"
+	cp -r "$scriptdir/debian" "${PKGNAME}"
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
         # create build files
         go run build.go
 
 	# create source tarball
         cd ..
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
-	cd "$pkgname"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	cd "$PKGNAME"
 
 
 	echo -e "\n==> Updating changelog"
@@ -151,11 +151,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
 
 	fi
 
@@ -164,7 +164,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -209,7 +209,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep $pkgname_$pkgver
+	ls "${BUILD_DIR}" | grep $PKGNAME_$PKGVER
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

@@ -31,7 +31,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,11 +49,11 @@ else
 fi
 
 # upstream vars
-#git_url="https://github.com/plexinc/plex-home-theater-public"
-#git_url="https://github.com/ProfessorKaos64/plex-home-theater-public"
-git_url="https://github.com/RasPlex/OpenPHT"
-target="v1.6.2.123-e23a7eef"
-#target="openpht-1.6"
+#GIT_URL="https://github.com/plexinc/plex-home-theater-public"
+#GIT_URL="https://github.com/ProfessorKaos64/plex-home-theater-public"
+GIT_URL="https://github.com/RasPlex/OpenPHT"
+TARGET="v1.6.2.123-e23a7eef"
+#TARGET="openpht-1.6"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,19 +62,19 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
-pkgname="openpht"
-pkgver="1.6.2"
-pkgrev="2"
-pkgsuffix="${date_short}git+bsos"
+PKGNAME="openpht"
+PKGVER="1.6.2"
+PKGREV="2"
+PKGSUFFIX="${date_short}git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -123,7 +123,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	if [[ -d "${git_dir}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
+	if [[ -d "${GIT_DIR}" || -f ${BUILD_DIR}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -137,7 +137,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_DIR}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
@@ -155,19 +155,19 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_DIR}" || exit 1
-			git clone -b "${target}" "${git_url}" "${git_dir}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
 
         # copy in debian folder and other files
-        cp -r "$scriptdir/debian" "${git_dir}"
+        cp -r "$scriptdir/debian" "${GIT_DIR}"
 	
 	# Get latest commit
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# Trim out .git
-	rm -rf "${git_dir}/.git"
+	rm -rf "${GIT_DIR}/.git"
 	
 	#################################################
 	# Prep source
@@ -183,20 +183,20 @@ main()
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		cd "${BUILD_DIR}"
-		tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 		
 	else
 	
 		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
 		
-		rm -rf *.dsc *.xz *.build *.changes ${git_dir}
-		mkdir -p "${git_dir}"
+		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		mkdir -p "${GIT_DIR}"
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
 		cd "${BUILD_DIR}"
-		tar -xzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" -C "${BUILD_DIR}" --totals
+		tar -xzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" -C "${BUILD_DIR}" --totals
 		sleep 2s
 
 	fi
@@ -206,7 +206,7 @@ main()
 	#################################################
 
 	# enter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -214,14 +214,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Update build/release"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update build/release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial build"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial build"
 
 	fi
 
@@ -229,7 +229,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -261,7 +261,7 @@ main()
 	
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -277,7 +277,7 @@ main()
 			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Keep changelog
-			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian/"
 		fi
 
 	elif [[ "$transfer_choice" == "n" ]]; then

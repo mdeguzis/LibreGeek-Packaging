@@ -29,7 +29,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -49,10 +49,10 @@ else
 fi
 
 # upstream vars
-#git_url="https://github.com/smcameron/space-nerds-in-space"
-git_url="https://github.com/ProfessorKaos64/space-nerds-in-space"
-target="v20160711"
-#target="master"
+#GIT_URL="https://github.com/smcameron/space-nerds-in-space"
+GIT_URL="https://github.com/ProfessorKaos64/space-nerds-in-space"
+TARGET="v20160711"
+#TARGET="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,10 +61,10 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-pkgname="snis"
-pkgrev="1"
-pkgver="20160711"
-pkgsuffix="git+bsos"
+PKGNAME="snis"
+PKGREV="1"
+PKGVER="20160711"
+PKGSUFFIX="git+bsos"
 BUILDER="pdebuild"
 DIST="brewmaster"
 urgency="low"
@@ -72,9 +72,9 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${pkgname}-${pkgver}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -120,7 +120,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${target}" "${git_url}" "${git_dir}"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build platform
@@ -131,10 +131,10 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -142,13 +142,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
-		-D "${DIST}" -u "${urgency}" "update release to ${pkgver}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${urgency}" "update release to ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" --package "${pkgname}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${urgency}"
 
 	fi
@@ -158,7 +158,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -198,7 +198,7 @@ main()
 	echo -e "############################################################\n"
 	
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep $pkgver
+	ls "${BUILD_DIR}" | grep $PKGVER
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -215,7 +215,7 @@ main()
 			
 			# update changelog
 			echo -e "\nUpdating changelog to upstream fork\n"
-			cd ${git_dir} && git add debian/changelog \
+			cd ${GIT_DIR} && git add debian/changelog \
 			git commit -m "Update changelog with new release"
 			git push origin master
 			cd ${scriptdir}

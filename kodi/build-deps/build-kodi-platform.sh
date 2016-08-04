@@ -27,7 +27,7 @@ time_stamp_start=(`date +"%T"`)
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
@@ -47,7 +47,7 @@ else
 fi
 
 # upstream URL
-git_url="https://github.com/xbmc/kodi-platform"
+GIT_URL="https://github.com/xbmc/kodi-platform"
 branch="master"
 
 # package vars
@@ -58,20 +58,20 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export export STEAMOS_TOOLS_BETA_HOOK="true"
 PBUILDER_HOOKS="$HOME/pbuilder/hooks/steamos-tools-beta"
-pkgname="kodiplatform"
+PKGNAME="kodiplatform"
 BUILDER="pdebuild"
-pkgver="17.0.0"
-pkgrev="1"
-pkgsuffix="git+bsos${pkgrev}"
+PKGVER="17.0.0"
+PKGREV="1"
+PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIR
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_DIR}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -83,7 +83,7 @@ install_prereqs()
 	cmake libtinyxml-dev kodi-addon-dev libplatform-dev
 
 	# See: https://github.com/xbmc/kodi-platform/pull/16
- 	# For now, the likely target package for Jarvis will be platform, not the renamed p8-platform
+ 	# For now, the likely TARGET package for Jarvis will be platform, not the renamed p8-platform
 
 }
 
@@ -117,8 +117,8 @@ main()
 	# Clone upstream source code
 
 	echo -e "\n==> Obtaining upstream source code\n"
-	git clone -b "${branch}" "${git_url}" "${git_dir}"
-	cd "${git_dir}"
+	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
@@ -130,21 +130,21 @@ main()
 
 	# create source tarball
 	cd ${BUILD_DIR}
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# emter source dir
-	cd "${src_dir}"
+	cd "${SRCDIR}"
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}" --package "${pkgname}" -D "${DIST}" -u "${urgency}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
 		"Update to the latest release"
 		nano "debian/changelog"
 
@@ -154,7 +154,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	HOOKDIR=$PBUILDER_HOOKS DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -187,7 +187,7 @@ main()
 	
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_DIR}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

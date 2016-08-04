@@ -44,20 +44,25 @@ fi
 
 # upstream vars
 #GIT_URL="https://github.com/llvm-3.8/dolphin/"
-TARGET="5.0"
+
+BASEURL="http://http.debian.net/debian/pool/main/l"
+PKGNAME="llvm-toolchain-snapshot"
+LLVM_VER="3.9"
+PKGREV="1"
+PKGSUFFIX="~svn274438-${PKGREV}"
+LLVM_DSC_URL="${BASEURL}/${PKGNAME}/${PKGNAME}_${LLVM_VER}${PKGSUFFIX}.dsc"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="debuild"
-BUILDOPTS="-b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="llvm-toolchain-3.8"
-PKGVER="3.8.1"
-PKGREV="4"
+#PKGNAME="llvm-toolchain-3.8"
+PKGVER="${LLVM_VER}"
 EPOCH="1"
-PKGSUFFIX="git+bsos"
+PKGSUFFIX=""
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -119,7 +124,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	mkdir -p "${SRC_DIR}"
-	dget http://http.debian.net/debian/pool/main/l/llvm-toolchain-3.8/llvm-toolchain-3.8_3.8.1-4.dsc
+	dget "http://http.debian.net/debian/pool/main/l/${LLVM_DSC_URL}"
 
 	# ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
 
@@ -145,22 +150,22 @@ main()
 	# enter source dir if not already
 	cd "${SRC_DIR}"
 	
-	#echo -e "\n==> Updating changelog"
-	#sleep 2s
+	echo -e "\n==> Updating changelog"
+	sleep 2s
 
 	# update changelog with dch
-	#if [[ -f "debian/changelog" ]]; then
+	if [[ -f "debian/changelog" ]]; then
 
-	#	dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
+		dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
 	#	nano "debian/changelog"
 
-	#else
+	else
 
-	#	dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
-	#	-D "${DIST}" -u "${urgency}" "Initial upload"
-	#	nano "debian/changelog"
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${urgency}" "Initial upload"
+		nano "debian/changelog"
 
-	#fi
+	fi
 
 	#################################################
 	# Build Debian package

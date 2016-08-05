@@ -190,7 +190,7 @@ function_get_source()
 		EOF
 
 		# kick off function
-		if ! function_backport_multi_orig && show_summary then
+		if ! function_backport_multi_orig && show_summary; then
 
 			echo -e "Function: 'function_backport_multi_orig' failed" 
 			sleep 5s && exit 1

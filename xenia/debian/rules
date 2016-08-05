@@ -19,8 +19,9 @@
 # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819072
 ##############################################################
 
-export CXX=clang++
-export CC=clang
+export DEB_cmake_build_HARDENING="1"
+export CC="clang-3.8"
+export CXX="clang++-3.8"
 
 %:
 	dh $@
@@ -28,4 +29,7 @@ export CC=clang
 override_dh_auto_configure:
 
 override_dh_auto_build:
-	./xenia-build lint --all	
+	# Lint
+	./xenia-build lint --all
+	# Build
+	./xenia-build build

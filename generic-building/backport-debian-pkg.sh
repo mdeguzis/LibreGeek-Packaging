@@ -405,21 +405,28 @@ function_backport_pkg_multi()
 {
 	
 	# Unpack the original tarball
-	case "${ORIG_TARBALL_FILENAME}" in
+	for file in *.*
+	do
 
-		*.tar.bz2)
-		tar -vxjf *.tar.bz2
-		;;
+		echo -e "Unpacking: ${file}"
 
-		*.tar.xz)
-		tar -xvf *.orig.tar.xz
-		;;
+		case "${file}" in
 
-		*.tar.gz)
-		tar -xzvf *.orig.tar.gz
-		;;
+			*.tar.bz2)
+			tar -vxjf "${file}"
+			;;
 
-	esac
+			*.tar.xz)
+			tar -xvf "${file}"
+			;;
+
+			*.tar.gz)
+			tar -xzvf "${file}"
+			;;
+
+		esac
+
+	done
 
 	# Set the source dir
 	SRC_DIR=$(basename `find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*"`)

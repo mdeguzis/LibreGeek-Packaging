@@ -252,28 +252,24 @@ main()
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.
-	
+
 	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
 		read -erp "Choice: " transfer_choice
-	
+
 		if [[ "$transfer_choice" == "y" ]]; then
-	
-			
+
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-	
-	
+
 			# uplaod local repo changelog
 			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
-	
-			fi
-	
+
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"
 		fi

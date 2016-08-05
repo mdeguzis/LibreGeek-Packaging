@@ -1,27 +1,12 @@
 #!/usr/bin/make -f
 
-##############################################################
-# Clang and GCC are too old on Debian Jessie, use Stretch
-# Must provide full path to binary or add to path
-##############################################################
-# Using clang:
-# cmake -DCMAKE_CXX_COMPILER=clang++-3.8 -DCMAKE_C_COMPILER=clang-3.8
+# Some workarounds for broken shit...
+export SYSCONFDIR ?= etc
+export DATADIR ?= share
 
-# Using gcc
-# cmake -DCMAKE_CXX_COMPILER=g++ -DCMAKE_C_COMPILER=gcc
-
-# Define LLVM
-# Project has issues (for some reason) finding all the cmake configs
-# add '-DLLVM_DIR=/usr/share/llvm-3.8/cmake
-#
-# Important! 
-# You must use LLVM 3.8.1-3 or higher! (>= Sid)
-# See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819072
-##############################################################
-
-export DEB_cmake_build_HARDENING="1"
-export CC="clang-3.8"
-export CXX="clang++-3.8"
+# Set compiler vars
+export CC = clang-3.8
+export CXX = clang++-3.8
 
 %:
 	dh $@

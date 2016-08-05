@@ -61,55 +61,7 @@ fi
 ###############################
 
 # Ubuntu packages are not "PPA's" so example deb-src lines are:
-# deb-src http://archive.ubuntu.com/ubuntu wily 	# inform user of packages
-	cat<<- EOF
-	#################################################################
-	If package was built without errors you will see it below.
-	If you don't, please check build dependency errors listed above.
-	#################################################################
-
-	EOF
-
-	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
-
-	# Ask to transfer files if debian binries are built
-	# Exit out with log link to reivew if things fail.
-
-	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
-
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-		sleep 0.5s
-		# capture command
-		read -erp "Choice: " transfer_choice
-
-		if [[ "$transfer_choice" == "y" ]]; then
-
-			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
-			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
-
-		elif [[ "$transfer_choice" == "n" ]]; then
-			echo -e "Upload not requested\n"
-		fi
-
-	else
-
-		# Output log file to sprunge (pastebin) for review
-		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
-		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
-
-	fi
-
-}
-
-# start main
-main
- restricted universe multiverse
+# deb-src http://archive.ubuntu.com/ubuntu wily main restricted universe multiverse
 # GPG-key(s): 437D05B5, C0B21F32
 
 show_help()
@@ -385,6 +337,64 @@ function_build_locally()
 function_show_summary()
 {
 
+	# inform user of packages
+	cat<<- EOF
+	###################################################################
+	If package was built without errors you will see it below.
+	If you do not, please check build dependcy errors listed above.
+	You could also try manually building outside of this script with
+	the following commands (at your own risk!)
+	
+	cd $BUILD_TMP"
+	cd $build_folder"
+	sudo dpkg-buildpackage -b -d -uc"
+	###################################################################
+	
+	EOF
+
+	ls "${HOME}/build-deb-tmp"
+
+	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+	sleep 0.5s
+	# capture command
+	read -ep "Choice: " transfer_choice
+	
+	if [[ "$transfer_choice" == "y" ]]; then
+	
+		# transfer files
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+		
+	elif [[ "$transfer_choice" == "n" ]]; then
+		echo -e "Upload not requested\n"
+	fi
+
+	
+}
+
+function_pbuilder_build()
+{
+	
+	# Get DSC
+	echo -e "\n==> Using pbuilder. Enter URL to DSC file: "
+	sleep 0.2s
+	read -erp "URL: " DSC_FILE_URL
+	
+	echo -e "\n==> Fetching source filse\n"
+	dget -xu "${DSC_FILE_URL}" || exit 1
+
+	echo -e "\n==> Editing DSC file. Be sure to adjust as needed\n"
+	sleep 2s
+	nano *.dsc
+
+	echo -e "\n==> Buidling package\n"
+	sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} --build *.dsc
+	
+}
+
+main()
 {
 	
 	clear
@@ -417,101 +427,5 @@ function_show_summary()
 	function_show_summary
 }
 
-# start 	# inform user of packages
-	cat<<- EOF
-	#################################################################
-	If package was built without errors you will see it below.
-	If you don't, please check build dependency errors listed above.
-	#################################################################
-
-	EOF
-
-	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
-
-	# Ask to transfer files if debian binries are built
-	# Exit out with log link to reivew if things fail.
-
-	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
-
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-		sleep 0.5s
-		# capture command
-		read -erp "Choice: " transfer_choice
-
-		if [[ "$transfer_choice" == "y" ]]; then
-
-			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
-			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
-
-		elif [[ "$transfer_choice" == "n" ]]; then
-			echo -e "Upload not requested\n"
-		fi
-
-	else
-
-		# Output log file to sprunge (pastebin) for review
-		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
-		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
-
-	fi
-
-}
-
 # start main
 main
-
-	# inform user of packages
-	cat<<- EOF
-	#################################################################
-	If package was built without errors you will see it below.
-	If you don't, please check build dependency errors listed above.
-	#################################################################
-
-	EOF
-
-	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
-
-	# Ask to transfer files if debian binries are built
-	# Exit out with log link to reivew if things fail.
-
-	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
-
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-		sleep 0.5s
-		# capture command
-		read -erp "Choice: " transfer_choice
-
-		if [[ "$transfer_choice" == "y" ]]; then
-
-			# copy files to remote server
-			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
-			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
-
-		elif [[ "$transfer_choice" == "n" ]]; then
-			echo -e "Upload not requested\n"
-		fi
-
-	else
-
-		# Output log file to sprunge (pastebin) for review
-		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
-		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
-
-	fi
-
-}
-
-# start main
-main
-

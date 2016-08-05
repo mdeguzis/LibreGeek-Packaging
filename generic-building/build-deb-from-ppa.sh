@@ -339,93 +339,50 @@ function_show_summary()
 
 	# inform user of packages
 	cat<<- EOF
-	###################################################################
+	#################################################################
 	If package was built without errors you will see it below.
-	If you do not, please check build dependcy errors listed above.
-	You could also try manually building outside of this script with
-	the following commands (at your own risk!)
-	
-	cd $BUILD_TMP"
-	cd $build_folder"
-	sudo dpkg-buildpackage -b -d -uc"
-	###################################################################
-	
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+
 	EOF
 
-	ls "${HOME}/build-deb-tmp"
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
 
-	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-	sleep 0.5s
-	# capture command
-	read -ep "Choice: " transfer_choice
-	
-	if [[ "$transfer_choice" == "y" ]]; then
-	
-		# transfer files
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
+
+	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
+
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
+
+		if [[ "$transfer_choice" == "y" ]]; then
+
+			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
-		
-	elif [[ "$transfer_choice" == "n" ]]; then
-		echo -e "Upload not requested\n"
-	fi
+			# uplaod local repo changelog
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
 
-	
-}
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
+		fi
 
-function_pbuilder_build()
-{
-	
-	# Get DSC
-	echo -e "\n==> Using pbuilder. Enter URL to DSC file: "
-	sleep 0.2s
-	read -erp "URL: " DSC_FILE_URL
-	
-	echo -e "\n==> Fetching source filse\n"
-	dget -xu "${DSC_FILE_URL}" || exit 1
-
-	echo -e "\n==> Editing DSC file. Be sure to adjust as needed\n"
-	sleep 2s
-	nano *.dsc
-
-	echo -e "\n==> Buidling package\n"
-	sudo -E DIST=$DIST ARCH=$ARCH ${BUILDER} --build *.dsc
-	
-}
-
-main()
-{
-	
-	clear
-	echo -e "\n==> Choose your builder: [pbuilder|local]\n"
-	read -erp "Choice: " BUILDER
-	
-	export BUILD_TMP="${HOME}/build-deb-tmp"
-	SRCDIR="${PKGNAME}-${PKGVER}"
-	
-	# remove previous dirs if they exist
-	if [[ -d "${BUILD_TMP}" ]]; then
-		sudo rm -rf "${BUILD_TMP}"
-	fi
-	
-	# create build dir and enter it
-	mkdir -p "${BUILD_TMP}"
-	cd "${BUILD_TMP}"
-	
-	if [[ "${BUILDER}" == "pbuilder" ]]; then
-	
-		function_pbuilder_build
-		
 	else
-	
-		function_build_locally
-		
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+
 	fi
 
-	# show end summary
-	function_show_summary
 }
 
 # start main
 main
+

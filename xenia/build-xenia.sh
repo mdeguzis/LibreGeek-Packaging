@@ -253,7 +253,7 @@ main()
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.
 
-	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
+	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -277,7 +277,7 @@ main()
 	else
 
 		# Output log file to sprunge (pastebin) for review
-		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See the below log file:"
 		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
 
 	fi
@@ -286,3 +286,4 @@ main()
 
 # start main
 main
+

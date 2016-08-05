@@ -5,8 +5,8 @@ export SYSCONFDIR ?= etc
 export DATADIR ?= share
 
 # Set compiler vars
-export CC = clang-3.8
-export CXX = clang++-3.8
+export CC = "clang-3.8"
+export CXX = "clang++-3.8"
 
 %:
 	dh $@

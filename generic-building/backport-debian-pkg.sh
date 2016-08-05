@@ -165,7 +165,7 @@ function_get_source()
 	# Obtain all necessary files specified in .dsc via dget
 	# Download only, as unverified sources (say a Ubuntu pkg build on Debian) will not auto-extract
 	# This is also a good approach if using an unsupported distro like Arch Linux
-	dget -d "${DSC}" || exit 1
+	dget -d "${DSC}"
 
 	# Get filename only from DSC URL
 	DSC_FILENAME=$(basename "${DSC}")

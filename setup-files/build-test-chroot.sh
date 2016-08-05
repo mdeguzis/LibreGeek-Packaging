@@ -331,7 +331,55 @@ funct_create_chroot()
 	elif [[ "$type" == "debian" ]]; then
 
 		# handle Debian
-		if ! sudo /usr/sbin/debootstrap --components=main,contrib,non-free --arch ${arch} ${release} \
+	# inform user of packages
+	cat<<- EOF
+	#################################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+
+	EOF
+
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
+
+	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
+
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
+
+		if [[ "$transfer_choice" == "y" ]]; then
+
+			# copy files to remote server
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			# uplaod local repo changelog
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
+		fi
+
+	else
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+
+	fi
+
+}
+
+# start main
+main
+
 		${chroot_dir} ${TARGET_URL}; then
 
 			echo -e "\n==ERROR==\nBootstrap configure failed! Please check /tmp/chroot_log.txt\n"
@@ -341,7 +389,55 @@ funct_create_chroot()
 	elif [[ "$type" == "ubuntu" ]]; then
 
 		# handle Ubuntu
-		if ! sudo /usr/sbin/debootstrap --components=main,multiverse,restricted,universe --arch ${arch} ${release} \
+	# inform user of packages
+	cat<<- EOF
+	#################################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+
+	EOF
+
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
+
+	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
+
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
+
+		if [[ "$transfer_choice" == "y" ]]; then
+
+			# copy files to remote server
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			# uplaod local repo changelog
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
+		fi
+
+	else
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+
+	fi
+
+}
+
+# start main
+main
+
 		${chroot_dir} ${TARGET_URL}; then
 
 			echo -e "\n==ERROR==\nBootstrap configure failed! Please check /tmp/chroot_log.txt\n"
@@ -405,7 +501,55 @@ funct_create_chroot()
 	source ${alias_file}
 
 	# enter chroot to test
-	# only offer to remain a standard chroot for SteamOS, since it is the only
+	# inform user of packages
+	cat<<- EOF
+	#################################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+
+	EOF
+
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
+
+	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
+
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
+
+		if [[ "$transfer_choice" == "y" ]]; then
+
+			# copy files to remote server
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			# uplaod local repo changelog
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
+		fi
+
+	else
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+
+	fi
+
+}
+
+# start main
+main
+
 	# chroot that currently offers post-creation steps
 
 
@@ -475,7 +619,55 @@ funct_create_chroot()
 	sudo chown $user:$user "${alias_file}"
 }
 
-main()
+	# inform user of packages
+	cat<<- EOF
+	#################################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+
+	EOF
+
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
+
+	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
+
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
+
+		if [[ "$transfer_choice" == "y" ]]; then
+
+			# copy files to remote server
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			# uplaod local repo changelog
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
+		fi
+
+	else
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+
+	fi
+
+}
+
+# start main
+main
+
 {
 
 	clear
@@ -491,8 +683,104 @@ main()
 # Main
 #####################################################
 
-# Start main script if above checks clear
-main | tee /tmp/chroot_log_tmp.txt
+	# inform user of packages
+	cat<<- EOF
+	#################################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+
+	EOF
+
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
+
+	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
+
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
+
+		if [[ "$transfer_choice" == "y" ]]; then
+
+			# copy files to remote server
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			# uplaod local repo changelog
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
+		fi
+
+	else
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+
+	fi
+
+}
+
+# start main
+main
+
+	# inform user of packages
+	cat<<- EOF
+	#################################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependency errors listed above.
+	#################################################################
+
+	EOF
+
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
+
+	if [[ $(ls "${BUILD_TMP}" | grep *.deb | wc -l) -gt 0 ]]; then
+
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
+
+		if [[ "$transfer_choice" == "y" ]]; then
+
+			# copy files to remote server
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			# uplaod local repo changelog
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
+		fi
+
+	else
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+
+	fi
+
+}
+
+# start main
+main
+
 
 #####################################################
 # cleanup

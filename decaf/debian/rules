@@ -6,8 +6,8 @@
 # Avoid errors (see: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=800483)
 
 export DEB_cmake_build_HARDENING="1"
-export CC="clang-3.8"
-export CXX="clang++-3.8"
+export CC="/usr/bin/clang-3.8"
+export CXX="/usr/bin/clang++-3.8"
 
 %:
 

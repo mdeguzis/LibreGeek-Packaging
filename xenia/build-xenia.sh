@@ -144,6 +144,12 @@ main()
 	# Copy patched files
 	cp -r "${scriptdir}/patched-files/premake5.lua" "${GIT_DIR}/third_party/vulkan/loader/"
 
+	# Some other fixes? 
+	# See in progres issue: https://github.com/benvanik/xenia/issues/599
+	
+	# Shouyld not be required for a linux build
+	rm -f "${GIT_DIR}/third_party/vulkan/loader/dirent_on_windows.c"
+
 	#################################################
 	# Prepare sources
 	#################################################
@@ -178,12 +184,6 @@ main()
 
 	# Add required files
 	cp -r "${scriptdir}/debian" "${GIT_DIR}"
-	
-	# Some other fixes? 
-	# See in progres issue: https://github.com/benvanik/xenia/issues/599
-	
-	# Shouyld not be required for a linux build
-	rm -f "${GIT_DIR}/third_party/vulkan/loader/dirent_on_windows.c"
 
 	#################################################
 	# Build package

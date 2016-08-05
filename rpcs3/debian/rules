@@ -21,6 +21,10 @@
 # See: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=819072
 ##############################################################
 
+export DEB_cmake_build_HARDENING="1"
+export CC="/usr/bin/clang-3.8"
+export CXX="/usr/bin/clang++-3.8"
+
 %:
 	dh $@
 
@@ -30,11 +34,11 @@ override_dh_auto_build:
 	rm -rf rpcs3/build && mkdir -p rpcs3/build
 	cd rpcs3/build && cmake \
 			-DCMAKE_BUILD_TYPE='Release' \
-			-DCMAKE_CXX_COMPILER=clang++-3.9 \
-			-DCMAKE_C_COMPILER=clang-3.9 \
+			-DCMAKE_CXX_COMPILER=clang++-3.8 \
+			-DCMAKE_C_COMPILER=clang-3.8 \
 			-DCMAKE_C_FLAGS="-Wall -std=c99" \
 			-DCMAKE_CXX_FLAGS="-O2 -g stdlib=libc++ -std=c++11" \
 			-DUSE_SYSTEM_LIBPNG='ON' \
 			-DUSE_SYSTEM_FFMPEG='ON' \
-			-DCMAKE_INSTALL_PREFIX=/usr .. && \
-			make
+			-DCMAKE_INSTALL_PREFIX=/usr ..
+	make -C rpcs3/build

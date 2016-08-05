@@ -192,7 +192,7 @@ function_get_source()
 		# kick off function
 		if ! function_backport_pkg_multi && show_summary; then
 
-			echo -e "Function: 'function_backport_multi_orig' failed" 
+			echo -e "Function: 'function_backport_pkg_multi' failed" 
 			sleep 5s && exit 1
 
 		fi

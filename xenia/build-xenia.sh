@@ -141,8 +141,8 @@ main()
 	# Set pkg version
 	# PKGVER="${release_tag}"
 
-	# Add image to git dir
-	# cp -r "${scriptdir}/xenia.png" "${GIT_DIR}"
+	# Copy patched files
+	cp -r "${scriptdir}/patched-files/premake5.lua" "${GIT_DIR}/third_party/vulkan/loader/"
 
 	#################################################
 	# Prepare sources

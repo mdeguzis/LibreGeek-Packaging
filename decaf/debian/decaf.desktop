@@ -1,10 +1,10 @@
 [Desktop Entry]
 Version=1.0
-Name=decaf
-GenericName=decaf
+Name=decaf (SDL)
+GenericName=decaf-sdl
 Type=Application
 Icon=/usr/share/pixmaps/decaf.png
-Exec=decaf
+Exec=decaf-sdl
 Keywords=game;emulator;
 Terminal=false
 Categories=Game

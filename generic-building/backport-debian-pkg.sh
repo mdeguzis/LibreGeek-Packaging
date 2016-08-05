@@ -190,7 +190,7 @@ function_get_source()
 		EOF
 
 		# kick off function
-		if ! function_backport_multi_orig && show_summary; then
+		if ! function_backport_pkg_multi && show_summary; then
 
 			echo -e "Function: 'function_backport_multi_orig' failed" 
 			sleep 5s && exit 1
@@ -275,7 +275,7 @@ function_backport_pkg()
 	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
-	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 5s
+	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 8s && exit 1
 
 	# Last safey check - debian folder
 	# If the debian folder is in the original souce, keep it.
@@ -344,6 +344,14 @@ function_backport_pkg()
 
 	fi
 
+
+	# build debian package
+	function_build_package
+}
+
+function_build_package()
+{
+
 	#################################################
 	# Build Debian package
 	#################################################
@@ -396,9 +404,32 @@ function_backport_pkg()
 function_backport_pkg_multi()
 {
 	
-	# TODO
-	:
-	
+	# Unpack the original tarball
+	case "${ORIG_TARBALL_FILENAME}" in
+
+		*.tar.bz2)
+		tar -vxjf *.tar.bz2
+		;;
+
+		*.tar.xz)
+		tar -xvf *.orig.tar.xz
+		;;
+
+		*.tar.gz)
+		tar -xzvf *.orig.tar.gz
+		;;
+
+	esac
+
+	# Set the source dir
+	SRC_DIR=$(basename `find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*"`)
+
+	# Enter source dir
+	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 8s && exit 1
+
+	# Build package
+	function_build_package
+
 }
 
 

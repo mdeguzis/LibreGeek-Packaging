@@ -10,6 +10,7 @@ Build-Depends: cmake,
  libx11-dev,
  libxcursor-dev,
  xorg-dev,
+ valgrind,
  zlib1g-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.6

@@ -413,15 +413,15 @@ function_backport_pkg_multi()
 		case "${file}" in
 
 			*.tar.bz2)
-			tar -vxjf "${file}"
+			tar -xjf "${file}"
 			;;
 
 			*.tar.xz)
-			tar -xvf "${file}"
+			tar -xf "${file}"
 			;;
 
 			*.tar.gz)
-			tar -xzvf "${file}"
+			tar -xzf "${file}"
 			;;
 
 		esac

@@ -175,7 +175,7 @@ function_get_source()
 	# This is tough to handle automatically, so care must be taken outside of this
 	# script to backport the package.
 
-	if [[ "$(find ${PWD} -name "*.bz2*" | wc)" -gt "1" ]]; then
+	if [[ "$(find ${BUILD_TMP} -name "*.bz2*" | wc -l)" -gt "1" ]]; then
 
 		# Set flag
 		ORIG_MULTI="yes"

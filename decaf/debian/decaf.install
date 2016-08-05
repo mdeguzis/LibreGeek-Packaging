@@ -1,1 +1,1 @@
-build/decaf     /usr/games
+cmake_build/src/decaf-sdl     /usr/games

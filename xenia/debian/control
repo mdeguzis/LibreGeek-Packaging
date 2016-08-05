@@ -7,6 +7,8 @@ Build-Depends: debhelper,
  clang-3.8,
  clang-format-3.8,
  git,
+ libssl-dev,
+ libx11-dev,
  llvm-3.8-dev,
  python-dev,
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>

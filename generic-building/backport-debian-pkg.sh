@@ -190,10 +190,10 @@ function_get_source()
 		EOF
 
 		# kick off function
-		if ! function_backport_pkg_multi && show_summary; then
+		if ! function_backport_pkg_multi; then
 
 			echo -e "Function: 'function_backport_pkg_multi' failed" 
-			sleep 5s && exit 1
+			sleep 10s && return
 
 		fi
 
@@ -275,7 +275,7 @@ function_backport_pkg()
 	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
-	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 8s && exit 1
+	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 10s && return
 
 	# Last safey check - debian folder
 	# If the debian folder is in the original souce, keep it.
@@ -344,9 +344,6 @@ function_backport_pkg()
 
 	fi
 
-
-	# build debian package
-	function_build_package
 }
 
 function_build_package()
@@ -432,10 +429,7 @@ function_backport_pkg_multi()
 	SRC_DIR=$(basename `find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*"`)
 
 	# Enter source dir
-	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 8s && exit 1
-
-	# Build package
-	function_build_package
+	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 10s && return
 
 }
 
@@ -458,6 +452,9 @@ main()
 		# Dealing with a single original source archive
 		function_backport_pkg
 
+		# Build package
+		function_build_package
+
 		# Show summary
 		function_show_summary
 
@@ -465,7 +462,10 @@ main()
 
 		# This involves mutliple original source archives
 		function_backport_pkg_multi
-		
+
+		# Build package
+		function_build_package
+
 		# Show summary
 		function_show_summary
 
@@ -479,7 +479,7 @@ main()
 
 		EOF
 
-		sleep 5s && exit 1
+		sleep 10s && return
 
 	fi
 

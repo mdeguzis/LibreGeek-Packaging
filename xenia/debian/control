@@ -8,9 +8,10 @@ Build-Depends: debhelper,
  clang-format-3.8,
  git,
  libssl-dev,
+ libvulkan-dev,
  libx11-dev,
  llvm-3.8-dev,
- python-dev,
+ python-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.8
 Homepage: https://github.com/benvanik/xenia

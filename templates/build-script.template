@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-PKGNAME.sh
-# Script Ver:	0.2.3
-# Description:	Attempts to build a deb package from latest PKGNAME
-#		github release
+# Scipt name:	build-reicast.sh
+# Script Ver:	0.3.1
+# Description:	Attmpts to build a deb package from the latest reicast source
+#		code.
 #
-# See:		GITURL / WEBSITE
+# See:		https://github.com/reicast/reicast-emulator
 #
-# Usage:	build-PKGNAME.sh
+# Usage:	./build-reicast.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -23,65 +23,55 @@ scriptdir=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
+
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
-# For local targets, adjust as necessary below
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
-	# fallback to local repo pool target(s)
+	# fallback to local repo pool TARGET(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
 	REMOTE_PORT="22"
 
 fi
 
-# Adjust target folder as need be below
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming_testing"
+	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
 
 else
 
-	REPO_FOLDER="/home/mikeyd/packaging/SteamOS-Tools/incoming"
+	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
 
 fi
-
-#################################################
-# Set variables
-#################################################h
-
 # upstream vars
-# You can use a git source, ppa orig tarball source etc. here. 
-# A Target is only used really for git sources
-src_url="SOURCE_URL"
-target="BRANCH"
+# build fails with softrend error, try using some PRs to fix for now...
+GIT_URL="https://github.com/professorkaos64/reicast-emulator"
+#GIT_URL="https://github.com/reicast/reicast-emulator"
+TARGET="master"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
-ARCH="ARCH"
-BUILDER="BUILDER (such as pdebuild,debuild,dpgk-buildpackage)"
-BUILDOPTS="Build options to pass to the builder"
-pkgname="PKGNAME"
-pkgver="PKGVER"
-upstream_rev="1"
-pkgrev="1"
-pkgsuffix="SUFFIX${pkgrev}"
-DIST="DIST"
+ARCH="amd64"
+BUILDER="pdebuild"
+BUILDOPTS=""
+export STEAMOS_TOOLS_BETA_HOOK="false"
+PKGVER="0.${date_short}"
+PKGNAME=""
+PKGREV="1"
+# Base version sourced from ZIP file version
+PKGSUFFIX="git+bsos"
+DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# builder vars
-# You can omit these if need be (network is usually disabled for pbuilder)
-export STEAMOS_TOOLS_BETA_HOOK="false"
-export USE_NETWORK="yes"
-
-# set build directories for output/input
-export build_dir="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${build_dir}/${src_dir}"
+# set build directories
+export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_TMP}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -90,30 +80,14 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential bc debhelper devscripts
+	sudo apt-get install -y --force-yes build-essential
 
 }
 
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
-
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
-
-	else
-
-		mkdir -p "${build_dir}"
-
-	fi
-
-	# enter build dir
-	cd "${build_dir}" || exit
-
 	# install prereqs for build
-
 	if [[ "${BUILDER}" != "pdebuild" ]]; then
 
 		# handle prereqs on host machine
@@ -121,60 +95,106 @@ main()
 
 	fi
 
-	#################################################
-	# Acquire source
-	#################################################h
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone the git source
-	git clone  -b "${target}" "${src_url}" "${git_dir}"
+	# clone and get latest commit tag
+	if [[ -d "${GIT_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${BUILD_TMP}" || exit 1
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+
+	fi
 	
-	# If you are pulling an original tarball, use the below instead.
-	# If you go this route, you should be able to skip the tarball creation
-	
-	# get source and extract
-	#wget "${orig_tarball}" -q -nc --show-progress
-	#tar -xf ${pkgname}*.orig.tar.gz
-	# Rename tarball
-	#mv ${pkgname}*.orig.tar.gz "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz"
-	# Rename src dir to match our conventions
-	#mv ${pkgname} ${src_dir}
+	# Get latest commit and update submodules
+	cd "${GIT_DIR}"
+	git submodule update --init
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
-	# Prepare package
+	# Prepare sources
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
+	cd "${BUILD_TMP}" || exit 1
 
 	# create source tarball
-	# skip this section piece if you used wget above
-	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+	
+	if [[ "${retry}" == "no" ]]; then
 
-	# Add debian files
-	cp -r "${scriptdir}/debian" "${git_dir}"
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+		
+	else
+	
+		echo -e "\n==> Cleaning old source folders for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		mkdir -p "${GIT_DIR}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
+		sleep 2s
+
+	fi
+
+	# Add required files
+	cp -r "${scriptdir}/debian" "${GIT_DIR}"
+
+	#################################################
+	# Build package
+	#################################################
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${GIT_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
-	# Create basic changelog format if it does exist or update
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
-		--package "${pkgname}" -D $DIST -u "${urgency}" \
-		"Initial upload attempt"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
-
+	
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}+${pkgsuffix}-${upstream_rev}" \
-		--package "${pkgname}" -D "${DIST}" \
-		-u "${urgency}" "Initial upload attempt"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial build"
 		nano "debian/changelog"
 
 	fi
@@ -183,15 +203,16 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
+
+	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)
@@ -203,50 +224,54 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	# inform user of packages transfer packages, and cleanup after
 
-	cat<<-EOF
+	# assign value to build folder for exit warning below
+	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
-	###############################################################
+	# inform user of packages
+	cat<<- EOF
+	#################################################################
 	If package was built without errors you will see it below.
-	If you don't, please check build dependcy errors listed above.
-	###############################################################
-
-	Showing contents of: ${build_dir}
+	If you don't, please check build dependency errors listed above.
+	#################################################################
 
 	EOF
 
-	ls "${build_dir}" | grep -E "${pkgver}" 
+	echo -e "Showing contents of: ${BUILD_TMP}: \n"
+	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
 
-	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-	sleep 0.5s
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
 
-	read -erp "Choice: " transfer_choice
+	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
 
-	if [[ "$transfer_choice" == "y" ]]; then
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
 
-		# transfer files
-		if [[ -d "${build_dir}" ]]; then
-			rsync -arv -e "ssh -p ${REMOTE_PORT}" --filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+		if [[ "$transfer_choice" == "y" ]]; then
 
-			# Keep changelog
-            		cp "${git_dir}/debian/changelog" "${scriptdir}/debian/"
+			# copy files to remote server
+			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
+			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
+			# uplaod local repo changelog
+			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
 		fi
-	fi
-	
-	# cleanup if requested
-	echo -e "\n==> Would you like to clean up the build files? [y/n]"
-	sleep 0.5s
-	# capture command
-	read -erp "Choice: "clean_choice
-	
-	if [[ "${clean_choice}" == "y" ]]; then
-	
-		rm -rf "${build_dir}"
+
+	else
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
 
 	fi
+
 }
 
 # start main

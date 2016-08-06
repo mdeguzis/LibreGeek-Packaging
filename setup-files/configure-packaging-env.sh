@@ -46,7 +46,8 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	echo -e "\n==> Installing main packages\n"
 	sleep 2s
 
-	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo screen pv apt-file curl"
+	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo \
+	screen pv apt-file curl debian-archive-keyring ubuntu-archive-keyring"
 
 	for PKG in ${PKGs};
 	do
@@ -594,6 +595,10 @@ sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scrip
 # alchemist
 sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist" 2> /dev/null
 sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
+
+# ubuntu
+sudo ln -s "/usr/share/debootstrap/scripts/vivid" "/usr/share/debootstrap/scripts/wily" 2> /dev/null
+sudo ln -s "/usr/share/debootstrap/scripts/vivid" "/usr/share/debootstrap/scripts/xenial" 2> /dev/null
 
 echo -e "\nFinishing up"
 sleep 0.5s

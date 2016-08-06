@@ -134,7 +134,7 @@ main()
 			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
-	
+
 	# Get latest commit and update submodules
 	cd "${GIT_DIR}"
 	git submodule update --init
@@ -150,21 +150,21 @@ main()
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)
 	# This way, we can try again with the orig source intact
 	# Keep this method until a build is good to go, without error.
-	
+
 	if [[ "${retry}" == "no" ]]; then
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
-		
+
 	else
-	
+
 		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
-		
+
 		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
 		mkdir -p "${GIT_DIR}"
-	
+
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
 		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
@@ -191,7 +191,7 @@ main()
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
-	
+
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \

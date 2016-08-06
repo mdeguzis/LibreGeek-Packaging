@@ -1,3 +1,11 @@
+vkquake (1:0.40+20160805git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit 1a0dfaa
+  * Some small bug fixes
+  * Readme updated with soundtrack information
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 05 Aug 2016 20:01:45 -0700
+
 vkquake (1:0.30+20160802git+bsos1-1) brewmaster; urgency=low
 
   * Update to the latest commit 38a2337

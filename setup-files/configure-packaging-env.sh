@@ -597,8 +597,7 @@ sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scrip
 sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
 
 # ubuntu
-sudo ln -s "/usr/share/debootstrap/scripts/vivid" "/usr/share/debootstrap/scripts/wily" 2> /dev/null
-sudo ln -s "/usr/share/debootstrap/scripts/vivid" "/usr/share/debootstrap/scripts/xenial" 2> /dev/null
+# None for now
 
 echo -e "\nFinishing up"
 sleep 0.5s

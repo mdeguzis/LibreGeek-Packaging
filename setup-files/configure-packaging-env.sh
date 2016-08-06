@@ -48,7 +48,8 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	# Deboostrap was backport to include more scripts, specify version
 	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo \
-	screen pv apt-file curl debian-archive-keyring ubuntu-archive-keyring debootstrap=1.0.81"
+	screen pv apt-file curl debian-archive-keyring ubuntu-archive-keyring \
+	debootstrap=1.0.81 osc"
 
 	for PKG in ${PKGs};
 	do
@@ -72,15 +73,6 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	
 	# apt-file is a nice tool to search for packages/contents of packages in a CLI
 	sudo apt-file update
-	
-	# Open Build System
-	#echo "\nInstalling Open Build System package\n"
-	#sleep 2s
-
-	#sudo cp "${SCRIPTDIR}/etc/apt/sources.list.d/osc.list" "/etc/apt/sources.list.d/"
-	#apt-get update -y
-	#apt-get install -y --force-yes osc
-
 
 elif [[ "${OS}" == "Arch" ]]; then
 

@@ -46,7 +46,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	echo -e "\n==> Installing main packages\n"
 	sleep 2s
 
-	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo screen pv apt-file"
+	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo screen pv apt-file curl"
 
 	for PKG in ${PKGs};
 	do
@@ -358,7 +358,7 @@ echo -e "\n==> Setting host/network information"
 
 echo -e "\nSetup/reset remote user/host for repository pool?"
 echo -e "This is suggested if you are using a remote host"
-read -erp "Choice [y/n/r]: " SET_HOST_USER
+read -erp "Choice [y/n]: " SET_HOST_USER
 
 if [[ "${SET_HOST_USER}" == "y" ]]; then
 
@@ -372,7 +372,7 @@ if [[ "${SET_HOST_USER}" == "y" ]]; then
 	sed -i "s|REMOTE_HOST.*|REMOTE_HOST=\"${REMOTE_HOST_TEMP}\"|" "${HOME}/.bashrc"
 	sed -i "s|REMOTE_PORT.*|REMOTE_PORT=\"${REMOTE_PORT_TEMP}\"|" "${HOME}/.bashrc"
 
-elif [[ "${SET_HOST_USER}" == "r" ]]; then
+elif [[ "${SET_HOST_USER}" == "n" ]]; then
 
 	# Set var to blank string so value inside build script is taken	
 	# Use wildcard to assume if it was set to something else before, clear it

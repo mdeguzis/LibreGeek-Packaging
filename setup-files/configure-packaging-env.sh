@@ -275,8 +275,10 @@ cp "${SCRIPTDIR}/.devscripts" "${HOME}"
 # Mock (for RPMs)
 #####################
 
-sudo usermod -a -G mock ${USER}
-#cp "${SCRIPTDIR}/.site-defaults.cfg" "/etc/mock/"
+# Config files are in: /etc/mock/
+
+# sudo usermod -a -G mock ${USER}
+# cp "${SCRIPTDIR}/.site-defaults.cfg" "/etc/mock/"
 
 #####################
 # pbuilder

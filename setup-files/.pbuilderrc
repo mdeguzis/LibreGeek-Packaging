@@ -27,7 +27,7 @@ USENETWORK=$USE_NETWORK
 DEBIAN_SUITES=("wheezy" "jessie" "jessie-backports" "stretch" "sid")
 
 # List of Ubuntu suites. Update these when needed.
-UBUNTU_SUITES=("vivid" "utopic" "trusty" "saucy" "raring" "quantal" "precise" "oneiric" "natty" "lucid" "hardy")
+UBUNTU_SUITES=( "precise" "raring" "vivid" "wily" "utopic" "xenial")
 
 # List of SteamOS suites. Update these when needed.
 STEAMOS_SUITES=("alchemist" "alchemist_beta" "brewmaster" "brewmaster_beta")

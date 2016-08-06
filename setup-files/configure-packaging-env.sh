@@ -51,11 +51,15 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	for PKG in ${PKGs};
 	do
 
-		if ! sudo apt-get install -yq --force-yes ${PKG}; then
-		
+		if ! sudo apt-get install -yq --force-yes ${PKG} &> /dev/null; then
+
 			# echo and exit if package install fails
 			echo -e "\n==ERROR==\nInstallation of ${PKG} failed! Exiting..."
 			exit 1
+		else
+
+			echo -e "Package: ${PKG} [OK]"
+
 		fi
 
 	done

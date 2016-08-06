@@ -147,7 +147,8 @@ main()
 
 		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest commit ${latest_commit}" nano "debian/changelog"
+		"Update to the latest commit ${latest_commit}" 
+		nano "debian/changelog"
 
 	else
 

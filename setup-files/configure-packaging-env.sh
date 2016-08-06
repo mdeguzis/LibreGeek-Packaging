@@ -266,6 +266,12 @@ cp "${SCRIPTDIR}/.quiltrc" "${HOME}"
 cp "${SCRIPTDIR}/.devscripts" "${HOME}"
 
 #####################
+# OBS
+#####################
+
+#cp "${SCRIPTDIR}/.devscripts" "${HOME}"
+
+#####################
 # pbuilder
 #####################
 

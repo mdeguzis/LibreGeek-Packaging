@@ -5,7 +5,10 @@ include /usr/share/dpkg/buildflags.mk
 CFLAGS+=$(CPPFLAGS)
 CXXFLAGS+=$(CPPFLAGS)
 
+# Hardening
+export DEB_BUILD_HARDENING=1
 
+# Presets
 export prefix = /usr
 export bindir = /usr/games
 export DESTDIR = $(CURDIR)/debian/vkquake

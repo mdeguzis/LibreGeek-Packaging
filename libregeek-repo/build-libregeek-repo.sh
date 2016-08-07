@@ -57,7 +57,7 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="libregeek-repo"
-PKGVER="0.9.1"
+PKGVER="0.9.2"
 PKGREV="1"
 PKGSUFFIX="bsos"
 DIST="brewmaster"
@@ -134,7 +134,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${urgency}" "Incorrect source list for beta channel"
+		-D "${DIST}" -u "${urgency}" "Add additional package for Debian sources only"
 		nano "debian/changelog"
 
 	else

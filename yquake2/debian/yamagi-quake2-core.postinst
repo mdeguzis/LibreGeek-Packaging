@@ -1,0 +1,9 @@
+#! /bin/sh
+
+set -e
+
+update-alternatives --install /usr/lib/quake2/quake2-engine-server quake2-engine-server /usr/lib/yamagi-quake2/q2ded 0
+
+#DEBHELPER#
+
+exit 0

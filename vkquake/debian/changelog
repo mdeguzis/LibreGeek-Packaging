@@ -1,3 +1,10 @@
+vkquake (1:0.50+20160806git+bsos-1) brewmaster; urgency=low
+
+  * Release 0.50
+  * Update to the latest commit f882773
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 06 Aug 2016 22:34:18 -0700
+
 vkquake (1:0.40+20160805git+bsos-1) brewmaster; urgency=low
 
   * Update to the latest commit 1a0dfaa

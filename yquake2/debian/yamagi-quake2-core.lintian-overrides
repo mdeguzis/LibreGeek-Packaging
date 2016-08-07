@@ -1,0 +1,2 @@
+# intentional, to put the quake2-engine alternative in
+yamagi-quake2-core: package-contains-empty-directory usr/lib/quake2/

@@ -1,0 +1,3 @@
+version=3
+opts="uversionmangle=s/.*QUAKE2_//g;s/WIN32_TEST//g;s/_/./g,dversionmangle=s/.dfsg.//g" \
+ https://github.com/yquake2/yquake2/releases .*/(.*)\.tar\.gz

@@ -1,0 +1,57 @@
+Source: yquake2
+Section: contrib/games
+Priority: extra
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders:
+ Fabian Greffrath <fabian@debian.org>,
+ Simon McVittie <smcv@debian.org>
+Build-Depends:
+ debhelper (>= 9),
+ libgl1-mesa-dev | libgl-dev,
+ libopenal-dev,
+ libsdl2-dev,
+ libvorbis-dev,
+ libxrandr-dev,
+ libxxf86vm-dev,
+ zlib1g-dev
+Standards-Version: 3.9.8
+Homepage: http://www.yamagi.org/quake2/
+Vcs-Git: https://anonscm.debian.org/git/pkg-games/yquake2.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-games/yquake2.git
+
+Package: yamagi-quake2
+Architecture: any
+Depends:
+ yamagi-quake2-core (= ${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends}
+Recommends: quake2
+Provides: quake2-engine
+Description: enhanced version of id Software's Quake II - client
+ This is the Yamagi Quake II Client, an enhanced Version of id Software's
+ Quake II. The main focus is single player, the gameplay and the graphics are
+ unchanged, but many bugs were fixed. This code is based upon Icculus Quake II,
+ which itself is built upon id Software's original code drop. Additional code
+ and patches by many contributers were used.
+ .
+ This engine is intended to be used via the wrapper script and menu entries
+ in the quake2 package.
+
+Package: yamagi-quake2-core
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Recommends: quake2-server | yamagi-quake2
+Provides: quake2-engine-server
+Breaks: yamagi-quake2 (<< 5.11)
+Replaces: yamagi-quake2 (<< 5.11)
+Description: enhanced version of id Software's Quake II - non-GUI part
+ This is the Yamagi Quake II Server, an enhanced Version of id Software's
+ Quake II. This code is based upon Icculus Quake II,
+ which itself is built upon id Software's original code drop. Additional code
+ and patches by many contributers were used.
+ .
+ This package contains files common to the client and the server, and a
+ dedicated server engine is intended to be used via the wrapper script
+ and init scripts in the quake2-server package.

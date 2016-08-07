@@ -1,0 +1,3 @@
+release/quake2 usr/lib/yamagi-quake2
+stuff/yq2.cfg usr/lib/yamagi-quake2/baseq2
+stuff/models usr/lib/yamagi-quake2/baseq2

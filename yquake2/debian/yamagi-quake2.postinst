@@ -1,0 +1,11 @@
+#! /bin/sh
+
+set -e
+
+update-alternatives --install /usr/lib/quake2/quake2-engine quake2-engine /usr/lib/yamagi-quake2/quake2 0
+
+echo "NOTICE: Default game data path is set to: /usr/share/quake2"
+
+#DEBHELPER#
+
+exit 0

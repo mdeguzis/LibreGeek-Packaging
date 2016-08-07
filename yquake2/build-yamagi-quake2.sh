@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-vkquake.sh
+# Scipt name:	build-yamagi-quake2.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest vkquake source
+# Description:	Attmpts to build a deb package from the latest yamagi-quake2 source
 #		code.
 #
-# See:		https://github.com/Novum/vkQuake
+# See:		https://github.com/yquake2/yquake2
 #
-# Usage:	./build-vkquake.sh
+# Usage:	./build-yamagi-quake2.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -45,9 +45,8 @@ else
 
 fi
 # upstream vars
-#GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
-GIT_URL="https://github.com/Novum/vkQuake"
-branch="master"
+GIT_URL="https://github.com/yquake2/yquake2"
+TARGET="QUAKE2_5_34"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -56,19 +55,16 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="vkquake"
-# Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.50"
+PKGNAME="yquake2"
+# Source version from yamagi-quake2/Quake/quakedef.h
+PKGVER="5.34"
 PKGREV="1"
 epoch="1"
-PKGSUFFIX="${date_short}git+bsos"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
-
-# Need network for pbuilder to pull down ut4 zip
-export NETWORK="yes"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
@@ -81,7 +77,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential vulkan-dev libsdl2-dev
+	sudo apt-get install -y --force-yes build-essential libgl1-mesa-dev libopenal-dev \
+	libsdl2-dev libvorbis-dev libxrandr-dev libxxf86vm-dev zlib1g-dev
 
 }
 
@@ -114,15 +111,13 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Add required files and artwork
 	cp -r "${scriptdir}/debian" "${GIT_DIR}"
-	cp "${scriptdir}/vkquake.png" "${GIT_DIR}"
-	cp "${GIT_DIR}/LICENSE.txt" "${GIT_DIR}/debian/LICENSE"
-	cp "${scriptdir}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
+#	cp "${scriptdir}/yamagi-quake2.png" "${GIT_DIR}"
 
 	#################################################
 	# Build package

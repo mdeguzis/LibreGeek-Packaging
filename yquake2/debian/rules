@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+export LC_ALL=C.UTF-8
+export TZ=UTC
+
+DEB_LDFLAGS_MAINT_APPEND  += -Wl,--as-needed -Wl,-z,defs
+export DEB_CPPFLAGS_MAINT_APPEND DEB_LDFLAGS_MAINT_APPEND
+
+%:
+	dh $@
+
+export LC_ALL=C.UTF-8
+export TZ=UTC
+
+override_dh_auto_build:
+	dh_auto_build -- \
+		DLOPEN_LIBGL=no \
+		DLOPEN_OPENAL=no \
+		WITH_OGG=yes \
+		WITH_ZIP=yes \
+		VERBOSE=1 \
+		WITH_SYSTEMWIDE=yes \
+		WITH_SYSTEMDIR=/usr/share/quake2
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGELOG
+
+override_dh_installdocs:
+	dh_installdocs CONTRIBUTE README.md

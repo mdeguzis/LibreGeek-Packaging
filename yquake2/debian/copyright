@@ -1,0 +1,178 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Yamagi Quake II
+Source: https://github.com/yquake2
+Disclaimer:
+  This package is in the contrib archive area, which is not part of Debian.
+  This package itself is free software, but it is only useful when combined
+  with game data. In principle, freely licensed data analogous to OpenQuartz
+  and OpenArena could be created for it, but the maintainers are not
+  aware of any freely-licensed data that is compatible with Quake II.
+Comment:
+  The "orig" tarball was repackaged via git-import-orig to exclude
+  support files for Windows and Mac OS, which included third-party
+  software with source code not provided, and Objective C source whose
+  copyright/licensing was unclear.
+
+Files: *
+Copyright: 1997-2005, Id Software, Inc
+  2001, Robert Bäuml
+  2002, W. P. va Paassen
+  2005, Ryan C. Gordon
+  2005, Stuart Dalton (badcdev@gmail.com)
+  2010-2013, Yamagi Burmeister
+  2010, skuller.net
+  2011, Knightmare
+  2013, Alejandro Ricoveri
+  2015, Daniel Gibson
+License: GPL-2+
+
+Files:
+ src/client/refresh/files/stb_image.h
+Copyright: -
+License: public-domain
+ This software is in the public domain. Where that dedication is not
+ recognized, you are granted a perpetual, irrevocable license to copy
+ and modify this file however you want.
+
+Files: src/backends/sdl/refresh.c
+Copyright:
+  2010 Yamagi Burmeister
+  1997-2001 Id Software, Inc.
+  1997-2013 Sam Lantinga
+License: GPL-2+ and Zlib
+
+Files: src/common/md4.c
+Copyright: -
+License: public-domain
+ /*
+  * Public Domain C source implementation of RFC 1320
+  *       -  The MD4 Message-Digest Algorithm  -
+  *
+  *        http://www.faqs.org/rfcs/rfc1320.html
+  *                    by Steven Fuller
+  */
+
+Files: src/common/shared/rand.c
+Copyright: 2011, Shinobu
+License: public-domain
+ /*
+  * KISS PRNG (c) 2011 Shinobu
+  *
+  * This file was optained from zuttobenkyou.wordpress.com
+  * and modified by the Yamagi Quake II developers.
+  *
+  * LICENSE: Public domain
+  *
+  * =======================================================================
+  *
+  * KISS PRNG, as devised by Dr. George Marsaglia
+  *
+  * =======================================================================
+  */
+
+Files: src/common/unzip/*
+Copyright: 1990-2000, Info-ZIP
+  1998-2009, Gilles Vollant
+License: Zlib and Info-ZIP
+
+Files: debian/*
+Copyright: 2013-2015 Fabian Greffrath <fabian@debian.org>
+License: GPL-2+
+
+License: GPL-2+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+
+License: Zlib
+  This software is provided 'as-is', without any express or implied
+  warranty.  In no event will the authors be held liable for any damages
+  arising from the use of this software.
+ .
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+ .
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+
+License: Info-ZIP
+ This is version 2009-Jan-02 of the Info-ZIP license.
+ The definitive version of this document should be available at
+ ftp://ftp.info-zip.org/pub/infozip/license.html indefinitely and
+ a copy at http://www.info-zip.org/pub/infozip/license.html.
+ .
+ .
+ Copyright (c) 1990-2010 Info-ZIP.  All rights reserved.
+ .
+ For the purposes of this copyright and license, "Info-ZIP" is defined as
+ the following set of individuals:
+ .
+   Mark Adler, John Bush, Karl Davis, Harald Denker, Jean-Michel Dubois,
+   Jean-loup Gailly, Hunter Goatley, Ed Gordon, Ian Gorman, Chris Herborth,
+   Dirk Haase, Greg Hartwig, Robert Heath, Jonathan Hudson, Paul Kienitz,
+   David Kirschbaum, Johnny Lee, Onno van der Linden, Igor Mandrichenko,
+   Steve P. Miller, Sergio Monesi, Keith Owens, George Petrov, Greg Roelofs,
+   Kai Uwe Rommel, Steve Salisbury, Dave Smith, Steven M. Schweda,
+   Christian Spieler, Cosmin Truta, Antoine Verheijen, Paul von Behren,
+   Rich Wales, Mike White.
+ .
+ This software is provided "as is," without warranty of any kind, express
+ or implied.  In no event shall Info-ZIP or its contributors be held liable
+ for any direct, indirect, incidental, special or consequential damages
+ arising out of the use of or inability to use this software.
+ .
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the above disclaimer and the following restrictions:
+ .
+    1. Redistributions of source code (in whole or in part) must retain
+       the above copyright notice, definition, disclaimer, and this list
+       of conditions.
+ .
+    2. Redistributions in binary form (compiled executables and libraries)
+       must reproduce the above copyright notice, definition, disclaimer,
+       and this list of conditions in documentation and/or other materials
+       provided with the distribution.  Additional documentation is not needed
+       for executables where a command line license option provides these and
+       a note regarding this option is in the executable's startup banner.  The
+       sole exception to this condition is redistribution of a standard
+       UnZipSFX binary (including SFXWiz) as part of a self-extracting archive;
+       that is permitted without inclusion of this license, as long as the
+       normal SFX banner has not been removed from the binary or disabled.
+ .
+    3. Altered versions--including, but not limited to, ports to new operating
+       systems, existing ports with new graphical interfaces, versions with
+       modified or added functionality, and dynamic, shared, or static library
+       versions not from Info-ZIP--must be plainly marked as such and must not
+       be misrepresented as being the original source or, if binaries,
+       compiled from the original source.  Such altered versions also must not
+       be misrepresented as being Info-ZIP releases--including, but not
+       limited to, labeling of the altered versions with the names "Info-ZIP"
+       (or any variation thereof, including, but not limited to, different
+       capitalizations), "Pocket UnZip," "WiZ" or "MacZip" without the
+       explicit permission of Info-ZIP.  Such altered versions are further
+       prohibited from misrepresentative use of the Zip-Bugs or Info-ZIP
+       e-mail addresses or the Info-ZIP URL(s), such as to imply Info-ZIP
+       will provide support for the altered versions.
+ .
+    4. Info-ZIP retains the right to use the names "Info-ZIP," "Zip," "UnZip,"
+       "UnZipSFX," "WiZ," "Pocket UnZip," "Pocket Zip," and "MacZip" for its
+       own source and binary releases.

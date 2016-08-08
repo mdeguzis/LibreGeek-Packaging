@@ -198,11 +198,6 @@ main()
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
 	# inform user of packages
 	cat<<- EOF
 	#################################################################
@@ -233,7 +228,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SVN_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

@@ -1,3 +1,5 @@
+# Data dirs are defined and reference in engine/common/fs.c
+# Namely, L2905 of fs.c
 usr/games
 usr/share/quake
 usr/share/quake2

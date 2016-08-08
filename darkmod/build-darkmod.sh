@@ -69,7 +69,7 @@ PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMPs

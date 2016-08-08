@@ -62,7 +62,7 @@ DIST="brewmaster"
 URGENCY="low"
 ARCH="i386"
 BUILDER_OPTS="--basetgz merge ${HOME}/pbuilder/brewmaster-i386-base.tgz"
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # sub-packages (used for copying to package pool only)
@@ -76,7 +76,7 @@ GIT_URL="https://github.com/PCSX2/pcsx2"
 branch="master"
 
 # package vars
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
 install_prereqs()
 {

@@ -67,7 +67,7 @@ upstream_rev="1"
 PKGSUFFIX="2883976build+alpha+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # Need network for pbuilder to pull down ut4 zip

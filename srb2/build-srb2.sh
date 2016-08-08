@@ -70,7 +70,7 @@ upstream_rev="1"
 PKGREV="1"
 DIST="brewmaster"
 URGENCY="low"
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
@@ -222,7 +222,7 @@ main()
 		  * See: packages.libregeek.org
 		  * Upstream authors and source: $GIT_URL
 
-		 -- $uploader  $DATE_LONG
+		 -- $UPLOADER  $DATE_LONG
 
 		EOF
 

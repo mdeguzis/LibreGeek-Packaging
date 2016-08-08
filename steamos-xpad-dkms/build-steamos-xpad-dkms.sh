@@ -69,8 +69,8 @@ BRANCH="master"
 # Define upload TARGET
 LAUNCHPAD_PPA="ppa:mdeguzis/steamos-tools"
 
-# Define uploader for changelog
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+# Define UPLOADER for changelog
+UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
 # Define package MAINTAINER for dsc and $PKGNAME-$PKGVER-$pkgrel file 
 pkgMAINTAINER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -187,9 +187,9 @@ cd "$pkg_folder"
 # Store this in the upstream git, rather than download here, or dpkg-source will complain 
 
 echo -e "\n==> changelog"
-# Change version, uploader, insert change log comments
+# Change version, UPLOADER, insert change log comments
 sed -i "s|version_placeholder|$PKGNAME_$PKGVER-$PKGREV~$pkgrel|g" debian/changelog
-sed -i "s|uploader|$uploader|g" debian/changelog
+sed -i "s|UPLOADER|$uploader|g" debian/changelog
 sed -i "s|DIST|$pkgrel|g" debian/changelog
 
 echo -e "\nOpening change log for details to be added...\n"

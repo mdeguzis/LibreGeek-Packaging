@@ -73,7 +73,7 @@ GIT_URL="https://github.com/PCSX2/pcsx2"
 TARGET="master"
 
 # package vars
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
 install_prereqs()
 {

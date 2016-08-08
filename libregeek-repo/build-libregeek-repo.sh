@@ -57,7 +57,7 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="libregeek-repo"
-PKGVER="0.9.2"
+PKGVER="0.9.3"
 PKGREV="1"
 PKGSUFFIX="bsos"
 DIST="brewmaster"
@@ -134,7 +134,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Add additional package for Debian sources only"
+		-D "${DIST}" -u "${URGENCY}" "Add timestamp hack for unattended upgrades"
 		nano "debian/changelog"
 
 	else

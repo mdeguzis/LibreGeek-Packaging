@@ -134,7 +134,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Add timestamp hack for unattended upgrades"
+		-D "${DIST}" -u "${URGENCY}" "Update configuration to have Debian packages auto update as well."
 		nano "debian/changelog"
 
 	else

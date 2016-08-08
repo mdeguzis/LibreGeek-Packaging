@@ -1,0 +1,74 @@
+#!/bin/sh
+
+# quake3 or quake3-server or whatever
+IOQ3SELF="@IOQ3SELF@"
+# "server" or "client"
+IOQ3ROLE="@IOQ3ROLE@"
+# ioquake3 or ioq3ded
+IOQ3BINARY="@IOQ3BINARY@"
+
+BASEPATH="/usr/lib/rtcw"
+ENGINE="$BASEPATH/${IOQ3BINARY}"
+
+QUIET=0
+
+# iortcw official releases use ~/.wolf but prereleases use ~/.iortcw.
+# Align the two for Debian.
+CVARS="+set com_homepath .wolf"
+
+EXCUSE="\
+Return to Castle Wolfenstein ${IOQ3ROLE} wrapper for Debian\n\
+\n\
+Usage: ${IOQ3SELF} [OPTION]...\n\
+\n\
+ -h, --help\t\tDisplay this help\n\
+ -q, --quiet\t\tDisable console output\n\
+  +<internal command>\tPass commands to the engine\n"
+
+while [ "$1" != "" ]; do
+  case "$1" in
+    -h|--help)
+      echo ${EXCUSE}
+      exit 0
+      ;;
+    -q|--quiet)
+      CVARS="$CVARS +set ttycon 0"
+      QUIET=1
+      ;;
+    *)
+      break
+      ;;
+  esac
+  shift
+done
+
+# sanity check: the engine doesn't cope well with missing data
+for i in pak0 sp_pak4 sp_rend2_shaders0 mp_pak5; do
+  if test -f $BASEPATH/main/$i.pk3; then
+    :
+  else
+    case "$IOQ3ROLE" in
+      *server*)
+        echo "Return to Castle Wolfenstein data missing, see ${BASEPATH}/README.rtcw-data"
+        ;;
+      *)
+        $BASEPATH/need-data.sh "Return to Castle Wolfenstein" "`cat $BASEPATH/README.rtcw-data`"
+        ;;
+    esac
+    exit 72     # EX_OSFILE
+  fi
+done
+
+if test "z$QUIET" = z1; then
+  exec >/dev/null 2>&1;
+fi
+
+# So that switching SP <-> MP will work
+cd $BASEPATH
+
+if test -n "$RTCW_BACKTRACE"; then
+  exec gdb -return-child-result -batch -ex run -ex 'thread apply all bt full' -ex kill -ex quit --args ${ENGINE} ${CVARS} "$@"
+else
+  exec ${RTCW_DEBUGGER} ${ENGINE} ${CVARS} "$@"
+fi
+# vim:set sw=2 sts=2 ft=sh:

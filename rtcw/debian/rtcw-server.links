@@ -1,0 +1,2 @@
+# so you can do "exec etc/rtcw-server/server.cfg"
+etc/rtcw-server                        usr/lib/rtcw/main/etc/rtcw-server

@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ]
+then
+  update-alternatives --quiet --install /usr/games/wolf4sdl wolf4sdl /usr/games/wolf4sdl-wl1  30
+  update-alternatives --quiet --install /usr/games/wolf4sdl wolf4sdl /usr/games/wolf4sdl-wl6  20
+  update-alternatives --quiet --install /usr/games/wolf4sdl wolf4sdl /usr/games/wolf4sdl-wl6a 20
+  update-alternatives --quiet --install /usr/games/wolf4sdl wolf4sdl /usr/games/wolf4sdl-sod  20
+  update-alternatives --quiet --install /usr/games/wolf4sdl wolf4sdl /usr/games/wolf4sdl-sdm  20
+fi
+
+#DEBHELPER#

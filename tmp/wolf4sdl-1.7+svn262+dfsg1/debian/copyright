@@ -1,0 +1,62 @@
+Format: http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?revision=174
+Upstream-Name: Wolf4SDL
+Upstream-Contact: Moritz "Ripper" Kroll <http://www.chaos-software.de.vu>
+Source: http://www.alice-dsl.net/mkroll/downloads.html
+
+Files: *
+Copyright: © 1992 Id Software, Inc.
+License: GPL-2.0+
+Comment:
+ From: John Carmack <johnc@idsoftware.com>
+ To: Fabian Greffrath <fabian@greffrath.com>
+ Subject: Re: License of Wolf3d source code
+ Date: Thu, 1 Sep 2011 14:08:38 +0000
+ .
+ Yes, we relicensed it under the gpl years ago.
+ .
+ Sent from my iPad
+ .
+ On Sep 1, 2011, at 2:57 AM, "Fabian Greffrath" <fabian@greffrath.com> wrote=
+ :
+ .
+ > Dear Mr. Carmack,
+ >=20
+ > I have just recently found out that you have released a Wolf3d app for th=
+ e Apple iphone and also released its source code under the terms of the GNU=
+  GPL. My question is, does this also apply to the original wolf3d source co=
+ de that is distributed in the wolfsrc.zip file from 1996?
+ >=20
+ > With its current license, the source code is not redistributable by Linux=
+  distributions like e.g. Debian. This is a pity, because many people still =
+ like to play the game or one of its numerous open source ports.
+ >=20
+ > so could you please you give confirmation that the original wolf3d source=
+  code is relicensed under the terms of the GNU GPL?
+ >=20
+ > Best regards,
+ > Fabian Greffrath
+
+Files: dosbox/*
+Copyright: © 2002-2010, The DOSBox Team
+License: GPL-2.0+
+
+Files: debian/*
+Copyright: © 2010-2013, Fabian Greffrath <fabian+debian@greffrath.com>
+License: GPL-2.0+
+
+License: GPL-2.0+
+ This package is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>
+ .
+ On Debian systems, the complete text of the GNU General
+ Public License version 2 can be found in "/usr/share/common-licenses/GPL-2".

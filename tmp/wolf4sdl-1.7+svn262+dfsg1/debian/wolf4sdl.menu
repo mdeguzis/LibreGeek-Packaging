@@ -1,0 +1,5 @@
+?package(wolf4sdl):needs="X11" section="Games/Action"\
+  title="Wolf4SDL"\
+  longtitle="SDL-Port of Wolfenstein 3-D and Spear of Destiny"\
+  command="/usr/games/wolf4sdl"\
+  icon="/usr/share/pixmaps/wolf4sdl.xpm"

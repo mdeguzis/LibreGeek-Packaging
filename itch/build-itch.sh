@@ -40,9 +40,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -74,8 +74,8 @@ GIT_URL="https://github.com/itchio/itch"
 rel_TARGET="v17.6.2"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
@@ -86,9 +86,9 @@ PKGVER="0.3.7"
 PKGSUFFIX="bsos"
 PKGREV="1"
 DIST="brewmaster"
-urgency="low"
+URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
@@ -147,7 +147,7 @@ main()
 	git clone -b "${rel_TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	# upstream missing a build dep
-	cp -r "$scriptdir/debian" "${GIT_DIR}"
+	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 
 	#################################################
 	# Build platform
@@ -171,12 +171,12 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update release"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 
@@ -198,10 +198,10 @@ main()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 	
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
@@ -210,8 +210,8 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build tmp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
+	if [[ "${SCRIPTDIR}" != "" ]]; then
+		cd "${SCRIPTDIR}" || exit
 	else
 		cd "${HOME}" || exit
 	fi
@@ -246,7 +246,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

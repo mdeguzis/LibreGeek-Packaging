@@ -20,9 +20,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -52,21 +52,21 @@ GIT_URL="https://github.com/citra-emu/citra"
 branch="master"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="citra"
-PKGVER="0.${date_short}"
+PKGVER="0.${DATE_SHORT}"
 PKGREV="1"
 # Base version sourced from ZIP file version
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
-urgency="low"
+URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+MAINTAINER="ProfessorKaos64"
 
 # Need network for pbuilder to pull down ut4 zip
 export NETWORK="yes"
@@ -121,7 +121,7 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# Add image to git dir
-	cp -r "${scriptdir}/Citra.png" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/Citra.png" "${GIT_DIR}"
 	
 	# Swap version text, since the project assumes citra is being ran in the git dir
 	sed -i "s|GIT-NOTFOUND|${PKGVER}git|g" "${GIT_DIR}/externals/cmake-modules/GetGitRevisionDescription.cmake"
@@ -138,7 +138,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add required files
-	cp -r "${scriptdir}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
 	cp "${GIT_DIR}/license.txt" "${GIT_DIR}/debian/LICENSE"
 
 	# enter source dir
@@ -150,13 +150,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
@@ -180,10 +180,10 @@ main()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
@@ -221,7 +221,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

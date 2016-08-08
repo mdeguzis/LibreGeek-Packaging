@@ -19,9 +19,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -144,7 +144,7 @@ build_all()
 		fi
 
 		# return back to original script dir
-		cd $scriptdir
+		cd $SCRIPTDIR
 
 	done
 
@@ -194,7 +194,7 @@ build_all()
 		fi
 
 		# return back to original script dir
-                cd $scriptdir
+                cd $SCRIPTDIR
 
 	done
 
@@ -261,8 +261,8 @@ build_all()
 
 		fi
 
-		# go back to original scriptdir
-		cd "${scriptdir}"
+		# go back to original SCRIPTDIR
+		cd "${SCRIPTDIR}"
 
 	done
 	
@@ -317,8 +317,8 @@ build_all()
 
 		fi
 
-		# go back to original scriptdir
-		cd "${scriptdir}"
+		# go back to original SCRIPTDIR
+		cd "${SCRIPTDIR}"
 
 	done
 
@@ -356,7 +356,7 @@ build_all()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

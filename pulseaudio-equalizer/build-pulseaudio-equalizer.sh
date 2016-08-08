@@ -19,9 +19,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -53,8 +53,8 @@ PKGVER="2.7.0.2"
 orig_tarball="https://launchpad.net/~nilarimogard/+archive/ubuntu/webupd8/+files/pulseaudio-equalizer_${PKGVER}.orig.tar.gz"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
@@ -64,9 +64,9 @@ PKGNAME="pulseaudio-equalizer"
 PKGREV="1"
 PKGSUFFIX="bsos"
 DIST="brewmaster"
-urgency="low"
+URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
@@ -127,7 +127,7 @@ main()
 	#################################################
 
 	# Add debian dir
-	cp -r "${scriptdir}/debian" "${ppa_dir}"
+	cp -r "${SCRIPTDIR}/debian" "${ppa_dir}"
 
 	# enter source dir
 	cd "${ppa_dir}"
@@ -139,13 +139,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D $DIST -u "${urgency}" "Update to upstream package ${PKGVER}"
+		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Update to upstream package ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
 		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload attmpt"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attmpt"
 		nano "debian/changelog"
 
 	fi
@@ -167,10 +167,10 @@ main()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
@@ -204,7 +204,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

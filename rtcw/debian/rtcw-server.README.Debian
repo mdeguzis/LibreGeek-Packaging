@@ -1,0 +1,51 @@
+RTCW dedicated server for Debian
+================================
+
+Running the server
+------------------
+
+Installing the rtcw-server package provides a dedicated server
+running as the user "rtcw-server", from an init script named rtcw-server.
+This is a simple setup suitable for running one server on a machine.
+
+By default, the server will use etc/rtcw-server/server.cfg,
+which is a symlink to /etc/rtcw-server/server.cfg. You can edit
+this file to reconfigure the default instance.
+
+The equivalent of ~/.iortcw for the server is
+/var/games/rtcw-server/server.iortcw.
+
+The server can be managed in the usual way, e.g. via service(8) commands
+like
+
+    service rtcw-server stop
+    service rtcw-server start
+    update-rc.d rtcw-server disable
+    update-rc.d rtcw-server enable
+
+which should work for all of systemd, sysvinit and upstart.
+
+The whole /etc/rtcw-server directory is symlinked into the engine's
+search path as etc/rtcw-server, so you can place files there and
+execute them with commands like "exec etc/rtcw-server/checkpoint.cfg".
+
+Running multiple server instances with systemd
+----------------------------------------------
+
+Under systemd, rtcw-server supports additional instances of the server,
+for instance for different game modes.
+
+Each instance rtcw-server@INSTANCE.service has configuration and state in
+/var/games/rtcw-server/INSTANCE.iortcw, and will execute
+/etc/rtcw-server/INSTANCE.cfg on startup.
+
+To set a parameter that can only be given on the command line, such as
+fs_game or net_port, you can create /etc/default/rtcw-server@INSTANCE
+or a systemd "drop-in" file, and set DAEMON_OPTS there. Setting a
+unique net_port for each server is recommended: if you do not, each
+server will try ports above its configured net_port until it finds one
+that is not in use, so the mapping between servers and ports will be arbitrary.
+
+The instance name "server" cannot be used without disabling and stopping
+rtcw-server.service, since it shares its configuration with that
+service.

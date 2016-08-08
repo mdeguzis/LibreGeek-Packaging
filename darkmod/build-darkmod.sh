@@ -22,9 +22,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -55,8 +55,8 @@ fi
 #branch="master"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH=""
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
@@ -68,9 +68,9 @@ PKGVER="2.0.4"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
-urgency="low"
+URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMPs
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
@@ -125,9 +125,9 @@ main()
 
 	######## Use a virtual package for now ########
 	mkdir -p "${GIT_DIR}"
-	cp -r "${scriptdir}/darkmod.png" "${GIT_DIR}"
-	cp -r "${scriptdir}/darklauncher.sh" "${GIT_DIR}/darklauncher"
-	cp -r "${scriptdir}/darkmod-updater.sh" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/darkmod.png" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/darklauncher.sh" "${GIT_DIR}/darklauncher"
+	cp -r "${SCRIPTDIR}/darkmod-updater.sh" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -141,7 +141,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add debian folder for current virtual package implementation
-	cp -r "${scriptdir}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
 
 	# enter source dir
 	cd "${GIT_DIR}"
@@ -153,13 +153,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M --package \
-		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Bump version of virtual package."
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Bump version of virtual package."
 		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		-M --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		-M --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
 
@@ -181,10 +181,10 @@ main()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
@@ -222,7 +222,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

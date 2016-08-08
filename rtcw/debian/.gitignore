@@ -1,0 +1,14 @@
+*.debhelper.log
+*.substvars
+/*.debhelper
+/build/
+/files
+/rtcw/
+/rtcw-common/
+/rtcw-dbg/
+/rtcw-server/
+/scripts/wolfded
+/scripts/wolfmp
+/scripts/wolfsp
+/wolfmp.xpm
+/wolfsp.xpm

@@ -24,9 +24,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 # builder varzs
 DIST="brewmaster"
@@ -102,8 +102,8 @@ install_prereqs()
 {
 
 	clear
-	# set scriptdir
-	scriptdir="$pwd"
+	# set SCRIPTDIR
+	SCRIPTDIR="$pwd"
 	
 	echo -e "==> Checking for Debian sources..."
 	
@@ -114,7 +114,7 @@ install_prereqs()
 	if [[ "$sources_check" == "" && "$sources_check2" == "" ]]; then
                 echo -e "\n==INFO==\nSources do *NOT* appear to be added at first glance. Adding now..."
                 sleep 2s
-                "$scriptdir/add-debian-repos.sh"
+                "$SCRIPTDIR/add-debian-repos.sh"
         else
                 echo -e "\n==INFO==\nJessie sources appear to be added."
                 sleep 2s
@@ -310,8 +310,8 @@ function_build_locally()
 	fi
 
 	# back out of build tmp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "$scriptdir/generic-building"
+	if [[ "${SCRIPTDIR}" != "" ]]; then
+		cd "$SCRIPTDIR/generic-building"
 	else
 		cd "${HOME}"
 	fi
@@ -367,7 +367,7 @@ function_show_summary()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

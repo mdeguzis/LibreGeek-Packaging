@@ -1,0 +1,138 @@
+#!/bin/sh
+#
+# Output an architecture and/or platform name that Quake 3 could use for the
+# build or host CPU architecture or operating system.
+
+set -e
+
+case "$2" in
+    (BUILD|HOST)
+        eval "$(dpkg-architecture --print-set)"
+        eval "GNU_CPU=\"\${DEB_${2}_GNU_CPU}"\"
+        eval "GNU_SYSTEM=\"\${DEB_${2}_GNU_SYSTEM}"\"
+        ;;
+    (*)
+        GNU_CPU="$2"
+        GNU_SYSTEM="$3"
+        ;;
+esac
+
+# In the upstream Makefile the architecture is given by uname -m, with the
+# following substitutions:
+#
+# i.86 -> x86 (used to be i386)
+# arm* -> arm
+# powerpc -> ppc
+# powerpc64 -> ppc64
+# axp -> alpha on Linux and FreeBSD (used to be axp)
+#
+# alpha, i386, ppc(64), sparc and x86_64 are the architectures with special
+# handling in the Makefile (all except alpha can compile bytecode).
+#
+# Before PR #129 was merged, qcommon.h expected to see one of these:
+#
+# x86, x86_64, AXP (Windows)
+# x86, x86_64, ppc64, ppc, s390, s390x, ia64, alpha, sparc, arm, cris,
+#    hppa, mips, sh (Linux, kFreeBSD)
+# some subset of the Linux set (Mac OS, *BSD, SunOS, Irix)
+
+Q3ARCH="${GNU_CPU}"
+
+case ${GNU_CPU} in
+    i?86)
+        Q3ARCH=x86
+        # previously Q3ARCH=i386
+        # RTCW FILE_ARCH=i386
+        ;;
+
+    arm*)
+        Q3ARCH=arm
+        ;;
+
+    alpha)
+        Q3ARCH=alpha
+        # previously Q3ARCH=axp
+        ;;
+
+    powerpc)
+        Q3ARCH=ppc
+        ;;
+
+    powerpc64)
+        Q3ARCH=ppc64
+        ;;
+
+    mipsel)
+        # both mips and mipsel have $(uname -m) = mips
+        Q3ARCH=mips
+	;;
+
+    sh4)
+        Q3ARCH=sh
+        ;;
+esac
+
+# In the upstream Makefile the platform is given by uname, with the
+# following substitutions:
+#
+# anything after _ removed
+# folded to lower case
+# / -> _
+#
+# This would result in Debian builds being done for linux, gnu_kfreebsd and
+# gnu.
+#
+# However, for most platform names the build system doesn't actually care,
+# it's just "some other platform", so we can get away with using the
+# GNU system as-is.
+#
+# (For instance, on Debian kFreeBSD buildd, uname says GNU/kFreeBSD whereas
+# the GNU CPU type is kfreebsd-gnu, but that's not important because the
+# Makefile doesn't actually do anything different.)
+
+case ${GNU_SYSTEM} in
+    linux-gnu*)
+        # including, but not limited to:
+	# arm-linux-gnueabi (Debian armel: ARM EABI, LE)
+	# arm-linux-gnueabihf (Debian armhf: ARM EABI, LE, hardfloat)
+	# powerpc-linux-gnuspe (Debian powerpcspe: Signal Processing Extension)
+        Q3OS=linux
+        ;;
+    *)
+        Q3OS=${GNU_SYSTEM}
+        ;;
+esac
+
+echo "GNU CPU:          ${GNU_CPU}" >&2
+echo "  => Q3 ARCH:     ${Q3ARCH}" >&2
+echo "GNU system        ${GNU_SYSTEM}" >&2
+echo "  => Q3 PLATFORM: ${Q3OS}" >&2
+
+case $1 in
+
+(make)
+    echo "ARCH=\"${Q3ARCH}\" PLATFORM=\"${Q3OS}\""
+    ;;
+
+(arch)
+    echo ${Q3ARCH}
+    ;;
+
+(platform)
+    echo ${Q3OS}
+    ;;
+
+*)
+    echo "Usage:" >&2
+    echo "    q3arch MODE BUILD|HOST" >&2
+    echo " or q3arch MODE CPU SYSTEM" >&2
+    echo "MODE is: make|arch|platform" >&2
+    exit 1
+    ;;
+
+esac
+
+# Copyright 2009-2015 Simon McVittie <smcv@debian.org>
+# Copying and distribution of this file, with or without modification, are
+# permitted in any medium without royalty provided this notice is preserved.
+# This file is offered as-is, without any warranty.

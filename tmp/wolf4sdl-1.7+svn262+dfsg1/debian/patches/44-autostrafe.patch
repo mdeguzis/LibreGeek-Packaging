@@ -1,0 +1,67 @@
+Subject: Toggle autostrafe for the keyboard when both Alt keys are pressed.
+ By the way, accept the German AltGr key as a right Alt key.
+Author: Fabian Greffrath <fabian+debian@greffrath.com>
+
+--- a/id_in.cpp
++++ b/id_in.cpp
+@@ -239,6 +239,7 @@ boolean IN_JoyPresent()
+ 
+ boolean mw_dn = false, mw_up = false;
+ boolean autorun = false;
++boolean autostrafe = false;
+ 
+ static void processEvent(SDL_Event *event)
+ {
+@@ -262,6 +263,9 @@ static void processEvent(SDL_Event *even
+             SDLMod mod = SDL_GetModState();
+             if ((mod & KMOD_LSHIFT) && (mod & KMOD_RSHIFT))
+                 autorun = !autorun;
++            if (((mod & KMOD_LALT) && (mod & KMOD_RALT)) ||
++                ((mod & KMOD_LALT) && (mod & KMOD_MODE)))
++                autostrafe = !autostrafe;
+ 
+             if(Keyboard[sc_Alt])
+             {
+@@ -272,6 +276,7 @@ static void processEvent(SDL_Event *even
+             if(LastScan == SDLK_KP_ENTER) LastScan = SDLK_RETURN;
+             else if(LastScan == SDLK_RSHIFT) LastScan = SDLK_LSHIFT;
+             else if(LastScan == SDLK_RALT) LastScan = SDLK_LALT;
++            else if(LastScan == SDLK_MODE) LastScan = SDLK_LALT; /* AltGr */
+             else if(LastScan == SDLK_RCTRL) LastScan = SDLK_LCTRL;
+             else
+             {
+@@ -314,6 +319,7 @@ static void processEvent(SDL_Event *even
+             if(key == SDLK_KP_ENTER) key = SDLK_RETURN;
+             else if(key == SDLK_RSHIFT) key = SDLK_LSHIFT;
+             else if(key == SDLK_RALT) key = SDLK_LALT;
++            else if(key == SDLK_MODE) key = SDLK_LALT; /* AltGr */
+             else if(key == SDLK_RCTRL) key = SDLK_LCTRL;
+             else
+             {
+--- a/wl_play.cpp
++++ b/wl_play.cpp
+@@ -329,15 +329,22 @@ void PollJoystickButtons (void)
+ void PollKeyboardMove (void)
+ {
+     int delta = buttonstate[bt_run] ? RUNMOVE * tics : BASEMOVE * tics;
++    extern boolean autostrafe;
+ 
+     if (Keyboard[dirscan[di_north]])
+         controly -= delta;
+     if (Keyboard[dirscan[di_south]])
+         controly += delta;
+     if (Keyboard[dirscan[di_west]])
+-        controlx -= delta;
++        if (autostrafe)
++            buttonstate[bt_strafeleft] = true;
++        else
++            controlx -= delta;
+     if (Keyboard[dirscan[di_east]])
+-        controlx += delta;
++        if (autostrafe)
++            buttonstate[bt_straferight] = true;
++        else
++            controlx += delta;
+ }
+ 
+ 

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Return to Castle Wolfenstein
+Exec=/usr/games/wolfsp-steamos
+Terminal=false
+Icon=Icon=/usr/share/pixmaps/rctw.png
+Type=Application
+Categories=Game;ActionGame;
+Keywords=single player;fps;first person shooter;id;gray matter;

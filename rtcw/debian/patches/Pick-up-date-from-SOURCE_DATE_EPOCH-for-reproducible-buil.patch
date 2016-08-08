@@ -1,0 +1,200 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Mon, 21 Mar 2016 08:12:37 +0000
+Subject: Pick up date from SOURCE_DATE_EPOCH, for reproducible builds
+
+The goal of reproducible builds is that a rebuild of the same source
+code with the same compiler, libraries, etc. should result in the same
+binaries. SOURCE_DATE_EPOCH provides a standard way for build systems
+to fill in the date of the latest source change, typically from a git
+commit or from metadata like the debian/changelog in Debian packages.
+---
+ MP/Makefile                | 5 +++++
+ MP/code/game/g_main.c      | 4 ++--
+ MP/code/qcommon/common.c   | 6 +++---
+ MP/code/qcommon/q_shared.h | 4 ++++
+ MP/code/sys/sys_main.c     | 2 +-
+ SP/Makefile                | 5 +++++
+ SP/code/game/g_main.c      | 4 ++--
+ SP/code/qcommon/common.c   | 4 ++--
+ SP/code/qcommon/q_shared.h | 4 ++++
+ SP/code/sys/sys_main.c     | 2 +-
+ 10 files changed, 29 insertions(+), 11 deletions(-)
+
+diff --git a/MP/Makefile b/MP/Makefile
+index a921004..6bda6f7 100644
+--- a/MP/Makefile
++++ b/MP/Makefile
+@@ -1224,6 +1224,11 @@ ifeq ($(USE_PBMD5),1)
+   CLIENT_CFLAGS += -DUSE_PBMD5
+ endif
+ 
++# https://reproducible-builds.org/specs/source-date-epoch/
++ifdef SOURCE_DATE_EPOCH
++  BASE_CFLAGS += -DPRODUCT_DATE=\\\"$(shell date --date="$$SOURCE_DATE_EPOCH" "+%b %_d %Y" | sed -e 's/ /\\\ /'g)\\\"
++endif
++
+ BASE_CFLAGS += -DPRODUCT_VERSION=\\\"$(VERSION)\\\"
+ BASE_CFLAGS += -Wformat=2 -Wformat-security -Wno-format-nonliteral
+ BASE_CFLAGS += -Wstrict-aliasing=2 -Wmissing-format-attribute
+diff --git a/MP/code/game/g_main.c b/MP/code/game/g_main.c
+index f797c21..e151869 100644
+--- a/MP/code/game/g_main.c
++++ b/MP/code/game/g_main.c
+@@ -168,7 +168,7 @@ cvarTable_t gameCvarTable[] = {
+ 
+ 	// noset vars
+ 	{ NULL, "gamename", GAMEVERSION, CVAR_SERVERINFO | CVAR_ROM, 0, qfalse  },
+-	{ NULL, "gamedate", __DATE__, CVAR_ROM, 0, qfalse  },
++	{ NULL, "gamedate", PRODUCT_DATE, CVAR_ROM, 0, qfalse  },
+ 	{ &g_restarted, "g_restarted", "0", CVAR_ROM, 0, qfalse  },
+ 
+ 	// latched vars
+@@ -1095,7 +1095,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
+ 	if ( trap_Cvar_VariableIntegerValue( "g_gametype" ) != GT_SINGLE_PLAYER ) {
+ 		G_Printf( "------- Game Initialization -------\n" );
+ 		G_Printf( "gamename: %s\n", GAMEVERSION );
+-		G_Printf( "gamedate: %s\n", __DATE__ );
++		G_Printf( "gamedate: %s\n", PRODUCT_DATE );
+ 	}
+ 
+ 	srand( randomSeed );
+diff --git a/MP/code/qcommon/common.c b/MP/code/qcommon/common.c
+index 87cd7bd..81c51d2 100644
+--- a/MP/code/qcommon/common.c
++++ b/MP/code/qcommon/common.c
+@@ -2701,7 +2701,7 @@ void Com_Init( char *commandLine ) {
+ 	// TTimo gcc warning: variable `safeMode' might be clobbered by `longjmp' or `vfork'
+ 	volatile qboolean safeMode = qtrue;
+ 
+-	Com_Printf( "%s %s %s\n", Q3_VERSION, PLATFORM_STRING, __DATE__ );
++	Com_Printf( "%s %s %s\n", Q3_VERSION, PLATFORM_STRING, PRODUCT_DATE );
+ 
+ 	if ( setjmp( abortframe ) ) {
+ 		Sys_Error( "Error during initialization" );
+@@ -2825,8 +2825,8 @@ void Com_Init( char *commandLine ) {
+ 	com_introPlayed = Cvar_Get( "com_introplayed", "0", CVAR_ARCHIVE );
+ 	com_recommendedSet = Cvar_Get( "com_recommendedSet", "0", CVAR_ARCHIVE );
+ 
+-	s = va( "%s %s %s", Q3_VERSION, PLATFORM_STRING, __DATE__ );
+-	t = va( "%s %s %s", OLDVERSION, PLATFORM_STRING, __DATE__ );
++	s = va( "%s %s %s", Q3_VERSION, PLATFORM_STRING, PRODUCT_DATE );
++	t = va( "%s %s %s", OLDVERSION, PLATFORM_STRING, PRODUCT_DATE );
+ 	com_fsgame = Cvar_Get( "fs_game", "", CVAR_INIT | CVAR_SYSTEMINFO );
+ 	com_legacyversion = Cvar_Get( "com_legacyversion", "0", CVAR_ARCHIVE );
+ 
+diff --git a/MP/code/qcommon/q_shared.h b/MP/code/qcommon/q_shared.h
+index 3117a26..ee56bba 100644
+--- a/MP/code/qcommon/q_shared.h
++++ b/MP/code/qcommon/q_shared.h
+@@ -86,6 +86,10 @@ If you have questions concerning this license or the applicable additional terms
+   #define OLD_PRODUCT_VERSION "1.41-MP"
+ #endif
+ 
++#ifndef PRODUCT_DATE
++#  define PRODUCT_DATE __DATE__
++#endif
++
+ #define Q3_VERSION PRODUCT_NAME " " PRODUCT_VERSION
+ #define OLDVERSION OLD_PRODUCT_NAME " " OLD_PRODUCT_VERSION
+ 
+diff --git a/MP/code/sys/sys_main.c b/MP/code/sys/sys_main.c
+index 78b73d9..68c78a5 100644
+--- a/MP/code/sys/sys_main.c
++++ b/MP/code/sys/sys_main.c
+@@ -551,7 +551,7 @@ void Sys_ParseArgs( int argc, char **argv )
+ 		if( !strcmp( argv[1], "--version" ) ||
+ 				!strcmp( argv[1], "-v" ) )
+ 		{
+-			const char* date = __DATE__;
++			const char* date = PRODUCT_DATE;
+ #ifdef DEDICATED
+ 			fprintf( stdout, Q3_VERSION " dedicated server (%s)\n", date );
+ #else
+diff --git a/SP/Makefile b/SP/Makefile
+index f127b4f..5c2f8a3 100644
+--- a/SP/Makefile
++++ b/SP/Makefile
+@@ -1201,6 +1201,11 @@ ifeq ($(USE_BLOOM),1)
+   CLIENT_CFLAGS += -DUSE_BLOOM
+ endif
+ 
++# https://reproducible-builds.org/specs/source-date-epoch/
++ifdef SOURCE_DATE_EPOCH
++  BASE_CFLAGS += -DPRODUCT_DATE=\\\"$(shell date --date="$$SOURCE_DATE_EPOCH" "+%b %_d %Y" | sed -e 's/ /\\\ /'g)\\\"
++endif
++
+ BASE_CFLAGS += -DPRODUCT_VERSION=\\\"$(VERSION)\\\"
+ BASE_CFLAGS += -Wformat=2 -Wformat-security -Wno-format-nonliteral
+ BASE_CFLAGS += -Wstrict-aliasing=2 -Wmissing-format-attribute
+diff --git a/SP/code/game/g_main.c b/SP/code/game/g_main.c
+index 823c846..666fe03 100644
+--- a/SP/code/game/g_main.c
++++ b/SP/code/game/g_main.c
+@@ -148,7 +148,7 @@ cvarTable_t gameCvarTable[] = {
+ 
+ 	// noset vars
+ 	{ NULL, "gamename", GAMEVERSION, CVAR_SERVERINFO | CVAR_ROM, 0, qfalse  },
+-	{ NULL, "gamedate", __DATE__, CVAR_ROM, 0, qfalse  },
++	{ NULL, "gamedate", PRODUCT_DATE, CVAR_ROM, 0, qfalse  },
+ 	{ &g_restarted, "g_restarted", "0", CVAR_ROM, 0, qfalse  },
+ 
+ 	// latched vars
+@@ -1177,7 +1177,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart ) {
+ 	if ( trap_Cvar_VariableIntegerValue( "g_gametype" ) != GT_SINGLE_PLAYER ) {
+ 		G_Printf( "------- Game Initialization -------\n" );
+ 		G_Printf( "gamename: %s\n", GAMEVERSION );
+-		G_Printf( "gamedate: %s\n", __DATE__ );
++		G_Printf( "gamedate: %s\n", PRODUCT_DATE );
+ 	}
+ 
+ 	srand( randomSeed );
+diff --git a/SP/code/qcommon/common.c b/SP/code/qcommon/common.c
+index 99954d3..9a5023b 100644
+--- a/SP/code/qcommon/common.c
++++ b/SP/code/qcommon/common.c
+@@ -2252,7 +2252,7 @@ void Com_Init( char *commandLine ) {
+ 	char    *s;
+ 	int	qport;
+ 
+-	Com_Printf( "%s %s %s\n", Q3_VERSION, PLATFORM_STRING, __DATE__ );
++	Com_Printf( "%s %s %s\n", Q3_VERSION, PLATFORM_STRING, PRODUCT_DATE );
+ 
+ 	if ( setjmp( abortframe ) ) {
+ 		Sys_Error( "Error during initialization" );
+@@ -2373,7 +2373,7 @@ void Com_Init( char *commandLine ) {
+ 
+ 	Cvar_Get( "savegame_loading", "0", CVAR_ROM );
+ 
+-	s = va("%s %s %s", Q3_VERSION, PLATFORM_STRING, __DATE__ );
++	s = va("%s %s %s", Q3_VERSION, PLATFORM_STRING, PRODUCT_DATE );
+ 	com_version = Cvar_Get ("version", s, CVAR_ROM | CVAR_SERVERINFO );
+ 	com_gamename = Cvar_Get("com_gamename", GAMENAME_FOR_MASTER, CVAR_SERVERINFO | CVAR_INIT);
+ 	com_protocol = Cvar_Get("com_protocol", va("%i", PROTOCOL_VERSION), CVAR_SERVERINFO | CVAR_INIT);
+diff --git a/SP/code/qcommon/q_shared.h b/SP/code/qcommon/q_shared.h
+index a4a0fd1..1685ad6 100644
+--- a/SP/code/qcommon/q_shared.h
++++ b/SP/code/qcommon/q_shared.h
+@@ -79,6 +79,10 @@ If you have questions concerning this license or the applicable additional terms
+   #define PRODUCT_VERSION "1.42d"
+ #endif
+ 
++#ifndef PRODUCT_DATE
++#  define PRODUCT_DATE __DATE__
++#endif
++
+ #define Q3_VERSION PRODUCT_NAME " " PRODUCT_VERSION
+ 
+ #define MAX_TEAMNAME		32
+diff --git a/SP/code/sys/sys_main.c b/SP/code/sys/sys_main.c
+index f665b0d..b23d383 100644
+--- a/SP/code/sys/sys_main.c
++++ b/SP/code/sys/sys_main.c
+@@ -551,7 +551,7 @@ void Sys_ParseArgs( int argc, char **argv )
+ 		if( !strcmp( argv[1], "--version" ) ||
+ 				!strcmp( argv[1], "-v" ) )
+ 		{
+-			const char* date = __DATE__;
++			const char* date = PRODUCT_DATE;
+ #ifdef DEDICATED
+ 			fprintf( stdout, Q3_VERSION " dedicated server (%s)\n", date );
+ #else

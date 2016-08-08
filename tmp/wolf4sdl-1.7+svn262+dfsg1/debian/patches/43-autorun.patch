@@ -1,0 +1,43 @@
+Subject: Toggle autorun when both Shift keys are pressed.
+Author: Fabian Greffrath <fabian+debian@greffrath.com>
+
+--- a/id_in.cpp
++++ b/id_in.cpp
+@@ -238,6 +238,7 @@ boolean IN_JoyPresent()
+ }
+ 
+ boolean mw_dn = false, mw_up = false;
++boolean autorun = false;
+ 
+ static void processEvent(SDL_Event *event)
+ {
+@@ -259,6 +260,9 @@ static void processEvent(SDL_Event *even
+ 
+             LastScan = event->key.keysym.sym;
+             SDLMod mod = SDL_GetModState();
++            if ((mod & KMOD_LSHIFT) && (mod & KMOD_RSHIFT))
++                autorun = !autorun;
++
+             if(Keyboard[sc_Alt])
+             {
+                 if(LastScan==SDLK_F4)
+--- a/wl_play.cpp
++++ b/wl_play.cpp
+@@ -255,10 +255,17 @@ int songs[] = {
+ void PollKeyboardButtons (void)
+ {
+     int i;
++    extern boolean autorun;
+ 
+     for (i = 0; i < NUMBUTTONS; i++)
+         if (Keyboard[buttonscan[i]])
+             buttonstate[i] = true;
++
++    if (autorun)
++        if (Keyboard[buttonscan[bt_run]])
++            buttonstate[bt_run] = false;
++        else
++            buttonstate[bt_run] = true;
+ }
+ 
+ 

@@ -1,0 +1,6 @@
+Use game-data-packager to build and install the rtcw-data package.
+
+You will need to install Return to Castle Wolfenstein on a Windows
+or Wine system, either from CD-ROM or via Steam, and provide the
+installation directory as input. Everything else required can be
+downloaded by game-data-packager.

@@ -1,0 +1,69 @@
+Subject: Show a crosshair when the "--crosshair" parameter is given.
+Author: Fabian Greffrath <fabian+debian@greffrath.com>
+
+--- a/wl_def.h
++++ b/wl_def.h
+@@ -934,6 +934,7 @@ extern  int      param_mission;
+ extern  boolean  param_goodtimes;
+ extern  boolean  param_ignorenumchunks;
+ extern  boolean  param_novert;
++extern  boolean  param_crosshair;
+ 
+ 
+ void            NewGame (int difficulty,int episode);
+--- a/wl_draw.cpp
++++ b/wl_draw.cpp
+@@ -1052,6 +1052,17 @@ void DrawPlayerWeapon (void)
+         SimpleScaleShape(viewwidth/2,SPR_DEMO,viewheight+1);
+ }
+ 
++void DrawCrosshair (void)
++{
++    if (gamestate.victoryflag || gamestate.weapon < wp_pistol)
++        return;
++
++    const int c = (gamestate.health >= 50) ? 2 : (gamestate.health >= 25) ? 6 : 4;
++    const int h = (viewsize == 21 && ingame) ? screenHeight : screenHeight - scaleFactor * STATUSLINES;
++
++    VL_Hlin (screenWidth / 2 - scaleFactor, h / 2,               2 * scaleFactor + 1, c);
++    VL_Vlin (screenWidth / 2,               h / 2 - scaleFactor, 2 * scaleFactor + 1, c);
++}
+ 
+ //==========================================================================
+ 
+@@ -1596,6 +1607,8 @@ void    ThreeDRefresh (void)
+ #endif
+ 
+     DrawPlayerWeapon ();    // draw player's hands
++    if (param_crosshair)
++        DrawCrosshair ();
+ 
+     if(Keyboard[sc_Tab] && viewsize == 21 && gamestate.weapon != -1)
+         ShowActStatus();
+--- a/wl_main.cpp
++++ b/wl_main.cpp
+@@ -102,6 +102,7 @@ int     param_mission = 0;
+ boolean param_goodtimes = false;
+ boolean param_ignorenumchunks = false;
+ boolean param_novert = false;
++boolean param_crosshair = false;
+ 
+ /*
+ =============================================================================
+@@ -1721,6 +1722,8 @@ void CheckParameters(int argc, char *arg
+         }
+         else IFARG("--novert")
+             param_novert = true;
++        else IFARG("--crosshair")
++            param_crosshair = true;
+         else IFARG("--res")
+         {
+             if(i + 2 >= argc)
+@@ -1902,6 +1905,7 @@ void CheckParameters(int argc, char *arg
+             " --nowait               Skips intro screens\n"
+             " --windowed[-mouse]     Starts the game in a window [and grabs mouse]\n"
+             " --novert               Suppresses vertical mouse movement\n"
++            " --crosshair            Shows a crosshair\n"
+             " --res <width> <height> Sets the screen resolution\n"
+             "                        (must be multiple of 320x200 or 320x240)\n"
+             " --resf <w> <h>         Sets any screen resolution >= 320x200\n"

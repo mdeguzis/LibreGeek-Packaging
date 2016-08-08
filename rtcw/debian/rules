@@ -1,0 +1,177 @@
+#!/usr/bin/make -f
+#export DH_VERBOSE=1
+
+DEB_MAINT_CFLAGS_APPEND := -fsigned-char
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+
+include /usr/share/dpkg/default.mk
+
+%:
+	dh $@ --parallel --with=systemd
+
+ifeq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
+TARGET = release
+else
+TARGET = debug
+endif
+
+options := \
+	V=1 \
+	USE_CODEC_OPUS=1 \
+	USE_CODEC_VORBIS=1 \
+	USE_CURL=1 \
+	USE_CURL_DLOPEN=0 \
+	USE_INTERNAL_LIBS=0 \
+	USE_LOCAL_HEADERS=0 \
+	USE_OPENAL=1 \
+	USE_OPENAL_DLOPEN=0 \
+	USE_VOIP=1 \
+	BUILD_GAME_QVM=0 \
+	$(shell debian/q3arch make ${DEB_HOST_GNU_CPU} ${DEB_HOST_GNU_SYSTEM}) \
+	COPYDIR=/usr/lib/rtcw \
+	VERSION=$(DEB_VERSION)/$(DEB_VENDOR) \
+	CFLAGS='$(filter-out -fPIE -pie,$(CFLAGS)) $(CPPFLAGS)' \
+	NOTSHLIBCFLAGS='$(filter -fPIE -pie,$(CFLAGS))' \
+	LDFLAGS='$(filter-out -fPIE -pie,$(LDFLAGS))' \
+	NOTSHLIBLDFLAGS='$(filter -fPIE -pie,$(LDFLAGS))' \
+	$(NULL)
+sp_options := \
+	BR=$(CURDIR)/debian/build/sp \
+	BD=$(CURDIR)/debian/build/sp \
+	$(NULL)
+mp_options := \
+	BR=$(CURDIR)/debian/build/mp \
+	BD=$(CURDIR)/debian/build/mp \
+	$(NULL)
+
+ifeq ($(DEB_HOST_ARCH),armhf)
+options += ARM_VER_CHECK=armv7l
+else
+options += ARM_VER_CHECK=something_else
+endif
+
+override_dh_auto_build:
+	install -d debian/build/mp debian/build/sp
+	make -C SP -- $(options) $(sp_options) $(TARGET)
+	cd debian/build/sp && ln -s iowolfsp.* iowolfsp
+	make -C MP -- $(options) $(mp_options) $(TARGET)
+	cd debian/build/mp && ln -s iowolfmp.* iowolfmp
+	cd debian/build/mp && ln -s iowolfded.* iowolfded
+	sed \
+		-e 's!@IOQ3BINARY@!iowolfsp!' \
+		-e 's!@IOQ3SELF@!wolfsp!' \
+		-e 's!@IOQ3ROLE@!single-player!' \
+		< debian/scripts/rtcw.in > debian/scripts/wolfsp
+	sed \
+		-e 's!@IOQ3BINARY@!iowolfmp!' \
+		-e 's!@IOQ3SELF@!wolfmp!' \
+		-e 's!@IOQ3ROLE@!multiplayer!' \
+		< debian/scripts/rtcw.in > debian/scripts/wolfmp
+	sed \
+		-e 's!@IOQ3BINARY@!iowolfded!' \
+		-e 's!@IOQ3SELF@!wolfded!' \
+		-e 's!@IOQ3ROLE@!multiplayer server!' \
+		< debian/scripts/rtcw.in > debian/scripts/wolfded
+	chmod +x debian/scripts/wolfsp
+	chmod +x debian/scripts/wolfmp
+	chmod +x debian/scripts/wolfded
+
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+override_dh_install-arch:
+	dh_install -a
+	dh_apparmor -prtcw --profile-name=usr.lib.rtcw
+	dh_apparmor -prtcw-server --profile-name=usr.lib.rtcw.iowolfded
+endif
+
+override_dh_strip:
+	dh_strip --dbg-package=rtcw-dbg
+
+override_dh_clean:
+	dh_clean -XSP/code/game/g_func_decs.h.orig -XSP/code/game/g_funcs.h.orig
+
+override_dh_auto_clean:
+	make -C SP -- $(options) $(sp_options) clean
+	make -C MP -- $(options) $(mp_options) clean
+	find debian/build || :
+	rm -fr debian/build
+
+# ---------------------------------------------------------------------------
+
+# Not done automatically to avoid a build-dependency on inkscape
+maintainer-update-icons: \
+		debian/32/wolfsp.png \
+		debian/48/wolfsp.png \
+		debian/32/wolfmp.png \
+		debian/48/wolfmp.png \
+		$(NULL)
+	inkscape -C -w 32 -h 32 --export-png=debian/32/wolfsp.png debian/wolfsp.svg
+	inkscape -C -w 48 -h 48 --export-png=debian/48/wolfsp.png debian/wolfsp.svg
+	inkscape -C -w 32 -h 32 --export-png=debian/32/wolfmp.png debian/wolfmp.svg
+	inkscape -C -w 48 -h 48 --export-png=debian/48/wolfmp.png debian/wolfmp.svg
+
+ORIG_REPO ?= https://github.com/iortcw/iortcw
+ORIG_REL = 1.42d
+# Empty if packaging a release
+ORIG_REV =
+# Empty if ORIG_REV is
+ORIG_DATE =
+ORIG_SUFFIX = +dfsg1
+
+ifeq (${ORIG_REV},)
+	ORIG_VER := ${ORIG_REL}${ORIG_SUFFIX}
+	ORIG_EXPORT := ${ORIG_REL}
+else
+	ORIG_VER := ${ORIG_REL}+${ORIG_DATE}${ORIG_SUFFIX}
+	ORIG_EXPORT := ${ORIG_REV}
+endif
+
+get-orig-source:
+	git clone --bare --branch master ${ORIG_REPO} iortcw-${ORIG_VER}.git
+	GIT_DIR=iortcw-${ORIG_VER}.git git archive \
+		--format=tar \
+		--prefix=iortcw-${ORIG_VER}.orig/ \
+		${ORIG_EXPORT} | tar -xvf-
+	test -e iortcw-${ORIG_VER}.orig/MP/COPYING.txt || wget -O iortcw-${ORIG_VER}.orig/MP/COPYING.txt https://raw.githubusercontent.com/id-Software/RTCW-MP/master/COPYING.txt
+	test -e iortcw-${ORIG_VER}.orig/SP/COPYING.txt || wget -O iortcw-${ORIG_VER}.orig/SP/COPYING.txt https://raw.githubusercontent.com/id-Software/RTCW-SP/master/COPYING.txt
+	: # if in the Debian checkout, check that they haven't changed
+	if [ -e debian/rtcw.install ]; then \
+		e=0; \
+		diff -u MP/COPYING.txt iortcw-${ORIG_VER}.orig/MP/COPYING.txt || e=$$?; \
+		diff -u SP/COPYING.txt iortcw-${ORIG_VER}.orig/SP/COPYING.txt || e=$$?; \
+		exit $$e; \
+	fi
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/AL
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/SDL2
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/freetype-*
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/jpeg-*
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/libcurl-*
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/libogg-*
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/libs
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/libvorbis-*
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/opus-*
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/opusfile-*
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/tools/lcc
+	# Preserve ioapi.? and unzip.? (minizip) because they've been modified
+	# to use the idTech3 memory-pool implementation, to avoid leaks when
+	# loading a level is aborted. Delete the rest of zlib
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/adler32.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/crc32.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/crypt.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/gzguts.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/inffast.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/inffixed.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/inflate.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/inftrees.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/zconf.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/zlib.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/code/zlib-*/zutil.?
+	rm -rf iortcw-${ORIG_VER}.orig/*/media
+	tar --xz -cvf iortcw_${ORIG_VER}.orig.tar.xz iortcw-${ORIG_VER}.orig
+	rm -rf iortcw-${ORIG_VER}.orig
+	rm -rf iortcw-${ORIG_VER}.git
+
+# to be invoked from a git checkout with upstream github as a remote;
+# tarball ends up in ../build-area/
+maintainer-get-orig-source:
+	$(MAKE) -f debian/rules get-orig-source ORIG_REPO=$$(pwd)/.git
+	mv -i -v iortcw_${ORIG_VER}.orig.tar.xz ../build-area/

@@ -1,0 +1,26 @@
+# Single player
+debian/build/sp/iowolfsp*		usr/lib/rtcw
+debian/build/sp/iowolfsp.*		usr/lib/rtcw
+debian/build/sp/renderer*.so		usr/lib/rtcw
+debian/build/sp/main/*.so		usr/lib/rtcw/main
+debian/wolfsp.desktop			usr/share/applications
+debian/scripts/wolfsp			usr/games
+
+# Required for SteamOS, since Exec line cannot have spaces
+wolfsp-steamos				usr/share/games
+wolfmp-steamos				usr/share/games
+
+# Multiplayer client
+debian/build/mp/iowolfmp*		usr/lib/rtcw
+debian/build/mp/iowolfmp.*		usr/lib/rtcw
+debian/build/mp/renderer*.so		usr/lib/rtcw
+debian/wolfmp.desktop			usr/share/applications
+debian/scripts/wolfmp			usr/games
+
+# Shared between clients
+debian/apparmor.d/usr.lib.rtcw		etc/apparmor.d
+debian/need-data.sh			usr/lib/rtcw
+debian/32/*.png				usr/share/icons/hicolor/32x32/apps
+debian/48/*.png				usr/share/icons/hicolor/48x48/apps
+debian/*.svg				usr/share/icons/hicolor/scalable/apps
+rtcw.png				usr/share/pixmaps

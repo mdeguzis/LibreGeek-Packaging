@@ -1,0 +1,30 @@
+#!/bin/sh
+
+set -e
+
+case "$1" in
+  configure)
+    if ! getent passwd rtcw-server >/dev/null; then
+      adduser --disabled-password --quiet --system \
+        --home /var/games/rtcw-server --no-create-home \
+        --gecos "Return to Castle Wolfenstein dedicated server" \
+        --ingroup games rtcw-server
+    fi
+    # Unlock account, if it was locked by our postrm
+    if [ -f /etc/shadow ]; then
+      usermod -U -e '' rtcw-server
+    else
+      usermod -U rtcw-server
+    fi
+    install -d /var/games
+    install -d -o rtcw-server -g games /var/games/rtcw-server
+  ;;
+  abort-upgrade|abort-remove|abort-deconfigure)
+  ;;
+  *)
+    echo "postinst called with unknown argument \`$1'" >&2
+    exit 1
+  ;;
+esac
+
+#DEBHELPER#

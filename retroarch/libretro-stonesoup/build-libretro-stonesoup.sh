@@ -19,9 +19,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -53,8 +53,8 @@ GIT_URL="https://github.com/meancoot/stonesoup-libretro"
 branch="master"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
@@ -64,9 +64,9 @@ PKGVER="0.15.2"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
-urgency="low"
+URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
@@ -142,9 +142,9 @@ main()
 	# Reset changelog and copy in old one
 	rm -f "${SRCDIR}/debian/changelog"
 	
-	if [[ -f "${scriptdir}/changelog" ]]; then
+	if [[ -f "${SCRIPTDIR}/changelog" ]]; then
 	
-		cp "${scriptdir}/changelog" "${SRCDIR}/debian"
+		cp "${SCRIPTDIR}/changelog" "${SRCDIR}/debian"
 		
 	fi
 
@@ -157,14 +157,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest source push upstream, as of ${date_short}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
+		"Update to the latest source push upstream, as of ${DATE_SHORT}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}" \
-		"Update to the latest source push upstream, as of ${date_short}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
+		"Update to the latest source push upstream, as of ${DATE_SHORT}"
 		nano "debian/changelog"
 
 	fi
@@ -186,10 +186,10 @@ main()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 	
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
@@ -223,7 +223,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

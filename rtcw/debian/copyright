@@ -1,0 +1,399 @@
+Format: http://dep.debian.net/deps/dep5/
+Upstream-Name: iortcw
+License: GPL-3+-with-idsoft-extra-terms
+Files-Excluded:
+ */code/AL
+ */code/SDL2
+ */code/freetype-*
+ */code/jpeg-*
+ */code/libcurl-*
+ */code/libogg-*
+ */code/libs
+ */code/libvorbis-*
+ */code/opus-*
+ */code/opusfile-*
+ */code/tools/lcc
+ */code/zlib-*/adler32.?
+ */code/zlib-*/crc32.?
+ */code/zlib-*/crypt.?
+ */code/zlib-*/gzguts.?
+ */code/zlib-*/inffast.?
+ */code/zlib-*/inffixed.?
+ */code/zlib-*/inflate.?
+ */code/zlib-*/inftrees.?
+ */code/zlib-*/zconf.?
+ */code/zlib-*/zlib.?
+ */code/zlib-*/zutil.?
+ */media
+Source: https://github.com/iortcw/iortcw/
+  The "original" tarball is based on a git export, edited to leave out
+  non-free tools, third-party libraries etc. as described by the
+  get-orig-source target in debian/rules; you can use
+  'make -f debian/rules get-orig-source' to repeat this process.
+  .
+  Some of the omitted libraries are DFSG-free themselves, but since we need
+  to repack the tarball anyway, omitting them too means we don't need to
+  comply with as many licenses.
+  .
+  The COPYING.txt files are not currently present in iortcw git.
+  The versions in the orig.tar.gz were taken from the id Software
+  code-drop, as made available by id Software on GitHub.
+
+Files:
+ *
+Copyright:
+ © 1999-2010 id Software LLC, a ZeniMax Media company
+ © 2014-2015 Donny Springer
+ © 2014-2015 Zack Middleton
+ © James Canete
+ © Ryan C. Gordon
+ © Andreas Kohn
+ © Joerg Dietrich
+ © Stuart Dalton
+ © Vincent S. Cojot
+ © optical
+ © Aaron Gyes
+ © Ludwig Nussel
+ © Thilo Schulz
+ © Tim Angus
+ © Tony J. White
+ © Zachary J. Slater
+License: GPL-3+-with-idsoft-extra-terms
+
+Files:
+ */code/asm/ftola.asm
+ */code/asm/ftola.c
+ */code/asm/matha.s
+ */code/asm/qasm-inline.h
+ */code/asm/qasm.h
+ */code/asm/snapvector.asm
+ */code/asm/snapvector.c
+ */code/asm/snd_mixa.s
+ */code/asm/vm_x86_64.asm
+ *code/client/cl_avi.c
+ */code/client/snd_*
+ */code/null/mac_net.c
+ */code/null/null_glimp.c
+ */code/null/null_net.c
+ */code/qcommon/net_ip.c
+ */code/qcommon/q_platform.h
+ */code/qcommon/vm*.?
+ */code/rend*/qgl.h
+ */code/rend*/iqm.h
+ */code/rend*/tr_bloom.c
+ */code/rend*/tr_image_*.c
+ */code/rend*/tr_subs.c
+ */code/rend2/tr_extensions.c
+ */code/rend2/tr_extramath.c
+ */code/rend2/tr_extramath.h
+ */code/rend2/tr_extratypes.h
+ */code/rend2/tr_fbo.?
+ */code/rend2/tr_fbo.?
+ */code/rend2/tr_glsl.c
+ */code/rend2/tr_model_iqm.c
+ */code/rend2/tr_postprocess.?
+ */code/rend2/tr_vbo.c
+ */code/sdl/*
+ */code/sys/*
+ */code/tools/asm/*
+Copyright:
+ © 1994-2007 Free Software Foundation, Inc.
+ © 1997-1998 Andrew Tridgell
+ © 1999-2005 Id Software, Inc.
+ © 2005-2006 Tim Angus
+ © 2005-2006 Joerg Dietrich
+ © 2005 Stuart Dalton
+ © 2006-2009 Robert Beckebans
+ © 2006 Kirk Barnes
+ © 2006 Tony J. White
+ © 2008 Przemyslaw Iskra
+ © 2009-2011 James Canete
+ © 2009-2011 Andrei Drexler
+ © 2009-2011 Richard Allen
+ © 2009 David S. Miller
+ © 2011 Thilo Schulz
+ © 2011 Matthias Bentrup
+ © 2013-2014 SUSE Linux Products GmbH
+License: GPL-2+
+
+Files:
+ debian/*
+Copyright:
+ © 2010 Bruno Kleinert
+ © 2010-2015 Simon McVittie
+ © 2015 Alexandre Detiste
+License: GPL-2+
+
+Files:
+ debian/apparmor.d/*
+ debian/q3arch
+Copyright:
+ © 2009-2016 Simon McVittie <smcv@debian.org>
+License: permissive
+ Copying and distribution of this file, with or without modification, are
+ permitted in any medium without royalty provided this notice is preserved.
+ This file is offered as-is, without any warranty.
+
+Files:
+ */code/client/snd_adpcm.c
+Copyright:
+ © 1992 Stichting Mathematisch Centrum, Amsterdam, The Netherlands
+License: snd_adpcm-permissive
+
+Files:
+  */code/zlib-*/unzip.?
+  */code/zlib-*/ioapi.?
+  */code/qcommon/puff.?
+  */code/client/libmumblelink.?
+Copyright:
+  © 1990-2000 Info-ZIP
+  © 1995-2005 Mark Adler
+  © 1995-2005 Jean-loup Gailly
+  © 1998-2010 Gilles Vollant
+  © 1998-2010 Even Rouault
+  © 1998-2010 Mathias Svensson
+  © 2003 Terry Thorsen
+  © 2006 Joerg Dietrich
+  © 2008 Ludwig Nussel
+License: zlib
+
+Files:
+ */code/qcommon/md5.c
+Copyright: no copyright is claimed
+License: not-applicable
+  The algorithm is due to Ron Rivest.  This code was
+  written by Colin Plumb in 1993, no copyright is claimed.
+
+Files:
+ */code/game/bg_lib.c
+Copyright:
+ © 1999-2010 id Software LLC, a ZeniMax Media company
+ © 1992-1993 The Regents of the University of California
+ © 1995 Patrick Powell
+License: GPL-3+-with-idsoft-extra-terms and BSD-3-clause and Powell-snprintf
+
+Files:
+ MP/code/qcommon/pbmd5.c
+Copyright:
+ © 1990, RSA Data Security, Inc.
+License: RSA-MD5
+
+License: GPL-3+-with-idsoft-extra-terms
+ There are two very similar license grants for code originating
+ from the single-player or multiplayer engine, which are grouped
+ together as one license for the purposes of this copyright file.
+ The "additional terms" are among those allowed by the GPL version 3,
+ section 7; they are the same as in the Doom 3 source code on which
+ dhewm3 and rbdoom3bfg are based.
+ .
+ You can find the GPL license text on a Debian system under
+ /usr/share/common-licenses/GPL-3.
+ .
+ ==== License grant ===================================================
+ .
+ [This is the single player version. The multiplayer version is
+ identical, except for the replacement of "single player" and "SP"
+ with "multiplayer" and "MP".]
+ .
+ This file is part of the Return to Castle Wolfenstein single player
+ GPL Source Code (‘RTCW SP Source Code’).
+ .
+ RTCW SP Source Code is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ RTCW SP Source Code is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with RTCW SP Source Code.  If not, see <http://www.gnu.org/licenses/>.
+ .
+ In addition, the RTCW SP Source Code is also subject to certain
+ additional terms. You should have received a copy of these additional
+ terms immediately following the terms and conditions of the GNU General
+ Public License which accompanied the RTCW SP Source Code.  If not,
+ please request a copy in writing from id Software at the address below.
+ .
+ If you have questions concerning this license or the applicable
+ additional terms, you may contact in writing id Software LLC, c/o
+ ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
+ .
+ ==== Additional terms ================================================
+ .
+ [This is the single player version. The multiplayer version is
+ identical, except for the replacement of "single player" and "SP"
+ with "multiplayer" and "MP".]
+ .
+ ADDITIONAL TERMS APPLICABLE TO THE RETURN TO CASTLE WOLFENSTEIN
+ SINGLE PLAYER GPL SOURCE CODE.
+ .
+ The following additional terms (“Additional Terms”) supplement and
+ modify the GNU General Public License, Version 3 (“GPL”) applicable
+ to the Return to Castle Wolfenstein single player GPL Source Code (“RTCW
+ SP Source Code”).  In addition to the terms and conditions of the GPL,
+ the RTCW SP Source Code is subject to the further restrictions below.
+ .
+ 1. Replacement of Section 15.  Section 15 of the GPL shall be deleted
+ in its entirety and replaced with the following:
+ .
+ “15. Disclaimer of Warranty.
+ .
+ THE PROGRAM IS PROVIDED WITHOUT ANY WARRANTIES, WHETHER EXPRESSED OR
+ IMPLIED, INCLUDING, WITHOUT LIMITATION, IMPLIED WARRANTIES OF FITNESS
+ FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, TITLE AND MERCHANTABILITY.
+ THE PROGRAM IS BEING DELIVERED OR MADE AVAILABLE “AS IS”, “WITH
+ ALL FAULTS” AND WITHOUT WARRANTY OR REPRESENTATION.  THE ENTIRE RISK
+ AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.  SHOULD THE
+ PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF ALL NECESSARY SERVICING,
+ REPAIR OR CORRECTION.”
+ .
+ 2. Replacement of Section 16.  Section 16 of the GPL shall be deleted
+ in its entirety and replaced with the following:
+ .
+ “16. LIMITATION OF LIABILITY.
+ .
+ UNDER NO CIRCUMSTANCES SHALL ANY COPYRIGHT HOLDER OR ITS AFFILIATES,
+ OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS THE PROGRAM AS PERMITTED
+ ABOVE, BE LIABLE TO YOU, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+ OTHERWISE, FOR ANY DAMAGES OR OTHER LIABILITY, INCLUDING ANY GENERAL,
+ DIRECT, INDIRECT, SPECIAL, INCIDENTAL, CONSEQUENTIAL OR PUNITIVE DAMAGES
+ ARISING FROM, OUT OF OR IN CONNECTION WITH THE USE OR INABILITY TO
+ USE THE PROGRAM OR OTHER DEALINGS WITH THE PROGRAM(INCLUDING BUT NOT
+ LIMITED TO LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES
+ SUSTAINED BY YOU OR THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE
+ WITH ANY OTHER PROGRAMS), WHETHER OR NOT ANY COPYRIGHT HOLDER OR SUCH
+ OTHER PARTY RECEIVES NOTICE OF ANY SUCH DAMAGES AND WHETHER OR NOT SUCH
+ DAMAGES COULD HAVE BEEN FORESEEN.”
+ .
+ 3. LEGAL NOTICES; NO TRADEMARK LICENSE; ORIGIN.  You must reproduce
+ faithfully all trademark, copyright and other proprietary and legal
+ notices on any copies of the Program or any other required author
+ attributions.  This license does not grant you rights to use any
+ copyright holder or any other party’s name, logo, or trademarks.
+ Neither the name of the copyright holder or its affiliates, or any
+ other party who modifies and/or conveys the Program may be used to
+ endorse or promote products derived from this software without specific
+ prior written permission.  The origin of the Program must not be
+ misrepresented; you must not claim that you wrote the original Program.
+ Altered source versions must be plainly marked as such, and must not
+ be misrepresented as being the original Program.
+ .
+ 4. INDEMNIFICATION.  IF YOU CONVEY A COVERED WORK AND AGREE WITH ANY
+ RECIPIENT OF THAT COVERED WORK THAT YOU WILL ASSUME ANY LIABILITY
+ FOR THAT COVERED WORK, YOU HEREBY AGREE TO INDEMNIFY, DEFEND AND
+ HOLD HARMLESS THE OTHER LICENSORS AND AUTHORS OF THAT COVERED WORK
+ FOR ANY DAMAEGS, DEMANDS, CLAIMS, LOSSES, CAUSES OF ACTION, LAWSUITS,
+ JUDGMENTS EXPENSES (INCLUDING WITHOUT LIMITATION REASONABLE ATTORNEYS'
+ FEES AND EXPENSES) OR ANY OTHER LIABLITY ARISING FROM, RELATED TO OR
+ IN CONNECTION WITH YOUR ASSUMPTIONS OF LIABILITY.
+
+License: GPL-2+
+ This file is part of Quake III Arena source code.
+ .
+ Quake III Arena source code is free software; you can redistribute it
+ and/or modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the License,
+ or (at your option) any later version.
+ .
+ Quake III Arena source code is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with Quake III Arena source code; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+Comment:
+ Some files have the same license grant but with "XreaL" or "Reaction"
+ instead of "Quake III Arena".
+ .
+ You can find the GPL license text on a Debian system under
+ /usr/share/common-licenses/GPL-2.
+
+License: zlib
+ This software is provided 'as-is', without any express or implied
+ warranty.  In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ .
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ .
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution.
+
+License: snd_adpcm-permissive
+ Permission to use, copy, modify, and distribute this software and its
+ documentation for any purpose and without fee is hereby granted,
+ provided that the above copyright notice appear in all copies and that
+ both that copyright notice and this permission notice appear in
+ supporting documentation, and that the names of Stichting Mathematisch
+ Centrum or CWI not be used in advertising or publicity pertaining to
+ distribution of the software without specific, written prior permission.
+ .
+ STICHTING MATHEMATISCH CENTRUM DISCLAIMS ALL WARRANTIES WITH REGARD TO
+ THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ FITNESS, IN NO EVENT SHALL STICHTING MATHEMATISCH CENTRUM BE LIABLE
+ FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT
+ OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+License: BSD-3-clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the University nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ SUCH DAMAGE.
+
+License: Powell-snprintf
+ This code is based on code written by Patrick Powell (papowell@astart.com)
+ It may be used for any purpose as long as this notice remains intact
+ on all source code distributions
+Comment:
+ The same code appears in ccache, mutt, etc.
+
+License: RSA-MD5
+ License to copy and use this software is granted provided that
+ it is identified as the "RSA Data Security, Inc. MD5 Message
+ Digest Algorithm" in all material mentioning or referencing this
+ software or this function.
+ .
+ License is also granted to make and use derivative works
+ provided that such works are identified as "derived from the RSA
+ Data Security, Inc. MD5 Message Digest Algorithm" in all
+ material mentioning or referencing the derived work.
+ .
+ RSA Data Security, Inc. makes no representations concerning
+ either the merchantability of this software or the suitability
+ of this software for any particular purpose.  It is provided "as
+ is" without express or implied warranty of any kind.
+ .
+ These notices must be retained in any copies of any part of this
+ documentation and/or software.

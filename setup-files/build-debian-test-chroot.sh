@@ -99,7 +99,7 @@ if [[ "$final_opts" == "--remove" ]]; then
 		esac
 	done
 
-	cd "$scriptdir"
+	cd "$SCRIPTDIR"
 fi
 
 

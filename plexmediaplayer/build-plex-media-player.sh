@@ -17,9 +17,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -52,8 +52,8 @@ GIT_URL="https://github.com/plexinc/plex-media-player"
 TARGET="v1.1.2.359-2b757d45"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
@@ -67,8 +67,8 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
-urgency="low"
-maintainer="ProfessorKaos64"
+URGENCY="low"
+MAINTAINER="ProfessorKaos64"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
@@ -131,7 +131,7 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# Add extra files for orig tarball
-	cp -r "${scriptdir}/plex-media-player.png" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/plex-media-player.png" "${GIT_DIR}"
 	
 	# enter git dir
 	cd "${GIT_DIR}"
@@ -148,7 +148,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder and other files
-        cp -r "${scriptdir}/debian" "${GIT_DIR}"
+        cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
 
 	# enter source dir
 	cd "${GIT_DIR}"
@@ -162,13 +162,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Update to latest commit [${latest_commit}]"
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to latest commit [${latest_commit}]"
 		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 
 	fi
@@ -185,10 +185,10 @@ main()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
@@ -222,7 +222,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

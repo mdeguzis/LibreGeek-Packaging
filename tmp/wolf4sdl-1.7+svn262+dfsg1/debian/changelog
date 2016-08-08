@@ -1,0 +1,171 @@
+wolf4sdl (1.7+svn262+dfsg1-2) unstable; urgency=low
+
+  [ Jon Dowland ]
+  * remove myself from uploaders
+
+  [ Fabian Greffrath ]
+  * Fix typo in README.Debian.
+  * Bump debhelper compatibility to v9.
+  * Add TODO to README.source.
+  * Add CPPFLAGS to CFLAGS.
+  * Apply a series of patches to improve mouse control:
+    + Suppress vertical mouse movement when the "--novert" parameter is given.
+    + Show a crosshair when the "--crosshair" parameter is given.
+    + Change weapons with the mouse wheel.
+    + Toggle autorun when both Shift keys are pressed.
+    + Toggle autostrafe for the keyboard when both Alt keys are pressed.
+      By the way, accept the German AltGr key as a right Alt key.
+  * Adjust manpage accordingly.
+  * Replace potentially non-free wolf4sdl.xpm with a self-drawn alternative
+    and add a reproduction rule to debian/rules (Closes: #718287).
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Thu, 05 Sep 2013 17:02:12 +0200
+
+wolf4sdl (1.7+svn262+dfsg1-1) unstable; urgency=low
+
+  [ Fabian Greffrath ]
+  * Imported Upstream version 1.7+svn262+dfsg1
+  * Add debian/README.source and document the removal of the
+    MAME OPL2 emulator sources.
+  * Update debian/copyright with the copyright information of the
+    GPL'ed OPL2/3 emulator from DOSBox.
+  * Change section to contrib/games (the required data files are
+    still non-free) from non-free/games. :)
+  * Build with GPL=1.
+  * Refresh all patches.
+  * Remove debian/patches/32-mingw.patch, applied upstream.
+  * Remove another compiler warning in 21-compiler-warnings.patch.
+
+  [ Jon Dowland ]
+  * Bump standards version.
+  * Tweak watch file to exclude '+dfsg1' from versions.
+
+ -- Jon Dowland <jmtd@debian.org>  Mon, 28 Nov 2011 13:32:28 +0000
+
+wolf4sdl (1.7-2) unstable; urgency=low
+
+  * Eliminate the last remaining compiler warning.
+  * Build less verbosely again, it only adds to confusion.
+  * Change license of the original cource code to GPL-2.0+ as confirmed
+    via e-mail by John Carmack himself. Still non-free, though, because
+    the Mame Software License does not allow commercial use.
+  * Clarify relation to game-data-packager and its generated packages
+    in debian/control.
+  * Export CFLAGS LDFLAGS for them to take effect as per dpkg (>= 1.16.1).
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Wed, 05 Oct 2011 15:31:57 +0200
+
+wolf4sdl (1.7-1) unstable; urgency=low
+
+  * Imported Upstream version 1.7
+  * Fix debian/watch file
+  * Remove wl_shade.{d,o} in the clean rule
+  * Replace wolf4sdl.xpm with the Windows icon from upstream SVN
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Tue, 28 Jun 2011 14:22:03 +0200
+
+wolf4sdl (1.7~svn255-0fab2) unstable; urgency=low
+
+  [ Jon Dowland ]
+  * add myself to uploaders
+  * Recommend: game-data-packager (which can build wolf3d-data);
+    Suggests: wolf3d-data
+  * Update download URL in copyright file
+
+  [ Fabian Greffrath ]
+  * Add "-fno-toplevel-reorder" to the CFLAGS to ensure save game
+    compatibility between different builds. Thanks to Hans de Goede
+    <j.w.r.degoede@gmail.com> for pointing this out!
+  * Update 21-compiler-warnings.patch with new warnings from g++-4.6.
+  * Clean up debian/rules.
+  * Build more verbosely.
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Tue, 03 May 2011 01:22:02 +0200
+
+wolf4sdl (1.7~svn255-0fab1) unstable; urgency=low
+
+  [ Jon Dowland ]
+  * spelling correction
+  * line-wrap changelog
+
+  [ Fabian Greffrath ]
+  * New upstream SVN snapshot
+    (revision 255 of <svn://tron.homeunix.org:3690/wolf3d/trunk>).
+  * Refresh all patches.
+  * Drop 11-configdir.patch, implemented differently upstream.
+  * Drop 22-compile-fixes.patch, first chunk applied upstream,
+    second chunk unnecessary since dropping 11-configdir.patch.
+  * 31-pc-speaker.patch: New patch to enable PC speaker emulation,
+    adapt 21-compiler-warnings.patch accordingly.
+  * 32-mingw.patch: New patch to fix portability issues on MinGW.
+  * Add .gitignore, debian/gbp.conf and debian/source/local-options
+    helper files.
+  * Fix 21-compiler-warnings.patch to silence the compiler again.
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Tue, 19 Apr 2011 00:08:44 +0200
+
+wolf4sdl (1.6-2) experimental; urgency=low
+
+  * Non-maintainer upload.
+  * bump version to satisfy dak
+
+ -- Jon Dowland <jmtd@debian.org>  Thu, 24 Mar 2011 15:35:12 +0000
+
+wolf4sdl (1.6-1) experimental; urgency=low
+
+  * Initial release (Closes: #615056).
+  * Target at experimental until game-data-packager is able to
+    create appropriate data packages.
+  * Set Maintainer to Debian Games Team and add myself to Uploaders.
+  * Fix upstream Homepage.
+  * Add Vcs-* fields.
+  * Play safe and run "make clean" between the builds.
+  * Fix debian/watch file.
+  * Document the missing game data files in both debian/control and
+    README.Debian.
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Mon, 28 Feb 2011 13:06:25 +0100
+
+wolf4sdl (1.6-0fab3) unstable; urgency=low
+
+  * Add some "sleep 1" between the different variant builds in debian/rules
+    to avoid race conditions when e.g. version.h and wl_state.cpp have been
+    modified within the same second.
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Fri, 25 Feb 2011 17:11:14 +0100
+
+wolf4sdl (1.6-0fab2) unstable; urgency=low
+
+  * Build five variants of Wolf4SDL:
+    + Wolf3d Full v1.4 Apogee (with ReadThis)
+    + Wolf3d Full v1.4 GT/ID/Activision
+    + Wolf3d Shareware v1.4
+    + Spear of Destiny Full and Mission Disks
+    + Spear of Destiny Demo
+  * Handle variants via update-alternatives, document this in the manual page
+    and in README-Debian, add symlinks for the manual pages.
+  * Add lintian overrides for desktop-command-not-in-package
+    and menu-command-not-in-package.
+  * Quit if getenv("HOME") returns NULL,
+    thanks Hans de Goede <hdegoede@redhat.com>.
+  * Add a patch to get things to build with very recent gcc/glibc,
+    thanks Hans de Goede <hdegoede@redhat.com>.
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Mon, 03 Jan 2011 13:49:27 +0100
+
+wolf4sdl (1.6-0fab1) unstable; urgency=low
+
+  * Initial release.
+  * Build the Wolf3d Shareware v1.4 variant.
+  * Enable shading support (just because I like it).
+  * Use /usr/share/games/wolf3d for data files.
+  * Use ~/.wolf4sdl for config files and saved games.
+  * Rename game binary to wolf4sdl from wolf3d.
+  * Fix some compiler warnings so the code compiles cleanly with
+    g++-4.5 and CFLAGS+="-Wall -Wno-sign-compare -Wno-switch".
+  * Add and install wolf4sdl.6 manual page.
+  * Install README* documentation.
+  * Add and install wolf4sdl.xpm icon based on NewWolf.ico.
+  * Add and install wolf4sdl.menu and wolf4sdl.desktop files.
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Wed, 22 Dec 2010 11:29:17 +0100

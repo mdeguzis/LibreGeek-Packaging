@@ -1,0 +1,6 @@
+Disable-client-side-auto-download-by-default.patch
+File-access-methods-prevent-overwriting-DLLs-CVE-201.patch
+Remove-support-for-downloading-executable-updates.patch
+#Pick-up-date-from-SOURCE_DATE_EPOCH-for-reproducible-buil.patch
+Fix-some-spelling-errors.patch
+Introduce-NOTSHLIBLDFLAGS-used-to-link-executables-only.patch

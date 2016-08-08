@@ -1,0 +1,6 @@
+debian/apparmor.d/usr.lib.rtcw.iowolfded etc/apparmor.d
+debian/build/mp/iowolfded              usr/lib/rtcw
+debian/build/mp/iowolfded.*            usr/lib/rtcw
+debian/scripts/wolfded                 usr/games
+debian/rtcw-server@.service            lib/systemd/system
+debian/server.cfg                      etc/rtcw-server

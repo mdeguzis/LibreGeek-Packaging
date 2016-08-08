@@ -1,0 +1,75 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          rtcw-server
+# Required-Start:    $remote_fs $network
+# Required-Stop:     $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Return to Castle Wolfenstein game server
+# Description:       Dedicated server for Return to Castle Wolfenstein,
+#                    a 3D first-person shooter game
+### END INIT INFO
+
+PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
+NAME="rtcw-server"
+DAEMON="/usr/games/wolfded"
+DESC="Return to Castle Wolfenstein dedicated server"
+PIDFILE="/var/run/$NAME.pid"
+BINARY="/usr/lib/rtcw/iowolfded"
+USER="$NAME"
+DAEMON_OPTS=""
+
+test -x $DAEMON || exit 0
+
+. /lib/lsb/init-functions
+
+# Include defaults if available
+if [ -f /etc/default/$NAME ] ; then
+    . /etc/default/$NAME
+fi
+
+q3_start() {
+    start-stop-daemon --start --quiet --pidfile $PIDFILE --oknodo \
+        --background --exec $BINARY --startas $DAEMON \
+        --make-pidfile --chuid $USER \
+        -- \
+        +set com_homepath server.iortcw \
+        $DAEMON_OPTS \
+        +exec etc/rtcw-server/server.cfg \
+        > /dev/null 2>&1 || return 1
+    return 0
+}
+
+q3_stop() {
+    start-stop-daemon --stop --quiet --pidfile $PIDFILE \
+        --oknodo --exec $BINARY || return 1
+    rm -f $PIDFILE
+    return 0
+}
+
+case "$1" in
+    start)
+        log_begin_msg "Starting $DESC: $NAME"
+        q3_start
+        log_end_msg $?
+        ;;
+    stop)
+        log_begin_msg "Stopping $DESC: $NAME"
+        q3_stop
+        log_end_msg $?
+        ;;
+    restart|force-reload)
+        log_begin_msg "Restarting $DESC: $NAME"
+        q3_stop && sleep 1 && q3_start
+        log_end_msg $?
+        ;;
+    status)
+        status_of_proc -p "$PIDFILE" "$DAEMON" "$NAME" && exit 0 || exit $?
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart|force-reload|status}" >&2
+        exit 1
+        ;;
+esac
+
+exit 0

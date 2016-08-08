@@ -1,0 +1,9 @@
+02-enable-shading.patch
+10-datadir.patch
+21-compiler-warnings.patch
+31-pc-speaker.patch
+40-novert.patch
+41-crosshair.patch
+42-mousewheel.patch
+43-autorun.patch
+44-autostrafe.patch

@@ -1,0 +1,81 @@
+iortcw (1:1.42+20160807git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit 3edfc3e
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 07 Aug 2016 14:19:29 -0700
+
+iortcw (1.42d+dfsg1-3) unstable; urgency=medium
+
+  * Standards-Version: 3.9.8 (no changes required)
+  * d/rules: remove misleading leftover comment
+  * Upload to unstable
+
+ -- Simon McVittie <smcv@debian.org>  Sun, 17 Jul 2016 20:25:40 +0100
+
+iortcw (1.42d+dfsg1-2) experimental; urgency=medium
+
+  * apparmor: add a child profile for the "safe mode" popups (tested
+    with xmessage and zenity - kdialog will probably need more rules)
+  * apparmor: don't try to run dh_apparmor on non-Linux ports
+  * apparmor: #include the local snippets created by dh_apparmor
+  * Add patch to replace __DATE__ with $SOURCE_DATE_EPOCH if set;
+    that variable is set automatically by recent debhelper
+  * Add Documentation key to the systemd services
+  * Add a patch fixing some spelling mistakes in user-visible messages
+    (but not "persistant", which is unfortunately part of the API)
+  * Enable full compiler hardening
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 21 Mar 2016 09:39:40 +0000
+
+iortcw (1.42d+dfsg1-1) experimental; urgency=medium
+
+  * New upstream release
+    - Please note that this upstream release changes the location of game
+      files from ~/.iortcw to ~/.wolf.
+    - debian/copyright: update
+    - debian/rules: update get-orig-source
+  * debian/scripts/rtcw.in: use ~/.wolf even in non-release snapshots that
+    would normally use ~/.iortcw, for consistency
+  * Add a patch to force the "autoupdate" mechanism to be disabled.
+    This was off by default anyway, but if enabled, it would download and
+    execute arbitrary code from Activision servers without authentication.
+  * Switch Vcs-Git to https (see #810378)
+  * Standards-Version: 3.9.7 (no changes needed)
+  * Add experimental AppArmor profiles to protect the client and server,
+    both in "complain" mode for now
+
+ -- Simon McVittie <smcv@debian.org>  Tue, 08 Mar 2016 08:00:37 +0000
+
+iortcw (1.42b+20151119+dfsg1-1) experimental; urgency=medium
+
+  * New upstream snapshot
+    - build-depend on Freetype which is now enabled by default upstream
+    - enable the new ARMv7 JIT on armhf, forcibly disable it elsewhere
+      (avoiding uname)
+    - debian/copyright: update
+  * debian/rules: maintainer-get-orig-source: put the tarball in
+    ../build-area
+
+ -- Simon McVittie <smcv@debian.org>  Sat, 21 Nov 2015 23:11:58 +0000
+
+iortcw (1.42b+20150930+dfsg1-1) experimental; urgency=low
+
+  * New package for Return to Castle Wolfenstein (Closes: #773742)
+    - game-data-packager (>= 40) can package the required non-free data
+  * Packaging based on ioquake3
+  * Initial Debian changes, similar to ioquake3:
+    - exclude non-Free lcc compiler (licensed for non-commercial use only)
+    - exclude {MP,SP}/media: licensing unclear, and not needed
+      (game-data-packager downloads and repackages an unofficial content patch
+      from iortcw at the same time it downloads the official patch)
+    - exclude Free third-party libraries too, to simplify license compliance,
+      and use system copies of those libraries instead:
+      cURL, Freetype, libjpeg, libogg, OpenAL, libopus, SDL2, libvorbis, zlib
+    - run in a window by default per Games Team policy
+    - disable auto-downloading by default since it is a security risk
+    - reinstate checks for executable file overwriting and remove code to
+      unpack arbitrary native code from (potentially auto-downloaded)
+      game mods, fixing vulnerabilities similar to CVE-2011-3012 but
+      breaking some mods as an unfortunate but unavoidable side-effect
+
+ -- Simon McVittie <smcv@debian.org>  Mon, 05 Oct 2015 00:17:58 +0100

@@ -1,0 +1,89 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Mon, 21 Mar 2016 08:57:10 +0000
+Subject: Introduce NOTSHLIBLDFLAGS, used to link executables only
+
+This can be used for LDFLAGS that would be inappropriate for shared
+libraries, such as the "-fPIE -pie" used to link position-independent
+executables. PIEs make it more difficult to exploit various classes
+of security vulnerability.
+---
+ MP/Makefile | 8 ++++----
+ SP/Makefile | 8 ++++----
+ 2 files changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/MP/Makefile b/MP/Makefile
+index 6bda6f7..cf5effc 100644
+--- a/MP/Makefile
++++ b/MP/Makefile
+@@ -2209,7 +2209,7 @@ endif
+ ifneq ($(USE_RENDERER_DLOPEN),0)
+ $(B)/$(CLIENTBIN)$(FULLBINEXT): $(Q3OBJ) $(LIBSDLMAIN)
+ 	$(echo_cmd) "LD $@"
+-	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) \
++	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) $(NOTSHLIBLDFLAGS) \
+ 		-o $@ $(Q3OBJ) \
+ 		$(LIBSDLMAIN) $(CLIENT_LIBS) $(LIBS)
+ 
+@@ -2225,13 +2225,13 @@ $(B)/renderer_mp_rend2_$(SHLIBNAME): $(Q3R2OBJ) $(Q3R2STRINGOBJ) $(JPGOBJ) $(FTO
+ else
+ $(B)/$(CLIENTBIN)$(FULLBINEXT): $(Q3OBJ) $(Q3ROBJ) $(JPGOBJ) $(FTOBJ) $(LIBSDLMAIN)
+ 	$(echo_cmd) "LD $@"
+-	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) \
++	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) $(NOTSHLIBLDFLAGS) \
+ 		-o $@ $(Q3OBJ) $(Q3ROBJ) $(JPGOBJ) $(FTOBJ) \
+ 		$(LIBSDLMAIN) $(CLIENT_LIBS) $(RENDERER_LIBS) $(LIBS)
+ 
+ $(B)/$(CLIENTBIN)_rend2$(FULLBINEXT): $(Q3OBJ) $(Q3R2OBJ) $(Q3R2STRINGOBJ) $(JPGOBJ) $(FTOBJ) $(LIBSDLMAIN)
+ 	$(echo_cmd) "LD $@"
+-	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) \
++	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) $(NOTSHLIBLDFLAGS) \
+ 		-o $@ $(Q3OBJ) $(Q3R2OBJ) $(Q3R2STRINGOBJ) $(JPGOBJ) $(FTOBJ) \
+ 		$(LIBSDLMAIN) $(CLIENT_LIBS) $(RENDERER_LIBS) $(LIBS)
+ endif
+@@ -2380,7 +2380,7 @@ endif
+ 
+ $(B)/$(SERVERBIN)$(FULLBINEXT): $(Q3DOBJ)
+ 	$(echo_cmd) "LD $@"
+-	$(Q)$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(Q3DOBJ) $(LIBS)
++	$(Q)$(CC) $(CFLAGS) $(LDFLAGS) $(NOTSHLIBLDFLAGS) -o $@ $(Q3DOBJ) $(LIBS)
+ 
+ 
+ 
+diff --git a/SP/Makefile b/SP/Makefile
+index 5c2f8a3..85d4d92 100644
+--- a/SP/Makefile
++++ b/SP/Makefile
+@@ -2180,7 +2180,7 @@ endif
+ ifneq ($(USE_RENDERER_DLOPEN),0)
+ $(B)/$(CLIENTBIN)$(FULLBINEXT): $(Q3OBJ) $(LIBSDLMAIN)
+ 	$(echo_cmd) "LD $@"
+-	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) \
++	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) $(NOTSHLIBLDFLAGS) \
+ 		-o $@ $(Q3OBJ) \
+ 		$(LIBSDLMAIN) $(CLIENT_LIBS) $(LIBS)
+ 
+@@ -2196,13 +2196,13 @@ $(B)/renderer_sp_rend2_$(SHLIBNAME): $(Q3R2OBJ) $(Q3R2STRINGOBJ) $(JPGOBJ) $(FTO
+ else
+ $(B)/$(CLIENTBIN)$(FULLBINEXT): $(Q3OBJ) $(Q3ROBJ) $(JPGOBJ) $(FTOBJ) $(LIBSDLMAIN)
+ 	$(echo_cmd) "LD $@"
+-	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) \
++	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) $(NOTSHLIBLDFLAGS) \
+ 		-o $@ $(Q3OBJ) $(Q3ROBJ) $(JPGOBJ) $(FTOBJ) \
+ 		$(LIBSDLMAIN) $(CLIENT_LIBS) $(RENDERER_LIBS) $(LIBS)
+ 
+ $(B)/$(CLIENTBIN)_rend2$(FULLBINEXT): $(Q3OBJ) $(Q3R2OBJ) $(Q3R2STRINGOBJ) $(JPGOBJ) $(FTOBJ) $(LIBSDLMAIN)
+ 	$(echo_cmd) "LD $@"
+-	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) \
++	$(Q)$(CXX) $(CLIENT_CFLAGS) $(CFLAGS) $(CLIENT_LDFLAGS) $(LDFLAGS) $(NOTSHLIBLDFLAGS) \
+ 		-o $@ $(Q3OBJ) $(Q3R2OBJ) $(Q3R2STRINGOBJ) $(JPGOBJ) $(FTOBJ) \
+ 		$(LIBSDLMAIN) $(CLIENT_LIBS) $(RENDERER_LIBS) $(LIBS)
+ endif
+@@ -2347,7 +2347,7 @@ endif
+ 
+ $(B)/$(SERVERBIN)$(FULLBINEXT): $(Q3DOBJ)
+ 	$(echo_cmd) "LD $@"
+-	$(Q)$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(Q3DOBJ) $(LIBS)
++	$(Q)$(CC) $(CFLAGS) $(LDFLAGS) $(NOTSHLIBLDFLAGS) -o $@ $(Q3DOBJ) $(LIBS)
+ 
+ 
+ 

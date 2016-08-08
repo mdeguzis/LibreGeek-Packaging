@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+#DEBHELPER#
+
+if [ "$1" = "purge" ] ; then
+    # Lock account on purge
+    if [ -f /etc/shadow ]; then
+        usermod -L -e 1 rtcw-server
+    else
+        usermod -L rtcw-server
+    fi
+    rm -r /var/games/rtcw-server
+    rmdir --ignore-fail-on-non-empty /var/games
+fi

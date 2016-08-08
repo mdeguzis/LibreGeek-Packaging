@@ -1,0 +1,267 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Wed, 2 Mar 2016 08:50:45 +0000
+Subject: Remove support for downloading executable updates
+
+This was off by default, which is good, because downloading
+and running unauthenticated code is a serious security issue.
+---
+ MP/code/client/cl_main.c  | 163 +---------------------------------------------
+ MP/code/qcommon/qcommon.h |   6 --
+ MP/code/sys/sys_unix.c    |  22 -------
+ 3 files changed, 2 insertions(+), 189 deletions(-)
+
+diff --git a/MP/code/client/cl_main.c b/MP/code/client/cl_main.c
+index 46f6edb..72e843a 100644
+--- a/MP/code/client/cl_main.c
++++ b/MP/code/client/cl_main.c
+@@ -2196,24 +2196,7 @@ void CL_DownloadsComplete( void ) {
+ 
+ 	// DHM - Nerve :: Auto-update (not finished yet)
+ 	if ( autoupdateStarted ) {
+-
+-		if ( strlen( autoupdateFilename ) > 4 )  {
+-#ifdef _WIN32
+-			// win32's Sys_StartProcess prepends the current dir
+-			fn = va( "%s/%s", FS_ShiftStr( AUTOUPDATE_DIR, AUTOUPDATE_DIR_SHIFT ), autoupdateFilename );
+-#else
+-			fs_write_path = Cvar_VariableString( "fs_homepath" );
+-			fn = FS_BuildOSPath( fs_write_path, FS_ShiftStr( AUTOUPDATE_DIR, AUTOUPDATE_DIR_SHIFT ), autoupdateFilename );
+-#ifdef __linux__
+-			Sys_Chmod( fn, S_IXUSR );
+-#endif
+-#endif
+-			Sys_StartProcess( fn, qtrue );
+-		}
+-
+-		autoupdateStarted = qfalse;
+-		CL_Disconnect( qtrue );
+-		return;
++		Com_Error( ERR_FATAL, "Auto-update disabled" );
+ 	}
+ 
+ #ifdef USE_CURL
+@@ -2906,14 +2889,6 @@ void CL_ConnectionlessPacket( netadr_t from, msg_t *msg ) {
+ 			}
+ 		}
+ 
+-		// DHM - Nerve :: If we have completed a connection to the Auto-Update server...
+-		if ( autoupdateChecked && NET_CompareAdr( cls.autoupdateServer, clc.serverAddress ) ) {
+-			// Mark the client as being in the process of getting an update
+-			if ( cl_updateavailable->integer ) {
+-				autoupdateStarted = qtrue;
+-			}
+-		}
+-
+ #ifdef LEGACY_PROTOCOL
+ 		Netchan_Setup(NS_CLIENT, &clc.netchan, from, Cvar_VariableValue("net_qport"),
+ 			      clc.challenge, clc.compat);
+@@ -3522,119 +3497,9 @@ void CL_StartHunkUsers( qboolean rendererOnly ) {
+ 
+ // DHM - Nerve
+ void CL_CheckAutoUpdate( void ) {
+-	int validServerNum = 0;
+-	int i = 0, rnd = 0;
+-	netadr_t temp;
+-	char        *servername;
+-
+-	if ( !cl_autoupdate->integer ) {
+-		return;
+-	}
+-
+-	// Only check once per session
+-	if ( autoupdateChecked ) {
+-		return;
+-	}
+-
+-	srand( Com_Milliseconds() );
+-
+-	// Find out how many update servers have valid DNS listings
+-	for ( i = 0; i < MAX_AUTOUPDATE_SERVERS; i++ ) {
+-		if ( NET_StringToAdr( cls.autoupdateServerNames[i], &temp, NA_UNSPEC ) ) {
+-			validServerNum++;
+-		}
+-	}
+-
+-	// Pick a random server
+-	if ( validServerNum > 1 ) {
+-		rnd = rand() % validServerNum;
+-	} else {
+-		rnd = 0;
+-	}
+-
+-	servername = cls.autoupdateServerNames[rnd];
+-
+-	Com_DPrintf( "Resolving AutoUpdate Server... " );
+-	if ( !NET_StringToAdr( servername, &cls.autoupdateServer, NA_UNSPEC  ) ) {
+-		Com_DPrintf( "Couldn't resolve first address, trying default..." );
+-
+-		// Fall back to the first one
+-		if ( !NET_StringToAdr( cls.autoupdateServerNames[0], &cls.autoupdateServer, NA_UNSPEC  ) ) {
+-			Com_DPrintf( "Failed to resolve any Auto-update servers.\n" );
+-			autoupdateChecked = qtrue;
+-			return;
+-		}
+-	}
+-	cls.autoupdateServer.port = BigShort( PORT_SERVER );
+-	Com_DPrintf( "%i.%i.%i.%i:%i\n", cls.autoupdateServer.ip[0], cls.autoupdateServer.ip[1],
+-				 cls.autoupdateServer.ip[2], cls.autoupdateServer.ip[3],
+-				 BigShort( cls.autoupdateServer.port ) );
+-
+-	NET_OutOfBandPrint( NS_CLIENT, cls.autoupdateServer, "getUpdateInfo \"%s\" \"%s\"-\"%s\"\n", Q3_VERSION, OS_STRING, ARCH_STRING );
+-
+-	CL_RequestMotd();
+-
+-	autoupdateChecked = qtrue;
+ }
+ 
+ void CL_GetAutoUpdate( void ) {
+-
+-	// Don't try and get an update if we haven't checked for one
+-	if ( !autoupdateChecked ) {
+-		return;
+-	}
+-
+-	// Make sure there's a valid update file to request
+-	if ( strlen( cl_updatefiles->string ) < 5 ) {
+-		return;
+-	}
+-
+-	Com_DPrintf( "Connecting to auto-update server...\n" );
+-
+-	S_StopAllSounds();      // NERVE - SMF
+-
+-	// starting to load a map so we get out of full screen ui mode
+-	Cvar_Set( "r_uiFullScreen", "0" );
+-
+-	// clear any previous "server full" type messages
+-	clc.serverMessage[0] = 0;
+-
+-	if ( com_sv_running->integer ) {
+-		// if running a local server, kill it
+-		SV_Shutdown( "Server quit\n" );
+-	}
+-
+-	// make sure a local server is killed
+-	Cvar_Set( "sv_killserver", "1" );
+-	SV_Frame( 0 );
+-
+-	CL_Disconnect( qtrue );
+-	Con_Close();
+-
+-	Q_strncpyz( clc.servername, "Auto-Updater", sizeof( clc.servername ) );
+-
+-	if ( cls.autoupdateServer.type == NA_BAD ) {
+-		Com_Printf( "Bad server address\n" );
+-		clc.state = CA_DISCONNECTED;
+-		return;
+-	}
+-
+-	// Copy auto-update server address to Server connect address
+-	memcpy( &clc.serverAddress, &cls.autoupdateServer, sizeof( netadr_t ) );
+-
+-	Com_DPrintf( "%s resolved to %i.%i.%i.%i:%i\n", clc.servername,
+-				 clc.serverAddress.ip[0], clc.serverAddress.ip[1],
+-				 clc.serverAddress.ip[2], clc.serverAddress.ip[3],
+-				 BigShort( clc.serverAddress.port ) );
+-
+-	clc.state = CA_CONNECTING;
+-
+-	Key_SetCatcher( 0 );
+-	clc.connectTime = -99999;   // CL_CheckForResend() will fire immediately
+-	clc.connectPacketCount = 0;
+-
+-	// server connection string
+-	Cvar_Set( "cl_currentServerAddress", "Auto-Updater" );
+ }
+ // DHM - Nerve
+ 
+@@ -3990,7 +3855,7 @@ void CL_Init( void ) {
+ #ifdef UPDATE_SERVER_NAME
+ 	cl_motd = Cvar_Get( "cl_motd", "1", 0 );
+ #endif
+-	cl_autoupdate = Cvar_Get( "cl_autoupdate", "0", CVAR_ARCHIVE );
++	cl_autoupdate = Cvar_Get( "cl_autoupdate", "0", CVAR_ROM );
+ 
+ 	cl_timeout = Cvar_Get( "cl_timeout", "200", 0 );
+ 
+@@ -4518,30 +4383,6 @@ CL_UpdateInfoPacket
+ ===================
+ */
+ void CL_UpdateInfoPacket( netadr_t from ) {
+-
+-	if ( cls.autoupdateServer.type == NA_BAD ) {
+-		Com_DPrintf( "CL_UpdateInfoPacket:  Auto-Updater has bad address\n" );
+-		return;
+-	}
+-
+-	Com_DPrintf( "Auto-Updater resolved to %i.%i.%i.%i:%i\n",
+-				 cls.autoupdateServer.ip[0], cls.autoupdateServer.ip[1],
+-				 cls.autoupdateServer.ip[2], cls.autoupdateServer.ip[3],
+-				 BigShort( cls.autoupdateServer.port ) );
+-
+-	if ( !NET_CompareAdr( from, cls.autoupdateServer ) ) {
+-		Com_DPrintf( "CL_UpdateInfoPacket:  Received packet from %i.%i.%i.%i:%i\n",
+-					 from.ip[0], from.ip[1], from.ip[2], from.ip[3],
+-					 BigShort( from.port ) );
+-		return;
+-	}
+-
+-	Cvar_Set( "cl_updateavailable", Cmd_Argv( 1 ) );
+-
+-	if ( !Q_stricmp( cl_updateavailable->string, "1" ) ) {
+-		Cvar_Set( "cl_updatefiles", Cmd_Argv( 2 ) );
+-		VM_Call( uivm, UI_SET_ACTIVE_MENU, UIMENU_WM_AUTOUPDATE );
+-	}
+ }
+ // DHM - Nerve
+ 
+diff --git a/MP/code/qcommon/qcommon.h b/MP/code/qcommon/qcommon.h
+index fe5fa79..86036e9 100644
+--- a/MP/code/qcommon/qcommon.h
++++ b/MP/code/qcommon/qcommon.h
+@@ -1254,12 +1254,6 @@ void Sys_StartProcess( char *cmdline, qboolean doexit );            // NERVE - S
+ void Sys_OpenURL( const char *url, qboolean doexit );                       // NERVE - SMF
+ int Sys_GetHighQualityCPU( void );
+ 
+-#ifdef __linux__
+-// TTimo only on linux .. maybe on Mac too?
+-// will OR with the existing mode (chmod ..+..)
+-void Sys_Chmod( char *file, int mode );
+-#endif
+-
+ typedef enum
+ {
+ 	DR_YES = 0,
+diff --git a/MP/code/sys/sys_unix.c b/MP/code/sys/sys_unix.c
+index 8558749..81d3135 100644
+--- a/MP/code/sys/sys_unix.c
++++ b/MP/code/sys/sys_unix.c
+@@ -903,28 +903,6 @@ qboolean Sys_PIDIsRunning( int pid )
+ 	return kill( pid, 0 ) == 0;
+ }
+ 
+-
+-
+-/*
+-==================
+-chmod OR on a file
+-==================
+-*/
+-void Sys_Chmod( char *file, int mode ) {
+-	struct stat s_buf;
+-	int perm;
+-	if ( stat( file, &s_buf ) != 0 ) {
+-		Com_Printf( "stat('%s')  failed: errno %d\n", file, errno );
+-		return;
+-	}
+-	perm = s_buf.st_mode | mode;
+-	if ( chmod( file, perm ) != 0 ) {
+-		Com_Printf( "chmod('%s', %d) failed: errno %d\n", file, perm, errno );
+-	}
+-	Com_DPrintf( "chmod +%d '%s'\n", mode, file );
+-}
+-
+-
+ #define MAX_CMD 1024
+ static char exit_cmdline[MAX_CMD] = "";
+ /*

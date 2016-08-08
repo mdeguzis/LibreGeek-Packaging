@@ -1,0 +1,13 @@
+The non-free OPL2 emulator from MAME has been removed from the upstream source.
+This is how the Debian source tarball was created:
+
+$ svn export -r 262 svn://tron.homeunix.org:3690/wolf3d/trunk wolf4sdl-1.7+svn262
+$ rm -rf wolf4sdl-1.7+svn262/mame/
+$ tar czfv wolf4sdl_1.7+svn262+dfsg1.orig.tar.gz wolf4sdl-1.7+svn262/
+
+Due to the missing mame sources, GPL=1 has to be set for the Makefile.
+
+TODO for the next snapshot:
+$ sed -e '/^ifdef GPL/, /^endif/ {s/^[[:space:]]*//; /^ifdef/d;          /^endif/d}' \
+      -e '/^ifndef GPL/,/^endif/ {s/^[[:space:]]*//; /^ifndef/,/^else/d; /^endif/d}' \
+      -i Makefile

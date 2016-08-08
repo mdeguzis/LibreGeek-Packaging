@@ -1,0 +1,327 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Mon, 21 Mar 2016 08:23:59 +0000
+Subject: Fix some spelling errors
+
+Detected by Debian's Lintian tool. It also detects "persistant", but
+unfortunately that misspelling is API (it's part of a cvar name
+and a commonly-used struct member) so it shouldn't be corrected.
+---
+ MP/code/botlib/be_aas_cluster.c   | 2 +-
+ MP/code/game/ai_cast_characters.c | 2 +-
+ MP/code/game/ai_cast_funcs.c      | 2 +-
+ MP/code/game/ai_cast_think.c      | 2 +-
+ MP/code/game/g_mover.c            | 2 +-
+ MP/code/game/g_team.c             | 2 +-
+ MP/code/game/g_tramcar.c          | 2 +-
+ MP/code/qcommon/cm_trace.c        | 2 +-
+ MP/code/qcommon/common.c          | 2 +-
+ MP/code/rend2/tr_animation.c      | 2 +-
+ MP/code/renderer/tr_animation.c   | 2 +-
+ SP/code/botlib/be_aas_cluster.c   | 2 +-
+ SP/code/game/ai_cast_characters.c | 2 +-
+ SP/code/game/ai_cast_funcs.c      | 4 ++--
+ SP/code/game/ai_cast_think.c      | 2 +-
+ SP/code/game/g_mover.c            | 2 +-
+ SP/code/game/g_team.c             | 2 +-
+ SP/code/game/g_tramcar.c          | 2 +-
+ SP/code/qcommon/cm_trace.c        | 2 +-
+ SP/code/qcommon/common.c          | 2 +-
+ SP/code/rend2/tr_animation.c      | 2 +-
+ SP/code/renderer/tr_animation.c   | 2 +-
+ 22 files changed, 23 insertions(+), 23 deletions(-)
+
+diff --git a/MP/code/botlib/be_aas_cluster.c b/MP/code/botlib/be_aas_cluster.c
+index 3a3a481..5726ec7 100644
+--- a/MP/code/botlib/be_aas_cluster.c
++++ b/MP/code/botlib/be_aas_cluster.c
+@@ -152,7 +152,7 @@ int AAS_UpdatePortal( int areanum, int clusternum ) {
+ 	} //end else if
+ 	else
+ 	{
+-		Log_Write( "portal using area %d is seperating more than two clusters\r\n", areanum );
++		Log_Write( "portal using area %d is separating more than two clusters\r\n", areanum );
+ 		//remove the cluster portal flag contents
+ 		( *aasworld ).areasettings[areanum].contents &= ~AREACONTENTS_CLUSTERPORTAL;
+ 		return qfalse;
+diff --git a/MP/code/game/ai_cast_characters.c b/MP/code/game/ai_cast_characters.c
+index a54734a..3104a55 100644
+--- a/MP/code/game/ai_cast_characters.c
++++ b/MP/code/game/ai_cast_characters.c
+@@ -1293,7 +1293,7 @@ void AIChar_Pain( gentity_t *ent, gentity_t *attacker, int damage, vec3_t point
+ 			}
+ 		}
+ 
+-		// if we didnt just play a scripted sound, then play one of the default sounds
++		// if we didn't just play a scripted sound, then play one of the default sounds
+ 		if ( cs->lastScriptSound < level.time ) {
+ 			G_AddEvent( ent, EV_GENERAL_SOUND, G_SoundIndex( aiDefaults[ent->aiCharacter].painSoundScript ) );
+ 		}
+diff --git a/MP/code/game/ai_cast_funcs.c b/MP/code/game/ai_cast_funcs.c
+index b89adf5..bb666e3 100644
+--- a/MP/code/game/ai_cast_funcs.c
++++ b/MP/code/game/ai_cast_funcs.c
+@@ -872,7 +872,7 @@ char *AIFunc_InspectBulletImpact( cast_state_t *cs ) {
+ 				cs->scriptPauseTime = 0;
+ 				return AIFunc_IdleStart( cs );
+ 			}
+-			// make sure we didnt change thinkfunc
++			// make sure we didn't change thinkfunc
+ 			if ( cs->aifunc != AIFunc_InspectBulletImpact ) {
+ 				//G_Error( "scripting passed control out of AIFunc_InspectBulletImpact(), this is bad" );
+ 				return NULL;
+diff --git a/MP/code/game/ai_cast_think.c b/MP/code/game/ai_cast_think.c
+index e583f00..f4d6839 100644
+--- a/MP/code/game/ai_cast_think.c
++++ b/MP/code/game/ai_cast_think.c
+@@ -1053,7 +1053,7 @@ void AICast_PredictMovement( cast_state_t *cs, int numframes, float frametime, a
+ 				//VectorCopy( thisHitVec, startHitVec );
+ 				VectorCopy( pm.ps->origin, lastOrg );
+ 			}
+-			// if we didnt reach the marker, then check for something that blocked us
++			// if we didn't reach the marker, then check for something that blocked us
+ 			for ( i = 0; i < pm.numtouch; i++ ) {
+ 				if ( pm.touchents[i] == pm.ps->groundEntityNum ) {
+ 					continue;
+diff --git a/MP/code/game/g_mover.c b/MP/code/game/g_mover.c
+index d7f20ca..d6e39a6 100644
+--- a/MP/code/game/g_mover.c
++++ b/MP/code/game/g_mover.c
+@@ -390,7 +390,7 @@ qboolean G_TryPushingEntity( gentity_t *check, gentity_t *pusher, vec3_t move, v
+ 					break;
+ 				}
+ 			}
+-		// didnt work, so set the position back
++		// didn't work, so set the position back
+ 		VectorCopy( org, check->s.pos.trBase );
+ 		if ( check->client ) {
+ 			VectorCopy( org, check->client->ps.origin );
+diff --git a/MP/code/game/g_team.c b/MP/code/game/g_team.c
+index 4e098f1..8ffbafc 100644
+--- a/MP/code/game/g_team.c
++++ b/MP/code/game/g_team.c
+@@ -202,7 +202,7 @@ void Team_FragBonuses( gentity_t *targ, gentity_t *inflictor, gentity_t *attacke
+ 
+ 			attacker->client->pers.teamState.carrierdefense++;
+ 			team = attacker->client->sess.sessionTeam;
+-			PrintMsg( NULL, "%s" S_COLOR_WHITE " defends %s's flag carrier against an agressive enemy\n",
++			PrintMsg( NULL, "%s" S_COLOR_WHITE " defends %s's flag carrier against an aggressive enemy\n",
+ 					  attacker->client->pers.netname, TeamName( team ) );
+ 			return;
+ 		}
+diff --git a/MP/code/game/g_tramcar.c b/MP/code/game/g_tramcar.c
+index 2c378c0..0f3cece 100644
+--- a/MP/code/game/g_tramcar.c
++++ b/MP/code/game/g_tramcar.c
+@@ -293,7 +293,7 @@ void GetNextTrack( gentity_t *ent ) {
+ 	}
+ 
+ 	if ( !num_choices ) {
+-		G_Printf( "GetNextTrack didnt find a track\n" );
++		G_Printf( "GetNextTrack didn't find a track\n" );
+ 		return;
+ 	}
+ 
+diff --git a/MP/code/qcommon/cm_trace.c b/MP/code/qcommon/cm_trace.c
+index e694fb8..6e78ab7 100644
+--- a/MP/code/qcommon/cm_trace.c
++++ b/MP/code/qcommon/cm_trace.c
+@@ -1052,7 +1052,7 @@ void CM_TraceThroughTree( traceWork_t *tw, int num, float p1f, float p2f, vec3_t
+ 	}
+ 
+ 	//
+-	// find the point distances to the seperating plane
++	// find the point distances to the separating plane
+ 	// and the offset for the size of the box
+ 	//
+ 	node = cm.nodes + num;
+diff --git a/MP/code/qcommon/common.c b/MP/code/qcommon/common.c
+index 81c51d2..d793299 100644
+--- a/MP/code/qcommon/common.c
++++ b/MP/code/qcommon/common.c
+@@ -419,7 +419,7 @@ void Com_ParseCommandLine( char *commandLine ) {
+ 	com_numConsoleLines = 1;
+ 
+ 	while ( *commandLine ) {
+-		// look for a + seperating character
++		// look for a + separating character
+ 		// if commandLine came from a file, we might have real line seperators
+ 		if ( *commandLine == '+' || *commandLine == '\n' ) {
+ 			if ( com_numConsoleLines == MAX_CONSOLE_LINES ) {
+diff --git a/MP/code/rend2/tr_animation.c b/MP/code/rend2/tr_animation.c
+index 20d9b93..1006c70 100644
+--- a/MP/code/rend2/tr_animation.c
++++ b/MP/code/rend2/tr_animation.c
+@@ -44,7 +44,7 @@ frame.
+ //#define DBG_PROFILE_BONES
+ 
+ //-----------------------------------------------------------------------------
+-// Static Vars, ugly but easiest (and fastest) means of seperating RB_SurfaceAnim
++// Static Vars, ugly but easiest (and fastest) means of separating RB_SurfaceAnim
+ // and R_CalcBones
+ 
+ static float frontlerp, backlerp;
+diff --git a/MP/code/renderer/tr_animation.c b/MP/code/renderer/tr_animation.c
+index be7b0bf..ce92d56 100644
+--- a/MP/code/renderer/tr_animation.c
++++ b/MP/code/renderer/tr_animation.c
+@@ -44,7 +44,7 @@ frame.
+ //#define DBG_PROFILE_BONES
+ 
+ //-----------------------------------------------------------------------------
+-// Static Vars, ugly but easiest (and fastest) means of seperating RB_SurfaceAnim
++// Static Vars, ugly but easiest (and fastest) means of separating RB_SurfaceAnim
+ // and R_CalcBones
+ 
+ static float frontlerp, backlerp;
+diff --git a/SP/code/botlib/be_aas_cluster.c b/SP/code/botlib/be_aas_cluster.c
+index 9e78b6a..d133ad4 100644
+--- a/SP/code/botlib/be_aas_cluster.c
++++ b/SP/code/botlib/be_aas_cluster.c
+@@ -152,7 +152,7 @@ int AAS_UpdatePortal( int areanum, int clusternum ) {
+ 	} //end else if
+ 	else
+ 	{
+-		Log_Write( "portal using area %d is seperating more than two clusters\r\n", areanum );
++		Log_Write( "portal using area %d is separating more than two clusters\r\n", areanum );
+ 		//remove the cluster portal flag contents
+ 		( *aasworld ).areasettings[areanum].contents &= ~AREACONTENTS_CLUSTERPORTAL;
+ 		return qfalse;
+diff --git a/SP/code/game/ai_cast_characters.c b/SP/code/game/ai_cast_characters.c
+index 930fcc9..913169b 100644
+--- a/SP/code/game/ai_cast_characters.c
++++ b/SP/code/game/ai_cast_characters.c
+@@ -1209,7 +1209,7 @@ void AIChar_Pain( gentity_t *ent, gentity_t *attacker, int damage, vec3_t point
+ 			}
+ 		}
+ 
+-		// if we didnt just play a scripted sound, then play one of the default sounds
++		// if we didn't just play a scripted sound, then play one of the default sounds
+ 		if ( cs->lastScriptSound < level.time ) {
+ 			G_AddEvent( ent, EV_GENERAL_SOUND, G_SoundIndex( aiDefaults[ent->aiCharacter].soundScripts[PAINSOUNDSCRIPT] ) );
+ 		}
+diff --git a/SP/code/game/ai_cast_funcs.c b/SP/code/game/ai_cast_funcs.c
+index 8bd1303..5cf47af 100644
+--- a/SP/code/game/ai_cast_funcs.c
++++ b/SP/code/game/ai_cast_funcs.c
+@@ -1035,7 +1035,7 @@ char *AIFunc_InspectBulletImpact( cast_state_t *cs ) {
+ 				cs->scriptPauseTime = 0;
+ 				return AIFunc_IdleStart( cs );
+ 			}
+-			// make sure we didnt change thinkfunc
++			// make sure we didn't change thinkfunc
+ 			if ( cs->aifunc != AIFunc_InspectBulletImpact ) {
+ 				//G_Error( "scripting passed control out of AIFunc_InspectBulletImpact(), this is bad" );
+ 				return NULL;
+@@ -1715,7 +1715,7 @@ char *AIFunc_ChaseGoal( cast_state_t *cs ) {
+ 			AICast_PredictMovement( cs, 10, frameTime, &move, &ucmd, cs->followEntity );
+ 
+ 			if ( move.stopevent == PREDICTSTOP_HITENT ) { // success!
+-				// make sure we didnt spend a lot of time sliding along an obstacle
++				// make sure we didn't spend a lot of time sliding along an obstacle
+ 				if ( ( move.frames * frameTime ) < ( 1.0 + ( goaldist / ( bs->cur_ps.speed * bs->cur_ps.runSpeedScale ) ) ) ) {
+ 					trap_EA_Move( cs->entityNum, dir, 400 );
+ 					vectoangles( dir, cs->ideal_viewangles );
+diff --git a/SP/code/game/ai_cast_think.c b/SP/code/game/ai_cast_think.c
+index 8b0fc71..6206553 100644
+--- a/SP/code/game/ai_cast_think.c
++++ b/SP/code/game/ai_cast_think.c
+@@ -1167,7 +1167,7 @@ void AICast_PredictMovement( cast_state_t *cs, int numframes, float frametime, a
+ 				//VectorCopy( thisHitVec, startHitVec );
+ 				VectorCopy( pm.ps->origin, lastOrg );
+ 			}
+-			// if we didnt reach the marker, then check for something that blocked us
++			// if we didn't reach the marker, then check for something that blocked us
+ 			for ( i = 0; i < pm.numtouch; i++ ) {
+ 				if ( pm.touchents[i] == pm.ps->groundEntityNum ) {
+ 					continue;
+diff --git a/SP/code/game/g_mover.c b/SP/code/game/g_mover.c
+index 143006e..9dbb9ab 100644
+--- a/SP/code/game/g_mover.c
++++ b/SP/code/game/g_mover.c
+@@ -364,7 +364,7 @@ qboolean    G_TryPushingEntity( gentity_t *check, gentity_t *pusher, vec3_t move
+ 					break;
+ 				}
+ 			}
+-		// didnt work, so set the position back
++		// didn't work, so set the position back
+ 		VectorCopy( org, check->s.pos.trBase );
+ 		if ( check->client ) {
+ 			VectorCopy( org, check->client->ps.origin );
+diff --git a/SP/code/game/g_team.c b/SP/code/game/g_team.c
+index 0240c5b..064fd26 100644
+--- a/SP/code/game/g_team.c
++++ b/SP/code/game/g_team.c
+@@ -179,7 +179,7 @@ void Team_FragBonuses( gentity_t *targ, gentity_t *inflictor, gentity_t *attacke
+ 
+ 		attacker->client->pers.teamState.carrierdefense++;
+ 		team = attacker->client->sess.sessionTeam;
+-		PrintMsg( NULL, "%s" S_COLOR_WHITE " defends %s's flag carrier against an agressive enemy\n",
++		PrintMsg( NULL, "%s" S_COLOR_WHITE " defends %s's flag carrier against an aggressive enemy\n",
+ 				  attacker->client->pers.netname, TeamName( team ) );
+ 		return;
+ 	}
+diff --git a/SP/code/game/g_tramcar.c b/SP/code/game/g_tramcar.c
+index b4aa070..6afeb3e 100644
+--- a/SP/code/game/g_tramcar.c
++++ b/SP/code/game/g_tramcar.c
+@@ -287,7 +287,7 @@ void GetNextTrack( gentity_t *ent ) {
+ 	}
+ 
+ 	if ( !num_choices ) {
+-		G_Printf( "GetNextTrack didnt find a track\n" );
++		G_Printf( "GetNextTrack didn't find a track\n" );
+ 		return;
+ 	}
+ 
+diff --git a/SP/code/qcommon/cm_trace.c b/SP/code/qcommon/cm_trace.c
+index 1be5871..2cfa306 100644
+--- a/SP/code/qcommon/cm_trace.c
++++ b/SP/code/qcommon/cm_trace.c
+@@ -1056,7 +1056,7 @@ void CM_TraceThroughTree( traceWork_t *tw, int num, float p1f, float p2f, vec3_t
+ 	}
+ 
+ 	//
+-	// find the point distances to the seperating plane
++	// find the point distances to the separating plane
+ 	// and the offset for the size of the box
+ 	//
+ 	node = cm.nodes + num;
+diff --git a/SP/code/qcommon/common.c b/SP/code/qcommon/common.c
+index 9a5023b..fe7890f 100644
+--- a/SP/code/qcommon/common.c
++++ b/SP/code/qcommon/common.c
+@@ -440,7 +440,7 @@ void Com_ParseCommandLine( char *commandLine ) {
+ 	com_numConsoleLines = 1;
+ 
+ 	while ( *commandLine ) {
+-		// look for a + seperating character
++		// look for a + separating character
+ 		// if commandLine came from a file, we might have real line seperators
+ 		if ( *commandLine == '+' || *commandLine == '\n' ) {
+ 			if ( com_numConsoleLines == MAX_CONSOLE_LINES ) {
+diff --git a/SP/code/rend2/tr_animation.c b/SP/code/rend2/tr_animation.c
+index 8ca16b7..1b4b80a 100644
+--- a/SP/code/rend2/tr_animation.c
++++ b/SP/code/rend2/tr_animation.c
+@@ -44,7 +44,7 @@ frame.
+ //#define DBG_PROFILE_BONES
+ 
+ //-----------------------------------------------------------------------------
+-// Static Vars, ugly but easiest (and fastest) means of seperating RB_SurfaceAnim
++// Static Vars, ugly but easiest (and fastest) means of separating RB_SurfaceAnim
+ // and R_CalcBones
+ 
+ static float frontlerp, backlerp;
+diff --git a/SP/code/renderer/tr_animation.c b/SP/code/renderer/tr_animation.c
+index dffcd56..e0f4bc6 100644
+--- a/SP/code/renderer/tr_animation.c
++++ b/SP/code/renderer/tr_animation.c
+@@ -44,7 +44,7 @@ frame.
+ //#define DBG_PROFILE_BONES
+ 
+ //-----------------------------------------------------------------------------
+-// Static Vars, ugly but easiest (and fastest) means of seperating RB_SurfaceAnim
++// Static Vars, ugly but easiest (and fastest) means of separating RB_SurfaceAnim
+ // and R_CalcBones
+ 
+ static float frontlerp, backlerp;

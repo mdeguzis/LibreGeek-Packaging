@@ -1,0 +1,53 @@
+Subject: Change weapons with the mouse wheel.
+Author: Fabian Greffrath <fabian+debian@greffrath.com>
+
+--- a/id_in.cpp
++++ b/id_in.cpp
+@@ -237,6 +237,8 @@ boolean IN_JoyPresent()
+     return Joystick != NULL;
+ }
+ 
++boolean mw_dn = false, mw_up = false;
++
+ static void processEvent(SDL_Event *event)
+ {
+     switch (event->type)
+@@ -328,6 +330,15 @@ static void processEvent(SDL_Event *even
+             break;
+         }
+ 
++        case SDL_MOUSEBUTTONDOWN:
++        {
++            if (event->button.button == SDL_BUTTON_WHEELDOWN)
++                mw_dn = true;
++            else if(event->button.button == SDL_BUTTON_WHEELUP)
++                mw_up = true;
++            break;
++        }
++
+         case SDL_ACTIVEEVENT:
+         {
+             if(fullscreen && (event->active.state & SDL_APPACTIVE) != 0)
+--- a/wl_play.cpp
++++ b/wl_play.cpp
+@@ -273,6 +273,7 @@ void PollKeyboardButtons (void)
+ void PollMouseButtons (void)
+ {
+     int buttons = IN_MouseButtons ();
++    extern boolean mw_dn, mw_up;
+ 
+     if (buttons & 1)
+         buttonstate[buttonmouse[0]] = true;
+@@ -280,6 +281,12 @@ void PollMouseButtons (void)
+         buttonstate[buttonmouse[1]] = true;
+     if (buttons & 4)
+         buttonstate[buttonmouse[2]] = true;
++
++    if (mw_dn)
++        buttonstate[bt_prevweapon] = true;
++    if (mw_up)
++        buttonstate[bt_nextweapon] = true;
++    mw_dn = mw_up = false;
+ }
+ 
+ 

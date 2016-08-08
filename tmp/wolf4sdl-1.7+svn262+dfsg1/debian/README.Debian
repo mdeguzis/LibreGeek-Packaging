@@ -1,0 +1,30 @@
+Wolf4SDL for Debian
+-------------------
+
+ * The wolf4sdl game requires additional data files which are not available
+   under a free license and cannot be distributed by Debian. Thus, this package
+   contains no data files, but future releases of `game-data-packager' are
+   expected to be able to generate suitable data packages for wolf4sdl.
+   .
+   For the time being, it is required to obtain the data files from external
+   resources (hint: WolfGL home page, Files section) and copy them into the
+   `/usr/share/games/wolf3d' directory.
+
+ * The wolf4sdl package in Debian supports five variants of the game:
+   Wolf3d Full v1.4 Apogee (with ReadThis), Wolf3d Full v1.4 GT/ID/Activision,
+   Wolf3d Shareware v1.4, Spear of Destiny Full and Mission Disks, Spear of
+   Destiny Demo. The corresponding binaries are named 'wolf4sdl-wl6a',
+   'wolf4sdl-wl6', 'wolf4sdl-wl1', 'wolf4sdl-sod' and 'wolf4sdl-sdm',
+   respectively. In order to select which variant is started by the 'wolf4sdl'
+   command and the desktop and menu files, Debian's 'update-alternatives'
+   mechanism is used:
+   .
+   $ update-alternatives --config wolf4sdl
+   .
+   By default, the 'wolf4sdl-wl1' alternative is preferred.
+   .
+   The game expects its data files in the '/usr/share/games/wolf3d' directory
+   (with lower case file names), so make sure to also copy the appropriate data
+   files into this directory when changing the 'wolf4sdl' alternative.
+
+ -- Fabian Greffrath <fabian+debian@greffrath.com>  Mon, 03 Jan 2011 15:10:21 +0100

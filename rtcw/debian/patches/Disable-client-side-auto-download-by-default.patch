@@ -1,0 +1,24 @@
+From: Simon McVittie <smcv@debian.org>
+Date: Mon, 23 Mar 2015 23:17:56 +0000
+Subject: Disable client-side auto-download by default
+
+This feature is a security risk: it downloads executable bytecode.
+The interpreter is sandboxed, but a reasonably determined attacker
+can probably break out.
+---
+ MP/code/client/cl_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/MP/code/client/cl_main.c b/MP/code/client/cl_main.c
+index c6dea1c..46f6edb 100644
+--- a/MP/code/client/cl_main.c
++++ b/MP/code/client/cl_main.c
+@@ -4041,7 +4041,7 @@ void CL_Init( void ) {
+ 
+ 	cl_showMouseRate = Cvar_Get( "cl_showmouserate", "0", 0 );
+ 
+-	cl_allowDownload = Cvar_Get( "cl_allowDownload", "1", CVAR_ARCHIVE );
++	cl_allowDownload = Cvar_Get( "cl_allowDownload", "0", CVAR_ARCHIVE );
+ #ifdef USE_CURL_DLOPEN
+ 	cl_cURLLib = Cvar_Get("cl_cURLLib", DEFAULT_CURL_LIB, CVAR_ARCHIVE);
+ #endif

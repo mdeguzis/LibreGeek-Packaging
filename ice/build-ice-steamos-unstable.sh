@@ -19,9 +19,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -53,21 +53,21 @@ GIT_URL="https://github.com/scottrice/Ice"
 rel_TARGET="master"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="ice-steamos-unstable"
-PKGVER="${date_short}"
+PKGVER="${DATE_SHORT}"
 BUILDER="pdebuild"
 upstream_rev="1"
 PKGREV="4"
 DIST="brewmaster"
-urgency="low"
+URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
@@ -140,14 +140,14 @@ main()
 	PKGSUFFIX="git${latest_commit}+bsos${PKGREV}"
 
 	# Add debian folder
-        cp -r "$scriptdir/debian-unstable" "${GIT_DIR}/debian"
+        cp -r "$SCRIPTDIR/debian-unstable" "${GIT_DIR}/debian"
 
 	# inject iur modified files
-	cp "$scriptdir/emulators.txt" "${GIT_DIR}"
-	cp "$scriptdir/config.txt" "${GIT_DIR}"
-	cp "$scriptdir/consoles.txt" "${GIT_DIR}"
-	cp "$scriptdir/ice-steamos.sh" "${GIT_DIR}/ice-steamos"
-	cp "$scriptdir/debian/README.md" "${GIT_DIR}"
+	cp "$SCRIPTDIR/emulators.txt" "${GIT_DIR}"
+	cp "$SCRIPTDIR/config.txt" "${GIT_DIR}"
+	cp "$SCRIPTDIR/consoles.txt" "${GIT_DIR}"
+	cp "$SCRIPTDIR/ice-steamos.sh" "${GIT_DIR}/ice-steamos"
+	cp "$SCRIPTDIR/debian/README.md" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -175,11 +175,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 
@@ -202,10 +202,10 @@ main()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
@@ -213,8 +213,8 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# back out of build tmp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
+	if [[ "${SCRIPTDIR}" != "" ]]; then
+		cd "${SCRIPTDIR}" || exit
 	else
 		cd "${HOME}" || exit
 	fi
@@ -249,7 +249,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

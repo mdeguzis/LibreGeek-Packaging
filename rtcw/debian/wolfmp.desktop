@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Return to Castle Wolfenstein multiplayer
+Exec=/usr/games/wolfmp-steamos
+Terminal=false
+Icon=/usr/share/pixmaps/rctw.png
+Type=Application
+Categories=Game;ActionGame;
+Keywords=multi-player;online;fps;team;first person shooter;id;gray matter;

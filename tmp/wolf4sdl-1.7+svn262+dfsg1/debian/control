@@ -1,0 +1,36 @@
+Source: wolf4sdl
+Section: contrib/games
+Priority: extra
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Fabian Greffrath <fabian+debian@greffrath.com>
+Build-Depends: debhelper (>= 9),
+ libsdl1.2-dev,
+ libsdl-mixer1.2-dev
+Standards-Version: 3.9.2
+Homepage: http://www.chaos-software.de.vu/
+Vcs-Git: git://anonscm.debian.org/pkg-games/wolf4sdl.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-games/wolf4sdl.git;a=summary
+
+Package: wolf4sdl
+Architecture: any
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ wolf3d-data | game-data-packager (>= 27)
+Description: SDL-Port of Wolfenstein 3-D and Spear of Destiny
+ Maybe it was the fact that people got to blow away Nazis. Maybe it was the
+ sheer challenge of it all. For whatever reason, Wolfenstein 3-D and Spear of
+ Destiny, pioneered the first-person shooter genre and brought its legendary
+ creators, id Software, worldwide notoriety and numerous awards. In fact, The
+ Computer Gaming World Hall of Fame recognized Wolfenstein 3D as helping to
+ shape the overall direction of the computer gaming industry.
+ .
+ Wolf4SDL is an open-source port of id Software's classic first-person shooter
+ Wolfenstein 3-D to the cross-platform multimedia library "Simple DirectMedia
+ Layer (SDL)" (http://www.libsdl.org). It is meant to keep the original feel
+ while taking advantage of some improvements.
+ .
+ The wolf4sdl game requires additional data files which are not available
+ under a free license and cannot be distributed by Debian. Thus, this package
+ contains no data files, but current releases of `game-data-packager' are
+ able to generate suitable data packages from the publicly available
+ Wolfenstein 3-D shareware episode.

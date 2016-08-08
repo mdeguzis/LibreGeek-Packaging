@@ -17,9 +17,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -72,8 +72,8 @@ LAUNCHPAD_PPA="ppa:mdeguzis/steamos-tools"
 # Define uploader for changelog
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
-# Define package maintainer for dsc and $PKGNAME-$PKGVER-$pkgrel file 
-pkgmaintainer="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+# Define package MAINTAINER for dsc and $PKGNAME-$PKGVER-$pkgrel file 
+pkgMAINTAINER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 
 clear
 
@@ -197,7 +197,7 @@ sleep 3s
 nano "debian/changelog"
 
 echo -e "\n==> control"
-sed -i "s|pkgmaintainer|$pkgmaintainer|g" debian/control
+sed -i "s|pkgMAINTAINER|$pkgmaintainer|g" debian/control
 
 echo -e "\n==> rules\n"
 sed -i "s|PKGVER|$PKGVER|g" debian/rules

@@ -25,8 +25,8 @@
 build_opts="$1"
 cores_num="$2"
 
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 # remove old log
 rm -f "kodi-build-log.txt"
@@ -37,9 +37,9 @@ rm -f "kodi-build-log.txt"
 export final_opts=$(echo "${@: -1}")
 
 ARG1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -81,8 +81,8 @@ set_vars()
 	export USE_NETWORK="yes"
 	export STEAMOS_TOOLS_BETA_HOOK="true"
 	ARCH="amd64"
-	date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-	date_short=$(date +%Y%m%d)
+	DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+	DATE_SHORT=$(date +%Y%m%d)
 
 	# source vars
 	GIT_URL="git://github.com/xbmc/xbmc.git"
@@ -554,13 +554,13 @@ show_build_summary()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 
 	cat <<-EOF
 	----------------------------------------------------------------
 	Summary
 	----------------------------------------------------------------
-	Time started: ${time_stamp_start}
+	Time started: ${TIME_STAMP_START}
 	Time end: ${time_stamp_end}
 	Total Runtime (minutes): $runtime
 

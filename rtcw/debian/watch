@@ -1,0 +1,3 @@
+version=2
+opts=filenamemangle=s/.+\/(\d\S*)\.tar\.gz/iortcw-$1\.tar\.gz/,dversionmangle=s/\+[0-9]{8}\+dfsg[0-9]+$// \
+  https://github.com/iortcw/iortcw/tags .*/(\d\S*)\.tar\.gz

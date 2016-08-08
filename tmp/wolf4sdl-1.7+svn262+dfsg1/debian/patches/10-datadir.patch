@@ -1,0 +1,181 @@
+Subject: Use /usr/share/games/wolf3d for data files.
+Author: Fabian Greffrath <fabian+debian@greffrath.com>
+
+--- a/id_ca.cpp
++++ b/id_ca.cpp
+@@ -83,13 +83,13 @@ int     numEpisodesMissing = 0;
+ char extension[5]; // Need a string, not constant to change cache files
+ char graphext[5];
+ char audioext[5];
+-static const char gheadname[] = "vgahead.";
+-static const char gfilename[] = "vgagraph.";
+-static const char gdictname[] = "vgadict.";
+-static const char mheadname[] = "maphead.";
+-static const char mfilename[] = "maptemp.";
+-static const char aheadname[] = "audiohed.";
+-static const char afilename[] = "audiot.";
++static const char gheadname[] = DATADIR "vgahead.";
++static const char gfilename[] = DATADIR "vgagraph.";
++static const char gdictname[] = DATADIR "vgadict.";
++static const char mheadname[] = DATADIR "maphead.";
++static const char mfilename[] = DATADIR "maptemp.";
++static const char aheadname[] = DATADIR "audiohed.";
++static const char afilename[] = DATADIR "audiot.";
+ 
+ void CA_CannotOpen(const char *string);
+ 
+@@ -445,7 +445,7 @@ void CA_RLEWexpand (word *source, word *
+ 
+ void CAL_SetupGrFile (void)
+ {
+-    char fname[13];
++    char fname[13 + sizeof(DATADIR)];
+     int handle;
+     byte *compseg;
+ 
+@@ -547,7 +547,7 @@ void CAL_SetupMapFile (void)
+     int     i;
+     int handle;
+     int32_t length,pos;
+-    char fname[13];
++    char fname[13 + sizeof(DATADIR)];
+ 
+ //
+ // load maphead.ext (offsets and tileinfo for map file)
+@@ -571,7 +571,7 @@ void CAL_SetupMapFile (void)
+ // open the data file
+ //
+ #ifdef CARMACIZED
+-    strcpy(fname, "gamemaps.");
++    strcpy(fname, DATADIR "gamemaps.");
+     strcat(fname, extension);
+ 
+     maphandle = open(fname, O_RDONLY | O_BINARY);
+@@ -627,7 +627,7 @@ void CAL_SetupMapFile (void)
+ 
+ void CAL_SetupAudioFile (void)
+ {
+-    char fname[13];
++    char fname[13 + sizeof(DATADIR)];
+ 
+ //
+ // load audiohed.ext (offsets for audio file)
+--- a/id_pm.cpp
++++ b/id_pm.cpp
+@@ -16,7 +16,7 @@ uint8_t **PMPages;
+ 
+ void PM_Startup()
+ {
+-    char fname[13] = "vswap.";
++    char fname[13 + sizeof(DATADIR)] = DATADIR "vswap.";
+     strcat(fname,extension);
+ 
+     FILE *file = fopen(fname,"rb");
+--- a/version.h
++++ b/version.h
+@@ -3,6 +3,10 @@
+ 
+ #ifndef VERSIONALREADYCHOSEN              // used for batch compiling
+ 
++#ifndef DATADIR
++#define DATADIR ""
++#endif
++
+ /* Defines used for different versions */
+ 
+ //#define SPEAR
+--- a/wl_menu.cpp
++++ b/wl_menu.cpp
+@@ -4030,12 +4030,12 @@ CheckForEpisodes (void)
+ //
+ #ifdef JAPAN
+ #ifdef JAPDEMO
+-    if(!stat("vswap.wj1", &statbuf))
++    if(!stat(DATADIR "vswap.wj1", &statbuf))
+     {
+         strcpy (extension, "wj1");
+         numEpisodesMissing = 5;
+ #else
+-    if(!stat("vswap.wj6", &statbuf))
++    if(!stat(DATADIR "vswap.wj6", &statbuf))
+     {
+         strcpy (extension, "wj6");
+ #endif
+@@ -4055,7 +4055,7 @@ CheckForEpisodes (void)
+ // ENGLISH
+ //
+ #ifdef UPLOAD
+-    if(!stat("vswap.wl1", &statbuf))
++    if(!stat(DATADIR "vswap.wl1", &statbuf))
+     {
+         strcpy (extension, "wl1");
+         numEpisodesMissing = 5;
+@@ -4064,7 +4064,7 @@ CheckForEpisodes (void)
+         Quit ("NO WOLFENSTEIN 3-D DATA FILES to be found!");
+ #else
+ #ifndef SPEAR
+-    if(!stat("vswap.wl6", &statbuf))
++    if(!stat(DATADIR "vswap.wl6", &statbuf))
+     {
+         strcpy (extension, "wl6");
+         NewEmenu[2].active =
+@@ -4077,7 +4077,7 @@ CheckForEpisodes (void)
+     }
+     else
+     {
+-        if(!stat("vswap.wl3", &statbuf))
++        if(!stat(DATADIR "vswap.wl3", &statbuf))
+         {
+             strcpy (extension, "wl3");
+             numEpisodesMissing = 3;
+@@ -4085,7 +4085,7 @@ CheckForEpisodes (void)
+         }
+         else
+         {
+-            if(!stat("vswap.wl1", &statbuf))
++            if(!stat(DATADIR "vswap.wl1", &statbuf))
+             {
+                 strcpy (extension, "wl1");
+                 numEpisodesMissing = 5;
+@@ -4102,28 +4102,28 @@ CheckForEpisodes (void)
+ #ifndef SPEARDEMO
+     if(param_mission == 0)
+     {
+-        if(!stat("vswap.sod", &statbuf))
++        if(!stat(DATADIR "vswap.sod", &statbuf))
+             strcpy (extension, "sod");
+         else
+             Quit ("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
+     }
+     else if(param_mission == 1)
+     {
+-        if(!stat("vswap.sd1", &statbuf))
++        if(!stat(DATADIR "vswap.sd1", &statbuf))
+             strcpy (extension, "sd1");
+         else
+             Quit ("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
+     }
+     else if(param_mission == 2)
+     {
+-        if(!stat("vswap.sd2", &statbuf))
++        if(!stat(DATADIR "vswap.sd2", &statbuf))
+             strcpy (extension, "sd2");
+         else
+             Quit ("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
+     }
+     else if(param_mission == 3)
+     {
+-        if(!stat("vswap.sd3", &statbuf))
++        if(!stat(DATADIR "vswap.sd3", &statbuf))
+             strcpy (extension, "sd3");
+         else
+             Quit ("NO SPEAR OF DESTINY DATA FILES TO BE FOUND!");
+@@ -4133,7 +4133,7 @@ CheckForEpisodes (void)
+     strcpy (graphext, "sod");
+     strcpy (audioext, "sod");
+ #else
+-    if(!stat("vswap.sdm", &statbuf))
++    if(!stat(DATADIR "vswap.sdm", &statbuf))
+     {
+         strcpy (extension, "sdm");
+     }

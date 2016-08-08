@@ -1,0 +1,28 @@
+# Return to Castle Wolfenstein server AppArmor profile
+# Copyright © 2016 Simon McVittie
+# Copying and distribution of this file, with or without modification, are
+# permitted in any medium without royalty provided this notice is preserved.
+# This file is offered as-is, without any warranty.
+
+#include <tunables/global>
+
+/usr/lib/rtcw/iowolfded* flags=(complain) {
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/private-files-strict>
+
+  network inet dgram,
+  network inet stream,
+  network inet6 dgram,
+  network inet6 stream,
+
+  /etc/rtcw-server/** r,
+  /usr/lib/rtcw/** mr,
+  /usr/share/games/rtcw/** r,
+
+  owner @{HOME}/.wolf/{,**} rwk,
+  owner /var/games/rtcw-server/** rwk,
+
+  # Site-specific additions and overrides. See local/README for details.
+  #include <local/usr.lib.rtcw.iowolfded>
+}

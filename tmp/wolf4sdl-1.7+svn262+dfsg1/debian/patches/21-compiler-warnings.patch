@@ -1,0 +1,684 @@
+Subject: Fix some compiler warnings so the code compiles cleanly with
+ g++-4.5 and CFLAGS+="-Wall -Wno-sign-compare -Wno-switch".
+Author: Fabian Greffrath <fabian+debian@greffrath.com>
+
+--- a/id_ca.cpp
++++ b/id_ca.cpp
+@@ -25,7 +25,6 @@ loaded into the data segment
+ #endif
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ #define THREEBYTEGRSTARTS
+ 
+@@ -693,7 +692,7 @@ void CA_Startup (void)
+ 
+ void CA_Shutdown (void)
+ {
+-    int i,start;
++    int i,start = STARTADLIBSOUNDS;
+ 
+     if(maphandle != -1)
+         close(maphandle);
+@@ -803,7 +802,7 @@ void CA_CacheAdlibSoundChunk (int chunk)
+ 
+ void CA_LoadAllSounds (void)
+ {
+-    unsigned start,i;
++    unsigned start = STARTADLIBSOUNDS,i;
+ 
+     switch (oldsoundmode)
+     {
+@@ -1045,7 +1044,7 @@ void CA_CacheMap (int mapnum)
+     int32_t   pos,compressed;
+     int       plane;
+     word     *dest;
+-    memptr    bigbufferseg;
++    memptr    bigbufferseg = 0;
+     unsigned  size;
+     word     *source;
+ #ifdef CARMACIZED
+--- a/id_pm.cpp
++++ b/id_pm.cpp
+@@ -82,7 +82,7 @@ void PM_Startup()
+     uint8_t *ptr = (uint8_t *) PMPageData;
+     for(i = 0; i < ChunksInFile; i++)
+     {
+-        if(i >= PMSpriteStart && i < PMSoundStart || i == ChunksInFile - 1)
++        if((i >= PMSpriteStart && i < PMSoundStart) || i == ChunksInFile - 1)
+         {
+             size_t offs = ptr - (uint8_t *) PMPageData;
+ 
+--- a/id_sd.cpp
++++ b/id_sd.cpp
+@@ -849,6 +849,7 @@ SDL_ShutAL(void)
+ //      SDL_CleanAL() - Totally shuts down the AdLib card
+ //
+ ///////////////////////////////////////////////////////////////////////////
++/*
+ static void
+ SDL_CleanAL(void)
+ {
+@@ -858,6 +859,7 @@ SDL_CleanAL(void)
+     for (i = 1; i < 0xf5; i++)
+         alOut(i, 0);
+ }
++*/
+ 
+ ///////////////////////////////////////////////////////////////////////////
+ //
+@@ -877,6 +879,7 @@ SDL_StartAL(void)
+ //              emulating an AdLib) present
+ //
+ ///////////////////////////////////////////////////////////////////////////
++/*
+ static boolean
+ SDL_DetectAdLib(void)
+ {
+@@ -888,6 +891,7 @@ SDL_DetectAdLib(void)
+ 
+     return true;
+ }
++*/
+ 
+ ////////////////////////////////////////////////////////////////////////////
+ //
+@@ -914,12 +918,14 @@ SDL_ShutDevice(void)
+ //      SDL_CleanDevice() - totally shuts down all sound devices
+ //
+ ///////////////////////////////////////////////////////////////////////////
++/*
+ static void
+ SDL_CleanDevice(void)
+ {
+     if ((SoundMode == sdm_AdLib) || (MusicMode == smm_AdLib))
+         SDL_CleanAL();
+ }
++*/
+ 
+ ///////////////////////////////////////////////////////////////////////////
+ //
+--- a/id_us_1.cpp
++++ b/id_us_1.cpp
+@@ -22,7 +22,6 @@
+ 
+ #include "wl_def.h"
+ 
+-#pragma	hdrstop
+ 
+ #if _MSC_VER == 1200            // Visual C++ 6
+ 	#define vsnprintf _vsnprintf
+@@ -177,7 +176,7 @@ void
+ US_PrintUnsigned(longword n)
+ {
+ 	char	buffer[32];
+-	sprintf(buffer, "%lu", n);
++	sprintf(buffer, "%lu", (long unsigned int) n);
+ 
+ 	US_Print(buffer);
+ }
+@@ -488,11 +487,11 @@ US_LineInput(int x,int y,char *buf,const
+ {
+ 	boolean		redraw,
+ 				cursorvis,cursormoved,
+-				done,result, checkkey;
++				done,result = false, checkkey;
+ 	ScanCode	sc;
+ 	char		c;
+ 	char		s[MaxString],olds[MaxString];
+-	int         cursor,len;
++	int         cursor,len = 0;
+ 	word		i,
+ 				w,h,
+ 				temp;
+@@ -530,7 +529,7 @@ US_LineInput(int x,int y,char *buf,const
+ 		curtime = GetTimeCount();
+ 
+ 		// After each direction change accept the next change after 250 ms and then everz 125 ms
+-		if(ci.dir != lastdir || curtime - lastdirtime > TickBase / 4 && curtime - lastdirmovetime > TickBase / 8)
++		if(ci.dir != lastdir || (curtime - lastdirtime > TickBase / 4 && curtime - lastdirmovetime > TickBase / 8))
+ 		{
+ 			if(ci.dir != lastdir)
+ 			{
+@@ -558,7 +557,7 @@ US_LineInput(int x,int y,char *buf,const
+ 					if(!s[cursor])
+ 					{
+ 						USL_MeasureString(s,&w,&h);
+-						if(len >= maxchars || maxwidth && w >= maxwidth) break;
++						if(len >= maxchars || (maxwidth && w >= maxwidth)) break;
+ 
+ 						s[cursor] = ' ';
+ 						s[cursor + 1] = 0;
+@@ -572,7 +571,7 @@ US_LineInput(int x,int y,char *buf,const
+ 					if(!s[cursor])
+ 					{
+ 						USL_MeasureString(s,&w,&h);
+-						if(len >= maxchars || maxwidth && w >= maxwidth) break;
++						if(len >= maxchars || (maxwidth && w >= maxwidth)) break;
+ 						s[cursor + 1] = 0;
+ 					}
+ 					s[cursor] = USL_RotateChar(s[cursor], 1);
+@@ -584,7 +583,7 @@ US_LineInput(int x,int y,char *buf,const
+ 					if(!s[cursor])
+ 					{
+ 						USL_MeasureString(s,&w,&h);
+-						if(len >= maxchars || maxwidth && w >= maxwidth) break;
++						if(len >= maxchars || (maxwidth && w >= maxwidth)) break;
+ 						s[cursor + 1] = 0;
+ 					}
+ 					s[cursor] = USL_RotateChar(s[cursor], -1);
+--- a/id_vh.cpp
++++ b/id_vh.cpp
+@@ -356,7 +356,7 @@ boolean FizzleFade (SDL_Surface *source,
+     unsigned width, unsigned height, unsigned frames, boolean abortable)
+ {
+     unsigned x, y, frame, pixperframe;
+-    int32_t  rndval, lastrndval;
++    int32_t  rndval = 0, lastrndval;
+     int      first = 1;
+ 
+     lastrndval = 0;
+--- a/id_vl.cpp
++++ b/id_vl.cpp
+@@ -2,7 +2,6 @@
+ 
+ #include <string.h>
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ // Uncomment the following line, if you get destination out of bounds
+ // assertion errors and want to ignore them during debugging
+--- a/wl_act1.cpp
++++ b/wl_act1.cpp
+@@ -1,7 +1,6 @@
+ // WL_ACT1.C
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ /*
+ =============================================================================
+@@ -17,6 +16,7 @@ statobj_t       *laststatobj;
+ 
+ 
+ struct
++statinfo_t
+ {
+     short      picnum;
+     wl_stat_t  type;
+@@ -844,7 +844,7 @@ void MovePWalls (void)
+             pwally += dy;
+ 
+             if (actorat[pwallx+dx][pwally+dy]
+-                || xl<=pwallx+dx && pwallx+dx<=xh && yl<=pwally+dy && pwally+dy<=yh)
++                || (xl<=pwallx+dx && pwallx+dx<=xh && yl<=pwally+dy && pwally+dy<=yh))
+             {
+                 pwallstate = 0;
+                 tilemap[pwallx][pwally] = oldtile;
+--- a/wl_act2.cpp
++++ b/wl_act2.cpp
+@@ -3,7 +3,6 @@
+ #include <stdio.h>
+ #include <math.h>
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ /*
+ =============================================================================
+@@ -307,7 +306,7 @@ boolean ProjectileTryMove (objtype *ob)
+ void T_Projectile (objtype *ob)
+ {
+     int32_t deltax,deltay;
+-    int     damage;
++    int     damage = 0;
+     int32_t speed;
+ 
+     speed = (int32_t)ob->speed*tics;
+--- a/wl_agent.cpp
++++ b/wl_agent.cpp
+@@ -1,7 +1,6 @@
+ // WL_AGENT.C
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ /*
+ =============================================================================
+@@ -163,15 +162,11 @@ void CheckWeaponChange (void)
+ 
+ void ControlMovement (objtype *ob)
+ {
+-    int32_t oldx,oldy;
+     int     angle;
+     int     angleunits;
+ 
+     thrustspeed = 0;
+ 
+-    oldx = player->x;
+-    oldy = player->y;
+-
+     if(buttonstate[bt_strafeleft])
+     {
+         angle = ob->angle + ANGLES/4;
+--- a/wl_debug.cpp
++++ b/wl_debug.cpp
+@@ -7,7 +7,6 @@
+ #endif
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ #ifdef USE_CLOUDSKY
+ #include "wl_cloudsky.h"
+@@ -52,7 +51,7 @@ void SimpleScaleShape (int xcenter, int
+ 
+ int     maporgx;
+ int     maporgy;
+-enum {mapview,tilemapview,actoratview,visview}  viewtype;
++enum viewtype_t {mapview,tilemapview,actoratview,visview}  viewtype;
+ 
+ void ViewMap (void);
+ 
+@@ -181,7 +180,7 @@ void BasicOverhead (void)
+     // left side (filtered)
+ 
+     uintptr_t tile;
+-    int color;
++    int color = 0;
+     offx -= 128;
+ 
+     for(x=0;x<MAPSIZE;x++)
+--- a/wl_draw.cpp
++++ b/wl_draw.cpp
+@@ -1,7 +1,6 @@
+ // WL_DRAW.C
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ #include "wl_cloudsky.h"
+ #include "wl_atmos.h"
+@@ -484,7 +483,7 @@ void HitHorizWall (void)
+ 
+ void HitHorizDoor (void)
+ {
+-    int doorpage;
++    int doorpage = DOORWALL;
+     int doornum;
+     int texture;
+ 
+@@ -549,7 +548,7 @@ void HitHorizDoor (void)
+ 
+ void HitVertDoor (void)
+ {
+-    int doorpage;
++    int doorpage = DOORWALL+1;
+     int doornum;
+     int texture;
+ 
+@@ -1093,8 +1092,8 @@ void CalcTics (void)
+ 
+ void AsmRefresh()
+ {
+-    int32_t xstep,ystep;
+-    longword xpartial,ypartial;
++    int32_t xstep = 0,ystep = 0;
++    longword xpartial = 0,ypartial = 0;
+     boolean playerInPushwallBackTile = tilemap[focaltx][focalty] == 64;
+ 
+     for(pixx=0;pixx<viewwidth;pixx++)
+@@ -1149,8 +1148,8 @@ void AsmRefresh()
+         // Special treatment when player is in back tile of pushwall
+         if(playerInPushwallBackTile)
+         {
+-            if(    pwalldir == di_east && xtilestep ==  1
+-                || pwalldir == di_west && xtilestep == -1)
++            if(    (pwalldir == di_east && xtilestep ==  1)
++                || (pwalldir == di_west && xtilestep == -1))
+             {
+                 int32_t yintbuf = yintercept - ((ystep * (64 - pwallpos)) >> 6);
+                 if((yintbuf >> 16) == focalty)   // ray hits pushwall back?
+@@ -1166,8 +1165,8 @@ void AsmRefresh()
+                     continue;
+                 }
+             }
+-            else if(pwalldir == di_south && ytilestep ==  1
+-                ||  pwalldir == di_north && ytilestep == -1)
++            else if((pwalldir == di_south && ytilestep ==  1)
++                ||  (pwalldir == di_north && ytilestep == -1))
+             {
+                 int32_t xintbuf = xintercept - ((xstep * (64 - pwallpos)) >> 6);
+                 if((xintbuf >> 16) == focaltx)   // ray hits pushwall back?
+@@ -1237,8 +1236,8 @@ vertentry:
+                                 pwallposnorm = pwallpos;
+                                 pwallposinv = 64-pwallpos;
+                             }
+-                            if(pwalldir == di_east && xtile==pwallx && ((uint32_t)yintercept>>16)==pwally
+-                                || pwalldir == di_west && !(xtile==pwallx && ((uint32_t)yintercept>>16)==pwally))
++                            if((pwalldir == di_east && xtile==pwallx && ((uint32_t)yintercept>>16)==pwally)
++                                || (pwalldir == di_west && !(xtile==pwallx && ((uint32_t)yintercept>>16)==pwally)))
+                             {
+                                 yintbuf=yintercept+((ystep*pwallposnorm)>>6);
+                                 if((yintbuf>>16)!=(yintercept>>16))
+@@ -1267,13 +1266,13 @@ vertentry:
+                         {
+                             int pwallposi = pwallpos;
+                             if(pwalldir==di_north) pwallposi = 64-pwallpos;
+-                            if(pwalldir==di_south && (word)yintercept<(pwallposi<<10)
+-                                || pwalldir==di_north && (word)yintercept>(pwallposi<<10))
++                            if((pwalldir==di_south && (word)yintercept<(pwallposi<<10))
++                                || (pwalldir==di_north && (word)yintercept>(pwallposi<<10)))
+                             {
+                                 if(((uint32_t)yintercept>>16)==pwally && xtile==pwallx)
+                                 {
+-                                    if(pwalldir==di_south && (int32_t)((word)yintercept)+ystep<(pwallposi<<10)
+-                                            || pwalldir==di_north && (int32_t)((word)yintercept)+ystep>(pwallposi<<10))
++                                    if((pwalldir==di_south && (int32_t)((word)yintercept)+ystep<(pwallposi<<10))
++                                            || (pwalldir==di_north && (int32_t)((word)yintercept)+ystep>(pwallposi<<10)))
+                                         goto passvert;
+ 
+                                     if(pwalldir==di_south)
+@@ -1306,8 +1305,8 @@ vertentry:
+                                 }
+                                 else
+                                 {
+-                                    if(pwalldir==di_south && (int32_t)((word)yintercept)+ystep>(pwallposi<<10)
+-                                            || pwalldir==di_north && (int32_t)((word)yintercept)+ystep<(pwallposi<<10))
++                                    if((pwalldir==di_south && (int32_t)((word)yintercept)+ystep>(pwallposi<<10))
++                                            || (pwalldir==di_north && (int32_t)((word)yintercept)+ystep<(pwallposi<<10)))
+                                         goto passvert;
+ 
+                                     if(pwalldir==di_south)
+@@ -1392,8 +1391,8 @@ horizentry:
+                                 pwallposnorm = pwallpos;
+                                 pwallposinv = 64-pwallpos;
+                             }
+-                            if(pwalldir == di_south && ytile==pwally && ((uint32_t)xintercept>>16)==pwallx
+-                                || pwalldir == di_north && !(ytile==pwally && ((uint32_t)xintercept>>16)==pwallx))
++                            if((pwalldir == di_south && ytile==pwally && ((uint32_t)xintercept>>16)==pwallx)
++                                || (pwalldir == di_north && !(ytile==pwally && ((uint32_t)xintercept>>16)==pwallx)))
+                             {
+                                 xintbuf=xintercept+((xstep*pwallposnorm)>>6);
+                                 if((xintbuf>>16)!=(xintercept>>16))
+@@ -1422,13 +1421,13 @@ horizentry:
+                         {
+                             int pwallposi = pwallpos;
+                             if(pwalldir==di_west) pwallposi = 64-pwallpos;
+-                            if(pwalldir==di_east && (word)xintercept<(pwallposi<<10)
+-                                    || pwalldir==di_west && (word)xintercept>(pwallposi<<10))
++                            if((pwalldir==di_east && (word)xintercept<(pwallposi<<10))
++                                    || (pwalldir==di_west && (word)xintercept>(pwallposi<<10)))
+                             {
+                                 if(((uint32_t)xintercept>>16)==pwallx && ytile==pwally)
+                                 {
+-                                    if(pwalldir==di_east && (int32_t)((word)xintercept)+xstep<(pwallposi<<10)
+-                                            || pwalldir==di_west && (int32_t)((word)xintercept)+xstep>(pwallposi<<10))
++                                    if((pwalldir==di_east && (int32_t)((word)xintercept)+xstep<(pwallposi<<10))
++                                            || (pwalldir==di_west && (int32_t)((word)xintercept)+xstep>(pwallposi<<10)))
+                                         goto passhoriz;
+ 
+                                     if(pwalldir==di_east)
+@@ -1461,8 +1460,8 @@ horizentry:
+                                 }
+                                 else
+                                 {
+-                                    if(pwalldir==di_east && (int32_t)((word)xintercept)+xstep>(pwallposi<<10)
+-                                            || pwalldir==di_west && (int32_t)((word)xintercept)+xstep<(pwallposi<<10))
++                                    if((pwalldir==di_east && (int32_t)((word)xintercept)+xstep>(pwallposi<<10))
++                                            || (pwalldir==di_west && (int32_t)((word)xintercept)+xstep<(pwallposi<<10)))
+                                         goto passhoriz;
+ 
+                                     if(pwalldir==di_east)
+--- a/wl_game.cpp
++++ b/wl_game.cpp
+@@ -3,7 +3,6 @@
+ #include <math.h>
+ #include "wl_def.h"
+ #include <SDL_mixer.h>
+-#pragma hdrstop
+ 
+ #ifdef MYPROFILE
+ #include <TIME.H>
+@@ -1178,7 +1177,8 @@ void PlayDemo (int demonumber)
+     NewGame (1,0);
+     gamestate.mapon = *demoptr++;
+     gamestate.difficulty = gd_hard;
+-    length = READWORD(*(uint8_t **)&demoptr);
++    length = demoptr[0] | demoptr[1] << 8;
++    demoptr+=2;
+     // TODO: Seems like the original demo format supports 16 MB demos
+     //       But T_DEM00 and T_DEM01 of Wolf have a 0xd8 as third length size...
+     demoptr++;
+--- a/wl_inter.cpp
++++ b/wl_inter.cpp
+@@ -1,7 +1,6 @@
+ // WL_INTER.C
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ LRstruct LevelRatios[LRpack];
+ int32_t lastBreathTime = 0;
+@@ -386,7 +385,7 @@ Write (int x, int y, const char *string)
+                     break;
+ 
+                 default:
+-                    VWB_DrawPic (nx, ny, alpha[ch]);
++                    VWB_DrawPic (nx, ny, alpha[(int)ch]);
+             }
+             nx += 16;
+         }
+--- a/wl_main.cpp
++++ b/wl_main.cpp
+@@ -7,7 +7,6 @@
+ #endif
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ #include "wl_atmos.h"
+ #include <SDL_syswm.h>
+ 
+@@ -1444,7 +1443,7 @@ void Quit (const char *errorStr, ...)
+     if (!pictable)  // don't try to display the red box before it's loaded
+     {
+         ShutdownId();
+-        if (error && *error)
++        if (*error)
+         {
+ #ifdef NOTYET
+             SetTextCursor(0,0);
+@@ -1458,7 +1457,7 @@ void Quit (const char *errorStr, ...)
+         exit(1);
+     }
+ 
+-    if (!error || !*error)
++    if (!*error)
+     {
+ #ifdef NOTYET
+         #ifndef JAPAN
+@@ -1478,7 +1477,7 @@ void Quit (const char *errorStr, ...)
+ 
+     ShutdownId ();
+ 
+-    if (error && *error)
++    if (*error)
+     {
+ #ifdef NOTYET
+         memcpy((byte *)0xb8000,screen+7,7*160);
+@@ -1492,7 +1491,7 @@ void Quit (const char *errorStr, ...)
+         exit(1);
+     }
+     else
+-    if (!error || !(*error))
++    if (!*error)
+     {
+ #ifdef NOTYET
+         #ifndef JAPAN
+@@ -1520,7 +1519,9 @@ void Quit (const char *errorStr, ...)
+ 
+ static void DemoLoop()
+ {
++#ifndef SPEARDEMO
+     int LastDemo = 0;
++#endif
+ 
+ //
+ // check for launch from ted
+@@ -1729,7 +1730,7 @@ void CheckParameters(int argc, char *arg
+                 screenWidth = atoi(argv[++i]);
+                 screenHeight = atoi(argv[++i]);
+                 unsigned factor = screenWidth / 320;
+-                if(screenWidth % 320 || screenHeight != 200 * factor && screenHeight != 240 * factor)
++                if(screenWidth % 320 || (screenHeight != 200 * factor && screenHeight != 240 * factor))
+                     printf("Screen size must be a multiple of 320x200 or 320x240!\n"), hasError = true;
+             }
+         }
+--- a/wl_menu.cpp
++++ b/wl_menu.cpp
+@@ -15,7 +15,6 @@
+ #endif
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ extern int lastgamemusicoffset;
+ extern int numEpisodesMissing;
+@@ -920,7 +919,7 @@ CP_CheckQuick (ScanCode scancode)
+ #ifdef SPANISH
+             if (Confirm (ENDGAMESTR))
+ #else
+-            if (Confirm (endStrings[US_RndT () & 0x7 + (US_RndT () & 1)]))
++            if (Confirm (endStrings[US_RndT () & (0x7 + (US_RndT () & 1))]))
+ #endif
+ #endif
+             {
+@@ -2137,7 +2136,7 @@ CustomControls (int)
+ void
+ DefineMouseBtns (void)
+ {
+-    CustomCtrls mouseallowed = { 0, 1, 1, 1 };
++    CustomCtrls mouseallowed = {{ 0, 1, 1, 1 }};
+     EnterCtrlData (2, &mouseallowed, DrawCustMouse, PrintCustMouse, MOUSE);
+ }
+ 
+@@ -2149,7 +2148,7 @@ DefineMouseBtns (void)
+ void
+ DefineJoyBtns (void)
+ {
+-    CustomCtrls joyallowed = { 1, 1, 1, 1 };
++    CustomCtrls joyallowed = {{ 1, 1, 1, 1 }};
+     EnterCtrlData (5, &joyallowed, DrawCustJoy, PrintCustJoy, JOYSTICK);
+ }
+ 
+@@ -2161,7 +2160,7 @@ DefineJoyBtns (void)
+ void
+ DefineKeyBtns (void)
+ {
+-    CustomCtrls keyallowed = { 1, 1, 1, 1 };
++    CustomCtrls keyallowed = {{ 1, 1, 1, 1 }};
+     EnterCtrlData (8, &keyallowed, DrawCustKeybd, PrintCustKeybd, KEYBOARDBTNS);
+ }
+ 
+@@ -2173,7 +2172,7 @@ DefineKeyBtns (void)
+ void
+ DefineKeyMove (void)
+ {
+-    CustomCtrls keyallowed = { 1, 1, 1, 1 };
++    CustomCtrls keyallowed = {{ 1, 1, 1, 1 }};
+     EnterCtrlData (10, &keyallowed, DrawCustKeys, PrintCustKeys, KEYBOARDMOVE);
+ }
+ 
+@@ -2190,7 +2189,7 @@ void
+ EnterCtrlData (int index, CustomCtrls * cust, void (*DrawRtn) (int), void (*PrintRtn) (int),
+                int type)
+ {
+-    int j, exit, tick, redraw, which, x, picked, lastFlashTime;
++    int j, exit, tick, redraw, which = 0, x = 0, picked, lastFlashTime;
+     ControlInfo ci;
+ 
+ 
+@@ -2241,7 +2240,7 @@ EnterCtrlData (int index, CustomCtrls *
+         //
+         // CHANGE BUTTON VALUE?
+         //
+-        if ((type != KEYBOARDBTNS && type != KEYBOARDMOVE) && (ci.button0 | ci.button1 | ci.button2 | ci.button3) ||
++        if (((type != KEYBOARDBTNS && type != KEYBOARDMOVE) && (ci.button0 | ci.button1 | ci.button2 | ci.button3)) ||
+             ((type == KEYBOARDBTNS || type == KEYBOARDMOVE) && LastScan == sc_Enter))
+         {
+             lastFlashTime = GetTimeCount();
+@@ -2362,7 +2361,7 @@ EnterCtrlData (int index, CustomCtrls *
+                 //
+                 // EXIT INPUT?
+                 //
+-                if (IN_KeyDown (sc_Escape) || type != JOYSTICK && ci.button1)
++                if (IN_KeyDown (sc_Escape) || (type != JOYSTICK && ci.button1))
+                 {
+                     picked = 1;
+                     SD_PlaySound (ESCPRESSEDSND);
+@@ -2942,7 +2941,7 @@ CP_Quit (int)
+ #ifdef SPANISH
+     if (Confirm (ENDGAMESTR))
+ #else
+-    if (Confirm (endStrings[US_RndT () & 0x7 + (US_RndT () & 1)]))
++    if (Confirm (endStrings[US_RndT () & (0x7 + (US_RndT () & 1))]))
+ #endif
+ 
+ #endif
+@@ -3406,7 +3405,7 @@ HandleMenu (CP_iteminfo * item_i, CP_ite
+         if (ci.button0 || Keyboard[sc_Space] || Keyboard[sc_Enter])
+             exit = 1;
+ 
+-        if (ci.button1 && !Keyboard[sc_Alt] || Keyboard[sc_Escape])
++        if ((ci.button1 && !Keyboard[sc_Alt]) || Keyboard[sc_Escape])
+             exit = 2;
+ 
+     }
+@@ -3848,7 +3847,7 @@ Message (const char *string)
+             h += font->height;
+         }
+         else
+-            w += font->width[string[i]];
++            w += font->width[(int8_t)string[i]];
+     }
+ 
+     if (w + 10 > mw)
+--- a/wl_play.cpp
++++ b/wl_play.cpp
+@@ -1,7 +1,6 @@
+ // WL_PLAY.C
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ #include "wl_cloudsky.h"
+ #include "wl_shade.h"
+@@ -688,8 +687,6 @@ void CheckKeys (void)
+ #endif
+            scan == sc_F9 || scan == sc_F7 || scan == sc_F8)     // pop up quit dialog
+     {
+-        short oldmapon = gamestate.mapon;
+-        short oldepisode = gamestate.episode;
+         ClearMemory ();
+         ClearSplitVWB ();
+         US_ControlPanel (scan);
+--- a/wl_state.cpp
++++ b/wl_state.cpp
+@@ -1,7 +1,6 @@
+ // WL_STATE.C
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ /*
+ =============================================================================
+--- a/wl_text.cpp
++++ b/wl_text.cpp
+@@ -1,7 +1,6 @@
+ // WL_TEXT.C
+ 
+ #include "wl_def.h"
+-#pragma hdrstop
+ 
+ /*
+ =============================================================================

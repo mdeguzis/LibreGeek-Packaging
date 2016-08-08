@@ -1,0 +1,52 @@
+Subject: Suppress vertical mouse movement when the "--novert" parameter is given.
+Author: Fabian Greffrath <fabian+debian@greffrath.com>
+
+--- a/wl_def.h
++++ b/wl_def.h
+@@ -933,6 +933,7 @@ extern  int      param_audiobuffer;
+ extern  int      param_mission;
+ extern  boolean  param_goodtimes;
+ extern  boolean  param_ignorenumchunks;
++extern  boolean  param_novert;
+ 
+ 
+ void            NewGame (int difficulty,int episode);
+--- a/wl_main.cpp
++++ b/wl_main.cpp
+@@ -101,6 +101,7 @@ int     param_audiobuffer = 2048 / (4410
+ int     param_mission = 0;
+ boolean param_goodtimes = false;
+ boolean param_ignorenumchunks = false;
++boolean param_novert = false;
+ 
+ /*
+ =============================================================================
+@@ -1718,6 +1719,8 @@ void CheckParameters(int argc, char *arg
+             fullscreen = false;
+             forcegrabmouse = true;
+         }
++        else IFARG("--novert")
++            param_novert = true;
+         else IFARG("--res")
+         {
+             if(i + 2 >= argc)
+@@ -1898,6 +1901,7 @@ void CheckParameters(int argc, char *arg
+             " --hard                 Sets the difficulty to hard for tedlevel\n"
+             " --nowait               Skips intro screens\n"
+             " --windowed[-mouse]     Starts the game in a window [and grabs mouse]\n"
++            " --novert               Suppresses vertical mouse movement\n"
+             " --res <width> <height> Sets the screen resolution\n"
+             "                        (must be multiple of 320x200 or 320x240)\n"
+             " --resf <w> <h>         Sets any screen resolution >= 320x200\n"
+--- a/wl_play.cpp
++++ b/wl_play.cpp
+@@ -347,7 +347,8 @@ void PollMouseMove (void)
+     mouseymove -= screenHeight / 2;
+ 
+     controlx += mousexmove * 10 / (13 - mouseadjustment);
+-    controly += mouseymove * 20 / (13 - mouseadjustment);
++    if (!param_novert)
++        controly += mouseymove * 20 / (13 - mouseadjustment);
+ }
+ 
+ 

@@ -1,0 +1,61 @@
+#!/usr/bin/make -f
+
+DEB_CFLAGS_MAINT_APPEND  += $(shell dpkg-buildflags --get CPPFLAGS)
+DEB_CFLAGS_MAINT_APPEND  += -Wall -Wno-sign-compare -Wno-switch
+DEB_CFLAGS_MAINT_APPEND  += -DDATADIR=\"/usr/share/games/wolf3d/\"
+DEB_CFLAGS_MAINT_APPEND  += -fno-toplevel-reorder
+DEB_LDFLAGS_MAINT_APPEND += -Wl,-z,defs -Wl,--as-needed
+export DEB_CFLAGS_MAINT_APPEND DEB_LDFLAGS_MAINT_APPEND
+
+export GPL=1 Q=""
+
+define set_defines
+	@$(foreach def, $(1), \
+		if   [ "$(shell echo $(def) | cut -c1)" = "-" ]; then \
+			sed -e "s|^\(//\)\?\(#define $(shell echo $(def) | cut -c2-)\)|//\2|" -i version.h; \
+		elif [ "$(shell echo $(def) | cut -c1)" = "+" ]; then \
+			sed -e "s|^\(//\)\?\(#define $(shell echo $(def) | cut -c2-)\)|\2|"   -i version.h; \
+		fi; \
+	)
+endef
+
+debian/wolf4sdl.xpm: debian/wolf4sdl.png
+	convert $^ $@
+
+debian/wolf4sdl.png: debian/wolf4sdl.svg
+	inkscape --export-png=$@ $^
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	# Wolf3d Full v1.4 GT/ID/Activision
+	$(MAKE) clean
+	$(call set_defines,-SPEAR -SPEARDEMO -UPLOAD +GOODTIMES +CARMACIZED)
+	dh_auto_build -- BINARY=wolf4sdl-wl6
+
+	# Wolf3d Full v1.4 Apogee (with ReadThis)
+	$(MAKE) clean
+	$(call set_defines,-SPEAR -SPEARDEMO -UPLOAD -GOODTIMES +CARMACIZED)
+	dh_auto_build -- BINARY=wolf4sdl-wl6a
+
+	# Wolf3d Shareware v1.4
+	$(MAKE) clean
+	$(call set_defines,-SPEAR -SPEARDEMO +UPLOAD -GOODTIMES +CARMACIZED)
+	dh_auto_build -- BINARY=wolf4sdl-wl1
+
+	# Spear of Destiny Full and Mission Disks (and GOODTIMES for no FormGen quiz)
+	$(MAKE) clean
+	$(call set_defines,+SPEAR -SPEARDEMO -UPLOAD +GOODTIMES +CARMACIZED)
+	dh_auto_build -- BINARY=wolf4sdl-sod
+
+	# Spear of Destiny Demo
+	$(MAKE) clean
+	$(call set_defines,+SPEAR +SPEARDEMO -UPLOAD -GOODTIMES +CARMACIZED)
+	dh_auto_build -- BINARY=wolf4sdl-sdm
+
+override_dh_auto_clean:
+	$(call set_defines,-SPEAR -SPEARDEMO -UPLOAD +GOODTIMES +CARMACIZED)
+	dh_auto_clean
+
+override_dh_auto_install:

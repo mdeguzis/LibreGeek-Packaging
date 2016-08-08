@@ -19,9 +19,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=$(date +"%T")
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=$(date +"%T")
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -53,8 +53,8 @@ GIT_URL=""
 branch="master"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
@@ -66,9 +66,9 @@ upstream_rev="1"
 PKGSUFFIX="bsos${PKGREV}"
 BUILDER="pdebuild"
 DIST="brewmaster"
-urgency="low"
+URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
@@ -125,9 +125,9 @@ main()
 	# Get jar file
 	curl -o "${GIT_DIR}/Minecraft.jar" "https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar" -#
 	
-	# Inject other files from scriptdir
-	cp "${scriptdir}/minecraft.png" "${GIT_DIR}"
-	cp "${scriptdir}/minecraft-launcher.sh" "${GIT_DIR}/minecraft"
+	# Inject other files from SCRIPTDIR
+	cp "${SCRIPTDIR}/minecraft.png" "${GIT_DIR}"
+	cp "${SCRIPTDIR}/minecraft-launcher.sh" "${GIT_DIR}/minecraft"
 
 	#################################################
 	# Build package
@@ -143,7 +143,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
-	cp -r "${scriptdir}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
 
 	# enter source dir
 	cd "${SRCDIR}"
@@ -154,11 +154,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" -D "${DIST}" -u "${urgency}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 
@@ -179,10 +179,10 @@ main()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 	
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
@@ -191,8 +191,8 @@ main()
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 	
 	# back out of build tmp to script dir if called from git clone
-	if [[ "${scriptdir}" != "" ]]; then
-		cd "${scriptdir}" || exit
+	if [[ "${SCRIPTDIR}" != "" ]]; then
+		cd "${SCRIPTDIR}" || exit
 	else
 		cd "${HOME}" || exit
 	fi
@@ -227,7 +227,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

@@ -21,9 +21,9 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
-time_start=$(date +%s)
-time_stamp_start=(`date +"%T"`)
+SCRIPTDIR=$(pwd)
+TIME_START=$(date +%s)
+TIME_STAMP_START=(`date +"%T"`)
 
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
@@ -51,8 +51,8 @@ else
 fi
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
@@ -169,7 +169,7 @@ main()
 	PKGVER=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
         # Alter pkg suffix based on commit
-        PKGSUFFIX="${date_short}git+bsos"
+        PKGSUFFIX="${DATE_SHORT}git+bsos"
 
 	#################################################
 	# Prepare build (upstream-specific)
@@ -199,7 +199,7 @@ main()
 	rm -rf  ${GIT_DIR}/.git
 
 	# copy in debian folder
-	cp -r "$scriptdir/debian-unstable" "${GIT_DIR}/debian"
+	cp -r "$SCRIPTDIR/debian-unstable" "${GIT_DIR}/debian"
 
 	#################################################
 	# Build platform
@@ -257,10 +257,10 @@ main()
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 
 	# output finish
-	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
@@ -294,7 +294,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

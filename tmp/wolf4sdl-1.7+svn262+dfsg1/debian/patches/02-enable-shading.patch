@@ -1,0 +1,24 @@
+Subject: Enable shading support (just because I like it).
+Author: Fabian Greffrath <fabian+debian@greffrath.com>
+
+--- a/Makefile
++++ b/Makefile
+@@ -65,6 +65,7 @@ SRCS += wl_agent.cpp
+ SRCS += wl_atmos.cpp
+ SRCS += wl_cloudsky.cpp
+ SRCS += wl_debug.cpp
++SRCS += wl_shade.cpp
+ SRCS += wl_draw.cpp
+ SRCS += wl_floorceiling.cpp
+ SRCS += wl_game.cpp
+--- a/version.h
++++ b/version.h
+@@ -32,7 +32,7 @@
+ #endif
+ 
+ //#define USE_FEATUREFLAGS    // Enables the level feature flags (see bottom of wl_def.h)
+-//#define USE_SHADING         // Enables shading support (see wl_shade.cpp)
++#define USE_SHADING         // Enables shading support (see wl_shade.cpp)
+ //#define USE_DIR3DSPR        // Enables directional 3d sprites (see wl_dir3dspr.cpp)
+ //#define USE_FLOORCEILINGTEX // Enables floor and ceiling textures stored in the third mapplane (see wl_floorceiling.cpp)
+ //#define USE_HIRES           // Enables high resolution textures/sprites (128x128)

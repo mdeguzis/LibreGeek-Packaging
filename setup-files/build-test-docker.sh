@@ -20,7 +20,7 @@
 # TODO: arguments specification, help file, install, removal, test options.
 
 # set dir we are
-scriptdir=$(pwd)
+SCRIPTDIR=$(pwd)
 
 # show help if requested or list of OS's supported
 if [[ "$1" == "--help" ]]; then
@@ -160,7 +160,7 @@ main()
 	clear
 	echo -e "==> import verification keys\n"
 	
-	# The below needs replaced with gpg_import tool line under $scriptdir/utilities
+	# The below needs replaced with gpg_import tool line under $SCRIPTDIR/utilities
 	# once key is known from gpg --list-keys 
 	sudo sh -c "wget -qO- https://get.docker.io/gpg | apt-key add -"
 

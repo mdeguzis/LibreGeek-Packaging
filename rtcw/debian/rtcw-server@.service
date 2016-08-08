@@ -1,0 +1,24 @@
+[Unit]
+Description=Return to Castle Wolfenstein game server (instance: "%i")
+Documentation=file:///usr/share/doc/rtcw-server/README.Debian
+Documentation=man:wolfded(6)
+After=network.target
+
+[Service]
+Type=simple
+User=rtcw-server
+Environment=DAEMON_OPTS=
+EnvironmentFile=-/etc/default/rtcw-server@%i
+ExecStart=/usr/games/rtcw-server +set com_homepath %i.iortcw $DAEMON_OPTS +exec etc/rtcw-server/%i.cfg
+Restart=on-failure
+RestartPreventExitStatus=72
+# hardening
+CapabilityBoundingSet=
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

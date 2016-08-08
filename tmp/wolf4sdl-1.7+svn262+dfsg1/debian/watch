@@ -1,0 +1,4 @@
+version=3
+opts=dversionmangle=s/\+dfsg1// \
+http://www.alice-dsl.net/mkroll/downloads.html \
+bins/Wolf4SDL-([\d\.]*)-src\.zip

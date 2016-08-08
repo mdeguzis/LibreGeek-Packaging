@@ -1,0 +1,68 @@
+# Return to Castle Wolfenstein client AppArmor profile
+# Copyright © 2016 Simon McVittie
+# Copying and distribution of this file, with or without modification, are
+# permitted in any medium without royalty provided this notice is preserved.
+# This file is offered as-is, without any warranty.
+
+#include <tunables/global>
+
+/usr/lib/rtcw/iowolf{mp,sp}* flags=(complain) {
+  #include <abstractions/X>
+  #include <abstractions/audio>
+  #include <abstractions/base>
+  #include <abstractions/nameservice>
+  #include <abstractions/nvidia>
+  #include <abstractions/private-files-strict>
+
+  network inet dgram,
+  network inet stream,
+  network inet6 dgram,
+  network inet6 stream,
+
+  /etc/rtcw-server/** r,
+  /usr/lib/rtcw/** mr,
+  /usr/lib/rtcw/iowolf{mp,sp}* mrix,
+  /usr/share/games/rtcw/** r,
+  /usr/share/icons/** r,
+
+  owner @{HOME}/.wolf/{,**} rwk,
+
+  # "safe mode" prompt
+  /usr/bin/kdialog Cx -> popup,
+  /usr/bin/xmessage Cx -> popup,
+  /usr/bin/zenity Cx -> popup,
+
+  # used by PulseAudio
+  /etc/machine-id r,
+  /var/lib/dbus/machine-id r,
+
+  # udev device enumeration, input devices, video
+  /etc/udev/udev.conf r,
+  /run/udev/data/** r,
+  /sys/bus/ r,
+  /sys/class/ r,
+  /sys/class/input/ r,
+  /sys/class/sound/ r,
+  /sys/devices/**/input/** r,
+  /sys/devices/**/sound/**/input*/** r,
+  /sys/devices/**/sound/timer/uevent r,
+  /sys/devices/pci*/**/uevent r,
+
+  profile popup (complain) {
+    #include <abstractions/X>
+    #include <abstractions/base>
+    #include <abstractions/fonts>
+    #include <abstractions/freedesktop.org>
+
+    /etc/X11/app-defaults/Xmessage-color r,
+    /usr/bin/kdialog mr,
+    /usr/bin/xmessage mr,
+    /usr/bin/zenity mr,
+    /usr/share/themes/** r,
+    /usr/share/zenity/** r,
+    owner @{HOME}/.config/gtk-3.0/settings.ini r,
+  }
+
+  # Site-specific additions and overrides. See local/README for details.
+  #include <local/usr.lib.rtcw>
+}

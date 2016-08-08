@@ -1,0 +1,110 @@
+.TH WOLFDED 6 2014-12-30
+
+.SH NAME
+wolfded \- Return to Castle Wolfenstein dedicated server
+
+.SH SYNOPSIS
+.BR wolfded
+.BR "" [ \-h | \-\-help ]
+.BR "" [ \-q | \-\-quiet ]
+.BR "" [ +set
+.IR option " " value ]...
+[\fB+\fIcommand\fR] ...
+
+.SH DESCRIPTION
+.B wolfded
+is the dedicated server for the first-person shooter Return to Castle
+Wolfenstein.
+
+.SH OPTIONS
+The wrapper script used for RTCW in Debian accepts these options:
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Display a short help summary
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+Disable all output
+.PP
+Any console command can also be prefixed with \fB+\fR and used as a
+command-line option (run the server in a terminal to use the console).
+The \fB+set\fR command is generally the most useful to use on the command line.
+.PP
+Options that can be set with \fB+set\fR
+(note that this is not a full list!) include:
+.PP
+\fBdedicated\fR \fI0-2\fR
+.PP
+\fBfs_game\fR <value>
+.PP
+\fBg_allowVote\fR <bool>
+.PP
+\fBg_banIPs\fR <IP address>
+.PP
+\fBg_gametype\fR <bool>
+.PP
+\fBg_gravity\fR <value>
+.PP
+\fBg_inactivity\fR <value>
+.PP
+\fBg_maxGameClients\fR <value>
+.PP
+\fBg_motd\fR <string>
+.PP
+\fBg_needpass\fR <bool>
+.PP
+\fBg_password\fR <string>
+.PP
+\fBnet_ip\fR <IP adress>
+.PP
+\fBnet_port\fR <value>
+.PP
+\fBnet_qport\fR <value>
+.PP
+\fBnextmap\fR <string>
+.PP
+\fBsv_allowDownload\fR <bool>
+.PP
+\fBsv_floodProtect\fR <bool>
+.PP
+\fBsv_fps\fR <value>
+.PP
+\fBsv_hostname\fR <string>
+.PP
+\fBsv_maxclients\fR <value>
+.PP
+\fBsv_maxPing\fR <value>
+(Measurd in milliseconds)
+.PP
+\fBsv_minPing\fR <value>
+(Measurd in milliseconds)
+.PP
+\fBsv_pure\fR <bool>
+.PP
+\fBtimelimit\fR <value>
+(Measured in minutes)
+
+.SH ENVIRONMENT
+The wrapper script used to launch RTCW allows it to be debugged
+by setting environment variables.
+.TP
+\fBRTCW_DEBUGGER=\fIcommand\fR
+A debugger or other prefix to prepend to the RTCW command line, such
+as \fBstrace\fR; overridden by \fBRTCW_BACKTRACE\fR
+.TP
+\fBRTCW_BACKTRACE=1\fR
+Use \fBgdb\fR(1) to get a backtrace if RTCW crashes (the \fBgdb\fR
+package must be installed for this to work)
+
+.SH SEE ALSO
+.BR wolfsp (6),
+.BR wolfmp (6),
+/usr/share/doc/rtcw-server
+
+.SH AUTHOR
+RTCW multi-player was written by Gray Matter Studios, Nerve Software and
+id Software. The engine used is iortcw, maintained by the ioquake3 and
+iortcw communities.
+.PP
+This manual page was written by Bruno "Fuddl" Kleinert <fuddl@debian.org>
+and Simon McVittie <smcv@debian.org>, for the Debian project
+(but may be used by others).

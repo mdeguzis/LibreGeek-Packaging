@@ -1,0 +1,82 @@
+.TH WOLFMP 6 2014-12-30
+
+.SH NAME
+wolfmp \- Return to Castle Wolfenstein multi-player
+
+.SH SYNOPSIS
+.BR wolfmp
+.BR "" [ \-h | \-\-help ]
+.BR "" [ \-q | \-\-quiet ]
+.BR "" [ +set
+.IR option " " value ]...
+[\fB+\fIcommand\fR] ...
+
+.SH DESCRIPTION
+.B wolfmp
+runs the multi-player version of the first-person shooter
+Return to Castle Wolfenstein.
+
+.SH OPTIONS
+The wrapper script used for RTCW in Debian accepts these options:
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Display a short help summary
+.TP
+\fB\-q\fR, \fB\-\-quiet\fR
+Disable all output
+.PP
+Any console command can also be prefixed with \fB+\fR and used as a
+command-line option (press Shift+Esc to access the in-game console), including:
+.TP
+\fB+set\fR \fIoption\fR \fIvalue\fR
+Set an option (see below for some options)
+.TP
+\fB+connect\fR \fIserver\fR[\fB:\fIport\fR]
+Connect to a server
+.PP
+Options that can be set with \fB+set\fR
+(note that this is not a full list!) include:
+.TP
+\fBr_fullscreen\fR <bool>
+1: Play in fullscreen mode; 0: Play in window mode
+.TP
+\fBr_mode\fR <num>
+Sets the screen resolution mode. Set num to \-1 to use a customized
+resolution set via r_customheight and r_customwidth, or \-2 to use
+your normal desktop resolution.
+.TP
+\fBr_customwidth\fR <pixels>
+Use \fUpixels\fR as width if r_mode is set to \-1.
+.TP
+\fBr_customheight\fR <pixels>
+Use \fUpixels\fR as height if r_mode is set to \-1.
+
+.SH FILES
+.TP
+\fI~/.wolf/main\fR
+Configuration and state for RTCW
+
+.SH ENVIRONMENT
+The wrapper script used to launch RTCW allows it to be debugged
+by setting environment variables.
+.TP
+\fBRTCW_DEBUGGER=\fIcommand\fR
+A debugger or other prefix to prepend to the RTCW command line, such
+as \fBstrace\fR; overridden by \fBRTCW_BACKTRACE\fR
+.TP
+\fBRTCW_BACKTRACE=1\fR
+Use \fBgdb\fR(1) to get a backtrace if RTCW crashes (the \fBgdb\fR
+package must be installed for this to work)
+
+.SH SEE ALSO
+.BR wolfded (6),
+.BR wolfsp (6),
+/usr/share/doc/rtcw
+.SH AUTHOR
+RTCW multi-player was written by Gray Matter Studios, Nerve Software and
+id Software. The engine used is iortcw, maintained by the ioquake3 and
+iortcw communities.
+.PP
+This manual page was written by Bruno "Fuddl" Kleinert <fuddl@debian.org>
+and Simon McVittie <smcv@debian.org>, for the Debian project
+(but may be used by others).

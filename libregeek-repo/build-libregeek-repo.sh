@@ -54,10 +54,10 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="libregeek-repo"
-PKGVER="0.9.3"
+PKGVER="0.9.4"
 PKGREV="1"
 PKGSUFFIX="bsos"
 DIST="brewmaster"
@@ -134,7 +134,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update configuration to have Debian packages auto update as well."
+		-D "${DIST}" -u "${URGENCY}" "Reupload"
 		nano "debian/changelog"
 
 	else

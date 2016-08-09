@@ -140,6 +140,8 @@ main()
 	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 	
 	# patch makefile for our use of ARCH
+	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	cd "${GIT_DIR}"
 	patch < debian/patches/unset-arch.patch || exit 1
 
 	# enter source dir

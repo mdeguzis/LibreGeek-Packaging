@@ -139,8 +139,8 @@ main()
 	# copy in debian folder
 	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 	
-	# add makefile hack
-	cp -r "$SCRIPTDIR/Makefile" "${GIT_DIR}"
+	# patch makefile for our use of ARCH
+	patch < debian/patches/unset-arch.patch || exit 1
 
 	# enter source dir
 	cd "${SRCDIR}"

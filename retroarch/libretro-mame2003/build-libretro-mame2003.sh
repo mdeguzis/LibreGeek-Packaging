@@ -138,6 +138,9 @@ main()
 
 	# copy in debian folder
 	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	
+	# add makefile hack
+	cp -r "$SCRIPTDIR/Makefile" "${GIT_DIR}"
 
 	# enter source dir
 	cd "${SRCDIR}"

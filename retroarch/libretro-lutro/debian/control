@@ -2,7 +2,8 @@ Source: libretro-lutro
 Section: games
 Priority: optional
 Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
-Build-Depends: debhelper (>= 9)
+Build-Depends: debhelper (>= 9),
+ retroarch
 Standards-Version: 3.9.6
 Homepage: https://github.com/libretro/libretro-lutro
 

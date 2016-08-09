@@ -145,7 +145,7 @@ main()
 	patch < debian/patches/unset-arch.patch || exit 1
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${GITDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

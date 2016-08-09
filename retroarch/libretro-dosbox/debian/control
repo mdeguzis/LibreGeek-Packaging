@@ -1,0 +1,24 @@
+Source: libretro-dosbox
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://www.dosbox.com
+
+Package: libretro-dosbox
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the DOSBox
+ This wrapper makes DOSBox API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ DOSBox is a DOS-emulator that uses the SDL-library which makes DOSBox very easy
+ to port to different platforms.
+ .
+ DOSBox also emulates CPU:286/386 realmode/protected mode, Directory
+ FileSystem/XMS/EMS, Tandy/Hercules/CGA/EGA/VGA/VESA graphics and a
+ SoundBlaster/Gravis Ultra Sound card for excellent sound compatibility with
+ older games.

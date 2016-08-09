@@ -1,0 +1,32 @@
+This package was debianized by Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br> on
+Sun, 10 Aug 2014 17:10:00 -0300
+
+It was downloaded from <https://github.com/libretro/dosbox-libretro>
+
+Upstream Authors:
+
+    The DOSBox Team
+        Sjoerd v.d. Berg (aka harekiet) <harekiet@users.sourceforge.net>
+        Peter Veenstra (aka qbix79) <qbix79@users.sourceforge.net>
+        Ulf Wohlers (aka finsterr) <finsterr@users.sourceforge.net>
+        Tommy Frössman (aka fanskapet) <fanskapet@users.sourceforge.net>
+        Dean Beeler (aka canadacow) <canadacow@users.sourceforge.net>
+        Sebastian Strohhäcker (aka c2woody) <c2woody@users.sourceforge.net>
+        Ralf Grillenberger (aka h-a-l-9000) <h-a-l-9000@users.sourceforge.net>
+    The RetroArch Team (libretro port)
+
+Copyright:
+
+    Copyright (C) 2002-2014 The DOSBox Team
+    Copyright (C) 2012-2014 The RetroArch Team
+
+License:
+
+    Licensed under the terms of the GNU General Public License version 2
+
+The Debian packaging is:
+
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

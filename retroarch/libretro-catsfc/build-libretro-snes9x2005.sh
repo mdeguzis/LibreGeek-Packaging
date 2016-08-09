@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/libretro/CATSFC-libretro"
+GIT_URL="https://github.com/libretro/snes9x2005"
 branch="master"
 
 # package vars
@@ -59,10 +59,10 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="libretro-catsfc"
+PKGNAME="libretro-snes9x2005"
 PKGVER="1.36"
 PKGREV="2"
-PKGSUFFIX="git+bsos${PKGREV}"
+PKGSUFFIX="${date_short}git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

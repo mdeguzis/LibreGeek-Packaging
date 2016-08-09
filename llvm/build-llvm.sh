@@ -44,11 +44,11 @@ fi
 
 BASEURL="http://http.debian.net/debian/pool/main/l"
 PKGNAME="llvm-toolchain-snapshot"
-LLVM_VER="3.9"
+LLVM_VER="4.0"
 PKGREV="1"
-PKGSUFFIX="~svn274438"
+PKGSUFFIX="~svn276280"
 PKGREV="1"
-LLVM_DSC_URL="${BASEURL}/${PKGNAME}/${PKGNAME}_${LLVM_VER}${PKGSUFFIX}-${PKGREV}.dsc"
+LLVM_DSC_URL="${BASEURL}/${PKGNAME}/${PKGNAME}_${LLVM_VER}${PKGSUFFIX}-${PKGREV}~exp1.dsc"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

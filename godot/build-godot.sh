@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/godotengine/godot"
-branch="2.0.3-stable"
+branch="2.0.4.1-stable"
 
 
 # package vars
@@ -62,7 +62,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 PKGNAME="godot"
-PKGVER="2.0.3"
+PKGVER="2.0.4.1"
 upstream_rev="1"
 PKGREV="1"
 PKGSUFFIX="bsos${PKGREV}"

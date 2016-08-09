@@ -119,6 +119,11 @@ main()
 	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	
+	# Get rid of test target in Makefile
+	# It attempts to run the core with Retorarch, in a CLI...?
+	sed -i 's/test: all/$test: all' "${GIT_DIR}/Makefile"
+	sed -i 's/retroarch \-L lutro_libretro\.so test/#retroarch \-L lutro_libretro\.so test/' "${GIT_DIR}/Makefile"
 
 	#################################################
 	# Build package

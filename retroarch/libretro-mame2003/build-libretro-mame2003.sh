@@ -57,10 +57,10 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="debuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="libretro-mame2003"
-epoch="1"
+EPOCH="1"
 PKGVER="0.78"
 PKGREV="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
@@ -148,13 +148,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package \
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 

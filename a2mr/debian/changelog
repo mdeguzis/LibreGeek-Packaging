@@ -1,0 +1,29 @@
+retroarch-assets (0.1+20160802git+bsos1) brewmaster; urgency=low
+
+  * Update asset pack for v1.3.6
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 02 Aug 2016 18:58:43 -0400
+
+retroarch-assets (0.1+20160623git+bsos1) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 23 Jun 2016 10:54:50 -0400
+
+retroarch-assets (0.1+20160623git+bsos1) brewmaster; urgency=low
+
+  * Update release for v1.3.4
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 23 Jun 2016 10:46:43 -0400
+
+retroarch-assets (0.1+20160522git+bsos1) brewmaster; urgency=low
+
+  * Update release for v1.3.4
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sun, 22 May 2016 14:58:55 -0400
+
+retroarch-assets (0.1+20160316git+bsos1) brewmaster; urgency=low
+
+  * Update assets
+
+ -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Wed, 16 Mar 2016 22:09:27 -0400

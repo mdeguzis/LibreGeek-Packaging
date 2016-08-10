@@ -146,15 +146,6 @@ main()
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
-	# Patch makefile
-	cp "${SCRIPTDIR}/Makefile" "libretro"
-	
-	# Patch FFMPEG vars
-	# Maybe introduced with recent refresh of ffmpeg submodule
-	# See: https://github.com/hrydgard/ppsspp/issues/7955
-	#cp "${SCRIPTDIR}/sceMpeg.cpp" "${GIT_DIR}/Core/HLE/"
-	#cp "${SCRIPTDIR}/sceMpeg.h" "${GIT_DIR}/Core/HLE/"
-
 	#################################################
 	# Prepare sources
 	#################################################
@@ -188,7 +179,9 @@ main()
 	fi
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	# UPDATE: do not copy in, upstream has their own debian/
+
+	# cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 
 	#################################################
 	# Build package

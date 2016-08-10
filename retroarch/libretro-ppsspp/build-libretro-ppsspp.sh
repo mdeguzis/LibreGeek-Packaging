@@ -123,27 +123,83 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	# clone recursively to ensure we obtain the submodules
-	git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	if [[ -d "${GIT_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
+			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${BUILD_TMP}" || exit 1
+			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+
+	fi
+
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
-	# Build package
+	# Prepare sources
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
+	cd "${BUILD_TMP}" || exit 1
 
 	# create source tarball
-	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+	
+	if [[ "${retry}" == "no" ]]; then
+
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+		
+	else
+	
+		echo -e "\n==> Cleaning old source folders for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		mkdir -p "${GIT_DIR}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
+		sleep 2s
+
+	fi
 
 	# copy in debian folder
 	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+
+	#################################################
+	# Build package
+	#################################################
 
 	# enter source dir
 	cd "${SRCDIR}"
@@ -165,10 +221,6 @@ main()
 		nano "debian/changelog"
 
 	fi
-
-	#################################################
-	# Build Debian package
-	#################################################
 
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s

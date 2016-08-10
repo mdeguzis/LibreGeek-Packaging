@@ -1,15 +1,15 @@
-Source: retroarch-assets
-Section: otherosfs
-Priority: extra
-Maintainer: Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+Source: a2mr
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9), rsync
-Standards-Version: 3.9.5
-Homepage: http://www.libretro.com
-Vcs-Git: git://github.com/libretro/retroarch-assets.git
-Vcs-Browser: https://github.com/libretro/retroarch-assets
+Standards-Version: 3.9.7
+Homepage: http://metroid2remake.blogspot.com/2010/01/about-name.html
 
-Package: retroarch-assets
+Package: a2mr
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: RetroArch assets for Lakka and RMenu
- This package installs RetroArch assets for Lakka and RMenu.
+Description: A2MR is a remake of the clasic Metroid II game.
+ IMPORTANT: This is an UNOFFICIAL release of the free, and
+ fan-made game. A kind reddit user made a compatible 
+ game launcher. This is provided AS IS.

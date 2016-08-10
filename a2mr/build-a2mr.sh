@@ -59,7 +59,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="a2mr"
-PKGVER="1.0.0
+PKGVER="1.0.0"
 PKGREV="1"
 EPOCH="1"
 PKGSUFFIX="${DATE_SHORT}git+unofficial"
@@ -126,7 +126,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${FILES_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${FILES_DIR}"
 
 	# copy in debian folder
 	cp -r "$SCRIPTDIR/debian" "${FILES_DIR}"
@@ -140,13 +140,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
  
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Initial build"
 		nano "debian/changelog"
 

@@ -94,21 +94,6 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_TMP
-	if [[ -d "${BUILD_TMP}" ]]; then
-
-		sudo rm -rf "${BUILD_TMP}"
-		mkdir -p "${BUILD_TMP}"
-
-	else
-
-		mkdir -p "${BUILD_TMP}"
-
-	fi
-
-	# enter build dir
-	cd "${BUILD_TMP}" || exit
-
 	# install prereqs for build
 	
 	if [[ "${BUILDER}" != "pdebuild" ]]; then

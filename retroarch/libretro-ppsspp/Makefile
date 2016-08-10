@@ -12,22 +12,15 @@ UNAME=$(shell uname -a)
 
 # Cross compile ?
 
-ifeq (,$(ARCH))
-	# Define if not already
-	ARCH = $(shell uname -m)
-else ifeq  ($(ARCH), amd64)
-	# work around incorrect ARCH being set from build systems
-	ARCH = x86_64
-else ifeq  ($(ARCH), i386)
-	# work around incorrect ARCH being set from build systems
-	ARCH = x86
+ifeq (,$(arch))
+	arch = $(shell uname -m)
 endif
 
 # Target Dynarec
-WITH_DYNAREC = $(ARCH)
-FFMPEG_ARCH = $(ARCH)
+WITH_DYNAREC = $(arch)
+FFMPEG_ARCH = $(arch)
 
-ifeq ($(ARCH), $(filter $(ARCH), i386 i686))
+ifeq ($(arch), $(filter $(arch), i386 i686))
 	WITH_DYNAREC = x86
 	FFMPEG_ARCH = x86
 endif

@@ -2,8 +2,8 @@ Source: libretro-ppsspp
 Section: games
 Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
-Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
 Build-Depends: debhelper (>= 9),
+	       cmake,
                libgl1-mesa-dev,
                libgles2-mesa-dev [armhf],
                lsb-release,

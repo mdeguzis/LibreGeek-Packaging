@@ -139,15 +139,8 @@ main()
 	# copy in debian folder
 	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 	
-	# patch makefile for our use of ARCH
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
-	cd "${GIT_DIR}"
-	
-	patch < debian/patches/fix-arch.patch || exit 1
-	#patch < debian/patches/unset-arch.patch || exit 1
-
 	# enter source dir
-	cd "${GITDIR}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

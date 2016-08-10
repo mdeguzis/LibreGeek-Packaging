@@ -23,7 +23,6 @@ SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -48,14 +47,14 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/libretro/libretro-ppsspp"
-branch="master"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="libretro-ppsspp"
 PKGVER="1.0.1"
@@ -146,6 +145,9 @@ main()
 
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
+
+	# Patch makefile
+	cp "${SCRIPTDIR}/Makefile" "libretro"
 
 	#################################################
 	# Prepare sources

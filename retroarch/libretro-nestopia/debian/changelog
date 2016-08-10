@@ -1,3 +1,9 @@
+libretro-nestopia (1:1.47+20160809git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 80664e7
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 09 Aug 2016 22:56:50 -0400
+
 libretro-nestopia (1.47+git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 845bcea

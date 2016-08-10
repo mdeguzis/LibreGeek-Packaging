@@ -1,0 +1,5 @@
+libretro-gw (1:1.0+git+bsos1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 09 Aug 2016 11:30:52 -0400

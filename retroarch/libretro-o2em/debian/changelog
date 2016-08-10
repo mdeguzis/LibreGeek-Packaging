@@ -1,0 +1,5 @@
+libretro-o2em (1:1.18+20160809git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 5a200f1
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 09 Aug 2016 23:11:43 -0400

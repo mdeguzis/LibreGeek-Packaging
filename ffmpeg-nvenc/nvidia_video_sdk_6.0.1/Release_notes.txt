@@ -1,0 +1,40 @@
+Introduction:
+-------------
+This is release 6.0 of NVIDIA Video Codec SDK, which adds the following major features:
+
+* H.264 Motion Estimation Only Mode
+* HEVC Adaptive Quantization 
+* Abilitiy for NVEncode API to take RGB surface as inputs for limited color spaces. 
+* Decoding Samples to demonstrate the decoding capabilities on NVIDIA GPUs.
+
+Please refer to .\doc\NVENC_DA-06209-001_v07.pdf and .\doc\NVIDIA_Video_Decoder.pdf to get more details on the encoding and decoding functionalities supported in the current SDK. 
+
+For system, software and build environment requirements, please refer to the file Readme.txt included in the SDK package.
+
+-----------------------------------------------------------------------------
+
+This package contains:
+
+1) Sample applications demonstrating various encoding/decoding capabilities. 
+
+2) NVENC - NVIDIA Video Codec SDK Samples Guide
+   - [.\Samples\NVIDIA_Video_Codec_SDK_Samples_Guide.pdf]
+
+3) NVENC - NVIDIA Video Encoder API header
+   - [.\Samples\common\inc\nvEncodeAPI.h]
+
+4) NVENC - NVIDIA Video Encoder Application Note
+   - [.\doc\NVENC_DA-06209-001_v07.pdf]
+
+5) NVENC - NVIDIA Video Encoder (NVENC) Interface (Programming Guide)
+   - [.\doc\NVENC_VideoEncoder_API_ProgGuide.pdf]
+
+6) NVENC - NVIDIA Video Encoder API Reference Manual
+   - [.\doc\NvEncodeAPI_v.6.0.pdf]
+   - [.\doc\NvEncodeAPI_v.6.0.chm]
+
+7) NVDEC - NVIDIA Video Decoder (NVCUVID) (Programming Guide)
+   - [.\doc\NVIDIA_Video_Decoder.pdf]
+
+------------------------------------------------------------------------------
+

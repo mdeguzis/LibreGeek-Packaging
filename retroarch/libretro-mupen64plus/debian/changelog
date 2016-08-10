@@ -1,3 +1,9 @@
+libretro-mupen64plus (1:2.0+20160809git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 765c750
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 09 Aug 2016 22:49:41 -0400
+
 libretro-mupen64plus (2.0+git+bsos3) brewmaster; urgency=low
 
   * Update to the latest commit 047dc92

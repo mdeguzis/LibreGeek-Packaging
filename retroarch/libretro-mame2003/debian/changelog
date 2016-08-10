@@ -1,3 +1,9 @@
+libretro-mame2003 (1:0.78+20160809git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit b7e3448
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 09 Aug 2016 19:20:36 -0400
+
 libretro-mame2003 (1:0.78+20160622git+bsos1) brewmaster; urgency=low
 
   * Initial upload

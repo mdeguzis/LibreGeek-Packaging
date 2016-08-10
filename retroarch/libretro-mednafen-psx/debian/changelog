@@ -1,3 +1,9 @@
+libretro-mednafen-psx (1:0.9.38.6+20160809git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 777efe3
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 09 Aug 2016 22:40:52 -0400
+
 libretro-mednafen-psx (0.9.38.6+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 20c9b0e

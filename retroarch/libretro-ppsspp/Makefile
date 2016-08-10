@@ -12,8 +12,15 @@ UNAME=$(shell uname -a)
 
 # Cross compile ?
 
-ifdef ARCH
+ifeq (,$(ARCH))
+	# Define if not already
 	ARCH = $(shell uname -m)
+else ifeq  ($(ARCH), amd64)
+	# work around incorrect ARCH being set from build systems
+	ARCH = "x86_64"
+else ifeq  ($(ARCH), i386)
+	# work around incorrect ARCH being set from build systems
+	ARCH = "x86"
 endif
 
 # Target Dynarec

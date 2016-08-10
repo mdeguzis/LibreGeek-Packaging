@@ -148,11 +148,12 @@ main()
 
 	# Patch makefile
 	cp "${SCRIPTDIR}/Makefile" "libretro"
+	
 	# Patch FFMPEG vars
 	# Maybe introduced with recent refresh of ffmpeg submodule
 	# See: https://github.com/hrydgard/ppsspp/issues/7955
-	cp "${SCRIPTDIR}/sceMpeg.cpp" "${GIT_DIR}/Core/HLE/"
-	cp "${SCRIPTDIR}/sceMpeg.h" "${GIT_DIR}/Core/HLE/"
+	#cp "${SCRIPTDIR}/sceMpeg.cpp" "${GIT_DIR}/Core/HLE/"
+	#cp "${SCRIPTDIR}/sceMpeg.h" "${GIT_DIR}/Core/HLE/"
 
 	#################################################
 	# Prepare sources

@@ -6,6 +6,7 @@ Build-Depends: debhelper (>= 9),
  libgl1-mesa-dev,
  libgles2-mesa-dev [armhf],
  libc6-dev-i386,
+	libstdc++-4.9-dev,
  lsb-release,
  zlib1g-dev
 Standards-Version: 3.9.6

@@ -1,10 +1,10 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Source: https://github.com/libretro/PSP1
+Source: https://github.com/libretro/libretro-ppsspp
 Upstream-Name: PPSSPP
 Upstream-Contact: Henrik Rydgård <hrydgard+ppsspp@gmail.com>
                   https://github.com/hrydgard/ppsspp/graphs/contributors
                   http://forums.ppsspp.org/
-Comment: Non-shallow fork of PPSSPP for libretro exclusively.
+Comment: Shallow fork of PPSSPP (upstream friendly).
 Files-Excluded:
  android/libs/com.bda.controller.jar
  assets/ppge_atlas.zim

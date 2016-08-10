@@ -18,6 +18,8 @@
 export DEB_CXXFLAGS_MAINT_STRIP=-O2
 export DEB_CFLAGS_MAINT_STRIP=-O2
 
+ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
 ifeq ($(ARCH),armhf)
 	PLATFORM=platform="armv hardfloat gles neon cortexa9"
 endif

@@ -179,9 +179,10 @@ main()
 	fi
 
 	# copy in debian folder
-	# UPDATE: do not copy in, upstream has their own debian/
+	# Remove debian folder in source dir, as it may conflict
 
-	# cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	rm -rf "${GIT_DIR}/debian"
+ 	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 
 	#################################################
 	# Build package

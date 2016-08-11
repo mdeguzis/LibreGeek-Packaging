@@ -60,9 +60,9 @@ PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
 PKGVER="0.50"
 PKGREV="1"
-epoch="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos"
-DIST="brewmaster"
+EPOCH="1"
+PKGSUFFIX="${DATE_SHORT}git"
+DIST="jessie"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -120,9 +120,9 @@ main()
 
 	# Add required files and artwork
 	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
-	cp "${SCRIPTDIR}/vkquake.png" "${GIT_DIR}"
+#	cp "${SCRIPTDIR}/vkquake.png" "${GIT_DIR}"
 	cp "${GIT_DIR}/LICENSE.txt" "${GIT_DIR}/debian/LICENSE"
-	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
+#	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
 
 	#################################################
 	# Build package
@@ -133,7 +133,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# enter source dir
 	cd "${GIT_DIR}"
@@ -145,14 +145,14 @@ main()
 	# "Update to the latest commit ${latest_commit}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
 		nano "debian/changelog"
 

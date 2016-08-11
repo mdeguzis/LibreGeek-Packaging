@@ -297,7 +297,7 @@ cp "${SCRIPTDIR}/.sbuildrc" "${HOME}/"
 sudo cp "${SCRIPTDIR}/.sbuildrc" "/root/"
 
 cp "${SCRIPTDIR}/.mk-sbuild.rc" "${HOME}/"
-sudo cp "${SCRIPTDIR/.mk-sbuild.rc" "/root/"
+sudo cp "${SCRIPTDIR}/.mk-sbuild.rc" "/root/"
 
 #####################
 # gdb

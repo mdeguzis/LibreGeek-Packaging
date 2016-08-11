@@ -41,7 +41,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	fi
 
 	# Standard packages
-	echo -e "\n==> Installing prerequisite packages\n"
+	echo -e "==> Installing prerequisite packages\n"
 	sleep 2s
 
 	# Deboostrap was backport to include more scripts, specify version
@@ -54,7 +54,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 		echo -e "Installing: "${PKG}""
 
-		if sudo apt-get install -yq --force-yes ${PKG} &> /dev/null; then
+		if sudo apt-get install -y --force-yes ${PKG} &> /dev/null; then
 
 			echo -e "Package: ${PKG} [OK]"
 

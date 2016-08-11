@@ -1,4 +1,3 @@
-debian/README.Debian	  	/usr/share/games/quake
-debian/vkquake.desktop		/usr/share/applications
-vkquake.png			          /usr/share/pixmaps
-vkquake-launch			      /usr/games
+debian/README-vkquake.Debian	  	/usr/share/games/quake
+debian/vkquake.desktop		        /usr/share/applications
+vkquake.png			                  /usr/share/pixmaps

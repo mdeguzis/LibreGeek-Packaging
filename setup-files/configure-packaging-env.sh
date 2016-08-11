@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	configure-packaging-env.sh
-# Script Ver:	2.9.4
+# Script Ver:	2.9.7
 # Description:	Installs basic packaging tools suggested by the Debian
 #               maintainers guide and configures various packaging options
 #
@@ -601,10 +601,20 @@ fi
 echo -e "\n==> Configuring sbuild\n"
 sleep 2s
 
-#echo -e "Generating Keygen\n"
-#sudo sbuild-update --keygen
+echo -e "Setup root user sbuild SSH key? (takes some time)"
+sleep 0.3s
+read -erp "Choice [y/n]: " SBUILD_SSH
 
-sudo adduser $USER sbuild
+if [[ "${SBUILD_SSH}"  == "y" ]]; then
+
+	echo -e "Generating Keygen\n"
+	sudo mkdir /root/.gnupg
+	sudo sbuild-update --keygen
+
+fi
+
+# Users
+sudo adduser "${USER}" sbuild
 
 #################################################
 # OpenSUSE - Open Build System setup

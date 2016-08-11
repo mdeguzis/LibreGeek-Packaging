@@ -388,16 +388,16 @@ $log_external_command_output = 1;
 #    $build_dir = '/home/pete/build';
 
 # Build dir is exported in my build scripts
-$build_dir = '$BUILD_TMP';
+#$build_dir = '';
 
 # BUILD_ENVIRONMENT
 # Type: HASH:STRING
 # Environment to set during the build.	Defaults to setting PATH and
 # LD_LIBRARY_PATH only.  Note that these environment variables are not
 # subject to filtering with ENVIRONMENT_FILTER.  Example:
-    $build_environment = {
-            'BUILD_DIR' => '$BUILD_TMP'
-    };
+#    $build_environment = {
+#            'BUILD_DIR' => '$BUILD_TMP'
+#    };
 #$build_environment = {};
 
 # BUILD_USER
@@ -524,7 +524,7 @@ $build_dep_resolver = 'apt';
 # set to 'buildd'.
 
 # Build dir is set in my buid scripts
-$log_dir = '$BUILD_TMP';
+# $log_dir = '';
 
 # LOG_FILTER
 # Type: BOOL

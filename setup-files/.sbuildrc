@@ -321,8 +321,7 @@ $check_space = 1;
 #            ['foo', 'arg1', 'arg2'],
 #
 $external_commands = {
-    "pre-build-commands" => [
-        ['bash /var/cache/pbuilder/hooks/D20steamos-tools-hook.sh'],
+    "pre-build-commands" => ['bash /var/cache/pbuilder/hooks/D20steamos-tools-hook.sh'],
     "chroot-setup-commands" => [],
     "build-deps-failed-commands" => [],
     "build-failed-commands" => [],

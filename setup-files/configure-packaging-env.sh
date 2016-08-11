@@ -292,9 +292,12 @@ sudo cp "${SCRIPTDIR}/.pbuilderrc" "/root/"
 # sbuild
 #####################
 
-# pbuilder
+# sbuild
 cp "${SCRIPTDIR}/.sbuildrc" "${HOME}/"
 sudo cp "${SCRIPTDIR}/.sbuildrc" "/root/"
+
+cp "${SCRIPTDIR}/.mk-sbuild.rc" "${HOME}/"
+sudo cp "${SCRIPTDIR/.mk-sbuild.rc" "/root/"
 
 #####################
 # gdb

@@ -604,6 +604,10 @@ fi
 echo -e "\n==> Configuring sbuild\n"
 sleep 2s
 
+# Directories
+
+sudo mkdir -p "/srv/chroot/"
+
 echo -e "Setup root user sbuild SSH key? (takes some time)"
 sleep 0.3s
 read -erp "Choice [y/n]: " SBUILD_SSH
@@ -623,6 +627,18 @@ sudo sbuild-adduser "${USER}"
 
 echo -e "Note: You will need to logout and back in to use sbuild"
 sleep 5s
+
+# Set the directory to the existing pbuilder hooks
+
+#if [[ "${OS}" == "SteamOS" ]]; then
+
+#	sed -i "s|.*pre-build.*|"pre-build-commands" => ['bash $HOME/pbuilder/hooks/D20steamos-tools-hook.sh']|" "${HOME}/.sbuildrc"
+
+#else
+
+#	sed -i "s|.*pre-build.*|"pre-build-commands" => ['bash /var/cache/pbuilder/D20steamos-tools-hook.sh']|" "${HOME}/.sbuildrc"
+
+#fi
 
 #################################################
 # OpenSUSE - Open Build System setup

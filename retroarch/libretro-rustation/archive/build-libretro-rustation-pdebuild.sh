@@ -105,7 +105,7 @@ main()
 
 	# install prereqs for build
 
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" || "${BUILDER}" != "sbuild" ]]; then
 
 		# For now still build in pbuilder chroot (using root directory workaround script)
 		# We need to then obtain the libregeek steamos-tools repo configs

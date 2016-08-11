@@ -241,7 +241,7 @@ kodi_prereqs()
 	echo -e "\n==> Installing main deps for building\n"
 	sleep 2s
 
-	if [[ "${BUILDER}" != "pdebuild" && "${PACKAGE_DEB}" == "yes" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" || "${BUILDER}" != "sbuild" && "${PACKAGE_DEB}" == "yes" ]]; then
 
 		# Javis control file lists 'libglew-dev libjasper-dev libmpeg2-4-dev', but they are not
 		# in the linux readme

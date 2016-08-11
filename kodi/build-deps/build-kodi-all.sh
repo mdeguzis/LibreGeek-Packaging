@@ -89,7 +89,7 @@ build_all()
 
 	# Install prereqs
 	
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" || "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs

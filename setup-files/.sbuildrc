@@ -321,14 +321,8 @@ $run_lintian = 1;
 #            ['foo', 'arg1', 'arg2'],
 #
 $external_commands = {
-    "pre-build-commands" => ['/home/desktop/pbuilder/hooks/D20steamos-tools-hook.sh']
-    "chroot-setup-commands" => [],
-    "build-deps-failed-commands" => [],
-    "build-failed-commands" => [],
-    "starting-build-commands" => [],
-    "finished-build-commands" => [],
-    "chroot-cleanup-commands" => [],
-    "post-build-commands" => [],
+    "chroot-setup-commands" => ['/home/desktop/pbuilder/hooks/D20steamos-tools-hook.sh'],
+    ],
 };
 
 # LOG_EXTERNAL_COMMAND_ERROR

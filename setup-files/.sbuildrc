@@ -4,7 +4,8 @@
 # the command-line, and do not normally need setting here,
 # e.g. $verbose.  Others need setting by each individual user in their
 # ~/.sbuildrc, but are listed here for completeness.
-
+#
+# Also see: https://wiki.debian.org/sbuild
 
 ##
 ## Build environment
@@ -21,8 +22,6 @@
 #$path =
 #'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games';
 
-
-
 ##
 ## Build options
 ##
@@ -36,13 +35,13 @@
 # BUILD_ARCH
 # Type: STRING
 # Build architecture (Arch we are building on).
-#build_arch = ...;
+$build_arch = 'amd64';
 
 # BUILD_ARCH_ALL
 # Type: BOOL
 # Build architecture: all packages by default. Set by the --arch-all and
 # --no-arch-all command line options.
-$build_arch_all = 1;
+#$build_arch_all = 1;
 
 # BUILD_ARCH_ANY
 # Type: BOOL
@@ -97,7 +96,7 @@ $build_source = 1;
 # a build to proceed.  Can be disabled to allow building if space is very
 # limited, but the threshold to abort a build has been exceeded despite
 # there being sufficient space for the build to complete.
-#$check_space = 1;
+$check_space = 1;
 
 # CLEAN_SOURCE
 # Type: BOOL
@@ -116,7 +115,7 @@ $build_source = 1;
 # wrong distribution when this option is set, for example experimental
 # packages will be built for upload to unstable when this is not what is
 # required.
-$distribution = unstable;
+#$distribution = unstable;
 
 # FORCE_ORIG_SOURCE
 # Type: BOOL
@@ -318,40 +317,20 @@ $distribution = unstable;
 # Type: HASH:ARRAY:STRING
 # External commands to run at various stages of a build. Commands are held
 # in a hash of arrays of arrays data structure.
-#    $external_commands = {
-#        "pre-build-commands" => [
+# Ex.:         "pre-build-commands" => [
 #            ['foo', 'arg1', 'arg2'],
-#            ['bar', 'arg1', 'arg2', 'arg3'],
-#        ],
-#        "chroot-setup-commands" => [
-#            ['foo', 'arg1', 'arg2'],
-#            ['bar', 'arg1', 'arg2', 'arg3'],
-#        ],
-#        "build-deps-failed-commands" => [
-#            ['foo', 'arg1', 'arg2'],
-#            ['bar', 'arg1', 'arg2', 'arg3'],
-#        ],
-#        "build-failed-commands" => [
-#            ['foo', 'arg1', 'arg2'],
-#            ['bar', 'arg1', 'arg2', 'arg3'],
-#        ],
-#        "starting-build-commands" => [
-#            ['foo', 'arg1', 'arg2'],
-#            ['bar', 'arg1', 'arg2', 'arg3'],
-#        ],
-#        "finished-build-commands" => [
-#            ['foo', 'arg1', 'arg2'],
-#            ['bar', 'arg1', 'arg2', 'arg3'],
-#        ],
-#        "chroot-cleanup-commands" => [
-#            ['foo', 'arg1', 'arg2'],
-#            ['bar', 'arg1', 'arg2', 'arg3'],
-#        ],
-#        "post-build-commands" => [
-#            ['foo', 'arg1', 'arg2'],
-#            ['bar', 'arg1', 'arg2', 'arg3'],
-#        ],
-#    };
+#
+$external_commands = {
+    "pre-build-commands" => [
+        ['bash /var/cache/pbuilder/hooks/D20steamos-tools-hook.sh'],
+    "chroot-setup-commands" => [],
+    "build-deps-failed-commands" => [],
+    "build-failed-commands" => [],
+    "starting-build-commands" => [],
+    "finished-build-commands" => [],
+    "chroot-cleanup-commands" => [],
+    "post-build-commands" => [],
+};
 #$external_commands = {
 #			'build-deps-failed-commands' => [],
 #			'build-failed-commands' => [],
@@ -498,7 +477,7 @@ $distribution = unstable;
 # is too complex for either apt or aptitude to solve it, you can use the
 # 'aspcud' resolver which is a real SAT solver and will thus alwyas find a
 # solution if a solution exists.
-#$build_dep_resolver = 'apt';
+$build_dep_resolver = 'apt';
 
 # RESOLVE_ALTERNATIVES
 # Type: BOOL

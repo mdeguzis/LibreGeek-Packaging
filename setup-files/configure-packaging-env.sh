@@ -601,8 +601,8 @@ fi
 echo -e "\n==> Configuring sbuild\n"
 sleep 2s
 
-echo -e "Generating Keygen\n"
-sudo sbuild-update --keygen
+#echo -e "Generating Keygen\n"
+#sudo sbuild-update --keygen
 
 sudo adduser $USER sbuild
 

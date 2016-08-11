@@ -296,8 +296,8 @@ sudo cp "${SCRIPTDIR}/.pbuilderrc" "/root/"
 cp "${SCRIPTDIR}/.sbuildrc" "${HOME}/"
 sudo cp "${SCRIPTDIR}/.sbuildrc" "/root/"
 
-cp "${SCRIPTDIR}/.mk-sbuild.rc" "${HOME}/"
-sudo cp "${SCRIPTDIR}/.mk-sbuild.rc" "/root/"
+#cp "${SCRIPTDIR}/.mk-sbuild.rc" "${HOME}/"
+#sudo cp "${SCRIPTDIR}/.mk-sbuild.rc" "/root/"
 
 #####################
 # gdb
@@ -623,7 +623,7 @@ fi
 # Users
 
 #sudo adduser "${USER}" sbuild
-sudo sbuild-adduser "${USER}"
+sudo sbuild-adduser "${USER}" &> /dev/null
 
 echo -e "Note: You will need to logout and back in to use sbuild"
 sleep 5s

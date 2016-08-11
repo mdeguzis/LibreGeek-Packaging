@@ -1,0 +1,6 @@
+deb http://<mirror>/ubuntu RELEASE main restricted universe multiverse
+deb-src http://<mirror>/ubuntu RELEASE main restricted universe multiverse
+#deb http://<mirror>/ubuntu RELEASE-updates main restricted universe multiverse
+#deb-src http://<mirror>/ubuntu RELEASE-updates main restricted universe multiverse
+deb http://<mirror>/ubuntu RELEASE-security main restricted universe multiverse
+deb-src http://<mirror>/ubuntu RELEASE-security main restricted universe multiverse

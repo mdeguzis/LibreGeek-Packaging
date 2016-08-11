@@ -16,8 +16,6 @@ export SCRIPTDIR=$(pwd)
 BASHRC_RESET="false"
 
 clear
-echo -e "==> Installing basic packages\n"
-sleep 2s
 
 ##################################################
 # Base packages
@@ -43,7 +41,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	fi
 
 	# Standard packages
-	echo -e "\n==> Installing main packages\n"
+	echo -e "\n==> Installing prerequisite packages\n"
 	sleep 2s
 
 	# Deboostrap was backport to include more scripts, specify version
@@ -53,6 +51,8 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	for PKG in ${PKGs};
 	do
+
+		echo -e "Installing: "${PKG}""
 
 		if sudo apt-get install -yq --force-yes ${PKG} &> /dev/null; then
 

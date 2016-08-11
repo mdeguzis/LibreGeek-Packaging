@@ -313,23 +313,12 @@ $run_lintian = 1;
 # system, rather than inside the chroot.
 #$chroot_split = 0;
 
-# EXTERNAL_COMMANDS
-# Type: HASH:ARRAY:STRING
-# External commands to run at various stages of a build. Commands are held
-# in a hash of arrays of arrays data structure.
-# Ex.:
-#    $external_commands = {
-#        "pre-build-commands" => [
-#            ['foo', 'arg1', 'arg2'],
-#            ['bar', 'arg1', 'arg2', 'arg3'],
-#        ],
-#    };
-
-#$external_commands = {
-#		"chroot-setup-commands" => [
-#			['/home/desktop/pbuilder/hooks/D20steamos-tools-hook.sh'],
-#		],
-#};
+$external_commands = {
+			'post-build-commands' => [],
+			'chroot-setup-commands' => ['/home/desktop/pbuilder/hooks/D20steamos-tools-hook.sh'],
+			'chroot-cleanup-commands' => [],
+			'pre-build-commands' => []
+			};
 
 # LOG_EXTERNAL_COMMAND_ERROR
 # Type: BOOL

@@ -614,7 +614,12 @@ if [[ "${SBUILD_SSH}"  == "y" ]]; then
 fi
 
 # Users
-sudo adduser "${USER}" sbuild
+
+#sudo adduser "${USER}" sbuild
+sudo sbuild-adduser "${USER}"
+
+echo -e "Note: You will need to logout and back in to use sbuild"
+sleep 5s
 
 #################################################
 # OpenSUSE - Open Build System setup

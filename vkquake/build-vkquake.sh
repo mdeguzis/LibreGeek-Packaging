@@ -104,7 +104,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	if [[ "${BUILDER}" != "pdebuild" || "${BUILDER}" != "sbuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs

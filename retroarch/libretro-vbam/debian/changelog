@@ -1,3 +1,9 @@
+libretro-vbam (1:1.8.0+20160810git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit a099aec
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 10 Aug 2016 22:24:21 -0400
+
 libretro-vbam (1.8.0+git+bsos2) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

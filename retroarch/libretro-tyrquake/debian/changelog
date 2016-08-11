@@ -1,3 +1,9 @@
+libretro-tyrquake (1:0.62+20160810git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 792e0d7
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 10 Aug 2016 22:19:30 -0400
+
 libretro-tyrquake (0.62+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 2f6d70b

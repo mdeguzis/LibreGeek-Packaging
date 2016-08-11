@@ -1,3 +1,9 @@
+libretro-snes9x-next (2:1.52.4+20160810git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit 906065d
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 10 Aug 2016 22:01:03 -0400
+
 libretro-snes9x-next (1.53+git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 7a7045e

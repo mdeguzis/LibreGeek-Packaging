@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-snes9x-next.sh
+# Scipt Name:	build-scummvm.sh
 # Script Ver:	1.0.0
-# Description:	Attmpts to builad a deb package from latest libretro snes9x-next
+# Description:	Attmpts to builad a deb package from latest scummvm
 #		github release
 #
-# See:		https://github.com/libretro/snes9x-next
+# See:		https://github.com/libretro/scummvm
 #
-# Usage:	build-libretro-snes9x-next.sh
+# Usage:	build-libretro-scummvm.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -47,9 +47,8 @@ else
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
 	
 fi
-
 # upstream vars
-GIT_URL="https://github.com/libretro/snes9x-next"
+GIT_URL="https://github.com/libretro/scummvm"
 branch="master"
 
 # package vars
@@ -59,9 +58,9 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="libretro-snes9x-next"
-EPOCH="2"
-PKGVER="1.52.4"
+PKGNAME="libretro-scummvm"
+epoch="1"
+PKGVER="1.7.0"
 PKGREV="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
 DIST="brewmaster"
@@ -79,8 +78,10 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
+
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc
+	sudo apt-get -y --force-yes install build-essential debhelper zlib1g-dev
+
 }
 
 main()
@@ -131,6 +132,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
+	cd "${BUILD_TMP}"
 	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 
 	# enter source dir
@@ -139,16 +141,16 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
-	# update changelog with dch
+ 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 
@@ -163,11 +165,11 @@ main()
 
 	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-
+	
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)

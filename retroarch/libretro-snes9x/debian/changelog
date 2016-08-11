@@ -1,0 +1,5 @@
+libretro-snes9x (1:1.53+1git+bsos1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 10 Aug 2016 21:57:12 -0400

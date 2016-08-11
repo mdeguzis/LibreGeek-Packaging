@@ -36,8 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
@@ -62,7 +60,8 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="libretro-stonesoup"
 PKGVER="0.15.2"
 PKGREV="1"
-PKGSUFFIX="git+bsos${PKGREV}"
+EPOCH="1"
+PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -118,7 +117,7 @@ main()
 
 	# The git source is very old (2014), source latest PPA source code
 	# from libretro PPA unstable repo
-	latest_file="libretro-stonesoup_0.15.2+r3~1~ubuntu15.04.1.tar.xz"
+	latest_file="libretro-stonesoup_0.15.2+r3~1~ubuntu15.10.1.tar.xz"
 	wget "https://launchpad.net/~libretro/+archive/ubuntu/testing/+files/${latest_file}"
 	tar -xf "${latest_file}"
 	rm -rf *.tar.xz
@@ -157,14 +156,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest source push upstream, as of ${DATE_SHORT}"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update to the latest source push upstream, as of ${DATE_SHORT}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest source push upstream, as of ${DATE_SHORT}"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 
 	fi

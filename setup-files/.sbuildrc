@@ -19,7 +19,7 @@
 # PATH
 # Type: STRING
 # PATH to set when running dpkg-buildpackage.
-#$path =
+$path = '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games';
 #'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games';
 
 ##
@@ -320,15 +320,17 @@ $check_space = 1;
 # Ex.:         "pre-build-commands" => [
 #            ['foo', 'arg1', 'arg2'],
 #
+# Note: Do NOT leave a section blank, such as '"chroot-setup-commands" => [],' or
+# the build will not properly process the section in an automatic sense
 $external_commands = {
-    "pre-build-commands" => ['bash /var/cache/pbuilder/hooks/D20steamos-tools-hook.sh'],
-    "chroot-setup-commands" => [],
-    "build-deps-failed-commands" => [],
-    "build-failed-commands" => [],
-    "starting-build-commands" => [],
-    "finished-build-commands" => [],
-    "chroot-cleanup-commands" => [],
-    "post-build-commands" => [],
+    "pre-build-commands" => ['']
+#    "chroot-setup-commands" => [],
+#    "build-deps-failed-commands" => [],
+#    "build-failed-commands" => [],
+#    "starting-build-commands" => [],
+#    "finished-build-commands" => [],
+#    "chroot-cleanup-commands" => [],
+#    "post-build-commands" => [],
 };
 #$external_commands = {
 #			'build-deps-failed-commands' => [],
@@ -397,7 +399,9 @@ $external_commands = {
 # to the current working directory.  $HOME/build is another common
 # configuration.
 #    $build_dir = '/home/pete/build';
-#build_dir = ...;
+
+# Build dir is exported in my build scripts
+build_dir = '$BUILD_TMP';
 
 # BUILD_ENVIRONMENT
 # Type: HASH:STRING
@@ -531,7 +535,9 @@ $build_dep_resolver = 'apt';
 # Directory for storing build logs.  This defaults to '.' when SBUILD_MODE
 # is set to 'user' (the default), and to '$HOME/logs' when SBUILD_MODE is
 # set to 'buildd'.
-#$log_dir = undef;
+
+# Build dir is set in my buid scripts
+$log_dir = '$BUILD_TMP';
 
 # LOG_FILTER
 # Type: BOOL

@@ -334,12 +334,12 @@ $external_commands = {
 # LOG_EXTERNAL_COMMAND_ERROR
 # Type: BOOL
 # Log standard error of commands run by sbuild?
-#$log_external_command_error = 1;
+$log_external_command_error = 1;
 
 # LOG_EXTERNAL_COMMAND_OUTPUT
 # Type: BOOL
 # Log standard output of commands run by sbuild?
-#$log_external_command_output = 1;
+$log_external_command_output = 1;
 
 # PACKAGE_CHECKLIST
 # Type: STRING

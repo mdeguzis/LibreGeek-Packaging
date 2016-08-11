@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/lutris/lutris"
-branch="v0.3.7.5"
+branch="v0.3.8"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,10 +60,11 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="lutris"
-PKGVER="0.3.7.5"
+PKGVER="0.3.8"
+EPOCH="1"
 upstream_rev="1"
 PKGREV="1"
-PKGSUFFIX="bsos${PKGREV}"
+PKGSUFFIX="bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -147,14 +148,14 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D $DIST -u "${URGENCY}" \
-		"New release"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "New ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" \
-		-u "${URGENCY}" "New release"
+		dch -p --force-distribution --create -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/chanelog"
 
 	fi

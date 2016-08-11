@@ -49,7 +49,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	# Deboostrap was backport to include more scripts, specify version
 	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo \
 	screen pv apt-file curl debian-archive-keyring ubuntu-archive-keyring \
-	debootstrap=1.0.81 osc obs-build mock"
+	debootstrap=1.0.81 osc obs-build mock sbuild apt-cacher-ng"
 
 	for PKG in ${PKGs};
 	do
@@ -287,6 +287,14 @@ cp "${SCRIPTDIR}/.devscripts" "${HOME}"
 # pbuilder
 cp "${SCRIPTDIR}/.pbuilderrc" "${HOME}/"
 sudo cp "${SCRIPTDIR}/.pbuilderrc" "/root/"
+
+#####################
+# sbuild
+#####################
+
+# pbuilder
+cp "${SCRIPTDIR}/.sbuildrc" "${HOME}/"
+sudo cp "${SCRIPTDIR}/.sbuildrc" "/root/"
 
 #####################
 # gdb
@@ -580,12 +588,33 @@ else
 fi
 
 #################################################
+# sbuild setup
+#################################################
+
+# See: https://wiki.ubuntu.com/SimpleSbuild
+# See also: https://wiki.debian.org/sbuild
+
+# Upating:
+# List: schroot -l | grep sbuild
+# Update: sudo sbuild-update -udcar [CHROOT_NAME]-[ARCH]
+
+echo -e "\n==> Configuring sbuild\n"
+sleep 2s
+
+echo -e "Generating Keygen\n"
+sudo sbuild-update --keygen
+
+sudo adduser $USER sbuild
+
+#################################################
 # OpenSUSE - Open Build System setup
 #################################################
 
-##########################
+# TODO ?
+
+#################################################
 # Extra setup
-##########################
+#################################################
 
 # IMPORTANT!
 # For information, see: http://manpages.ubuntu.com/manpages/precise/man5/pbuilderrc.5.html
@@ -619,6 +648,12 @@ Summary
 
 Creating a pbuilder chroot setup:
 sudo -E DIST=[DIST] ARCH=[ARCH] pbuilder create
+
+Creating a sbuild basic setup:
+sudo sbuild-createchroot --include=eatmydata,ccache,gnupg [DIST] \
+/srv/chroot/[DIST]-[ARCH] [URL_TO_DIST_POOL]
+
+Ex. dist pool: http://httpredir.debian.org/debian
 
 EOF
 

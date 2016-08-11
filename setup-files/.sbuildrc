@@ -96,7 +96,7 @@ $build_source = 1;
 # a build to proceed.  Can be disabled to allow building if space is very
 # limited, but the threshold to abort a build has been exceeded despite
 # there being sufficient space for the build to complete.
-#$check_space = 1;
+$check_space = 1;
 
 # CLEAN_SOURCE
 # Type: BOOL

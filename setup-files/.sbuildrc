@@ -22,8 +22,6 @@
 #$path =
 #'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games';
 
-
-
 ##
 ## Build options
 ##
@@ -37,7 +35,7 @@
 # BUILD_ARCH
 # Type: STRING
 # Build architecture (Arch we are building on).
-build_arch = amd64;
+$build_arch = 'amd64';
 
 # BUILD_ARCH_ALL
 # Type: BOOL
@@ -479,7 +477,7 @@ $external_commands = {
 # is too complex for either apt or aptitude to solve it, you can use the
 # 'aspcud' resolver which is a real SAT solver and will thus alwyas find a
 # solution if a solution exists.
-#$build_dep_resolver = 'apt';
+$build_dep_resolver = 'apt';
 
 # RESOLVE_ALTERNATIVES
 # Type: BOOL

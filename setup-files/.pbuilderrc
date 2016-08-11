@@ -1,0 +1,190 @@
+####################################################################
+# COPY TO ~/.pbuilderrc after installation of pbuilder
+####################################################################
+
+###########################
+# Core options
+###########################
+
+# Remember, to build using pbuilder and the satisfy depends below, you will need to install
+# the aptitude package in the chroot with "pbuilder login --save-after-login"
+# Also see: pbuilder exec --save-after-exec
+# Speeding up pkg installs, "echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup" instead chroot
+
+AUTO_DEBSIGN=${AUTO_DEBSIGN:-no}
+
+# the pbuilder-satisfydepends-gdebi may work here, but it gives me issues creating chroots
+PBUILDERSATISFYDEPENDSCMD=/usr/lib/pbuilder/pbuilder-satisfydepends
+
+# Allow internet access during build
+USENETWORK=$USE_NETWORK
+
+###########################
+# DIST/SUITE CONFIGURAITON
+###########################
+
+# List of Debian suites.
+DEBIAN_SUITES=("wheezy" "jessie" "jessie-backports" "stretch" "sid")
+
+# List of Ubuntu suites. Update these when needed.
+UBUNTU_SUITES=( "precise" "raring" "vivid" "wily" "utopic" "xenial")
+
+# List of SteamOS suites. Update these when needed.
+STEAMOS_SUITES=("alchemist" "alchemist_beta" "brewmaster" "brewmaster_beta")
+
+# Mirrors to use. Update these to your preferred mirror.
+DEBIAN_MIRROR="httpredir.debian.org"
+UBUNTU_MIRROR="mirrors.kernel.org"
+STEAMOS_MIRROR="repo.steampowered.com"
+LIBREGEEK_MIRROR="packages.libregeek.org"
+
+# Optionally set a default distribution if none is used. Note that you can set
+# your own default (i.e. ${DIST:="unstable"}).
+: ${DIST:="$(lsb_release --short --codename)"}
+
+# Optionally set the architecture to the host architecture if none set. Note
+# that you can set your own default (i.e. ${ARCH:="i386"}).
+: ${ARCH:="$(dpkg --print-architecture)"}
+
+NAME="$DIST"
+if [ -n "${ARCH}" ]; then
+
+	NAME="$NAME-$ARCH"
+	DEBOOTSTRAPOPTS=("--arch" "$ARCH" "${DEBOOTSTRAPOPTS[@]}")
+
+fi
+
+if [ -n "${DIST}" ]; then
+
+	if [[ $(lsb_release -si) == "SteamOS" ]]; then
+
+		# Using SteamOS
+		BASEDIR="$HOME/pbuilder"
+		APTCACHEHARDLINK=no
+		HOOKDIR="$HOME/pbuilder/hooks"
+
+	else
+
+		# Using another distribution
+		BASEDIR="/var/cache/pbuilder"
+
+	fi
+
+	# Set locations
+	ARCHITECTURE="${ARCH}"
+	BASETGZ="${BASEDIR}/${DIST}-${ARCH}-base.tgz"
+	BUILDRESULT="${BUILD_TMP}"
+	BUILDPLACE="${BASEDIR}/${DIST}/build"
+	APTCACHE="${BASEDIR}/${DIST}/aptcache/"
+	HOOKDIR="${BASEDIR}/hooks"
+	
+	# Ensure paths exist
+	mkdir -p "${BASEDIR}"
+	mkdir -p "${HOOKDIR}"
+	mkdir -p "${APTCACHE}"
+	mkdir -p "${BUILDPLACE}"
+
+fi
+
+# Adjust DIST for "virtual" targets, such as SteamOS beta
+# This way, all the paths above are set correction, but the distribution
+# Given for chroot creation is the "base" dist, such as "brewmaster", not
+# "brewamster_beta"
+
+if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
+
+	# Set DIST
+	DIST=$(sed "s|_beta||g" <<<${DIST})
+	
+	# Set real distribution
+	DISTRIBUTION="${DIST}"
+
+	# Set beta flag so additional beta repo mirror will be added later
+	STEAMOS_BETA="true"
+	
+elif [[ "${DIST}" == "jessie-backports" ]]; then
+
+	# Set DIST
+	DIST=$(sed "s|-backports||g" <<<${DIST})
+
+	# Set real distribution
+	DISTRIBUTION="${DIST}"
+	
+else
+
+	# Set to expected DIST
+	DISTRIBUTION="${DIST}"
+	
+	# Ensure this is false
+	STEAMOS_BETA="false"
+
+fi
+
+# Note:${DEBOOTSTRAPOPTS[@]} includes the host keyring
+
+if $(echo ${DEBIAN_SUITES[@]} | grep -q $DIST); then
+    
+	# Debian configuration
+	MIRRORSITE="http://$DEBIAN_MIRROR/debian/"
+	COMPONENTS="main contrib non-free"
+	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/debian-archive-keyring.gpg")
+	EXTRAPACKAGES="gdebi-core wget ca-certificates"
+
+	if $(echo ${DEBIAN_SUITES[@]} | grep -q "jessie-backports"); then
+		OTHERMIRROR="deb http://httpredir.debian.org/debian/ jessie-backports main contrib non-free"
+	fi
+    
+elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
+   
+	# Ubuntu configuration
+	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg")
+	MIRRORSITE="http://$UBUNTU_MIRROR/ubuntu/"
+	COMPONENTS="main restricted universe multiverse"
+	EXTRAPACKAGES="gdebi-core wget ca-certificates"
+    
+elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
+
+	# SteamOS main configuration
+	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/valve-archive-keyring.gpg")
+	MIRRORSITE="http://$STEAMOS_MIRROR/steamos"
+	COMPONENTS="main contrib non-free"
+	
+	# If we are working with beta packages, adjust accordingly
+	# Check /var/lib/apt/lists/repo.steampowered*beta_main_binary-amd64_Packages for packages
+	# To cross check after chroot creation.
+	# Example: diff -qy Packages-beta Packages | grep -B 2 Version | less
+
+	if [[ "${STEAMOS_BETA}" == "true" ]]; then
+		OTHERMIRROR="deb http://repo.steampowered.com/steamos brewmaster_beta main contrib non-free"
+		EXTRAPACKAGES="gdebi-core wget ca-certificates aptitude"
+	else
+		EXTRAPACKAGES="gdebi-core wget ca-certificates aptitude"
+	fi
+
+else
+	echo "Unknown distribution: $DIST"
+	exit 1
+fi
+
+######################################################
+# Debuild options
+######################################################
+
+#for pbuilder debuild (sudo -E keeps the environment as-is)
+BUILDSOURCEROOTCMD="fakeroot"
+PBUILDERROOTCMD="sudo -E"
+
+# use cowbuilder for pdebuild
+#PDEBUILD_PBUILDER="cowbuilder"
+
+#Command-line option passed on to dpkg-buildpackage.
+#DEBBUILDOPTS="-IXXX -iXXX"
+
+# create sources only
+#DEBBUILDOPTS="-S -sa"
+
+# create binary AND sources
+#DEBBUILDOPTS="-us -uc"
+
+# always be verbose:
+DH_VERBOSE=1

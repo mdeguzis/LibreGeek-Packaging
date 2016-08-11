@@ -1,0 +1,41 @@
+#!/usr/bin/make -f
+
+DPKG_EXPORT_BUILDFLAGS = 1
+include /usr/share/dpkg/buildflags.mk
+CFLAGS+=$(CPPFLAGS)
+CXXFLAGS+=$(CPPFLAGS)
+
+# Hardening
+export DEB_BUILD_HARDENING=1
+
+# Presets
+export prefix = /usr
+export bindir = /usr/games
+export DESTDIR = $(CURDIR)/debian/vkquake
+
+%:
+	dh $@
+
+ifeq (,$(filter noopt,$(DEB_BUILD_OPTIONS)))
+maybe_debug = DEBUG=0
+else
+maybe_debug = DEBUG=1
+endif
+
+override_dh_auto_clean:
+	$(MAKE) -C Quake clean
+
+override_dh_auto_build:
+	$(MAKE) -C Quake release \
+		$(maybe_debug) \
+		STRIP=": do not strip:" \
+		DO_USERDIRS=1 \
+		USE_SDL2=1 \
+		USE_CODEC_FLAC=1 \
+		USE_CODEC_OPUS=1 \
+		USE_CODEC_MIKMOD=1 \
+		USE_CODEC_UMX=1
+	$(MAKE) -C Misc/vq_pak
+
+override_dh_auto_install:
+	$(MAKE) -C Quake install

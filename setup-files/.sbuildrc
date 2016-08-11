@@ -320,10 +320,8 @@ $check_space = 1;
 # Ex.:         "pre-build-commands" => [
 #            ['foo', 'arg1', 'arg2'],
 #
-# Note: Do NOT leave a section blank, such as '"chroot-setup-commands" => [],' or
-# the build will not properly process the section in an automatic sense
-$external_commands = {
-    "pre-build-commands" => ['']
+#$external_commands = {
+#    "pre-build-commands" => ['']
 #    "chroot-setup-commands" => [],
 #    "build-deps-failed-commands" => [],
 #    "build-failed-commands" => [],
@@ -331,17 +329,7 @@ $external_commands = {
 #    "finished-build-commands" => [],
 #    "chroot-cleanup-commands" => [],
 #    "post-build-commands" => [],
-};
-#$external_commands = {
-#			'build-deps-failed-commands' => [],
-#			'build-failed-commands' => [],
-#			'chroot-cleanup-commands' => [],
-#			'chroot-setup-commands' => [],
-#			'finished-build-commands' => [],
-#			'post-build-commands' => [],
-#			'pre-build-commands' => [],
-#			'starting-build-commands' => []
-#		      };
+#};
 
 # LOG_EXTERNAL_COMMAND_ERROR
 # Type: BOOL

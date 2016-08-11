@@ -325,7 +325,7 @@ $run_lintian = 1;
 #        ],
 #    };
 $external_commands = {
-		"chroot-pre-build-commands" => [
+		"chroot-setup-commands" => [
 			['/home/desktop/pbuilder/hooks/D20steamos-tools-hook.sh'],
 		],
 };

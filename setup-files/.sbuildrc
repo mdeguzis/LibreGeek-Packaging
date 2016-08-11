@@ -237,7 +237,7 @@ $check_space = 1;
 # RUN_LINTIAN
 # Type: BOOL
 # Run lintian?
-#$run_lintian = 0;
+$run_lintian = 1;
 
 # RUN_PIUPARTS
 # Type: BOOL
@@ -389,7 +389,7 @@ $log_external_command_output = 1;
 #    $build_dir = '/home/pete/build';
 
 # Build dir is exported in my build scripts
-build_dir = '$BUILD_TMP';
+$build_dir = "$BUILD_TMP";
 
 # BUILD_ENVIRONMENT
 # Type: HASH:STRING
@@ -525,7 +525,7 @@ $build_dep_resolver = 'apt';
 # set to 'buildd'.
 
 # Build dir is set in my buid scripts
-$log_dir = '$BUILD_TMP';
+$log_dir = "$BUILD_TMP";
 
 # LOG_FILTER
 # Type: BOOL

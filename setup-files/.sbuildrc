@@ -19,7 +19,7 @@
 # PATH
 # Type: STRING
 # PATH to set when running dpkg-buildpackage.
-$path = '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games';
+#$path = '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games';
 #'/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games';
 
 ##
@@ -215,7 +215,7 @@ $check_space = 1;
 # Type: ARRAY:STRING
 # Options to pass to lintian.  Each option is a separate arrayref element. 
 # For example, ['-i', '-v'] to add -i and -v.
-#$lintian_opts = [];
+$lintian_opts = ['-i', '-I'];
 
 # PIUPARTS
 # Type: STRING
@@ -317,13 +317,27 @@ $run_lintian = 1;
 # Type: HASH:ARRAY:STRING
 # External commands to run at various stages of a build. Commands are held
 # in a hash of arrays of arrays data structure.
-# Ex.:         "pre-build-commands" => [
+# Ex.:
+#    $external_commands = {
+#        "pre-build-commands" => [
 #            ['foo', 'arg1', 'arg2'],
-#
+#            ['bar', 'arg1', 'arg2', 'arg3'],
+#        ],
+#    };
 $external_commands = {
     "chroot-setup-commands" => ['/home/desktop/pbuilder/hooks/D20steamos-tools-hook.sh'],
-    ],
 };
+
+#$external_commands = {
+#			'build-deps-failed-commands' => [],
+#			'build-failed-commands' => [],
+#			'chroot-cleanup-commands' => [],
+#			'chroot-setup-commands' => [],
+#			'finished-build-commands' => [],
+#			'post-build-commands' => [],
+#			'pre-build-commands' => [],
+#			'starting-build-commands' => []
+#		      };
 
 # LOG_EXTERNAL_COMMAND_ERROR
 # Type: BOOL

@@ -320,16 +320,16 @@ $check_space = 1;
 # Ex.:         "pre-build-commands" => [
 #            ['foo', 'arg1', 'arg2'],
 #
-#$external_commands = {
-#    "pre-build-commands" => ['']
-#    "chroot-setup-commands" => [],
-#    "build-deps-failed-commands" => [],
-#    "build-failed-commands" => [],
-#    "starting-build-commands" => [],
-#    "finished-build-commands" => [],
-#    "chroot-cleanup-commands" => [],
-#    "post-build-commands" => [],
-#};
+$external_commands = {
+    "pre-build-commands" => ['/home/desktop/pbuilder/hooks/D20steamos-tools-hook.sh']
+    "chroot-setup-commands" => [],
+    "build-deps-failed-commands" => [],
+    "build-failed-commands" => [],
+    "starting-build-commands" => [],
+    "finished-build-commands" => [],
+    "chroot-cleanup-commands" => [],
+    "post-build-commands" => [],
+};
 
 # LOG_EXTERNAL_COMMAND_ERROR
 # Type: BOOL

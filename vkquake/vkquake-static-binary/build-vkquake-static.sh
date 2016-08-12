@@ -121,6 +121,9 @@ main()
 	# Add required files and artwork
 	# cp ../vkquake.png "${GIT_DIR}"
 
+	# Add static libs
+	cp "${SCRIPTDIR}/libs" "${GIT_DIR}"
+
 	#################################################
 	# Build package
 	#################################################
@@ -142,7 +145,7 @@ main()
 	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	cd "${GIT_DIR}/Quake"
-	make -Wl,-rpath -Wl,"${PWD}/lib"
+	make
 
 	#################################################
 	# Install process

@@ -133,8 +133,15 @@ main()
 
 	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
-	cd "${GIT_DIR}/Quake"
-	make
+	cd "${GIT_DIR}"
+	make -C Quake release \
+		DO_USERDIRS=1 \
+		USE_SDL2=1 \
+		USE_CODEC_FLAC=1 \
+		USE_CODEC_OPUS=1 \
+		USE_CODEC_MIKMOD=1 \
+		USE_CODEC_UMX=1
+	make -C Misc/vq_pak
 
 	#################################################
 	# Install process

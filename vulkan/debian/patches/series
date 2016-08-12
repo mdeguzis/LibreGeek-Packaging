@@ -1,6 +1,6 @@
 trim-build.diff
-demos-dont-build-tri-or-cube-or-smoke.diff
-loader-add-install-rule.diff
 demos-add-install-rule.diff
+demos-dont-build-tri-or-cube-or-smoke.diff
+#layers-dont-set-an-rpath.diff
 layers-install-to-cmake-install-libdir.diff
-layers-dont-set-an-rpath.diff
+loader-add-install-rule.diff

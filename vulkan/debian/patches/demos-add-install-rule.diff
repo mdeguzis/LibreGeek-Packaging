@@ -1,9 +1,10 @@
-Description: Add an install rule for vulkaninfo
 --- a/demos/CMakeLists.txt
 +++ b/demos/CMakeLists.txt
-@@ -89,3 +89,5 @@ endif()
+@@ -114,6 +114,7 @@
  
  add_executable(vulkaninfo vulkaninfo.c)
  target_link_libraries(vulkaninfo ${LIBRARIES})
 +install(TARGETS vulkaninfo RUNTIME DESTINATION /usr/bin)
-+
+ 
+ if(UNIX)
+     add_executable(tri tri.c ${CMAKE_BINARY_DIR}/demos/tri-vert.spv ${CMAKE_BINARY_DIR}/demos/tri-frag.spv)

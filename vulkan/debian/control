@@ -1,7 +1,6 @@
 Source: vulkan
 Priority: optional
 Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
-Uploaders: Timo Aaltonen <tjaalton@debian.org>
 Build-Depends: debhelper (>= 9),
  cmake,
  libx11-dev,

@@ -1,14 +1,8 @@
-commit 68165bda903b68520c21dd132ebc23be0177b7f4
-Author: Adam Jackson <ajax@redhat.com>
-Date:   Wed Feb 10 15:17:06 2016 -0500
-
-    loader: Add install rule
-
 --- a/loader/CMakeLists.txt
 +++ b/loader/CMakeLists.txt
-@@ -68,4 +68,5 @@ else()
+@@ -84,4 +84,5 @@
      add_library(vulkan SHARED ${LOADER_SRCS})
-     set_target_properties(vulkan PROPERTIES SOVERSION "1" VERSION "1.0.8")
+     set_target_properties(vulkan PROPERTIES SOVERSION "1" VERSION "1.0.21")
      target_link_libraries(vulkan -ldl -lpthread -lm)
 +    install(TARGETS vulkan DESTINATION ${CMAKE_INSTALL_LIBDIR})
  endif()

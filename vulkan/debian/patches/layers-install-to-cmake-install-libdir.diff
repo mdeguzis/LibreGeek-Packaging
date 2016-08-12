@@ -1,26 +1,20 @@
-commit 991a05cc657345d24cb86658a2d3fbd25643bdb2
-Author: Adam Jackson <ajax@redhat.com>
-Date:   Wed Feb 10 15:11:54 2016 -0500
-
-    layers: Install to CMAKE_INSTALL_LIBDIR
-
 --- a/layers/CMakeLists.txt
 +++ b/layers/CMakeLists.txt
-@@ -75,7 +75,7 @@ else()
-     target_link_Libraries(VkLayer_${target} layer_utils)
- 	add_dependencies(VkLayer_${target} generate_vk_layer_helpers)
- 	set_target_properties(VkLayer_${target} PROPERTIES LINK_FLAGS "-Wl,-Bsymbolic")
--	install(TARGETS VkLayer_${target} DESTINATION ${PROJECT_BINARY_DIR}/install_staging)
-+	install(TARGETS VkLayer_${target} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+@@ -81,7 +81,7 @@
+     target_link_Libraries(VkLayer_${target} VkLayer_utils)
+     add_dependencies(VkLayer_${target} generate_vk_layer_helpers)
+     set_target_properties(VkLayer_${target} PROPERTIES LINK_FLAGS "-Wl,-Bsymbolic")
+-    install(TARGETS VkLayer_${target} DESTINATION ${PROJECT_BINARY_DIR}/install_staging)
++    install(TARGETS VkLayer_${target} DESTINATION ${CMAKE_INSTALL_LIBDIR})
      endmacro()
  endif()
  
-@@ -143,7 +143,7 @@ if (WIN32)
-     set_target_properties(layer_utils_static PROPERTIES OUTPUT_NAME layer_utils)
-     target_link_libraries(layer_utils)
+@@ -148,7 +148,7 @@
+     add_library(VkLayer_utils STATIC vk_layer_config.cpp vk_layer_extension_utils.cpp vk_layer_utils.cpp)
  else()
--    install(TARGETS layer_utils DESTINATION ${PROJECT_BINARY_DIR}/install_staging)
-+    install(TARGETS layer_utils DESTINATION ${CMAKE_INSTALL_LIBDIR})
+     add_library(VkLayer_utils SHARED vk_layer_config.cpp vk_layer_extension_utils.cpp vk_layer_utils.cpp)
+-    install(TARGETS VkLayer_utils DESTINATION ${PROJECT_BINARY_DIR}/install_staging)
++    install(TARGETS VkLayer_utils DESTINATION ${CMAKE_INSTALL_LIBDIR})
  endif()
- add_vk_layer(core_validation core_validation.cpp vk_layer_table.cpp)
- add_vk_layer(device_limits device_limits.cpp vk_layer_table.cpp vk_layer_utils.cpp)
+ 
+ add_vk_layer(core_validation core_validation.cpp vk_layer_table.cpp vk_safe_struct.cpp descriptor_sets.cpp)

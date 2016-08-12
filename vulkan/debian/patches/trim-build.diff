@@ -1,6 +1,6 @@
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -91,10 +91,10 @@ else()
+@@ -103,10 +103,10 @@
  endif()
  
  option(BUILD_LOADER "Build loader" ON)
@@ -10,6 +10,6 @@
  option(BUILD_DEMOS "Build demos" ON)
 -option(BUILD_VKJSON "Build vkjson" ON)
 +option(BUILD_VKJSON "Build vkjson" OFF)
+ option(CUSTOM_GLSLANG_BIN_ROOT "Use the user defined GLSLANG_BINARY_ROOT" OFF)
+ option(CUSTOM_SPIRV_TOOLS_BIN_ROOT "Use the user defined SPIRV_TOOLS_BINARY_ROOT" OFF)
  
- find_program(GLSLANG_VALIDATOR NAMES glslangValidator
-              HINTS "${CMAKE_SOURCE_DIR}/../glslang/${BUILDTGT_DIR}/install/bin"

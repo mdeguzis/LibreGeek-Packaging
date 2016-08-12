@@ -53,7 +53,7 @@ branch="master"
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="pdebuild"
+BUILDER=""
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="vkquake"
@@ -81,7 +81,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential vulkan-dev libsdl2-dev
+	sudo apt-get install -y --force-yes build-essential git-core
 
 }
 
@@ -119,10 +119,7 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Add required files and artwork
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
-	cp "${SCRIPTDIR}/vkquake.png" "${GIT_DIR}"
-	cp "${GIT_DIR}/LICENSE.txt" "${GIT_DIR}/debian/LICENSE"
-	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
+	# cp ../vkquake.png "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -138,26 +135,6 @@ main()
 	# enter source dir
 	cd "${GIT_DIR}"
 
-	echo -e "\n==> Updating changelog"
-	sleep 2s
-
-	# update changelog with dch
-	# "Update to the latest commit ${latest_commit}"
-	if [[ -f "debian/changelog" ]]; then
-
-		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest commit ${latest_commit}"
-		nano "debian/changelog"
-
-	else
-
-		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano "debian/changelog"
-
-	fi
-
 	#################################################
 	# Build Debian package
 	#################################################
@@ -165,7 +142,16 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	
+	cd vkQuake/Quake
+	make || echo -e "\n==EROR==\nMake failed!"
+
+	#################################################
+	# Install process
+	#################################################
+	
+	# To do
 
 	#################################################
 	# Cleanup

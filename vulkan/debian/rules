@@ -15,7 +15,8 @@ override_dh_clean:
 override_dh_auto_configure:
 	dh_auto_configure -- \
 	-DCMAKE_INSTALL_LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH) \
-	-DGLSLANG_SPIRV_INCLUDE_DIR=$(CURDIR)/debian
+	-DGLSLANG_SPIRV_INCLUDE_DIR=$(CURDIR)/debian \
+	-DSPIRV_TOOLS_INCLUDE_DIR=$(CURDIR)/debian
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/tmp

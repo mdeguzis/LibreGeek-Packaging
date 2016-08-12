@@ -4,8 +4,15 @@
 # Updates libs/ folder
 #################################
 
-# Generate libs list from build host
+# Prereqs
 
+if [[ ! -d "libs" ]]; then
+
+	mkdir libs
+
+fi
+
+# Generate libs list from build host
 
 if sudo apt-get install -y --force-yes vkquake &> /dev/null; then
 

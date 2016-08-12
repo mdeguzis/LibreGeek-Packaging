@@ -13,12 +13,13 @@ override_dh_clean:
 	rm -rf __pycache__
 
 override_dh_auto_configure:
+	# Generate SPIRV external tools
+	# Let CMakeLists.txt find these after running the tool provided ?
+	# ./update_external_sources.sh
 	dh_auto_configure -- \
 	-DCMAKE_INSTALL_LIBDIR=/usr/lib/$(DEB_HOST_MULTIARCH)
-	# Let CMakeLists.txt find these after running the tool provided:
-	# ./update_external_sources.sh
-	#-DGLSLANG_SPIRV_INCLUDE_DIR=$(CURDIR)/debian \
-	#-DSPIRV_TOOLS_INCLUDE_DIR=$(CURDIR)/debian
+	-DGLSLANG_SPIRV_INCLUDE_DIR=$(CURDIR)/debian \
+	-DSPIRV_TOOLS_INCLUDE_DIR=$(CURDIR)/debian
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/tmp

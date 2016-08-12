@@ -60,10 +60,11 @@ STRIP ?= strip
 #CPUFLAGS= -march=atom
 CPUFLAGS=
 LDFLAGS = -L$(VULKAN_SDK)/lib
-LDFLAGS = -L$(STATIC_LIBS)
+LDFLAGS += -L$(STATIC_LIBS)
 DFLAGS ?=
 CFLAGS ?= -Wall -Wno-trigraphs
 CFLAGS += $(CPUFLAGS)
+#CFLAGS == -static
 ifneq ($(DEBUG),0)
 DFLAGS += -D_DEBUG
 CFLAGS += -g
@@ -190,6 +191,12 @@ endif
 COMMON_LIBS:= -lm -l:libvulkan.so.1 -lX11-xcb
 
 LIBS := $(COMMON_LIBS) $(NET_LIBS) $(CODECLIBS)
+
+# ---------------------------
+# Static linking
+# ---------------------------
+
+LDFLAGS += '-Wl,-rpath=$(STATIC_LIBS)'
 
 # ---------------------------
 # targets

@@ -108,7 +108,7 @@ main()
 	else
 
 		# need cdbs before build for dh_clean
-		sudo apt-get install -y --force-yes cdbs
+		sudo apt-get install -y --force-yes cmake
 
 	fi
 

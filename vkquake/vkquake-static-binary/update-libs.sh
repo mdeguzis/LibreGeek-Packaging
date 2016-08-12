@@ -26,8 +26,6 @@ else
 
 fi
 
-done
-
 sudo apt-get install -y vkquake
 
 # Generate linked lib list

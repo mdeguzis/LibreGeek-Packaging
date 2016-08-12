@@ -132,9 +132,6 @@ main()
 	cd "${BUILD_TMP}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
-	# enter source dir
-	cd "${GIT_DIR}"
-
 	#################################################
 	# Build Debian package
 	#################################################
@@ -144,7 +141,7 @@ main()
 
 	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
-	cd vkQuake/Quake
+	cd "${GIT_DIR}/Quake"
 	make -Wl,-rpath -Wl,"${PWD}/lib"
 
 	#################################################

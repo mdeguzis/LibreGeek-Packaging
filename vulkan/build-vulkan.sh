@@ -119,6 +119,12 @@ main()
 
 	# clone
 	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+	
+	# Add missing header
+	# Don't forget to update this with new builds and place in debian/spirv-tools!
+
+	# We need this SPIRV tools header or the 1.0.21.0 build will fail
+	# "https://github.com/KhronosGroup/SPIRV-Tools/blob/master/include/spirv-tools/libspirv.h" \
 
 	#################################################
 	# Build platform

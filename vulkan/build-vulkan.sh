@@ -120,11 +120,14 @@ main()
 	# clone
 	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 	
-	# Add missing header
-	# Don't forget to update this with new builds and place in debian/spirv-tools!
+	# Generate SPIRV stuff with included script
+	cd "${GIT_DIR}"
 
-	# We need this SPIRV tools header or the 1.0.21.0 build will fail
-	# "https://github.com/KhronosGroup/SPIRV-Tools/blob/master/include/spirv-tools/libspirv.h" \
+	if ! ./update_external_sources.sh; then
+
+		echo "External sources generation failed!" && sleep 10s && exit 1
+
+	fi
 
 	#################################################
 	# Build platform

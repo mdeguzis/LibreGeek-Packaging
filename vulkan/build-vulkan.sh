@@ -58,9 +58,9 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="vulkan"
-PKGVER="$(echo ${TARGET} | sed 's/sdk-//')
+PKGVER=$(echo ${TARGET} | sed 's/sdk-//')
 PKGREV="1"
-PKGSUFFIX="git+bsos${PKGREV}"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -77,22 +77,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes libx11-dev libgl1-mesa-dev \
-	libpulse-dev libxcomposite-dev libxinerama-dev libv4l-dev libudev-dev \
-	libfreetype6-dev libfontconfig-dev qtbase5-dev libqt5x11extras5-dev \
-	libx264-dev libxcb-xinerama0-dev libxcb-shm0-dev libjack-jackd2-dev \
-	libcurl4-openssl-dev build-essential bc debhelper cdbs cmake libfdk-aac-dev
-
-	echo -e "\n==> Installing $PKGNAME build dependencies...\n"
-	sleep 2s
-
-	# Until the ffmpeg build script is finished, install ffmpeg from rebuilt PPA source
-	# hosted in the Libregeek repositories. Exit if not installed correctly.
-
-	sudo apt-get install -y --force-yes ffmpeg libavcodec-ffmpeg-dev \
-	libavdevice-ffmpeg-dev libavfilter-ffmpeg-dev libavformat-ffmpeg-dev \
-	libavresample-ffmpeg-dev libavutil-ffmpeg-dev libpostproc-ffmpeg-dev \
-	libswresample-ffmpeg-dev libswscale-ffmpeg-dev
+	sudo apt-get install -y --force-yes 
 }
 
 main()
@@ -144,7 +129,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
 	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
@@ -158,13 +143,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update release"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update to release version ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 

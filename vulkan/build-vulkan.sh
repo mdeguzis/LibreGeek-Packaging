@@ -131,10 +131,13 @@ main()
 	fi
 	
 	# Refresh what local debian has
-	echo -e "\n==> Refreshing SPIRV files"
-	sleep 2s
-	cp -rv "${GIT_DIR}/external/spirv-tools/include/spirv-tools/libspirv.h" "${SCRIPTDIR}/debian/SPIRV"
-	cp -rv "${GIT_DIR}/external/spirv-headers/include/spirv/1.1/libspirv.h" "${SCRIPTDIR}/debian/spirv-tools"
+	#echo -e "\n==> Refreshing SPIRV files"
+	#sleep 2s
+	#cp -rv "${GIT_DIR}/external/spirv-tools/include/spirv-tools/libspirv.h" "${SCRIPTDIR}/debian/SPIRV"
+	#cp -rv "${GIT_DIR}/external/spirv-headers/include/spirv/1.1/libspirv.h" "${SCRIPTDIR}/debian/spirv-tools"
+	
+	# remove the external directory so it does not conflict
+	#rm -rf "${GIT_DIR}/external"
 
 	#################################################
 	# Build platform

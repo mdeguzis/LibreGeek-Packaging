@@ -125,17 +125,6 @@ main()
 	cp "${SCRIPTDIR}/libs" "${GIT_DIR}"
 
 	#################################################
-	# Build package
-	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# create source tarball
-	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
-
-	#################################################
 	# Build Debian package
 	#################################################
 

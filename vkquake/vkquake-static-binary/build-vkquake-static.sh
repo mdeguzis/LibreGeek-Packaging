@@ -121,8 +121,9 @@ main()
 	# Add required files and artwork
 	# cp ../vkquake.png "${GIT_DIR}"
 
-	# Add static libs
+	# Add static libs and modified files
 	cp "${SCRIPTDIR}/libs" "${GIT_DIR}"
+	cp "${SCRIPTDIR}/Makefile" "${GIT_DIR}/Quake"
 
 	#################################################
 	# Build Debian package

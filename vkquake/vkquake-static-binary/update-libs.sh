@@ -43,20 +43,12 @@ sleep 2s
 
 file="lib-path-only.txt"
 
-# while loop
 while IFS= read -r line
 do
+	#echo "$var"
+	cp -v "${line}" "${PWD}/libs"
 
-        # display line or do somthing on $line
-	# echo "$line"
-
-	# Copy libs
-	cp -v "${name}" "${PWD}/libs"
-
-done <"$file"
-
-
-	
+done < "$file"
 
 
 echo "done!"

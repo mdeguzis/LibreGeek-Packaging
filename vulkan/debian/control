@@ -1,0 +1,50 @@
+Source: vulkan
+Priority: optional
+Maintainer: Debian X Strike Force <debian-x@lists.debian.org>
+Uploaders: Timo Aaltonen <tjaalton@debian.org>
+Build-Depends: debhelper (>= 9),
+ cmake,
+ libx11-dev,
+ libxcb1-dev,
+ pkg-config,
+ python3,
+ python3-lxml,
+ quilt,
+Standards-Version: 3.9.7
+Section: libs
+Homepage: https://github.com/KhronosGroup/Vulkan-LoaderAndValidationLayers
+Vcs-Git: https://anonscm.debian.org/git/pkg-xorg/lib/vulkan.git
+Vcs-Browser: https://anonscm.debian.org/cgit/pkg-xorg/lib/vulkan.git
+
+Package: libvulkan1
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Vulkan loader library
+ The Loader implements the main VK library. It handles layer management and
+ driver management. The loader fully supports multi-gpu operation. As part of
+ this, it dispatches API calls to the correct driver, and to the correct
+ layers, based on the GPU object selected by the application.
+ .
+ This package includes the loader library and vulkaninfo binary.
+
+Package: libvulkan-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libvulkan1 (= ${binary:Version}),
+ ${misc:Depends},
+Description: Vulkan loader library -- development files
+ The Loader implements the main VK library. It handles layer management and
+ driver management. The loader fully supports multi-gpu operation. As part of
+ this, it dispatches API calls to the correct driver, and to the correct
+ layers, based on the GPU object selected by the application.
+ .
+ This package includes files needed for development.
+
+Package: vulkan-utils
+Architecture: any
+Section: graphics
+Depends: ${shlibs:Depends}, ${misc:Depends},
+ libvulkan1,
+Description: Miscellaneous Vulkan utilities
+ This package provides utilities for Vulkan, including vulkaninfo.

@@ -1,0 +1,21 @@
+vulkan (1.0.8.0+dfsg1-1) unstable; urgency=medium
+
+  * New upstream release.
+  * patches: Refreshed.
+  * Don't build smoke demo, needs glslang like tri/cube.
+  * control: Add libx11-dev and python3-lxml to build-depends.
+  * Drop layers-use-local-spirv-hpp.diff, use a config option to find
+    debian/SPIRV/spirv.hpp
+  * copyright: Fix Files-Excluded.
+  * watch: Match more tags.
+  * copyright: Add buildAndroid to Files-Excluded.
+  * control: Bump policy to 3.9.7, no changes.
+  * control: Use https for Vcs-Git.
+
+ -- Timo Aaltonen <tjaalton@debian.org>  Thu, 14 Apr 2016 13:57:37 +0300
+
+vulkan (1.0.3.1+dfsg1-1) unstable; urgency=low
+
+  * Initial release (Closes: #814922)
+
+ -- Timo Aaltonen <tjaalton@debian.org>  Thu, 10 Mar 2016 14:08:35 +0200

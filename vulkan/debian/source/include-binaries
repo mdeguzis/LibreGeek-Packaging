@@ -1,0 +1,4 @@
+debian/local/cube-frag.spv
+debian/local/cube-vert.spv
+debian/local/tri-frag.spv
+debian/local/tri-vert.spv

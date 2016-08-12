@@ -1,0 +1,15 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -91,10 +91,10 @@ else()
+ endif()
+ 
+ option(BUILD_LOADER "Build loader" ON)
+-option(BUILD_TESTS "Build tests" ON)
++option(BUILD_TESTS "Build tests" OFF)
+ option(BUILD_LAYERS "Build layers" ON)
+ option(BUILD_DEMOS "Build demos" ON)
+-option(BUILD_VKJSON "Build vkjson" ON)
++option(BUILD_VKJSON "Build vkjson" OFF)
+ 
+ find_program(GLSLANG_VALIDATOR NAMES glslangValidator
+              HINTS "${CMAKE_SOURCE_DIR}/../glslang/${BUILDTGT_DIR}/install/bin"

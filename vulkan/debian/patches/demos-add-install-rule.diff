@@ -1,0 +1,9 @@
+Description: Add an install rule for vulkaninfo
+--- a/demos/CMakeLists.txt
++++ b/demos/CMakeLists.txt
+@@ -89,3 +89,5 @@ endif()
+ 
+ add_executable(vulkaninfo vulkaninfo.c)
+ target_link_libraries(vulkaninfo ${LIBRARIES})
++install(TARGETS vulkaninfo RUNTIME DESTINATION /usr/bin)
++

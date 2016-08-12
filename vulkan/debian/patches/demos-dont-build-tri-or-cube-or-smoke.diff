@@ -1,0 +1,40 @@
+commit f63cbe944107b5cd8f150ceaaec43b26099d5688
+Author: Adam Jackson <ajax@redhat.com>
+Date:   Tue Feb 16 10:05:25 2016 -0500
+
+    demos: Don't build tri or cube
+    
+    There are more interesting demos, all we really want here is vulkaninfo.
+    This helps because we don't need to pre-build glslang/llvm/lunarglass
+    just to get the loader and layers.
+
+--- a/demos/CMakeLists.txt
++++ b/demos/CMakeLists.txt
+@@ -89,27 +89,3 @@ endif()
+ 
+ add_executable(vulkaninfo vulkaninfo.c)
+ target_link_libraries(vulkaninfo ${LIBRARIES})
+-
+-if(UNIX)
+-    add_executable(tri tri.c ${CMAKE_BINARY_DIR}/demos/tri-vert.spv ${CMAKE_BINARY_DIR}/demos/tri-frag.spv)
+-else()
+-    add_executable(tri WIN32 tri.c ${CMAKE_BINARY_DIR}/demos/tri-vert.spv ${CMAKE_BINARY_DIR}/demos/tri-frag.spv)
+-endif()
+-target_link_libraries(tri ${LIBRARIES})
+-
+-if(NOT WIN32)
+-    add_executable(cube cube.c ${CMAKE_BINARY_DIR}/demos/cube-vert.spv ${CMAKE_BINARY_DIR}/demos/cube-frag.spv)
+-    target_link_libraries(cube ${LIBRARIES})
+-else()
+-    if (CMAKE_CL_64)
+-        set (LIB_DIR "Win64")
+-    else()
+-        set (LIB_DIR "Win32")
+-    endif()
+-
+-    add_executable(cube WIN32 cube.c ${CMAKE_BINARY_DIR}/demos/cube-vert.spv ${CMAKE_BINARY_DIR}/demos/cube-frag.spv)
+-    target_link_libraries(cube ${LIBRARIES} )
+-endif()
+-
+-add_subdirectory(smoke)
+-

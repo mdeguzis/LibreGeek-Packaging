@@ -1,0 +1,5 @@
+usr/lib/*/lib*.so.*
+usr/lib/*/liblayer_utils.so
+usr/lib/*/libVk*.so
+usr/share/vulkan/explicit_layer.d
+usr/share/vulkan/implicit_layer.d

@@ -47,7 +47,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	# Deboostrap was backport to include more scripts, specify version
 	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo \
 	screen pv apt-file curl debian-archive-keyring ubuntu-archive-keyring \
-	debootstrap=1.0.81 osc obs-build mock sbuild apt-cacher-ng"
+	debootstrap=1.0.81 osc obs-build mock sbuild apt-cacher-ng quilt"
 
 	for PKG in ${PKGs};
 	do

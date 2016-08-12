@@ -121,6 +121,7 @@ main()
 	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 	
 	# Generate SPIRV stuff with included script
+	
 	cd "${GIT_DIR}"
 
 	if ! ./update_external_sources.sh; then
@@ -128,6 +129,12 @@ main()
 		echo "External sources generation failed!" && sleep 10s && exit 1
 
 	fi
+	
+	# Refresh what local debian has
+	echo -e "\n==> Refreshing SPIRV files"
+	sleep 2s
+	cp -rv "${GIT_DIR}/external/spirv-tools/include/spirv-tools/libspirv.h" "${SCRITPDIR}/debian/SPIRV"
+	cp -rv "${GIT_DIR}/external/spirv-headers/include/spirv/1.1/libspirv.h" "${SCRITPDIR}/debian/spirv-tools"
 
 	#################################################
 	# Build platform

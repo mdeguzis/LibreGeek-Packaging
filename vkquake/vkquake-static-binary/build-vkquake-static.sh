@@ -143,9 +143,9 @@ main()
 	sleep 2s
 
 	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-	
+
 	cd vkQuake/Quake
-	make || echo -e "\n==EROR==\nMake failed!"
+	make -Wl,-rpath -Wl,"${PWD}/lib"
 
 	#################################################
 	# Install process

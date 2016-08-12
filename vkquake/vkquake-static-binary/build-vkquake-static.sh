@@ -81,7 +81,9 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential git-core
+	sudo apt-get install -y --force-yes dpkg-dev libflac-dev \
+	libmad0-dev libmikmod-dev libopusfile-dev libsdl2-dev \
+	libvorbis-dev libvulkan-dev
 
 }
 
@@ -118,13 +120,6 @@ main()
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
-	# Add required files and artwork
-	# cp ../vkquake.png "${GIT_DIR}"
-
-	# Add static libs and modified files
-	cp "${SCRIPTDIR}/libs" "${GIT_DIR}"
-	cp "${SCRIPTDIR}/Makefile" "${GIT_DIR}/Quake"
-
 	#################################################
 	# Build Debian package
 	#################################################
@@ -147,19 +142,38 @@ main()
 	#################################################
 	# Install process
 	#################################################
-	
-	# To do
+
+	echo -e "\n==> Creating Linux binary package\n"
+	sleep 3s
+
+	# Move binary to root vkquake dir
+
+	cp "Quake/vkquake" "${GIT_DIR}"
+
+	# Add libs
+	cp -r ${SCRIPTDIR}/libs/* "${GIT_DIR}"
+
+	# Get rid of all uncecessary files
+
+	files="debian Misc Quake Shaders vkquake-launch Windows vkquake.png"
+
+	for file in $files;
+	do
+
+		echo "Removing uneeded file: ${file}"
+		rm -rf "${GIT_DIR}/${file}"
+
+	done
+
+	# Create tar archive
+
+	cd "${BUILD_TMP}"
+	tar -czvf "${PKGNAME}-${PKGVER}-latest_linux.tar.gz" \
+	$(basename ${GIT_DIR})
 
 	#################################################
 	# Cleanup
 	#################################################
-
-	# clean up dirs
-
-	# note time ended
-	time_end=$(date +%s)
-	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
 
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
@@ -180,12 +194,10 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+	ls "${BUILD_TMP}"
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.
-
-	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -205,14 +217,6 @@ main()
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"
 		fi
-
-	else
-
-		# Output log file to sprunge (pastebin) for review
-		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
-		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
-
-	fi
 
 }
 

@@ -38,6 +38,9 @@ ldd /usr/games/vkquake | cut -d " " -f 3 &> lib-path-only.txt
 # Copy libs to folder
 #################################
 
+echo -e "\nUpdating static libs"
+sleep 2s
+
 filename="lib-path-only.txt"
 
 while read -r line
@@ -45,7 +48,7 @@ do
 
 	name="${line}"
 	# echo "Name read from file - ${name}"
-	cp "${name}" "${PWD}/libs"
+	cp -v "${name}" "${PWD}/libs"
    
 done < "${filename}"
 

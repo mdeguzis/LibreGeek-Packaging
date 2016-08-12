@@ -1,0 +1,45 @@
+#!/bin/bash
+
+#################################
+# Updates libs/ folder
+#################################
+
+# Generate libs list from build host
+
+
+if sudo apt-get install -y --force-yes vkquake &> /dev/null; then
+
+	echo -e "Package: vkquake [OK]"
+
+else
+
+	# echo and exit if package install fails
+	echo -e "Package: vkquake [FAILED] Exiting..."
+	exit 1
+
+fi
+
+done
+
+sudo apt-get install -y vkquake
+
+# Generate linked lib list
+
+ldd /usr/games/vkquake | cut -d " " -f 3 &> lib-path-only.txt
+
+#################################
+# Copy libs to folder
+#################################
+
+filename="lib-path-only.txt"
+
+while read -r line
+do
+
+	name="${line}"
+	# echo "Name read from file - ${name}"
+	cp "${name}" "${PWD}/libs"
+   
+done < "${filename}"
+
+echo "done!"

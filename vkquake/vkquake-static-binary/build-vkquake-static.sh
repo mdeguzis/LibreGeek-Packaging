@@ -156,7 +156,7 @@ main()
 
 	# Get rid of all uncecessary files
 
-	files="debian Misc Quake Shaders vkquake-launch Windows vkquake.png"
+	files="debian Misc Quake Shaders vkquake-launch Windows vkquake.png .git"
 
 	for file in $files;
 	do
@@ -176,14 +176,13 @@ main()
 	# Cleanup
 	#################################################
 
+	# clean build tmp
+	rm -rf "${BUILD_TMP}"
+
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# inform user of packages
 	cat<<- EOF
@@ -206,9 +205,6 @@ main()
 		read -erp "Choice: " transfer_choice
 
 		if [[ "$transfer_choice" == "y" ]]; then
-
-			# remove old build folder
-			rm -rf "${BUILD_TMP}"
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \

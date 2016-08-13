@@ -206,7 +206,7 @@ main()
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_TMP}/${PKGNAME}*.gz" ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/${PKGNAME}*.gz ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
 			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"

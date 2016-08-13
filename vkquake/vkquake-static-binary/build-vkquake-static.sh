@@ -207,6 +207,9 @@ main()
 
 		if [[ "$transfer_choice" == "y" ]]; then
 
+			# remove old build folder
+			rm -rf "${BUILD_TMP}"
+
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \

@@ -46,7 +46,7 @@ fi
 
 # upstream URL
 GIT_URL="https://github.com/mpv-player/mpv"
-branch="v0.17.0"
+branch="v0.18.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -55,11 +55,13 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
+# Needed to allow installation of our version of ffmpeg dev packages
+export APT_PREFS_HACK="true"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 PKGNAME="mpv"
 BUILDER="pdebuild"
-PKGVER="0.17.0"
-PKGREV="2"
+PKGVER="0.18.1"
+PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"

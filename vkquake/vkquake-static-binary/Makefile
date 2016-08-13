@@ -59,11 +59,16 @@ STRIP ?= strip
 #CPUFLAGS= -march=atom
 CPUFLAGS=
 LDFLAGS = -L$(VULKAN_SDK)/lib
-LDFLAGS += -L$(STATIC_LIBS)
 DFLAGS ?=
 CFLAGS ?= -Wall -Wno-trigraphs
 CFLAGS += $(CPUFLAGS)
+
+# Check if we are doing a static build
+ifneq ($(STATIC_LINK),1)
+LDFLAGS += -L$(STATIC_LIBS)
 CFLAGS += -Wl,-rpath=$(STATIC_LIBS)
+endif
+
 ifneq ($(DEBUG),0)
 DFLAGS += -D_DEBUG
 CFLAGS += -g
@@ -80,7 +85,6 @@ endef
 endif
 CFLAGS += -std=gnu99
 CFLAGS += -I$(VULKAN_INCLUDE_DIR) -DLINUX -DVK_USE_PLATFORM_XCB_KHR
-#CFLAGS =+ -I$(STATIC_LIBS_INCLUDE_DIR)
 
 ifeq ($(DO_USERDIRS),1)
 CFLAGS += -DDO_USERDIRS=1

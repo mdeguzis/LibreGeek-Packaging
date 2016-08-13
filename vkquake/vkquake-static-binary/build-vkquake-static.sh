@@ -159,7 +159,7 @@ main()
 
 	# Add libs, launcher, and readme for binary7
 
-	cp -r ${SCRIPTDIR}/libs/* "${GIT_DIR}"
+	cp -r ${SCRIPTDIR}/libs-all/* "${GIT_DIR}"
 	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}"
 	cp "${SCRIPTDIR}/vkquake.readme" "${GIT_DIR}"
 

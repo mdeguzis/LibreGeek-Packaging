@@ -37,11 +37,11 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/home/mikeyd/packaging/linux-binaries/testing"
 
 else
 
-	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
+	REPO_FOLDER="/home/mikeyd/packaging/linux-binaries/stable"
 
 fi
 # upstream vars

@@ -4,11 +4,14 @@
 # Updates libs/ folder
 #################################
 
+TYPE="$1"
+
 # Prereqs
 
-if [[ ! -d "libs" ]]; then
+if [[ ! -d "libs" || ! -d "libs-all" ]]; then
 
-	mkdir libs
+	mkdir libs 2> /dev/null
+	mkdir libs-all 2> /dev/null
 
 fi
 
@@ -30,23 +33,26 @@ sudo apt-get install -y vkquake
 
 # Generate linked lib list
 
-ldd /usr/games/vkquake | cut -d " " -f 3 &> lib-path-only.txt
+ldd /usr/games/vkquake | cut -d " " -f 3 &> libs-all.txt
 
 #################################
 # Copy libs to folder
 #################################
 
-echo -e "\nUpdating static libs"
-sleep 2s
+if [[ "${TYPE}" == "all" ]]; then
 
-file="lib-path-only.txt"
+	echo -e "\nUpdating static libs"
+	sleep 2s
 
-while IFS= read -r line
-do
-	#echo "$var"
-	cp -v "${line}" "${PWD}/libs"
+	file="libs-all.txt"
 
-done < "$file"
+	while IFS= read -r line
+	do
+		#echo "$var"
+		cp -v "${line}" "${PWD}/libs-all"
 
+	done < "$file"
 
-echo "done!"
+	echo "done!"
+
+fi

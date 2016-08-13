@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# About
+# Processing all sonames in an extracted folder can follow a process such as what 
+# Debian documentation describes. To use the below, move any .symbols install files 
+# out of the debian/ directory, build the package, then move them back for the next step.
+
 rm -rf newsymbols
 mkdir -p  newsymbols
 

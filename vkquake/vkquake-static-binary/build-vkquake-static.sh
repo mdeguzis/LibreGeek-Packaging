@@ -150,8 +150,9 @@ main()
 
 	cp "Quake/vkquake" "${GIT_DIR}"
 
-	# Add libs
+	# Add libs and launcher
 	cp -r ${SCRIPTDIR}/libs/* "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}"
 
 	# Get rid of all uncecessary files
 

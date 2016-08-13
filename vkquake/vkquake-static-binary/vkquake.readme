@@ -1,0 +1,18 @@
+# About
+
+This is a binary-only release of vkquake, a port of Quakespasm to the Vulkan API. 
+I created these binaries, as Axel (iD software) requested this for portability vs.
+a package for a distro (to avoid fragmentation). I have ran a few tests on 3 
+different distros 
+
+* Debian Jessie
+* SteamOS
+* Ubuntu
+
+This release contains a wrapper, vkquake-launch.sh. 
+Please submit any issues to https://github.com/Novum/vkQuake/releases, 
+and reference this release specifically.
+
+# How do ?
+
+Please reference readme.md on GitHub. A copy has been included here.

@@ -35,19 +35,10 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-if [[ "$arg1" == "--testing" ]]; then
-
-	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-
-else
-
-	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-
-fi
 # upstream vars
 #GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
 GIT_URL="https://github.com/Novum/vkQuake"
-branch="master"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,15 +48,30 @@ BUILDER=""
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="vkquake"
-# Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.50"
 PKGREV="1"
+PKGSUFFIX="linux"
 epoch="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
+
+# Set out targets if building a stable binary or git master
+
+if [[ "$arg1" == "--testing" ]]; then
+
+        REPO_FOLDER="/home/mikeyd/packaging/linux-binaries/testing"
+        TARGET="master"
+	PKGVER="${DATE_SHORT}git"
+
+else
+
+        TARGET="0.50"
+        REPO_FOLDER="/home/mikeyd/packaging/linux-binaries/stable"
+	# Source version from vkQuake/Quake/quakedef.h
+	PKGVER="0.50.0"
+
+fi
 
 # Need network for pbuilder to pull down ut4 zip
 export NETWORK="yes"
@@ -81,9 +87,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes dpkg-dev libflac-dev \
-	libmad0-dev libmikmod-dev libopusfile-dev libsdl2-dev \
-	libvorbis-dev libvulkan-dev
+	sudo apt-get install -y --force-yes dpkg-dev libflac-dev libmad0-dev libmikmod-dev \
+	libopusfile-dev libsdl2-dev libvorbis-dev libvulkan-dev
 
 }
 
@@ -116,7 +121,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
@@ -130,6 +135,8 @@ main()
 	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	cd "${GIT_DIR}"
+
+	make -C Quake clean
 	make -C Quake release \
 		DO_USERDIRS=1 \
 		USE_SDL2=1 \
@@ -148,11 +155,13 @@ main()
 
 	# Move binary to root vkquake dir
 
-	cp "Quake/vkquake" "${GIT_DIR}"
+	cp "${GIT_DIR}/Quake/vkquake" "${GIT_DIR}"
 
-	# Add libs and launcher
+	# Add libs, launcher, and readme for binary7
+
 	cp -r ${SCRIPTDIR}/libs/* "${GIT_DIR}"
-	cp -r "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}"
+	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}"
+	cp "${SCRIPTDIR}/vkquake.readme" "${GIT_DIR}"
 
 	# Get rid of all uncecessary files
 
@@ -169,7 +178,7 @@ main()
 	# Create tar archive
 
 	cd "${BUILD_TMP}"
-	tar -czvf "${PKGNAME}-${PKGVER}-latest_linux.tar.gz" \
+	tar -czvf "${PKGNAME}-${PKGVER}_${PKGSUFFIX}.tar.gz" \
 	$(basename ${GIT_DIR})
 
 	#################################################
@@ -207,9 +216,6 @@ main()
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_TMP}/${PKGNAME}*.gz ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
-			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

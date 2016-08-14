@@ -196,7 +196,7 @@ done
 # Dot files
 #################################################
 
-echo -e "\n==> Adding and configuring dotfiles"
+echo -e "\n==> Adding and configuring dotfiles\n"
 sleep 2s
 
 #####################

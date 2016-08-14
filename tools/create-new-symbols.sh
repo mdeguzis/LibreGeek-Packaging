@@ -4,6 +4,7 @@
 # Processing all sonames in an extracted folder can follow a process such as what 
 # Debian documentation describes. To use the below, move any .symbols install files 
 # out of the debian/ directory, build the package, then move them back for the next step.
+# It is advised to use a temporry directory containing the old symbols files and the build debs.
 
 rm -rf newsymbols
 mkdir -p  newsymbols

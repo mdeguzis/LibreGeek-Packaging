@@ -48,7 +48,7 @@ else
 
 fi
 
-GIT_URL="https://github.com/qtproject/qtbase/"
+GIT_URL="https://github.com/qt/qtxmlpatterns"
 branch="v5.7.0"
 
 # package vars
@@ -81,20 +81,11 @@ install_prereqs()
 	sleep 2s
 
 	# install basic build packages
-	sudo apt-get install -y --force-yes libfontconfig1-dev libfreetype6-dev \
-	libx11-dev libxext-dev libxfixes-dev libxi-dev libxrender-dev libxcb1-dev \
-	libx11-xcb-dev libxcb-glx0-dev
-
-	# Needed if not passing -qt-xcb
-	sudo apt-get install -y --force-yes libxcb-keysyms1-dev libxcb-image0-dev \
-	libxcb-shm0-dev libxcb-icccm4-dev libxcb-sync0-dev libxcb-xfixes0-dev libxcb-shape0-dev \
-	libxcb-randr0-dev libxcb-render-util0-dev libgl1-mesa-dev
-
-	# Needed for qtwebengine building
-	sudo apt-get install -y --force-yes libcap-dev libegl1-mesa-dev x11-xserver-utils \
-	libxrandr-dev libxss-dev libxcursor-dev libxtst-dev libpci-dev libdbus-1-dev \
-	libatk1.0-dev libnss3-dev re2c gperf flex bison libicu-dev libxslt-dev ruby \
-	libssl-doc x11proto-composite-dev libasound2-dev libxcomposite-dev
+	sudo apt-get install -y --force-yes Build-Depends: debhelper dpkg-dev pkg-kde-tools 
+	qtbase5-private-dev 
+	
+	# Build-Depends-Indep: 
+	sudo apt-get install -y --force-yes libqt5sql5-sqlite qttools5-dev-tools
 
 }
 

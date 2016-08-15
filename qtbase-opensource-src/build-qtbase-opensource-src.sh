@@ -48,7 +48,7 @@ else
 
 fi
 
-GIT_URL="https://github.com/qt/qtxmlpatterns"
+GIT_URL="https://github.com/qt/qtbase"
 branch="v5.7.0"
 
 # package vars

@@ -29,8 +29,8 @@ override_dh_auto_install-arch:
 	# Remove libtool-like file
 	rm -fv debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
 
-#override_dh_auto_install-indep:
-#	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
+override_dh_auto_install-indep:
+	dh_auto_build -- INSTALL_ROOT=$(CURDIR)/debian/tmp install_docs
 
 # dh_auto_install keeps firing off, which places the above removed files back?
 override_dh_auto_install:

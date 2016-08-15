@@ -2,13 +2,17 @@ Source: qtxmlpatterns-opensource-src
 Section: libs
 Priority: optional
 Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
-Build-Depends: debhelper (>= 9),
+Uploaders: Sune Vuorela <debian@pusling.com>,
+           Pino Toscano <pino@debian.org>,
+           Lisandro Damián Nicanor Pérez Meyer <lisandro@debian.org>,
+           Timo Jyrinki <timo@debian.org>,
+           Dmitry Shachnev <mitya57@debian.org>
+Build-Depends: debhelper (>= 9.20160114~),
                dpkg-dev (>= 1.16.1),
                pkg-kde-tools,
-               qtbase5-private-dev (>= 5.7.0~),
-	       qtbase5-dev-tools (>= 5.7.0~)
-#Build-Depends-Indep: libqt5sql5-sqlite (>= 5.7.0~),
-#                     qttools5-dev-tools (>= 5.7.0~)
+               qtbase5-private-dev (>= 5.7.0+dfsg~)
+Build-Depends-Indep: libqt5sql5-sqlite (>= 5.7.0+dfsg~),
+                     qttools5-dev-tools (>= 5.7.0~)
 Standards-Version: 3.9.8
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qtxmlpatterns.git
@@ -72,14 +76,14 @@ Description: Qt 5 XML patterns documentation
  This package contains the documentation for the Qt 5 XML patterns
  libraries.
 
-#Package: qtxmlpatterns5-doc-html
-#Priority: extra
-#Architecture: all
-#Section: doc
-#Depends: ${misc:Depends}
-#Description: Qt 5 XML patterns HTML documentation
-# Qt is a cross-platform C++ application framework. Qt's primary feature
-# is its rich set of widgets that provide standard GUI functionality.
-# .
-# This package contains the HTML documentation for the Qt 5 XML patterns
-# libraries.
+Package: qtxmlpatterns5-doc-html
+Priority: extra
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Description: Qt 5 XML patterns HTML documentation
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ This package contains the HTML documentation for the Qt 5 XML patterns
+ libraries.

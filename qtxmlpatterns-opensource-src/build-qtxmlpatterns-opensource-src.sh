@@ -134,7 +134,9 @@ main()
 	-q -nc --show-progress
 
 	# Extract modules to GIT_DIR
-	tar -xzf "qtxmlpatterns-opensource-src-5.7.0.tar.gz" -C "${GIT_DIR}"
+	echo -e "==> Fetching extra submodules\n"
+	sleep 2s
+	tar -xzf "qtxmlpatterns-opensource-src-5.7.0.tar.gz" --strip 1 -C "${GIT_DIR}"
 	rm "qtxmlpatterns-opensource-src-5.7.0.tar.gz"
 
 	# trim git (after confimed working build)

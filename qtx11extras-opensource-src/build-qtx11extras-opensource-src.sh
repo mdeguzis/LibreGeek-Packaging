@@ -47,18 +47,20 @@ else
 fi
 
 GIT_URL="https://github.com/qtproject/qtx11extras/"
-TARGET="v5.6.0"
+TARGET="v5.7.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
+# Need to override the package Valve gives for qtchooser.
+export APT_PREFS_HACK="true"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="qtx11extras-opensource-src"
-PKGVER="5.6.0"
-PKGREV="2"
+PKGVER="5.7.0"
+PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"

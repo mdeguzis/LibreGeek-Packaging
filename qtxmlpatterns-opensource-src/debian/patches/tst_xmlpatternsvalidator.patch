@@ -5,7 +5,7 @@ Last-Update: 2015-08-20
 
 --- a/tests/auto/xmlpatternsvalidator/tst_xmlpatternsvalidator.cpp
 +++ b/tests/auto/xmlpatternsvalidator/tst_xmlpatternsvalidator.cpp
-@@ -62,7 +62,7 @@
+@@ -57,7 +57,7 @@
  };
  
  tst_XmlPatternsValidator::tst_XmlPatternsValidator()

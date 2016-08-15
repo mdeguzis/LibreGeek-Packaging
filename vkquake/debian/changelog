@@ -1,3 +1,9 @@
+vkquake (1:0.60.0+20160814git+bsos-1) brewmaster; urgency=low
+
+  * Update to version 0.60.0
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 14 Aug 2016 09:21:41 -0400
+
 vkquake (1:0.50+20160806git+bsos-1) brewmaster; urgency=low
 
   * Release 0.50

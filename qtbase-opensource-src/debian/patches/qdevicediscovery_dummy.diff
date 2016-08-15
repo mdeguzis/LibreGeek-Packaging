@@ -1,0 +1,34 @@
+Description: remove linux only-dependency from devicediscovery
+Origin: upstream, https://code.qt.io/cgit/qt/qtbase.git/commit/?id=dd8745e1d4beedfb
+Last-Update: 2016-07-03
+
+--- a/src/platformsupport/devicediscovery/devicediscovery.pri
++++ b/src/platformsupport/devicediscovery/devicediscovery.pri
+@@ -1,18 +1,14 @@
+ HEADERS += $$PWD/qdevicediscovery_p.h
+ 
+-linux {
+-    contains(QT_CONFIG, libudev) {
+-        SOURCES += $$PWD/qdevicediscovery_udev.cpp
+-        HEADERS += $$PWD/qdevicediscovery_udev_p.h
+-        INCLUDEPATH += $$QMAKE_INCDIR_LIBUDEV
+-        LIBS_PRIVATE += $$QMAKE_LIBS_LIBUDEV
+-    } else: contains(QT_CONFIG, evdev) {
+-        SOURCES += $$PWD/qdevicediscovery_static.cpp
+-        HEADERS += $$PWD/qdevicediscovery_static_p.h
+-    } else {
+-        SOURCES += $$PWD/qdevicediscovery_dummy.cpp
+-        HEADERS += $$PWD/qdevicediscovery_dummy_p.h
+-    }
++contains(QT_CONFIG, libudev) {
++    SOURCES += $$PWD/qdevicediscovery_udev.cpp
++    HEADERS += $$PWD/qdevicediscovery_udev_p.h
++    INCLUDEPATH += $$QMAKE_INCDIR_LIBUDEV
++    LIBS_PRIVATE += $$QMAKE_LIBS_LIBUDEV
++} else: contains(QT_CONFIG, evdev) {
++    SOURCES += $$PWD/qdevicediscovery_static.cpp
++    HEADERS += $$PWD/qdevicediscovery_static_p.h
+ } else {
+     SOURCES += $$PWD/qdevicediscovery_dummy.cpp
++    HEADERS += $$PWD/qdevicediscovery_dummy_p.h
+ }

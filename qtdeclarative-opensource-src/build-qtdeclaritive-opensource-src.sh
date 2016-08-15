@@ -56,11 +56,13 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
+# Need a newer version of qtchooser than what valve has
+export APT_PREFS_HACK="true"
 PKGNAME="qtdeclarative-opensource-src"
-PKGVER="5.6.0"
-PKGREV="2"
+PKGVER="5.7.0"
+PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"

@@ -2,23 +2,27 @@ Source: qtdeclarative-opensource-src
 Section: libs
 Priority: optional
 Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Sune Vuorela <debian@pusling.com>,
+           Pino Toscano <pino@debian.org>,
+           Lisandro Damián Nicanor Pérez Meyer <lisandro@debian.org>,
+           Timo Jyrinki <timo@debian.org>,
+           Dmitry Shachnev <mitya57@debian.org>
 Build-Depends: debhelper (>= 9),
- dpkg-dev (>= 1.16.1),
- libdouble-conversion-dev,
- libqt5xmlpatterns5-dev (>= 5.6.0~),
- pkg-kde-tools (>= 0.15.17~),
- python,
- qtbase5-private-dev (>= 5.6.0+dfsg~)
-Build-Depends-Indep: libqt5sql5-sqlite (>= 5.6.0+dfsg~),
- qtbase5-doc-html (>= 5.6.0+dfsg~),
- qttools5-dev-tools (>= 5.6.0~)
-Standards-Version: 3.9.7
+               dpkg-dev (>= 1.16.1),
+               libqt5xmlpatterns5-dev (>= 5.7.0~),
+               pkg-kde-tools (>= 0.15.17~),
+               python,
+               qtbase5-private-dev (>= 5.7.0+dfsg~)
+#Build-Depends-Indep: libqt5sql5-sqlite (>= 5.7.0+dfsg~),
+#                     qtbase5-doc-html (>= 5.7.0+dfsg~),
+#                     qttools5-dev-tools (>= 5.7.0~)
+Standards-Version: 3.9.8
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qtdeclarative.git
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-kde/qt/qtdeclarative.git
 
 Package: libqt5qml5
-Provides: qtdeclarative-abi-5-6-0
+Provides: qtdeclarative-abi-5-7-0
 Architecture: any
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
@@ -81,6 +85,19 @@ Description: Qt 5 Quick Widgets library
  is its rich set of widgets that provide standard GUI functionality.
  .
  This package contains the Qt Quick Widgets library for QtDeclarative module.
+
+Package: qml-module-qtquick-layouts
+Multi-Arch: same
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Breaks: qtdeclarative5-quicklayouts-plugin (<< 5.2.1-4~)
+Replaces: qtdeclarative5-quicklayouts-plugin (<< 5.2.1-4~)
+Description: Qt 5 Quick Layouts QML module
+ Qt is a cross-platform C++ application framework. Qt's primary feature
+ is its rich set of widgets that provide standard GUI functionality.
+ .
+ The Qt Quick Layouts modules provides a set of layouts that can be used to
+ build complete interfaces in Qt Quick.
 
 Package: qt5-qmltooling-plugins
 Architecture: any
@@ -231,13 +248,13 @@ Section: libdevel
 Architecture: any
 Multi-Arch: same
 Depends: libqt5qml5 (= ${binary:Version}),
- libqt5quick5 (= ${binary:Version}),
- libqt5quickparticles5 (= ${binary:Version}),
- libqt5quicktest5 (= ${binary:Version}),
- libqt5quickwidgets5 (= ${binary:Version}),
- qt5-qmltooling-plugins,
- qtbase5-dev,
- ${misc:Depends}
+         libqt5quick5 (= ${binary:Version}),
+         libqt5quickparticles5 (= ${binary:Version}),
+         libqt5quicktest5 (= ${binary:Version}),
+         libqt5quickwidgets5 (= ${binary:Version}),
+         qt5-qmltooling-plugins,
+         qtbase5-dev,
+         ${misc:Depends}
 Description: Qt 5 declarative development files
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -305,13 +322,16 @@ Multi-Arch: same
 Section: x11
 Pre-Depends: ${misc:Pre-Depends}
 Depends: qml-module-qtqml-models2,
- qml-module-qtquick-dialogs,
- qml-module-qtquick-localstorage,
- qml-module-qtquick-particles2,
- qml-module-qtquick-xmllistmodel,
- qml-module-qttest,
- ${misc:Depends},
- ${shlibs:Depends}
+         qml-module-qtquick-dialogs,
+         qml-module-qtquick-layouts,
+         qml-module-qtquick-localstorage,
+         qml-module-qtquick-particles2,
+         qml-module-qtquick-xmllistmodel,
+         qml-module-qttest,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Breaks: qtquickcontrols5-examples (<< 5.7.0-1~)
+Replaces: qtquickcontrols5-examples (<< 5.7.0-1~)
 Description: Qt 5 declarative examples
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -324,10 +344,10 @@ Architecture: any
 Multi-Arch: same
 Section: debug
 Depends: libqt5qml5 (= ${binary:Version}),
- libqt5quick5 (= ${binary:Version}),
- libqt5quickparticles5 (= ${binary:Version}),
- libqt5quicktest5 (= ${binary:Version}),
- ${misc:Depends}
+         libqt5quick5 (= ${binary:Version}),
+         libqt5quickparticles5 (= ${binary:Version}),
+         libqt5quicktest5 (= ${binary:Version}),
+         ${misc:Depends}
 Recommends: qtbase5-dbg
 Suggests: qtdeclarative5-examples (= ${binary:Version})
 Description: Qt 5 declarative libraries debugging symbols

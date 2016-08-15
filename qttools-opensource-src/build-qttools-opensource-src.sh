@@ -57,11 +57,13 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=" --debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
+# Need newer qtchooser than what valve has
+export APT_PREFS_HACK="true"
 PKGNAME="qttools-opensource-src"
-PKGVER="5.6.0"
-PKGREV="2"
+PKGVER="5.7.0"
+PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
@@ -168,7 +170,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Add new symbosl and docs packages"
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 
 	else

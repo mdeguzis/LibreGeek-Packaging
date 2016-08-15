@@ -1,0 +1,11 @@
+# Backported from upstream
+no_dbus_dependency.diff
+
+# Debian specific.
+gnukfreebsd.diff
+no_htmlinfo_example.diff
+remove_privacy_breachs.diff
+link_fbclient.diff
+gnukfreebsd_cloexec.diff
+qdevicediscovery_dummy.diff
+armv4.diff

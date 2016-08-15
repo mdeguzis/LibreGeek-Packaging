@@ -17,6 +17,7 @@ usr/lib/*/qt5/bin/qtdiag
 usr/lib/*/qt5/bin/qtpaths
 usr/lib/*/qt5/bin/qtplugininfo
 usr/lib/*/qt5/plugins/designer/libqquickwidget.so
+usr/lib/*/qt5/plugins/designer/libqwebview.so
 usr/share/qt5/phrasebooks/danish.qph
 usr/share/qt5/phrasebooks/dutch.qph
 usr/share/qt5/phrasebooks/finnish.qph

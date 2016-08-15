@@ -47,7 +47,8 @@ fi
 # upstream vars
 #GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
 GIT_URL="https://github.com/Novum/vkQuake"
-branch="master"
+#TARGET="master"
+TARGET="0.60"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -55,10 +56,11 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
-export STEAMOS_TOOLS_BETA_HOOK="false"
+# Need newer version of libvulkan-dev
+export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.50"
+PKGVER="0.60.0"
 PKGREV="1"
 epoch="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos"
@@ -114,7 +116,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 

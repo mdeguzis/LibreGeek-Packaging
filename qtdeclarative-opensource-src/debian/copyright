@@ -3,10 +3,8 @@ Upstream-Name: qtdeclarative-opensource-src
 Source: https://download.qt.io/official_releases/qt/*/submodules/
 
 Files: *
-Copyright: 2015 The Qt Company Ltd.
-           2010-2013 Research In Motion.
-           2013-2014 Jolla Ltd.
-License: LGPL-2.1-or-3 with Qt-1.1 exception
+Copyright: 2016 The Qt Company Ltd.
+License: LGPL-3 or GPL-2+
 
 Files: debian/*
 Copyright: 2007-2012 Fathi Boudra <fabo@debian.org>
@@ -15,8 +13,311 @@ Copyright: 2007-2012 Fathi Boudra <fabo@debian.org>
            2007-2009 Ana Beatriz Guerrero Lopez <ana@debian.org>
            2005-2007 Brian Nelson <pyro@debian.org>
            2012-2013 Timo Jyrinki <timo.jyrinki@canonical.com>
-           2013-2015 Dmitry Shachnev <mitya57@debian.org>
-License: LGPL-2.1
+           2013-2016 Dmitry Shachnev <mitya57@debian.org>
+License: LGPL-3 or GPL-2+
+
+Files: *.qdoc
+Copyright: 2016 The Qt Company Ltd.
+License: GFDL-NIV-1.3
+
+Files: tests/*
+       tools/*
+Copyright: 2016 The Qt Company Ltd.
+License: GPL-3 with Qt-1.0 exception
+
+Files: examples/*
+       src/qml/doc/snippets/*
+       src/quick/doc/snippets/*
+       tests/auto/qmltest/animatedimage/tst_animatedimage.qml
+       tests/auto/qmltest/animations/tst_abstractanimationjobcrash.qml
+       tests/auto/qmltest/fontloader/tst_fontloader.qml
+       tests/auto/qmltest/gradient/tst_gradient.qml
+       tests/auto/qmltest/image/tst_image.qml
+       tests/auto/qmltest/listmodel/tst_listmodel.qml
+       tests/auto/qmltest/listview/data/asynclistviewloader.qml
+       tests/auto/qmltest/listview/data/asyncloadercurrentindex.qml
+       tests/auto/qmltest/listview/tst_listview.qml
+       tests/auto/qmltest/objectmodel/tst_objectmodel.qml
+       tests/auto/qmltest/qtbug46798/tst_qtbug46798.qml
+       tests/auto/qmltest/rectangle/tst_rectangle.qml
+       tests/auto/qmltest/text/tst_text.qml
+       tests/auto/qmltest/textedit/tst_textedit.qml
+       tests/auto/qmltest/textedit/tst_textedit_editingfinished.qml
+       tests/auto/qmltest/textinput/tst_textinput.qml
+       tests/auto/qmltest/window/tst_clickwindow.qml
+       tests/auto/quick/qquickbehaviors/data/qtbug21549-2.qml
+       tests/auto/quick/qquickgridview/data/attachedProperties.qml
+       tests/auto/quick/qquicklayouts/data/tst_gridlayout.qml
+       tests/auto/quick/qquicklayouts/data/tst_rowlayout.qml
+       tests/auto/quick/qquicklistview/data/attachedProperties.qml
+       tests/auto/quick/qquicklistview/data/outsideViewportChangeNotAffectingView.qml
+       tests/auto/quick/qquicklistview/data/roundingErrors.qml
+       tests/auto/quick/qquicklistview/data/sizeTransitions.qml
+       tests/auto/quick/qquicklistview/data/stickyPositioning-both.qml
+       tests/auto/quick/qquicklistview/data/stickyPositioning-footer.qml
+       tests/auto/quick/qquicklistview/data/stickyPositioning-header.qml
+       tests/auto/quick/qquickpathview/data/flickableDelegate.qml
+       tests/auto/quick/qquickpathview/data/nestedInFlickable.qml
+       tests/benchmarks/qml/holistic/data/largeTargets/gridview-example.qml
+       tests/benchmarks/qml/holistic/data/largeTargets/layoutdirection.qml
+       tests/benchmarks/qml/holistic/data/largeTargets/mousearea-example.qml
+       tests/manual/highdpi/imageprovider.cpp
+       tests/manual/touch/flicktext.qml
+       tests/manual/touch/main.cpp
+       tests/manual/touch/main.qml
+       tests/manual/touch/mpta-crosshairs.qml
+       tests/manual/v4/test262.py
+       tests/testapplications/animatedsprite/animatedsprite.qml
+       tests/testapplications/animatedsprite/animatedspriteadvance.qml
+       tests/testapplications/listview/alteredViews.qml
+       tests/testapplications/listview/onRemove.qml
+       tests/testapplications/listview/sections.qml
+       tests/testapplications/listview/sticky.qml
+       tests/testapplications/listview/viewTransitions.qml
+       tools/qml/conf/configuration.qml
+       tools/qml/conf/qtquick.qml
+Copyright: 2015-2016 The Qt Company Ltd.
+License: BSD-3-clause
+
+Files: examples/quick/demos/samegame/content/+blackberry/Settings.qml
+       examples/quick/demos/samegame/content/BBSettings.qml
+       examples/quick/demos/samegame/content/SamegameText.qml
+       examples/quick/demos/samegame/content/Settings.qml
+       examples/quick/demos/stocqt/content/CheckBox.qml
+       tests/auto/qml/qqmllanguage/data/singleton/RegisteredCompositeSingletonType.qml
+       tests/auto/qml/qqmllanguage/data/singleton/js/jspragma.js
+       tests/auto/qml/qqmllanguage/data/singletonTest17.qml
+       tests/manual/qmltypememory/TestPlugin/plugin.cpp
+Copyright: 2012-2013 BlackBerry Limited (formerly Research In Motion)
+License: BSD-3-clause
+
+Files: examples/quick/imageresponseprovider/imageresponseprovider-example.qml
+       examples/quick/imageresponseprovider/imageresponseprovider.cpp
+Copyright: 2015 Canonical Limited and/or its subsidiary(-ies)
+License: BSD-3-clause
+
+Files: tests/auto/qml/qqmlecmascript/data/singletonTest.qml
+       tests/auto/qml/qqmlecmascript/data/singletonTest2.qml
+Copyright: 2013 Canonical Limited and/or its subsidiary(-ies).
+License: BSD-3-clause
+
+Files: src/qml/doc/snippets/qml/statemachine/basicstate.qml
+       src/qml/doc/snippets/qml/statemachine/finalstate.qml
+       src/qml/doc/snippets/qml/statemachine/guardcondition.qml
+       src/qml/doc/snippets/qml/statemachine/historystate.qml
+       src/qml/doc/snippets/qml/statemachine/signaltransition.qml
+       src/qml/doc/snippets/qml/statemachine/signaltransitionsignal.qml
+       src/qml/doc/snippets/qml/statemachine/simplestatemachine.qml
+       src/qml/doc/snippets/qml/statemachine/statemachine-button-history.qml
+       src/qml/doc/snippets/qml/statemachine/statemachine-button-nested-ignore-quit.qml
+       src/qml/doc/snippets/qml/statemachine/statemachine-button-nested.qml
+       src/qml/doc/snippets/qml/statemachine/statemachine-button.qml
+       src/qml/doc/snippets/qml/statemachine/timeouttransition.qml
+Copyright: 2014 Ford Motor Company
+License: BSD-3-clause
+
+Files: examples/quick/scenegraph/twotextureproviders/main.cpp
+       examples/quick/scenegraph/twotextureproviders/main.qml
+       examples/quick/scenegraph/twotextureproviders/xorblender.cpp
+       examples/quick/scenegraph/twotextureproviders/xorblender.h
+       src/quick/doc/snippets/qml/layerblending.qml
+       src/quick/doc/snippets/qml/layerwitheffect.qml
+       src/quick/doc/snippets/qml/opacitymask.qml
+Copyright: 2014 Gunnar Sletta <gunnar@sletta.org>
+License: BSD-3-clause
+
+Files: src/quick/doc/snippets/qml/itemGrab.qml
+Copyright: 2014 Jolla Ltd.
+License: BSD-3-clause
+
+Files: examples/quick/imageresponseprovider/doc/src/imageresponseprovider.qdoc
+Copyright: 2015 Canonical Limited and/or its subsidiary(-ies)
+License: GFDL-NIV-1.3
+
+Files: examples/quick/scenegraph/twotextureproviders/doc/src/twotextureproviders.qdoc
+Copyright: 2014 Gunnar Sletta <gunnar@sletta.org>
+License: GFDL-NIV-1.3
+
+Files: tests/auto/qml/qqmlapplicationengine/testapp/main.cpp
+       tests/auto/qml/qqmlapplicationengine/tst_qqmlapplicationengine.cpp
+       tests/auto/qml/qqmlenginecleanup/data/TestType.qml
+       tests/auto/qml/qqmlenginecleanup/data/types.qml
+       tests/auto/qml/qqmlenginecleanup/tst_qqmlenginecleanup.cpp
+       tests/auto/qml/qqmlfileselector/tst_qqmlfileselector.cpp
+       tests/auto/qml/qqmlinstantiator/tst_qqmlinstantiator.cpp
+       tests/auto/qml/qqmlnotifier/tst_qqmlnotifier.cpp
+       tests/auto/qml/qtqmlmodules/tst_qtqmlmodules.cpp
+       tests/auto/quick/qquickopenglinfo/tst_qquickopenglinfo.cpp
+       tests/benchmarks/qml/qquickwindow/tst_qquickwindow.cpp
+       tests/manual/qmltypememory/TestType.qml
+       tests/manual/qmltypememory/main.cpp
+       tests/manual/qmltypememory/main.qml
+       tests/manual/qmltypememory/testdriver.cpp
+       tests/manual/qmltypememory/testdriver.h
+       tools/qml/conf.h
+       tools/qml/main.cpp
+Copyright: 2016 BlackBerry Limited (formerly Research In Motion)
+License: GPL-3 with Qt-1.0 exception
+
+Files: tests/auto/qml/qqmltypeloader/SlowImport/plugin.cpp
+       tests/auto/qml/qqmltypeloader/SlowImport/plugin.h
+       tests/auto/qml/qqmltypeloader/SlowImport/slow.cpp
+       tests/auto/qml/qqmltypeloader/SlowImport/slow.h
+       tests/auto/qml/qqmltypeloader/data/GenericView.qml
+       tests/auto/qml/qqmltypeloader/data/NiceView.qml
+       tests/auto/qml/qqmltypeloader/data/test_load_complete.qml
+       tests/auto/qml/qqmltypeloader/tst_qqmltypeloader.cpp
+       tests/auto/quick/qquickgridview/data/negativeDisplayMargin.qml
+       tests/auto/quick/qquicklistview/data/negativeDisplayMargin.qml
+       tests/auto/quick/qquicklistview/data/proxytest.qml
+       tests/auto/quick/qquicklistview/proxytestinnermodel.cpp
+       tests/auto/quick/qquicklistview/proxytestinnermodel.h
+Copyright: 2016 Canonical Limited and/or its subsidiary(-ies).
+License: GPL-3 with Qt-1.0 exception
+
+Files: tests/auto/qml/qqmlinstantiator/stringmodel.h
+Copyright: 2016 Dmitrii Kosarev aka Kakadu <kakadu.hafanana@gmail.com>
+License: GPL-3 with Qt-1.0 exception
+
+Files: tests/auto/qml/qqmlstatemachine/data/cppsignal.qml
+       tests/auto/qml/qqmlstatemachine/tst_qqmlstatemachine.cpp
+       tests/auto/qmltest/statemachine/tst_anonymousstate.qml
+       tests/auto/qmltest/statemachine/tst_enumguard.qml
+       tests/auto/qmltest/statemachine/tst_guardcondition.qml
+       tests/auto/qmltest/statemachine/tst_historystate.qml
+       tests/auto/qmltest/statemachine/tst_initialstate.qml
+       tests/auto/qmltest/statemachine/tst_nestedinitialstates.qml
+       tests/auto/qmltest/statemachine/tst_nestedstatemachine.qml
+       tests/auto/qmltest/statemachine/tst_parallelmachine.qml
+       tests/auto/qmltest/statemachine/tst_trafficlight.qml
+Copyright: 2016 Ford Motor Company
+License: GPL-3 with Qt-1.0 exception
+
+Files: tests/auto/qmltest/animators/tst_targetdestroyed.qml
+       tests/auto/qmltest/shadersource/tst_DynamicallyCreatedSource.qml
+Copyright: 2016 Gunnar Sletta <gunnar@sletta.org>
+License: GPL-3 with Qt-1.0 exception
+
+Files: tests/auto/qmltest/animators/tst_mixed.qml
+       tests/auto/qmltest/animators/tst_multiwindow.qml
+       tests/auto/qmltest/item/tst_layerInPositioner.qml
+       tests/auto/qmltest/itemgrabber/tst_itemgrabber.qml
+       tests/auto/qmltest/shadersource/tst_DynamicallyCreated.qml
+       tests/auto/qmltest/shadersource/tst_SourceInOtherWindow.qml
+       tests/auto/qmltest/shadersource/tst_SourceItem.qml
+       tests/auto/qmltest/shadersource/tst_SourcedFromOtherWindow.qml
+       tests/auto/qmltest/stability/tst_unloadrepeater.qml
+       tests/auto/quick/qquickanimations/data/scriptActionCrash.qml
+       tests/auto/quick/qquickgridview/data/displayMargin.qml
+       tests/auto/quick/qquickimage/data/hugeImages.qml
+       tests/auto/quick/qquickitem2/data/grabToImage.qml
+       tests/auto/quick/qquicklistview/data/displayMargin.qml
+       tests/auto/quick/rendernode/data/matrix.qml
+       tests/auto/quick/scenegraph/data/render_ImageFiltering.qml
+       tests/auto/quick/scenegraph/data/render_OpacityThroughBatchRoot.qml
+       tests/auto/quick/scenegraph/data/render_bug37422.qml
+Copyright: 2016 Jolla Ltd.
+License: GPL-3 with Qt-1.0 exception
+
+Files: tests/auto/qml/qmllint/main.cpp
+       tests/auto/quick/qquickanimations/data/animatorInvalidTargetCrash.qml
+       tools/qmllint/main.cpp
+Copyright: 2016 Klarälvdalens Datakonsult AB, a KDAB Group company
+License: GPL-3 with Qt-1.0 exception
+
+Files: tests/auto/quick/qquickanimatedsprite/data/runningChange.qml
+Copyright: 2016 Tasuku Suzuki <stasuku@gmail.com>
+License: GPL-3 with Qt-1.0 exception
+
+Files: tests/auto/qml/qqmlvaluetypeproviders/data/changedSignal.qml
+Copyright: 2016 basysKom GmbH, opensource@basyskom.com.
+License: GPL-3 with Qt-1.0 exception
+
+Files: tests/auto/qmltest/statemachine/tst_triggeredArguments1.qml
+       tests/auto/qmltest/statemachine/tst_triggeredArguments2.qml
+Copyright: 2016 Ford Motor Company
+License: LGPL-2.1-or-3 with Qt-1.1 exception
+
+Files: src/qml/parser/qqmljs.g
+       tests/auto/qml/qqmlextensionplugin/tst_qqmlextensionplugin.cpp
+       tests/auto/quick/qquickanimators/data/positionerWithAnimator.qml
+       tests/auto/quick/qquickitem/data/childAtRectangle.qml
+       tools/qmlplugindump/qmltypereader.cpp
+       tools/qmlplugindump/qmltypereader.h
+Copyright: 2015-2016 The Qt Company Ltd.
+License: LGPL-2.1-or-3 with Qt-1.1 exception
+
+Files: src/qml/qml/qqmlvmemetaobject.cpp
+       src/qml/qml/qqmlvmemetaobject_p.h
+       src/quick/util/qquickglobal.cpp
+Copyright: 2016 BasysKom GmbH.
+           2016 The Qt Company Ltd.
+License: LGPL-3 or GPL-2+
+
+Files: src/imports/models/plugin.cpp
+       src/qml/qml/qqmlabstracturlinterceptor.cpp
+       src/qml/qml/qqmlabstracturlinterceptor.h
+       src/qml/qml/qqmlapplicationengine.cpp
+       src/qml/qml/qqmlapplicationengine.h
+       src/qml/qml/qqmlapplicationengine_p.h
+       src/qml/qml/qqmlfileselector.cpp
+       src/qml/qml/qqmlfileselector.h
+       src/qml/qml/qqmlfileselector_p.h
+       src/qml/types/qqmlinstantiator.cpp
+       src/qml/types/qqmlinstantiator_p.h
+       src/qml/types/qqmlinstantiator_p_p.h
+       src/qml/types/qqmlmodelsmodule.cpp
+       src/qml/types/qqmlmodelsmodule_p.h
+       src/quick/items/qquickflickablebehavior_p.h
+Copyright: 2016 BlackBerry Limited (formerly Research In Motion)
+License: LGPL-3 or GPL-2+
+
+Files: src/quick/items/qquickopenglinfo.cpp
+       src/quick/items/qquickopenglinfo_p.h
+Copyright: 2016 BlackBerry Limited (formerly Research In Motion)
+           2016 The Qt Company Ltd.
+License: LGPL-3 or GPL-2+
+
+Files: src/imports/statemachine/childrenprivate.h
+       src/imports/statemachine/finalstate.cpp
+       src/imports/statemachine/finalstate.h
+       src/imports/statemachine/plugin.cpp
+       src/imports/statemachine/signaltransition.cpp
+       src/imports/statemachine/signaltransition.h
+       src/imports/statemachine/state.cpp
+       src/imports/statemachine/state.h
+       src/imports/statemachine/statemachine.cpp
+       src/imports/statemachine/statemachine.h
+       src/imports/statemachine/timeouttransition.cpp
+       src/imports/statemachine/timeouttransition.h
+Copyright: 2016 Ford Motor Company
+License: LGPL-3 or GPL-2+
+
+Files: src/qml/animations/qcontinuinganimationgroupjob.cpp
+       src/qml/animations/qcontinuinganimationgroupjob_p.h
+       src/quick/items/qquickitemgrabresult.cpp
+       src/quick/items/qquickitemgrabresult.h
+Copyright: 2016 Jolla Ltd.
+License: LGPL-3 or GPL-2+
+
+Files: src/quick/scenegraph/coreapi/qsgbatchrenderer.cpp
+       src/quick/scenegraph/coreapi/qsgbatchrenderer_p.h
+Copyright: 2016 Jolla Ltd.
+           2016 Robin Burchell <robin.burchell@viroteck.net>
+           2016 The Qt Company Ltd.
+License: LGPL-3 or GPL-2+
+
+Files: src/quick/scenegraph/qsgthreadedrenderloop.cpp
+Copyright: 2016 Jolla Ltd.
+           2016 The Qt Company Ltd.
+License: LGPL-3 or GPL-2+
+
+Files: src/quick/scenegraph/coreapi/qsgmaterialshader_p.h
+       src/quick/scenegraph/coreapi/qsgnode_p.h
+       src/quick/scenegraph/util/qsgshadersourcebuilder.cpp
+       src/quick/scenegraph/util/qsgshadersourcebuilder_p.h
+Copyright: 2016 Klarälvdalens Datakonsult AB, a KDAB Group company
+License: LGPL-3 or GPL-2+
 
 Files: src/3rdparty/masm/disassembler/*
        src/3rdparty/masm/jit/JITCompilationEffort.h
@@ -43,83 +344,9 @@ Copyright: 2008-2013 Apple Inc.
            2009-2010 University of Szeged
 License: BSD-2-clause
 
-Files: src/3rdparty/double-conversion/*
-Copyright: 2012 the V8 project authors
-License: BSD-3-clause
-
-Files: src/imports/statemachine/*
-       tests/auto/qmltest/statemachine/*
-Copyright: 2014 Ford Motor Company
-License: LGPL-2.1-or-3 with Qt-1.1 exception
-
-Files: src/qml/doc/snippets/qml/statemachine/*
-Copyright: 2014 Ford Motor Company
-License: BSD-3-clause
-
-Files: examples/*
- src/qml/doc/snippets/*
- src/quick/doc/snippets/*
- tests/auto/qmltest/*
- tests/benchmarks/qml/holistic/data/largeTargets/gridview-example.qml
- tests/benchmarks/qml/holistic/data/largeTargets/mousearea-example.qml
- tests/benchmarks/qml/holistic/data/largeTargets/layoutdirection.qml
- tests/testapplications/listview/sections.qml
- tests/testapplications/listview/onRemove.qml
- tests/testapplications/listview/alteredViews.qml
- tests/testapplications/listview/viewTransitions.qml
- tests/testapplications/animatedsprite/animatedsprite.qml
- tests/testapplications/animatedsprite/animatedspriteadvance.qml
-Copyright: 2015 The Qt Company Ltd.
-License: BSD-3-clause
-
-Files: tests/auto/qml/parserstress/tests/*
-Copyright: 1998-2003 Netscape Communications Corporation
-           2005-2007 Mozilla Foundation
-License: LGPL-2.1
-
-Files: src/qml/qml/qqmllocale.cpp
-Copyright: 1991 AT&T
-           2012 The Qt Company Ltd.
-License: custom-qqmllocale
- A portion of the file is LGPL-2.1-or-3 with Qt-1.1 exception.
- A portion is however BSD licensed:
- .
- Permission to use, copy, modify, and distribute this software for any
- purpose without fee is hereby granted, provided that this entire notice
- is included in all copies of any software which is or includes a copy
- or modification of this software and in all copies of the supporting
- documentation for such software.
- .
- THIS SOFTWARE IS BEING PROVIDED "AS IS", WITHOUT ANY EXPRESS OR IMPLIED
- WARRANTY.  IN PARTICULAR, NEITHER THE AUTHOR NOR AT&T MAKES ANY
- REPRESENTATION OR WARRANTY OF ANY KIND CONCERNING THE MERCHANTABILITY
- OF THIS SOFTWARE OR ITS FITNESS FOR ANY PARTICULAR PURPOSE.
- .
- This product includes software developed by the University of
- California, Berkeley and its contributors.
-
-Files: *.qdoc
-Copyright: 2015 The Qt Company Ltd.
-License: GFDL-NIV-1.3
-
 Files: tests/auto/qml/parserstress/tests/ecma*
 Copyright: 1998 Netscape Communications Corporation
 License: MPL-1.1 and GPL-2+ and LGPL-2.1
-
-Files: examples/quick/scenegraph/twotextureproviders/*
-       src/quick/doc/snippets/qml/opacitymask.qml
-       src/quick/doc/snippets/qml/layerblending.qml
-       src/quick/doc/snippets/qml/layerwitheffect.qml
-Copyright: 2014 Gunnar Sletta <gunnar@sletta.org>
-License: BSD-3-clause
-
-Files: tools/qmllint/*
-       src/quick/scenegraph/coreapi/qsgmaterialshader_p.h
-       src/quick/scenegraph/coreapi/qsgnode_p.h
-       src/quick/scenegraph/util/qsgshadersourcebuilder.cpp
-       src/quick/scenegraph/util/qsgshadersourcebuilder_p.h
-Copyright: 2013-2014 Klaralvdalens Datakonsult AB (KDAB).
-License: LGPL-2.1-or-3 with Qt-1.1 exception
 
 License: GFDL-NIV-1.3
  GNU Free Documentation License Usage
@@ -235,6 +462,19 @@ License: LGPL-2.1-or-3 with Qt-1.1 exception
  .
  Furthermore, you are not required to apply this additional permission to a
  modified version of the Library.
+
+License: LGPL-3
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License version 3
+ as published by the Free Software Foundation.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU Lesser General Public License for more details.
+ .
+ On Debian systems, the complete text of the GNU Lesser General Public
+ License version 3 can be found in /usr/share/common-licenses/LGPL-3.
 
 License: MPL-1.1
                           MOZILLA PUBLIC LICENSE
@@ -721,3 +961,37 @@ License: GPL-2+
  On Debian systems, the full text of the GNU General Public
  License version 2 can be found in the file
  `/usr/share/common-licenses/GPL-2'.
+
+License: GPL-3 with Qt-1.0 exception
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License version 3 as
+ published by the Free Software Foundation.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 3 can be found in /usr/share/common-licenses/GPL-3.
+ .
+ The Qt Company GPL Exception 1.0
+ Exception 1:
+ .
+ As a special exception you may create a larger work which contains the
+ output of this application and distribute that work under terms of your
+ choice, so long as the work is not otherwise derived from or based on
+ this application and so long as the work does not in itself generate
+ output that contains the output from this application in its original
+ or modified form.
+ .
+ Exception 2:
+ .
+ As a special exception, you have permission to combine this application
+ with Plugins licensed under the terms of your choice, to produce an
+ executable, and to copy and distribute the resulting executable under
+ the terms of your choice. However, the executable must be accompanied
+ by a prominent notice offering all users of the executable the entire
+ source code to this application, excluding the source code of the
+ independent modules, but including any changes you have made to this
+ application, under the terms of this license.

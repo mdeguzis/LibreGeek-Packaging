@@ -1,17 +1,16 @@
 Source: qttools-opensource-src
 Section: libs
 Priority: optional
-Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
 Build-Depends: debhelper (>= 9),
- libdouble-conversion-dev,
- libqt5opengl5-dev (>= 5.6.0~),
- libqt5sql5-sqlite (>= 5.6.0~),
-#libqt5webkit5-dev (>= 5.6.0~),
- pkg-kde-tools,
- qtbase5-private-dev (>= 5.6.0~),
- qtdeclarative5-private-dev (>= 5.6.0~),
- zlib1g-dev
-Standards-Version: 3.9.7
+               libqt5opengl5-dev (>= 5.7.0+dfsg~),
+               libqt5sql5-sqlite (>= 5.7.0+dfsg~),
+               pkg-kde-tools,
+               qtbase5-private-dev (>= 5.7.0+dfsg~),
+               qtdeclarative5-private-dev (>= 5.7.0~),
+               zlib1g-dev
+Build-Depends-Indep: qtbase5-doc-html (>= 5.7.0+dfsg~)
+Standards-Version: 3.9.8
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qttools.git
 Vcs-Browser: https://anonscm.debian.org/cgit/pkg-kde/qt/qttools.git
@@ -80,11 +79,11 @@ Architecture: any
 Multi-Arch: same
 Section: libdevel
 Depends: libqt5clucene5 (= ${binary:Version}),
- libqt5designer5 (= ${binary:Version}),
- libqt5designercomponents5 (= ${binary:Version}),
- libqt5help5 (= ${binary:Version}),
- qtbase5-dev,
- ${misc:Depends}
+         libqt5designer5 (= ${binary:Version}),
+         libqt5designercomponents5 (= ${binary:Version}),
+         libqt5help5 (= ${binary:Version}),
+         qtbase5-dev,
+         ${misc:Depends}
 Description: Qt 5 tools development files
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.
@@ -145,10 +144,10 @@ Multi-Arch: same
 Priority: extra
 Section: debug
 Depends: libqt5clucene5 (= ${binary:Version}),
- libqt5designer5 (= ${binary:Version}),
- libqt5designercomponents5 (= ${binary:Version}),
- libqt5help5 (= ${binary:Version}),
- ${misc:Depends}
+         libqt5designer5 (= ${binary:Version}),
+         libqt5designercomponents5 (= ${binary:Version}),
+         libqt5help5 (= ${binary:Version}),
+         ${misc:Depends}
 Description: Qt 5 tools debugging symbols
  Qt is a cross-platform C++ application framework. Qt's primary feature
  is its rich set of widgets that provide standard GUI functionality.

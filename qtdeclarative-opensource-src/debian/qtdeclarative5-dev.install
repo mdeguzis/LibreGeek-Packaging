@@ -1,3 +1,7 @@
+usr/include/*/qt5/QtPacketProtocol/QtPacketProtocol
+usr/include/*/qt5/QtPacketProtocol/QtPacketProtocolDepends
+usr/include/*/qt5/QtPacketProtocol/QtPacketProtocolVersion
+usr/include/*/qt5/QtPacketProtocol/qtpacketprotocolversion.h
 usr/include/*/qt5/QtQml/QJSEngine
 usr/include/*/qt5/QtQml/QJSValue
 usr/include/*/qt5/QtQml/QJSValueIterator
@@ -61,6 +65,10 @@ usr/include/*/qt5/QtQml/qqmlpropertyvaluesource.h
 usr/include/*/qt5/QtQml/qqmlscriptstring.h
 usr/include/*/qt5/QtQml/qtqmlglobal.h
 usr/include/*/qt5/QtQml/qtqmlversion.h
+usr/include/*/qt5/QtQmlDebug/QtQmlDebug
+usr/include/*/qt5/QtQmlDebug/QtQmlDebugDepends
+usr/include/*/qt5/QtQmlDebug/QtQmlDebugVersion
+usr/include/*/qt5/QtQmlDebug/qtqmldebugversion.h
 usr/include/*/qt5/QtQmlDevTools/QtQmlDevTools
 usr/include/*/qt5/QtQmlDevTools/QtQmlDevToolsDepends
 usr/include/*/qt5/QtQmlDevTools/QtQmlDevToolsVersion
@@ -157,6 +165,7 @@ usr/lib/*/cmake/Qt5Qml/Qt5Qml_QQmlDebuggerServiceFactory.cmake
 usr/lib/*/cmake/Qt5Qml/Qt5Qml_QQmlInspectorServiceFactory.cmake
 usr/lib/*/cmake/Qt5Qml/Qt5Qml_QQmlNativeDebugConnectorFactory.cmake
 usr/lib/*/cmake/Qt5Qml/Qt5Qml_QQmlProfilerServiceFactory.cmake
+usr/lib/*/cmake/Qt5Qml/Qt5Qml_QQuickProfilerAdapterFactory.cmake
 usr/lib/*/cmake/Qt5Qml/Qt5Qml_QTcpServerConnectionFactory.cmake
 usr/lib/*/cmake/Qt5Quick/Qt5QuickConfig.cmake
 usr/lib/*/cmake/Qt5Quick/Qt5QuickConfigVersion.cmake
@@ -164,8 +173,12 @@ usr/lib/*/cmake/Qt5QuickTest/Qt5QuickTestConfig.cmake
 usr/lib/*/cmake/Qt5QuickTest/Qt5QuickTestConfigVersion.cmake
 usr/lib/*/cmake/Qt5QuickWidgets/Qt5QuickWidgetsConfig.cmake
 usr/lib/*/cmake/Qt5QuickWidgets/Qt5QuickWidgetsConfigVersion.cmake
+usr/lib/*/libQt5PacketProtocol.a
+usr/lib/*/libQt5PacketProtocol.prl
 usr/lib/*/libQt5Qml.prl
 usr/lib/*/libQt5Qml.so
+usr/lib/*/libQt5QmlDebug.a
+usr/lib/*/libQt5QmlDebug.prl
 usr/lib/*/libQt5QmlDevTools.a
 usr/lib/*/libQt5QmlDevTools.prl
 usr/lib/*/libQt5Quick.prl

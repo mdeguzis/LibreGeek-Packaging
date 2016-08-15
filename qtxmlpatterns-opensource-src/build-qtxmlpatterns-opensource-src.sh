@@ -56,7 +56,7 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -B --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Need a newer version of qtchooser over Valve's.
 export APT_PREFS_HACK="true"
@@ -127,6 +127,9 @@ main()
 
 	git clone --recursive -b ${branch} ${GIT_URL} ${GIT_DIR}
 	
+	echo -e "\n==> Fetching extra submodules\n"
+	sleep 2s
+	
 	# The ${GIT_DIR}/include folder is not included.
 	# Why? No idea at the moment, so TODO
 	# For now fetch from Qt downloads
@@ -134,9 +137,7 @@ main()
 	-q -nc --show-progress
 
 	# Extract modules to GIT_DIR
-	echo -e "==> Fetching extra submodules\n"
-	sleep 2s
-	tar -xzf "qtxmlpatterns-opensource-src-5.7.0.tar.gz" --strip 1 -C "${GIT_DIR}"
+	tar -xzvf "qtxmlpatterns-opensource-src-5.7.0.tar.gz" --strip 1 -C "${GIT_DIR}"
 	rm "qtxmlpatterns-opensource-src-5.7.0.tar.gz"
 
 	# trim git (after confimed working build)

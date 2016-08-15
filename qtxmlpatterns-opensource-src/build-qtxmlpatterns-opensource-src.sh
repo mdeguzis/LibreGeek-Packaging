@@ -126,6 +126,16 @@ main()
 	sleep 2s
 
 	git clone --recursive -b ${branch} ${GIT_URL} ${GIT_DIR}
+	
+	# The ${GIT_DIR}/include folder is not included.
+	# Why? No idea at the moment, so TODO
+	# For now fetch from Qt downloads
+	wget "http://download.qt.io/archive/qt/5.7/5.7.0/submodules/qtxmlpatterns-opensource-src-5.7.0.tar.gz" \
+	-q -nc --show-progress
+
+	# Extract modules to GIT_DIR
+	tar -xzf "qtxmlpatterns-opensource-src-5.7.0.tar.gz" -C "${GIT_DIR}"
+	rm "qtxmlpatterns-opensource-src-5.7.0.tar.gz"
 
 	# trim git (after confimed working build)
 	# rm -rf "${GIT_DIR}/.git"

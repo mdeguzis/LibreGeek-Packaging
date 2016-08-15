@@ -153,6 +153,9 @@ main()
 
 	cd "${BUILD_TMP}" || exit 1
 
+	# Trim .git folders
+	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)
 	# This way, we can try again with the orig source intact

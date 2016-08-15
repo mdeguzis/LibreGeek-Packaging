@@ -152,6 +152,9 @@ main()
 	# Enter build dir to create tarball
 	cd "${BUILD_TMP}"
 
+	# Trim .git folders
+	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+
 	# create source tarball
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 

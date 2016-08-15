@@ -130,6 +130,9 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
+	# Trim .git folders
+	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"

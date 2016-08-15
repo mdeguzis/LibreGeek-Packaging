@@ -56,13 +56,13 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="lgogdownloader"
 PKGVER=$(echo ${TARGET} | sed 's/v//')
-EPOCH="1"
-PKGREV="2"
-PKGSUFFIX="git+bsos"
+EPOCH="2"
+PKGREV="1"
+PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -119,12 +119,19 @@ main()
 	# clone
 	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
+	# Get latest commit
+	cd "${GIT_DIR}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+
 	#################################################
 	# Build platform
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
+
+	# Trim .git folders
+	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
@@ -143,7 +150,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update packge to release $PKGVER"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update packge to release $PKGVER, commit $LATEST_COMMIT"
 		nano "debian/changelog"
 
 	else

@@ -112,12 +112,22 @@ main()
 	# add extras
 	cp "${SCRIPTDIR}/decaf.png" "${GIT_DIR}"
 
+	# Get latest commit
+	cd "${GIT_DIR}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+
 	#################################################
 	# Build package
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
+
+	# Trim .git folders
+	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+
+	# Trim .git folders
+	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
@@ -136,7 +146,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release to commit $LATEST_COMMIT"
 		nano "debian/changelog"
 
 	else

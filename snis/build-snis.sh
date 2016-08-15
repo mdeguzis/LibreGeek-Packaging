@@ -51,7 +51,7 @@ fi
 # upstream vars
 #GIT_URL="https://github.com/smcameron/space-nerds-in-space"
 GIT_URL="https://github.com/ProfessorKaos64/space-nerds-in-space"
-TARGET="v20160711"
+TARGET="v20160814"
 #TARGET="master"
 
 # package vars
@@ -59,11 +59,11 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="snis"
 PKGREV="1"
-PKGVER="20160711"
+PKGVER="20160814"
 PKGSUFFIX="git+bsos"
 BUILDER="pdebuild"
 DIST="brewmaster"

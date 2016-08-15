@@ -1,3 +1,2 @@
 version=3
-opts=uversionmangle=s/-/~/,dversionmangle=s/\+dfsg//,repacksuffix=+dfsg \
-https://download.qt.io/official_releases/qt/([\d\.]*)/([\d\.]*)/submodules/qtbase-opensource-src-(.*)\.tar\.[xg]z
+https://download.qt.io/official_releases/qt/([\d\.]*)/([\d\.]*)/submodules/qtxmlpatterns-opensource-src-([^-]*)\.tar\.xz

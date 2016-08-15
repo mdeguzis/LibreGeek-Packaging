@@ -125,7 +125,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	git clone -b ${branch} ${GIT_URL} ${GIT_DIR}
+	git clone --recursive -b ${branch} ${GIT_URL} ${GIT_DIR}
 
 	# trim git (after confimed working build)
 	# rm -rf "${GIT_DIR}/.git"

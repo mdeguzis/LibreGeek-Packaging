@@ -165,6 +165,12 @@ elif [[ "${OS}" == "Arch" ]]; then
 
 	fi
 
+	# Currently, the AUR package for dpkg does not include the vendor origins
+	# Also, the configuration is missing for detection of system keyrings
+	# These are included in the .devscripts conf file in this repo.
+	sudo cp "${SCRIPTDIR}/etc/dpkg/origins/default" "/etc/dpkg/origins/"
+	sudo cp "${SCRIPTDIR}/etc/dpkg/origins/debian" "/etc/dpkg/origins/"
+
 	# Clean up manual AUR package installation DIRectory
 	cd "${ROOT_DIR}"
 	rm -rf "arch-aur-packages"

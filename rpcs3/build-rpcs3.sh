@@ -100,20 +100,6 @@ main()
 		install_prereqs
 
 	fi
-	
-	# If we are using gcc, it has to be 5.x
-	# Currently (20160723), this is compiled manually into /opt/cross-gcc
-	
-	if [[ " ${COMPILER}" == "gcc" ]]; then
-
-		if [[ ! -d "/opt/cross-gcc/bin/x86_64-linux-gnu-gcc" ]]; then
-
-			echo -e "\nERROR: expected location for gcc not found!"
-			exit 1
-
-		fi
-	
-	fi
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
@@ -153,6 +139,15 @@ main()
 			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
+	
+	cd "${GIT_DIR}"
+		
+	# Get latest commit and update submodules
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	
+	# Update only needed submofules
+	git submodule update --init rsx_program_decompiler asmjit 3rdparty/ffmpeg \
+	3rdparty/pugixml 3rdparty/GSL 3rdparty/libpng Utilities/yaml-cpp 3rdparty/cereal
 
 	# Source latest release version from .git?
 	#release_tag=$(git describe --abbrev=0 --tags)
@@ -210,9 +205,6 @@ main()
 
 	# enter source dir
 	cd "${GIT_DIR}"
-	
-	# Get latest commit and update submodules
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

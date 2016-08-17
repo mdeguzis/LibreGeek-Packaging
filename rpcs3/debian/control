@@ -22,6 +22,7 @@ Build-Depends: debhelper,
  libwxgtk3.0-dev,
  llvm-3.8-dev,
  pkg-config,
+ wx-common,
  zlib1g-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.8

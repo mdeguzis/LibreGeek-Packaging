@@ -118,8 +118,6 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	rm -rf "${SRCDIR}" 
-	mkdir -p "${SRCDIR}"
 	dget "${LLVM_DSC_URL}"
 
 	################################################

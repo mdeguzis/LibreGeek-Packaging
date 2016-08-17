@@ -4,7 +4,7 @@ Priority: optional
 Build-Depends: debhelper,
  build-essential,
  cmake,
- clang-3.8,
+ clang-3.9,
  git-core,
  ffmpeg,
  libc++-dev,
@@ -20,7 +20,7 @@ Build-Depends: debhelper,
  lib32stdc++6,
  libvulkan-dev,
  libwxgtk3.0-dev,
- llvm-3.8-dev,
+ llvm-3.9-dev,
  pkg-config,
  zlib1g-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>

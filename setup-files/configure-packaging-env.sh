@@ -105,7 +105,12 @@ elif [[ "${OS}" == "Arch" ]]; then
 
 	# Finally, get build tools needed out of the AUR
 	# Pass -S to invoke pacman
-	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-archive-keyring apt devscripts
+	
+	# AUR stage 1: required by 1 or more stage 2 pacakges
+	pacaur -Sa ${AUROPTS} libxmltok
+	
+	# AUR stage 2 packages:
+	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-archive-keyring apt devscripts debsig-verify-git
 	
 	# Do we need custom AUR packages that are out of date?
 	CUSTOM_AUR_PKGS="false"

@@ -40,5 +40,6 @@ override_dh_auto_build:
 			-DCMAKE_CXX_FLAGS="-O2 -g -stdlib=libc++" \
 			-DUSE_SYSTEM_LIBPNG='ON' \
 			-DUSE_SYSTEM_FFMPEG='ON' \
+			-DHAVE_TYPE_TRAITS=1 \
 			-DCMAKE_INSTALL_PREFIX=/usr ..
 	make -C rpcs3/build

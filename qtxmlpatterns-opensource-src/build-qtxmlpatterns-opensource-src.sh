@@ -23,7 +23,6 @@ SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -35,8 +34,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 	REMOTE_PORT="22"
 
 fi
-
-
 
 if [[ "$arg1" == "--testing" ]]; then
 
@@ -56,7 +53,7 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -B --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc -- --binary-arch"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Need a newer version of qtchooser over Valve's.
 export APT_PREFS_HACK="true"

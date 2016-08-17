@@ -49,14 +49,14 @@ else
 fi
 
 GIT_URL="https://github.com/qtproject/qtdeclarative"
-branch="v5.6.0"
+branch="v5.7.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc -- --binary-arch"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Need a newer version of qtchooser than what valve has
 export APT_PREFS_HACK="true"
@@ -132,6 +132,11 @@ main()
 			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
+
+	# get submodules
+	wget https://download.qt.io/development_releases/qt/5.7/5.7.0-alpha/submodules/qtdeclarative-opensource-src-5.7.0-alpha.tar.gz
+	tar -xzvf *.gz --strip 1 -C "${GIT_DIR}"
+	rm *.gz
 
 	# trim git (after confimed working build)
 	# rm -rf "${GIT_DIR}/.git"

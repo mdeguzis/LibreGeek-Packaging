@@ -46,8 +46,8 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	# Deboostrap was backport to include more scripts, specify version
 	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo \
-	screen pv apt-file curl debian-archive-keyring ubuntu-archive-keyring \
-	debootstrap=1.0.81 osc obs-build mock sbuild apt-cacher-ng quilt"
+	screen pv apt-file curl debian-keyring debian-archive-keyring ubuntu-keyring \
+	ubuntu-archive-keyring debootstrap=1.0.81 osc obs-build mock sbuild apt-cacher-ng quilt"
 
 	for PKG in ${PKGs};
 	do
@@ -110,7 +110,8 @@ elif [[ "${OS}" == "Arch" ]]; then
 	pacaur -Sa ${AUROPTS} libxmltok
 	
 	# AUR stage 2 packages:
-	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-archive-keyring apt devscripts debsig-verify-git
+	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-keyring debian-archive-keyring \
+	ubuntu-archive-keyring ubuntu-keyring apt devscripts debsig-verify-git
 	
 	# Do we need custom AUR packages that are out of date?
 	CUSTOM_AUR_PKGS="false"
@@ -559,6 +560,10 @@ elif [[ "${OS}" == "Arch" ]]; then
 	tar -xvf data.tar.xz
 	sudo cp "etc/apt/trusted.gpg.d/valve-archive-keyring.gpg" "/etc/apt/trusted.gpg.d/"
 	sudo cp "usr/share/keyrings/valve-archive-keyring.gpg" "/usr/share/keyrings"
+	
+	# We also need to add the debian/ubuntu keyrings to the gpg trusted list
+	# sudo cp /usr/share/keyrings/debian* "/etc/apt/trusted.gpg.d/"
+	# sudo cp /usr/share/keyrings/ubuntu* "/etc/apt/trusted.gpg.d/"
 
 	# cleanup
 	cd ..

@@ -55,7 +55,7 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 #PKGNAME="llvm-toolchain-3.8"
 PKGVER="${LLVM_VER}"
@@ -122,8 +122,6 @@ main()
 	mkdir -p "${SRCDIR}"
 	dget "${LLVM_DSC_URL}"
 
-	# ! TODO ! - once above debian fix verified, submit patch upstream (see: gmail thread)
-
 	################################################
 	# Build package
 	#################################################
@@ -161,7 +159,6 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-
 
 	# note time ended
 	time_end=$(date +%s)

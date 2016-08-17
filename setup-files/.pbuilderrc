@@ -180,10 +180,11 @@ PBUILDERROOTCMD="sudo -E"
 #Command-line option passed on to dpkg-buildpackage.
 #DEBBUILDOPTS="-IXXX -iXXX"
 
-# create sources only
+# create sources only (-sa alone would force source-code inclusion)
 #DEBBUILDOPTS="-S -sa"
 
-# create binary AND sources
+# -us Do not sign the source package.
+# -uc  Do not sign the .changes file.
 #DEBBUILDOPTS="-us -uc"
 
 # always be verbose:

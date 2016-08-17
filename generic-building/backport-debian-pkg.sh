@@ -165,7 +165,7 @@ function_get_source()
 	# Obtain all necessary files specified in .dsc via dget
 	# Download only, as unverified sources (say a Ubuntu pkg build on Debian) will not auto-extract
 	# This is also a good approach if using an unsupported distro like Arch Linux
-	dget -d "${DSC}"
+	dget "${DSC}"
 
 	# Get filename only from DSC URL
 	DSC_FILENAME=$(basename "${DSC}")
@@ -398,42 +398,6 @@ function_build_package()
 	
 }
 
-function_backport_pkg_multi()
-{
-	
-	# Unpack the original tarball
-	for file in *.*
-	do
-
-		echo -e "Unpacking: ${file}"
-
-		case "${file}" in
-
-			*.tar.bz2)
-			tar -xjf "${file}"
-			;;
-
-			*.tar.xz)
-			tar -xf "${file}"
-			;;
-
-			*.tar.gz)
-			tar -xzf "${file}"
-			;;
-
-		esac
-
-	done
-
-	# Set the source dir
-	SRC_DIR=$(basename `find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*"`)
-
-	# Enter source dir
-	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 10s && return
-
-}
-
-
 main()
 {
 
@@ -447,41 +411,13 @@ main()
 	function_get_source
 	
 	# Backport
-	if [[ "${ORIG_MULTI}" == "no" ]]; then
+	function_backport_pkg
 
-		# Dealing with a single original source archive
-		function_backport_pkg
+	# Build package
+	function_build_package
 
-		# Build package
-		function_build_package
-
-		# Show summary
-		function_show_summary
-
-	elif [[ "${ORIG_MULTI}" == "yes" ]]; then
-
-		# This involves mutliple original source archives
-		function_backport_pkg_multi
-
-		# Build package
-		function_build_package
-
-		# Show summary
-		function_show_summary
-
-	else
-		
-		cat<<-EOF
-
-		==INFO==
-		It is not currently possible to backport this package using 
-		this automated script. Please do so manually
-
-		EOF
-
-		sleep 10s && return
-
-	fi
+	# Show summary
+	function_show_summary
 
 }
 

@@ -1,0 +1,16 @@
+
+# Only call this if needed
+
+if [[ "${USE_LOCAL_REPO}" == "true" ]]; then
+
+	LOCAL_REPO="$HOME/pbuilder/local_repo"
+	
+	echo -e "I: CUSTOM ACTION: Updating local Debian repository (if applicable)"
+	
+	# Generate a Packages file.
+	(cd $LOCAL_REPO ; apt-ftparchive packages . > Packages)
+	
+	# Update to include any new packages in the local repo.
+	apt-get update
+  
+fi

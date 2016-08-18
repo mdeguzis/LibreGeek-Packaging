@@ -271,13 +271,16 @@ function_backport_config()
 	# Do this rather than rename, so an xz archive is not renamed as a fake gz archive
 	# Reminder: the orig tarball does NOT get a revision number!	
 
+	echo -e "\n==> Creating origninal tarball"
+	sleep 2s
+
 	rm -f ${BUILD_TMP}/*.orig.tar.*
 	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
-	cd ${SRC_DIR} || echo "Cannot enter source directory!" && sleep 10s && return
+	cd ${SRC_DIR}
 
-	# Last safey check - debian folder
+	# Last safety check - debian folder
 	# If the debian folder is in the original souce, keep it.
 
 	if [[ ! -d "${SRC_DIR}/debian" ]]; then
@@ -343,7 +346,7 @@ function_backport_config()
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 	fi
-
+sleep 15s
 }
 
 function_build_package()

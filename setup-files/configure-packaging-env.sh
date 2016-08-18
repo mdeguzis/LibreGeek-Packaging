@@ -591,6 +591,7 @@ sleep 1s
 
 # root on SteamOS is small, divert cache DIR if applicable
 # Also adjust for other locations, due to limited space on root
+# LOCAL_REPO is defined in pbuilderc
 OS=$(lsb_release -si)
 
 if [[ "${OS}" == "SteamOS" ]]; then
@@ -598,11 +599,13 @@ if [[ "${OS}" == "SteamOS" ]]; then
 	rm -rf "${HOME}/pbuilder/hooks"
 	mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
 	cp -r "${SCRIPTDIR}/hooks" "${HOME}/pbuilder/"
+	mkdir -p "${HOME}/pbuilder/local_repo"
 
 else
 
 	sudo rm -rf "/var/cache/pbuilder/hooks"
 	sudo cp -r "${SCRIPTDIR}/hooks" "/var/cache/pbuilder/"
+	sudo mkdir -p "/var/cache/pbuilder/local_repo"
 
 fi
 

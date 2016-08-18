@@ -346,7 +346,7 @@ function_backport_config()
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 	fi
-sleep 15s
+
 }
 
 function_build_package()

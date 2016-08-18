@@ -75,7 +75,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential subversion
+	sudo apt-get install -y --force-yes gcc g++ libfreetype6-dev libglib2.0-dev libcairo2-dev
 
 }
 
@@ -103,11 +103,6 @@ main()
 		# handle prereqs on host machine
 		install_prereqs
 
-	else
-
-	  # still need subversion
-	  sudo apt-get install -y --force-yes subversion
-
 	fi
 
 	#################################################
@@ -116,7 +111,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${TARGET}" "${SRC_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
 	# Build package

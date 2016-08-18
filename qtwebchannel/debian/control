@@ -1,4 +1,4 @@
-Source: libqt5-qtwebchannel
+Source: libqt5qtwebchannel
 Section: libs
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
@@ -23,7 +23,7 @@ Homepage: http://qt-project.org/
 Vcs-Git: https://github.com/qtproject/qtwebchannel/.git
 Vcs-Browser: https://github.com/qtproject/qtwebchannel.git
 
-Package: libqt5-qtwebchannel
+Package: libqt5qtwebchannel
 Architecture: amd64
 Multi-Arch: same
 Pre-Depends: ${misc:Pre-Depends}
@@ -38,25 +38,25 @@ Description: Qt 5 webchannel package (experimental).
  transport mechanism can also be implemented using Qt WebSockets to 
  support Qt WebChannel-based communication.
  
-Package: libqt5-qtwebchannel-dev
+Package: libqt5qtwebchannel-dev
 Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webchannel dev package (experimental).
 
-Package: libqt5-qtwebchannel-examples
+Package: libqt5qtwebchannel-examples
 Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webchannel examples package (experimental).
 
-Package: libqt5-qtwebchannel-imports
+Package: libqt5qtwebchannel-imports
 Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webchannel imports package (experimental).
 
-Package: libqt5-qtwebchannel-private-dev
+Package: libqt5qtwebchannel-private-dev
 Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}

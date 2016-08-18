@@ -51,7 +51,7 @@ fi
 # upstream vars
 #GIT_URL="https://code.qt.io/qt/qt5.git"
 GIT_URL="https://github.com/qtproject/qtwebengine"
-branch="v5.6.0"
+branch="v5.7.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,9 +60,11 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
+# Need a newer version of qtchooser installed than what Valve has.
+export APT_PREFS_HACK="true"
 export USE_NETWORK="yes"
-PKGNAME="libqt5-qtwebengine"
-PKGVER="5.6.0"
+PKGNAME="libqt5qtwebengine"
+PKGVER="5.7.0"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"

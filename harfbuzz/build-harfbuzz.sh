@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-ftequake.sh
+# Scipt name:	build-harfbuzz.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest ftequake source
+# Description:	Attmpts to build a deb package from the latest harfbuzz source
 #		code.
 #
-# See:		https://github.com/Novum/ftequake
+# See:		https://github.com/Novum/harfbuzz
 #
-# Usage:	./build-ftequake.sh
+# Usage:	./build-harfbuzz.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -45,19 +45,18 @@ else
 
 fi
 # upstream vars
-SVN_URL="http://svn.code.sf.net/p/fteqw/code/trunk"
-# REV chosen below from list
-# SVN_REV="r5010"
+SRC_URL="https://github.com/behdad/harfbuzz"
+TARGET="1.3.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
-PKGNAME="ftequake"
+BUILDOPTS="--debbuildopts -sa"
+PKGNAME="harfbuzz"
 # Base version sourced from latest milestone on SF
-PKGVER="1.04.0"
+PKGVER="1.3.0"
 PKGREV="1"
 # PKGSUFFIX set below
 DIST="brewmaster"
@@ -68,7 +67,7 @@ MAINTAINER="ProfessorKaos64"
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRC_DIR="${PKGNAME}-${PKGVER}"
-SVN_DIR="${BUILD_TMP}/${SRC_DIR}"
+SRD_DIR="${BUILD_TMP}/${SRC_DIR}"
 
 install_prereqs()
 {
@@ -117,27 +116,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# checkout desired revision
-	svn checkout "${SVN_URL}" "${SVN_DIR}"
-
-	# Get desired revision
-	echo -e "\n==> Showing last 5 revisions\n"
-
-	cd  "${SVN_DIR}"
-	svn log | grep -e ^r[0-9] | cut -d " " -f 1 | head -n 5
-
-	echo -e "\n==> Use which revision?"
-	sleep 0.3s
-	read -erp "Choice: " SVN_REV
-	echo ""
-	svn update "${SVN_REV}"
-
-	# Set package suffix
-	PKGSUFFIX="${SVN_REV}svn+bsos"
-
-	# Add extras
-	cp "${SCRIPTDIR}/ftequake.png" "${SVN_DIR}"
-	cp "${SCRIPTDIR}/quake-icon.png" "${SVN_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -151,13 +130,13 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required debian files
-	cp -r "${SCRIPTDIR}/debian" "${SVN_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRD_DIR}"
 
 	# enter source dir
-	cd "${SVN_DIR}"
+	cd "${SRD_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -166,13 +145,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update to SVN revision ${SVN_REV}"
+		-D "${DIST}" -u "${URGENCY}" "Update to version ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build, revision ${LATEST_REV}"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
 		nano "debian/changelog"
 
 	fi
@@ -231,7 +210,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${SVN_DIR}/debian/changelog" "${scriptdir}/debian"
+			cp "${SRD_DIR}/debian/changelog" "${scriptdir}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

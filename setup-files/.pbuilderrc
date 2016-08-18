@@ -62,11 +62,13 @@ if [ -n "${DIST}" ]; then
 		BASEDIR="$HOME/pbuilder"
 		APTCACHEHARDLINK=no
 		HOOKDIR="$HOME/pbuilder/hooks"
+		LOCAL_REPO="$HOME/pbuilder/local_repo"
 
 	else
 
 		# Using another distribution
 		BASEDIR="/var/cache/pbuilder"
+		LOCAL_REPO="/var/cache/pbuilder/local_repo"
 
 	fi
 

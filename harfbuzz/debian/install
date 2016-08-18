@@ -1,0 +1,4 @@
+debian/ftequake-gl.desktop    usr/share/applications
+debian/ftequake-sv.desktop    usr/share/applications
+ftequake.png                  usr/share/pixmaps
+quake-icon.png                usr/share/pixmaps

@@ -1,36 +1,16 @@
-Source: ftequake
+Source: harfbuzz
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Section: games
 Priority: optional
 Build-Depends:
  build-essential,
- debhelper (>= 9~),
- libasound2-dev,
- libegl1-mesa-dev,
- libjpeg-dev,
- libogg-dev,
- libpng-dev,
- libvorbis-dev,
- libvulkan-dev,
- mesa-common-dev,
- subversion,
- zlib1g-dev
+ libfreetype6-dev,
+ libglib2.0-dev,
+ libcairo2-dev
 Standards-Version: 3.9.8
-Homepage: https://sourceforge.net/projects/fteqw
+Homepage: https://github.com/behdad/harfbuzz/
 
-Package: ftequake
-Replaces: ftequake-unstable
-Conflicts: ftequake-unstable
+Package: harfbuzz
 Architecture: any
-Depends:
- ${misc:Depends},
- ${shlibs:Depends},
- libvulkan1,
- libpng12-dev,
- libsdl2-dev
-Description: engine for iD software's Quake games.
- FTE QuakeWorld is a QuakeWorld derivative which mainly 
- focuses on modding and additional features for both users 
- and servers. Supports NetQuake gamecode and protocol, 
- Hexen 2/Quake 2/Quake 3 maps and models, many QuakeC 
- builtin extensions, and more.
+Depends: ${misc:Depends}, ${shlibs:Depends},
+Description: This is HarfBuzz, a text shaping library.

@@ -4,7 +4,7 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	build-sprunge.sh
 # Script Ver:	1.0.0
-# Description:	Builds package of QT 5.6.0 webchannel
+# Description:	Builds package of QT 5.7.0 webchannel
 #
 # See:		https://github.com/qtproject/qtwebchannel
 #		https://wiki.qt.io/Building-Qt-5-from-Git
@@ -49,17 +49,17 @@ else
 fi
 
 GIT_URL="https://github.com/qtproject/qtwebchannel"
-branch="v5.6.0"
+branch="v5.7.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="libqt5-qtwebchannel"
-PKGVER="5.6.0"
+PKGVER="5.7.0"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
@@ -155,7 +155,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update build"
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update build to ${PKGVER}"
 		nano "debian/changelog"
 
 	else

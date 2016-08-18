@@ -17,42 +17,38 @@ export LDFLAGS := $(shell dpkg-buildflags --get LDFLAGS) -Wl,--as-needed
 current_dir = $(shell pwd)
 
 # Set versions for install files (not working in install file, research)
-SO_VERSION = 5.7.0
+SO_VERSION = 5.6.0
 
-# Modify web engine optoins
-# See: http://pkgs.fedoraproject.org/cgit/rpms/qt5-qtwebengine.git/tree/qt5-qtwebengine.spec for notes
-# qmake CONFIG+="space seperated values" WEBENGINE_CONFIG+="space seperated valuesf"
+# Modify gyp bulid (modeled after opensuse 5.6 spec. file)
+# Try to just include what's necessary at first 
+# (system packages used during qtbase configuration time)
+# See readme.md in the build script directory for more.
 
-# CONFIG  = "CONFIG += "value1 value2"
-# WEBENGINE_CONFIG += "value1 value2" 
+myconf = " -Duse_system_expat=1 \
+	-Duse_system_flac=1 \
+	-Duse_system_libevent=1 \
+	-Duse_system_icu=1 \
+	-Duse_system_libjpeg=1 \
+	-Duse_system_libpng=1 \
+	-Duse_system_libusb=1 \
+	-Duse_system_libxml=1 \
+	-Duse_system_libxslt=1 \
+	-Duse_system_opus=1 \
+	-Duse_system_snappy=1 \
+	-Duse_system_speex=1 \
+	-Duse_system_harfbuzz=0 \
+	-Duse_system_icu=1 \
+	-Duse_system_libwebp=1 \
+	-Duse_system_libvpx=0 \
+	-Duse_system_openssl=1 \
+	-Duse_system_re2=1 \
+	-Duse_system_zlib=1 \
+	-Duse_system_sqlite=0"
 
-CONFIG_LIST = force_debug_info
-
-WEBENGINE_CONFIG_LIST = \
-		use_system_expat=1 \
-		use_system_flac=1 \
-		use_system_libevent=1 \
-		use_system_libjpeg=1 \
-		use_system_libpng=1 \
-		use_system_libusb=1 \
-		use_system_libxml=1 \
-		use_system_libxslt=1 \
-		use_system_opus=1 \
-		use_system_snappy=1 \
-		use_system_speex=1 \
-		use_system_harfbuzz=0 \
-		use_system_icu=1 \
-		use_system_libwebp=1 \
-		use_system_libvpx=1 \
-		use_system_openssl=1 \
-		use_system_re2=1 \
-		use_system_zlib=1 \
-		use_system_sqlite=0
 %:
 	dh $@
 	
 override_dh_auto_configure:
-	rm -rf build && mkdir build
 	# Replace var placeholders with multi-arch equiv. and so ver.
 	find . -name *.install -print0 | xargs -0 sed -i "s|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g"
 	find . -name *.install -print0 | xargs -0 sed -i "s|@SO_VERSION@|$(SO_VERSION)|g"
@@ -60,5 +56,7 @@ override_dh_auto_configure:
 	find . -name .git -print0 | xargs -0 rm -rf
 	#force the configure script to generate the forwarding headers (it checks whether .git directory exists)
 	mkdir .git
+	# Modify gyp bulid (modeled after opensuse 5.6 spec. file)
+	$(CURDIR)/src/3rdparty/chromium/build/linux/unbundle/replace_gyp_files.py "$(myconf)"
 	# configure
-	cd build && qmake WEBENGINE_CONFIG+="$(WEBENGINE_CONFIG_LIST)" CONFIG+="(CONFIG_LIST)" ..
+	qmake -r

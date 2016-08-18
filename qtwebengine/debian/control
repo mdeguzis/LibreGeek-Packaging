@@ -1,4 +1,4 @@
-Source: libqt5-qtwebengine
+Source: libqt5qtwebengine
 Section: web
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
@@ -46,40 +46,40 @@ Build-Depends: debhelper (>= 9),
  ninja-build,
  libicu-dev,
  libminizip-dev,
- libqt5concurrent5 (>=5.6.0),
- libqt5dbus5 (>=5.6.0),
- libqt5libqgtk2 (>=5.6.0),
- libqt5opengl5-dev (>=5.6.0),
- libqt5opengl5 (>=5.6.0),
- libqt5printsupport5 (>=5.6.0),
- libqt5qml5 (>=5.6.0),
- libqt5quick5 (>=5.6.0),
- libqt5quickparticles5 (>=5.6.0),
- libqt5quicktest5 (>=5.6.0),
- libqt5quickwidgets5 (>=5.6.0),
- libqt5sql5 (>=5.6.0), 
- libqt5widgets5 (>=5.6.0),
- libqt5-qtwebchannel-dev (>=5.6.0),
- libqt5-qtwebchannel-imports (>=5.6.0),
- libqt5xml5 (>=5.6.0),
- libqt5xmlpatterns5-dev (>=5.6.0),
+ libqt5concurrent5 (>=5.7.0~),
+ libqt5dbus5 (>=5.7.0~),
+ libqt5libqgtk2 (>=5.7.0~),
+ libqt5opengl5-dev (>=5.7.0~),
+ libqt5opengl5 (>=5.7.0~),
+ libqt5printsupport5 (>=5.7.0~),
+ libqt5qml5 (>=5.7.0~),
+ libqt5quick5 (>=5.7.0~),
+ libqt5quickparticles5 (>=5.7.0~),
+ libqt5quicktest5 (>=5.7.0~),
+ libqt5quickwidgets5 (>=5.7.0~),
+ libqt5sql5 (>=5.7.0~), 
+ libqt5widgets5 (>=5.7.0~),
+ libqt5qtwebchannel-dev (>=5.7.0~),
+ libqt5qtwebchannel-imports (>=5.7.0~),
+ libqt5xml5 (>=5.7.0~),
+ libqt5xmlpatterns5-dev (>=5.7.0~),
  pkg-config,
- qtdeclarative5-dev (>=5.6.0),
- qtdeclarative5-dev-tools (>=5.6.0),
- qtdeclarative5-private-dev (>=5.6.0),
- qml (>=5.6.0),
- qmlscene (>=5.6.0),
- qt5-qmltooling-plugins (>=5.6.0),
- qt5-default (>=5.6.0),
- qt5-qmake (>=5.6.0),
- qtbase5-dev-tools (>=5.6.0),
- qtbase5-private-dev (>=5.6.0),
+ qtdeclarative5-dev (>=5.7.0~),
+ qtdeclarative5-dev-tools (>=5.7.0~),
+ qtdeclarative5-private-dev (>=5.7.0~),
+ qml (>=5.7.0~),
+ qmlscene (>=5.7.0~),
+ qt5-qmltooling-plugins (>=5.7.0~),
+ qt5-default (>=5.7.0~),
+ qt5-qmake (>=5.7.0~),
+ qtbase5-dev-tools (>=5.7.0~),
+ qtbase5-private-dev (>=5.7.0~),
  zlib1g-dev
 Standards-Version: 3.9.7
 Homepage: http://qt-project.org/
 Vcs-Git: http://code.qt.io/cgit/qt/qtwebengine.git/
 
-Package: libqt5-qtwebengine
+Package: libqt5qtwebengine
 Architecture: amd64
 Provides: qtwebengine
 Depends: ${misc:Depends}, ${shlibs:Depends}
@@ -94,19 +94,19 @@ Description: Chromium integration into Qt with QtWebEngine.
  integrating the layer rendering of Chromium directly into the OpenGL 
  scene graph of QtQuick.
  
-Package: libqt5-qtwebengine-dev
+Package: libqt5qtwebengine-dev
 Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webengine dev package (experimental).
 
-Package: libqt5-qtwebengine-private-dev
+Package: libqt5qtwebengine-private-dev
 Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Qt 5 webengine private headers package (experimental)
 
-Package: libqt5-qtwebengine-examples
+Package: libqt5qtwebengine-examples
 Architecture: amd64
 Pre-Depends: ${misc:Pre-Depends}
 Depends: ${misc:Depends}, ${shlibs:Depends}

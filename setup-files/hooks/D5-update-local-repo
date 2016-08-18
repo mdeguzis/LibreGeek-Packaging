@@ -3,7 +3,7 @@
 
 if [[ "${USE_LOCAL_REPO}" == "true" ]]; then
 
-	LOCAL_REPO="$HOME/pbuilder/local_repo"
+	# LOCAL_REPO is defined in .pbuilderrc
 	
 	echo -e "I: CUSTOM ACTION: Updating local Debian repository (if applicable)"
 	

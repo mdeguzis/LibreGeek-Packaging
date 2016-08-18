@@ -21,25 +21,25 @@ SO_VERSION = 5.7.0
 
 # Modify web engine optoins
 
-QMAKE_CONFIG = "WEBENGINE_CONFIG = use_system_expat=1
-	WEBENGINE_CONFIG += use_system_flac=1 \
-	WEBENGINE_CONFIG += use_system_libevent=1 \
-	WEBENGINE_CONFIG += use_system_libjpeg=1 \
-	WEBENGINE_CONFIG += use_system_libpng=1 \
-	WEBENGINE_CONFIG += use_system_libusb=1 \
-	WEBENGINE_CONFIG += use_system_libxml=1 \
-	WEBENGINE_CONFIG += use_system_libxslt=1 \
-	WEBENGINE_CONFIG += use_system_opus=1 \
-	WEBENGINE_CONFIG += use_system_snappy=1 \
-	WEBENGINE_CONFIG += use_system_speex=1 \
-	WEBENGINE_CONFIG += use_system_harfbuzz=0 \
-	WEBENGINE_CONFIG += use_system_icu=1 \
-	WEBENGINE_CONFIG += use_system_libwebp=1 \
-	WEBENGINE_CONFIG += use_system_libvpx=1 \
-	WEBENGINE_CONFIG += use_system_openssl=1 \
-	WEBENGINE_CONFIG += use_system_re2=1 \
-	WEBENGINE_CONFIG += use_system_zlib=1 \
-	WEBENGINE_CONFIG += use_system_sqlite=0"
+QMAKE_CONFIG = "WEBENGINE_CONFIG = use_system_expat=1 \
+		use_system_flac=1 \
+		use_system_libevent=1 \
+		use_system_libjpeg=1 \
+		use_system_libpng=1 \
+		use_system_libusb=1 \
+		use_system_libxml=1 \
+		use_system_libxslt=1 \
+		use_system_opus=1 \
+		use_system_snappy=1 \
+		use_system_speex=1 \
+		use_system_harfbuzz=0 \
+		use_system_icu=1 \
+		use_system_libwebp=1 \
+		use_system_libvpx=1 \
+		use_system_openssl=1 \
+		use_system_re2=1 \
+		use_system_zlib=1 \
+		use_system_sqlite=0"
 
 %:
 	dh $@

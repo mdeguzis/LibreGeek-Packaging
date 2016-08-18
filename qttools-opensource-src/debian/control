@@ -3,13 +3,13 @@ Section: libs
 Priority: optional
 Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
 Build-Depends: debhelper (>= 9),
-               libqt5opengl5-dev (>= 5.7.0+dfsg~),
-               libqt5sql5-sqlite (>= 5.7.0+dfsg~),
+               libqt5opengl5-dev (>= 5.7.0~),
+               libqt5sql5-sqlite (>= 5.7.0~),
                pkg-kde-tools,
-               qtbase5-private-dev (>= 5.7.0+dfsg~),
+               qtbase5-private-dev (>= 5.7.0~),
                qtdeclarative5-private-dev (>= 5.7.0~),
                zlib1g-dev
-Build-Depends-Indep: qtbase5-doc-html (>= 5.7.0+dfsg~)
+Build-Depends-Indep: qtbase5-doc-html (>= 5.7.0~)
 Standards-Version: 3.9.8
 Homepage: http://qt-project.org/
 Vcs-Git: https://anonscm.debian.org/git/pkg-kde/qt/qttools.git

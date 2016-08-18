@@ -1,3 +1,9 @@
+libqt5qtwebchannel (5.7.0+git+bsos-1) brewmaster; urgency=low
+
+  * Update build to 5.7.0
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 18 Aug 2016 13:22:23 -0400
+
 libqt5-qtwebchannel (5.6.0+git+bsos-1) brewmaster; urgency=low
 
   * Initial upload

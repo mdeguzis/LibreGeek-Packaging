@@ -118,7 +118,7 @@ main()
 			RETRY="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
 
@@ -136,7 +136,7 @@ main()
 			RETRY="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	fi
 	

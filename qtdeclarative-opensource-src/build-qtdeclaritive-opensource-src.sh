@@ -133,11 +133,16 @@ main()
 
 	fi
 
-	# get submodules
-	wget https://download.qt.io/development_releases/qt/5.7/5.7.0-alpha/submodules/qtdeclarative-opensource-src-5.7.0-alpha.tar.gz
-	tar -xzvf *.gz --strip 1 -C "${GIT_DIR}"
-	rm *.gz
+	# get include submodule and dirs, missing from GitHub.
 
+	echo -e "\n==> Gather include dir submodule\n" && sleep 2s
+	rm -rf temp && mkdir temp
+	wget "https://download.qt.io/development_releases/qt/5.7/5.7.0-alpha/submodules/qtdeclarative-opensource-src-5.7.0-rc.tar.gz"
+	tar -xzf *.gz --strip 1 -C "temp"
+	cp -rv "temp/include" "${GIT_DIR}"
+	sleep 8s
+	rm *.gz temp
+ 
 	# trim git (after confimed working build)
 	# rm -rf "${GIT_DIR}/.git"
 

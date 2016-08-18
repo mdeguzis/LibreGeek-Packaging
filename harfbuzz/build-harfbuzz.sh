@@ -58,6 +58,7 @@ PKGNAME="harfbuzz"
 # Base version sourced from latest milestone on SF
 PKGVER="1.3.0"
 PKGREV="1"
+PKGSUFFIX="git+bsos"
 # PKGSUFFIX set below
 DIST="brewmaster"
 URGENCY="low"

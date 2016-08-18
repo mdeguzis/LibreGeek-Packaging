@@ -26,7 +26,10 @@ SO_VERSION = 5.7.0
 # CONFIG  = "CONFIG += "value1 value2"
 # WEBENGINE_CONFIG += "value1 value2" 
 
-WEBENGINE_CONFIG = "WEBENGINE_CONFIG += use_system_expat=1 \
+CONFIG_LIST = force_debug_info
+
+WEBENGINE_CONFIG_LIST = \
+		use_system_expat=1 \
 		use_system_flac=1 \
 		use_system_libevent=1 \
 		use_system_libjpeg=1 \
@@ -44,7 +47,7 @@ WEBENGINE_CONFIG = "WEBENGINE_CONFIG += use_system_expat=1 \
 		use_system_openssl=1 \
 		use_system_re2=1 \
 		use_system_zlib=1 \
-		use_system_sqlite=0"
+		use_system_sqlite=0
 %:
 	dh $@
 	
@@ -58,4 +61,4 @@ override_dh_auto_configure:
 	#force the configure script to generate the forwarding headers (it checks whether .git directory exists)
 	mkdir .git
 	# configure
-	cd build && qmake $(WEBENGINE_CONFIG) ..
+	cd build && qmake WEBENGINE_CONFIG+="$(WEBENGINE_CONFIGLIST)" CONFIG+="(CONFIGLIST)" ..

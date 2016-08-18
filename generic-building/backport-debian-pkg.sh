@@ -206,7 +206,7 @@ function_get_source()
 
 }
 
-function_backport_pkg()
+function_backport_config()
 {
 	
 	# Test if we have an unpacked source or not
@@ -410,8 +410,8 @@ main()
 	# Get source
 	function_get_source
 	
-	# Backport
-	function_backport_pkg
+	# Backport setup
+	function_backport_config
 
 	# Build package
 	function_build_package

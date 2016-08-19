@@ -63,3 +63,7 @@ override_dh_auto_configure:
 	$(CURDIR)/src/3rdparty/chromium/build/linux/unbundle/replace_gyp_files.py "$(myconf)"
 	# configure
 	qmake -r
+
+override_dh_builddeb:
+	# need to find the icu dat file, break the build at the end for now
+	cp blah blah

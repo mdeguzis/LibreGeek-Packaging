@@ -153,7 +153,6 @@ main()
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update to release ${PKGVER}, Update to the latest commit ${latest_commit}"
-		sleep 10s
 		nano "debian/changelog"
 
 	else

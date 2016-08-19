@@ -62,7 +62,7 @@ PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
 PKGVER="0.61.0"
 PKGREV="1"
-EPOCH="2"
+EPOCH="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
@@ -153,6 +153,7 @@ main()
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update to release ${PKGVER}, Update to the latest commit ${latest_commit}"
+		sleep 10s
 		nano "debian/changelog"
 
 	else

@@ -1,4 +1,6 @@
 usr/lib/@DEB_HOST_MULTIARCH@/libQt*Web*.so.*
 usr/share/qt5/
+# Need to make sure this is installed
+usr/share/qt5/resources/icudtl.dat
 usr/lib/@DEB_HOST_MULTIARCH@/qt5/libexec/QtWebEngineProcess
 usr/lib/@DEB_HOST_MULTIARCH@/qt5/qml/QtWebEngine/

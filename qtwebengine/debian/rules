@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 # Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
 DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
@@ -63,6 +63,7 @@ override_dh_auto_configure:
 	# configure
 	qmake -r
 
-override_dh_builddeb:
-	# need to find the icu dat file, break the build at the end for now
-	cp blah blah
+override_dh_install:
+	# Call dh_install normally. It will process .install, .install.ARCH
+	# and/or .install.OS files. (fail on missing files, such as icudtl.dat)
+	dh_install --fail-missing

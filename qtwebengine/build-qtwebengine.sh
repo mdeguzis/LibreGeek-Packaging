@@ -51,7 +51,7 @@ fi
 # upstream vars
 #GIT_URL="https://code.qt.io/qt/qt5.git"
 GIT_URL="https://github.com/qtproject/qtwebengine"
-branch="v5.7.0"
+TARGET="v5.7.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -113,13 +113,13 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code"
 
 	if [[ -d "${GIT_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
 
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		echo -e "\n==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 
@@ -131,7 +131,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 			cd "${GIT_DIR}" && git submodule update --init
 
 		else
@@ -150,7 +150,7 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 			cd "${GIT_DIR}" && git submodule update --init
 
 	fi

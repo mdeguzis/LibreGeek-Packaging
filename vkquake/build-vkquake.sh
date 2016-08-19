@@ -48,7 +48,7 @@ fi
 #GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
 GIT_URL="https://github.com/Novum/vkQuake"
 #TARGET="master"
-TARGET="0.60"
+TARGET="0.61"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,7 +60,7 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.60.0"
+PKGVER="0.61.0"
 PKGREV="1"
 epoch="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos"
@@ -152,7 +152,7 @@ main()
 
 		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update to release ${PKGVER}, Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else

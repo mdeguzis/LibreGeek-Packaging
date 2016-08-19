@@ -24,6 +24,9 @@ SO_VERSION = 5.6.0
 # (system packages used during qtbase configuration time)
 # See readme.md in the build script directory for more.
 
+# Do not use system_icu, we need icudtl.dat installed to /usr/share/qt5/resources/icudtl.dat 
+# During compilation, you should see the CXX objects number ~12310 vs the normal !11900
+
 myconf = " -Duse_system_expat=1 \
 	-Duse_system_flac=1 \
 	-Duse_system_libevent=1 \

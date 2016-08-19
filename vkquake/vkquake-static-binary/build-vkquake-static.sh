@@ -38,7 +38,6 @@ fi
 # upstream vars
 #GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
 GIT_URL="https://github.com/Novum/vkQuake"
-TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -66,10 +65,10 @@ if [[ "$arg1" == "--testing" ]]; then
 
 else
 
-        TARGET="0.60"
+        TARGET="0.61"
         REPO_FOLDER="/home/mikeyd/packaging/linux-binaries/stable"
 	# Source version from vkQuake/Quake/quakedef.h
-	PKGVER="0.60.0"
+	PKGVER="0.61.0"
 
 fi
 

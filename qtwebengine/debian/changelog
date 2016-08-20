@@ -1,3 +1,9 @@
+libqt5qtwebengine (5.7.0+git+bsos-1) brewmaster; urgency=low
+
+  * Update build
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 19 Aug 2016 18:46:29 -0400
+
 libqt5-qtwebengine (5.6.0+git+bsos-1) brewmaster; urgency=low
 
   * Initial upload

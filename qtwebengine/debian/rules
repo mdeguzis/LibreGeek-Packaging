@@ -64,6 +64,16 @@ override_dh_auto_configure:
 	qmake -r
 
 override_dh_install:
-	# Call dh_install normally. It will process .install, .install.ARCH
-	# and/or .install.OS files. (fail on missing files, such as icudtl.dat)
+	# Remove leftover directories
+	find $(CURDIR)/debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/qt5 -depth -type d \( -false \
+	  -o -name .moc\* \
+	  -o -name .obj\* \
+	  -o -name .pch \
+	  -o -name .rcc \
+	\) -print0 | xargs -0 rm -rf
+
+	# remove libtool-like files
+	rm -f debian/tmp/usr/lib/$(DEB_HOST_MULTIARCH)/*.la
+
+	# Install normally now, fail missing
 	dh_install --fail-missing

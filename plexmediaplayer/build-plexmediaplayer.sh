@@ -132,7 +132,7 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# Add extra files for orig tarball
-	cp -r "${SCRIPTDIR}/plexmediaplayer.png" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/plex-media-player.png" "${GIT_DIR}"
 	
 	# enter git dir
 	cd "${GIT_DIR}"

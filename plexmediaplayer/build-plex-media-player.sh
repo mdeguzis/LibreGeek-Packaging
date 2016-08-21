@@ -2,7 +2,7 @@
 # -------------------------------------------------------------------------------
 # Author:    	  Michael DeGuzis
 # Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	  build-plex-media-player.sh
+# Scipt Name:	  build-plexmediaplayer.sh
 # Script Ver:	  0.5.5
 # Description:	  Attmpts to build a deb package from Plex Media Player git source
 #                 PLEASE NOTE THIS SCRIPT IS NOT YET COMPLETE!
@@ -48,7 +48,7 @@ fi
 src_cmd=""
 
 # upstream URL
-GIT_URL="https://github.com/plexinc/plex-media-player"
+GIT_URL="https://github.com/plexinc/plexmediaplayer"
 TARGET="v1.1.2.359-2b757d45"
 
 # package vars
@@ -61,7 +61,7 @@ export USE_NETWORK="yes"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export APT_PREFS_HACK="true"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-PKGNAME="plex-media-player"
+PKGNAME="plexmediaplayer"
 PKGVER="1.1.2.359"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
@@ -132,7 +132,7 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# Add extra files for orig tarball
-	cp -r "${SCRIPTDIR}/plex-media-player.png" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/plexmediaplayer.png" "${GIT_DIR}"
 	
 	# enter git dir
 	cd "${GIT_DIR}"

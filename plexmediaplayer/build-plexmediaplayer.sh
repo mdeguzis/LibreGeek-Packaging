@@ -48,7 +48,7 @@ fi
 src_cmd=""
 
 # upstream URL
-GIT_URL="https://github.com/plexinc/plexmediaplayer"
+GIT_URL="https://github.com/plexinc/plex-media-player"
 TARGET="v1.1.2.359-2b757d45"
 
 # package vars

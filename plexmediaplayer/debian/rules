@@ -8,7 +8,7 @@ override_dh_auto_configure:
 	cd Build && cmake -GNinja -DCMAKE_BUILD_TYPE=Debug \
 		-DQTROOT=/usr/lib/x86_64-linux-gnu/qt5 \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=on \
-		-DCMAKE_INSTALL_PREFIX=output ..
+		-DCMAKE_INSTALL_PREFIX=/usr ..
 
 override_dh_auto_build:
 	cd Build && ninja

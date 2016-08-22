@@ -4,6 +4,6 @@ GenericName=Plex Media Player
 X-GNOME-FullName=Next generation Plex media player
 Comment=Watch your media on the big screen
 Exec=plexmediaplayer
-Icon=/usr/share/pixmaps/plex-media-player.png
+Icon=/usr/share/pixmaps/plexmediaplayer.png
 Terminal=false
 Type=Application

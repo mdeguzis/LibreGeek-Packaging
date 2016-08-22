@@ -56,13 +56,13 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc -- --binary-arch"
+BUILDOPTS="--debbuildopts -nc --debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Needed to supercede harfbuzz the Valve provides
 export APT_PREFS_HACK="true"
 PKGNAME="qtmultimedia-opensource-src"
 PKGVER="5.7.0"
-PKGREV="1"
+PKGREV="2"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"

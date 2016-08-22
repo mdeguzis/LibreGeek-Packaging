@@ -11,7 +11,7 @@
 #		https://github.com/team-phoenix/Phoenix/wiki/Building
 #
 # Usage:	./build-phoenix-steamos.sh [option]
-# Options:	--build-test
+# Options:	---recursive -build-test
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/team-phoenix/Phoenix"
-rel_TARGET="master"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -132,7 +132,43 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone --recursive -b "$rel_TARGET" "$GIT_URL" "${GIT_DIR}"
+		if [[ -d "${GIT_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
+			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+			cd "${GIT_DIR}" && git submodule update --init
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${BUILD_TMP}" || exit 1
+			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+			cd "${GIT_DIR}" && git submodule update --init
+
+	fi
 	
 	# Get commit for version
 	cd "${GIT_DIR}"
@@ -140,27 +176,52 @@ main()
 	PKGSUFFIX="git${latest_commit}+bsos${PKGREV}"
 	
 	# copy in debian folder
-	cp -r ""$SCRIPTDIR/debian"" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
 
 	#################################################
-	# Build package
+	# Prep source
 	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-	
-	# Enter build dir to create tarball
-	cd "${BUILD_TMP}"
 
 	# Trim .git folders
 	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+	
+	if [[ "${retry}" == "no" ]]; then
+
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		cd "${BUILD_TMP}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+		
+	else
+	
+		echo -e "\n==> Cleaning old source foldrers for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		mkdir -p "${GIT_DIR}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		cd "${BUILD_TMP}"
+		tar -xzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" -C "${BUILD_TMP}" --totals
+		sleep 2s
+
+	fi
+	
+	# add debian/
+	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+
+	###############################################################
+	# build package
+	###############################################################
 
 	# Enter git dir to build
 	cd "${GIT_DIR}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

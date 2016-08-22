@@ -152,16 +152,7 @@ main()
 	# clone and checkout desired commit
         git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
         cd "${GIT_DIR}"
-        latest_commit=$(git log -n 1 --pretty=format:"%h")
-        
-        # Try new PR to fix laod state input issue
-        # See:  https://github.com/PCSX2/pcsx2/issues/205#issuecomment-235249649
-
-	echo -e "\nTesting PR  #1476\n" && sleep 3s
-
-	git stash
-	git fetch
-	git checkout onepad-input-state
+        LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
 	# get latest base release for changelog
 	# This is used because upstream does tend to use release tags
@@ -228,7 +219,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Testing PR 1476"
+		-D "${DIST}" -u "${URGENCY}" "Update to commit $LATEST_COMMIT"
 		nano debian/changelog
 
 	else

@@ -41,15 +41,15 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
-DL_URL="http://libregeek.org/SteamOS-Extra/games/AM2R_linux_unofficial.tar.gz"
+DL_URL="http://libregeek.org/SteamOS-Extra/games/AM2R_v1.1_linux_unofficial.tar.gz"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,7 +59,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="am2r"
-PKGVER="1.0.0"
+PKGVER="1.1.0"
 PKGREV="1"
 EPOCH="1"
 PKGSUFFIX="${DATE_SHORT}git+unofficial"

@@ -48,7 +48,7 @@ fi
 #GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
 GIT_URL="https://github.com/Novum/vkQuake"
 #TARGET="master"
-TARGET="0.61"
+TARGET="0.70"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,7 +60,7 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.61.0"
+PKGVER="0.70.0"
 PKGREV="1"
 EPOCH="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos"

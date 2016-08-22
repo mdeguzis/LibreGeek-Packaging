@@ -1,3 +1,9 @@
+decaf (0.20160820+git+bsos-1) brewmaster; urgency=low
+
+  * Update release to commit 4c50ed0
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 20 Aug 2016 07:36:58 -0400
+
 decaf (0.20160814+git+bsos-1) brewmaster; urgency=low
 
   * Initial upload

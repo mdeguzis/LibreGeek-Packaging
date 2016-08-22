@@ -1,3 +1,9 @@
+am2r (1.1.0+20160820git+unofficial-1) brewmaster; urgency=low
+
+  * Update to the latest commit
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 20 Aug 2016 12:19:39 -0400
+
 am2r (1.0.0+20160809git+unofficial-1) brewmaster; urgency=low
 
   * Initial build

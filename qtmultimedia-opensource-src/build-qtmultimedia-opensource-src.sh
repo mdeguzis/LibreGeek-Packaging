@@ -168,7 +168,7 @@ main()
 		
 	else
 	
-		echo -e "\n==> Cleaning old source foldrers for retry"
+		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
 		
 		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
@@ -199,7 +199,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to version ${PKGVER}"
+		"${PKGNAME}" -D "${DIST}" -u "Build arch indepdent packages for ${PKGVER}"
 		nano "debian/changelog"
 
 	else

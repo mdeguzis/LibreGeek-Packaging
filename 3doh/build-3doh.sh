@@ -70,7 +70,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-export SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}}"
+export SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {

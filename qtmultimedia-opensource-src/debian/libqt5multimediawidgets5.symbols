@@ -1,0 +1,121 @@
+# SymbolsHelper-Confirmed: 5.6.0~beta amd64
+libQt5MultimediaWidgets.so.5 libqt5multimediawidgets5 #MINVER#
+ Qt_5.0@Qt_5.0 5.6.0~beta
+ Qt_5.1@Qt_5.1 5.6.0~beta
+ Qt_5.2@Qt_5.2 5.6.0~beta
+ Qt_5.3@Qt_5.3 5.6.0~beta
+ Qt_5.4@Qt_5.4 5.6.0~beta
+ Qt_5.5@Qt_5.5 5.6.0~beta
+ Qt_5.6@Qt_5.6 5.6.0~beta
+ Qt_5@Qt_5 5.6.0~beta
+ Qt_5_PRIVATE_API@Qt_5_PRIVATE_API 5.6.0~beta
+ _ZN12QVideoWidget10hueChangedEi@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget10paintEventEP11QPaintEvent@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget11qt_metacallEN11QMetaObject4CallEiPPv@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget11qt_metacastEPKc@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget11resizeEventEP12QResizeEvent@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget11setContrastEi@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget13setBrightnessEi@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget13setFullScreenEb@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget13setSaturationEi@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget14setMediaObjectEP12QMediaObject@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget15contrastChangedEi@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget16staticMetaObjectE@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget17brightnessChangedEi@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget17fullScreenChangedEb@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget17saturationChangedEi@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget18setAspectRatioModeEN2Qt15AspectRatioModeE@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget5eventEP6QEvent@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget6setHueEi@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget9hideEventEP10QHideEvent@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget9moveEventEP10QMoveEvent@Qt_5 5.6.0~beta
+ _ZN12QVideoWidget9showEventEP10QShowEvent@Qt_5 5.6.0~beta
+ _ZN12QVideoWidgetC1EP7QWidget@Qt_5 5.6.0~beta
+ _ZN12QVideoWidgetC1ER19QVideoWidgetPrivateP7QWidget@Qt_5 5.6.0~beta
+ _ZN12QVideoWidgetC2EP7QWidget@Qt_5 5.6.0~beta
+ _ZN12QVideoWidgetC2ER19QVideoWidgetPrivateP7QWidget@Qt_5 5.6.0~beta
+ _ZN12QVideoWidgetD0Ev@Qt_5 5.6.0~beta
+ _ZN12QVideoWidgetD1Ev@Qt_5 5.6.0~beta
+ _ZN12QVideoWidgetD2Ev@Qt_5 5.6.0~beta
+ _ZN17QCameraViewfinder11qt_metacallEN11QMetaObject4CallEiPPv@Qt_5 5.6.0~beta
+ _ZN17QCameraViewfinder11qt_metacastEPKc@Qt_5 5.6.0~beta
+ _ZN17QCameraViewfinder14setMediaObjectEP12QMediaObject@Qt_5 5.6.0~beta
+ _ZN17QCameraViewfinder16staticMetaObjectE@Qt_5 5.6.0~beta
+ _ZN17QCameraViewfinderC1EP7QWidget@Qt_5 5.6.0~beta
+ _ZN17QCameraViewfinderC2EP7QWidget@Qt_5 5.6.0~beta
+ _ZN17QCameraViewfinderD0Ev@Qt_5 5.6.0~beta
+ _ZN17QCameraViewfinderD1Ev@Qt_5 5.6.0~beta
+ _ZN17QCameraViewfinderD2Ev@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem10itemChangeEN13QGraphicsItem18GraphicsItemChangeERK8QVariant@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem10timerEventEP11QTimerEvent@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem11qt_metacallEN11QMetaObject4CallEiPPv@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem11qt_metacastEPKc@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem14setMediaObjectEP12QMediaObject@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem16staticMetaObjectE@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem17nativeSizeChangedERK6QSizeF@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem18setAspectRatioModeEN2Qt15AspectRatioModeE@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem5paintEP8QPainterPK24QStyleOptionGraphicsItemP7QWidget@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem7setSizeERK6QSizeF@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItem9setOffsetERK7QPointF@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItemC1EP13QGraphicsItem@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItemC2EP13QGraphicsItem@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItemD0Ev@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItemD1Ev@Qt_5 5.6.0~beta
+ _ZN18QGraphicsVideoItemD2Ev@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControl10hueChangedEi@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControl11qt_metacallEN11QMetaObject4CallEiPPv@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControl11qt_metacastEPKc@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControl15contrastChangedEi@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControl16staticMetaObjectE@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControl17brightnessChangedEi@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControl17fullScreenChangedEb@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControl17saturationChangedEi@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControlC1EP7QObject@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControlC2EP7QObject@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControlD0Ev@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControlD1Ev@Qt_5 5.6.0~beta
+ _ZN19QVideoWidgetControlD2Ev@Qt_5 5.6.0~beta
+ _ZNK12QVideoWidget10brightnessEv@Qt_5 5.6.0~beta
+ _ZNK12QVideoWidget10metaObjectEv@Qt_5 5.6.0~beta
+ _ZNK12QVideoWidget10saturationEv@Qt_5 5.6.0~beta
+ _ZNK12QVideoWidget11mediaObjectEv@Qt_5 5.6.0~beta
+ _ZNK12QVideoWidget15aspectRatioModeEv@Qt_5 5.6.0~beta
+ _ZNK12QVideoWidget3hueEv@Qt_5 5.6.0~beta
+ _ZNK12QVideoWidget8contrastEv@Qt_5 5.6.0~beta
+ _ZNK12QVideoWidget8sizeHintEv@Qt_5 5.6.0~beta
+ _ZNK17QCameraViewfinder10metaObjectEv@Qt_5 5.6.0~beta
+ _ZNK17QCameraViewfinder11mediaObjectEv@Qt_5 5.6.0~beta
+ _ZNK18QGraphicsVideoItem10metaObjectEv@Qt_5 5.6.0~beta
+ _ZNK18QGraphicsVideoItem10nativeSizeEv@Qt_5 5.6.0~beta
+ _ZNK18QGraphicsVideoItem11mediaObjectEv@Qt_5 5.6.0~beta
+ _ZNK18QGraphicsVideoItem12boundingRectEv@Qt_5 5.6.0~beta
+ _ZNK18QGraphicsVideoItem15aspectRatioModeEv@Qt_5 5.6.0~beta
+ _ZNK18QGraphicsVideoItem4sizeEv@Qt_5 5.6.0~beta
+ _ZNK18QGraphicsVideoItem6offsetEv@Qt_5 5.6.0~beta
+ _ZNK19QVideoWidgetControl10metaObjectEv@Qt_5 5.6.0~beta
+ _ZTI12QVideoWidget@Qt_5 5.6.0~beta
+ _ZTI16QOpenGLFunctions@Qt_5 5.6.0~beta
+ _ZTI17QCameraViewfinder@Qt_5 5.6.0~beta
+ _ZTI18QGraphicsVideoItem@Qt_5 5.6.0~beta
+ _ZTI19QVideoWidgetControl@Qt_5 5.6.0~beta
+ _ZTS12QVideoWidget@Qt_5 5.6.0~beta
+ _ZTS16QOpenGLFunctions@Qt_5 5.6.0~beta
+ _ZTS17QCameraViewfinder@Qt_5 5.6.0~beta
+ _ZTS18QGraphicsVideoItem@Qt_5 5.6.0~beta
+ _ZTS19QVideoWidgetControl@Qt_5 5.6.0~beta
+ _ZTV12QVideoWidget@Qt_5 5.6.0~beta
+ _ZTV17QCameraViewfinder@Qt_5 5.6.0~beta
+ _ZTV18QGraphicsVideoItem@Qt_5 5.6.0~beta
+ _ZTV19QVideoWidgetControl@Qt_5 5.6.0~beta
+ (c++)"non-virtual thunk to QCameraViewfinder::mediaObject() const@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QCameraViewfinder::setMediaObject(QMediaObject*)@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QCameraViewfinder::~QCameraViewfinder()@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QGraphicsVideoItem::boundingRect() const@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QGraphicsVideoItem::itemChange(QGraphicsItem::GraphicsItemChange, QVariant const&)@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QGraphicsVideoItem::mediaObject() const@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QGraphicsVideoItem::paint(QPainter*, QStyleOptionGraphicsItem const*, QWidget*)@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QGraphicsVideoItem::setMediaObject(QMediaObject*)@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QGraphicsVideoItem::~QGraphicsVideoItem()@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QVideoWidget::mediaObject() const@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QVideoWidget::setMediaObject(QMediaObject*)@Qt_5" 5.6.0~beta
+ (c++)"non-virtual thunk to QVideoWidget::~QVideoWidget()@Qt_5" 5.6.0~beta

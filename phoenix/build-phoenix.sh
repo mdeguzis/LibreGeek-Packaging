@@ -61,6 +61,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
+# Need a newer version of qtchooser than Valve's
+export APT_PREFS_HACK="true"
 PKGNAME="phoenix"
 PKGVER="0.0.0"
 upstream_rev="1"

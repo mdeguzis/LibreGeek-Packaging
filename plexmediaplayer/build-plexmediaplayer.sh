@@ -49,7 +49,7 @@ src_cmd=""
 
 # upstream URL
 GIT_URL="https://github.com/plexinc/plex-media-player"
-TARGET="v1.1.4.393-12c41f9f"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,7 +62,7 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 export APT_PREFS_HACK="true"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 PKGNAME="plexmediaplayer"
-PKGVER="1.1.2.359"
+PKGVER="1.1.2.359.1"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGREV="1"

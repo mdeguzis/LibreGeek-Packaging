@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-mari0.sh
+# Scipt Name:	build-3doh.sh
 # Script Ver:	1.0.0
-# Description:	Attmpts to build a deb package from latest mari0
+# Description:	Attmpts to build a deb package from latest 3doh
 #		github release
 #
-# See:		https://github.com/Stabyourself/mari0
+# See:		https://github.com/ProfessorKaos64/3doh
 #
-# Usage:	build-mari0.sh
+# Usage:	build-3doh.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/Stabyourself/mari0"
+SRC_URL="https://github.com/ProfessorKaos64/3doh"
 rel_TARGET="master"
 
 # package vars
@@ -59,10 +59,10 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="mari0"
-PKGVER="1.6"
+PKGNAME="3doh"
+PKGVER="0.1.0"
 PKGREV="1"
-PKGSUFFIX="git+bsos${PKGREV}"
+PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -70,8 +70,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-export GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+export SRC_DIR="${BUILD_TMP}/${SRC_DIR}"
 
 install_prereqs()
 {
@@ -79,12 +78,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential bc dh-lua
-
-	# Needs older love version
-	wget http://ftp.us.debian.org/debian/pool/main/l/love/love_0.8.0-1+deb7u1_amd64.deb
-	sudo dpkg -i love_0.8.0-1+deb7u1_amd64.deb
-	rm love_0.8.0-1+deb7u1_amd64.deb
+	sudo apt-get install -y --force-yes build-essential bc 
 
 }
 
@@ -121,13 +115,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code"
 
 	# clone
-	#git clone -b "$rel_TARGET" "$GIT_URL" "$GIT_DIR"
-
-	# For now, use prebuilt files
-	mkdir -p "$GIT_DIR"
-	cp "$SCRIPTDIR/mari0_1.6.love" "$GIT_DIR"
-	cp "$SCRIPTDIR/mari0" "$GIT_DIR"
-	cp "$SCRIPTDIR/mari0.png" "$GIT_DIR"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -136,21 +124,18 @@ main()
 	echo -e "\n==> Creating original tarball"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# Trim .git folders
-	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	cd "${BUILD_TMP}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r ""$SCRIPTDIR/debian"" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${SRCDIR}"
-
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -158,11 +143,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update build"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
 
@@ -233,7 +220,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

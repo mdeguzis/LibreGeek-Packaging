@@ -9,7 +9,7 @@
 #
 # See:		https://github.com/ProfessorKaos64/3doh
 #
-# Usage:	build-3doh.sh
+# Usage:	./build-3doh.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/ProfessorKaos64/3doh"
-rel_TARGET="master"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

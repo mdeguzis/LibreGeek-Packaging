@@ -49,7 +49,7 @@ src_cmd=""
 
 # upstream URL
 GIT_URL="https://github.com/plexinc/plex-media-player"
-TARGET="v1.1.2.359-2b757d45"
+TARGET="v1.1.4.393-12c41f9f"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

@@ -126,7 +126,6 @@ main()
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
 			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
-			cd "${GIT_DIR}" && git submodule update --init
 
 		else
 
@@ -145,22 +144,15 @@ main()
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
 			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
-			cd "${GIT_DIR}" && git submodule update --init
 
 	fi
 
 	# trim git (after confimed working build)
 	# rm -rf "${GIT_DIR}/.git"
-	
-	# Checkout our desired branch now
-	cd "${GIT_DIR}" && git checkout "${TARGET_branch}" || exit 1
 
 	#################################################
 	# Prep source
 	#################################################
-
-	# Trim .git folders
-	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)

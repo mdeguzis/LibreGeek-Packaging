@@ -11,7 +11,7 @@ override_dh_auto_configure:
 		-DCMAKE_INSTALL_PREFIX=/usr ..
 
 override_dh_auto_build:
-	$(MAKE) DESTDIR=$(CURDIR)/debian/plexmediaplayer -C Build 
+	$(MAKE) VERBOSE=1 DESTDIR=$(CURDIR)/debian/plexmediaplayer -C Build 
 
 override_dh_auto_install:
-	$(MAKE) DESTDIR=$(CURDIR)/debian/plexmediaplayer -C Build install
+	$(MAKE) VERBOSE=1 DESTDIR=$(CURDIR)/debian/plexmediaplayer -C Build install

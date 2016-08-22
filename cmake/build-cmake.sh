@@ -48,19 +48,20 @@ fi
 
 # upstream URL
 GIT_URL="https://cmake.org/cmake.git"
+TARGET="v3.6.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export USE_NETWORK="yes"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="cmake"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-PKGVER="3.5.0"
-PKGREV="2"
+PKGVER="3.6.1"
+PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
@@ -127,7 +128,7 @@ main()
 	echo -e "\n==> Fetching upstream source\n"
 
 	# Get upstream source
-	git clone -b "v${PKGVER}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build cmake source
@@ -144,7 +145,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
 
 	# enter source dir
 	cd "${GIT_DIR}"

@@ -6,7 +6,6 @@
 override_dh_auto_build:
 	rm -rf build  && mkdir build
 	cd build && cmake \
-		-DQUAZIP_LIBRARIES=/usr/include/quazip \
 		-DCMAKE_BUILD_TYPE=Debug \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=on \
 		-DCMAKE_INSTALL_PREFIX=/usr ..

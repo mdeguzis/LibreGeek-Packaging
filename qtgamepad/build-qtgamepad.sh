@@ -116,7 +116,7 @@ main()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
 			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 			cd "${SRC_DIR}" && git submodule update --init
 

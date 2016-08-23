@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Phoenix-Emu
+GenericName=Phoenix-Emu
+Comment=Phoenix 3DO Emulator
+Exec=/usr/games/phoenix-emu-launch
+Icon=/usr/share/pixmaps/phoenix-emu.png
+Terminal=false
+Type=Application

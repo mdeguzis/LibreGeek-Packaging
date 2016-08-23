@@ -1,0 +1,42 @@
+Source: phoenix-emu
+Section: games
+Priority: extra
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.7
+Homepage: http://www.arts-union.ru/
+
+Package: phoenix-emu
+Architecture: all
+Depends: ${misc:Depends}, ${shlib:Depends},
+ libopenal1,
+ libc6,
+ libicu52,
+ libdouble-conversion1,
+ libexpat1,
+ libdrm2,
+ libfreetype6,
+ libgcc1,
+ libglapi-mesa,
+ libglib2.0-0,
+ libgraphite2-3,
+ libharfbuzz0b,
+ libicu52,
+ libpng12-0,
+ libpcre3,
+ libstdc++6,
+ libXext6,
+ libxdamage1,
+ libxfixes3,
+ libx11-xcb1,
+ libxcb-glx,
+ libxcb-dri2-0,
+ libxcb-dri3-0,
+ libxcb-present0,
+ libxcb-sync1,
+ libxdmcp6,
+ libxshmfence1,
+ libxau6,
+ libxxf86vm1,
+ zlib1g
+Description: Phoenix-Emu is a 3DO emulator.

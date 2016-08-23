@@ -3,9 +3,9 @@ Section: libs
 Priority: low
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
-               pkg-kde-tools,
-               qtbase5-dev (>= 5.7.0~),
-               qtbase5-private-dev (>= 5.7.0~)
+ pkg-kde-tools,
+ qtbase5-dev (>= 5.7.0~),
+ libqt5quick5 (>= 5.7.0~)
 Standards-Version: 3.9.8
 Homepage: https://github.com/qt/qtgamepad
 

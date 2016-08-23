@@ -66,8 +66,8 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 export APT_PREFS_HACK="true"
 PKGNAME="phoenix"
 PKGVER="0.0.1"
-upstream_rev="1"
 PKGREV="1"
+PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -128,7 +128,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-		if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
+	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -167,7 +167,6 @@ main()
 	# Get commit for version
 	cd "${SRC_DIR}"
 	export ${PKGNAME}_LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${LATEST_COMMIT}+bsos${PKGREV}"
 	
 	# copy in debian folder
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"

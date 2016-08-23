@@ -16,7 +16,7 @@ override_dh_auto_configure:
 
 override_dh_auto_build:
 	rm -rf ../phoenix_build && mkdir ../phoenix_build
-	cd ../phoenix_build && cmake 
+	cd ../phoenix_build && cmake \
 		-Wdev \
 		-check-system-vars \
 		--debug-output \

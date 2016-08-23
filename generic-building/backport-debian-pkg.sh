@@ -22,7 +22,7 @@
 #################################################
 
 arg1="$1"
-scriptdir="${PWD}"
+SCRIPTDIR="${PWD}"
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 FINAL_OPTS=$(echo "${@: -1}")
@@ -44,7 +44,7 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -sa"
 REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
 PATCH_REMOVE="false"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
@@ -124,15 +124,15 @@ while :; do
 			export APT_PREFS_HACK="true"
 			;;
 
-		--clean|-c)
-			# Clean before starting pbuilder build
-			# dget will apply patches and we repack the source, so generally not used
-			# Reset build opts ot get ride of -nc
-			BUILDOPTS="--debbuildopts -sa"
+		--no-clean|-nc)
+			# Don't clean before starting pbuilder build
+			# Not advised, but at times necessary on systems lacking debhelper packages
+			# such as Arch Linux.
+			BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 			;;
 
 		--remove-patches)
-			# dget applies patches (if properly setup), sometimes pbuilder clashes
+			# Dget applies patches (if properly setup), sometimes pbuilder clashes
 			# Or, we may want to build without patches
 			PATCH_REMOVE="true"
 			;;
@@ -262,6 +262,47 @@ function_get_source()
 function_backport_config()
 {
 	
+	# Test if we have an unpacked source or not
+	# Ubuntu tends to not have an unpacked source
+	# The “-F” marks the delimiter, “$NF” means the last field generated.
+	# You can also use extension="${orig##*.}"
+
+	SOURCE_UNPACK_TEST=$(find ${BUILD_TMP} -maxdepth 1 -type d -iname ${PKGNAME}*)
+	ORIG_TARBALL=$(find ${BUILD_TMP} -type f -name "*orig*")
+
+	# Account for pacakges (like quake2) that only list a dsc and xz archive
+	if [[ "${ORIG_TARBALL}" == "" ]]; then
+
+		# we must be working only with a .xz archive, sans "orig" in filename
+		ORIG_TARBALL=$(find ${BUILD_TMP} -type f -name "*.xz")
+
+	fi
+	
+	# Declare rest of original source
+	ORIG_TARBALL_FILENAME=$(basename ${ORIG_TARBALL})
+	ORIG_TARBALL_EXT=$(echo ${ORIG_TARBALL_FILENAME} | awk -F . '{print $NF}')
+
+	# Add more cases below at some point..
+
+	echo -e "\n==> Unpacking original source\n"
+	sleep 2s
+
+	# Unpack the original tarball
+	case "${ORIG_TARBALL_FILENAME}" in
+
+		*.tar.bz2)
+		tar -vxjf *.tar.bz2
+		;;
+
+		*.tar.xz)
+		tar -xvf *.orig.tar.xz
+		;;
+
+		*.tar.gz)
+		tar -xzvf *.orig.tar.gz
+		;;
+
+	esac
 
 	# Set the source dir
 	SRC_DIR=$(basename `find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*"`)
@@ -279,11 +320,15 @@ function_backport_config()
 
 	fi
 
-	echo -e "\n==> Renaming origninal tarball"
+	# Create our new orig tarball after removing the current one
+	# Do this rather than rename, so an xz archive is not renamed as a fake gz archive
+	# Reminder: the orig tarball does NOT get a revision number!	
+
+	echo -e "\n==> Creating origninal tarball"
 	sleep 2s
 
 	rm -f ${BUILD_TMP}/*.orig.tar.*
-	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" 
+	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" "${SRC_DIR}"
 
 	# Enter source dir
 	cd ${SRC_DIR}
@@ -377,9 +422,9 @@ function_build_package()
 		if ! sudo -E BUILD_TMP=${BUILD_TMP} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
 		${BUILDOPTS}; then
 
-			# back out to scriptdir
+			# back out to SCRIPTDIR
 			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"
-			cd "${scriptdir}"
+			cd "${SCRIPTDIR}"
 
 		fi
 
@@ -389,7 +434,7 @@ function_build_package()
 		cd ${PKGNAME}*
 		if ! sudo mk-build-deps --install --remove; then
 
-			# back out to scriptdir
+			# back out to SCRIPTDIR
 			echo -e "\n!!! FAILED TO ACQUIRE BUILD-DEPS. See output!!! \n"
 			cd "${scritpdir}"
 
@@ -487,5 +532,5 @@ function_show_summary()
 # start main
 main
 
-#In case the script fails cd back to scriptdir
-cd "${scriptdir}"
+#In case the script fails cd back to SCRIPTDIR
+cd "${SCRIPTDIR}"

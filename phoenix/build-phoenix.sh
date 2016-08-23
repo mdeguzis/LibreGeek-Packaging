@@ -160,7 +160,9 @@ main()
 	#################################################
 
 	# Trim .git folders
-	find "${SRC_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+	# Do not remove .git! It will break the build, as it will interfere with
+	# PHOENIX_VER_STR being set.
+	# find "${SRC_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)

@@ -1,12 +1,20 @@
 #!/usr/bin/make -f
 
+# See :https://github.com/team-phoenix/Phoenix/issues/313
+# For some reason, the cmake build directory *must* be outside of the
+# source directory.
+# Out of tree builds are how Qt Creator does it, it allows for multiple build 
+# configurations to coexist without overwriting each other. 
+
+TOP = (shell pwd)
+
 %:
 	dh $@
 
 override_dh_auto_build:
-	rm -rf phoenix_build  && mkdir phoenix_build
-	cd phoenix_build && cmake \
+	cd .. &&  rm -rf phoenix_build && mkdir phoenix_build
+	cmake ../phoenix_build \
 		-DCMAKE_BUILD_TYPE=Debug \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=on \
-		-DCMAKE_INSTALL_PREFIX=/usr ..
-	make -C phoenix_build
+		-DCMAKE_INSTALL_PREFIX=/usr 
+	make -C ../phoenix_build

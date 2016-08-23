@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	backport-debian-pkg.sh.sh
-# Script Ver:	3.6.1
+# Script Ver:	3.6.2
 # Description:	Attempts to build a deb package from upstream Debian source code.
 #		files. Currently only Ubuntu and Debian .dsc files are supported.
 #		Supports full package name/versioning changes to match your repo.
@@ -12,7 +12,7 @@
 #
 # See:		https://wiki.debian.org/BuildingFormalBackports
 #
-# Usage:	./backport-debian-pkg.sh.sh
+# Usage:	./backport-debian-pkg.sh.sh [option-set]
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -25,7 +25,7 @@ arg1="$1"
 scriptdir="${PWD}"
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
-final_opts=$(echo "${@: -1}")
+FINAL_OPTS=$(echo "${@: -1}")
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -44,7 +44,9 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -sa"
+REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
+PATCH_REMOVE="false"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 PKGNAME="$PKGNAME"
 PKGNAME="$PKGNAME"
@@ -112,18 +114,69 @@ function_set_vars()
 	if [[ "${DIST}" == "jessie" ]]; then PROJECT_FOLDER="debian"; fi
 	if [[ "${DIST}" == "jessie-backports" ]]; then PROJECT_FOLDER="debian"; fi
 
-	# Set repo folder full path for rsync
 
-	if [[ "${arg1}" == "--testing" ]]; then
+# source options
+while :; do
+	case $1 in
 
-		REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
+		--apt-prefs-hack)
+			# Allow installation of packages newer than Valve's for building purposes
+			export APT_PREFS_HACK="true"
+			;;
 
-	else
+		--no-clean|-nc)
+			# Don't clean before starting pbuilder build
+			# Not advised, but at times necessary on systems lacking debhelper packages
+			# such as Arch Linux.
+			BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
+			;;
 
-		REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
+		--remove-patches)
+			# Dget applies patches (if properly setup), sometimes pbuilder clashes
+			# Or, we may want to build without patches
+			PATCH_REMOVE="true"
+			;;
 
-	fi
-	
+		--testing)
+			# send packages to test repo location
+			REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
+			;;
+
+		--help|-h) 
+			cat<<-EOF
+			
+			Usage:	 	./backport-debian-pkg.sh [options]
+			Options:	--apt-prefs-hack
+					--no-clean|-nc
+					--remove-patches
+					--testing
+					--help|-h
+
+			EOF
+			break
+			;;
+
+		--)
+		# End of all options.
+		shift
+		break
+		;;
+
+		-?*)
+		printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+		;;
+
+		*)  
+		# Default case: If no more options then break out of the loop.
+		break
+
+	esac
+
+	# shift args
+	shift
+done
+
+
 }
 
 function_setup_env()

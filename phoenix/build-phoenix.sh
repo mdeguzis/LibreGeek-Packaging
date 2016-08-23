@@ -100,21 +100,6 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_TMP
-	if [[ -d "${BUILD_TMP}" ]]; then
-
-		sudo rm -rf "${BUILD_TMP}"
-		mkdir -p "${BUILD_TMP}"
-
-	else
-
-		mkdir -p "${BUILD_TMP}"
-
-	fi
-
-	# enter build dir
-	cd "${BUILD_TMP}" || exit
-
 	# install prereqs for build
 	
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
@@ -123,7 +108,6 @@ main()
 		install_prereqs
 
 	fi
-
 
 	echo -e "\n==> Obtaining upstream source code\n"
 

@@ -188,7 +188,7 @@ main()
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		cd "${BUILD_TMP}"
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRCDIR})
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 		
 	else
 	

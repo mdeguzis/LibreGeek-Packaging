@@ -6,15 +6,18 @@
 # Out of tree builds are how Qt Creator does it, it allows for multiple build 
 # configurations to coexist without overwriting each other. 
 
-TOP = (shell pwd)
+# Set the path to the source code files
+SRC_CODE = (shell pwd)
 
 %:
 	dh $@
 
+override_dh_auto_configure:
+
 override_dh_auto_build:
-	cd .. &&  rm -rf phoenix_build && mkdir phoenix_build
-	cmake ../phoenix_build \
+	rm -rf ../phoenix_build && mkdir ../phoenix_build
+	cd ../phoenix_build && cmake \
 		-DCMAKE_BUILD_TYPE=Debug \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=on \
-		-DCMAKE_INSTALL_PREFIX=/usr 
+		-DCMAKE_INSTALL_PREFIX=/usr $(SRC_CODE)
 	make -C ../phoenix_build

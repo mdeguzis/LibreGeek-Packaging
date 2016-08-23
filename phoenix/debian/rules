@@ -7,7 +7,7 @@
 # configurations to coexist without overwriting each other. 
 
 # Set the path to the source code files
-SRC_CODE = (shell pwd)
+SRC_CODE = $(shell pwd)
 
 %:
 	dh $@

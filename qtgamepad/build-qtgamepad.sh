@@ -8,6 +8,7 @@
 #
 # See:		
 #		https://github.com/qt/qtgamepad
+#		http://doc.qt.io/qt-5/qtgamepad-index.html
 #
 # Usage:	./build-qtgamepad.sh
 # Opts:		[--testing]

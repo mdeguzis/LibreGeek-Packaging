@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-ice.sh
+# Scipt Name:	build-humblebundlemgr.sh
 # Script Ver:	1.9.5
-# Description:	Builds simple pacakge for using ice based of of master upstream
+# Description:	Builds simple pacakge for using humblebundlemgr based of of master upstream
 #		git source
 #
-# See:		https://github.com/scottrice/Ice
+# See:		https://github.com/MestreLion/humblebundle
 #
-# Usage:	./build-ice-steamos.sh
+# Usage:	./build-humblebundlemgr.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -36,8 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
@@ -49,8 +47,8 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/scottrice/Ice"
-rel_TARGET="1.0.0"
+GIT_URL="https://github.com/MestreLion/humblebundle"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,12 +56,10 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="ice-steamos"
-PKGVER="1.0.0"
-upstream_rev="1"
-PKGREV="9"
-PKGSUFFIX="bsos${PKGREV}"
+PKGNAME="humblebundlemgr-steamos"
+PKGVER="0.1.0"
+PKGREV="1"
+PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -71,8 +67,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -80,23 +75,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 
-	# Avoid libattr garbage for 32 bit package installed by emulators
-	if [[ -f "/usr/share/doc/libattr1/changelog.Debian.gz" ]]; then
-
-		sudo mv "/usr/share/doc/libattr1/changelog.Debian.gz" \
-		"/usr/share/doc/libattr1/changelog.Debian.gz.old" 2> /dev/null
-	fi
-
 	# install basic build packages
-	# Additional suggested packages added per: https://wiki.debian.org/Python/LibraryStyleGuide
-	sudo apt-get install -y --force-yes build-essential bc debhelper \
-	python-pip python-psutil groff git python-setuptools dh-python \
-	python-all python-setuptools python-pip python-docutils python-sphinx
-
-	# These packages are now "Debianized" so we don't have to rely on hacky installs with pip
-	# python-addirs is an upsteam Debain package
-	# For the rest, see the respective github repositories under my profile
-	sudo apt-get install -y --force-yes python-appdirs python-pastebin python-psutil pysteam
+	sudo apt-get install -y --force-yes python python-progressbar python-lxml python-keyring
 
 }
 
@@ -127,22 +107,11 @@ main()
 
 	fi
 
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_TARGET" "$GIT_URL" "${GIT_DIR}"
-
-	# Add debian folder
-	cp -r ""$SCRIPTDIR/debian"" "${GIT_DIR}"
-
-	# inject iur modified files
-	cp "$SCRIPTDIR/emulators.txt" "${GIT_DIR}"
-	cp "$SCRIPTDIR/config.txt" "${GIT_DIR}"
-	cp "$SCRIPTDIR/consoles.txt" "${GIT_DIR}"
-	cp "$SCRIPTDIR/ice-steamos.sh" "${GIT_DIR}/ice-steamos"
-	cp "$SCRIPTDIR/debian/README.md" "${GIT_DIR}"
-
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}}"
+	
 	#################################################
 	# Build package
 	#################################################
@@ -150,18 +119,15 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "$PKGNAME"
+	cd "${BUILD_TMP}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "$(basename ${SRC_DIR}"
 
 	# Enter git dir to build
-	cd "${GIT_DIR}"
-
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -169,14 +135,15 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update release"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Initial build"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -203,16 +170,6 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
-	# back out of build tmp to script dir if called from git clone
-	if [[ "${SCRIPTDIR}" != "" ]]; then
-		cd "${SCRIPTDIR}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-
 	# inform user of packages
 	cat<<- EOF
 	#################################################################
@@ -233,9 +190,9 @@ main()
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
-		read -erp "Choice: " transfer_choice
+		read -erp "Chohumblebundlemgr: " TRANSFER_CHOICE
 
-		if [[ "$transfer_choice" == "y" ]]; then
+		if [[ "${TRANSFER_CHOICE}" == "y" ]]; then
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
@@ -243,9 +200,9 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
-		elif [[ "$transfer_choice" == "n" ]]; then
+		elif [[ "${TRANSFER_CHOICE}" == "n" ]]; then
 			echo -e "Upload not requested\n"
 		fi
 

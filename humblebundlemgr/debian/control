@@ -12,9 +12,10 @@ Package: humblebundlemgr
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends},
  python,
+ python-keyring,
  python-progressbar,
- python-lxml,
- python-keyring
+ python-xdg,
+ python-lxml
 Description: HumbleBundleMgr is CLI tool to manage your games.
  .
  Python library and command line tool to manage Humble Bundle 

@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/jp9000/obs-studio"
-TARGET="0.15.2"
+TARGET="0.15.4"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

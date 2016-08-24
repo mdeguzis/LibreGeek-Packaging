@@ -666,6 +666,68 @@ sleep 5s
 # TODO ?
 
 #################################################
+# Block storage (e.g. on a VPS)
+#################################################
+
+cat<<-EOF
+
+==> Setup block storage volume (VPS)?"
+    WARNING: The volume WILL be formatted!
+
+EOF
+
+sleep 0.2s
+read -erp "Choice [y/n]: " MOUNT_BLOCK_STORGE
+
+if [[ "${MOUNT_BLOCK_STORGE}"  == "y" ]]; then
+
+	# Set default
+	VOLUME_NUM="1"
+
+	while [[ ${VOLUME_NUM} -gt 0 ]];
+	do
+
+		# list volumes
+		lsblk
+
+		read -erp "Name of volume (e.g. /dev/sdx) : " VOLUME_NAME
+
+		# Setup volume
+		echo -e "\n==> Setting up volume ${VOLUME_NUM}, please wait."
+		sleep 3s
+
+		sudo parted ${VOLUME_NAME} mklabel gpt
+		sudo parted -a opt ${VOLUME_NAME} mkpart primary ext4 0% 100%
+		sudo mkfs.ext4 ${VOLUME_NAME}
+		sudo mkdir -p /mnt/${VOLUME_NAME}_${NUM}
+		echo "# Volume: ${VOLUME_NAME}_${NUM}" | sudo tee -a "/etc/fstab"
+		echo "${VOLUME_NAME} /mnt/${VOLUME_NAME}_${NUM} ext4 defaults,nofail,discard 0 2" | sudo tee -a "/etc/fstab"
+
+		# mount volumne and fail script if it did not complete
+		if sudo mount -a; then
+			echo -e "\nVolume: ${VOLUME_NAME}_${NUM} mounted successfully"
+		else
+			echo -e "\nVolume: ${VOLUME_NAME}_${NUM} mount failed! Exiting..."
+			exit 1
+		fi
+
+		# See if this is the last volume
+		echo -e "\nIs this the last volum you have to setup? [y/n]"
+		sleep 0.2s
+		read -erp "Choice: " LAST_VOLUME
+
+		if [[ "${LAST_VOLUME}" == "n" ]]; then
+			VOLUME_NUM=$((VOLUME_NUM + 1))
+
+		else
+			VOLUME_NUM=0
+		fi
+
+	done
+
+fi
+
+#################################################
 # Extra setup
 #################################################
 

@@ -23,7 +23,6 @@ SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -125,6 +124,9 @@ main()
 	# create source tarball
 	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "$(basename ${SRC_DIR})"
+
+	# Add debian files
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# Enter git dir to build
 	cd "${SRC_DIR}"

@@ -1,62 +1,23 @@
-Source: ice-steamos
+Source: humblebundlemgr
 Section: games
 Priority: extra
-Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
-Build-Depends: debhelper (>= 9),
- dh-python,
- python-all,
- python-setuptools,
- python-pip,
- python-docutils,
- python-sphinx,
- python-psutil,
- python-appdirs,
- python-pastebin,
- python-psutil,
- pysteam
-Standards-Version: 3.9.5
-Homepage: https://github.com/ProfessorKaos64/Ice
-Vcs-Git: git://github.com/ProfessorKaos64/Ice.git
-Vcs-Browser: https://github.com/ProfessorKaos64/Ice
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: 
+ debhelper (>= 9),
+ dh-python
+Standards-Version: 3.9.7
+Homepage: https://github.com/MestreLion/humblebundle
 
-Package: ice-steamos
-Breaks: ice-steamos-unstable
+Package: humblebundlemgr
 Architecture: all
-Depends: ${python:Depends},
- ${misc:Depends},
- dolphin-emu,
- python-psutil,
- python-appdirs,
- python-pastebin,
- python-psutil,
- pysteam,
- retroarch, 
- retroarch-assets,
- retroarch-joypad-autoconfig,
- libretro-common-overlays,
- libretro-common-shaders,
- libretro-4do,
- libretro-core-info,
- libretro-beetle-wswan,
- libretro-beetle-vb,
- libretro-desmume,
- libretro-fceumm,
- libretro-gambatte,
- libretro-genesisplusgx,
- libretro-mame,
- libretro-mupen64plus,
- libretro-pcsx1,
- libretro-ppsspp,
- libretro-snes9x-next,
- libretro-stella,
- libretro-vba-next,
- xboxdrv
-Description: ICE is a program / utility to bring emulation to Steam BPM.
- The purpose of this project is to leverage Steam's Big Picture mode to 
- turn it into an emulator frontend (similar to Hyperspin). It accomplishes
- this by creating folders in specified locations on the user's hard drive,
- then adding any ROMs that are placed in these folders to Steam as 
- non-Steam games. Emulators are installed and configured by the user 
- before Ice is run.
+Depends: ${python:Depends}, ${misc:Depends},
+ python,
+ python-progressbar,
+ python-lxml,
+ python-keyring
+Description: HumbleBundleMgr is CLI tool to manage your games.
  .
- This package is targeted at SteamOS.
+ Python library and command line tool to manage Humble Bundle 
+ games. List your bundles and games, Show their info, 
+ Download, Install and Uninstall them! It's like apt-get for 
+ Humble Bundle.

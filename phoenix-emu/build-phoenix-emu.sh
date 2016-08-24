@@ -6,6 +6,8 @@
 # Script Ver:	1.0.0
 # Description:	Builds simple pacakge for phoenix-emu (Libretro front-end)
 # See:		http://www.arts-union.ru/sites/default/files/ph27-lin-x64.zip
+#		http://www.emucr.com/2016/05/phoenix-v26.html
+#		www.zophar.net/3do/phoenix.html
 #
 #
 # Usage:	./build-phoenix-emu.sh [option]
@@ -76,7 +78,6 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 
-
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential
 
@@ -116,8 +117,9 @@ main()
 	-q -nc --show-progress
 	unzip "${TARGET}-lin-x64.zip" -d "${SRC_DIR}"
 
-	# launcher
+	# extras
 	cp "${SCRIPTDIR}/phoenix-emu-launch" "${SRC_DIR}"
+	cp "${SCRIPTDIR}/phoenix-emu.png" "${SRC_DIR}"
 
 	#################################################
 	# Prep source

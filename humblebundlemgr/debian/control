@@ -2,7 +2,7 @@ Source: humblebundlemgr
 Section: games
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
-Build-Depends: 
+https://github.com/ProfessorKaos64/LibreGeek-Packaging/tree/brewmaster/humblebundlemgr/debianBuild-Depends: 
  debhelper (>= 9),
  dh-python
 Standards-Version: 3.9.7

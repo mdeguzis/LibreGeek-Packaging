@@ -47,7 +47,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/MestreLion/humblebundle"
+SRC_URL="https://github.com/MestreLion/humblebundle"
 TARGET="master"
 
 # package vars
@@ -110,7 +110,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	
 	#################################################
 	# Build package

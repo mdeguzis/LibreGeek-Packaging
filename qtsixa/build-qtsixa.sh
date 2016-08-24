@@ -125,7 +125,7 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${GIT_DIR}"

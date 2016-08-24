@@ -150,7 +150,7 @@ main()
 	#################################################
 
 	# Trim .git folders
-	find "${SRC_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)

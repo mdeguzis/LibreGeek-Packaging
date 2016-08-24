@@ -128,7 +128,7 @@ main()
 
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"

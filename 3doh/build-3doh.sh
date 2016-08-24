@@ -124,7 +124,7 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${SRC_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"

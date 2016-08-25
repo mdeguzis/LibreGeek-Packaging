@@ -1,5 +1,11 @@
 decaf (0.20160824+git+bsos-1) brewmaster; urgency=low
 
+  * Adjust install targets
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 24 Aug 2016 23:27:17 -0400
+
+decaf (0.20160824+git+bsos-1) brewmaster; urgency=low
+
   * Update release to commit f7c1490
 
  -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 24 Aug 2016 22:17:19 -0400

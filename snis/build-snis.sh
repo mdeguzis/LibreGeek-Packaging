@@ -36,8 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/debian/incoming_testing"
@@ -115,7 +113,6 @@ main()
 	fi
 
 	# Clone upstream source code and branch
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
@@ -129,7 +126,7 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	# find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
@@ -155,7 +152,6 @@ main()
 
 	fi
 
-
 	#################################################
 	# Build Debian package
 	#################################################
@@ -169,8 +165,6 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
-
-	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)

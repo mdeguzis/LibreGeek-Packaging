@@ -58,7 +58,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	# We want to specify our version, more up to date
 	# If not use available version
 	
-	if [[ -f "/etc/apt/sources.list.d/steamos-tools.list " ]]; then
+	if [[ -f "/etc/apt/sources.list.d/steamos-tools.list" ]]; then
 	
 		if sudo apt-get install -y --force-yes -t brewmaster debootstrap &> /dev/null; then
 	

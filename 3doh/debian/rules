@@ -15,6 +15,3 @@ CFLAGS += -USEGL
 	dh $@ 
 
 override_dh_auto_clean:
-
-override_dh_build:
-	$(make) -f makefile.sdl

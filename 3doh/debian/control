@@ -3,10 +3,10 @@ Section: games
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
- build-essential,
- libgl1-mesa-dev,
- libglu1-mesa-dev,
- libsdl1.2-dev
+ libc6-dev,
+ libc6-dev-i386,
+ g++-multilib,
+ zlib1g-dev
 Standards-Version: 3.9.7
 Homepage: https://github.com/ProfessorKaos64/3doh
 

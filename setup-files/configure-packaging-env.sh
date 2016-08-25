@@ -265,7 +265,7 @@ if [[ "${MOUNT_BLOCK_STORGE}"  == "y" ]]; then
 		fi
 
 		# See if this is the last volume
-		echo -e "\nIs this the last volum you have to setup? [y/n]"
+		echo -e "\nIs this the last volume you have to setup? [y/n]"
 		sleep 0.2s
 		read -erp "Choice: " LAST_VOLUME
 
@@ -290,9 +290,11 @@ SYSTEM_SWAP_GB=$(echo "scale=2; ${SYSTEM_SWAP_KB}/1024/1024" | bc)
 if [[ ${SYSTEM_SWAP_KB} == "0" ]]; then
 
 	cat<<- EOF
+
 	==> SWAP space warning!
-	    It appears there is no swap space in use. This is a bad idea
-	    for large builds on low-spec VPS instances. Setup?
+	
+	It appears there is no swap space in use. This is a bad idea
+	for large builds on low-spec VPS instances. Setup?
 
 	EOF
 	
@@ -449,6 +451,8 @@ sudo cp "${SCRIPTDIR}/.sbuildrc" "/root/"
 # very nice visual CLI tool for gdb
 # See: https://github.com/cyrus-and/gdb-dashboard
 
+echo -e "\n==> Obtaining gdb config\n"
+
 wget -P ${HOME} git.io/.gdbinit -q -nc --show-progress
 
 #################################################
@@ -531,7 +535,7 @@ read -erp "Choice [y/n]: " SET_HOST_USER
 if [[ "${SET_HOST_USER}" == "y" ]]; then
 
 	read -erp "Remote username: " REMOTE_USER_TEMP
-	read -erp "Remote host: " REMOTE_HOST_TEMP
+	read -erp "Remote host IP: " REMOTE_HOST_TEMP
 	read -erp "Remote port: " REMOTE_PORT_TEMP
 
 	# Use wildcard to assume if it was set to something else before, clear it
@@ -700,9 +704,9 @@ if [[ ${ROOT_PART_SIZE_KB} -lt 20971520 && ${HOME_PART_SIZE_KB} -lt 20971520 ]];
 	
 	==> (optional) Link pbuilder folders
 	
-	It appears you have < 20G space on the root partition
-	or $HOME drive. Would you like to symlink your pbuilder 
-	folders to another location? [y/n]
+	It appears you have < 20G space available on the root 
+	partition or $HOME drive. Would you like to symlink your 
+	pbuilder folders to another location? [y/n]
 	
 	EOF
 	
@@ -712,7 +716,7 @@ if [[ ${ROOT_PART_SIZE_KB} -lt 20971520 && ${HOME_PART_SIZE_KB} -lt 20971520 ]];
 	if [[ "${LINK_PBUILDER}" == "y" ]]; then
 		
 		sleep 0.2s
-		echo -e "\nLink pbuilder folders to what path?"
+		echo -e "\nLink pbuilder base folder to what path?"
 
 		read -erp "Path: " PBUILDER_LINK_PATH
 		
@@ -746,8 +750,13 @@ sudo mkdir -p "${PBUILDER_ROOT}/local_repo"
 # Link folders if var is set	
 if [[ "${PBUILDER_LINK_PATH}" != "" ]]; then
 
-	# link paths
-	sudo ln -s "${PBUILDER_ROOT}" "${PBUILDER_LINK_PATH}"
+	# link paths after removing real path
+	sudo rm -rf "${PBUILDER_ROOT}"
+	sudo mkdir -p "${PBUILDER_LINK_PATH}/pbuilder"
+	sudo ln -s "${PBUILDER_LINK_PATH}" "${PBUILDER_ROOT}"
+	
+	# Set alternate path var if we need to chown below
+	PBUILDER_ROOT="${PBUILDER_LINK_PATH}/pbuilder"
 fi
 
 # Own folders as user if not a system path

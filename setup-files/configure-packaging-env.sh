@@ -741,12 +741,6 @@ else
 
 fi
 
-# create folders required
-sudo rm -rf "${PBUILDER_ROOT}/hooks"
-sudo mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
-sudo cp -r "${SCRIPTDIR}/hooks" "${PBUILDER_ROOT}"
-sudo mkdir -p "${PBUILDER_ROOT}/local_repo"
-
 # Link folders if var is set	
 if [[ "${PBUILDER_LINK_PATH}" != "" ]]; then
 
@@ -759,6 +753,12 @@ if [[ "${PBUILDER_LINK_PATH}" != "" ]]; then
 	# reset path var if we need to chown below
 	PBUILDER_ROOT="${ALT_PBUILDER_ROOT}"
 fi
+
+# create folders required
+sudo rm -rf "${PBUILDER_ROOT}/hooks"
+sudo mkdir -p "${PBUILDER_ROOT}/${DIST}/aptcache/"
+sudo cp -r "${SCRIPTDIR}/hooks" "${PBUILDER_ROOT}"
+sudo mkdir -p "${PBUILDER_ROOT}/local_repo"
 
 # Own folders as user if not a system path
 if [[ "${SYSTEM_PATH}" == "false" ]]; then

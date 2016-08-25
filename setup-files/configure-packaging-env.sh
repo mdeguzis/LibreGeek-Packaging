@@ -55,9 +55,29 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	sleep 2s
 
 	# Deboostrap was backport to include more scripts, specify version
+	# We want to specify our version, more up to date
+	# If not use available version
+	
+	if [[ -f "/etc/apt/sources.list.d/steamos-tools.list " ]]; then
+	
+		if sudo apt-get install -y --force-yes -t brewmaster debootstrap &> /dev/null; then
+	
+			echo -e "Package: debootstrap [OK]"
+	
+		else
+	
+			# echo and exit if package install fails
+			echo -e "Package: debootstrap [FAILED] Exiting..."
+			exit 1
+	
+		fi
+	
+	fi
+	
+	# Normal set of packages
 	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo \
 	screen pv apt-file curl debian-keyring debian-archive-keyring ubuntu-archive-keyring \
-	debootstrap=1.0.81 osc obs-build mock sbuild apt-cacher-ng quilt"
+	osc obs-build mock sbuild apt-cacher-ng quilt"
 
 	for PKG in ${PKGs};
 	do

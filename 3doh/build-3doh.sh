@@ -47,14 +47,14 @@ else
 fi
 
 # upstream vars
-#SRC_URL="https://github.com/ProfessorKaos64/3doh"
-SRC_URL="https://github.com/arcadenea/3doh"
+SRC_URL="https://github.com/ProfessorKaos64/3doh"
+#SRC_URL="https://github.com/arcadenea/3doh"
 TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="i386"
+ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"

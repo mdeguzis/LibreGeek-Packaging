@@ -3,14 +3,14 @@ Section: games
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
- build-essential:i386,
- libgl1-mesa-dev:i386,
- libglu1-mesa-dev:i386,
- libsdl1.2-dev:i386
+ libc6-dev,
+ libc6-dev-i386,
+ g++-multilib,
+ zlib1g-dev
 Standards-Version: 3.9.7
 Homepage: https://github.com/ProfessorKaos64/3doh
 
 Package: 3doh
-Architecture: i386
-Depends: ${misc:Depends}:i386, ${shlib:Depends}
+Architecture: amd64
+Depends: ${misc:Depends}, ${shlib:Depends}
 Description: A libre 3do emulator 

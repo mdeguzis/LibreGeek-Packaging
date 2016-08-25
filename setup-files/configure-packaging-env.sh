@@ -225,7 +225,6 @@ cat<<-EOF
 EOF
 
 sleep 0.2s
-echo ""
 read -erp "Choice [y/n]: " MOUNT_BLOCK_STORGE
 
 if [[ "${MOUNT_BLOCK_STORGE}"  == "y" ]]; then
@@ -239,6 +238,7 @@ if [[ "${MOUNT_BLOCK_STORGE}"  == "y" ]]; then
 		# list volumes
 		lsblk
 
+		echo ""
 		read -erp "Name of volume (e.g. /dev/sdx) : " VOLUME_NAME
 
 		# Setup volume

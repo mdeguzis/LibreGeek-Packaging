@@ -15,12 +15,12 @@ SRC_CODE = $(shell pwd)
 override_dh_auto_configure:
 
 override_dh_auto_build:
-	rm -rf ../phoenix_build && mkdir ../phoenix_build
-	cd ../phoenix_build && cmake \
+	rm -rf phoenix_build && mkdir phoenix_build
+	cd phoenix_build && cmake \
 		-Wdev \
 		-check-system-vars \
 		--debug-output \
 		-DCMAKE_BUILD_TYPE=Debug \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=on \
 		-DCMAKE_INSTALL_PREFIX=/usr $(SRC_CODE)
-	make VERBOSE=1 -C ../phoenix_build
+	make VERBOSE=1 -C phoenix_build

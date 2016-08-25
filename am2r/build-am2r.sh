@@ -111,12 +111,15 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
+	# get source
 	cd "${BUILD_TMP}"
 	mkdir -p "${SRC_DIR}"
 	wget "${DL_URL}" -q -nc --show-progress
 	tar -xzvf *.tar.gz --strip 1 -C "${SRC_DIR}"
 	rm -f *.tar.gz
+
+	# add launcher
+	cp -r "${SCRIPTDIR}/am2r-launch.sh" "${SRC_DIR}/am2r"
 
 	#################################################
 	# Build package

@@ -31,7 +31,7 @@ sleep 2s
 # libselinux1:i386 on the host machine is needed for some reason on 32 bit chroots
 # See: https://github.com/ProfessorKaos64/SteamOS-Tools/issues/125
 
-echo -e "\n==> Checking for multiarch\n" 
+echo -e "==> Checking for multiarch\n" 
 
 # Test OS first, so we can allow configuration on multiple distros
 OS=$(lsb_release -si)

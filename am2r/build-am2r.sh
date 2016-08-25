@@ -36,8 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
@@ -60,7 +58,7 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="am2r"
 PKGVER="1.1.0"
-PKGREV="1"
+PKGREV="2"
 EPOCH="1"
 PKGSUFFIX="${DATE_SHORT}git+unofficial"
 DIST="brewmaster"
@@ -70,8 +68,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-FILES_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -116,11 +113,10 @@ main()
 
 	# clone
 	cd "${BUILD_TMP}"
-	mkdir -p "${FILES_DIR}"
+	mkdir -p "${SRC_DIR}"
 	wget "${DL_URL}" -q -nc --show-progress
-	tar -xzvf AM2R_linux_unofficial.tar.gz
-	cp -r AM2R_linux_unofficial/* "${FILES_DIR}"
-	rm -f AM2R_linux_unofficial.tar.gz
+	tar -xzvf *.tar.gz --strip 1 -C "${SRC_DIR}"
+	rm -f *.tar.gz
 
 	#################################################
 	# Build package
@@ -134,13 +130,13 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${FILES_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -149,7 +145,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${latest_commit}"
+		-D "${DIST}" -u "${URGENCY}" "Fix install with launcher/wrapper"
 		nano "debian/changelog"
  
 	else
@@ -214,7 +210,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${FILES_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

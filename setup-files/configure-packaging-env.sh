@@ -716,7 +716,7 @@ if [[ ${ROOT_PART_SIZE_KB} -lt 20971520 && ${HOME_PART_SIZE_KB} -lt 20971520 ]];
 	if [[ "${LINK_PBUILDER}" == "y" ]]; then
 		
 		sleep 0.2s
-		echo -e "\nLink pbuilder base folder to what path?"
+		echo -e "\nLink pbuilder base folder to what path? (include trailing slash)"
 
 		read -erp "Path: " PBUILDER_LINK_PATH
 		
@@ -752,11 +752,12 @@ if [[ "${PBUILDER_LINK_PATH}" != "" ]]; then
 
 	# link paths after removing real path
 	sudo rm -rf "${PBUILDER_ROOT}"
-	sudo mkdir -p "${PBUILDER_LINK_PATH}/pbuilder"
-	sudo ln -s "${PBUILDER_LINK_PATH}" "${PBUILDER_ROOT}"
+	ALT_PBUILDER_ROOT="${PBUILDER_LINK_PATH}pbuilder"
+	sudo mkdir -p "${ALT_PBUILDER_ROOT}"
+	sudo ln -s "${ALT_PBUILDER_ROOT}" "${PBUILDER_ROOT}"
 	
-	# Set alternate path var if we need to chown below
-	PBUILDER_ROOT="${PBUILDER_LINK_PATH}/pbuilder"
+	# reset path var if we need to chown below
+	PBUILDER_ROOT="${ALT_PBUILDER_ROOT}"
 fi
 
 # Own folders as user if not a system path

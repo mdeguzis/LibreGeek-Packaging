@@ -47,8 +47,8 @@ else
 fi
 
 # upstream vars
-#SRC_URL="https://github.com/ProfessorKaos64/3doh"
-SRC_URL="https://github.com/arcadenea/3doh"
+SRC_URL="https://github.com/ProfessorKaos64/3doh"
+#SRC_URL="https://github.com/arcadenea/3doh"
 TARGET="master"
 
 # package vars

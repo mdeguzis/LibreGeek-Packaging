@@ -15,14 +15,14 @@
 export SCRIPTDIR=$(pwd)
 BASHRC_RESET="false"
 
-clear
-
 ##################################################
 # Base packages
 ##################################################
 
 # libselinux1:i386 on the host machine is needed for some reason on 32 bit chroots
 # See: https://github.com/ProfessorKaos64/SteamOS-Tools/issues/125
+
+echo -e "\n==> Checking for multiarch\n" 
 
 # Test OS first, so we can allow configuration on multiple distros
 OS=$(lsb_release -si)
@@ -33,6 +33,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	# add multiarch if it is missing
 	if [[ "${MULTIARCH}" == "" ]]; then
 
+		echo -e "Multiarch not found!"
 		sudo dpkg --add-architecture i386
 		echo -e "Updating for multiarch\n" 
 		sleep 2s

@@ -16,6 +16,7 @@ export SCRIPTDIR=$(pwd)
 BASHRC_RESET="false"
 
 cat<<-EOF
+
 ##################################################
 LibreGeek Packaging Environment Setup Script
 ##################################################

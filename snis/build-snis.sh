@@ -36,8 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
@@ -46,11 +44,13 @@ else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
 
+else
+
 fi
 
 # upstream vars
-#GIT_URL="https://github.com/smcameron/space-nerds-in-space"
-GIT_URL="https://github.com/ProfessorKaos64/space-nerds-in-space"
+#SRC_URL="https://github.com/smcameron/space-nerds-in-space"
+SRC_URL="https://github.com/ProfessorKaos64/space-nerds-in-space"
 TARGET="v20160814"
 #TARGET="master"
 
@@ -73,8 +73,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -107,7 +106,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -116,11 +115,10 @@ main()
 	fi
 
 	# Clone upstream source code and branch
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
 	# Build platform
@@ -130,14 +128,14 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	# find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -156,7 +154,6 @@ main()
 
 	fi
 
-
 	#################################################
 	# Build Debian package
 	#################################################
@@ -166,34 +163,28 @@ main()
 
 	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
-	# clean up dirs
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
 	# back out of build tmp to script dir if called from git clone
 	if [[ "${SCRIPTDIR}" != "" ]]; then
 		cd "${SCRIPTDIR}" || exit
 	else
 		cd "${HOME}" || exit
 	fi
-	
+
 	# inform user of packages
 	cat<<- EOF
 	#################################################################
@@ -224,7 +215,8 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cd "${SRC_DIR}" && git add debian/changelog && git commit -m "update changelog"
+			git push origin master && cd ${SCRIPTDIR}
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

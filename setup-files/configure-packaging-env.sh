@@ -184,6 +184,102 @@ else
 fi
 
 #################################################
+# Block storage (e.g. on a VPS)
+#################################################
+
+cat<<-EOF
+
+==> Setup block storage volume (VPS)?"
+    WARNING: The volume WILL be formatted!
+
+EOF
+
+sleep 0.2s
+read -erp "Choice [y/n]: " MOUNT_BLOCK_STORGE
+
+if [[ "${MOUNT_BLOCK_STORGE}"  == "y" ]]; then
+
+	# Set default
+	VOLUME_NUM="1"
+
+	while [[ ${VOLUME_NUM} -gt 0 ]];
+	do
+
+		# list volumes
+		lsblk
+
+		read -erp "Name of volume (e.g. /dev/sdx) : " VOLUME_NAME
+
+		# Setup volume
+		echo -e "\n==> Setting up volume ${VOLUME_NUM}, please wait."
+		sleep 3s
+
+		sudo parted ${VOLUME_NAME} mklabel gpt
+		sudo parted -a opt ${VOLUME_NAME} mkpart primary ext4 0% 100%
+		sudo mkfs.ext4 ${VOLUME_NAME}
+		sudo mkdir -p /mnt/${VOLUME_NAME}_${NUM}
+		echo "# Volume: ${VOLUME_NAME}_${NUM}" | sudo tee -a "/etc/fstab"
+		echo "${VOLUME_NAME} /mnt/${VOLUME_NAME}_${NUM} ext4 defaults,nofail,discard 0 2" | sudo tee -a "/etc/fstab"
+
+		# mount volumne and fail script if it did not complete
+		if sudo mount -a; then
+			echo -e "\nVolume: ${VOLUME_NAME}_${NUM} mounted successfully"
+		else
+			echo -e "\nVolume: ${VOLUME_NAME}_${NUM} mount failed! Exiting..."
+			exit 1
+		fi
+
+		# See if this is the last volume
+		echo -e "\nIs this the last volum you have to setup? [y/n]"
+		sleep 0.2s
+		read -erp "Choice: " LAST_VOLUME
+
+		if [[ "${LAST_VOLUME}" == "n" ]]; then
+			VOLUME_NUM=$((VOLUME_NUM + 1))
+
+		else
+			VOLUME_NUM=0
+		fi
+
+	done
+
+fi
+
+#################################################
+# swap
+#################################################
+
+SYSTEM_SWAP_KB=$(cat /proc/meminfo | awk '/SwapTotal/{print $2}')
+SYSTEM_SWAP_GB=$(echo "scale=2; ${SYSTEM_SWAP_KB}/1024/1024" | bc)
+
+if [[ ${SYSTEM_SWAP_KB} == "0" ]]; then
+
+	cat<<- EOF
+	==> SWAP space warning!
+	    It appears there is no swap space in use. This is a bad idea
+	    for large builds on low-spec VPS instances. Setup?
+
+	EOF
+	
+	read -erp "Choice [y/n]: " SETUP_SWAP
+	
+	if [[ "${SETUP_SWAP}" == "y" ]]; then
+
+		read -erp "Size of swap spce in GB: " SWAP_SIZE_TEMP
+		SWAP_SIZE=$((SWAP_SIZE_TEMP * 1000))
+		sudo touch /var/swap.img
+		sudo chmod 600 /var/swap.img
+		sudo dd if=/dev/zero of=/var/swap.img bs=1024k count=${SWAP_SIZE}
+		sudo mkswap /var/swap.img
+		sudo swapon /var/swap.img
+		echo "# Manual setup swap space" | sudo tee -a /etc/fstab
+		echo "/var/swap.img    none    swap    sw    0    0" | sudo tee -a /etc/fstab
+
+	fi
+	
+fi
+
+#################################################
 # Create DIRectories
 #################################################
 
@@ -442,39 +538,6 @@ cp "${SCRIPTDIR}/repo-include.txt" "${STEAMOS_TOOLS_CONFIGS}"
 cp "${SCRIPTDIR}/repo-filter.txt" "${STEAMOS_TOOLS_CONFIGS}"
 
 #################################################
-# swap
-#################################################
-
-SYSTEM_SWAP_KB=$(cat /proc/meminfo | awk '/SwapTotal/{print $2}')
-SYSTEM_SWAP_GB=$(echo "scale=2; ${SYSTEM_SWAP_KB}/1024/1024" | bc)
-
-if [[ ${SYSTEM_SWAP_KB} == "0" ]]; then
-
-	cat<<- EOF
-	==> SWAP space warning!
-	    It appears there is no swap space in use. This is a bad idea
-	    for large builds on low-spec VPS instances. Setup?
-
-	EOF
-	
-	read -erp "Choice [y/n]: " SETUP_SWAP
-	
-	if [[ "${SETUP_SWAP}" == "y" ]]; then
-
-		read -erp "Size of swap spce in GB: " SWAP_SIZE_TEMP
-		SWAP_SIZE=$((SWAP_SIZE_TEMP * 1000))
-		sudo touch /var/swap.img
-		sudo chmod 600 /var/swap.img
-		sudo dd if=/dev/zero of=/var/swap.img bs=1024k count=${SWAP_SIZE}
-		sudo mkswap /var/swap.img
-		sudo swapon /var/swap.img
-		echo "# Manual setup swap space" | sudo tee -a /etc/fstab
-		echo "/var/swap.img    none    swap    sw    0    0" | sudo tee -a /etc/fstab
-
-	fi
-	
-fi
-#################################################
 # Preferences
 #################################################
 
@@ -589,6 +652,39 @@ fi
 echo -e "\nAdding pbuilder folders"
 sleep 1s
 
+# See if user wants to link pbuilder folders to block storage
+# This is a good idea for large builds on cost-effective VPS instances
+# Use KB as a standard (though obviously slim chance dist is <= 1GB)
+ROOT_PART_SIZE_KB=$(df -k | awk '$6 == "/" {print $4}')
+HOME_PART_SIZE_KB=$(df -k | awk '$6 == "/home" {print $4}')
+
+# Ensure our availabe hard drive size is more than 20971520 KB (20 GB binary)
+if [[ ${ROOT_PART_SIZE_KB} -lt 20971520 && ${HOME_PART_SIZE_KB} -lt 20971520 ]]; then
+
+	cat<<- EOF
+	
+	==> (optional) Link pbuilder folders
+	
+	It appears you have < 20G space on the root partition
+	or $HOME drive. Would you like to symlink your pbuilder 
+	folders to another location? [y/n]
+	
+	EOF
+	
+	sleep 0.2s
+	read -erp "Choice: " LINK_PBUILDER
+	
+	if [[ "${LINK_PBUILDER}" == "y" ]]; then
+		
+		sleep 0.2s
+		echo -e "\nLink pbuilder folders to what path?"
+
+		read -erp "Path: " PBUILDER_LINK_PATH
+		
+	fi
+
+fi
+
 # root on SteamOS is small, divert cache DIR if applicable
 # Also adjust for other locations, due to limited space on root
 # LOCAL_REPO is defined in pbuilderc
@@ -596,16 +692,33 @@ OS=$(lsb_release -si)
 
 if [[ "${OS}" == "SteamOS" ]]; then
 
-	rm -rf "${HOME}/pbuilder/hooks"
-	mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
-	cp -r "${SCRIPTDIR}/hooks" "${HOME}/pbuilder/"
-	mkdir -p "${HOME}/pbuilder/local_repo"
+	PBUILDER_ROOT="${HOME}/pbuilder"
+	SYSTEM_PATH="false"
 
 else
 
-	sudo rm -rf "/var/cache/pbuilder/hooks"
-	sudo cp -r "${SCRIPTDIR}/hooks" "/var/cache/pbuilder/"
-	sudo mkdir -p "/var/cache/pbuilder/local_repo"
+	PBUILDER_ROOT="/var/cache/pbuilder"
+	SYSTEM_PATH="true"
+
+fi
+
+# create folders required
+sudo rm -rf "${PBUILDER_ROOT}/hooks"
+sudo mkdir -p "${HOME}/pbuilder/${DIST}/aptcache/"
+sudo cp -r "${SCRIPTDIR}/hooks" "${PBUILDER_ROOT}"
+sudo mkdir -p "${PBUILDER_ROOT}/local_repo"
+
+# Link folders if var is set	
+if [[ "${PBUILDER_LINK_PATH}" != "" ]]; then
+
+	# link paths
+	sudo ln -s "${PBUILDER_ROOT}" "${PBUILDER_LINK_PATH}"
+fi
+
+# Own folders as user if not a system path
+if [[ "${SYSTEM_PATH}" == "false" ]]; then
+
+	sudo chown -R $USER:$USER ${PBUILDER_ROOT}
 
 fi
 
@@ -665,67 +778,6 @@ sleep 5s
 
 # TODO ?
 
-#################################################
-# Block storage (e.g. on a VPS)
-#################################################
-
-cat<<-EOF
-
-==> Setup block storage volume (VPS)?"
-    WARNING: The volume WILL be formatted!
-
-EOF
-
-sleep 0.2s
-read -erp "Choice [y/n]: " MOUNT_BLOCK_STORGE
-
-if [[ "${MOUNT_BLOCK_STORGE}"  == "y" ]]; then
-
-	# Set default
-	VOLUME_NUM="1"
-
-	while [[ ${VOLUME_NUM} -gt 0 ]];
-	do
-
-		# list volumes
-		lsblk
-
-		read -erp "Name of volume (e.g. /dev/sdx) : " VOLUME_NAME
-
-		# Setup volume
-		echo -e "\n==> Setting up volume ${VOLUME_NUM}, please wait."
-		sleep 3s
-
-		sudo parted ${VOLUME_NAME} mklabel gpt
-		sudo parted -a opt ${VOLUME_NAME} mkpart primary ext4 0% 100%
-		sudo mkfs.ext4 ${VOLUME_NAME}
-		sudo mkdir -p /mnt/${VOLUME_NAME}_${NUM}
-		echo "# Volume: ${VOLUME_NAME}_${NUM}" | sudo tee -a "/etc/fstab"
-		echo "${VOLUME_NAME} /mnt/${VOLUME_NAME}_${NUM} ext4 defaults,nofail,discard 0 2" | sudo tee -a "/etc/fstab"
-
-		# mount volumne and fail script if it did not complete
-		if sudo mount -a; then
-			echo -e "\nVolume: ${VOLUME_NAME}_${NUM} mounted successfully"
-		else
-			echo -e "\nVolume: ${VOLUME_NAME}_${NUM} mount failed! Exiting..."
-			exit 1
-		fi
-
-		# See if this is the last volume
-		echo -e "\nIs this the last volum you have to setup? [y/n]"
-		sleep 0.2s
-		read -erp "Choice: " LAST_VOLUME
-
-		if [[ "${LAST_VOLUME}" == "n" ]]; then
-			VOLUME_NUM=$((VOLUME_NUM + 1))
-
-		else
-			VOLUME_NUM=0
-		fi
-
-	done
-
-fi
 
 #################################################
 # Extra setup

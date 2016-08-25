@@ -247,15 +247,15 @@ if [[ "${MOUNT_BLOCK_STORGE}"  == "y" ]]; then
 		sudo parted ${VOLUME_NAME} mklabel gpt
 		sudo parted -a opt ${VOLUME_NAME} mkpart primary ext4 0% 100%
 		sudo mkfs.ext4 ${VOLUME_NAME}
-		sudo mkdir -p /mnt/${VOLUME_NAME}_${NUM}
-		echo "# Volume: ${VOLUME_NAME}_${NUM}" | sudo tee -a "/etc/fstab"
-		echo "${VOLUME_NAME} /mnt/${VOLUME_NAME}_${NUM} ext4 defaults,nofail,discard 0 2" | sudo tee -a "/etc/fstab"
+		sudo mkdir -p /mnt/${VOLUME_NAME}_${VOLUME_NUM}
+		echo "# Volume: ${VOLUME_NAME}_${VOLUME_NUM}" | sudo tee -a "/etc/fstab"
+		echo "${VOLUME_NAME} /mnt/${VOLUME_NAME}_${VOLUME_NUM} ext4 defaults,nofail,discard 0 2" | sudo tee -a "/etc/fstab"
 
 		# mount volumne and fail script if it did not complete
 		if sudo mount -a; then
-			echo -e "\nVolume: ${VOLUME_NAME}_${NUM} mounted successfully"
+			echo -e "\nVolume: ${VOLUME_NAME}_${VOLUME_NUM} mounted successfully"
 		else
-			echo -e "\nVolume: ${VOLUME_NAME}_${NUM} mount failed! Exiting..."
+			echo -e "\nVolume: ${VOLUME_NAME}_${VOLUME_NUM} mount failed! Exiting..."
 			exit 1
 		fi
 

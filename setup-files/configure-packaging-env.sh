@@ -239,27 +239,28 @@ if [[ "${MOUNT_BLOCK_STORGE}"  == "y" ]]; then
 		lsblk
 
 		echo ""
-		read -erp "Name of volume (e.g. /dev/sdx) : " VOLUME_NAME
+		read -erp "Device location of volume (e.g. /dev/sdx) : " VOLUME_LOC
+		read -erp "Mount label to apply: " VOLUME_NAME
 
 		# unmount device if mounted
-		sudo umount ${VOLUME_NAME}
+		sudo umount ${VOLUME_LOC}
 
 		# Setup volume
 		echo -e "\n==> Setting up volume ${VOLUME_NUM}, please wait."
 		sleep 3s
 
-		sudo parted ${VOLUME_NAME} mklabel gpt
-		sudo parted -a opt ${VOLUME_NAME} mkpart primary ext4 0% 100%
-		sudo mkfs.ext4 ${VOLUME_NAME}
-		sudo mkdir -p /mnt/${VOLUME_NAME}_${VOLUME_NUM}
-		echo "# Volume: ${VOLUME_NAME} setup" | sudo tee -a "/etc/fstab"
-		echo "${VOLUME_NAME} /mnt/${VOLUME_NAME}_${VOLUME_NUM} ext4 defaults,nofail,discard 0 2" | sudo tee -a "/etc/fstab"
+		sudo parted ${VOLUME_LOC} mklabel gpt
+		sudo parted -a opt ${VOLUME_LOC} mkpart primary ext4 0% 100%
+		sudo mkfs.ext4 ${VOLUME_LOC}
+		sudo mkdir -p /mnt/${VOLUME_NAME}
+		echo "# Volume: ${VOLUME_LOC} setup" | sudo tee -a "/etc/fstab"
+		echo "${VOLUME_LOC} /mnt/${VOLUME_NAME} ext4 defaults,nofail,discard 0 2" | sudo tee -a "/etc/fstab"
 
 		# mount volumne and fail script if it did not complete
 		if sudo mount -a; then
-			echo -e "\nVolume: ${VOLUME_NAME}_${VOLUME_NUM} mounted successfully"
+			echo -e "\nVolume: /mnt/${VOLUME_NAME} mounted successfully"
 		else
-			echo -e "\nVolume: ${VOLUME_NAME}_${VOLUME_NUM} mount failed! Exiting..."
+			echo -e "\nVolume: /mnt/${VOLUME_NAME} mount failed! Exiting..."
 			exit 1
 		fi
 

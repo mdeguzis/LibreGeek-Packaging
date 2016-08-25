@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-#GIT_URL="https://github.com/smcameron/space-nerds-in-space"
-GIT_URL="https://github.com/ProfessorKaos64/space-nerds-in-space"
+#SRC_URL="https://github.com/smcameron/space-nerds-in-space"
+SRC_URL="https://github.com/ProfessorKaos64/space-nerds-in-space"
 TARGET="v20160814"
 #TARGET="master"
 
@@ -73,8 +73,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -120,7 +119,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
 	# Build platform
@@ -130,14 +129,14 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -220,7 +219,8 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cd "${SRC_DIR}" && git add debian/changelog && git commit -m "update changelog"
+			git push origin master && cd ${SCRIPTDIR}
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

@@ -1,2 +1,3 @@
 cmake_build/src/decaf-sdl	/usr/games
+cmake_build/src/decaf-cli       /usr/games
 decaf.png			/usr/share/pixmaps/

@@ -241,6 +241,9 @@ if [[ "${MOUNT_BLOCK_STORGE}"  == "y" ]]; then
 		echo ""
 		read -erp "Name of volume (e.g. /dev/sdx) : " VOLUME_NAME
 
+		# unmount device if mounted
+		sudo umount ${VOLUME_NAME}
+
 		# Setup volume
 		echo -e "\n==> Setting up volume ${VOLUME_NUM}, please wait."
 		sleep 3s

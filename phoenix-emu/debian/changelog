@@ -1,0 +1,17 @@
+phoenix-emu (2.7+bsos-2) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 25 Aug 2016 17:21:49 -0400
+
+phoenix-emu (2.7+bsos-2) brewmaster; urgency=low
+
+  * Fix run-time dep
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 25 Aug 2016 16:57:15 -0400
+
+phoenix-emu (2.7+bsos-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 25 Aug 2016 11:32:47 -0400

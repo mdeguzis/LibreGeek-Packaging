@@ -1,6 +1,6 @@
 phoenix-emu-launch	/usr/games/
-PhoenixEmuProject	/usr/share/phoenix-emu
-scalers			/usr/share/phoenix-emu
-shaders			/usr/share/phoenix-emu
-skin			/usr/share/phoenix-emu
+PhoenixEmuProject	/usr/share/phoenix-emu/
+scalers			/usr/share/phoenix-emu/
+shaders			/usr/share/phoenix-emu/
+skin			/usr/share/phoenix-emu/
 logo.png		/usr/share/pixmaps/phoenix-emu.png

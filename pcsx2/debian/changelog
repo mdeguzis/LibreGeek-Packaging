@@ -1,8 +1,8 @@
-pcsx2-unstable (1.5.0+20160820git+bsos-1) brewmaster; urgency=low
+pcsx2-unstable (1.5.0+20160825git+bsos-1) brewmaster; urgency=low
 
-  * Update to commit a0b014e
+  * Update to commit 5a1cb00
 
- -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 20 Aug 2016 18:45:47 -0400
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 25 Aug 2016 13:58:15 -0400
 
 pcsx2-unstable (1.5.0+20160715git+bsos-1) brewmaster; urgency=low
 

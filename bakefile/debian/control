@@ -1,0 +1,15 @@
+Source: bakefile
+Section: games
+Priority: extra
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ default-jre,
+ python-dev,
+ python-sphinx,
+Standards-Version: 3.9.7
+Homepage: https://github.com/vslavik/bakefile
+
+Package: bakefile
+Architecture: all
+Depends: ${misc:Depends}, ${shlib:Depends},
+Description: bakefile is a 3DO emulator.

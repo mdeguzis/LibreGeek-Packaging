@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-am2r.sh
+# Scipt Name:	build-bakefile.sh
 # Script Ver:	1.0.0
-# Description:	Attmpts to builad a deb package from latest libretro am2r
-#		github release
+# Description:	Builds simple pacakge for bakefile
+#		https://github.com/vslavik/bakefile
 #
-# See:		https://www.mediafire.com/?v5aoyt9d6ga4hee
 #
-# Usage:	./build-am2r.sh
+# Usage:	./build-bakefile.sh [option]
+# Options:	---recursive -build-test
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -47,7 +47,8 @@ else
 fi
 
 # upstream vars
-DL_URL="http://libregeek.org/SteamOS-Extra/games/AM2R_v1.1_linux_unofficial.tar.gz"
+SRC_URL="https://github.com/vslavik/bakefile"
+TARGET="v1.2.5.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -55,12 +56,11 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
-export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="am2r"
-PKGVER="1.1.0"
-PKGREV="2"
-EPOCH="1"
-PKGSUFFIX="${DATE_SHORT}git+unofficial"
+export STEAMOS_TOOLS_BETA_HOOK="true"
+PKGNAME="bakefile"
+PKGVER="1.2.5.1"
+PKGREV="1"
+PKGSUFFIX="bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -75,8 +75,9 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
+
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential
+	sudo apt-get install -y --force-yes build-essential
 
 }
 
@@ -99,7 +100,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -107,57 +108,44 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# get source
-	cd "${BUILD_TMP}"
-	mkdir -p "${SRC_DIR}"
-	wget "${DL_URL}" -q -nc --show-progress
-	tar -xzvf *.tar.gz --strip 1 -C "${SRC_DIR}"
-	rm -f *.tar.gz
-
-	# add launcher
-	cp -r "${SCRIPTDIR}/am2r-launch.sh" "${SRC_DIR}/am2r"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
-	# Build package
+	# Prep source
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
-	# create source tarball
 	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
-	# copy in debian folder
+	# add debian/
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
-	# enter source dir
+	###############################################################
+	# build package
+	###############################################################
+
+	# Enter git dir to build
 	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
-	# update changelog with dch
+ 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Fix install with launcher/wrapper"
+		-D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
- 
+
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano "debian/changelog"
+		-D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
+
 
 	#################################################
 	# Build Debian package
@@ -166,22 +154,33 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
+
+	# clean up dirs
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
+
+	# assign value to build folder for exit warning below
+	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
+
+	# back out of build tmp to script dir if called from git clone
+	if [[ "${SCRIPTDIR}" != "" ]]; then
+		cd "${SCRIPTDIR}" || exit
+	else
+		cd "${HOME}" || exit
+	fi
 
 	# inform user of packages
 	cat<<- EOF
@@ -231,3 +230,4 @@ main()
 
 # start main
 main
+

@@ -1,0 +1,19 @@
+Source: wudecrypt
+Section: games
+Priority: extra
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ bakefile,
+ make,
+ python
+Standards-Version: 3.9.7
+Homepage: https://github.com/maki-chan/wudecrypt
+
+Package: wudecrypt
+Architecture: all
+Depends: ${misc:Depends}, ${shlib:Depends},
+Description: wudecrypt is a decryption tool for WiiU.
+ .
+ wudecrypt (sometimes also written WUDecrypt) is a 
+ tool written in C, fully cross-platform compatible,
+ to decrypt Wii U Disk images (.wud).

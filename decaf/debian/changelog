@@ -1,3 +1,9 @@
+decaf (0.20160825+git+bsos-1) brewmaster; urgency=low
+
+  * Update release to commit 12efbc4
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 25 Aug 2016 08:38:52 -0400
+
 decaf (0.20160824+git+bsos-1) brewmaster; urgency=low
 
   * Adjust install targets

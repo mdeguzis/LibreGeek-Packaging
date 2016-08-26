@@ -1,0 +1,11 @@
+--- a/backend/input/CMakeLists.txt
++++ b/backend/input/CMakeLists.txt
+@@ -9,7 +9,7 @@
+ 	${CMAKE_CURRENT_LIST_DIR}/sdlmanager.cpp
+ 	${CMAKE_CURRENT_LIST_DIR}/sdlunloader.cpp
+ 
+-	${CMAKE_CURRENT_LIST_DIR}/controllerdb.qrc
++	${CMAKE_CURRENT_LIST_DIR}/backend_input_controllerdb.qrc
+ 
+ 	PUBLIC
+ 	${CMAKE_CURRENT_LIST_DIR}/gamepadstate.h

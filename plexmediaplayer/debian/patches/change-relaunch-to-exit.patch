@@ -1,0 +1,13 @@
+--- a/resources/settings/settings_description.json
++++ b/resources/settings/settings_description.json
+@@ -96,8 +96,8 @@
+       },
+       {
+         "value": "showPowerOptions",
+-        "default": true,
+-        "hidden": true
++        "default": false,
++        "hidden": false
+       },
+       {
+         "value": "useSystemVideoCodecs",

@@ -1,3 +1,5 @@
-cmake_build/src/decaf-sdl/decaf-sdl	/usr/games
-cmake_build/src/decaf-cli/decaf-cli	/usr/games
+decaf-launch.sh				/usr/games/decaf
+cmake_build/src/decaf-sdl		/usr/share/decaf/
+cmake_build/src/decaf-cli		/usr/share/decaf/
+resources				/usr/share/decaf/
 decaf.png				/usr/share/pixmaps/

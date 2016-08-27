@@ -48,11 +48,7 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/libretro/RetroArch"
-#TARGET="v1.3.4"
-
-# Man page error in current release.
-# Master is close enough, use that
-TARGET="master"
+TARGET="v1.3.6"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,9 +58,8 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="retroarch"
-
 PKGVER="1.3.6"
-PKGREV="1"
+PKGREV="2"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
@@ -113,7 +108,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -131,7 +126,7 @@ main()
 	# inject .desktop file (not found in release archives) and image
 	cp -r "$SCRIPTDIR/retroarch.png" "${GIT_DIR}"
 	cp -r "$SCRIPTDIR/retroarch.desktop" "${GIT_DIR}"
-	
+
 	###############################################################
 	# correct any files needed here that you can ahead of time
 	###############################################################
@@ -186,21 +181,21 @@ main()
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-	
+
 	# inform user of packages
 	cat<<- EOF
 	#################################################################
@@ -249,4 +244,3 @@ main()
 
 # start main
 main
-

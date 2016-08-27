@@ -75,7 +75,7 @@ libretro_info_path = "/usr/share/libretro/info/"
 # system_directory =
 
 # Sets start directory for menu content browser.
-rgui_browser_directory = "~/"
+rgui_browser_directory = "~"
 
 # Content directory. Interacts with RETRO_ENVIRONMENT_GET_CONTENT_DIRECTORY.
 # Usually set by developers who bundle libretro/RetroArch apps to point to assets.
@@ -126,7 +126,7 @@ rgui_config_directory = "~/.config/retroarch/"
 # video_fullscreen_y = 0
 
 # Start in fullscreen. Can be changed at runtime.
-# video_fullscreen = false
+video_fullscreen = true
 
 # If fullscreen, prefer using a windowed fullscreen mode.
 # video_windowed_fullscreen = true
@@ -355,7 +355,7 @@ audio_filter_dir = "/usr/lib/retroarch/filters/audio/"
 
 # Enable input auto-detection. Will attempt to autoconfigure
 # joypads, Plug-and-Play style.
-# input_autodetect_enable = true
+input_autodetect_enable = true
 
 # Show the input descriptors set by the core instead of the
 # default ones.
@@ -384,7 +384,7 @@ audio_filter_dir = "/usr/lib/retroarch/filters/audio/"
 # Input binds which are made explicit (input_playerN_*_btn/axis) will take priority over autoconfigs.
 # Autoconfigs can be created with retroarch-joyconfig, manually, or with a frontend.
 # Requires input_autodetect_enable to be enabled.
-# joypad_autoconfig_dir =
+joypad_autoconfig_dir = "/usr/share/libretro/autoconfig/"
 
 # Sets which libretro device is used for a user.
 # Devices are indentified with a number.

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Append our pwd to LD_LIBRARY_PATH to handle the current run-path
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./
+
+# Enter directory with launcher and assets
+cd /usr/share/games/am2r
+
+# Start game
+./am2r

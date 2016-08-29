@@ -58,7 +58,7 @@ BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="am2r"
 PKGVER="1.1.0"
-PKGREV="2"
+PKGREV="1"
 EPOCH="1"
 PKGSUFFIX="${DATE_SHORT}git+unofficial"
 DIST="brewmaster"
@@ -99,7 +99,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -118,8 +118,9 @@ main()
 	tar -xzvf *.tar.gz --strip 1 -C "${SRC_DIR}"
 	rm -f *.tar.gz
 
-	# add launcher
-	cp -r "${SCRIPTDIR}/am2r-launch.sh" "${SRC_DIR}/am2r"
+	# add launcher and extras
+#	cp -r "${SCRIPTDIR}/am2r-launch" "${SRC_DIR}"
+	cp -r "${SCRIPTDIR}/am2r.png" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -129,7 +130,7 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
@@ -150,7 +151,7 @@ main()
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Fix install with launcher/wrapper"
 		nano "debian/changelog"
- 
+
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \

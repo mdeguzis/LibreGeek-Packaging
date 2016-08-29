@@ -1,2 +1,4 @@
-am2r		/usr/games/am2r
-assets/*	/usr/share/games/am2r
+debian/am2r.desktop	/usr/share/applications/
+am2r			/usr/share/games/am2r/
+assets			/usr/share/games/am2r/
+am2r.png		/usr/share/pixmaps/

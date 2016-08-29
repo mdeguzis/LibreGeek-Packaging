@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Enable and start services
+
+echo "==> Enabling ds4drv.service"
+systemctl enable ds4drv.service
+
+echo "==> Starting ds4drv.service"
+systemctl start ds4drv.service

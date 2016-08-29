@@ -22,8 +22,6 @@ arg1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
-
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -41,31 +39,31 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
 # Ryochans fork is more up to date
 # See: https://github.com/chrippa/ds4drv/pull/72#issuecomment-211043786
 
-#GIT_URL="https://github.com/chrippa/ds4drv"
-GIT_URL="https://github.com/Ryochan7/ds4drv"
-branch="master"
+SRC_URL="https://github.com/chrippa/ds4drv"
+#SRC_URL="https://github.com/Ryochan7/ds4drv"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="ds4drv"
 epoch="1"
-PKGVER="0.5.0"
+PKGVER="0.5.1"
 PKGSUFFIX="${DATE_SHORT}git+bsos"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="false"
@@ -77,8 +75,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -122,12 +119,12 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
 	# Build platform
@@ -137,17 +134,17 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/ds4drv/debian" "${GIT_DIR}"
+	cp -r "$SCRIPTDIR/ds4drv/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -223,7 +220,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/ds4drv/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

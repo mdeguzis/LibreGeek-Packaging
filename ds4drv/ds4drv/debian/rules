@@ -2,4 +2,3 @@
 
 %:
 	dh $@ --with python2 --with=systemd
-

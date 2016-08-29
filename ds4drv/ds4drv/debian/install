@@ -1,0 +1,2 @@
+# The build doesn't install the service automatically
+systemd/ds4drv.service		/usr/lib/systemd/system/

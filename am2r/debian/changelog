@@ -1,17 +1,5 @@
-am2r (1.1.0+20160825git+unofficial-2) brewmaster; urgency=low
-
-  * Fix install with launcher/wrapper
-
- -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 25 Aug 2016 14:42:42 -0400
-
-am2r (1.1.0+20160820git+unofficial-1) brewmaster; urgency=low
-
-  * Update to the latest commit
-
- -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 20 Aug 2016 12:19:39 -0400
-
-am2r (1.0.0+20160809git+unofficial-1) brewmaster; urgency=low
+am2r (1.1.0+20160826git+unofficial-1) brewmaster; urgency=low
 
   * Initial build
 
- -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 09 Aug 2016 22:36:59 -0400
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 26 Aug 2016 19:22:32 -0400

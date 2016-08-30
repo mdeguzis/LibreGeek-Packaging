@@ -152,7 +152,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update packge to release $PKGVER, commit $LATEST_COMMIT"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update package to release $PKGVER, commit $LATEST_COMMIT"
 		nano "debian/changelog"
 
 	else

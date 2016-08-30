@@ -5,18 +5,18 @@ Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
  cmake,
  help2man,
- libcurl4-openssl-dev,
  libboost-regex-dev,
- libjsoncpp-dev,
- liboauth-dev,
- librhash-dev,
- libtinyxml-dev,
- libhtmlcxx-dev,
  libboost-system-dev,
  libboost-filesystem-dev,
  libboost-program-options-dev,
  libboost-date-time-dev,
- pkg-config
+ libcurl4-openssl-dev,
+ libhtmlcxx-dev,
+ libjsoncpp-dev,
+ liboauth-dev,
+ librhash-dev,
+ pkg-config,
+ libtinyxml2-dev
 Standards-Version: 3.9.5
 Homepage: https://github.com/Sude-/lgogdownloader
 

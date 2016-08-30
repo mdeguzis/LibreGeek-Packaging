@@ -9,15 +9,14 @@ librhash,
 jsoncpp,
 htmlcxx,
 tinyxml,
-boost,
+libboost-all-dev,
 help2man
-
-Standards-Version: 3.9.5
+Standards-Version: 3.9.7
 Homepage: https://github.com/Sude-/lgogdownloader
 
-Package:ds4drv
+Package:lgogdownloader
 Architecture: all
 Depends: ${shlibs:Depends},
-	 ${misc:Depends}
+ ${misc:Depends},
 Description: lgogdownloader is an unofficial GOG downloader.
  This package installs lgogdownloader for SteamOS Brewmaster users.

@@ -23,12 +23,16 @@ Homepage: https://github.com/Sude-/lgogdownloader
 Package: lgogdownloader
 Architecture: all
 Depends: ${shlibs:Depends}, ${misc:Depends},
- libboost-filesystem1.55.0,
- libboost-regex1.55-dev,
- libboost-program-options1.55-dev,
- libhtmlcxx3,
  libcss-parser0,
  libcss-parser-pp0,
- librhash0
+ librhash0,
+ liboauth0,
+ libboost-date-time1.55.0,
+ libboost-filesystem1.55.0,
+ libboost-regex1.55.0,
+ libboost-program-options1.55-dev,
+ libhtmlcxx3,
+ libjsoncpp0,
+ libtinyxml2.6.2
 Description: lgogdownloader is an unofficial GOG downloader.
  This package installs lgogdownloader for SteamOS Brewmaster users.

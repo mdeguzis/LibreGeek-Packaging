@@ -49,7 +49,8 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/Sude-/lgogdownloader"
-TARGET="v2.28"
+#TARGET="v2.28"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,7 +60,8 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="lgogdownloader"
-PKGVER=$(echo ${TARGET} | sed 's/v//')
+#PKGVER=$(echo ${TARGET} | sed 's/v//')
+PKGVER="2.28"
 EPOCH="2"
 PKGREV="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos"

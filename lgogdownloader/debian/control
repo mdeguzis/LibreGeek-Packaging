@@ -33,6 +33,8 @@ Depends: ${shlibs:Depends}, ${misc:Depends},
  libboost-program-options1.55-dev,
  libhtmlcxx3,
  libjsoncpp0,
- libtinyxml2.6.2
+ libtinyxml2.6.2,
+ openssl (=1.0.1t-1+deb8u2),
+ libssl1.0.0 (=1.0.1t-1+deb8u2)
 Description: lgogdownloader is an unofficial GOG downloader.
  This package installs lgogdownloader for SteamOS Brewmaster users.

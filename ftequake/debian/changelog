@@ -1,3 +1,9 @@
+ftequake (1.04.0+r5016svn+bsos-1) brewmaster; urgency=low
+
+  * Update to SVN revision r5016
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 03 Sep 2016 21:54:55 -0400
+
 ftequake (1.04.0+r5014svn+bsos-1) brewmaster; urgency=low
 
   * Update to SVN revision r5014

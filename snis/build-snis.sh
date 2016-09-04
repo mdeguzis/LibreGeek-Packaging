@@ -44,14 +44,12 @@ else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
 
-else
-
 fi
 
 # upstream vars
 #SRC_URL="https://github.com/smcameron/space-nerds-in-space"
 SRC_URL="https://github.com/ProfessorKaos64/space-nerds-in-space"
-TARGET="v20160814"
+TARGET="v20160903"
 #TARGET="master"
 
 # package vars
@@ -128,7 +126,7 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	# find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"

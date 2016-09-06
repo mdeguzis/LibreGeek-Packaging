@@ -527,11 +527,6 @@ while :; do
 		--binary-dep|-bd)
 			# Must be added at the end of all arguments, due to how pbuidler final opts
 			# are sourced. See "man pbuilder"
-			
-			# TEST
-			echo "binary-dep option used"
-			sleep 50s
-			
 			if [[ -n "$2" ]]; then
 				echo -e "ERROR: --binary-dep must be the last argument specified." >&2
 				exit 1
@@ -587,7 +582,7 @@ while :; do
 	
 done
 
-# Build the array BULIDOPTS
+# Set the array BULIDOPTS
 BUILDOPTS=$(echo ${BUILDOPTS[@]})
 
 ############################

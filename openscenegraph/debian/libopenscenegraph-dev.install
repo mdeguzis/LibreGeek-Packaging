@@ -1,0 +1,3 @@
+usr/include/osg*
+usr/lib/*/libosg*.so
+usr/lib/*/pkgconfig/openscenegraph*.pc

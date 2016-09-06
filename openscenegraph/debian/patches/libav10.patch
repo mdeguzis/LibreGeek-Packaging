@@ -1,0 +1,238 @@
+From: anton@khirnov.net
+To: 739460@bugs.debian.org
+Subject: Re: FTBFS with libav10
+Date: Mon, 03 Mar 2014 07:37:18 +0100
+
+Updated by Reinhard Tartler at Wed Apr  2 21:58:34 EDT 2014: Link against libavresample
+
+Index: pkg-osg/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegDecoderAudio.cpp
+===================================================================
+--- pkg-osg.orig/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegDecoderAudio.cpp
++++ pkg-osg/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegDecoderAudio.cpp
+@@ -17,24 +17,16 @@
+ 
+ namespace osgFFmpeg {
+ 
+-static int decode_audio(AVCodecContext *avctx, int16_t *samples,
+-                         int *frame_size_ptr,
+-                         const uint8_t *buf, int buf_size)
++static int decode_audio(AVCodecContext *avctx, AVFrame *frame,
++                        const uint8_t *buf, int buf_size)
+ {
+-#if LIBAVCODEC_VERSION_MAJOR >= 53 || (LIBAVCODEC_VERSION_MAJOR==52 && LIBAVCODEC_VERSION_MINOR>=32)
+-
+-    // following code segment copied from ffmpeg's avcodec_decode_audio2()
+-    // implementation to avoid warnings about deprecated function usage.
++    int got_output;
+     AVPacket avpkt;
+     av_init_packet(&avpkt);
+     avpkt.data = const_cast<uint8_t *>(buf);
+     avpkt.size = buf_size;
+ 
+-    return avcodec_decode_audio3(avctx, samples, frame_size_ptr, &avpkt);
+-#else
+-    // fallback for older versions of ffmpeg that don't have avcodec_decode_audio3.
+-    return avcodec_decode_audio2(avctx, samples, frame_size_ptr, buf, buf_size);
+-#endif
++    return avcodec_decode_audio4(avctx, frame, &got_output, &avpkt);
+ }
+ 
+ 
+@@ -45,12 +37,17 @@ FFmpegDecoderAudio::FFmpegDecoderAudio(P
+     m_context(0),
+     m_packet_data(0),
+     m_bytes_remaining(0),
+-    m_audio_buffer((AVCODEC_MAX_AUDIO_FRAME_SIZE * 3) / 2),
++    m_audio_buffer((192000 * 3) / 2),
+     m_audio_buf_size(0),
+     m_audio_buf_index(0),
+     m_end_of_stream(false),
+     m_paused(true),
+-    m_exit(false)
++    m_exit(false),
++    avr(NULL),
++    resample_format(-1),
++    resample_rate(0),
++    resample_layout(0),
++    frame(NULL)
+ {
+ 
+ }
+@@ -77,7 +74,7 @@ void FFmpegDecoderAudio::open(AVStream *
+ 
+         m_frequency = m_context->sample_rate;
+         m_nb_channels = m_context->channels;
+-        switch (m_context->sample_fmt)
++        switch (av_get_planar_sample_fmt(m_context->sample_fmt))
+         {
+         case AV_SAMPLE_FMT_NONE:
+             throw std::runtime_error("invalid audio format AV_SAMPLE_FMT_NONE");
+@@ -100,7 +97,7 @@ void FFmpegDecoderAudio::open(AVStream *
+         }
+ 
+         // Check stream sanity
+-        if (m_context->codec_id == CODEC_ID_NONE)
++        if (m_context->codec_id == AV_CODEC_ID_NONE)
+             throw std::runtime_error("invalid audio codec");;
+ 
+         // Find the decoder for the audio stream
+@@ -116,6 +113,10 @@ void FFmpegDecoderAudio::open(AVStream *
+         // Open codec
+         if (avcodec_open2(m_context, p_codec, NULL) < 0)
+             throw std::runtime_error("avcodec_open() failed");
++
++	frame = av_frame_alloc();
++	if (!frame)
++            throw std::runtime_error("av_frame_alloc() failed");
+     }
+ 
+     catch (...)
+@@ -328,10 +329,9 @@ size_t FFmpegDecoderAudio::decodeFrame(v
+ 
+         while (m_bytes_remaining > 0)
+         {
+-            int data_size = size;
+-
+-            const int bytes_decoded = decode_audio(m_context, reinterpret_cast<int16_t*>(buffer), &data_size, m_packet_data, m_bytes_remaining);
++            int ret;
+ 
++            const int bytes_decoded = decode_audio(m_context, frame, m_packet_data, m_bytes_remaining);
+             if (bytes_decoded < 0)
+             {
+                 // if error, skip frame
+@@ -342,9 +342,42 @@ size_t FFmpegDecoderAudio::decodeFrame(v
+             m_bytes_remaining -= bytes_decoded;
+             m_packet_data += bytes_decoded;
+ 
+-            // If we have some data, return it and come back for more later.
+-            if (data_size > 0)
+-                return data_size;
++	    if (!frame->nb_samples)
++		continue;
++
++	    if (!avr ||
++                frame->format         != resample_format ||
++                frame->sample_rate    != resample_rate ||
++                frame->channel_layout != resample_layout) {
++                avresample_free(&avr);
++
++                avr = avresample_alloc_context();
++                if (!avr)
++                    return AVERROR(ENOMEM);
++
++                av_opt_set_int(avr, "in_channel_layout", frame->channel_layout, 0);
++                av_opt_set_int(avr, "out_channel_layout", frame->channel_layout, 0);
++                av_opt_set_int(avr, "in_sample_rate", frame->sample_rate, 0);
++                av_opt_set_int(avr, "out_sample_rate", frame->sample_rate, 0);
++                av_opt_set_int(avr, "in_sample_fmt", frame->format, 0);
++                av_opt_set_int(avr, "out_sample_fmt", av_get_planar_sample_fmt((enum AVSampleFormat)frame->format), 0);
++
++                ret = avresample_open(avr);
++                if (ret < 0) {
++                    avresample_free(&avr);
++                    return ret;
++                }
++                resample_format = frame->format;
++                resample_rate   = frame->sample_rate;
++                resample_layout = frame->channel_layout;
++            }
++
++	    ret = avresample_convert(avr, (uint8_t**)&buffer, size, frame->nb_samples,
++			    frame->extended_data, frame->linesize[0], frame->nb_samples);
++	    if (ret < 0)
++                return ret;
++
++	    return ret * av_get_bytes_per_sample((enum AVSampleFormat)frame->format) * m_context->channels;
+         }
+ 
+         // Get next packet
+Index: pkg-osg/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegDecoderAudio.hpp
+===================================================================
+--- pkg-osg.orig/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegDecoderAudio.hpp
++++ pkg-osg/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegDecoderAudio.hpp
+@@ -13,6 +13,10 @@
+ 
+ #include "BoundedMessageQueue.hpp"
+ 
++extern "C" {
++#include <libavresample/avresample.h>
++}
++
+ 
+ 
+ 
+@@ -80,6 +84,12 @@ private:
+     bool                                m_end_of_stream;
+     bool                                m_paused;
+     volatile bool                       m_exit;
++
++    AVAudioResampleContext	       *avr;
++    int resample_format;
++    int resample_rate;
++    uint64_t resample_layout;
++    AVFrame *frame;
+ };
+ 
+ 
+Index: pkg-osg/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegDecoderVideo.cpp
+===================================================================
+--- pkg-osg.orig/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegDecoderVideo.cpp
++++ pkg-osg/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegDecoderVideo.cpp
+@@ -74,7 +74,7 @@ void FFmpegDecoderVideo::open(AVStream *
+     m_alpha_channel = (m_context->pix_fmt == PIX_FMT_YUVA420P);
+ 
+     // Find out the framerate
+-    m_frame_rate = av_q2d(stream->r_frame_rate);
++    m_frame_rate = av_q2d(stream->avg_frame_rate);
+ 
+     // Find the decoder for the video stream
+     m_codec = avcodec_find_decoder(m_context->codec_id);
+Index: pkg-osg/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegHeaders.hpp
+===================================================================
+--- pkg-osg.orig/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegHeaders.hpp
++++ pkg-osg/OpenSceneGraph/src/osgPlugins/ffmpeg/FFmpegHeaders.hpp
+@@ -16,6 +16,9 @@ extern "C"
+ #endif
+ 
+ #include <libavutil/mathematics.h>
++#include <libavutil/opt.h>
++
++#include <libavresample/avresample.h>
+ 
+ #ifdef USE_SWSCALE    
+     #include <libswscale/swscale.h>
+Index: pkg-osg/OpenSceneGraph/CMakeModules/FindFFmpeg.cmake
+===================================================================
+--- pkg-osg.orig/OpenSceneGraph/CMakeModules/FindFFmpeg.cmake
++++ pkg-osg/OpenSceneGraph/CMakeModules/FindFFmpeg.cmake
+@@ -122,12 +122,13 @@ ENDIF()
+ FFMPEG_FIND(LIBAVFORMAT avformat avformat.h)
+ FFMPEG_FIND(LIBAVDEVICE avdevice avdevice.h)
+ FFMPEG_FIND(LIBAVCODEC  avcodec  avcodec.h)
++FFMPEG_FIND(LIBAVRESAMPLE avresample avresample.h)
+ FFMPEG_FIND(LIBAVUTIL   avutil   avutil.h)
+ FFMPEG_FIND(LIBSWSCALE  swscale  swscale.h)  # not sure about the header to look for here.
+ 
+ SET(FFMPEG_FOUND "NO")
+ # Note we don't check FFMPEG_LIBSWSCALE_FOUND here, it's optional.
+-IF   (FFMPEG_LIBAVFORMAT_FOUND AND FFMPEG_LIBAVDEVICE_FOUND AND FFMPEG_LIBAVCODEC_FOUND AND FFMPEG_LIBAVUTIL_FOUND AND STDINT_OK)
++IF   (FFMPEG_LIBAVFORMAT_FOUND AND FFMPEG_LIBAVDEVICE_FOUND AND FFMPEG_LIBAVCODEC_FOUND AND FFMPEG_LIBAVRESAMPLE_FOUND AND FFMPEG_LIBAVUTIL_FOUND AND STDINT_OK)
+ 
+     SET(FFMPEG_FOUND "YES")
+ 
+@@ -135,6 +136,7 @@ IF   (FFMPEG_LIBAVFORMAT_FOUND AND FFMPE
+         ${FFMPEG_LIBAVFORMAT_INCLUDE_DIRS}
+         ${FFMPEG_LIBAVDEVICE_INCLUDE_DIRS}
+         ${FFMPEG_LIBAVCODEC_INCLUDE_DIRS}
++        ${FFMPEG_LIBAVRESAMPLE_INCLUDE_DIRS}
+         ${FFMPEG_LIBAVUTIL_INCLUDE_DIRS}
+     )
+ 
+@@ -154,6 +156,7 @@ IF   (FFMPEG_LIBAVFORMAT_FOUND AND FFMPE
+         ${FFMPEG_LIBAVFORMAT_LIBRARIES}
+         ${FFMPEG_LIBAVDEVICE_LIBRARIES}
+         ${FFMPEG_LIBAVCODEC_LIBRARIES}
++        ${FFMPEG_LIBAVRESAMPLE_LIBRARIES}
+         ${FFMPEG_LIBAVUTIL_LIBRARIES})
+ 
+ ELSE ()

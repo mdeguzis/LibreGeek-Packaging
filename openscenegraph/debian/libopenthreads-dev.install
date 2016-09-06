@@ -1,0 +1,3 @@
+usr/include/OpenThreads
+usr/lib/*/pkgconfig/openthreads.pc
+usr/lib/*/libOpenThreads.so

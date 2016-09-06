@@ -4,7 +4,6 @@
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt name:	build-openmw.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the laest "openmw"
 #		release
 #
 # See:		https://github.com/OpenMW/openmw
@@ -157,7 +156,6 @@ main()
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
-		sleep 10s
 		nano "debian/changelog"
 
 	fi

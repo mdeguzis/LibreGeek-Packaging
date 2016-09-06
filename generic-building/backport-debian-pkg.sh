@@ -129,7 +129,13 @@ while :; do
 			# Don't clean before starting pbuilder build
 			# Not advised, but at times necessary on systems lacking debhelper packages
 			# such as Arch Linux.
-			BUILDOPTS+=("--debbuildopts -nc")
+			if [[ -n "$2" ]]; then
+				echo -e "WARNING: It is suggested to have this as the last option (before any arch-dep args)." >&2
+				sleep 3s
+				exit 1
+			else
+				BUILDOPTS+=("--debbuildopts -nc")
+			fi
 			;;
 
 		--binary-dep|-bd)
@@ -430,6 +436,22 @@ function_build_package()
 	echo -e "\n==> Use what method? [pbuilder|local]"
 	read -erp "Choice: " METHOD
 
+	cat<<-EOF
+	
+	============================
+	Please review
+	============================
+
+	Buidler: ${BUILDER}
+	Distribution: ${DIST}
+	ARCH: ${ARCH}
+	Builder options: ${BUILDOPTS}
+	
+	Press any key to continue
+	EOF
+	
+	read -erp "" FAKE_ENTER_KEY
+
 	if [[ "${METHOD}" == "pbuilder" ]]; then
 
 		if ! sudo -E BUILD_TMP=${BUILD_TMP} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
@@ -521,23 +543,36 @@ function_show_summary()
 
 	ls "${BUILD_TMP}" | grep -E "${PKGNAME}" 
 
-	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
-	sleep 0.5s
-	# capture command
-	read -erp "Choice: " transfer_choice
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
 
-	if [[ "$transfer_choice" == "y" ]]; then
+	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
 
-		# transfer files
-		if [[ -d "${BUILD_TMP}" ]]; then
-			rsync -arv -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
 
+		if [[ "$transfer_choice" == "y" ]]; then
+
+			# transfer files
+			if [[ -d "${BUILD_TMP}" ]]; then
+				rsync -arv -e "ssh -p ${REMOTE_PORT}" \
+				--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+				${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			fi
+
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
 		fi
 
-	elif [[ "$transfer_choice" == "n" ]]; then
-		echo -e "Upload not requested\n"
+	else
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+
 	fi
 
 }

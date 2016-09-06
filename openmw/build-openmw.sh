@@ -75,13 +75,13 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y debhelper Build-Depends: debhelper (>= 9~) cmake libbullet-dev \
+	sudo apt-get install -y debhelper Build-Depends: debhelper cmake libbullet-dev \
 	libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-thread-dev \
 	libboost-wave-dev libfreeimage-dev libfreetype6-dev libgl1-mesa-dev libice-dev libopenal-dev \
 	libsm-dev uuid-dev libqt4-dev libtinyxml-dev libx11-dev libxaw7-dev libxrandr-dev libxt-dev \
 	libzzip-dev libz-dev libpng-dev libavcodec-dev libavformat-dev libavdevice-dev libavutil-dev \
-	libswscale-dev libpostproc-dev libswresample-dev libsdl2-dev libmygui-dev (>= 3.2.1) \
-	libunshield-dev libopenscenegraph-dev libqt4-opengl-dev
+	libswscale-dev libpostproc-dev libswresample-dev libsdl2-dev libmygui-dev libunshield-dev \
+	libopenscenegraph-dev libqt4-opengl-dev
 
 }
 

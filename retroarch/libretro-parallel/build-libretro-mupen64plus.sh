@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-openmw.sh
-# Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the laest "openmw"
-#		release
+# Scipt Name:	build-libretro-mupen64plus.sh
+# Script Ver:	1.0.0
+# Description:	Attmpts to builad a deb package from latest libretro mupen64plus
+#		github release
 #
-# See:		https://github.com/OpenMW
+# See:		https://github.com/libretro/mupen64plus-libretro
 #
-# Usage:	./build-openmw.sh
+# Usage:	build-libretro-mupen64plus.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -38,36 +38,38 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-
+	
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-
+	
 fi
-# upstream var for master build
-SRC_URL="https://github.com/OpenMW"
-TARGET="openmw-0.40.0"
+
+# upstream vars
+GIT_URL="https://github.com/libretro/mupen64plus-libretro"
+branch="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-export APT_PREFS_HACK="true"
-PKGNAME="openmw"
-PKGVER="0.40.0"
+PKGNAME="libretro-mupen64plus"
+epoch="1"
+PKGVER="2.0"
 PKGREV="1"
-PKGSUFFIX="git+bsos"
+PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
-# set BUILD_TMPs
+# set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
+SRCDIR="${PKGNAME}-${PKGVER}"
+GIT_DIR="${BUILD_TMP}/${SRCDIR}"
 
 install_prereqs()
 {
@@ -75,13 +77,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y debhelper Build-Depends: debhelper (>= 9~) cmake libbullet-dev \
-	libboost-filesystem-dev libboost-program-options-dev libboost-system-dev libboost-thread-dev \
-	libboost-wave-dev libfreeimage-dev libfreetype6-dev libgl1-mesa-dev libice-dev libopenal-dev \
-	libsm-dev uuid-dev libqt4-dev libtinyxml-dev libx11-dev libxaw7-dev libxrandr-dev libxt-dev \
-	libzzip-dev libz-dev libpng-dev libavcodec-dev libavformat-dev libavdevice-dev libavutil-dev \
-	libswscale-dev libpostproc-dev libswresample-dev libsdl2-dev libmygui-dev (>= 3.2.1) \
-	libunshield-dev libopenscenegraph-dev libqt4-opengl-dev
+	sudo apt-get -y --force-yes install build-essential pkg-config bc \
+	libgl1-mesa-dev lsb-release  mesa-common-dev clang libgles2-mesa-dev
 
 }
 
@@ -104,6 +101,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
+	
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -111,17 +109,14 @@ main()
 
 	fi
 
+	# Clone upstream source code and branch
+
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
-
-	# add extras
-	#cp "${SCRIPTDIR}/openmw.png" "${SRC_DIR}"
-	#cp "${SCRIPTDIR}/openmw-launch.sh" "${SRC_DIR}"
-
-	# Get latest commit
-	cd "${SRC_DIR}"
-	export ${PKGNAME}_LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	# clone
+	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	cd "${GIT_DIR}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
 	# Build package
@@ -131,17 +126,17 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	cd "${BUILD_TMP}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
 
-	# Add debian files
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	# copy in debian folder
+	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 
 	# enter source dir
-	cd "${SRC_DIR}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -149,14 +144,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release to commit ${PKGNAME}_LATEST_COMMIT"
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 
 	fi
@@ -168,24 +163,22 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	USENETWORK=$USENETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	#  build
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
-
+	
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# inform user of packages
 	cat<<- EOF
@@ -217,7 +210,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"
@@ -235,3 +228,4 @@ main()
 
 # start main
 main
+

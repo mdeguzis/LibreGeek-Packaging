@@ -1,5 +1,1 @@
-disable-zip-plugin-with-embedded-zlib.patch
-check__FreeBSD_kernel__
 libav10.patch
-bug763818_fix_preprocessor_double_substitution
-bug765855_removecallback_use_after_free

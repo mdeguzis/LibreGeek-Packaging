@@ -115,87 +115,6 @@ function_set_vars()
 	if [[ "${DIST}" == "jessie" ]]; then PROJECT_FOLDER="debian"; fi
 	if [[ "${DIST}" == "jessie-backports" ]]; then PROJECT_FOLDER="debian"; fi
 
-
-# source options
-while :; do
-	case $1 in
-
-		--apt-prefs-hack)
-			# Allow installation of packages newer than Valve's for building purposes
-			export APT_PREFS_HACK="true"
-			;;
-
-		--no-clean|-nc)
-			# Don't clean before starting pbuilder build
-			# Not advised, but at times necessary on systems lacking debhelper packages
-			# such as Arch Linux.
-			if [[ -n "$2" ]]; then
-				echo -e "WARNING: It is suggested to have this as the last option (before any arch-dep args)." >&2
-				sleep 3s
-				exit 1
-			else
-				BUILDOPTS+=("--debbuildopts -nc")
-			fi
-			;;
-
-		--binary-dep|-bd)
-			# Must be added at the end of all arguments, due to how pbuidler final opts
-			# are sourced. See "man pbuilder"
-			if [[ -n "$2" ]]; then
-				echo -e "ERROR: --binary-dep must be the last argument specified." >&2
-				exit 1
-			else
-				BUILDOPTS+=("-- --binary-arch")
-			fi
-			;;
-
-		--remove-patches)
-			# Dget applies patches (if properly setup), sometimes pbuilder clashes
-			# Or, we may want to build without patches
-			PATCH_REMOVE="true"
-			;;
-
-		--testing)
-			# send packages to test repo location
-			REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
-			;;
-
-		--help|-h) 
-			cat<<-EOF
-			
-			Usage:	 	./backport-debian-pkg.sh [options]
-			Options:	--apt-prefs-hack	remove SteamOS apt preferences lock
-					--binary-dep		builds binary-dependent package
-					--no-clean|-nc		build without cleaning ahead of time
-					--remove-patches	remove any patches from package
-					--testing		send built package to testing repo
-					--help|-h		display this help text
-
-			EOF
-			break
-			;;
-
-		--)
-		# End of all options.
-		shift
-		break
-		;;
-
-		-?*)
-		printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
-		;;
-
-		*)  
-		# Default case: If no more options then break out of the loop.
-		break
-
-	esac
-
-	# shift args
-	shift
-done
-
-
 }
 
 function_setup_env()
@@ -580,8 +499,92 @@ function_show_summary()
 
 }
 
+############################
+# source options
+############################
+
+while :; do
+	case $1 in
+
+		--apt-prefs-hack)
+			# Allow installation of packages newer than Valve's for building purposes
+			export APT_PREFS_HACK="true"
+			;;
+
+		--no-clean|-nc)
+			# Don't clean before starting pbuilder build
+			# Not advised, but at times necessary on systems lacking debhelper packages
+			# such as Arch Linux.
+			if [[ -n "$2" ]]; then
+				echo -e "WARNING: It is suggested to have this as the last option (before any arch-dep args)." >&2
+				sleep 3s
+				exit 1
+			else
+				BUILDOPTS+=("--debbuildopts -nc")
+			fi
+			;;
+
+		--binary-dep|-bd)
+			# Must be added at the end of all arguments, due to how pbuidler final opts
+			# are sourced. See "man pbuilder"
+			if [[ -n "$2" ]]; then
+				echo -e "ERROR: --binary-dep must be the last argument specified." >&2
+				exit 1
+			else
+				BUILDOPTS+=("-- --binary-arch")
+			fi
+			;;
+
+		--remove-patches)
+			# Dget applies patches (if properly setup), sometimes pbuilder clashes
+			# Or, we may want to build without patches
+			PATCH_REMOVE="true"
+			;;
+
+		--testing)
+			# send packages to test repo location
+			REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
+			;;
+
+		--help|-h) 
+			cat<<-EOF
+			
+			Usage:	 	./backport-debian-pkg.sh [options]
+			Options:	--apt-prefs-hack	remove SteamOS apt preferences lock
+					--binary-dep		builds binary-dependent package
+					--no-clean|-nc		build without cleaning ahead of time
+					--remove-patches	remove any patches from package
+					--testing		send built package to testing repo
+					--help|-h		display this help text
+
+			EOF
+			break
+			;;
+
+		--)
+		# End of all options.
+		shift
+		break
+		;;
+
+		-?*)
+		printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+		;;
+
+		*)  
+		# Default case: If no more options then break out of the loop.
+		break
+
+	esac
+
+	# shift args
+	shift
+done
+
+############################
 # start main
+############################
 main
 
-#In case the script fails cd back to SCRIPTDIR
+# In case the script fails cd back to SCRIPTDIR
 cd "${SCRIPTDIR}"

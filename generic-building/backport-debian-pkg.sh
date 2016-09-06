@@ -44,7 +44,8 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -sa"
+# Start with default add more depending on options sourced
+BUILDOPTS=("--debbuildopts -sa")
 REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
 PATCH_REMOVE="false"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
@@ -128,7 +129,18 @@ while :; do
 			# Don't clean before starting pbuilder build
 			# Not advised, but at times necessary on systems lacking debhelper packages
 			# such as Arch Linux.
-			BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
+			BUILDOPTS+=("--debbuildopts -nc")
+			;;
+
+		--binary-dep|-bd)
+			# Must be added at the end of all arguments, due to how pbuidler final opts
+			# are sourced. See "man pbuilder"
+			if [[ -n "$2" ]]; then
+				echo -e "ERROR: --binary-dep must be the last argument specified." >&2
+				exit 1
+			else
+				BUILDOPTS+=("-- --binary-arch")
+			fi
 			;;
 
 		--remove-patches)
@@ -146,11 +158,12 @@ while :; do
 			cat<<-EOF
 			
 			Usage:	 	./backport-debian-pkg.sh [options]
-			Options:	--apt-prefs-hack
-					--no-clean|-nc
-					--remove-patches
-					--testing
-					--help|-h
+			Options:	--apt-prefs-hack	remove SteamOS apt preferences lock
+					--binary-dep		builds binary-dependent package
+					--no-clean|-nc		build without cleaning ahead of time
+					--remove-patches	remove any patches from package
+					--testing		send built package to testing repo
+					--help|-h		display this help text
 
 			EOF
 			break

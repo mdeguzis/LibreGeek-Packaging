@@ -75,8 +75,8 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	fi
 	
 	# Normal set of packages
-	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts sudo \
-	screen pv apt-file curl debian-keyring debian-archive-keyring ubuntu-archive-keyring \
+	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts libparse-debcontrol-perl \
+	sudo screen pv apt-file curl debian-keyring debian-archive-keyring ubuntu-archive-keyring \
 	osc obs-build mock sbuild apt-cacher-ng quilt"
 
 	for PKG in ${PKGs};

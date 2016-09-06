@@ -7,7 +7,7 @@
 # Description:	Attmpts to build a deb package from the laest "openmw"
 #		release
 #
-# See:		https://github.com/OpenMW
+# See:		https://github.com/OpenMW/openmw
 #
 # Usage:	./build-openmw.sh
 # Opts:		[--testing]
@@ -45,7 +45,7 @@ else
 
 fi
 # upstream var for master build
-SRC_URL="https://github.com/OpenMW"
+SRC_URL="https://github.com/OpenMW/openmw"
 TARGET="openmw-0.40.0"
 
 # package vars

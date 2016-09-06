@@ -584,7 +584,11 @@ while :; do
 
 	# shift args
 	shift
+	
 done
+
+# Build the array BULIDOPTS
+BUILDOPTS=$("${BUILDOPTS[@]}")
 
 ############################
 # start main

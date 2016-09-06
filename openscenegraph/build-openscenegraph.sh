@@ -52,7 +52,9 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+# The imported debian/ files from upstream have syntax errors for the 
+# doxygen sequences. Build arch-dep packages for now.
+BUILDOPTS="--debbuildopts -nc -- --binary-arch"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export APT_PREFS_HACK="true"
 PKGNAME="openscenegraph"
@@ -149,7 +151,7 @@ main()
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload/backport"
 		nano "debian/changelog"
 
 	fi

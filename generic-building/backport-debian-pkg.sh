@@ -588,7 +588,7 @@ while :; do
 done
 
 # Build the array BULIDOPTS
-BUILDOPTS=$("${BUILDOPTS[@]}")
+BUILDOPTS=$(echo ${BUILDOPTS[@]})
 
 ############################
 # start main

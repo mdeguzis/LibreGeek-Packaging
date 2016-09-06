@@ -229,6 +229,24 @@ function_setup_env()
 function_get_source()
 {
 
+	# Review options first in case things are not what the user wants
+
+	cat<<-EOF
+	
+	============================
+	Please review
+	============================
+
+	Buidler: ${BUILDER}
+	Distribution: ${DIST}
+	ARCH: ${ARCH}
+	Builder options: ${BUILDOPTS}
+	
+	Press any key to continue
+	EOF
+	
+	read -erp "" FAKE_ENTER_KEY
+
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
@@ -436,21 +454,6 @@ function_build_package()
 	echo -e "\n==> Use what method? [pbuilder|local]"
 	read -erp "Choice: " METHOD
 
-	cat<<-EOF
-	
-	============================
-	Please review
-	============================
-
-	Buidler: ${BUILDER}
-	Distribution: ${DIST}
-	ARCH: ${ARCH}
-	Builder options: ${BUILDOPTS}
-	
-	Press any key to continue
-	EOF
-	
-	read -erp "" FAKE_ENTER_KEY
 
 	if [[ "${METHOD}" == "pbuilder" ]]; then
 

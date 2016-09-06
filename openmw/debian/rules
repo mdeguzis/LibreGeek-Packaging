@@ -1,0 +1,48 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+# Sample debian/rules that uses debhelper.
+#
+# This file was originally written by Joey Hess and Craig Small.
+# As a special exception, when this file is copied by dh-make into a
+# dh-make output file, you may use that output file without restriction.
+# This special exception was added by Craig Small in version 0.37 of dh-make.
+#
+# Modified to make a template file for a multi-binary package with separated
+# build-arch and build-indep targets  by Bill Allombert 2001
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+# Uncomment to view all compilation commands and fix W-compiler-flags-hidden
+export VERBOSE=1
+
+#CMake silently ignores CPPFLAGS. Below will properly set CFLAGS/CXXFLAGS
+#https://wiki.debian.org/Hardening#Notes_for_packages_using_CMake
+CPPFLAGS:=$(shell dpkg-buildflags --get CPPFLAGS)
+CFLAGS:=$(shell dpkg-buildflags --get CFLAGS) $(CPPFLAGS)
+CXXFLAGS:=$(shell dpkg-buildflags --get CXXFLAGS) $(CPPFLAGS)
+LDFLAGS:=$(shell dpkg-buildflags --get LDFLAGS)
+
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_INSTALL_PREFIX=/usr -DBINDIR=/usr/games -DCMAKE_BUILD_TYPE="RelWithDebInfo" -DUSE_SYSTEM_TINYXML="TRUE" -DCMAKE_VERBOSE_MAKEFILE="FALSE" -DBUILD_ESMTOOL="FALSE" -DBUILD_ESSIMPORTER="TRUE" -DBUILD_BSATOOL="FALSE" -DBUILD_NIFTEST="FALSE" -DBUILD_MYGUI_PLUGIN="FALSE"
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGELOG.md
+
+# Fail to build if some files were not installed anywhere
+override_dh_install:
+	dh_install --fail-missing -Xlicenses
+
+
+copyright_check:
+	${MAKE} -f /usr/share/cdbs/1/rules/utils.mk debian/stamp-copyright-check
+	rm debian/stamp-copyright-check
+
+%:
+	dh $@ --parallel --builddirectory=build
+
+get-orig-source:
+	uscan --download-current-version --rename
+	#Fixing line endings and BOMs in the downloaded tarball may be needed:
+	#find . -type f -exec dos2unix {} \;
+	#find . -type f -print0 | xargs -0 sed -i '1s/^\xEF\xBB\xBF//'

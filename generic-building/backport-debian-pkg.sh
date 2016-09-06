@@ -46,10 +46,8 @@ ARCH="${ARCH}"
 BUILDER="pdebuild"
 # Start with default add more depending on options sourced
 BUILDOPTS=("--debbuildopts -sa")
-REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
 PATCH_REMOVE="false"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
-PKGNAME="$PKGNAME"
 PKGNAME="$PKGNAME"
 PKGREV="1"
 URGENCY="low"
@@ -73,7 +71,7 @@ install_prereqs()
 
 function_set_vars()
 {
-	
+
 	echo -e "\n==> Setting vars\n"
 
 	echo -e "\nPress ENTER to use last: ${OLD_PKGNAME}"
@@ -115,6 +113,9 @@ function_set_vars()
 	if [[ "${DIST}" == "jessie" ]]; then PROJECT_FOLDER="debian"; fi
 	if [[ "${DIST}" == "jessie-backports" ]]; then PROJECT_FOLDER="debian"; fi
 
+	# Set repo folder destination
+	REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
+
 }
 
 function_setup_env()
@@ -142,7 +143,7 @@ function_setup_env()
 		install_prereqs
 
 	fi
-	
+
 }
 
 function_get_source()
@@ -151,7 +152,7 @@ function_get_source()
 	# Review options first in case things are not what the user wants
 
 	cat<<-EOF
-	
+
 	============================
 	Please review
 	============================
@@ -160,10 +161,11 @@ function_get_source()
 	Distribution: ${DIST}
 	ARCH: ${ARCH}
 	Builder options: ${BUILDOPTS}
-	
+	Repo folder: ${REPO_FOLDER}
+
 	Press any key to continue
 	EOF
-	
+
 	read -erp "" FAKE_ENTER_KEY
 
 	# Clone upstream source code and branch
@@ -217,7 +219,7 @@ function_get_source()
 
 function_backport_config()
 {
-	
+
 	# Test if we have an unpacked source or not
 	# Ubuntu tends to not have an unpacked source
 	# The “-F” marks the delimiter, “$NF” means the last field generated.
@@ -233,7 +235,7 @@ function_backport_config()
 		ORIG_TARBALL=$(find ${BUILD_TMP} -type f -name "*.xz")
 
 	fi
-	
+
 	# Declare rest of original source
 	ORIG_TARBALL_FILENAME=$(basename ${ORIG_TARBALL})
 	ORIG_TARBALL_EXT=$(echo ${ORIG_TARBALL_FILENAME} | awk -F . '{print $NF}')
@@ -323,7 +325,7 @@ function_backport_config()
 	# Check source format
 	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')
 
-	# Calculate the ending suffix 
+	# Calculate the ending suffix
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
 		PKGSUFFIX="${DIST_CODE}-${PKGREV}"
@@ -407,8 +409,7 @@ function_build_package()
 		dpkg-buildpackage -us -uc
 
 	fi
-	
-	
+
 }
 
 main()
@@ -422,7 +423,7 @@ main()
 
 	# Get source
 	function_get_source
-	
+
 	# Backport setup
 	function_backport_config
 
@@ -524,7 +525,7 @@ while :; do
 			fi
 			;;
 
-		--binary-dep|-bd)
+		--binary-arch|-ba)
 			# Must be added at the end of all arguments, due to how pbuidler final opts
 			# are sourced. See "man pbuilder"
 			if [[ -n "$2" ]]; then
@@ -546,9 +547,9 @@ while :; do
 			REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
 			;;
 
-		--help|-h) 
+		--help|-h)
 			cat<<-EOF
-			
+
 			Usage:	 	./backport-debian-pkg.sh [options]
 			Options:	--apt-prefs-hack	remove SteamOS apt preferences lock
 					--binary-dep		builds binary-dependent package

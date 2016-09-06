@@ -18,7 +18,7 @@
 # Set variables
 #################################################
 
-arg1="$1"
+ARG1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
@@ -35,7 +35,7 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-if [[ "$arg1" == "--testing" ]]; then
+if [[ "$ARG1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
 
@@ -157,6 +157,7 @@ main()
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
+		sleep 10s
 		nano "debian/changelog"
 
 	fi

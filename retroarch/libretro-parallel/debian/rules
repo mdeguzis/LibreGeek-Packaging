@@ -21,11 +21,6 @@ export DEB_CFLAGS_MAINT_STRIP=-O2
 
 ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
 
-# Set values for Parallel-ensured build
-export HAVE_PARALLEL_RSP=1 
-export WITH_DYNAREC=x86_64 
-export HAVE_VULKAN=1
-
 # Needs to install lsb-release package
 UBUNTU_VERSION=$(shell lsb_release -c | cut -f2)
 
@@ -35,8 +30,8 @@ ifeq ($(ARCH),armhf)
 		export CXX=clang++
 		# For parallel
 	else
-		export CC=clang-3.6
-		export CXX=clang++-3.6
+		export CC=clang-3.8
+		export CXX=clang++-3.8
 		export DEB_CXXFLAGS_MAINT_STRIP=-O2 -fstack-protector-strong
 		export DEB_CFLAGS_MAINT_STRIP=-O2 -fstack-protector-strong
 		export DEB_CXXFLAGS_MAINT_APPEND=-fstack-protector
@@ -49,7 +44,9 @@ endif
 	dh $@ --parallel
 
 override_dh_auto_build:
-	dh_auto_build -- $(PLATFORM)
+	#dh_auto_build -- $(PLATFORM)
+	# Need to manually specify flags here for Parallel
+	make HAVE_PARALLEL_RSP=1 WITH_DYNAREC=x86_64 HAVE_VULKAN=1
 
 override_dh_installdocs:
 	dh_installdocs

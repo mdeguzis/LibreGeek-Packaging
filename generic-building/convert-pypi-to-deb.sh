@@ -39,7 +39,9 @@ date_short=$(date +%Y%m%d)
 ARCH="${ARCH}"
 BUILDER="pdebuild"
 # Start with default add more depending on options sourced
-BUILDOPTS=("--debbuildopts -sa")
+# Don't clean by default, pbuilder gets a bit messy with python clean
+# It will remove key python files
+BUILDOPTS=("--debbuildopts -sa --debbuildopts -nc")
 PATCH_REMOVE="false"
 export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
 PKGNAME="$PKGNAME"
@@ -78,6 +80,7 @@ function_set_vars()
 	# now set the build dir for results
 	export BUILD_TMP="${HOME}/build-${PKGNAME}-temp"
 
+	echo -e "\nPress ENTER to use last: ${OLD_ARCH}"
 	read -erp "Arch target: " ARCH
 	if  [[ "${ARCH}" == "" ]]; then ARCH="${OLD_ARCH}"; fi
 	export OLD_ARCH="${ARCH}"

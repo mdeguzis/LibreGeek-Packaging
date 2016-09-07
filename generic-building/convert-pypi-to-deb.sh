@@ -229,11 +229,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update release"
+		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Initial build"
+		nano "debian/changelog"
 
 	fi
 	
@@ -272,7 +274,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+	ls "${BUILD_TMP}"
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.

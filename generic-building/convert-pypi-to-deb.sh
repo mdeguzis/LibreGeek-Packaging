@@ -70,6 +70,11 @@ function_set_vars()
 	if  [[ "${PKGNAME}" == "" ]]; then PKGNAME="${OLD_PKGNAME}"; fi
 	export OLD_PKGNAME="${PKGNAME}"
 
+	echo -e "\nPress ENTER to use last: ${OLD_PKGREV}"
+	read -erp "Revsion attempt: " PKGREV
+	if  [[ "${PKGREV}" == "" ]]; then PKGREV="${OLD_PKGREV}"; fi
+	export OLD_PKGREV="${PKGREV}"
+
 	# now set the build dir for results
 	export BUILD_TMP="${HOME}/build-${PKGNAME}-temp"
 
@@ -196,9 +201,9 @@ main()
 	# Set SRC_DIR
 	SRC_DIR=$(find "${PWD}" -type d -name "${PKGNAME}*")
 	
-	##############################
+	###############################
 	# Alter Debian packaging files
-	##############################
+	###############################
 	
 	echo -e "\n==> Modifying Debian package files\n"
 	sleep 2s
@@ -206,6 +211,10 @@ main()
 	# remove garbage autogen files
 	find ${SRC_DIR} -name changelog -exec rm -fv '{}' \;
 
+	# Source name/versioning from setup.py
+	PKGNAME=$(cat ${SRC_DIR}/setup.py |  awk -F"\"" '/name/{print $2}')
+	PKGVER=$(cat ${SRC_DIR}/setup.py |  awk -F"'" '/name/{print $2}')
+	
 	# control
 	sed -i "s|.*Maintainer.*|Maintainer: ${MAINTAINER} \<${MAINTAINER_EMAIL}\>|g" "${SRC_DIR}/debian/control"
 
@@ -215,11 +224,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v -D "${DIST}" -u "${URGENCY}" "Update release"
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update release"
 
 	else
 
-		dch -p --create --force-distribution -D "${DIST}" -u "${URGENCY}" "Initial build"
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Initial build"
 
 	fi
 	

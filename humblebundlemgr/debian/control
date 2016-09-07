@@ -1,14 +1,16 @@
-Source: humblebundlemgr
+Source: humblebundle
 Section: games
 Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends:
  debhelper (>= 9),
- dh-python
+ dh-python,
+ python-all,
+ python-setuptools
 Standards-Version: 3.9.7
 Homepage: https://github.com/MestreLion/humblebundle
 
-Package: humblebundlemgr
+Package: humblebundle
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends},
  python,
@@ -16,7 +18,7 @@ Depends: ${python:Depends}, ${misc:Depends},
  python-progressbar,
  python-xdg,
  python-lxml
-Description: HumbleBundleMgr is CLI tool to manage your games.
+Description: HumbleBundle is CLI tool to manage your games.
  .
  Python library and command line tool to manage Humble Bundle 
  games. List your bundles and games, Show their info, 

@@ -19,6 +19,9 @@
 export DEB_CXXFLAGS_MAINT_STRIP=-O2
 export DEB_CFLAGS_MAINT_STRIP=-O2
 
+export CC=clang-3.8
+export CXX=clang++-3.8
+
 ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
 
 # Needs to install lsb-release package

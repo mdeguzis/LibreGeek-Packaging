@@ -29,9 +29,6 @@ ifeq ($(ARCH),armhf)
 		export CC=clang
 		export CXX=clang++
 		# For parallel
-		export HAVE_PARALLEL_RSP=1
-		export WITH_DYNAREC=x86_64 
-		export HAVE_VULKAN=1
 	else
 		export CC=clang-3.6
 		export CXX=clang++-3.6
@@ -39,10 +36,6 @@ ifeq ($(ARCH),armhf)
 		export DEB_CFLAGS_MAINT_STRIP=-O2 -fstack-protector-strong
 		export DEB_CXXFLAGS_MAINT_APPEND=-fstack-protector
 		export DEB_CFLAGS_MAINT_APPEND=-fstack-protector
-		# For parallel
-		export HAVE_PARALLEL_RSP=1
-		export WITH_DYNAREC=x86_64 
-		export HAVE_VULKAN=1
 	endif
 	PLATFORM=platform="armv gles neon hardfloat"
 endif
@@ -51,7 +44,9 @@ endif
 	dh $@ --parallel
 
 override_dh_auto_build:
-	dh_auto_build -- $(PLATFORM)
+	#dh_auto_build -- $(PLATFORM)
+	# Need to manually specify flags here for Parallel
+	make HAVE_PARALLEL_RSP=1 WITH_DYNAREC=x86_64 HAVE_VULKAN=1
 
 override_dh_installdocs:
 	dh_installdocs

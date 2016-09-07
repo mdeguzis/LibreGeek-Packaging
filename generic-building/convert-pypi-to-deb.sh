@@ -209,6 +209,9 @@ main()
 	# control
 	sed -i "s|.*Maintainer.*|Maintainer: ${MAINTAINER} \<${MAINTAINER_EMAIL}\>|g" "${SRC_DIR}/debian/control"
 
+	# Enter source dir to update changelog
+	cd "${SRC_DIR}"
+
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 

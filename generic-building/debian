@@ -1,0 +1,5 @@
+setuptools-git (1.1-1) brewmaster; urgency=low
+
+  * Initial build
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 07 Sep 2016 10:53:47 -0400

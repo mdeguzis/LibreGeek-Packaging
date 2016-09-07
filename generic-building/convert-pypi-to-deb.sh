@@ -97,7 +97,7 @@ function_set_vars()
 
 	echo -e "\nPress ENTER to use last: ${OLD_MAINTAINER_EMAIL}"
 	read -erp "Maintainer email: " MAINTAINER_EMAIL
-	if  [[ "${MAINTAINER_EMAIL}" == "" ]]; then DIST="${OLD_MAINTAINER_EMAIL}"; fi
+	if  [[ "${MAINTAINER_EMAIL}" == "" ]]; then MAINTAINER_EMAIL="${OLD_MAINTAINER_EMAIL}"; fi
 	export OLD_MAINTAINER_EMAIL="${MAINTAINER_EMAIL}"
 
 	# Set projet folder name for uploading built packages
@@ -307,6 +307,53 @@ main()
 	fi
 
 }
+
+############################
+# source options
+############################
+
+while :; do
+	case $1 in
+
+		--apt-prefs-hack)
+			# Allow installation of packages newer than Valve's for building purposes
+			export APT_PREFS_HACK="true"
+			;;
+
+		--help|-h)
+			cat<<-EOF
+
+			Usage:	 	./convert-pypi-to-deb.sh [options]
+			Options:
+					--help|-h		display this help text
+
+			EOF
+			break
+			;;
+
+		--)
+		# End of all options.
+		shift
+		break
+		;;
+
+		-?*)
+		printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+		;;
+
+		*)  
+		# Default case: If no more options then break out of the loop.
+		break
+
+	esac
+
+	# shift args
+	shift
+	
+done
+
+# Set the array BULIDOPTS
+BUILDOPTS=$(echo ${BUILDOPTS[@]})
 
 # start main
 main

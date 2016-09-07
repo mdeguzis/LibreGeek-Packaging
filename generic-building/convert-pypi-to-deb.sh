@@ -52,7 +52,7 @@ SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGNAME}"
 install_prereqs()
 {
 
-	echo -e "==> Installing prerequisites for building...\n"
+	echo -e "\n==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install python-pip python python-stdeb python3-stdeb \
@@ -151,7 +151,7 @@ main()
 
 	read -erp "" FAKE_ENTER_KEY
 
-	echo -e "\n==> Checking for existance of: ${PKGNAME}"
+	echo -e "==> Checking for existance of: ${PKGNAME}\n"
 	sleep 0.5s
 
 	# search
@@ -170,6 +170,9 @@ main()
 	# Fetch source
 	#################################################
 	
+	echo -e "\n==> Downlaoding source\n"
+	sleep 2s
+	
 	if ! pypi-download  ${PKGNAME}; then
 
 		echo -e "\nERROR: Package download failed!\n"
@@ -183,7 +186,10 @@ main()
 	
 	# Rename 
 	# mv *.tar.gz "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz"
-	
+
+	echo -e "\n==> Debianizing source\n"
+	sleep 2s
+
 	# crete deb files
 	py2dsc *.tar.gz
 
@@ -194,14 +200,14 @@ main()
 	# Alter Debian packaging files
 	##############################
 	
-	echo -e "\n==> Modifying Debian package files"
+	echo -e "\n==> Modifying Debian package files\n"
 	sleep 2s
 
 	# remove garbage autogen files
 	find ${SRC_DIR} -name changelog -exec rm -fv '{}' \;
 
 	# control
-	sed -i "s|Maintainer*|Maintainer: ${MAINTAINER} \<$MAINTAINER_EMAIL}\>|g" "${SRC_DIR}/debian/control"
+	sed -i "s|.*Maintainer.*|Maintainer: ${MAINTAINER} \<${MAINTAINER_EMAIL}\>|g" "${SRC_DIR}/debian/control"
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then

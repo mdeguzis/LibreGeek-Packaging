@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-mupen64plus.sh
+# Scipt Name:	build-libretro-parallel.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to builad a deb package from latest libretro mupen64plus
-#		github release
+#		github release. This is the parallel version using the Vulkan API
 #
 # See:		https://github.com/libretro/mupen64plus-libretro
 #
-# Usage:	build-libretro-mupen64plus.sh
+# Usage:	build-libretro-parallel.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="libretro-mupen64plus"
+PKGNAME="libretro-parallel"
 epoch="1"
 PKGVER="2.0"
 PKGREV="1"

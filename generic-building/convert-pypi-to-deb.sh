@@ -47,12 +47,11 @@ PKGREV="1"
 URGENCY="low"
 
 # set build dirs
-BUILD_TMP="${HOME}/pypi-${PKGNAME}-temp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGNAME}"
 
 install_prereqs()
 {
-	clear
+
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
@@ -74,17 +73,6 @@ function_set_vars()
 	# now set the build dir for results
 	export BUILD_TMP="${HOME}/build-${PKGNAME}-temp"
 
-	echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
-	read -erp "Target package version: " PKGVER
-	if [[ "${PKGVER}" == "" ]]; then PKGVER="${OLD_PKGVER}"; fi
-	export OLD_PKGVER="${PKGVER}"
-
-	echo -e "\nPress ENTER to use last: ${OLD_PKGREV}"
-	read -erp "Package revision / attempt: " PKGREV
-	if [[ "${PKGREV}" == "" ]]; then PKGREV="${OLD_PKGREV}"; fi
-	export OLD_PKGREV="${PKGREV}"
-
-	echo -e "\nPress ENTER to use last: ${OLD_ARCH}"
 	read -erp "Arch target: " ARCH
 	if  [[ "${ARCH}" == "" ]]; then ARCH="${OLD_ARCH}"; fi
 	export OLD_ARCH="${ARCH}"
@@ -163,12 +151,12 @@ main()
 
 	read -erp "" FAKE_ENTER_KEY
 
-	echo -e "\n==> Check for existance of: ${PKGNAME}?"
+	echo -e "\n==> Checking for existance of: ${PKGNAME}"
 	sleep 0.5s
-	
+
 	# search
 	# pip search returns loose results, so grep/awk
-	pip search ${PKGNAME} | awk '/${PKGNAME}/'
+	pip search ${PKGNAME} | awk "/${PKGNAME}/"
 
 	echo ""
 	read -erp "Continue? [y/n]: " CONTINUE_CHOICE

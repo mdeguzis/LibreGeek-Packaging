@@ -1,7 +1,10 @@
 #!/usr/bin/make -f
 
+# Set verbose mode
+#export DH_VERBOSE = 1
+
 # Set project name
-export PYBUILD_NAME=humblebundlemgr
+export PYBUILD_NAME=humblebundle
 
 %:
 	dh $@ --with python2 --buildsystem=pybuild

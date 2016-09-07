@@ -165,13 +165,8 @@ main()
 	# pip search returns loose results, so grep/awk
 	pip search ${PKGNAME} | awk "/${PKGNAME}/"
 
-	echo ""
-	read -erp "Continue? [y/n]: " CONTINUE_CHOICE
-	sleep 0.5s
-	
-	if [[ "$CONTINUE_CHOICE" != "y" ]]; then
-		exit 1
-	fi
+	echo -e "\nPress any key to continue\n"
+	read -erp "" FAKE_ENTER_KEY
 	
 	#################################################
 	# Fetch source
@@ -222,7 +217,7 @@ main()
 
 	# rules
 	# Most of these generated package source files do not have proper test setups, exclude them
-	echo -e "\noverride_dh_autotest:\n" >> "${SRC_DIR}/debian/rules"
+	echo -e "\noverride_dh_auto_test:\n" >> "${SRC_DIR}/debian/rules"
 
 	# Enter source dir to update changelog
 	cd "${SRC_DIR}"

@@ -3,7 +3,8 @@ Section: games
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
- clang-3.4 [armhf],
+ clang-3.8,
+ libclang-3.8-dev,
  libgl1-mesa-dev [!armhf],
  libgles2-mesa-dev [armhf],
  libvulkan-dev,

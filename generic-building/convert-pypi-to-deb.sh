@@ -25,6 +25,21 @@ FINAL_OPTS=$(echo "${@: -1}")
 
 if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
+	# fallback to local repo pool TARGET(s)
+	REMOTE_USER="mikeyd"
+	REMOTE_HOST="archboxmtd"
+	REMOTE_PORT="22"
+
+fi
+
+# Set defaults
+REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
+
+# Check if USER/HOST is setup under ~/.bashrc, set to default if blank
+# This keeps the IP of the remote VPS out of the build script
+
+if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
+
 	# fallback to local repo pool target(s)
 	REMOTE_USER="mikeyd"
 	REMOTE_HOST="archboxmtd"
@@ -165,7 +180,7 @@ main()
 	# pip search returns loose results, so grep/awk
 	pip search ${PKGNAME} | awk "/${PKGNAME}/"
 
-	echo -e "\nPress any key to continue\n"
+	echo -e "\nPress any key to continue"
 	read -erp "" FAKE_ENTER_KEY
 	
 	#################################################
@@ -282,7 +297,7 @@ main()
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
-		read -erp "Chohumblebundle: " TRANSFER_CHOICE
+		read -erp "Choice: " TRANSFER_CHOICE
 
 		if [[ "${TRANSFER_CHOICE}" == "y" ]]; then
 
@@ -319,6 +334,11 @@ while :; do
 		--apt-prefs-hack)
 			# Allow installation of packages newer than Valve's for building purposes
 			export APT_PREFS_HACK="true"
+			;;
+
+		--testing)
+			# send packages to test repo location
+			REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
 			;;
 
 		--help|-h)

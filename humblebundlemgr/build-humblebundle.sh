@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-humblebundlemgr.sh
+# Scipt Name:	build-humblebundle.sh
 # Script Ver:	1.9.5
-# Description:	Builds simple pacakge for using humblebundlemgr based of of master upstream
+# Description:	Builds simple pacakge for using humblebundle based of of master upstream
 #		git source
 #
 # See:		https://github.com/MestreLion/humblebundle
 #
-# Usage:	./build-humblebundlemgr.sh
+# Usage:	./build-humblebundle.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
-PKGNAME="humblebundlemgr"
+PKGNAME="humblebundle"
 PKGVER="0.1.0"
 PKGREV="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos"
@@ -192,7 +192,7 @@ main()
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
 		# capture command
-		read -erp "Chohumblebundlemgr: " TRANSFER_CHOICE
+		read -erp "Chohumblebundle: " TRANSFER_CHOICE
 
 		if [[ "${TRANSFER_CHOICE}" == "y" ]]; then
 

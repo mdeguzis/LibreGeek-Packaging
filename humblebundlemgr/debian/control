@@ -6,8 +6,7 @@ Build-Depends:
  debhelper (>= 9),
  dh-python,
  python-all,
- python-setuptools,
- setuptools-git
+ python-setuptools-git
 Standards-Version: 3.9.7
 Homepage: https://github.com/MestreLion/humblebundle
 

@@ -182,7 +182,7 @@ main()
 	# Fetch source
 	#################################################
 	
-	if ! pypi-download  ${PKGNAME};
+	if ! pypi-download  ${PKGNAME}; then
 
 		echo -e "\nERROR: Package download failed!\n"
 		exit 1

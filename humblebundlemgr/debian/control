@@ -7,6 +7,8 @@ Build-Depends:
  dh-python,
  libdbus-glib-1-dev,
  python-all,
+ python-dbus,
+ python-secretstorage,
  python-setuptools-git
 Standards-Version: 3.9.7
 Homepage: https://github.com/MestreLion/humblebundle

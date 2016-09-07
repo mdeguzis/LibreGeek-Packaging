@@ -14,7 +14,6 @@
 #################################################
 # Set variables
 #################################################
-
 arg1="$1"
 SCRIPTDIR="${PWD}"
 time_start=$(date +%s)
@@ -178,7 +177,7 @@ main()
 	# Fetch source
 	#################################################
 	
-	echo -e "\n==> Downlaoding source\n"
+	echo -e "\n==> Downloading source\n"
 	sleep 2s
 	
 	if ! pypi-download  ${PKGNAME}; then
@@ -217,6 +216,11 @@ main()
 	# Source name/versioning from setup.py
 	PKGNAME=$(cat ${SRC_DIR}/setup.py |  awk -F"\"" '/name/{print $2}')
 	PKGVER=$(cat ${SRC_DIR}/setup.py |  awk -F"'" '/name/{print $2}')
+	
+	echo "review this:"
+	cat ${SRC_DIR}/setup.py |  awk -F"\"" '/name/{print $2}'
+	cat ${SRC_DIR}/setup.py |  awk -F"'" '/name/{print $2}'
+	sleep 40s
 	
 	# control
 	sed -i "s|.*Maintainer.*|Maintainer: ${MAINTAINER} \<${MAINTAINER_EMAIL}\>|g" "${SRC_DIR}/debian/control"

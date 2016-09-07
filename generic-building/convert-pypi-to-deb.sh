@@ -220,6 +220,10 @@ main()
 	# control
 	sed -i "s|.*Maintainer.*|Maintainer: ${MAINTAINER} \<${MAINTAINER_EMAIL}\>|g" "${SRC_DIR}/debian/control"
 
+	# rules
+	# Most of these generated package source files do not have proper test setups, exclude them
+	echo -e "\noverride_dh_autotest:\n" >> "${SRC_DIR}/debian/rules"
+
 	# Enter source dir to update changelog
 	cd "${SRC_DIR}"
 
@@ -304,6 +308,7 @@ main()
 		# Output log file to sprunge (pastebin) for review
 		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
 		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+		cd "${SCRIPTDIR}"
 
 	fi
 

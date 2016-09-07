@@ -28,7 +28,10 @@ ifeq ($(ARCH),armhf)
 	ifeq ($(UBUNTU_VERSION),trusty)
 		export CC=clang
 		export CXX=clang++
+		# For parallel
 		export HAVE_PARALLEL_RSP=1
+		export WITH_DYNAREC=x86_64 
+		export HAVE_VULKAN=1
 	else
 		export CC=clang-3.6
 		export CXX=clang++-3.6
@@ -36,7 +39,10 @@ ifeq ($(ARCH),armhf)
 		export DEB_CFLAGS_MAINT_STRIP=-O2 -fstack-protector-strong
 		export DEB_CXXFLAGS_MAINT_APPEND=-fstack-protector
 		export DEB_CFLAGS_MAINT_APPEND=-fstack-protector
+		# For parallel
 		export HAVE_PARALLEL_RSP=1
+		export WITH_DYNAREC=x86_64 
+		export HAVE_VULKAN=1
 	endif
 	PLATFORM=platform="armv gles neon hardfloat"
 endif
@@ -49,7 +55,4 @@ override_dh_auto_build:
 
 override_dh_installdocs:
 	dh_installdocs
-	cd debian/libretro-*/usr/share/doc/libretro-mupen64plus/ && mv COPYING cxd4-license
-
-override_dh_builddeb:
-	cp b ej
+	cd debian/libretro-*/usr/share/doc/libretro-*/ && mv COPYING cxd4-license

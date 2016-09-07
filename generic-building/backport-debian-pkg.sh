@@ -47,7 +47,7 @@ BUILDER="pdebuild"
 # Start with default add more depending on options sourced
 BUILDOPTS=("--debbuildopts -sa")
 PATCH_REMOVE="false"
-export STEAMOS_TOOLS_BETA_HOOK="${BETA_REPO}"
+export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="$PKGNAME"
 PKGREV="1"
 URGENCY="low"
@@ -116,6 +116,22 @@ function_set_vars()
 	# Set repo folder destination
 	REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
 
+	# Beta repo evaluation
+	if [[ -n "${BETA_REPO}" ]]; then
+
+		case ${BETA_REPO} in
+
+			steamos-tools)
+			export STEAMOS_TOOLS_BETA_HOOK="true"
+			;;
+
+			*)
+			echo -e "\nERROR: Invalid beta repo!\n"
+			sleep 2s
+			;;
+		esac
+	fi
+
 }
 
 function_setup_env()
@@ -161,6 +177,7 @@ function_get_source()
 	Distribution: ${DIST}
 	ARCH: ${ARCH}
 	Builder options: ${BUILDOPTS}
+	Beta Repo: ${BETA_REPO}
 	Repo folder: ${REPO_FOLDER}
 
 	Press any key to continue
@@ -541,6 +558,18 @@ while :; do
 			# Or, we may want to build without patches
 			PATCH_REMOVE="true"
 			;;
+			
+		--beta-repo|-br)
+			# Allow testing/beta repos to be specified
+			# See: funcion_set_vars
+			if [[ -n "$2" ]]; then
+				BETA_REPO=$2
+				shift
+			else
+				echo -e "ERROR: --betarepo|-br requires an argument.\n" >&2
+				exit 1
+			fi
+			;;
 
 		--testing)
 			# send packages to test repo location
@@ -552,11 +581,13 @@ while :; do
 
 			Usage:	 	./backport-debian-pkg.sh [options]
 			Options:	--apt-prefs-hack	remove SteamOS apt preferences lock
+					--beta-repo|-br		enable a beta repo
 					--binary-dep		builds binary-dependent package
 					--no-clean|-nc		build without cleaning ahead of time
 					--remove-patches	remove any patches from package
 					--testing		send built package to testing repo
 					--help|-h		display this help text
+			Beta repos:	steamos-tools		SteamOS-Tools beta repo
 
 			EOF
 			break

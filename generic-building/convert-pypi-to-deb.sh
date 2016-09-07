@@ -318,7 +318,6 @@ main()
 		# Output log file to sprunge (pastebin) for review
 		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
 		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
-		cd "${SCRIPTDIR}"
 
 	fi
 
@@ -378,3 +377,6 @@ BUILDOPTS=$(echo ${BUILDOPTS[@]})
 
 # start main
 main
+
+# head back to source dir
+cd "${SCRIPTDIR}"

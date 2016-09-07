@@ -8,3 +8,9 @@ export PYBUILD_NAME=humblebundle
 
 %:
 	dh $@ --with python2 --buildsystem=pybuild
+
+#override_dh_auto_test:
+#	dh_auto_test -- --test-pytest
+        
+override_dh_strip:
+	dh_strip -phumblebundle --dbg-package=humblebundle-dbg

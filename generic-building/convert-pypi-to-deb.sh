@@ -214,6 +214,28 @@ main()
 	SRC_DIR=$(find "${PWD}" -type d -name "${PKGNAME}*")
 	SRC_DIR_BASENAME=$(basename ${SRC_DIR})
 
+	# Review debian files
+
+	# TODO
+	# Add code to review any debian files, as well as setup.py until "done" entered
+	# ${SRC_DIR}/debian/*
+	# ${SRC_DIR}/setup.py
+
+	while [[ "${FILE}" != "quit" ]];
+	do
+
+		cd ${SRC_DIR}
+		find ${PWD} -maxdepth 1 -namne "setup.py"
+		find ${PWD} -name "debian"
+
+		echo -e "\n==> Review which file? (Type "quit" when done)"
+		sleep 0.2s
+		read -erp "File: " FILE
+
+		nano "${FILE}"
+
+	done
+
 	###############################
 	# Alter Debian packaging files
 	###############################

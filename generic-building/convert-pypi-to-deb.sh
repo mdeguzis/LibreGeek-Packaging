@@ -227,7 +227,7 @@ main()
 	# Ask to review setup.py in case PKGNAME/PKGVER was not sourced correctly
 	echo -e "\n==> Source ${PKGNAME} version from setup.py?"
 	sleep 0.2s
-	read -erp "Choice (y/n)" SETUP_PY_VER
+	read -erp "Choice (y/n): " SETUP_PY_VER
 
 	if [[ "${SETUP_PY_VER}" == "y" ]]; then
 
@@ -256,7 +256,7 @@ main()
 
 		# Set manually
 		echo -e "\n==> Please specify the version. Showing downloading source:"
-		echo "${SRC_DIR_BASENAME}"
+		echo -e "\n${SRC_DIR_BASENAME}\n"
 
 		read -erp "Package version: " PKGVER
 

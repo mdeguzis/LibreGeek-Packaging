@@ -44,14 +44,14 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 		echo -e "Multiarch not found!"
 		sudo dpkg --add-architecture i386
-		echo -e "Updating for multiarch\n" 
+		echo -e "\nUpdating for multiarch\n" 
 		sleep 2s
 		sudo apt-get update
 
 	fi
 
 	# Standard packages
-	echo -e "==> Installing prerequisite packages\n"
+	echo -e "\n==> Installing prerequisite packages\n"
 	sleep 2s
 
 	# Deboostrap was backport to include more scripts, specify version

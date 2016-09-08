@@ -111,9 +111,9 @@ main()
 	# clone and checkout desired commit
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	
-	# modify module import name, as we have setuptools-git Debianzied
-	#sed -i 's/from setuptools/from setuptools_git/' "${SRC_DIR}/setup.py"
-	
+	# Debian uses 'python-dbus', not "dbus-python" (noted in setup.py)
+	sed -i 's/dbus-python/python-dbus/' "${SRC_DIR}/setup.py"
+
 	#################################################
 	# Build package
 	#################################################

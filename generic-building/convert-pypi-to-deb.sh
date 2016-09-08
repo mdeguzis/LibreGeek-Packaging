@@ -182,25 +182,25 @@ main()
 
 	echo -e "\nPress any key to continue"
 	read -erp "" FAKE_ENTER_KEY
-	
+
 	#################################################
 	# Fetch source
 	#################################################
-	
+
 	echo -e "\n==> Downloading source\n"
 	sleep 2s
-	
+
 	if ! pypi-download  ${PKGNAME}; then
 
 		echo -e "\nERROR: Package download failed!\n"
 		exit 1
-	
+
 	fi
-	
+
 	#################################################
 	# Prepare source
 	#################################################
-	
+
 	# Rename 
 	# mv *.tar.gz "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz"
 
@@ -212,29 +212,53 @@ main()
 
 	# Set SRC_DIR
 	SRC_DIR=$(find "${PWD}" -type d -name "${PKGNAME}*")
-	
+	SRC_DIR_BASENAME=$(basename ${SRC_DIR})
+
 	###############################
 	# Alter Debian packaging files
 	###############################
-	
+
 	echo -e "\n==> Modifying Debian package files\n"
 	sleep 2s
 
 	# remove garbage autogen files
 	find ${SRC_DIR} -name changelog -exec rm -fv '{}' \;
 
-	# Source name/versioning from setup.py
-	PKGNAME=$(cat ${SRC_DIR}/setup.py |  awk -F"\"" '/name/{print $2}')
-	PKGVER=$(cat ${SRC_DIR}/setup.py |  awk -F"'" '/version/{print $2}')
-	
 	# Ask to review setup.py in case PKGNAME/PKGVER was not sourced correctly
-	echo -e "\n==> Review setup.py?"
+	echo -e "\n==> Source ${PKGNAME} version from setup.py?"
 	sleep 0.2s
-	read -erp "Choice (y/n)" REVIEW_SETUP_PY
-	
-	if [[ "${REVIEW_SETUP_PY}" == "y" ]]; then
+	read -erp "Choice (y/n)" SETUP_PY_VER
 
-		less "${SRC_DIR}/setup.py"
+	if [[ "${SETUP_PY_VER}" == "y" ]]; then
+
+		# Source name/versioning from setup.py?
+		PKGVER=$(cat ${SRC_DIR}/setup.py |  awk -F"'" '/version/{print $2}')
+
+		echo -e "The returned value is: ${PKGVER}"
+		echo -e "Is this acceptable?\n"
+
+		sleep 0.2s
+		read -erp "Choice (y/n): " PKGVER_OK
+
+	else
+
+		PKGVER_OK="n"
+
+	fi
+
+	# Set version manually or automatically based on user review
+	if [[ "${PKGVER_OK}" == "y" ]]; then
+
+		# Set to already accepted version
+		PKGVER="${PKGVER}"
+
+	else
+
+		# Set manually
+		echo -e "\n==> Please specify the version. Showing downloading source:"
+		echo "${SRC_DIR_BASENAME}"
+
+		read -erp "Package version: " PKGVER
 
 	fi
 

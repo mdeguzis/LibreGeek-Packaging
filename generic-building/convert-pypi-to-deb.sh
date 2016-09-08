@@ -225,14 +225,16 @@ main()
 	do
 
 		cd ${SRC_DIR}
-		find ${PWD} -maxdepth 1 -namne "setup.py"
-		find ${PWD} -name "debian"
+		echo ""
+		ls
 
 		echo -e "\n==> Review which file? (Type "quit" when done)"
 		sleep 0.2s
 		read -erp "File: " FILE
 
-		nano "${FILE}"
+		if [[ "${FILE}" != "done" ]]; then
+			nano "${FILE}"
+		fi
 
 	done
 

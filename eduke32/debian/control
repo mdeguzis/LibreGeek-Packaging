@@ -4,6 +4,7 @@ Section: games
 Priority: optional 
 Build-Depends: 
  build-essential,
+ debhelper,
  nasm,
  libgl1-mesa-dev,
  libglu1-mesa-dev, 

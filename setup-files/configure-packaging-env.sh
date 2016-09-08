@@ -302,7 +302,7 @@ if [[ ${SYSTEM_SWAP_KB} == "0" ]]; then
 	
 	if [[ "${SETUP_SWAP}" == "y" ]]; then
 
-		read -erp "Size of swap spce in GB: " SWAP_SIZE_TEMP
+		read -erp "Size of swap space in GB: " SWAP_SIZE_TEMP
 		SWAP_SIZE=$((SWAP_SIZE_TEMP * 1000))
 		sudo touch /var/swap.img
 		sudo chmod 600 /var/swap.img

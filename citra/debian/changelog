@@ -1,3 +1,9 @@
+citra (0.20160907+git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit c3307b4
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 07 Sep 2016 15:30:49 -0400
+
 citra (0.20160805+git+bsos-1) brewmaster; urgency=low
 
   * Update to the latest commit e91327c

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=FTE Quake (server)
+Comment=FTE Quake server
+Exec=/usr/games/fteqw-sv
+Icon=/usr/share/pixmaps/ftequake.png
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/steam;

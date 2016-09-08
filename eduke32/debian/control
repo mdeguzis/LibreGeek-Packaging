@@ -1,0 +1,29 @@
+Source: eduke32 
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Section: games 
+Priority: optional 
+Build-Depends: 
+ build-essential,
+ nasm,
+ libgl1-mesa-dev,
+ libglu1-mesa-dev, 
+ libsdl1.2-dev,
+ libsdl-mixer1.2-dev,
+ libsdl2-dev,
+ libsdl2-mixer-dev,
+ flac,
+ libflac-dev,
+ libvorbis-dev,
+ libpng-dev,
+ libvpx-dev,
+ libgtk2.0-dev,
+ freepats
+Standards-Version: 3.9.8
+Homepage: http://eduke32.com
+
+Package: eduke32
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: engine for Duke Nukem 3D

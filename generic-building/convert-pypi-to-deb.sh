@@ -226,6 +226,17 @@ main()
 	# Source name/versioning from setup.py
 	PKGNAME=$(cat ${SRC_DIR}/setup.py |  awk -F"\"" '/name/{print $2}')
 	PKGVER=$(cat ${SRC_DIR}/setup.py |  awk -F"'" '/version/{print $2}')
+	
+	# Ask to review setup.py in case PKGNAME/PKGVER was not sourced correctly
+	echo -e "\n==> Review setup.py?"
+	sleep 0.2s
+	read -erp "Choice (y/n)" REVIEW_SETUP_PY
+	
+	if [[ "${REVIEW_SETUP_PY}" == "y" ]]; then
+
+		less "${SRC_DIR}/setup.py"
+
+	fi
 
 	# control
 	sed -i "s|.*Maintainer.*|Maintainer: ${MAINTAINER} \<${MAINTAINER_EMAIL}\>|g" "${SRC_DIR}/debian/control"

@@ -22,13 +22,39 @@ if sys.platform.startswith('linux'):
         'secretstorage',
     ]
 
+# Set Data files
+DATA_FILES = [
+  "hooks",
+  "installers",
+  "*json*",
+  "*py*",
+  "makeinstall"
+]
+
+DEPENDENCY_LINKS = [
+]
+
+# Exclude list
+EXCLUDE_FROM_PACKAGES = [
+  "tests",
+  "tests.*",
+  "*.tests",
+  "*.tests.*",
+  ".gitignore",
+]
+
 setup(
     name='humblebundle',
+    description='API to mananage your HumbleBundle library',
+    long_description=open('README.md').read(),
     version='0.0.0',
     url='https://github.com/MestreLion/humblebundle',
-    packages=find_packages(exclude=['tests']),
-    package_data={'humblebundle': ['*']},
+    packages=find_packages('.', exclude=EXCLUDE_FROM_PACKAGES),
+    dependency_links = DEPENDENCY_LINKS,
+    include_package_data=True,
+    data_files=DATA_FILES,
     setup_requires=['setuptools-git'],
+    console=[ os.path.join('humblebundle.py', '__main__.py') ],
     install_requires=install_requires,
     entry_points={
         'console_scripts': [

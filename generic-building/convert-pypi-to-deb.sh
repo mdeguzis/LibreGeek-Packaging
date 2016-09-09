@@ -232,7 +232,7 @@ main()
 		sleep 0.2s
 		read -erp "File: " FILE
 
-		if [[ "${FILE}" != "done" ]]; then
+		if [[ "${FILE}" != "quit" ]]; then
 			nano "${FILE}"
 		fi
 

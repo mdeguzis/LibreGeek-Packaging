@@ -1,5 +1,0 @@
-hooks			/usr/share/humblebundle
-installers		/usr/share/humblebundle
-*json*			/usr/share/humblebundle
-*.py			/usr/share/humblebundle
-makeinstall		/usr/share/humblebundle

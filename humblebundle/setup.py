@@ -22,40 +22,13 @@ if sys.platform.startswith('linux'):
         'secretstorage',
     ]
 
-# Set Data files
-# Example: data_files = [('share/doc/clint', ['README.rst', 'HISTORY.rst'])],
-DATA_FILES = [
-  'share/humblebundle': ['hooks/*'],
-  'share/humblebundle': ['installers/*'],
-  'share/humblebundle': '[*json*]',
-  'share/humblebundle': '[*py*]',
-  'share/humblebundle': '[makeinstall]'
-]
-
-DEPENDENCY_LINKS = [
-]
-
-# Exclude list
-EXCLUDE_FROM_PACKAGES = [
-  "tests",
-  "tests.*",
-  "*.tests",
-  "*.tests.*",
-  ".gitignore",
-]
-
 setup(
     name='humblebundle',
-    description='API to mananage your HumbleBundle library',
-    long_description=open('README.md').read(),
     version='0.0.0',
     url='https://github.com/MestreLion/humblebundle',
-    packages=find_packages('.', exclude=EXCLUDE_FROM_PACKAGES),
-    dependency_links = DEPENDENCY_LINKS,
+    packages=find_packages('humblebundle', exclude=['tests']),
     include_package_data=True,
-    package_data=DATA_FILES,
     setup_requires=['setuptools-git'],
-    console=[ os.path.join('humblebundle.py') ],
     install_requires=install_requires,
     entry_points={
         'console_scripts': [

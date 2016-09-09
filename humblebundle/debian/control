@@ -12,9 +12,9 @@ Build-Depends:
  python-keyring,
  python-lxml,
  python-progressbar,
- python-secretstorage,
  python-setuptools-git,
- python-xdg
+ python-xdg,
+ secretstorage
 Standards-Version: 3.9.7
 Homepage: https://github.com/MestreLion/humblebundle
 
@@ -26,7 +26,8 @@ Depends: ${python:Depends}, ${misc:Depends},
  python-keyring,
  python-lxml,
  python-progressbar,
- python-xdg
+ python-xdg,
+ secretstorage
 Description: HumbleBundle is CLI tool to manage your games.
  .
  Python library and command line tool to manage Humble Bundle 

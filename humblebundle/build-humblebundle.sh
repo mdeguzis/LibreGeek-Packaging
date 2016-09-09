@@ -113,10 +113,9 @@ main()
 	
 	# Add our modified setup.py so we can use /usr/share/humblebundle for resources
 	cp "${SCRIPTDIR}/setup.py" "${SRC_DIR}"
-	
 	# Until this is all figured out, just move source files into module-named folder
 	mkdir -p "${SRC_DIR}/${PKGNAME}"
-	find  "${SRC_DIR}" ! -name "*setup.py"  -exec cp -rv '{}' \;
+	find "${SRC_DIR}" ! -name "*setup.py" -exec cp -rv {} \;
 
 	# Debian uses 'python-dbus', not "dbus-python" (noted in setup.py)
 	# sed -i 's/dbus-python/python-dbus/' "${SRC_DIR}/setup.py"

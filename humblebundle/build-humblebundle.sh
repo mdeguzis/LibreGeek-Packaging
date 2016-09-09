@@ -112,7 +112,7 @@ main()
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	
 	# Add our modified setup.py so we can use /usr/share/humblebundle for resources
-	#cp "${SCRIPTDIR}/setup.py" "${SRC_DIR}"
+	cp "${SCRIPTDIR}/setup.py" "${SRC_DIR}"
 
 	# Debian uses 'python-dbus', not "dbus-python" (noted in setup.py)
 	# sed -i 's/dbus-python/python-dbus/' "${SRC_DIR}/setup.py"

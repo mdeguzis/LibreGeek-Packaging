@@ -23,12 +23,11 @@ if sys.platform.startswith('linux'):
     ]
 
 setup(
-    packages=['humblebundle'],
-    package_data={'humblebundle': ['*']},
     name='humblebundle',
     version='0.0.0',
     url='https://github.com/MestreLion/humblebundle',
     packages=find_packages(exclude=['tests']),
+    package_data={'humblebundle': ['*']},
     setup_requires=['setuptools-git'],
     install_requires=install_requires,
     entry_points={

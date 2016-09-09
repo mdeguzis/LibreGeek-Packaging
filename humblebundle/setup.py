@@ -17,16 +17,14 @@ install_requires = [
 
 if sys.platform.startswith('linux'):
 
-    # Append common directory to use resources if packaged:
-    if os.path.isdir('/usr/share/humblebundle'):
-    	sys.path.append('/usr/share/humblebundle')
-
     install_requires += [
         'dbus-python',   # requires libdbus-glib-1-dev
         'secretstorage',
     ]
 
 setup(
+    packages=['humblebundle'],
+    package_data={'humblebundle': ['*']},
     name='humblebundle',
     version='0.0.0',
     url='https://github.com/MestreLion/humblebundle',

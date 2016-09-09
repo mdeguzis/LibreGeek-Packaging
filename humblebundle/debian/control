@@ -4,10 +4,10 @@ Priority: extra
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends:
  debhelper (>= 9),
+ dbus-python,
  dh-python,
  libdbus-glib-1-dev,
  python-all,
-# python-dbus,
  dbus-python,
  python-keyring,
  python-lxml,

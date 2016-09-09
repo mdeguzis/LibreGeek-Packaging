@@ -1,0 +1,17 @@
+Source: dbus-python
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Section: python
+Priority: optional
+Build-Depends: python-setuptools (>= 0.6b3),
+ python-all-dev (>= 2.6.6-3),
+ debhelper (>= 9),
+ pkg-config,
+ libdbus-1-dev,
+ libdbus-glib-1-dev
+Standards-Version: 3.9.1
+
+Package: dbus-python
+Architecture: any
+Depends: ${misc:Depends}, ${python:Depends}, ${shlibs:Depends}
+Description: Python bindings for libdbus
+

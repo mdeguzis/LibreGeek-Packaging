@@ -98,7 +98,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -110,9 +110,9 @@ main()
 
 	# clone and checkout desired commit
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-	
+
 	# Debian uses 'python-dbus', not "dbus-python" (noted in setup.py)
-	sed -i 's/dbus-python/python-dbus/' "${SRC_DIR}/setup.py"
+	# sed -i 's/dbus-python/python-dbus/' "${SRC_DIR}/setup.py"
 
 	#################################################
 	# Build package

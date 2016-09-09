@@ -23,12 +23,13 @@ if sys.platform.startswith('linux'):
     ]
 
 # Set Data files
+# Including folders: 'foolibrary.folderA': ['*'],
 DATA_FILES = [
-  "hooks",
-  "installers",
-  "*json*",
-  "*py*",
-  "makeinstall"
+  'hooks': ['*'],,
+  'installers': ['*'],,
+  '*json*',
+  '*py*',
+  'makeinstall'
 ]
 
 DEPENDENCY_LINKS = [
@@ -44,6 +45,7 @@ EXCLUDE_FROM_PACKAGES = [
 ]
 
 setup(
+    packages= ['humblebundle'],
     name='humblebundle',
     description='API to mananage your HumbleBundle library',
     long_description=open('README.md').read(),

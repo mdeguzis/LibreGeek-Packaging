@@ -25,8 +25,8 @@ if sys.platform.startswith('linux'):
 # Set Data files
 # Including folders: 'foolibrary.folderA': ['*'],
 DATA_FILES = [
-  'hooks': ['*'],,
-  'installers': ['*'],,
+  'hooks': ['*'],
+  'installers': ['*'],
   '*json*',
   '*py*',
   'makeinstall'

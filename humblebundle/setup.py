@@ -23,13 +23,13 @@ if sys.platform.startswith('linux'):
     ]
 
 # Set Data files
-# Including folders: 'foolibrary.folderA': ['*'],
+# Example: data_files = [('share/doc/clint', ['README.rst', 'HISTORY.rst'])],
 DATA_FILES = [
-  'hooks': ['*'],
-  'installers': ['*'],
-  '*json*',
-  '*py*',
-  'makeinstall'
+  ('share/humblebundle', ['hooks/*']),
+  ('share/humblebundle', ['installers/*']),
+  ('share/humblebundle', '*json*'),
+  ('share/humblebundle', '*py*'),
+  ('share/humblebundle', 'makeinstall'
 ]
 
 DEPENDENCY_LINKS = [
@@ -45,7 +45,6 @@ EXCLUDE_FROM_PACKAGES = [
 ]
 
 setup(
-    packages= ['humblebundle'],
     name='humblebundle',
     description='API to mananage your HumbleBundle library',
     long_description=open('README.md').read(),

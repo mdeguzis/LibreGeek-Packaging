@@ -212,7 +212,7 @@ main()
 
 	# Set SRC_DIR
 	# Do not search more than depth=2 (1 past deb_dist under the build tmp dir)
-	SRC_DIR=$(find "${BUILD_TMP}" -maxdepth 2 -type d -name "${PKGNAME}*")
+	SRC_DIR=$(find "${BUILD_TMP}" -maxdepth 2 -type d -iname "${PKGNAME}*")
 	SRC_DIR_BASENAME=$(basename ${SRC_DIR})
 
 	# Review debian files

@@ -20,7 +20,7 @@ Homepage: https://github.com/MestreLion/humblebundle
 
 Package: humblebundle
 Architecture: all
-Depends: ${python:Depends}, ${misc:Depends},
+Depends: ${misc:Depends},
  dbus-python,
  python,
  python-keyring,

@@ -63,7 +63,7 @@ PKGREV="1"
 URGENCY="low"
 
 # set build dirs
-SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGNAME}"
+BUILD_TMP="${BUILD_TMP}/${PKGNAME}-${PKGNAME}"
 
 install_prereqs()
 {
@@ -212,12 +212,11 @@ main()
 
 	# Set SRC_DIR
 	# Do not search more than depth=2 (1 past deb_dist under the build tmp dir)
-	SRC_DIR=$(find "${PWD}" -maxdepth 2 -type d -name "${PKGNAME}*")
+	SRC_DIR=$(find "${BUILD_TMP}" -maxdepth 2 -type d -name "${PKGNAME}*")
 	SRC_DIR_BASENAME=$(basename ${SRC_DIR})
 
 	# Review debian files
 
-	# TODO
 	# Add code to review any debian files, as well as setup.py until "done" entered
 	# ${SRC_DIR}/debian/*
 	# ${SRC_DIR}/setup.py

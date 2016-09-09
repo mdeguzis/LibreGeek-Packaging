@@ -211,7 +211,8 @@ main()
 	py2dsc *.tar.gz
 
 	# Set SRC_DIR
-	SRC_DIR=$(find "${PWD}" -type d -name "${PKGNAME}*")
+	# Do not search more than depth=2 (1 past deb_dist under the build tmp dir)
+	SRC_DIR=$(find "${PWD}" -maxdepth 2 -type d -name "${PKGNAME}*")
 	SRC_DIR_BASENAME=$(basename ${SRC_DIR})
 
 	# Review debian files

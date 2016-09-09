@@ -246,7 +246,7 @@ main()
 	sleep 2s
 
 	# remove garbage autogen files
-	find ${SRC_DIR} -name changelog -exec rm -fv '{}' \;
+	find "${SRC_DIR}/debian" -name changelog -exec rm -fv '{}' \;
 
 	# Ask to review setup.py in case PKGNAME/PKGVER was not sourced correctly
 	echo -e "\n==> Source ${PKGNAME} version from setup.py?"

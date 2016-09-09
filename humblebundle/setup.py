@@ -18,7 +18,7 @@ install_requires = [
 if sys.platform.startswith('linux'):
 
     # Append common directory to use resources if packaged:
-    if os.path.isdir(/usr/share/humblebundle):
+    if os.path.isdir('/usr/share/humblebundle'):
     	sys.path.append('/usr/share/humblebundle')
 
     install_requires += [

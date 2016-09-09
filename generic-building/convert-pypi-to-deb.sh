@@ -214,6 +214,9 @@ main()
 	# Do not search more than depth=2 (1 past deb_dist under the build tmp dir)
 	SRC_DIR=$(find "${BUILD_TMP}" -maxdepth 2 -type d -iname "${PKGNAME}*")
 	SRC_DIR_BASENAME=$(basename ${SRC_DIR})
+	
+	# Set pacakge name to lowercase (some PyPi people like capitalization...)
+	PKGNAME=$(echo ${PKGNAME} | tr '[:upper:]' '[:lower:]')
 
 	# Review debian files
 

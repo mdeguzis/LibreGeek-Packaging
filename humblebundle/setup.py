@@ -54,7 +54,7 @@ setup(
     include_package_data=True,
     data_files=DATA_FILES,
     setup_requires=['setuptools-git'],
-    console=[ os.path.join('humblebundle.py', '__main__.py') ],
+    console=[ os.path.join('humblebundle.py') ],
     install_requires=install_requires,
     entry_points={
         'console_scripts': [

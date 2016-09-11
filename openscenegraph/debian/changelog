@@ -1,0 +1,5 @@
+openscenegraph (3.5.4+git+bsos-1) brewmaster; urgency=low
+
+  * Initial upload/backport
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 06 Sep 2016 21:24:20 -0400

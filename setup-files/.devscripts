@@ -1,4 +1,0 @@
-DEBUILD_DPKG_BUILDPACKAGE_OPTS="-us -uc"
-DEBUILD_LINTIAN_OPTS="-i -I --show-overrides"
-DSCVERIFY_KEYRINGS="/usr/share/keyrings/debian-keyring.gpg: \
-                    /usr/share/keyrings/ubuntu-keyring.gpg"

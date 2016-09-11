@@ -1,7 +1,0 @@
-+ /*.dsc
-+ /*.deb
-+ /*.changes
-+ /*.tar.gz
-+ /*.diff.gz
-+ /*.tar.xz
-- /*

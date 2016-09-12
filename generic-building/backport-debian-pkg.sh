@@ -245,7 +245,7 @@ function_backport_config()
 	# The “-F” marks the delimiter, “$NF” means the last field generated.
 	# You can also use extension="${orig##*.}"
 
-	SOURCE_UNPACK_TEST=$(find ${BUILD_TMP} -maxdepth 1 -type d -iname ${PKGNAME}*)
+	SOURCE_UNPACK_TEST=$(find ${BUILD_TMP} -maxdepth 1 -type d -iname "${PKGNAME}*")
 	ORIG_TARBALL=$(find ${BUILD_TMP} -type f -name "*orig*")
 
 	# Account for pacakges (like quake2) that only list a dsc and xz archive

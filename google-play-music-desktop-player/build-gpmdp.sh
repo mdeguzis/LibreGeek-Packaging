@@ -64,7 +64,7 @@ PKGNAME="google-play-music-desktop-player"
 PKGVER="3.6.0"
 upstream_rev="1"
 PKGREV="1"
-PKGSUFFIX="bsos${PKGREV}"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -144,13 +144,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to new ${PKGVER} release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 

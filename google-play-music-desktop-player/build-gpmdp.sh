@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-"
-rel_TARGET="3.0.0"
+SRC_URL="https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-"
+rTARGET="v3.6.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,7 +61,7 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="yes"
 PKGNAME="google-play-music-desktop-player"
-PKGVER="3.0.0"
+PKGVER="3.6.0"
 upstream_rev="1"
 PKGREV="1"
 PKGSUFFIX="bsos${PKGREV}"
@@ -72,8 +72,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -114,41 +113,68 @@ main()
 
 	fi
 
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "${rel_TARGET}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
-	# Enter git dir to build
-	cd "${GIT_DIR}"
+	#################################################
+	# Build package
+	#################################################
 
-	# Since this uses npm and has a lot of depedencies that woudl take a long
-	# time to convert to Debian packages, build manually for now.
-
-	echo -e "\n==> Building project\n"
-        sleep 2s
-
-	npm install
-        npm run build
-        npm start
-
-	echo -e "\n==> Creating Debian package\n"
+	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-        npm run make:deb
+	# Trim .git folders
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+
+	# create source tarball
+	cd "${BUILD_TMP}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+
+	# Add debian files
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+
+	# enter source dir
+	cd "${SRCDIR}"
+
+	echo -e "\n==> Updating changelog"
+	sleep 2s
+
+	# update changelog with dch
+	if [[ -f "debian/changelog" ]]; then
+
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to new ${PKGVER} release"
+		nano "debian/changelog"
+
+	else
+
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
+		nano "debian/changelog"
+
+	fi
+
+	#################################################
+	# Build Debian package
+	#################################################
+
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
+	sleep 2s
+
+	#  build
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
 
-	# clean up dirs
-
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
@@ -184,7 +210,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"
@@ -202,4 +228,3 @@ main()
 
 # start main
 main
-

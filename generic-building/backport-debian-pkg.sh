@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	backport-debian-pkg.sh.sh
-# Script Ver:	3.6.2
+# Script Ver:	3.6.8
 # Description:	Attempts to build a deb package from upstream Debian source code.
 #		files. Currently only Ubuntu and Debian .dsc files are supported.
 #		Supports full package name/versioning changes to match your repo.
@@ -57,6 +57,9 @@ maintainer="ProfessorKaos64"
 # set build dirs
 SRC_DIR="${PKGNAME}-${PKGNAME}"
 GIT_DIR="${BUILD_TMP}/${SRC_DIR}"
+
+# Initial vars for other objects
+DGET_OPTS=""
 
 install_prereqs()
 {
@@ -193,7 +196,7 @@ function_get_source()
 	# Obtain all necessary files specified in .dsc via dget
 	# Download only, as unverified sources (say a Ubuntu pkg build on Debian) will not auto-extract
 	# This is also a good approach if using an unsupported distro like Arch Linux
-	dget "${DSC}"
+	dget "${DGET_OPTS}" "${DSC}"
 
 	# Get filename only from DSC URL
 	DSC_FILENAME=$(basename "${DSC}")
@@ -563,6 +566,13 @@ while :; do
 			else
 				BUILDOPTS+=("--debbuildopts -nc")
 			fi
+			;;
+
+		--no-unpack|-nu)
+			# Don't unpack the source
+			# May be useful for building with no patches or dealing with
+			# certain builder idiosyncrasies
+			export DGET_OPTS="-d"
 			;;
 
 		--binary-arch|-ba)

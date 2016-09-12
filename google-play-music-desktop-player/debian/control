@@ -1,11 +1,12 @@
 Source: google-play-music-desktop-player
 Section: web
 Priority: extra
-Maintainer: Debian Javascript Maintainers <pkg-javascript-devel@lists.alioth.debian.org>
-Uploaders:   SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends:
- debhelper (>= 8),
+ debhelper,
  dh-buildinfo,
+ nodejs,
+ npm
 Standards-Version: 3.9.6
 Homepage: https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-
 

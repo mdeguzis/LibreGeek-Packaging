@@ -691,6 +691,7 @@ if [[ "${OS}" == "Debian" ]]; then
 	# Obtain valve keyring
 	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q --show-progress -nc 
 	sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+	rm valve-archive-keyring*
 
 fi
 
@@ -857,6 +858,13 @@ sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scrip
 
 # ubuntu
 # None for now
+
+#################################################
+# OS Specific extra setup
+#################################################
+
+# Arch Linux ships nano without -w (no wrap)... really...
+echo "alias nano=\"nano -w\"" >> "${HOME}/.bashrc"
 
 echo -e "\nFinishing up"
 sleep 0.5s

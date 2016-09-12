@@ -54,9 +54,6 @@ URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build dirs
-SRC_DIR="${BUILD_TMP}/${SRC_DIR}/${PKGNAME}-${PKGNAME}"
-
 # Initial vars for other objects
 DGET_OPTS="-x"		# default
 
@@ -74,7 +71,7 @@ install_prereqs()
 function_set_vars()
 {
 
-	echo -e "\n==> Setting vars\n"
+	echo -e "\n==> Setting vars"
 
 	echo -e "\nPress ENTER to use last: ${OLD_PKGNAME}"
 	read -erp "Target package name: " PKGNAME
@@ -282,7 +279,7 @@ function_backport_config()
 	esac
 
 	# Set the source dir
-	SRC_DIR=$(basename `find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*"`)
+	SRC_DIR=$(find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*")
 
 	# Set our suffix for backporting
 	# Update any of the below if distro versions change

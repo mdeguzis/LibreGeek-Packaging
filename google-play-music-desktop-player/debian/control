@@ -5,7 +5,7 @@ Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends:
  debhelper,
  dh-buildinfo,
- nodejs,
+ git-core,
  npm
 Standards-Version: 3.9.6
 Homepage: https://github.com/MarshallOfSound/Google-Play-Music-Desktop-Player-UNOFFICIAL-

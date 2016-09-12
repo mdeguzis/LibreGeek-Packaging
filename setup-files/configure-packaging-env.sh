@@ -77,7 +77,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	# Normal set of packages
 	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts libparse-debcontrol-perl \
 	sudo screen pv apt-file curl debian-keyring debian-archive-keyring ubuntu-archive-keyring \
-	osc obs-build mock sbuild apt-cacher-ng quilt"
+	gnupg osc obs-build mock sbuild apt-cacher-ng quilt"
 
 	for PKG in ${PKGs};
 	do
@@ -517,6 +517,16 @@ fi
 # git uses x11-ssh-askpass if installed (GUI)
 
 git config --global core.askpass ""
+
+#################################################
+# GitHub Setup
+#################################################
+
+# Init/setup gpg keyrings
+
+echo -e "\n==> Initializing GPG\n"
+
+gpg -k
 
 ##################################################
 # Host / Network

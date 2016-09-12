@@ -336,6 +336,29 @@ function_backport_config()
 
 	fi
 
+	# Review debian files
+
+	# Add code to review any debian files, as well as setup.py until "done" entered
+	# ${SRC_DIR}/debian/*
+	# ${SRC_DIR}/setup.py
+
+	while [[ "${FILE}" != "quit" ]];
+	do
+
+		cd ${SRC_DIR}
+		echo ""
+		ls
+
+		echo -e "\n==> Review packaging files? (Type "quit" when done)"
+		sleep 0.2s
+		read -erp "File: " FILE
+
+		if [[ "${FILE}" != "quit" ]]; then
+			nano "${FILE}"
+		fi
+
+	done
+
 	# clean renaining files (not necessary, but keeps temp build dir clean ^_^ )
 	rm ${BUILD_TMP}/*.debian.* ${BUILD_TMP}/*.dsc
 

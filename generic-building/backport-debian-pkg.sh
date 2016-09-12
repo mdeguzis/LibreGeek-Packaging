@@ -55,8 +55,7 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set build dirs
-SRC_DIR="${PKGNAME}-${PKGNAME}"
-GIT_DIR="${BUILD_TMP}/${SRC_DIR}"
+SRC_DIR="${BUILD_TMP}/${SRC_DIR}/${PKGNAME}-${PKGNAME}"
 
 # Initial vars for other objects
 DGET_OPTS="-x"		# default
@@ -306,7 +305,7 @@ function_backport_config()
 	sleep 2s
 
 	rm -f ${BUILD_TMP}/*.orig.tar.*
-	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" "${SRC_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Enter source dir
 	cd ${SRC_DIR}

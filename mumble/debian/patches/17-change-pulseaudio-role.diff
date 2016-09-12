@@ -1,0 +1,18 @@
+Description: PulseAudio will mute applications in the "music" or "video" role
+ when an application under the "phone" role is active.  And right now Mumble
+ uses the "phone" role.
+Bug-Mumble: https://github.com/mumble-voip/mumble/issues/1069
+Author: Mateusz "Maxmati"  https://github.com/maxmati
+Last-Updated: 2014-04-19
+
+--- a/src/mumble/PulseAudio.cpp
++++ b/src/mumble/PulseAudio.cpp
+@@ -116,7 +116,7 @@
+ 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_NAME, "Mumble");
+ 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ID, "net.sourceforge.mumble.mumble");
+ 	pa_proplist_sets(proplist, PA_PROP_APPLICATION_ICON_NAME, "mumble");
+-	pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "phone");
++	pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, "game");
+ 
+ 	pacContext = pa_context_new_with_proplist(api, NULL, proplist);
+ 	pa_proplist_free(proplist);

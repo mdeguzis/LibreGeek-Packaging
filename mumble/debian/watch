@@ -1,0 +1,3 @@
+version=3
+opts=pgpsigurlmangle=s/$/.sig/ \
+http://mumble.info/snapshot/mumble-(\d+\.\d+\.\d+)\.tar\.gz

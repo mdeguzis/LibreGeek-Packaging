@@ -1,0 +1,19 @@
+Description: include embedded CELT 0.7.1 only, as this is a base requirement
+ for Mumble, but avoid shipping any other version to minimize possible
+ security risks with CELT due to being dead upstream
+Bug: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=682010
+Author: Chris Knadle <chris.knadle@coredump.us>
+Last update: 2013-11-07
+
+--- a/main.pro
++++ b/main.pro
+@@ -16,7 +16,8 @@
+       CONFIG *= no-bundled-celt
+     }
+     !CONFIG(no-bundled-celt) {
+-      SUBDIRS *= celt-0.7.0-build celt-0.11.0-build
++      SUBDIRS *= celt-0.7.0-build
++      SUBDIRS -= celt-0.11.0-build
+     }
+   }
+ 

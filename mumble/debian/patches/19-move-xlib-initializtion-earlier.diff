@@ -1,0 +1,42 @@
+Description: crash when trying to set a push-to-talk key
+ Xlib functions were called before the display and thus Xlib functions being
+ initialized, leading to a crash concerning /dev/input.  Debug output:
+ 
+ #0  XKeycodeToKeysym (dpy=0x0, kc=50 '2', col=0) at ../../../src/xkb/XKBBind.c:111
+ 
+ This patch calls XOpenDisplay() earlier to avoid this.
+Author: Bas Wijnen <wijnen@debian.org>
+Bug: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=744733
+Bug-Mumble: https://github.com/mumble-voip/mumble/issues/1250
+Last-Updated: 2015-08-06
+
+--- a/src/mumble/GlobalShortcut_unix.cpp
++++ b/src/mumble/GlobalShortcut_unix.cpp
+@@ -43,7 +43,12 @@
+ 	iXIopcode =  -1;
+ 	bRunning = false;
+ 
+-	display = NULL;
++	display = XOpenDisplay(NULL);
++
++	if (! display) {
++		qWarning("GlobalShortcutX: Unable to open dedicated display connection.");
++		return;
++	}
+ 
+ #ifdef Q_OS_LINUX
+ 	if (g.s.bEnableEvdev) {
+@@ -65,13 +70,6 @@
+ 	}
+ #endif
+ 
+-	display = XOpenDisplay(NULL);
+-
+-	if (! display) {
+-		qWarning("GlobalShortcutX: Unable to open dedicated display connection.");
+-		return;
+-	}
+-
+ 	for (int i=0; i < ScreenCount(display); ++i)
+ 		qsRootWindows.insert(RootWindow(display, i));
+ 

@@ -1,0 +1,68 @@
+From e7bb1f79b87c018bff8a62f9a9200f206eaec6a2 Mon Sep 17 00:00:00 2001
+From: Kevin Lyles <kevinlyles@gmail.com>
+Date: Tue, 2 Sep 2014 23:01:37 -0500
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=779836
+Bug-Mumble: https://github.com/mumble-voip/mumble/issues/1381
+Origin: https://github.com/mumble-voip/mumble/issues/1381
+Subject: [PATCH] Hack to prevent flooding .xsession-errors
+
+---
+ src/mumble/ALSAAudio.cpp | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/src/mumble/ALSAAudio.cpp b/src/mumble/ALSAAudio.cpp
+index fb5d9e13403d..1b80814d7c6a 100644
+--- a/src/mumble/ALSAAudio.cpp
++++ b/src/mumble/ALSAAudio.cpp
+@@ -322,6 +322,9 @@ void ALSAAudioInput::run() {
+ 
+ 	unsigned int iChannels = 1;
+ 
++	unsigned int error_count = 0;
++	bool retry = false;
++
+ 	qWarning("ALSAAudioInput: Initing audiocapture %s.",device_name.data());
+ 
+ 	snd_pcm_hw_params_alloca(&hw_params);
+@@ -384,12 +387,27 @@ void ALSAAudioInput::run() {
+ 		if (readblapp == -ESTRPIPE) {
+ 			// suspend event - what to do?
+ 			qWarning("ALSAAudioInput: %s", snd_strerror(static_cast<int>(readblapp)));
++			error_count++;
++			if (error_count > 5) {
++				retry = true;
++				break;
++			}
+ 		} else if (readblapp == -EPIPE) {
+ 			err = snd_pcm_prepare(capture_handle);
+ 			qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast<int>(readblapp)), snd_strerror(err));
++			error_count++;
++			if (error_count > 5) {
++				retry = true;
++				break;
++			}
+ 		} else if (readblapp < 0) {
+ 			err = snd_pcm_prepare(capture_handle);
+ 			qWarning("ALSAAudioInput: %s: %s", snd_strerror(static_cast<int>(readblapp)), snd_strerror(err));
++			error_count++;
++			if (error_count > 5) {
++				retry = true;
++				break;
++			}
+ 		} else if (wantPeriod == static_cast<unsigned int>(readblapp)) {
+ 			addMic(inbuff, static_cast<int>(readblapp));
+ 		}
+@@ -399,6 +417,10 @@ void ALSAAudioInput::run() {
+ 	snd_pcm_close(capture_handle);
+ 
+ 	qWarning("ALSAAudioInput: Releasing ALSA Mic.");
++
++	if (retry) {
++		run();
++	}
+ }
+ 
+ ALSAAudioOutput::ALSAAudioOutput() {
+-- 
+1.8.5.5
+

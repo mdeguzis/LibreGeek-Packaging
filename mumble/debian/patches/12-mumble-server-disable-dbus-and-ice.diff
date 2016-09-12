@@ -1,0 +1,48 @@
+Description: disable D-Bus and Ice by default
+Author: Christopher Knadle <Chris.Knadle@coredump.us>
+Bug: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=731003
+Forwarded: https://github.com/mumble-voip/mumble/issues/1083
+Last-Update: 2013-12-06
+
+--- a/scripts/murmur.ini
++++ b/scripts/murmur.ini
+@@ -28,21 +28,12 @@
+ #dbPrefix=murmur_
+ #dbOpts=
+ 
+-# Murmur defaults to not using D-Bus. If you wish to use dbus, which is one of the
+-# RPC methods available in Murmur, please specify so here.
+-#
+-dbus=system
+-
+-# Alternate D-Bus service name. Only use if you are running distinct
+-# murmurd processes connected to the same D-Bus daemon.
+-#dbusservice=net.sourceforge.mumble.murmur
+-
+ # If you want to use ZeroC Ice to communicate with Murmur, you need
+ # to specify the endpoint to use. Since there is no authentication
+ # with ICE, you should only use it if you trust all the users who have
+ # shell access to your machine.
+ # Please see the ICE documentation on how to specify endpoints.
+-ice="tcp -h 127.0.0.1 -p 6502"
++#ice="tcp -h 127.0.0.1 -p 6502"
+ 
+ # Ice primarily uses local sockets. This means anyone who has a
+ # user account on your machine can connect to the Ice services.
+@@ -59,6 +50,16 @@
+ #icesecretread=
+ icesecretwrite=
+ 
++# Murmur defaults to not using D-Bus. If you wish to use dbus, which is one of the
++# RPC methods available in Murmur, please specify so here.  [The D-Bus interface
++# is now considered deprecated and using it is no longer advised.]
++#
++#dbus=system
++
++# Alternate D-Bus service name. Only use if you are running distinct
++# murmurd processes connected to the same D-Bus daemon.
++#dbusservice=net.sourceforge.mumble.murmur
++
+ # How many login attempts do we tolerate from one IP
+ # inside a given timeframe before we ban the connection?
+ # Note that this is global (shared between all virtual servers), and that

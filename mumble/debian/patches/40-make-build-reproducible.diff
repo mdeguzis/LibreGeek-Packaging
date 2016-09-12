@@ -1,0 +1,28 @@
+Description: Remove build timestamps to make build reproducible
+  https://wiki.debian.org/ReproducibleBuilds
+Origin: https://github.com/mumble-voip/mumble/commit/a7dd1b7737da70ccca99df635cfee6fbcb598736
+From: Derrick Dymock <derrick@puppetlabs.com>
+Date: Fri, 6 Mar 2015 10:32:05 -0800
+Last-Updated: 2015-12-23
+
+--- a/src/Version.h
++++ b/src/Version.h
+@@ -40,6 +40,6 @@
+ #endif
+ #ifndef MUMBLE_VERSION
+-#define MUMBLE_RELEASE "Compiled " __DATE__ " " __TIME__
++#define MUMBLE_RELEASE "Compiled by User"
+ #else
+ #define MUMBLE_RELEASE MUMTEXT(MUMBLE_VERSION)
+ #endif
+--- a/src/mumble/VersionCheck.cpp
++++ b/src/mumble/VersionCheck.cpp
+@@ -43,8 +43,6 @@
+ 	url.setPath(focus ? QLatin1String("/focus.php") : QLatin1String("/ver.php"));
+ 
+ 	url.addQueryItem(QLatin1String("ver"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(MUMBLE_RELEASE))));
+-	url.addQueryItem(QLatin1String("date"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__DATE__))));
+-	url.addQueryItem(QLatin1String("time"), QLatin1String(QUrl::toPercentEncoding(QLatin1String(__TIME__))));
+ #if defined(Q_OS_WIN)
+ 	url.addQueryItem(QLatin1String("os"), QLatin1String("Win32"));
+ #elif defined(Q_OS_MAC)

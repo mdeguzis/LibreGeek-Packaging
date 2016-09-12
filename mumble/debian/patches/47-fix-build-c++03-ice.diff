@@ -1,0 +1,21 @@
+Description: Fix FTBFS bug with GCC 6
+  Mumble expects -std=c++03 but doesn't explicitly set this in order to allow
+  the compiler to choose, and g++-6 defaults to -std=gnu++14.  zeroc-ice ships
+  both c++03 and c++11 libs, and the c++03 libs are the default.  The
+  combination leads to c++11 linking errors unless the -std is explicity set.
+Author: Mikkel Krautz <mikkel@krautz.dk>
+Bugs-Debian: https://bugs.debian.org/831184
+Bugs-Mumble: https://github.com/mumble-voip/mumble/issues/2494
+Last-Updated: 2016-08-11
+
+--- a/compiler.pri
++++ b/compiler.pri
+@@ -89,6 +89,8 @@
+ 	QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
+ 	QMAKE_CFLAGS *= -Wfatal-errors -fvisibility=hidden
+ 	QMAKE_CXXFLAGS *= -Wfatal-errors -fvisibility=hidden
++	QMAKE_CXXFLAGS *= -std=c++03
++
+ 	!CONFIG(quiet-build-log) {
+ 		QMAKE_CFLAGS *= -Wshadow -Wconversion -Wsign-compare
+ 		QMAKE_CXXFLAGS *= -Wshadow -Woverloaded-virtual -Wold-style-cast -Wconversion -Wsign-compare

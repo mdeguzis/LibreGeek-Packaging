@@ -1,0 +1,15 @@
+Description: Fix include path for the speechd headers for Ubuntu
+Author: Matthias Klose <doko@ubuntu.com>
+Last-Updated: 2016-02-26
+
+--- a/src/mumble.pri
++++ b/src/mumble.pri
+@@ -50,6 +50,8 @@
+ 		PKG_CONFIG = pkg-config --static
+ 	}
+ 
++	INCLUDEPATH *= "/usr/include/speech-dispatcher"
++
+ 	CONFIG *= link_pkgconfig
+ 	LIBS *= -lprotobuf
+ 

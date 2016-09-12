@@ -1,0 +1,80 @@
+Source: mumble
+Section: sound
+Priority: optional
+Maintainer: Christopher Knadle <Chris.Knadle@coredump.us>
+Build-Depends: debhelper (>= 9),
+ po-debconf,
+ libboost-dev (>= 1.42),
+ libboost-python-dev (>= 1.42),
+ libqt4-dev (>= 4.5.0),
+ libgl1-mesa-dev,
+ libasound2-dev,
+ libpulse-dev,
+ libogg-dev,
+ libspeex-dev,
+ libspeexdsp-dev,
+ libopus-dev,
+ libsndfile1-dev,
+ libssl-dev,
+ libzeroc-ice-dev,
+ libg15daemon-client-dev,
+ libspeechd-dev,
+ protobuf-compiler,
+ libprotobuf-dev,
+ libavahi-compat-libdnssd-dev,
+ libxi-dev,
+ libcap-dev [linux-any]
+Standards-Version: 3.9.8
+Homepage: https://wiki.mumble.info/wiki/Main_Page
+
+Package: mumble
+Architecture: any
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ libqt4-sql-sqlite,
+ lsb-release
+Suggests: speech-dispatcher,
+ mumble-server
+Description: Low latency encrypted VoIP client
+ Mumble is a low-latency, high quality voice chat program for gaming.
+ It features noise suppression, encrypted connections for both voice
+ and instant messaging, automatic gain control and low latency audio
+ with support for multiple audio standards. Mumble includes an in-game
+ overlay compatible with most open-source and commercial 3D applications.
+ Mumble is just a client and uses a non-standard protocol. You will need
+ a dedicated server to talk to other users. Server functionality is
+ provided by the package "mumble-server".
+
+Package: mumble-server
+Architecture: any
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ adduser,
+ libqt4-sql-sqlite
+Suggests: dbus,
+ mumble-django
+Description: Low latency encrypted VoIP server
+ Murmur is the VoIP server component for Mumble. Murmur is installed
+ in a system-wide fashion, but can also be run by individual users.
+ Each murmur process supports multiple virtual servers, each with their
+ own user base and channel list.
+
+Package: mumble-dbg
+Section: debug
+Architecture: any
+Depends: ${shlibs:Depends},
+ ${misc:Depends},
+ mumble (= ${binary:Version}) | mumble-server (= ${binary:Version})
+Priority: extra
+Description: Low latency encrypted VoIP client (debugging symbols)
+ Mumble is a low-latency, high quality voice chat program for gaming.
+ It features noise suppression, encrypted connections for both voice
+ and instant messaging, automatic gain control and low latency audio
+ with support for multiple audio standards. Mumble includes an in-game
+ overlay compatible with most open-source and commercial 3D applications.
+ Mumble is just a client and uses a non-standard protocol. You will need
+ a dedicated server to talk to other users. Server functionality is
+ provided by the package "mumble-server".
+ .
+ This package contains the debugging symbols for the 'mumble' and
+ 'mumble-server' packages.

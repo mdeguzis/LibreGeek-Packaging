@@ -1,0 +1,59 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+
+MAKEFILE = $(firstword $(MAKEFILE_LIST))
+SOURCE_DIR = $(dir $(MAKEFILE))..
+VERSION := $(shell dpkg-parsechangelog -l$(dir $(MAKEFILE))changelog | sed -ne 's/^Version: \(.*\)-.*/\1/p')
+MUMBLE_DEB_VERSION := $(shell dpkg-parsechangelog -l$(dir $(MAKEFILE))changelog | sed -ne 's/^Version: \(.*\).*/\1/p')
+
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	MAKEFLAGS += -j$(NUMJOBS)
+endif
+
+export DH_OPTIONS
+
+%:
+	dh  $@
+
+override_dh_auto_configure:
+	dh_auto_configure
+	qmake-qt4 -recursive main.pro \
+	CONFIG*=release \
+	CONFIG*=symbols \
+	CONFIG*=no-embed-qt-translations \
+	CONFIG*=packaged \
+	CONFIG*=quiet-build-log \
+	CONFIG*=bundled-celt \
+	CONFIG*=no-bundled-opus \
+	DEFINES*=NO_UPDATE_CHECK \
+	DEFINES*=PLUGIN_PATH=/usr/lib/mumble \
+	DEFINES*=MUMBLE_VERSION=$(MUMBLE_DEB_VERSION) \
+	DEFINES*=HAVE_LIMITS_H \
+	DEFINES*=HAVE_ENDIAN_H
+
+override_dh_clean:
+	rm -rfv release debug Ice
+	[ ! -d release-32 ] || rm -rf release-32
+	rm -fv $(CURDIR)/debian/mumble-server.logrotate $(CURDIR)/mumble-server.init
+	debconf-updatepo
+	dh_clean
+
+override_dh_auto_build:
+	$(MAKE) release
+	slice2html -I/usr/share/slice src/murmur/Murmur.ice --output-dir Ice
+	dh_auto_build
+
+override_dh_strip:
+	dh_strip --dbg-package=mumble-dbg
+
+override_dh_installchangelogs:
+	dh_installchangelogs CHANGES
+
+override_dh_installinit:
+	install -m 0755 $(CURDIR)/scripts/murmur.init $(CURDIR)/debian/mumble-server.init
+	install -m 0755 $(CURDIR)/scripts/murmur.logrotate $(CURDIR)/debian/mumble-server.logrotate
+	install -m 0644 -D $(CURDIR)/scripts/murmur.conf $(CURDIR)/debian/mumble-server/etc/dbus-1/system.d/mumble-server.conf
+	install -m 0644 -D $(CURDIR)/scripts/murmur.ini.system $(CURDIR)/debian/mumble-server/etc/mumble-server.ini
+	dh_installinit -- defaults 95

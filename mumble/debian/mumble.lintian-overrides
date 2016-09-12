@@ -1,0 +1,6 @@
+mumble: hardening-no-stackprotector usr/lib/mumble/liblink.so
+mumble: hardening-no-stackprotector usr/lib/mumble/libmanual.so
+# There are no calls to ldconfig; these seem to occur due to a bug in debhelper
+# (See #204975)
+mumble: postinst-has-useless-call-to-ldconfig
+

@@ -1,0 +1,210 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: mumble
+Source: https://mumble.info/snapshot/
+Comment: Originally debianized by Patrick Matthäi <pmatthaei@debian.org>
+         Sun, 16 Mar 2008 11:09:08 +0100.
+
+Files: *
+Copyright: 2005-2013 Thorvald Natvig <thorvald@natvig.com>
+           2007      Stefan Gehn <mETz AT gehn DOT net>
+           2007      Sebastian Schlingmann <mit_service@users.sourceforge.net>
+           2008-2013 Mikkel Krautz <mikkel@krautz.dk>
+           2008      Andreas Messer <andi@bupfen.de>
+           2007      Trenton Schulz
+           2008-2013 tefan Hacker <dd0t@users.sourceforge.net>
+           2008-2011 Snares <snares@users.sourceforge.net>
+           2009-2013 Benjamin Jemlich <pcgod@users.sourceforge.net>
+           2009-2013 Kissaki <kissaki@gmx.de>
+License: BSD-3-clause
+Comment: mumble-server links with ZeroC Ice, which is licensed under GPL-2.
+  ZeroC has granted a retroactive link exception for Mumble, please see
+  the updated ICE_LICENSE found in ZeroC Ice 3.3.1 or newer.
+
+Files: debian/*
+Copyright: 2007-2009 Thorvald Natvig <slicer@users.sourceforge.net>
+           2007-2012 Patrick Matthäi <patrick.matthaei@web.de>
+           2012-2015 Christopher Knadle <Chris.Knadle@coredump.us>
+License: BSD-3-clause
+
+Files: speex/*
+Copyright: 2002-2008 Xiph.org Foundation
+           2002-2008 Jean-Marc Valin
+           2005-2007 Analog Devices Inc.
+           1992-1994 Jutta Degener, Carsten Bormann
+           2003-2004 Mark Borgerding
+           2005      Christopher Montgomery
+           2003      EpicGames
+           2002      Jean-Marc Valin
+           2005-2008 Commonwealth Scientific and Industrial Research
+                     Organisation (CSIRO)
+           1993, 2002, 2006 David Rowe
+License: BSD-3-clause
+
+Files: celt-0.7.0-src/*
+Copyright: 2001-2009 Jean-Marc Valin, Timothy B. Terriberry,
+                     CSIRO, and other contributors
+License: BSD-3-clause
+Comment: CELT contains KISS FFT:
+         Copyright: 2003-2004 Mark Borgerding
+                    2008      Gregory Maxwell
+         License: BSD-3-clause
+
+Files: celt-0.7.0-src/libcelt/celt_types.h
+Copyright: 1994-2002 Xiph.Org Foundation http://www.xiph.org/
+License: BSD-3-clause
+Comment: this file copied from the Ogg Vorbis project
+
+Files: celt-0.7.0-src/libcelt/float_cast.h
+Copyright: 2001 Erik de Castro Lopo <erikd AT mega-nerd DOT com>
+License: ISC
+
+Files: celt-0.11.0-src/*
+Copyright: 2001-2009 Jean-Marc Valin, Timothy B. Terriberry,
+                     CSIRO, and other contributors
+License: BSD-2-clause
+
+Files: macx/overlay/*
+Copyright: 2005-2011 Thorvald Natvig <thorvald@natvig.com>
+           2008-2011 Mikkel Krautz <mikkel@krautz.dk>
+License: BSD-3-clause
+Comment:
+  Part of the code in overlay_macx is based on injector code that is
+  Copyright (c) 2003-2009 Jonathan 'Wolf' Rentzsch: <http://rentzsch.com>
+  Some rights reserved: <http://opensource.org/licenses/mit-license.php>
+
+Files: opus-src/*
+Copyright: 2001-2011 Xiph.Org, Skype Limited, Octasic,
+                    Jean-Marc Valin, Timothy B. Terriberry,
+                    CSIRO, Gregory Maxwell, Mark Borgerding,
+                    Erik de Castro Lopo
+License: BSD-3-clause
+Comment:
+  Opus is subject to the royalty-free patent licenses which are
+  specified at:
+  .
+  Xiph.Org Foundation:
+  https://datatracker.ietf.org/ipr/1524/
+  .
+  Skype Limited:
+  https://datatracker.ietf.org/ipr/1602/
+  .
+  Broadcom Corporation:
+  https://datatracker.ietf.org/ipr/1526/
+
+Files: src/mumble/smallft.cpp src/mumble/smallft.h
+Copyright: 2002-2007 Xiph.org Foundation
+License: BSD-3-clause
+Comment: these files are copied from the Ogg Vorbis project
+
+Files: src/bonjour/*
+Copyright: 2007 Trenton Schulz
+           2009 Stefan Hacker
+License: BSD-3-clause
+Comment: src/bonjour contains a modified version of the Qt Bonjour code.
+
+Files: src/CryptState.cpp
+Copyright: 2005-2011 Thorvald Natvig <thorvald@natvig.com>
+License: BSD-3-clause
+Comment:
+  The file src/CryptState.cpp implements OCB-AES128 (an authenticated-
+  encryption algorithm), which is covered by patents in the US. The patent
+  holder has written a patent grant for applications licensed under the GNU
+  General Public License, but has also granted a license for Mumble:
+  .
+  -------------------------------------------------------------------------
+  Date: Wed, 20 Feb 2008 09:33:40 -0800 (Pacific Standard Time)
+  From: Phillip Rogaway <rogaway@cs.ucdavis.edu>
+  To: Thorvald Natvig <thorvald@natvig.com>
+  Subject: Re: OCB under BSD License?
+  .
+  Hi Thorvald,
+  .
+  Nice to hear from you, and to hear that OCB is in Mumble.
+  .
+  I am in fact planning to greatly broaden the patent grant; I just need to
+  check with my attorney to see what's the best way to word it. Thanks for the
+  excellent suggestion to include "all programs whose complete source code is
+  freely available".  I will make sure to include this setting.  I am actually
+  looking to go much further.
+  .
+  Anyway, until I get the wording figured out and on the web
+  for a very general patent grant, please consider this email from me as
+  explicit permission to include OCB in Mumble and distribute it under
+  BSD (as well as GNU GPL) on a royalty-free basis.
+  .
+  Good luck, and thanks for creating your software.
+  .
+  phil
+  -------------------------------------------------------------------------
+
+License: BSD-2-clause
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+  2. Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+  .
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: BSD-3-clause
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+  2. Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+  3. Neither the name of the University nor the names of its contributors
+     may be used to endorse or promote products derived from this software
+     without specific prior written permission.
+  .
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE HOLDERS OR
+  CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+  PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+  PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+  LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: ISC
+  Permission to use, copy, modify, distribute, and sell this file for any
+  purpose is hereby granted without fee, provided that the above copyright
+  and this permission notice appear in all copies.  No representations are
+  made about the suitability of this software for any purpose.  It is
+  provided "as is" without express or implied warranty.
+
+License: GPL-2
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 2 of the License.
+ .
+ This package is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ On Debian systems, the complete text of the GNU General Public
+ License version 2 can be found in "/usr/share/common-licenses/GPL-2".
+Comment: License GPL-2 is listed here as it's mentioned concerning
+ ZeroC Ice and OCB.

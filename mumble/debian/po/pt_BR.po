@@ -1,0 +1,83 @@
+# Debconf translation of mumble
+# Copyright (C) 2011 mumble's COPYRIGHT HOLDER
+# This file is distributed under the same license as the mumble package.
+# Marco Juliano e Silva <tratecni@yahoo.com.br>, 2011.
+# Adriano Rafael Gomes <adrianorg@arg.eti.br>, 2011-2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mumble\n"
+"Report-Msgid-Bugs-To: mumble@packages.debian.org\n"
+"POT-Creation-Date: 2010-01-11 16:52+0100\n"
+"PO-Revision-Date: 2015-09-18 20:40-0300\n"
+"Last-Translator: Adriano Rafael Gomes <adrianorg@arg.eti.br>\n"
+"Language-Team: Brazilian Portuguese <debian-l10n-portuguese@lists.debian."
+"org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid "Password to set on SuperUser account:"
+msgstr "Senha a ser definida para a conta SuperUser:"
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid ""
+"Murmur has a special account called \"SuperUser\" which bypasses all "
+"privilege checks."
+msgstr ""
+"O murmur tem uma conta especial chamada \"SuperUser\", que prevalece sobre "
+"todas as checagens de privilégio."
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid ""
+"If you set a password here, the password for the \"SuperUser\" account will "
+"be updated."
+msgstr ""
+"Se você definir uma senha aqui, a senha para a conta \"SuperUser\" será "
+"atualizada."
+
+#. Type: password
+#. Description
+#: ../mumble-server.templates:1001
+msgid "If you leave this blank, the password will not be changed."
+msgstr "Se você deixar em branco, a senha não será alterada."
+
+#. Type: boolean
+#. Description
+#: ../mumble-server.templates:2001
+msgid "Autostart mumble-server on server boot?"
+msgstr "Iniciar automaticamente o mumble-server na inicialização do servidor?"
+
+#. Type: boolean
+#. Description
+#: ../mumble-server.templates:2001
+msgid ""
+"Mumble-server (murmurd) can start automatically when the server is booted."
+msgstr ""
+"O mumble-server (murmurd) pode iniciar automaticamente quando o servidor for "
+"inicializado."
+
+#. Type: boolean
+#. Description
+#: ../mumble-server.templates:3001
+msgid "Allow mumble-server to use higher priority?"
+msgstr "Permitir que o mumble-server use prioridade mais alta?"
+
+#. Type: boolean
+#. Description
+#: ../mumble-server.templates:3001
+msgid ""
+"Mumble-server (murmurd) can use higher process and network priority to "
+"ensure low latency audio forwarding even on highly loaded servers."
+msgstr ""
+"O mumble-server (murmurd) pode usar prioridades de processo e de rede mais "
+"altas a fim de assegurar encaminhamento de áudio de baixa latência, mesmo em "
+"servidores com alta carga."

@@ -1,0 +1,40 @@
+Description: Add dpkg-buildflags hardening flags via QMake
+ https://wiki.debian.org/Hardening#Notes_for_packages_using_QMake
+ Note that the overlay intentionally disables the  "-z,now" linker flag in
+ order to be able to resolve OpenGL symbols at runtime without linking
+ against a specific libGL implementation.
+Author: Christopher Knadle <Chris.Knadle@coredump.us>
+Last-Updated: 2015-12-23
+
+--- a/compiler.pri
++++ b/compiler.pri
+@@ -82,6 +82,11 @@
+ 
+ unix {
+ 	DEFINES *= RESTRICT=__restrict__
++	# Add Debian hardening flags via dpkg-buildflags
++	QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++	QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++	QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++	QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
+ 	QMAKE_CFLAGS *= -Wfatal-errors -fvisibility=hidden
+ 	QMAKE_CXXFLAGS *= -Wfatal-errors -fvisibility=hidden
+ 	!CONFIG(quiet-build-log) {
+--- a/overlay_gl/overlay_gl.pro
++++ b/overlay_gl/overlay_gl.pro
+@@ -9,5 +9,15 @@
+ SOURCES = overlay.c
+ LIBS *= -lrt -ldl
++# Add Debian hardening flags via dpkg-buildflags
++QMAKE_CPPFLAGS *= $(shell dpkg-buildflags --get CPPFLAGS)
++QMAKE_CFLAGS   *= $(shell dpkg-buildflags --get CFLAGS)
++QMAKE_CXXFLAGS *= $(shell dpkg-buildflags --get CXXFLAGS)
++QMAKE_LFLAGS   *= $(shell dpkg-buildflags --get LDFLAGS)
++#... but specifically remove "-z,now" because mumble-overlay (libmumble.so)
++# needs to be able to resolve OpenGL symbols at runtime rather than linking
++# to a specific libGL implementation
++QMAKE_LFLAGS -= -z,now
++#
+ QMAKE_CFLAGS *= -fvisibility=hidden $(CFLAGS_ADD)
+ QMAKE_LFLAGS -= -Wl,--no-undefined
+ QMAKE_LFLAGS *= $(LFLAGS_ADD)

@@ -1,0 +1,14 @@
+05-lsb-description.diff
+06-lsb-lower-dbus-dependency.diff
+12-mumble-server-disable-dbus-and-ice.diff
+17-change-pulseaudio-role.diff
+19-move-xlib-initializtion-earlier.diff
+25-make-logfiles-readable-by-adm.diff
+27-prevent-flooding-.xsession-errors.diff
+30-Remove-flawed-MX-host-existence-check.diff
+35-add-dpkg-buildflags.diff
+38-fix-spelling-error.diff
+40-make-build-reproducible.diff
+43-initialize-SSL.diff
+44-add-speechd-header.diff
+47-fix-build-c++03-ice.diff

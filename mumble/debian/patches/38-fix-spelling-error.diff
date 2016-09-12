@@ -1,0 +1,15 @@
+Description: Fix spelling error; "nonexistant" vs "nonexistent"
+Author: Christopher Knadle <Chris.Knadle@coredump.us>
+Last-Updated: 2015-10-17
+
+--- a/src/mumble/Messages.cpp
++++ b/src/mumble/Messages.cpp
+@@ -64,7 +64,7 @@
+ #define VICTIM_INIT \
+ 	ClientUser *pDst=ClientUser::get(msg.session()); \
+ 	 if (! pDst) { \
+- 		qWarning("MainWindow: Message for nonexistant victim %d.", msg.session()); \
++ 		qWarning("MainWindow: Message for nonexistent victim %d.", msg.session()); \
+ 		return; \
+ 	}
+ 

@@ -1,0 +1,23 @@
+Description: Remove init script dependency on dbus
+ For more information, see #731003
+Bug: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=731003
+Author: Christopher Knadle <Chris.Knadle@coredump.us>
+Last-Update: 2014-03-14
+
+--- a/scripts/murmur.init
++++ b/scripts/murmur.init
+@@ -2,10 +2,10 @@
+ #
+ ### BEGIN INIT INFO
+ # Provides:             mumble-server
+-# Required-Start:       $network $local_fs $remote_fs dbus
+-# Required-Stop:	$network $local_fs $remote_fs dbus
+-# Should-Start:		$mysql
+-# Should-Stop:		$mysql
++# Required-Start:       $network $local_fs $remote_fs
++# Required-Stop:	$network $local_fs $remote_fs
++# Should-Start:         $mysql dbus
++# Should-Stop:          $mysql dbus
+ # Default-Start:        2 3 4 5
+ # Default-Stop:         0 1 6
+ # Short-Description:    Mumble VoIP Server

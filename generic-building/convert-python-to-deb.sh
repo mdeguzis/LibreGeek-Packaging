@@ -190,25 +190,31 @@ main()
 	echo -e "\n==> Downloading source\n"
 	sleep 2s
 
-	if ! pypi-download  ${PKGNAME}; then
+	case "${IMPORT_TYPE}" in
+	
+		github)
+		read -erp "Git URL: " GIT_URL
+		wget "${GIT_URL}/archive/master.tar.gz"
+		;;
 
-		echo -e "\nERROR: Package download failed!\n"
-		exit 1
-
-	fi
+		pypi)
+		if ! pypi-download  ${PKGNAME}; then
+			echo -e "\nERROR: Package download failed!\n"
+			exit 1
+		fi
+		;;
+	esac
 
 	#################################################
 	# Prepare source
 	#################################################
 
-	# Rename 
-	# mv *.tar.gz "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz"
-
 	echo -e "\n==> Debianizing source\n"
 	sleep 2s
-
-	# crete deb files
 	py2dsc *.tar.gz
+
+	# Rename 
+	# mv *.tar.gz "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz"
 
 	# Set SRC_DIR
 	# Do not search more than depth=2 (1 past deb_dist under the build tmp dir)
@@ -401,6 +407,19 @@ while :; do
 			# send packages to test repo location
 			REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
 			;;
+		
+		--type|-t)
+			# specify source code import type
+			if [[ -n "$2" ]]; then
+				IMPORT_TYPE=$2
+				# echo "PLATFORM: $PLATFORM"
+				shift
+			else
+				echo -e "ERROR: --type|-t requires an argument.\n" >&2
+				exit 1
+			fi
+			;;			
+			;;
 
 		--help|-h)
 			cat<<-EOF
@@ -408,6 +427,7 @@ while :; do
 			Usage:	 	./convert-pypi-to-deb.sh [options]
 			Options:
 					--help|-h		display this help text
+					--type|-t		import type (pypi|github)
 
 			EOF
 			break

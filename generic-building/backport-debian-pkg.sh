@@ -59,7 +59,7 @@ SRC_DIR="${PKGNAME}-${PKGNAME}"
 GIT_DIR="${BUILD_TMP}/${SRC_DIR}"
 
 # Initial vars for other objects
-DGET_OPTS=""
+DGET_OPTS="-x"		# default
 
 install_prereqs()
 {

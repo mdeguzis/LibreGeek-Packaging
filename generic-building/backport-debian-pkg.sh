@@ -310,9 +310,11 @@ function_backport_config()
 	# Last safety check - debian folder
 	# If the debian folder is in the original souce, keep it.
 
+	echo -e "\n==> Sanitity checks"
+
 	if [[ ! -d "${SRC_DIR}/debian" ]]; then
 
-		echo -e "==> debian folder NOT found! unpacking existing\n"
+		echo -e "\nDebian directory: [FAIL]"
 
 		# no debian folder find and unpack the dget sourced file
 		DEBIAN_FOLDER=$(find "${BUILD_TMP}" -type f -name "*.debian.*")
@@ -331,7 +333,7 @@ function_backport_config()
 
 	else
 
-		echo "debian dir found!"
+		echo -e "\nDebian directory: [OK]"
 
 	fi
 
@@ -411,7 +413,7 @@ function_build_package()
 
 	# Ask what method
 
-	echo -e "\n==> Use what method? [pbuilder|local]"
+	echo -e "\n==> Use what builder? [pbuilder|local]"
 	read -erp "Choice: " METHOD
 
 

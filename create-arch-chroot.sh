@@ -5,7 +5,8 @@
 # Scipt name:	create-arch-chroot.sh
 # Script Ver:	0.1.1
 # Description:	Creates an Arch Linxu chroot on Linus systems
-# See:		
+# See:		https://wiki.archlinux.org/index.php/Install_from_existing_Linux
+#		Section: #From_a_host_running_another_Linux_distribution
 #
 # Usage:	./create-arch-chroot.sh
 # Opts:		[--testing]
@@ -20,9 +21,38 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	# Supported
 	:
-	
-else
-
-	echo -e "Distribution not yet supported"
-	
 fi
+
+echo -e "\n==> Aquiring arch-boostrap\n"
+sleep 2s
+
+# For now, use a cool helper script linked in the AUR article to make this 
+# easy
+
+wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/arch-bootstrap.sh" \
+-w -nc --show-progress
+
+wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/get-pacman-dependencies.sh" \
+-w -nc --show-progress
+
+echo -e "\n==> Boostrapping Arch Linus install\n"
+sleep 2s
+
+read -erp "Install location: " INSTALL_LOCATION
+mkdir -p "${INSTALL_LOCATION}"
+
+arch-bootstrap -a x86_64 -r "ftp://ftp.archlinux.org" "${INSTALL_LOCATION}"
+
+echo -e "\n==> Binding mounts for Arch Linus install\n"
+sleep 2s
+
+sudo mount --bind /proc "${INSTALL_LOCATION}/proc"
+sudo mount --bind /sys "${INSTALL_LOCATION}/sys"
+sudo mount --bind /dev "${INSTALL_LOCATION}/dev"
+sudo mount --bind /dev/pts "${INSTALL_LOCATION}/dev/pts"
+
+# cleanup
+
+echo -e "\n==INFO==\nTo enter the chroot:"
+echo -e "chroot ${INSTALL_LOCATION}"
+

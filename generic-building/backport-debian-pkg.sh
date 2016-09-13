@@ -640,6 +640,7 @@ while :; do
 			cat<<-EOF
 
 			Usage:	 	./backport-debian-pkg.sh [options]
+
 			Options:	--apt-prefs-hack	Raemove SteamOS apt preferences lock
 					--beta-repo|-br		Enable a beta repo
 					--binary-dep		Builds binary-dependent package
@@ -651,6 +652,7 @@ while :; do
 					--remove-patches	Remove any patches from package
 					--testing		Send built package to testing repo
 					--help|-h		Display this help text
+
 			Beta repos:	steamos-tools		SteamOS-Tools beta repo
 
 			EOF

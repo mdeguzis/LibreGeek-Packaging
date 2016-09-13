@@ -262,7 +262,7 @@ function_backport_config()
 	# You can also use extension="${orig##*.}"
 
 	SOURCE_UNPACK_TEST=$(find ${BUILD_TMP} -maxdepth 1 -type d -iname "${PKGNAME}*")
-	ORIG_TARBALL=$(find ${BUILD_TMP} -type f -name "*orig*")
+	ORIG_TARBALL=$(find ${BUILD_TMP} -type f -name "*.orig.*")
 
 	# Account for pacakges (like quake2) that only list a dsc and xz archive
 	if [[ "${ORIG_TARBALL}" == "" ]]; then

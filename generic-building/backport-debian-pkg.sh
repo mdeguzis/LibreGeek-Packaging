@@ -55,6 +55,7 @@ maintainer="ProfessorKaos64"
 
 # Initial vars for other objects
 TEST_REPO="false"
+BETA_REPO=""
 export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
 export EXTRA_OPTS=""

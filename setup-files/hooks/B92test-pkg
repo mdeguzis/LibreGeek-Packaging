@@ -11,7 +11,7 @@
 # Useful for backporting packages like mono, which have to 
 # have pieces configured ahead of time
 
-if [[ "${NO_TEST_PKG}" == "false" ]]; then
+if [[ "${NO_TEST_PKG}" != "true" ]]; then
 
 	set -e 
 

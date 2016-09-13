@@ -4,3 +4,12 @@
 
 %:
 	dh $@
+
+override_dh_auto_build:
+	# download and copy necessary thirdparty DLLs to the working directory
+	make dependencie
+	# Build the source
+	make all
+
+override_dh_auto_install:
+	make install-all

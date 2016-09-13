@@ -47,8 +47,8 @@ else
 fi
 # upstream vars
 # build fails with softrend error, try using some PRs to fix for now...
-GIT_URL="https://github.com/professorkaos64/reicast-emulator"
-#GIT_URL="https://github.com/reicast/reicast-emulator"
+SRC_URL="https://github.com/professorkaos64/reicast-emulator"
+#SRC_URL="https://github.com/reicast/reicast-emulator"
 TARGET="master"
 
 # package vars
@@ -72,7 +72,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRC_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -113,7 +113,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${TARGET}" "${GIT_URL}" "${SRC_DIR}"
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 		else
 
@@ -131,7 +131,7 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone -b "${TARGET}" "${GIT_URL}" "${SRC_DIR}"
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	fi
 	
@@ -161,7 +161,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename "${SRCDIR}")
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename "${SRC_DIR}")
 		
 	else
 	

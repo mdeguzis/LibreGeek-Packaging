@@ -641,7 +641,8 @@ while :; do
 
 			Usage:		./backport-debian-pkg.sh [options]
 
-			Options:	--apt-prefs-hack	Raemove SteamOS apt preferences lock
+			Options:		
+					--apt-prefs-hack	Raemove SteamOS apt preferences lock
 					--beta-repo|-br		Enable a beta repo
 					--binary-dep		Builds binary-dependent package
 					--network|-net		Enable build-time network connection
@@ -653,7 +654,8 @@ while :; do
 					--testing		Send built package to testing repo
 					--help|-h		Display this help text
 
-			Beta repos:	steamos-tools		SteamOS-Tools beta repo
+			Beta repos:	
+					steamos-tools		SteamOS-Tools beta repo
 
 			EOF
 			break

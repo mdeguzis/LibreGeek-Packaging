@@ -88,13 +88,13 @@ fi
 cat<<-EOF
 ==> Review:
 
-Installation directory: $INSTALL_LOCATION
-echo -e 
+Installation directory: 
+$INSTALL_LOCATION
 
 Press ENTER to continue
 EOF
 
-read -erp FAKE_ENTER
+read -erp "" FAKE_ENTER
 
 if sudo ./arch-bootstrap.sh -a x86_64 "$INSTALL_LOCATION"; then
 

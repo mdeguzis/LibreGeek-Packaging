@@ -23,7 +23,7 @@ sleep 2s
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	# get basic depdencies
-	sudo apt-get -install -y --force-yes bash coreutils wget sed gawk  \
+	sudo apt-get install -y --force-yes bash coreutils wget sed gawk  \
 	tar gzip chroot xz
 	
 else

@@ -54,7 +54,7 @@ uploader="Michael DeGuzisd <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # Initial vars for other objects
-EXIT_SCRIPT="falsed"
+TEST_REPO="false"
 export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
 export EXTRA_OPTS=""
@@ -117,7 +117,16 @@ function_set_vars()
 	if [[ "${DIST}" == "jessie-backports" ]]; then PROJECT_FOLDER="debian"; fi
 
 	# Set repo folder destination
-	REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
+	if [[ "${TEST_REPO}" == "false" ]]; then
+
+		REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
+
+	elif [[ "${TEST_REPO}" == "true" ]]; then
+
+
+		REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
+
+	fi
 
 	# Beta repo evaluation
 	if [[ -n "${BETA_REPO}" ]]; then
@@ -185,7 +194,7 @@ function_get_source()
 	Distribution: ${DIST}
 	ARCH: ${ARCH}
 	Builder options: ${BUILDOPTS}
-	Beta Repo: ${BETA_REPO}
+	Beta repo: ${BETA_REPO}
 	Repo folder: ${REPO_FOLDER}
 	Extra options: ${EXTRA_OPTS}
 
@@ -565,7 +574,7 @@ while :; do
 			# If the package requires use of a network connection
 			export USE_NETWORK="yes"
 			EXTRA_OPTS+=("--network")
-		;;
+			;;
 
 		--no-clean|-nc)
 			# Don't clean before starting pbuilder build
@@ -633,7 +642,7 @@ while :; do
 
 		--testing)
 			# send packages to test repo location
-			REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
+			TEST_REPO="true"
 			;;
 
 		--help|-h)

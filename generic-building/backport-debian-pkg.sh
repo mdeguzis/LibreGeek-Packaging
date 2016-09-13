@@ -285,15 +285,15 @@ function_backport_config()
 	case "${ORIG_TARBALL_FILENAME}" in
 
 		*.tar.bz2)
-		tar -vxjf *.tar.bz2
+		tar -xjf *.tar.bz2
 		;;
 
 		*.tar.xz)
-		tar -xvf *.orig.tar.xz
+		tar -xf *.orig.tar.xz
 		;;
 
 		*.tar.gz)
-		tar -xzvf *.orig.tar.gz
+		tar -xzdf *.orig.tar.gz
 		;;
 
 	esac

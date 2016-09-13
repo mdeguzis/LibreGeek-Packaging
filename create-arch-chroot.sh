@@ -39,6 +39,21 @@ wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/get-pacman
 chmod +x get-pacman-dependencies.sh
 chmod +x arch-bootstrap.sh
 
+echo -e "\n==> Acquiring dependencies\n"
+sleep 2s
+
+if ./get-pacman-dependencies.sh; then
+
+	echo -e "\nInstallation Successful!"
+
+else
+
+	echo -e "\nCannot install all dependencies!"
+	sleep 5s
+	exit 1
+
+fi
+
 echo -e "\n==> Boostrapping Arch Linux install\n"
 sleep 2s
 

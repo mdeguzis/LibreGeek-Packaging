@@ -116,6 +116,8 @@ sudo mount --bind /dev/pts "${INSTALL_LOCATION}/dev/pts"
 
 # cleanup
 
-echo -e "\n==INFO==\nTo enter the chroot:"
-echo -e "sudo chroot ${INSTALL_LOCATION}"
-
+cat<<-EOF
+==INFO==
+To enter the chroot:
+sudo chroot ${INSTALL_LOCATION}
+EOF

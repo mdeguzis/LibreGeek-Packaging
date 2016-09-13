@@ -23,7 +23,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	:
 fi
 
-echo -e "\n==> Aquiring arch-boostrap\n"
+echo -e "\n==> Acquiring arch-boostrap\n"
 sleep 2s
 
 # For now, use a cool helper script linked in the AUR article to make this 
@@ -33,9 +33,9 @@ wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/arch-boots
 -w -nc --show-progress
 
 wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/get-pacman-dependencies.sh" \
--w -nc --show-progress
+-q -nc --show-progress
 
-echo -e "\n==> Boostrapping Arch Linus install\n"
+echo -e "\n==> Boostrapping Arch Linux install\n"
 sleep 2s
 
 read -erp "Install location: " INSTALL_LOCATION

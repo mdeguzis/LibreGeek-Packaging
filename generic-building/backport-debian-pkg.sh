@@ -644,6 +644,8 @@ while :; do
 					--binary-dep		Builds binary-dependent package
 					--network|-net		Enable build-time network connection
 					--no-clean|-nc		Build without cleaning ahead of time
+					--no-lint|-nl		Disable lintian tests
+					--no-test|-nt		Disable pbuilder/sbuild package tests
 					--no-unpack|-nu		Don't unpack when using dget
 					--remove-patches	Remove any patches from package
 					--testing		Send built package to testing repo

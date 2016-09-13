@@ -666,21 +666,21 @@ while :; do
 			# End of all options.
 			shift
 			break
+			;;
+
+		-?*)
+			printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+			;;
+
+		*)
+			# Default case: If no more options then break out of the loop.
+			break
 			# Set the array BULIDOPTS
 			BUILDOPTS=$(echo ${BUILDOPTS[@]})
 			# Set extra opts array
 			EXTRA_OPTS=$(echo ${EXTRA_OPTS[@]})
 			# start main
 			main
-		;;
-
-		-?*)
-		printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
-		;;
-
-		*)
-		# Default case: If no more options then break out of the loop.
-		break
 
 	esac
 

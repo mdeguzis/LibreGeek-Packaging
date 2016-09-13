@@ -55,9 +55,11 @@ uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # Initial vars for other objects
-DGET_OPTS="-x"		# default
-USE_NETWORK="no"
-EXTRA_OPTS=""
+export DGET_OPTS="-x"		# default
+export USE_NETWORK="no"
+export EXTRA_OPTS=""
+export NO_PKG_TEST="false"
+export NO_LINT="false"
 
 install_prereqs()
 {
@@ -561,7 +563,7 @@ while :; do
 			export APT_PREFS_HACK="true"
 			EXTRA_OPTS+=("--apt-prefs-hack")
 			;;
-		
+
 		--network|-net)
 			# If the package requires use of a network connection
 			export USE_NETWORK="yes"
@@ -582,6 +584,18 @@ while :; do
 				BUILDOPTS+=("--debbuildopts -nc")
 			fi
 			;;
+
+		--no-test|-nt)
+			# do not test after building
+			# some packages must be manually configured (e.g. mono)
+			export NO_TEST_PKG="true"
+			;;
+
+		--no-lint|-nl)
+			# Skip running linitian
+			export NO_LINT="true"
+			;;
+
 
 		--no-unpack|-nu)
 			# Don't unpack the source
@@ -607,7 +621,7 @@ while :; do
 			# Or, we may want to build without patches
 			PATCH_REMOVE="true"
 			;;
-			
+
 		--beta-repo|-br)
 			# Allow testing/beta repos to be specified
 			# See: funcion_set_vars
@@ -654,7 +668,7 @@ while :; do
 		printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
 		;;
 
-		*)  
+		*)
 		# Default case: If no more options then break out of the loop.
 		break
 
@@ -662,7 +676,7 @@ while :; do
 
 	# shift args
 	shift
-	
+
 done
 
 # Set the array BULIDOPTS

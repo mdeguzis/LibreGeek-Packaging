@@ -1,31 +1,24 @@
-Source: am2r
+Source: openra
 Section: games
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9)
+ curl,
+ libfreetype6,
+ libopenal1,
+ liblua5.1-0,
+ libsdl2-2.0-0,
+ nuget,
+ mono-devel,
+ xdg-utils,
+ zenity
 Standards-Version: 3.9.7
-Homepage: http://metroid2remake.blogspot.com/2010/01/about-name.html
-
-Package: am2r
-Architecture: all
+Homepage:https://github.com/OpenRA/OpenRA
+ mono-runtime
+Package: openra
+Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
- libc6:i386,
- libopenal1:i386,
- libgcc1:i386,
- libgl1-mesa-glx:i386,
- libglu1-mesa:i386,
- libssl1.0.0:i386,
- libstdc++6:i386,
- libxcb1:i386,
- libx11-6:i386,
- libxext6:i386,
- libxdmcp6:i386,
- libxrandr2:i386,
- libxrender1:i386,
- libxau6:i386,
- libxxf86vm1:i386,
- zlib1g
-Description: am2r is a remake of the clasic Metroid II game.
- IMPORTANT: This is an UNOFFICIAL release of the free, and
- fan-made game. A kind reddit user made a compatible 
- game launcher. This is provided AS IS.
+Description: Game engine for early RTS Red Alert Games.
+ .
+ A Libre/Free Real Time Strategy game engine supporting 
+ early Westwood classics.

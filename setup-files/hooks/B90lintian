@@ -3,7 +3,7 @@
 # Do not run if requested
 # Run only if NO_LINTIAN is false
 
-if [[ "${NO_LINTIAN}" == "false" ]]; then
+if [[ "${NO_LINTIAN}" != "true" ]]; then
 
 	set -e
 

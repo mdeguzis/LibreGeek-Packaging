@@ -367,9 +367,6 @@ function_backport_config()
 
 	done
 
-	# clean remnaining files (not necessary, but keeps temp build dir clean ^_^ )
-	rm -f ${BUILD_TMP}/*.debian.* ${BUILD_TMP}/*.dsc
-
 	# Check source format
 	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')
 

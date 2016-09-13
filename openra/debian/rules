@@ -11,11 +11,8 @@ libdir = $(prefix)/lib
 	dh $@
 
 override_dh_auto_build:
-	# Ugh, really nuget? Need to get ssl certs
-	certmgr -ssl -m https://go.microsoft.com
-	certmgr -ssl -m https://nugetgallery.blob.core.windows.net
-	certmgr -ssl -m https://nuget.org
-	# download and copy necessary thirdparty DLLs to the working directory
+	# sync certs (thanks nuget)
+	cert-sync /etc/ssl/certs/ca-certificates.crt
 	make dependencies
 	# Build the source
 	make all

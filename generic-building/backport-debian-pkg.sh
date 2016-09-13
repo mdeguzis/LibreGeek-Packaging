@@ -57,6 +57,7 @@ maintainer="ProfessorKaos64"
 # Initial vars for other objects
 DGET_OPTS="-x"		# default
 USE_NETWORK="no"
+EXTRA_OPTS=""
 
 install_prereqs()
 {
@@ -184,6 +185,7 @@ function_get_source()
 	Builder options: ${BUILDOPTS}
 	Beta Repo: ${BETA_REPO}
 	Repo folder: ${REPO_FOLDER}
+	Extra options: ${EXTRA_OPTS}
 
 	Press any key to continue
 	EOF
@@ -557,11 +559,13 @@ while :; do
 		--apt-prefs-hack)
 			# Allow installation of packages newer than Valve's for building purposes
 			export APT_PREFS_HACK="true"
+			EXTRA_OPTS+=("--apt-prefs-hack")
 			;;
 		
 		--network|-net)
 			# If the package requires use of a network connection
 			export USE_NETWORK="yes"
+			EXTRA_OPTS+=("--network")
 		;;
 
 		--no-clean|-nc)
@@ -569,7 +573,9 @@ while :; do
 			# Not advised, but at times necessary on systems lacking debhelper packages
 			# such as Arch Linux.
 			if [[ -n "$2" ]]; then
-				echo -e "WARNING: It is suggested to have this as the last option (before any arch-dep args)." >&2
+				cat<<-EOF
+				WARNING: It is suggested to have --no-clean|-nc as the last option (before any arch-dep args).
+				EOF
 				sleep 3s
 				exit 1
 			else
@@ -582,6 +588,7 @@ while :; do
 			# May be useful for building with no patches or dealing with
 			# certain builder idiosyncrasies
 			export DGET_OPTS="-d"
+			EXTRA_OPTS+="--no-unpack"
 			;;
 
 		--binary-arch|-ba)
@@ -660,6 +667,9 @@ done
 
 # Set the array BULIDOPTS
 BUILDOPTS=$(echo ${BUILDOPTS[@]})
+
+# Set extra opts array
+EXTRA_OPTS=$(echo ${EXTRA_OPTS[@]})
 
 ############################
 # start main

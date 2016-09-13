@@ -67,13 +67,13 @@ if [[ -d "${INSTALL_LOCATION}" ]]; then
 	if [[ "${RESET}" == "y" ]]; then
 
 		rm -rf "${INSTALL_LOCATION}"
-	
+
 	else
 
-else
+		# ensure directory is present
+		mkdir -p "${INSTALL_LOCATION}"
 
-	# ensure directory is present
-	mkdir -p "${INSTALL_LOCATION}"
+	fi
 
 fi
 

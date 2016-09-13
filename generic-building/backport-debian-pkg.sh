@@ -658,8 +658,7 @@ while :; do
 					steamos-tools		SteamOS-Tools beta repo
 
 			EOF
-			break
-			EXIT_SRIPT="true"
+			exit
 			;;
 
 		--)
@@ -673,14 +672,9 @@ while :; do
 			;;
 
 		*)
-			# Default case: If no more options then break out of the loop.
+			# no more options
 			break
-			# Set the array BULIDOPTS
-			BUILDOPTS=$(echo ${BUILDOPTS[@]})
-			# Set extra opts array
-			EXTRA_OPTS=$(echo ${EXTRA_OPTS[@]})
-			# start main
-			main
+			;;
 
 	esac
 
@@ -688,6 +682,14 @@ while :; do
 	shift
 
 done
+
+# Set the array BULIDOPTS
+BUILDOPTS=$(echo ${BUILDOPTS[@]})
+# Set extra opts array
+EXTRA_OPTS=$(echo ${EXTRA_OPTS[@]})
+
+# start main
+main
 
 # In case the script fails cd back to SCRIPTDIR
 cd "${SCRIPTDIR}"

@@ -69,7 +69,7 @@ if [[ -d "${INSTALL_LOCATION}" ]]; then
 
 	if [[ "${RESET}" == "y" ]]; then
 
-		rm -rf "${INSTALL_LOCATION}"
+		sudo rm -rf "${INSTALL_LOCATION}"
 
 	else
 

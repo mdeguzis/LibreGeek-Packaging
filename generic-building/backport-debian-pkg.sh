@@ -9,7 +9,6 @@
 #		Supports full package name/versioning changes to match your repo.
 #		<!-- This script does not yet support multi-orig tarballs / bz2
 #		files, such as llvm-defaults-3-8 -->
-#
 # See:		https://wiki.debian.org/BuildingFormalBackports
 #
 # Usage:	./backport-debian-pkg.sh.sh [option-set]
@@ -368,8 +367,8 @@ function_backport_config()
 
 	done
 
-	# clean renaining files (not necessary, but keeps temp build dir clean ^_^ )
-	rm ${BUILD_TMP}/*.debian.* ${BUILD_TMP}/*.dsc
+	# clean remnaining files (not necessary, but keeps temp build dir clean ^_^ )
+	rm -f ${BUILD_TMP}/*.debian.* ${BUILD_TMP}/*.dsc
 
 	# Check source format
 	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')

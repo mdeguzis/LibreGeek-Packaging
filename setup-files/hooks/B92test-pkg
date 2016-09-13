@@ -60,7 +60,7 @@ if [[ "${NO_TEST_PKG}" != "true" ]]; then
 	echo "${FAIL[@]/#/ failed }"
 	echo "-- end of testsuite."
 
-else
+elif [[ "${NO_TEST_PKG}" == "false" ]]; then
 
 	echo "W: Not testing package!"
 

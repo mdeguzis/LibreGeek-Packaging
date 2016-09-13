@@ -171,7 +171,7 @@ function_setup_env()
 
 	# install prereqs for build
 
-	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "pbuilder" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "suild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs

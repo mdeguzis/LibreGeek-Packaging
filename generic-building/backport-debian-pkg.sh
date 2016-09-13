@@ -555,7 +555,7 @@ function_show_summary()
 while :; do
 	case $1 in
 
-		--apt-prefs-hack)
+		--apt-prefs-hack|-apfa)
 			# Allow installation of packages newer than Valve's for building purposes
 			export APT_PREFS_HACK="true"
 			EXTRA_OPTS+=("--apt-prefs-hack")

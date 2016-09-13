@@ -7,7 +7,7 @@
 
 override_dh_auto_build:
 	# download and copy necessary thirdparty DLLs to the working directory
-	make dependencie
+	make dependencies
 	# Build the source
 	make all
 

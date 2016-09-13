@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo -e "\nIf you have trouble with your gamepad being recognized, see the commented text in /usr/games/am2r-launch.\n"

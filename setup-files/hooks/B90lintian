@@ -23,4 +23,8 @@ if [[ "${NO_LINTIAN}" != "true" ]]; then
 
 	echo -e "\n+++ end of lintian output +++\n"
 
+else
+
+	echo "W: Not running Lintian!"
+
 fi

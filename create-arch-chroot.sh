@@ -30,7 +30,7 @@ sleep 2s
 # easy
 
 wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/arch-bootstrap.sh" \
--w -nc --show-progress
+-q -nc --show-progress
 
 wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/get-pacman-dependencies.sh" \
 -q -nc --show-progress

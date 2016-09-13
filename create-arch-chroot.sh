@@ -86,6 +86,7 @@ fi
 
 # output install location for review
 cat<<-EOF
+
 ==> Review:
 
 Installation directory: 

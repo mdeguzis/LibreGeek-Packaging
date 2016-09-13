@@ -430,7 +430,7 @@ function_build_package()
 
 	# Ask what method
 
-	echo -e "\n==> Use what builder? [pbuilder|local]"
+	echo -e "\n==> Use what builder? [pbuilder|dpkg-buildpackage]"
 	read -erp "Choice: " METHOD
 
 
@@ -445,7 +445,7 @@ function_build_package()
 
 		fi
 
-	elif [[ "${METHOD}" == "local" ]]; then
+	elif [[ "${METHOD}" == "dpkg-buildpackage" ]]; then
 
 		# enter dir and attemp to satisfy build deps
 		cd ${PKGNAME}*
@@ -465,6 +465,11 @@ function_build_package()
 
 		# Build a package properly , without GPG signing the package
 		dpkg-buildpackage -us -uc
+	
+	else
+
+		echo -e "Invalid builder!"
+		exit
 
 	fi
 

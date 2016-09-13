@@ -35,13 +35,17 @@ wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/arch-boots
 wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/get-pacman-dependencies.sh" \
 -q -nc --show-progress
 
+# Mark exec (if not already)
+chmod +x get-pacman-dependencies.sh
+chmod +x arch-bootstrap.sh
+
 echo -e "\n==> Boostrapping Arch Linux install\n"
 sleep 2s
 
 read -erp "Install location: " INSTALL_LOCATION
 mkdir -p "${INSTALL_LOCATION}"
 
-arch-bootstrap -a x86_64 -r "ftp://ftp.archlinux.org" "${INSTALL_LOCATION}"
+./arch-bootstrap -a x86_64 -r "ftp://ftp.archlinux.org" "${INSTALL_LOCATION}"
 
 echo -e "\n==> Binding mounts for Arch Linus install\n"
 sleep 2s

@@ -25,7 +25,7 @@ ALT_MIRROR="http://mirrors.kernel.org/archlinux/"
 echo -e "\n==> Acquiring distro-specific dependencies\n"
 sleep 2s
 
-if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
+if [[ "$OS" == "SteamOS" || "$OS" == "Debian" ]]; then
 
 	# get basic depdencies
 	sudo apt-get install -y --force-yes bash coreutils wget sed gawk  \
@@ -34,7 +34,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 else
 
 	echo -e "This distro is not supported quite yet: "
-	echo -e "${OS}"
+	echo -e "$OS"
 	sleep 5s
 	exit 1
 
@@ -64,35 +64,47 @@ sleep 2s
 
 read -erp "Install location: " INSTALL_LOCATION
 
-if [[ -d "${INSTALL_LOCATION}" ]]; then
+if [[ -d "$INSTALL_LOCATION" ]]; then
 
 	echo -e "\nDestination path taken! Reset?"
 	read -erp "Choice (y/n): " RESET
 
-	if [[ "${RESET}" == "y" ]]; then
+	if [[ "$RESET" == "y" ]]; then
 
-		sudo rm -rf "${INSTALL_LOCATION}"
+		sudo rm -rf "$INSTALL_LOCATION"
 
 	else
 
 		# ensure directory is present
-		mkdir -p "${INSTALL_LOCATION}"
+		mkdir -p "$INSTALL_LOCATION"
 
 	fi
 
 fi
 
-if sudo ./arch-bootstrap.sh -a x86_64 "${INSTALL_LOCATION}"; then
+# output install location for review
+cat<<-EOF
+==> Review:
+
+Installation directory: $INSTALL_LOCATION
+echo -e 
+
+Press ENTER to continue
+EOF
+
+read -erp FAKE_ENTER
+
+if sudo ./arch-bootstrap.sh -a x86_64 "$INSTALL_LOCATION"; then
 
 	echo -e "\nInstallation Successful!"
 
 else
 
 	echo -e "Installation failed, trying alternate mirror:"
-	echo -e "${ALT_MIRROR}"
+	echo -e "$ALT_MIRROR"
 	sleep 2s
 
-	if sudo ./arch-bootstrap.sh -a x86_64 -r "${ALT_MIRROR}" "${INSTALL_LOCATION}"; then 
+	if sudo ./arch-bootstrap.sh -a x86_64 -r "$ALT_MIRROR" "$INSTALL_LOCATION"; then 
 
 		echo -e "\nInstallation Retry Successful!"
 
@@ -109,15 +121,15 @@ fi
 echo -e "\n==> Binding mounts for Arch Linus install\n"
 sleep 2s
 
-sudo mount --bind /proc "${INSTALL_LOCATION}/proc"
-sudo mount --bind /sys "${INSTALL_LOCATION}/sys"
-sudo mount --bind /dev "${INSTALL_LOCATION}/dev"
-sudo mount --bind /dev/pts "${INSTALL_LOCATION}/dev/pts"
+sudo mount --bind /proc "$INSTALL_LOCATION/proc"
+sudo mount --bind /sys "$INSTALL_LOCATION/sys"
+sudo mount --bind /dev "$INSTALL_LOCATION/dev"
+sudo mount --bind /dev/pts "$INSTALL_LOCATION/dev/pts"
 
 # cleanup
 
 cat<<-EOF
 ==INFO==
 To enter the chroot:
-sudo chroot ${INSTALL_LOCATION}
+sudo chroot $INSTALL_LOCATION
 EOF

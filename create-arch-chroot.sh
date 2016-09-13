@@ -13,6 +13,8 @@
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
 
+OPTION="$1"
+
 # Test OS first, so we can allow configuration on multiple distros
 OS=$(lsb_release -si)
 MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
@@ -118,13 +120,16 @@ else
 
 fi
 
-echo -e "\n==> Binding mounts for Arch Linus install\n"
-sleep 2s
+if [[ "$OPTION" == "--bind-mounts" ]]; then
 
-sudo mount --bind /proc "$INSTALL_LOCATION/proc"
-sudo mount --bind /sys "$INSTALL_LOCATION/sys"
-sudo mount --bind /dev "$INSTALL_LOCATION/dev"
-sudo mount --bind /dev/pts "$INSTALL_LOCATION/dev/pts"
+	echo -e "\n==> Binding mounts for Arch Linus install\n"
+	sleep 2s
+	sudo mount --bind /proc "$INSTALL_LOCATION/proc"
+	sudo mount --bind /sys "$INSTALL_LOCATION/sys"
+	sudo mount --bind /dev "$INSTALL_LOCATION/dev"
+	sudo mount --bind /dev/pts "$INSTALL_LOCATION/dev/pts"
+
+fi
 
 # cleanup
 

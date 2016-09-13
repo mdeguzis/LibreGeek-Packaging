@@ -24,7 +24,7 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 	# get basic depdencies
 	sudo apt-get install -y --force-yes bash coreutils wget sed gawk  \
-	tar gzip chroot xz
+	tar gzip
 	
 else
 
@@ -100,5 +100,5 @@ sudo mount --bind /dev/pts "${INSTALL_LOCATION}/dev/pts"
 # cleanup
 
 echo -e "\n==INFO==\nTo enter the chroot:"
-echo -e "chroot ${INSTALL_LOCATION}"
+echo -e "sudo chroot ${INSTALL_LOCATION}"
 

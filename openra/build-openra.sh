@@ -74,7 +74,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y debhelper Build-Depends: debhelper 
+	sudo apt-get install -y debhelper debhelper curl libfreetype6 libopenal1 \
+	liblua5.1-0 libsdl2-2.0-0 nuge mono-devel xdg-utils zenity
 
 }
 
@@ -143,7 +144,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release to commit ${PKGNAME}_LATEST_COMMIT"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release ${PKGVER}"
 		nano "debian/changelog"
 
 	else

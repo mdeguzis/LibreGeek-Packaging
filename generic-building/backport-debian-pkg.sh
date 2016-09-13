@@ -639,7 +639,7 @@ while :; do
 		--help|-h)
 			cat<<-EOF
 
-			Usage:	 	./backport-debian-pkg.sh [options]
+			Usage:		./backport-debian-pkg.sh [options]
 
 			Options:	--apt-prefs-hack	Raemove SteamOS apt preferences lock
 					--beta-repo|-br		Enable a beta repo

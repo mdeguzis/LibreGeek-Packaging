@@ -134,7 +134,9 @@ fi
 # cleanup
 
 cat<<-EOF
+
 ==INFO==
 To enter the chroot:
 sudo chroot $INSTALL_LOCATION
+
 EOF

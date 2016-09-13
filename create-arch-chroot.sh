@@ -17,6 +17,9 @@
 OS=$(lsb_release -si)
 MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
 
+# Set alternate mirror
+ALT_MIRROR="https://mirrors.ocf.berkeley.edu/archlinux/"
+
 echo -e "\n==> Acquiring distro-specific dependencies\n"
 sleep 2s
 
@@ -83,9 +86,21 @@ if sudo ./arch-bootstrap.sh -a x86_64 "${INSTALL_LOCATION}"; then
 
 else
 
-	echo -e "\nInstallation failed!"
-	sleep 5s
-	exit 1
+	echo -e "Installation failed, trying alternate mirror:"
+	echo -e "${ALT_MIRROR}"
+	sleep 2s
+
+	if sudo ./arch-bootstrap.sh -a x86_64 -r "${ALT_MIRROR}" "${INSTALL_LOCATION}"; then 
+
+		echo -e "\nInstallation Retry Successful!"
+
+	else
+
+		echo -e "\nInstallation failed!"
+		sleep 5s
+		exit 1
+
+	fi
 
 fi
 

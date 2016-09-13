@@ -45,7 +45,7 @@ sleep 2s
 read -erp "Install location: " INSTALL_LOCATION
 mkdir -p "${INSTALL_LOCATION}"
 
-./arch-bootstrap -a x86_64 -r "ftp://ftp.archlinux.org" "${INSTALL_LOCATION}"
+./arch-bootstrap.sh -a x86_64 -r "ftp://ftp.archlinux.org" "${INSTALL_LOCATION}"
 
 echo -e "\n==> Binding mounts for Arch Linus install\n"
 sleep 2s

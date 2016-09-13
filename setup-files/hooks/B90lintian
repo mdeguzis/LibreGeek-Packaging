@@ -1,20 +1,26 @@
 #!/bin/bash
 
-set -e
+# Do not run if requested
+# Run only if NO_LINTIAN is false
 
-install_packages() {
-    apt-get -y "${APTGETOPT[@]}" install "$@"
-}
+if [[ "${NO_LINTIAN}" == "false" ]]; then
 
-echo "I: Installing lintian"
-install_packages lintian &> /dev/null
+	set -e
 
-echo -e "\n+++ lintian output +++\n"
+	install_packages() {
+	apt-get -y "${APTGETOPT[@]}" install "$@"
+	}
 
-#su -c "lintian -I --show-overrides /tmp/buildd/*.changes" - pbuilder
+	echo "I: Installing lintian"
+	install_packages lintian &> /dev/null
 
-# use this version if you don't want lintian to fail the build
-su -c "lintian -Ii --show-overrides /tmp/buildd/*.changes; :" - pbuilder
+	echo -e "\n+++ lintian output +++\n"
 
-echo -e "\n+++ end of lintian output +++\n"
+	#su -c "lintian -I --show-overrides /tmp/buildd/*.changes" - pbuilder
 
+	# use this version if you don't want lintian to fail the build
+	su -c "lintian -Ii --show-overrides /tmp/buildd/*.changes; :" - pbuilder
+
+	echo -e "\n+++ end of lintian output +++\n"
+
+fi

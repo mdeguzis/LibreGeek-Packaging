@@ -206,7 +206,7 @@ function_get_source()
 
 	# Clone upstream source code and branch
 
-	echo -e "\n==> Obtaining upstream source code\n"
+	echo -e "==> Obtaining upstream source code\n"
 	sleep 2s
 
 	# Obtain all necessary files specified in .dsc via dget

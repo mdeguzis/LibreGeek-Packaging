@@ -173,7 +173,7 @@ main()
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -rf {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit

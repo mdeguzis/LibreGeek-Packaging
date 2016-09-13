@@ -1,10 +1,10 @@
 [Desktop Entry]
-Name=AM2R
-Comment=Fan-made remake of Metroid II
-Exec=/usr/games/am2r
-Icon=/usr/share/pixmaps/am2r.png
+Name=OpenRA
+Comment=A Libre/Free RTS game engine supporting early Westwood classics.
+Exec=/usr/games/openra
+Icon=/usr/share/pixmaps/openra.png
 Terminal=false
 Type=Application
 Categories=Game;
 MimeType=x-scheme-handler/steam;
-Keywords=metroid,game
+Keywords=openra,red-alert,game

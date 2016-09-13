@@ -12,7 +12,6 @@ libdir = $(prefix)/lib
 
 override_dh_auto_build:
 	# Ugh, really nuget? Need to get ssl certs
-	mozroots --import --machine --sync
 	certmgr -ssl -m https://go.microsoft.com
 	certmgr -ssl -m https://nugetgallery.blob.core.windows.net
 	certmgr -ssl -m https://nuget.org

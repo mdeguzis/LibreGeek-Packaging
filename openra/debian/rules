@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-#export DH_VERBOSE=1
+export DH_VERBOSE=1
 
 prefix = /usr
 datarootdir = $(prefix)/share
@@ -11,6 +11,11 @@ libdir = $(prefix)/lib
 	dh $@
 
 override_dh_auto_build:
+	# Ugh, really nuget? Need to get ssl certs
+	mozroots --import --machine --sync
+	certmgr -ssl -m https://go.microsoft.com
+	certmgr -ssl -m https://nugetgallery.blob.core.windows.net
+	certmgr -ssl -m https://nuget.org
 	# download and copy necessary thirdparty DLLs to the working directory
 	make dependencies
 	# Build the source

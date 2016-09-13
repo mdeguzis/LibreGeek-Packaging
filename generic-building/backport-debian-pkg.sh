@@ -129,6 +129,11 @@ function_set_vars()
 			sleep 2s
 			;;
 		esac
+
+	else
+
+		BETA_REPO="none"
+
 	fi
 
 }

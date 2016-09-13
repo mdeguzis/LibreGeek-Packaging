@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	backport-debian-pkg.sh.sh
-# Script Ver:	3.6.8
+# Script Ver:	3.6.9
 # Description:	Attempts to build a deb package from upstream Debian source code.
 #		files. Currently only Ubuntu and Debian .dsc files are supported.
 #		Supports full package name/versioning changes to match your repo.
@@ -56,6 +56,7 @@ maintainer="ProfessorKaos64"
 
 # Initial vars for other objects
 DGET_OPTS="-x"		# default
+USE_NETWORK="no"
 
 install_prereqs()
 {
@@ -557,6 +558,11 @@ while :; do
 			# Allow installation of packages newer than Valve's for building purposes
 			export APT_PREFS_HACK="true"
 			;;
+		
+		--network|-net)
+			# If the package requires use of a network connection
+			export USE_NETWORK="yes"
+		;;
 
 		--no-clean|-nc)
 			# Don't clean before starting pbuilder build
@@ -616,13 +622,15 @@ while :; do
 			cat<<-EOF
 
 			Usage:	 	./backport-debian-pkg.sh [options]
-			Options:	--apt-prefs-hack	remove SteamOS apt preferences lock
-					--beta-repo|-br		enable a beta repo
-					--binary-dep		builds binary-dependent package
-					--no-clean|-nc		build without cleaning ahead of time
-					--remove-patches	remove any patches from package
-					--testing		send built package to testing repo
-					--help|-h		display this help text
+			Options:	--apt-prefs-hack	Raemove SteamOS apt preferences lock
+					--beta-repo|-br		Enable a beta repo
+					--binary-dep		Builds binary-dependent package
+					--network|-net		Enable build-time network connection
+					--no-clean|-nc		Build without cleaning ahead of time
+					--no-unpack|-nu		Don't unpack when using dget
+					--remove-patches	Remove any patches from package
+					--testing		Send built package to testing repo
+					--help|-h		Display this help text
 			Beta repos:	steamos-tools		SteamOS-Tools beta repo
 
 			EOF

@@ -564,7 +564,7 @@ function_show_summary()
 while :; do
 	case $1 in
 
-		--apt-prefs-hack|-apfa)
+		--apt-prefs-hack|-apf)
 			# Allow installation of packages newer than Valve's for building purposes
 			export APT_PREFS_HACK="true"
 			EXTRA_OPTS+=("--apt-prefs-hack")
@@ -595,11 +595,13 @@ while :; do
 			# do not test after building
 			# some packages must be manually configured (e.g. mono)
 			export NO_TEST_PKG="true"
+			EXTRA_OPTS+=("--no-test")
 			;;
 
 		--no-lint|-nl)
 			# Skip running linitian
 			export NO_LINT="true"
+			EXTRA_OPTS+=("--no-lint")
 			;;
 
 
@@ -626,6 +628,7 @@ while :; do
 			# Dget applies patches (if properly setup), sometimes pbuilder clashes
 			# Or, we may want to build without patches
 			PATCH_REMOVE="true"
+			EXTRA_OPT+=("--remove-patches")
 			;;
 
 		--beta-repo|-br)

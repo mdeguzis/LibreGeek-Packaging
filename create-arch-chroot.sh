@@ -77,7 +77,7 @@ if [[ -d "${INSTALL_LOCATION}" ]]; then
 
 fi
 
-if sudo ./arch-bootstrap.sh -a x86_64 -r "ftp://ftp.archlinux.org" "${INSTALL_LOCATION}"; then
+if sudo ./arch-bootstrap.sh -a x86_64 -r "ftp://mirrors.kernel.org/archlinux" "${INSTALL_LOCATION}"; then
 
 	echo -e "\nInstallation Successful!"
 

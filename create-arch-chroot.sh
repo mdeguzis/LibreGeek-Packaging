@@ -132,6 +132,10 @@ if [[ "$OPTION" == "--bind-mounts" ]]; then
 
 fi
 
+# TODO
+# Add post setup script to pass to chroot:
+# useradd -m -G wheel -s /bin/bash archie ...etc...
+
 # cleanup
 
 cat<<-EOF

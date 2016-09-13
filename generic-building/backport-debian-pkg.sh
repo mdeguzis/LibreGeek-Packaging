@@ -60,7 +60,7 @@ export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
 export EXTRA_OPTS=""
 export NO_PKG_TEST="false"
-export NO_LINT="false"
+export NO_LINTIAN="false"
 
 install_prereqs()
 {
@@ -606,7 +606,7 @@ while :; do
 
 		--no-lint|-nl)
 			# Skip running linitian
-			export NO_LINT="true"
+			export NO_LINTIAN="true"
 			EXTRA_OPTS+=("--no-lint")
 			;;
 

@@ -18,7 +18,9 @@ OS=$(lsb_release -si)
 MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
 
 # Set alternate mirror
-ALT_MIRROR="https://mirrors.ocf.berkeley.edu/archlinux/"
+# Seems top be an issue right now with https mirrors:
+# https://github.com/tokland/arch-bootstrap/issues/14
+ALT_MIRROR="http://mirrors.kernel.org/archlinux/"
 
 echo -e "\n==> Acquiring distro-specific dependencies\n"
 sleep 2s

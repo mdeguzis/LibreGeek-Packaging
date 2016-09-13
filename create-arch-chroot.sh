@@ -17,10 +17,22 @@
 OS=$(lsb_release -si)
 MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
 
+echo -e "\n==> Acquiring distro-specific dependencies\n"
+sleep 2s
+
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
-	# Supported
-	:
+	# get basic depdencies
+	sudo apt-get -install -y --force-yes bash coreutils wget sed gawk  \
+	tar gzip chroot xz
+	
+else
+
+	echo -e "This distro is not supported quite yet: "
+	echo -e "${OS}"
+	sleep 5s
+	exit 1
+
 fi
 
 echo -e "\n==> Acquiring arch-boostrap\n"
@@ -28,6 +40,9 @@ sleep 2s
 
 # For now, use a cool helper script linked in the AUR article to make this 
 # easy
+
+rm -f arch-bootstrap.sh
+rm -f get-pacman-dependencies.sh
 
 wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/arch-bootstrap.sh" \
 -q -nc --show-progress
@@ -39,28 +54,30 @@ wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/get-pacman
 chmod +x get-pacman-dependencies.sh
 chmod +x arch-bootstrap.sh
 
-echo -e "\n==> Acquiring dependencies\n"
-sleep 2s
-
-if ./get-pacman-dependencies.sh; then
-
-	echo -e "\nInstallation Successful!"
-
-else
-
-	echo -e "\nCannot install all dependencies!"
-	sleep 5s
-	exit 1
-
-fi
-
 echo -e "\n==> Boostrapping Arch Linux install\n"
 sleep 2s
 
 read -erp "Install location: " INSTALL_LOCATION
-mkdir -p "${INSTALL_LOCATION}"
 
-if ./arch-bootstrap.sh -a x86_64 -r "ftp://ftp.archlinux.org" "${INSTALL_LOCATION}"; then
+if [[ -d "${INSTALL_LOCATION}" ]]; then
+
+	echo -e "\nDestination path taken! Reset?"
+	read -erp "Choice (y/n): " RESET
+
+	if [[ "${RESET}" == "y" ]]; then
+
+		rm -rf "${INSTALL_LOCATION}"
+	
+	else
+
+else
+
+	# ensure directory is present
+	mkdir -p "${INSTALL_LOCATION}"
+
+fi
+
+if sudo ./arch-bootstrap.sh -a x86_64 -r "ftp://ftp.archlinux.org" "${INSTALL_LOCATION}"; then
 
 	echo -e "\nInstallation Successful!"
 

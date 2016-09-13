@@ -134,7 +134,10 @@ fi
 
 # TODO
 # Add post setup script to pass to chroot:
+#
 # useradd -m -G wheel -s /bin/bash archie ...etc...
+# Add %admin  ALL=(ALL) NOPASSWD:ALL to /etc/sudoers
+# comment out the line: '#Defaults    requiretty'
 
 # cleanup
 

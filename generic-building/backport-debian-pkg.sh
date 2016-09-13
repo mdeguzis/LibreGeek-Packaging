@@ -293,7 +293,7 @@ function_backport_config()
 		;;
 
 		*.tar.gz)
-		tar -xzdf *.orig.tar.gz
+		tar -xzf *.orig.tar.gz
 		;;
 
 	esac

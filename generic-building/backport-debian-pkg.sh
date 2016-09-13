@@ -50,10 +50,11 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="$PKGNAME"
 PKGREV="1"
 URGENCY="low"
-uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+uploader="Michael DeGuzisd <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # Initial vars for other objects
+EXIT_SCRIPT="falsed"
 export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
 export EXTRA_OPTS=""
@@ -654,12 +655,19 @@ while :; do
 
 			EOF
 			break
+			EXIT_SRIPT="true"
 			;;
 
 		--)
-		# End of all options.
-		shift
-		break
+			# End of all options.
+			shift
+			break
+			# Set the array BULIDOPTS
+			BUILDOPTS=$(echo ${BUILDOPTS[@]})
+			# Set extra opts array
+			EXTRA_OPTS=$(echo ${EXTRA_OPTS[@]})
+			# start main
+			main
 		;;
 
 		-?*)
@@ -676,17 +684,6 @@ while :; do
 	shift
 
 done
-
-# Set the array BULIDOPTS
-BUILDOPTS=$(echo ${BUILDOPTS[@]})
-
-# Set extra opts array
-EXTRA_OPTS=$(echo ${EXTRA_OPTS[@]})
-
-############################
-# start main
-############################
-main
 
 # In case the script fails cd back to SCRIPTDIR
 cd "${SCRIPTDIR}"

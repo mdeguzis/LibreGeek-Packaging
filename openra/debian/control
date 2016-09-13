@@ -3,6 +3,7 @@ Section: games
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
+ ca-certificates-mono,
  curl,
  libfreetype6,
  libopenal1,

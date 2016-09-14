@@ -133,6 +133,12 @@ main()
 
 	# add extras
 	cp "${SCRIPTDIR}/openra.png" "${SRC_DIR}"
+	
+	# dh_clideps does not understand the "dllentry" syntax.
+	# Take the config files from the Ubuntu package which uses the "target" syntax.
+	# Map libGL.so to libGLU.so.1
+	# When an update to this is needed, run the "fixes/update-dll-configs.sh" script
+	cp "${SCRIPTDIR}/fixes/SDL2-CS.dll.config" "${SRC_DIR}/thirdparty"
 
 	# Get latest commit
 	cd "${SRC_DIR}"

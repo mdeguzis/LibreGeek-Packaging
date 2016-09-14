@@ -47,30 +47,30 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	####################################
 	
 	# Add standard files to file list
-	repo_files+=("/etc/apt/sources.list.d/steamos-tools.list")
-	repo_files+=("/etc/apt/sources.list.d/jessie.list")
-	repo_files+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
+	REPO_FILES+=("/etc/apt/sources.list.d/steamos-tools.list")
+	REPO_FILES+=("/etc/apt/sources.list.d/jessie.list")
+	REPO_FILES+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
 	
 	# If checking beta, add additioanl files to file list
 	if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
 	
-		repo_files+=("/etc/apt/sources.list.d/steamos-tools-beta.list")
+		REPO_FILES+=("/etc/apt/sources.list.d/steamos-tools-beta.list")
 	
 	fi
 
 	# If we are using the beta hook, and not nixing apt-prefs
 	if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" && "$NO_APT_PREFS" != "true" ]]; then
 
-		repo_files+=("/etc/apt/preferences.d/steamos-tools-beta ")
+		REPO_FILES+=("/etc/apt/preferences.d/steamos-tools-beta ")
 
 	fi
 
 	# if apt-pres ifs removed, don't check these files
 	if [[ "$NO_APT_PREFS" != "true" ]]; then
 
-		repo_files+=("/etc/apt/preferences.d/steamos-tools")
-		repo_files+=("/etc/apt/preferences.d/jessie")
-		repo_files+=("/etc/apt/preferences.d/jessie-backports")
+		REPO_FILES+=("/etc/apt/preferences.d/steamos-tools")
+		REPO_FILES+=("/etc/apt/preferences.d/jessie")
+		REPO_FILES+=("/etc/apt/preferences.d/jessie-backports")
 
 	fi
 
@@ -78,19 +78,20 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	for FILE in "$REPO_FILES";
 	do
 		if [[ ! -f "$FILE" ]]; then
-	
+
 			echo "E: STEAMOS-TOOLS: Repository validation [FAILED]. Exiting."
+			echo "E: Failed on: $FILE"
 			exit 1
 		else
 	
 			echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
-	
+
 		fi
-	
+
 	done
 
 else
-	
+
 	# just output text
 	echo "I: STEAMOS-TOOLS: Not applicable to dist ${DIST}"
 

@@ -132,8 +132,7 @@ main()
 	fi
 
 	# add extras
-	#cp "${SCRIPTDIR}/openra.png" "${SRC_DIR}"
-	#cp "${SCRIPTDIR}/openra-launch.sh" "${SRC_DIR}"
+	cp "${SCRIPTDIR}/openra.png" "${SRC_DIR}"
 
 	# Get latest commit
 	cd "${SRC_DIR}"

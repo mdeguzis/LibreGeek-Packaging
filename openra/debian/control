@@ -1,7 +1,10 @@
+# Pacakging credit: GetDeb Games
+# Christoph Korn <christoph.korn@getdeb.net>
+
 Source: openra
 Section: games
 Priority: optional
-Maintainer: Christoph Korn <christoph.korn@getdeb.net>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
                mono-gmcs,
                cli-common-dev (>= 0.5.7),

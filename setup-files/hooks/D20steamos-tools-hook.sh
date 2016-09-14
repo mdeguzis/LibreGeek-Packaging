@@ -14,7 +14,6 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc
 	chmod +x configure-repos.sh
 	
-	# pbuilder will invoke as root, ditch sudo
 	sed -i 's/sudo //g' configure-repos.sh
 	
 	# No need to update twice (if beta is flagged, update will have to run again)
@@ -48,16 +47,17 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	####################################
 
 	# We use ffmpeg backported from Ubuntu, as it's configured differently (non-free elements?)
-	# Use a dirty hack to remove our /etc/apt/preferences.d/steamos file (if requested)
-	# This has only been needed so far with packages such as RPCS3
+	# Use a workaround to remove preferences files to allow packages to request their versions
+	# during builds only. This is key for packages like ffmpeg and mono (which requests)
+	# varying package versions...
 	# This section is subject to change/deletion
 
-	if [[ "$APT_PREFS_HACK" == "true" ]]; then
+	if [[ "$NO_APT_PREFS" == "true" ]]; then
 
-		echo "W: STEAMOS-TOOLS: Removing /etc/apt/preferences.d/steamos"
+		echo "W: STEAMOS-TOOLS: Removing /etc/apt/preferences.d/*"
 
 		# Delete
-		rm -f /etc/apt/preferences.d/steamos
+		rm -f /etc/apt/preferences.d/*
 
 	fi
 

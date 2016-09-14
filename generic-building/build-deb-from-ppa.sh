@@ -32,7 +32,7 @@ TIME_STAMP_START=(`date +"%T"`)
 DIST="brewmaster"
 ARCH="amd64"
 BUILDOPTS="--debbuildopts -b"
-export BUILD_TMP="${BUILD_DIR}"
+export BUILD_TMP="${HOME}/build-deb-temp"
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script

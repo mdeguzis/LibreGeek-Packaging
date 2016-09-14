@@ -60,6 +60,7 @@ RETRY_BUILD="false"
 export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
 export EXTRA_OPTS=""
+export NO_APT_PREFS="false"
 export NO_PKG_TEST="false"
 export NO_LINTIAN="false"
 

@@ -127,7 +127,7 @@ install_prereqs()
 
 }
 
-function_build_locally()
+main()
 {
 
 	# Ask user for repos / vars

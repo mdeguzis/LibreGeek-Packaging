@@ -47,20 +47,25 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	####################################
 	
 	# Add standard files to file list
-	
 	repo_files+=("/etc/apt/sources.list.d/steamos-tools.list")
 	repo_files+=("/etc/apt/sources.list.d/jessie.list")
 	repo_files+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
 	
 	# If checking beta, add additioanl files to file list
-	
 	if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
 	
 		repo_files+=("/etc/apt/sources.list.d/steamos-tools-beta.list")
-		repo_files+=("/etc/apt/preferences.d/steamos-tools-beta ")
 	
 	fi
-	
+
+	# If we are using the beta hook, and not nixing apt-prefs
+	if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" && "$NO_APT_PREFS" != "true" ]]; then
+
+		repo_files+=("/etc/apt/preferences.d/steamos-tools-beta ")
+
+	fi
+
+	# if apt-pres ifs removed, don't check these files
 	if [[ "$NO_APT_PREFS" != "true" ]]; then
 
 		repo_files+=("/etc/apt/preferences.d/steamos-tools")

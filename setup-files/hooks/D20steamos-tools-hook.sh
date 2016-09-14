@@ -62,7 +62,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	
 	fi
 	
-	if [[ "$NO_APT_PREFS" != "true" ]]
+	if [[ "$NO_APT_PREFS" != "true" ]]; then
 
 		repo_files+=("/etc/apt/preferences.d/steamos-tools")
 		repo_files+=("/etc/apt/preferences.d/jessie")

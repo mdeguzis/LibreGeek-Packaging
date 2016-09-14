@@ -8,12 +8,13 @@ override_dh_auto_configure:
 	make dependencies
 
 override_dh_auto_test:
-	cp thirdparty/download/* .
+	cp -rv thirdparty/download/* .
 	dh_auto_test
 
 override_dh_auto_install:
 	dh_auto_install -- prefix=/usr datadir=/usr/share/games \
-	libexecdir=/usr/share/games bindir=/usr/games \
+	bindir=/usr/games \
+	libexecdir=/usr/share/games \
 	gameinstalldir=/usr/share/games/openra
 
 override_dh_clideps:

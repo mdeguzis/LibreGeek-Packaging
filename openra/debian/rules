@@ -1,15 +1,4 @@
 #!/usr/bin/make -f
-#
-# UNRESOLVED BUILD ISSUES: 
-# dh_clideps that fail the build:
-#	dh_clideps: Error: Missing shlibs entry:  or freetype6.dll for: SharpFont.dll!
-#	Use of uninitialized value $newpkgref in pattern match (m//) at /usr/bin/dh_clideps line 508, <F> line 2.
-#	Use of uninitialized value $pkgref in concatenation (.) or string at /usr/bin/dh_clideps line 539.
-#	Use of uninitialized value $newpkgref in concatenation (.) or string at /usr/bin/dh_clideps line 539.
-#	dh_clideps: Error: Could not resolve moduleref: SDL2_image.dll for: SDL2-CS.dll!
-#	dh_clideps: Error: Could not resolve moduleref: SDL2_mixer.dll for: SDL2-CS.dll!
-#	dh_clideps: Error: Could not resolve moduleref: SDL2_ttf.dll for: SDL2-CS.dll!
-#	dh_clideps: Warning: No Debian dependency data for StyleCop (4.7.1000.0__f904653c63bc2738
 
 %:
 	dh $@ --with cli

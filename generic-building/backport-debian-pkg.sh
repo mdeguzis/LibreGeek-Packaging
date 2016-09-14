@@ -590,6 +590,18 @@ while :; do
 			EXTRA_OPTS+=("--apt-prefs-hack")
 			;;
 
+		--beta-repo|-br)
+			# Allow testing/beta repos to be specified
+			# See: funcion_set_vars
+			if [[ -n "$2" ]]; then
+				BETA_REPO=$2
+				shift
+			else
+				echo -e "ERROR: --betarepo|-br requires an argument.\n" >&2
+				exit 1
+			fi
+			;;
+
 		--network|-net)
 			# If the package requires use of a network connection
 			export USE_NETWORK="yes"
@@ -624,7 +636,6 @@ while :; do
 			EXTRA_OPTS+=("--no-lint")
 			;;
 
-
 		--no-unpack|-nu)
 			# Don't unpack the source
 			# May be useful for building with no patches or dealing with
@@ -648,26 +659,14 @@ while :; do
 			# Dget applies patches (if properly setup), sometimes pbuilder clashes
 			# Or, we may want to build without patches
 			PATCH_REMOVE="true"
-			EXTRA_OPT+=("--remove-patches")
-			;;
-
-		--beta-repo|-br)
-			# Allow testing/beta repos to be specified
-			# See: funcion_set_vars
-			if [[ -n "$2" ]]; then
-				BETA_REPO=$2
-				shift
-			else
-				echo -e "ERROR: --betarepo|-br requires an argument.\n" >&2
-				exit 1
-			fi
+			EXTRA_OPTS+=("--remove-patches")
 			;;
 
 		--retry-build|-r)
 			# Allow retry of previous build
 			# Debian files can still be review
 			RETRY_BUILD="true"
-			EXTRA_OPT+=("--retry-build")
+			EXTRA_OPTS+=("--retry-build")
 			;;
 
 		--testing)

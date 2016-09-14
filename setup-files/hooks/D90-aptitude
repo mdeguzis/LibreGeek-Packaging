@@ -19,6 +19,38 @@ if [[ "$NO_APT_PREFS" == "true" ]]; then
 
 fi
 
+####################################
+# apt configurations
+####################################
+
+# Purpose of this is to ensure  multi-arch is enabled for any DIST
+
+echo -e "I: APT: Checking for multi-arch support"
+sleep 1s
+
+if [[ $(dpkg --print-foreign-architectures | grep -i "i386") == "" ]]; then
+
+	echo -e "I: APT:  multi-arch not found"
+	
+	# add 32 bit support
+	if dpkg --add-architecture i386; then
+	
+		echo -e "I: APT:  multi-arch [Added]"
+		sleep 1s
+	
+	else
+	
+		echo -e "I: APT:  multi-arch addition [FAILED]. Exiting"
+		exit 1
+	
+	fi
+
+else
+
+	echo -e "I: APT: multi-arch support [OK]"	
+
+fi
+
 
 ####################################
 # Regular apt functions

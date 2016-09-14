@@ -58,6 +58,8 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 export NO_APT_PREFS="true"
 export USE_NETWORK="yes"
+# Mono requires varying pacakge versions
+export APT_PIN_PRIORITY="allow-any"
 PKGNAME="openra"
 PKGVER="20160508"
 PKGREV="1"

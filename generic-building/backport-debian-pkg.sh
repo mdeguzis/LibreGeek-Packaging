@@ -211,48 +211,50 @@ function_get_source()
 
 	# Clone upstream source code and branch
 
-	echo -e "==> Obtaining upstream source code\n"
-	sleep 2s
+	if [[ "${RETRY_BUILD}" == "false" ]]; then
 
-	# Obtain all necessary files specified in .dsc via dget
-	# Download only, as unverified sources (say a Ubuntu pkg build on Debian) will not auto-extract
-	# This is also a good approach if using an unsupported distro like Arch Linux
-	dget "${DGET_OPTS}" "${DSC}"
+		echo -e "==> Obtaining upstream source code\n"
+		sleep 2s
 
-	# Get filename only from DSC URL
-	DSC_FILENAME=$(basename "${DSC}")
+		# Obtain all necessary files specified in .dsc via dget
+		dget "${DGET_OPTS}" "${DSC}"
 
-	# Test first If we have multiple original archives
-	# Some packages, like llvm-toolchain, contain multiple bz2 archives
-	# This is tough to handle automatically, so care must be taken outside of this
-	# script to backport the package.
+		# Get filename only from DSC URL
+		DSC_FILENAME=$(basename "${DSC}")
 
-	if [[ "$(find ${BUILD_TMP} -name "*.bz2*" | wc -l)" -gt "1" ]]; then
+		# Test first If we have multiple original archives
+		# Some packages, like llvm-toolchain, contain multiple bz2 archives
+		# This is tough to handle automatically, so care must be taken outside of this
+		# script to backport the package.
 
-		# Set flag
-		ORIG_MULTI="yes"
+		if [[ "$(find ${BUILD_TMP} -name "*.bz2*" | wc -l)" -gt "1" ]]; then
 
-		# dealing with multiple bz2 archives
-		cat<<-EOF
+			# Set flag
+			ORIG_MULTI="yes"
 
-		==INFO==
-		Changing versioning for multiple archives is not supported
-		Retaining existing versioning scheme. 
+			# dealing with multiple bz2 archives
+			cat<<-EOF
 
-		EOF
+			==INFO==
+			Changing versioning for multiple archives is not supported
+			Retaining existing versioning scheme. 
 
-		# kick off function
-		if ! function_backport_pkg_multi; then
+			EOF
 
-			echo -e "Function: 'function_backport_pkg_multi' failed" 
-			sleep 10s && return
+			# kick off function
+			if ! function_backport_pkg_multi; then
+
+				echo -e "Function: 'function_backport_pkg_multi' failed" 
+				sleep 10s && return
+
+			fi
+
+		else
+
+			# set flag
+			ORIG_MULTI="no"
 
 		fi
-
-	else
-
-		# set flag
-		ORIG_MULTI="no"
 
 	fi
 

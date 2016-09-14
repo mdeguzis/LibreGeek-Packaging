@@ -400,7 +400,7 @@ while :; do
 
 		--apt-prefs-hack)
 			# Allow installation of packages newer than Valve's for building purposes
-			export APT_PREFS_HACK="true"
+			export NO_APT_PREFS="true"
 			;;
 
 		--testing)

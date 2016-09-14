@@ -588,7 +588,7 @@ while :; do
 
 		--apt-prefs-hack|-apf)
 			# Allow installation of packages newer than Valve's for building purposes
-			export APT_PREFS_HACK="true"
+			export NO_APT_PREFS="true"
 			EXTRA_OPTS+=("--apt-prefs-hack")
 			;;
 

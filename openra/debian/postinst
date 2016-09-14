@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cat<<- EOF
+
+:: Be sure to review https://github.com/OpenRA/OpenRA/wiki/ for more information.
+
+EOF

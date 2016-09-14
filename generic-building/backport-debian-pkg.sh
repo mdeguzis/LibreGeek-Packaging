@@ -56,6 +56,7 @@ maintainer="ProfessorKaos64"
 # Initial vars for other objects
 TEST_REPO="false"
 BETA_REPO=""
+RETRY_BUILD="false"
 export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
 export EXTRA_OPTS=""
@@ -155,10 +156,14 @@ function_set_vars()
 function_setup_env()
 {
 
-	if [[ -d "${BUILD_TMP}" ]]; then
+	if [[ -d "${BUILD_TMP}" && "${RETRY_BUILD}" == "false" ]]; then
 
 		sudo rm -rf "${BUILD_TMP}"
 		mkdir -p "${BUILD_TMP}"
+
+	elif [[ "${RETRY_BUILD}" == "true" ]];
+
+		echo -e "\nRetrying build\n"
 
 	else
 
@@ -278,25 +283,29 @@ function_backport_config()
 
 	# Add more cases below at some point..
 
-	echo -e "\n==> Unpacking original source\n"
-	sleep 2s
+	if [[ "${RETRY_BUILD}" == "false" ]]; then
+	
+		echo -e "\n==> Unpacking original source\n"
+		sleep 2s
 
-	# Unpack the original tarball
-	case "${ORIG_TARBALL_FILENAME}" in
+		# Unpack the original tarball
+		case "${ORIG_TARBALL_FILENAME}" in
 
-		*.tar.bz2)
-		tar -xvjf *.tar.bz2
-		;;
+			*.tar.bz2)
+			tar -xvjf *.tar.bz2
+			;;
 
-		*.tar.xz)
-		tar -xvf *.orig.tar.xz
-		;;
+			*.tar.xz)
+			tar -xvf *.orig.tar.xz
+			;;
 
-		*.tar.gz)
-		tar -xvzf *.orig.tar.gz
-		;;
+			*.tar.gz)
+			tar -xvzf *.orig.tar.gz
+			;;
 
-	esac
+		esac
+
+	fi
 
 	# Set the source dir
 	SRC_DIR=$(find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*")
@@ -318,11 +327,15 @@ function_backport_config()
 	# Do this rather than rename, so an xz archive is not renamed as a fake gz archive
 	# Reminder: the orig tarball does NOT get a revision number!	
 
-	echo -e "\n==> Creating origninal tarball"
-	sleep 2s
+	if [[ "${RETRY_BUILD}" == "false" ]]; then
 
-	rm -f ${BUILD_TMP}/*.orig.tar.*
-	tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" $(basename ${SRC_DIR})
+		echo -e "\n==> Creating origninal tarball"
+		sleep 2s
+
+		rm -f ${BUILD_TMP}/*.orig.tar.*
+		tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" $(basename ${SRC_DIR})
+
+	fi
 
 	# Enter source dir
 	cd ${SRC_DIR}
@@ -399,20 +412,24 @@ function_backport_config()
 	# If a package has an epoch such as "7:ffmpeg_2.7.6-ubuntu", be sure to bump this number 
 	# if you already have a package in your repository with a lesser or equal epoch.
 
-	echo -e "\n==> Updating changelog with dch. Adjust as necessary. Be mindful of epochs!"
-	sleep 4s
+	if [[ "${RETRY_BUILD}" == "false" ]]; then
 
-	# Create basic changelog format if it does exist or update
-	if [[ -f "debian/changelog" ]]; then
+		echo -e "\n==> Updating changelog with dch. Adjust as necessary. Be mindful of epochs!"
+		sleep 4s
 
-		dch -p --force-bad-version --force-distribution -v "${PKGVER}${PKGSUFFIX}" \
-		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Backported package. No changes made."
-		nano "debian/changelog"
+		# Create basic changelog format if it does exist or update
+		if [[ -f "debian/changelog" ]]; then
 
-	else
+			dch -p --force-bad-version --force-distribution -v "${PKGVER}${PKGSUFFIX}" \
+			--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Backported package. No changes made."
+			nano "debian/changelog"
 
-		dch -p --force-bad-version --force-distribution --create -v "${PKGVER}${PKGSUFFIX}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
+		else
+
+			dch -p --force-bad-version --force-distribution --create -v "${PKGVER}${PKGSUFFIX}" \
+			--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
+
+		fi
 
 	fi
 
@@ -456,9 +473,6 @@ function_build_package()
 			cd "${scritpdir}"
 
 		fi
-
-		# If build deps pass above, go ahead
-		dch --local ~bpo80+ --distribution ${DIST} "Rebuild for ${DIST}."
 
 		# Test if we can successfully build the package
 		fakeroot debian/rules binary
@@ -649,6 +663,12 @@ while :; do
 			fi
 			;;
 
+		--retry|-r)
+			# Allow retry of previous build
+			# Debian files can still be review
+			RETRY_BUILD="true"
+			;;
+
 		--testing)
 			# send packages to test repo location
 			TEST_REPO="true"
@@ -669,6 +689,7 @@ while :; do
 					--no-test|-nt		Disable pbuilder/sbuild package tests
 					--no-unpack|-nu		Don't unpack when using dget
 					--remove-patches	Remove any patches from package
+					--retry|-r		Retry build. Files are still reviewd
 					--testing		Send built package to testing repo
 					--help|-h		Display this help text
 

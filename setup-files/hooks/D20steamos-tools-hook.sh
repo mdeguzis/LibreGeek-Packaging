@@ -50,7 +50,6 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	
 	repo_files+=("/etc/apt/sources.list.d/steamos-tools.list")
 	repo_files+=("/etc/apt/sources.list.d/jessie.list")
-	repo_files+=("/etc/apt/sources.list.d/jessie-backports.list")
 	repo_files+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
 	
 	# If checking beta, add additioanl files to file list
@@ -71,9 +70,9 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	fi
 
 	# Run validation
-	for file in ${repo_files};
+	for FILE in "$REPO_FILES";
 	do
-		if [[ ! -f "${file}" ]]; then
+		if [[ ! -f "$FILE" ]]; then
 	
 			echo "E: STEAMOS-TOOLS: Repository validation [FAILED]. Exiting."
 			exit 1

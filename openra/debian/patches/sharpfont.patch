@@ -3,8 +3,8 @@
 # no fix yet, so workaround
 # has to be applied after nuget so this patch is not in the series file
 ===================================================================
---- a/SharpFont.dll.config
-+++ b/SharpFont.dll.config
+--- SharpFont.dll.config	2016-09-14 20:41:41.872000000 +0000
++++ SharpFont.dll.config.new	2016-09-14 21:01:11.336000000 +0000
 @@ -1,7 +1,4 @@
  ﻿<?xml version="1.0" encoding="utf-8" ?>
  <configuration>
@@ -12,5 +12,5 @@
 -		<dllentry os="linux" dll="libfreetype.so.6" />
 -		<dllentry os="osx" dll="/Library/Frameworks/Mono.framework/Libraries/libfreetype.6.dylib" />
 -	</dllmap>
-+	<dllmap dll="freetype6.dll" os="linux" target="libfreetype.so.6" />
++  <dllmap dll="freetype6.dll" os="linux" target="libfreetype.so.6" />
  </configuration>

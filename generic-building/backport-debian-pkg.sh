@@ -161,7 +161,7 @@ function_setup_env()
 		sudo rm -rf "${BUILD_TMP}"
 		mkdir -p "${BUILD_TMP}"
 
-	elif [[ "${RETRY_BUILD}" == "true" ]];
+	elif [[ "${RETRY_BUILD}" == "true" ]]; then
 
 		echo -e "\nRetrying build\n"
 

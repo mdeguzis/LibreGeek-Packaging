@@ -4,8 +4,7 @@
 	dh $@ --with cli
 
 override_dh_auto_configure:
-	cd thirdparty && ./fetch-thirdparty-deps.sh
-	make dependencies
+	make all man-page
 
 override_dh_auto_test:
 	cp -rv thirdparty/download/* .
@@ -16,6 +15,3 @@ override_dh_auto_install:
 	bindir=/usr/games \
 	libexecdir=/usr/share/games \
 	gameinstalldir=/usr/share/games/openra
-
-override_dh_clideps:
-	dh_clideps -d --exclude-moduleref=i:/System/Library/Frameworks/Cocoa.framework/Cocoa --exclude-moduleref=i:libobjc.dylib --exclude-moduleref=i:libdl.dylib

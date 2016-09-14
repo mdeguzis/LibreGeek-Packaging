@@ -15,7 +15,26 @@ if [[ "$NO_APT_PREFS" == "true" ]]; then
 	echo "W: APT: Removing /etc/apt/preferences.d/*"
 
 	# Delete
-	rm -f /etc/apt/preferences.d/*
+	rm -fv /etc/apt/preferences.d/*
+
+fi
+
+if [[ "$APT_PIN_PRIORITY" == "allow-any" ]]; then
+
+	# Upon removal, it was found pins move to 500
+	# This prevents use of older packages if newer ones exist 
+	# in repositories. Add a pin level to all allow this
+	# This is dangerous and should not be generally used!
+	
+	cat <<-EOF > /etc/apt/preferences
+	Package: *
+	Pin: origin ""
+	Pin-Priority: 100
+	
+	Package: *
+	Pin: release o=* 
+	Pin-Priority:100
+	EOF
 
 fi
 

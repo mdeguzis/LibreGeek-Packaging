@@ -663,10 +663,11 @@ while :; do
 			fi
 			;;
 
-		--retry|-r)
+		--retry-build|-r)
 			# Allow retry of previous build
 			# Debian files can still be review
 			RETRY_BUILD="true"
+			EXTRA_OPT+=("--retry-build")
 			;;
 
 		--testing)

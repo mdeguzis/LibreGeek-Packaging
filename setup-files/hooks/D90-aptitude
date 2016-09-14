@@ -12,9 +12,23 @@
 
 if [[ "$NO_APT_PREFS" == "true" ]]; then
 
-	echo "W: STEAMOS-TOOLS: Removing /etc/apt/preferences.d/*"
+	echo "W: APT: Removing /etc/apt/preferences.d/*"
 
 	# Delete
 	rm -f /etc/apt/preferences.d/*
+
+fi
+
+
+####################################
+# Regular apt functions
+####################################
+
+echo "I: APT: Updating package listings"
+
+if ! apt-get update -y -q &> /dev/null; then
+
+	echo "E: APT: Update operation failed. Exiting"
+	exit 1
 
 fi

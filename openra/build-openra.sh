@@ -133,7 +133,6 @@ main()
 
 	# add extras
 	cp "${SCRIPTDIR}/openra.png" "${SRC_DIR}"
-	cp "${SCRIPTDIR}/openra.desktop" "${SRC_DIR}/debian"
 
 	# Get latest commit
 	cd "${SRC_DIR}"

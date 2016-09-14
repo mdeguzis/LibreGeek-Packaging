@@ -2,10 +2,9 @@
 # this is Debian bug 657242
 # no fix yet, so workaround
 # has to be applied after nuget so this patch is not in the series file
-Index: openra-20150424/SharpFont.dll.config
 ===================================================================
---- openra-20150424.orig/SharpFont.dll.config
-+++ openra-20150424/SharpFont.dll.config
+--- a/SharpFont.dll.config
++++ b/SharpFont.dll.config
 @@ -1,7 +1,4 @@
  ﻿<?xml version="1.0" encoding="utf-8" ?>
  <configuration>

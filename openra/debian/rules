@@ -1,22 +1,19 @@
 #!/usr/bin/make -f
-
-export DH_VERBOSE=1
-
-prefix = /usr
-datarootdir = $(prefix)/share
-bindir = $(prefix)/games
-libdir = $(prefix)/lib
-
 %:
-	dh $@
+	dh $@ --with cli
 
-override_dh_auto_build:
-	# sync certs (thanks nuget)
-	cert-sync /etc/ssl/certs/ca-certificates.crt
-	# Build any missing dependencies
+override_dh_auto_configure:
+	cd thirdparty && ./fetch-thirdparty-deps.sh
 	make dependencies
-	# Build the rest of the source code
-	make all
+
+override_dh_auto_test:
+	cp thirdparty/download/* .
+	dh_auto_test
 
 override_dh_auto_install:
-	make install-all
+	dh_auto_install -- prefix=/usr datadir=/usr/share/games libexecdir=/usr/share/games bindir=/usr/games gameinstalldir=/usr/share/games/openra
+
+override_dh_clideps:
+	dh_clideps -d --exclude-moduleref=i:/System/Library/Frameworks/Cocoa.framework/Cocoa \
+	              --exclude-moduleref=i:libobjc.dylib \
+	              --exclude-moduleref=i:libdl.dylib

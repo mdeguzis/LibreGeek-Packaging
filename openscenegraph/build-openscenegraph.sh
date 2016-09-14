@@ -56,6 +56,8 @@ BUILDER="pdebuild"
 # doxygen sequences. Build arch-dep packages for now.
 BUILDOPTS="--debbuildopts -nc -- --binary-arch"
 export STEAMOS_TOOLS_BETA_HOOK="false"
+export NO_LINTIAN="false"
+export NO_PKG_TEST="false"
 export APT_PREFS_HACK="true"
 PKGNAME="openscenegraph"
 PKGVER="3.5.4"

@@ -55,6 +55,8 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
+export NO_LINTIAN="false"
+export NO_PKG_TEST="false"
 PKGNAME="yquake2"
 # Source version from yamagi-quake2/Quake/quakedef.h
 PKGVER="5.34"

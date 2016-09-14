@@ -54,6 +54,8 @@ BUILDER="debuild"
 # Are we going to distribute the orig. souce here? The archive is huge.
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
+export NO_LINTIAN="false"
+export NO_PKG_TEST="false"
 export USE_NETWORK="yes"
 PKGNAME="shashlik-unstable"
 PKGVER="0.9.3"

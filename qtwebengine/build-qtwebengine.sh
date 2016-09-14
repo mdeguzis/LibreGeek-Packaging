@@ -61,7 +61,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Need a newer version of qtchooser installed than what Valve has.
-export APT_PREFS_HACK="true"
+export NO_APT_PREFS="true"
 export USE_NETWORK="yes"
 PKGNAME="libqt5qtwebengine"
 PKGVER="5.7.0"

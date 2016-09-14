@@ -63,7 +63,7 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Need a newer version of qtchooser than Valve's
-export APT_PREFS_HACK="true"
+export NO_APT_PREFS="true"
 PKGNAME="phoenix"
 PKGVER="0.0.1"
 PKGREV="1"

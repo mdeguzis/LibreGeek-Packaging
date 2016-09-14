@@ -59,7 +59,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc --debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Needed to supercede harfbuzz the Valve provides
-export APT_PREFS_HACK="true"
+export NO_APT_PREFS="true"
 PKGNAME="qtmultimedia-opensource-src"
 PKGVER="5.7.0"
 PKGREV="2"

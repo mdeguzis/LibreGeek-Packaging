@@ -69,7 +69,7 @@ MAINTAINER="ProfessorKaos64"
 # Need network for pbuilder to pull down ut4 zip
 export NETWORK="no"
 # Use dirty hack to utilize ffmpeg-dev packages in our repo (only during build-time)
-export APT_PREFS_HACK="true"
+export NO_APT_PREFS="true"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"

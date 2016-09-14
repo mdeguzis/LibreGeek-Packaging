@@ -56,7 +56,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 # Need to override the package Valve gives for qtchooser.
-export APT_PREFS_HACK="true"
+export NO_APT_PREFS="true"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="qtx11extras-opensource-src"
 PKGVER="5.7.0"

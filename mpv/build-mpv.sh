@@ -56,7 +56,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Needed to allow installation of our version of ffmpeg dev packages
-export APT_PREFS_HACK="true"
+export NO_APT_PREFS="true"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 PKGNAME="mpv"
 BUILDER="pdebuild"

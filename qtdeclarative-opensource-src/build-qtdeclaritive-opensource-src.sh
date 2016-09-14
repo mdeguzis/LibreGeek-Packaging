@@ -59,7 +59,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc -- --binary-arch"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Need a newer version of qtchooser than what valve has
-export APT_PREFS_HACK="true"
+export NO_APT_PREFS="true"
 PKGNAME="qtdeclarative-opensource-src"
 PKGVER="5.7.0"
 PKGREV="1"

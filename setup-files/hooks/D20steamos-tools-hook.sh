@@ -41,25 +41,6 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
 	# END BETA REPO HANDLING
 	fi
-	
-	####################################
-	# Dirty hacks
-	####################################
-
-	# We use ffmpeg backported from Ubuntu, as it's configured differently (non-free elements?)
-	# Use a workaround to remove preferences files to allow packages to request their versions
-	# during builds only. This is key for packages like ffmpeg and mono (which requests)
-	# varying package versions...
-	# This section is subject to change/deletion
-
-	if [[ "$NO_APT_PREFS" == "true" ]]; then
-
-		echo "W: STEAMOS-TOOLS: Removing /etc/apt/preferences.d/*"
-
-		# Delete
-		rm -f /etc/apt/preferences.d/*
-
-	fi
 
 	####################################
 	# Update

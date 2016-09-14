@@ -1,9 +1,26 @@
 #!/usr/bin/make -f
+#
+# UNRESOLVED BUILD ISSUES: 
+# dh_clideps that fail the build:
+#	dh_clideps: Error: Missing shlibs entry:  or freetype6.dll for: SharpFont.dll!
+#	Use of uninitialized value $newpkgref in pattern match (m//) at /usr/bin/dh_clideps line 508, <F> line 2.
+#	Use of uninitialized value $pkgref in concatenation (.) or string at /usr/bin/dh_clideps line 539.
+#	Use of uninitialized value $newpkgref in concatenation (.) or string at /usr/bin/dh_clideps line 539.
+#	dh_clideps: Error: Could not resolve moduleref: SDL2_image.dll for: SDL2-CS.dll!
+#	dh_clideps: Error: Could not resolve moduleref: SDL2_mixer.dll for: SDL2-CS.dll!
+#	dh_clideps: Error: Could not resolve moduleref: SDL2_ttf.dll for: SDL2-CS.dll!
+#	dh_clideps: Warning: No Debian dependency data for StyleCop (4.7.1000.0__f904653c63bc2738
 
 %:
 	dh $@ --with cli
 
+# Package version set to date in build script and here
+PKGVER_ACTUAL = $(shell DATE_SHORT=$(date +%Y%m%d))
+
 override_dh_auto_configure:
+	# Fix dev version string
+	find $(CURDIR)/mods/ -name "*.yaml" -print0 | xargs -0 sed  -i "s/{DEV_VERSION}/$(PKGVER_ACTUAL)/"
+	# Fire off makefile
 	make all man-page
 
 override_dh_auto_test:
@@ -15,3 +32,9 @@ override_dh_auto_install:
 	bindir=/usr/games \
 	libexecdir=/usr/share/games \
 	gameinstalldir=/usr/share/games/openra
+
+override_dh_clideps:
+	dh_clideps -d \
+		--exclude-moduleref=i:/System/Library/Frameworks/Cocoa.framework/Cocoa \
+		--exclude-moduleref=i:libobjc.dylib \
+		--exclude-moduleref=i:libdl.dylib

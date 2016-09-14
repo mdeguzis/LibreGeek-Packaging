@@ -18,6 +18,4 @@ override_dh_auto_install:
 	gameinstalldir=/usr/share/games/openra
 
 override_dh_clideps:
-	dh_clideps -d --exclude-moduleref=i:/System/Library/Frameworks/Cocoa.framework/Cocoa \
-	--exclude-moduleref=i:libobjc.dylib \
-	--exclude-moduleref=i:libdl.dylib
+	dh_clideps -d --exclude-moduleref=i:/System/Library/Frameworks/Cocoa.framework/Cocoa --exclude-moduleref=i:libobjc.dylib --exclude-moduleref=i:libdl.dylib

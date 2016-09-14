@@ -1,4 +1,5 @@
 #!/usr/bin/make -f
+
 %:
 	dh $@ --with cli
 
@@ -12,10 +13,10 @@ override_dh_auto_test:
 
 override_dh_auto_install:
 	dh_auto_install -- prefix=/usr datadir=/usr/share/games \
-			libexecdir=/usr/share/games bindir=/usr/games \
-			gameinstalldir=/usr/share/games/openra
+	libexecdir=/usr/share/games bindir=/usr/games \
+	gameinstalldir=/usr/share/games/openra
 
 override_dh_clideps:
 	dh_clideps -d --exclude-moduleref=i:/System/Library/Frameworks/Cocoa.framework/Cocoa \
-	              --exclude-moduleref=i:libobjc.dylib \
-	              --exclude-moduleref=i:libdl.dylib
+	--exclude-moduleref=i:libobjc.dylib \
+	--exclude-moduleref=i:libdl.dylib

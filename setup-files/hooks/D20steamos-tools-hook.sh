@@ -43,19 +43,6 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	fi
 
 	####################################
-	# Update
-	####################################
-	
-	echo "I: STEAMOS-TOOLS: Updating package listings"
-	
-	if ! apt-get update -y -q &> /dev/null; then
-	
-		echo "E: STEAMOS-TOOLS: SteamOS-Tools Update operation failed. Exiting"
-		exit 1
-	
-	fi
-	
-	####################################
 	# Validation
 	####################################
 	
@@ -64,9 +51,6 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	repo_files+=("/etc/apt/sources.list.d/steamos-tools.list")
 	repo_files+=("/etc/apt/sources.list.d/jessie.list")
 	repo_files+=("/etc/apt/sources.list.d/jessie-backports.list")
-	repo_files+=("/etc/apt/preferences.d/steamos-tools")
-	repo_files+=("/etc/apt/preferences.d/jessie")
-	repo_files+=("/etc/apt/preferences.d/jessie-backports")
 	repo_files+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
 	
 	# If checking beta, add additioanl files to file list
@@ -76,6 +60,14 @@ if [[ "$DIST" == "brewmaster" ]]; then
 		repo_files+=("/etc/apt/sources.list.d/steamos-tools-beta.list")
 		repo_files+=("/etc/apt/preferences.d/steamos-tools-beta ")
 	
+	fi
+	
+	if [[ "$NO_APT_PREFS" != "true" ]]
+
+		repo_files+=("/etc/apt/preferences.d/steamos-tools")
+		repo_files+=("/etc/apt/preferences.d/jessie")
+		repo_files+=("/etc/apt/preferences.d/jessie-backports")
+
 	fi
 
 	# Run validation

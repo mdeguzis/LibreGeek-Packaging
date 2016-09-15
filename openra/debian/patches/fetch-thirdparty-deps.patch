@@ -1,0 +1,20 @@
+--- a/thirdparty/fetch-thirdparty-deps.sh
++++ b/thirdparty/fetch-thirdparty-deps.sh
+@@ -69,6 +69,8 @@
+ 	cp ./SharpFont/lib/net20/SharpFont* .
+ 	cp ./SharpFont/config/SharpFont.dll.config .
+ 	rm -rf SharpFont SharpFont.Dependencies
++	# Patch sharpfont for dllmaps
++	patch -p1 < ../../debian/patches/sharpfont.patch
+ fi
+ 
+ if [ ! -f nunit.framework.dll ]; then
+@@ -104,6 +106,8 @@
+ 	echo "Fetching SDL2-CS from GitHub."
+ 	curl -s -L -O https://github.com/OpenRA/SDL2-CS/releases/download/20151227/SDL2-CS.dll
+ 	curl -s -L -O https://github.com/OpenRA/SDL2-CS/releases/download/20151227/SDL2-CS.dll.config
++	# Patch SDL2-CS.dll.config for dllmaps
++        patch -p1 < ../../debian/patches/sdl2-cs-dll.patch
+ fi
+ 
+ if [ ! -f OpenAL-CS.dll -o ! -f OpenAL-CS.dll.config ]; then

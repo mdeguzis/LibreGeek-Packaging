@@ -133,12 +133,6 @@ main()
 
 	# add extras
 	cp "${SCRIPTDIR}/openra.png" "${SRC_DIR}"
-	
-	# dh_clideps does not understand the "dllentry" syntax.
-	# Take the config files from the Ubuntu package which uses the "target" syntax.
-	# Map libGL.so to libGLU.so.1
-	# When an update to this is needed, run the "fixes/update-dll-configs.sh" script
-	cp "${SCRIPTDIR}/fixes/SDL2-CS.dll.config" "${SRC_DIR}/thirdparty"
 
 	# Get latest commit
 	cd "${SRC_DIR}"
@@ -154,21 +148,21 @@ main()
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)
 	# This way, we can try again with the orig source intact
 	# Keep this method until a build is good to go, without error.
-	
+
 	if [[ "${retry}" == "no" ]]; then
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename "${SRC_DIR}")
-		
+
 	else
-	
+
 		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
-		
+
 		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
 		mkdir -p "${SRC_DIR}"
-	
+
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
 		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals

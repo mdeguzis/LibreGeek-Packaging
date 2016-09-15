@@ -1,10 +1,5 @@
-# dh_clideps cannot handle dllentry
-# this is Debian bug 657242
-# no fix yet, so workaround
-# has to be applied after nuget so this patch is not in the series file
-===================================================================
---- SharpFont.dll.config	2016-09-14 21:05:52.932000000 +0000
-+++ SharpFont.dll.config.new	2016-09-14 21:31:28.780000000 +0000
+--- openra-20160508.orig/SharpFont.dll.config	2016-09-14 21:06:55.760000000 -0400
++++ openra-20160508/SharpFont.dll.config	2016-09-14 21:08:02.844000000 -0400
 @@ -1,7 +1,4 @@
  ﻿<?xml version="1.0" encoding="utf-8" ?>
  <configuration>
@@ -12,5 +7,5 @@
 -		<dllentry os="linux" dll="libfreetype.so.6" />
 -		<dllentry os="osx" dll="/Library/Frameworks/Mono.framework/Libraries/libfreetype.6.dylib" />
 -	</dllmap>
-+  <dllmap dll="freetype6.dll" os="linux" target="libfreetype.so.6" />
++	<dllmap dll="freetype6.dll" os="linux" target="libfreetype.so.6" />
  </configuration>

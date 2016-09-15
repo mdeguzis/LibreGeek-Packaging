@@ -10,6 +10,8 @@ cd libregeek-packaging/generic-building
 ./build-deb-from-ppa.sh
 ```
 
+Debian files were then altered and fixed for the modern OpenRA releases.
+
 # Links:
 
 * www.openra.net

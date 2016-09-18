@@ -1,0 +1,715 @@
+^ExistsInWorld:
+	AppearsOnRadar:
+	UpdatesPlayerStatistics:
+	CombatDebugOverlay:
+	GivesExperience:
+	ScriptTriggers:
+	UpgradeManager:
+	Huntable:
+
+^SpriteActor:
+	BodyOrientation:
+	QuantizeFacingsFromSequence:
+	AutoSelectionSize:
+	RenderSprites:
+
+^GainsExperience:
+	GainsExperience:
+		Upgrades:
+			200: firepower, damage, speed, reload, inaccuracy, rank
+			400: firepower, damage, speed, reload, inaccuracy, rank
+			800: firepower, damage, speed, reload, inaccuracy, rank
+			1600: firepower, damage, speed, reload, inaccuracy, rank, eliteweapon, selfheal
+	FirepowerMultiplier@EXPERIENCE:
+		UpgradeTypes: firepower
+		Modifier: 105, 110, 120, 130
+	DamageMultiplier@EXPERIENCE:
+		UpgradeTypes: damage
+		Modifier: 95, 90, 85, 75
+	SpeedMultiplier@EXPERIENCE:
+		UpgradeTypes: speed
+		Modifier: 105, 110, 120, 140
+	ReloadDelayMultiplier@EXPERIENCE:
+		UpgradeTypes: reload
+		Modifier: 95, 90, 85, 75
+	InaccuracyMultiplier@EXPERIENCE:
+		UpgradeTypes: inaccuracy
+		Modifier: 90, 80, 70, 50
+	SelfHealing@ELITE:
+		Step: 2
+		Ticks: 100
+		HealIfBelow: 1
+		DamageCooldown: 125
+		UpgradeTypes: selfheal
+		UpgradeMinEnabledLevel: 1
+	WithRankDecoration:
+		Image: rank
+		Sequence: rank
+		Palette: effect
+		ReferencePoint: Bottom, Right
+		Offset: 2, 2
+		UpgradeTypes: rank
+		ZOffset: 256
+		UpgradeMinEnabledLevel: 1
+		UpgradeMaxAcceptedLevel: 4
+
+^Vehicle:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^GainsExperience
+	Inherits@3: ^SpriteActor
+	Mobile:
+		Crushes: crate
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 50
+			Road: 100
+			Tiberium: 50
+			BlueTiberium: 50
+			Beach: 50
+		ROT: 5
+	SelectionDecorations:
+	Selectable:
+		Bounds: 24,24
+	Targetable:
+		TargetTypes: Ground, Vehicle
+	Repairable:
+	Passenger:
+		CargoType: Vehicle
+	ActorLostNotification:
+	HiddenUnderFog:
+	AttackMove:
+	DrawLineToTarget:
+	WithSmoke:
+	WithFacingSpriteBody:
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	Guard:
+	Guardable:
+	Tooltip:
+		GenericName: Vehicle
+	Cloak:
+		UpgradeTypes: cloak
+		UpgradeMinEnabledLevel: 1
+		InitialDelay: 15
+		CloakDelay: 90
+		CloakSound: trans1.aud
+		UncloakSound: trans1.aud
+	MustBeDestroyed:
+	Voiced:
+		VoiceSet: VehicleVoice
+
+^Tank:
+	Inherits: ^Vehicle
+	Mobile:
+		Crushes: wall, crate, infantry
+		TerrainSpeeds:
+			Clear: 80
+			Rough: 70
+			Road: 100
+			Tiberium: 70
+			BlueTiberium: 70
+			Beach: 70
+		ROT: 5
+	Tooltip:
+		GenericName: Tank
+
+^Helicopter:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^GainsExperience
+	Inherits@3: ^SpriteActor
+	AppearsOnRadar:
+		UseLocation: yes
+	Targetable@GROUND:
+		TargetTypes: Ground, Vehicle
+		UpgradeTypes: airborne
+		UpgradeMaxEnabledLevel: 0
+	Targetable@AIRBORNE:
+		TargetTypes: Air
+		UpgradeTypes: airborne
+		UpgradeMinEnabledLevel: 1
+	SelectionDecorations:
+	Selectable:
+		Bounds: 24,24
+	Aircraft:
+		RepairBuildings: hpad
+		RearmBuildings:
+		LandWhenIdle: false
+		AirborneUpgrades: airborne
+		CanHover: True
+	HiddenUnderFog:
+		Type: CenterPosition
+	ActorLostNotification:
+	Explodes:
+		Weapon: HeliExplode
+		EmptyWeapon: HeliExplode
+	AttackMove:
+	DrawLineToTarget:
+	Guard:
+	Guardable:
+	Tooltip:
+		GenericName: Helicopter
+	WithFacingSpriteBody:
+	WithShadow:
+	Hovers:
+	MustBeDestroyed:
+	Voiced:
+		VoiceSet: VehicleVoice
+
+^Infantry:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^GainsExperience
+	Inherits@3: ^SpriteActor
+	Health:
+		Radius: 128
+	Armor:
+		Type: None
+	RevealsShroud:
+		Range: 5c0
+	Mobile:
+		Crushes: crate
+		SharesCell: true
+		TerrainSpeeds:
+			Clear: 90
+			Rough: 80
+			Road: 100
+			Tiberium: 70
+				PathingCost: 300
+			BlueTiberium: 70
+				PathingCost: 300
+			Beach: 80
+	SelectionDecorations:
+	Selectable:
+		Bounds: 12,17,0,-6
+	Targetable:
+		TargetTypes: Ground, Infantry
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithInfantryBody:
+	WithDeathAnimation:
+		DeathTypes:
+			DefaultDeath: 1
+			BulletDeath: 2
+			SmallExplosionDeath: 3
+			ExplosionDeath: 4
+			FireDeath: 5
+			TiberiumDeath: 6
+		CrushedSequence: die-crushed
+	AttackMove:
+	DrawLineToTarget:
+	Passenger:
+		CargoType: Infantry
+	HiddenUnderFog:
+	PoisonedByTiberium:
+	ActorLostNotification:
+	SpawnActorOnDeath:
+		Probability: 10
+		Actor: vice
+		OwnerType: InternalName
+		InternalOwner: Creeps
+		DeathType: TiberiumDeath
+		RequiresLobbyCreeps: true
+	Crushable:
+		WarnProbability: 75
+		CrushSound: squish2.aud
+	Guardable:
+	SelfHealing@HOSPITAL:
+		Step: 5
+		Ticks: 100
+		HealIfBelow: 1
+		DamageCooldown: 125
+		UpgradeTypes: hospitalheal
+		UpgradeMinEnabledLevel: 1
+	GlobalUpgradable:
+		Upgrades: hospitalheal
+		Prerequisites: hosp
+	DetectCloaked:
+		Range: 2c0
+	DeathSounds@NORMAL:
+		DeathTypes: DefaultDeath, BulletDeath, SmallExplosionDeath, ExplosionDeath
+	DeathSounds@BURNED:
+		Voice: Burned
+		DeathTypes: FireDeath
+	DeathSounds@POISONED:
+		Voice: Poisoned
+		DeathTypes: TiberiumDeath
+	Voiced:
+		VoiceSet: GenericVoice
+
+^Soldier:
+	Inherits: ^Infantry
+	MustBeDestroyed:
+	Tooltip:
+		GenericName: Soldier
+	Guard:
+	AutoTarget:
+		ScanRadius: 4
+	TakeCover:
+		SpeedModifier: 60
+		DamageModifiers:
+			Prone50Percent: 50
+		DamageTriggers: TriggerProne
+	WithInfantryBody:
+		IdleSequences: idle1, idle2
+		StandSequences: stand, stand2
+
+^CivInfantry:
+	Inherits: ^Infantry
+	Valued:
+		Cost: 70
+	Tooltip:
+		Name: Civilian
+		GenericVisibility: None
+	Mobile:
+		Speed: 56
+	Health:
+		HP: 25
+	RevealsShroud:
+		Range: 2c0
+	Armament:
+		Weapon: Pistol
+	AttackFrontal:
+	ActorLostNotification:
+		Notification: CivilianKilled
+		NotifyAll: true
+	ScaredyCat:
+	Crushable:
+		CrushSound: squish2.aud
+	Voiced:
+		VoiceSet: CivilianMaleVoice
+	WithInfantryBody:
+		AttackSequence: shoot
+
+^DINO:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Health:
+		Radius: 128
+		HP: 1000
+	Armor:
+		Type: Wood
+	Buildable:
+		Queue: Biolab
+		BuildPaletteOrder: 50
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Dinosaur
+	RevealsShroud:
+		Range: 6c0
+	Mobile:
+		Crushes: crate
+		Speed: 113
+		TerrainSpeeds:
+			Clear: 90
+			Rough: 80
+			Road: 100
+			Tiberium: 70
+			BlueTiberium: 70
+			Beach: 80
+		Voice: Move
+	SelectionDecorations:
+	Selectable:
+		Bounds: 24,24
+	Targetable:
+		TargetTypes: Ground
+	HiddenUnderFog:
+	RenderSprites:
+		Palette: terrain
+	QuantizeFacingsFromSequence:
+		Sequence: stand
+	WithInfantryBody:
+		AttackSequence: attack
+	WithDeathAnimation:
+		UseDeathTypeSuffix: false
+	AutoTarget:
+		ScanRadius: 4
+	AttackMove:
+		Voice: Attack
+	AttackFrontal:
+		Voice: Attack
+	DrawLineToTarget:
+	DeathSounds:
+	Voiced:
+		VoiceSet: DinoVoice
+
+^Viceroid:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	Health:
+		Radius: 427
+		HP: 300
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 6c0
+	Mobile:
+		Voice: Move
+		Speed: 71
+		TerrainSpeeds:
+			Clear: 70
+			Rough: 60
+			Road: 70
+			Tiberium: 100
+			BlueTiberium: 100
+			Beach: 60
+	SelectionDecorations:
+	Selectable:
+		Bounds: 24,24
+	Targetable:
+		TargetTypes: Ground
+	AutoTarget:
+		ScanRadius: 5
+	AttackMove:
+		Voice: Attack
+	DrawLineToTarget:
+	HiddenUnderFog:
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Visceroid
+	Armament:
+		Weapon: Chemspray
+		LocalOffset: 384,0,0
+		MuzzleSequence: muzzle
+	AttackFrontal:
+		Voice: Attack
+	BodyOrientation:
+		QuantizedFacings: 8
+	WithSpriteBody:
+	WithMuzzleOverlay:
+	Guard:
+		Voice: Move
+	Guardable:
+	PoisonedByTiberium:
+		Weapon: Heal
+	Voiced:
+		VoiceSet: DinoVoice
+
+^Plane:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	AppearsOnRadar:
+		UseLocation: yes
+	HiddenUnderFog:
+		Type: CenterPosition
+	ActorLostNotification:
+	AttackMove:
+	WithShadow:
+	WithFacingSpriteBody:
+	FlyAwayOnIdle:
+	RejectsOrders:
+	Aircraft:
+		CruiseAltitude: 2560
+
+^Ship:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^GainsExperience
+	Inherits@3: ^SpriteActor
+	Mobile:
+		Crushes: crate
+		TerrainSpeeds:
+			Water: 100
+	SelectionDecorations:
+	Selectable:
+	Targetable:
+		TargetTypes: Ground, Water
+	HiddenUnderFog:
+	ActorLostNotification:
+	AttackMove:
+	DrawLineToTarget:
+	Guard:
+	Guardable:
+	Voiced:
+		VoiceSet: VehicleVoice
+
+^Building:
+	Inherits@1: ^ExistsInWorld
+	Inherits@2: ^SpriteActor
+	SelectionDecorations:
+	Selectable:
+		Priority: 3
+	Targetable:
+		TargetTypes: Ground, C4, Structure
+	Armor:
+		Type: Wood
+	Building:
+		Dimensions: 1,1
+		Footprint: x
+	SoundOnDamageTransition:
+		DamagedSounds: xplos.aud
+		DestroyedSounds: crumble.aud
+	WithSpriteBody:
+	WithBuildingExplosion:
+		Delay: 1
+	CaptureNotification:
+		Notification: BuildingCaptured
+		NewOwnerVoice: no
+	ActorLostNotification:
+		Notification: BuildingLost
+	ShakeOnDeath:
+	Guardable:
+		Range: 3c0
+	Tooltip:
+		GenericName: Structure
+	FrozenUnderFog:
+	Demolishable:
+
+^BaseBuilding:
+	Inherits: ^Building
+	Building:
+		Adjacent: 4
+		RequiresBaseProvider: true
+		BuildSounds: constru2.aud, hvydoor1.aud
+		TerrainTypes: Clear,Road
+	MustBeDestroyed:
+		RequiredForShortGame: true
+	RepairableBuilding:
+		RepairPercent: 40
+		RepairStep: 14
+	WithDeathAnimation:
+		DeathSequence: dead
+		UseDeathTypeSuffix: false
+	GivesBuildableArea:
+	EmitInfantryOnSell:
+		ActorTypes: e6,e1,e1,e1
+	EngineerRepairable:
+	Sellable:
+		SellSounds: cashturn.aud
+	Capturable:
+	WithMakeAnimation:
+
+^CivBuilding:
+	Inherits: ^Building
+	-UpgradeManager:
+	Health:
+		HP: 400
+	Tooltip:
+		Name: Civilian Building
+		GenericVisibility: None
+	FrozenUnderFog:
+		StartsRevealed: true
+
+^CivBuildingHusk:
+	Inherits@1: ^SpriteActor
+	AppearsOnRadar:
+	Building:
+		Dimensions: 1,1
+		Footprint: x
+	WithSpriteBody:
+	Tooltip:
+		Name: Civilian Building (Destroyed)
+		GenericVisibility: None
+	FrozenUnderFog:
+		StartsRevealed: true
+	ScriptTriggers:
+
+^TechBuilding:
+	Inherits: ^CivBuilding
+	Capturable:
+	CaptureNotification:
+		Notification: CivilianBuildingCaptured
+	RepairableBuilding:
+		RepairPercent: 40
+		RepairStep: 14
+	EngineerRepairable:
+	RevealsShroud:
+		Range: 3c0
+
+^CivField:
+	Inherits: ^CivBuilding
+	-Selectable:
+	Tooltip:
+		Name: Field
+	-WithBuildingExplosion:
+	-Targetable:
+	-Demolishable:
+	RenderSprites:
+		Palette: terrain
+
+^CivFieldHusk:
+	Inherits@1: ^SpriteActor
+	AppearsOnRadar:
+	Building:
+		Dimensions: 1,1
+		Footprint: _
+	Tooltip:
+		Name: Field (Destroyed)
+		GenericVisibility: None
+	RenderSprites:
+		Palette: terrain
+	WithSpriteBody:
+	FrozenUnderFog:
+		StartsRevealed: true
+	ScriptTriggers:
+
+^Wall:
+	Inherits@1: ^SpriteActor
+	CombatDebugOverlay:
+	AppearsOnRadar:
+	Building:
+		Dimensions: 1,1
+		Footprint: x
+		BuildSounds: hvydoor1.aud
+		Adjacent: 7
+		TerrainTypes: Clear,Road
+	Targetable:
+		TargetTypes: Ground, Wall
+	Crushable:
+		CrushClasses: wall
+		CrushSound: sandbag2.aud
+	LineBuild:
+		Range: 8
+		NodeTypes: wall
+	LineBuildNode:
+		Types: wall
+	RenderSprites:
+		Palette: staticterrain
+	WithWallSpriteBody:
+	GivesExperience:
+	AutoTargetIgnore:
+	Sellable:
+		SellSounds: cashturn.aud
+	Guardable:
+	FrozenUnderFog:
+	ScriptTriggers:
+
+^Tree:
+	Inherits@1: ^SpriteActor
+	Tooltip:
+		Name: Tree
+	RenderSprites:
+		Palette: staticterrain
+	WithSpriteBody:
+	Building:
+		Footprint: __ x_
+		Dimensions: 2,2
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Tree
+	Health:
+		HP: 500
+	Armor:
+		Type: Wood
+	AutoTargetIgnore:
+	HiddenUnderShroud:
+	ScriptTriggers:
+
+^TibTree:
+	Inherits@1: ^SpriteActor
+	Tooltip:
+		Name: Blossom Tree
+	RenderSprites:
+		Palette: staticterrain
+	WithSpriteBody:
+	Building:
+		Footprint: x
+		Dimensions: 1,1
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Tiberium
+	HiddenUnderShroud:
+	WithMakeAnimation:
+
+^Rock:
+	Inherits@1: ^SpriteActor
+	Tooltip:
+		Name: Rock
+	RenderSprites:
+		Palette: staticterrain
+	WithSpriteBody:
+	Building:
+		Footprint: __ x_
+		Dimensions: 2,2
+	AppearsOnRadar:
+	RadarColorFromTerrain:
+		Terrain: Tree
+	HiddenUnderShroud:
+	ScriptTriggers:
+	EditorTilesetFilter:
+		RequireTilesets: DESERT
+
+^CommonHuskDefaults:
+	Inherits@1: ^SpriteActor
+	Health:
+		HP: 140
+	Armor:
+		Type: Light
+	HiddenUnderFog:
+		Type: CenterPosition
+	AutoTargetIgnore:
+	WithFacingSpriteBody:
+
+^Husk:
+	Inherits: ^CommonHuskDefaults
+	Husk:
+		AllowedTerrain: Clear, Rough, Road, Tiberium, BlueTiberium, Beach
+	Burns:
+		Interval: 2
+	Targetable:
+		RequiresForceFire: yes
+		TargetTypes: Ground, Husk
+	Capturable:
+		Type: husk
+		AllowAllies: yes
+		CaptureThreshold: 1.0
+	TransformOnCapture:
+		ForceHealthPercentage: 25
+	Tooltip:
+		GenericName: Destroyed Vehicle
+	DisabledOverlay:
+	ScriptTriggers:
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+
+^HelicopterHusk:
+	Inherits: ^CommonHuskDefaults
+	WithShadow:
+	Aircraft:
+		AirborneUpgrades: airborne
+		CanHover: True
+	FallsToEarth:
+		Spins: True
+		Moves: False
+		Explosion: HeliCrash
+	Tooltip:
+		GenericName: Destroyed Helicopter
+
+^Bridge:
+	AlwaysVisible:
+	Tooltip:
+		Name: Bridge
+	Targetable:
+		RequiresForceFire: yes
+		TargetTypes: Ground, Water
+	Health:
+		HP: 500
+	SoundOnDamageTransition:
+		DamagedSounds: xplos.aud
+		DestroyedSounds: xplobig4.aud
+	ScriptTriggers:
+
+^Crate:
+	Inherits@1: ^SpriteActor
+	HiddenUnderFog:
+	Tooltip:
+		Name: Crate
+		GenericName: Crate
+	Crate:
+		TerrainTypes: Clear, Rough, Road, Tiberium, BlueTiberium, Beach
+	RenderSprites:
+		Palette: effect
+		Image: crate
+	WithCrateBody:
+		XmasImages: xcratea, xcrateb, xcratec, xcrated
+
+^Defense:
+	Inherits: ^BaseBuilding
+	AutoTarget:
+	RenderRangeCircle:
+	RenderDetectionCircle:
+	-GivesBuildableArea:
+	MustBeDestroyed:
+		RequiredForShortGame: false
+

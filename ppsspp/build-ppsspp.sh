@@ -37,21 +37,19 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
 GIT_URL="https://github.com/hrydgard/ppsspp"
-branch="v1.2.2"
+branch="v1.3"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,12 +58,13 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
+export NO_APT_PREFS="true"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="ppsspp"
-PKGVER="1.2.2"
-PKGREV="2"
-PKGSUFFIX="bsos${PKGREV}"
+PKGVER="1.3"
+PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

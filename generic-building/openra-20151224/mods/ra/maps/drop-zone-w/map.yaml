@@ -1,0 +1,333 @@
+MapFormat: 7
+
+RequiresMod: ra
+
+Title: Drop Zone W
+
+Description: Pick up the crates with the naval mobile HQ to get units to kill the other players. v0.2
+
+Author: riderr3
+
+Tileset: SNOW
+
+MapSize: 64,64
+
+Bounds: 16,16,32,32
+
+Visibility: Lobby
+
+Type: Drop Zone
+
+Videos:
+
+Options:
+	Crates: True
+	Fog: False
+	Shroud: False
+	AllyBuildRadius: False
+	FragileAlliances: False
+	StartingCash: 5000
+	TechLevel: Unrestricted
+	ConfigurableStartingUnits: False
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: allies
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: allies
+		Enemies: Multi0, Multi1, Multi2, Multi3, Multi4, Multi5, Multi6, Multi7
+	PlayerReference@Multi0:
+		Name: Multi0
+		Playable: True
+		AllowBots: False
+		LockFaction: True
+		Faction: allies
+		Enemies: Creeps
+	PlayerReference@Multi1:
+		Name: Multi1
+		Playable: True
+		AllowBots: False
+		LockFaction: True
+		Faction: allies
+		Enemies: Creeps
+	PlayerReference@Multi2:
+		Name: Multi2
+		Playable: True
+		AllowBots: False
+		LockFaction: True
+		Faction: allies
+		Enemies: Creeps
+	PlayerReference@Multi3:
+		Name: Multi3
+		Playable: True
+		AllowBots: False
+		LockFaction: True
+		Faction: allies
+		Enemies: Creeps
+	PlayerReference@Multi4:
+		Name: Multi4
+		Playable: True
+		AllowBots: False
+		LockFaction: True
+		Faction: allies
+		Enemies: Creeps
+	PlayerReference@Multi5:
+		Name: Multi5
+		Playable: True
+		AllowBots: False
+		LockFaction: True
+		Faction: allies
+		Enemies: Creeps
+	PlayerReference@Multi6:
+		Name: Multi6
+		Playable: True
+		AllowBots: False
+		LockFaction: True
+		Faction: allies
+		Enemies: Creeps
+	PlayerReference@Multi7:
+		Name: Multi7
+		Playable: True
+		AllowBots: False
+		LockFaction: True
+		Faction: allies
+		Enemies: Creeps
+
+Actors:
+	Actor2: mpspawn
+		Location: 34,30
+		Owner: Neutral
+	Actor4: mpspawn
+		Location: 30,32
+		Owner: Neutral
+	Actor6: mpspawn
+		Location: 32,34
+		Owner: Neutral
+	Actor0: mpspawn
+		Location: 30,30
+		Owner: Neutral
+	Actor12: lst
+		Location: 35,29
+		Owner: Multi0
+	Actor14: lst
+		Location: 29,29
+		Owner: Multi1
+	Actor8: lst
+		Location: 29,35
+		Owner: Multi2
+	Actor10: lst
+		Location: 35,35
+		Owner: Multi3
+	Actor9: lst
+		Location: 32,35
+		Owner: Multi4
+	Actor13: lst
+		Location: 32,29
+		Owner: Multi5
+	Actor11: lst
+		Location: 35,32
+		Owner: Multi6
+	Actor15: lst
+		Location: 29,32
+		Owner: Multi7
+	Actor7: mpspawn
+		Location: 34,34
+		Owner: Neutral
+	Actor3: mpspawn
+		Location: 34,32
+		Owner: Neutral
+	Actor1: mpspawn
+		Location: 32,30
+		Owner: Neutral
+	Actor5: mpspawn
+		Location: 30,34
+		Owner: Neutral
+	Actor16: v12
+		Location: 37,24
+		Owner: Neutral
+	Actor17: v11
+		Location: 38,23
+		Owner: Neutral
+	Actor18: v17
+		Location: 38,25
+		Owner: Neutral
+	Actor19: brl3
+		Location: 47,21
+		Owner: Neutral
+	Actor20: v15
+		Location: 39,22
+		Owner: Neutral
+	Actor21: t12
+		Location: 39,20
+		Owner: Neutral
+	Actor22: t08
+		Location: 29,47
+		Owner: Neutral
+	Actor23: tc02
+		Location: 15,46
+		Owner: Neutral
+	Actor24: t07
+		Location: 16,44
+		Owner: Neutral
+	Actor25: tc05
+		Location: 14,38
+		Owner: Neutral
+	Actor26: t07
+		Location: 36,25
+		Owner: Neutral
+	Actor28: v14
+		Location: 38,24
+		Owner: Neutral
+	Actor27: t08
+		Location: 37,25
+		Owner: Neutral
+	Actor30: t10
+		Location: 21,36
+		Owner: Neutral
+	Actor31: t01
+		Location: 23,34
+		Owner: Neutral
+
+Smudges:
+
+Rules:
+	World:
+		CrateSpawner:
+			Maximum: 3
+			SpawnInterval: 125
+			WaterChance: 100
+			CrateActors: unitcrate
+			InitialSpawnDelay: 0
+		-SpawnMPUnits:
+		-MPStartLocations:
+	UNITCRATE:
+		Inherits: ^Crate
+		GiveUnitCrateAction@pt:
+			SelectionShares: 7
+			Units: pt
+		GiveUnitCrateAction@dd:
+			SelectionShares: 6
+			Units: dd
+		GiveUnitCrateAction@ca:
+			SelectionShares: 4
+			Units: ca
+		GiveUnitCrateAction@ss:
+			SelectionShares: 6
+			Units: ss
+		GiveUnitCrateAction@msub:
+			SelectionShares: 4
+			Units: msub
+		Crate:
+			TerrainTypes: Water
+	LST:
+		Tooltip:
+			Name: Naval Mobile HQ
+		Health:
+			HP: 1000
+		Mobile:
+			Speed: 170
+		Armament@PRIMARY:
+			Weapon: M60mg
+		Armament@SECONDARY:
+			Name: secondary
+			Weapon: M60mg
+		AttackFrontal:
+		WithMuzzleOverlay@PRIMARY:
+		WithMuzzleOverlay@SECONDARY:
+			Armament: secondary
+		MustBeDestroyed:
+			RequiredForShortGame: true
+		-GivesBounty:
+	PT:
+		-GivesBounty:
+	DD:
+		-GivesBounty:
+	CA:
+		-GivesBounty:
+	SS:
+		-GivesBounty:
+	MSUB:
+		-GivesBounty:
+
+Sequences:
+	lst:
+		muzzle: minigun
+			Start: 0
+			Length: 6
+			Facings: 8
+		turret: mgun
+			Start: 0
+			Facings: 32
+
+VoxelSequences:
+
+Weapons:
+	8Inch:
+		ReloadDelay: 200
+		Range: 32c0
+		Burst: 4
+		Report: TURRET1
+		Projectile: Bullet
+			Speed: 546
+			High: true
+			Angle: 62
+			Inaccuracy: 3c341
+			Image: 120MM
+			ContrailLength: 30
+		Warhead: SpreadDamage
+			Spread: 128
+			Versus:
+				None: 60
+				Wood: 75
+				Light: 60
+				Heavy: 25
+			Damage: 250
+			DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+		Warhead@1Eff: CreateEffect
+			Explosion: large_explosion
+			WaterExplosion: large_splash
+			ImpactSound: kaboom12.aud
+			WaterImpactSound: splash9.aud
+		Warhead@2Smu: LeaveSmudge
+			SmudgeType: Crater
+	SubMissile:
+		ReloadDelay: 250
+		Range: 32c0
+		Burst: 4
+		Report: MISSILE6
+		Projectile: Bullet
+			Speed: 409
+			High: true
+			Angle: 62
+			Inaccuracy: 2c938
+			Image: MISSILE
+			Trail: smokey
+			ContrailLength: 30
+		Warhead: SpreadDamage
+			Spread: 426
+			Versus:
+				None: 40
+				Light: 30
+				Heavy: 30
+			Damage: 400
+			DamageTypes: Prone50Percent, TriggerProne, ExplosionDeath
+		Warhead@1Eff: CreateEffect
+			Explosion: large_explosion
+			WaterExplosion: large_splash
+			ImpactSound: kaboom12.aud
+			WaterImpactSound: splash9.aud
+		Warhead@2Smu: LeaveSmudge
+			SmudgeType: Crater
+
+Voices:
+
+Music:
+
+Notifications:
+
+Translations:

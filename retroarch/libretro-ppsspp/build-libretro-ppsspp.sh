@@ -38,11 +38,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -96,7 +96,7 @@ main()
 {
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -122,7 +122,7 @@ main()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
 			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 		else
@@ -161,21 +161,21 @@ main()
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)
 	# This way, we can try again with the orig source intact
 	# Keep this method until a build is good to go, without error.
-	
+
 	if [[ "${retry}" == "no" ]]; then
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
-		
+
 	else
-	
+
 		echo -e "\n==> Cleaning old source folders for retry"
 		sleep 2s
-		
+
 		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
 		mkdir -p "${GIT_DIR}"
-	
+
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
 		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
@@ -187,6 +187,8 @@ main()
 	# Remove debian folder in source dir, as it may conflict
 
 	rm -rf "${GIT_DIR}/debian"
+#	cp "${SCRIPTDIR}/Makefile" "${GIT_DIR}/libretro"
+#	cp "${SCRIPTDIR}/Makefile.common" "${GIT_DIR}/libretro"
  	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 
 	#################################################

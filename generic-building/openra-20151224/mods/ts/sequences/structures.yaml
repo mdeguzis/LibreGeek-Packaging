@@ -1,0 +1,1257 @@
+gacnst:
+	Defaults:
+		Offset: 0, -36
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	make: gtcnstmk
+		Length: 24
+		ShadowStart: 24
+	crane-overlay: gtcnst_d
+		Length: 20
+		ZOffset: 1023
+	damaged-crane-overlay: gtcnst_d
+		Length: 20
+		ZOffset: 1023
+	critical-crane-overlay: gtcnst_d
+		Start: 20
+		Length: 20
+		ZOffset: 1023
+	idle-top: gtcnst_c
+		Length: 15
+		Tick: 200
+	damaged-idle-top: gtcnst_c
+		Start: 15
+		Length: 15
+		Tick: 200
+	idle-side: gtcnst_a
+		Length: 10
+	damaged-idle-side: gtcnst_a
+		Start: 10
+		Length: 10
+	idle-front: gtcnst_b
+		Length: 10
+	damaged-idle-front: gtcnst_b
+		Length: 10
+	icon: facticon
+		Offset: 0,0
+		UseTilesetCode: false
+
+gapowr:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-lights: gtpowr_a
+		Length: 12
+		Tick: 200
+	damaged-idle-lights: gtpowr_a
+		Start: 12
+		Length: 12
+		Tick: 200
+	idle-plug: gtpowr_b
+		Length: 12
+		Tick: 200
+	damaged-idle-plug: gtpowr_b
+		Length: 12
+		Tick: 200
+	idle-powrupa: gtpowr_b
+		Length: 12
+		Tick: 200
+		Offset: -48, -24
+	damaged-idle-powrupa: gtpowr_b
+		Length: 12
+		Tick: 200
+		Offset: -48, -24
+	idle-powrupb: gtpowr_b
+		Length: 12
+		Tick: 200
+		Offset: -24, -12
+	damaged-idle-powrupb: gtpowr_b
+		Length: 12
+		Tick: 200
+		Offset: -24, -12
+	make: gtpowrmk
+		Length: 20
+		ShadowStart: 20
+	icon: powricon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gapowrup:
+	icon: turbicon
+
+gapile:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	production-lights: gtpile_a
+		Length: 7
+		Tick: 200
+		ZOffset: 1023
+	damaged-production-lights: gtpile_a
+		Start:7
+		Length: 7
+		Tick: 200
+		ZOffset: 1023
+	idle-light: gtpile_b
+		Length: 7
+		Tick: 200
+	damaged-idle-light: gtpile_b
+		Start:7
+		Length: 7
+		Tick: 200
+	idle-flag: gtpile_c
+		Length: 7
+	damaged-idle-flag: gtpile_c
+		Start:7
+		Length: 7
+	make: gtpilemk
+		Length: 20
+		ShadowStart: 20
+	icon: brrkicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gaweap:
+	Defaults:
+		Offset: -12, -42
+		UseTilesetCode: true
+	idle: gtweap_1
+		ShadowStart: 2
+		ZOffset: -1024
+	damaged-idle: gtweap_1
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1024
+	idle-roof: gtweap_2
+		ShadowStart: 2
+	damaged-idle-roof: gtweap_2
+		Start: 1
+		ShadowStart: 3
+	dead: gtweap
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	production-lights-white: gtweap_a
+		Length: 8
+		Tick: 100
+		ZOffset: 2048
+	damaged-production-lights-white: gtweap_a
+		Start: 8
+		Length: 8
+		Tick: 100
+		ZOffset: 2048
+	production-lights-red: gtweap_b
+		Length: 4
+		Tick: 120
+		ZOffset: 2048
+	damaged-production-lights-red: gtweap_b
+		Start: 4
+		Length: 4
+		Tick: 120
+		ZOffset: 2048
+	idle-turbines: gtweap_c
+		Length: 4
+		Tick: 80
+		ZOffset: 2048
+	damaged-idle-turbines: gtweap_c
+		Length: 4
+		Tick: 80
+		ZOffset: 2048
+	build-door: gtweap_d
+		Length: 9
+		ShadowStart: 9
+	damaged-build-door: gtweap_d
+		Length: 9
+		ShadowStart: 9
+	make: gtweapmk
+		Length: 20
+		Tick: 80
+		ShadowStart: 20
+	bib: gtweapbb
+		Length: 1
+		ZOffset: -1024
+	damaged-bib: gtweapbb
+		Start: 1
+		Length: 1
+		ZOffset: -1024
+	dead-bib: gtweapbb
+		Start: 2
+		Length: 1
+		ZOffset: -1024
+	icon: weapicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+napowr:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-lights: ntpowr_a
+		Length: 9
+		Tick: 200
+	damaged-idle-lights: ntpowr_a
+		Start: 9
+		Length: 9
+		Tick: 200
+	make: ntpowrmk
+		Length: 19
+		ShadowStart: 19
+	icon: npwricon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+naapwr:
+	Defaults:
+		Offset: 12, -30
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-lights: ntapwr_a
+		Length: 9
+		Tick: 200
+	damaged-idle-lights: ntapwr_a
+		Start: 9
+		Length: 9
+		Tick: 200
+	make: ntapwrmk
+		Length: 19
+		ShadowStart: 19
+	icon: apwricon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+nahand:
+	Defaults:
+		Offset: -6, -30
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	production-light: nthand_a
+		Length: 5
+		Tick: 100
+		ZOffset: 1023
+	damaged-production-light: nthand_a
+		Start: 5
+		Length: 5
+		Tick: 100
+		ZOffset: 1023
+	idle-lights: nthand_b
+		Length: 8
+		Tick: 200
+	damaged-idle-lights: nthand_b
+		Start: 8
+		Length: 8
+		Tick: 200
+	make: nthandmk
+		Length: 15
+		ShadowStart: 15
+	icon: handicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+naweap:
+	Defaults:
+		Offset: -12, -42
+		UseTilesetCode: true
+	idle: ntweap_1
+		ShadowStart: 2
+		ZOffset: -1024
+	damaged-idle: ntweap_1
+		Start: 1
+		ShadowStart: 3
+		ZOffset: -1024
+	idle-roof: ntweap_2
+		ShadowStart: 2
+		ZOffset: 512
+	damaged-idle-roof: ntweap_2
+		Start: 1
+		ShadowStart: 3
+		ZOffset: 512
+	dead: ntweap
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	production-lights: ntweap_a
+		Length: 16
+		Tick: 100
+		ZOffset: 2048
+	damaged-production-lights: ntweap_a
+		Start: 16
+		Length: 16
+		Tick: 100
+		ZOffset: 2048
+	build-door: ntweap_b
+		Length: 10
+		ShadowStart: 10
+		ZOffset: 512
+	damaged-build-door: ntweap_b
+		Start: 10
+		Length: 10
+		ShadowStart: 20
+		ZOffset: 512
+	make: ntweapmk
+		Length: 22
+		Tick: 80
+		ShadowStart: 22
+	bib: ntweapbb
+		ZOffset: -1024
+	damaged-bib: ntweapbb
+		Start: 1
+		ZOffset: -1024
+	dead-bib: ntweapbb
+		Start: 2
+		ZOffset: -1024
+	icon: nwepicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+naradr:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-dish: ntradr_a
+		Length: 24
+		Tick: 120
+	damaged-idle-dish: ntradr_a
+		Start: 24
+		Length: 24
+		Tick: 120
+	make: ntradrmk
+		Length: 20
+		ShadowStart: 20
+	icon: nradicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+natech:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-lights: nttech_a
+		Length: 9
+		Tick: 120
+	damaged-idle-lights: nttech_a
+		Length: 9
+		Tick: 120
+	make: nttechmk
+		Length: 18
+		ShadowStart: 18
+	icon: ntchicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+natmpl:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-lights: nttmpl_a
+		Length: 16
+		Tick: 120
+	damaged-idle-lights: nttmpl_a
+		Start: 16
+		Length: 16
+		Tick: 120
+	make: nttmplmk
+		Length: 17
+		ShadowStart: 17
+	icon: tmplicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+garadr:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-dish: gtradr_a
+		Length: 15
+		Reverses: True
+		Tick: 200
+	damaged-idle-dish: gtradr_a
+		Start: 15
+		Length: 15
+		Reverses: True
+		Tick: 240
+	make: gtradrmk
+		Length: 20
+		ShadowStart: 20
+	icon: radricon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gatech:
+	Defaults:
+		Offset: -12, -30
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-lights: gttech_a
+		Length: 8
+		Tick: 200
+	damaged-idle-lights: gttech_a
+		Start: 8
+		Length: 8
+		Tick: 240
+	make: gttechmk
+		Length: 20
+		ShadowStart: 20
+	icon: techicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gasand:
+	Defaults:
+		Offset: 0, -12
+		UseTilesetCode: true
+	idle:
+		Length: 16
+		ShadowStart: 32
+	damaged-idle:
+		Start: 16
+		Length: 16
+		ShadowStart: 48
+	icon: sbagicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gawall:
+	Defaults:
+		Offset: 0, -12
+		UseTilesetCode: true
+	idle:
+		Length: 16
+		ShadowStart: 48
+	damaged-idle:
+		Start: 16
+		Length: 16
+		ShadowStart: 64
+	critical-idle:
+		Start: 32
+		Length: 16
+		ShadowStart: 80
+	icon: wallicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+nawall:
+	Defaults:
+		Offset: 0, -12
+		UseTilesetCode: true
+	idle:
+		Length: 16
+		ShadowStart: 48
+	damaged-idle:
+		Start: 16
+		Length: 16
+		ShadowStart: 64
+	critical-idle:
+		Start: 32
+		Length: 16
+		ShadowStart: 80
+	icon: nwalicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gatick:
+	Defaults:
+		Offset: 0, -13
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	muzzle: gunfire
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+	make: gatickmk
+		Length: 24
+		ShadowStart: 24
+
+gaicbm:
+	Defaults:
+		Offset: 0, -12
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	make: gaicbmmk
+		Length: 30
+		ShadowStart: 30
+
+gadpsa:
+	Defaults:
+		Offset: 0, -12
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	make: gadpsamk
+		Length: 36
+		ShadowStart: 36
+
+gaarty:
+	Defaults:
+		Offset: 0, -12
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	muzzle: gunfire
+		Length: *
+		Offset: 0, 0
+		UseTilesetCode: false
+	make: gaartymk
+		Length: 16
+		ShadowStart: 16
+
+naobel:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	active: ntobel_b
+		Length: 12
+		Tick: 200
+	idle-lights: ntobel_a
+		Length: 12
+		Tick: 80
+	make: ntobelmk
+		Length: 19
+		ShadowStart: 19
+	icon: obliicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+nalasr:
+	Defaults:
+		Offset: 0, -12
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	make: ntlasrmk
+		Length: 21
+		ShadowStart: 21
+	icon: plticon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+nasam:
+	Defaults:
+		Offset: 0, -12
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	turret: gtctwr_d
+		Facings: 32
+		Offset: -4, 0
+	make: ntsammk
+		Length: 8
+		ShadowStart: 8
+	icon: samicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+napuls.gdi:
+	Defaults: ntpuls
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	turret: ntpuls_a
+		Facings: 32
+	make: ntpulsmk
+		Length: 20
+		ShadowStart: 20
+	icon: sidec01.mix:empicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+napuls.nod:
+	Defaults: ntpuls
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	turret: ntpuls_a
+		Facings: 32
+	make: ntpulsmk
+		Length: 20
+		ShadowStart: 20
+	icon: sidec02.mix:empicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+nastlh:
+	Defaults:
+		Offset: -16, -28
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	pulse: ntstlh_a
+		Length: 4
+		Tick: 480
+	damaged-pulse: ntstlh_a
+		Start: 4
+		Length: 4
+		Tick: 480
+	make: ntstlhmk
+		Length: 18
+		ShadowStart: 20
+	icon: clckicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gactwr:
+	Defaults:
+		Offset: 0, -12
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-lights: gtctwr_a
+		Length: 6
+		Tick: 200
+	damaged-idle-lights: gtctwr_a
+		Length: 6
+		Tick: 200
+	make: gtctwrmk
+		Length: 11
+		ShadowStart: 11
+	turret-vulcan: gtctwr_b
+		Facings: 32
+	turret-rocket: gtctwr_c
+		Facings: 32
+		UseTilesetCode: false
+	turret-sam: gtctwr_d
+		Facings: 32
+	muzzle0: mgun-n
+		Length: *
+		UseTilesetCode: false
+	muzzle1: mgun-nw
+		Length: *
+		UseTilesetCode: false
+	muzzle2: mgun-w
+		Length: *
+		UseTilesetCode: false
+	muzzle3: mgun-sw
+		Length: *
+		UseTilesetCode: false
+	muzzle4: mgun-s
+		Length: *
+		UseTilesetCode: false
+	muzzle5: mgun-se
+		Length: *
+		UseTilesetCode: false
+	muzzle6: mgun-e
+		Length: *
+		UseTilesetCode: false
+	muzzle7: mgun-ne
+		Length: *
+		UseTilesetCode: false
+	icon: towricon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gavulc:
+	icon: twr1icon
+
+garock:
+	icon: twr2icon
+
+gacsam:
+	icon: twr3icon
+
+gahpad:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+		ZOffset: -1c511
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+		ZOffset: -1c511
+	dead:
+		Start: 2
+		ShadowStart: 5
+		ZOffset: -1c511
+		Tick: 400
+	idle-platform: gthpadbb
+		ShadowStart: 3
+		ZOffset: -1c511
+	damaged-idle-platform: gthpadbb
+		Start: 1
+		ShadowStart: 4
+		ZOffset: -1c511
+	dead-platform: gthpadbb
+		Start: 2
+		ShadowStart: 5
+		ZOffset: -1c511
+		Tick: 400
+	idle-lights: gthpad_a
+		Length: 8
+		Tick: 200
+		Offset: 0, -36
+		ZOffset: -1c511
+	damaged-idle-lights: gthpad_a
+		Start: 8
+		Length: 8
+		Tick: 200
+		Offset: 0, -36
+		ZOffset: -1c511
+	make: gthpadmk
+		Length: 18
+		ShadowStart: 18
+		ZOffset: -1c511
+	icon: heliicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+nahpad:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+		ZOffset: -1c511
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+		ZOffset: -1c511
+	dead:
+		Start: 2
+		ShadowStart: 5
+		ZOffset: -1c511
+		Tick: 400
+	idle-platform: nthpadbb
+		ShadowStart: 3
+		ZOffset: -1c511
+	damaged-idle-platform: nthpadbb
+		Start: 1
+		ShadowStart: 4
+		ZOffset: -1c511
+	dead-platform: nthpadbb
+		Start: 2
+		ShadowStart: 5
+		ZOffset: -1c511
+		Tick: 400
+	idle-lights: nthpad_a
+		Length: 46
+		ZOffset: -1c511
+		Tick: 120
+	damaged-idle-lights: nthpad_a
+		Start: 46
+		Length: 46
+		Tick: 120
+		ZOffset: -1c511
+	make: nthpadmk
+		Length: 20
+		ShadowStart: 20
+	icon: nhpdicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+# TODO: unused narefn_a
+proc.gdi:
+	Defaults: ntrefn
+		Offset: -12, -42
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	make: ntrefnmk
+		Length: 20
+		ShadowStart: 20
+	flame: ntrefn_b
+		Length: *
+	idle-redlights: ntrefn_c
+		Length: 16
+		Tick: 120
+	damaged-idle-redlights: ntrefn_c
+		Length: 16
+		Tick: 120
+	bib: ntrefnbb
+		ZOffset: -1024
+	damaged-bib: ntrefnbb
+		Start: 1
+		ZOffset: -1024
+	icon: sidec01.mix:reficon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+# TODO: unused narefn_a
+proc.nod:
+	Defaults: ntrefn
+		Offset: -12, -42
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	make: ntrefnmk
+		Length: 20
+		ShadowStart: 20
+	flame: ntrefn_b
+		Length: *
+	idle-redlights: ntrefn_c
+		Length: 16
+		Tick: 120
+	damaged-idle-redlights: ntrefn_c
+		Length: 16
+		Tick: 120
+	bib: ntrefnbb
+		ZOffset: -1024
+	damaged-bib: ntrefnbb
+		Start: 1
+		ZOffset: -1024
+	icon: sidec02.mix:reficon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gasilo.gdi:
+	Defaults: gtsilo
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle: gtsilo_a
+	damaged-idle: gtsilo_a
+		Start: 4
+	stages: gtsilo_a
+		Length: 4
+	damaged-stages: gtsilo_a
+		Start: 4
+		Length: 4
+	idle-underlay:
+		ShadowStart: 3
+		ZOffset: -512
+	damaged-idle-underlay:
+		Start: 1
+		ShadowStart: 4
+		ZOffset: -512
+	dead:
+		Start: 2
+		ShadowStart: 5
+		ZOffset: -512
+		Tick: 400
+	idle-lights: gtsilo_b
+		Length: 16
+		Tick: 120
+	damaged-idle-lights: gtsilo_b
+		Start: 16
+		Length: 16
+		Tick: 120
+	make: gtsilomk
+		Length: 18
+		ShadowStart: 20
+	icon: sidec01.mix:siloicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gasilo.nod:
+	Defaults: gtsilo
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle: gtsilo_a
+	damaged-idle: gtsilo_a
+		Start: 4
+	stages: gtsilo_a
+		Length: 4
+	damaged-stages: gtsilo_a
+		Start: 4
+		Length: 4
+	idle-underlay:
+		ShadowStart: 3
+		ZOffset: -512
+	damaged-idle-underlay:
+		Start: 1
+		ShadowStart: 4
+		ZOffset: -512
+	dead:
+		Start: 2
+		ShadowStart: 5
+		ZOffset: -512
+		Tick: 400
+	idle-lights: gtsilo_b
+		Length: 16
+		Tick: 120
+	damaged-idle-lights: gtsilo_b
+		Start: 16
+		Length: 16
+		Tick: 120
+	make: gtsilomk
+		Length: 18
+		ShadowStart: 20
+	icon: sidec02.mix:siloicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gadept.gdi:
+	Defaults: gtdept
+		Offset: 0, -36
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	ground: gtdeptbb
+		ShadowStart: 3
+		ZOffset: -1c611
+	damaged-ground: gtdeptbb
+		Start: 1
+		ShadowStart: 4
+		ZOffset: -1c611
+	dead-ground: gtdeptbb
+		Start: 2
+		ShadowStart: 5
+		ZOffset: -1c611
+		Tick: 400
+	idle-light: gtdept_b
+		Length: 7
+		Tick: 120
+	damaged-idle-light: gtdept_b
+		Start: 7
+		Length: 7
+		Tick: 120
+	circuits: gtdept_a
+		Length: 5
+		ZOffset: -1c511
+		Tick: 120
+	damaged-circuits: gtdept_a
+		Start: 5
+		Length: 5
+		ZOffset: -1c511
+		Tick: 120
+	crane: gtdept_c
+		Length: 16
+	platform: gtdept_d
+		Length: 7
+		ZOffset: -1c511
+	damaged-platform: gtdept_d
+		Start: 7
+		Length: 7
+		ZOffset: -1c511
+	make: gtdeptmk
+		Length: 10
+		Tick: 60
+		ShadowStart: 10
+	icon: sidec01.mix:fixicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gadept.nod:
+	Defaults: gtdept
+		Offset: 0, -36
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	ground: gtdeptbb
+		ShadowStart: 3
+		ZOffset: -1c611
+	damaged-ground: gtdeptbb
+		Start: 1
+		ShadowStart: 4
+		ZOffset: -1c611
+	dead-ground: gtdeptbb
+		Start: 2
+		ShadowStart: 5
+		ZOffset: -1c611
+		Tick: 400
+	idle-light: gtdept_b
+		Length: 7
+		Tick: 120
+	damaged-idle-light: gtdept_b
+		Start: 7
+		Length: 7
+		Tick: 120
+	circuits: gtdept_a
+		Length: 5
+		ZOffset: -1c511
+		Tick: 120
+	damaged-circuits: gtdept_a
+		Start: 5
+		Length: 5
+		ZOffset: -1c511
+		Tick: 120
+	crane: gtdept_c
+		Length: 16
+	platform: gtdept_d
+		Length: 7
+		ZOffset: -1c511
+	damaged-platform: gtdept_d
+		Start: 7
+		Length: 7
+		ZOffset: -1c511
+	make: gtdeptmk
+		Length: 10
+		Tick: 60
+		ShadowStart: 10
+	icon: sidec02.mix:fixicon
+		Offset: 76, 66
+		UseTilesetCode: false
+
+namisl:
+	Defaults:
+		Offset: 0, -24
+		UseTilesetCode: true
+	idle:
+	damaged-idle:
+		Start: 1
+	dead:
+		Start: 2
+		Tick: 400
+	idle-lights: ntmisl_b
+		Length: 10
+		Tick: 120
+	damaged-idle-lights: ntmisl_b
+		Start: 10
+		Length: 10
+		Tick: 120
+	make: ntmislmk
+		Length: 18
+		ShadowStart: 18
+	active: ntmisl_a # TODO: This is an overlay, but currently used as animation
+		Length: 10
+		Tick: 80
+	damaged-active: ntmisl_a # TODO: This is an overlay, but currently used as animation
+		Start: 10
+		Length: 10
+		Tick: 80
+	icon: msslicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gaplug:
+	Defaults:
+		Offset: 12, -28
+		UseTilesetCode: true
+	idle:
+		ShadowStart: 3
+	damaged-idle:
+		Start: 1
+		ShadowStart: 4
+	dead:
+		Start: 2
+		ShadowStart: 5
+		Tick: 400
+	idle-dish: gaplug_a
+		Length: 20
+		Tick: 120
+	damaged-idle-dish: gaplug_a
+		Start: 20
+		Length: 20
+		Tick: 120
+	idle-lights: gaplug_b
+		Length: 20
+		Tick: 120
+	damaged-idle-lights: gaplug_b
+		Start: 20
+		Length: 20
+		Tick: 120
+	idle-strip: gaplug_c
+		Length: 8
+		Tick: 120
+	damaged-idle-strip: gaplug_c
+		Start: 8
+		Length: 8
+		Tick: 120
+	idle-ioncannona: gaplug_f
+		Length: 15
+		Tick: 120
+		Reverses: true
+		Offset: -12, -42
+	idle-ioncannonb: gaplug_f
+		Length: 15
+		Reverses: true
+		Tick: 120
+	idle-hunterseekera: gaplug_e
+		Length: 15
+		Tick: 120
+		Reverses: true
+		Offset: -12, -42
+	idle-hunterseekerb: gaplug_e
+		Length: 15
+		Reverses: true
+		Tick: 120
+	make: gtplugmk
+		Length: 17
+		ShadowStart: 17
+	icon: plugicon
+		Offset: 0, 0
+		UseTilesetCode: false
+
+gaplug2:
+	icon: rad2icon
+
+gaplug3:
+	icon: rad3icon

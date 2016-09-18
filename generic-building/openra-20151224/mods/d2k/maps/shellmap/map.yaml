@@ -1,0 +1,144 @@
+MapFormat: 7
+
+RequiresMod: d2k
+
+Title: D2k Shellmap
+
+Description: Static Shellmap
+
+Author: Westwood Studios
+
+Tileset: ARRAKIS
+
+MapSize: 128,128
+
+Bounds: 16,16,80,80
+
+Visibility: Shellmap
+
+Type: Shellmap
+
+Videos:
+
+Options:
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: atreides
+	PlayerReference@Atreides:
+		Name: Atreides
+		Faction: atreides
+		ColorRamp: 161,134,200
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: atreides
+		Enemies: Atreides
+		ColorRamp: 210,255,127
+
+Actors:
+	Actor4: spicebloom
+		Location: 50,53
+		Owner: Neutral
+	Actor5: spicebloom
+		Location: 50,65
+		Owner: Neutral
+	Actor7: spicebloom
+		Location: 64,52
+		Owner: Neutral
+	Actor8: spicebloom
+		Location: 65,64
+		Owner: Neutral
+	Actor26: concreteb
+		Location: 57,58
+		Owner: Neutral
+	Actor28: concretea
+		Location: 54,58
+		Owner: Neutral
+	Actor29: concretea
+		Location: 54,59
+		Owner: Neutral
+	Actor30: wind_trap
+		Location: 54,58
+		Owner: Atreides
+	Actor31: concretea
+		Location: 54,62
+		Owner: Neutral
+	Actor32: silo
+		Location: 54,62
+		Owner: Atreides
+	Actor33: medium_gun_turret
+		Location: 54,63
+		Owner: Atreides
+	Actor34: siege_tank
+		Location: 54,56
+		Owner: Atreides
+		Facing: 24
+	Actor35: concretea
+		Location: 46,39
+		Owner: Neutral
+	Actor36: concreteb
+		Location: 48,37
+		Owner: Neutral
+	Actor37: concreteb
+		Location: 50,37
+		Owner: Neutral
+	Actor38: palace
+		Location: 50,37
+		Owner: Creeps
+	Actor39: barracks
+		Location: 48,37
+		Owner: Creeps
+	Actor40: large_gun_turret
+		Location: 46,39
+		Owner: Creeps
+	Actor41: sardaukar
+		Location: 50,40
+		Owner: Creeps
+	Actor42: sardaukar
+		Location: 52,40
+		Owner: Creeps
+	WormSpawner: wormspawner
+		Location: 46,64
+		Owner: Creeps
+	Entry: waypoint
+		Location: 80, 8
+		Owner: Neutral
+	AtreidesSpiceRefinery: refinery
+		Location: 57,58
+		Owner: Atreides
+
+Smudges:
+
+Rules:
+	World:
+		-CrateSpawner:
+		-SpawnMPUnits:
+		-MPStartLocations:
+		ResourceType@Spice:
+			ValuePerUnit: 0
+		WormManager:
+			Minimum: 1
+			Maximum: 1
+		MusicPlaylist:
+			BackgroundMusic: options
+	large_gun_turret:
+		Power:
+			Amount: 100
+
+Sequences:
+
+VoxelSequences:
+
+Weapons:
+
+Voices:
+
+Music:
+
+Notifications:
+
+Translations:

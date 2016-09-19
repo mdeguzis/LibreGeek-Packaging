@@ -3,14 +3,15 @@ Section: games
 Priority: optional
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
+ clang-3.8
  cmake,
  libboost-all-dev,
- libc++-dev,
  libmysql++-dev,
  libbz2-dev,
  libgl1-mesa-dev,
  libglew-dev,
  libglu1-mesa-dev,
+ llvm-3.8-dev,
  zlib1g-dev
 Standards-Version: 3.9.7
 Homepage: https://github.com/jpd002/Play-

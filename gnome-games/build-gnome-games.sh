@@ -55,7 +55,7 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-PKGNAME="gnome-games"
+PKGNAME="meta-gnome3"
 # Get PKGVER from tags, since this moves fast right now
 PKGREV="1"
 DIST="brewmaster"

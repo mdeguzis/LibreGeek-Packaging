@@ -2,8 +2,6 @@
 
 #export DH_VERBOSE=1
 
-export SOURCE_ROOT = $(CURDIR)
-
 %:
 	dh $@
 

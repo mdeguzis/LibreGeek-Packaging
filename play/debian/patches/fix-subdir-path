@@ -1,0 +1,35 @@
+--- a/build_unix/CMakeLists.txt
++++ b/build_unix/CMakeLists.txt
+@@ -1,18 +1,18 @@
+-cmake_minimum_required(VERSION 2.8)
++	cmake_minimum_required(VERSION 2.8)
+ 
+ project(Play)
+ 
+ if (NOT TARGET Framework)
+   add_subdirectory(
+-	  ${Play_SOURCE_DIR}/../../Framework/build_unix
+-	  ${Play_SOURCE_DIR}/../../Framework/build_unix/build
++	  ${Play_SOURCE_DIR}/../Framework/build_unix
++	  ${Play_SOURCE_DIR}/../Framework/build_unix/build
+   )
+ endif()
+ 
+ if (NOT TARGET CodeGen)
+   add_subdirectory(
+-	  ${Play_SOURCE_DIR}/../../CodeGen/build_unix
+-	  ${Play_SOURCE_DIR}/../../CodeGen/build_unix/build
++	  ${Play_SOURCE_DIR}/../CodeGen/build_unix
++	  ${Play_SOURCE_DIR}/../CodeGen/build_unix/build
+   )
+ endif()
+ 
+@@ -227,7 +227,7 @@
+ )
+ target_link_libraries(McServTest Play)
+ add_test(NAME McServTest
+-	WORKING_DIRECTORY ${Play_SOURCE_DIR}/../tools/McServTest
++	WORKING_DIRECTORY ${Play_SOURCE_DIR}/tools/McServTest
+ 	COMMAND McServTest
+ )
+ 

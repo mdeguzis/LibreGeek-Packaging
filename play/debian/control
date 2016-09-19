@@ -6,12 +6,15 @@ Build-Depends: debhelper (>= 9),
  clang-3.8,
  cmake,
  libboost-all-dev,
- libmysql++-dev,
  libbz2-dev,
  libgl1-mesa-dev,
  libglew-dev,
  libglu1-mesa-dev,
+ libmysql++-dev,
+ libopenal-dev,
  llvm-3.8-dev,
+ qtchooser,
+ qt5-qmake,
  zlib1g-dev
 Standards-Version: 3.9.7
 Homepage: https://github.com/jpd002/Play-

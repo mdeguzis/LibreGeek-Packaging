@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-play-.sh
+# Scipt Name:	build-play.sh
 # Script Ver:	1.0.0
-# Description:	Attmpts to builad a deb package from latest play-
+# Description:	Attmpts to builad a deb package from latest play
 #		github release
 #
-# See:		https://github.com/libretro/libretro-play-
+# See:		https://github.com/libretro/libretro-play
 #
-# Usage:	build-play-.sh
+# Usage:	build-play.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,8 +46,8 @@ else
 fi
 
 # upstream vars
-#SRC_URL="https://github.com/libretro/libretro-play-"
-SRC_URL="https://github.com/jpd002/Play-"
+#SRC_URL="https://github.com/libretro/libretro-play"
+SRC_URL="https://github.com/jpd002/play"
 TARGET="build-fixes"
 
 # package vars
@@ -59,7 +59,7 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="libretro-play-"
+PKGNAME="libretro-play"
 PKGVER="0.${DATE_SHORT}"
 PKGREV="1"
 EPOCH="1"

@@ -6,9 +6,9 @@
 	dh $@
 
 override_dh_auto_build:
-	mkdir -p build_unix/build
-	cd build_unix/build && cmake ..
-	make -C build_unix/build
-	mkdir -p build-ui
-	qmake -o build-ui
-	make -C build-ui
+	mkdir -p Play/build_unix/build
+	cd Play/build_unix/build && cmake ..
+	make -C Play/build_unix/build
+	mkdir -p Play/build-ui
+	qmake -o Play/build-ui
+	make -C Play/build-ui

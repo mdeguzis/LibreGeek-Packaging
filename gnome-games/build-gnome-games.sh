@@ -105,7 +105,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
 
 	# add extras
 #	cp "${SCRIPTDIR}/gnome-games.png" "${SRC_DIR}"

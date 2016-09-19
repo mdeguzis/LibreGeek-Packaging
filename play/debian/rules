@@ -11,7 +11,10 @@ export CXX = "clang++-3.8"
 
 override_dh_auto_build:
 	mkdir -p Play/build_unix/build
-	cd Play/build_unix/build && cmake ..
+	cd Play/build_unix/build && cmake \
+			CMAKE_C_COMPILER=/usr/bin/clang-3.8 \
+			CMAKE_CXX_COMPILER=/usr/bin/clang++-3.8 \
+			..
 	make -C Play/build_unix/build
 	mkdir -p Play/build-ui
 	qmake -o Play/build-ui

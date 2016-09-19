@@ -1,10 +1,10 @@
 [Desktop Entry]
-Name=AM2R
-Comment=Fan-made remake of Metroid II
-Exec=/usr/games/am2r
-Icon=/usr/share/pixmaps/am2r.png
+Name=Play!
+Comment=Playstation 2 emulator
+Exec=/usr/games/play
+Icon=/usr/share/pixmaps/play.png
 Terminal=false
 Type=Application
-Categories=Game;
+Categories=emulator;
 MimeType=x-scheme-handler/steam;
-Keywords=metroid,game
+Keywords=emulator,game

@@ -1,4 +1,3 @@
-debian/am2r.desktop	/usr/share/applications/
-am2r			/usr/share/games/am2r/
-assets			/usr/share/games/am2r/
-am2r.png		/usr/share/pixmaps/
+debian/play.desktop		/usr/share/applications/
+Play/build-ui/Play-Ui2		/usr/share/games/
+#play.png			/usr/share/pixmaps/

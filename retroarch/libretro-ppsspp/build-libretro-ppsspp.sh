@@ -46,8 +46,9 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/libretro/libretro-ppsspp"
-TARGET="master"
+#SRC_URL="https://github.com/libretro/libretro-ppsspp"
+SRC_URL="https://github.com/professorkaos64/libretro-ppsspp"
+TARGET="build-fixes"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -124,7 +125,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
-			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+			git clone --recursive -b "${TARGET}" "${SRC_URL}" "${GIT_DIR}"
 
 		else
 
@@ -142,7 +143,7 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+			git clone --recursive -b "${TARGET}" "${SRC_URL}" "${GIT_DIR}"
 
 	fi
 

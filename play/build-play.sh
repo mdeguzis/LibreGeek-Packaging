@@ -120,7 +120,7 @@ main()
 
 	# We need the oddly named other respositories cloned to the BUILD_TMP directory
 	git clone https://github.com/jpd002/Play--CodeGen "${SRC_DIR}/CodeGen"
-	git clone https://github.com/jpd002/Play--Framework "${SRC_DIR}/CodeGen"
+	git clone https://github.com/jpd002/Play--Framework "${SRC_DIR}/Framework"
 	git clone https://github.com/jpd002/Nuanceur "${SRC_DIR}/Nuanceur"
 	
 

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-am2r.sh
+# Scipt Name:	build-play-.sh
 # Script Ver:	1.0.0
-# Description:	Attmpts to builad a deb package from latest libretro am2r
+# Description:	Attmpts to builad a deb package from latest play-
 #		github release
 #
-# See:		https://www.mediafire.com/?v5aoyt9d6ga4hee
+# See:		https://github.com/libretro/libretro-play-
 #
-# Usage:	./build-am2r.sh
+# Usage:	build-play-.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -22,7 +22,6 @@ arg1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
-
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -47,22 +46,24 @@ else
 fi
 
 # upstream vars
-DL_URL="http://libregeek.org/SteamOS-Extra/games/AM2R_v1.1_linux_unofficial.tar.gz"
+#SRC_URL="https://github.com/libretro/libretro-play-"
+SRC_URL="https://github.com/jpd002/Play-"
+TARGET="build-fixes"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+ARCH="amd64"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="am2r"
-PKGVER="1.1.0"
+PKGNAME="libretro-play-"
+PKGVER="0.${DATE_SHORT}"
 PKGREV="1"
 EPOCH="1"
-PKGSUFFIX="${DATE_SHORT}git+unofficial"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -74,6 +75,7 @@ SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
+
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
@@ -84,21 +86,6 @@ install_prereqs()
 
 main()
 {
-
-	# create BUILD_TMP
-	if [[ -d "${BUILD_TMP}" ]]; then
-
-		sudo rm -rf "${BUILD_TMP}"
-		mkdir -p "${BUILD_TMP}"
-
-	else
-
-		mkdir -p "${BUILD_TMP}"
-
-	fi
-
-	# enter build dir
-	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 
@@ -112,75 +99,124 @@ main()
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
-
-	# get source
-	cd "${BUILD_TMP}"
-	mkdir -p "${SRC_DIR}"
-	wget "${DL_URL}" -q -nc --show-progress
-	tar -xzvf *.tar.gz --strip 1 -C "${SRC_DIR}"
-	rm -f *.tar.gz
-
-	# add launcher and extras
-#	cp -r "${SCRIPTDIR}/am2r-launch" "${SRC_DIR}"
-	cp -r "${SCRIPTDIR}/am2r.png" "${SRC_DIR}"
-
-	#################################################
-	# Build package
-	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
+
+	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${BUILD_TMP}" || exit 1
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	fi
+
+	cd "${SRC_DIR}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+
+	#################################################
+	# Prepare sources
+	#################################################
+
+	cd "${BUILD_TMP}" || exit 1
 
 	# Trim .git folders
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+
+	if [[ "${retry}" == "no" ]]; then
+
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+
+	else
+
+		echo -e "\n==> Cleaning old source folders for retry"
+		sleep 2s
+
+		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
+		mkdir -p "${SRC_DIR}"
+
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
+		sleep 2s
+
+	fi
 
 	# copy in debian folder
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+ 	cp -r "$SCRIPTDIR/debian" "${SRC_DIR}"
+
+	#################################################
+	# Build package
+	#################################################
 
 	# enter source dir
-	cd "${SRC_DIR}"
+	cd "${SRCDIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
-	# update changelog with dch
+ 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Fix install with launcher/wrapper"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${LATEST_COMMIT}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano "debian/changelog"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
-
-	#################################################
-	# Build Debian package
-	#################################################
 
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-	
+	DIST=$DIST ${BUILDER} ${BUILDOPTS}
+
 	#################################################
 	# Cleanup
 	#################################################
-	
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"

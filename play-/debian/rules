@@ -4,3 +4,11 @@
 
 %:
 	dh $@
+
+override_dh_auto_build:
+	mkdir -p build_unix/build
+	cd build_unix/build && cmake ..
+	make -C build_unix/build
+	mkdir -p build-ui
+	qmake -o build-ui
+	make -C build-ui

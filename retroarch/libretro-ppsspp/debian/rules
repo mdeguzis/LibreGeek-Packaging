@@ -18,9 +18,9 @@
 export DEB_CXXFLAGS_MAINT_STRIP=-O2
 export DEB_CFLAGS_MAINT_STRIP=-O2
 
-arch=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
 
-ifeq ($(arch),armhf)
+ifeq ($(ARCH),armhf)
 	PLATFORM=platform="armv hardfloat gles neon cortexa9"
 endif
 
@@ -28,13 +28,13 @@ endif
 	dh $@ --sourcedirectory=libretro/ --parallel
 
 override_dh_auto_configure:
-ifeq ($(arch),amd64)
+ifeq ($(ARCH),amd64)
 	cd ffmpeg/ && \
 	./linux_x86-64.sh
-else ifeq ($(arch),i386)
+else ifeq ($(ARCH),i386)
 	cd ffmpeg/ && \
 	./linux_x86.sh
-else ifeq ($(arch),armhf)
+else ifeq ($(ARCH),armhf)
 	cd ffmpeg/ && \
 	./linux_arm.sh
 endif

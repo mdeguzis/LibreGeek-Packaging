@@ -17,5 +17,5 @@ override_dh_auto_build:
 			..
 	make -C Play/build_unix/build
 	mkdir -p Play/build-ui
-	qmake -o Play/build-ui
+	cd Play/build_unix && qmake -o ../../Play/build-ui
 	make -C Play/build-ui

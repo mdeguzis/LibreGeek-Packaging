@@ -7,7 +7,9 @@
 
 override_dh_auto_build:
 	mkdir -p Play/build_unix/build
-	cd Play/build_unix/build && cmake ..
+	cd Play/build_unix/build && cmake \
+			-DCMAKE_CXX_FLAGS="-O2 -g -stdlib=libc++" \
+			..
 	make -C Play/build_unix/build
 	mkdir -p Play/build-ui
 	qmake -o Play/build-ui

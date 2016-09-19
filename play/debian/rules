@@ -3,8 +3,8 @@
 #export DH_VERBOSE=1
 
 # Set compiler vars
-export CC = "clang-3.8"
-export CXX = "clang++-3.8"
+export CC = "/usr/bin/clang-3.8"
+export CXX = "/usr/bin/clang++-3.8"
 
 %:
 	dh $@
@@ -12,8 +12,8 @@ export CXX = "clang++-3.8"
 override_dh_auto_build:
 	mkdir -p Play/build_unix/build
 	cd Play/build_unix/build && cmake \
-			CMAKE_C_COMPILER=/usr/bin/clang-3.8 \
-			CMAKE_CXX_COMPILER=/usr/bin/clang++-3.8 \
+			-DCMAKE_C_COMPILER=/usr/bin/clang-3.8 \
+			-DCMAKE_CXX_COMPILER=/usr/bin/clang++-3.8 \
 			..
 	make -C Play/build_unix/build
 	mkdir -p Play/build-ui

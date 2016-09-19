@@ -58,7 +58,6 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="gnome-games"
 # Get PKGVER from tags, since this moves fast right now
 PKGREV="1"
-PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -114,9 +113,8 @@ main()
 	# Get latest tag
 	cd "${SRC_DIR}"
 	LATEST_TAG=$(git describe --abbrev=0 --tags)
-	
-	# Checkout tag
-	git checkout "${LATEST_TAG}"
+	PKGVER="${LATEST_TAG}"
+	PKGSUFFIX="${DATE_SHORT}git+bsos"
 
 	#################################################
 	# Build package

@@ -46,7 +46,8 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/jpd002/Play-"
+#SRC_URL="https://github.com/jpd002/Play-"
+SRC_URL="https://github.com/jpd002/Play-Build"
 TARGET="master"
 
 # package vars
@@ -113,16 +114,10 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-
-	# We need the oddly named other respositories cloned to the BUILD_TMP directory
-	git clone https://github.com/jpd002/Play--CodeGen "${SRC_DIR}/CodeGen"
-	git clone https://github.com/jpd002/Play--Framework "${SRC_DIR}/Framework"
-	git clone https://github.com/jpd002/Nuanceur "${SRC_DIR}/Nuanceur"
-	
 
 	#################################################
 	# Prepare sources

@@ -46,9 +46,8 @@ else
 fi
 
 # upstream vars
-#SRC_URL="https://github.com/libretro/libretro-play"
-SRC_URL="https://github.com/jpd002/play"
-TARGET="build-fixes"
+SRC_URL="https://github.com/jpd002/Play-"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,7 +58,7 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="libretro-play"
+PKGNAME="play"
 PKGVER="0.${DATE_SHORT}"
 PKGREV="1"
 EPOCH="1"
@@ -87,6 +86,19 @@ install_prereqs()
 main()
 {
 
+
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
+
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
+
+	else
+
+		mkdir -p "${BUILD_TMP}"
+
+	fi
+
 	# install prereqs for build
 
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
@@ -101,89 +113,36 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
-
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
-		sleep 1s
-		read -ep "Choice: " git_choice
-
-		if [[ "$git_choice" == "r" ]]; then
-
-			echo -e "\n==> Removing and cloning repository again...\n"
-			sleep 2s
-			# reset retry flag
-			retry="no"
-			# clean and clone
-			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
-			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-		else
-
-			# Unpack the original source later on for  clean retry
-			# set retry flag
-			retry="yes"
-
-		fi
-
-	else
-
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
-			sleep 2s
-			# reset retry flag
-			retry="no"
-			# create and clone to current dir
-			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-	fi
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+
+	# We need the oddly named other respositories cloned to the BUILD_TMP directory
+	git clone https://github.com/jpd002/Play--CodeGen "${SRC_DIR}/CodeGen"
+	git clone https://github.com/jpd002/Play--Framework "${SRC_DIR}/CodeGen"
+	git clone https://github.com/jpd002/Nuanceur "${SRC_DIR}/Nuanceur"
+	
 
 	#################################################
 	# Prepare sources
 	#################################################
 
-	cd "${BUILD_TMP}" || exit 1
-
 	# Trim .git folders
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
-	# create source tarball
-	# For now, do not recreate the tarball if keep was used above (to keep it clean)
-	# This way, we can try again with the orig source intact
-	# Keep this method until a build is good to go, without error.
-
-	if [[ "${retry}" == "no" ]]; then
-
-		echo -e "\n==> Creating original tarball\n"
-		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
-
-	else
-
-		echo -e "\n==> Cleaning old source folders for retry"
-		sleep 2s
-
-		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
-		mkdir -p "${SRC_DIR}"
-
-		echo -e "\n==> Retrying with prior source tarball\n"
-		sleep 2s
-		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
-		sleep 2s
-
-	fi
+	cd "${BUILD_TMP}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
- 	cp -r "$SCRIPTDIR/debian" "${SRC_DIR}"
+ 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	#################################################
 	# Build package
 	#################################################
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -191,13 +150,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${LATEST_COMMIT}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi

@@ -1,0 +1,5 @@
+libretro-ppsspp (1:1.0.1+20160919git+bsos1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 19 Sep 2016 11:12:14 -0400

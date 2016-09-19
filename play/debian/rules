@@ -2,6 +2,10 @@
 
 #export DH_VERBOSE=1
 
+# Set compiler vars
+export CC = "clang-3.8"
+export CXX = "clang++-3.8"
+
 %:
 	dh $@
 

@@ -52,9 +52,10 @@ TARGET="master"
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="amd64"
-BUILDER="debuild"
-BUILDOPTS=""
+BUILDER="pdebuild"
+# libretro/Makefile and libretro-ffmpeg make heavy used of $ARCH
+# Workaround this with the long flag.
+BUILDOPTS="--architecture amd64"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
@@ -220,7 +221,7 @@ main()
 	sleep 2s
 
 	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

@@ -1,5 +1,15 @@
 #!/usr/bin/make -f
 # See: ./linuxBuild.sh
 
+export CC="/usr/bin/clang-3.8"
+export CXX="/usr/bin/clang++-3.8"
+
 %:
 	dh $@
+
+override_dh_auto_build:
+	rm -rf build && mkdir build
+	cd build && cmake \
+			-DCMAKE_CXX_COMPILER=clang++-3.8 \
+			-DCMAKE_C_COMPILER=clang-3.8 \
+			..

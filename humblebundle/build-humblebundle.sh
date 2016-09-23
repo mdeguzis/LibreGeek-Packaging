@@ -46,7 +46,8 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/professorkaos64/humblebundle"
+SRC_URL="https://github.com/MestreLion/humblebundle"
+#SRC_URL="https://github.com/professorkaos64/humblebundle"
 TARGET="master"
 
 # package vars

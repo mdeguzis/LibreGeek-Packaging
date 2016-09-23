@@ -47,7 +47,7 @@ else
 fi
 # upstream vars
 #SRC_URL="https://github.com/professorkaos64/reicast-emulator"
-SRC_URL="https://github.com/reicast/reicast-emulator/pull/914"
+SRC_URL="https://github.com/reicast/reicast-emulator"
 TARGET="master"
 
 # package vars

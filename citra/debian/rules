@@ -11,8 +11,10 @@ export CLANG_FORMAT="clang-format-3.8"
 override_dh_auto_configure:
 	rm -rf build && mkdir build
 	cd build && cmake \
+			-DCMAKE_INSTALL_PREFIX=/usr \
 			-DCMAKE_CXX_COMPILER=clang++-3.8 \
 			-DCMAKE_C_COMPILER=clang-3.8 \
 			-DCMAKE_CXX_FLAGS="-O2 -g -stdlib=libc++" \
 			..
 	make -C build -j4
+

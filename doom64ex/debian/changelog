@@ -1,3 +1,9 @@
+doom64ex (0.20160922+git+bsos-1) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 22 Sep 2016 15:53:10 -0400
+
 doom64ex (0.20160801+git+bsos-1) brewmaster; urgency=low
 
   * Master build, using clang

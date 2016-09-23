@@ -44,16 +44,10 @@ else
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
 
 fi
+
 # upstream var for master build
 GIT_URL="https://github.com/svkaiser/Doom64EX"
 TARGET="master"
-
-# Use our branch to TARGET stable snapshots and avoid untested builds
-# Upstream does not maintain releases
-# Use clang branch to work on new gcc-5 support (upstream switched for some reason...)
-
-#GIT_URL="https://github.com/ProfessorKaos64/Doom64EX"
-# TARGET="clang"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -135,18 +129,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add debian folder stuff
-	if [[ "${TARGET}" == "release" ]]; then
-
-		cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
-		DEBIAN_DIR="debian"
-	
-	else
-
-		cp -r "${SCRIPTDIR}/debian-master" "${GIT_DIR}/debian"	
-		DEBIAN_DIR="debian-master"
-
-	fi
-
+	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
 	cp "${GIT_DIR}/COPYING" "${GIT_DIR}/debian/copyright"
 
 	# enter source dir
@@ -159,7 +142,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Fix binary TARGET to be /usr/games"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 
 	else

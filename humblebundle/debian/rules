@@ -14,7 +14,3 @@ export PYBUILD_NAME=humblebundle
         
 override_dh_strip:
 	dh_strip -phumblebundle --dbg-package=humblebundle-dbg
-
-#break pbuilder to review files until further notice
-override_dh_builddeb:
-	cp these-are-not-the-droids-you-are-looking-for death-star

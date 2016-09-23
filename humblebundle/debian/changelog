@@ -1,0 +1,5 @@
+humblebundle (0.1.0+20160923git+bsos-1) brewmaster; urgency=low
+
+  * Initial build
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 23 Sep 2016 09:08:26 -0400

@@ -1,5 +1,12 @@
 #!/usr/bin/make -f
 
+# upstream now uses gcc5
+# Older distros, such as Debian Jessie, do not have this
+
+export DEB_BUILD_HARDENING=1
+export CC=clang-3.8
+export CXX=clang++-3.8
+
 %:
 	dh $@
 

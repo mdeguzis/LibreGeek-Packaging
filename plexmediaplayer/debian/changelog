@@ -1,3 +1,9 @@
+plexmediaplayer (1.1.4.393+git+bsos-1) brewmaster; urgency=low
+
+  * Update to latest commit [12c41f9]
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 23 Sep 2016 09:20:20 -0400
+
 plex-media-player (1.1.2.359+git+bsos-1) brewmaster; urgency=low
 
   * Update to latest commit [2b757d4]

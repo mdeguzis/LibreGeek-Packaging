@@ -1,6 +1,0 @@
-# see https://www.debian.org/doc/manuals/maint-guide/dother.en.html#lintian
-
-# Lintian: doom64ex: spelling-error-in-binary usr/bin/doom64ex ang and
-# This is not a mistake, the var is actually 'ang'
-
-doom64ex: spelling-error-in-binary usr/bin/doom64ex ang and

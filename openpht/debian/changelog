@@ -1,3 +1,16 @@
+openpht (1.6.2+20160925git+bsos-4) brewmaster; urgency=low
+
+  * Update build/release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 25 Sep 2016 16:44:23 -0400
+
+openpht (1.6.2+20160925git+bsos-4) brewmaster; urgency=low
+
+  * Update build/release
+  * Add missing libs
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 25 Sep 2016 16:05:29 -0400
+
 openpht (1.6.2+20160925git+bsos-3) brewmaster; urgency=low
 
   * Update build/release

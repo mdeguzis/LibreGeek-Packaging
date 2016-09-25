@@ -159,9 +159,6 @@ main()
 
 	fi
 
-        # copy in debian folder and other files
-        cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
-	
 	# Get latest commit
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
@@ -203,6 +200,9 @@ main()
 		sleep 2s
 
 	fi
+
+	# copy in debian folder and other files
+        cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
 
 	#################################################
 	# Build package

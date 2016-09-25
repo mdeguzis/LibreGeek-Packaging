@@ -1,3 +1,10 @@
+openpht (1.6.2+20160925git+bsos-3) brewmaster; urgency=low
+
+  * Update build/release
+  * Add libmad for some mp3 playing
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 25 Sep 2016 10:12:21 -0400
+
 openpht (1.6.2+20160713git+bsos-2) brewmaster; urgency=low
 
   * Update build/release

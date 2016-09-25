@@ -77,6 +77,12 @@ Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
 Package: openpht
 Replaces: openpht (<= 20151207+git+bsos~)
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, ttf-ubuntu-font-family, libshairport1 | libshairport2, libcec (>= 2.1) | libcec2, libplist1 | libplist2
+Depends: ${misc:Depends}, ${shlibs:Depends},
+ ttf-ubuntu-font-family,
+ libshairport1 | libshairport2,
+ libcec (>= 2.1) | libcec2,
+ libmad0,
+ libplist1 | libplist2,
+ libavfilter5
 Description: The most awesome Media Center you'll ever need.
   Find more info at http://plexapp.com/

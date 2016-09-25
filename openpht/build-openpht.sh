@@ -41,11 +41,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -64,7 +64,7 @@ BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
 PKGNAME="openpht"
 PKGVER="1.6.2"
-PKGREV="2"
+PKGREV="3"
 PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"

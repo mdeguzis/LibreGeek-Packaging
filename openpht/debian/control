@@ -1,7 +1,7 @@
 Source: openpht
 Section: universe/video
 Priority: optional
-Maintainer: Plex Inc <linux@plexapp.com>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
  cdbs,
  unzip,
@@ -59,6 +59,7 @@ Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
  libcec-dev (>= 2.1),
  libudev-dev,
  libshairport-dev,
+ libshairplay-dev,
  libtiff5-dev | libtiff4-dev | libtiff-dev,
  libtinyxml-dev (>= 2.6.2),
  libmp3lame-dev,
@@ -74,11 +75,12 @@ Build-Depends: cmake (>= 2.8.8), debhelper (>= 9),
 # libavdevice-dev (>= 0.10)
  
 Package: openpht
+Replaces: openpht (<= 20151207+git+bsos~)
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends},
  ttf-ubuntu-font-family,
  libshairport1 | libshairport2,
- libcec (>= 2.1) | libcec2 | libcec3, libplist1 | libplist2 | libplist3,
+ libcec (>= 2.1) | libcec2, libplist1 | libplist2,
  libmad0
 Description: The most awesome Media Center you'll ever need.
   Find more info at http://plexapp.com/

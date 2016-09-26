@@ -64,7 +64,7 @@ BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
 PKGNAME="openpht"
 PKGVER="1.6.2"
-PKGREV="4"
+PKGREV="6"
 PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
@@ -162,7 +162,7 @@ main()
 	# Get latest commit
 	cd "${GIT_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	
+
 	# Trim out .git
 	rm -rf "${GIT_DIR}/.git"
 	

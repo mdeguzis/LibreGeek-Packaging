@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-supertux.sh
+# Scipt name:	build-supertuxkart.sh
 # Script Ver:	0.3.1
-# Description:	Attmpts to build a deb package from the latest supertux source
+# Description:	Attmpts to build a deb package from the latest supertuxkart source
 #		code.
 #
-# See:		https://github.com/SuperTux/supertux
+# See:		https://github.com/supertuxkart/stk-code
 #
-# Usage:	./build-supertux.sh
+# Usage:	./build-supertuxkart.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -45,20 +45,20 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/SuperTux/supertux"
-TARGET="v0.5.0"
+SRC_URL="https://github.com/supertuxkart/stk-code"
+TARGET="0.9.2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"  # If the testing repository is needed
 export APT_PREFS_HACK="false"		# Bypass apt prefs on Valve pkgs to install newer version for build
 export USE_LOCAL_REPO="false"		# Make use of locally build debs (use for arch-indep builds like qt)
-PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGNAME="supertux"
+PKGVER="${TARGET}"
+PKGNAME="supertuxkart"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
@@ -97,7 +97,7 @@ main()
 	# clone and get latest commit tag
 	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
 
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		echo -e "==Info==\nSource files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 
@@ -110,6 +110,8 @@ main()
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
 			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+			# get stk assets (expected location: data/)
+			svn checkout https://svn.code.sf.net/p/supertuxkart/code/stk-assets "${SRC_DIR}/data"
 
 		else
 
@@ -121,23 +123,21 @@ main()
 
 	else
 
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			echo -e "\n==> Source directory does not exist. cloning now...\n"
 			sleep 2s
 			# reset retry flag
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
 			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+			# get stk assets (expected location: data/)
+			svn checkout https://svn.code.sf.net/p/supertuxkart/code/stk-assets "${SRC_DIR}/data"
 
 	fi
 
 	# Get latest commit and update submodules
 	cd "${SRC_DIR}"
 	git submodule update --init
-
-	# Export latest commit in case build fails, as we remove .git
-	# Couple with package name to ensure this isn't picked up in another build script
-	export LATEST_COMMIT_${PKGNAME}=$(git log -n 1 --pretty=format:"%h")
 
 	# Trim .git folders (these should not be included and take up space)
 	find "${SRC_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
@@ -190,8 +190,8 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${export LATEST_COMMIT_${PKGNAME}}"
+		dch -p --force-bad-version --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to release ${PKGVER}"
 		nano "debian/changelog"
 
 	else

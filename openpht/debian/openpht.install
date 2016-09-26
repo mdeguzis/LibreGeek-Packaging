@@ -3,4 +3,3 @@
 debian/openpht.sh /usr/bin
 debian/openpht.desktop /usr/share/applications
 debian/openpht.png /usr/share/pixmaps
-debian/openpht-steamtile_460x215.png /usr/share/pixmaps

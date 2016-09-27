@@ -1,3 +1,10 @@
+openpht (1.6.2+20160925git+bsos-6) brewmaster; urgency=low
+
+  * Update build/release
+  * Add new Steam tile
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 25 Sep 2016 22:24:35 -0400
+
 openpht (1.6.2+20160925git+bsos-5) brewmaster; urgency=low
 
   * Update build/release

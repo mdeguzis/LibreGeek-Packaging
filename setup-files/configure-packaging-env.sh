@@ -34,10 +34,21 @@ sleep 2s
 echo -e "==> Checking for multiarch\n" 
 
 # Test OS first, so we can allow configuration on multiple distros
-OS=$(lsb_release -si)
-MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
+# If lsb_release is not present, use alternative method
+
+if which lsb_release &> /dev/null; then
+
+	OS=$(lsb_release -si)
+
+else
+
+	OS=$(cat /etc/os-release | grep -w "NAME" | cut -d'=' -f 2)
+
+fi
 
 if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
+
+	MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
 
 	# add multiarch if it is missing
 	if [[ "${MULTIARCH}" == "" ]]; then
@@ -105,6 +116,9 @@ if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 	sudo apt-file update
 
 elif [[ "${OS}" == "Arch" ]]; then
+
+	# FIXME
+	# MULTIARCH=$()
 
 	# Default pacman options
 	PACOPTS="--noconfirm --noprogressbar --needed"
@@ -206,10 +220,68 @@ elif [[ "${OS}" == "Arch" ]]; then
 	cd "${ROOT_DIR}"
 	rm -rf "arch-aur-packages"
 
+elif [[ "${OS}" == "Fedora" ]]; then
+
+	echo -e "Fedora support is WIP, but not quite complete. Exiting"
+	sleep 2s
+	exit
+
+	# Multiarch
+	# e.g. 'dnf install packagename.i386'	
+
+	# Standard packages
+	echo -e "\n==> Installing prerequisite packages\n"
+	sleep 2s
+
+	# Normal set of packages
+	# TODO
+	PKGs="apt curl devscripts git gnupug lsb-release mock parted pbuilder quilt screen sudo "
+	GROUP_PACKAGES="'Development Tools and Libraries'"
+
+	# Packages
+	for PKG in ${PKGs};
+	do
+
+		echo -e "Installing: "${PKG}""
+
+		if sudo dnf install -y ${PKG} &> /dev/null; then
+
+			echo -e "Package: ${PKG} [OK]"
+
+		else
+
+			# echo and exit if package install fails
+			echo -e "Package: ${PKG} [FAILED] Exiting..."
+			exit 1
+
+		fi
+
+	done
+
+	# Group pacakges
+	for GROUP_PKG in ${GROUP_PACKAGES};
+	do
+
+		echo -e "Installing: "${GROUP_PKG}""
+
+		if sudo dnf groupinstall -y ${GROUP_PKG} &> /dev/null; then
+
+			echo -e "Package: ${GROUP_PKG} [OK]"
+
+		else
+
+			# echo and exit if package install fails
+			echo -e "Package: ${GROUP_PKG} [FAILED] Exiting..."
+			exit 1
+
+		fi
+
+	done
+
 else
 
 	echo -e "\nUnsupported OS/Distro! Exiting...\n"
-	exit 1
+	exit
 
 fi
 
@@ -836,35 +908,39 @@ sleep 5s
 
 
 #################################################
-# Extra setup
+# Extra setup /  OS Specific extra setup
 #################################################
 
-# IMPORTANT!
-# For information, see: http://manpages.ubuntu.com/manpages/precise/man5/pbuilderrc.5.html
+if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" || "${OS}" == "Arch Linux" ]]; then
 
-echo -e "\nAdding symlinks for /usr/share/debootstrap/scripts"
-sleep 1s
+	# IMPORTANT!
+	# For information, see: http://manpages.ubuntu.com/manpages/precise/man5/pbuilderrc.5.html
 
-# jessie-backports
-sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/jessie-backports" 2> /dev/null
+	echo -e "\nAdding symlinks for /usr/share/debootstrap/scripts"
+	sleep 1s
 
-# brewmaster
-sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster" 2> /dev/null
-sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster_beta" 2> /dev/null
+	# jessie-backports
+	sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/jessie-backports" 2> /dev/null
 
-# alchemist
-sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist" 2> /dev/null
-sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
+	# brewmaster
+	sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster" 2> /dev/null
+	sudo ln -s "/usr/share/debootstrap/scripts/jessie" "/usr/share/debootstrap/scripts/brewmaster_beta" 2> /dev/null
 
-# ubuntu
-# None for now
+	# alchemist
+	sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist" 2> /dev/null
+	sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
 
-#################################################
-# OS Specific extra setup
-#################################################
+	# ubuntu
+	# None for now
 
-# Arch Linux ships nano without -w (no wrap)... really...
-echo "alias nano=\"nano -w\"" >> "${HOME}/.bashrc"
+fi
+
+if [[ "${OS}" == "Arch Linux" ]]; then
+
+	# Arch Linux ships nano without -w (no wrap)... really...
+	echo "alias nano=\"nano -w\"" >> "${HOME}/.bashrc"
+
+fi
 
 echo -e "\nFinishing up"
 sleep 0.5s

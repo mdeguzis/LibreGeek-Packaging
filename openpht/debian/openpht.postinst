@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# clean up old symbolic links first
+find /opt/plexhometheater/share/XBMC/media/fonts -type l -exec rm -f '{}' \;
+
+# create new symbolic links
 mkdir -p /opt/plexhometheater/share/XBMC/media/Fonts/
 ln -s /usr/share/fonts/truetype/ubuntu-font-family/* /opt/plexhometheater/share/XBMC/media/Fonts/ || echo "We probably already have fonts."
 

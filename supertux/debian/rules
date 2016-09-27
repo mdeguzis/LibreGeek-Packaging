@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --buildsystem=cmake
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DBUILD_SHARED_LIBS=OFF \
+		-DENABLE_BOOST_STATIC_LIBS=OFF
+
+override_dh_install:
+	# Fix lintian warning script-not-executable
+	chmod +x $(CURDIR)/debian/tmp/usr/share/games/supertux2/sounds/normalize.sh
+	# Remove unneeded files
+	rm -rf $(CURDIR)/debian/tmp/usr/include \
+	       $(CURDIR)/debian/tmp/usr/lib/pkgconfig \
+	       $(CURDIR)/debian/tmp/usr/lib/*.a \
+	       $(CURDIR)/debian/tmp/usr/share/doc/supertux2
+	dh_install --exclude=COPYING --list-missing
+
+override_dh_installchangelogs:
+	dh_installchangelogs NEWS.md

@@ -1,0 +1,5 @@
+supertux (0.5.0+git+bsos-1) brewmaster; urgency=low
+
+  * Initial build
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 26 Sep 2016 07:24:33 -0700

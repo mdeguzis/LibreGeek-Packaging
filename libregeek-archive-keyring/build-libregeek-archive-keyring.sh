@@ -61,13 +61,12 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libregeek-archive-keyring"
-PKGVER="0.3"
-PKGSUFFIX="bsos${PKGREV}"
-upstream_rev="1"
+PKGVER="0.4.0"
+PKGSUFFIX="bsos"
 PKGREV="1"
 DIST="brewmaster"
 URGENCY="low"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
@@ -140,12 +139,12 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi

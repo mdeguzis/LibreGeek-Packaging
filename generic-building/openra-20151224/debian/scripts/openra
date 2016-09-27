@@ -1,3 +1,0 @@
-#!/bin/sh
-cd /usr/share/games/openra
-sh launch-game.sh

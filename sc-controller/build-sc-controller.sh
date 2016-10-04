@@ -66,10 +66,10 @@ urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dir
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
+# set BUILD_TMP
+export BUILD_TMP="${HOME}/build-${pkgname}-temp"
 src_dir="${pkgname}-${pkgver}"
-git_dir="${BUILD_DIR}/${src_dir}"
+git_dir="${BUILD_TMP}/${src_dir}"
 
 install_prereqs()
 {
@@ -85,20 +85,20 @@ install_prereqs()
 main()
 {
 
-	# create BUILD_DIR
-	if [[ -d "${BUILD_DIR}" ]]; then
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
 
-		sudo rm -rf "${BUILD_DIR}"
-		mkdir -p "${BUILD_DIR}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-		mkdir -p "${BUILD_DIR}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 	# enter build dir
-	cd "${BUILD_DIR}" || exit
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 
@@ -124,7 +124,7 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${BUILD_DIR}"
+	cd "${BUILD_TMP}"
 	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add debian dir
@@ -183,11 +183,11 @@ main()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 
-	Showing contents of: ${BUILD_DIR}
+	Showing contents of: ${BUILD_TMP}
 
 	EOF
 
-	ls "${BUILD_DIR}" | grep -E "${pkgver}" 
+	ls "${BUILD_TMP}" | grep -E "${pkgver}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -197,10 +197,10 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${BUILD_DIR}" ]]; then
+		if [[ -d "${BUILD_TMP}" ]]; then
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_DIR}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# Preserve changelog
 			cp "${git_dir}/debian/changelog" "${scriptdir}/debian/changelog" 

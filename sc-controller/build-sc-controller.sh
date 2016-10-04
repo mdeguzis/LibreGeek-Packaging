@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 git_url="https://github.com/kozec/sc-controller/"
-target="v0.2.10"
+target="v0.2.17"
 
 # package vars
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,7 +58,7 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export USE_NETWORK="no"
 pkgname="sc-controller"
-pkgver="0.2.10"
+pkgver=$(echo ${target} | sed 's/v//g' )
 pkgrev="1"
 pkgsuffix="git+debu8"
 DIST="jessie"

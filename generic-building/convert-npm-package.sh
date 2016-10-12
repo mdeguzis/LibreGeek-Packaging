@@ -20,7 +20,7 @@
 #################################################
 
 arg1="$1"
-scriptdir=$(pwd)
+SCRIPTDIR=$(pwd)
 time_start=$(date +%s)
 time_stamp_start=(`date +"%T"`)
 
@@ -251,6 +251,120 @@ git_sync_to_remote()
 
 }
 
+build_package()
+{
+
+	cd "${npm_top_dir}"
+
+	# Ask what method
+
+	echo -e "\n==> Use what builder? [pbuilder|dpkg-buildpackage]\n"
+	read -erp "Choice: " METHOD
+
+	if [[ "${METHOD}" == "pbuilder" ]]; then
+
+		if ! sudo -E BUILD_TMP=${BUILD_TMP} DIST=${DIST} ARCH=${ARCH} ${BUILDER} \
+		${BUILDOPTS}; then
+
+			# back out to SCRIPTDIR
+			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"
+			cd "${SCRIPTDIR}"
+
+		fi
+
+	elif [[ "${METHOD}" == "dpkg-buildpackage" ]]; then
+
+		# enter dir and attemp to satisfy build deps
+		cd ${PKGNAME}*
+		if ! sudo mk-build-deps --install --remove; then
+
+			# back out to SCRIPTDIR
+			echo -e "\n!!! FAILED TO ACQUIRE BUILD-DEPS. See output!!! \n"
+			cd "${SCRIPTDIR}"
+
+		fi
+
+		# Test if we can successfully build the package
+		fakeroot debian/rules binary
+
+		# Build a package properly , without GPG signing the package
+		dpkg-buildpackage -us -uc
+	
+	else
+
+		echo -e "Invalid builder!"
+		exit
+
+	fi
+
+
+	# show summayr
+	function_show_summary
+
+}
+
+function_show_summary()
+{
+
+	#################################################
+	# Cleanup
+	#################################################
+
+	# note time ended
+	time_end=$(date +%s)
+	time_stamp_end=(`date +"%T"`)
+	runtime=$(echo "scale=2; ($time_end-$time_start) / 60 " | bc)
+
+	# output finish
+	echo -e "\nTime started: ${time_stamp_start}"
+	echo -e "Time started: ${time_stamp_end}"
+	echo -e "Total Runtime (minutes): $runtime\n"
+
+	# inform user of packages
+	cat<<-EOF
+	###############################################################
+	If package was built without errors you will see it below.
+	If you don't, please check build dependcy errors listed above.
+	###############################################################
+	Showing contents of: ${BUILD_TMP}
+	EOF
+
+	ls "${BUILD_TMP}" | grep -E "${PKGNAME}" 
+
+	# Ask to transfer files if debian binries are built
+	# Exit out with log link to reivew if things fail.
+
+	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
+
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		sleep 0.5s
+		# capture command
+		read -erp "Choice: " transfer_choice
+
+		if [[ "$transfer_choice" == "y" ]]; then
+
+			# transfer files
+			if [[ -d "${BUILD_TMP}" ]]; then
+				rsync -arv -e "ssh -p ${REMOTE_PORT}" \
+				--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+				${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			fi
+
+		elif [[ "$transfer_choice" == "n" ]]; then
+			echo -e "Upload not requested\n"
+		fi
+
+	else
+
+		# Output log file to sprunge (pastebin) for review
+		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
+		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
+
+	fi
+
+}
+
 main()
 {
 
@@ -316,7 +430,7 @@ main()
 		
 	
 		# create
-		echo -e "Creating base files..."
+		echo -e "\n==> Creating base files..."
 		npm2deb create ${npm_pkgname}
 		
 	else
@@ -342,8 +456,7 @@ main()
 		
 		cat<<- EOF
 
-		==> It doesn't seem we have a github repository. Fork an 
-		    upstream repository, create a new one, or just make debian files?\n"
+		==> It doesn't seem we have a github repository. Fork an  upstream repository, create a new one, or just make debian files?\n"
 		
 		EOF
 
@@ -444,6 +557,17 @@ main()
 		git_sync_to_remote
 
 	# end debian/github logic
+	fi
+	
+	# Build package
+	echo -e "==> Build package now?"
+	sleep 0.2s
+	read -erp "Choice [y/n]: " BUILD_CHOICE
+	
+	if [[ "${BUILD_CHOICE}" == "y" ]]; then
+
+		build_package
+
 	fi
 
 	#################################################

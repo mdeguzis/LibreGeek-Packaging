@@ -106,7 +106,7 @@ fi
 # Enter build dir
 cd $BUILD_TMP
 
-echo -e "\n==> Obtaining needed pacakges\n"
+echo -e "\n==> Obtaining needed packages\n"
 sleep 2s
 
 sudo apt-get install -y --force-yes wget unzip gawk

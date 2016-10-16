@@ -61,7 +61,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libregeek-archive-keyring"
-PKGVER="0.4.0"
+PKGVER="0.4.1"
 PKGSUFFIX="bsos"
 PKGREV="1"
 DIST="brewmaster"
@@ -204,7 +204,7 @@ main()
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
-			# uplaod local repo changelog
+			# add back local repo changelog
 			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then

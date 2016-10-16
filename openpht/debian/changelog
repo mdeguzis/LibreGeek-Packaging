@@ -1,3 +1,9 @@
+openpht (1.6.2+20160926git+bsos-7) brewmaster; urgency=low
+
+  * Update postinst to ensure symlinks are cleaned up before creation
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 26 Sep 2016 22:16:36 -0400
+
 openpht (1.6.2+20160925git+bsos-6) brewmaster; urgency=low
 
   * Update build/release

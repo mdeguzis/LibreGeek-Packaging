@@ -1041,7 +1041,7 @@ main()
 {
 
 	# OS-specific
-	if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
+	if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" || "${OS}" == "Ubuntu" ]]; then
 
 		setup_debian_variant
 

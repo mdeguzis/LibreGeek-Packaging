@@ -168,23 +168,23 @@ setup_debian_variant()
 	# Deboostrap was backport to include more scripts, specify version
 	# We want to specify our version, more up to date
 	# If not use available version
-	
+
 	if [[ -f "/etc/apt/sources.list.d/steamos-tools.list" ]]; then
-	
+
 		if sudo apt-get install -y --force-yes -t brewmaster debootstrap &> /dev/null; then
-	
+
 			echo -e "Package: debootstrap [OK]"
-	
+
 		else
-	
+
 			# echo and exit if package install fails
 			echo -e "Package: debootstrap [FAILED] Exiting..."
 			exit 1
-	
+
 		fi
-	
+
 	fi
-	
+
 	# Normal set of packages
 	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts libparse-debcontrol-perl \
 	sudo screen pv apt-file curl debian-keyring debian-archive-keyring ubuntu-archive-keyring \
@@ -233,7 +233,8 @@ setup_rhel_variant()
 
 	# Normal set of packages
 	# TODO
-	PKGs="apt curl devscripts git gnupug lsb-release mock parted pbuilder quilt screen sudo fedora-packager fedora-review"
+	PKGs="apt curl devscripts git gnupug lsb-release mock parted pbuilder quilt screen sudo \
+	fedora-packager fedora-review rpmdevtools"
 	GROUP_PACKAGES="'Development Tools and Libraries'"
 
 	# Packages
@@ -644,8 +645,8 @@ setup_mock()
 
 	fi
 
-
-	
+	# Setup non-root buildroot package directory (~/rpmbuild/)
+	rpmdev-setuptree 
 
 }
 
@@ -1030,8 +1031,9 @@ show_summary()
 	sudo sbuild-createchroot --include=eatmydata,ccache,gnupg [DIST] \
 	/srv/chroot/[DIST]-[ARCH] [URL_TO_DIST_POOL]
 	
-	RPM packaging:
+	Creating RPM package:
 	fedpkg --dist f24 local
+	fedpkg --dist f24 mockbuild
 
 	EOF
 

@@ -15,28 +15,6 @@
 export SCRIPTDIR=$(pwd)
 BASHRC_RESET="false"
 
-##################################################
-# Base packages
-##################################################
-
-# libselinux1:i386 on the host machine is needed for some reason on 32 bit chroots
-# See: https://github.com/ProfessorKaos64/SteamOS-Tools/issues/125
-
-echo -e "==> Checking for multiarch\n" 
-
-# Test OS first, so we can allow configuration on multiple distros
-# If lsb_release is not present, use alternative method
-
-if which lsb_release &> /dev/null; then
-
-	OS=$(lsb_release -si)
-
-else
-
-	OS=$(cat /etc/os-release | grep -w "NAME" | cut -d'=' -f 2)
-
-fi
-
 setup_arch_linux()
 {
 
@@ -145,140 +123,6 @@ setup_arch_linux()
 
 }
 
-setup_debian_variant()
-{
-
-	MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
-
-	# add multiarch if it is missing
-	if [[ "${MULTIARCH}" == "" ]]; then
-
-		echo -e "Multiarch not found!"
-		sudo dpkg --add-architecture i386
-		echo -e "\nUpdating for multiarch\n" 
-		sleep 2s
-		sudo apt-get update
-
-	fi
-
-	# Standard packages
-	echo -e "\n==> Installing prerequisite packages\n"
-	sleep 2s
-
-	# Deboostrap was backport to include more scripts, specify version
-	# We want to specify our version, more up to date
-	# If not use available version
-
-	if [[ -f "/etc/apt/sources.list.d/steamos-tools.list" ]]; then
-
-		if sudo apt-get install -y --force-yes -t brewmaster debootstrap &> /dev/null; then
-
-			echo -e "Package: debootstrap [OK]"
-
-		else
-
-			# echo and exit if package install fails
-			echo -e "Package: debootstrap [FAILED] Exiting..."
-			exit 1
-
-		fi
-
-	fi
-
-	# Normal set of packages
-	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts libparse-debcontrol-perl \
-	sudo screen pv apt-file curl debian-keyring debian-archive-keyring ubuntu-archive-keyring \
-	gnupg osc obs-build mock sbuild apt-cacher-ng quilt"
-
-	for PKG in ${PKGs};
-	do
-
-		echo -e "Installing: "${PKG}""
-
-		if sudo apt-get install -y --force-yes ${PKG} &> /dev/null; then
-
-			echo -e "Package: ${PKG} [OK]"
-
-		else
-
-			# echo and exit if package install fails
-			echo -e "Package: ${PKG} [FAILED] Exiting..."
-			exit 1
-
-		fi
-
-	done
-	
-	echo -e "\n==> Updating cache for apt-file\n"
-	sleep 2s
-	
-	# apt-file is a nice tool to search for packages/contents of packages in a CLI
-	sudo apt-file update
-
-}
-
-setup_rhel_variant()
-{
-
-	echo -e "Fedora support is WIP, but not quite complete. Exiting"
-	sleep 2s
-	exit
-
-	# Multiarch
-	# e.g. 'dnf install packagename.i386'	
-
-	# Standard packages
-	echo -e "\n==> Installing prerequisite packages\n"
-	sleep 2s
-
-	# Normal set of packages
-	# TODO
-	PKGs="apt curl devscripts git gnupug lsb-release mock parted pbuilder quilt screen sudo \
-	fedora-packager fedora-review rpmdevtools"
-	GROUP_PACKAGES="'Development Tools and Libraries'"
-
-	# Packages
-	for PKG in ${PKGs};
-	do
-
-		echo -e "Installing: "${PKG}""
-
-		if sudo dnf install -y ${PKG} &> /dev/null; then
-
-			echo -e "Package: ${PKG} [OK]"
-
-		else
-
-			# echo and exit if package install fails
-			echo -e "Package: ${PKG} [FAILED] Exiting..."
-			exit 1
-
-		fi
-
-	done
-
-	# Group pacakges
-	for GROUP_PKG in ${GROUP_PACKAGES};
-	do
-
-		echo -e "Installing: "${GROUP_PKG}""
-
-		if sudo dnf groupinstall -y ${GROUP_PKG} &> /dev/null; then
-
-			echo -e "Package: ${GROUP_PKG} [OK]"
-
-		else
-
-			# echo and exit if package install fails
-			echo -e "Package: ${GROUP_PKG} [FAILED] Exiting..."
-			exit 1
-
-		fi
-
-	done
-
-}
-
 setup_bulk_storage()
 {
 
@@ -348,6 +192,78 @@ setup_bulk_storage()
 		done
 
 	fi
+
+}
+
+setup_debian_variant()
+{
+
+	MULTIARCH=$(dpkg --print-foreign-architectures | grep i386)
+
+	# add multiarch if it is missing
+	if [[ "${MULTIARCH}" == "" ]]; then
+
+		echo -e "Multiarch not found!"
+		sudo dpkg --add-architecture i386
+		echo -e "\nUpdating for multiarch\n" 
+		sleep 2s
+		sudo apt-get update
+
+	fi
+
+	# Standard packages
+	echo -e "\n==> Installing prerequisite packages\n"
+	sleep 2s
+
+	# Deboostrap was backport to include more scripts, specify version
+	# We want to specify our version, more up to date
+	# If not use available version
+
+	if [[ -f "/etc/apt/sources.list.d/steamos-tools.list" ]]; then
+
+		if sudo apt-get install -y --force-yes -t brewmaster debootstrap &> /dev/null; then
+
+			echo -e "Package: debootstrap [OK]"
+
+		else
+
+			# echo and exit if package install fails
+			echo -e "Package: debootstrap [FAILED] Exiting..."
+			exit 1
+
+		fi
+
+	fi
+
+	# Normal set of packages
+	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts libparse-debcontrol-perl \
+	sudo screen pv apt-file curl debian-keyring debian-archive-keyring ubuntu-archive-keyring \
+	gnupg osc obs-build mock sbuild apt-cacher-ng quilt"
+
+	for PKG in ${PKGs};
+	do
+
+		echo -e "Installing: "${PKG}""
+
+		if sudo apt-get install -y --force-yes ${PKG} &> /dev/null; then
+
+			echo -e "Package: ${PKG} [OK]"
+
+		else
+
+			# echo and exit if package install fails
+			echo -e "Package: ${PKG} [FAILED] Exiting..."
+			exit 1
+
+		fi
+
+	done
+	
+	echo -e "\n==> Updating cache for apt-file\n"
+	sleep 2s
+	
+	# apt-file is a nice tool to search for packages/contents of packages in a CLI
+	sudo apt-file update
 
 }
 
@@ -840,6 +756,66 @@ setup_pbuilder()
 
 }
 
+setup_rhel_variant()
+{
+
+	# Multiarch?
+	# e.g. 'dnf install packagename.i386'	
+
+	echo -e "\n==> Installing prerequisite packages\n"
+	sleep 2s
+
+	# Add Group packages
+	# Development Tools: cvs, diffstat, doxygen, git, patch, patchutils, rcs, subversion, systemtap
+	# RPM Development Tools: redhat-rpm-config, rpm-build, koji, mock, rpmdevtools
+	GROUP_PACKAGES="'Development Tools' 'RPM Development Tools'"
+
+	# Normal set of packages
+	PKGs="apt curl devscripts git gnupug lsb-release parted pbuilder quilt screen sudo \
+	fedora-packager fedora-review"
+
+	# Group pacakges
+	for GROUP_PKG in ${GROUP_PACKAGES};
+	do
+
+		echo -e "Installing: "${GROUP_PKG}""
+
+		if sudo ${PKG_CMD} groupinstall -y ${GROUP_PKG} &> /dev/null; then
+
+			echo -e "Package: ${GROUP_PKG} [OK]"
+
+		else
+
+			# echo and exit if package install fails
+			echo -e "Package: ${GROUP_PKG} [FAILED] Exiting..."
+			exit 1
+
+		fi
+
+	done
+
+	# Packages
+	for PKG in ${PKGs};
+	do
+
+		echo -e "Installing: "${PKG}""
+
+		if sudo ${PKG_CMD} install -y ${PKG} &> /dev/null; then
+
+			echo -e "Package: ${PKG} [OK]"
+
+		else
+
+			# echo and exit if package install fails
+			echo -e "Package: ${PKG} [FAILED] Exiting..."
+			exit 1
+
+		fi
+
+	done
+
+}
+
 setup_sbuild()
 {
 
@@ -1050,7 +1026,30 @@ main()
 
 	EOF
 
-	# OS-specific
+	# Check for root user, exit if true
+	# 'id -u', EUID, or whoami should be fine here
+	if [[ $(id -u) -eq 0 ]]; then
+		echo "Do not run this script as root!\n"
+		exit 1
+	fi
+
+	echo -e "==> Checking for multiarch\n" 
+
+	# Test OS first, so we can allow configuration on multiple distros
+	# If lsb_release is not present, use alternative method
+
+	if which lsb_release &> /dev/null; then
+
+		OS=$(lsb_release -si)
+
+	else
+
+		OS=$(cat /etc/os-release | grep -w "NAME" | cut -d'=' -f 2)
+
+	fi
+
+	# OS-specific routines
+
 	if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" || "${OS}" == "Ubuntu" ]]; then
 
 		setup_debian_variant
@@ -1060,6 +1059,18 @@ main()
 		setup_arch_linux
 
 	elif [[ "${OS}" == "Fedora" ]]; then
+
+		# Set default packager
+		PKG_CMD="dnf"
+
+		setup_rhel_variant
+		# Setup mock just for RHEL variants right now
+		setup_mock
+
+	elif [[ "${OS}" == "CentOS Linux" ]]; then
+
+		# Set default packager
+		PKG_CMD="yum"
 
 		setup_rhel_variant
 		# Setup mock just for RHEL variants right now

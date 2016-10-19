@@ -130,6 +130,9 @@ setup_bulk_storage()
 	# Block storage (e.g. on a VPS)
 	#################################################
 
+	# Set a flag in case other routines need it
+	BULK_STORAGE="true"
+
 	cat<<-EOF
 
 	==> Setup block storage volume (VPS)?"
@@ -564,6 +567,29 @@ setup_mock()
 	# Setup non-root buildroot package directory (~/rpmbuild/)
 	rpmdev-setuptree 
 
+	# If using a VPS / Bulk storage, symlink after moving
+	if [[ "${BULK_STROAGE}" == "true" ]]; then
+
+		echo -e "==> It seems you have bulk stroage setup, move rpmbuild?"
+		sleep 0.2s && read -erp "Choice: " RPMBUILD_MOVE
+
+		if [[ "${RPMBUILD_MOVE}" == "y" ]]; then
+
+			read -erp "Specify location: " RPMBUILD_LOC
+			rm -rf "${HOME}/rpmbuild"
+			mkdir -p ${RPMBUILD_LOC}/rpmbulid/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+			sudo ln -s "${HOME}/rpmbuild" "${RPMBUILD_LOC}/rpmbuild"
+
+		else
+
+			# Use default setup to $HOME location
+			# You can also use 'mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}'
+			rpmdev-setuptree
+
+		fi
+
+	fi
+
 }
 
 setup_obs()
@@ -759,7 +785,7 @@ setup_pbuilder()
 setup_rhel_variant()
 {
 
-	# Multiarch?
+	# Multiarch
 	# e.g. 'dnf install packagename.i386'	
 
 	echo -e "\n==> Installing prerequisite packages\n"
@@ -768,11 +794,27 @@ setup_rhel_variant()
 	# Add Group packages
 	# Development Tools: cvs, diffstat, doxygen, git, patch, patchutils, rcs, subversion, systemtap
 	# RPM Development Tools: redhat-rpm-config, rpm-build, koji, mock, rpmdevtools
-	GROUP_PACKAGES="'Development Tools' 'RPM Development Tools'"
 
-	# Normal set of packages
-	PKGs="apt curl devscripts git gnupug lsb-release parted pbuilder quilt screen sudo \
-	fedora-packager fedora-review"
+	# Be careful to note which group packages are available
+	if [[ "${OS}" == "CentOS Linux" ]]; then
+
+		GROUP_PACKAGES="'Development Tools'"
+
+		PKGs="apt centos-packager curl devscripts git gnupug lsb-release parted pbuilder quilt \
+		rpm-link rpmdevtools screen sudo yum-cron"
+
+	elif [[ "${OS}" == "Fedora" ]]; then
+
+		GROUP_PACKAGES="'Development Tools' 'RPM Development Tools'"
+	
+		PKGs="apt curl devscripts fedora-packager fedora-review git gnupug lsb-release parted \
+		pbuilder quilt screen sudo"
+
+	else
+
+		PKGs="apt curl devscripts git gnupug lsb-release parted pbuilder quilt screen sudo"
+
+	fi
 
 	# Group pacakges
 	for GROUP_PKG in ${GROUP_PACKAGES};
@@ -1010,6 +1052,7 @@ show_summary()
 	Creating RPM package:
 	fedpkg --dist f24 local
 	fedpkg --dist f24 mockbuild
+	rpmbuild [options] <PKG.spec>
 
 	EOF
 

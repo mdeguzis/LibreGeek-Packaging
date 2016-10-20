@@ -2,6 +2,9 @@
 # Slight modifications made to allow installation on RHEL 7 / CentOS 7+
 # https://apps.fedoraproject.org/packages/SDL2-devel
 
+# Note:  SDL_config.h can be found at /usr/include/SDL/SDL_config.h"
+#        Package: SDL or SDL-devel
+
 Name:           SDL2
 Version:        2.0.3
 Release:        7%{?dist}

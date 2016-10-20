@@ -800,7 +800,7 @@ setup_rhel_variant()
 
 		GROUP_PACKAGES="'Development Tools'"
 
-		PKGs="apt centos-packager curl devscripts git gnupug lsb-release parted pbuilder quilt \
+		PKGs="apt centos-packager curl devscripts epel-release git gnupug lsb-release parted pbuilder quilt \
 		rpm-link rpmdevtools screen sudo yum-cron"
 
 	elif [[ "${OS}" == "Fedora" ]]; then

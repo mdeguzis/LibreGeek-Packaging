@@ -110,6 +110,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 %{_includedir}/SDL2
 %{_datadir}/aclocal/*
 
+%clean
+rm -rf %{buildroot}
+
 %changelog
 * Thu Oct 20 2016 Michal DeGuzis <mdeguzis@gmail.com> - 2.0.3-7
 - Port over to CentOS for personal use

@@ -50,23 +50,23 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/lutris/lutris"
-branch="v0.3.8"
+target="v0.4.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="lutris"
-PKGVER="0.3.8"
+PKGVER="0.4.0"
 EPOCH="1"
 upstream_rev="1"
 PKGREV="1"
-PKGSUFFIX="bsos"
+PKGSUFFIX="bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -84,7 +84,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc debhelper \
- 	python dh-python gir1.2-gtk-3.0 gir1.2-glib-2.0 python-gi libgirepository1.0-dev
+ 	python3 dh-python gir1.2-gtk-3.0 gir1.2-glib-2.0 python-gi libgirepository1.0-dev
 
 	# Not originally stated in the upstream control file, these 32 bit libraries are needed:
 	sudo apt-get install -y --force-yes libsdl2-2.0-0:i386
@@ -119,16 +119,16 @@ main()
 	else
 	
 		# You stil need these for dh_clean beore the build env starts
-		sudo apt-get install -y --force-yes dh-python python-gi
+		sudo apt-get install -y --force-yes dh-python python-git
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and target
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${target}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build package
@@ -144,6 +144,9 @@ main()
 	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
+	# add debian until corrected upstream
+	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+
 	# enter source dir
 	cd "${GIT_DIR}"
 
@@ -153,13 +156,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "New ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution --create -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/chanelog"
 

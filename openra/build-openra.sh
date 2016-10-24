@@ -45,7 +45,7 @@ else
 fi
 # upstream var for master build
 SRC_URL="https://github.com/OpenRA/OpenRA"
-TARGET="release-20160508"
+TARGET="release-20161015"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,7 +58,7 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 export USE_NETWORK="yes"
 PKGNAME="openra"
-PKGVER="20160508"
+PKGVER="20161015"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"

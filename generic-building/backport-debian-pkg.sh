@@ -287,7 +287,7 @@ function_backport_config()
 	# Add more cases below at some point..
 
 	if [[ "${RETRY_BUILD}" == "false" ]]; then
-	
+
 		echo -e "\n==> Unpacking original source\n"
 		sleep 2s
 
@@ -328,7 +328,7 @@ function_backport_config()
 
 	# Create our new orig tarball after removing the current one
 	# Do this rather than rename, so an xz archive is not renamed as a fake gz archive
-	# Reminder: the orig tarball does NOT get a revision number!	
+	# Reminder: the orig tarball does NOT get a revision number!
 
 	if [[ "${RETRY_BUILD}" == "false" ]]; then
 
@@ -336,6 +336,7 @@ function_backport_config()
 		sleep 2s
 
 		rm -f ${BUILD_TMP}/*.orig.tar.*
+		cd ${BUILD_TMP}
 		tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	fi
@@ -370,6 +371,13 @@ function_backport_config()
 	else
 
 		echo -e "\nDebian directory: [OK]"
+
+	fi
+
+	# Remove patches if requested
+	if [[ "${PATCH_REMOVE}" == "true" ]]; then
+
+		rm -rf "${SRC_DIR}/debian/patches"
 
 	fi
 
@@ -482,7 +490,7 @@ function_build_package()
 
 		# Build a package properly , without GPG signing the package
 		dpkg-buildpackage -us -uc
-	
+
 	else
 
 		echo -e "Invalid builder!"
@@ -544,7 +552,7 @@ function_show_summary()
 
 	EOF
 
-	ls "${BUILD_TMP}" | grep -E "${PKGNAME}" 
+	ls "${BUILD_TMP}" | grep -E "${PKGNAME}"
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.
@@ -682,7 +690,7 @@ while :; do
 
 			Usage:		./backport-debian-pkg.sh [options]
 
-			Options:		
+			Options:
 					--apt-prefs-hack	Raemove SteamOS apt preferences lock
 					--beta-repo|-br		Enable a beta repo
 					--binary-dep		Builds binary-dependent package
@@ -696,7 +704,7 @@ while :; do
 					--testing		Send built package to testing repo
 					--help|-h		Display this help text
 
-			Beta repos:	
+			Beta repos:
 					steamos-tools		SteamOS-Tools beta repo
 
 			EOF

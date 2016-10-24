@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE=1
+
+#export CC=/usr/bin/clang-3.8
+#export CXX=/usr/bin/clang++-3.8
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+
+override_dh_auto_build:
+	rm -rf build && mkdir build
+	cd build && cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		..
+		make -C build

@@ -1,0 +1,33 @@
+Source: ges
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ bzip2,
+ cmake,
+ libboost-all-dev,
+ libexpat1-dev,
+ libc6-dev,
+ libldap2-dev,
+ libm17n-0,
+ libstdc++-4.9-dev,
+ openssl,
+ python3-all-dev,
+ tcl-dev,
+ zlib1g-dev
+Standards-Version: 3.9.7
+Homepage: http://www.geshl2.com/
+
+Package: ges
+Architecture: i386
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: A total conversion modification of Half-Life 2
+ This is a fan made artistic recreation, released
+ for free, with a primary goal in mind; To bring
+ the memories and experiences from the original
+ GoldenEye-64 back to life using the Source SDK
+ 2013 Technology. As one of the premier and
+ consistently released HL2 mods, GES has been
+ seen out and about, reviewed by the best, and
+ played by hundreds and thousands of PC gamers
+ for Eight long years and running.

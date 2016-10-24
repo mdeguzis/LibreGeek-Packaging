@@ -39,8 +39,6 @@ override_dh_auto_build:
 			-DCMAKE_BUILD_TYPE='Release' \
 			-DCMAKE_CXX_COMPILER=clang++-3.8 \
 			-DCMAKE_C_COMPILER=clang-3.8 \
-			-DCMAKE_C_FLAGS="-Wall -std=c99" \
-			-DCMAKE_CXX_FLAGS="-O2 -g -stdlib=libc++ -std=c++14 -fexceptions" \
 			-DUSE_SYSTEM_LIBPNG='ON' \
 			-DUSE_SYSTEM_FFMPEG='ON' \
 			-DCMAKE_INSTALL_PREFIX=/usr ..

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Goldeneye: Source
+Comment=Fan-made multiplayer FPS, based of the Goldeneye universe
+Exec=/usr/games/ges
+Icon=/usr/share/pixmaps/ges.png
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/steam;
+Keywords=goldeneye,fps,game

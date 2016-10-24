@@ -52,13 +52,14 @@ TARGET="develop"
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="amd64"
+ARCH="i386"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-export NO_APT_PREFS="true"
+export NO_APT_PREFS="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
+export USE_NETWORK="yes"
 PKGNAME="ges"
 PKGVER="5.0"
 PKGREV="1"
@@ -68,12 +69,14 @@ URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
-# set BUILD_TMP
+# set build defaults
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
+retry="no"
 
 install_prereqs()
 {
+
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
@@ -86,7 +89,7 @@ main()
 {
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -98,17 +101,19 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 1s
-	
+
 	if [[ -d "$SRC_DIR" ]]; then
 
-		echo -e "\n==Info==\nAource folder already exists! Reclone [r] or pull [p]?\n"
+		echo -e "\n==Info==\nSource folder already exists! Reclone [r] or pull [p]?\n"
 		sleep 1s
 		read -ep "Choice: " src_choice
 
-		if [[ "$git_choice" == "p" ]]; then
+		if [[ "$src_choice" == "p" ]]; then
+
 			# attmpt to pull the latest source first
 			echo -e "\n==> Attmpting git pull..."
 			sleep 2s
+			retry="yes"
 
 			# attmpt git pull, if it doesn't complete reclone
 			if ! git pull; then
@@ -122,6 +127,7 @@ main()
 			fi
 
 		elif [[ "$src_choice" == "r" ]]; then
+
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
 			rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
@@ -138,7 +144,7 @@ main()
 
 	else
 
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			echo -e "\n==> Source directory does not exist. cloning now...\n"
 			sleep 2s
 			mkdir -p  "${BUILD_TMP}"
 			# create and clone to current dir
@@ -146,28 +152,50 @@ main()
 
 	fi
 
-	# clean out .git (large amount of space taken up)
-	# rm -rf "${GIT_DIR}/.git"
+	################################################
+	# Prepare sources
+	#################################################
+
+	cd "${BUILD_TMP}" || exit 1
+
+	# Trim .git folders
+	# find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+
+	# create source tarball
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+
+	if [[ "${retry}" == "no" ]]; then
+
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+
+	else
+
+		echo -e "\n==> Cleaning old source folders for retry"
+		sleep 2s
+
+		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
+		mkdir -p "${SRC_DIR}"
+
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
+		sleep 2s
+
+	fi
 
 	# copy in debian folder
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
-	#################################################
+	################################################
 	# Build package
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
-	# create source tarball
-	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
-
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -206,23 +234,22 @@ main()
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
+
 	# back out of build tmp to script dir if called from git clone
 	if [[ "${SCRIPTDIR}" != "" ]]; then
 		cd "${SCRIPTDIR}" || exit
 	else
 		cd "${HOME}" || exit
 	fi
-	
+
 	# inform user of packages
 	cat<<- EOF
 	#################################################################

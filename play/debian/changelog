@@ -1,3 +1,9 @@
+play (0.20161005+git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit 462d986
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 05 Oct 2016 07:45:59 -0700
+
 play (0.20160919+git+bsos-1) brewmaster; urgency=low
 
   * Initial upload

@@ -152,6 +152,9 @@ main()
 
 	fi
 
+	# Copy in extras
+	cp "${SCRIPTDIR}/ges.png" "${SRC_DIR}"
+
 	################################################
 	# Prepare sources
 	#################################################
@@ -211,7 +214,6 @@ main()
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano "debian/changelog"
 
 	fi
 

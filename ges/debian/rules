@@ -2,6 +2,15 @@
 
 #export DH_VERBOSE=1
 
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+
+# TODO:
+# - Add post install step for noting installation or performing it
+
 %:
 	dh $@
 
@@ -10,6 +19,6 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	rm -rf build && mkdir build
 	cd build && cmake \
-		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_PREFIX=/usr/lib/$(DEB_HOST_MULTIARCH)
 		..
 		make VERBOSE=1 -C build

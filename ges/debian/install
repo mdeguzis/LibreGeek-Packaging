@@ -1,4 +1,2 @@
-debian/am2r.desktop	/usr/share/applications/
-am2r			/usr/share/games/am2r/
-assets			/usr/share/games/am2r/
-am2r.png		/usr/share/pixmaps/
+debian/ges.desktop	/usr/share/applications/
+ges.png			/usr/share/pixmaps/

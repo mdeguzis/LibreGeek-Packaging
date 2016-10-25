@@ -1,2 +1,3 @@
-debian/ges.desktop	/usr/share/applications/
-ges.png			/usr/share/pixmaps/
+debian/ges.desktop		/usr/share/applications/
+ges.png				/usr/share/pixmaps/
+ges_post_install.sh		/usr/bin

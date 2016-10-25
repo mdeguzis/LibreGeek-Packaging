@@ -1,16 +1,3 @@
 #!/bin/bash
 
-###############
-# Status
-################
-
-# This is a tricky situation
-# The build currently assumes CMAKE_INSTALL_PREFIX points to the gessource folder
-# This makes a build difficult from a packaging perspective until more is known.
-
-# For now, the libs (even though the install into CMAKE_INSTALL_PREFIX/bin),
-# will be moved post-install, into the gesource directory (if it exists).
-# If the suggested location does not exist, a quick search will commence.
-# If gesource cannot be found, the user will be notified to move the files later.
-
 echo -e "\nNOTICE: please run /usr/bin/ges_post_install.sh to complete the installation\n"

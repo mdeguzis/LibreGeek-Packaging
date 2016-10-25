@@ -19,7 +19,26 @@ detect_source_sdk()
 	# TODO
 	# This comoponent is necessary for install
 	# If this is not installed, it is more than likely the sourcemods folder will not exist
-	:
+	# ID 211 is "Source SDK", which defaults to 2013
+	# See: https://steamdb.info/search/?a=app&q=Source+SDK
+
+	SOURCE_SDK_2006_DL="steam://run/215"
+	SOURCE_SDK_2007_DL="steam://run/218"
+	SOURCE_SDK_2013_DL="steam://run/211"
+
+	SOURCE_SDK_DL="${SOURCE_SDK_2007_DL}"
+	SOURCE_SDK_DIR="TODO-LOCATION"
+
+	# Not sure if this will work, but this shortcut may prompt installation:
+	if [[ "${SOURCE_SDK_DIR}" == "" ]]; then
+
+		# install Source SDK 2007
+		if ! ${SOURCE_SDK_DL}; then
+
+			echo -e "Failed to install Source SDK!. Please uninstall this package.\n"
+		fi
+
+	fi
 
 }
 

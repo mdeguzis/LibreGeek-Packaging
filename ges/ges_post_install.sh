@@ -66,7 +66,7 @@ main()
 
 	elif [[ "${OS}" == "Debian" ]]; then
 
-		GESOURCE_DIR="${HOME}/.local/share/Steam/steamapps/sourcemods/gesource""
+		GESOURCE_DIR="${HOME}/.local/share/Steam/steamapps/sourcemods/gesource"
 
 	else
 

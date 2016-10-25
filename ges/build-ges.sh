@@ -154,6 +154,7 @@ main()
 
 	# Copy in extras
 	cp "${SCRIPTDIR}/ges.png" "${SRC_DIR}"
+	cp "${SCRIPTDIR}/ges_post_install.sh" "${SRC_DIR}"
 
 	################################################
 	# Prepare sources

@@ -13,4 +13,4 @@
 # If the suggested location does not exist, a quick search will commence.
 # If gesource cannot be found, the user will be notified to move the files later.
 
-echo -e "\nNOTICE: please run /usr/bin/gesource_post_install.sh to complete the installation\n"
+echo -e "\nNOTICE: please run /usr/bin/ges_post_install.sh to complete the installation\n"

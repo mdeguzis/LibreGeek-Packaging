@@ -2,6 +2,8 @@
 
 ### Build a docker image for ubuntu i386.
 ### Credit: https://github.com/docker-32bit/ubuntu
+### NOTICE: Do NOT use this at the moment, it has issues with linux32/docker
+###         https://github.com/docker-32bit/ubuntu/issues/12
 
 ### settings
 arch=i386

@@ -2,13 +2,22 @@
 
 # Creates base fedora image for Docker
 # Author: Michael DeGuzis
-
+# TODO: fix up code for arugment processing
 
 # Set main var defaults
 
 RELEASE="24"
 REVISION="3"
-ARCH="i386"
+ARCH="x86_64"
+NAME="fedora-${ARCH}"
+REPOSITORY="fedora-32"
+IMAGE_NAME="Fedora-${RELEASE}-${ARCH}"
+BASE_URL="https://kojipkgs.fedoraproject.org/packages/fedora-repos"
+REPO_RPM="${BASE_URL}/${RELEASE}/${REVISION}/noarch/fedora-repos-${RELEASE}-${REVISION}.noarch.rpm"
+BUILD_SCRIPT="https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-yum.sh"
+BASE_GROUPS="Core"
+BASE_PKGS="base base-devel"
+
 
 usage() 
 {
@@ -16,17 +25,23 @@ usage()
 	cat<<- EOF
 	$(basename $0) [OPTIONS] <name>
 	OPTIONS:
-	-r "<fedora_release>"	Fedora release to use
 	-a "<ARCH>"    		Arhitecture to use
-	-p "<PACKAGEES>"    	Added packages to install (not enabled right now)
-
+				The default is x86_64.
+	-g "<GROUPS>"    	Added groups to install
+				The default is base, base-devel
+	-n "<name>"		Desired name. Use your repo name if uploading later
+				The default is fedora-${ARCH}.
+	-p "<PACKAGES>"    	Added packages to install
+				The default is base base-devel.
+	-r "<fedora_rel_num>"	Fedora release number to use
+				The default is 24.
 	EOF
 	exit 1
 
 }
 
 # Set ARCH, REVISION and release and release defaults
-while getopts ":y:p:g:h" opt; do
+while getopts ":a:g:n:p:r" opt; do
 	case $opt in
 
 		r)
@@ -37,8 +52,16 @@ while getopts ":y:p:g:h" opt; do
 	    	ARCH=$OPTARG
 	    	;;
 
+		n)
+	    	NAME=$OPTARG
+	    	;;
+
+		g)
+	    	BASE_GROUPS="$OPTARG"
+		;;
+
 		p)
-	    	PACKAGES="$OPTARG"
+	    	BASE_PKGS="$OPTARG"
 		;;
 
 		\?)
@@ -50,15 +73,33 @@ while getopts ":y:p:g:h" opt; do
 done
 shift $((OPTIND - 1))
 
-# Set vars
-RELEASE="$RELEASE_OPT"
-REVISION="$REVSION_OPT"
-ARCH="$ARCH_OPT"
-IMAGE_NAME="Fedora-${RELEASE}-${ARCH}"
-BASE_URL="https://kojipkgs.fedoraproject.org/packages/fedora-repos"
-REPO_RPM="${BASE_URL}/${RELEASE}/${REVISION}/noarch/fedora-repos-${RELEASE}-${REVISION}.noarch.rpm"
-BUILD_SCRIPT="https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-yum.sh"
-BASE_PKGS="base base-devel"
+
+push_image()
+{
+
+	echo -e "\n==> Displaying image, please enter tag ID, username, and desired tag (default: latest)\nn"
+	sleep 2s
+
+	docker images | grep "${NAME}"
+	echo ""
+	
+	read -erp "Username: " DOCKER_ USERNAME
+	read -erp "Image ID: " IMAGE_ID
+
+	if [[ -z "${TAG}" ]]; then
+
+		TAG="latest"
+
+	fi
+
+	echo -e "\n==> Logging in and pushing image\n
+
+	# login and push image
+	docker login
+	docker tag "${IMAGE_ID}" ${DOCKER_ USERNAME}/${NAME}:${TAG}
+	docker push  ${DOCKER_ USERNAME}/${NAME
+
+}
 
 build_image()
 {
@@ -135,13 +176,22 @@ build_image()
 
 
 	# Build image
-	if ! sudo ./mkimage-yum.sh -y ${DNF_CONF}; then
+	if ! sudo ./mkimage-yum.sh -p ${BASE_PKGS} -g ${BASE_GROUPS} -y ${DNF_CONF} ${NAME}; then
 
 		echo -e "\nERROR: Failed to create image! Exiting"
 		exit 1
 
 	fi
 
+	# ask to push image
+	echo -e "\n==> Push image to repostiry? If the repository does not exist, it will be created\n"
+	read -erp "Choice (y/n): " DOCKER_PUSH
+
+	if [[ "${DOCKER_PUSH}" == "y" ]]; then	
+
+		push_image
+
+	fi
 }
 
 # Start script

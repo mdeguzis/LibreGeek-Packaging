@@ -313,6 +313,16 @@ function_backport_config()
 	# Set the source dir
 	SRC_DIR=$(find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*")
 
+	# Fail out if SRC_DIR is not found
+	if [[ "${SRC_DIR}" == "" ]]; then
+
+		echo -e "\nERROR: cannot find SRC_DIR! Contents of ${BUILD_TMP}: "
+		sleep 2s
+		ls "${BUILD_TMP}"
+		exit 1
+
+	fi
+
 	# Set our suffix for backporting
 	# Update any of the below if distro versions change
 

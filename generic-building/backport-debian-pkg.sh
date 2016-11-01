@@ -311,7 +311,8 @@ function_backport_config()
 	fi
 
 	# Set the source dir
-	SRC_DIR=$(find "${BUILD_TMP}" -maxdepth 1 -type d -iname "${PKGNAME}*")
+	# Find dir, depth 0 inside* BUILD TMP, which should only by the SRC_DIR
+	SRC_DIR=$(find ${BUILD_TMP}/* -maxdepth 0 -type d)
 
 	# Fail out if SRC_DIR is not found
 	if [[ "${SRC_DIR}" == "" ]]; then

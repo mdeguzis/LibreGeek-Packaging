@@ -1015,6 +1015,15 @@ setup_system_setup()
 		sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist" 2> /dev/null
 		sudo ln -s "/usr/share/debootstrap/scripts/wheezy" "/usr/share/debootstrap/scripts/alchemist_beta" 2> /dev/null
 
+		# Linux Mint
+		# https://en.wikipedia.org/wiki/Linux_Mint_version_history
+		# https://wiki.ubuntu.com/Releases
+		sudo ln -s "/usr/share/debootstrap/scripts/trusty" "/usr/share/debootstrap/scripts/qianna" 2> /dev/null
+		sudo ln -s "/usr/share/debootstrap/scripts/trusty" "/usr/share/debootstrap/scripts/rebecca" 2> /dev/null
+		sudo ln -s "/usr/share/debootstrap/scripts/trusty" "/usr/share/debootstrap/scripts/rafaela" 2> /dev/null
+		sudo ln -s "/usr/share/debootstrap/scripts/trusty" "/usr/share/debootstrap/scripts/rosa" 2> /dev/null
+		sudo ln -s "/usr/share/debootstrap/scripts/xenial" "/usr/share/debootstrap/scripts/sarah" 2> /dev/null
+
 		# ubuntu
 		# None for now
 

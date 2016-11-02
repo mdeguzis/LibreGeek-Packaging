@@ -1,2 +1,4 @@
-#!/bin/sh
-echo "libretro/*.so usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro"
+desbian/snes9x.desktop		/usr/share/applications/
+desbian/snes9x-gtk.desktop	/usr/share/applications/
+unix/snex9x			/usr/games
+gtx/snex9x-gtk			/usr/games

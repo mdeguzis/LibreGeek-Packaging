@@ -2,13 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-ges.sh
-# Script Ver:	0.1.1
-# Description:	Attmpts to builad a deb package from latest GES
+# Scipt Name:	build-gcc-opt.sh
+# Script Ver:	1.0.0
+# Description:	Attmpts to builad a deb package from a desird gcc image archive
 #		github release
 #
-# See:		https://github.com/goldeneye-source/ges-code
-# Usage:	build-ges.sh
+# Usage:	./build-gcc-opt.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -45,43 +44,40 @@ else
 
 fi
 
-# upstream vars
-SRC_URL="https://github.com/goldeneye-source/ges-code"
-TARGET="develop"
-
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="i386"
+ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b"
+export USE_NETWORK="yes"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-export NO_APT_PREFS="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-export USE_NETWORK="yes"
-PKGNAME="ges"
-PKGVER="5.0"
+PKGNAME="gcc-opt"
+PKGVER="5.4.0"
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos"
-DIST="xenial"
+EPOCH="1"
+PKGSUFFIX="bsos"
+DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
-# set build defaults
+# upstream vars
+DL_URL="http://www.netgull.com/gcc/releases/gcc-${PKGVER}/gcc-${PKGVER}.tar.gz"
+
+# set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
-retry="no"
 
 install_prereqs()
 {
-
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential cmake
+	sudo apt-get -y --force-yes install build-essential
 
 }
 
@@ -100,103 +96,40 @@ main()
 	# Clone upstream source code and branch
 
 	echo -e "\n==> Obtaining upstream source code\n"
-	sleep 1s
 
-	if [[ -d "$SRC_DIR" ]]; then
-
-		echo -e "\n==Info==\nSource folder already exists! Reclone [r] or pull [p]?\n"
-		sleep 1s
-		read -ep "Choice: " src_choice
-
-		if [[ "$src_choice" == "p" ]]; then
-
-			# attmpt to pull the latest source first
-			echo -e "\n==> Attmpting git pull..."
-			sleep 2s
-			retry="yes"
-
-			# attmpt git pull, if it doesn't complete reclone
-			if ! git pull; then
-
-				# command failure
-				echo -e "\n==Info==\nSource directory pull failed. Removing and cloning...\n"
-				sleep 2s
-				rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-				git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-			fi
-
-		elif [[ "$src_choice" == "r" ]]; then
-
-			echo -e "\n==> Removing and cloning repository again...\n"
-			sleep 2s
-			rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-		else
-
-			echo -e "\n==> Source directory does not exist. cloning now...\n"
-			sleep 2s
-			mkdir -p  "${BUILD_TMP}"
-			git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-		fi
+	# get source
+	if [[ ! -d "${BUILD_TMP}" ]]; then
+	
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-			echo -e "\n==> Source directory does not exist. cloning now...\n"
-			sleep 2s
-			mkdir -p  "${BUILD_TMP}"
-			# create and clone to current dir
-			git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+		rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
-	# Copy in extras
-	cp "${SCRIPTDIR}/ges.png" "${SRC_DIR}"
-	cp "${SCRIPTDIR}/ges_post_install.sh" "${SRC_DIR}"
+	cd "${BUILD_TMP}"
+	mkdir -p "${SRC_DIR}"
+	wget "${DL_URL}" -q -nc --show-progress
+	tar -xzvf *.tar.gz --strip 1 -C "${SRC_DIR}"
 
-	################################################
-	# Prepare sources
+	#################################################
+	# Build package
 	#################################################
 
-	cd "${BUILD_TMP}" || exit 1
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
 
 	# Trim .git folders
-	# find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	# For now, do not recreate the tarball if keep was used above (to keep it clean)
-	# This way, we can try again with the orig source intact
-	# Keep this method until a build is good to go, without error.
-
-	if [[ "${retry}" == "no" ]]; then
-
-		echo -e "\n==> Creating original tarball\n"
-		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
-
-	else
-
-		echo -e "\n==> Cleaning old source folders for retry"
-		sleep 2s
-
-		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
-		mkdir -p "${SRC_DIR}"
-
-		echo -e "\n==> Retrying with prior source tarball\n"
-		sleep 2s
-		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
-		sleep 2s
-
-	fi
+	cd "${BUILD_TMP}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-
-	################################################
-	# Build package
-	#################################################
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -204,20 +137,20 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Fix install with launcher/wrapper"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Initial build"
+		nano "debian/changelog"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -228,30 +161,20 @@ main()
 
 	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
+	
 	#################################################
 	# Cleanup
 	#################################################
-
+	
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
-	# back out of build tmp to script dir if called from git clone
-	if [[ "${SCRIPTDIR}" != "" ]]; then
-		cd "${SCRIPTDIR}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
 
 	# inform user of packages
 	cat<<- EOF
@@ -283,7 +206,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

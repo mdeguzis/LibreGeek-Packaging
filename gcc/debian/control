@@ -1,0 +1,15 @@
+Source: gcc-opt
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ gcc-multilib,
+ libc6-dev ,
+ libc6:i386
+Standards-Version: 3.9.7
+Homepage: https://gcc.gnu.org
+
+Package: gcc-opt
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Builds gcc into the /opt prefix

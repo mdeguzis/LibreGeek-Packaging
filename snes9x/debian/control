@@ -13,10 +13,6 @@ Build-Depends: debhelper (>= 9),
  libxv-dev,
  nasm,
  zlib1g-dev
-
-'intltool' 'nasm' 'mesa' 'libpulse'  'libpng' 'sdl' 'gtk2' 'libxv'
-             'adwaita-icon-theme' 'autogen'
-
 Standards-Version: 3.9.7
 Homepage: http://www.snes9x.com
 

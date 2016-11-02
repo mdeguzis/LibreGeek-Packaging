@@ -1,0 +1,5 @@
+debian/snes9x.desktop		/usr/share/applications
+debian/snes9x-gtk.desktop	/usr/share/applications
+snes9x.png			/usr/share/pixmaps
+unix/snes9x			/usr/games
+gtk/snes9x-gtk			/usr/games

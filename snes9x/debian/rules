@@ -5,3 +5,16 @@ export DEB_CFLAGS_MAINT_STRIP=-O2
 
 %:
 	dh $@
+
+override_dh_auto_configure:
+	cd unix && ./configure --prefix=/usr --enable-netplay
+	cd gtk && ./autogen.sh
+	cd gtk && ./configure --prefix=/usr --with-netplay --with-opengl
+
+override_dh_auto_build:
+	make -C unix
+	make -C gtk
+
+override_dh_auto_install:
+	make -C unix install
+	make -C gtk install

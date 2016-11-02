@@ -1,0 +1,23 @@
+Source: libretro-snes9x
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: http://www.snes9x.com
+
+Package: libretro-snes9x
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Snes9x
+ This wrapper makes Snes9x API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ Snes9x is a portable, freeware Super Nintendo Entertainment System (SNES)
+ emulator written in C++. It basically allows you to play most games designed
+ for the SNES and Super Famicom Nintendo game systems on your PC or Workstation.
+ .
+ Super NES and Super Nintendo Entertainment System are trademarks of
+ Nintendo Co., Limited and its subsidiary companies.

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Duke Nukem II
+Comment=Duke Nukem II using the Rigel Engine
+Exec=/usr/games/RigelEngine
+Icon=/usr/share/pixmaps/duke-nukem-ii.png
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/steam;

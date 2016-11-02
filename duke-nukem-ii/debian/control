@@ -1,0 +1,29 @@
+Source: duke-nukem-ii 
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Section: games 
+Priority: optional 
+Build-Depends: 
+ build-essential,
+ cmake (>= 3.1~),
+ debhelper,
+ libboost-all-dev,
+ libsdl2-dev,
+ libsdl2-mixer-dev
+Standards-Version: 3.9.8
+Homepage: https://github.com/lethal-guitar/RigelEngine
+
+Package: duke-nukem-ii
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: Engine for Duke Nukem II.
+ This project is a re-implementation of the game 
+ Duke Nukem II, originally released by Apogee 
+ Software in 1993. The end goal is to have a 
+ (mostly) functionally identical runner/interpreter
+ for the original game's files, but running 
+ natively on modern operating systems, and written
+ in modern C++ code.
+ .
+ This requires the original game files as an arguement. 

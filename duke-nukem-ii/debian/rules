@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+# Adjust vars in makefile
+# `var  ?= VALUE'. only has an effect if the variable is not yet defined.
+
+DESTDIR=$(CURDIR)/debian/duke-nukem-ii
+export CC = clang-3.9
+export CXX = clang++-3.9
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	rm -rf build && mkdir build
+	cd build && cmake ..
+	make -j4 -C build

@@ -115,6 +115,9 @@ main()
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
+	# add extras
+	cp -r "${SCRIPTDIR}/snes9x.png" "${SRC_DIR}"
+
 	#################################################
 	# Build package
 	#################################################

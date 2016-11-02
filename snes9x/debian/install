@@ -1,4 +1,4 @@
-desbian/snes9x.desktop		/usr/share/applications/
-desbian/snes9x-gtk.desktop	/usr/share/applications/
-unix/snex9x			/usr/games
-gtx/snex9x-gtk			/usr/games
+debian/snes9x.desktop		/usr/share/applications/
+debian/snes9x-gtk.desktop	/usr/share/applications/
+unix/snes9x			/usr/games
+gtk/snes9x-gtk			/usr/games

@@ -29,12 +29,16 @@ DEBIAN_SUITES=("wheezy" "jessie" "jessie-backports" "stretch" "sid")
 # List of Ubuntu suites. Update these when needed.
 UBUNTU_SUITES=( "precise" "raring" "vivid" "wily" "utopic" "xenial")
 
+# List of Mint suites. Update these when needed.
+MINT_SUITES=( "betsy" "maya" "qianna" "rebecca" "rafaela" "rosa" "sarah")
+
 # List of SteamOS suites. Update these when needed.
 STEAMOS_SUITES=("alchemist" "alchemist_beta" "brewmaster" "brewmaster_beta")
 
 # Mirrors to use. Update these to your preferred mirror.
 DEBIAN_MIRROR="httpredir.debian.org"
 UBUNTU_MIRROR="mirrors.kernel.org"
+MINT_MIRROR="packages.linuxmint.com"
 STEAMOS_MIRROR="repo.steampowered.com"
 LIBREGEEK_MIRROR="packages.libregeek.org"
 
@@ -143,7 +147,15 @@ elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
 	MIRRORSITE="http://$UBUNTU_MIRROR/ubuntu/"
 	COMPONENTS="main restricted universe multiverse"
 	EXTRAPACKAGES="gdebi-core wget ca-certificates"
-    
+
+elif $(echo ${MINT_SUITES[@]} | grep -q $DIST); then
+   
+	# Mint configuration
+	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/linuxmint-keyring.gpg")
+	MIRRORSITE="http://$MINT_MIRROR/"
+	COMPONENTS="main romeo universe multiverse"
+	EXTRAPACKAGES="gdebi-core wget ca-certificates"
+
 elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 
 	# SteamOS main configuration

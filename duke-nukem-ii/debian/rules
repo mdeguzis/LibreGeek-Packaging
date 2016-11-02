@@ -4,8 +4,10 @@
 # `var  ?= VALUE'. only has an effect if the variable is not yet defined.
 
 DESTDIR=$(CURDIR)/debian/duke-nukem-ii
-export CC = clang-3.9
-export CXX = clang++-3.9
+GCC_VER = 5.4.0
+
+export CC = /opt/gcc-$(GCC_VER)/bin/gcc
+export CXX = /opt/gcc-$(GCC_VER)/bin/g++
 
 %:
 	dh $@

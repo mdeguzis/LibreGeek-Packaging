@@ -2,9 +2,8 @@ Source: rpcs3
 Section: games
 Priority: optional
 Build-Depends: debhelper,
- build-essential,
  cmake,
- clang-3.8,
+ gcc-opt (>= 5~),
  git-core,
  ffmpeg,
  libc++-dev,
@@ -22,7 +21,6 @@ Build-Depends: debhelper,
  lib32stdc++6,
  libvulkan-dev,
  libwxgtk3.0-dev,
- llvm-3.8-dev,
  pkg-config,
  wx-common,
  zlib1g-dev

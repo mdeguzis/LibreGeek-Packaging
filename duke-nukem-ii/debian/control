@@ -3,9 +3,9 @@ Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Section: games 
 Priority: optional 
 Build-Depends: 
- build-essential,
  cmake (>= 3.1~),
  debhelper,
+ gcc-opt (>=5~),
  libboost-all-dev,
  libsdl2-dev,
  libsdl2-mixer-dev

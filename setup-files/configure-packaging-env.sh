@@ -56,7 +56,7 @@ setup_arch_linux()
 	
 	# AUR stage 2 packages:
 	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-keyring debian-archive-keyring \
-	ubuntu-archive-keyring ubuntu-keyring apt devscripts debsig-verify-git
+	linuxmint-keyring ubuntu-archive-keyring ubuntu-keyring apt devscripts debsig-verify-git
 	
 	# Do we need custom AUR packages that are out of date?
 	CUSTOM_AUR_PKGS="false"

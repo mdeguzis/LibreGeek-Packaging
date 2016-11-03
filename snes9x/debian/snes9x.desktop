@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=snes9x
+GenericName=SNES-9x
+Type=Application
+Icon=/usr/share/pixmaps/snes9x.png
+Exec=snes9x
+Keywords=game;emulator;
+Terminal=false
+Categories=Game

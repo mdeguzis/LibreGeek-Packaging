@@ -1,9 +1,9 @@
 [Desktop Entry]
+Version=1.0
+Type=Application
 Name=GZDoom
-Comment=OpenGL renderer for ZDoom
-Exec=gzdoim
+Comment=Advanced Doom source port.
+Exec=gzdoom
 Icon=/usr/share/pixmaps/gzdoom.png
 Terminal=false
-Type=Application
-Categories=Game;
-MimeType=x-scheme-handler/steam;
+Categories=Game

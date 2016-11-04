@@ -1,3 +1,6 @@
 debian/gzdoom.desktop 		/usr/share/applications/
 #gzdoom.png 			/usr/share/pixmaps/
-build/src/citra/citra		/usr/games/
+brightmaps.pk3			/usr/share/gzdoom/
+lights.pk3			/usr/share/gzdoom/
+gzdoom.pk3			/usr/share/gzdoom/
+liboutput_sdl.so		/usr/lib/gzdoom/

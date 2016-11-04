@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=GZDoom
+Comment=OpenGL renderer for ZDoom
+Exec=gzdoim
+Icon=/usr/share/pixmaps/gzdoom.png
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/steam;

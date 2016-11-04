@@ -1,0 +1,3 @@
+debian/gzdoom.desktop 		/usr/share/applications/
+#gzdoom.png 			/usr/share/pixmaps/
+build/src/citra/citra		/usr/games/

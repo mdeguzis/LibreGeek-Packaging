@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+
+export PROJECT_BINARY_DIR = debian/gzdoom/usr/games
+export ZDOOM_OUTPUT_DIR = debian/gzdoom/usr/lib/gzdoom
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -rf build && mkdir build
+	cd build && cmake -DCMAKE_INSTALL_PREFIX=/usr
+	make DESTDIR=debian/gzdoom -C build -j4

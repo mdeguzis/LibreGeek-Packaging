@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/MaartenBaert/ssr"
-rel_TARGET="0.3.6"
+rel_TARGET="0.3.7"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

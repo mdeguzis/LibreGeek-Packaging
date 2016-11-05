@@ -1,3 +1,9 @@
+reicast (0.20161103+git+bsos-1) brewmaster; urgency=low
+
+  * Update to the latest commit d8a7212
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 03 Nov 2016 10:49:47 -0400
+
 reicast (0.20160923+git+bsos-1) brewmaster; urgency=low
 
   * Update to the latest commit 2cac29f

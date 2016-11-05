@@ -1,8 +1,11 @@
 Source: gzdoom
 Section: games
 Priority: optional
-Build-Depends: cmake,
- debhelper,
+Build-Depends: debhelper (>=9),
+ cmake,
+ libbz2-dev,
+ libglew-dev,
+ libgme-dev,
  libfluidsynth-dev,
  libjpeg-dev,
  libopenal-dev,
@@ -21,5 +24,4 @@ Architecture: all
 Depends: ${misc:Depends},
  ${shlibs:Depends}
 Description: gzdoom Doom engine
- GZDoom adds an OpenGL renderer to the
- ZDoom source port.
+ GZDoom adds an OpenGL renderer to the ZDoom source port.

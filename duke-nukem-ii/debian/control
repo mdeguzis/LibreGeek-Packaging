@@ -5,10 +5,11 @@ Priority: optional
 Build-Depends: 
  cmake (>= 3.1~),
  debhelper,
- gcc-opt (>=5~),
+ clang-3.9,
  libboost-all-dev,
  libsdl2-dev,
- libsdl2-mixer-dev
+ libsdl2-mixer-dev,
+ llvm-3.9
 Standards-Version: 3.9.8
 Homepage: https://github.com/lethal-guitar/RigelEngine
 

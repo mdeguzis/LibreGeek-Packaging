@@ -1,9 +1,10 @@
 #!/usr/bin/make -f
-# Modeled after: https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=gzdoom
 
-export DESTDIR = $(CURDIR)/debian
-export PROJECT_BINARY_DIR = debian/gzdoom/usr/games
-export ZDOOM_OUTPUT_DIR = debian/gzdoom/usr/lib/gzdoom
+CFLAGS   = -O3 -fno-strict-aliasing $(filter-out -g -O2 -Werror=%, $(shell dpkg-buildflags --get CFLAGS)) -Wno-unused-result -Wno-unused-but-set-variable
+CXXFLAGS = -O3 -fno-strict-aliasing -fpermissive $(filter-out -g -O2 -Werror=%, $(shell dpkg-buildflags --get CXXFLAGS)) -Wno-unused-result
+LDFLAGS  = $(filter-out %-Bsymbolic%, $(shell dpkg-buildflags --get LDFLAGS)) -Wl,--as-needed
+
+TOP = $(shell pwd)
 
 %:
 	dh $@
@@ -11,7 +12,11 @@ export ZDOOM_OUTPUT_DIR = debian/gzdoom/usr/lib/gzdoom
 override_dh_auto_configure:
 	rm -rf build && mkdir build
 	cd build && cmake \
-		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_C_FLAGS="$CFLAGS -DSHARE_DIR=\\\"/usr/share/${_name}\\\"" \
-		-DCMAKE_CXX_FLAGS="$CXXFLAGS -DSHARE_DIR=\\\"/usr/share/${_name}\\\"" \
-	make DESTDIR=$(DESTDIR) -C build -j4
+		-DCMAKE_SKIP_RPATH=ON \
+		-DFORCE_INTERNAL_BZIP2=OFF \
+		-DFORCE_INTERNAL_GME=OFF \
+		-DFMOD_INCLUDE_DIR=$(TOP)/FMOD \
+		..
+
+override_dh_auto_build:
+	make -j4 -C build

@@ -15,6 +15,7 @@ Build-Depends: debhelper (>= 9),
  libjsoncpp-dev,
  liboauth-dev,
  librhash-dev,
+ libssl-dev,
  pkg-config,
  libtinyxml2-dev
 Standards-Version: 3.9.5

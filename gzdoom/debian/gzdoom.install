@@ -1,6 +1,4 @@
-debian/gzdoom.desktop 		/usr/share/applications/
-#gzdoom.png 			/usr/share/pixmaps/
-brightmaps.pk3			/usr/share/gzdoom/
-lights.pk3			/usr/share/gzdoom/
-gzdoom.pk3			/usr/share/gzdoom/
-liboutput_sdl.so		/usr/lib/gzdoom/
+debian/gzdoom.desktop 		usr/share/applications/
+#gzdoom.png 			usr/share/pixmaps/
+build/gzdoom			usr/games
+build/*.pk3			usr/lib/games/gzdoom

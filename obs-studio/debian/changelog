@@ -1,3 +1,9 @@
+obs-studio (0.16.2+git+bsos1) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 02 Nov 2016 22:38:02 -0400
+
 obs-studio (0.15.2+git+bsos1) brewmaster; urgency=low
 
   * Update release

@@ -1,3 +1,9 @@
+lgogdownloader (2:2.28+20161103git+bsos-1) brewmaster; urgency=low
+
+  * Update package to release 2.28, commit 4ee63f7
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 03 Nov 2016 10:45:19 -0400
+
 lgogdownloader (2:2.28+20160814git+bsos-1) brewmaster; urgency=low
 
   * Update packge to release 2.28, commit f0f6708

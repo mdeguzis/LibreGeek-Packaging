@@ -1,3 +1,9 @@
+simplescreenrecorder (0.3.6++git+bsos1) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 03 Nov 2016 10:57:12 -0400
+
 simplescreenrecorder (0.3.6+1~ppa1~vivid1) vivid; urgency=low
 
   * New release

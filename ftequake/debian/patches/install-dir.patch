@@ -1,6 +1,6 @@
 --- a/engine/Makefile
 +++ b/engine/Makefile
-@@ -1936,14 +1936,15 @@
+@@ -1954,15 +1954,16 @@
  endif
  
  
@@ -14,10 +14,9 @@
  INSTALL_PROGRAM ?= $(INSTALL)
  INSTALL_DATA ?= ${INSTALL} -m 644
 -install: sv-rel gl-rel mingl-rel qcc-rel
--	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw $(DESTDIR)$(bindir)/fteqw
--	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqwsv $(DESTDIR)$(bindir)/fteqwsv
 +install: sv-rel gl-rel mingl-rel qcc-rel vk-rel
-+	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-gl $(DESTDIR)$(bindir)/fteqw-gl
-+	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-sv $(DESTDIR)$(bindir)/fteqw-sv
+ 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-gl $(DESTDIR)$(bindir)/fteqw-gl
+ 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-mingl $(DESTDIR)$(bindir)/fteqw-mingl
+ 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-sv $(DESTDIR)$(bindir)/fteqw-sv
  	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqcc $(DESTDIR)$(bindir)/fteqcc
 +	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-vk $(DESTDIR)$(bindir)/fteqw-vk

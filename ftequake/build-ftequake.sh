@@ -130,7 +130,18 @@ main()
 	sleep 0.3s
 	read -erp "Choice: " SVN_REV
 	echo ""
-	svn update "${SVN_REV}"
+
+	if [[ "${SVN_REV}" == "" ]]; then
+
+		# just use latest revision
+		SVN_REV=$(echo "r$(svn info | grep "Revision" | awk '{print $2}')")
+
+	else
+
+		# Use desired revision
+		svn update "${SVN_REV}"
+
+	fi
 
 	# Set package suffix
 	PKGSUFFIX="${SVN_REV}svn+bsos"

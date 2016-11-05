@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 GIT_URL="https://github.com/lutris/lutris"
-target="v0.4.0"
+TARGET="v0.4.2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,7 +62,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="lutris"
-PKGVER="0.4.0"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
 EPOCH="1"
 upstream_rev="1"
 PKGREV="1"
@@ -123,12 +123,12 @@ main()
 
 	fi
 
-	# Clone upstream source code and target
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${target}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
 
 	#################################################
 	# Build package

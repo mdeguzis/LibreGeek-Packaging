@@ -148,7 +148,6 @@ main()
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Initial upload"
-		nano "debian/changelog"
 
 	fi
 

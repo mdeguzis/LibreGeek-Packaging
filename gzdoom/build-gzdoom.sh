@@ -47,6 +47,8 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/coelckers/gzdoom"
+FMOD_VER="fmodstudioapi10814linux.tar.gz"
+FMOD_URL="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_VER}"
 TARGET="g2.2.0"
 
 # package vars
@@ -58,7 +60,7 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="gzdoom"
 PKGVER=$(echo ${TARGET} | sed 's/g//')
-PKGREV="1"
+PKGREV="2"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
@@ -111,8 +113,34 @@ main()
 
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	# Obtain FMOD
+	# See: https://wiki.debian.org/FMOD
+	# See: https://github.com/coelckers/gzdoom/blob/master/src/CMakeLists.txt
+	wget -P "${SRC_DIR}" "${FMOD_URL}/${FMOD_VERSION}" -q -nc --show-progress
+
 	cd "${SRC_DIR}"
 	
+	# Unpack FMOD for build
+
+	# You can either use "make install" on the FMOD distribution to put it
+	# in standard system locations, or you can unpack the FMOD distribution
+	# in the root of the zdoom tree. e.g.:
+	# zdoom
+	#   docs
+	#   fmodapi<version>linux[64] -or simply- fmod
+	#   jpeg-6b
+	#   ...
+	# The recommended method is to put it in the zdoom tree, since its
+	# headers are unversioned. Especially now that we can't work properly
+	# with anything newer than 4.26.xx, you probably don't want to use
+	# a system-wide version.
+
+	mkdir -p "${SRC_DIR}/fmod"
+	tar xf fmod*.tar.gz -C "${SRC_DIR}/fmod"
+	cp fmodapi*linux/fmodapi*linux/api/libfmod-3.75.so "${SRC_DIR}/fmod"
+	cp fmodapi*linux/fmodapi*linux/api/inc/*.h "${SRC_DIR}/fmod"
+	rm fmod*.tar.gz
+
 	#################################################
 	# Build package
 	#################################################

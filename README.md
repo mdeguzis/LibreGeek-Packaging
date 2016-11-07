@@ -1,5 +1,7 @@
-# SteamOS-Tools-Packaging
-Packaging scripts and files for SteamOS-Tools
+# About
+Branch for working with Flatpak
 
-# Branches
-Note that each branch corresponds to a codename of a GNU/Linux distribution. For instance, the main branch, "brewmaster," is for SteamOS "brewmaster."
+# Links
+
+* [Flatpak FAQ](http://flatpak.org/faq.html)
+* [Getting started with flatpak](http://flatpak.org/getting.html)

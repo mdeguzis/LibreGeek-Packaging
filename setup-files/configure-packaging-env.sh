@@ -347,6 +347,13 @@ setup_dotfiles()
 	cp "${SCRIPTDIR}/.devscripts" "${HOME}"
 
 	#####################
+	# GPG
+	#####################
+
+	# deprecated option ca-cert-file in gpg-agent 2.1
+	cp "${SCRIPTDIR}/dirmngr.conf" "${HOME}/.gnupg"
+
+	#####################
 	# OBS
 	#####################
 

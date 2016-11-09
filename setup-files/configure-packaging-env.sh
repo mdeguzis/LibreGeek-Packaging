@@ -352,6 +352,7 @@ setup_dotfiles()
 
 	# deprecated option ca-cert-file in gpg-agent 2.1
 	cp "${SCRIPTDIR}/dirmngr.conf" "${HOME}/.gnupg"
+	cp "${SCRIPTDIR}/gpg-agent.conf" "${HOME}/.gnupg"
 
 	#####################
 	# OBS

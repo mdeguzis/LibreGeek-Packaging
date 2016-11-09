@@ -42,4 +42,21 @@ if [[ "$(echo "${SSH_CLIENT}" | grep 192)" == "" ]]; then
   
 fi
 
+#############################################
+# GPG-AGENT
+#############################################
+# See: https://linux.die.net/man/1/gpg-agent
+
+gpg-agent --daemon --enable-ssh-support --write-env-file "${HOME}/.gpg-agent-info"
+
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+  . "${HOME}/.gpg-agent-info"
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+  export SSH_AGENT_PID
+fi
+
+GPG_TTY=$(tty)
+export GPG_TTY
+
 ##### END DEBIAN PACKAGING SETUP #####

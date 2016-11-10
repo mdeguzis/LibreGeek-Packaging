@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 9),
  libncurses5-dev,
  libsdl2-dev,
  libpng-dev,
- libjpeg8-dev
+ libjpeg-dev
 Standards-Version: 3.9.8
 Homepage: https://github.com/JACoders/OpenJK
 

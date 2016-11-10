@@ -1,9 +1,11 @@
 [Desktop Entry]
-Version=1.0
-Name=Jedi Academy: Singleplayer
-Exec=/usr/games/openjk_sp
-Icon=openjk
-Terminal=false
+Encoding=UTF-8
 Type=Application
-Categories=Game;
-Keywords=openjk_sp;jksp
+Name=OpenJK Single Player
+Comment="Open Source Jedi Knight II + III Engine - Single Player"
+Path=/usr/share/games/openjk/JediAcademy/
+Exec=openjk_sp
+Icon=/usr/share/pixmaps/openjk.png
+Terminal=false
+StartupNotify=false
+Categories=Game

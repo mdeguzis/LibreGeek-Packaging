@@ -1,5 +1,0 @@
-#!/bin/sh
-
-BASE="/usr/share/games/openjk/base/"
-cd /usr/lib/games/openjk
-./openjk "$@"

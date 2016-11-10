@@ -2,9 +2,17 @@
 %:
 	dh $@
 
+INSTALL_PATH = $(CURDIR)/debian/openjk/
+
 override_dh_auto_configure:
 	rm -rf build && mkdir build
-	cd build && cmake ..
+	cd build && cmake \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_INSTALL_PREFIX=$(INSTALL_PATH) \
+	..
 
-override_dh_auto_build
+override_dh_auto_build:
 	make -C build
+
+override_dh_auto_install:
+	make -C build install

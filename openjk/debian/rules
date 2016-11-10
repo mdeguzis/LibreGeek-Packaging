@@ -4,13 +4,19 @@
 
 # Install the build files into /usr/share/games/openjk/
 # Base game files then go into /usr/share/games/openjk/base
+# CMakeModules/InstallConfig.cmake sets the project dir to JediAcademy
+# by default, not openjk, which is fine since we make symlinks
 
-PREFIX_PATH = $(CURDIR)/debian
-INSTALL_PATH = $(CURDIR)/debian/usr/share/games/openjk/
+# The way this build is designed, you can't set DESTDIR, or 
+# You will end up with <DCMAKE_INSTALL_PREFIX>/${PWD}/<DESTDIR> for
+# your installed files.
+
+INSTALL_PATH = $(CURDIR)/debian/openjk/usr/share/games/openjk/
 
 override_dh_auto_configure:
-	rm -rf build && mkdir build \
+	rm -rf build && mkdir build
 	cd build && cmake \
+	-DCMAKE_VERBOSE_MAKEFILE=ON \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=$(INSTALL_PATH) \
 	..

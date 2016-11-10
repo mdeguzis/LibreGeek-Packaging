@@ -2,7 +2,7 @@
 %:
 	dh $@
 
-INSTALL_PATH = $(CURDIR)/debian/openjk/
+INSTALL_PATH = $(CURDIR)/debian/usr/share/games/openjk/
 
 override_dh_auto_configure:
 	rm -rf build && mkdir build

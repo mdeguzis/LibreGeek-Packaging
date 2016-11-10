@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cat<<- EOF
+
+Please place your game data in:
+/usr/share/games/openjk/base
+
+EOF

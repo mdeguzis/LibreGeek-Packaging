@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=OpenJK Multi Player
+Comment="Open Source Jedi Knight II + III Engine - Multi Player"
+Path=/usr/share/games/openjk/JediAcademy/
+Exec=openjk
+Icon=/usr/share/pixmaps/openjk.png
+Terminal=false
+StartupNotify=false
+Categories=Game

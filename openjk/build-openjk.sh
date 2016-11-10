@@ -134,7 +134,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRC_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"

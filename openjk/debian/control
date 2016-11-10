@@ -18,4 +18,5 @@ Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends},
 Description: Open Jedi Academy
  Community effort to maintain and improve Jedi Academy
- + Jedi Outcast released by Raven Software.
+ + Jedi Outcast released by Raven Software. This package
+ includes the experiemental support for Jedia Outcast.

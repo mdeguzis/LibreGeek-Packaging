@@ -2,10 +2,14 @@
 %:
 	dh $@
 
+# Install the build files into /usr/share/games/openjk/
+# Base game files then go into /usr/share/games/openjk/base
+
+PREFIX_PATH = $(CURDIR)/debian
 INSTALL_PATH = $(CURDIR)/debian/usr/share/games/openjk/
 
 override_dh_auto_configure:
-	rm -rf build && mkdir build
+	rm -rf build && mkdir build \
 	cd build && cmake \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=$(INSTALL_PATH) \
@@ -15,4 +19,4 @@ override_dh_auto_build:
 	make -C build
 
 override_dh_auto_install:
-	make DESTDIR=$(INSTALL_PATH) -C build install
+	make -C build install

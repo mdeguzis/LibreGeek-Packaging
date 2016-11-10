@@ -7,7 +7,7 @@
 # Description:	Attmpts to builad a deb package from latest libretro beetle-sgx
 #		github release
 #
-# See:		https://github.com/libretro/beetle-supergrafx-libretro
+# See:		https://github.com/libretro/beetle-openjk
 #
 # Usage:	build-libretro-beetle-sgx.sh
 # Opts:		[--testing]
@@ -49,23 +49,23 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/libretro/beetle-supergrafx-libretro"
-branch="master"
+SRC_URL="https://github.com/JACoders/OpenJK"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="libretro-beetle-sgx"
+PKGNAME="openjk"
 epoch="1"
-PKGVER="0.9.36"
+PKGVER="0.0.0"
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
+PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -73,8 +73,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -82,7 +81,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc
+	sudo apt-get -y --force-yes install build-essential bc libjpeg8-dev libpng12-dev \
+	zlib1g-dev libsdl2-dev
 
 }
 
@@ -113,13 +113,13 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
-	cd "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
@@ -129,18 +129,15 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRC_DIR}"
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRCDIR}"
@@ -151,15 +148,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
-		nano "debian/changelog"
 
 	fi
 
@@ -228,7 +224,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

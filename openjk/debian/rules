@@ -15,4 +15,4 @@ override_dh_auto_build:
 	make -C build
 
 override_dh_auto_install:
-	make -C build install
+	make DESTDIR=$(INSTALL_PATH) -C build install

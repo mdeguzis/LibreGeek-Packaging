@@ -3,6 +3,7 @@
 cat<<- EOF
 
 Please place your game data in:
-/usr/share/games/openjk/base
+/usr/share/games/openjk/JediAcademy/base
+/usr/share/games/openjk/JediOutcast/base
 
 EOF

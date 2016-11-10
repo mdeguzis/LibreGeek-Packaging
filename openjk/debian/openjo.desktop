@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=OpenJO Single Player
+Comment="Open Source Jedi Outcast - Single Player"
+Path=/usr/share/games/openjk/JediOutcast/
+Exec=openjo_sp
+Icon=/usr/share/pixmaps/openjo.png
+Terminal=false
+StartupNotify=false
+Categories=Game

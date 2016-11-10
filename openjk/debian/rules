@@ -13,11 +13,15 @@
 
 INSTALL_PATH = $(CURDIR)/debian/openjk/usr/share/games/openjk/
 
+# Go ahead and build OpenJO (Jedi Outcast) as well
 override_dh_auto_configure:
 	rm -rf build && mkdir build
 	cd build && cmake \
 	-DCMAKE_VERBOSE_MAKEFILE=ON \
 	-DCMAKE_BUILD_TYPE=Release \
+	-DBuildJK2SPEngine=ON \
+	-DBuildJK2SPGame=ON \
+	-DBuildJK2SPRdVanilla=ON \
 	-DCMAKE_INSTALL_PREFIX=$(INSTALL_PATH) \
 	..
 

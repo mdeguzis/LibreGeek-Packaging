@@ -1,6 +1,0 @@
-#!/bin/sh
-
-BASE="/usr/share/games/openjo/base/"
-cd /usr/lib/games/openjo
-./openjo_sp "$@"
-

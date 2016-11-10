@@ -2,7 +2,7 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-libretro-beetle-sgx.sh
+# Scipt Name:	build-openjk.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to builad a deb package from latest libretro beetle-sgx
 #		github release

@@ -3,3 +3,4 @@ openjo.png			/usr/share/pixmaps
 debian/openjk_mp.desktop	/usr/share/applications
 debian/openjk_sp.desktop	/usr/share/applications
 debian/openjo_sp.desktop	/usr/share/applications
+debian/scripts/*		/usr/games

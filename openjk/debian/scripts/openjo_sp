@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /usr/share/games/openjk/JediOutcast
+./openjo_sp.x86_64

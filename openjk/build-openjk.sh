@@ -122,6 +122,10 @@ main()
 	cd "${SRC_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
+	# add extras
+	cp "${SCRIPTDIR}/openjo.png" "${SRC_DIR}"
+	cp "${SCRIPTDIR}/openjk.png" "${SRC_DIR}"
+
 	#################################################
 	# Build package
 	#################################################

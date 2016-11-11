@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cd /usr/share/games/openjk/JediAcademy
+./openjk.x86_64

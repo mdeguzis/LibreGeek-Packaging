@@ -380,7 +380,7 @@ function_backport_config()
 	# ${SRC_DIR}/debian/*
 	# ${SRC_DIR}/setup.py
 
-	while [[ "${FILE}" != "quit" || "${FILE}" != "q" ]];
+	while [[ "${FILE}" != "quit" && "${FILE}" != "q" ]];
 	do
 
 		cd ${SRC_DIR}
@@ -391,7 +391,7 @@ function_backport_config()
 		sleep 0.2s
 		read -erp "File: " FILE
 
-		if [[ "${FILE}" != "quit" ||  "${FILE}" != "q" ]]; then
+		if [[ "${FILE}" != "quit" &&  "${FILE}" != "q" ]]; then
 			nano "${FILE}"
 		fi
 

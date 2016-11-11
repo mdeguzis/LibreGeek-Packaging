@@ -621,7 +621,6 @@ while :; do
 				WARNING: It is suggested to have --no-clean|-nc as the last option (before any arch-dep args).
 				EOF
 				sleep 3s
-				exit 1
 			else
 				BUILDOPTS+=("--debbuildopts -nc")
 			fi

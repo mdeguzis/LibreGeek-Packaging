@@ -226,30 +226,11 @@ function_get_source()
 
 		# Test first If we have multiple original archives
 		# Some packages, like llvm-toolchain, contain multiple bz2 archives
-		# This is tough to handle automatically, so care must be taken outside of this
-		# script to backport the package.
 
 		if [[ "$(find ${BUILD_TMP} -name "*.bz2*" | wc -l)" -gt "1" ]]; then
 
 			# Set flag
 			ORIG_MULTI="yes"
-
-			# dealing with multiple bz2 archives
-			cat<<-EOF
-
-			==INFO==
-			Changing versioning for multiple archives is not supported
-			Retaining existing versioning scheme. 
-
-			EOF
-
-			# kick off function
-			if ! function_backport_pkg_multi; then
-
-				echo -e "Function: 'function_backport_pkg_multi' failed" 
-				sleep 10s && return
-
-			fi
 
 		else
 
@@ -399,7 +380,7 @@ function_backport_config()
 	# ${SRC_DIR}/debian/*
 	# ${SRC_DIR}/setup.py
 
-	while [[ "${FILE}" != "quit" ]];
+	while [[ "${FILE}" != "quit" || "${FILE}" != "q" ]];
 	do
 
 		cd ${SRC_DIR}
@@ -410,7 +391,7 @@ function_backport_config()
 		sleep 0.2s
 		read -erp "File: " FILE
 
-		if [[ "${FILE}" != "quit" ]]; then
+		if [[ "${FILE}" != "quit" ||  "${FILE}" != "q" ]]; then
 			nano "${FILE}"
 		fi
 

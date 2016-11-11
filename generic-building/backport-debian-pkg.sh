@@ -617,9 +617,8 @@ while :; do
 			# Not advised, but at times necessary on systems lacking debhelper packages
 			# such as Arch Linux.
 			if [[ -n "$2" ]]; then
-				cat<<-EOF
-				WARNING: It is suggested to have --no-clean|-nc as the last option (before any arch-dep args).
-				EOF
+				echo -e "\nWARNING: It is suggested to have --no-clean|-nc as the last option (before any arch-dep args).\n"
+				BUILDOPTS+=("--debbuildopts -nc")
 				sleep 3s
 			else
 				BUILDOPTS+=("--debbuildopts -nc")

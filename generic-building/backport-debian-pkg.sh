@@ -57,6 +57,7 @@ maintainer="ProfessorKaos64"
 TEST_REPO="false"
 BETA_REPO=""
 RETRY_BUILD="false"
+FILE=""
 export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
 export EXTRA_OPTS=""

@@ -119,7 +119,11 @@ main()
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	REVISION_COMMIT=$(printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)")
+
+	# Set suffix based on revisions
+	PKGSUFFIX="${REVISION_COMMIT}+bsos${PKGREV}"
 
 	#################################################
 	# Build package
@@ -127,9 +131,6 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
 
 	# Trim .git folders
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
@@ -152,7 +153,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${latest_commit}"
+		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${LATEST_COMMIT}"
 		nano "debian/changelog"
 
 	else

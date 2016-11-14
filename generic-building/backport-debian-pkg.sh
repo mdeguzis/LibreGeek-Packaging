@@ -318,17 +318,19 @@ function_backport_config()
 		for i in $(ls * | awk -F'[.]' '{print $(NF-1)"."$NF}');
 		do
 
-			*.tar.bz2)
-			tar -xvjf *.tar.bz2 -C "${SRC_DIR}"
-			;;
+			case * in
 
-			*.tar.xz)
-			tar -xvf *.orig.tar.xz -C "${SRC_DIR}"
-			;;
+				*.tar.bz2)
+				tar -xvjf *.tar.bz2 -C "${SRC_DIR}"
+				;;
 
-			*.tar.gz)
-			tar -xvzf *.orig.tar.gz -C "${SRC_DIR}"
-			;;
+				*.tar.xz)
+				tar -xvf *.orig.tar.xz -C "${SRC_DIR}"
+				;;
+
+				*.tar.gz)
+				tar -xvzf *.orig.tar.gz -C "${SRC_DIR}"
+				;;
 
 			esac
 		done 

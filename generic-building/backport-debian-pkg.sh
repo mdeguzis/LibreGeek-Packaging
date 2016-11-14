@@ -58,6 +58,8 @@ TEST_REPO="false"
 BETA_REPO=""
 RETRY_BUILD="false"
 FILE=""
+UNPACK_ALL="false"
+USER_COMMANDS="false"
 export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
 export EXTRA_OPTS=""
@@ -306,6 +308,33 @@ function_backport_config()
 
 	fi
 
+
+	# Unpack all extra tarballs?
+	# example: docker.io (https://packages.debian.org/jessie-backports/docker.io)
+	# Awk code, see: https://github.com/ProfessorKaos64/documents/blob/master/awk/tips-and-tricks.md
+
+	if [[ "${UNPACK_ALL}" == "true" ]]; then
+
+		for i in $(ls * | awk -F'[.]' '{print $(NF-1)"."$NF}') 
+		do
+
+			*.tar.bz2)
+			tar -xvjf *.tar.bz2 -C "${SRC_DIR}"
+			;;
+
+			*.tar.xz)
+			tar -xvf *.orig.tar.xz -C "${SRC_DIR}"
+			;;
+
+			*.tar.gz)
+			tar -xvzf *.orig.tar.gz -C "${SRC_DIR}"
+			;;
+
+			esac
+		done 
+
+	fi
+
 	# Set our suffix for backporting
 	# Update any of the below if distro versions change
 
@@ -396,6 +425,23 @@ function_backport_config()
 		fi
 
 	done
+
+	# If user requested to execute commands before build:
+	if [[ "${USER_COMMANDS}" == "true" ]]; then
+
+		echo -e "\n==> Enter commands below (Type quit to stop)\n"
+
+		while [[ "${CMD}" != "quit" && "${CMD}" != "q" ]];
+		do
+			read -erp "CMD: " CMD
+
+			if [[ "${CMD}" != "quit" &&  "${CMD}" != "q" ]]; then
+				"${CMD}"
+			fi
+
+		done
+
+	fi
 
 	# Check source format
 	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')
@@ -588,6 +634,12 @@ function_show_summary()
 while :; do
 	case $1 in
 
+		--user-commands|-uc)
+			# Execute commands before building source package
+			export USER_COMMANDS="true"
+			EXTRA_OPTS+=("--user-commands")
+			;;
+
 		--apt-prefs-hack|-aph)
 			# Allow installation of packages newer than Valve's for building purposes
 			export NO_APT_PREFS="true"
@@ -603,6 +655,17 @@ while :; do
 			else
 				echo -e "ERROR: --betarepo|-br requires an argument.\n" >&2
 				exit 1
+			fi
+			;;
+
+		--binary-arch|-ba)
+			# Must be added at the end of all arguments, due to how pbuidler final opts
+			# are sourced. See "man pbuilder"
+			if [[ -n "$2" ]]; then
+				echo -e "ERROR: --binary-dep must be the last argument specified." >&2
+				exit 1
+			else
+				BUILDOPTS+=("-- --binary-arch")
 			fi
 			;;
 
@@ -646,17 +709,6 @@ while :; do
 			EXTRA_OPTS+="--no-unpack"
 			;;
 
-		--binary-arch|-ba)
-			# Must be added at the end of all arguments, due to how pbuidler final opts
-			# are sourced. See "man pbuilder"
-			if [[ -n "$2" ]]; then
-				echo -e "ERROR: --binary-dep must be the last argument specified." >&2
-				exit 1
-			else
-				BUILDOPTS+=("-- --binary-arch")
-			fi
-			;;
-
 		--remove-patches)
 			# Dget applies patches (if properly setup), sometimes pbuilder clashes
 			# Or, we may want to build without patches
@@ -674,6 +726,14 @@ while :; do
 		--testing)
 			# send packages to test repo location
 			TEST_REPO="true"
+			;;
+
+		--unpack-all|-ua)
+			# Some packges have archives, such as docker.io, that expect unpacked
+			# archive contents in the source dir. dget does not unpack these
+			# Attempt to handle these by unpacking them into the source dir.
+			export UNPACK_ALL="true"
+			EXTRA_OPTS+="--unpack-all"
 			;;
 
 		--help|-h)

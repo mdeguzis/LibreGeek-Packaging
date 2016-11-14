@@ -120,8 +120,8 @@ main()
 	cd "${SRC_DIR}"
 
 	# Set suffix based on revisions
-	REVISION_COMMIT=$(printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)")
-	PKGSUFFIX="${REVISION_COMMIT}+bsos${PKGREV}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~${PKGREV}"
 
 	#################################################
 	# Build package

@@ -438,7 +438,7 @@ function_backport_config()
 			read -erp "CMD: " CMD
 
 			if [[ "${CMD}" != "quit" &&  "${CMD}" != "q" ]]; then
-				"${CMD}"
+				${CMD}
 			fi
 
 		done

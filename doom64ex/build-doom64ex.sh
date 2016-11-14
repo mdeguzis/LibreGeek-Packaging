@@ -46,7 +46,7 @@ else
 fi
 
 # upstream var for master build
-GIT_URL="https://github.com/svkaiser/Doom64EX"
+SRC_URL="https://github.com/svkaiser/Doom64EX"
 TARGET="master"
 
 # package vars
@@ -67,8 +67,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMPs
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -109,10 +108,10 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}" 
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
 
 	# add extras
-	cp "${SCRIPTDIR}/doom64ex.png" "${GIT_DIR}"
+	cp "${SCRIPTDIR}/doom64ex.png" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -122,18 +121,18 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add debian folder stuff
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 	cp "${GIT_DIR}/COPYING" "${GIT_DIR}/debian/copyright"
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

@@ -46,8 +46,8 @@ else
 
 fi
 # upstream vars
-GIT_URL=""
-branch="master"
+SRC_URL=""
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -71,8 +71,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -114,14 +113,14 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# Not using git source, make directory
-	mkdir -p "${GIT_DIR}"
+	mkdir -p "${SRC_DIR}"
 
 	# Add files to fake git dir
 	files="50-mouse-acceleration.conf"
 
 	for file in ${files};
 	do
-		cp -v "${SCRIPTDIR}/${file}" "${GIT_DIR}"
+		cp -v "${SCRIPTDIR}/${file}" "${SRC_DIR}"
 
 	done
 
@@ -133,17 +132,17 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

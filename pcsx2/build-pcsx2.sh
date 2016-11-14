@@ -46,8 +46,8 @@ else
 
 fi
 
-GIT_URL="https://github.com/PCSX2/pcsx2"
-branch="master"
+SRC_URL="https://github.com/PCSX2/pcsx2"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -145,7 +145,7 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 	echo -e "\n==> Obtaining upstream source code\n"
 	
 	# clone and checkout desired commit

@@ -48,8 +48,8 @@ else
 
 fi
 
-GIT_URL="https://github.com/qt/qtmultimedia"
-branch="v5.7.0"
+SRC_URL="https://github.com/qt/qtmultimedia"
+TARGET="v5.7.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -71,8 +71,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -106,12 +105,12 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	if [[ -d "${GIT_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
+	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -125,7 +124,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 		else
 
@@ -143,7 +142,7 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	fi
 
@@ -164,7 +163,7 @@ main()
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		cd "${BUILD_TMP}"
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 		
 	else
 	
@@ -172,7 +171,7 @@ main()
 		sleep 2s
 		
 		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
-		mkdir -p "${GIT_DIR}"
+		mkdir -p "${SRC_DIR}"
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
@@ -183,14 +182,14 @@ main()
 	fi
 
 	# Try using upstream debian/
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	###############################################################
 	# build package
 	###############################################################
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

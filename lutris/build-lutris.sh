@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/lutris/lutris"
+SRC_URL="https://github.com/lutris/lutris"
 TARGET="v0.4.2"
 
 # package vars
@@ -74,8 +74,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -128,7 +127,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -138,17 +137,17 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# add debian until corrected upstream
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

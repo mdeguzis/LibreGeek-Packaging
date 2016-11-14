@@ -48,8 +48,8 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/hrydgard/ppsspp"
-branch="v1.3"
+SRC_URL="https://github.com/hrydgard/ppsspp"
+TARGET="v1.3"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -72,8 +72,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -101,7 +100,7 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 1s
@@ -124,7 +123,7 @@ main()
 				echo -e "\n==Info==\nGit directory pull failed. Removing and cloning...\n"
 				sleep 2s
 				rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-				git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+				git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 			fi
 
@@ -132,14 +131,14 @@ main()
 			echo -e "\n==> Removing and cloning repository again...\n"
 			sleep 2s
 			rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+			git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 		else
 
 			echo -e "\n==> Git directory does not exist. cloning now...\n"
 			sleep 2s
 			mkdir -p  "${BUILD_TMP}"
-			git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+			git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 		fi
 
@@ -149,7 +148,7 @@ main()
 			sleep 2s
 			mkdir -p  "${BUILD_TMP}"
 			# create and clone to current dir
-			git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+			git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	fi
 
@@ -157,7 +156,7 @@ main()
 	rm -rf "${GIT_DIR}/.git"
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -167,14 +166,14 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

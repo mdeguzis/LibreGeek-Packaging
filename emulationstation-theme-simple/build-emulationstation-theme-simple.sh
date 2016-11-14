@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/RetroPie/es-theme-simple"
-branch="master"
+SRC_URL="https://github.com/RetroPie/es-theme-simple"
+TARGET="master"
 commit="e9c72a3"
 
 # package vars
@@ -74,8 +74,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -107,11 +106,11 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout commit
-	git clone -b "$branch" "$GIT_URL" "$GIT_DIR"
+	git clone -b "$TARGET" "$SRC_URL" "$GIT_DIR"
 	cd "$GIT_DIR" && git checkout "$commit"
 	
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 	
 	# enter build dir
 	cd "${BUILD_TMP}" || exit
@@ -127,16 +126,16 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 
 	echo -e "\n==> Updating changelog"

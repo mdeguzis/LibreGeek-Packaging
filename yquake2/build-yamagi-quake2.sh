@@ -45,7 +45,7 @@ else
 
 fi
 # upstream vars
-GIT_URL="https://github.com/yquake2/yquake2"
+SRC_URL="https://github.com/yquake2/yquake2"
 TARGET="QUAKE2_5_34"
 
 # package vars
@@ -70,8 +70,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -113,13 +112,13 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
-	cd "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Add required files and artwork
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
-#	cp "${SCRIPTDIR}/yamagi-quake2.png" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+#	cp "${SCRIPTDIR}/yamagi-quake2.png" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -129,14 +128,14 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

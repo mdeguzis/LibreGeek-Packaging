@@ -85,7 +85,7 @@ set_vars()
 	DATE_SHORT=$(date +%Y%m%d)
 
 	# source vars
-	GIT_URL="git://github.com/xbmc/xbmc.git"
+	SRC_URL="git://github.com/xbmc/xbmc.git"
 	export BUILD_TMP="$HOME/build-${PKGNAME}-tmp"
 	SRC_DIR="${PKGNAME}-source"
 	GIT_DIR="${BUILD_TMP}/${SRC_DIR}"
@@ -153,7 +153,7 @@ kodi_clone()
 
 	echo -e "\n==> Obtaining upstream source code"
 
-	if [[ -d "${GIT_DIR}" ]]; then
+	if [[ -d "${SRC_DIR}" ]]; then
 
 		echo -e "\n==Info==\nGit source files already exist! Remove and [r]eclone or [c]lean? ?\n"
 		sleep 1s
@@ -167,7 +167,7 @@ kodi_clone()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone "${GIT_URL}" "${GIT_DIR}"
+			git clone "${SRC_URL}" "${SRC_DIR}"
 
 		else
 
@@ -175,7 +175,7 @@ kodi_clone()
 			echo "Removing tmp files and other cruft from build dir and source dir"
 			find "${BUILD_TMP}" -name '*.dsc' -o -name '*.deb' -o -name '*.build' \
 			-exec rm -rf "{}" \;
-			cd "${GIT_DIR}" && git clean -xfd || exit 1
+			cd "${SRC_DIR}" && git clean -xfd || exit 1
 
 		fi
 
@@ -187,7 +187,7 @@ kodi_clone()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone "${GIT_URL}" "${GIT_DIR}"
+			git clone "${SRC_URL}" "${SRC_DIR}"
 
 	fi
 
@@ -301,7 +301,7 @@ kodi_prereqs()
 
 	else
 
-		# If we are not packaging a deb, set to master branch build
+		# If we are not packaging a deb, set to master TARGET build
         	TARGET="master"
         	PKGVER="${KODI_TAG}"
 
@@ -316,9 +316,9 @@ kodi_package_deb()
 	# XBMC/Kodi readme: https://github.com/xbmc/xbmc/blob/master/tools/Linux/packaging/README.debian
 
 	# Ensure we are in the proper directory
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
-	# show tags instead of branches
+	# show tags instead of TARGETes
 	git tag -l --column
 
 	echo -e "\nWhich Kodi release do you wish to build for:"
@@ -338,7 +338,7 @@ kodi_package_deb()
 
 	else
 
-		# use master branch, set version tag to current latest tag
+		# use master TARGET, set version tag to current latest tag
 		KODI_TAG=$(git describe --abbrev=0 --tags)
 
 	fi
@@ -422,7 +422,7 @@ kodi_build_src()
 	echo -e "\n==> Building Kodi in ${GIT_DIR}\n"
 
 	# enter build dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	# checkout TARGET release
 	git checkout "${TARGET}"

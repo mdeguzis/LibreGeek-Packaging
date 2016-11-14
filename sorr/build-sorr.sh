@@ -73,7 +73,6 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
 source_dir="${BUILD_TMP}/${PKGNAME}"
 
 install_prereqs()
@@ -114,7 +113,7 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
@@ -126,10 +125,10 @@ main()
 	cd "${BUILD_TMP}"
 
 	# inject our modified files for SteamOS
-	cp "$SCRIPTDIR/sorr.desktop" "$source_dir/"
-	cp "$SCRIPTDIR/sorr" "$source_dir/"
-	cp "$SCRIPTDIR/sorr.desktop" "$source_dir/"
-	cp "$SCRIPTDIR/sorr.png" "$source_dir/"
+	cp "${SCRIPTDIR}/sorr.desktop" "$source_dir/"
+	cp "${SCRIPTDIR}/sorr" "$source_dir/"
+	cp "${SCRIPTDIR}/sorr.desktop" "$source_dir/"
+	cp "${SCRIPTDIR}/sorr.png" "$source_dir/"
 
 	#################################################
 	# Build package
@@ -142,13 +141,13 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r ""$SCRIPTDIR/debian"" "${source_dir}"
+	cp -r ""${SCRIPTDIR}/debian"" "${source_dir}"
 
 	# enter source dir
 	cd "${source_dir}"

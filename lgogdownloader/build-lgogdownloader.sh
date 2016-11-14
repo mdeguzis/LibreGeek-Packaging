@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/Sude-/lgogdownloader"
+SRC_URL="https://github.com/Sude-/lgogdownloader"
 #TARGET="v2.28"
 TARGET="master"
 
@@ -116,15 +116,15 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	# Get latest commit
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
@@ -135,14 +135,14 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"

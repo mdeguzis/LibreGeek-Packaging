@@ -47,8 +47,8 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/meancoot/stonesoup-libretro"
-branch="master"
+SRC_URL="https://github.com/meancoot/stonesoup-libretro"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -71,8 +71,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -110,12 +109,12 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	#git clone --recursive -b "$branch" "$GIT_URL" "$GIT_DIR"
+	#git clone --recursive -b "$TARGET" "$SRC_URL" "$GIT_DIR"
 
 	# The git source is very old (2014), source latest PPA source code
 	# from libretro PPA unstable repo
@@ -137,11 +136,11 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Reset changelog and copy in old one
 	rm -f "${SRCDIR}/debian/changelog"
@@ -153,7 +152,7 @@ main()
 	fi
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

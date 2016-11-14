@@ -47,7 +47,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/visualboyadvance-m/visualboyadvance-m"
+SRC_URL="https://github.com/visualboyadvance-m/visualboyadvance-m"
 rel_TARGET="master"
 
 # package vars
@@ -117,12 +117,12 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone --recursive -b "$rel_TARGET" "$GIT_URL" "$SRC_DIR"
+	git clone --recursive -b "$rel_TARGET" "$SRC_URL" "$SRC_DIR"
 
 	# Remove old debian dir
 	rm -rf "${SRC_DIR}/src/debian"

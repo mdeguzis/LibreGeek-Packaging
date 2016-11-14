@@ -125,7 +125,7 @@ main()
 	#################################################
 
 	# enter source dir if not already
-	cd "${SRCDIR}" || exit 1
+	cd "${SRC_DIR}" || exit 1
 	
 #	echo -e "\n==> Updating changelog"
 #	sleep 2s

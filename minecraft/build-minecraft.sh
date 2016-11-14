@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-GIT_URL=""
-branch="master"
+SRC_URL=""
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -74,8 +74,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -114,21 +113,21 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	#git clone -b "$branch" "$GIT_URL" "$GIT_DIR"
+	#git clone -b "$TARGET" "$SRC_URL" "$GIT_DIR"
 
 	# Create empty git dir to just store debian/ files
-	mkdir -p "${GIT_DIR}"
+	mkdir -p "${SRC_DIR}"
 
 	# Get jar file
 	curl -o "${GIT_DIR}/Minecraft.jar" "https://s3.amazonaws.com/Minecraft.Download/launcher/Minecraft.jar" -#
 	
 	# Inject other files from SCRIPTDIR
-	cp "${SCRIPTDIR}/minecraft.png" "${GIT_DIR}"
+	cp "${SCRIPTDIR}/minecraft.png" "${SRC_DIR}"
 	cp "${SCRIPTDIR}/minecraft-launcher.sh" "${GIT_DIR}/minecraft"
 
 	#################################################
@@ -142,16 +141,16 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

@@ -48,8 +48,8 @@ else
 fi
 
 # upstream vars
-#GIT_URL="https://github.com/albertz/openlierox"
-GIT_URL="https://github.com/ProfessorKaos64/openlierox"
+#SRC_URL="https://github.com/albertz/openlierox"
+SRC_URL="https://github.com/ProfessorKaos64/openlierox"
 rel_TARGET="0.59"
 
 # package vars
@@ -72,8 +72,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -116,13 +115,13 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-	git clone -b "$rel_TARGET" "$GIT_URL" "${GIT_DIR}"
-	cd "${GIT_DIR}"
+	git clone -b "$rel_TARGET" "$SRC_URL" "${SRC_DIR}"
+	cd "${SRC_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	git checkout $latest_commit 1> /dev/null
 	
@@ -130,7 +129,7 @@ main()
 	PKGSUFFIX="git${latest_commit}+bsos${PKGREV}"
 
 	# libsdl1 is not needed, should be libsdl2-image-dev, so replace in control
-	# cp "$SCRIPTDIR/control" "${GIT_DIR}/debian/"
+	# cp "${SCRIPTDIR}/control" "${GIT_DIR}/debian/"
 
 	#################################################
 	# Build package
@@ -146,13 +145,13 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	commits_full=$(git log --pretty=format:"  * %h %s")
 

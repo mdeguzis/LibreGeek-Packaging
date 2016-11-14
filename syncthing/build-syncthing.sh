@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/syncthing/syncthing"
+SRC_URL="https://github.com/syncthing/syncthing"
 rel_TARGET="v0.12.4"
 
 # package vars
@@ -71,7 +71,6 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="merge ${HOME}/src/github.com/syncthing"
-SRCDIR="${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -112,12 +111,12 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "$rel_TARGET" "$GIT_URL" "$PKGNAME"
+	git clone -b "$rel_TARGET" "$SRC_URL" "$PKGNAME"
 
 	#################################################
 	# Build platform
@@ -130,26 +129,26 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-#	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+#	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${PKGNAME}"
+	cp -r "${SCRIPTDIR}/debian" "${PKGNAME}"
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
         # create build files
         go run build.go
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
         cd ..
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 	cd "$PKGNAME"
 
 

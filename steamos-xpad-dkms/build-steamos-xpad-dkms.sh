@@ -60,10 +60,9 @@ pkgrel="wily"
 
 # BUILD_TMPs
 export BUILD_TMP="${HOME}/pkg-build-dir"
-SRCDIR="${PKGNAME}-${PKGVER}"
 pkg_folder="${PKGNAME}-${PKGVER}-${PKGREV}~${pkgrel}"
 
-# Define branch
+# Define TARGET
 BRANCH="master"
 
 # Define upload TARGET

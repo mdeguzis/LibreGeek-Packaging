@@ -114,7 +114,7 @@ install_prereqs()
 	if [[ "$sources_check" == "" && "$sources_check2" == "" ]]; then
                 echo -e "\n==INFO==\nSources do *NOT* appear to be added at first glance. Adding now..."
                 sleep 2s
-                "$SCRIPTDIR/add-debian-repos.sh"
+                "${SCRIPTDIR}/add-debian-repos.sh"
         else
                 echo -e "\n==INFO==\nJessie sources appear to be added."
                 sleep 2s
@@ -311,7 +311,7 @@ main()
 
 	# back out of build tmp to script dir if called from git clone
 	if [[ "${SCRIPTDIR}" != "" ]]; then
-		cd "$SCRIPTDIR/generic-building"
+		cd "${SCRIPTDIR}/generic-building"
 	else
 		cd "${HOME}"
 	fi

@@ -114,7 +114,7 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone

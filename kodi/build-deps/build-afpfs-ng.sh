@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/simonvetter/afpfs-ng"
+SRC_URL="https://github.com/simonvetter/afpfs-ng"
 rel_TARGET="master"
 
 # package vars
@@ -77,8 +77,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -120,11 +119,11 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "$rel_TARGET" "$GIT_URL" "$GIT_DIR"
+	git clone -b "$rel_TARGET" "$SRC_URL" "$GIT_DIR"
 
 	#################################################
 	# Build platform
@@ -137,21 +136,21 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add debian build folder
-        cp -r "$SCRIPTDIR/$PKGNAME/debian" "${PKGNAME}"
+        cp -r "${SCRIPTDIR}/$PKGNAME/debian" "${PKGNAME}"
 
         # lib/Makefile.am trys to build indentify.c, but it does not exist
 	# Use our modified Makefile.am with this cut out
         # See also: https://github.com/simonvetter/afpfs-ng/issues/9
-        cp -r "$SCRIPTDIR/$PKGNAME/Makefile.am" "${PKGNAME}/lib/"
+        cp -r "${SCRIPTDIR}/$PKGNAME/Makefile.am" "${PKGNAME}/lib/"
 
 	# emter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	# rename README.md, autobuild with autoconf doesn't like the ext.
 	mv README.md README

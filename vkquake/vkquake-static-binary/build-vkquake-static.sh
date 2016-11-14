@@ -36,8 +36,8 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 fi
 
 # upstream vars
-#GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
-GIT_URL="https://github.com/Novum/vkQuake"
+#SRC_URL="https://github.com/ProfessorKaos64/vkQuake"
+SRC_URL="https://github.com/Novum/vkQuake"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -79,8 +79,7 @@ export NETWORK="yes"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -122,8 +121,8 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
-	cd "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
@@ -135,7 +134,7 @@ main()
 
 	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	make -C Quake clean
 	make -C Quake release \
@@ -156,13 +155,13 @@ main()
 
 	# Move binary to root vkquake dir
 
-	cp "${GIT_DIR}/Quake/vkquake" "${GIT_DIR}"
+	cp "${GIT_DIR}/Quake/vkquake" "${SRC_DIR}"
 
 	# Add libs, launcher, and readme for binary7
 
-	cp -r ${SCRIPTDIR}/libs-all/* "${GIT_DIR}"
-	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}"
-	cp "${SCRIPTDIR}/vkquake.readme" "${GIT_DIR}"
+	cp -r ${SCRIPTDIR}/libs-all/* "${SRC_DIR}"
+	cp "${SCRIPTDIR}/vkquake-launch.sh" "${SRC_DIR}"
+	cp "${SCRIPTDIR}/vkquake.readme" "${SRC_DIR}"
 
 	# Get rid of all uncecessary files
 

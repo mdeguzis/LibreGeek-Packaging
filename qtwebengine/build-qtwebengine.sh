@@ -49,8 +49,8 @@ else
 fi
 
 # upstream vars
-#GIT_URL="https://code.qt.io/qt/qt5.git"
-GIT_URL="https://github.com/qtproject/qtwebengine"
+#SRC_URL="https://code.qt.io/qt/qt5.git"
+SRC_URL="https://github.com/qtproject/qtwebengine"
 TARGET="v5.7.0"
 
 # package vars
@@ -74,8 +74,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -117,7 +116,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code"
 
-	if [[ -d "${GIT_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
+	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
 
 		echo -e "\n==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -131,8 +130,8 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
-			cd "${GIT_DIR}" && git submodule update --init
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+			cd "${SRC_DIR}" && git submodule update --init
 
 		else
 
@@ -150,8 +149,8 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
-			cd "${GIT_DIR}" && git submodule update --init
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+			cd "${SRC_DIR}" && git submodule update --init
 
 	fi
 	
@@ -162,7 +161,7 @@ main()
 	cd "${BUILD_TMP}" || exit 1
 	
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)
@@ -173,7 +172,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 		
 	else
 	
@@ -181,7 +180,7 @@ main()
 		sleep 2s
 		
 		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
-		mkdir -p "${GIT_DIR}"
+		mkdir -p "${SRC_DIR}"
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
@@ -191,14 +190,14 @@ main()
 	fi
 	
 	# add debian here, after unpack or creation
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	###############################################################
 	# build package
 	###############################################################
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

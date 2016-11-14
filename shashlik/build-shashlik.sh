@@ -44,7 +44,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/shashlik/shashlik-manifest"
+SRC_URL="https://github.com/shashlik/shashlik-manifest"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -68,7 +68,6 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
 GIT_DIR="${BUILD_TMP}/${PKGNAME}"
 
 install_prereqs()
@@ -121,8 +120,8 @@ main()
 			# clean and clone
 			# We are dumping a lof of repo's into the build dir, so compact them into SRCDIR
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}" && cd "${BUILD_DIR}"
-			mkdir -p "${SRCDIR}" && cd "${SRCDIR}"
-			repo init -u "${GIT_URL}"
+			mkdir -p "${SRCDIR}" && cd "${SRC_DIR}"
+			repo init -u "${SRC_URL}"
 			repo sync
 
 		else
@@ -142,8 +141,8 @@ main()
 			# create and clone to current dir
 			# We are dumping a lof of repo's into the build dir, so compact them into SRCDIR
 			mkdir -p "${BUILD_TMP}" && cd "${BUILD_DIR}"
-			mkdir -p "${SRCDIR}" && cd "${SRCDIR}"
-			repo init -u "${GIT_URL}"
+			mkdir -p "${SRCDIR}" && cd "${SRC_DIR}"
+			repo init -u "${SRC_URL}"
 			repo sync
 
 	fi
@@ -159,7 +158,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	else
 
@@ -184,7 +183,7 @@ main()
 	#################################################
 
 	# enter source dir
-	cd "${SRCDIR}" || exit 1
+	cd "${SRC_DIR}" || exit 1
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

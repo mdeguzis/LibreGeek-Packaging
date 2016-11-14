@@ -48,10 +48,10 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/Pulse-Eight/libcec"
+SRC_URL="https://github.com/Pulse-Eight/libcec"
 # For Kodi's Jarvis release, it is more than likely platform will still be used
 # For now, use the commit before this was changed or the release tree (uses platform)
-branch="libcec-3.0.1"
+TARGET="libcec-3.0.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -74,8 +74,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -121,11 +120,11 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 6	# Upsteam has split control files ATM, remove precise file that conflicts in build
 	rm -f "${GIT_DIR}/debian/control.precise"
@@ -138,14 +137,14 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# emter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

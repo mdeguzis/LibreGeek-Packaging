@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/Stabyourself/mari0"
+SRC_URL="https://github.com/Stabyourself/mari0"
 rel_TARGET="master"
 
 # package vars
@@ -72,8 +72,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-export GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+export SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -118,18 +117,18 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code"
 
 	# clone
-	#git clone -b "$rel_TARGET" "$GIT_URL" "$GIT_DIR"
+	#git clone -b "$rel_TARGET" "$SRC_URL" "$GIT_DIR"
 
 	# For now, use prebuilt files
 	mkdir -p "$GIT_DIR"
-	cp "$SCRIPTDIR/mari0_1.6.love" "$GIT_DIR"
-	cp "$SCRIPTDIR/mari0" "$GIT_DIR"
-	cp "$SCRIPTDIR/mari0.png" "$GIT_DIR"
+	cp "${SCRIPTDIR}/mari0_1.6.love" "$GIT_DIR"
+	cp "${SCRIPTDIR}/mari0" "$GIT_DIR"
+	cp "${SCRIPTDIR}/mari0.png" "$GIT_DIR"
 
 	#################################################
 	# Build package
@@ -142,16 +141,16 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r ""$SCRIPTDIR/debian"" "${GIT_DIR}"
+	cp -r ""${SCRIPTDIR}/debian"" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 
 	echo -e "\n==> Updating changelog"

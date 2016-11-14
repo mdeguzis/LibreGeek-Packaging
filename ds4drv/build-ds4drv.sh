@@ -145,7 +145,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/ds4drv/debian" "${SRC_DIR}"
+	cp -r "${SCRIPTDIR}/ds4drv/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"

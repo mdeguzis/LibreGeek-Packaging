@@ -178,7 +178,7 @@ main()
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 		cd "${BUILD_TMP}"
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 		
 	else
 	
@@ -186,7 +186,7 @@ main()
 		sleep 2s
 		
 		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
-		mkdir -p "${GIT_DIR}"
+		mkdir -p "${SRC_DIR}"
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s

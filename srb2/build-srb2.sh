@@ -52,8 +52,8 @@ fi
 
 # upstream vars
 # build from specific commit for stability
-#GIT_URL="https://github.com/STJr/SRB2"
-GIT_URL="https://github.com/ProfessorKaos64/SRB2"
+#SRC_URL="https://github.com/STJr/SRB2"
+SRC_URL="https://github.com/ProfessorKaos64/SRB2"
 rel_TARGET="brewmaster"
 commit="5c09c31"
 
@@ -77,8 +77,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -126,21 +125,21 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone (use recursive to get the assets folder)
-	git clone -b "$rel_TARGET" "$GIT_URL" "$GIT_DIR"
+	git clone -b "$rel_TARGET" "$SRC_URL" "$GIT_DIR"
 
 	# get suffix from TARGET commit (stable TARGETs for now)
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 	#git checkout $commit 1> /dev/null
 	commit=$(git log -n 1 --pretty=format:"%h")
 	PKGSUFFIX="git${commit}+bsos${PKGREV}"
 
 	# copy in modified files until fixed upstream
-	# cp "$SCRIPTDIR/rules" "${GIT_DIR}/debian"
+	# cp "${SCRIPTDIR}/rules" "${GIT_DIR}/debian"
 
 	#################################################
 	# Prepare package (main)
@@ -156,13 +155,13 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 
 	echo -e "\n==> Updating changelog"
@@ -207,13 +206,13 @@ main()
 		sleep 2s
 
 		# enter build dir to package attmpt
-		cd "${GIT_DIR}"
+		cd "${SRC_DIR}"
 
 		# create the tarball from latest tarball creation script
 		# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 		# create source tarball
 		tar -cvzf "${PKGNAME_data}_${PKGVER_data}.orig.tar.gz" "${data_dir}"
@@ -228,7 +227,7 @@ main()
 
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
-		  * Upstream authors and source: $GIT_URL
+		  * Upstream authors and source: $SRC_URL
 
 		 -- $UPLOADER  $DATE_LONG
 

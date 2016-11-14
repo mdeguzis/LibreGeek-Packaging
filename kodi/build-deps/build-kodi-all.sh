@@ -50,7 +50,6 @@ fi
 
 # pass build dir var to all scripts
 export auto_export BUILD_TMP="merge ${HOME}/kodi-all-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
 
 # pass auto-build flag
 export build_all="yes"

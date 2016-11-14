@@ -47,9 +47,9 @@ else
 
 fi
 # upstream vars
-GIT_URL="https://github.com/citra-emu/citra"
-#GIT_URL="https://github.com/ProfessorKaos64/citra"
-branch="master"
+SRC_URL="https://github.com/citra-emu/citra"
+#SRC_URL="https://github.com/ProfessorKaos64/citra"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -73,8 +73,7 @@ export NETWORK="yes"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -116,12 +115,12 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone --recursive -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
-	cd "${GIT_DIR}"
+	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 	
 	# Add image to git dir
-	cp -r "${SCRIPTDIR}/Citra.png" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/Citra.png" "${SRC_DIR}"
 	
 	# Swap version text, since the project assumes citra is being ran in the git dir
 	sed -i "s|GIT-NOTFOUND|${PKGVER}git|g" "${GIT_DIR}/externals/cmake-modules/GetGitRevisionDescription.cmake"
@@ -134,18 +133,18 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 	cp "${GIT_DIR}/license.txt" "${GIT_DIR}/debian/LICENSE"
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

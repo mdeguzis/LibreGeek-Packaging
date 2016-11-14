@@ -69,7 +69,7 @@ URGENCY="low"
 export BUILD_TMP="/home/desktop/build-${PKGNAME}-tmp"
 SRC_DIR="${PKGNAME}"
 GIT_DIR="${BUILD_TMP}/${SRC_DIR}"
-GIT_URL="https://github.com/PCSX2/pcsx2"
+SRC_URL="https://github.com/PCSX2/pcsx2"
 
 #TARGET="onepad-input-state"
 TARGET="master"
@@ -152,8 +152,8 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout desired commit
-        git clone -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
-        cd "${GIT_DIR}"
+        git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+        cd "${SRC_DIR}"
         LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
 	# get latest base release for changelog
@@ -192,7 +192,7 @@ main()
 	rm -rf  ${GIT_DIR}/.git
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian-unstable" "${GIT_DIR}/debian"
+	cp -r "${SCRIPTDIR}/debian-unstable" "${GIT_DIR}/debian"
 
 	#################################################
 	# Build platform
@@ -205,13 +205,13 @@ main()
 	cd "${BUILD_TMP}"
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRC_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

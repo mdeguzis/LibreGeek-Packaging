@@ -45,7 +45,7 @@ else
 
 fi
 # upstream vars
-GIT_URL="https://github.com/zaps166/NFSIISE/"
+SRC_URL="https://github.com/zaps166/NFSIISE/"
 #TARGET="master"
 TARGET="v1.1.0"
 
@@ -69,8 +69,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMPs
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -110,7 +109,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone --recursive -b "${TARGET}" "${GIT_URL}" "${GIT_DIR}"
+	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	# modify desktop file
 	sed -i 's/Icon\=nfs2se/Icon\=\/usr\/share\/pixmaps\/nfs2se.png/' "${GIT_DIR}/Need For Speed II SE/nfs2se.desktop"
@@ -123,17 +122,17 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add debian dir
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

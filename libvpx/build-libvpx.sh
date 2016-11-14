@@ -47,8 +47,8 @@ else
 fi
 
 # upstream URL
-GIT_URL="https://chromium.googlesource.com/webm/libvpx"
-branch="v1.5.0"
+SRC_URL="https://chromium.googlesource.com/webm/libvpx"
+TARGET="v1.5.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -69,8 +69,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -102,7 +101,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	if [[ -d "${GIT_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
+	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
 
 		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
@@ -116,7 +115,7 @@ main()
 			retry="no"
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 		else
 
@@ -134,7 +133,7 @@ main()
 			retry="no"
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	fi
 
@@ -145,7 +144,7 @@ main()
 	cd "${BUILD_TMP}" || exit 1
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)
@@ -156,7 +155,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 		
 	else
 	
@@ -164,7 +163,7 @@ main()
 		sleep 2s
 		
 		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
-		mkdir -p "${GIT_DIR}"
+		mkdir -p "${SRC_DIR}"
 	
 		echo -e "\n==> Retrying with prior source tarball\n"
 		sleep 2s
@@ -174,14 +173,14 @@ main()
 	fi
 	
 	# add debian here, after unpack or creation
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	###############################################################
 	# build package
 	###############################################################
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

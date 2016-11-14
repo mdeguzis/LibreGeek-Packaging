@@ -45,7 +45,7 @@ else
 
 fi
 # upstream var for master build
-GIT_URL="https://github.com/decaf-emu/decaf-emu"
+SRC_URL="https://github.com/decaf-emu/decaf-emu"
 TARGET="master"
 
 # package vars
@@ -106,7 +106,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone --recursive -b "${TARGET}" "${GIT_URL}" "${SRC_DIR}" 
+	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
 
 	# add extras
 	cp "${SCRIPTDIR}/decaf.png" "${SRC_DIR}"

@@ -51,8 +51,8 @@ else
 
 fi
 # upstream vars
-#GIT_URL="https://github.com/ProfessorKaos64/tdm"
-#branch="master"
+#SRC_URL="https://github.com/ProfessorKaos64/tdm"
+#TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -76,8 +76,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMPs
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -119,17 +118,17 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 	# NOTE! - If you wish to source versions or commits automatically into variables here,
 	# 	  such as commits, of upstream tags, see docs/pkg-versioning.md
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	######## Use a virtual package for now ########
-	mkdir -p "${GIT_DIR}"
-	cp -r "${SCRIPTDIR}/darkmod.png" "${GIT_DIR}"
+	mkdir -p "${SRC_DIR}"
+	cp -r "${SCRIPTDIR}/darkmod.png" "${SRC_DIR}"
 	cp -r "${SCRIPTDIR}/darklauncher.sh" "${GIT_DIR}/darklauncher"
-	cp -r "${SCRIPTDIR}/darkmod-updater.sh" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/darkmod-updater.sh" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -139,17 +138,17 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add debian folder for current virtual package implementation
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

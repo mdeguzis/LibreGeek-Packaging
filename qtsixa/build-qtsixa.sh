@@ -47,7 +47,7 @@ else
 fi
 
 # upstream URL
-GIT_URL="https://github.com/arcsur/qtsixa"
+SRC_URL="https://github.com/arcsur/qtsixa"
 rel_TARGET="master"
 
 # package vars
@@ -70,8 +70,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -114,7 +113,7 @@ main()
 	sleep 1s
 	
 	# clone
-	git clone -b "$rel_TARGET" "$GIT_URL" "$GIT_DIR"
+	git clone -b "$rel_TARGET" "$SRC_URL" "$GIT_DIR"
 	
 	#################################################
 	# Build package
@@ -127,16 +126,16 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${GIT_DIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 
 	echo -e "\n==> Updating changelog"

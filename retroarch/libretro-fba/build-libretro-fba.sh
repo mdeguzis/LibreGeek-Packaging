@@ -49,15 +49,15 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/libretro/libretro-fba"
-branch="master"
+SRC_URL="https://github.com/libretro/libretro-fba"
+TARGET="master"
 
-GIT_URL_cores_neo="https://github.com/libretro/fba_cores_neo"
-branch_cores_neo="master"
-GIT_URL_cores_cps1="https://github.com/libretro/fba_cores_cps1"
-branch_cores_cps1="master"
-GIT_URL_cores_cps2="https://github.com/libretro/fba_cores_cps2"
-branch_cores_cps2="master"
+SRC_URL_cores_neo="https://github.com/libretro/fba_cores_neo"
+TARGET_cores_neo="master"
+SRC_URL_cores_cps1="https://github.com/libretro/fba_cores_cps1"
+TARGET_cores_cps1="master"
+SRC_URL_cores_cps2="https://github.com/libretro/fba_cores_cps2"
+TARGET_cores_cps2="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -79,8 +79,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -120,19 +119,19 @@ main()
 	fi
 
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
-	cd "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# clone the cores
-	git clone -b "$branch_cores_neo" "$GIT_URL_cores_neo" "$GIT_DIR/fba_cores_neo"
-	git clone -b "$branch_cores_cps1" "$GIT_URL_cores_cps1" "$GIT_DIR/fba_cores_cps1"
-	git clone -b "$branch_cores_cps2" "$GIT_URL_cores_cps2" "$GIT_DIR/fba_cores_cps2"
+	git clone -b "$TARGET_cores_neo" "$SRC_URL_cores_neo" "$GIT_DIR/fba_cores_neo"
+	git clone -b "$TARGET_cores_cps1" "$SRC_URL_cores_cps1" "$GIT_DIR/fba_cores_cps1"
+	git clone -b "$TARGET_cores_cps2" "$SRC_URL_cores_cps2" "$GIT_DIR/fba_cores_cps2"
 
 	#################################################
 	# Build package
@@ -142,18 +141,18 @@ main()
 	sleep 2s
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
 
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "$SCRIPTDIR/debian" "${GIT_DIR}"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${SRCDIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

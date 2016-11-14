@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-GIT_URL="https://github.com/rupa/sprunge"
+SRC_URL="https://github.com/rupa/sprunge"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -69,7 +69,6 @@ MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
 sprunge_dir="${BUILD_TMP}/${PKGNAME}"
 
 install_prereqs()
@@ -125,13 +124,13 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${GIT_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r ""$SCRIPTDIR/debian"" "${PKGNAME}"
+	cp -r ""${SCRIPTDIR}/debian"" "${PKGNAME}"
 
 	###############################################################
 	# correct any files needed here that you can ahead of time

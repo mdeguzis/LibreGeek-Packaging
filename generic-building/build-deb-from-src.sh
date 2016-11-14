@@ -89,7 +89,6 @@ install_prereqs()
 main()
 {
 	export BUILD_TMP="/home/desktop/build-deb-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
 	GIT_DIR="$BUILD_TMP/git-tmp"
 	
 	clear
@@ -99,26 +98,26 @@ SRCDIR="${PKGNAME}-${PKGVER}"
 	
 	# Ask user for repos / vars
 	echo -e "==> Please enter or paste the git URL now:"
-	echo -e "[ENTER to use last: $GIT_URL]\n"
+	echo -e "[ENTER to use last: $SRC_URL]\n"
 	
 	# set tmp var for last run, if exists
-	GIT_URL_tmp="$GIT_URL"
-	if [[ "$GIT_URL" == " ]]; then
+	SRC_URL_tmp="$SRC_URL"
+	if [[ "$SRC_URL" == " ]]; then
 		# var blank this run, get input
-		read -ep "Git source URL: " GIT_URL
+		read -ep "Git source URL: " SRC_URL
 	else
-		read -ep "Git source URL: " GIT_URL
+		read -ep "Git source URL: " SRC_URL
 		# user chose to keep var value from last
-		if [[ "$GIT_URL" == " ]]; then
-			GIT_URL="$GIT_URL_tmp"
+		if [[ "$SRC_URL" == " ]]; then
+			SRC_URL="$SRC_URL_tmp"
 		else
 			# keep user choice
-			GIT_URL="$GIT_URL"
+			SRC_URL="$SRC_URL"
 		fi
 	fi
 	
 	# Clone git upstream source
-	git clone "$GIT_URL" "$GIT_DIR"	
+	git clone "$SRC_URL" "$GIT_DIR"	
 	
 	#################################################
 	# Build PKG

@@ -1,5 +1,5 @@
 #!/bin/bash
-	
+
 ####################################
 # Workarounds for apt
 ####################################
@@ -25,12 +25,12 @@ if [[ "$APT_PIN_PRIORITY" == "allow-any" ]]; then
 	# This prevents use of older packages if newer ones exist 
 	# in repositories. Add a pin level to all allow this
 	# This is dangerous and should not be generally used!
-	
+
 	cat <<-EOF > /etc/apt/preferences
 	Package: *
 	Pin: origin ""
 	Pin-Priority: 100
-	
+
 	Package: *
 	Pin: release o=* 
 	Pin-Priority:100
@@ -50,18 +50,18 @@ sleep 1s
 if [[ $(dpkg --print-foreign-architectures | grep -i "i386") == "" ]]; then
 
 	echo -e "I: APT: multi-arch not found"
-	
+
 	# add 32 bit support
 	if dpkg --add-architecture i386; then
-	
+
 		echo -e "I: APT: multi-arch [Added]"
 		sleep 1s
-	
+
 	else
-	
+
 		echo -e "I: APT: multi-arch addition [FAILED]. Exiting"
 		exit 1
-	
+
 	fi
 
 else
@@ -69,7 +69,6 @@ else
 	echo -e "I: APT: multi-arch support [OK]"	
 
 fi
-
 
 ####################################
 # Regular apt functions

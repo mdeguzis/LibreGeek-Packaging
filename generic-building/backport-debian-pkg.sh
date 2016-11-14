@@ -315,7 +315,7 @@ function_backport_config()
 
 	if [[ "${UNPACK_ALL}" == "true" ]]; then
 
-		for i in $(ls * | awk -F'[.]' '{print $(NF-1)"."$NF}') 
+		for i in $(ls * | awk -F'[.]' '{print $(NF-1)"."$NF}');
 		do
 
 			*.tar.bz2)

@@ -63,8 +63,7 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libretro-snes9x2005"
 PKGVER="1.36"
-PKGREV="2"
-PKGSUFFIX="${date_short}git+bsos${PKGREV}"
+PKGREV="1"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -118,8 +117,10 @@ main()
 
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	#################################################
 	# Build package
@@ -148,13 +149,13 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update snapshot"
 		nano "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update snapshot"
 		nano "debian/changelog"
 
 	fi

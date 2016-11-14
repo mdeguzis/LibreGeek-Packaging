@@ -63,7 +63,6 @@ PKGNAME="libretro-stonesoup"
 PKGVER="0.15.2"
 PKGREV="1"
 EPOCH="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -153,6 +152,10 @@ main()
 
 	# enter source dir
 	cd "${SRC_DIR}"
+
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

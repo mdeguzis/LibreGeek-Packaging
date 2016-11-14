@@ -65,7 +65,6 @@ PKGNAME="libretro-bsnes-mercury"
 PKGVER="094"
 EPOCH="1"
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -119,11 +118,10 @@ main()
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	REVISION_COMMIT=$(printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)")
 
 	# Set suffix based on revisions
-	PKGSUFFIX="${REVISION_COMMIT}+bsos${PKGREV}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	#################################################
 	# Build package

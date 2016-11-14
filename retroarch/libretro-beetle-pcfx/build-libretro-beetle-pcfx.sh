@@ -65,7 +65,6 @@ PKGNAME="libretro-beetle-pcfx"
 epoch="1"
 PKGVER="0.9.33.3"
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -119,7 +118,10 @@ main()
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	#################################################
 	# Build package
@@ -148,7 +150,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${latest_commit}"
+		-D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		nano "debian/changelog"
 
 	else

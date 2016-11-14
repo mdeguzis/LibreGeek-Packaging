@@ -63,7 +63,6 @@ export USE_NETWORK="yes"
 PKGNAME="libretro-rustation"
 PKGVER="0.0.1"
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -127,7 +126,10 @@ main()
 	# clone
 	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	#################################################
 	# Build package

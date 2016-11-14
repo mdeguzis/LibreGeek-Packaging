@@ -62,7 +62,6 @@ export NO_PKG_TEST="false"
 PKGNAME="retroarch"
 PKGVER="1.3.6"
 PKGREV="3"
-PKGSUFFIX="git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -127,6 +126,11 @@ main()
 	# inject .desktop file (not found in release archives) and image
 	cp -r "${SCRIPTDIR}/retroarch.png" "${SRC_DIR}"
 	cp -r "${SCRIPTDIR}/retroarch.desktop" "${SRC_DIR}"
+
+	# Set suffix based on revisions
+	cd "${SRC_DIR}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	###############################################################
 	# correct any files needed here that you can ahead of time

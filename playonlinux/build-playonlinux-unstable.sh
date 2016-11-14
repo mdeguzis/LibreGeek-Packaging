@@ -152,14 +152,14 @@ main()
 
 		dch -p --force-distribution -v "${epoch}:${PKGVER}.${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update snapshot"
 		nano "debian/changelog"
 
         else
 
 		dch -p --force-distribution --create -v "${epoch}:${PKGVER}.${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update snapshot"
 		nano "debian/changelog"
 
         fi

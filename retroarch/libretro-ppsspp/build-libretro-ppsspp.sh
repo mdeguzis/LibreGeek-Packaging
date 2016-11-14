@@ -46,9 +46,9 @@ else
 fi
 
 # upstream vars
-#SRC_URL="https://github.com/libretro/libretro-ppsspp"
-SRC_URL="https://github.com/professorkaos64/libretro-ppsspp"
-TARGET="build-fixes"
+SRC_URL="https://github.com/libretro/libretro-ppsspp"
+#SRC_URL="https://github.com/professorkaos64/libretro-ppsspp"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -64,7 +64,6 @@ PKGNAME="libretro-ppsspp"
 PKGVER="1.0.1"
 PKGREV="1"
 EPOCH="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -147,7 +146,10 @@ main()
 	fi
 
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	#################################################
 	# Prepare sources
@@ -206,7 +208,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${latest_commit}"
+		-D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		nano "debian/changelog"
 
 	else

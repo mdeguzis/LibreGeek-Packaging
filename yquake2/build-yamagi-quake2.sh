@@ -141,12 +141,12 @@ main()
 	sleep 2s
 
 	# update changelog with dch
-	# "Update to the latest commit ${latest_commit}"
+	# "Update snapshot"
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest commit ${latest_commit}"
+		"Update snapshot"
 		nano "debian/changelog"
 
 	else

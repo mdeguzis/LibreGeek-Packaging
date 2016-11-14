@@ -65,7 +65,6 @@ PKGNAME="retroarch-joypad-autoconfig"
 epoch="1"
 PKGVER="0.1.1"
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -120,8 +119,10 @@ main()
 	# clone and checkout desired commit
 	git clone -b "$TARGET" "$SRC_URL" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	git checkout $latest_commit 1> /dev/null
+	
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	#################################################
 	# Build platform

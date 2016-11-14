@@ -64,7 +64,6 @@ export NO_PKG_TEST="false"
 PKGNAME="dinothawr"
 PKGVER="1.0"
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos${PKGREV}"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -119,7 +118,10 @@ main()
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+
+	# Set suffix based on revisions
+	REVISION_COMMIT=$(printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)")
+	PKGSUFFIX="${REVISION_COMMIT}+bsos${PKGREV}"
 
 	#################################################
 	# Build package

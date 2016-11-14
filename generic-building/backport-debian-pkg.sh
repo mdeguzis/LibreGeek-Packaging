@@ -350,6 +350,24 @@ function_backport_config()
 
 	fi
 
+	# If user requested to execute commands before build:
+	if [[ "${USER_COMMANDS}" == "true" ]]; then
+
+		cd "${SRC_DIR}"
+		echo -e "\n==> Enter commands below (Type quit to stop)\n"
+
+		while [[ "${CMD}" != "quit" && "${CMD}" != "q" ]];
+		do
+			read -erp "CMD: " CMD
+
+			if [[ "${CMD}" != "quit" &&  "${CMD}" != "q" ]]; then
+				${CMD}
+			fi
+
+		done
+
+	fi
+
 	# Create our new orig tarball after removing the current one
 	# Do this rather than rename, so an xz archive is not renamed as a fake gz archive
 	# Reminder: the orig tarball does NOT get a revision number!
@@ -427,23 +445,6 @@ function_backport_config()
 		fi
 
 	done
-
-	# If user requested to execute commands before build:
-	if [[ "${USER_COMMANDS}" == "true" ]]; then
-
-		echo -e "\n==> Enter commands below (Type quit to stop)\n"
-
-		while [[ "${CMD}" != "quit" && "${CMD}" != "q" ]];
-		do
-			read -erp "CMD: " CMD
-
-			if [[ "${CMD}" != "quit" &&  "${CMD}" != "q" ]]; then
-				${CMD}
-			fi
-
-		done
-
-	fi
 
 	# Check source format
 	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')

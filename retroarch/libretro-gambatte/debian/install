@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "libgambatte/*.so usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro"
+echo "*.so usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro"

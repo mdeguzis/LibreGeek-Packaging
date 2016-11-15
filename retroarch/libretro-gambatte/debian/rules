@@ -31,7 +31,6 @@ endif
 	dh $@
 
 override_dh_auto_build:
-	$(MAKE) -C libgambatte/ -f Makefile.libretro $(PLATFORM)
+	$(MAKE) $(PLATFORM)
 
-override_dh_auto_clean:
-	$(MAKE) -C libgambatte/ -f Makefile.libretro clean
+override_dh_auto_install:

@@ -1,8 +1,9 @@
 Source: libretro-mame
 Section: games
 Priority: optional
-Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
+ clang-3.8,
  python2.7,
  python-minimal,
  libqt4-dev-bin,
@@ -28,17 +29,17 @@ Description: Libretro wrapper for MAME
  machines. These ROMs are subject to copyright and it is in most of the cases
  illegal to use them if you do not own the arcade machine.
 
-#Package: libretro-mess
-#Architecture: any
-#Multi-Arch: same
-#Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
-#Description: Libretro wrapper for MESS
-# This wrapper makes MESS core API compatible with libretro, thus allowing its
-# use with libretro frontends, such as RetroArch. This package includes the 
-# development version of MESS.
-# .
-# MESS is a source-available project which documents the hardware for a wide
-# variety of (mostly vintage) computers, video game consoles, and calculators
-# through software emulation, as MAME does for arcade games. As a nice side
-# effect to this documentation, MESS allows software and games for these
-# hardware platforms to be run on modern PCs.
+Package: libretro-mess
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for MESS
+ This wrapper makes MESS core API compatible with libretro, thus allowing its
+ use with libretro frontends, such as RetroArch. This package includes the 
+ development version of MESS.
+ .
+ MESS is a source-available project which documents the hardware for a wide
+ variety of (mostly vintage) computers, video game consoles, and calculators
+ through software emulation, as MAME does for arcade games. As a nice side
+ effect to this documentation, MESS allows software and games for these
+ hardware platforms to be run on modern PCs.

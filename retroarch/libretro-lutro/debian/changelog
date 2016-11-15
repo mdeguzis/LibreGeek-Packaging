@@ -1,3 +1,9 @@
+libretro-lutro (1:1.0+git20161115.4d6da23~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 15:06:36 +0000
+
 libretro-lutro (1:1.0+20160622git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 335e8e6

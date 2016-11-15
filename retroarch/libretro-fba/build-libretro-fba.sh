@@ -41,11 +41,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -64,12 +64,12 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libretro-fba"
-PKGVER="0.2.97.38"
+PKGVER="0.2.97.39"
 PKGREV="1"
 DIST="brewmaster"
 URGENCY="low"
@@ -109,7 +109,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -131,9 +131,9 @@ main()
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	# clone the cores
-	git clone -b "$TARGET_cores_neo" "$SRC_URL_cores_neo" "$GIT_DIR/fba_cores_neo"
-	git clone -b "$TARGET_cores_cps1" "$SRC_URL_cores_cps1" "$GIT_DIR/fba_cores_cps1"
-	git clone -b "$TARGET_cores_cps2" "$SRC_URL_cores_cps2" "$GIT_DIR/fba_cores_cps2"
+	git clone -b "$TARGET_cores_neo" "$SRC_URL_cores_neo" "$SRC_DIR/fba_cores_neo"
+	git clone -b "$TARGET_cores_cps1" "$SRC_URL_cores_cps1" "$SRC_DIR/fba_cores_cps1"
+	git clone -b "$TARGET_cores_cps2" "$SRC_URL_cores_cps2" "$SRC_DIR/fba_cores_cps2"
 
 	#################################################
 	# Build package
@@ -239,7 +239,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

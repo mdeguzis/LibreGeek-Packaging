@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/fba_libretro.so usr/lib/libretro/fba_libretro.so"
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/fbalpha_libretro.so usr/lib/libretro/fbalpha_libretro.so"

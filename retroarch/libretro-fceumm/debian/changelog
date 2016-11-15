@@ -1,3 +1,9 @@
+libretro-fceumm (1:0.020140105+git20161115.50d0dfe~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 14:13:24 +0000
+
 libretro-fceumm (0.020140105+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 5007c4c

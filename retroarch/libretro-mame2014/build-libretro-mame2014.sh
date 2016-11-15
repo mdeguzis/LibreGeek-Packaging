@@ -125,7 +125,7 @@ main()
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 	
 	# Trim .git, large repo
-	rm -rf "${GIT_DIR}/.git"
+	rm -rf "${SRC_DIR}/.git"
 
 	#################################################
 	# Build package
@@ -219,7 +219,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

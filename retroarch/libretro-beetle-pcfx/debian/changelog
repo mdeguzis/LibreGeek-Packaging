@@ -1,3 +1,9 @@
+libretro-beetle-pcfx (1:0.9.33.3+git20161114.89d16cd~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 14 Nov 2016 23:40:36 +0000
+
 libretro-beetle-pcfx (1:0.9.33.3+20160622git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit bda70ef

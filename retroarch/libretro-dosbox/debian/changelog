@@ -1,11 +1,5 @@
-libretro-dosbox (0.020140105.svn3853+r150~4~ubuntu15.10.1) wily; urgency=low
+libretro-dosbox (1:0.020140105+git20161115.e1ab4fc~1) brewmaster; urgency=low
 
-  * Auto build.
+  * Initial upload
 
- -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 12 May 2016 04:17:18 +0000
-
-libretro-dosbox (0.020140105.svn3853-0ubuntu1) UNRELEASED; urgency=low
-
-  * Initial release.
-
- -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sun, 10 Aug 2014 17:10:00 -0300
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 02:07:02 +0000

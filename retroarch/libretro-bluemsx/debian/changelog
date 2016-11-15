@@ -1,3 +1,9 @@
+libretro-bluemsx (1:0.020140411+git20161115.e9b81fd~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 00:48:28 +0000
+
 libretro-bluemsx (1:0.020140411+20160622git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 452bb49

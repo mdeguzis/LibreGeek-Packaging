@@ -1,3 +1,9 @@
+libretro-beetle-gba (1:0.9.36+git20161114.b17b3a2~1) brewmaster; urgency=low
+
+  * Update snapshot nano debian/changelog
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 14 Nov 2016 23:24:14 +0000
+
 libretro-beetle-gba (1:0.9.36+20160622git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit a40d7ca nano debian/changelog

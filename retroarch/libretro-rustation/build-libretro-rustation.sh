@@ -60,7 +60,7 @@ ARCH="amd64"
 export BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 PKGNAME="libretro-rustation"
 PKGVER="0.0.0"
 PKGREV="1"
@@ -217,7 +217,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

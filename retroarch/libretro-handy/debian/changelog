@@ -1,3 +1,9 @@
+libretro-handy (1:0.95+git20161115.84f188b~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 14:53:46 +0000
+
 libretro-handy (0.95+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 35a41f1

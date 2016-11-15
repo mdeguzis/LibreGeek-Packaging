@@ -1,0 +1,11 @@
+libretro-3dengine (1.0+git20161114.d87ecd0~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 14 Nov 2016 23:16:01 +0000
+
+libretro-3dengine (1.0+20161105git+bsos1) brewmaster; urgency=low
+
+  * Update to the latest commit d87ecd0
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 05 Nov 2016 20:44:40 +0000

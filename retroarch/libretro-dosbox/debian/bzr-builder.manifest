@@ -1,3 +1,0 @@
-# bzr-builder format 0.3 deb-version {debupstream}+r150~4
-lp:~libretro/libretro/dosbox-libretro revid:git-v1:2f5aa7e7913c8a6b0daa3f221c346e23d3f5814f
-nest packaging lp:~libretro/libretro/dosbox-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151026151951-as0vtytu51ikkebs

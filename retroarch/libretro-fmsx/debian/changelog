@@ -1,3 +1,9 @@
+libretro-fmsx (1:3.9+git20161115.91e6deb~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 14:18:43 +0000
+
 libretro-fmsx (3.9+git+bsos2) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

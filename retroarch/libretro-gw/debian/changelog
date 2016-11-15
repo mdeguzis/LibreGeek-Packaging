@@ -1,3 +1,9 @@
+libretro-gw (2:1.0+git20161115.0408906~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 14:48:51 +0000
+
 libretro-gw (1:1.0+git+bsos1) brewmaster; urgency=low
 
   * Initial upload

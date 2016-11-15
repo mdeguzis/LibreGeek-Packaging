@@ -138,7 +138,7 @@ main()
 
 	# For whatever reason, some "defaults" don't quite work
 	# Mayeb ship a config file in the future instead
-	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${GIT_DIR}/retroarch.cfg"
+	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${SRC_DIR}/retroarch.cfg"
 
 	#################################################
 	# Build package
@@ -231,7 +231,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

@@ -1,19 +1,5 @@
-libretro-fba (0.2.97.38+20160622git+bsos1) brewmaster; urgency=low
+libretro-fba (0.2.97.39+git20161115.a1151b3~1) brewmaster; urgency=low
 
-  * Update to the latest commit 13f8a05
+  * Initial upload
 
- -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 22 Jun 2016 14:28:16 -0400
-
-libretro-fba (0.2.97.37+git+bsos2) brewmaster; urgency=low
-
-  * Update to the latest commit 6545f7c
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Thu, 03 Mar 2016 10:38:01 -0500
-
-libretro-fba (0.2.97.37+git+bsos1) brewmaster; urgency=low
-
-  * Packaged deb for SteamOS-Tools
-  * See: packages.libregeek.org
-  * Upstream authors and source: https://github.com/libretro/libretro-fba
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 19:43:19 -0500
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 03:23:41 +0000

@@ -1,3 +1,9 @@
+libretro-gambatte (2:0.5.0+git20161115.4d8ae4f~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 14:35:40 +0000
+
 libretro-gambatte (1:0.5.0+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit da7e367

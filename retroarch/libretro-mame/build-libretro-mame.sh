@@ -141,22 +141,12 @@ main()
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
-	# trim .git, large repo
-	# rm -rf "${GIT_DIR}/.git"
-
-	#################################################
-	# Build package
-	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
 	#################################################
 	# Prepare sources
 	#################################################
+
+	# Trim .git folders
+	# find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	cd "${BUILD_TMP}" || exit 1
 

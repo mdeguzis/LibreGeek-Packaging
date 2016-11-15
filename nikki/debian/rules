@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+# See: ./linuxBuild.sh
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C $(CURDIR) '*/stack'
+	chmod +x stack
+	./stack --version
+	mkdir -p src/cpp/dist
+	cd src/cpp/dist && cmake ..
+	cd src/cpp/dist && make
+	./stack setup --no-terminal
+	./stack test --no-terminal
+	cd testsuite; ./stack exec -- testsuite	

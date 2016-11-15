@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+# See: ./linuxBuild.sh
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	# modplug.h isn't picked up in /usr/include, copy to src dir
+	cp /usr/include/libmodplug/modplug.h $(CURDIR)
+	autoreconf -fi
+	./configure --prefix=/usr
+	make

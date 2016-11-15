@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=OpenJazz
+Comment=Open-souce Jazz Jackrabbit engine
+Exec=/usr/games/openjazz
+Icon=/usr/share/pixmaps/openjazz.png
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/steam;

@@ -1,0 +1,26 @@
+Source: openjazz
+Section: games
+Priority: optional
+Build-Depends:
+ autoconf,
+ automake,
+ debhelper,
+ cmake,
+ libmodplug-dev,
+ libsdl1.2-dev,
+ zlib1g-dev
+Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
+Standards-Version: 3.9.7
+Homepage: https://github.com/openjazz-emu
+
+Package: openjazz
+Architecture: all
+Depends: ${misc:Depends},
+ ${shlibs:Depends}
+Description: Open-source version of Jazz Jackrabbit
+ OpenJazz is a free, open-source version of the classic
+ Jazz Jackrabbitâ¢ games. OpenJazz can be compiled
+ on a wide range of operating systems, including
+ Windows 98/Me/XP and Linux. To play, you will need
+ the files from one of the original games. 
+

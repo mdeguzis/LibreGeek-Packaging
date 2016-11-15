@@ -1,0 +1,26 @@
+Source: nikki
+Section: games
+Priority: optional
+Build-Depends:
+ build-essential,
+ debhelper,
+ cmake,
+ curl,
+ libgmp-dev,
+ libopenal-dev,
+ libqt4-opengl-dev,
+ libsndfile1-dev,
+ libzip-dev,
+ pkg-config,
+ qt4-default
+Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
+Standards-Version: 3.9.7
+Homepage: https://github.com/nikki-and-the-robots/nikk
+
+Package: nikki
+Architecture: all
+Depends: ${misc:Depends},
+ ${shlibs:Depends}
+Description: Nikki and the Robots is a 2d platformer
+ Nikki and the Robots is a 2-dimensional platform 
+ game written in Haskell.

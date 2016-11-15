@@ -55,9 +55,9 @@ TARGET="master"
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="amd64"
+TARGET_ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--architecture ${TARGET_ARCH} --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
@@ -208,7 +208,7 @@ main()
 	sleep 2s
 
 	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ${BUILDER} ${BUILDOPTS}
 	
 	#################################################
 	# Cleanup

@@ -134,11 +134,11 @@ main()
 	# Refresh what local debian has
 	echo -e "\n==> Refreshing SPIRV files"
 	sleep 2s
-	cp -rv "${GIT_DIR}/external/gslang/SPIRV/spirv.hpp" "${SCRIPTDIR}/debian/SPIRV/"
-	cp -rv "${GIT_DIR}/external/spirv-tools/include/spriv-tools/libspirv.h" "${SCRIPTDIR}/debian/spirv-tools/"
+	cp -rv "${SRC_DIR}/external/gslang/SPIRV/spirv.hpp" "${SCRIPTDIR}/debian/SPIRV/"
+	cp -rv "${SRC_DIR}/external/spirv-tools/include/spriv-tools/libspirv.h" "${SCRIPTDIR}/debian/spirv-tools/"
 	
 	# remove the external directory so it does not conflict or add extra "weight"
-	rm -rf "${GIT_DIR}/external"
+	rm -rf "${SRC_DIR}/external"
 
 	#################################################
 	# Build platform
@@ -234,7 +234,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

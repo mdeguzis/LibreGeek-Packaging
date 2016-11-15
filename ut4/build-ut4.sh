@@ -123,7 +123,7 @@ main()
 
 	mkdir -p "${SRC_DIR}"
 	cp "${SCRIPTDIR}/ut4-alpha.png" "${SRC_DIR}"
-	cp "${SCRIPTDIR}/ut4-launch.sh" "${GIT_DIR}/ut4-launch"
+	cp "${SCRIPTDIR}/ut4-launch.sh" "${SRC_DIR}/ut4-launch"
 
 	#################################################
 	# Build package
@@ -218,7 +218,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

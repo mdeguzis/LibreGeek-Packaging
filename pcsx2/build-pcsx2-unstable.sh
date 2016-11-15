@@ -169,30 +169,30 @@ main()
 	#################################################
 
 	echo -e "\nRemove 3rdparty code"
-	rm -fr "${GIT_DIR}/3rdparty"
-	rm -fr "${GIT_DIR}/fps2bios"
-	rm -fr "${GIT_DIR}/tools"
+	rm -fr "${SRC_DIR}/3rdparty"
+	rm -fr "${SRC_DIR}/fps2bios"
+	rm -fr "${SRC_DIR}/tools"
 
 	echo "Remove non free plugins"
 	# remove also deprecated plugins
 	for plugin in CDVDiso CDVDisoEFP CDVDlinuz CDVDolio CDVDpeops dev9ghzdrk \
 	PeopsSPU2 SSSPSXPAD USBqemu xpad zerogs zerospu2
 	do
-		rm -fr "${GIT_DIR}/plugins/$plugin"
+		rm -fr "${SRC_DIR}/plugins/$plugin"
 	done
 
 	echo "Remove remaining non free file. TODO UPSTREAM"
 
-	rm -rf ${GIT_DIR}/unfree
-	rm -rf ${GIT_DIR}/plugins/GSdx/baseclasses
-	rm -f  ${GIT_DIR}/plugins/zzogl-pg/opengl/Win32/aviUtil.h
-	rm -f  ${GIT_DIR}/common/src/Utilities/x86/MemcpyFast.cpp
+	rm -rf ${SRC_DIR}/unfree
+	rm -rf ${SRC_DIR}/plugins/GSdx/baseclasses
+	rm -f  ${SRC_DIR}/plugins/zzogl-pg/opengl/Win32/aviUtil.h
+	rm -f  ${SRC_DIR}/common/src/Utilities/x86/MemcpyFast.cpp
 
 	# To save 66% of the package size
-	rm -rf  ${GIT_DIR}/.git
+	rm -rf  ${SRC_DIR}/.git
 
 	# copy in debian folder
-	cp -r "${SCRIPTDIR}/debian-unstable" "${GIT_DIR}/debian"
+	cp -r "${SCRIPTDIR}/debian-unstable" "${SRC_DIR}/debian"
 
 	#################################################
 	# Build platform
@@ -290,7 +290,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

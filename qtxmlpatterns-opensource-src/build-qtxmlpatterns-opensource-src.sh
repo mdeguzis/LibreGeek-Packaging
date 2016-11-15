@@ -121,12 +121,12 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	git clone --recursive -b ${TARGET} ${SRC_URL} ${GIT_DIR}
+	git clone --recursive -b ${TARGET} ${SRC_URL} ${SRC_DIR}
 	
 	echo -e "\n==> Fetching extra submodules\n"
 	sleep 2s
 	
-	# The ${GIT_DIR}/include folder is not included.
+	# The ${SRC_DIR}/include folder is not included.
 	# Why? No idea at the moment, so TODO
 	# For now fetch from Qt downloads
 	wget "http://download.qt.io/archive/qt/5.7/5.7.0/submodules/qtxmlpatterns-opensource-src-5.7.0.tar.gz" \
@@ -137,7 +137,7 @@ main()
 	rm "qtxmlpatterns-opensource-src-5.7.0.tar.gz"
 
 	# trim git (after confimed working build)
-	# rm -rf "${GIT_DIR}/.git"
+	# rm -rf "${SRC_DIR}/.git"
 
 	#################################################
 	# Prep source
@@ -233,7 +233,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

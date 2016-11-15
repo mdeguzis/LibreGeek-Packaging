@@ -185,7 +185,7 @@ main()
 		echo -e "\n==> Cleaning old source foldrers for retry"
 		sleep 2s
 		
-		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
 		mkdir -p "${SRC_DIR}"
 	
 		echo -e "\n==> Retrying with prior source tarball\n"

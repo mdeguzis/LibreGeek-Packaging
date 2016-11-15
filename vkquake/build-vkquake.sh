@@ -122,8 +122,8 @@ main()
 	# Add required files and artwork
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 	cp "${SCRIPTDIR}/vkquake.png" "${SRC_DIR}"
-	cp "${GIT_DIR}/LICENSE.txt" "${GIT_DIR}/debian/LICENSE"
-	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
+	cp "${SRC_DIR}/LICENSE.txt" "${SRC_DIR}/debian/LICENSE"
+	cp "${SCRIPTDIR}/vkquake-launch.sh" "${SRC_DIR}/vkquake-launch"
 
 	#################################################
 	# Build package
@@ -221,7 +221,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

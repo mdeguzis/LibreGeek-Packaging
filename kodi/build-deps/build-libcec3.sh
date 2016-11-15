@@ -127,7 +127,7 @@ main()
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 6	# Upsteam has split control files ATM, remove precise file that conflicts in build
-	rm -f "${GIT_DIR}/debian/control.precise"
+	rm -f "${SRC_DIR}/debian/control.precise"
 
 	#################################################
 	# Build platform
@@ -217,7 +217,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

@@ -155,7 +155,7 @@ main()
 
 	# Move binary to root vkquake dir
 
-	cp "${GIT_DIR}/Quake/vkquake" "${SRC_DIR}"
+	cp "${SRC_DIR}/Quake/vkquake" "${SRC_DIR}"
 
 	# Add libs, launcher, and readme for binary7
 
@@ -171,7 +171,7 @@ main()
 	do
 
 		echo "Removing uneeded file: ${file}"
-		rm -rf "${GIT_DIR}/${file}"
+		rm -rf "${SRC_DIR}/${file}"
 
 	done
 
@@ -179,7 +179,7 @@ main()
 
 	cd "${BUILD_TMP}"
 	tar -czvf "${PKGNAME}-${PKGVER}_${PKGSUFFIX}.tar.gz" \
-	$(basename ${GIT_DIR})
+	$(basename ${SRC_DIR})
 
 	#################################################
 	# Cleanup

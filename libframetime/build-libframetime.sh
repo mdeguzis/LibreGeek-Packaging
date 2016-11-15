@@ -157,13 +157,13 @@ main()
 	
 	if [[ "${ARCH}" == "" || "${ARCH}" == "i386" ]]; then
 
-		sed -i "s/Source\: libframetime/Source\: libframetime32/g" "${GIT_DIR}/debian/control"
-		sed -i "s/Package\: libframetime/Package\: libframetime32/g" "${GIT_DIR}/debian/control"
+		sed -i "s/Source\: libframetime/Source\: libframetime32/g" "${SRC_DIR}/debian/control"
+		sed -i "s/Package\: libframetime/Package\: libframetime32/g" "${SRC_DIR}/debian/control"
 
 	elif [[ "${ARCH}" == "amd64" ]]; then
 
-		sed -i "s/Source\: libframetime/Source\: libframetime64/g" "${GIT_DIR}/debian/control"
-		sed -i "s/Package\: libframetime/Package\: libframetime64/g" "${GIT_DIR}/debian/control"
+		sed -i "s/Source\: libframetime/Source\: libframetime64/g" "${SRC_DIR}/debian/control"
+		sed -i "s/Package\: libframetime/Package\: libframetime64/g" "${SRC_DIR}/debian/control"
 
 	fi
 	
@@ -242,7 +242,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

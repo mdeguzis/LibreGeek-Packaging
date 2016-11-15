@@ -112,7 +112,7 @@ main()
 	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	# modify desktop file
-	sed -i 's/Icon\=nfs2se/Icon\=\/usr\/share\/pixmaps\/nfs2se.png/' "${GIT_DIR}/Need For Speed II SE/nfs2se.desktop"
+	sed -i 's/Icon\=nfs2se/Icon\=\/usr\/share\/pixmaps\/nfs2se.png/' "${SRC_DIR}/Need For Speed II SE/nfs2se.desktop"
 
 	#################################################
 	# Build package
@@ -210,7 +210,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

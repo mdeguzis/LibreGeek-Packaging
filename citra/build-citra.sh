@@ -123,7 +123,7 @@ main()
 	cp -r "${SCRIPTDIR}/Citra.png" "${SRC_DIR}"
 	
 	# Swap version text, since the project assumes citra is being ran in the git dir
-	sed -i "s|GIT-NOTFOUND|${PKGVER}git|g" "${GIT_DIR}/externals/cmake-modules/GetGitRevisionDescription.cmake"
+	sed -i "s|GIT-NOTFOUND|${PKGVER}git|g" "${SRC_DIR}/externals/cmake-modules/GetGitRevisionDescription.cmake"
 
 	#################################################
 	# Build package
@@ -141,7 +141,7 @@ main()
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-	cp "${GIT_DIR}/license.txt" "${GIT_DIR}/debian/LICENSE"
+	cp "${SRC_DIR}/license.txt" "${SRC_DIR}/debian/LICENSE"
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -223,7 +223,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

@@ -139,7 +139,7 @@ main()
 	PKGSUFFIX="git${commit}+bsos${PKGREV}"
 
 	# copy in modified files until fixed upstream
-	# cp "${SCRIPTDIR}/rules" "${GIT_DIR}/debian"
+	# cp "${SCRIPTDIR}/rules" "${SRC_DIR}/debian"
 
 	#################################################
 	# Prepare package (main)
@@ -268,7 +268,7 @@ main()
 		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 		# Move packages to build dir
-		mv ${GIT_DIR}/*${PKGVER_data}* "${BUILD_TMP}"
+		mv ${SRC_DIR}/*${PKGVER_data}* "${BUILD_TMP}"
 
 	# end build data run
 	fi
@@ -330,7 +330,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

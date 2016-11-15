@@ -185,7 +185,7 @@ main()
 		echo -e "\n==> Cleaning old source folders for RETRY"
 		sleep 2s
 		
-		rm -rf *.dsc *.xz *.build *.changes ${GIT_DIR}
+		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
 		mkdir -p "${SRC_DIR}"
 	
 		echo -e "\n==> RETRYing with prior source tarball\n"
@@ -282,7 +282,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

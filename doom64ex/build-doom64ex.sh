@@ -129,7 +129,7 @@ main()
 
 	# Add debian folder stuff
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-	cp "${GIT_DIR}/COPYING" "${GIT_DIR}/debian/copyright"
+	cp "${SRC_DIR}/COPYING" "${SRC_DIR}/debian/copyright"
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -208,7 +208,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

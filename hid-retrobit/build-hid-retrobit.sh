@@ -136,7 +136,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# remove upstream partial DEBIAN dir
-	rm -rf "${GIT_DIR}/DEBIAN/"
+	rm -rf "${SRC_DIR}/DEBIAN/"
 
 	# copy in debian folder proper to source folder
 	cp -r ""${SCRIPTDIR}/debian"" "${SRC_DIR}"
@@ -231,7 +231,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

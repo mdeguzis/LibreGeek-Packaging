@@ -419,7 +419,7 @@ kodi_build_src()
 	# Build Kodi source
 	#################################################
 
-	echo -e "\n==> Building Kodi in ${GIT_DIR}\n"
+	echo -e "\n==> Building Kodi in ${SRC_DIR}\n"
 
 	# enter build dir
 	cd "${SRC_DIR}"

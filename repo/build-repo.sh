@@ -110,7 +110,7 @@ main()
 	# We only need a binary here, so don't clone anything
 	mkdir -p "${SRC_DIR}"
 	wget -P "${SRC_DIR}" "https://storage.googleapis.com/git-repo-downloads/repo" -q -nc --show-progress
-	chmod +x "${GIT_DIR}/repo"
+	chmod +x "${SRC_DIR}/repo"
 
 	#################################################
 	# Build package
@@ -209,7 +209,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

@@ -141,7 +141,7 @@ main()
 	cp "${SCRIPTDIR}/emulators.txt" "${SRC_DIR}"
 	cp "${SCRIPTDIR}/config.txt" "${SRC_DIR}"
 	cp "${SCRIPTDIR}/consoles.txt" "${SRC_DIR}"
-	cp "${SCRIPTDIR}/ice-steamos.sh" "${GIT_DIR}/ice-steamos"
+	cp "${SCRIPTDIR}/ice-steamos.sh" "${SRC_DIR}/ice-steamos"
 	cp "${SCRIPTDIR}/debian/README.md" "${SRC_DIR}"
 
 	#################################################
@@ -244,7 +244,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

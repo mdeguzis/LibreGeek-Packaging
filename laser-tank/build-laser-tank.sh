@@ -124,7 +124,7 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Add launcher script
-	cp -r "${SCRIPTDIR}/laser-tank.sh" "${GIT_DIR}/laser-tank"
+	cp -r "${SCRIPTDIR}/laser-tank.sh" "${SRC_DIR}/laser-tank"
 
 	# enter git dir
 	cd "${SRC_DIR}"
@@ -218,7 +218,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

@@ -57,10 +57,12 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
+# need to override prefs to install qt5/qtchooser
+export NO_APT_PREFS="true"
 PKGNAME="libretro-mame"
 PKGVER="0.174"
 PKGREV="1"

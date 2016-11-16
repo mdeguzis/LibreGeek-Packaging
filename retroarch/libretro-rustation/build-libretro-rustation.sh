@@ -50,7 +50,7 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/libretro/rustation-libretro"
+SRC_URL="https://github.com/simias/rustation-libretro"
 TARGET="master"
 
 # package vars

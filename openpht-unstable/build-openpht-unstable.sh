@@ -52,19 +52,18 @@ fi
 #SRC_URL="https://github.com/plexinc/plex-home-theater-public"
 #SRC_URL="https://github.com/ProfessorKaos64/plex-home-theater-public"
 SRC_URL="https://github.com/RasPlex/OpenPHT"
-TARGET="openpht-1.6"
+TARGET="openpht-1.7"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
 PKGNAME="openpht-unstable"
-PKGVER="1.6"
+PKGVER=$(echo ${TARGET} | sed 's/openpht-//')
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -164,7 +163,9 @@ main()
 	
 	# Get latest commit
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 	
 	# Trim out .git
 	rm -rf "${SRC_DIR}/.git"

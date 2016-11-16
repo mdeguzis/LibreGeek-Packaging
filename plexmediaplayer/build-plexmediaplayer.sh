@@ -49,7 +49,7 @@ src_cmd=""
 
 # upstream URL
 SRC_URL="https://github.com/plexinc/plex-media-player"
-TARGET="v1.1.4.393-12c41f9f"
+TARGET="v1.1.6.408-7375112a"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,7 +62,7 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 export NO_APT_PREFS="true"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 PKGNAME="plexmediaplayer"
-PKGVER="1.1.4.393"
+PKGVER="1.1.6.408"
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGREV="1"
@@ -128,11 +128,14 @@ main()
 	
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	
+
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"	
+
 	# Add extra files for orig tarball
 	cp -r "${SCRIPTDIR}/plexmediaplayer.png" "${SRC_DIR}"
-	
+
 	# enter git dir
 	cd "${SRC_DIR}"
 

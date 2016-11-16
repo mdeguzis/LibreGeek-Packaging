@@ -1,7 +1,7 @@
 Source: rustc
 Section: devel
 Priority: extra
-Maintainer: Hans Jørgen Hoel <hansjorg@gmail.com>
+Maintainer: Micahel DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 7),
  autotools-dev,
  curl,

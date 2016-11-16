@@ -60,6 +60,7 @@ RETRY_BUILD="false"
 FILE=""
 UNPACK_ALL="false"
 USER_COMMANDS="false"
+DEB_BUILD_PROFILES=""
 export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
 export EXTRA_OPTS=""
@@ -669,6 +670,16 @@ while :; do
 				exit 1
 			else
 				BUILDOPTS+=("-- --binary-arch")
+			fi
+			;;
+
+		--build-stage|-bs)
+			if [[ -n "$2" ]]; then
+				export DEB_BUILD_PROFILES=$2
+				shift
+			else
+				echo -e "ERROR: --build-stage|-bs requires an argument.\n" >&2
+				exit 1
 			fi
 			;;
 

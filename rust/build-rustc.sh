@@ -118,10 +118,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	# Do not use `--recursive ` here. While the submodules will recurse fine,
-	# This conflicts then with the pathing with a later usage of git within the makefile
-	# Let the make file fetch the first batch of main submodules usually obtained by --recursive
-	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
 	# Build package

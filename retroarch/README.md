@@ -3,7 +3,8 @@
 2. Build an install retroarch or libretro-frontend 
 3. Build all available cores
 
-# Package update queue 20160119
+# Package update queue 20161115
 
-* All done
+* libretro-mame (broken build)
+* libretro-ppsspp (broken buid)
 

@@ -61,6 +61,7 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 export USE_NETWORK="yes"
+export DEB_BUILD_PROFILES=""
 PKGNAME="rustc"
 PKGVER="${TARGET}"
 upstream_rev="1"
@@ -88,9 +89,6 @@ install_prereqs()
 
 main()
 {
-
-	# enter build dir
-	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 

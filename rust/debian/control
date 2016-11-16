@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Micahel DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 7),
  autotools-dev,
- cmake,
+ cmake (>= 3.4.3),
  curl,
  file,
  python,

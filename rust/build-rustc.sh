@@ -37,8 +37,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
@@ -51,14 +49,14 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/rust-lang/rust"
-TARGET="1.8.0"
+TARGET="1.13.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
@@ -67,7 +65,7 @@ PKGNAME="rustc"
 PKGVER="${TARGET}"
 upstream_rev="1"
 PKGREV="1"
-PKGSUFFIX="bsos"
+PKGSUFFIX=""
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

@@ -51,7 +51,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/rust-lang/cargo"
-TARGET="0.10.0"
+TARGET="0.14.0"
 
 
 # package vars
@@ -59,14 +59,13 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export USE_NETWORK="yes"
 PKGNAME="cargo"
 PKGVER="${TARGET}"
-upstream_rev="1"
 PKGREV="1"
-PKGSUFFIX="bsos${PKGREV}"
+PKGSUFFIX="bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -147,13 +146,13 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" \
-		-D $DIST -u "${URGENCY}" "Update release"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		-D $DIST -u "${URGENCY}" "Update release to ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" --package "${PKGNAME}" \
+		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Initial upload attmpt"
 		nano "debian/changelog"
 

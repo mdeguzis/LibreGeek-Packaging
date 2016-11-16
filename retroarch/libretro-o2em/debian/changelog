@@ -1,3 +1,9 @@
+libretro-o2em (1:1.18+git20161115.0d54d35~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 22:30:16 +0000
+
 libretro-o2em (1:1.18+20160809git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 5a200f1

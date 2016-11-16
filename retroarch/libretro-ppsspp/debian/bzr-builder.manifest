@@ -1,0 +1,7 @@
+# bzr-builder format 0.3 deb-version {debupstream}+r88.n1212.f4.a166.t83~31
+lp:~libretro/libretro/ppsspp-libretro revid:sergio_br2@yahoo.com.br-20160801161659-nj1ewgg6m1efc1ta
+nest packaging lp:~libretro/libretro/ppsspp-libretro-debian debian revid:sergio_br2@yahoo.com.br-20151203223127-gvfqgxbaduusor4u
+nest na lp:~libretro/libretro/ppsspp-native-libretro native revid:git-v1:9baedbcc2a07b3bccc6d8b8d170498111b990adc
+nest ppsspp-ffmpeg lp:~ppsspp/ppsspp/ffmpeg-upstream ffmpeg revid:sergio_br2@yahoo.com.br-20150720040346-zedtm9b1ve7h2b9v
+nest ar lp:~ppsspp/ppsspp/armips ext/armips revid:sergio_br2@yahoo.com.br-20160929012256-ov7x2zss6axjti9w
+nest ti lp:~ppsspp/ppsspp/tinyformat ext/armips/ext/tinyformat revid:git-v1:b7f5a22753c81d834ab5133d655f1fd525280765

@@ -24,6 +24,15 @@ ifeq ($(ARCH),armhf)
 	PLATFORM=platform="armv hardfloat gles neon cortexa9"
 endif
 
+# Needs to install lsb-release package
+UBUNTU_VERSION=$(shell lsb_release -c | cut -f2)
+
+ifeq ($(UBUNTU_VERSION),precise)
+	# Needs to install ppa:dolphin-emu/gcc-for-dolphin, which provides gcc 4.9
+	export CC=gcc-4.9
+	export CXX=g++-4.9
+endif
+
 %:
 	dh $@ --sourcedirectory=libretro/ --parallel
 

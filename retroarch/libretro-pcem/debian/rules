@@ -1,11 +1,18 @@
 #!/usr/bin/make -f
 
-
-ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
-
-ifeq ($(ARCH),armhf)
-	PLATFORM=platform="armv hardfloat gles"
-endif
+export DEB_CFLAGS_MAINT_PREPEND=-std=gnu11
 
 %:
-	dh $@
+	dh $@ --parallel
+
+override_dh_auto_configure:
+
+override_dh_auto_build:
+	cd src/ && \
+	$(MAKE) -f Makefile.libretro
+
+override_dh_auto_clean:
+	cd src/ && \
+	$(MAKE) -f Makefile.libretro clean
+
+override_dh_auto_install:

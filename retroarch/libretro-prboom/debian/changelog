@@ -1,3 +1,9 @@
+libretro-prboom (1:2.5.0+git20161116.d1479f0~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 16 Nov 2016 03:33:27 +0000
+
 libretro-prboom (1:2.5.0+20160810git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 448fa6e

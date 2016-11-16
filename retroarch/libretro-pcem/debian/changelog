@@ -1,5 +1,5 @@
-libretro-pcem (0.0-1) brewmaster; urgency=low
+libretro-pcem (0.1.0+git20161115.e0e0458~1) brewmaster; urgency=low
 
-  * Dummy changelog
+  * Initial upload attmpt
 
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 15 Mar 2016 08:41:00 -0300
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 23:14:15 +0000

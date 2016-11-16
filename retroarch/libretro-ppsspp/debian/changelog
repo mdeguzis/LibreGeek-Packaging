@@ -1,3 +1,9 @@
+libretro-ppsspp (1:1.0.1+git20161115.e1bb9da~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 23:33:33 +0000
+
 libretro-ppsspp (1:1.0.1+20160919git+bsos1) brewmaster; urgency=low
 
   * Initial upload

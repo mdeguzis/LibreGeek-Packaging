@@ -1,21 +1,89 @@
 Source: libretro-pcem
 Section: games
 Priority: optional
-Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com
-Uploaders: Michael DeGuzis <mdeguzis@gmail.com>
-Build-Depends: debhelper (>= 9),
- libopenal-dev,
- libalut-dev,
- liballegro5-dev
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Uploaders: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.6
-Homepage: https://github.com/libretro/libretro-pcem
+Homepage: http://pcem-emulator.co.uk/
 
 Package: libretro-pcem
-Architecture: any
+Architecture: amd64
 Multi-Arch: same
 Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
 Description: Libretro wrapper for PCem
  This wrapper makes PCem compatible with libretro, thus allowing its use
  with libretro frontends, such as RetroArch.
  .
- PCem is a PC emulator, which is able to run a mirad of Windows 9x games.
+ Systems / motherboards emulated:
+  * Acermate 386SX/25N
+  * AMI XT clone
+  * AMI 286 clone
+  * AMI 386 clone
+  * AMI 486 clone
+  * AMI WinBIOS 486 clone
+  * Amstrad PC1512
+  * Amstrad PC1640
+  * Amstrad PC2086
+  * Amstrad PC3086
+  * Amstrad MegaPC
+  * Award SiS496/497 486 PCI clone
+  * Award i430VX clone
+  * Commodore PC30-III
+  * Compaq Deskpro 386
+  * Dell System 200
+  * DTK XT clone
+  * DTK 386SX clone
+  * Generic XT clone
+  * IBM 5150 PC
+  * IBM 5160 XT
+  * IBM AT
+  * IBM PCjr
+  * IBM PS/1 Model 2011
+  * Intel Premiere/PCI (Batman's Revenge)
+  * Intel Advanced/EV (Endeavor)
+  * Juko XT clone
+  * Olivetti M24
+  * Phoenix XT clone
+  * Phoenix 386 clone
+  * Schneider EuroPC
+  * Sinclair PC200
+  * Tandy 1000
+  * VTech Laser Turbo XT
+  * VTech Laser XT3
+ .
+ Graphics cards emulated:
+  * 3DFX Voodoo Graphics
+  * ATI Graphics Pro Turbo (Mach64 GX)
+  * ATI VGA Edge-16 (ATI-18800)
+  * ATI VGA Charger (ATI-28800)
+  * CGA
+  * Diamond Stealth 32 (Tseng ET4000/w32p)
+  * Diamond Stealth 3D 2000 (S3 ViRGE/325)
+  * Hercules
+  * IBM EGA
+  * IBM VGA
+  * MDA
+  * Number Nine 9FX (S3 Trio64)
+  * OAK OTI-067
+  * Paradise Bahamas 64 (S3 Vision864)
+  * Phoenix S3 Trio32
+  * Phoenix S3 Trio64
+  * S3 ViRGE/DX
+  * Trident TVGA8900D
+  * Trident TGUI9440
+  * Tseng ET4000AX
+ .
+ Sound cards emulated:
+  * AdLib
+  * AdLib Gold
+  * GameBlaster
+  * Gravis UltraSound
+  * Sound Blaster v1.0
+  * Sound Blaster v1.5
+  * Sound Blaster v2.0
+  * Sound Blaster Pro v1
+  * Sound Blaster Pro v2
+  * Sound Blaster 16
+  * Sound Blaster AWE32
+  * Windows Sound System

@@ -1,3 +1,9 @@
+libretro-mame2014 (1:0.159+git20161115.aaf48c0~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 15 Nov 2016 19:37:08 +0000
+
 libretro-mame2014 (1:0.159+20160809git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 012f709

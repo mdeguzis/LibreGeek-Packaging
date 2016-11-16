@@ -1,3 +1,9 @@
+libretro-reicast (1:0.1+git20161116.3601150~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 16 Nov 2016 13:42:00 +0000
+
 libretro-reicast (1:0.1+20160810git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit a7ff132

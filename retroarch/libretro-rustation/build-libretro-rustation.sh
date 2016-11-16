@@ -64,6 +64,7 @@ BUILDOPTS=""
 PKGNAME="libretro-rustation"
 PKGVER="0.0.0"
 PKGREV="1"
+EPOCH="2"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -108,7 +109,7 @@ main()
 
 		# handle prereqs on host machine
 		install_prereqs
-	
+
 	fi
 
 	# Clone upstream source code and TARGET
@@ -149,14 +150,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update snapshot"
 		nano "debian/changelog"
 
 	else
 
-		dch --create -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch --create -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Initial upload"
 		nano "debian/changelog"

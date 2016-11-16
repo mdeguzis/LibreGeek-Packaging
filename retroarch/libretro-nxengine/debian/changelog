@@ -1,3 +1,9 @@
+libretro-nxengine (1:1.0.0.4+git20161116.ee65158~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 16 Nov 2016 13:27:57 +0000
+
 libretro-nxengine (1:1.0.0.4+20160809git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit f51fa45

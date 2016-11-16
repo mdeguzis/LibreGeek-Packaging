@@ -1,3 +1,9 @@
+libretro-virtualjaguar (1:2.1.0+git20161116.8be4390~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 16 Nov 2016 16:02:38 +0000
+
 libretro-virtualjaguar (2.1.0+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 2899c5a

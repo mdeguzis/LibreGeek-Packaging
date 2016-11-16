@@ -1,3 +1,9 @@
+libretro-vbam (1:1.8.0+git20161116.ae4068d~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 16 Nov 2016 16:11:36 +0000
+
 libretro-vbam (1:1.8.0+20160810git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit a099aec

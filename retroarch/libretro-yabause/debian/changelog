@@ -1,3 +1,9 @@
+libretro-yabause (1:0.9.14+git20161116.dac3c5a~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 16 Nov 2016 16:25:46 +0000
+
 libretro-yabause (0.9.14+git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 4262e79

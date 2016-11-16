@@ -123,7 +123,6 @@ main()
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
-
 	#################################################
 	# Build platform
 	#################################################
@@ -154,7 +153,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release for v1.3.4"
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		nano "debian/changelog"
 
 	else

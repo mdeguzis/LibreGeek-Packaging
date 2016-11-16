@@ -119,10 +119,10 @@ main()
 	# clone and checkout desired commit
 	git clone -b "$TARGET" "$SRC_URL" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	
+
 	# Set suffix based on revisions
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Build platform
@@ -156,7 +156,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to the latest commit [${latest_commit}]"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		nano "debian/changelog"
 
 	else

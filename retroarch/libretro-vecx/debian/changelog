@@ -1,3 +1,9 @@
+libretro-vecx (1:1.0+git20161116.1a86382~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 16 Nov 2016 16:18:51 +0000
+
 libretro-vecx (1:1.0+20160810git+bsos1) brewmaster; urgency=low
 
   * Initial upload

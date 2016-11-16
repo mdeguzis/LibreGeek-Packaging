@@ -1,3 +1,9 @@
+libretro-vba-next (1:1.0.2+git20161116.7623670~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 16 Nov 2016 15:56:51 +0000
+
 libretro-vba-next (1:1.0.2+20160810git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit bec09a7

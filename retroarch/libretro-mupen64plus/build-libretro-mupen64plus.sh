@@ -38,11 +38,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -53,7 +53,8 @@ TARGET="master"
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="pdebuild"
+# does not build with pbuilder right now
+BUILDER="debuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"

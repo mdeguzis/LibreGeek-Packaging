@@ -1,0 +1,16 @@
+Description: Fix asm-misplaced-option on ARM/AArch64
+Author: Mátyás Mustoha <mmatyas@inf.u-szeged.hu>
+Applied-Upstream: commit:ba8d46eac80fef496790486f1cb08dec61a2555d
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/test/compile-fail/asm-misplaced-option.rs
++++ b/src/test/compile-fail/asm-misplaced-option.rs
+@@ -9,6 +9,8 @@
+ // except according to those terms.
+ 
+ // ignore-android
++// ignore-arm
++// ignore-aarch64
+ 
+ #![feature(asm, rustc_attrs)]
+ 

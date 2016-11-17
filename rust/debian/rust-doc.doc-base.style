@@ -1,0 +1,12 @@
+Document: rust-style
+Title: The Rust Style Guidelines
+Section: Programming/Rust
+Abstract:
+ This document collects the emerging principles, conventions,
+ abstractions, and best practices for writing Rust code.
+
+Format: HTML
+Index: /usr/share/doc/rust-doc/html/style/index.html
+Files: /usr/share/doc/rust-doc/html/style/*.html
+ /usr/share/doc/rust-doc/html/style/*/*.html
+ /usr/share/doc/rust-doc/html/style/*/*/*.html

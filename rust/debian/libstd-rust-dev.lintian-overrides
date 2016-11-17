@@ -1,0 +1,3 @@
+# I assure you, dear lintian, that "/usr/lib/rustlib/x86_64-unknown-linux-gnu/"
+# is indeed an arch-specific directory.
+libstd-rust-dev binary: arch-dependent-file-not-in-arch-specific-directory

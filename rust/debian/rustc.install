@@ -1,0 +1,3 @@
+usr/bin/rustc
+usr/bin/rustdoc
+debian/architecture.mk usr/share/rustc/

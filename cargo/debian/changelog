@@ -1,3 +1,9 @@
+cargo (0.14.0+bsos-1) brewmaster; urgency=low
+
+  * Update release to 0.14.0
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 17 Nov 2016 01:40:10 +0000
+
 cargo (0.10.0+bsos1-1) brewmaster; urgency=low
 
   * Update release

@@ -1,0 +1,10 @@
+Document: rust-intro
+Title: The Rust Guide
+Section: Programming/Rust
+Abstract:
+ This introduction will give you a rough idea of what Rust is like,
+ eliding many details.
+
+Format: HTML
+Index: /usr/share/doc/rust-doc/html/intro.html
+Files: /usr/share/doc/rust-doc/html/intro.html

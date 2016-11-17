@@ -61,7 +61,7 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="libretro-snes9x2005"
+PKGNAME="libretro-catsfc"
 PKGVER="1.36"
 PKGREV="1"
 EPOCH="2"
@@ -120,6 +120,7 @@ main()
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	# Set suffix based on revisions
+	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
@@ -135,7 +136,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"

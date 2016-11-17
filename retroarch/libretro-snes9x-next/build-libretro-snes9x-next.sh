@@ -41,15 +41,15 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
-SRC_URL="https://github.com/libretro/snes9x-next"
+SRC_URL="https://github.com/libretro/snes9x2010"
 TARGET="master"
 
 # package vars

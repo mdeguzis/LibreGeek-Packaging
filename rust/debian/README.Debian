@@ -1,0 +1,109 @@
+For now, the shared libraries of Rust are private.
+The rational is the following:
+ * Upstream prefers static linking for now
+   - https://github.com/rust-lang/rust/issues/10209
+ * rust is still under heavy development. As far as we know, there is
+   no commitement from upstream to provide a stable ABI for now.
+   Until we know more, we cannot take the chance to have Rust-built packages
+   failing at each release of the compiler.
+ * Static builds are working out of the box just fine
+ * However, LD_LIBRARY_PATH has to be updated when -C prefer-dynamic is used
+
+ -- Sylvestre Ledru <sylvestre@debian.org>, Fri, 13 Feb 2015 15:08:43 +0100
+
+Building from source
+--------------------
+
+By default, the Debian rustc package will use the system rustc to bootstrap
+itself from. The system rustc has to be either the previous or the same version
+as the rustc being built; the build will fail if this is not the case.
+
+  apt-get source --compile rustc
+
+Alternatively:
+
+a) You may give the "pkg.rustc.nolocal" DEB_BUILD_PROFILE to instead use the
+process defined by Rust upstream. This downloads the "official" stage0 compiler
+(for the version being built) from rust-lang.org. At the time of writing
+"official" means "the previous stable version".
+
+  apt-get source --compile --build-profiles=pkg.rustc.nolocal rustc
+
+b) You may give the "pkg.rustc.nodistro" DEB_BUILD_PROFILE to use a custom
+local Rust installed into /usr/local. As with the system rustc, this must be
+either the previous or the current version.
+
+  [install a custom rustc into /usr/local]
+  apt-get source --compile --build-profiles=pkg.rustc.nodistro rustc
+
+After building, you might want to re-build the version you just built, this
+time using itself to bootstrap from:
+
+  dpkg -i rustc*.deb libstd-rust-*.deb
+  apt-get source --compile rustc
+
+Bootstrapping a new distro
+--------------------------
+
+If you want to bootstrap [*] a new distro that does not already have rustc, you
+may run `debian/rules source_orig-dl` to create a .dsc that does not
+Build-Depend on rustc. Instead, it includes an extra orig-dl source tarball
+that contains the official stage0 compiler, pre-downloaded from rust-lang.org
+so that your build daemons don't need to access the network during the build.
+
+  debian/rules source_orig-dl
+  sbuild ../rustc_*.dsc
+
+To only bootstrap specific architectures, run this instead:
+
+  upstream_bootstrap_arch="arm64 armel armhf" debian/rules source_orig-dl
+
+This way, other architectures will be omitted from the orig-dl tarball. You
+might want to do this e.g. if these other architectures are already present in
+your distro, but the $upstream_bootstrap_arch ones are not yet present.
+
+[*] We assume that you do this via a source upload, such that build daemons can
+recreate the binaries. We're not considering the scenario where you build a
+binary rustc locally, using bootstrapping steps that your distro's build
+daemons can't reproduce themselves. This latter scenario is not secure from the
+distro's perspective, since you could be uploading a backdoored binary. We
+expect that distros will eventually drop support for it with Reproducible
+Builds, so we don't bother to support it ourselves here.
+
+Bootstrapping a new architecture
+--------------------------------
+
+WARNING: This does not work yet
+
+0. Start with rust installed on an existing platform
+
+1. Build a rust cross-compiler targeting new architecture
+
+    sudo apt-get build-dep --build-profile=nodoc rustc
+    dpkg-buildpackage -t $new_arch
+
+2. Use cross-compiler to build a compiler that runs on new architecture
+
+    dpkg --add-architecture $new_arch
+    sudo apt-get build-dep --host-architecture=$new_arch rustc
+    dpkg-buildpackage -a $new_arch
+
+    # Perhaps this is sufficient ??
+    #apt-get source --compile --host-architecture=$new_arch rustc
+
+ -- Angus Lees <gus@debian.org>, Sun,  1 Feb 2015 16:16:44 +1100
+
+Other notes
+-----------
+
+Rust armv7-unknown-linux-gnueabihf requires a machine that supports NEON
+instructions which includes *most* ARMv7 chips these days.
+ 
+Unfortunately, Debian's armhf port is supposed to work on machines without
+NEON, which in practise means we can't generate or use NEON code in our armhf
+binaries. This includes all of Debian's current armhf buildds, which error
+with "Illegal instruction" when using the upstream stage0 bootstrap compiler.
+
+We're currently unsure of the best way forward on this. rustc does build and
+run (with all tests passing) on the armhf porterbox harris.debian.org, which
+does support NEON instructions.

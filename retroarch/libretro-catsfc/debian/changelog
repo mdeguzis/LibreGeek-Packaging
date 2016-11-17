@@ -1,3 +1,9 @@
+libretro-catsfc (2:1.36+git20161117.fe3ecfc~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 17 Nov 2016 03:29:58 +0000
+
 libretro-snes9x2005 (2:1.36+git20161115.~1) brewmaster; urgency=low
 
   * Update snapshot

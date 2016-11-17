@@ -1,0 +1,16 @@
+Description: test: disable more stdcall tests for ARM arches. temp workaround for #24958
+Author: Ximin Luo <infinity0@pwned.gg>
+Applied-Upstream: commit:4e5e36fb79e1cffc6f7c3a9670df222060bb0e4b
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/test/debuginfo/type-names.rs
++++ b/src/test/debuginfo/type-names.rs
+@@ -11,6 +11,8 @@
+ // ignore-tidy-linelength
+ // ignore-lldb
+ // ignore-android: FIXME(#24958)
++// ignore-arm: FIXME(#24958)
++// ignore-aarch64: FIXME(#24958)
+ 
+ // compile-flags:-g
+ 

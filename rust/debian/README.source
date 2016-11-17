@@ -1,0 +1,41 @@
+Document by Luca Bruno & Sylvestre Ledru
+
+This source package is unfortunately quite tricky and with
+several cutting edges, due to the complexity of rust-lang
+bootstrapping system and the high rate of language changes
+still ongoing.
+
+We try to describe here inner packaging details and the
+reasons behind them.
+
+
+Embedded libraries
+==================
+
+This source package embeds several external libraries (foeked and managed
+by rust upstream as git submodules).
+In early stages, many more libraries were forked/emebedded but we are steadily
+progressing in splitting them out.
+
+Here below the remaining ones, with the technical reasons.
+
+ * jemalloc from https://github.com/rust-lang/jemalloc
+   -> system-wide one can't be used due to rust using a "je_" prefix.
+
+   This is intentional upstream design and won't change soon, see:
+    - https://github.com/rust-lang/rust/pull/18678
+    - http://smallcultfollowing.com/babysteps/blog/2014/11/14/allocators-in-rust/
+
+ * compiler-rt from https://github.com/rust-lang/compiler-rt
+   -> system-wide compiler-rt fails during linkage
+
+   Bug reported upstream, still to be fixed, see:
+    - https://github.com/rust-lang/rust/issues/15054
+    - https://github.com/rust-lang/rust/issues/15708
+
+As a summary, we plan to:
+ * keep embedding jemalloc (probably forever)
+ * work with upstream to fix compiler-rt linkage soon.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 27 Mar 2015 14:27:12 +0100
+

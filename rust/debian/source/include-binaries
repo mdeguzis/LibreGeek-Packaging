@@ -1,0 +1,6 @@
+debian/icons/rust-logo-32x32-blk.png
+# if you are here because dpkg-source told you to "add dl/rustc-** in d/source/include-binaries",
+# ignore that instruction and instead:
+# a) if you want to use the orig-dl for your next upload, then extract it into dl/
+# b) if you don't want to use it, then rename "../rustc_${version}.orig-dl.tar.xz" to something else
+# see also d/source/options and d/source/local-options and #577113.

@@ -1,0 +1,2 @@
+src/etc/rust-lldb usr/bin/
+src/etc/lldb_rust_formatters.py usr/share/rust-lldb/

@@ -1,0 +1,21 @@
+Description: Hardcode LLDB python module directory
+ Debian package installs python modules into a fixed directory, so
+ just hardcode path in wrapper script.
+Author: Angus Lees <gus@debian.org>
+Forwarded: not-needed
+
+--- a/src/etc/rust-lldb
++++ b/src/etc/rust-lldb
+@@ -18,11 +18,8 @@
+ # Make sure to delete the tempfile no matter what
+ trap "rm -f $TMPFILE; exit" INT TERM EXIT
+ 
+-# Find out where to look for the pretty printer Python module
+-RUSTC_SYSROOT=`rustc --print sysroot`
+-
+ # Write the LLDB script to the tempfile
+-echo "command script import \"$RUSTC_SYSROOT/lib/rustlib/etc/lldb_rust_formatters.py\"" >> $TMPFILE
++echo "command script import \"/usr/share/rust-lldb/lldb_rust_formatters.py\"" >> $TMPFILE
+ echo "type summary add --no-value --python-function lldb_rust_formatters.print_val -x \".*\" --category Rust" >> $TMPFILE
+ echo "type category enable Rust" >> $TMPFILE
+ 

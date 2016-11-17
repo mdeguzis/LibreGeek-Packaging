@@ -1,0 +1,36 @@
+Description: Avoid redundant downloads when bootstrapping
+ If the local file is available, then verify it against the hash we just
+ downloaded, and if it matches then we don't need to download it again.
+Author: Ximin Luo <infinity0@pwned.gg>
+Applied-Upstream: commit:a120ae70d08d2eb991c7796e8726debb7ad46dea
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/src/bootstrap/bootstrap.py
++++ b/src/bootstrap/bootstrap.py
+@@ -28,6 +28,14 @@
+ 
+     try:
+         download(sha_path, sha_url, verbose)
++        if os.path.exists(path):
++            try:
++                verify(path, sha_path, verbose)
++                print("using already-download file " + path)
++                return
++            except Exception as e:
++                print("failed verification for already-download file " + path)
++                os.unlink(path)
+         download(temp_path, url, verbose)
+         verify(temp_path, sha_path, verbose)
+         print("moving " + temp_path + " to " + path)
+--- a/src/etc/get-stage0.py
++++ b/src/etc/get-stage0.py
+@@ -35,8 +35,7 @@
+     filename = filename_base + '.tar.gz'
+     url = 'https://static.rust-lang.org/dist/' + date + '/' + filename
+     dst = dl_dir + '/' + filename
+-    if not os.path.exists(dst):
+-        bootstrap.get(url, dst)
++    bootstrap.get(url, dst)
+ 
+     stage0_dst = triple + '/stage0'
+     if os.path.exists(stage0_dst):

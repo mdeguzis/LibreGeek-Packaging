@@ -1,25 +1,23 @@
-Source: libretro-snes9x2005
+Source: libretro-catsfc
 Section: games
 Priority: optional
-Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Build-Depends: debhelper (>= 9)
 Standards-Version: 3.9.6
-Homepage: https://github.com/libretro/snes9x2005
+Homepage: https://github.com/ShadauxCat/CATSFC
 
-Package: libretro-snes9x2005
+Package: libretro-catsfc
 Architecture: any
 Multi-Arch: same
-Breaks: libretro-catsfc
-Replaces: libretro-catsfc
 Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
 Description: Libretro wrapper for CATSFC
- This wrapper makes Snes9x 2005 API compatible with libretro, thus allowing 
- its use with libretro frontends, such as RetroArch.
+ This wrapper makes CATSFC API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
  .
- Snes9x 2005 is a Super Nintendo emulator for the Supercard DSTWO. It is based 
- in Snes9x 1.43, by the Snes9x team (with research by the ZSNES folks, anomie,
+ CATSFC is a Super Nintendo emulator for the Supercard DSTWO. It is based in
+ Snes9x 1.43, by the Snes9x team (with research by the ZSNES folks, anomie,
  zsKnight, etc.), NDSSFC 1.06, by the Supercard team (porting to the MIPS
  processor) and BAGSFC, by BassAceGold (improving over NDSSFC).
  .
- Super Nintendo is a registered trademark of Nintendo of America Inc. Snes9x 2005
+ Super Nintendo is a registered trademark of Nintendo of America Inc. CATSFC
  is not affiliated with or endorsed by any of the companies mentioned.

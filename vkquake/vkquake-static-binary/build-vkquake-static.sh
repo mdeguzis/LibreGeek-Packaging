@@ -159,7 +159,7 @@ main()
 	if [[ -f "${SRC_DIR}/Quake/vkquake" ]]; then
 		echo "Successfully built vkQuake"
 	else
-		echo "Could not build vkQuake!" >&2
+		echo "Could not build vkQuake! Please ensure your GPU is Vulkan-capable." >&2
 		sleep 5s
 		exit 1
 	fi

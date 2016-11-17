@@ -146,13 +146,6 @@ main()
 		USE_CODEC_UMX=1
 	make -C Misc/vq_pak
 
-	# check exit code
-	if [[ $? -eq 0 ]]; then
-		echo "Successfully built vkQuake"
-	else
-		echo "Could not build vkQuake!" >&2
-		exit 1
-	fi
 
 	#################################################
 	# Install process
@@ -162,8 +155,14 @@ main()
 	sleep 3s
 
 	# Move binary to root vkquake dir
-
-	cp "${SRC_DIR}/Quake/vkquake" "${SRC_DIR}"
+	# check for built binary
+	if [[ -f "${SRC_DIR}/Quake/vkquake" ]]; then
+		echo "Successfully built vkQuake"
+	else
+		echo "Could not build vkQuake!" >&2
+		sleep 5s
+		exit 1
+	fi
 
 	# Add libs, launcher, and readme for binary7
 

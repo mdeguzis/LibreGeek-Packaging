@@ -1,5 +1,0 @@
-#!/bin/sh
-# TODO(infinity0): this can be removed when antlr4 provide this as a convenience script
-# See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=814253 for details.
-# Don't forget to update override_dh_auto_configure when you remove it.
-exec java -cp /usr/share/java/antlr4.jar:/usr/share/java/antlr4-runtime.jar org.antlr.v4.gui.TestRig "$@"

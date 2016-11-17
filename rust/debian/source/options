@@ -1,4 +1,0 @@
-# this helps to prevent accidentally including the orig-dl tarball in a non
-# orig-dl upload, after running `debian/rules source_orig-dl`.
-# we can get rid of this after #577113 is fixed
-include-removal

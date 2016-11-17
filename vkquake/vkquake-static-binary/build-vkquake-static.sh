@@ -178,8 +178,7 @@ main()
 	# Create tar archive
 
 	cd "${BUILD_TMP}"
-	tar -czvf "${PKGNAME}-${PKGVER}_${PKGSUFFIX}.tar.gz" \
-	$(basename ${SRC_DIR})
+	tar -czvf "${PKGNAME}-${PKGVER}_${PKGSUFFIX}.tar.gz" $(basename ${SRC_DIR})
 
 	#################################################
 	# Cleanup

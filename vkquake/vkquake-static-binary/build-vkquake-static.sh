@@ -146,6 +146,14 @@ main()
 		USE_CODEC_UMX=1
 	make -C Misc/vq_pak
 
+	# check exit code
+	if [[ $? -eq 0 ]]; then
+		echo "Successfully built vkQuake"
+	else
+		echo "Could not build vkQuake!" >&2
+		exit 1
+	fi
+
 	#################################################
 	# Install process
 	#################################################

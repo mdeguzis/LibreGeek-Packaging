@@ -1,3 +1,9 @@
+rustc (1.13.0+bsos-1) brewmaster; urgency=low
+
+  * Update release to 1.13.0
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 16 Nov 2016 18:40:00 -0500
+
 rustc (1.7.0+bsos1-1) brewmaster; urgency=low
 
   * Initial upload

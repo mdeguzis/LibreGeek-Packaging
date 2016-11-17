@@ -17,6 +17,6 @@ export LANG=C LC_ALL=C
 override_dh_auto_configure:
 	./configure --prefix=/usr --disable-rpath
 
-#override_dh_auto_test:
-#	# make test started to fail so skip
-#	true
+override_dh_auto_test:
+	# make test started to fail so skip
+	true

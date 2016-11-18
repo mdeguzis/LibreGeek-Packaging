@@ -1,16 +1,16 @@
-Source: playonlinux-unstable
+Source: playonlinux5-unstable
 Section: contrib/otherosfs
 Priority: optional
 Maintainer: Michael DeGuzis (mdeguzis@gmail.com)
-Build-Depends: debhelper (>= 8), 
- python, 
- imagemagick,
+Build-Depends: debhelper (>= 8),
+ openjdk-8-jdk,
+ python,
+ maven,
+ openjfx,
 Standards-Version: 3.9.7
-Vcs-Svn: svn://anonscm.debian.org/pkg-games/packages/trunk/playonlinux/
-Vcs-Browser: http://anonscm.debian.org/viewvc/pkg-games/packages/trunk/playonlinux/
 Homepage: http://www.playonlinux.com/
 
-Package: playonlinux-unstable
+Package: playonlinux5-unstable
 Architecture: all
 Breaks: playonlinux
 Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}, 

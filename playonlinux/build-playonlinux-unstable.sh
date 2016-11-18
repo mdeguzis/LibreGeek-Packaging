@@ -116,13 +116,13 @@ main()
 	# clone and checkout latest commit
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
 	# This is used because upstream does tend to use release tags
 	PKGVER=$(git describe --abbrev=0 --tags)
 
 	# Alter pkg suffix based on commit
-	PKGSUFFIX="${latest_commit}git+bsos"
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Prepare
@@ -136,7 +136,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}.${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"

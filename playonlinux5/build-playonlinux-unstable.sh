@@ -48,7 +48,7 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/PlayOnLinux/POL-POM-4"
+SRC_URL="https://github.com/PlayOnLinux/POL-POM-5"
 TARGET="master"
 
 # package vars
@@ -56,13 +56,13 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="playonlinux-unstable"
+PKGNAME="playonlinux5-unstable"
 epoch="1"
-PKGREV="2"
+PKGREV="1"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

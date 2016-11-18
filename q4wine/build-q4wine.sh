@@ -48,7 +48,7 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/PlayOnLinux/POL-POM-4"
+SRC_URL="https://github.com/brezerk/q4wine"
 TARGET="v1.3.3"
 
 # package vars

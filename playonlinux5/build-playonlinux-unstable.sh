@@ -1,13 +1,15 @@
 #!/bin/bash
-# -------------------------------------------------------------------------------
-# Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	  build-plexmediaplayer.sh
-# Script Ver:	  0.5.5
-# Description:	  Attmpts to build a deb package from Plex Media Player git source
-#                 PLEASE NOTE THIS SCRIPT IS NOT YET COMPLETE!
-# See:
-# Usage:
+#-------------------------------------------------------------------------------
+# Author:	Michael DeGuzis
+# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Scipt Name:	build-playonlinux-unstable.sh
+# Script Ver:	0.1.5
+# Description:	Attmpts to build a deb package from latest PlayOnLinux 4
+#		github release
+#
+# See:		https://github.com/PlayOnLinux/POL-POM-4
+#
+# Usage:	build-playonlinux-unstable.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -34,6 +36,8 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
+
+
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
@@ -43,61 +47,45 @@ else
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
 
 fi
-
-# reset source command for while loop
-src_cmd=""
-
-# upstream URL
-SRC_URL="https://github.com/plexinc/plex-media-player"
-TARGET="v1.1.6.408-7375112a"
+# upstream vars
+SRC_URL="https://github.com/PlayOnLinux/POL-POM-4"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
-export USE_NETWORK="yes"
-export STEAMOS_TOOLS_BETA_HOOK="true"
-export NO_APT_PREFS="true"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-PKGNAME="plexmediaplayer"
-PKGVER="1.1.6.408"
-BUILDER="pdebuild"
-export STEAMOS_TOOLS_BETA_HOOK="true"
-PKGREV="1"
-PKGSUFFIX="git+bsos"
+BUILDOPTS="--debbuildopts -b"
+export STEAMOS_TOOLS_BETA_HOOK="false"
+export NO_LINTIAN="false"
+export NO_PKG_TEST="false"
+PKGNAME="playonlinux-unstable"
+epoch="1"
+PKGREV="2"
 DIST="brewmaster"
 URGENCY="low"
+UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
-# set build directories
+# set BUILD_TMPs
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
-
+	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	# install needed packages from Debian repos
-	sudo apt-get install -y --force-yes git devscripts build-essential checkinstall \
-	debian-keyring debian-archive-keyring ninja-build mesa-common-dev python-pkgconfig \
-	libmpv-dev libsdl2-dev libcec-dev
-
-	# built for Libregeek, specifically for this build
-	sudo apt-get install -y --force-yes cmake mpv
+	# install basic build packages
+	sudo apt-get install -y --force-yes build-essential pkg-config bc python imagemagick
 
 }
 
 main()
 {
 
-	#################################################
-	# Fetch source
-	#################################################
-
-	# create and enter BUILD_TMP
+	# create BUILD_TMP
 	if [[ -d "${BUILD_TMP}" ]]; then
 
 		sudo rm -rf "${BUILD_TMP}"
@@ -109,10 +97,11 @@ main()
 
 	fi
 
-	# Enter build dir
-	cd "${BUILD_TMP}"
+	# enter build dir
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -120,27 +109,23 @@ main()
 
 	fi
 
-	#################################################
-	# Fetch PMP source
-	#################################################
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
+	# clone and checkout latest commit
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-
-	# Set suffix based on revisions
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+
+	# This is used because upstream does tend to use release tags
+	PKGVER=$(git describe --abbrev=0 --tags)
+
+	# Alter pkg suffix based on commit
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
-	# Add extra files for orig tarball
-	cp -r "${SCRIPTDIR}/plexmediaplayer.png" "${SRC_DIR}"
-
-	# enter git dir
-	cd "${SRC_DIR}"
-
 	#################################################
-	# Build PMP source
+	# Prepare
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -150,36 +135,40 @@ main()
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	cd "${BUILD_TMP}" || exit
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" "${SRCDIR}"
 
-	# copy in debian folder and other files
-        cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	# Add required files
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
 
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
-	if [[ -f "debian/changelog" ]]; then
+	# update changelog with dch
+        if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
+		dch -p --force-distribution -v "${epoch}:${PKGVER}.${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
+		"Update snapshot"
 		nano "debian/changelog"
 
-	else
+        else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
+		dch -p --force-distribution --create -v "${epoch}:${PKGVER}.${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
+		"Update snapshot"
 		nano "debian/changelog"
 
-	fi
+        fi
 
-	echo -e "\n==> Building Debian package from source\n"
+	#################################################
+	# Build Debian package
+	#################################################
+
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -187,6 +176,8 @@ main()
 	#################################################
 	# Cleanup
 	#################################################
+
+	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)
@@ -197,6 +188,17 @@ main()
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
+
+
+	# assign value to build folder for exit warning below
+	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
+
+	# back out of build tmp to script dir if called from git clone
+	if [[ "${SCRIPTDIR}" != "" ]]; then
+		cd "${SCRIPTDIR}" || exit
+	else
+		cd "${HOME}" || exit
+	fi
 
 	# inform user of packages
 	cat<<- EOF

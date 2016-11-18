@@ -1,0 +1,11 @@
+--- a/python/mainwindow.py
++++ b/python/mainwindow.py
+@@ -30,7 +30,7 @@
+ 
+ if(os.environ["POL_OS"] != "Mac"):
+     import wxversion
+-    wxversion.ensureMinimal('2.8')
++    wxversion.select('2.8')
+ 
+ import wx, wx.aui
+ import wx.lib.hyperlink

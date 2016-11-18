@@ -1,3 +1,15 @@
+openpht-unstable (1.7+git20161117.cc7f0f1-2) brewmaster; urgency=low
+
+  * fix tag
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 17 Nov 2016 11:38:44 +0000
+
+openpht-unstable (1.7+git20161117.cc7f0f1~1-1) brewmaster; urgency=low
+
+  * Update build/release to latest commit
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 17 Nov 2016 03:57:33 +0000
+
 openpht-unstable (1.6+20161102git+bsos-1) brewmaster; urgency=low
 
   * Update build/release to latest commit 87d76f6

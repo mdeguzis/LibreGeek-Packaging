@@ -41,11 +41,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/home/mikeyd/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -63,7 +63,7 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
 PKGNAME="openpht-unstable"
 PKGVER=$(echo ${TARGET} | sed 's/openpht-//')
-PKGREV="1"
+PKGREV="2"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -160,13 +160,13 @@ main()
 
         # copy in debian folder and other files
         cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-	
+
 	# Get latest commit
 	cd "${SRC_DIR}"
 	# Set suffix based on revisions
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
-	
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
+
 	# Trim out .git
 	rm -rf "${SRC_DIR}/.git"
 	

@@ -117,11 +117,11 @@ main()
 	# clone and get latest commit tag
 	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+
 	# Add image to git dir
 	cp -r "${SCRIPTDIR}/Citra.png" "${SRC_DIR}"
-	
+
 	# Swap version text, since the project assumes citra is being ran in the git dir
 	sed -i "s|GIT-NOTFOUND|${PKGVER}git|g" "${SRC_DIR}/externals/cmake-modules/GetGitRevisionDescription.cmake"
 

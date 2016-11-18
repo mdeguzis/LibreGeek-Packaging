@@ -67,11 +67,8 @@ URGENCY="low"
 
 # build dirs
 export BUILD_TMP="/home/desktop/build-${PKGNAME}-tmp"
-SRC_DIR="${PKGNAME}"
-GIT_DIR="${BUILD_TMP}/${SRC_DIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 SRC_URL="https://github.com/PCSX2/pcsx2"
-
-#TARGET="onepad-input-state"
 TARGET="master"
 
 # package vars
@@ -162,7 +159,7 @@ main()
 	PKGVER=$(sed "s|[-|a-z]||g" <<<"$base_release")
 
         # Alter pkg suffix based on commit
-        PKGSUFFIX="${DATE_SHORT}git+bsos"
+        PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Prepare build (upstream-specific)
@@ -221,7 +218,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update to commit $LATEST_COMMIT"
+		-D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		nano debian/changelog
 
 	else

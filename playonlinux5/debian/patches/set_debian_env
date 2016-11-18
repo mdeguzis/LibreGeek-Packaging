@@ -1,0 +1,11 @@
+--- a/python/lib/Variables.py
++++ b/python/lib/Variables.py
+@@ -26,7 +26,7 @@ homedir = os.environ["HOME"]
+ # Debian packagers should switch this to TRUE
+ # It will disable update alerts, bug reports, statistics
+ # It will set the good locale directory, and it will use the good msttcorefonts
+-os.environ["DEBIAN_PACKAGE"] = "FALSE"
++os.environ["DEBIAN_PACKAGE"] = "TRUE"
+ 
+ # Variables PlayOnMac
+ if os.environ["POL_OS"] == "Mac":

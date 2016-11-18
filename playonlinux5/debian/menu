@@ -1,0 +1,3 @@
+?package(playonlinux):needs="X11" section="Applications/Emulators"\
+  title="PlayOnLinux" command="/usr/bin/playonlinux" \
+  icon="/usr/share/pixmaps/playonlinux.xpm"

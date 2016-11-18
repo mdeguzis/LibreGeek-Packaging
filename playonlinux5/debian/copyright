@@ -1,0 +1,51 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: PlayOnLinux
+Upstream-Contact: Quentin Pâris <qparis@playonlinux.com>
+Source: http://www.playonlinux.com/
+License: GPL-3
+Disclaimer: PlayOnLinux downloads and execute unchecked third-party scripts.
+ Therefore it is not part of Debian, and remains in contrib.
+
+Files: *
+Copyright: 2007-2013 Quentin Pâris <qparis@playonlinux.com>
+License: GPL-3
+
+Files: resources/emotes/* resources/install/*
+Comment: Icons are from the Tango project. They were downloaded from
+http://tango.freedesktop.org/releases/
+Copyright: 2005-2009
+	Ulisse Perusin <uli.peru@gmail.com>
+	Steven Garrity <sgarrity@silverorange.com>
+	Lapo Calamandrei <calamandrei@gmail.com>
+	Ryan Collier <rcollier@novell.com>
+	Rodney Dawes <dobey@novell.com>
+	Andreas Nilsson <nisses.mail@home.se>
+	Tuomas Kuosmanen <tigert@tigert.com>
+	Garrett LeSage <garrett@novell.com>
+	Jakub Steiner <jimmac@novell.com>
+License: public-domain
+ In the original tarball from the Tango project, the COPYING file states only
+ the following: "The icons in this repository are herefore released into the
+ Public Domain". So no license is required for any purpose.
+
+Files: debian/*
+Copyright: 2010-2013 Bertrand Marc <beberking@gmail.com>
+License: GPL-3
+
+License: GPL-3
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; version 3 dated June, 2007.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program;  if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+ MA 02110-1301, USA.
+ .
+ On Debian GNU/Linux systems, the complete text of the GNU General
+ Public License can be found in `/usr/share/common-licenses/GPL-3'.

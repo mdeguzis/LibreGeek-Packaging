@@ -1,0 +1,19 @@
+bash/* usr/share/playonlinux/bash/
+etc/*.gif etc/*.png etc/*.directory etc/*.menu etc/*.desktop etc/pol_bash etc/*.gpg usr/share/playonlinux/etc/
+etc/install/* usr/share/playonlinux/etc/install/
+etc/onglet/* usr/share/playonlinux/etc/onglet/
+etc/setups/* usr/share/playonlinux/etc/setups/
+lang/locale/* usr/share/locale/
+lib/* usr/share/playonlinux/lib/
+python/*.py usr/share/playonlinux/python/
+python/lib/*.py usr/share/playonlinux/python/lib/
+resources/* usr/share/playonlinux/resources/
+plugins/plugins.lst plugins/polvault* plugins/ScreenCap* plugins/TransgamingCedega* plugins/Wine* usr/share/playonlinux/plugins/
+playonlinux usr/share/playonlinux/
+playonlinux-bash usr/share/playonlinux/
+playonlinux-pkg usr/share/playonlinux/
+playonlinux-shell usr/share/playonlinux/
+etc/playonlinux*.png playonlinux.xpm usr/share/pixmaps/
+debian/PlayOnLinux.desktop usr/share/applications/
+debian/bin/playonlinux usr/bin/
+debian/bin/playonlinux-pkg usr/bin/

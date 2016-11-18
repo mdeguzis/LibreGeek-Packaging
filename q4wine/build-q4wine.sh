@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-playonlinux-unstable.sh
+# Scipt Name:	build-q4wine.sh
 # Script Ver:	0.1.5
-# Description:	Attmpts to build a deb package from latest PlayOnLinux 4
+# Description:	Attmpts to build a deb package from latest q4wine
 #		github release
 #
-# See:		https://github.com/PlayOnLinux/POL-POM-4
+# See:		https://github.com/brezerk/q4wine
 #
-# Usage:	build-playonlinux-unstable.sh
+# Usage:	build-q4wine.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/PlayOnLinux/POL-POM-4"
-TARGET="master"
+TARGET="v1.3.3"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,10 +60,13 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="playonlinux-unstable"
+# override for installing qt5 / qtchooser for build-time
+export APT_PREFS_HACK="true"
+PKGNAME="q4wine"
 EPOCH="1"
-PKGVER="4.2.10"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
 PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -79,7 +82,9 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc python imagemagick
+	sudo apt-get install -y --force-yes build-essential pkg-config bc cmake debhelper \
+	icoutils libfuse-dev qtbase5-dev qttools5-dev-tools
+
 
 }
 
@@ -119,9 +124,6 @@ main()
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
-	# Alter pkg suffix based on commit
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
-
 	#################################################
 	# Prepare
 	#################################################
@@ -148,16 +150,16 @@ main()
 	# update changelog with dch
         if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update snapshot"
+		"Update package to ${PKGVER}"
 		nano "debian/changelog"
 
         else
 
-		dch -p --force-distribution --create -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update snapshot"
+		"Initial build/upload"
 		nano "debian/changelog"
 
         fi

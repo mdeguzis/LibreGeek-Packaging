@@ -247,3 +247,6 @@ main()
 	build_wine
 
 }
+
+# Start main
+main

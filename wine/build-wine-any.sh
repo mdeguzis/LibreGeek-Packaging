@@ -49,8 +49,6 @@ build_wine()
 	git fetch origin
 	git checkout wine-$WINE_VERSION
 
-	cat<<-EOF 
-
 	# Get rid of old build dirs
 	rm -rf "${WINE_BUILD_ROOT}/wine-{32,64}-build"
 	mkdir -p "${WINE_BUILD_ROOT}/wine-{32,64}-build"

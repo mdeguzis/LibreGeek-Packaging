@@ -47,7 +47,24 @@ build_wine()
 	git reset --hard
 	git clean -dxf
 	git fetch origin
-	git checkout wine-$WINE_VERSION
+	
+	if [[ "${WINE_VERSION}" == "" ]]; then
+
+		# List tags and ask for version
+		# show tags instead of TARGETs
+		git tag -l --column
+		echo -e "\nWhich wine release do you wish to build for:"
+		echo -e "Type 'master' to use the master tree\n"
+
+		# get user choice
+		sleep 0.2s
+		read -erp "Release Choice: " WINE_VERSION
+
+	else
+
+		git checkout wine-$WINE_VERSION
+
+	fi
 
 	# Get rid of old build dirs
 	rm -rf "${WINE_BUILD_ROOT}/wine-{32,64}-build"
@@ -186,12 +203,7 @@ while :; do
 	case $1 in
 
 		-v|--wine-version)
-			if [[ -n "$2" ]]; then
-				WINE_VERSION=$2
-			else
-				echo -e "ERROR: You must specify a wine version!.\n" >&2
-				exit 1
-			fi
+			WINE_VERSION=$2
 		;;
 
 		--help|-h)

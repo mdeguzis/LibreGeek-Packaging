@@ -35,7 +35,7 @@ build_wine()
 
 	CURRENT_DIR=$(dirname $(readlink -f "$0"))
 
-	if [ ! -d "${WINE_BUILD_ROOT}" ]; then
+	if [[ ! -d "${WINE_BUILD_ROOT}" ]]; then
 		echo "Cloning Wine source code"
 		git clone git://source.winehq.org/git/wine.git "${WINE_GIT_ROOT}"
 	fi

@@ -59,10 +59,10 @@ build_wine()
 	
 	if [[ -d "${WINE_TARGET_DIR}" ]]; then
 
-		cat<<- EOF
-		
+		cat <<-EOF
+
 		NOTICE: You may have already built this versio nof wine.
-		Please check/remove ${WINE_BUILD_ROOT}/wine-$WINE_VERSION"
+		Please check/remove ${WINE_BUILD_ROOT}/wine-$WINE_VERSION
 		before continuing...
 
 		EOF
@@ -138,7 +138,35 @@ install_prereqs()
 	case $OS in
 
 		Arch)
-		:
+			PKGS="
+			giflib                lib32-giflib
+			libpng                lib32-libpng
+			gnutls                lib32-gnutls
+			libxinerama           lib32-libxinerama
+			libxcomposite         lib32-libxcomposite
+			libxmu                lib32-libxmu
+			libxxf86vm            lib32-libxxf86vm
+			libldap               lib32-libldap
+			mpg123                lib32-mpg123
+			openal                lib32-openal
+			v4l-utils             lib32-v4l-utils
+			libpulse              lib32-libpulse
+			alsa-lib              lib32-alsa-lib
+			libxcomposite         lib32-libxcomposite
+			mesa                  lib32-mesa
+			mesa-libgl            lib32-mesa-libgl
+			libcl                 lib32-libcl
+			libxslt               lib32-libxslt
+			gst-plugins-base-libs lib32-gst-plugins-base-libs
+			samba
+			opencl-headers"
+
+			for PKG in ${PKGS}; 
+			do
+
+				sudo pacman -S --noconfirm ${PKG}
+
+			done
 
 		;;
 

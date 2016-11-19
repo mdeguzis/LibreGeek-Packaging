@@ -198,13 +198,8 @@ while getopts ":v:h:" opt; do
 		:
 		;;
 
-		\?)
-		echo "Invalid option: -$OPTARG" >&2
-		exit 1
-		;;
-
-		:)
-		echo "Option -$OPTARG requires an argument." >&2
+		*)
+		echo "You must specify the wine version at a minimum"
 		exit 1
 		;;
 

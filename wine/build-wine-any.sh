@@ -159,7 +159,7 @@ install_prereqs()
 			libxslt               lib32-libxslt \
 			gst-plugins-base-libs lib32-gst-plugins-base-libs \
 			samba \
-			opencl-headers:
+			opencl-headers"
 
 			for PKG in ${PKGS}; 
 			do

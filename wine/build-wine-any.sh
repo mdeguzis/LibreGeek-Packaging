@@ -59,9 +59,9 @@ build_wine()
 	
 	if [[ -d "${WINE_TARGET_DIR}" ]]; then
 
-		cat <<-EOF
+		cat<<- EOF
 
-		NOTICE: You may have already built this versio nof wine.
+		NOTICE: You may have already built this version nof wine.
 		Please check/remove ${WINE_BUILD_ROOT}/wine-$WINE_VERSION
 		before continuing...
 

@@ -181,29 +181,50 @@ install_prereqs()
 
 # source options
 
-while getopts ":v:h:" opt; do
-	case $opt in
+
+while :; do
+	case $1 in
+
 		v)
-		if [[ -n "$2" ]]; then
-			WINE_VERSION=$2
-		else
-			echo -e "ERROR: You must specify a wine version!.\n" >&2
-			exit 1
-		fi
+
+			if [[ -n "$2" ]]; then
+				WINE_VERSION=$2
+			else
+				echo -e "ERROR: You must specify a wine version!.\n" >&2
+				exit 1
+			fi
 		;;
 
-		h)
-		# TODO: help file
-		echo "TODO"
+		--help|-h)
+
+			cat<<-EOF
+
+			TODO
+
+			EOF
+			break
 		;;
 
-		:)
-		echo "You must specify the wine version at a minimum"
-		exit 1
+		--)
+			# End of all options.
+			shift
+			break
 		;;
+
+		-?*)
+			printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+		;;
+
+		*)  
+			# Default case: If no more options then break out of the loop.
+			break
 
 	esac
+
+	# shift args
+	shift
 done
+
 
 main()
 {

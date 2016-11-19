@@ -198,7 +198,7 @@ while getopts ":v:h:" opt; do
 		:
 		;;
 
-		*)
+		:)
 		echo "You must specify the wine version at a minimum"
 		exit 1
 		;;

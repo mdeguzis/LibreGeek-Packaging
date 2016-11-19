@@ -185,8 +185,7 @@ install_prereqs()
 while :; do
 	case $1 in
 
-		v)
-
+		-v|--wine-version)
 			if [[ -n "$2" ]]; then
 				WINE_VERSION=$2
 			else
@@ -199,7 +198,7 @@ while :; do
 
 			cat<<-EOF
 
-			TODO
+			v|--wine-version
 
 			EOF
 			break

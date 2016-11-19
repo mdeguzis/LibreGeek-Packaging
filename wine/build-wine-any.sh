@@ -183,7 +183,6 @@ install_prereqs()
 
 while getopts ":v:h:" opt; do
 	case $opt in
-
 		v)
 		if [[ -n "$2" ]]; then
 			WINE_VERSION=$2
@@ -195,7 +194,7 @@ while getopts ":v:h:" opt; do
 
 		h)
 		# TODO: help file
-		:
+		echo "TODO"
 		;;
 
 		:)

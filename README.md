@@ -1,5 +1,5 @@
-# SteamOS-Tools-Packaging
-Packaging scripts and files for SteamOS-Tools
+# LibreGeek-Packaging
+Packaging scripts and files for LibreGeek.org
 
-# Branches
-Note that each branch corresponds to a codename of a GNU/Linux distribution. For instance, the main branch, "brewmaster," is for SteamOS "brewmaster."
+# About
+This branch is for miscellaneous scripts and distro-agnostic scripts.

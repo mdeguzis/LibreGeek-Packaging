@@ -1,5 +1,18 @@
 ##### DEBIAN PACKAGING SETUP #####
 
+# Detect OS
+# If lsb_release is not present, use alternative method
+
+if which lsb_release &> /dev/null; then
+
+	OS=$(lsb_release -si)
+
+else
+
+	OS=$(cat /etc/os-release | grep -w "NAME" | cut -d'=' -f 2)
+
+fi
+
 # Debian identification
 DEBEMAIL="EMAIL_TEMP"
 DEBFULLNAME="FULLNAME_TEMP"
@@ -20,6 +33,14 @@ export EDITOR="/usr/bin/EDITOR_TEMP"
 NB_CORES=$(grep -c '^processor' /proc/cpuinfo)
 export MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}"
 
+# Alias for mock on Debian systems, as they only have yum available
+
+if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
+
+	alias mock="mock --yum"
+
+fi
+
 ##################################################################
 # Outside connection behvaior (e.g. SSH from an Android device)
 ##################################################################
@@ -31,7 +52,6 @@ export MAKEFLAGS="-j$((NB_CORES+1)) -l${NB_CORES}"
 # We want to check $SSH_CLIENT instead, since that only *client/origin*  ip info
 # Don't launch this behavior if using SSH internally.
 # This -assumes- your internal network starts with a traditional 192 address!
-
 # Is our SSH connection on the local network or external?
 if [[ "$(echo "${SSH_CLIENT}" | grep 192)" == "" ]]; then
 

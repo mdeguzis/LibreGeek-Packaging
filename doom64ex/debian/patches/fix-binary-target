@@ -1,0 +1,9 @@
+--- a/src/engine/CMakeLists.txt
++++ b/src/engine/CMakeLists.txt
+@@ -305,5 +305,5 @@
+ ##
+ 
+ if (NOT WIN32)
+-  install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/doom64ex DESTINATION bin)
++  install(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/doom64ex DESTINATION games)
+ endif ()

@@ -1,0 +1,25 @@
+Source: doom64ex
+Section: games
+Priority: optional
+Build-Depends: cmake,
+ debhelper (>=9),
+ clang-3.8,
+ libsdl2-dev,
+ libsdl2-net-dev,
+ zlib1g-dev,
+ libpng12-dev,
+ libfluidsynth-dev
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Standards-Version: 3.9.6
+Vcs-Git: https://github.com/svkaiser/Doom64EX
+Homepage: https://doom64ex.wordpress.com
+
+Package: doom64ex
+Architecture: amd64
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ libsdl2-net-2.0-0
+Description: Reverse-engineered Doom64 with improvements.
+ .
+ Doom64EX is a reverse-engineering project aimed to recreate 
+ Doom64 as close as possible with additional modding features.

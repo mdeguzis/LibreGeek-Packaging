@@ -644,9 +644,6 @@ setup_pbuilder()
 	# Set vars
 	VALVE_KEYRING="valve-archive-keyring_0.5+bsos3_all"
 
-	# Test OS first, so we can allow configuration on multiple distros
-	OS=$(lsb_release -si)
-
 	if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
 
 		# Setup common packages

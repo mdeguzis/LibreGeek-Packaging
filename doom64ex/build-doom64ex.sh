@@ -37,11 +37,11 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_x/packaging/ubuntu/incoming_testing"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming"
+	REPO_FOLDER="/mnt/server_media_x/packaging/ubuntu/incoming"
 
 fi
 
@@ -56,12 +56,12 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
-PKGNAME="xenial"
+PKGNAME="doom64ex"
 PKGVER="0.0.0"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 EPOCH="2"
-DIST="brewmaster"
+DIST="${DIST:=xenial}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

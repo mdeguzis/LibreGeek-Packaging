@@ -119,7 +119,7 @@ build_image()
 	fi
 
 	# Set conf location
-	TMP_PKG_CONF="${TMP_DIR}/${PKG_CONF}"
+	TMP_PKG_CONF="${TMP_DIR}${PKG_CONF}"
 
 	# Enter tmp dir
 	cd "${TMP_DIR}" || exit 1

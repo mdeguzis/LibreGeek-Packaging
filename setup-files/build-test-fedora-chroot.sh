@@ -57,7 +57,7 @@ check_distro()
 
 	fi
 
-	if [[ "${OS}" == "Debian" "${OS}" == "SteamOS" ]]; then
+	if [[ "${OS}" == "Debian" || "${OS}" == "SteamOS" ]]; then
 
 		PKG_HANDLER="yum"
 		PKG_CONF="/etc/yum/yum.conf"

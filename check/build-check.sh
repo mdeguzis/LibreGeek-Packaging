@@ -58,15 +58,12 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="check"
 PKGVER="${TARGET}"
-PKGREV="1"
+PKGREV="5"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
-
-# Need network for pbuilder to pull down ut4 zip
-# export NETWORK="yes"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"

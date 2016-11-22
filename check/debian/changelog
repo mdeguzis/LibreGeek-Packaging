@@ -1,0 +1,11 @@
+check (0.10.0+git+bsos-5) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 22 Nov 2016 20:57:09 +0000
+
+check (0.10.0+git+bsos-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 22 Nov 2016 20:27:49 +0000

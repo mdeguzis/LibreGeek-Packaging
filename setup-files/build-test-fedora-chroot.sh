@@ -181,7 +181,7 @@ build_image()
 		sed -i "s/\gpgcheck\=1/gpgcheck\=0}/g" "${TMP_DIR}/etc/yum.repos.d/fedora.repo"
 		sed -i "s/\gpgcheck\=2/gpgcheck\=0}/g" "${TMP_DIR}/etc/yum.repos.d/fedora-updates.repo"
 
-		# Add the contents of the repo files to etc/dnf/dnf.conf
+		# Add the contents of the repo files to etc
 		# mkimage-yum.sh only uses the base .conf file to build the repo information
 		find etc -type f -name '*.repo' -exec cat {} >> "${TMP_PKG_CONF}" \;
 

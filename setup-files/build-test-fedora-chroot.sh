@@ -126,7 +126,7 @@ build_image()
 
 	# Download required files
 
-	wget "${BUILD_SCRIPT}" -q -n --show-progress
+	wget "${BUILD_SCRIPT}" -q -nc --show-progress
 
 	# Getting revision 3 fails, try revision 2 or 1
 	if ! wget "${REPO_RPM}" -q -nc --show-progress; then

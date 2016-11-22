@@ -183,7 +183,7 @@ build_image()
 
 		# Add the contents of the repo files to etc/dnf/dnf.conf
 		# mkimage-yum.sh only uses the base .conf file to build the repo information
-		find etc -name '*.repo' -exec cat {} >> "${TMP_PKG_CONF}" \;
+		find etc -type f -name '*.repo' -exec cat {} >> "${TMP_PKG_CONF}" \;
 
 
 	else

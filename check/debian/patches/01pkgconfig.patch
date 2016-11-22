@@ -1,0 +1,14 @@
+--- a/check.pc.in
++++ b/check.pc.in
+@@ -7,7 +7,7 @@
+ Description: A unit test framework for C
+ URL: http://check.sourceforge.net
+ Version: @VERSION@
+-Requires.private: @LIBSUBUNIT_PC@
+-Libs: -L${libdir} -lcheck
+-Libs.private: @GCOV_LIBS@ @PTHREAD_LIBS@ @LIBS@
+-Cflags: -I${includedir} @PTHREAD_CFLAGS@
++Requires: @LIBSUBUNIT_PC@
++Libs: -L${libdir} -lcheck_pic @GCOV_LIBS@ @PTHREAD_CFLAGS@ @PTHREAD_LIBS@ @LIBS@
++Libs.private:
++Cflags: -I${includedir} -pthread

@@ -1,0 +1,44 @@
+Description: check FTBFS on hurd-i386
+ The problem is due to the second-only precision which is available with
+ alarm in the replacement for the timer_* functions (not implemented yet
+ on Hurd), which causes few check failures in two tests.
+ The forwarded patch is different to the this patch. See #715166.
+Forwarded: http://sourceforge.net/p/check/patches/49/
+Author: Pino Toscano <pino@debian.org>
+Last-Update: 2013-07-10
+
+--- a/lib/timer_settime.c
++++ b/lib/timer_settime.c
+@@ -1,22 +1,18 @@
+ #include "libcompat.h"
+ 
++#include <sys/time.h>
++
+ int timer_settime(timer_t timerid               CK_ATTRIBUTE_UNUSED, 
+                   int flags                     CK_ATTRIBUTE_UNUSED, 
+                   const struct itimerspec *new_value, 
+                   struct itimerspec * old_value CK_ATTRIBUTE_UNUSED)
+ {
+-    int seconds = new_value->it_value.tv_sec;
+-    
+-    /* 
+-     * As the alarm() call has only second precision, if the caller
+-     * specifies partial seconds, we round up to the nearest second.
+-     */
+-    if(new_value->it_value.tv_nsec > 0)
+-    {
+-        seconds += 1;
+-    }
+-    
+-    alarm(seconds);
+-    
+-    return 0;
++    struct itimerval new;
++
++    new.it_value.tv_sec = new_value->it_value.tv_sec;
++    new.it_value.tv_usec = new_value->it_value.tv_nsec / 1000;
++    new.it_interval.tv_sec = new_value->it_interval.tv_sec;
++    new.it_interval.tv_usec = new_value->it_interval.tv_nsec / 1000;
++
++    return setitimer(ITIMER_REAL, &new, NULL);
+ }

@@ -1,0 +1,10 @@
+diff --git a/checkmk/checkmk.in b/checkmk/checkmk.in
+index 2df778c..99e59f5 100644
+--- a/checkmk/checkmk.in
++++ b/checkmk/checkmk.in
+@@ -1,4 +1,4 @@
+-#! @AWK_PATH@ -f
++#! /usr/bin/mawk -f
+ # @configure_input@
+ 
+ # checkmk - translate more concise versions of test suite specifications

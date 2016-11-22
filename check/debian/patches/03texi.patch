@@ -1,0 +1,41 @@
+Description: Remove dynamic information to handle Multi-Arch:same
+ and also remove dircategory and direntry.
+Last-Update: 2013-07-30
+--- a/doc/check.texi
++++ b/doc/check.texi
+@@ -2,16 +2,19 @@
+ @c %**start of header
+ @setfilename check.info
+ @include version.texi
+-@settitle Check @value{VERSION}
++@settitle Check
+ @syncodeindex fn cp
+ @syncodeindex tp cp
+ @syncodeindex vr cp
+ @c %**end of header
+ 
++@dircategory Development
++@direntry
++* Check: (check)Introduction.
++@end direntry
++
+ @copying
+-This manual is for Check
+-(version @value{VERSION}, @value{UPDATED}),
+-a unit testing framework for C.
++This manual is for Check, a unit testing framework for C.
+ 
+ Copyright @copyright{} 2001--2014 Arien Malec, Branden Archer, Chris Pickett,
+ Fredrik Hugosson, and Robert Lemmen.
+@@ -26,11 +29,6 @@
+ @end quotation
+ @end copying
+ 
+-@dircategory Software development
+-@direntry
+-* Check: (check)Introduction.
+-@end direntry
+-
+ @titlepage
+ @title Check
+ @subtitle A Unit Testing Framework for C

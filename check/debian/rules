@@ -1,0 +1,43 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@ --buildsystem=autoconf --with autoreconf
+
+override_dh_auto_clean:
+	dh_auto_clean --builddirectory build-standard
+	dh_auto_clean --builddirectory build-pic
+
+override_dh_auto_configure:
+	dh_auto_configure --builddirectory build-standard -- --prefix=/usr \
+		--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
+		--host=$(DEB_HOST_GNU_TYPE) \
+		--infodir=/usr/share/info --disable-shared --enable-subunit
+	
+	CFLAGS="-fPIC $(CFLAGS)" dh_auto_configure --builddirectory build-pic
+		-- --prefix=/usr --host=$(DEB_HOST_GNU_TYPE) \
+		--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
+		--infodir=/usr/share/info --disable-shared --enable-subunit
+
+override_dh_auto_build:
+	dh_auto_build --builddirectory build-standard
+	dh_auto_build --builddirectory build-pic
+
+override_dh_auto_test:
+ifeq (,$(findstring nocheck, $(DEB_BUILD_OPTIONS)))
+	dh_auto_test --builddirectory build-standard --max-parallel=1 -- ARGS="--verbose"
+	dh_auto_test --builddirectory build-pic --max-parallel=1 -- ARGS="--verbose"
+endif
+
+override_dh_auto_install:
+	dh_auto_install --builddirectory build-standard
+	
+	# fix the installation / setup
+	rm -f debian/check/usr/share/doc/check/COPYING*
+	sed -i '/\/\* generated using gnu compiler .*/d' debian/check/usr/include/check_stdint.h
+	rm -f debian/check/usr/share/doc/check/ChangeLog
+	rm -f debian/check/usr/lib/$(DEB_HOST_MULTIARCH)/libcheck.la
+	rm -f debian/check/usr/share/info/dir.gz
+	rm -rf debian/check/usr/share/doc/check/example
+
+	# install the pic library
+	install build-pic/src/.libs/libcheck.a debian/check/usr/lib/$(DEB_HOST_MULTIARCH)/libcheck_pic.a

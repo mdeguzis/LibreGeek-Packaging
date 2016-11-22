@@ -1,0 +1,4 @@
+01pkgconfig.patch
+02awk.patch
+03texi.patch
+05no-timestamp-in-check-info.patch

@@ -119,7 +119,7 @@ build_image()
 	fi
 
 	# Set conf location
-	TMP_PKG_CONF="${TMP_DIR}/etc/${PKG_HANDLER}"
+	TMP_PKG_CONF="${TMP_DIR}/etc/${PKG_HANDLER}/yum.conf"
 
 	# Enter tmp dir
 	cd "${TMP_DIR}" || exit 1
@@ -183,7 +183,6 @@ build_image()
 
 		# Add the contents of the repo files to etc
 		# mkimage-yum.sh only uses the base .conf file to build the repo information
-		find "${TMP_DIR}/etc" -type f -name '*.repo'
 		find "${TMP_DIR}/etc" -type f -name '*.repo' -exec cat '{}' >> "${TMP_PKG_CONF}" \;
 
 

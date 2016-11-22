@@ -10,8 +10,8 @@ RELEASE="24"
 REVISION="3"
 ARCH="x86_64"
 NAME="fedora-${ARCH}"
-IMAGE_NAME="Fedora-${RELEASE}-${ARCH}"
-TMP_DIR="${HOME}/fedora-chroot-tmp"
+CHROOT_NAME="Fedora-${RELEASE}-${ARCH}"
+CHROOT_BASE="${HOME}/${CHROOT_NAME}"
 BASE_URL="https://kojipkgs.fedoraproject.org/packages/fedora-repos"
 REPO_RPM="${BASE_URL}/${RELEASE}/${REVISION}/noarch/fedora-repos-${RELEASE}-${REVISION}.noarch.rpm"
 BUILD_SCRIPT="https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-yum.sh"
@@ -80,52 +80,29 @@ check_distro()
 
 }
 
-push_image_to_docker()
-{
-
-	echo -e "\n==> Displaying docker image, please enter tag ID, username, and desired tag (default: latest)\n"
-	sleep 2s
-
-	docker images | grep "${NAME}"
-	echo ""
-	
-	read -erp "Username: " DOCKER_ USERNAME
-	read -erp "Image ID: " IMAGE_ID
-
-	if [[ -z "${TAG}" ]]; then
-
-		TAG="latest"
-
-	fi
-
-	echo -e "\n==> Logging in and pushing image\n"
-
-	# login and push image
-	docker login
-	docker tag "${IMAGE_ID}" ${DOCKER_ USERNAME}/${NAME}:${TAG}
-	docker push  ${DOCKER_ USERNAME}/${NAME}
-
-}
-
 build_image()
 {
-	if [[ -d "${TMP_DIR}" ]]; then
+	if [[ -d "${CHROOT_BASE}" ]]; then
 
-		rm -rf "${TMP_DIR}"
-		mkdir -p "${TMP_DIR}"
+		rm -rf "${CHROOT_BASE}"
+		mkdir -p "${CHROOT_BASE}"
 
 	else
 
-		mkdir -p "${TMP_DIR}"
+		mkdir -p "${CHROOT_BASE}"
 
 
 	fi
 
-	# Set conf location
-	TMP_PKG_CONF="${TMP_DIR}${PKG_CONF}"
+	# Set folder locations
+	RPM_PKG_DB="${CHROOT_BASE}/var/lib/rpm"
+	TMP_PKG_CONF="${CHROOT_BASE}${PKG_CONF}"
+
+	# Create required directories
+	mkdir -p "${RPM_PKG_DB}"
 
 	# Enter tmp dir
-	cd "${TMP_DIR}" || exit 1
+	cd "${CHROOT_BASE}" || exit 1
 
 	# Download required files
 
@@ -166,26 +143,26 @@ build_image()
 
 	# Proceed as long as etc exists
 
-	if [[ -d "${TMP_DIR}/etc" && -f "${PKG_CONF}" ]]; then
+	if [[ -d "${CHROOT_BASE}/etc" && -f "${PKG_CONF}" ]]; then
 
 		# copy PKG_CONF from system
 		# dnf still pulls from /etc/yum/yum.repos.d/ for extra configuration
 
 		cp "${PKG_CONF}" "${TMP_PKG_CONF}"
-		sed -i "s/\$releasever/${RELEASE}/g" ${TMP_DIR}/etc/yum.repos.d/*
-		sed -i "s/\$basearcg/${ARCH}/g" ${TMP_DIR}/etc/yum.repos.d/*
+		sed -i "s/\$releasever/${RELEASE}/g" ${CHROOT_BASE}/etc/yum.repos.d/*
+		sed -i "s/\$basearcg/${ARCH}/g" ${CHROOT_BASE}/etc/yum.repos.d/*
 
 		# Enable base repos
-		sed -i "s/\enabled\=0/enabled\=1}/g" "${TMP_DIR}/etc/yum.repos.d/fedora.repo"
-		sed -i "s/\enabled\=0/enabled\=1}/g" "${TMP_DIR}/etc/yum.repos.d/fedora-updates.repo"
+		sed -i "s/\enabled\=0/enabled\=1}/g" "${CHROOT_BASE}/etc/yum.repos.d/fedora.repo"
+		sed -i "s/\enabled\=0/enabled\=1}/g" "${CHROOT_BASE}/etc/yum.repos.d/fedora-updates.repo"
 
 		# Disable GPG check for image build
-		sed -i "s/\gpgcheck\=1/gpgcheck\=0}/g" "${TMP_DIR}/etc/yum.repos.d/fedora.repo"
-		sed -i "s/\gpgcheck\=2/gpgcheck\=0}/g" "${TMP_DIR}/etc/yum.repos.d/fedora-updates.repo"
+		sed -i "s/\gpgcheck\=1/gpgcheck\=0}/g" "${CHROOT_BASE}/etc/yum.repos.d/fedora.repo"
+		sed -i "s/\gpgcheck\=2/gpgcheck\=0}/g" "${CHROOT_BASE}/etc/yum.repos.d/fedora-updates.repo"
 
 		# Add the contents of the repo files to etc
 		# mkimage-yum.sh only uses the base .conf file to build the repo information
-		find "${TMP_DIR}/etc" -type f -name '*.repo' -exec cat '{}' >> "${TMP_PKG_CONF}" \;
+		find "${CHROOT_BASE}/etc" -type f -name '*.repo' -exec cat '{}' >> "${TMP_PKG_CONF}" \;
 
 
 	else
@@ -194,36 +171,29 @@ build_image()
 		exit 1
 	fi
 
-	# Build image
-	if ! sudo ./mkimage-yum.sh -p ${BASE_PKGS} -g ${BASE_GROUPS} -y ${TMP_PKG_CONF} ${NAME}; then
+	# Initialize RPM DB
+	rpm --root "${CHROOT_BASE}" --initdb
+
+	# Install base packages
+	if ! yum --installroot="${CHROOT_BASE}" groupinstall -y base; then
 
 		echo -e "\nERROR: Failed to create image! Exiting"
 		
 		# cleanup
-		if [[ -d "${TMP_DIR}" ]]; then
+		if [[ -d "${CHROOT_BASE}" ]]; then
 
-			rm -rf "${TMP_DIR}"
+			rm -rf "${CHROOT_BASE}"
 
 		fi
 
 	else
 
 		# cleanup only
-		if [[ -d "${TMP_DIR}" ]]; then
+		if [[ -d "${CHROOT_BASE}" ]]; then
 
-			rm -rf "${TMP_DIR}"
+			rm -rf "${CHROOT_BASE}"
 
 		fi		
-
-	fi
-
-	# ask to push image
-	echo -e "\n==> Push image to docker repostiry? If the repository does not exist, it will be created\n"
-	read -erp "Choice (y/n): " DOCKER_PUSH
-
-	if [[ "${DOCKER_PUSH}" == "y" ]]; then	
-
-		push_image_to_docker
 
 	fi
 

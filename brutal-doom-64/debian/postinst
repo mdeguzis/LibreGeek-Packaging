@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cat<<- EOF
+
+	:: Make sure you add a valid Doom 2 WAD file to 
+	:: /usr/share/games/brutal-doom-64/
+	:: e.g. DOOM.WAD, DOOM2.WAD.
+
+EOF

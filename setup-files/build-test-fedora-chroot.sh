@@ -11,6 +11,7 @@ REVISION="3"
 ARCH="x86_64"
 NAME="fedora-${ARCH}"
 IMAGE_NAME="Fedora-${RELEASE}-${ARCH}"
+TMP_DIR="${HOME}/fedora-chroot-tmp"
 BASE_URL="https://kojipkgs.fedoraproject.org/packages/fedora-repos"
 REPO_RPM="${BASE_URL}/${RELEASE}/${REVISION}/noarch/fedora-repos-${RELEASE}-${REVISION}.noarch.rpm"
 BUILD_SCRIPT="https://raw.githubusercontent.com/docker/docker/master/contrib/mkimage-yum.sh"
@@ -105,7 +106,7 @@ push_image_to_docker()
 
 build_image()
 {
-	if [[ -f "${TMP_DIR}" ]]; then
+	if [[ -d "${TMP_DIR}" ]]; then
 
 		rm -rf "${TMP_DIR}"
 		mkdir -p "${TMP_DIR}"
@@ -118,7 +119,7 @@ build_image()
 	fi
 
 	# Set conf location
-	TEMP_PKG_CONF="${TMP_DIR}/etc/${PKG_HANDLER}"
+	TMP_PKG_CONF="${TMP_DIR}/etc/${PKG_HANDLER}"
 
 	# Enter tmp dir
 	cd "${TMP_DIR}" || exit 1
@@ -167,8 +168,8 @@ build_image()
 		# copy PKG_CONF from system
 		# dnf still pulls from /etc/yum/yum.repos.d/ for extra configuration
 
-		mkdir -p "${TEMP_PKG_CONF}"
-		cp "PKG_CONF" "${TEMP_PKG_CONF}"
+		mkdir -p "${TMP_PKG_CONF}"
+		cp "PKG_CONF" "${TMP_PKG_CONF}"
 		sed -i "s/\$releasever/${RELEASE}/g" ${TMP_DIR}/etc/yum.repos.d/*
 		sed -i "s/\$basearcg/${ARCH}/g" ${TMP_DIR}/etc/yum.repos.d/*
 
@@ -182,7 +183,7 @@ build_image()
 
 		# Add the contents of the repo files to etc/dnf/dnf.conf
 		# mkimage-yum.sh only uses the base .conf file to build the repo information
-		find etc -name '*.repo' -exec cat {} >> "${TEMP_PKG_CONF}" \;
+		find etc -name '*.repo' -exec cat {} >> "${TMP_PKG_CONF}" \;
 
 
 	else
@@ -193,10 +194,25 @@ build_image()
 
 
 	# Build image
-	if ! sudo ./mkimage-yum.sh -p ${BASE_PKGS} -g ${BASE_GROUPS} -y ${TEMP_PKG_CONF} ${NAME}; then
+	if ! sudo ./mkimage-yum.sh -p ${BASE_PKGS} -g ${BASE_GROUPS} -y ${TMP_PKG_CONF} ${NAME}; then
 
 		echo -e "\nERROR: Failed to create image! Exiting"
-		exit 1
+		
+		# cleanup
+		if [[ -d "${TMP_DIR}" ]]; then
+
+			rm -rf "${TMP_DIR}"
+
+		fi
+
+	else
+
+		# cleanup only
+		if [[ -d "${TMP_DIR}" ]]; then
+
+			rm -rf "${TMP_DIR}"
+
+		fi		
 
 	fi
 
@@ -209,6 +225,7 @@ build_image()
 		push_image_to_docker
 
 	fi
+
 }
 
 # Set ARCH, REVISION and release and release defaults

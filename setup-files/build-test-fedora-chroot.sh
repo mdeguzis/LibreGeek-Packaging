@@ -163,7 +163,7 @@ build_image()
 
 	# Proceed as long as etc exists
 
-	if [[ -d "etc" && -f "${PKG_CONF}" ]]; then
+	if [[ -d "${TMP_DIR}/etc" && -f "${PKG_CONF}" ]]; then
 
 		# copy PKG_CONF from system
 		# dnf still pulls from /etc/yum/yum.repos.d/ for extra configuration
@@ -183,7 +183,8 @@ build_image()
 
 		# Add the contents of the repo files to etc
 		# mkimage-yum.sh only uses the base .conf file to build the repo information
-		find etc -type f -name '*.repo' -exec cat {} >> "${TMP_PKG_CONF}" \;
+		find "${TMP_DIR}/etc" -type f -name '*.repo'
+		find "${TMP_DIR}/etc" -type f -name '*.repo' -exec cat '{}' >> "${TMP_PKG_CONF}" \;
 
 
 	else

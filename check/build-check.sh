@@ -46,7 +46,7 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/libcheck"
+SRC_URL="https://github.com/libcheck/check"
 TARGET="0.10.0"
 
 # package vars

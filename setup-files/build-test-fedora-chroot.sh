@@ -57,10 +57,13 @@ check_distro()
 
 	fi
 
-	if [[ "${OS}" == "Debian" ]]; then
+	if [[ "${OS}" == "Debian" "${OS}" == "SteamOS" ]]; then
 
 		PKG_HANDLER="yum"
 		PKG_CONF="/etc/yum/yum.conf"
+
+		# Install yum
+		sudo apt-get install -y yum
 
 	elif [[ "${OS}" == "Fedora" ]]; then
 
@@ -168,7 +171,6 @@ build_image()
 		# copy PKG_CONF from system
 		# dnf still pulls from /etc/yum/yum.repos.d/ for extra configuration
 
-		mkdir -p "${TMP_PKG_CONF}"
 		cp "${PKG_CONF}" "${TMP_PKG_CONF}"
 		sed -i "s/\$releasever/${RELEASE}/g" ${TMP_DIR}/etc/yum.repos.d/*
 		sed -i "s/\$basearcg/${ARCH}/g" ${TMP_DIR}/etc/yum.repos.d/*

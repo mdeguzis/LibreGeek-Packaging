@@ -41,7 +41,7 @@ usage()
 }
 
 check_distro()
-(
+{
 
 	# Check first if we are using Fedora or Debian etc.
 	# Distros, such as Debian, only have yum at the moment
@@ -61,7 +61,7 @@ check_distro()
 		PKG_HANDLER="yum"
 		PKG_CONF="/etc/yum/yum.conf"
 
-	if [[ "${OS}" == "Fedora" ]]; then
+	elif [[ "${OS}" == "Fedora" ]]; then
 
 		PKG_HANDLER="dnf"
 		PKG_CONF="/etc/dnf/dnf.conf"
@@ -74,7 +74,7 @@ check_distro()
 
 	fi
 
-)
+}
 
 push_image_to_docker()
 {

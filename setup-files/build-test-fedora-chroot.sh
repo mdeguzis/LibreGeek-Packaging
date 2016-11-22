@@ -188,7 +188,7 @@ build_image()
 
 	else
 
-		echo -e "\nERROR: Cannot find etc directory or PKG_CONF!"
+		echo -e "\nERROR: Cannot find etc directory or ${PKG_CONF}!"
 		exit 1
 	fi
 

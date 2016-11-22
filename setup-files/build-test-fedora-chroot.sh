@@ -6,7 +6,6 @@
 # Sourced from: https://github.com/ProfessorKaos64/docker/blob/fedora-32/create-fedora-docker.sh
 
 # Set main var defaults
-
 RELEASE="24"
 REVISION="3"
 ARCH="x86_64"
@@ -122,23 +121,38 @@ build_image()
 	TEMP_PKG_CONF="${TMP_DIR}/etc/${PKG_HANDLER}"
 
 	# Enter tmp dir
-
-	cd "${TMP_DIR}"
+	cd "${TMP_DIR}" || exit 1
 
 	# Download required files
 
 	wget "${BUILD_SCRIPT}" -q -n --show-progress
 
-	# if this fails, use revision 1, whichi shoudl always exist
-
+	# Getting revision 3 fails, try revision 2 or 1
 	if ! wget "${REPO_RPM}" -q -nc --show-progress; then
 
-		echo -e "\nERROR: Cannot find this file, using revision 1\n"
-		REPO_RPM="${BASE_URL}/${RELEASE}/1/noarch/fedora-repos-${RELEASE}-1.noarch.rpm"
-		wget "${REPO_RPM}" -q -nc --show-progress
+		echo -e "\nERROR: Cannot find this file, trying revision 2\n"
+		REPO_RPM="${BASE_URL}/${RELEASE}/2/noarch/fedora-repos-${RELEASE}-2.noarch.rpm"
+
+			if ! wget "${REPO_RPM}" -q -nc --show-progress; then
+
+				echo -e "\nERROR: Cannot find this file, trying revision 1\n"
+				REPO_RPM="${BASE_URL}/${RELEASE}/1/noarch/fedora-repos-${RELEASE}-1.noarch.rpm"
+				wget "${REPO_RPM}" -q -nc --show-progress
+
+			fi
 
 	fi
 
+	# Ensure rpm pkg is available after nabbing the package configs, bail out if not
+	if [[ ! -f $(basename ${REPO_RPM} ]]; then
+
+		echo -e "\nERROR: could not find specified RPM package! Aborting."
+		sleep 5s
+		exit 1
+
+	fi
+
+	# Mark utility exec
 	chmod +x mkimage-yum.sh
 
 	# Extract and modify base source repos RPM

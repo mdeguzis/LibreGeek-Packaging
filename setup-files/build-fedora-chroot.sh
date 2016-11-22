@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 # Creates base fedora image for Docker
 # Author: Michael DeGuzis
@@ -9,8 +9,7 @@
 RELEASE="24"
 REVISION="3"
 ARCH="x86_64"
-NAME="fedora-${ARCH}"
-CHROOT_NAME="Fedora-${RELEASE}-${ARCH}"
+CHROOT_NAME="fedora-${RELEASE}-${ARCH}"
 CHROOT_BASE="${HOME}/${CHROOT_NAME}"
 BASE_URL="https://kojipkgs.fedoraproject.org/packages/fedora-repos"
 REPO_RPM="${BASE_URL}/${RELEASE}/${REVISION}/noarch/fedora-repos-${RELEASE}-${REVISION}.noarch.rpm"
@@ -19,7 +18,7 @@ BASE_GROUPS="Core"
 BASE_PKGS="base base-devel"
 
 
-usage() 
+usage()
 {
 
 	cat<<- EOF
@@ -96,10 +95,12 @@ build_image()
 
 	# Set folder locations
 	RPM_PKG_DB="${CHROOT_BASE}/var/lib/rpm"
-	TMP_PKG_CONF="${CHROOT_BASE}${PKG_CONF}"
+	PKG_ROOT="${CHROOT_BASE}/${PKG_HANDLER}"
+	CHROOT_PKG_CONF="${PKG_ROOT}/${PKG_HANDLER}.conf"
 
 	# Create required directories
 	mkdir -p "${RPM_PKG_DB}"
+	mkdir -p "${PKG_ROOT}"
 
 	# Enter tmp dir
 	cd "${CHROOT_BASE}" || exit 1
@@ -148,7 +149,7 @@ build_image()
 		# copy PKG_CONF from system
 		# dnf still pulls from /etc/yum/yum.repos.d/ for extra configuration
 
-		cp "${PKG_CONF}" "${TMP_PKG_CONF}"
+		cp "${PKG_CONF}" "${CHROOT_PKG_CONF}"
 		sed -i "s/\$releasever/${RELEASE}/g" ${CHROOT_BASE}/etc/yum.repos.d/*
 		sed -i "s/\$basearcg/${ARCH}/g" ${CHROOT_BASE}/etc/yum.repos.d/*
 
@@ -162,7 +163,7 @@ build_image()
 
 		# Add the contents of the repo files to etc
 		# mkimage-yum.sh only uses the base .conf file to build the repo information
-		find "${CHROOT_BASE}/etc" -type f -name '*.repo' -exec cat '{}' >> "${TMP_PKG_CONF}" \;
+		find "${CHROOT_BASE}/etc" -type f -name '*.repo' -exec cat '{}' >> "${CHROOT_PKG_CONF}" \;
 
 
 	else
@@ -178,12 +179,12 @@ build_image()
 	if ! yum --installroot="${CHROOT_BASE}" groupinstall -y base; then
 
 		echo -e "\nERROR: Failed to create image! Exiting"
-		
+
 		# cleanup
 		if [[ -d "${CHROOT_BASE}" ]]; then
 
-			rm -rf "${CHROOT_BASE}"
-
+#			rm -rf "${CHROOT_BASE}"
+:
 		fi
 
 	else

@@ -1,0 +1,5 @@
+debian/citra.desktop 		/usr/share/applications/
+debian/citra-qt.desktop		/usr/share/applications/
+Citra.png 			/usr/share/pixmaps/
+build/src/citra/citra		/usr/games/
+build/src/citra_qt/citra-qt	/usr/games/

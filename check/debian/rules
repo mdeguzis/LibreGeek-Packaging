@@ -11,12 +11,12 @@ override_dh_auto_configure:
 	dh_auto_configure --builddirectory build-standard -- --prefix=/usr \
 		--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
 		--host=$(DEB_HOST_GNU_TYPE) \
-		--infodir=/usr/share/info --disable-shared --enable-subunit
+		--infodir=/usr/share/info --enable-subunit
 	
 	CFLAGS="-fPIC $(CFLAGS)" dh_auto_configure --builddirectory build-pic
 		-- --prefix=/usr --host=$(DEB_HOST_GNU_TYPE) \
 		--libdir=\$${prefix}/lib/$(DEB_HOST_MULTIARCH) \
-		--infodir=/usr/share/info --disable-shared --enable-subunit
+		--infodir=/usr/share/info --enable-subunit
 
 override_dh_auto_build:
 	dh_auto_build --builddirectory build-standard

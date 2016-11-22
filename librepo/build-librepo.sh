@@ -55,7 +55,7 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
-export STEAMOS_TOOLS_BETA_HOOK="true"
+export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="librepo"
 PKGVER=$(echo ${TARGET} | sed 's/librepo-//g')
 PKGREV="1"
@@ -66,7 +66,7 @@ UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # Need network for pbuilder to pull down ut4 zip
-export NETWORK="yes"
+# export NETWORK="yes"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"

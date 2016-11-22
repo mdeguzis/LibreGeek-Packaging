@@ -79,7 +79,7 @@ check_distro()
 push_image_to_docker()
 {
 
-	echo -e "\n==> Displaying docker image, please enter tag ID, username, and desired tag (default: latest)\nn"
+	echo -e "\n==> Displaying docker image, please enter tag ID, username, and desired tag (default: latest)\n"
 	sleep 2s
 
 	docker images | grep "${NAME}"
@@ -94,7 +94,7 @@ push_image_to_docker()
 
 	fi
 
-	echo -e "\n==> Logging in and pushing image\n
+	echo -e "\n==> Logging in and pushing image\n"
 
 	# login and push image
 	docker login

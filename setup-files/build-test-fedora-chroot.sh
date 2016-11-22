@@ -119,7 +119,7 @@ build_image()
 	fi
 
 	# Set conf location
-	TMP_PKG_CONF="${TMP_DIR}/etc/${PKG_HANDLER}/yum.conf"
+	TMP_PKG_CONF="${TMP_DIR}/${PKG_CONF}"
 
 	# Enter tmp dir
 	cd "${TMP_DIR}" || exit 1
@@ -191,7 +191,6 @@ build_image()
 		echo -e "\nERROR: Cannot find etc directory or ${PKG_CONF}!"
 		exit 1
 	fi
-
 
 	# Build image
 	if ! sudo ./mkimage-yum.sh -p ${BASE_PKGS} -g ${BASE_GROUPS} -y ${TMP_PKG_CONF} ${NAME}; then

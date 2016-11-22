@@ -159,11 +159,11 @@ build_image()
 	# Extract and modify base source repos RPM
 	# See: http://www.cyberciti.biz/tips/how-to-extract-an-rpm-package-without-installing-it.html
 
-	rpm2cpio "${REPO_RPM}" | xz -d | cpio -idmv
+	rpm2cpio $(basename ${REPO_RPM}) | xz -d | cpio -idmv
 
 	# Proceed as long as etc exists
 
-	if [[ -d "etc" && -f "PKG_CONF" ]]; then
+	if [[ -d "etc" && -f "${PKG_CONF}" ]]; then
 
 		# copy PKG_CONF from system
 		# dnf still pulls from /etc/yum/yum.repos.d/ for extra configuration

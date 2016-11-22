@@ -54,11 +54,11 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="doom64ex"
 PKGVER="0.0.0"
-PKGREV="1"
+PKGREV="2"
 PKGSUFFIX="git+bsos"
 EPOCH="2"
 DIST="${DIST:=xenial}"

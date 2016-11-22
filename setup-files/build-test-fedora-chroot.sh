@@ -159,7 +159,7 @@ build_image()
 	# Extract and modify base source repos RPM
 	# See: http://www.cyberciti.biz/tips/how-to-extract-an-rpm-package-without-installing-it.html
 
-	rpm2cpio $(basename ${REPO_RPM}) | xz -d | cpio -idmv
+	rpm2cpio $(basename ${REPO_RPM}) | cpio -idmv
 
 	# Proceed as long as etc exists
 

@@ -1,26 +1,29 @@
-Source: citra
-Section: games
+Source: librepo
+Section: devel
 Priority: optional
-Build-Depends: cmake (>= 3.1),
- debhelper,
- clang-3.8,
- clang-format-3.8,
- libsdl2-dev,
- libqt5opengl5-dev,
- libc++-dev,
- lib32stdc++6,
- llvm-3.8-dev,
- python-pkgconfig,
- qtbase5-dev,
- xorg-dev
-Maintainer: SteamOS-Tools-Signing Key <mdeguzis@gmail.com>
-Standards-Version: 3.9.5
-Homepage: https://github.com/citra-emu
+Build-Depends: debhelper,
+ check,
+ cmake,
+ doxygen,
+ libattr1-dev,
+ libexpat1-dev,
+ libcurl4-openssl-dev,
+ libgpgme11-dev, 
+ libglib2.0-dev,
+ libpython2.7-dev,
+ libssl-dev,
+ python-flask,
+ python-gpgme,
+ python-nose,
+ python-pyxattr
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Standards-Version: 3.9.7
+Homepage: https://github.com/rpm-software-management/librepo
 
-Package: citra
-Architecture: all
+Package: librepo
+Architecture: amd64
 Depends: ${misc:Depends},
  ${shlibs:Depends},
- libqt5opengl5,
- libqt5widgets5
-Description: Citra is an emulator for 3DS games and software.
+Description: Python lib for C/python download API
+ librepo - A library providing C and Python (libcURL like)
+ API for downloading linux repository metadata and packages

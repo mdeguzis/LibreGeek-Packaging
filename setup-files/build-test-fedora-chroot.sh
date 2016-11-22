@@ -144,7 +144,7 @@ build_image()
 	fi
 
 	# Ensure rpm pkg is available after nabbing the package configs, bail out if not
-	if [[ ! -f $(basename ${REPO_RPM} ]]; then
+	if [[ ! -f $(basename ${REPO_RPM}) ]]; then
 
 		echo -e "\nERROR: could not find specified RPM package! Aborting."
 		sleep 5s

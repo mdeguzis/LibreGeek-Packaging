@@ -169,7 +169,7 @@ build_image()
 		# dnf still pulls from /etc/yum/yum.repos.d/ for extra configuration
 
 		mkdir -p "${TMP_PKG_CONF}"
-		cp "PKG_CONF" "${TMP_PKG_CONF}"
+		cp "${PKG_CONF}" "${TMP_PKG_CONF}"
 		sed -i "s/\$releasever/${RELEASE}/g" ${TMP_DIR}/etc/yum.repos.d/*
 		sed -i "s/\$basearcg/${ARCH}/g" ${TMP_DIR}/etc/yum.repos.d/*
 

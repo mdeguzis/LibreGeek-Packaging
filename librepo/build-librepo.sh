@@ -46,7 +46,7 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/rpm-software-managemen/librepo"
+SRC_URL="https://github.com/rpm-software-management/librepo"
 TARGET="librepo-1.7.20"
 
 # package vars

@@ -46,8 +46,8 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/libcheck/check"
-TARGET=" 0.10.0"
+SRC_URL="https://github.com/libcheck"
+TARGET="0.10.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

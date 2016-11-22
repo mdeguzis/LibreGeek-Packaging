@@ -2,15 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-citra.sh
+# Scipt name:	build-librepo.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest Citra source
+# Description:	Attmpts to build a deb package from the latest librepo source
 #		code.
 #
-# See:		https://github.com/citra-emu/
-#		https://github.com/citra-emu/citra/wiki/Linux-Build
+# See:		https://github.com/rpm-software-management
 #
-# Usage:	./build-citra.sh
+# Usage:	./build-librepo.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -47,9 +46,8 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/citra-emu/citra"
-#SRC_URL="https://github.com/ProfessorKaos64/citra"
-TARGET="master"
+SRC_URL="https://github.com/rpm-software-managemen/librepo"
+TARGET="librepo-1.7.20"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,10 +56,9 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
-PKGNAME="citra"
-PKGVER="0.${DATE_SHORT}"
+PKGNAME="librepo"
+PKGVER=$(echo ${TARGET} | sed 's/librepo-//g'
 PKGREV="1"
-# Base version sourced from ZIP file version
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
@@ -81,8 +78,10 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch \
-	qtbase5-dev libqt5opengl5-dev build-essential cmake
+	sudo apt-get install -y --force-yes build-essential pkg-config bc check \
+	cmake doxygen libattr1-dev libexpat1-dev libcurl4-openssl-dev \
+	libgpgme11-dev libglib2.0-dev libpython2.7-dev libssl-dev python-flask \
+	python-gpgme python-nose python-pyxattr
 
 }
 
@@ -119,12 +118,6 @@ main()
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
-	# Add image to git dir
-	cp -r "${SCRIPTDIR}/Citra.png" "${SRC_DIR}"
-
-	# Swap version text, since the project assumes citra is being ran in the git dir
-	sed -i "s|GIT-NOTFOUND|${PKGVER}git|g" "${SRC_DIR}/externals/cmake-modules/GetGitRevisionDescription.cmake"
-
 	#################################################
 	# Build package
 	#################################################
@@ -141,7 +134,6 @@ main()
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-	cp "${SRC_DIR}/license.txt" "${SRC_DIR}/debian/LICENSE"
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -152,14 +144,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update snapshot"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update snapshot"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 
 	fi

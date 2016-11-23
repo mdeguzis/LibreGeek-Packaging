@@ -154,14 +154,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update snapshot"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update snapshot"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 
 	fi

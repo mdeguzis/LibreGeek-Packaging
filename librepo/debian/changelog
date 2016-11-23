@@ -1,0 +1,5 @@
+librepo (1.7.20+git+bsos-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 22 Nov 2016 21:46:08 +0000

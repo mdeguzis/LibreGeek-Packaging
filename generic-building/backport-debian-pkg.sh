@@ -126,12 +126,12 @@ function_set_vars()
 	# Set repo folder destination
 	if [[ "${TEST_REPO}" == "false" ]]; then
 
-		REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
+		REPO_FOLDER="/mnt/server_media_x/packaging/${PROJECT_FOLDER}/incoming"
 
 	elif [[ "${TEST_REPO}" == "true" ]]; then
 
 
-		REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
+		REPO_FOLDER="/mnt/server_media_x/packaging/${PROJECT_FOLDER}/incoming_testing"
 
 	fi
 
@@ -348,6 +348,10 @@ function_backport_config()
 	elif [[ "${DIST}" == "jessie" ]]; then
 
 		DIST_CODE="~bpo8"
+
+	else
+
+		DIST_CODE=""
 
 	fi
 

@@ -1,0 +1,248 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Check
+Source: https://sourceforge.net/projects/check/files/latest/download
+
+Files: *
+Copyright: Arien Malec <arien_malec@yahoo.com>
+           Sven Neumann <neo23@users.sourceforge.net>
+           Fred L. Drake, Jr. <fdrake@users.sourceforge.net>
+           Fredrik Hugosson <hugo303@users.sourceforge.net>
+           Chris Pickett  <chris.pickett@mail.mcgill.ca>
+           Branden Archer <b.m.archer4@gmail.com>
+License: LGPL-2.1+
+
+Files: lib/snprintf.c
+Copyright: 1995 Patrick Powell
+           2008 Holger Weiss
+License: permissive-1
+ Copyright (c) 1995 Patrick Powell.
+ .
+ This code is based on code written by Patrick Powell <papowell@astart.com>.
+ It may be used for any purpose as long as this notice remains intact on all
+ source code distributions.
+ .
+ Copyright (c) 2008 Holger Weiss.
+ .
+ This version of the code is maintained by Holger Weiss <holger@jhweiss.de>.
+ My changes to the code may freely be used, modified and/or redistributed for
+ any purpose.  It would be nice if additions and fixes to this file (including
+ trivial code cleanups) would be sent back in order to let me include them in
+ the version available at <http://www.jhweiss.de/software/snprintf.html>.
+ However, this is not a requirement for using or redistributing (possibly
+ modified) versions of this file, nor is leaving this notice intact mandatory.
+
+Files: m4/snprintf.m4
+Copyright: 2008 Holger Weiss <holger@jhweiss.de>.
+License: permissive-2
+ This code may freely be used, modified and/or redistributed for any purpose.
+ It would be nice if additions and fixes to this file (including trivial code
+ cleanups) would be sent back in order to let me include them in the version
+ available at <http://www.jhweiss.de/software/snprintf.html>.  However, this is
+ not a requirement for using or redistributing (possibly modified) versions of
+ this file, nor is leaving this notice intact mandatory.
+
+Files: m4/lt~obsolete.m4 m4/ltversion.m4 m4/ltsugar.m4 m4/ltoptions.m4
+Copyright: 1996-2001, 2003-2011 Free Software Foundation, Inc.
+          2004 Scott James Remnant
+          2004 Gary V. Vaughan
+          1996 Gordon Matzigkeit
+License: permissive-3
+ This file is free software; the Free Software Foundation gives
+ unlimited permission to copy and/or distribute it, with or without
+ modifications, as long as this notice is preserved.
+
+Files: m4/ax_create_stdint_h.m4
+Copyright: 2008 Guido U. Draheim <guidod@gmx.de>
+License: GPL-3+-with-autotools-exception
+ This program is free software; you can redistribute it and/or modify it
+ under the terms of the GNU General Public License as published by the
+ Free Software Foundation; either version 3 of the License, or (at your
+ option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+ Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License along
+ with this program. If not, see <http://www.gnu.org/licenses/>.
+ .
+ As a special exception, the respective Autoconf Macro's copyright owner
+ gives unlimited permission to copy, distribute and modify the configure
+ scripts that are the output of Autoconf when processing the Macro. You
+ need not follow the terms of the GNU General Public License when using
+ or distributing such scripts, even though portions of the text of the
+ Macro appear in them. The GNU General Public License (GPL) does govern
+ all other use of the material that constitutes the Autoconf Macro.
+ .
+ This special exception to the GPL applies to versions of the Autoconf
+ Macro released by the Autoconf Archive. When you make and distribute a
+ modified version of the Autoconf Macro, you may extend this special
+ exception to the GPL to apply to your modified version as well.
+ .
+ On Debian systems, the complete text of the GNU General Public License can be
+ found in /usr/share/common-licenses/GPL-3.
+
+Files: m4/acx_pthread.m4 m4/ax_c_check_flag.m4
+Copyright: 2007 Francesco Salvestrini <salvestrini@users.sourceforge.net>
+           2008 Steven G. Johnson <stevenj@alum.mit.edu>
+License: GPL-2+-with-autotools-exception
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2 of the
+ License, or (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+ MA 02110-1301, USA.
+ .
+ As a special exception, the respective Autoconf Macro's copyright
+ owner gives unlimited permission to copy, distribute and modify the
+ configure scripts that are the output of Autoconf when processing
+ the Macro. You need not follow the terms of the GNU General Public
+ License when using or distributing such scripts, even though
+ portions of the text of the Macro appear in them. The GNU General
+ Public License (GPL) does govern all other use of the material that
+ constitutes the Autoconf Macro.
+ .
+ This special exception to the GPL applies to versions of the
+ Autoconf Macro released by the Autoconf Macro Archive. When you
+ make and distribute a modified version of the Autoconf Macro, you
+ may extend this special exception to the GPL to apply to your
+ modified version as well.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 2 can be found in /usr/share/common-licenses/GPL-2.
+
+Files: build-aux/*
+Copyright:  2010, 2012 Free Software Foundation, Inc.
+            Peter Rosin <peda@lysator.liu.se>
+License: GPL-2+-autoconf-expception
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2, or (at your option)
+ any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ .
+ As a special exception to the GNU General Public License, if you
+ distribute this file as part of a program that contains a
+ configuration script generated by Autoconf, you may include it under
+ the same distribution terms that you use for the rest of that program.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 2 can be found in /usr/share/common-licenses/GPL-2.
+
+Files: build-aux/install-sh
+Copyright: 1994 X Consortium
+License: XFree-1.0
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to
+ deal in the Software without restriction, including without limitation the
+ rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+ .
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
+ X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+ AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNEC-
+ TION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ .
+ Except as contained in this notice, the name of the X Consortium shall not
+ be used in advertising or otherwise to promote the sale, use or other deal-
+ ings in this Software without prior written authorization from the X Consor-
+ tium.
+
+Files: build-aux/ltmain.sh
+Copyright: 1996-2011 Free Software Foundation, Inc.
+License: GPL-2+-with-libtool-exception
+ GNU Libtool is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+ .
+ As a special exception to the GNU General Public License,
+ if you distribute this file as part of a program or library that
+ is built using GNU Libtool, you may include this file under the
+ same distribution terms that you use for the rest of that program.
+ .
+ GNU Libtool is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with GNU Libtool; see the file COPYING.  If not, a copy
+ can be downloaded from http://www.gnu.org/licenses/gpl.html,
+ or obtained by writing to the Free Software Foundation, Inc.,
+ 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ Version 2 can be found in /usr/share/common-licenses/GPL-2.
+
+Files: build-aux/texinfo.tex
+Copyright: 1995-2011 Free Software Foundation, Inc.
+License: GPL3+-with-texinfo-exception
+ This texinfo.tex file is free software: you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation, either version 3 of the
+ License, or (at your option) any later version.
+ .
+ This texinfo.tex file is distributed in the hope that it will be
+ useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+ of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ .
+ As a special exception, when this file is read by TeX when processing
+ a Texinfo source document, you may use the result without
+ restriction.  (This has been our intent since Texinfo was invented.)
+ .
+ On Debian systems, the complete text of the GNU General Public License can be
+ found in /usr/share/common-licenses/GPL-3.
+
+Files: debian/*
+Copyright: 2002 Muhammad Hussain Yusuf <yusuf@debian.org>
+          2002 Britton Leo Kerin <bkerin@debian.org>
+          2005-2013 Robert Lemmen <robertle@debian.org>
+          2013-2014 Thomas Bechtold <thomasbechtold@jpberlin.de>
+          2015 Tobias Frost <tobi@debian.org>
+License: LGPL-2.1+
+
+License: LGPL-2.1+
+ This library is free software; you can redistribute it and/or
+ modify it under the terms of the GNU Lesser General Public
+ License as published by the Free Software Foundation; either
+ version 2.1 of the License, or (at your option) any later version.
+ .
+ This library is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ Lesser General Public License for more details.
+ .
+ You should have received a copy of the GNU Lesser General Public
+ License along with this library; if not, write to the Free Software
+ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301,
+ USA.
+ .
+ On Debian systems, the complete text of the GNU Lesser General Public
+ License can be found in /usr/share/common-licenses/LGPL-2.1.

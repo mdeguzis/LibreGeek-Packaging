@@ -61,9 +61,9 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 export NO_APT_PREFS="true"
 PKGNAME="play"
-PKGVER="0.${DATE_SHORT}"
+PKGVER="0.0.0"
 PKGREV="1"
-EPOCH="1"
+EPOCH="2"
 PKGSUFFIX="git+bsos"
 DIST="brewmaster"
 URGENCY="low"
@@ -117,8 +117,10 @@ main()
 
 	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
+	# Set suffix based on commit
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Prepare sources
@@ -146,14 +148,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${LATEST_COMMIT}"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" 	-D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Initial upload"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
 

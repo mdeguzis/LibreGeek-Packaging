@@ -56,9 +56,9 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="decaf"
-PKGVER="0.${DATE_SHORT}"
+PKGVER="0.0.0"
 PKGREV="1"
-PKGSUFFIX="git+bsos"
+EPOCH="2"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -112,9 +112,10 @@ main()
 	cp "${SCRIPTDIR}/decaf.png" "${SRC_DIR}"
 	cp "${SCRIPTDIR}/decaf-launch.sh" "${SRC_DIR}"
 
-	# Get latest commit
+	# Set suffix based on revisions
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Build package
@@ -145,13 +146,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release to commit $LATEST_COMMIT"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 

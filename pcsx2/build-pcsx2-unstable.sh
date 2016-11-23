@@ -150,16 +150,15 @@ main()
 
 	# clone and checkout desired commit
         git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-        cd "${SRC_DIR}"
+
+	# Set suffix based on commit
+	cd "${SRC_DIR}"
         LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	# get latest base release for changelog
 	# This is used because upstream does tend to use release tags
 	base_release=$(git describe --abbrev=0 --tags)
-	PKGVER=$(sed "s|[-|a-z]||g" <<<"$base_release")
-
-        # Alter pkg suffix based on commit
-        PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Prepare build (upstream-specific)

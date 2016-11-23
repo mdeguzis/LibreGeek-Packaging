@@ -1,3 +1,9 @@
+yabause (0.9.15+git20161123.49134be-1) brewmaster; urgency=low
+
+  * Update to the latest commit 49134be
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 23 Nov 2016 22:41:13 +0000
+
 yabause (0.9.14-1) unstable; urgency=medium
 
   * New upstream release

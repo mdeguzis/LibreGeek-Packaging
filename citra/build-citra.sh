@@ -59,10 +59,9 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="citra"
-PKGVER="0.${DATE_SHORT}"
+PKGVER="0.0.0"
 PKGREV="1"
-# Base version sourced from ZIP file version
-PKGSUFFIX="git+bsos"
+EPOCH="2"
 DIST="brewmaster"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -116,8 +115,11 @@ main()
 
 	# clone and get latest commit tag
 	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	# Set suffix based on revisions
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	# Add image to git dir
 	cp -r "${SCRIPTDIR}/Citra.png" "${SRC_DIR}"

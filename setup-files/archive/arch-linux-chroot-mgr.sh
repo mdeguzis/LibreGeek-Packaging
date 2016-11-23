@@ -17,11 +17,11 @@ prepare_environment()
 
 	# install needded packages
 	PKGs="devtools devscripts arch-install-scripts"
-	
+
 	for PKG in ${PKGs};
 	do
 
-		echo -e "Installing: "${PKG}""
+		echo -e "Installing: ${PKG}"
 
 		if pacman -S ${PKG} &> /dev/null; then
 
@@ -38,8 +38,8 @@ prepare_environment()
 	done
 
 	# Create needed dirs
-	CHROOT_DIR="${HOME}/chroot-${ARCH}"
-	
+	CHROOT_DIR="${HOME}/arch-linux-chroot-${ARCH}"
+
 	if [[ -d "${CHROOT_DIR}" ]]; then 
 
 		echo -e "\nERROR: chroot directory ${CHROOT_DIR} is taken. Please choose an alternate."
@@ -53,6 +53,8 @@ prepare_environment()
 
 	fi
 
+}
+
 build_chroot()
 {
 
@@ -60,7 +62,7 @@ build_chroot()
 	REPOS="base base-devel"
 	CHROOT_DIR_ROOT="${CHROOT_DIR}/root"
 
-	cd ${CHROOT_DIR}"
+	cd "${CHROOT_DIR}"
 
 	# Gather conf files and  build chroot
 
@@ -87,7 +89,7 @@ build_chroot()
 
 	else
 
-		echo -e "\nERROR:\nOperation not supported!
+		echo -e "\nERROR:\nOperation not supported!"
 		sleep 2s && exit 1
 
 	fi
@@ -95,11 +97,9 @@ build_chroot()
 	echo -e "\n==> Building Chroot\n"
 
 	# build chroot
-	if sudo mkarchroot -C ${PACMAN_CONF} -M  ${MAKEPKG_CONF} ${CHROOT_DIR_ROOT} ${REPOS}; then
+	if ! sudo mkarchroot -C ${PACMAN_CONF} -M  ${MAKEPKG_CONF} ${CHROOT_DIR_ROOT} ${REPOS}; then
 
-	else
-
-		echo -e "\nERROR:\nFailed to build chroot!
+		echo -e "\nERROR:\nFailed to build chroot!"
 
 	fi
 
@@ -109,7 +109,7 @@ update_chroot()
 {
 
 	echo -e "\n==> Updating Chroot\n"
-	
+
 	arch-nspawn "${CHROOT_DIR_ROOT}" -Syu
 
 	echo -e "\nDone!"
@@ -158,7 +158,7 @@ while :; do
 				echo -e "ERROR: Please specify the path to your chroot.\n" >&2
 				exit 1
 			fi
-			
+
 			update_chroot
 			;;
 

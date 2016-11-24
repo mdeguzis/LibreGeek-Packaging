@@ -66,7 +66,7 @@ PKGVER="3.9"
 PKGREV="1"
 EPOCH="1"
 
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

@@ -64,7 +64,7 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 MAINTAINER="ProfessorKaos64"
 

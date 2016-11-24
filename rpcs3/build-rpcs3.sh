@@ -61,7 +61,7 @@ PKGNAME="rpcs3"
 PKGREV="1"
 # Base version sourced from ZIP file version
 PKGSUFFIX="${DATE_SHORT}git+bsos"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

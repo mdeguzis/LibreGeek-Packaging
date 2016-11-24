@@ -29,7 +29,7 @@ TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
 
 # builder varzs
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 ARCH="amd64"
 BUILDOPTS="--debbuildopts -b"
 export BUILD_TMP="${HOME}/build-deb-temp"

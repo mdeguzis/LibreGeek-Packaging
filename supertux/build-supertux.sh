@@ -61,7 +61,7 @@ PKGVER=$(echo ${TARGET} | sed 's/v//')
 PKGNAME="supertux"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

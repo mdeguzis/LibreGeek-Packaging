@@ -63,7 +63,7 @@ PKGNAME="vulkan"
 PKGVER=$(echo ${TARGET} | sed 's/sdk-//')
 PKGREV="1"
 PKGSUFFIX="git+bsos"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

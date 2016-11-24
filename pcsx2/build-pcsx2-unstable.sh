@@ -62,7 +62,7 @@ export NO_PKG_TEST="false"
 ARCH="i386"
 PKGNAME="pcsx2-unstable"
 PKGREV="1"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 
 # build dirs

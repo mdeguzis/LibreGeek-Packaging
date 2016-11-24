@@ -67,7 +67,7 @@ BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 MAINTAINER="ProfessorKaos64"
 

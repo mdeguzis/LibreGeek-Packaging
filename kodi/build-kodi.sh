@@ -74,7 +74,7 @@ set_vars()
 	UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 	MAINTAINER="ProfessorKaos64"
 	PKGREV="1"
-	DIST="brewmaster"
+	DIST="${DIST:=brewmaster}"
 	URGENCY="low"
 	BUILDER="pdebuild"
 	BUILDOPTS="--debbuildopts \"-j4\""

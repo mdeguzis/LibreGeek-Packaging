@@ -62,7 +62,7 @@ PKGNAME="gzdoom"
 PKGVER=$(echo ${TARGET} | sed 's/g//')
 PKGREV="2"
 PKGSUFFIX="git+bsos"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

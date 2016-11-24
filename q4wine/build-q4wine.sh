@@ -67,7 +67,7 @@ EPOCH="1"
 PKGVER=$(echo ${TARGET} | sed 's/v//')
 PKGREV="1"
 PKGSUFFIX="git+bsos"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

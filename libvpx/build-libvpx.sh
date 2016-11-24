@@ -63,7 +63,7 @@ BUILDER="pdebuild"
 PKGVER="1.5.0"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 MAINTAINER="ProfessorKaos64"
 

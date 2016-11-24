@@ -60,7 +60,7 @@ PKGNAME="ftequake"
 PKGVER="1.04.0"
 PKGREV="1"
 # PKGSUFFIX set below
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

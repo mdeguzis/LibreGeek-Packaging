@@ -67,7 +67,7 @@ PKGREV="1"
 upstream_rev="1"
 # Base version sourced from ZIP file version
 PKGSUFFIX="2883976build+alpha+bsos${PKGREV}"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

@@ -65,7 +65,7 @@ UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 PKGVER="3.6.1"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 MAINTAINER="ProfessorKaos64"
 

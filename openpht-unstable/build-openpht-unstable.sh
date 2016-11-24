@@ -64,7 +64,7 @@ export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
 PKGNAME="openpht-unstable"
 PKGVER=$(echo ${TARGET} | sed 's/openpht-//')
 PKGREV="2"
-DIST="brewmaster"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

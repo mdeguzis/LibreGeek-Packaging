@@ -1,0 +1,15 @@
+Mock Version: 1.3.2.1
+ENTER ['do'](['bash', '--login', '-c', '/usr/bin/rpmbuild -bs --target x86_64 --nodeps /builddir/build/SPECS/antimicro.spec'], printOutput=Trueenv={'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LANG': 'en_US.UTF-8', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'HOME': '/builddir', 'SHELL': '/bin/bash', 'TERM': 'vt100', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'HOSTNAME': 'mock'}user='mockbuild'logger=<mockbuild.trace_decorator.getLog object at 0x7f4864ec55f8>uid=1000timeout=0gid=985shell=FalsechrootPath='/var/lib/mock/fedora-25-x86_64/root')
+Executing command: ['bash', '--login', '-c', '/usr/bin/rpmbuild -bs --target x86_64 --nodeps /builddir/build/SPECS/antimicro.spec'] with env {'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LANG': 'en_US.UTF-8', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'HOME': '/builddir', 'SHELL': '/bin/bash', 'TERM': 'vt100', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'HOSTNAME': 'mock'} and shell False
+error: File /builddir/build/SOURCES/antimicro-2.22.tar.gz: No such file or directory
+Building target platforms: x86_64
+Building for target x86_64
+Child return code was: 1
+EXCEPTION: [Error()]
+Traceback (most recent call last):
+  File "/usr/lib/python3.5/site-packages/mockbuild/trace_decorator.py", line 89, in trace
+    result = func(*args, **kw)
+  File "/usr/lib/python3.5/site-packages/mockbuild/util.py", line 569, in do
+    raise exception.Error("Command failed. See logs for output.\n # %s" % (command,), child.returncode)
+mockbuild.exception.Error: Command failed. See logs for output.
+ # bash --login -c /usr/bin/rpmbuild -bs --target x86_64 --nodeps /builddir/build/SPECS/antimicro.spec

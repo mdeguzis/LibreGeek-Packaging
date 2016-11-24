@@ -1,0 +1,88 @@
+INFO buildroot.py:314:  Mock Version: 1.3.2.1
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/dev/pts
+DEBUG util.py:106:  creating dir: /var/lib/mock/fedora-25-x86_64/root/dev/pts
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/dev/shm
+DEBUG util.py:106:  creating dir: /var/lib/mock/fedora-25-x86_64/root/dev/shm
+DEBUG buildroot.py:445:  kernel version == 4.8.8-2-ARCH
+DEBUG util.py:116:  touching file: /var/lib/mock/fedora-25-x86_64/root/etc/fstab
+DEBUG util.py:116:  touching file: /var/lib/mock/fedora-25-x86_64/root/etc/yum.conf
+DEBUG util.py:116:  touching file: /var/lib/mock/fedora-25-x86_64/root/etc/dnf.conf
+DEBUG util.py:116:  touching file: /var/lib/mock/fedora-25-x86_64/root/var/log/yum.log
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/mount', '-n', '-t', 'proc', 'proc', '/var/lib/mock/fedora-25-x86_64/root/proc'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/mount', '-n', '-t', 'sysfs', 'sysfs', '/var/lib/mock/fedora-25-x86_64/root/sys'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/mount', '-n', '-t', 'tmpfs', 'tmpfs', '/var/lib/mock/fedora-25-x86_64/root/dev/shm'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/mount', '-n', '-t', 'devpts', '-o', 'gid=5,mode=0620,ptmxmode=0666,newinstance', 'devpts', '/var/lib/mock/fedora-25-x86_64/root/dev/pts'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/mount', '-n', '--bind', '/var/cache/mock/fedora-25-x86_64/dnf_cache/', '/var/lib/mock/fedora-25-x86_64/root/var/cache/dnf/'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG buildroot.py:136:  rootdir = /var/lib/mock/fedora-25-x86_64/root
+DEBUG buildroot.py:137:  resultdir = mock/result
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/etc/pki/mock
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/etc/dnf
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/usr/sbin/userdel', '-r', '-f', 'mockbuild'] with env {'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LANG': 'en_US.UTF-8', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'HOME': '/builddir', 'SHELL': '/bin/bash', 'TERM': 'vt100', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'HOSTNAME': 'mock'} and shell False
+DEBUG util.py:290:  Unsharing. Flags: 134217728
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/usr/sbin/groupdel', 'mockbuild'] with env {'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LANG': 'en_US.UTF-8', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'HOME': '/builddir', 'SHELL': '/bin/bash', 'TERM': 'vt100', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'HOSTNAME': 'mock'} and shell False
+DEBUG util.py:290:  Unsharing. Flags: 134217728
+DEBUG util.py:426:  groupdel: group 'mockbuild' does not exist
+DEBUG util.py:564:  Child return code was: 6
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/usr/sbin/groupadd', '-g', '985', 'mockbuild'] with env {'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LANG': 'en_US.UTF-8', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'HOME': '/builddir', 'SHELL': '/bin/bash', 'TERM': 'vt100', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'HOSTNAME': 'mock'} and shell False
+DEBUG util.py:290:  Unsharing. Flags: 134217728
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/usr/sbin/useradd', '-o', '-m', '-u', '1000', '-g', '985', '-d', '/builddir', '-n', 'mockbuild'] with env {'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LANG': 'en_US.UTF-8', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'HOME': '/builddir', 'SHELL': '/bin/bash', 'TERM': 'vt100', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'HOSTNAME': 'mock'} and shell False
+DEBUG util.py:290:  Unsharing. Flags: 134217728
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/builddir/build/RPMS
+DEBUG util.py:106:  creating dir: /var/lib/mock/fedora-25-x86_64/root/builddir/build/RPMS
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/builddir/build/SPECS
+DEBUG util.py:106:  creating dir: /var/lib/mock/fedora-25-x86_64/root/builddir/build/SPECS
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/builddir/build/SRPMS
+DEBUG util.py:106:  creating dir: /var/lib/mock/fedora-25-x86_64/root/builddir/build/SRPMS
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/builddir/build/SOURCES
+DEBUG util.py:106:  creating dir: /var/lib/mock/fedora-25-x86_64/root/builddir/build/SOURCES
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/builddir/build/BUILD
+DEBUG util.py:106:  creating dir: /var/lib/mock/fedora-25-x86_64/root/builddir/build/BUILD
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/builddir/build/BUILDROOT
+DEBUG util.py:106:  creating dir: /var/lib/mock/fedora-25-x86_64/root/builddir/build/BUILDROOT
+DEBUG util.py:103:  ensuring that dir exists: /var/lib/mock/fedora-25-x86_64/root/builddir/build/originals
+DEBUG util.py:106:  creating dir: /var/lib/mock/fedora-25-x86_64/root/builddir/build/originals
+DEBUG package_manager.py:97:  ['/usr/bin/dnf', '--installroot', '/var/lib/mock/fedora-25-x86_64/root/', '-y', '--releasever', '25', '--disableplugin=local', '--setopt=deltarpm=false', 'update']
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/usr/bin/dnf', '--installroot', '/var/lib/mock/fedora-25-x86_64/root/', '-y', '--releasever', '25', '--disableplugin=local', '--setopt=deltarpm=false', 'update'] with env {'PS1': '<mock-chroot> \\s-\\v\\$ ', 'LC_MESSAGES': 'C', 'LANG': 'en_US.UTF-8', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'HOME': '/builddir', 'SHELL': '/bin/bash', 'TERM': 'vt100', 'PROMPT_COMMAND': 'printf "\\033]0;<mock-chroot>\\007"', 'HOSTNAME': 'mock'} and shell False
+DEBUG util.py:426:  Dependencies resolved.
+DEBUG util.py:426:  Nothing to do.
+DEBUG util.py:426:  Complete!
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:116:  touching file: /var/lib/mock/fedora-25-x86_64/root/.initialized
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:290:  Unsharing. Flags: 134217728
+DEBUG util.py:182:  kill orphans
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/umount', '-n', '/var/lib/mock/fedora-25-x86_64/root/var/cache/dnf/'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/umount', '-n', '-l', '/var/lib/mock/fedora-25-x86_64/root/dev/pts'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/umount', '-n', '-l', '/var/lib/mock/fedora-25-x86_64/root/dev/shm'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/umount', '-n', '-l', '/var/lib/mock/fedora-25-x86_64/root/sys'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['/bin/umount', '-n', '-l', '/var/lib/mock/fedora-25-x86_64/root/proc'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False
+DEBUG util.py:564:  Child return code was: 0
+DEBUG util.py:585:  child environment: None
+DEBUG util.py:509:  Executing command: ['btrfs', 'subv', 'list', '/var/lib/mock'] with env {'HOME': '/builddir', 'SHELL': '/bin/sh', 'TERM': 'vt100', 'HOSTNAME': 'mock', 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin', 'LANG': 'en_US.UTF-8'} and shell False

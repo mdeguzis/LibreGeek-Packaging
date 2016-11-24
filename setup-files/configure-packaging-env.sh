@@ -52,11 +52,11 @@ setup_arch_linux()
 	# Pass -S to invoke pacman
 	
 	# AUR stage 1: required by 1 or more stage 2 pacakges
-	pacaur -Sa ${AUROPTS} libxmltok
+	pacaur -Sa ${AUROPTS} libxmltok help2man
 	
 	# AUR stage 2 packages:
 	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-keyring debian-archive-keyring \
-	linuxmint-keyring ubuntu-archive-keyring ubuntu-keyring apt devscripts debsig-verify-git
+	linuxmint-keyring ubuntu-archive-keyring ubuntu-keyring apt devscripts debsig-verify-git rpmdevtools mock
 	
 	# Do we need custom AUR packages that are out of date?
 	CUSTOM_AUR_PKGS="false"

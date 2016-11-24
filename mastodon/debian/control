@@ -1,0 +1,17 @@
+Source: sc-controller
+Section: devel
+Priority: extra
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ dh-python,
+ libgtk-3-dev,
+ python-all-dev (>= 2.7),
+ python-gobject-2-dev,
+ python-pylibacl
+Standards-Version: 3.9.8
+Homepage: https://github.com/kozec/sc-controller
+
+Package: sc-controller
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: User-mode driver and GTK3 based GUI for Steam Controller.

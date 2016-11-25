@@ -110,7 +110,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
     
 	# Add image to git dir
 	cp -r "${SCRIPTDIR}/mock.png" "${SRC_DIR}"

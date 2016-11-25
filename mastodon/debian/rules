@@ -1,21 +1,18 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
-# Sample debian/rules that uses debhelper.
-# This file was originally written by Joey Hess and Craig Small.
-# As a special exception, when this file is copied by dh-make into a
-# dh-make output file, you may use that output file without restriction.
-# This special exception was added by Craig Small in version 0.37 of dh-make.
-
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
 
-# Use pybuild
-export PYBUILD_NAME = sc-controller
-
-# Don't let pybuild screw with proxy
-# Common errors: "[Errno 111] Connection refused -- Some packages may not be found!"
-export http_proxy=
-export https_proxy=
-
 %:
-	dh $@ --with python2 --buildsystem=pybuild
+	dh $@
+
+override_dh_auto_build:
+	npm install -g npm@3
+	npm install -g yarn
+	cp Gemfile/mastodon/Gemfile debian/mastodon
+	cp Gemfile.lock debian/mastodon/Gemfile.lock
+	bundle install --deployment --without test development
+	cp package.json debian/mastodon/package.json
+	cp yarn.lock debian/mastodon/yarn.lock
+	yarn
+	cp . debian/mastdon

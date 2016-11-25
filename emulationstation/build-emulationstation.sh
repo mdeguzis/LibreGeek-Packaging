@@ -50,9 +50,10 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/Aloshi/EmulationStation"
+# Original project no longer maintained, use active fork:
+SRC_URL="https://github.com/Herdinger/EmulationStation"
+#SRC_URL="https://github.com/Aloshi/EmulationStation"
 TARGET="master"
-commit="646bede"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -66,7 +67,6 @@ export NO_PKG_TEST="false"
 PKGNAME="emulationstation"
 PKGVER="2.0.1"
 PKGREV="1"
-PKGSUFFIX="${commit}+git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -121,14 +121,15 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout commit
-	git clone -b "$TARGET" "$SRC_URL" "$GIT_DIR"
-	cd "$GIT_DIR" && git checkout "$commit"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	# Set suffix based on revisions
+	cd "${SRC_DIR}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 	
 	# copy in debian folder
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-	
-	# enter build dir
-	cd "${BUILD_TMP}" || exit
 
 	#################################################
 	# Build package
@@ -137,18 +138,15 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# Trim .git folders
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
 	cd "${SRC_DIR}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -156,14 +154,15 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Switch to Herdinger/EmulationStation fork"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
-
 
 	#################################################
 	# Build Debian package

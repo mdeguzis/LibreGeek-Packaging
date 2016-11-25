@@ -1,5 +1,11 @@
-py/mock				/usr/bin
-py/mockchain			/usr/bin
+#!/usr/bin/dh-exec
+
+# Use dh-exec to change the install names for mock/mockchain
+# See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=245554 
+# Requires debhelper >=9
+
+py/mock.py			/usr/bin/mock
+py/mockchain.py			/usr/bin/mockchain
 etc/pam/mock			/etc/pam/
 etc/mock/*			/etc/mock
 etc/bash_completion.d/*		/usr/share/bash-completion/completions

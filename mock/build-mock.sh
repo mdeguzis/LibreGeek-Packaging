@@ -58,7 +58,7 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 PKGNAME="mock"
-PKGVER=$(echo ${TARGET} | sed 's/mock-//;s/-//'
+PKGVER=$(echo ${TARGET} | sed 's/mock-//;s/-//')
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"

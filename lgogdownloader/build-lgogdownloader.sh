@@ -49,7 +49,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/Sude-/lgogdownloader"
-#TARGET="v2.28"
+#TARGET="v3.0"
 TARGET="master"
 
 # package vars
@@ -63,10 +63,9 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="lgogdownloader"
 #PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGVER="2.28"
+PKGVER="3.0"
 EPOCH="2"
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -126,6 +125,7 @@ main()
 	# Get latest commit
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Build platform
@@ -154,7 +154,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update package to release $PKGVER, commit $LATEST_COMMIT"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		nano "debian/changelog"
 
 	else

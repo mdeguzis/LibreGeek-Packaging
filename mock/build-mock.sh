@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-nicki-and-the-robots.sh
+# Scipt name:	build-mock.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest nicki-and-the-robots source
+# Description:	Attmpts to build a deb package from the latest mock source
 #		code.
 #
-# See:		https://github.com/AlisterT/nicki-and-the-robots
+# See:		https://github.com/rpm-software-management/mock
 #
-# Usage:	./build-nicki-and-the-robots.sh
+# Usage:	./build-mock.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,22 +46,21 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/nikki-and-the-robots/nikki"
-TARGET="master"
+SRC_URL="https://github.com/rpm-software-management/mock"
+TARGET="mock-1.3.2-1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
-# Weird build setup, has to be built locally
-BUILDER="debuild"
+BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-export USE_NETWORK="yes"
-PKGNAME="nikki"
-PKGVER="0.0.0"
+export USE_NETWORK="no"
+PKGNAME="mock"
+PKGVER=$(echo ${TARGET} | sed 's/mock-//;s/-//'
 PKGREV="1"
-# Base version sourced from ZIP file version
+PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -78,8 +77,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper \
-	cmake curl libgmp-dev libopenal-dev libqt4-opengl-dev libsndfile1-dev \
-	libzip-dev pkg-config qt4-default
+	dh-autoreconf rpm python-all dh-python bash-completion
 
 }
 
@@ -112,15 +110,10 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-	cd "${SRC_DIR}"
-
-	# Set suffix based on revisions
-        LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-        PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
-
+	git clone "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+    
 	# Add image to git dir
-	cp -r "${SCRIPTDIR}/nicki-and-the-robots.png" "${SRC_DIR}"
+	cp -r "${SCRIPTDIR}/mock.png" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -148,14 +141,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update snapshot"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Initial upload"
-		nano "debian/changelog"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
 

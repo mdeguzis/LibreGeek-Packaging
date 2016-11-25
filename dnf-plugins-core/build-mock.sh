@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-mock.sh
+# Scipt name:	build-dnf-plugins.core.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest mock source
+# Description:	Attmpts to build a deb package from the latest dnf-plugins.core source
 #		code.
 #
-# See:		https://github.com/rpm-software-management/mock
+# See:		https://github.com/rpm-software-management/dnf-plugins.core
 #
-# Usage:	./build-mock.sh
+# Usage:	./build-dnf-plugins.core.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,8 +46,8 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/rpm-software-management/mock"
-TARGET="mock-1.3.2-1"
+SRC_URL="https://github.com/rpm-software-management/dnf-plugins-core"
+TARGET="dnf-plugins-core-1.0.0-0.rc1.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,8 +57,8 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-PKGNAME="mock"
-PKGVER=$(echo ${TARGET} | sed 's/mock-//;s/-//')
+PKGNAME="dnf-plugins.core"
+PKGVER=$(echo ${TARGET} | sed 's/dnf-plugins-core-//;s/-*//')
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
@@ -77,7 +77,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper \
-	dh-autoreconf rpm python-all dh-python bash-completion
+	python-sphinx
 
 }
 

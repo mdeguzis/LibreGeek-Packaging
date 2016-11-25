@@ -1,1 +1,2 @@
-mock /usr/share/bash-completion/completions/mockchain
+dnf-3			/usr/bin/dnf
+dnf-automatic-3		/usr/bin/dnf-automatic

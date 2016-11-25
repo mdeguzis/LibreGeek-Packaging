@@ -111,9 +111,6 @@ main()
 
 	# clone and get latest commit tag
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-    
-	# Add image to git dir
-	cp -r "${SCRIPTDIR}/mock.png" "${SRC_DIR}"
 
 	#################################################
 	# Build package

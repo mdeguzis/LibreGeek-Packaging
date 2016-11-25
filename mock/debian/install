@@ -7,4 +7,4 @@ etc/pki/*			/etc/pki/mock
 py/mockbuild			@PYTHON_SITELIB@
 docs/mock*.1			/usr/share/man/man1
 debian/sysusers/mock.conf	/usr/lib/sysusers.d/
-debian/tempfiles/mock.conf	/usr/lib/tmpfiles.d/
+debian/tmpfiles/mock.conf	/usr/lib/tmpfiles.d/

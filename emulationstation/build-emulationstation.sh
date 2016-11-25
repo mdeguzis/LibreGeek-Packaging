@@ -156,6 +156,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Switch to Herdinger/EmulationStation fork"
+		nano "debian/changelog"
 
 	else
 

@@ -3,14 +3,16 @@
 # Use dh-exec to change the install names for mock/mockchain
 # See https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=245554 
 # Requires debhelper >=9
+# dh-exec is only valid for files. Use only when renaming
+# For directories, use no operator (=>)
 
-py/mock.py =>                   /usr/bin/mock
-py/mockchain.py =>	        /usr/bin/mockchain
-etc/pam/mock =>	                /etc/pam/
-etc/mock/* =>	                /etc/mock
-etc/bash_completion.d/* =>      /usr/share/bash-completion/completions
-etc/pki/* =>	                /etc/pki/mock
-py/mockbuild =>	                @PYTHON_SITELIB@
-docs/mock*.1 =>	                /usr/share/man/man1
-debian/sysusers/mock.conf =>	/usr/lib/sysusers.d/
-debian/tmpfiles/mock.conf =>	/usr/lib/tmpfiles.d/
+py/mock.py =>			/usr/bin/mock
+py/mockchain.py =>		/usr/bin/mockchain
+etc/pam/mock			/etc/pam/
+etc/mock/*			/etc/mock
+etc/bash_completion.d/*		/usr/share/bash-completion/completions
+etc/pki/*			/etc/pki/mock
+py/mockbuild	                @PYTHON_SITELIB@
+docs/mock*.1			/usr/share/man/man1
+debian/sysusers.d/mock.conf	/usr/lib/sysusers.d/
+debian/tmpfiles.d/mock.conf	/usr/lib/tmpfiles.d/

@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+# Install/build modeled from
+
+%:
+	dh $@
+
+
+override_dh_auto_build:
+	cmake -DCMAKE_BUILD_TYPE=Release  \
+	-DCMAKE_INSTALL_PREFIX=/usr \
+	..
+	make
+	make doc-man

@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+# Install/build modeled from
+# https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=mock
+
+%:
+	dh $@
+
+PYTHON_SITELIB = $(shell python -c "from distutils.sysconfig import get_python_lib; import sys; sys.stdout.write(get_python_lib())")
+
+override_dh_auto_build:
+	# Replace var placeholders with multi-arch equiv. and so ver.
+	find debian/ -type f -print0 | xargs -0 sed -i "s|@PYTHON_SITELIB@|$(PYTHON_SITELIB)|g"
+	# Compile
+	python    -m compileall py/ -q
+	python -O -m compileall py/ -q
+
+override_dh_auto_test:
+	# Don't run dh_auto_test (selt tests), as they seem to require root.

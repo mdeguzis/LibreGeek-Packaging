@@ -1,0 +1,12 @@
+/var/lib/mock
+/var/cache/mock
+/etc/mock
+/etc/pam/
+/usr/share/mock
+/usr/share/bash-completion/completions
+/etc/pki/mock
+@PYTHON_SITELIB@
+/usr/share/man/man1
+# These may be Arch Linux specific, but is related to systemd
+/usr/lib/sysusers.d/
+/usr/lib/tmpfiles.d/

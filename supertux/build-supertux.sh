@@ -46,7 +46,7 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/SuperTux/supertux"
-TARGET="v0.5.0"
+TARGET="v0.5.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

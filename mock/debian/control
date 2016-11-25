@@ -3,11 +3,12 @@ Section: devel
 Maintainer: Tzafrir Cohen <tzafrir@debian.org>
 Priority: extra
 Standards-Version: 3.9.8
-Build-Depends: debhelper (>= 9.0),
+Build-Depends: debhelper (>= 9),
  dh-autoreconf,
+ dh-exec,
+ dh-python,
  rpm,
  python | python-all,
- dh-python,
  pkg-config,
  bash-completion,
 Homepage: https://fedorahosted.org/mock/

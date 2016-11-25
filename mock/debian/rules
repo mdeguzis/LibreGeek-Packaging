@@ -1,10 +1,19 @@
 #!/usr/bin/make -f
 %:
-	dh $@ --with python2
+	dh $@ --with python2,autoreconf
 
-override_dh_auto_build:
-	python    -m compileall py/ -q
-	python -O -m compileall py/ -q
+SAVED_FILES = \
+	Makefile.in aclocal.m4 build/install-sh build/missing \
+	build/py-compile configure
+
+override_dh_autoreconf:
+	dh_autoreconf
+
+override_dh_autoreconf_clean:
+	dh_autoreconf_clean
 
 override_dh_auto_test:
 	# Don't run dh_auto_test (selt tests), as they seem to require root.
+
+# There is a directory called "build"
+build: build-indep

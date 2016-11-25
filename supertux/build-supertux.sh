@@ -140,7 +140,7 @@ main()
 	export LATEST_COMMIT_${PKGNAME}=$(git log -n 1 --pretty=format:"%h")
 
 	# Trim .git folders (these should not be included and take up space)
-	find "${SRC_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name ".git" -type d -exec sudo rm -rf {} \;
 
 	#################################################
 	# Prepare sources
@@ -191,7 +191,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${export LATEST_COMMIT_${PKGNAME}}"
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 
 	else

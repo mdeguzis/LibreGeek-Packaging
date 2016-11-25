@@ -1,5 +1,5 @@
-py/mock.py			/usr/bin
-py/mockchain.py			/usr/bin
+py/mock				/usr/bin
+py/mockchain			/usr/bin
 etc/pam/mock			/etc/pam/
 etc/mock/*			/etc/mock
 etc/bash_completion.d/*		/usr/share/bash-completion/completions

@@ -8,9 +8,9 @@
 
 py/mock.py =>			/usr/bin/mock
 py/mockchain.py =>		/usr/bin/mockchain
-etc/pam/mock			/etc/pam/
+etc/pam/mock =>			/etc/pam/mock
 etc/mock/*			/etc/mock
-etc/bash_completion.d/*		/usr/share/bash-completion/completions
+etc/bash_completion.d/mock =>	/usr/share/bash-completion/completions/mock
 etc/pki/*			/etc/pki/mock
 py/mockbuild	                @PYTHON_SITELIB@
 docs/mock*.1			/usr/share/man/man1

@@ -10,7 +10,7 @@ PYTHON_SITELIB = $(shell python -c "from distutils.sysconfig import get_python_l
 
 override_dh_auto_build:
 	# Replace var placeholders with multi-arch equiv. and so ver.
-	find debian/ -type f-print0 | xargs -0 sed -i "s|@PYTHON_SITELIB@|$(PYTHON_SITELIB)|g"
+	find debian/ -type f -print0 | xargs -0 sed -i "s|@PYTHON_SITELIB@|$(PYTHON_SITELIB)|g"
 	# Compile
 	python    -m compileall py/ -q
 	python -O -m compileall py/ -q

@@ -110,8 +110,6 @@ main()
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
 			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-			# get stk assets (expected location: data/)
-			svn checkout https://svn.code.sf.net/p/supertuxkart/code/stk-assets "${SRC_DIR}/data"
 
 		else
 
@@ -130,8 +128,6 @@ main()
 			# create and clone to current dir
 			mkdir -p "${BUILD_TMP}" || exit 1
 			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-			# get stk assets (expected location: data/)
-			svn checkout https://svn.code.sf.net/p/supertuxkart/code/stk-assets "${SRC_DIR}/data"
 
 	fi
 

@@ -5,3 +5,9 @@ DSCVERIFY_KEYRINGS="/etc/apt/trusted.gpg: \
                         /usr/share/keyrings/debian-keyring.gpg: \
                         /usr/share/keyrings/debian-maintainers.gpg: \
                         /usr/share/keyrings/ubuntu-archive-keyring.gpg"
+# Note
+# Default: LibreGeek Signing Key
+# -kkeyid
+#	Specify the key ID to be used for signing; overrides any -m  and
+#	-e options.
+DEBSIGN_KEYID=57655DD5

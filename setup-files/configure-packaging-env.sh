@@ -332,6 +332,14 @@ setup_dotfiles()
 	fi
 
 	#####################
+	# dput
+	#####################
+
+	# Add PPA upload configs
+	# example: 'dput mdeguzis/libregeek-ubuntu pkgname*source.changes'
+	cp "${SCRIPTDIR}/.dput.cf" "${HOME}"
+
+	#####################
 	# Quilt
 	#####################
 

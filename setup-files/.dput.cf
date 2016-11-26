@@ -1,0 +1,6 @@
+[mdeguzis/libregeek-ubuntu]
+fqdn                    = ppa.launchpad.net
+method                  = ftp
+incoming                = ~mdeguzis/ubuntu/libregeek-ubuntu
+login                   = anonymous
+allow_unsigned_uploads  = 0

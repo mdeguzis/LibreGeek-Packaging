@@ -92,6 +92,8 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
 elif [[ "$DIST" == "jessie" ]]; then
 
+	echo "I: LIBREGEEK: Adding Debian repository configuration"
+
 	# Get repo package(s)
 	wget "http://packages.libregeek.org/libregeek-archive-keyring-latest.deb" -q -nc
 	wget "http://packages.libregeek.org/libregeek-debian-repo-latest.deb" -q -nc

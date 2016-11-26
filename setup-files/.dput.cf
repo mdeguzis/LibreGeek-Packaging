@@ -1,4 +1,4 @@
-[mdeguzis/libregeek-ubuntu]
+[ppa:mdeguzis/libregeek-ubuntu]
 fqdn                    = ppa.launchpad.net
 method                  = ftp
 incoming                = ~mdeguzis/ubuntu/libregeek-ubuntu

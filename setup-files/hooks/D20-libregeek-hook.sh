@@ -4,7 +4,6 @@
 # Installation
 ####################################
 
-
 if [[ "$DIST" == "brewmaster" ]]; then
 
 	echo "I: STEAMOS-TOOLS: Adding repository configuration"
@@ -12,9 +11,9 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	# get repository configuration script and invoke
 	wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc
 	chmod +x configure-repos.sh
-	
+
 	sed -i 's/sudo //g' configure-repos.sh
-	
+
 	# No need to update twice (if beta is flagged, update will have to run again)
 	# Remove any sleep commands to speed up process
 	sed -i '/apt-get update/d' configure-repos.sh
@@ -32,7 +31,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
 		# Get this manually so we only have to update package listings once below
 		wget "http://packages.libregeek.org/steamos-tools-beta-repo-latest.deb" -q -nc
-		
+
 		if ! dpkg -i "steamos-tools-beta-repo-latest.deb" &> /dev/null; then
 			echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools beta repository. Exiting"
 			exit 1
@@ -44,17 +43,18 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	####################################
 	# Validation
 	####################################
-	
+
 	# Add standard files to file list
+	REPO_FILES+=("/usr/share/keyrings/libregeek-archive-keyring.gpg")
 	REPO_FILES+=("/etc/apt/sources.list.d/steamos-tools.list")
 	REPO_FILES+=("/etc/apt/sources.list.d/jessie.list")
 	REPO_FILES+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
-	
+
 	# If checking beta, add additioanl files to file list
 	if [[ "$STEAMOS_TOOLS_BETA_HOOK" == "true" ]]; then
-	
+
 		REPO_FILES+=("/etc/apt/sources.list.d/steamos-tools-beta.list")
-	
+
 	fi
 
 	# If we are using the beta hook, and not nixing apt-prefs
@@ -82,7 +82,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 			echo "E: Failed on: $FILE"
 			exit 1
 		else
-	
+
 			echo "I: STEAMOS-TOOLS: Repository validation [PASSED]"
 
 		fi
@@ -91,14 +91,19 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
 elif [[ "$DIST" == "jessie" ]]; then
 
+	echo "I: LIBREGEEK: Adding Debian repository configuration"
+
 	# Get repo package(s)
+	wget "http://packages.libregeek.org/libregeek-archive-keyring-latest.deb" -q -nc
 	wget "http://packages.libregeek.org/libregeek-debian-repo-latest.deb" -q -nc
 
 	# Install repo packages
+	dpkg -i libregeek-archive-keyring-latest.deb &> /dev/null
 	dpkg -i libregeek-debian-repo-latest.deb &> /dev/null
 
 	REPO_FILES+=()
 	REPO_FILES+=("/etc/apt/sources.list.d/libregeek-debian-repo.list")
+	REPO_FILES+=("/usr/share/keyrings/libregeek-archive-keyring.gpg ")
 
 	# Run validation
 	for FILE in "$REPO_FILES";
@@ -109,7 +114,7 @@ elif [[ "$DIST" == "jessie" ]]; then
 			echo "E: Failed on: $FILE"
 			exit 1
 		else
-	
+
 			echo "I: LIBREGEEK: Repository validation [PASSED]"
 
 		fi

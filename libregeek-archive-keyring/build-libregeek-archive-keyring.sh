@@ -40,13 +40,28 @@ fi
 
 
 
-if [[ "$arg1" == "--testing" ]]; then
+if [[ "$arg1" == "--debian" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_x/packaging/debian/incoming"
+	DIST="jessie"
+
+elif [[ "$arg1" == "--steamos" ]]; then
+
+        REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming"
+	DIST="brewmaster"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming"
+	cat<<- EOF
+
+	ERROR: A distribution must be specified"
+	./build-libregeek-archive-keyring.sh --steamos
+	./build-libregeek-archive-keyring.sh --debian
+
+	EOF
+
+	sleep 8s
+	exit 1
 
 fi
 
@@ -60,10 +75,8 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libregeek-archive-keyring"
-PKGVER="0.4.1"
-PKGSUFFIX="bsos"
+PKGVER="0.4.2"
 PKGREV="1"
-DIST="brewmaster"
 URGENCY="low"
 UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -121,12 +134,9 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Enter git dir to build
 	cd "${SRC_DIR}"
@@ -137,12 +147,12 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
@@ -199,11 +209,13 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
-			# add back local repo changelog
-			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			# uplaod local repo changelog
+                        cd "${SRC_DIR}" && git add "debian/changelog"
+                        git commit -m "update changelog" && git push origin master
+                        cd "${SCRIPTDIR}"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

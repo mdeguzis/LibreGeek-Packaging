@@ -1,0 +1,88 @@
+[3;J
+[2J==INFO==
+add-debian-repos.sh was run from a foreign directory!
+Assessing location of SteamoS-Tools, please wait...
+==> Importing GPG keys
+Adding Libregeek public signing key: OK
+==> Adding Debian jessie, jessie-backports, and steamos-tools 
+    [SteamOS-Tools testing enabled]
+==> Backing up /etc/apt/preferences.d/steamos to /etc/apt/preferences.d/steamos.bak
+==> Backing up /etc/apt/preferences.d/jessie to /etc/apt/preferences.d/jessie.bak
+==> Backing up /etc/apt/preferences.d/jessie-backports to /etc/apt/preferences.d/jessie-backports.bak
+==> Backing up /etc/apt/preferences.d/steamos-tools to /etc/apt/preferences.d/steamos-tools.bak
+==> Backing up /etc/apt/sources.list.d/jessie.list to /etc/apt/sources.list.d/jessie.list.bak
+==> Backing up /etc/apt/sources.list.d/jessie-backports.list to /etc/apt/sources.list.d/jessie-backports.list.bak
+==> Backing up /etc/apt/sources.list.d/steamos-tools.list to /etc/apt/sources.list.d/steamos-tools.list.bak
+==> Updating index of packages...
+Hit http://repo.steampowered.com brewmaster InRelease
+Hit http://repo.steampowered.com precise InRelease
+Hit http://repo.steampowered.com brewmaster/main Sources
+Hit http://repo.steampowered.com brewmaster/contrib Sources
+Hit http://packages.libregeek.org brewmaster InRelease
+Hit http://ppa.launchpad.net vivid InRelease
+Hit http://repo.steampowered.com brewmaster/non-free Sources
+Hit http://repo.steampowered.com brewmaster/main amd64 Packages
+Hit http://repo.steampowered.com brewmaster/contrib amd64 Packages
+Get:1 http://packages.libregeek.org brewmaster_testing InRelease [5,312 B]
+Hit http://repo.steampowered.com brewmaster/non-free amd64 Packages
+Hit http://ppa.launchpad.net vivid/main Sources
+Hit http://repo.steampowered.com brewmaster/main i386 Packages
+Hit http://http.debian.net jessie-backports InRelease
+Hit http://repo.steampowered.com brewmaster/contrib i386 Packages
+Hit http://packages.libregeek.org brewmaster/main Sources
+Hit http://repo.steampowered.com brewmaster/non-free i386 Packages
+Hit http://packages.libregeek.org brewmaster/games Sources
+Hit http://packages.libregeek.org brewmaster/main amd64 Packages
+Get:2 http://http.debian.net jessie-backports/main amd64 Packages/DiffIndex [7,819 B]
+Hit http://packages.libregeek.org brewmaster/games amd64 Packages
+Hit http://packages.libregeek.org brewmaster/main i386 Packages
+Get:3 http://http.debian.net jessie-backports/main i386 Packages/DiffIndex [7,819 B]
+Hit http://packages.libregeek.org brewmaster/games i386 Packages
+Get:4 http://http.debian.net jessie-backports/main Translation-en/DiffIndex [3,265 B]
+Get:5 ftp://mirror.nl.leaseweb.net jessie InRelease
+Get:6 http://packages.libregeek.org brewmaster_testing/main amd64 Packages [7,449 B]
+Ign ftp://mirror.nl.leaseweb.net jessie InRelease
+Get:7 http://packages.libregeek.org brewmaster_testing/main i386 Packages [3,834 B]
+Hit ftp://mirror.nl.leaseweb.net jessie Release.gpg
+Hit ftp://mirror.nl.leaseweb.net jessie Release
+Hit ftp://mirror.nl.leaseweb.net jessie/main Sources
+Hit http://repo.steampowered.com precise/steam Sources
+Hit ftp://mirror.nl.leaseweb.net jessie/contrib Sources
+Hit http://repo.steampowered.com precise/steam amd64 Packages
+Hit http://repo.steampowered.com precise/steam i386 Packages
+Hit ftp://mirror.nl.leaseweb.net jessie/non-free Sources
+Hit ftp://mirror.nl.leaseweb.net jessie/main amd64 Packages
+Hit ftp://mirror.nl.leaseweb.net jessie/contrib amd64 Packages
+Hit ftp://mirror.nl.leaseweb.net jessie/non-free amd64 Packages
+Hit ftp://mirror.nl.leaseweb.net jessie/main i386 Packages
+Ign http://packages.libregeek.org brewmaster/games Translation-en_US
+Ign http://packages.libregeek.org brewmaster/games Translation-en
+Hit ftp://mirror.nl.leaseweb.net jessie/contrib i386 Packages
+Ign http://packages.libregeek.org brewmaster/main Translation-en_US
+Ign http://packages.libregeek.org brewmaster/main Translation-en
+Ign http://packages.libregeek.org brewmaster_testing/main Translation-en_US
+Hit ftp://mirror.nl.leaseweb.net jessie/non-free i386 Packages
+Ign http://packages.libregeek.org brewmaster_testing/main Translation-en
+Hit ftp://mirror.nl.leaseweb.net jessie/contrib Translation-en
+Hit ftp://mirror.nl.leaseweb.net jessie/main Translation-en
+Hit ftp://mirror.nl.leaseweb.net jessie/non-free Translation-en
+Ign http://repo.steampowered.com brewmaster/contrib Translation-en_US
+Ign http://repo.steampowered.com brewmaster/contrib Translation-en
+Ign http://repo.steampowered.com brewmaster/main Translation-en_US
+Ign http://repo.steampowered.com brewmaster/main Translation-en
+Ign http://repo.steampowered.com brewmaster/non-free Translation-en_US
+Ign http://repo.steampowered.com brewmaster/non-free Translation-en
+Ign http://repo.steampowered.com precise/steam Translation-en_US
+Ign http://repo.steampowered.com precise/steam Translation-en
+Fetched 35.5 kB in 9s (3,917 B/s)
+Reading package lists...
+[3;J
+[2J#################################################################
+How to use
+#################################################################
+You can now not only install package from the SteamOS repository,
+but also from the Debian and Libregeek repositories with either:
+'sudo apt-get install <package_name>'
+'sudo apt-get -t [release] install <package_name>'
+Warning: If the apt package manager seems to want to remove a lot
+of packages you have already installed, be very careful about proceeding.

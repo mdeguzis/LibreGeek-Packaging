@@ -46,7 +46,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	####################################
 	
 	# Add standard files to file list
-	REPO_FILES+=("/usr/share/keyrings/libregeek-archive-keyring.gpg ")
+	REPO_FILES+=("/usr/share/keyrings/libregeek-archive-keyring.gpg")
 	REPO_FILES+=("/etc/apt/sources.list.d/steamos-tools.list")
 	REPO_FILES+=("/etc/apt/sources.list.d/jessie.list")
 	REPO_FILES+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")

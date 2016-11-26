@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+export QT_SELECT := qt5
+export DEBIAN_VERSION = $(shell dpkg-parsechangelog | sed -n -e '/^Version:/s/.*: //p')
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	./configure \
+		--prefix=/usr \
+		--disable-fd-passing \
+		--disable-static \
+		--disable-gpgsm-test
+
+override_dh_builddeb:
+	cp a b

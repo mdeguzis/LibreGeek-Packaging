@@ -1,0 +1,187 @@
+Source: gpgme1.0
+Priority: standard
+Section: libs
+Maintainer: Debian GnuPG Maintainers <pkg-gnupg-maint@lists.alioth.debian.org>
+Build-Depends:
+ automake (>= 1.14),
+ debhelper (>= 9),
+ dh-autoreconf,
+ dh-exec,
+ dh-python,
+ gnupg-agent,
+ gnupg2 | gnupg (>= 2),
+ gpgsm,
+ libassuan-dev (>> 2.0.2),
+ libgpg-error-dev (>> 1.17),
+ pkg-config,
+ python-all-dev,
+ python3-all-dev,
+ qtbase5-dev,
+ scdaemon,
+ swig,
+ texinfo,
+Build-Depends-Indep:
+ doxygen,
+ graphviz,
+Standards-Version: 3.9.8
+Homepage: https://www.gnupg.org/related_software/gpgme/
+Vcs-Git: https://anonscm.debian.org/git/pkg-gnupg/gpgme.git
+Vcs-Browser: https://anonscm.debian.org/git/pkg-gnupg/gpgme.git
+
+Package: libgpgme-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libassuan-dev,
+ libc6-dev,
+ libgpg-error-dev,
+ libgpgme11 (= ${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Breaks:
+ libgpgme11-dev,
+Replaces:
+ libgpgme11-dev,
+Provides:
+ libgpgme11-dev,
+Description: GPGME - GnuPG Made Easy (development files)
+ GPGME is a wrapper library which provides a C API to access some of the
+ GnuPG functions, such as encrypt, decrypt, sign, verify, ...
+ .
+ This package contains the headers and other files needed to compile
+ against this library.
+
+Package: libgpgme11
+Architecture: any
+Multi-Arch: same
+Pre-Depends:
+ ${misc:Pre-Depends},
+Depends:
+ gnupg (>> 2) | gnupg2 (>> 2.0.4),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Suggests:
+ gpgsm (>> 1.9.6),
+Description: GPGME - GnuPG Made Easy (library)
+ GPGME is a wrapper library which provides a C API to access some of the
+ GnuPG functions, such as encrypt, decrypt, sign, verify, ...
+ .
+ This package contains the library.
+
+Package: python3-gpg
+Architecture: any
+Section: python
+Provides:
+ ${python3:Provides},
+Depends:
+ ${misc:Depends},
+ ${python3:Depends},
+ ${shlibs:Depends},
+Description: Python interface to the GPGME GnuPG encryption library (Python 3)
+ The "gpg" Python module is, for the most part, a direct interface to
+ the C GPGME library.  However, it is re-packaged in a more Pythonic
+ way -- object-oriented with classes and modules.  Take a look at the
+ classes defined here -- they correspond directly to certain object
+ types in GPGME for C.
+ .
+ Features:
+  * Feature-rich, full implementation of the GPGME library. Supports
+    all GPGME features except interactive editing (coming soon).
+    Callback functions may be written in pure Python.
+  * Ability to sign, encrypt, decrypt, and verify data.
+  * Ability to list keys, export and import keys, and manage the keyring.
+  * Fully object-oriented with convenient classes and modules.
+ .
+ This is the official upstream Python 3 binding for GPGME.
+
+Package: python-gpg
+Architecture: any
+Section: python
+Provides:
+ ${python:Provides},
+Depends:
+ ${misc:Depends},
+ ${python:Depends},
+ ${shlibs:Depends},
+Description: Python interface to the GPGME GnuPG encryption library (Python 2)
+ The "gpg" Python module is, for the most part, a direct interface to
+ the C GPGME library.  However, it is re-packaged in a more Pythonic
+ way -- object-oriented with classes and modules.  Take a look at the
+ classes defined here -- they correspond directly to certain object
+ types in GPGME for C.
+ .
+ Features:
+  * Feature-rich, full implementation of the GPGME library. Supports
+    all GPGME features except interactive editing (coming soon).
+    Callback functions may be written in pure Python.
+  * Ability to sign, encrypt, decrypt, and verify data.
+  * Ability to list keys, export and import keys, and manage the keyring.
+  * Fully object-oriented with convenient classes and modules.
+ .
+ This is the official upstream Python 2 binding for GPGME.
+
+Package: libqgpgme7
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: library for GPGME integration with Qt
+ QGpgME is a library that provides GPGME integration with QEventLoop
+ and some Qt datatypes (e.g. QByteArray).
+ .
+ This is the official upstream Qt binding for GPGME.
+
+Package: libgpgmepp6
+Architecture: any
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: C++ wrapper library for GPGME
+ GpgME++ (aka GpgMEpp) is a C++ wrapper (or C++ bindings) for the
+ GnuPG project's GPGME (GnuPG Made Easy) library.
+ .
+ This is the official upstream C++ binding for GPGME.
+
+Package: libgpgmepp-dev
+Section: libdevel
+Architecture: any
+Depends:
+ libgpgmepp6 (= ${binary:Version}),
+ libqgpgme7 (= ${binary:Version}),
+ qtbase5-dev,
+ ${misc:Depends},
+ ${shlibs:Depends},
+Recommends:
+ libgpgmepp-doc (= ${binary:Version}),
+Breaks:
+ kdepimlibs5-dev
+Replaces:
+ kdepimlibs5-dev
+Description: C++ and Qt bindings for GPGME (development files)
+ GpgME++ (aka GpgMEpp) is a C++ wrapper (or C++ bindings) for the
+ GnuPG project's GPGME (GnuPG Made Easy) library.
+ .
+ QGpgME is a library that provides GPGME integration with QEventLoop
+ and some Qt datatypes (e.g. QByteArray).
+ .
+ This package contains the headers and other files needed to compile
+ against either of these libraries.
+
+Package: libgpgmepp-doc
+Section: doc
+Architecture: all
+Depends:
+ ${misc:Depends},
+Suggests:
+ libgpgmepp-dev,
+Description: C++ and Qt bindings for GPGME (documentation for developers)
+ GpgME++ (aka GpgMEpp) is a C++ wrapper (or C++ bindings) for the
+ GnuPG project's GPGME (GnuPG Made Easy) library.
+ .
+ QGpgME is a library that provides GPGME integration with QEventLoop
+ and some Qt datatypes (e.g. QByteArray).
+ .
+ This package contains documentation for developers describing how to
+ use these packages.

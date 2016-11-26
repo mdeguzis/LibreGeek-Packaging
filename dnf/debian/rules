@@ -7,8 +7,9 @@
 
 
 override_dh_auto_build:
-	cmake -DCMAKE_BUILD_TYPE=Release  \
+	rm -rf build && mkdir build
+	cd build && cmake -DCMAKE_BUILD_TYPE=Release  \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	..
-	make
-	make doc-man
+	make -C build
+	make -C build doc-man

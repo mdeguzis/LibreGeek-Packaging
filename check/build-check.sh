@@ -45,6 +45,7 @@ else
 	REPO_FOLDER="/mnt/server_media_x/packaging/debian/incoming"
 
 fi
+
 # upstream vars
 SRC_URL="https://github.com/libcheck/check"
 TARGET="0.10.0"
@@ -79,6 +80,7 @@ install_prereqs()
 	mawk texinfo dh-autoreconf libsubunit-dev
 
 }
+
 
 main()
 {

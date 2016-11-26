@@ -27,7 +27,7 @@ USENETWORK=$USE_NETWORK
 DEBIAN_SUITES=("wheezy" "jessie" "jessie-backports" "stretch" "sid")
 
 # List of Ubuntu suites. Update these when needed.
-UBUNTU_SUITES=("precise" "raring" "vivid" "wily" "utopic" "xenial")
+UBUNTU_SUITES=("precise" "raring" "vivid" "wily" "utopic" "xenial" "yakkety")
 
 # List of Mint suites. Update these when needed.
 MINT_SUITES=("qianna" "rebecca" "rafaela" "rosa" "sarah")

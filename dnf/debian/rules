@@ -1,15 +1,24 @@
 #!/usr/bin/make -f
 
-# Install/build modeled from
+# TODO: figure out why tests fail
+# Tests seem to need a non-empty RPM database installed on the system
 
 %:
 	dh $@
 
 
-override_dh_auto_build:
+override_dh_auto_configure:
 	rm -rf build && mkdir build
 	cd build && cmake -DCMAKE_BUILD_TYPE=Release  \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	..
+
+override_dh_auto_build:
 	make -C build
 	make -C build doc-man
+	make -C build/tests
+
+override_dh_auto_install:
+	make DESTDIR=$(CURDIR)/debian/dnf -C build install
+
+override_dh_auto_test:

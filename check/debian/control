@@ -1,0 +1,22 @@
+Source: check
+Section: devel
+Priority: optional
+Maintainer: Robert Lemmen <robertle@semistable.com>
+Build-Depends: debhelper (>= 9), mawk, texinfo, dh-autoreconf, pkg-config, libsubunit-dev
+Build-Conflicts: gawk
+Standards-Version: 3.9.6
+Homepage: http://check.sourceforge.net/
+Vcs-Git: git://anonscm.debian.org/collab-maint/check.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/check.git;a=summary
+
+Package: check
+Architecture: any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${misc:Depends}, dpkg (>= 1.15.4) | install-info, mawk, libsubunit-dev
+Description: unit test framework for C
+ Check features a simple interface for defining unit tests, putting
+ little in the way of the developer. Tests are run in a separate
+ address space, so Check can catch both assertion failures and code
+ errors that cause segmentation faults or other signals. The output
+ from unit tests can be used within source code editors and IDEs.

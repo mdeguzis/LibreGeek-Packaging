@@ -58,10 +58,10 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 PKGNAME="hawkey"
-PKGVER=$(echo ${TARGET} | sed 's/hawkey-//;s/-*//')
+PKGVER=$(echo ${TARGET} | sed 's/hawkey-//;s/-.*//')
 PKGREV="1"
-PKGSUFFIX="git+bsos"
-DIST="${DIST:=brewmaster}"
+PKGSUFFIX=""
+DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="debian Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -124,7 +124,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -138,12 +138,12 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
@@ -203,7 +203,7 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/debian/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog

@@ -1,20 +1,23 @@
 #!/usr/bin/make -f
 
-# Install/build modeled from
+# TODO: figure out why tests fail
 
 %:
 	dh $@
 
 
-override_dh_auto_build:
+override_dh_auto_configure:
 	rm -rf build && mkdir build
 	cd build && cmake -DCMAKE_BUILD_TYPE=Release  \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	..
+
+override_dh_auto_build:
 	make -C build
 	make -C build doc-man
+	make -C build/tests
 
-# tests fail for whatever reason
-# TODO: fix
+override_dh_auto_install:
+	make DESTDIR=$(CURDIR)/debian/hawkey -C build install
 
 override_dh_auto_test:

@@ -4,7 +4,6 @@
 # Installation
 ####################################
 
-# Add SteamOS tools into chroot environment if we are using a brewmaster DIST
 
 if [[ "$DIST" == "brewmaster" ]]; then
 
@@ -90,10 +89,37 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
 	done
 
+elif [[ "$DIST" == "jessie" ]]; then
+
+	# Get repo package(s)
+	wget "http://packages.libregeek.org/libregeek-debian-repo-latest.deb" -q -nc
+
+	# Install repo packages
+	dpkg -i libregeek-debian-repo-latest.deb &> /dev/null
+
+	REPO_FILES+=()
+	REPO_FILES+=("/etc/apt/sources.list.d/libregeek-debian-repo.list")
+
+	# Run validation
+	for FILE in "$REPO_FILES";
+	do
+		if [[ ! -f "$FILE" ]]; then
+
+			echo "E: LIBREGEEK: Repository validation [FAILED]. Exiting."
+			echo "E: Failed on: $FILE"
+			exit 1
+		else
+	
+			echo "I: LIBREGEEK: Repository validation [PASSED]"
+
+		fi
+
+	done
+
 else
 
 	# just output text
-	echo "I: STEAMOS-TOOLS: Not applicable to dist ${DIST}"
+	echo "I: LIBREGEEK: Not applicable to dist ${DIST}"
 
 # END BREWMASTER DIST HANDLING
 fi

@@ -52,11 +52,11 @@ setup_arch_linux()
 	# Pass -S to invoke pacman
 	
 	# AUR stage 1: required by 1 or more stage 2 pacakges
-	pacaur -Sa ${AUROPTS} libxmltok
+	pacaur -Sa ${AUROPTS} libxmltok help2man
 	
 	# AUR stage 2 packages:
 	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-keyring debian-archive-keyring \
-	linuxmint-keyring ubuntu-archive-keyring ubuntu-keyring apt devscripts debsig-verify-git
+	linuxmint-keyring ubuntu-archive-keyring ubuntu-keyring apt devscripts debsig-verify-git rpmdevtools mock
 	
 	# Do we need custom AUR packages that are out of date?
 	CUSTOM_AUR_PKGS="false"
@@ -417,9 +417,9 @@ setup_common_prereqs()
 	echo -e "\n==> Adding needed Directories"
 	sleep 2s
 
-	STEAMOS_TOOLS_CONFIGS="${HOME}/.config/SteamOS-Tools"
+	LIBREGEEK_CONFIGS="${HOME}/.config/SteamOS-Tools"
 
-	DIRS="${STEAMOS_TOOLS_CONFIGS}"
+	DIRS="${LIBREGEEK_CONFIGS}"
 
 	for DIR in ${DIRS};
 	do
@@ -621,9 +621,9 @@ setup_other_configs()
 	echo -e "\n==> Adding other configuration files"
 	sleep 2s
 
-	cp "${SCRIPTDIR}/repo-exclude.txt" "${STEAMOS_TOOLS_CONFIGS}"
-	cp "${SCRIPTDIR}/repo-include.txt" "${STEAMOS_TOOLS_CONFIGS}"
-	cp "${SCRIPTDIR}/repo-filter.txt" "${STEAMOS_TOOLS_CONFIGS}"
+	cp "${SCRIPTDIR}/repo-exclude.txt" "${LIBREGEEK_CONFIGS}"
+	cp "${SCRIPTDIR}/repo-include.txt" "${LIBREGEEK_CONFIGS}"
+	cp "${SCRIPTDIR}/repo-filter.txt" "${LIBREGEEK_CONFIGS}"
 
 }
 

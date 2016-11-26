@@ -1,6 +1,13 @@
-[ppa:mdeguzis/libregeek-ubuntu]
+[ppa:libregeek-xenial]
 fqdn                    = ppa.launchpad.net
 method                  = ftp
-incoming                = ~mdeguzis/ubuntu/libregeek-ubuntu
+incoming                = ~mdeguzis/ubuntu/libregeek-ubuntu/xenial
+login                   = anonymous
+allow_unsigned_uploads  = 0
+
+[ppa:libregeek-yakkety]
+fqdn                    = ppa.launchpad.net
+method                  = ftp
+incoming                = ~mdeguzis/ubuntu/libregeek-ubuntu/yakkety
 login                   = anonymous
 allow_unsigned_uploads  = 0

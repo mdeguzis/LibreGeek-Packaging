@@ -46,6 +46,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 	####################################
 	
 	# Add standard files to file list
+	REPO_FILES+=("/usr/share/keyrings/libregeek-archive-keyring.gpg ")
 	REPO_FILES+=("/etc/apt/sources.list.d/steamos-tools.list")
 	REPO_FILES+=("/etc/apt/sources.list.d/jessie.list")
 	REPO_FILES+=("/etc/apt/apt.conf.d/60unattended-steamos-tools")
@@ -92,13 +93,16 @@ if [[ "$DIST" == "brewmaster" ]]; then
 elif [[ "$DIST" == "jessie" ]]; then
 
 	# Get repo package(s)
+	wget "http://packages.libregeek.org/libregeek-archive-keyring-latest.deb" -q -nc
 	wget "http://packages.libregeek.org/libregeek-debian-repo-latest.deb" -q -nc
 
 	# Install repo packages
+	dpkg -i libregeek-archive-keyring-latest.deb &> /dev/null
 	dpkg -i libregeek-debian-repo-latest.deb &> /dev/null
 
 	REPO_FILES+=()
 	REPO_FILES+=("/etc/apt/sources.list.d/libregeek-debian-repo.list")
+	REPO_FILES+=("/usr/share/keyrings/libregeek-archive-keyring.gpg ")
 
 	# Run validation
 	for FILE in "$REPO_FILES";

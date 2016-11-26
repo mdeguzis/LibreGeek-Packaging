@@ -417,9 +417,9 @@ setup_common_prereqs()
 	echo -e "\n==> Adding needed Directories"
 	sleep 2s
 
-	STEAMOS_TOOLS_CONFIGS="${HOME}/.config/SteamOS-Tools"
+	LIBREGEEK_CONFIGS="${HOME}/.config/SteamOS-Tools"
 
-	DIRS="${STEAMOS_TOOLS_CONFIGS}"
+	DIRS="${LIBREGEEK_CONFIGS}"
 
 	for DIR in ${DIRS};
 	do
@@ -621,9 +621,9 @@ setup_other_configs()
 	echo -e "\n==> Adding other configuration files"
 	sleep 2s
 
-	cp "${SCRIPTDIR}/repo-exclude.txt" "${STEAMOS_TOOLS_CONFIGS}"
-	cp "${SCRIPTDIR}/repo-include.txt" "${STEAMOS_TOOLS_CONFIGS}"
-	cp "${SCRIPTDIR}/repo-filter.txt" "${STEAMOS_TOOLS_CONFIGS}"
+	cp "${SCRIPTDIR}/repo-exclude.txt" "${LIBREGEEK_CONFIGS}"
+	cp "${SCRIPTDIR}/repo-include.txt" "${LIBREGEEK_CONFIGS}"
+	cp "${SCRIPTDIR}/repo-filter.txt" "${LIBREGEEK_CONFIGS}"
 
 }
 

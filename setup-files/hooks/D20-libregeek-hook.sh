@@ -122,7 +122,7 @@ elif [[ "$DIST" == "jessie" ]]; then
 	done
 
 
-elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" || "${DIST}" == "xenial" || "${DIST}" == "yakkety" ]]; then
+elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
 
 	echo "I: LIBREGEEK: Checking for required PPA prereqs"
 
@@ -134,8 +134,22 @@ elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" || "${DIST}" == "xenial"
 	echo "I: LIBREGEEK: Adding PPA repository configuration"
 	add-apt-repository -y ppa:mdeguzis/libregeek &> /dev/null
 	
-	echo "I: LIBREGEEK: Adding PPA repository configuration (toolchain)"
-	add-apt-repository -y ppa:mdeguzis/libregeek-toolchaina &> /dev/null
+	#echo "I: LIBREGEEK: Adding PPA repository configuration (toolchain)"
+	#add-apt-repository -y ppa:mdeguzis/libregeek-toolchaina &> /dev/null
+
+elif [[ "${DIST}" == "xenial" || "${DIST}" == "yakkety" ]]; then
+
+	# Add toolchains for older dists
+	# llvm toolchains (3.4+), gcc-5, and gcc-6 should suffice for now	
+
+	echo "I: LIBREGEEK: Adding PPA jonathonf/llvm (toolchain)"
+	add-apt-repository -y ppa:jonathonf/llvm &> /dev/null
+
+	echo "I: LIBREGEEK: Adding PPA jonathonf/gcc-5.4 (toolchain)"
+	add-apt-repository -y ppa:jonathonf/gcc-5.4 &> /dev/null
+
+	echo "I: LIBREGEEK: Adding PPA jonathonf/gcc-6.2 (toolchain)"
+	add-apt-repository -y ppa:jonathonf/gcc-6.2 &> /dev/null
 
 else
 

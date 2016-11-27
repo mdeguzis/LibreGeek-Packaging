@@ -127,7 +127,7 @@ elif [[ "$DIST" == "trusty" || $DIST" == "xenial" || $DIST" == "yakkety" ]]; the
 	echo "I: LIBREGEEK: Checking for required PPA prereqs"
 
 	# ensure required packages are installed
-	apt-get install -yqq software-properties-common python-software-properties
+	apt-get install -y software-properties-common python-software-properties &> /dev/null
 
 	# Add repo configuration
 	# Try to copy/rebuild over packages from other PPA instead of add more repos

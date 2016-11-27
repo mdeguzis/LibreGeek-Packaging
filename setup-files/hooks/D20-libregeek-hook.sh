@@ -132,7 +132,7 @@ elif [[ "$DIST" == "trusty" || $DIST" == "xenial" || $DIST" == "yakkety" ]]; the
 	# Add repo configuration
 	# Try to copy/rebuild over packages from other PPA instead of add more repos
 	echo "I: LIBREGEEK: Adding PPA repository configuration"
-	add-apt-repository -y appa:mdeguzis/libregeek
+	add-apt-repository -y ppa:mdeguzis/libregeek &> /dev/null
 
 else
 

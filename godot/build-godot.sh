@@ -38,41 +38,38 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/home/mikeyd/packaging/debian/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_x/packaging/ubuntu/incoming_testing"
 
 else
 
-	REPO_FOLDER="/home/mikeyd/packaging/debian/incoming"
+	REPO_FOLDER="/mnt/server_media_x/packaging/ubuntu/incoming"
 
 fi
 
 # upstream vars
-git_url="https://github.com/godotengine/godot"
-branch="2.0.3-stable"
+SRC_URL="https://github.com/godotengine/godot"
+TARGET="2.1.1-stable"
 
 # package vars
-date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
-date_short=$(date +%Y%m%d)
+DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
+DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -sa"
 export BUILD_DEBUG="true"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-pkgname="godot"
-pkgver="2.0.3"
-upstream_rev="1"
-pkgrev="1"
-pkgsuffix=""
-DIST="jessie"
+PKGNAME="godot"
+PKGVER=$(echo ${TARGET} | sed 's/-stable//')
+PKGREV="1"
+DIST="${DIST:=yakkety}"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
-# set build_dir
-export build_dir="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
-git_dir="${build_dir}/${src_dir}"
+# set BUILD_TMP
+export BUILD_TMP="${HOME}/build-${PKGNAME}-temp"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -89,20 +86,20 @@ install_prereqs()
 main()
 {
 
-	# create build_dir
-	if [[ -d "${build_dir}" ]]; then
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
 
-		sudo rm -rf "${build_dir}"
-		mkdir -p "${build_dir}"
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
 
 	else
 
-		mkdir -p "${build_dir}"
+		mkdir -p "${BUILD_TMP}"
 
 	fi
 
 	# enter build dir
-	cd "${build_dir}" || exit
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 
@@ -113,15 +110,36 @@ main()
 
 	fi
 
-	# Clone upstream source code and branch
+	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
-	git clone  -b "${branch}" "${git_url}" "${git_dir}"
+	git clone  -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+        # Set suffix based on revisions
+        cd "${SRC_DIR}"
+        LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+
+        # Set PKGSUFFIX based on Ubuntu DIST
+        case "${DIST}" in
+
+                trusty)
+                PKGSUFFIX="ubuntu14.04.5"
+                ;;
+
+                xenial)
+                PKGSUFFIX="ubuntu16.04.1"
+                ;;
+
+                yakkety)
+                PKGSUFFIX="ubuntu16.10"
+                ;;
+
+        esac
 
 	# Add art / other files
-	cp "${scriptdir}/godot.png" "${git_dir}"
+	cp "${scriptdir}/godot.png" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -131,14 +149,14 @@ main()
 	sleep 2s
 
 	# create source tarball
-	cd "${build_dir}"
-	tar -cvzf "${pkgname}_${pkgver}.orig.tar.gz" "${src_dir}"
+	cd "${BUILD_TMP}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add debian dir
-	cp -r "${scriptdir}/debian" "${git_dir}"
+	cp -r "${scriptdir}/debian" "${SRC_DIR}"
 
 	# enter source dir
-	cd "${git_dir}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -146,15 +164,15 @@ main()
 	# Create basic changelog format if it does exist or update
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}-${pkgrev}" \
-		--package "${pkgname}" -D $DIST -u "${urgency}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D $DIST -u "${urgency}" \
 		"Initial upload attempt"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --force-distribution --create -v "${pkgver}-${pkgrev}" \
-		--package "${pkgname}" -D "${DIST}" \
+		dch -p --force-distribution --create -v "${PKGVER}-${PKGREV}~${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D "${DIST}" \
 		-u "${urgency}" "Initial upload attempt"
 		nano "debian/changelog"
 
@@ -164,7 +182,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	#  build
@@ -192,11 +210,11 @@ main()
 	If you don't, please check build dependcy errors listed above.
 	###############################################################
 
-	Showing contents of: ${build_dir}
+	Showing contents of: ${BUILD_TMP}
 
 	EOF
 
-	ls "${build_dir}" | grep -E "${pkgver}" 
+	ls "${BUILD_TMP}" | grep -E "${PKGVER}" 
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s
@@ -206,10 +224,14 @@ main()
 	if [[ "$transfer_choice" == "y" ]]; then
 
 		# transfer files
-		if [[ -d "${build_dir}" ]]; then
+		if [[ -d "${BUILD_TMP}" ]]; then
+
 			rsync -arv -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${build_dir}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
+			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
+
+			# copy local repo changelog
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		fi
 

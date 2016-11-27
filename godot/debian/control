@@ -17,6 +17,7 @@ Build-Depends: debhelper (>= 7),
  libx11-dev,
  libxinerama-dev,
  libxcursor-dev,
+ libxrandr-dev,
  scons
 Standards-Version: 3.9.6
 Homepage: http://rust-lang.org

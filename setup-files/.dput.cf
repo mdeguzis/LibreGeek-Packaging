@@ -1,13 +1,20 @@
-[ppa:libregeek-xenial]
+[libregeek]
 fqdn                    = ppa.launchpad.net
 method                  = ftp
-incoming                = ~mdeguzis/ubuntu/libregeek-ubuntu/xenial
+incoming                = ~mdeguzis/ubuntu/libregeek
 login                   = anonymous
 allow_unsigned_uploads  = 0
 
-[ppa:libregeek-yakkety]
+[libregeek-games]
 fqdn                    = ppa.launchpad.net
 method                  = ftp
-incoming                = ~mdeguzis/ubuntu/libregeek-ubuntu/yakkety
+incoming                = ~mdeguzis/ubuntu/libregeek-games
+login                   = anonymous
+allow_unsigned_uploads  = 0
+
+[libregeek-toolchain]
+fqdn                    = ppa.launchpad.net
+method                  = ftp
+incoming                = ~mdeguzis/ubuntu/libregeek-toolchain
 login                   = anonymous
 allow_unsigned_uploads  = 0

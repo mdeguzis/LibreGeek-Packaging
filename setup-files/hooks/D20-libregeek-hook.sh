@@ -121,6 +121,19 @@ elif [[ "$DIST" == "jessie" ]]; then
 
 	done
 
+
+elif [[ "$DIST" == "trusty" || $DIST" == "xenial" || $DIST" == "yakkety" ]]; then
+
+	echo "I: LIBREGEEK: Checking for required PPA prereqs"
+
+	# ensure required packages are installed
+	apt-get install -yqq software-properties-common python-software-properties
+
+	# Add repo configuration
+	# Try to copy/rebuild over packages from other PPA instead of add more repos
+	echo "I: LIBREGEEK: Adding PPA repository configuration"
+	add-apt-repository -y appa:mdeguzis/libregeek
+
 else
 
 	# just output text

@@ -1,8 +1,22 @@
 #!/bin/bash
 
 ####################################
-# Installation
+# LibreGeek DIST handling
 ####################################
+
+# Test OS first, so we can allow configuration on multiple distros
+# If lsb_release is not present, use alternative method
+# Check for OS, since we can add PPA's just based on Ubuntu
+
+if which lsb_release &> /dev/null; then
+
+	OS=$(lsb_release -si)
+
+else
+
+	OS=$(cat /etc/os-release | grep -w "NAME" | cut -d'=' -f 2)
+
+fi
 
 if [[ "$DIST" == "brewmaster" ]]; then
 
@@ -89,7 +103,7 @@ if [[ "$DIST" == "brewmaster" ]]; then
 
 	done
 
-elif [[ "$DIST" == "jessie" ]]; then
+elif [[ "${OS}" == "Debian" ]]; then
 
 	echo "I: LIBREGEEK: Adding Debian repository configuration"
 
@@ -120,9 +134,9 @@ elif [[ "$DIST" == "jessie" ]]; then
 		fi
 
 	done
-elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
 
-elif [[ "${DIST}" == "xenial" || "${DIST}" == "yakkety" ]]; then
+if [[ "${OS}" == "Ubuntu" ]]; then
+
 
 	echo "I: LIBREGEEK: Checking for required PPA prereqs"
 
@@ -137,7 +151,9 @@ elif [[ "${DIST}" == "xenial" || "${DIST}" == "yakkety" ]]; then
 	#echo "I: LIBREGEEK: Adding PPA repository configuration (toolchain)"
 	#add-apt-repository -y ppa:mdeguzis/libregeek-toolchaina &> /dev/null
 
-elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
+if
+
+if [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
 
 	# Add toolchains for older dists
 	# llvm toolchains (3.4+), gcc-5, and gcc-6 should suffice for now	
@@ -151,10 +167,4 @@ elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
 	echo "I: LIBREGEEK: Adding PPA jonathonf/gcc-6.2 (toolchain)"
 	add-apt-repository -y ppa:jonathonf/gcc-6.2 &> /dev/null
 
-else
-
-	# just output text
-	echo "I: LIBREGEEK: Not applicable to dist ${DIST}"
-
-# END BREWMASTER DIST HANDLING
 fi

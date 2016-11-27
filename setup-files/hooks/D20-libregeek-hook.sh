@@ -122,7 +122,7 @@ elif [[ "$DIST" == "jessie" ]]; then
 	done
 
 
-elif [[ "$DIST" == "trusty" || $DIST" == "xenial" || $DIST" == "yakkety" ]]; then
+elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" || "${DIST}" == "xenial" || "${DIST}" == "yakkety" ]]; then
 
 	echo "I: LIBREGEEK: Checking for required PPA prereqs"
 
@@ -133,6 +133,9 @@ elif [[ "$DIST" == "trusty" || $DIST" == "xenial" || $DIST" == "yakkety" ]]; the
 	# Try to copy/rebuild over packages from other PPA instead of add more repos
 	echo "I: LIBREGEEK: Adding PPA repository configuration"
 	add-apt-repository -y ppa:mdeguzis/libregeek &> /dev/null
+	
+	echo "I: LIBREGEEK: Adding PPA repository configuration (toolchain)"
+	add-apt-repository -y ppa:mdeguzis/libregeek-toolchaina &> /dev/null
 
 else
 

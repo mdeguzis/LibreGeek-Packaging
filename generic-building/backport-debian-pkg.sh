@@ -122,6 +122,7 @@ function_set_vars()
 	if [[ "${DIST}" == "brewmaster" ]]; then PROJECT_FOLDER="steamos-tools"; fi
 	if [[ "${DIST}" == "jessie" ]]; then PROJECT_FOLDER="debian"; fi
 	if [[ "${DIST}" == "jessie-backports" ]]; then PROJECT_FOLDER="debian"; fi
+	if [[ "${DIST}" == "ubuntu" ]]; then PROJECT_FOLDER="ubuntu"; fi
 
 	# Set repo folder destination
 	if [[ "${TEST_REPO}" == "false" ]]; then
@@ -341,19 +342,29 @@ function_backport_config()
 	# Set our suffix for backporting
 	# Update any of the below if distro versions change
 
-	if [[ "${DIST}" == "brewmaster" ]]; then
+	case "${DIST}"  in
 
+		brewmaster)
 		DIST_CODE="+bsos"
+		;;
 
-	elif [[ "${DIST}" == "jessie" ]]; then
-
+		jessie)
 		DIST_CODE="~bpo8"
+		;;
 
-	else
+		trusty)
+		DIST_CODE="~ubuntu14.04.5"
+		;;
 
-		DIST_CODE=""
+		xenial)
+		DIST_CODE="~ubuntu16.04.1"
+		;;
 
-	fi
+		yakkety)
+		DIST_CODE="~ubuntu16.10"
+		;;
+
+	esac
 
 	# If user requested to execute commands before build:
 	if [[ "${USER_COMMANDS}" == "true" ]]; then

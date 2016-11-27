@@ -304,7 +304,7 @@ function_backport_config()
 	if [[ "${SRC_DIR}" == "" ]]; then
 
 		echo -e "\nERROR: cannot find SRC_DIR! Contents of ${BUILD_TMP}: "
-		sleep 2s
+		sleep 6s
 		ls "${BUILD_TMP}"
 		exit 1
 

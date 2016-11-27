@@ -1,9 +1,11 @@
 Source: doom64ex
 Section: games
 Priority: optional
-Build-Depends: cmake,
+Build-Depends: 
+ cmake,
  debhelper (>=9),
- clang (>=3.6),
+ gcc-5,
+ g++-5,
  libsdl2-dev,
  libsdl2-net-dev,
  zlib1g-dev,

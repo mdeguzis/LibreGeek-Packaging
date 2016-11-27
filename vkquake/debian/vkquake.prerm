@@ -1,0 +1,20 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    (upgrade|deconfigure|failed-upgrade)
+        ;;
+    (remove)
+        update-alternatives --remove quake-engine /usr/games/vkquake
+        update-alternatives --remove quake-engine-server /usr/games/vkquake
+        ;;
+    (*)
+        echo "Unknown prerm action: $1" >&2
+        exit 1
+        ;;
+esac
+
+
+#DEBHELPER#
+
+#vim:set sw=4 sts=4 et:

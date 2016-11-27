@@ -1,0 +1,5 @@
+# dist macros.
+
+%fedora                24
+%dist                .fc24
+%fc24                1

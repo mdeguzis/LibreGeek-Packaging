@@ -1,0 +1,183 @@
+#!/bin/bash
+
+# Simple script to set up Edition defaults for Fedora
+# Keep this in sync with convert-to-edition.lua
+
+OPTIND=1
+
+VARIANT_FILE=/usr/lib/variant
+
+# Defaults are set to provide the fewest suprises for anyone running this
+# script manually to convert their own system. In nearly all cases, it should
+# be possible to run `convert-to-edition -e <edition>` and get expected results
+
+# By default, install new packages to ensure that all the necessary files are
+# available before symlinking. This must be skipped when running this file as
+# part of an RPM scriptlet.
+do_installation=1
+
+# By default, do not modify the enabled or disabled state of any service on the
+# system. This should only be done when this script is run as part of system
+# installation or if the user is certain that they want to apply the changes to
+# the presets to their system.
+enable_presets=0
+
+exit_usage() {
+    echo "Usage: convert-to-edition [options] -e cloud|non-edition|server|workstation"
+    echo "    Options:"
+    echo "        -e: The edition to install (atomichost, cloud, non-edition, server or workstation)"
+    echo "        -i: Skip installing additional files and just update symlinks"
+    echo "        -p: Also enable newly-added systemd presets"
+    exit 1
+}
+
+while getopts "e:ihp" opt; do
+    case "$opt" in
+    e)
+        EDITION=$OPTARG
+        ;;
+    i)
+        do_installation=0
+        ;;
+    p)
+        enable_presets=1
+        ;;
+    h)
+        exit_usage
+        ;;
+    esac
+done
+
+# None of the actions below can be run by a non-root user
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
+case $EDITION in
+  atomichost)
+    if [ $do_installation -gt 0 ]; then
+        dnf install -y fedora-release-atomichost
+    fi
+
+    echo "VARIANT_ID=atomic.host" > $VARIANT_FILE
+
+    # Ensure that the os-release file is pointing to the correct version
+    ln -sf ./os.release.d/os-release-atomichost /usr/lib/os-release || :
+
+    # Ensure that the issue file is pointing to the correct version
+    ln -sf ./os.release.d/issue-fedora /usr/lib/issue
+
+    # Remove any presets from other Editions.
+    rm -f /usr/lib/systemd/system-preset/80-*.preset
+    ;;
+
+  cloud)
+    if [ $do_installation -gt 0 ]; then
+        echo "Installing Fedora Cloud Packages"
+        dnf install -y fedora-release-cloud
+    fi
+
+    echo "VARIANT_ID=cloud" > $VARIANT_FILE
+
+    # Ensure that the os-release file is pointing to the correct version
+    ln -sf ./os.release.d/os-release-cloud /usr/lib/os-release || :
+
+    # Ensure that the issue file is pointing to the correct version
+    ln -sf ./os.release.d/issue-fedora /usr/lib/issue
+
+    # Remove any presets from other Editions.
+    rm -f /usr/lib/systemd/system-preset/80-*.preset
+    ;;
+
+  non-edition)
+    echo "VARIANT_ID=nonproduct" > $VARIANT_FILE
+
+    # Ensure that the os-release file is pointing to the correct version
+    ln -sf ./os.release.d/os-release-fedora /usr/lib/os-release || :
+
+    # Ensure that the issue file is pointing to the correct version
+    ln -sf ./os.release.d/issue-fedora /usr/lib/issue
+
+    # Remove any presets from other Editions.
+    rm -f /usr/lib/systemd/system-preset/80-*.preset
+    ;;
+
+  server)
+    if [ $do_installation -gt 0 ]; then
+        echo "Installing Fedora Server Packages"
+        dnf install -y fedora-release-server
+    fi
+
+    echo "VARIANT_ID=server" > $VARIANT_FILE
+
+    # Ensure that the os-release and issue files are pointing to the correct
+    # version
+    ln -sf ./os.release.d/os-release-server /usr/lib/os-release
+    ln -sf ./os.release.d/issue-server /usr/lib/issue
+
+    # Remove any presets from other Editions. This should always be a no-op,
+    # but it's good to be explicit.
+    # We reserve 80-*.preset for Editions
+    rm -f /usr/lib/systemd/system-preset/80-*.preset
+
+    # Symlink in the proper preset
+    ln -sf ../../os.release.d/presets/80-server.preset \
+           /usr/lib/systemd/system-preset/80-server.preset
+
+    if [ $enable_presets -gt 0 ]; then
+        # Enable new units specified by presets
+        units=$(sed -n 's/^enable//p' \
+            < /usr/lib/systemd/system-preset/80-server.preset)
+        /usr/bin/systemctl preset $units >/dev/null 2>&1 || :
+
+        # Disable new units specified by presets
+        units=$(sed -n 's/^disable//p' \
+            < /usr/lib/systemd/system-preset/80-server.preset)
+        /usr/bin/systemctl preset $units >/dev/null 2>&1 || :
+    fi
+    ;;
+
+  workstation)
+    if [ $do_installation -gt 0 ]; then
+        echo "Installing Fedora Workstation Packages"
+        dnf install -y fedora-release-workstation
+    fi
+
+    echo "VARIANT_ID=workstation" > $VARIANT_FILE
+    # Ensure that the os-release and issue files are pointing to the correct
+    # version
+    ln -sf ./os.release.d/os-release-workstation /usr/lib/os-release
+    ln -sf ./os.release.d/issue-fedora /usr/lib/issue
+
+    # Remove any presets from other Editions. This should always be a no-op,
+    # but it's good to be explicit.
+    # We reserve 80-*.preset for Editions
+    rm -f /usr/lib/systemd/system-preset/80-*.preset
+
+    # Symlink in the proper preset
+    ln -sf ../../os.release.d/presets/80-workstation.preset \
+           /usr/lib/systemd/system-preset/80-workstation.preset
+
+    if [ $enable_presets -gt 0 ]; then
+        # Enable new units specified by presets
+        units=$(sed -n 's/^enable//p' \
+            < /usr/lib/systemd/system-preset/80-workstation.preset)
+        /usr/bin/systemctl preset $units >/dev/null 2>&1 || :
+
+        # Disable new units specified by presets
+        units=$(sed -n 's/^disable//p' \
+            < /usr/lib/systemd/system-preset/80-workstation.preset)
+        /usr/bin/systemctl preset $units >/dev/null 2>&1 || :
+    fi
+    ;;
+
+  *)
+    exit_usage
+    ;;
+esac
+
+echo This system has been converted to $EDITION
+
+exit 0
+

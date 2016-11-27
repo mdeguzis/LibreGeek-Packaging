@@ -1,8 +1,8 @@
-antimicro (2.22~ubuntu16.04.5-1) trusty; urgency=low
+antimicro (2.22~ubuntu14.04.5-1) trusty; urgency=low
 
   * Upload for trusty
 
- -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 27 Nov 2016 00:55:36 +0000
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 27 Nov 2016 01:39:39 +0000
 
 antimicro (2.22~ubuntu16.10-1) yakkety; urgency=low
 

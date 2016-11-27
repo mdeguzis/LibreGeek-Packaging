@@ -1,0 +1,5 @@
+# intentional, to put the quake-engine alternative in
+vkquake: package-contains-empty-directory usr/lib/quake/
+
+# Data dir is empty, but should be created for users to have ahead of time
+vkquake: package-contains-empty-directory usr/share/quake/

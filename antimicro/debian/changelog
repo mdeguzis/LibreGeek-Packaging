@@ -1,0 +1,17 @@
+antimicro (2.22~ubuntu16.04.5-1) trusty; urgency=low
+
+  * Upload for trusty
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 27 Nov 2016 00:55:36 +0000
+
+antimicro (2.22~ubuntu16.10-1) yakkety; urgency=low
+
+  * Upload for yakkety
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 26 Nov 2016 18:01:37 +0000
+
+antimicro (2.22~ubuntu16.04.1-1) xenial; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 26 Nov 2016 17:30:55 +0000

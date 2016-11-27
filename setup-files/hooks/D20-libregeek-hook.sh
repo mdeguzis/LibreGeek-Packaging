@@ -18,7 +18,7 @@ else
 
 fi
 
-if [[ "$DIST" == "brewmaster" ]]; then
+if [[ "${OS}" == "SteamOS" ]]; then
 
 	echo "I: STEAMOS-TOOLS: Adding repository configuration"
 
@@ -135,7 +135,7 @@ elif [[ "${OS}" == "Debian" ]]; then
 
 	done
 
-if [[ "${OS}" == "Ubuntu" ]]; then
+elif [[ "${OS}" == "Ubuntu" ]]; then
 
 
 	echo "I: LIBREGEEK: Checking for required PPA prereqs"
@@ -151,7 +151,11 @@ if [[ "${OS}" == "Ubuntu" ]]; then
 	#echo "I: LIBREGEEK: Adding PPA repository configuration (toolchain)"
 	#add-apt-repository -y ppa:mdeguzis/libregeek-toolchaina &> /dev/null
 
-if
+fi
+
+####################################################
+# Extra conditions for old distirbution releases
+####################################################
 
 if [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
 

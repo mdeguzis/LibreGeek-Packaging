@@ -120,9 +120,9 @@ elif [[ "$DIST" == "jessie" ]]; then
 		fi
 
 	done
-
-
 elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
+
+elif [[ "${DIST}" == "xenial" || "${DIST}" == "yakkety" ]]; then
 
 	echo "I: LIBREGEEK: Checking for required PPA prereqs"
 
@@ -137,7 +137,7 @@ elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
 	#echo "I: LIBREGEEK: Adding PPA repository configuration (toolchain)"
 	#add-apt-repository -y ppa:mdeguzis/libregeek-toolchaina &> /dev/null
 
-elif [[ "${DIST}" == "xenial" || "${DIST}" == "yakkety" ]]; then
+elif [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
 
 	# Add toolchains for older dists
 	# llvm toolchains (3.4+), gcc-5, and gcc-6 should suffice for now	

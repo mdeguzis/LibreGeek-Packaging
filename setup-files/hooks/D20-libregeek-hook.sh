@@ -14,7 +14,7 @@ if which lsb_release &> /dev/null; then
 
 else
 
-	OS=$(cat /etc/os-release | grep -w "NAME" | cut -d'=' -f 2)
+	OS=$(cat /etc/os-release | grep -w "NAME" | cut -d "\"" -f 2)
 
 fi
 
@@ -136,7 +136,6 @@ elif [[ "${OS}" == "Debian" ]]; then
 	done
 
 elif [[ "${OS}" == "Ubuntu" ]]; then
-
 
 	echo "I: LIBREGEEK: Checking for required PPA prereqs"
 

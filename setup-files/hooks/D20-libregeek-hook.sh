@@ -14,7 +14,7 @@ if which lsb_release &> /dev/null; then
 
 else
 
-	OS=$(cat /etc/os-release | grep -w "NAME" | cut -d "\"" -f 2)
+	OS=$(cat /etc/os-release | grep -w "ID" | cut -d "=" -f 2)
 
 fi
 
@@ -103,7 +103,7 @@ if [[ "${OS}" == "SteamOS" ]]; then
 
 	done
 
-elif [[ "${OS}" == "Debian" ]]; then
+elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 
 	echo "I: LIBREGEEK: Adding Debian repository configuration"
 

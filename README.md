@@ -7,10 +7,10 @@ Note that each branch corresponds to a codename of a GNU/Linux distribution. For
 # TODO list
 
 * Build, upload, and test:
-  * libcomps (build passes) - fix libs going to lib64 instead of /usr/lib/x86_64-linux-gnu
-  * libhawkey (buidl passes) - fix libs going to lib64 instead of /usr/lib/x86_64-linux-gnu
-  * librepo (build passes) - fix libs going to lib64 instead of /usr/lib/x86_64-linux-gnu
-  * python-pygpgme (build passes)
+  * libcomps (build passes, lib path fixed)
+  * libhawkey (build passes, lib path fixed)
+  * librepo (build passes, lib path fixed)u
+  * python-pygpgme (build passes, lib path fixed)
   * dnf (build passes)
   * mock (todo)
   

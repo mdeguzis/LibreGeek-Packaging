@@ -1,15 +1,15 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-librepo.sh
+# Git:		https://github.com/ProfessorKaos64/debian
+# Scipt name:	build-dnf.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest librepo source
+# Description:	Attmpts to build a deb package from the latest dnf source
 #		code.
 #
-# See:		https://github.com/rpm-software-management
+# See:		https://github.com/rpm-software-management/dnf
 #
-# Usage:	./build-librepo.sh
+# Usage:	./build-dnf.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -38,35 +38,33 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_x/packaging/debian/incoming_testing"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming"
+	REPO_FOLDER="/mnt/server_media_x/packaging/debian/incoming"
 
 fi
 # upstream vars
-SRC_URL="https://github.com/rpm-software-management/librepo"
-TARGET="librepo-1.7.20"
+SRC_URL="https://github.com/rpm-software-management/dnf"
+TARGET="dnf-2.0.0-0.rc1.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="librepo"
-PKGVER=$(echo ${TARGET} | sed 's/librepo-//g')
+export USE_NETWORK="no"
+PKGNAME="dnf"
+PKGVER=$(echo ${TARGET} | sed 's/dnf-//;s/-.*//')
 PKGREV="1"
-PKGSUFFIX="git+bsos"
-DIST="${DIST:=brewmaster}"
+PKGSUFFIX="rc1.1"
+DIST="${DIST:=jessie}"
 URGENCY="low"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
-
-# Need network for pbuilder to pull down ut4 zip
-# export NETWORK="yes"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
@@ -78,10 +76,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc check \
-	cmake doxygen libattr1-dev libexpat1-dev libcurl4-openssl-dev \
-	libgpgme11-dev libglib2.0-dev libpython2.7-dev libssl-dev python-flask \
-	python-gpgme python-nose python-pyxattr
+	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper \
+	bash-completion cmake python-sphinx
 
 }
 
@@ -114,9 +110,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-	cd "${SRC_DIR}"
-	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -144,15 +138,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
-	
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
-		nano "debian/changelog"
 
 	fi
 
@@ -211,7 +203,7 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/debian/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog

@@ -9,6 +9,13 @@
 #(.text+0x92a): undefined reference to `timer_settime'
 #(.text+0x959): undefined reference to `timer_delete'
 
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+
 %:
 	dh $@
 
@@ -18,7 +25,10 @@ override_dh_auto_configure:
 			-DCMAKE_INSTALL_PREFIX=/usr \
 			-Wno-dev \
 			../libcomps
-	make -C build 
+	# Install places libs/pkgconfig in /usr/lib64, which is not per the new
+	# spec /usr/lib/<triplet>, e.g. /usr/lib/x86_64-linux-gnu
+	# There does not appear to be a CMakeCache entry to change this
+	sed -i "s/lib64/$(DEB_HOST_MULTIARCH)/g" $(CURDIR)/build/src/cmake_install.cmake
 
 override_dh_auto_build:
 	make -C build

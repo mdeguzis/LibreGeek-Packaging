@@ -1,6 +1,6 @@
 Source: mock
 Section: devel
-Maintainer: Tzafrir Cohen <tzafrir@debian.org>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Priority: extra
 Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 9),
@@ -12,13 +12,17 @@ Build-Depends: debhelper (>= 9),
  pkg-config,
  bash-completion,
 Homepage: https://fedorahosted.org/mock/
-Vcs-Git: https://anonscm.debian.org/git/collab-maint/mock.git
-Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/mock.git
 
 Package: mock
 Architecture: all
-Depends: python, ${misc:Depends}, ${python:Depends},
- python-rpm, python-decoratortools, yum (>> 3.2.26), usermode, yum-utils
+Depends: ${misc:Depends}, ${python:Depends},
+ dnf-plugins-core,	# Fedora >= 24
+ python,
+ python-rpm, 
+ python-decoratortools, 
+ yum (>> 3.2.26), 	# Fedora <= 23
+ usermode, 
+ yum-utils
 Suggests: pigz
 Description: Build rpm packages inside a chroot
  Mock creates chroots and builds rpms in them. Its only task is to

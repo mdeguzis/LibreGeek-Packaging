@@ -22,5 +22,8 @@ override_dh_auto_install:
 	make DESTDIR=$(CURDIR)/debian/dnf -C build install
 	# Remove yum.8, conflicts with yum package
 	rm -f "$(CURDIR)/debian/dnf/usr/share/man/man8/yum.8"
+	# This build also makes a yum binary, leave that to Debian maintainers
+	# for obvious reasons
+	rm -f "$(CURDIR)/debian/dnf/usr/bin/yum"
 
 override_dh_auto_test:

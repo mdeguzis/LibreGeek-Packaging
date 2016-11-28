@@ -1,11 +1,12 @@
 Source: dnf
 Section: devel
-Maintainer: Tzafrir Cohen <tzafrir@debian.org>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Priority: extra
 Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 9),
  cmake,
  bash-completion,
+ python-nose,
  python-sphinx
 Homepage:https://github.com/rpm-software-management/dnf
 

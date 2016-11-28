@@ -5,7 +5,7 @@ Priority: extra
 Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 9),
  cmake,
- check,
+ check (>= 0.10.0),
  doxygen,
  libexpat1-dev,
  libxml2-dev,

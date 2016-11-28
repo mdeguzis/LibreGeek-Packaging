@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/debian
-# Scipt name:	build-dnf.sh
+# Scipt name:	build-libcomps.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest dnf source
+# Description:	Attmpts to build a deb package from the latest libcomps source
 #		code.
 #
-# See:		https://github.com/rpm-software-management/dnf
+# See:		https://github.com/rpm-software-management/libcomps
 #
-# Usage:	./build-dnf.sh
+# Usage:	./build-libcomps.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,8 +46,8 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/rpm-software-management/dnf"
-TARGET="dnf-2.0.0-0.rc1.1"
+SRC_URL="https://github.com/rpm-software-management/libcomps"
+TARGET="libcomps-0.1.8"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,10 +57,10 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-PKGNAME="dnf"
-PKGVER=$(echo ${TARGET} | sed 's/dnf-//;s/-.*//')
+PKGNAME="libcomps"
+PKGVER=$(echo ${TARGET} | sed 's/libcomps-//')
 PKGREV="1"
-PKGSUFFIX="rc1.1"
+PKGSUFFIX=""
 DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
@@ -77,7 +77,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper \
-	bash-completion cmake python-sphinx
+	cmake check doxygen libexpat1-dev libxml2-dev python
 
 }
 
@@ -124,7 +124,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -138,12 +138,12 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi

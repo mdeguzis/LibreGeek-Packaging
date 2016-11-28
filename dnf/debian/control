@@ -16,7 +16,7 @@ Depends: python, ${misc:Depends}, ${python:Depends},
  hawkey,
  libcomps,
  librepo,
- rpm-org,
+ rpm,
  python,
  python-iniparse,
  python-pygpgme

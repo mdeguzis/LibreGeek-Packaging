@@ -2,7 +2,7 @@ Source: librepo
 Section: devel
 Priority: optional
 Build-Depends: debhelper,
- check,
+ check (>= 0.10.0),
  cmake,
  doxygen,
  libattr1-dev,

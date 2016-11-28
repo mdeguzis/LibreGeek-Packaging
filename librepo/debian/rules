@@ -1,6 +1,12 @@
 #!/usr/bin/make -f
 # See: ./linuxBuild.sh
 
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+DEB_HOST_ARCH ?= $(shell dpkg-architecture -qDEB_HOST_ARCH)
+DEB_HOST_ARCH_OS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_OS)
+DEB_HOST_ARCH_BITS ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_BITS)
+DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
+
 export DH_VERBOSE=1
 
 %:
@@ -19,3 +25,7 @@ override_dh_auto_configure:
 
 override_dh_auto_install:
 	make DESTDIR=$(CURDIR)/debian/librepo -C build install
+	# Install places libs/pkgconfig in /usr/lib64, which is not per the new
+	# spec /usr/lib/<triplet>, e.g. /usr/lib/x86_64-linux-gnu
+	# There does not appear to be a CMakeCache entry to change this
+	mv "$(CURDIR)/debian/librepo/usr/lib64" "$(CURDIR)/debian/librepo/usr/lib/$(DEB_HOST_MULTIARCH)"

@@ -25,6 +25,7 @@ override_dh_auto_configure:
 	# There does not appear to be a CMakeCache entry to change this
 	sed -i "s/lib64/$(DEB_HOST_MULTIARCH)/g" $(CURDIR)/build/librepo/cmake_install.cmake
 
+override_dh_auto_build:
 	make -C build
 	make -C build test
 

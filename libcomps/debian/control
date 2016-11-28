@@ -9,7 +9,7 @@ Build-Depends: debhelper (>= 9),
  doxygen,
  libexpat1-dev,
  libxml2-dev,
- python
+ python-all-dev
 Homepage:https://github.com/rpm-software-management/libcomps
 
 Package: libcomps

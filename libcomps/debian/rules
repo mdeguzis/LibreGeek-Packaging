@@ -1,24 +1,22 @@
 #!/usr/bin/make -f
 
-# TODO: figure out why tests fail
-# Tests seem to need a non-empty RPM database installed on the system
-
 %:
 	dh $@
 
-
 override_dh_auto_configure:
 	rm -rf build && mkdir build
-	cd build && cmake -DCMAKE_BUILD_TYPE=Release  \
-	-DCMAKE_INSTALL_PREFIX=/usr \
-	..
+	cd build && cmake -DCMAKE_BUILD_TYPE=Release \
+			-DCMAKE_INSTALL_PREFIX=/usr \
+			-Wno-dev \
+			../libcomps
+	make -C build 
+	make -C build test
+	make -C build pytest
 
 override_dh_auto_build:
 	make -C build
-	make -C build doc-man
-	make -C build/tests
 
 override_dh_auto_install:
-	make DESTDIR=$(CURDIR)/debian/dnf -C build install
+	make DESTDIR=$(CURDIR)/debian/libcomps -C build install
 
 override_dh_auto_test:

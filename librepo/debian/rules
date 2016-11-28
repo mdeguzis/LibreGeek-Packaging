@@ -1,10 +1,6 @@
 #!/usr/bin/make -f
 # See: ./linuxBuild.sh
 
-#export CC="/usr/bin/clang-3.8"
-#export CXX="/usr/bin/clang++-3.8"
-#export CLANG_FORMAT="clang-format-3.8"
-
 export DH_VERBOSE=1
 
 %:

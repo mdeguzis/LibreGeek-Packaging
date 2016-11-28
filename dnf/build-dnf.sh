@@ -60,10 +60,10 @@ export USE_NETWORK="no"
 PKGNAME="dnf"
 PKGVER=$(echo ${TARGET} | sed 's/dnf-//;s/-*//')
 PKGREV="1"
-PKGSUFFIX="git+bsos"
-DIST="${DIST:=brewmaster}"
+PKGSUFFIX=""
+DIST="${DIST:=jessie}"
 URGENCY="low"
-UPLOADER="debian Signing Key <mdeguzis@gmail.com>"
+UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set build directories

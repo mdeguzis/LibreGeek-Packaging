@@ -60,7 +60,7 @@ export USE_NETWORK="no"
 PKGNAME="python-pygpgme"
 PKGVER="${TARGET}"
 PKGREV="1"
-PKGSUFFIX="git+bsos"
+PKGSUFFIX=""
 DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="debian Signing Key <mdeguzis@gmail.com>"
@@ -105,15 +105,17 @@ main()
 		# handle prereqs on host machine
 		install_prereqs
 
+	else
+
+		# Still need bzr
+		sudo apt-get install -y bzr
+
 	fi
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# fetch source files
-	mkdir -p "${SRC_DIR}"
-	wget "${SRC_URL}" -q -nc --show-progress
-	tar xvf "pygpgme-${PKGVER}.tar.gz" -C "${SRC_DIR}" --strip-components=1
-	rm $(basename ${SRC_URL})
+	# fetch source files using bazarr
+	bzr branch lp:pygpgme "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -124,7 +126,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -138,12 +140,12 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi

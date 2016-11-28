@@ -60,7 +60,7 @@ export USE_NETWORK="no"
 PKGNAME="dnf"
 PKGVER=$(echo ${TARGET} | sed 's/dnf-//;s/-.*//')
 PKGREV="1"
-PKGSUFFIX=""
+PKGSUFFIX="rc1.1"
 DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
@@ -124,7 +124,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -138,7 +138,7 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	else

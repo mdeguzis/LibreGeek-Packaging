@@ -146,7 +146,7 @@ elif $(echo ${UBUNTU_SUITES[@]} | grep -q $DIST); then
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/ubuntu-archive-keyring.gpg")
 	MIRRORSITE="http://$UBUNTU_MIRROR/ubuntu/"
 	COMPONENTS="main restricted universe multiverse"
-	EXTRAPACKAGES="gdebi-core wget ca-certificates"
+	EXTRAPACKAGES="gdebi-core wget ca-certificates lsb-release"
 
 elif $(echo ${MINT_SUITES[@]} | grep -q $DIST); then
    
@@ -154,7 +154,7 @@ elif $(echo ${MINT_SUITES[@]} | grep -q $DIST); then
 	DEBOOTSTRAPOPTS=("${DEBOOTSTRAPOPTS[@]}" "--keyring=/usr/share/keyrings/linuxmint-keyring.gpg")
 	MIRRORSITE="http://$MINT_MIRROR/"
 	COMPONENTS="main romeo universe multiverse"
-	EXTRAPACKAGES="gdebi-core wget ca-certificates"
+	EXTRAPACKAGES="gdebi-core wget ca-certificates lsb-release"
 
 elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 
@@ -170,9 +170,9 @@ elif $(echo ${STEAMOS_SUITES[@]} | grep -q $DIST); then
 
 	if [[ "${STEAMOS_BETA}" == "true" ]]; then
 		OTHERMIRROR="deb http://repo.steampowered.com/steamos brewmaster_beta main contrib non-free"
-		EXTRAPACKAGES="gdebi-core wget ca-certificates aptitude"
+		EXTRAPACKAGES="gdebi-core wget ca-certificates aptitude lsb-release"
 	else
-		EXTRAPACKAGES="gdebi-core wget ca-certificates aptitude"
+		EXTRAPACKAGES="gdebi-core wget ca-certificates aptitude lsb-release"
 	fi
 
 else
@@ -199,7 +199,7 @@ PBUILDERROOTCMD="sudo -E"
 
 # -us Do not sign the source package.
 # -uc  Do not sign the .changes file.
-#DEBBUILDOPTS="-us -uc"
+DEBBUILDOPTS="-us -uc"
 
 # always be verbose:
 DH_VERBOSE=1

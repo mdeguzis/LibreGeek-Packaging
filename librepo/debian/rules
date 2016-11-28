@@ -16,7 +16,7 @@ override_dh_auto_configure:
 			-DCMAKE_VERBOSE_MAKEFILE=ON \
 			-DCMAKE_BUILD_TYPE=Release \
 			-DCMAKE_INSTALL_PREFIX=/usr \
-			-DENABLE_DOCS=OFF
+			-DENABLE_DOCS=OFF \
 			..
 	make -C build
 	make -C build test

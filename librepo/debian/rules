@@ -16,3 +16,6 @@ override_dh_auto_configure:
 			..
 	make -C build
 	make -C build test
+
+override_dh_auto_install:
+	make DESTDIR=$(CURDIR)/debian/librepo -C build install

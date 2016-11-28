@@ -8,8 +8,9 @@ Build-Depends:
  g++-5,
  libsdl2-dev,
  libsdl2-net-dev,
+ libstdc++-5-dev,
  zlib1g-dev,
- libpng12-dev,
+ libpng12-dev | libpng-dev,
  libfluidsynth-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.6

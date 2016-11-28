@@ -1,5 +1,16 @@
 #!/usr/bin/make -f
 
+# Needs to install lsb-release package
+UBUNTU_VERSION=$(shell lsb_release -c | cut -f2)
+
+
+# Handle older Ubuntu dists
+ifeq ($(UBUNTU_VERSION),trusty)
+	export CC=gcc-5
+	export CXX=g++-5
+endif
+
+
 %:
 	dh $@
 

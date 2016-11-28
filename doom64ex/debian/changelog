@@ -1,3 +1,9 @@
+doom64ex (0.0.0+git20161128.a43c528~ubuntu14.04.5-1) trusty; urgency=low
+
+  * Upload for trusty
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 28 Nov 2016 12:50:19 +0000
+
 doom64ex (0.0.0+git20161128.a43c528~ubuntu16.04.1-1) xenial; urgency=low
 
   * Upload for Xenial

@@ -9,6 +9,7 @@ Build-Depends:
  libsdl2-dev,
  libsdl2-net-dev,
  libstdc++-5-dev,
+ lsb-release,
  zlib1g-dev,
  libpng12-dev | libpng-dev,
  libfluidsynth-dev

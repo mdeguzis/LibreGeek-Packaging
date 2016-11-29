@@ -47,7 +47,7 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/rpm-software-management/dnf-plugins-core"
-TARGET="dnf-plugins-core-1.3.2-1"
+TARGET="dnf-plugins-core-1.0.0-0.rc1.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,8 +60,8 @@ export USE_NETWORK="no"
 PKGNAME="dnf-plugins-core"
 PKGVER=$(echo ${TARGET} | sed 's/dnf-plugins-core-//;s/-//')
 PKGREV="1"
-PKGSUFFIX=""
-DIST="${DIST:=brewmaster}"
+PKGSUFFIX="rc1.1"
+DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -124,7 +124,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -138,12 +138,12 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi

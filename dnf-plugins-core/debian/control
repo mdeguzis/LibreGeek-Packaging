@@ -5,7 +5,12 @@ Priority: extra
 Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 9),
  cmake,
- python-sphinx
+ dnf,
+ libsolvext0,
+ python-sphinx,
+ python-lzma, 
+ python-nose, 
+ python-rpm   
 Homepage: https://github.com/rpm-software-management/dnf-plugins-corek/
 
 Package: dnf-plugins-core

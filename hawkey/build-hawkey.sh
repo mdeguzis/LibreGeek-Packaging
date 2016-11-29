@@ -54,12 +54,12 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 PKGNAME="hawkey"
 PKGVER=$(echo ${TARGET} | sed 's/hawkey-//;s/-.*//')
-PKGREV="1"
+PKGREV="2"
 PKGSUFFIX=""
 DIST="${DIST:=jessie}"
 URGENCY="low"

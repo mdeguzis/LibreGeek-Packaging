@@ -1,0 +1,5 @@
+dnf (2.0.0+rc1.1-1) jessie; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 29 Nov 2016 00:45:05 +0000

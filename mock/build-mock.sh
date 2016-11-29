@@ -60,8 +60,8 @@ export USE_NETWORK="no"
 PKGNAME="mock"
 PKGVER=$(echo ${TARGET} | sed 's/mock-//;s/-//')
 PKGREV="1"
-PKGSUFFIX="git+bsos"
-DIST="${DIST:=brewmaster}"
+PKGSUFFIX=""
+DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -124,7 +124,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -138,12 +138,12 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi

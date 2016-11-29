@@ -1,0 +1,3 @@
+pam_debian.patch
+remove_home_rpmdb.patch
+spelling.patch

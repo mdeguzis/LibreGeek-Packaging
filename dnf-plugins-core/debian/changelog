@@ -1,0 +1,5 @@
+dnf-plugins-core (1.0.00.rc1.1+-1) jessie; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 29 Nov 2016 02:05:56 +0000

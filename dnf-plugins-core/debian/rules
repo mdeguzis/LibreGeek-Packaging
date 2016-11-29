@@ -5,7 +5,7 @@
 
 override_dh_auto_configure:
 	rm -rf build && mkdir build
-	cd build && cmake 
+	cd build && cmake \
 		-DCMAKE_BUILD_TYPE=Release  \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		..
@@ -13,7 +13,7 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	make -C build
 	# sphinx-build fails with non UTF-8 locales
-	make LC_ALL=en_US.UTF-8 doc-man
+	make -C build LC_ALL=en_US.UTF-8 doc-man
 
 override_dh_auto_install:
 	make DESTDIR=$(CURDIR)/debian/dnf-plugins-core -C build install

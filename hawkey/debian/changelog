@@ -1,3 +1,9 @@
+hawkey (0.6.3-2) jessie; urgency=low
+
+  * Fix lib install path
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 28 Nov 2016 23:32:17 +0000
+
 hawkey (0.6.3-1) jessie; urgency=low
 
   * Initial upload

@@ -3,5 +3,7 @@
 # Tests fail for now - TODO fix
 
 export PYBUILD_NAME=python-pygpgme
+
 %:
-        dh $@ --with python2 --buildsystem=pybuild
+
+	dh $@ --with python2 --buildsystem=pybuild

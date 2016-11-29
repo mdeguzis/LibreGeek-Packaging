@@ -23,7 +23,7 @@ override_dh_auto_configure:
 	# Install places libs/pkgconfig in /usr/lib64, which is not per the new
 	# spec /usr/lib/<triplet>, e.g. /usr/lib/x86_64-linux-gnu
 	# There does not appear to be a CMakeCache entry to change this
-	sed -i "s/lib64/$(DEB_HOST_MULTIARCH)/g" $(CURDIR)/build/librepo/cmake_install.cmake
+	sed -i "s/lib64/lib\/$(DEB_HOST_MULTIARCH)/g" $(CURDIR)/build/librepo/cmake_install.cmake
 
 override_dh_auto_build:
 	make -C build

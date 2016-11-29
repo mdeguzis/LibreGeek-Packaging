@@ -1,0 +1,11 @@
+librepo (1.7.20-2) jessie; urgency=low
+
+  * Fix install paths
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 29 Nov 2016 00:56:06 +0000
+
+librepo (1.7.20-1) jessie; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 28 Nov 2016 23:44:50 +0000

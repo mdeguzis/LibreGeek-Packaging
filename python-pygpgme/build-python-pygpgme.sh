@@ -47,14 +47,13 @@ else
 fi
 # upstream vars
 TARGET="0.3"
-SRC_URL="https://launchpad.net/pygpgme/trunk/${TARGET}/+download/pygpgme-${TARGET}.tar.gz"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 PKGNAME="python-pygpgme"
@@ -115,7 +114,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# fetch source files using bazarr
-	bzr branch lp:pygpgme "${SRC_DIR}"
+	bzr branch -r${PKGVER} lp:pygpgme "${SRC_DIR}"
 
 	#################################################
 	# Build package

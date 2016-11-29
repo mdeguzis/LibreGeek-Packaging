@@ -38,11 +38,11 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_x/packaging/debian/incoming_testing"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming"
+	REPO_FOLDER="/mnt/server_media_x/packaging/debian/incoming"
 
 fi
 # upstream vars
@@ -54,13 +54,13 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="librepo"
 PKGVER=$(echo ${TARGET} | sed 's/librepo-//g')
-PKGREV="1"
-PKGSUFFIX="git+bsos"
-DIST="${DIST:=brewmaster}"
+PKGREV="2"
+PKGSUFFIX=""
+DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -130,7 +130,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -144,13 +144,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
-	
+
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 

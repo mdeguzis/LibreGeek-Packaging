@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-mock.sh
+# Scipt name:	build-dnf-plugins-core.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest mock source
+# Description:	Attmpts to build a deb package from the latest dnf-plugins-core source
 #		code.
 #
-# See:		https://github.com/rpm-software-management/mock
+# See:		https://github.com/rpm-software-management/dnf-plugins-core
 #
-# Usage:	./build-mock.sh
+# Usage:	./build-dnf-plugins-core.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,21 +46,21 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/rpm-software-management/mock"
-TARGET="mock-1.3.2-1"
+SRC_URL="https://github.com/rpm-software-management/dnf-plugins-core"
+TARGET="dnf-plugins-core-1.3.2-1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-PKGNAME="mock"
-PKGVER=$(echo ${TARGET} | sed 's/mock-//;s/-//')
+PKGNAME="dnf-plugins-core"
+PKGVER=$(echo ${TARGET} | sed 's/dnf-plugins-core-//;s/-//')
 PKGREV="1"
-PKGSUFFIX="git+bsos"
+PKGSUFFIX=""
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -124,7 +124,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -138,12 +138,12 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi

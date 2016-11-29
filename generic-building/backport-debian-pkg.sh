@@ -472,7 +472,7 @@ function_backport_config()
 
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
-		PKGSUFFIX="${DIST_CODE}${PKGREV}"
+		PKGSUFFIX="${DIST_CODE}+${PKGREV}"
 
 	fi
 

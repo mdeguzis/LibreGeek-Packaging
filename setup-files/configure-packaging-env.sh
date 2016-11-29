@@ -172,6 +172,10 @@ setup_bulk_storage()
 			echo "# Volume: ${VOLUME_LOC} setup" | sudo tee -a "/etc/fstab"
 			echo "${VOLUME_LOC} /mnt/${VOLUME_NAME} ext4 defaults,nofail,discard 0 2" | sudo tee -a "/etc/fstab"
 
+			# Make sure storage is owned by user
+			if 
+			sudo chown -R $USER:$DEFAULT_USER_GROUP "/mnt/${VOLUME_NAME}"
+
 			# mount volumne and fail script if it did not complete
 			if sudo mount -a; then
 				echo -e "\nVolume: /mnt/${VOLUME_NAME} mounted successfully"
@@ -1086,7 +1090,12 @@ main()
 	# Check for root user, exit if true
 	# 'id -u', EUID, or whoami should be fine here
 	if [[ $(id -u) -eq 0 ]]; then
-		echo "Do not run this script as root!\n"
+		cat <<- EOF
+
+		Do not run this script as root!
+		Create a normal user first with 'adduser <name>'		
+
+		EOF
 		exit 1
 	fi
 
@@ -1105,20 +1114,27 @@ main()
 
 	fi
 
-	# OS-specific routines
+	# OS-specific routines and defaults
 
 	if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" || "${OS}" == "Ubuntu" ]]; then
 
 		setup_debian_variant
+		# Default user group
+		DEFAULT_USER_GROUP="${USER}"
 
 	elif [[ "${OS}" == "Arch" ]]; then
 
 		setup_arch_linux
+		# Default user group
+		DEFAULT_USER_GROUP="users"
 
 	elif [[ "${OS}" == "Fedora" ]]; then
 
 		# Set default packager
 		PKG_CMD="dnf"
+
+		# Default user group
+		DEFAULT_USER_GROUP="${USER}"
 
 		setup_rhel_variant
 		# Setup mock just for RHEL variants right now
@@ -1128,6 +1144,9 @@ main()
 
 		# Set default packager
 		PKG_CMD="yum"
+
+		# Default user group
+		DEFAULT_USER_GROUP="${USER}"
 
 		setup_rhel_variant
 		# Setup mock just for RHEL variants right now

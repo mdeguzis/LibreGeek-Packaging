@@ -105,6 +105,7 @@ if [[ "${OS}" == "SteamOS" ]]; then
 
 elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 
+
 	echo "I: LIBREGEEK: Adding Debian repository configuration"
 
 	# Get repo package(s)
@@ -134,6 +135,34 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 		fi
 
 	done
+
+	if [[ "$DEBIAN_TESTING" == "true" ]]; then
+
+		echo "I: LIBREGEEK: Adding LibreGeek Debian testing repository"
+
+		# Get this manually so we only have to update package listings once below
+		wget "http://packages.libregeek.org/jessie-testing.deb" -q -nc
+
+		if ! dpkg -i "jessie-testing.deb" &> /dev/null; then
+			echo "E: LIBREGEEK: Failed to add LibreGeek Debian testing repository. Exiting"
+			exit 1
+		fi
+
+	fi
+
+	if [[ "$DEBIAN_BACKPORTS" == "true" ]]; then
+
+		echo "I: LIBREGEEK: Adding LibreGeek Debian testing repository"
+
+		# Get this manually so we only have to update package listings once below
+		wget "http://packages.libregeek.org/jessie-backports.deb" -q -nc
+
+		if ! dpkg -i "jessie-backports.deb" &> /dev/null; then
+			echo "E: LIBREGEEK: Failed to add LibreGeek Debian backports repository. Exiting"
+			exit 1
+		fi
+
+	fi
 
 elif [[ "${OS}" == "Ubuntu" ]]; then
 

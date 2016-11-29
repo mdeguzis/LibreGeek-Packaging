@@ -1,0 +1,10 @@
+py/mock.py			/usr/bin/mock
+py/mockchain.py			/usr/bin/mockchain
+etc/pam/mock			/etc/pam/mock
+etc/mock/*			/etc/mock
+etc/bash_completion.d/*		/usr/share/bash-completion/completions
+etc/pki/*			/etc/pki/mock
+py/mockbuild			@PYTHON_SITELIB@
+docs/mock*.1			/usr/share/man/man1
+debian/mock.sysusers		/usr/lib/sysusers.d/mock.conf
+debian/mock.tmpfiles		/usr/lib/tmpfiles.d/mock.conf

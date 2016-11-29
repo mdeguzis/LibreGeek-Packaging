@@ -1,27 +1,16 @@
-Source: mock
+Source: dnf-plugins-core
 Section: devel
-Maintainer: Tzafrir Cohen <tzafrir@debian.org>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Priority: extra
 Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 9),
- dh-autoreconf,
- dh-exec,
- dh-python,
- rpm,
- python | python-all,
- pkg-config,
- bash-completion,
-Homepage: https://fedorahosted.org/mock/
-Vcs-Git: https://anonscm.debian.org/git/collab-maint/mock.git
-Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/mock.git
+ cmake,
+ python-sphinx
+Homepage: https://github.com/rpm-software-management/dnf-plugins-corek/
 
-Package: mock
+Package: dnf-plugins-core
 Architecture: all
 Depends: python, ${misc:Depends}, ${python:Depends},
- python-rpm, python-decoratortools, yum (>> 3.2.26), usermode, yum-utils
-Suggests: pigz
-Description: Build rpm packages inside a chroot
- Mock creates chroots and builds rpms in them. Its only task is to
- reliably populate a chroot and attempt to build a package in that
- chroot. It is used be the Fedora Extras project to build their
- packages cleanly. 
+ dnf,
+ python
+Description: Experimental plugins to use with DNF package manager.

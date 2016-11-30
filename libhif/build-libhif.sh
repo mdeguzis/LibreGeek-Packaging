@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/debian
-# Scipt name:	build-hawkey.sh
+# Scipt name:	build-libhif.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest hawkey source
+# Description:	Attmpts to build a deb package from the latest libhif source
 #		code.
 #
-# See:		https://github.com/rpm-software-management/hawkey
+# See:		https://github.com/rpm-software-management/libhif
 #
-# Usage:	./build-hawkey.sh
+# Usage:	./build-libhif.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,20 +46,20 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/rpm-software-management/hawkey"
-TARGET="hawkey-0.6.3-2"
+SRC_URL="https://github.com/rpm-software-management/libhif"
+TARGET="libhif_0_2_3"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-PKGNAME="hawkey"
-PKGVER=$(echo ${TARGET} | sed 's/hawkey-//;s/-.*//')
-PKGREV="2"
+PKGNAME="libhif"
+PKGVER=$(echo ${TARGET} | sed 's/libhif_//;s/_/\\./')
+PKGREV="1"
 PKGSUFFIX=""
 DIST="${DIST:=jessie}"
 URGENCY="low"
@@ -77,7 +77,8 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper \
-	bash-completion cmake python-sphinx rpm
+	libsolv0-dev libsolv-tools librepo python-dev librpm-dev libpackagekit-glib2-dev \
+	gtk-doc-tools gobject-introspection python-sphinx
 
 }
 

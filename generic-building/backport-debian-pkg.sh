@@ -395,7 +395,7 @@ function_backport_config()
 
 		rm -f ${BUILD_TMP}/*.orig.tar.*
 		cd ${BUILD_TMP}
-		tar -cvzf "${PKGNAME}_${PKGVER}${DIST_CODE}.orig.tar.gz" $(basename ${SRC_DIR})
+		tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	fi
 

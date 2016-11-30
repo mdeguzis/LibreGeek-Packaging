@@ -12,7 +12,6 @@ DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 %:
 	dh $@
 
-
 override_dh_auto_configure:
 	rm -rf build && mkdir build
 	cd build && cmake \

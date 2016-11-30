@@ -57,9 +57,8 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="doom64ex"
-PKGVER="0.${DATE_SHORT}"
+PKGVER="0.0.0"
 PKGREV="1"
-PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -109,6 +108,11 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
+
+	# Set suffix based on revisions
+	cd "${SRC_DIR}" 
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"	
 
 	# add extras
 	cp "${SCRIPTDIR}/doom64ex.png" "${SRC_DIR}"

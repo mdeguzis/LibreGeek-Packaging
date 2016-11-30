@@ -21,6 +21,31 @@ setup_arch_linux()
 	# FIXME
 	# MULTIARCH=$()
 
+	echo -e "\n==> Installing keyrings\n"
+	sleep 2s
+
+	# obtain keyring source for Valve archive keyring and convert it, not provided in AUR
+	mkdir -p "${HOME}/setup-temp" && cd "${HOME}/setup-temp"
+	wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q -nc --show-progress
+
+	# Convert
+	ar xv "${VALVE_KEYRING}.deb"
+	tar -xvf data.tar.xz
+	sudo cp "etc/apt/trusted.gpg.d/valve-archive-keyring.gpg" "/etc/apt/trusted.gpg.d/"
+	sudo cp "usr/share/keyrings/valve-archive-keyring.gpg" "/usr/share/keyrings"
+
+	# We also need to add the debian/ubuntu keyrings to the gpg trusted list
+	# sudo cp /usr/share/keyrings/debian* "/etc/apt/trusted.gpg.d/"
+	# sudo cp /usr/share/keyrings/ubuntu* "/etc/apt/trusted.gpg.d/"
+
+	# cleanup
+	cd ..
+	rm -rf "${HOME}/setup-temp"
+
+	# Standard packages
+	echo -e "\n==> Installing prerequisite packages\n"
+	sleep 2s
+
 	# Default pacman options
 	PACOPTS="--noconfirm --noprogressbar --needed"
 	AUROPTS="--noconfirm --needed --noedit"
@@ -58,9 +83,6 @@ setup_arch_linux()
 	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-keyring debian-archive-keyring \
 	linuxmint-keyring ubuntu-archive-keyring ubuntu-keyring apt devscripts debsig-verify-git rpmdevtools mock
 	
-	# Do we need custom AUR packages that are out of date?
-	CUSTOM_AUR_PKGS="false"
-	
 	# OBS Open Build System
 	# Disable this for now.
 
@@ -91,9 +113,8 @@ setup_arch_linux()
 		git clone "https://github.com/ProfessorKaos64/arch-aur-packages"
 		ROOT_DIR="${PWD}"
 		AUR_INSTALL_DIR="${ROOT_DIR}/arch-aur-packages"
-		MY_ARCH_PKGS="devscripts"
-		
-		for PKGs in ${MY_ARCH_PKGS};
+	
+		for PKGs in ${CUSTOM_AUR_PKG_LIST};
 		do
 
 			cd "${AUR_INSTALL_DIR}/${PKG}" || exit 1
@@ -218,34 +239,65 @@ setup_debian_variant()
 
 	fi
 
+	echo -e "\n==>Installing keyrings\n"
+	sleep 2s
+
+	# Set vars
+	VALVE_KEYRING="valve-archive-keyring_0.5+bsos3_all"
+
+	if [[ "${OS}" == "Debian" ]]; then
+
+		# Libregeek keyrings and repos
+		wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --nc -show-progress
+		wget "http://packages.libregeek.org/libregeek-debian-repo-latest.deb" -q -nc --show-progress
+		sudo dpkg -i libregeek-archive-keyring-latest.deb
+		sudo dpkg -i libregeek-debian-repo-latest.deb
+
+		# Obtain valve keyring
+		wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q --show-progress -nc 
+		sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
+		rm valve-archive-keyring*
+
+		# cleanup
+		rm -f libregeek-debian-repo-latest.deb.deb
+		rm -f libregeek-archive-keyring-latest.deb
+		rm -f valve-archive-keyring*.deb
+
+		# update for keyrings
+		echo -e "\n==> Updating system for newly added keyrings and repos\n"
+		sleep 2s
+		sudo apt-key update
+		sudo apt-get update
+
+	elif [[ "{OS}" == "SteamOS" ]]; then
+
+		# Libregeek keyrings and repos
+		wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
+		wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
+		sudo dpkg -i libregeek-archive-keyring-latest.deb
+		sudo dpkg -i steamos-tools-repo-latest.deb
+
+		# cleanup
+		rm -f steamos-tools-repo-latest.deb
+		rm -f libregeek-archive-keyring-latest.deb
+
+		# update for keyrings
+		echo -e "\n==> Updating system for newly added keyrings and repos\n"
+		sleep 2s
+		sudo apt-key update
+		sudo apt-get update
+
+	fi
+
 	# Standard packages
 	echo -e "\n==> Installing prerequisite packages\n"
 	sleep 2s
 
-	# Deboostrap was backport to include more scripts, specify version
-	# We want to specify our version, more up to date
-	# If not use available version
-
-	if [[ -f "/etc/apt/sources.list.d/steamos-tools.list" ]]; then
-
-		if sudo apt-get install -y --force-yes -t brewmaster debootstrap &> /dev/null; then
-
-			echo -e "Package: debootstrap [OK]"
-
-		else
-
-			# echo and exit if package install fails
-			echo -e "Package: debootstrap [FAILED] Exiting..."
-			exit 1
-
-		fi
-
-	fi
-
 	# Normal set of packages
-	PKGs="pbuilder libselinux1 libselinux1:i386 lsb-release bc devscripts libparse-debcontrol-perl \
-	sudo screen pv apt-file curl debian-keyring debian-archive-keyring ubuntu-archive-keyring \
-	gnupg osc obs-build mock sbuild apt-cacher-ng quilt"
+	PKGs=" apt-cacher-ng deboostrap pbuilder libselinux1 libselinux1:i386 lsb-release bc \
+	devscripts libparse-debcontrol-perl sudo screen pv apt-file curl debian-keyring \
+	debian-archive-keyring ubuntu-archive-keyring gnupg osc obs-build mock sbuild \
+	quilt"
 
 	for PKG in ${PKGs};
 	do
@@ -650,70 +702,6 @@ setup_pbuilder()
 	echo -e "\n==> Configuring pbuilder\n"
 	sleep 2s
 
-	echo -e "Installing keyrings\n"
-	sleep 2s
-
-	# Set vars
-	VALVE_KEYRING="valve-archive-keyring_0.5+bsos3_all"
-
-	if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
-
-		# Setup common packages
-
-		# clean packages if a prior attempt was used or source files were manually removed
-		sudo apt-get remove -yqq libregeek-archive-keyring* steamos-tools-repo* 
-
-		# Libregeek keyrings
-		wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
-		wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
-		sudo dpkg -i libregeek-archive-keyring-latest.deb
-		sudo dpkg -i steamos-tools-repo-latest.deb
-
-		# cleanup
-		rm -f steamos-tools-repo-latest.deb
-		rm -f libregeek-archive-keyring-latest.deb
-		rm -f valve-archive-keyring*.deb
-
-		# update for keyrings
-		echo -e "\n==> Updating system for newly added keyrings\n"
-		sleep 2s
-		sudo apt-key update
-		sudo apt-get update
-
-	elif [[ "${OS}" == "Arch" ]]; then
-
-		# obtain keyring source for Valve archive keyring and convert it, not provided in AUR
-		mkdir -p "${HOME}/setup-temp" && cd "${HOME}/setup-temp"
-		wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q -nc --show-progress
-
-		# Convert
-		ar xv "${VALVE_KEYRING}.deb"
-		tar -xvf data.tar.xz
-		sudo cp "etc/apt/trusted.gpg.d/valve-archive-keyring.gpg" "/etc/apt/trusted.gpg.d/"
-		sudo cp "usr/share/keyrings/valve-archive-keyring.gpg" "/usr/share/keyrings"
-
-		# We also need to add the debian/ubuntu keyrings to the gpg trusted list
-		# sudo cp /usr/share/keyrings/debian* "/etc/apt/trusted.gpg.d/"
-		# sudo cp /usr/share/keyrings/ubuntu* "/etc/apt/trusted.gpg.d/"
-
-		# cleanup
-		cd ..
-		rm -rf "${HOME}/setup-temp"
-
-	fi
-
-	# Setup Debian specific (such as the Valve keyring)
-	# This package is obviously in SteamOS already
-
-	if [[ "${OS}" == "Debian" ]]; then
-
-		# Obtain valve keyring
-		wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q --show-progress -nc 
-		sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
-		rm valve-archive-keyring*
-
-	fi
-
 	##########################
 	# Pbuilder folders
 	##########################
@@ -1116,13 +1104,32 @@ main()
 
 	# OS-specific routines and defaults
 
-	if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" || "${OS}" == "Ubuntu" ]]; then
+	if [[ "${OS}" == "Debian" ]]; then
 
+		VARIANT="Debian"
+		setup_debian_variant
+		# Default user group
+		DEFAULT_USER_GROUP="${USER}"	
+
+	elif [[ "${OS}" == "SteamOS" ]]; then
+
+		VARIANT="Ubuntu"
+		setup_debian_variant
+		# Default user group
+		DEFAULT_USER_GROUP="${USER}"
+
+	elif [[ "${OS}" == "Ubuntu" ]]; then
+
+		VARIANT="Ubuntu"
 		setup_debian_variant
 		# Default user group
 		DEFAULT_USER_GROUP="${USER}"
 
 	elif [[ "${OS}" == "Arch" ]]; then
+
+		# Do we need custom AUR packages that are out of date?
+		CUSTOM_AUR_PKGS="false"
+		CUSTOM_AUR_PKG_LIST=""
 
 		setup_arch_linux
 		# Default user group

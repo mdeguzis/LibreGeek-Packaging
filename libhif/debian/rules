@@ -17,6 +17,7 @@ override_dh_auto_configure:
 	cd build && cmake \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DPYTHON_DESIRED=3 \
 		..
 	# Install places libs/pkgconfig in /usr/lib64, which is not per the new
 	# spec /usr/lib/<triplet>, e.g. /usr/lib/x86_64-linux-gnu

@@ -468,11 +468,15 @@ function_backport_config()
 	# Calculate the ending suffix
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
-		PKGSUFFIX="-${PKGREV}~${DIST_CODE}+${PKGREV}"
+		# Per other backports/policy use foo_0.9.3-${PKGREV}~${DIST_CODE}+${PKGREV}
+		PKGVER="${PKGVER}-${PKGREV}"
+		PKGSUFFIX="~${DIST_CODE}+${PKGREV}"
 
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
-		PKGSUFFIX="${DIST_CODE}+${PKGREV}"
+		# Native format does not carry a revision
+		PKGVER="${PKGVER}"
+		PKGSUFFIX="~${DIST_CODE}+${PKGREV}"
 
 	fi
 

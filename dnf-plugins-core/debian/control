@@ -7,15 +7,15 @@ Build-Depends: debhelper (>= 9),
  cmake,
  dnf,
  libsolvext0,
- python-sphinx,
+ python3-sphinx,
  python-lzma, 
- python-nose, 
- python-rpm   
+ python3-nose, 
+ python3-rpm   
 Homepage: https://github.com/rpm-software-management/dnf-plugins-corek/
 
 Package: dnf-plugins-core
 Architecture: all
-Depends: python, ${misc:Depends}, ${python:Depends},
+Depends: python, ${misc:Depends}, ${python3:Depends},
  dnf,
- python
+ python3
 Description: Experimental plugins to use with DNF package manager.

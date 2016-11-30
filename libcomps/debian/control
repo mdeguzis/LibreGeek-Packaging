@@ -9,12 +9,12 @@ Build-Depends: debhelper (>= 9),
  doxygen,
  libexpat1-dev,
  libxml2-dev,
- python-all-dev
+ python3-all-dev
 Homepage:https://github.com/rpm-software-management/libcomps
 
 Package: libcomps
 Architecture: all
-Depends: python, ${misc:Depends}, ${python:Depends},
+Depends: python, ${misc:Depends}, ${python3:Depends},
  expat,
  libxml2
 Description: Libcomps is alternative for yum.comps library.

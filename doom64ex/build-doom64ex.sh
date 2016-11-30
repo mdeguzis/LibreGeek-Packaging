@@ -58,6 +58,7 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="doom64ex"
 PKGVER="0.0.0"
+EPOCH="2"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -112,7 +113,7 @@ main()
 	# Set suffix based on revisions
 	cd "${SRC_DIR}" 
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"	
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"	
 
 	# add extras
 	cp "${SCRIPTDIR}/doom64ex.png" "${SRC_DIR}"
@@ -144,13 +145,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		dch -p --force-distribution -v ""${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		dch -p --create --force-distribution -v ""${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 

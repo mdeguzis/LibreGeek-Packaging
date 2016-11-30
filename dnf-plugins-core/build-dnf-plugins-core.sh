@@ -59,7 +59,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 PKGNAME="dnf-plugins-core"
 PKGVER=$(echo ${TARGET} | sed 's/dnf-plugins-core-//;s/-//')
-PKGREV="1"
+PKGREV="2"
 PKGSUFFIX="rc1.1"
 DIST="${DIST:=jessie}"
 URGENCY="low"
@@ -124,7 +124,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}~${PKSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -138,12 +138,12 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}~${PKSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}~${PKSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi

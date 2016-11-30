@@ -1,0 +1,6 @@
+# Git tags are signed:
+mock source: debian-watch-may-check-gpg-signature
+
+# None provided:
+mock: no-upstream-changelog
+

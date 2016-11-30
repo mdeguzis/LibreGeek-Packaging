@@ -1,13 +1,15 @@
 #!/bin/bash
-# -------------------------------------------------------------------------------
-# Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	  build-cmake.sh
-# Script Ver:	  0.7.9
-# Description:	  Attmpts to build a deb package from Plex Media Player git source
-#                 Installs cmake to '/usr/local/bin/cmake'
-# See:		  https://cmake.org/download/
-# Usage:	 ./build-cmake.sh
+#-------------------------------------------------------------------------------
+# Author:	Michael DeGuzis
+# Git:		https://github.com/ProfessorKaos64/debian
+# Scipt name:	build-hawkey.sh
+# Script Ver:	0.1.1
+# Description:	Attmpts to build a deb package from the latest hawkey source
+#		code.
+#
+# See:		https://github.com/rpm-software-management/hawkey
+#
+# Usage:	./build-hawkey.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -34,43 +36,38 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_x/packaging/debian/incoming_testing"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming"
+	REPO_FOLDER="/mnt/server_media_x/packaging/debian/incoming"
 
 fi
-
-# upstream URL
-SRC_URL="https://cmake.org/cmake.git"
-TARGET="v3.6.1"
+# upstream vars
+SRC_URL="https://github.com/rpm-software-management/hawkey"
+TARGET="hawkey-0.6.3-2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
-export USE_NETWORK="yes"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-export NO_LINTIAN="false"
-export NO_PKG_TEST="false"
-PKGNAME="cmake"
-UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
-PKGVER="3.6.1"
-PKGREV="1"
-PKGSUFFIX="bpo8"
+export USE_NETWORK="no"
+PKGNAME="hawkey"
+PKGVER=$(echo ${TARGET} | sed 's/hawkey-//;s/-.*//')
+PKGREV="2"
+PKGSUFFIX=""
 DIST="${DIST:=jessie}"
 URGENCY="low"
+UPLOADER="debian Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
-# build dirs
-export BUILD_TMP="$HOME/build-${PKGNAME}-tmp"
+# set build directories
+export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
@@ -78,22 +75,16 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	# install needed packages
-	sudo apt-get install -y --force-yes git devscripts build-essential checkinstall \
-	debhelper dpkg-dev libarchive-dev libbz2-dev libcurl4-openssl-dev libexpat1-dev \
-	libjsoncpp-dev liblzma-dev libncurses5-dev procps python-sphinx qtbase5-dev zlib1g-dev
+	# install basic build packages
+	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper \
+	bash-completion cmake python-sphinx rpm
 
 }
 
 main()
 {
 
-
-	#################################################
-	# Fetch source
-	#################################################
-
-	# create and enter BUILD_TMP
+	# create BUILD_TMP
 	if [[ -d "${BUILD_TMP}" ]]; then
 
 		sudo rm -rf "${BUILD_TMP}"
@@ -105,8 +96,8 @@ main()
 
 	fi
 
-	# Enter build dir
-	cd "${BUILD_TMP}"
+	# enter build dir
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
@@ -116,48 +107,44 @@ main()
 
 	fi
 
-	echo -e "\n==> Fetching upstream source\n"
+	echo -e "\n==> Obtaining upstream source code\n"
 
-	# Get upstream source
+	# clone and get latest commit tag
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
-	# Build cmake source
+	# Build package
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"sleep 2s
+	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
 	# Trim .git folders
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	cd "${BUILD_TMP}"
+	cd "${BUILD_TMP}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
-	# copy in debian folder
+	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
 
-	# gather commits
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSUFFIX}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update release"
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
-
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSUFFIX}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
 
@@ -168,17 +155,27 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
 
+	# clean up dirs
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
+
+	# output finish
+	echo -e "\nTime started: ${TIME_STAMP_START}"
+	echo -e "Time started: ${time_stamp_end}"
+	echo -e "Total Runtime (minutes): $runtime\n"
+
+
+	# assign value to build folder for exit warning below
+	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# inform user of packages
 	cat<<- EOF
@@ -206,7 +203,7 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog

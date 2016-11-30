@@ -59,20 +59,20 @@ target="master"
 date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
+EPOCH="2"
 BUILDER="pdebuild"
 BUILDOPTS=""
-pkgname="doom64ex"
-pkgver="0.${date_short}"
-pkgrev="1"
-pkgsuffix="git+bsos"
+PKGNAME="doom64ex"
+PKGVER="0.0.0"
+PKGREV="1"
 DIST="jessie"
 urgency="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # set BUILD_DIRs
-export BUILD_DIR="${HOME}/build-${pkgname}-temp"
-src_dir="${pkgname}-${pkgver}"
+export BUILD_DIR="${HOME}/build-${PKGNAME}-temp"
+src_dir="${PKGNAME}-${PKGVER}"
 git_dir="${BUILD_DIR}/${src_dir}"
 
 install_prereqs()
@@ -116,6 +116,11 @@ main()
 
 	git clone -b "${target}" "${git_url}" "${git_dir}" 
 
+	# Set suffix based on revisions
+	cd "${SRC_DIR}" 
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
+
 	# add extras
 	cp "${scriptdir}/doom64ex.png" "${git_dir}"
 
@@ -128,7 +133,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_DIR}" || exit
-	tar -cvzf "${pkgname}_${pkgver}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${pkgsuffix}.orig.tar.gz" "${src_dir}"
 
 	# Add debian folder stuff
 	if [[ "${target}" == "release" ]]; then
@@ -152,14 +157,14 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Master build, using clang"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Master build, using clang"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${pkgver}+${pkgsuffix}-${pkgrev}" -M \
-		--package "${pkgname}" -D "${DIST}" -u "${urgency}" "Initial upload"
+		dch -p --create --force-distribution -v ""${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		--package "${PKGNAME}" -D "${DIST}" -u "${urgency}" "Initial upload"
 		nano "debian/changelog"
 
 	fi
@@ -168,7 +173,7 @@ main()
 	# Build Debian package
 	#################################################
 
-	echo -e "\n==> Building Debian package ${pkgname} from source\n"
+	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
 	USENETWORK=$USENETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
@@ -200,7 +205,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_DIR}: \n"
-	ls "${BUILD_DIR}" | grep -E *${pkgver}*
+	ls "${BUILD_DIR}" | grep -E *${PKGVER}*
 
 	echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 	sleep 0.5s

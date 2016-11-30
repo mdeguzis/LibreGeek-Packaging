@@ -8,13 +8,13 @@ Build-Depends: debhelper (>= 9),
  cmake,
  gtk-doc-tools,
  gobject-introspection,
- libsolv0-dev,
+ libsolv0-dev (>= 0.6.21),
  libsolv-tools,
  librepo,
  librpm-dev,
  libpackagekit-glib2-dev,
- python-dev,
- python-sphinx
+ python3-dev,
+ python3-sphinx
 Homepage:https://github.com/rpm-software-management/libhif
 
 Package: libhif

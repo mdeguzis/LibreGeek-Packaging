@@ -58,7 +58,7 @@ BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 PKGNAME="libhif"
-PKGVER=$(echo ${TARGET} | sed 's/libhif_//;s/_/./')
+PKGVER=$(echo ${TARGET} | sed 's/libhif_//;s/_/./g')
 PKGREV="1"
 PKGSUFFIX=""
 DIST="${DIST:=jessie}"

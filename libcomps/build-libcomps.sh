@@ -59,7 +59,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
 PKGNAME="libcomps"
 PKGVER=$(echo ${TARGET} | sed 's/libcomps-//')
-PKGREV="1"
+PKGREV="2"
 PKGSUFFIX=""
 DIST="${DIST:=jessie}"
 URGENCY="low"
@@ -77,7 +77,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper \
-	cmake check doxygen libexpat1-dev libxml2-dev python
+	cmake check doxygen libexpat1-dev libxml2-dev python3-all-dev
 
 }
 

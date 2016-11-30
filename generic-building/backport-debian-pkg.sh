@@ -345,23 +345,23 @@ function_backport_config()
 	case "${DIST}"  in
 
 		brewmaster)
-		DIST_CODE="+bsos"
+		DIST_CODE="bsos"
 		;;
 
 		jessie)
-		DIST_CODE="~bpo8"
+		DIST_CODE="bpo8"
 		;;
 
 		trusty)
-		DIST_CODE="~ubuntu14.04.5"
+		DIST_CODE="ubuntu14.04.5"
 		;;
 
 		xenial)
-		DIST_CODE="~ubuntu16.04.1"
+		DIST_CODE="ubuntu16.04.1"
 		;;
 
 		yakkety)
-		DIST_CODE="~ubuntu16.10"
+		DIST_CODE="ubuntu16.10"
 		;;
 
 	esac
@@ -468,7 +468,7 @@ function_backport_config()
 	# Calculate the ending suffix
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
-		PKGSUFFIX="${DIST_CODE}-${PKGREV}"
+		PKGSUFFIX="-${PKGREV}~${DIST_CODE}+${PKGREV}"
 
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 

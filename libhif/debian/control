@@ -4,23 +4,22 @@ Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Priority: extra
 Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 9),
- check (>= 0.10.0),
+ build-essential,
  cmake,
- bash-completion,
- libexpat1-dev,
- librpm-dev,
- libsolvext0-dev,
+ gtk-doc-tools,
+ gobject-introspection,
  libsolv0-dev,
- python-all-dev,
- python-nose,
- python-sphinx,
- rpm,
- zlib1g-dev
-Homepage:https://github.com/rpm-software-management/hawkey
+ libsolv-tools,
+ librepo,
+ librpm-dev,
+ libpackagekit-glib2-dev,
+ python-dev,
+ python-sphinx
+Homepage:https://github.com/rpm-software-management/libhif
 
 Package: hawkey
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends},
  libsolv0,
- zlib1g
-Description: Next upcoming major version of Yum. 
+Description: Provides a high level package-manager . 
+ It uses librepo and hawkey under the hood.

@@ -15,9 +15,10 @@ DEB_HOST_ARCH_CPU ?= $(shell dpkg-architecture -qDEB_HOST_ARCH_CPU)
 
 override_dh_auto_configure:
 	rm -rf build && mkdir build
-	cd build && cmake -DCMAKE_BUILD_TYPE=Release  \
-	-DCMAKE_INSTALL_PREFIX=/usr \
-	..
+	cd build && cmake \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		..
 	# Install places libs/pkgconfig in /usr/lib64, which is not per the new
 	# spec /usr/lib/<triplet>, e.g. /usr/lib/x86_64-linux-gnu
 	# There does not appear to be a CMakeCache entry to change this

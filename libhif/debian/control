@@ -1,4 +1,4 @@
-Source: hawkey
+Source: libhif
 Section: devel
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Priority: extra
@@ -17,7 +17,7 @@ Build-Depends: debhelper (>= 9),
  python-sphinx
 Homepage:https://github.com/rpm-software-management/libhif
 
-Package: hawkey
+Package: libhif
 Architecture: all
 Depends: ${misc:Depends}, ${python:Depends},
  libsolv0,

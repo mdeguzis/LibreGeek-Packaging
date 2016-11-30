@@ -47,7 +47,9 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/rpm-software-management/libhif"
-TARGET="libhif_0_2_3"
+#TARGET="libhif_0_2_3"
+# The 0.2.3 release did not yet contain CMakeLists.txt
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,7 +62,6 @@ export USE_NETWORK="no"
 PKGNAME="libhif"
 PKGVER=$(echo ${TARGET} | sed 's/libhif_//;s/_/./g')
 PKGREV="1"
-PKGSUFFIX=""
 DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="debian Signing Key <mdeguzis@gmail.com>"
@@ -112,6 +113,11 @@ main()
 
 	# clone and get latest commit tag
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	# Set suffix based on revisions
+	cd "${SRC_DIR}" 
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Build package

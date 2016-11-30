@@ -29,6 +29,6 @@ override_dh_auto_build:
 	make -C build/tests
 
 override_dh_auto_install:
-	make DESTDIR=$(CURDIR)/debian/hawkey -C build install
+	make DESTDIR=$(CURDIR)/debian/libhif -C build install
 
 override_dh_auto_test:

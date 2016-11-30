@@ -1,0 +1,11 @@
+--- a/Modules/FindQt4.cmake
++++ b/Modules/FindQt4.cmake
+@@ -734,7 +734,7 @@ if (QT_QMAKE_EXECUTABLE AND
+   if (QT_LIBRARY_DIR AND NOT QT_IMPORTS_DIR OR QT_QMAKE_CHANGED)
+     _qt4_query_qmake(QT_INSTALL_IMPORTS qt_imports_dir)
+     if(qt_imports_dir)
+-      set(QT_IMPORTS_DIR NOTFOUND)
++      set(QT_IMPORTS_DIR "${qt_imports_dir}")
+       foreach(qt_cross_path ${CMAKE_FIND_ROOT_PATH})
+         set(qt_cross_paths ${qt_cross_paths} "${qt_cross_path}/imports")
+       endforeach()

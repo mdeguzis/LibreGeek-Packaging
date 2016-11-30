@@ -6,20 +6,20 @@ Standards-Version: 3.9.8
 Build-Depends: debhelper (>= 9),
  cmake,
  bash-completion,
- python-nose,
- python-sphinx
+ python3-nose,
+ python3-sphinx
 Homepage:https://github.com/rpm-software-management/dnf
 
 Package: dnf
 Architecture: all
-Depends: python, ${misc:Depends}, ${python:Depends},
+Depends: python, ${misc:Depends}, ${python3:Depends},
  hawkey,
  libcomps,
  librepo,
  rpm,
- python,
- python-iniparse,
- python-pygpgme
+ python3,
+ python3-iniparse,
+ python3-pygpgme
 Description: Next upcoming major version of Yum. 
  It does package management using RPM, libsolv and
  hawkey libraries. For metadata handling and package

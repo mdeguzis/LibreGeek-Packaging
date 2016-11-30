@@ -102,9 +102,6 @@ function_set_vars()
 	if [[ "${PKGREV}" == "" ]]; then PKGREV="${OLD_PKGREV}"; fi
 	export OLD_PKGREV="${PKGREV}"
 
-	# Add revision for backports
-	PKGVER="${PKGVER}-${PKGREV}"
-
 	echo -e "\nPress ENTER to use last: ${OLD_ARCH}"
 	read -erp "Arch target: " ARCH
 	if  [[ "${ARCH}" == "" ]]; then ARCH="${OLD_ARCH}"; fi
@@ -471,10 +468,14 @@ function_backport_config()
 	# Calculate the ending suffix
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
+		# Add revision for backports
+		PKGVER="${PKGVER}-${PKGREV}"
 		PKGSUFFIX="~${DIST_CODE}+${PKGREV}"
 
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
+		# Add revision for backports
+		PKGVER="${PKGVER}-${PKGREV}"
 		PKGSUFFIX="~${DIST_CODE}+${PKGREV}"
 
 	fi

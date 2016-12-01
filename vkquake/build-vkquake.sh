@@ -47,22 +47,22 @@ fi
 # upstream vars
 #GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
 GIT_URL="https://github.com/Novum/vkQuake"
-branch="master"
+branch="0.72"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="sbuild"
-BUILDOPTS="-d jessie -c jessie-amd64-sbuild"
+BUILDER="pbuilder"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.50"
+PKGVER="0.72"
 PKGREV="1"
 EPOCH="1"
 PKGSUFFIX="${DATE_SHORT}git"
-DIST="jessie"
+DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"

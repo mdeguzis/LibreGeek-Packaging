@@ -52,7 +52,7 @@ PKGNAME="vkquake"
 PKGREV="1"
 PKGSUFFIX="linux_64"
 epoch="1"
-DIST="${DIST:=brewmaster}"
+DIST="${DIST:=jessie}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -123,7 +123,7 @@ main()
 	# clone and get latest commit tag
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
 	# Build Debian package
@@ -146,7 +146,6 @@ main()
 		USE_CODEC_UMX=1
 	make -C Misc/vq_pak
 
-
 	#################################################
 	# Install process
 	#################################################
@@ -157,7 +156,9 @@ main()
 	# Move binary to root vkquake dir
 	# check for built binary
 	if [[ -f "${SRC_DIR}/Quake/vkquake" ]]; then
-		echo "Successfully built vkQuake"
+		echo -e "\n==> Successfully built vkQuake\n"
+		sleep 2s
+		cp "${SRC_DIR}/Quake/vkquake" "${SRC_DIR}"
 	else
 		echo "Could not build vkQuake! Please ensure your GPU is Vulkan-capable." >&2
 		sleep 5s

@@ -145,7 +145,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" --package \
-		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Convert to Python 3"
 		nano "debian/changelog"
 
 	else

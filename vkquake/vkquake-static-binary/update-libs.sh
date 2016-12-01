@@ -6,6 +6,10 @@
 
 TYPE="$1"
 
+echo -e "\n==> Updating package listsings"
+sleep 2s
+sudo apt-get update
+
 # Prereqs
 
 if [[ ! -d "libs" || ! -d "libs-all" ]]; then

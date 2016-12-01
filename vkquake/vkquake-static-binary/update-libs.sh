@@ -6,7 +6,7 @@
 
 TYPE="$1"
 
-echo -e "\n==> Updating package listsings"
+echo -e "\n==> Updating package listsings\n"
 sleep 2s
 sudo apt-get update
 
@@ -61,5 +61,14 @@ if [[ "${TYPE}" == "all" ]]; then
 	done < "$file"
 
 	echo "done!"
+
+else
+
+	cat<<- 
+	
+	Script requires an argument!
+	Availble: [all]
+
+	EOF
 
 fi

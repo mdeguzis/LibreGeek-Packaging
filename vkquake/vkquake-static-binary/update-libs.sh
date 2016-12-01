@@ -41,6 +41,9 @@ ldd /usr/games/vkquake | cut -d " " -f 3 &> libs-all.txt
 
 if [[ "${TYPE}" == "all" ]]; then
 
+	# clean out old libs
+	rm -r libs-all/*
+
 	echo -e "\nUpdating static libs"
 	sleep 2s
 

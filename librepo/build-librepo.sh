@@ -58,7 +58,7 @@ BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="librepo"
 PKGVER=$(echo ${TARGET} | sed 's/librepo-//g')
-PKGREV="2"
+PKGREV="3"
 PKGSUFFIX=""
 DIST="${DIST:=jessie}"
 URGENCY="low"

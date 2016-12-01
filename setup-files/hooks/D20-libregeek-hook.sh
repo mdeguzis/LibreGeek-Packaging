@@ -164,7 +164,7 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 
 	fi
 
-elif [[ "${OS}" == "Ubuntu" ]]; then
+elif [[ "${OS}" == "Ubuntu" || "${OS}" == "ubuntu" ]]; then
 
 	echo "I: LIBREGEEK: Checking for required PPA prereqs"
 

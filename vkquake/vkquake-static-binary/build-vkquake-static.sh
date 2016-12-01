@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-vkquake.sh
+# Scipt name:	build-vkquake-static.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the latest vkquake source
-#		code.
+#		code. This is a static/bundled build.
 #
 # See:		https://github.com/Novum/vkQuake
 #
-# Usage:	./build-vkquake.sh
+# Usage:	./build-vkquake-static.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -35,45 +35,51 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-if [[ "$arg1" == "--testing" ]]; then
-
-	REPO_FOLDER="/mnt/server_media_x/packaging/ubuntu/incoming_testing"
-
-else
-
-	REPO_FOLDER="/mnt/server_media_x/packaging/ubuntu/incoming"
-
-fi
 # upstream vars
-#GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
-GIT_URL="https://github.com/Novum/vkQuake"
-branch="0.72"
+#SRC_URL="https://github.com/ProfessorKaos64/vkQuake"
+SRC_URL="https://github.com/Novum/vkQuake"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDER=""
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
+export NO_LINTIAN="false"
+export NO_PKG_TEST="false"
 PKGNAME="vkquake"
-# Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.72"
 PKGREV="1"
-EPOCH="1"
-PKGSUFFIX="${DATE_SHORT}git"
-DIST="${DIST:=yakkety}"
+PKGSUFFIX="linux_64"
+epoch="1"
+DIST="${DIST:=jessie}"
 URGENCY="low"
-UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
+UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
+
+# Set out targets if building a stable binary or git master
+
+if [[ "$arg1" == "--testing" ]]; then
+
+        REPO_FOLDER="/mnt/server_media_x/packaging/linux-binaries/testing"
+        TARGET="master"
+	PKGVER="${DATE_SHORT}git"
+
+else
+
+        TARGET="0.72"
+        REPO_FOLDER="/mnt/server_media_x/packaging/linux-binaries/stable"
+	# Source version from vkQuake/Quake/quakedef.h
+	PKGVER="0.72.0"
+
+fi
 
 # Need network for pbuilder to pull down ut4 zip
 export NETWORK="yes"
 
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -81,7 +87,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential vulkan-dev libsdl2-dev
+	sudo apt-get install -y --force-yes dpkg-dev libflac-dev libmad0-dev libmikmod-dev \
+	libopusfile-dev libsdl2-dev libvorbis-dev libvulkan-dev
 
 }
 
@@ -104,7 +111,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	if [[ "${BUILDER}" != "pdebuild" ]]; then
+	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
@@ -114,49 +121,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
-	cd "${GIT_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-
-	# Add required files and artwork
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
-	cp "${SCRIPTDIR}/vkquake.png" "${GIT_DIR}"
-	cp "${GIT_DIR}/LICENSE.txt" "${GIT_DIR}/debian/LICENSE"
-	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
-
-	#################################################
-	# Build package
-	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# create source tarball
-	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
-
-	# enter source dir
-	cd "${GIT_DIR}"
-
-	echo -e "\n==> Updating changelog"
-	sleep 2s
-
-	# update changelog with dch
-	# "Update to the latest commit ${latest_commit}"
-	if [[ -f "debian/changelog" ]]; then
-
-		dch -p --force-distribution -v "${PKGVER}}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest commit ${latest_commit}"
-		nano "debian/changelog"
-
-	else
-
-		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano "debian/changelog"
-
-	fi
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
 	#################################################
 	# Build Debian package
@@ -165,27 +132,70 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+
+	cd "${SRC_DIR}"
+
+	make -C Quake clean
+	make -C Quake release \
+		DO_USERDIRS=1 \
+		USE_SDL2=1 \
+		USE_CODEC_FLAC=1 \
+		USE_CODEC_OPUS=1 \
+		USE_CODEC_MIKMOD=1 \
+		USE_CODEC_UMX=1
+	make -C Misc/vq_pak
+
+	#################################################
+	# Install process
+	#################################################
+
+	echo -e "\n==> Creating Linux binary package\n"
+	sleep 3s
+
+	# Move binary to root vkquake dir
+	# check for built binary
+	if [[ -f "${SRC_DIR}/Quake/vkquake" ]]; then
+		echo -e "\n==> Successfully built vkQuake\n"
+		sleep 2s
+		cp "${SRC_DIR}/Quake/vkquake" "${SRC_DIR}"
+	else
+		echo "Could not build vkQuake! Please ensure your GPU is Vulkan-capable." >&2
+		sleep 5s
+		exit 1
+	fi
+
+	# Add libs, launcher, and readme for binary7
+
+	cp -r ${SCRIPTDIR}/libs-all/* "${SRC_DIR}"
+	cp "${SCRIPTDIR}/vkquake-launch.sh" "${SRC_DIR}"
+	cp "${SCRIPTDIR}/vkquake.readme" "${SRC_DIR}"
+
+	# Get rid of all uncecessary files
+
+	files="debian Misc Quake Shaders vkquake-launch Windows vkquake.png .git"
+
+	for file in $files;
+	do
+
+		echo "Removing uneeded file: ${file}"
+		rm -rf "${SRC_DIR}/${file}"
+
+	done
+
+	# Create tar archive
+
+	cd "${BUILD_TMP}"
+	tar -czvf "${PKGNAME}-${PKGVER}_${PKGSUFFIX}.tar.gz" $(basename ${SRC_DIR})
 
 	#################################################
 	# Cleanup
 	#################################################
 
-	# clean up dirs
-
-	# note time ended
-	time_end=$(date +%s)
-	time_stamp_end=(`date +"%T"`)
-	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# inform user of packages
 	cat<<- EOF
@@ -197,12 +207,10 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+	ls "${BUILD_TMP}"
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.
-
-	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -214,25 +222,13 @@ main()
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
-			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
-			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			${BUILD_TMP}/${PKGNAME}*.gz ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"
 		fi
 
-	else
-
-		# Output log file to sprunge (pastebin) for review
-		echo -e "\n==OH NO!==\nIt appears the build has failed. See below log file:"
-		cat ${BUILD_TMP}/${PKGNAME}*.build | curl -F 'sprunge=<-' http://sprunge.us
-
-	fi
-
 }
 
 # start main
 main
-

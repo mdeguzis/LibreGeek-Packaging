@@ -11,7 +11,7 @@ Build-Depends:
  libopusfile-dev,
  libsdl2-dev,
  libvorbis-dev,
- libvulkan-dev
+ libvulkan-dev (>= 1.0.12.0)
 Standards-Version: 3.9.6
 Homepage: https://github.com/Novum/vkQuake
 

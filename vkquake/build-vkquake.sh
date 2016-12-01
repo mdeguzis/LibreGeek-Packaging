@@ -61,7 +61,6 @@ PKGNAME="vkquake"
 PKGVER="0.72"
 PKGREV="1"
 EPOCH="1"
-PKGSUFFIX="${DATE_SHORT}git"
 DIST="${DIST:=yakkety}"
 URGENCY="low"
 UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
@@ -115,8 +114,23 @@ main()
 
 	# clone and get latest commit tag
 	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
-	cd "${GIT_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+
+        # Set PKGSUFFIX based on Ubuntu DIST
+        case "${DIST}" in
+
+                trusty)
+                PKGSUFFIX="ubuntu14.04.5"
+                ;;
+
+                xenial)
+                PKGSUFFIX="ubuntu16.04.1"
+                ;;
+
+                yakkety)
+                PKGSUFFIX="ubuntu16.10"
+                ;;
+
+        esac
 
 	# Add required files and artwork
 	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
@@ -145,14 +159,14 @@ main()
 	# "Update to the latest commit ${latest_commit}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSFUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSFUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
 		nano "debian/changelog"
 

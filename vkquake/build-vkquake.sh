@@ -115,15 +115,15 @@ main()
         case "${DIST}" in
 
                 trusty)
-                PKGVER="${PKGVER}-${PKGREV}~ubuntu14.04.5"
+                PKGVER="${PKGVER}~ubuntu14.04.5"
                 ;;
 
                 xenial)
-                PKGVER="${PKGVER}-${PKGREV}~ubuntu16.04.1"
+                PKGVER="${PKGVER}~ubuntu16.04.1"
                 ;;
 
                 yakkety)
-                PKGVER="${PKGVER}-${PKGREV}~ubuntu16.10"
+                PKGVER="${PKGVER}~ubuntu16.10"
                 ;;
 
         esac

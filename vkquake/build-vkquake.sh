@@ -159,14 +159,14 @@ main()
 	# "Update to the latest commit ${latest_commit}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSFUFFIX}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSFUFFIX}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
 		nano "debian/changelog"
 

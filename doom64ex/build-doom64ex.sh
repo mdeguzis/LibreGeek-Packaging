@@ -118,15 +118,15 @@ main()
         case "${DIST}" in
 
                 trusty)
-                PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~ubuntu14.04.5"
+                PKGVER="git${DATE_SHORT}.${LATEST_COMMIT}~ubuntu14.04.5"
                 ;;
 
                 xenial)
-                PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~ubuntu16.04.1"
+                PKGVER="git${DATE_SHORT}.${LATEST_COMMIT}~ubuntu16.04.1"
                 ;;
 
                 yakkety)
-                PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~ubuntu16.10"
+                PKGVER="git${DATE_SHORT}.${LATEST_COMMIT}~ubuntu16.10"
                 ;;
 
         esac
@@ -146,7 +146,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}~${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add debian folder stuff
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -161,13 +161,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-bad-version --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" -M \
+		dch -p --force-bad-version --force-distribution -v "${PKGVER}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}~${PKGREV}" -M \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		nano "debian/changelog"
 

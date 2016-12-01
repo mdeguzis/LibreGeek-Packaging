@@ -12,7 +12,7 @@ Homepage:https://github.com/rpm-software-management/dnf
 
 Package: dnf
 Architecture: all
-Depends: python, ${misc:Depends}, ${python3:Depends},
+Depends: ${misc:Depends}, ${python3:Depends},
  hawkey,
  libcomps,
  librepo,

@@ -120,9 +120,9 @@ main()
 
 	# Add required files and artwork
 	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
-#	cp "${SCRIPTDIR}/vkquake.png" "${GIT_DIR}"
+	cp "${SCRIPTDIR}/vkquake.png" "${GIT_DIR}"
 	cp "${GIT_DIR}/LICENSE.txt" "${GIT_DIR}/debian/LICENSE"
-#	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
+	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
 
 	#################################################
 	# Build package

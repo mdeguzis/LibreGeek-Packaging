@@ -12,7 +12,7 @@ Build-Depends: debhelper,
  libglib2.0-dev,
  libpython3-dev,
  libssl-dev,
- python3-flask,
+ python-flask,
  python3-gpgme,
  python3-nose,
  python3-pyxattr

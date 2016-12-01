@@ -122,7 +122,9 @@ function_set_vars()
 	if [[ "${DIST}" == "brewmaster" ]]; then PROJECT_FOLDER="steamos-tools"; fi
 	if [[ "${DIST}" == "jessie" ]]; then PROJECT_FOLDER="debian"; fi
 	if [[ "${DIST}" == "jessie-backports" ]]; then PROJECT_FOLDER="debian"; fi
-	if [[ "${DIST}" == "ubuntu" ]]; then PROJECT_FOLDER="ubuntu"; fi
+	if [[ "${DIST}" == "trustya" ]]; then PROJECT_FOLDER="ubuntu"; fi
+	if [[ "${DIST}" == "xenial" ]]; then PROJECT_FOLDER="ubuntu"; fi
+	if [[ "${DIST}" == "yakkety" ]]; then PROJECT_FOLDER="ubuntu"; fi
 
 	# Set repo folder destination
 	if [[ "${TEST_REPO}" == "false" ]]; then

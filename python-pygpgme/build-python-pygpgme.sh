@@ -56,7 +56,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-PKGNAME="python-pygpgme"
+PKGNAME="python3-pygpgme"
 PKGVER="${TARGET}"
 PKGREV="1"
 PKGSUFFIX=""
@@ -76,7 +76,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper \
-	python gpgme
+	python3 gpgme
 
 }
 

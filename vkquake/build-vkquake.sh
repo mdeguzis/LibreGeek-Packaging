@@ -66,9 +66,6 @@ URGENCY="low"
 UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
-# Need network for pbuilder to pull down ut4 zip
-export NETWORK="yes"
-
 # set build directories
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
@@ -118,15 +115,15 @@ main()
         case "${DIST}" in
 
                 trusty)
-                PKGSUFFIX="ubuntu14.04.5"
+                PKGVER="${PKGVER}-${PKGREV}~ubuntu14.04.5"
                 ;;
 
                 xenial)
-                PKGSUFFIX="ubuntu16.04.1"
+                PKGVER="${PKGVER}-${PKGREV}~ubuntu16.04.1"
                 ;;
 
                 yakkety)
-                PKGSUFFIX="ubuntu16.10"
+                PKGVER="${PKGVER}-${PKGREV}~ubuntu16.10"
                 ;;
 
         esac
@@ -146,7 +143,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}~${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -158,14 +155,14 @@ main()
 	# "Update to the latest commit ${latest_commit}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSUFFIX}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Upload for ${DIST}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}~${PKGSUFFIX}" \
+		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
 		nano "debian/changelog"
 

@@ -10,20 +10,20 @@ Build-Depends: debhelper,
  libcurl4-openssl-dev,
  libgpgme11-dev, 
  libglib2.0-dev,
- libpython2.7-dev,
+ libpython3-dev,
  libssl-dev,
- python-flask,
- python-gpgme,
- python-nose,
- python-pyxattr
+ python3-flask,
+ python3-gpgme,
+ python3-nose,
+ python3-pyxattr
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.7
 Homepage: https://github.com/rpm-software-management/librepo
 
 Package: librepo
 Architecture: amd64
-Depends: ${misc:Depends},
- ${shlibs:Depends},
+Depends: ${misc:Depends}, ${python3:Depends},
+ python3
 Description: Python lib for C/python download API
  librepo - A library providing C and Python (libcURL like)
  API for downloading linux repository metadata and packages

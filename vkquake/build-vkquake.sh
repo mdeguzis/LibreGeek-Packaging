@@ -54,7 +54,7 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debuildopts -sa --debbbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h

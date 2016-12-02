@@ -54,6 +54,7 @@ uploader="Michael DeGuzisd <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # Initial vars for other objects
+EXTRA_OPTS+=()
 TEST_REPO="false"
 BETA_REPO=""
 RETRY_BUILD="false"
@@ -63,7 +64,6 @@ USER_COMMANDS="false"
 DEB_BUILD_PROFILES=""
 export DGET_OPTS="-x"		# default
 export USE_NETWORK="no"
-export EXTRA_OPTS=""
 export NO_APT_PREFS="false"
 export NO_PKG_TEST="false"
 export NO_LINTIAN="false"

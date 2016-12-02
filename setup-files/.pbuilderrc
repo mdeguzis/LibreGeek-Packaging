@@ -97,10 +97,10 @@ fi
 # Given for chroot creation is the "base" dist, such as "brewmaster", not
 # "brewamster_beta"
 
-if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
+if [[ "${DIST}" == "brewmaster-beta" || "${DIST}" == "alchemist-beta" ]]; then
 
 	# Set DIST
-	DIST=$(sed "s|_beta||g" <<<${DIST})
+	DIST=$(sed "s|-beta||g" <<<${DIST})
 	
 	# Set real distribution
 	DISTRIBUTION="${DIST}"
@@ -108,10 +108,10 @@ if [[ "${DIST}" == "brewmaster_beta" || "${DIST}" == "alchemist_beta" ]]; then
 	# Set beta flag so additional beta repo mirror will be added later
 	STEAMOS_BETA="true"
 	
-elif [[ "${DIST}" == "jessie_backports" ]]; then
+elif [[ "${DIST}" == "jessie-backports" ]]; then
 
 	# Set DIST
-	DIST=$(sed "s|_backports||g" <<<${DIST})
+	DIST=$(sed "s|-backports||g" <<<${DIST})
 
 	# Set real distribution
 	DISTRIBUTION="${DIST}"

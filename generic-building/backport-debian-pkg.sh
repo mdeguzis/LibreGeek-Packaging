@@ -350,7 +350,15 @@ function_backport_config()
 		DIST_CODE="bsos"
 		;;
 
+		brewmaster-tesing)
+		DIST_CODE="bsos"
+		;;
+
 		jessie)
+		DIST_CODE="bpo8"
+		;;
+
+		jessie-backports)
 		DIST_CODE="bpo8"
 		;;
 

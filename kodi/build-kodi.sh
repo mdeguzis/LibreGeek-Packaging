@@ -6,9 +6,9 @@
 # Script Ver:		1.5.7
 # Description:		Attmpts to build a deb package from kodi-src
 #               	https://github.com/xbmc/xbmc/blob/master/docs/README.linux
-#               	This is a fork of the build-deb-from-src.sh script. Due to the 
-#               	amount of steps to build kodi, it was decided to have it's own 
-#               	script. A deb package is built from this script. 
+#               	This is a fork of the build-deb-from-src.sh script. Due to the
+#               	amount of steps to build kodi, it was decided to have it's own
+#               	script. A deb package is built from this script.
 #
 # Usage:      		./build-kodi.sh --cores [cpu cores]
 #			./build-kodi.sh [--package-deb][--source]
@@ -87,8 +87,7 @@ set_vars()
 	# source vars
 	SRC_URL="git://github.com/xbmc/xbmc.git"
 	export BUILD_TMP="$HOME/build-${PKGNAME}-tmp"
-	SRC_DIR="${PKGNAME}-source"
-	GIT_DIR="${BUILD_TMP}/${SRC_DIR}"
+	SRC_DIR="${BUILD_TMP}/kodi-source"
 
 	# Set TARGET for xbmc sources
 	# Do NOT set a tag default (leave blank), if you wish to use the tag chooser
@@ -345,7 +344,7 @@ kodi_package_deb()
 
 	# set release for upstream xbmc packaging fork
 	# Krypton does not have packaging upstream and the master tree does not work.
-	# Therefore, work was done to package Krypton. 
+	# Therefore, work was done to package Krypton.
 	# See: github.com/ProfessorKaos64/xbmc-packaging/
 	if echo ${KODI_TAG} | grep -i "Gotham" 1> /dev/null; then KODI_RELEASE="Gotham"; fi
 	if echo ${KODI_TAG} | grep -i "Isengard" 1> /dev/null; then KODI_RELEASE="Isengard"; fi
@@ -359,11 +358,11 @@ kodi_package_deb()
 	# Add any overrides for setup below
 	############################################################
 
-	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh 
+	# change address in xbmc/tools/Linux/packaging/mk-debian-package.sh
 	# See: http://unix.stackexchange.com/a/16274
 	# This was done only at prior a point to satisfy some build deps. This has since
 	# been corrected. 'mk-debian-package.sh' handles all package naming and will try
-	# to sign as wnsipex. This is ok, since we will sign with reprepro. 
+	# to sign as wnsipex. This is ok, since we will sign with reprepro.
 
 	# However, this is still used to adjust the changelog structure
 	# This may be dropped in the future
@@ -379,7 +378,7 @@ kodi_package_deb()
 	if [[ "${BUILDER}" == "pbuilder" || "${BUILDER}" == "pdebuild" ]]; then
 
 		# Assess where pbuilder base config is, for multi-box installations
-		echo "Where is your pbuilder base folder?" 
+		echo "Where is your pbuilder base folder?"
 		sleep 0.3s
 		read -erp "Location: " PBUILDER_BASE
 
@@ -440,7 +439,7 @@ kodi_build_src()
 
 	fi
 
-	# ./configure <option1> <option2> PREFIX=<system prefix>... 
+	# ./configure <option1> <option2> PREFIX=<system prefix>...
 	# (See --help for available options). For now, use the default PREFIX
         # A full listing of supported options can be viewed by typing './configure --help'.
 	# Default install path is:
@@ -574,8 +573,8 @@ show_build_summary()
 	if [[ "${PACKAGE_DEB}" == "no" ]]; then
 
 		cat <<-EOF
-		If you chose to build from source code, you should now be able 
-		to add Kodi as a non-Steam game in Big Picture Mode. Please 
+		If you chose to build from source code, you should now be able
+		to add Kodi as a non-Steam game in Big Picture Mode. Please
 		see see the wiki for more information.
 
 		EOF

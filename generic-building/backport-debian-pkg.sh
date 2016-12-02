@@ -683,7 +683,7 @@ while :; do
 			;;
 
 		--backports|-bp)
-			export NO_APT_PREFS="true"
+			export DEBIAN_BACKPORTS="true"
 			EXTRA_OPTS+=("--backports")
 			;;
 

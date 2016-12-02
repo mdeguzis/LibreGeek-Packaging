@@ -26,7 +26,6 @@ TIME_STAMP_START=(`date +"%T"`)
 SRC_URL="https://github.com/ProfessorKaos64/libregeek-repo"
 TARGET="master"
 
-
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
 
@@ -53,11 +52,11 @@ else
 
         cat<<- EOF
 
-        ERROR: A distribution must be specified"
-        ./build-libregeek-archive-keyring.sh --steamos
-        ./build-libregeek-archive-keyring.sh --debian
+	ERROR: A distribution must be specified"
+	./build-libregeek-archive-keyring.sh --steamos
+	./build-libregeek-archive-keyring.sh --debian
 
-        EOF
+	EOF
 
         sleep 8s
         exit 1
@@ -74,7 +73,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libregeek-repo"
-PKGVER="0.9.6"
+PKGVER="0.9.7"
 PKGREV="1"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

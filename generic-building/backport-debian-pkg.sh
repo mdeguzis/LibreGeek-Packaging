@@ -471,12 +471,12 @@ function_backport_config()
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
 		# Add revision for backports
-		PKGVER="${PKGVER}~${DIST_CODE}+${PKGREV}"
+		PKGSUFFIX="~${DIST_CODE}+${PKGREV}"
 
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
 		# Add revision for backports
-		PKGVER="${PKGVER}~${DIST_CODE}+${PKGREV}"
+		PKGSUFFIX="~${DIST_CODE}+${PKGREV}"
 
 	fi
 
@@ -493,13 +493,13 @@ function_backport_config()
 		# Create basic changelog format if it does exist or update
 		if [[ -f "debian/changelog" ]]; then
 
-			dch -p --force-bad-version --force-distribution -v "${PKGVER}" \
+			dch -p --force-bad-version --force-distribution -v "${PKGVER}${PKGSUFFIX}" \
 			--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Backported package. No changes made."
 			nano "debian/changelog"
 
 		else
 
-			dch -p --force-bad-version --force-distribution --create -v "${PKGVER}" \
+			dch -p --force-bad-version --force-distribution --create -v "${PKGVER}${PKGSUFFIX}" \
 			--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 		fi

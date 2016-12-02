@@ -3,7 +3,7 @@
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
 # Scipt Name:	backport-debian-pkg.sh.sh
-# Script Ver:	3.8.2
+# Script Ver:	3.9.2
 # Description:	Attempts to build a deb package from upstream Debian source code.
 #		files. Currently only Ubuntu and Debian .dsc files are supported.
 #		Supports full package name/versioning changes to match your repo.
@@ -54,7 +54,7 @@ uploader="Michael DeGuzisd <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
 
 # Initial vars for other objects
-EXTRA_OPTS+=()
+EXTRA_OPTS=()
 TEST_REPO="false"
 BETA_REPO=""
 RETRY_BUILD="false"

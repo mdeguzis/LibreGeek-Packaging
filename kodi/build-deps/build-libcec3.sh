@@ -51,7 +51,7 @@ fi
 SRC_URL="https://github.com/Pulse-Eight/libcec"
 # For Kodi's Jarvis release, it is more than likely platform will still be used
 # For now, use the commit before this was changed or the release tree (uses platform)
-TARGET="libcec-3.0.1"
+TARGET="libcec-4.0.0-3"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -63,9 +63,9 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libcec"
-PKGVER="3.0.1"
+PKGVER="4.0.0"
 PKGREV="1"
-epoch="1"
+EPOCH="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -152,13 +152,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update build with p8-platform rename build dep"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Inital build"
 		nano "debian/changelog"
 

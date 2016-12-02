@@ -44,9 +44,9 @@ if [[ "${OS}" == "SteamOS" ]]; then
 		echo "I: STEAMOS-TOOLS: Adding SteamOS-Tools beta track"
 
 		# Get this manually so we only have to update package listings once below
-		wget "http://packages.libregeek.org/steamos-tools-beta-repo-latest.deb" -q -nc
+		wget "http://packages.libregeek.org/steamos-tools-beta-repo.deb" -q -nc
 
-		if ! dpkg -i "steamos-tools-beta-repo-latest.deb" &> /dev/null; then
+		if ! dpkg -i "steamos-tools-beta-repo.deb" &> /dev/null; then
 			echo "E: STEAMOS-TOOLS: Failed to add SteamOS-Tools beta repository. Exiting"
 			exit 1
 		fi
@@ -109,12 +109,12 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 	echo "I: LIBREGEEK: Adding Debian repository configuration"
 
 	# Get repo package(s)
-	wget "http://packages.libregeek.org/libregeek-archive-keyring-latest.deb" -q -nc
-	wget "http://packages.libregeek.org/libregeek-debian-repo-latest.deb" -q -nc
+	wget "http://packages.libregeek.org/libregeek-archive-keyring.deb" -q -nc
+	wget "http://packages.libregeek.org/libregeek-debian-repo.deb" -q -nc
 
 	# Install repo packages
-	dpkg -i libregeek-archive-keyring-latest.deb &> /dev/null
-	dpkg -i libregeek-debian-repo-latest.deb &> /dev/null
+	dpkg -i libregeek-archive-keyring.deb &> /dev/null
+	dpkg -i libregeek-debian-repo.deb &> /dev/null
 
 	REPO_FILES+=()
 	REPO_FILES+=("/etc/apt/sources.list.d/libregeek-debian-repo.list")
@@ -141,7 +141,7 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 		echo "I: LIBREGEEK: Adding LibreGeek Debian testing repository"
 
 		# Get this manually so we only have to update package listings once below
-		wget "http://packages.libregeek.org/jessie-testing.deb" -q -nc
+		wget "http://packages.libregeek.org/libregeek-debian-testing-repo.install.deb" -q -nc
 
 		if ! dpkg -i "jessie-testing.deb" &> /dev/null; then
 			echo "E: LIBREGEEK: Failed to add LibreGeek Debian testing repository. Exiting"
@@ -152,12 +152,12 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 
 	if [[ "$DEBIAN_BACKPORTS" == "true" ]]; then
 
-		echo "I: LIBREGEEK: Adding LibreGeek Debian testing repository"
+		echo "I: LIBREGEEK: Adding LibreGeek Debian backports repository"
 
 		# Get this manually so we only have to update package listings once below
-		wget "http://packages.libregeek.org/jessie-backports.deb" -q -nc
+		wget "http://packages.libregeek.org/libregeek-debian-backports-repo.deb" -q -nc
 
-		if ! dpkg -i "jessie-backports.deb" &> /dev/null; then
+		if ! dpkg -i "libregeek-debian-backports-repo.deb" &> /dev/null; then
 			echo "E: LIBREGEEK: Failed to add LibreGeek Debian backports repository. Exiting"
 			exit 1
 		fi

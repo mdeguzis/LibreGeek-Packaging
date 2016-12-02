@@ -109,7 +109,7 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 	echo "I: LIBREGEEK: Adding Debian repository configuration"
 
 	# Get repo package(s)
-	wget "http://packages.libregeek.org/libregeek-archive-keyring.deb" -q -nc
+	wget "http://packages.libregeek.org/libregeek-archive-keyring-repo.deb" -q -nc
 	wget "http://packages.libregeek.org/libregeek-debian-repo.deb" -q -nc
 
 	# Install repo packages
@@ -141,7 +141,7 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 		echo "I: LIBREGEEK: Adding LibreGeek Debian testing repository"
 
 		# Get this manually so we only have to update package listings once below
-		wget "http://packages.libregeek.org/libregeek-debian-testing-repo.install.deb" -q -nc
+		wget "http://packages.libregeek.org/libregeek-debian-testing-repo.deb" -q -nc
 
 		if ! dpkg -i "jessie-testing.deb" &> /dev/null; then
 			echo "E: LIBREGEEK: Failed to add LibreGeek Debian testing repository. Exiting"
@@ -155,10 +155,20 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 		echo "I: LIBREGEEK: Adding LibreGeek Debian backports repository"
 
 		# Get this manually so we only have to update package listings once below
+		# The LibreGeek repo should only contain backports above jessie-backports upstream
+		# so we do not supercede them.
 		wget "http://packages.libregeek.org/libregeek-debian-backports-repo.deb" -q -nc
+		wget "http://packages.libregeek.org/debian-backports-repo.deb" -q -nc
 
 		if ! dpkg -i "libregeek-debian-backports-repo.deb" &> /dev/null; then
 			echo "E: LIBREGEEK: Failed to add LibreGeek Debian backports repository. Exiting"
+			exit 1
+		fi
+
+		echo "I: LIBREGEEK: Adding Debian backports repository"
+
+		if ! dpkg -i "debian-backports-repo.deb" &> /dev/null; then
+			echo "E: LIBREGEEK: Failed to add Debian backports repository. Exiting"
 			exit 1
 		fi
 

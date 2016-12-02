@@ -678,8 +678,13 @@ while :; do
 
 		--apt-prefs-hack|-aph)
 			# Allow installation of packages newer than Valve's for building purposes
-			export NO_APT_PREFS="true"
+			export DEBIAN_BACKPORTS="true"
 			EXTRA_OPTS+=("--apt-prefs-hack")
+			;;
+
+		--backports|-bp)
+			export NO_APT_PREFS="true"
+			EXTRA_OPTS+=("--backports")
 			;;
 
 		--beta-repo|-br)
@@ -790,6 +795,7 @@ while :; do
 			Options:
 					--apt-prefs-hack	Raemove SteamOS apt preferences lock
 					--beta-repo|-br		Enable a beta repo
+					--backports|-bp		Utilize LibreGeek Debian backports
 					--binary-dep		Builds binary-dependent package
 					--network|-net		Enable build-time network connection
 					--no-clean|-nc		Build without cleaning ahead of time

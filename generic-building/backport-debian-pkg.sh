@@ -631,7 +631,7 @@ function_show_summary()
 			# transfer files
 			if [[ -d "${BUILD_TMP}" ]]; then
 				rsync -arv -e "ssh -p ${REMOTE_PORT}" \
-				--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+				--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 				${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			fi

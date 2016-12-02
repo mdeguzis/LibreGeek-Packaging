@@ -102,6 +102,11 @@ function_set_vars()
 	if [[ "${PKGREV}" == "" ]]; then PKGREV="${OLD_PKGREV}"; fi
 	export OLD_PKGREV="${PKGREV}"
 
+        echo -e "\nPress ENTER to use last: ${OLD_BACKPORTREV}"
+        read -erp "Backport revision / attempt: " BACKPORTREV
+        if [[ "${BACKPORTREV}" == "" ]]; then BACKPORTREV="${OLD_BACKPORTREV}"; fi
+        export OLD_BACKPORTREV="${BACKPORTREV}"
+
 	echo -e "\nPress ENTER to use last: ${OLD_ARCH}"
 	read -erp "Arch target: " ARCH
 	if  [[ "${ARCH}" == "" ]]; then ARCH="${OLD_ARCH}"; fi
@@ -337,7 +342,7 @@ function_backport_config()
 				;;
 
 			esac
-		done 
+		done
 
 	fi
 
@@ -479,12 +484,12 @@ function_backport_config()
 	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
 		# Add revision for backports
-		PKGSUFFIX="~${DIST_CODE}+${PKGREV}"
+		PKGSUFFIX="-${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
 
 	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
 		# Add revision for backports
-		PKGSUFFIX="~${DIST_CODE}+${PKGREV}"
+		PKGSUFFIX="~${DIST_CODE}+${BACKPORTREV}"
 
 	fi
 
@@ -507,7 +512,7 @@ function_backport_config()
 
 		else
 
-			dch -p --force-bad-version --force-distribution --create -v "${PKGVER}${PKGSUFFIX}" \
+			dch -p --force-bad-version --force-distribution --create -v "${PKGVER}-${PKGREV}${PKGSUFFIX}" \
 			--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload attempt"
 
 		fi

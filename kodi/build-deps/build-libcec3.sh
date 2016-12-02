@@ -58,7 +58,7 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
@@ -126,7 +126,7 @@ main()
 
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
-6	# Upsteam has split control files ATM, remove precise file that conflicts in build
+	# Upsteam has split control files ATM, remove precise file that conflicts in build
 	rm -f "${SRC_DIR}/debian/control.precise"
 
 	#################################################

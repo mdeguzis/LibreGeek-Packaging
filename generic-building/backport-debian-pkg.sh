@@ -569,7 +569,8 @@ function_build_package()
 	else
 
 		echo -e "Invalid builder!"
-		exit
+		sleep 4s
+		exit 1
 
 	fi
 

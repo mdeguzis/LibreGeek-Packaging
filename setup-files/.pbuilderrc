@@ -97,10 +97,10 @@ fi
 # Given for chroot creation is the "base" dist, such as "brewmaster", not
 # "brewamster_beta"
 
-if [[ "${DIST}" == "brewmaster-beta" || "${DIST}" == "alchemist-beta" ]]; then
+if [[ "${DIST}" == "brewmaster-testing" || "${DIST}" == "alchemist-testing" ]]; then
 
 	# Set DIST
-	DIST=$(sed "s|-beta||g" <<<${DIST})
+	DIST=$(sed "s|-testing||g" <<<${DIST})
 	
 	# Set real distribution
 	DISTRIBUTION="${DIST}"

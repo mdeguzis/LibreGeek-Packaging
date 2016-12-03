@@ -62,6 +62,7 @@ PKGNAME="antimicro"
 PKGREV="1"
 PKGVER="2.23"
 DIST="${DIST:-yakkety}"
+PPA_REV=${PPA_REV:-""}
 URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 maintainer="ProfessorKaos64"
@@ -111,15 +112,15 @@ main()
 	case "${DIST}" in
 
                 trusty)
-                PKGSUFFIX="ubuntu14.04.5"
+                PKGSUFFIX="trusty${PPA_REV}"
                 ;;
 
 		xenial)
-		PKGSUFFIX="ubuntu16.04.1"
+		PKGSUFFIX="xenial${PPA_REV}"
 		;;
 
 		yakkety)
-		PKGSUFFIX="ubuntu16.10"
+		PKGSUFFIX="yakkety${PPA_REV}"
 		;;
 
 	esac

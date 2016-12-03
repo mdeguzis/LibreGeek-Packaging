@@ -95,9 +95,14 @@ fi
 # Adjust DIST for "virtual" targets, such as SteamOS beta
 # This way, all the paths above are set correction, but the distribution
 # Given for chroot creation is the "base" dist, such as "brewmaster", not
-# "brewamster_beta"
+# "brewmaster-testing". There isn't a need to create two tarballs for the 
+# same dist release (brewmaster vs. brewmaster-testing), since it is only
+# for determining the target DIST within the repo pool
 
-if [[ "${DIST}" == "brewmaster-testing" || "${DIST}" == "alchemist-testing" ]]; then
+# For whatever reason (conflicts in code?) Kodi Team uses DISTS.
+# Account for this name
+
+if [[ "${DIST}" == "brewmaster-testing" || "${DISTS}" == "brewmaster-testing" ]]; then
 
 	# Set DIST
 	DIST=$(sed "s|-testing||g" <<<${DIST})
@@ -108,7 +113,7 @@ if [[ "${DIST}" == "brewmaster-testing" || "${DIST}" == "alchemist-testing" ]]; 
 	# Set beta flag so additional beta repo mirror will be added later
 	STEAMOS_BETA="true"
 	
-elif [[ "${DIST}" == "jessie-backports" ]]; then
+elif [[ "${DIST}" == "jessie-backports" || "${DISTS}" == "jessie-backports" ]]; then
 
 	# Set DIST
 	DIST=$(sed "s|-backports||g" <<<${DIST})

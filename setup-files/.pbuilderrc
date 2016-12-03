@@ -106,6 +106,7 @@ if [[ "${DIST}" == "brewmaster-testing" || "${DISTS}" == "brewmaster-testing" ]]
 
 	# Set DIST
 	DIST=$(sed "s|-testing||g" <<<${DIST})
+	DISTS=$(sed "s|-testing||g" <<<${DISTS})
 	
 	# Set real distribution
 	DISTRIBUTION="${DIST}"

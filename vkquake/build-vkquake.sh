@@ -37,11 +37,11 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/ubuntu/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming_testing"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/ubuntu/incoming"
+	REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming"
 
 fi
 # upstream vars

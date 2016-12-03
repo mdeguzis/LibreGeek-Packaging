@@ -34,11 +34,11 @@ fi
 
 if [[ "$ARG1" == "--testing" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming"
+	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 
 fi
 

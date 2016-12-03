@@ -1,0 +1,5 @@
+libsolv (0.6.21-1) jessie; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 03 Dec 2016 03:04:27 +0000

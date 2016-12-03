@@ -1,0 +1,5 @@
+1002_support-python2+3-bindings-simultaneously.patch
+1004_cmake-module-path-fix.patch
+1005_provide-repo-autopattern-for-non-SUSE-builds.patch
+1006_various-types.patch
+2001_build-for-SUSE-and-find-rpmdb.patch

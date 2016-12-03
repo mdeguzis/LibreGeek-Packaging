@@ -36,16 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-if [[ "$arg1" == "--testing" ]]; then
-
-	REPO_FOLDER="/home/mikeyd/packaging/debian/incoming_testing"
-	
-else
-
-	REPO_FOLDER="/home/mikeyd/packaging/debian/incoming"
-	
-fi
-
 # upstream vars
 #git_url="https://github.com/ProfessorKaos64/antimicro"
 git_url="https://github.com/AntiMicro/antimicro"
@@ -56,11 +46,11 @@ date_long=$(date +"%a, %d %b %Y %H:%M:%S %z")
 date_short=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 pkgname="antimicro"
 pkgrev="1"
-pkgver="2.22"
+pkgver="2.23"
 pkgsuffix="git"
 DIST="jessie"
 urgency="low"

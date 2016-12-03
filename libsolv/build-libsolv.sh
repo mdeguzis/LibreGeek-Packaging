@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/debian
-# Scipt name:	build-libhif.sh
+# Scipt name:	build-libsolv.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest libhif source
+# Description:	Attmpts to build a deb package from the latest libsolv source
 #		code.
 #
-# See:		https://github.com/rpm-software-management/libhif
+# See:		https://github.com/rpm-software-management/libsolv
 #
-# Usage:	./build-libhif.sh
+# Usage:	./build-libsolv.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,23 +46,21 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/rpm-software-management/libhif"
-#TARGET="libhif_0_2_3"
-# The 0.2.3 release did not yet contain CMakeLists.txt
-TARGET="master"
+#SRC_URL="https://github.com/openSUSE/libsolv"
+#TARGET="0.6.24"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export USE_NETWORK="no"
-export DEBIAN_BACKPORTS="true"
-PKGNAME="libhif"
-#PKGVER=$(echo ${TARGET} | sed 's/libhif_//;s/_/./g')
-PKGVER="0.2.3"
+export DEBIAN_BACKRPORTS="true"
+PKGNAME="libsolv"
+#PKGVER=$(echo ${TARGET} | sed 's/libsolv_//;s/_/./g')
+PKGVER="0.6.21"
 PKGREV="1"
 DIST="${DIST:=jessie}"
 URGENCY="low"
@@ -80,8 +78,8 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper \
-	libsolv0-dev libsolv-tools librepo python-dev librpm-dev libpackagekit-glib2-dev \
-	gtk-doc-tools gobject-introspection python-sphinx
+	debhelper dpkg-dev cdbs cmake libexpat1-dev zlib1g-dev librpm-dev liblzma-dev \
+	libbz2-dev python-dev libpython-dev python3-dev libpython3-dev swig
 
 }
 
@@ -113,27 +111,25 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and get latest commit tag
-	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-	# Set suffix based on revisions
-	cd "${SRC_DIR}" 
-	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
+	# Use Debian origina source so we can make use of the complicated
+	# and convoluted dual python2/3 patch from Debian
+	# The only extra changed introduced is installing the missing CMake module
+	mkdir -p "${SRC_DIR}"
+	wget "http://http.debian.net/debian/pool/main/libs/libsolv/libsolv_0.6.21.orig.tar.xz" -q -nc --show-progress
 
 	#################################################
 	# Build package
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
+	#echo -e "\n==> Creating original tarball\n"
+	#sleep 2s
 
 	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	#find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
+	#cd "${BUILD_TMP}" || exit
+	#tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"

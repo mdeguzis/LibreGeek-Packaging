@@ -1,0 +1,25 @@
+Description: Correctly find db.h on Debian systems when in SUSE build mode
+Author: Thomas-Karl Pietrowski (https://launchpad.net/~thopiekar)
+Last-Updated: 2014-09-17
+Abstract:
+ As the goal of bringing libsolv to Debian is providing zypper and obs-build
+ in Debian, we currently fake building libsolv on SUSE.
+ .
+ To get this working, we need to slightly tweak the include of RPM's db.h.
+ .
+ This patch (like much of the other packaging files) has been obtained from
+ [1].
+ .
+ [1] https://code.launchpad.net/~thopiekar/+recipe/libsolv-daily#
+
+--- a/ext/repo_rpmdb.c
++++ b/ext/repo_rpmdb.c
+@@ -32,7 +32,7 @@
+ #include <rpm/rpmdb.h>
+ 
+ #ifndef DB_CREATE
+-# if defined(SUSE) || defined(HAVE_RPM_DB_H)
++# if defined(HAVE_RPM_DB_H)
+ #  include <rpm/db.h>
+ # else
+ #  include <db.h>

@@ -1,0 +1,152 @@
+Description: Various typo and grammar fixes
+Author: Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+
+--- a/README
++++ b/README
+@@ -10,7 +10,7 @@
+     resolving package dependencies.
+ 
+ The sat-solver code has been written to aim for the newest packages,
+-record the decision tree to provide introspection, and also allows to
++record the decision tree to provide introspection, and also allows one to
+ provide the user with suggestions on how to deal with unsolvable
+ problems. It also takes advantage of the repository storage to
+ minimize memory usage.
+--- a/doc/libsolv-bindings.3
++++ b/doc/libsolv-bindings.3
+@@ -1928,7 +1928,7 @@
+ .RE
+ .\}
+ .sp
+-Add all pubkeys contained in the rpm database to the repository\&. Note that newer rpm versions also allow to store the pubkeys in some directory instead of the rpm database\&.
++Add all pubkeys contained in the rpm database to the repository\&. Note that newer rpm versions also allow one to store the pubkeys in some directory instead of the rpm database\&.
+ .sp
+ .if n \{\
+ .RS 4
+@@ -3218,7 +3218,7 @@
+ .PP
+ \fBSOLVER_WEAKENDEPS\fR
+ .RS 4
+-Allow to break the dependencies of the matching packages\&. Handle with care\&.
++Allow one to break the dependencies of the matching packages\&. Handle with care\&.
+ .RE
+ .PP
+ \fBSOLVER_MULTIVERSION\fR
+--- a/doc/libsolv-bindings.txt
++++ b/doc/libsolv-bindings.txt
+@@ -1092,7 +1092,7 @@
+ 	repo.add_rpmdb_pubkeys()
+ 
+ Add all pubkeys contained in the rpm database to the repository. Note that
+-newer rpm versions also allow to store the pubkeys in some directory instead
++newer rpm versions also allow one to store the pubkeys in some directory instead
+ of the rpm database.
+ 
+ 	Solvable add_pubkey(const char *keyfile, int flags = 0)
+@@ -1832,7 +1832,7 @@
+ updates about more information.
+  
+ *SOLVER_WEAKENDEPS*::
+-Allow to break the dependencies of the matching packages. Handle with care.
++Allow one to break the dependencies of the matching packages. Handle with care.
+ 
+ *SOLVER_MULTIVERSION*::
+ Mark the matched packages for multiversion install. If they get to be
+--- a/doc/libsolv-pool.3
++++ b/doc/libsolv-pool.3
+@@ -1241,7 +1241,7 @@
+ You can turn off the architecture replacement checks with the Solver\(cqs SOLVER_FLAG_ALLOW_VENDORCHANGE flag\&.
+ .SH "BOOLEAN DEPENDENCIES"
+ .sp
+-Boolean Dependencies allow to build complex expressions from simple dependencies\&. While rpm does not support boolean expressions in dependencies and debian only allows an "OR" expression, libsolv allows arbitrary complex expressions\&. The following basic types are supported:
++Boolean Dependencies allow one to build complex expressions from simple dependencies\&. While rpm does not support boolean expressions in dependencies and debian only allows an "OR" expression, libsolv allows arbitrary complex expressions\&. The following basic types are supported:
+ .PP
+ \fBREL_OR\fR
+ .RS 4
+--- a/doc/libsolv-pool.txt
++++ b/doc/libsolv-pool.txt
+@@ -814,7 +814,7 @@
+ 
+ Boolean Dependencies
+ --------------------
+-Boolean Dependencies allow to build complex expressions from simple
++Boolean Dependencies allow one to build complex expressions from simple
+ dependencies. While rpm does not support boolean expressions in
+ dependencies and debian only allows an "OR" expression, libsolv
+ allows arbitrary complex expressions. The following basic types
+--- a/doc/testsolv.1
++++ b/doc/testsolv.1
+@@ -45,7 +45,7 @@
+ .RS 4
+ Write the output in testcase format instead of human readable text\&. The output can then be used in the result section of the test case\&. If the
+ \fB\-r\fR
+-option is given twice, the output is formated for verbatim inclusion\&.
++option is given twice, the output is formatted for verbatim inclusion\&.
+ .RE
+ .PP
+ \fB\-l\fR \fIPKGSPEC\fR
+--- a/doc/testsolv.txt
++++ b/doc/testsolv.txt
+@@ -26,7 +26,7 @@
+ *-r*::
+ Write the output in testcase format instead of human readable text.
+ The output can then be used in the result section of the test case.
+-If the *-r* option is given twice, the output is formated for
++If the *-r* option is given twice, the output is formatted for
+ verbatim inclusion.
+ 
+ *-l* 'PKGSPEC'::
+--- a/src/problems.c
++++ b/src/problems.c
+@@ -456,7 +456,7 @@
+       p = solv->installed->start + (why - solv->updaterules);
+       if (solv->dupmap_all && solv->rules[why].p != p && solv->decisionmap[p] > 0)
+ 	{
+-	  /* distupgrade case, allow to keep old package */
++	  /* distupgrade case, allow one to keep old package */
+ 	  queue_push(solutionq, SOLVER_SOLUTION_DISTUPGRADE);
+ 	  queue_push(solutionq, p);
+ 	  return;
+--- a/src/rules.c
++++ b/src/rules.c
+@@ -1614,7 +1614,7 @@
+ 
+       if (allowedarchs.count && pool->implicitobsoleteusescolors && installed && bestarch)
+ 	{
+-	  /* need an extra pass for lockstep checking: we only allow to keep an inferior arch
++	  /* need an extra pass for lockstep checking: we only allow one to keep an inferior arch
+ 	   * if the corresponding installed package is not lock-stepped */
+ 	  queue_empty(&allowedarchs);
+ 	  FOR_PROVIDES(p, pp, s->name)
+--- a/src/solver.h
++++ b/src/solver.h
+@@ -149,10 +149,10 @@
+    * Solver configuration
+    *-------------------------------------------------------------------------------------------------------------*/
+ 
+-  int allowdowngrade;			/* allow to downgrade installed solvable */
+-  int allownamechange;			/* allow to change name of installed solvables */
+-  int allowarchchange;			/* allow to change architecture of installed solvables */
+-  int allowvendorchange;		/* allow to change vendor of installed solvables */
++  int allowdowngrade;			/* allow one to downgrade installed solvable */
++  int allownamechange;			/* allow one to change name of installed solvables */
++  int allowarchchange;			/* allow one to change architecture of installed solvables */
++  int allowvendorchange;		/* allow one to change vendor of installed solvables */
+   int allowuninstall;			/* allow removal of installed solvables */
+   int noupdateprovide;			/* true: update packages needs not to provide old package */
+   int needupdateprovide;		/* true: update packages must provide old package */
+@@ -172,10 +172,10 @@
+   Map dupmap;				/* dup these packages*/
+   int dupmap_all;			/* dup all packages */
+   Map dupinvolvedmap;			/* packages involved in dup process */
+-  int dup_allowdowngrade;		/* dup mode: allow to downgrade installed solvable */
+-  int dup_allownamechange;		/* dup mode: allow to change name of installed solvable */
+-  int dup_allowarchchange;		/* dup mode: allow to change architecture of installed solvables */
+-  int dup_allowvendorchange;		/* dup mode: allow to change vendor of installed solvables */
++  int dup_allowdowngrade;		/* dup mode: allow one to downgrade installed solvable */
++  int dup_allownamechange;		/* dup mode: allow one to change name of installed solvable */
++  int dup_allowarchchange;		/* dup mode: allow one to change architecture of installed solvables */
++  int dup_allowvendorchange;		/* dup mode: allow one to change vendor of installed solvables */
+ 
+   Map droporphanedmap;			/* packages to drop in dup mode */
+   int droporphanedmap_all;

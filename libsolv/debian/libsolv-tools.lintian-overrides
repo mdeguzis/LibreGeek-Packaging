@@ -1,0 +1,5 @@
+# deprecated script repo2solv does not have a man page
+libsolv-tools: binary-without-manpage usr/bin/repo2solv
+# man page for "solv" binary requested on upstream issue tracker
+# https://github.com/openSUSE/libsolv/issues/87
+libsolv-tools: binary-without-manpage usr/bin/solv

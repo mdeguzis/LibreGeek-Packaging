@@ -1,0 +1,22 @@
+Description: Rename FindLibSolv.cmake to LibSolvConfig.cmake after installation.
+Author: Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ PROJECT (libsolv)
+ 
+-CMAKE_MINIMUM_REQUIRED (VERSION 2.4)
++CMAKE_MINIMUM_REQUIRED (VERSION 2.8)
+ 
+ OPTION (ENABLE_STATIC "Build a static version of the libraries?" OFF)
+ OPTION (DISABLE_SHARED "Do not build a shared version of the libraries?" OFF)
+@@ -71,7 +71,7 @@
+ 
+ # where to look first for cmake modules, before ${CMAKE_ROOT}/Modules/ is checked
+ SET (CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules)
+-INSTALL( FILES ${CMAKE_MODULE_PATH}/FindLibSolv.cmake DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cmake/Modules )
++INSTALL( FILES ${CMAKE_MODULE_PATH}/FindLibSolv.cmake RENAME LibSolvConfig.cmake DESTINATION ${LIB_INSTALL_DIR}/cmake/LibSolv/ )
+ 
+ INCLUDE (${CMAKE_SOURCE_DIR}/VERSION.cmake)
+ 

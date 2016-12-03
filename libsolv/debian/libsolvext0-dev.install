@@ -1,0 +1,5 @@
+usr/include/*/solv/pool_*.h
+usr/include/*/solv/repo_*.h
+usr/include/*/solv/solv_*.h
+usr/include/*/solv/tools_*.h
+usr/lib/*/libsolvext.so

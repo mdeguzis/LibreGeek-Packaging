@@ -61,14 +61,14 @@ MAINTAINER="ProfessorKaos64"
 
 if [[ "$arg1" == "--testing" ]]; then
 
-        REPO_FOLDER="/mnt/server_media_x/packaging/linux-binaries/testing"
+        REPO_FOLDER="/mnt/server_media_y/packaging/linux-binaries/testing"
         TARGET="master"
 	PKGVER="${DATE_SHORT}git"
 
 else
 
         TARGET="0.72"
-        REPO_FOLDER="/mnt/server_media_x/packaging/linux-binaries/stable"
+        REPO_FOLDER="/mnt/server_media_y/packaging/linux-binaries/stable"
 	# Source version from vkQuake/Quake/quakedef.h
 	PKGVER="0.72.0"
 

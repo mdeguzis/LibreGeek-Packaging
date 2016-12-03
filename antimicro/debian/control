@@ -18,7 +18,7 @@ Standards-Version: 3.9.5
 Homepage: https://github.com/AntiMicro/antimicro
 
 Package:antimicro
-Architecture: all
+Architecture: any
 Depends: ${misc:Depends},
  libsdl2-2.0-0,
  libqt5network5,

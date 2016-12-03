@@ -109,7 +109,7 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 	echo "I: LIBREGEEK: Adding Debian repository configuration"
 
 	# Get repo package(s)
-	wget "http://packages.libregeek.org/libregeek-archive-keyring-repo.deb" -q -nc
+	wget "http://packages.libregeek.org/libregeek-archive-keyring.deb" -q -nc
 	wget "http://packages.libregeek.org/libregeek-debian-repo.deb" -q -nc
 
 	# Install repo packages
@@ -158,17 +158,26 @@ elif [[ "${OS}" == "Debian" || "${OS}" == "debian" ]]; then
 		# The LibreGeek repo should only contain backports above jessie-backports upstream
 		# so we do not supercede them.
 		wget "http://packages.libregeek.org/libregeek-debian-backports-repo.deb" -q -nc
-		wget "http://packages.libregeek.org/debian-backports-repo.deb" -q -nc
 
-		if ! dpkg -i "libregeek-debian-backports-repo.deb" &> /dev/null; then
-			echo "E: LIBREGEEK: Failed to add LibreGeek Debian backports repository. Exiting"
-			exit 1
+		# Debian backports should already by enabled by default, if it fails the test, install
+		if grep "jessie-backports" "/etc/apt/sources.list"; then
+
+			wget "http://packages.libregeek.org/debian-backports-repo.deb" -q -nc
+
+			echo "I: LIBREGEEK: Adding Debian backports repository"
+
+                	if ! dpkg -i "debian-backports-repo.deb" &> /dev/null; then
+
+				echo "E: LIBREGEEK: Failed to add Debian backports repository. Exiting"
+				exit 1
+
+			fi
+
 		fi
 
-		echo "I: LIBREGEEK: Adding Debian backports repository"
-
-		if ! dpkg -i "debian-backports-repo.deb" &> /dev/null; then
-			echo "E: LIBREGEEK: Failed to add Debian backports repository. Exiting"
+		# Always add our backport list
+		if ! dpkg -i "libregeek-debian-backports-repo.deb" &> /dev/null; then
+			echo "E: LIBREGEEK: Failed to add LibreGeek Debian backports repository. Exiting"
 			exit 1
 		fi
 
@@ -185,7 +194,7 @@ elif [[ "${OS}" == "Ubuntu" || "${OS}" == "ubuntu" ]]; then
 	# Try to copy/rebuild over packages from other PPA instead of add more repos
 	echo "I: LIBREGEEK: Adding PPA repository configuration"
 	add-apt-repository -y ppa:mdeguzis/libregeek &> /dev/null
-	
+
 	#echo "I: LIBREGEEK: Adding PPA repository configuration (toolchain)"
 	#add-apt-repository -y ppa:mdeguzis/libregeek-toolchaina &> /dev/null
 
@@ -198,7 +207,7 @@ fi
 if [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
 
 	# Add toolchains for older dists
-	# llvm toolchains (3.4+), gcc-5, and gcc-6 should suffice for now	
+	# llvm toolchains (3.4+), gcc-5, and gcc-6 should suffice for now
 
 	echo "I: LIBREGEEK: Adding PPA jonathonf/llvm (toolchain)"
 	add-apt-repository -y ppa:jonathonf/llvm &> /dev/null

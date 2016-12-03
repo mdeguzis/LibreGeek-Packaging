@@ -40,12 +40,12 @@ fi
 
 if [[ "$arg1" == "--debian" ]]; then
 
-        REPO_FOLDER="/mnt/server_media_x/packaging/debian/incoming"
+        REPO_FOLDER="/mnt/server_media_y/packaging/debian/incoming"
         DIST="jessie"
 
 elif [[ "$arg1" == "--steamos" ]]; then
 
-        REPO_FOLDER="/mnt/server_media_x/packaging/steamos-tools/incoming"
+        REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
         DIST="brewmaster"
 
 else

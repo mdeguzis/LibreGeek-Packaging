@@ -68,7 +68,7 @@ MAINTAINER="ProfessorKaos64"
 DL_URL="http://www.netgull.com/gcc/releases/gcc-${PKGVER}/gcc-${PKGVER}.tar.gz"
 
 # set BUILD_TMP
-export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
+export BUILD_TMP="${BUILD_TMP:-${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()

@@ -70,7 +70,7 @@ MAINTAINER="ProfessorKaos64"
 PKGSUFFIX="git+bsos${PKGREV}"
 
 # set BUILD_TMP
-export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
+export BUILD_TMP="${BUILD_TMP:-${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()

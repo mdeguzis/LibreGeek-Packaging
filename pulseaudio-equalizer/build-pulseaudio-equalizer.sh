@@ -71,7 +71,7 @@ UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set BUILD_TMP
-export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
+export BUILD_TMP="${BUILD_TMP:-${HOME}/package-builds/build-${PKGNAME}-tmp}"
 ppa_dir="${BUILD_TMP}/${SRCDIR}"
 
 install_prereqs()

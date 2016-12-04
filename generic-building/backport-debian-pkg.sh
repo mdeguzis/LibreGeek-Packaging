@@ -281,7 +281,7 @@ function_get_source()
 
 			# Add revision for backports
 			PKGSUFFIX="~${DIST_CODE}${BACKPORTREV}"
-			
+
 			# Unset PKGREV since we are using native
 			unset PKGREV
 
@@ -545,7 +545,7 @@ function_build_package()
 
 			# back out to SCRIPTDIR
 			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"
-			cd "${SCRIPTDIR}"
+			cd "${SCRIPTDIR}" && exit 1
 
 		fi
 
@@ -557,7 +557,7 @@ function_build_package()
 
 			# back out to SCRIPTDIR
 			echo -e "\n!!! FAILED TO ACQUIRE BUILD-DEPS. See output!!! \n"
-			cd "${scritpdir}"
+			cd "${scritpdir}" && exit 1
 
 		fi
 

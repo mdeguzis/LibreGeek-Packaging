@@ -222,40 +222,6 @@ function_get_source()
 
 	read -erp "" FAKE_ENTER_KEY
 
-	# Set our suffix for backporting
-	# Update any of the below if distro versions change
-
-	case "${DIST}"  in
-
-		brewmaster)
-		DIST_CODE="bsos"
-		;;
-
-		brewmaster-tesing)
-		DIST_CODE="bsos"
-		;;
-
-		jessie)
-		DIST_CODE="bpo8"
-		;;
-
-		jessie-backports)
-		DIST_CODE="bpo8"
-		;;
-
-                trusty)
-                DIST_CODE="trusty"
-                ;;
-
-		xenial)
-		DIST_CODE="xenial"
-		;;
-
-		yakkety)
-		DIST_CODE="yakkety"
-		;;
-
-	esac
 
 	# Clone upstream source code and branch
 
@@ -268,21 +234,18 @@ function_get_source()
 		dget "${DGET_OPTS}" "${DSC}"
 
 		# Check source format from dsc file
-		SOURCE_FORMAT=$(cat ~/package-builds/build-antimicro-tmp/antimicro*.dsc | awk '/quilt/ || /native/ {print $3}' | sed -e 's/(//' -e 's/)//')
+		SOURCE_FORMAT=$(cat ${BUILD_TMP}/${PKGNAME}*.dsc | awk '/quilt/ || /native/ {print $3}' | sed -e 's/(//' -e 's/)//')
 
-		# Calculate the ending suffix
+		# Calculate the ending suffix for quilt or native
 		if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
 
-			# Add revision for backports
-			PKGSUFFIX="~${DIST_CODE}${BACKPORTREV}"
 			PKGREV="-${PKGREV}"
 
 		elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
-			# Add revision for backports
-			PKGSUFFIX="~${DIST_CODE}${BACKPORTREV}"
-
-			# Unset PKGREV since we are using native
+			PKGSUFFIX="~${DIST_CODE}+${BACKPORTREV}"
+			
+			# Native does not get a pgk rev
 			unset PKGREV
 
 		fi
@@ -306,6 +269,54 @@ function_get_source()
 		fi
 
 	fi
+
+	# Set our suffix for backporting
+	# Update any of the below if distro versions change
+	# Set pkgver on Ubuntu to include everything except revision so 
+	# Multi release uploads work fine
+	# LaunchPad will not allow an orig. tarball under the same version, so
+	# backporting the same package to multiple dists is tough
+
+	case "${DIST}"  in
+
+		brewmaster)
+		DIST_CODE="bsos"
+		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		;;
+
+		brewmaster-tesing)
+		DIST_CODE="bsos"
+		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		;;
+
+		jessie)
+		DIST_CODE="bpo8"
+		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		;;
+
+		jessie-backports)
+		DIST_CODE="bpo8"PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		;;
+
+                trusty)
+                DIST_CODE="trusty"
+		PKGVER="${PKGVER}~${DIST_CODE}${BACKPORTREV}"
+		PKGSUFFIX=""
+                ;;
+
+		xenial)
+		DIST_CODE="xenial"
+		PKGVER="${PKGVER}~${DIST_CODE}${BACKPORTREV}"
+		PKGSUFFIX=""
+		;;
+
+		yakkety)
+		DIST_CODE="yakkety"
+		PKGVER="${PKGVER}~${DIST_CODE}${BACKPORTREV}"
+		PKGSUFFIX=""
+		;;
+
+	esac
 
 }
 
@@ -430,7 +441,10 @@ function_backport_config()
 
 		rm -f ${BUILD_TMP}/*.orig.tar.*
 		cd ${BUILD_TMP}
-		tar -cvzf "${PKGNAME}_${PKGVER}${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+		
+
+		# Create tarball
+		tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	fi
 
@@ -581,17 +595,13 @@ main()
 {
 
 	# check OS/distro
-	OS=$(lsb_release -si)
+	if which lsb_release &> /dev/null; then
 
-	if [[ "${OS}" == "SteamOS" ]]; then
-
-		PBUILDER_ROOT="${HOME}/pbuilder"
-		SYSTEM_PATH="false"
+		OS=$(lsb_release -si | tr '[:upper:]' '[:lower:]' )
 
 	else
 
-		PBUILDER_ROOT="/var/cache/pbuilder"
-		SYSTEM_PATH="true"
+		OS=$(cat /etc/os-release | grep -w "NAME" | cut -d'=' -f 2)
 
 	fi
 

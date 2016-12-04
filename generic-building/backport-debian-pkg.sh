@@ -367,16 +367,16 @@ function_backport_config()
 		DIST_CODE="bpo8"
 		;;
 
-		trusty)
-		DIST_CODE="ubuntu14.04.5"
-		;;
+                trusty)
+                PKGSUFFIX="trusty"
+                ;;
 
 		xenial)
-		DIST_CODE="ubuntu16.04.1"
+		PKGSUFFIX="xenial"
 		;;
 
 		yakkety)
-		DIST_CODE="ubuntu16.10"
+		PKGSUFFIX="yakkety"
 		;;
 
 	esac

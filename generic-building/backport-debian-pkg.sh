@@ -90,7 +90,7 @@ function_set_vars()
 	export OLD_PKGNAME="${PKGNAME}"
 
 	# now set the build dir for results
-	export BUILD_TMP="${HOME}/build-${PKGNAME}-temp"
+	export BUILD_TMP="${BUILD_TMP:-${HOME}/package-builds/build-${PKGNAME}-tmp}"
 
 	echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
 	read -erp "Target package version: " PKGVER

@@ -44,12 +44,16 @@ ifeq ($(ARCH),armhf)
 endif
 
 %:
-	dh $@ --parallel
+	dh $@
 
 override_dh_auto_build:
 	#dh_auto_build -- $(PLATFORM)
 	# Need to manually specify flags here for Parallel
-	make HAVE_PARALLEL_RSP=1 WITH_DYNAREC=x86_64 HAVE_VULKAN=1
+	make \
+		HAVE_PARALLEL_RSP=1 \
+		WITH_DYNAREC=x86_64 \
+		HAVE_PARALLEL \
+		HAVE_VULKAN=1
 
 override_dh_installdocs:
 	dh_installdocs

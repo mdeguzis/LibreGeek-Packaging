@@ -69,7 +69,7 @@ URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
-# set BUILD_TMP
+# set build directories
 unset BUILD_TMP
 export BUILD_TMP="merge ${HOME}/src/github.com/syncthing"
 

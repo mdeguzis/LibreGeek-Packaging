@@ -232,6 +232,22 @@ function_get_source()
 		# Obtain all necessary files specified in .dsc via dget
 		dget "${DGET_OPTS}" "${DSC}"
 
+		# Check source format from dsc file
+		SOURCE_FORMAT=$(cat ~/package-builds/build-antimicro-tmp/antimicro*.dsc | awk '/quilt/ || /native/ {print $3}' | sed -e 's/(//' -e 's/)//')
+
+		# Calculate the ending suffix
+		if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
+
+			# Add revision for backports
+			PKGSUFFIX="-${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+
+		elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
+
+			# Add revision for backports
+			PKGSUFFIX="~${DIST_CODE}+${BACKPORTREV}"
+
+		fi
+
 		# Get filename only from DSC URL
 		DSC_FILENAME=$(basename "${DSC}")
 
@@ -410,7 +426,7 @@ function_backport_config()
 
 		rm -f ${BUILD_TMP}/*.orig.tar.*
 		cd ${BUILD_TMP}
-		tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
+		tar -cvzf "${PKGNAME}_${PKGVER}${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	fi
 
@@ -455,10 +471,7 @@ function_backport_config()
 	fi
 
 	# Review debian files
-
 	# Add code to review any debian files, as well as setup.py until "done" entered
-	# ${SRC_DIR}/debian/*
-	# ${SRC_DIR}/setup.py
 
 	while [[ "${FILE}" != "quit" && "${FILE}" != "q" ]];
 	do
@@ -476,22 +489,6 @@ function_backport_config()
 		fi
 
 	done
-
-	# Check source format
-	SOURCE_FORMAT=$(cat debian/source/format | awk '/quilt/ || /native/ {print $2}' | sed -e 's/(//' -e 's/)//')
-
-	# Calculate the ending suffix
-	if [[ "${SOURCE_FORMAT}" == "quilt" ]]; then
-
-		# Add revision for backports
-		PKGSUFFIX="-${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
-
-	elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
-
-		# Add revision for backports
-		PKGSUFFIX="~${DIST_CODE}+${BACKPORTREV}"
-
-	fi
 
 	# update changelog
 	# Be sure to include a pacakge revision (e.g. "-1" with "bc_1.0.0+bsos-1") if needed!

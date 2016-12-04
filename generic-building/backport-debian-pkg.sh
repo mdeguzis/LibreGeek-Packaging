@@ -368,15 +368,15 @@ function_backport_config()
 		;;
 
                 trusty)
-                PKGSUFFIX="trusty"
+                DIST_CODE="trusty"
                 ;;
 
 		xenial)
-		PKGSUFFIX="xenial"
+		DIST_CODE="xenial"
 		;;
 
 		yakkety)
-		PKGSUFFIX="yakkety"
+		DIST_CODE="yakkety"
 		;;
 
 	esac

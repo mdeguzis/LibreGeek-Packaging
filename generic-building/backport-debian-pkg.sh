@@ -295,7 +295,8 @@ function_get_source()
 		;;
 
 		jessie-backports)
-		DIST_CODE="bpo8"PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		DIST_CODE="bpo8"
+		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
 		;;
 
                 trusty)

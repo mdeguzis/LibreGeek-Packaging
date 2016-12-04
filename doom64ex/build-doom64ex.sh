@@ -59,6 +59,7 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="doom64ex"
 PKGVER="0.0.0"
 PKGREV="1"
+PPA_REV=${PPA_REV:-""}
 EPOCH="1"
 DIST="${DIST:=yakkety}"
 URGENCY="low"
@@ -114,22 +115,22 @@ main()
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
-        # Set PKGSUFFIX based on Ubuntu DIST
-        case "${DIST}" in
+	# Set PKGSUFFIX based on Ubuntu DIST
+	case "${DIST}" in
 
                 trusty)
-                PKGVER="git${DATE_SHORT}.${LATEST_COMMIT}~ubuntu14.04.5"
+                PKGSUFFIX="trusty${PPA_REV}"
                 ;;
 
-                xenial)
-                PKGVER="git${DATE_SHORT}.${LATEST_COMMIT}~ubuntu16.04.1"
-                ;;
+		xenial)
+		PKGSUFFIX="xenial${PPA_REV}"
+		;;
 
-                yakkety)
-                PKGVER="git${DATE_SHORT}.${LATEST_COMMIT}~ubuntu16.10"
-                ;;
+		yakkety)
+		PKGSUFFIX="yakkety${PPA_REV}"
+		;;
 
-        esac
+	esac
 
 	# add extras
 	cp "${SCRIPTDIR}/doom64ex.png" "${SRC_DIR}"

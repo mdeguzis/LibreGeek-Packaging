@@ -281,22 +281,22 @@ function_get_source()
 
 		brewmaster)
 		DIST_CODE="bsos"
-		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		PKGSUFFIX="${PKGREV}~${DIST_CODE}"
 		;;
 
 		brewmaster-tesing)
 		DIST_CODE="bsos"
-		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		PKGSUFFIX="${PKGREV}~${DIST_CODE}"
 		;;
 
 		jessie)
 		DIST_CODE="bpo8"
-		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		PKGSUFFIX="${PKGREV}~${DIST_CODE}"
 		;;
 
 		jessie-backports)
 		DIST_CODE="bpo8"
-		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		PKGSUFFIX="${PKGREV}~${DIST_CODE}"
 		;;
 
                 trusty)

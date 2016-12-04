@@ -123,11 +123,11 @@ function_set_vars()
 	export OLD_DSC="${DSC}"
 
 	# Set projet folder name for uploading built packages
-
 	if [[ "${DIST}" == "brewmaster" ]]; then PROJECT_FOLDER="steamos-tools"; fi
+	if [[ "${DIST}" == "brewmaster-testing" ]]; then PROJECT_FOLDER="steamos-tools"; fi
 	if [[ "${DIST}" == "jessie" ]]; then PROJECT_FOLDER="debian"; fi
 	if [[ "${DIST}" == "jessie-backports" ]]; then PROJECT_FOLDER="debian"; fi
-	if [[ "${DIST}" == "trustya" ]]; then PROJECT_FOLDER="ubuntu"; fi
+	if [[ "${DIST}" == "trusty" ]]; then PROJECT_FOLDER="ubuntu"; fi
 	if [[ "${DIST}" == "xenial" ]]; then PROJECT_FOLDER="ubuntu"; fi
 	if [[ "${DIST}" == "yakkety" ]]; then PROJECT_FOLDER="ubuntu"; fi
 
@@ -578,6 +578,21 @@ function_build_package()
 
 main()
 {
+
+	# check OS/distro
+	OS=$(lsb_release -si)
+
+	if [[ "${OS}" == "SteamOS" ]]; then
+
+		PBUILDER_ROOT="${HOME}/pbuilder"
+		SYSTEM_PATH="false"
+
+	else
+
+		PBUILDER_ROOT="/var/cache/pbuilder"
+		SYSTEM_PATH="true"
+
+	fi
 
 	# set vars
 	function_set_vars

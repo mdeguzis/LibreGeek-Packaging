@@ -71,6 +71,7 @@ MAINTAINER="ProfessorKaos64"
 export NETWORK="yes"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRCDIR="${PKGNAME}-${PKGVER}"
 GIT_DIR="${BUILD_TMP}/${SRCDIR}"

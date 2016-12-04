@@ -119,15 +119,15 @@ main()
 	case "${DIST}" in
 
                 trusty)
-                PKGSUFFIX="trusty${PPA_REV}"
+                PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~trusty${PPA_REV}"
                 ;;
 
 		xenial)
-		PKGSUFFIX="xenial${PPA_REV}"
+		PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~xenial${PPA_REV}"
 		;;
 
 		yakkety)
-		PKGSUFFIX="yakkety${PPA_REV}"
+		PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~yakkety${PPA_REV}"
 		;;
 
 	esac

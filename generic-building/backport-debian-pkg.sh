@@ -309,19 +309,16 @@ function_get_source()
                 trusty)
                 DIST_CODE="trusty"
 		PKGVER="${PKGVER}~${DIST_CODE}${BACKPORTREV}"
-		PKGREV="-${PKGREV}"
                 ;;
 
 		xenial)
 		DIST_CODE="xenial"
 		PKGVER="${PKGVER}~${DIST_CODE}${BACKPORTREV}"
-		PKGREV="-${PKGREV}"
 		;;
 
 		yakkety)
 		DIST_CODE="yakkety"
 		PKGVER="${PKGVER}~${DIST_CODE}${BACKPORTREV}"
-		PKGREV="-${PKGREV}"
 		;;
 
 	esac

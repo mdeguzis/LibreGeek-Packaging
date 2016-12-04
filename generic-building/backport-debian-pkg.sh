@@ -321,7 +321,7 @@ function_get_source()
 		yakkety)
 		DIST_CODE="yakkety"
 		PKGVER="${PKGVER}~${DIST_CODE}${BACKPORTREV}"
-		PKGREV=-${PKGREV}"
+		PKGREV="-${PKGREV}"
 		;;
 
 	esac

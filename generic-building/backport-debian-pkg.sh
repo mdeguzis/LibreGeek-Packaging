@@ -278,26 +278,32 @@ function_get_source()
 	# LaunchPad will not allow an orig. tarball under the same version, so
 	# backporting the same package to multiple dists is tough
 
+	# unset pkgrev so it isn't tacked on the end for non-PPAs
+
 	case "${DIST}"  in
 
 		brewmaster)
 		DIST_CODE="bsos"
 		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		unset PKGREV
 		;;
 
 		brewmaster-tesing)
 		DIST_CODE="bsos"
 		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		unset PKGREV
 		;;
 
 		jessie)
 		DIST_CODE="bpo8"
 		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		unset PKGREV
 		;;
 
 		jessie-backports)
 		DIST_CODE="bpo8"
 		PKGSUFFIX="${PKGREV}~${DIST_CODE}+${BACKPORTREV}"
+		unset PKGREV
 		;;
 
                 trusty)
@@ -315,7 +321,7 @@ function_get_source()
 		yakkety)
 		DIST_CODE="yakkety"
 		PKGVER="${PKGVER}~${DIST_CODE}${BACKPORTREV}"
-		PKGSUFFIX="-${PKGREV}"
+		PKGSUFFIX=-${PKGREV}"
 		;;
 
 	esac

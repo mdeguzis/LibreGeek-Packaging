@@ -222,6 +222,41 @@ function_get_source()
 
 	read -erp "" FAKE_ENTER_KEY
 
+	# Set our suffix for backporting
+	# Update any of the below if distro versions change
+
+	case "${DIST}"  in
+
+		brewmaster)
+		DIST_CODE="bsos"
+		;;
+
+		brewmaster-tesing)
+		DIST_CODE="bsos"
+		;;
+
+		jessie)
+		DIST_CODE="bpo8"
+		;;
+
+		jessie-backports)
+		DIST_CODE="bpo8"
+		;;
+
+                trusty)
+                DIST_CODE="trusty"
+                ;;
+
+		xenial)
+		DIST_CODE="xenial"
+		;;
+
+		yakkety)
+		DIST_CODE="yakkety"
+		;;
+
+	esac
+
 	# Clone upstream source code and branch
 
 	if [[ "${RETRY_BUILD}" == "false" ]]; then
@@ -361,41 +396,6 @@ function_backport_config()
 		done
 
 	fi
-
-	# Set our suffix for backporting
-	# Update any of the below if distro versions change
-
-	case "${DIST}"  in
-
-		brewmaster)
-		DIST_CODE="bsos"
-		;;
-
-		brewmaster-tesing)
-		DIST_CODE="bsos"
-		;;
-
-		jessie)
-		DIST_CODE="bpo8"
-		;;
-
-		jessie-backports)
-		DIST_CODE="bpo8"
-		;;
-
-                trusty)
-                DIST_CODE="trusty"
-                ;;
-
-		xenial)
-		DIST_CODE="xenial"
-		;;
-
-		yakkety)
-		DIST_CODE="yakkety"
-		;;
-
-	esac
 
 	# If user requested to execute commands before build:
 	if [[ "${USER_COMMANDS}" == "true" ]]; then

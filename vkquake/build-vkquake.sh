@@ -58,7 +58,7 @@ BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.72"
+PKGVER="0.90"
 PKGREV="1"
 PPA_REV=${PPA_REV:-""}
 EPOCH="1"

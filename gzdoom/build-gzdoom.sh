@@ -47,8 +47,8 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/coelckers/gzdoom"
-FMOD_VER="fmodstudioapi10815linux.tar.gz"
-FMOD_RELEASE="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_VER}"
+FMOD_FILE="fmodstudioapi10815linux.tar.gz"
+FMOD_RELEASE="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_FILE}"
 TARGET="g2.2.0"
 
 # package vars
@@ -122,7 +122,7 @@ main()
 	# The download is user-authenticated
 	# A copy should be in the GitHub directory this script resides in
 
-	wget "http://www.libregeek.org/Linux/game-files/gzdoom/${FMOD_VER}" \
+	wget "http://www.libregeek.org/Linux/game-files/gzdoom/${FMOD_FILE}" \
 	-q -nc --show-progress
 	
 	# Unpack FMOD for build
@@ -141,8 +141,8 @@ main()
 	# a system-wide version.
 
 	mkdir -p "${SRC_DIR}/fmod"
-	
-	if [[ -f "${FMOD_RELEASE}" ]]; then
+
+	if [[ -f "${FMOD_FILE}" ]]; then
 
 		# Unpack
 		# I'm not sure they understand how to make a gzip archive

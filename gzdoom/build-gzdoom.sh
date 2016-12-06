@@ -59,7 +59,7 @@ BUILDER="pdebuild"
 BUILDOPTS=""
 PKGNAME="gzdoom"
 PKGVER=$(echo ${TARGET} | sed 's/g//')
-PKGREV="2"
+PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=yakkety}"
 URGENCY="low"
@@ -145,8 +145,6 @@ main()
 	if [[ -f "${FMOD_FILE}" ]]; then
 
 		# Unpack
-		# I'm not sure they understand how to make a gzip archive
-		# The file is in xz file format, not gz
 		echo -e "\nUnpacking FMOD\n"
 		sleep 2s
 		tar xzvf fmod*.tar.gz --strip-components=1 -C "${SRC_DIR}/fmod"

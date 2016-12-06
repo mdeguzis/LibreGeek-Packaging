@@ -1,0 +1,17 @@
+Source: brutal-doom-64
+Section: games
+Priority: optional
+Build-Depends: debhelper (>=9),
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Standards-Version: 3.9.6
+Homepage: http://www.moddb.com/mods/brutal-doom-64
+
+Package: brutal-doom-64
+Architecture: any
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ gzdoom
+Description: Reverse-engineered Doom64 with improvements.
+ .
+ brutal-doom-64 is a reverse-engineering project aimed to recreate 
+ Doom64 in a new engine with the "bruatality" of Brutal Doom.

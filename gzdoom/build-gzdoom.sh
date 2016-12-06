@@ -47,7 +47,7 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/coelckers/gzdoom"
-FMOD_VER="fmodstudioapi10814linux.tar.gz"
+FMOD_VER="fmodstudioapi10815linux.tar.gz"
 FMOD_URL="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_VER}"
 TARGET="g2.2.0"
 
@@ -173,7 +173,7 @@ main()
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-	cp "${SRC_DIR}/license.txt" "${SRC_DIR}/debian/LICENSE"
+	cp "${SRC_DIR}/docs/licenses/README.TXT" "${SRC_DIR}/debian/LICENSE"
 
 	# enter source dir
 	cd "${SRC_DIR}"

@@ -191,13 +191,13 @@ main()
 
 		# adjust for fmod
 		sed -i 's/$[(]FMOD[)]/\-DNO_FMOD=OFF/' "${SRC_DIR}/debian/rules"
-		sed -i 's/$[(]OPENALL[)]/\-DNO_OPENAL=ON/' "${SRC_DIR}/debian/rules"
+		sed -i 's/$[(]OPENAL[)]/\-DNO_OPENAL=ON/' "${SRC_DIR}/debian/rules"
 
 	else
 
 		# adjust for openal
 		sed -i 's/$[(]FMOD[)]/\-DNO_FMOD=ON/' "${SRC_DIR}/debian/rules"
-		sed -i 's/$[(]OPENALL[)]/\-DNO_OPENAL=OFF/' "${SRC_DIR}/debian/rules"
+		sed -i 's/$[(]OPENAL[)]/\-DNO_OPENAL=OFF/' "${SRC_DIR}/debian/rules"
 
 	fi
 

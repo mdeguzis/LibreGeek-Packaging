@@ -38,11 +38,11 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming_testing"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
+	REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming"
 
 fi
 # upstream vars
@@ -115,8 +115,14 @@ main()
 	# Obtain FMOD
 	# See: https://wiki.debian.org/FMOD
 	# See: https://github.com/coelckers/gzdoom/blob/master/src/CMakeLists.txt
-	wget -P "${SRC_DIR}" "${FMOD_URL}/${FMOD_VERSION}" -q -nc --show-progress \
-	|| echo -e "\nCould not FMOD!" && exit 1
+	
+	if ! wget -P "${SRC_DIR}" "${FMOD_URL}/${FMOD_VERSION}" -q -nc --show-progress; then
+
+		echo -e "\nCould dowload FMOD!\n" 
+		sleep 4s
+		exit 1
+
+	fi
 
 	cd "${SRC_DIR}"
 	

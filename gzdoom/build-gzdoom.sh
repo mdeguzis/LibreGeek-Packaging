@@ -118,13 +118,7 @@ main()
 	# See: https://wiki.debian.org/FMOD
 	# See: https://github.com/coelckers/gzdoom/blob/master/src/CMakeLists.txt
 	
-	if ! wget -P "${SRC_DIR}" "${FMOD_URL}/${FMOD_VERSION}" -q -nc --show-progress; then
-
-		echo -e "\nCould dowload FMOD!\n" 
-		sleep 4s
-		exit 1
-
-	fi
+	wget -P "${SRC_DIR}" "${FMOD_URL}/${FMOD_VER}" -q -nc --show-progress
 
 	cd "${SRC_DIR}"
 	
@@ -144,7 +138,19 @@ main()
 	# a system-wide version.
 
 	mkdir -p "${SRC_DIR}/fmod"
-	tar xf fmod*.tar.gz -C "${SRC_DIR}/fmod"
+	
+	if [[ -f "${FMOD_VER}" ]]; then
+
+		# Unpack
+		tar xf fmod*.tar.gz -C "${SRC_DIR}/fmod"
+
+	else
+		echo -e "\nCould dowload FMOD!\n" 
+		sleep 4s
+		exit 1
+
+	fi
+
 	cp fmodapi*linux/fmodapi*linux/api/libfmod-3.75.so "${SRC_DIR}/fmod"
 	cp fmodapi*linux/fmodapi*linux/api/inc/*.h "${SRC_DIR}/fmod"
 	rm fmod*.tar.gz

@@ -147,7 +147,9 @@ main()
 		# Unpack
 		# I'm not sure they understand how to make a gzip archive
 		# The file is in xz file format, not gz
-		tar xzf fmod*.tar.gz --strip-components=1 -C "${SRC_DIR}/fmod"
+		echo -e "\nUnpacking FMOD\n"
+		sleep 2s
+		tar xzvf fmod*.tar.gz --strip-components=1 -C "${SRC_DIR}/fmod"
 		rm -f "${FMOD_VER}"
 
 	else

@@ -67,6 +67,7 @@ UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
@@ -112,6 +113,7 @@ main()
 
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
 	# Obtain FMOD
 	# See: https://wiki.debian.org/FMOD
 	# See: https://github.com/coelckers/gzdoom/blob/master/src/CMakeLists.txt

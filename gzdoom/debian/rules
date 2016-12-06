@@ -17,7 +17,8 @@ override_dh_auto_configure:
 		-DCMAKE_SKIP_RPATH=ON \
 		-DFORCE_INTERNAL_BZIP2=OFF \
 		-DFORCE_INTERNAL_GME=OFF \
-		$(EXTRA_OPTIONS)
+		$(FMOD) \
+		$(OPENAL)
 
 override_dh_auto_build:
 	make -j4 -C build

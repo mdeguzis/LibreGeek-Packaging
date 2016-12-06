@@ -115,7 +115,8 @@ main()
 	# Obtain FMOD
 	# See: https://wiki.debian.org/FMOD
 	# See: https://github.com/coelckers/gzdoom/blob/master/src/CMakeLists.txt
-	wget -P "${SRC_DIR}" "${FMOD_URL}/${FMOD_VERSION}" -q -nc --show-progress
+	wget -P "${SRC_DIR}" "${FMOD_URL}/${FMOD_VERSION}" -q -nc --show-progress \
+	|| echo -e "\nCould not FMOD!" && exit 1
 
 	cd "${SRC_DIR}"
 	

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-ftequake-unstable.sh
+# Scipt name:	build-ftequakeworld.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest ftequake source
-#		code. This pacakge tracks the latest SVN revision.
+# Description:	Attmpts to build a deb package from the latest ftequakeworld source
+#		code.
 #
-# See:		https://github.com/Novum/ftequake-unstable
+# See:		https://github.com/Novum/ftequakeworld
 #
-# Usage:	./build-ftequake-unstable.sh
+# Usage:	./build-ftequakeworld.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -22,7 +22,6 @@ arg1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
-
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -47,15 +46,16 @@ else
 fi
 # upstream vars
 SVN_URL="http://svn.code.sf.net/p/fteqw/code/trunk"
-SVN_REV=""
+# REV chosen below from list
+# SVN_REV="r5010"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
-PKGNAME="ftequake-unstable"
+BUILDOPTS="--debbuildopts -nc"
+PKGNAME="ftequakeworld"
 # Base version sourced from latest milestone on SF
 PKGVER="1.04.0"
 PKGREV="1"
@@ -117,18 +117,38 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
+	# checkout desired revision
 	svn checkout "${SVN_URL}" "${SVN_DIR}"
 
-	# Get latest revision
-	cd "${SVN_DIR}"
-	LATEST_REV=$(svn info | grep Revision | cut -d " " -f 2)
+	# Get desired revision
+	echo -e "\n==> Showing last 5 revisions\n"
 
-	# Set PKGSUFFIX
-	PKGSUFFIX="r${LATEST_REV}svn+bsos"
+	cd  "${SVN_DIR}"
+	svn log | grep -e ^r[0-9] | cut -d " " -f 1 | head -n 5
+
+	echo -e "\n==> Use which revision?"
+	sleep 0.3s
+	read -erp "Choice: " SVN_REV
+	echo ""
+
+	if [[ "${SVN_REV}" == "" ]]; then
+
+		# just use latest revision
+		SVN_REV=$(echo "r$(svn info | grep "Revision" | awk '{print $2}')")
+
+	else
+
+		# Use desired revision
+		svn update "${SVN_REV}"
+
+	fi
+
+	# Set package suffix
+	PKGSUFFIX="${SVN_REV}svn+bsos"
 
 	# Add extras
-	cp -r "${SCRIPTDIR}/ftequake.png" "${SVN_DIR}"
+	cp "${SCRIPTDIR}/ftequakeworld.png" "${SVN_DIR}"
+	cp "${SCRIPTDIR}/quake-icon.png" "${SVN_DIR}"
 
 	#################################################
 	# Build package
@@ -144,7 +164,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
-	# Add required files and artwork
+	# Add required debian files
 	cp -r "${SCRIPTDIR}/debian" "${SVN_DIR}"
 
 	# enter source dir
@@ -157,7 +177,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit svn revision ${LATEST_REV}"
+		-D "${DIST}" -u "${URGENCY}" "Update to SVN revision ${SVN_REV}"
 		nano "debian/changelog"
 
 	else
@@ -192,11 +212,6 @@ main()
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
 	# inform user of packages
 	cat<<- EOF
 	#################################################################
@@ -227,7 +242,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SVN_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

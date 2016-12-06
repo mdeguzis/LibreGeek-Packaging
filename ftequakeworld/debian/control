@@ -1,4 +1,4 @@
-Source: ftequake-unstable
+Source: ftequakeworld
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Section: games
 Priority: optional
@@ -7,6 +7,7 @@ Build-Depends:
  debhelper (>= 9~),
  libasound2-dev,
  libegl1-mesa-dev,
+ libgnutls28-dev,
  libjpeg-dev,
  libogg-dev,
  libpng-dev,
@@ -18,9 +19,9 @@ Build-Depends:
 Standards-Version: 3.9.8
 Homepage: https://sourceforge.net/projects/fteqw
 
-Package: ftequake-unstable
-Replaces: ftequake
-Conflicts: ftequake
+Package: ftequakeworld
+Replaces: ftequakeworld-unstable, fteqw
+Conflicts: ftequakeworld-unstable, fteqw
 Architecture: any
 Depends:
  ${misc:Depends},

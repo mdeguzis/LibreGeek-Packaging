@@ -48,7 +48,7 @@ fi
 # upstream vars
 SRC_URL="https://github.com/coelckers/gzdoom"
 FMOD_VER="fmodstudioapi10815linux.tar.gz"
-FMOD_FILE="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_VER}"
+FMOD_RELEASE="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_VER}"
 TARGET="g2.2.0"
 
 # package vars
@@ -117,10 +117,12 @@ main()
 	# Obtain FMOD
 	# See: https://wiki.debian.org/FMOD
 	# See: https://github.com/coelckers/gzdoom/blob/master/src/CMakeLists.txt
-	
-	wget -P "${SRC_DIR}" "${FMOD_FILE}" -q -nc --show-progress
 
-	cd "${SRC_DIR}"
+	# IMPORTANT! - FMOD must be downloaded from the website first
+	# The download is user-authenticated
+	# A copy should be in the GitHub directory this script resides in
+
+	cp "${SCRIPTDIR}/${FMOD_RELEASE}" "${SRC_DIR}" || exit 1
 	
 	# Unpack FMOD for build
 
@@ -139,9 +141,11 @@ main()
 
 	mkdir -p "${SRC_DIR}/fmod"
 	
-	if [[ -f "${FMOD_VER}" ]]; then
+	if [[ -f "${FMOD_RELEASE}" ]]; then
 
 		# Unpack
+		# I'm not sure they understand how to make a gzip archive
+		# The file is in xz file format, not gz
 		tar xzf fmod*.tar.gz -C "${SRC_DIR}/fmod"
 		rm -f "${FMOD_VER}"
 
@@ -154,7 +158,6 @@ main()
 
 	cp fmodapi*linux/fmodapi*linux/api/libfmod-3.75.so "${SRC_DIR}/fmod"
 	cp fmodapi*linux/fmodapi*linux/api/inc/*.h "${SRC_DIR}/fmod"
-	rm fmod*.tar.gz
 
 	# Set PKGSUFFIX based on Ubuntu DIST
 	case "${DIST}" in

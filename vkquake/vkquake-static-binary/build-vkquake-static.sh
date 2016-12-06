@@ -67,15 +67,12 @@ if [[ "$arg1" == "--testing" ]]; then
 
 else
 
-        TARGET="0.72"
+        TARGET="0.90"
         REPO_FOLDER="/mnt/server_media_y/packaging/linux-binaries/stable"
 	# Source version from vkQuake/Quake/quakedef.h
-	PKGVER="0.72.0"
+	PKGVER="${TARGET}.0"
 
 fi
-
-# Need network for pbuilder to pull down ut4 zip
-export NETWORK="yes"
 
 # set build directories
 unset BUILD_TMP
@@ -123,6 +120,7 @@ main()
 
 	# clone and get latest commit tag
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 
@@ -136,16 +134,16 @@ main()
 	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	cd "${SRC_DIR}"
-
-	make -C Quake clean
-	make -C Quake release \
-		DO_USERDIRS=1 \
-		USE_SDL2=1 \
-		USE_CODEC_FLAC=1 \
-		USE_CODEC_OPUS=1 \
-		USE_CODEC_MIKMOD=1 \
-		USE_CODEC_UMX=1
-	make -C Misc/vq_pak
+	cd Quake
+#	make -C Quake clean
+	make
+#		DO_USERDIRS=1 \
+#		USE_SDL2=1
+#		USE_CODEC_FLAC=1 \
+#		USE_CODEC_OPUS=1 \
+#		USE_CODEC_MIKMOD=1 \
+#		USE_CODEC_UMX=1
+#	make -C Misc/vq_pak
 
 	#################################################
 	# Install process

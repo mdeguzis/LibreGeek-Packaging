@@ -67,10 +67,10 @@ if [[ "$arg1" == "--testing" ]]; then
 
 else
 
-        TARGET="0.90"
+        TARGET="master"
         REPO_FOLDER="/mnt/server_media_y/packaging/linux-binaries/stable"
 	# Source version from vkQuake/Quake/quakedef.h
-	PKGVER="${TARGET}.0"
+	PKGVER="0.90.0"
 
 fi
 
@@ -134,16 +134,15 @@ main()
 	# USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	cd "${SRC_DIR}"
-	cd Quake
-#	make -C Quake clean
-	make
-#		DO_USERDIRS=1 \
-#		USE_SDL2=1
-#		USE_CODEC_FLAC=1 \
-#		USE_CODEC_OPUS=1 \
-#		USE_CODEC_MIKMOD=1 \
-#		USE_CODEC_UMX=1
-#	make -C Misc/vq_pak
+	make -C Quake clean
+	make -C Quake release \
+		DO_USERDIRS=1 \
+		USE_SDL2=1
+		USE_CODEC_FLAC=1 \
+		USE_CODEC_OPUS=1 \
+		USE_CODEC_MIKMOD=1 \
+		USE_CODEC_UMX=1
+	make -C Misc/vq_pak
 
 	#################################################
 	# Install process

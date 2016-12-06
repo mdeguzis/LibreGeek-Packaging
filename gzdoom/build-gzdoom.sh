@@ -83,7 +83,7 @@ fetch_fmod()
 	# The download is user-authenticated
 	# A copy should be in the GitHub directory this script resides in
 
-	wget "http://www.libregeek.org/Linux/game-files/gzdoom/${FMOD_FILE}" \
+	wget "http://www.libregeek.org/Linux/files/${FMOD_FILE}" \
 	-q -nc --show-progress
 	
 	# Unpack FMOD for build

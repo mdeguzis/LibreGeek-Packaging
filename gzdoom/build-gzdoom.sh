@@ -18,7 +18,6 @@
 # Set variables
 #################################################
 
-arg1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
@@ -36,15 +35,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-if [[ "$arg1" == "--testing" ]]; then
-
-	REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming_testing"
-
-else
-
-	REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming"
-
-fi
 # upstream vars
 SRC_URL="https://github.com/coelckers/gzdoom"
 FMOD_FILE="fmodstudioapi10815linux.tar.gz"
@@ -60,7 +50,6 @@ BUILDOPTS=""
 PKGNAME="gzdoom"
 PKGVER=$(echo ${TARGET} | sed 's/g//')
 PKGREV="1"
-PKGSUFFIX="git+bsos"
 DIST="${DIST:=yakkety}"
 URGENCY="low"
 UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
@@ -83,36 +72,8 @@ install_prereqs()
 
 }
 
-main()
+fetch_fmod()
 {
-
-	# create BUILD_TMP
-	if [[ -d "${BUILD_TMP}" ]]; then
-
-		sudo rm -rf "${BUILD_TMP}"
-		mkdir -p "${BUILD_TMP}"
-
-	else
-
-		mkdir -p "${BUILD_TMP}"
-
-	fi
-
-	# enter build dir
-	cd "${BUILD_TMP}" || exit
-
-	# install prereqs for build
-	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
-
-		# handle prereqs on host machine
-		install_prereqs
-
-	fi
-
-	echo -e "\n==> Obtaining upstream source code\n"
-
-	# clone
-	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	# Obtain FMOD
 	# See: https://wiki.debian.org/FMOD
@@ -157,6 +118,39 @@ main()
 
 	fi
 
+}
+
+main()
+{
+
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
+
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
+
+	else
+
+		mkdir -p "${BUILD_TMP}"
+
+	fi
+
+	# enter build dir
+	cd "${BUILD_TMP}" || exit
+
+	# install prereqs for build
+	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
+
+		# handle prereqs on host machine
+		install_prereqs
+
+	fi
+
+	echo -e "\n==> Obtaining upstream source code\n"
+
+	# clone
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
 	# Set PKGSUFFIX based on Ubuntu DIST
 	case "${DIST}" in
 
@@ -181,9 +175,6 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
@@ -191,6 +182,24 @@ main()
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 	cp "${SRC_DIR}/docs/licenses/README.TXT" "${SRC_DIR}/debian/LICENSE"
+
+	# Assess optoin for fmod support
+	if [[ "${FMOD_SUPPORT}" == "true" ]]; then
+
+		# fetch files
+		fetch_fmod
+
+		# adjust for fmod
+		sed -i 's/$[(]FMOD[)]/\-DNO_FMOD=OFF/' "${SRC_DIR}/debian/rules"
+		sed -i 's/$[(]OPENALL[)]/\-DNO_OPENAL=ON/' "${SRC_DIR}/debian/rules"
+
+	else
+
+		# adjust for openal
+		sed -i 's/$[(]FMOD[)]/\-DNO_FMOD=ON/' "${SRC_DIR}/debian/rules"
+		sed -i 's/$[(]OPENALL[)]/\-DNO_OPENAL=OFF/' "${SRC_DIR}/debian/rules"
+
+	fi
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -287,6 +296,47 @@ main()
 
 }
 
+############################
+# source options
+############################
+
+# set defaults
+REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming"
+FMOD_SUPPORT="false"
+
+while :; do
+	case $1 in
+
+		--testing)
+			REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming_testing"
+			;;
+
+		--fmod-support|-fmod)
+			# Enable fmod
+			FMOD_SUPPORT="true"
+			;;
+
+		--)
+			# End of all options.
+			shift
+			break
+			;;
+
+		-?*)
+			printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+			;;
+
+		*)
+			# no more options
+			break
+			;;
+
+	esac
+
+	# shift args
+	shift
+
+done
+
 # start main
 main
-

@@ -142,7 +142,7 @@ main()
 	if [[ -f "${FMOD_VER}" ]]; then
 
 		# Unpack
-		tar xf fmod*.tar.gz -C "${SRC_DIR}/fmod"
+		tar xzf fmod*.tar.gz -C "${SRC_DIR}/fmod"
 		rm -f "${FMOD_VER}"
 
 	else

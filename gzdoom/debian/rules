@@ -6,17 +6,18 @@ LDFLAGS  = $(filter-out %-Bsymbolic%, $(shell dpkg-buildflags --get LDFLAGS)) -W
 
 TOP = $(shell pwd)
 
+# Note: @EXTRA_OPTIONS@ set in build script
+
 %:
 	dh $@
 
 override_dh_auto_configure:
 	rm -rf build && mkdir build
-	cd build && cmake \
+	cd build && cmake .. \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DFORCE_INTERNAL_BZIP2=OFF \
 		-DFORCE_INTERNAL_GME=OFF \
-		-DFMOD_INCLUDE_DIR=$(TOP)/FMOD \
-		..
+		$(EXTRA_OPTIONS)
 
 override_dh_auto_build:
 	make -j4 -C build

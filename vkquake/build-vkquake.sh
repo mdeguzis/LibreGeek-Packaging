@@ -47,7 +47,7 @@ fi
 # upstream vars
 #SRC_URL="https://github.com/ProfessorKaos64/vkQuake"
 SRC_URL="https://github.com/Novum/vkQuake"
-TARGET="0.72"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -156,7 +156,7 @@ main()
 	# "Update to the latest commit ${latest_commit}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-bad-version --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Upload for ${DIST}"
 		nano "debian/changelog"

@@ -122,7 +122,8 @@ main()
 	# The download is user-authenticated
 	# A copy should be in the GitHub directory this script resides in
 
-	cp "${SCRIPTDIR}/${FMOD_RELEASE}" "${SRC_DIR}" || exit 1
+	wget "http://www.libregeek.org/Linux/game-files/gzdoom/${FMOD_VER}" \
+	-q -nc --show-progress
 	
 	# Unpack FMOD for build
 

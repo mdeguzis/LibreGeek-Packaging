@@ -61,7 +61,7 @@ PKGNAME="gzdoom"
 PKGVER=$(echo ${TARGET} | sed 's/g//')
 PKGREV="2"
 PKGSUFFIX="git+bsos"
-DIST="${DIST:=brewmaster}"
+DIST="${DIST:=yakkety}"
 URGENCY="low"
 UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -140,6 +140,23 @@ main()
 	cp fmodapi*linux/fmodapi*linux/api/inc/*.h "${SRC_DIR}/fmod"
 	rm fmod*.tar.gz
 
+	# Set PKGSUFFIX based on Ubuntu DIST
+	case "${DIST}" in
+
+                trusty)
+                PKGSUFFIX="trusty${PPA_REV}"
+                ;;
+
+		xenial)
+		PKGSUFFIX="xenial${PPA_REV}"
+		;;
+
+		yakkety)
+		PKGSUFFIX="yakkety${PPA_REV}"
+		;;
+
+	esac
+
 	#################################################
 	# Build package
 	#################################################
@@ -167,14 +184,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest version ${PKGVER}"
+		dch -p --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update to the latest version ${PKGVER}"
 		nano "debian/changelog"
 	
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
 

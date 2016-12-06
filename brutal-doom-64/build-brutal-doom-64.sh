@@ -37,11 +37,11 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming_testing"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
+	REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming"
 
 fi
 
@@ -55,11 +55,10 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="brutal-doom-64"
-PKGVER="1.0.0"
+PKGVER="1c"
 PKGREV="1"
-PKGSUFFIX="${DATE_SHORT}"
 EPOCH="1"
-DIST="${DIST:=brewmaster}"
+DIST="${DIST:yakkety}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -114,6 +113,23 @@ main()
 	wget -P "${SRC_DIR}" "${SRC_URL}/ZD64MUSIC.pk3" -q -nc --show-progres
 	cp "${SCRIPTDIR}/gzdoom.ini"	"${SRC_DIR}"
 
+	# Set PKGSUFFIX based on Ubuntu DIST
+	case "${DIST}" in
+
+                trusty)
+                PKGSUFFIX="trusty${PPA_REV}"
+                ;;
+
+		xenial)
+		PKGSUFFIX="xenial${PPA_REV}"
+		;;
+
+		yakkety)
+		PKGSUFFIX="yakkety${PPA_REV}"
+		;;
+
+	esac
+
 	# add extras
 	cp "${SCRIPTDIR}/brutal-doom-64.png" "${SRC_DIR}"
 
@@ -126,7 +142,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}~${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add debian folder stuff
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -137,17 +153,17 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
+		dch -p --force-bad-version --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to new 2.22 release"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		nano "debian/changelog"
 
 	fi
@@ -204,7 +220,7 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog

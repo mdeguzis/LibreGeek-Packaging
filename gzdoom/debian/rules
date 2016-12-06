@@ -14,7 +14,6 @@ TOP = $(shell pwd)
 override_dh_auto_configure:
 	rm -rf build && mkdir build
 	cd build && cmake .. \
-		-DCMAKE_SKIP_RPATH=ON \
 		-DFORCE_INTERNAL_BZIP2=OFF \
 		-DFORCE_INTERNAL_GME=OFF \
 		$(FMOD) \

@@ -147,7 +147,7 @@ main()
 		# Unpack
 		# I'm not sure they understand how to make a gzip archive
 		# The file is in xz file format, not gz
-		tar xzf fmod*.tar.gz -C "${SRC_DIR}/fmod"
+		tar xzf fmod*.tar.gz --strip-components=1 -C "${SRC_DIR}/fmod"
 		rm -f "${FMOD_VER}"
 
 	else
@@ -156,9 +156,6 @@ main()
 		exit 1
 
 	fi
-
-	cp fmodapi*linux/fmodapi*linux/api/libfmod-3.75.so "${SRC_DIR}/fmod"
-	cp fmodapi*linux/fmodapi*linux/api/inc/*.h "${SRC_DIR}/fmod"
 
 	# Set PKGSUFFIX based on Ubuntu DIST
 	case "${DIST}" in

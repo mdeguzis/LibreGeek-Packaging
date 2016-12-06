@@ -48,7 +48,7 @@ fi
 # upstream vars
 SRC_URL="https://github.com/coelckers/gzdoom"
 FMOD_VER="fmodstudioapi10815linux.tar.gz"
-FMOD_URL="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_VER}"
+FMOD_FILE="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_VER}"
 TARGET="g2.2.0"
 
 # package vars
@@ -118,7 +118,7 @@ main()
 	# See: https://wiki.debian.org/FMOD
 	# See: https://github.com/coelckers/gzdoom/blob/master/src/CMakeLists.txt
 	
-	wget -P "${SRC_DIR}" "${FMOD_URL}/${FMOD_VER}" -q -nc --show-progress
+	wget -P "${SRC_DIR}" "${FMOD_FILE}" -q -nc --show-progress
 
 	cd "${SRC_DIR}"
 	
@@ -143,9 +143,10 @@ main()
 
 		# Unpack
 		tar xf fmod*.tar.gz -C "${SRC_DIR}/fmod"
+		rm -f "${FMOD_VER}"
 
 	else
-		echo -e "\nCould dowload FMOD!\n" 
+		echo -e "\nCould not find or unpack FMOD! Exiting...\n" 
 		sleep 4s
 		exit 1
 

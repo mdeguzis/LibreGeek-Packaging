@@ -2,21 +2,18 @@ Source: gzdoom
 Section: games
 Priority: optional
 Build-Depends: debhelper (>=9),
- build-essential,
  cmake,
- git,
  libbz2-dev,
- libsdl2-dev,
- libjpeg-dev,
- libfluidsynth-dev,
- libgtk-3-dev,
+ libglew-dev,
  libgme-dev,
- libmpg123-dev,
+ libfluidsynth-dev,
+ libjpeg-dev,
  libopenal-dev,
+ libmagick++-dev,
+ libmpg123-dev,
  libsndfile1-dev,
- nasm,
- tar,
- timidity,
+ libsdl2-dev,
+ xdg-utils,
  zlib1g-dev
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Standards-Version: 3.9.7

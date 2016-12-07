@@ -1,0 +1,5 @@
+debian/scripts/gzdoom			usr/games
+debian/gzdoom.desktop			usr/share/applications/
+build/gzdoom				usr/lib/games/gzdoom
+build/*.pk3				usr/share/games/gzdoom
+debian/gzdoom.xpm			usr/share/pixmaps

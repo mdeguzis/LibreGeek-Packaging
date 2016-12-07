@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+TOP = $(shell pwd)
+
+# Note: @EXTRA_OPTIONS@ set in build script
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -rf build && mkdir build
+	cd build && cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DFORCE_INTERNAL_BZIP2=OFF \
+		-DFORCE_INTERNAL_GME=ON \
+		-DFORCE_INTERNAL_JPEG=OFF \
+		-DFORCE_INTERNAL_ZLIB=OFF \
+		$(FMOD) \
+		$(OPENAL) \
+		..
+
+override_dh_auto_build:
+	make -j4 -C build

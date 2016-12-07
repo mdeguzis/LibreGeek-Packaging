@@ -85,7 +85,7 @@ fetch_fmod()
 
 	wget "http://www.libregeek.org/Linux/files/${FMOD_FILE}" \
 	-q -nc --show-progress
-	
+
 	# Unpack FMOD for build
 
 	# You can either use "make install" on the FMOD distribution to put it
@@ -211,9 +211,9 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Update to the latest version ${PKGVER}"
+		-D "${DIST}" -u "${URGENCY}" "Upload for ${DIST}"
 		nano "debian/changelog"
-	
+
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \

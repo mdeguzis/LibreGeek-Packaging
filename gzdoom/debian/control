@@ -20,7 +20,7 @@ Standards-Version: 3.9.7
 Homepage: https://github.com/coelckers/gzdoom
 
 Package: gzdoom
-Architecture: all
+Architecture: any
 Depends: ${misc:Depends},
  ${shlibs:Depends}
 Description: gzdoom Doom engine

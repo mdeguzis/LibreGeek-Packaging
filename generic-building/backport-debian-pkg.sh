@@ -55,6 +55,7 @@ maintainer="ProfessorKaos64"
 
 # Initial vars for other objects
 EXTRA_OPTS=()
+BINARY_ONLY="false"
 TEST_REPO="false"
 BETA_REPO=""
 RETRY_BUILD="false"
@@ -737,6 +738,16 @@ while :; do
 			fi
 			;;
 
+
+		--binary-only|-b)
+			export DEBIAN_BACKPORTS="true"
+			# Reset BUILDOPTS, so we don't use default -sa
+			# process BINARY_ONLY at the very endy to make sure -sa is removed at
+			# The end of all options
+			BINARY_ONLY="true"
+			BUILDOPTS=("--debbuildopts -b")
+			;;
+
 		--build-stage|-bs)
 			if [[ -n "$2" ]]; then
 				export DEB_BUILD_PROFILES=$2
@@ -827,11 +838,12 @@ while :; do
 			Usage:		./backport-debian-pkg.sh [options]
 
 			Options:
-					--apt-prefs-hack	Raemove SteamOS apt preferences lock
 					--beta-repo|-br		Enable a beta repo
 					--backports|-bp		Utilize LibreGeek Debian backports
-					--binary-dep		Builds binary-dependent package
+					--binary-arch|-ba	Builds binary-dependent package
+					--binary-only|-b	Builds binary-dependent package
 					--network|-net		Enable build-time network connection
+					--no-apt-prefs		Remove /etc/apt/preferences.d/* files
 					--no-clean|-nc		Build without cleaning ahead of time
 					--no-lint|-nl		Disable lintian tests
 					--no-test|-nt		Disable pbuilder/sbuild package tests
@@ -874,6 +886,14 @@ done
 BUILDOPTS=$(echo ${BUILDOPTS[@]})
 # Set extra opts array
 EXTRA_OPTS=$(echo ${EXTRA_OPTS[@]})
+
+# Remove forced source inclusion from aggregated OPTS if making 
+# binary only
+if [[ "${BINARY_ONLY}" == "true" ]]; then
+
+	BUILDOPTS-=("--debbuildopts -nc")
+
+fi
 
 # start main
 main

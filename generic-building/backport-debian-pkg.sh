@@ -710,10 +710,11 @@ while :; do
 			EXTRA_OPTS+=("--user-commands")
 			;;
 
-		--apt-prefs-hack|-aph)
-			# Allow installation of packages newer than Valve's for building purposes
-			export DEBIAN_BACKPORTS="true"
-			EXTRA_OPTS+=("--apt-prefs-hack")
+		--no-apt-prefs|-nap)
+			# Take a nap, haha
+			# Allow any/all apt/preferences to be remove so pkgs can be freely installed
+			export NO_APT_PREFS="true"
+			EXTRA_OPTS+=("--no-apt-prefs")
 			;;
 
 		--backports|-bp)

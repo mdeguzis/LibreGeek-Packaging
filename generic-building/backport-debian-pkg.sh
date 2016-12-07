@@ -362,7 +362,7 @@ function_backport_config()
 			tar -xvjf *.tar.bz2
 			;;
 
-			*.tar.xz)
+			*tar.xz)
 			tar -xvf *.orig.tar.xz
 			;;
 
@@ -381,8 +381,8 @@ function_backport_config()
 	# Fail out if SRC_DIR is not found
 	if [[ "${SRC_DIR}" == "" ]]; then
 
-		echo -e "\nERROR: cannot find SRC_DIR! Contents of ${BUILD_TMP}: "
-		sleep 4s
+		echo -e "\nERROR: cannot find the source dir! Contents of ${BUILD_TMP}: "
+		sleep 5s
 		ls "${BUILD_TMP}"
 
 	fi

@@ -565,7 +565,7 @@ function_build_package()
 			# back out to SCRIPTDIR
 			echo -e "\n!!! FAILED TO BACKPORT. See output!!! \n"
 			sleep 5s
-			cd "${SCRIPTDIR}" && exit 1
+			cd "${SCRIPTDIR}"
 
 		fi
 
@@ -578,7 +578,7 @@ function_build_package()
 			# back out to SCRIPTDIR
 			echo -e "\n!!! FAILED TO ACQUIRE BUILD-DEPS. See output!!! \n"
 			sleep 5s
-			cd "${scritpdir}" && exit 1
+			cd "${scritpdir}"
 
 		fi
 
@@ -591,7 +591,7 @@ function_build_package()
 	else
 
 		echo -e "Invalid builder!"
-		sleep 4s
+		sleep 5s
 		exit 1
 
 	fi

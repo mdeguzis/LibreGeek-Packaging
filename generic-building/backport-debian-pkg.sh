@@ -710,13 +710,6 @@ while :; do
 			EXTRA_OPTS+=("--user-commands")
 			;;
 
-		--no-apt-prefs|-nap)
-			# Take a nap, haha
-			# Allow any/all apt/preferences to be remove so pkgs can be freely installed
-			export NO_APT_PREFS="true"
-			EXTRA_OPTS+=("--no-apt-prefs")
-			;;
-
 		--backports|-bp)
 			export DEBIAN_BACKPORTS="true"
 			EXTRA_OPTS+=("--backports")
@@ -759,6 +752,13 @@ while :; do
 			# If the package requires use of a network connection
 			export USE_NETWORK="yes"
 			EXTRA_OPTS+=("--network")
+			;;
+
+		--no-apt-prefs|-nap)
+			# Take a nap, haha
+			# Allow any/all apt/preferences to be remove so pkgs can be freely installed
+			export NO_APT_PREFS="true" 
+			EXTRA_OPTS+=("--no-apt-prefs")
 			;;
 
 		--no-clean|-nc)

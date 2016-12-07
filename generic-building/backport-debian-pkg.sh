@@ -363,11 +363,11 @@ function_backport_config()
 			;;
 
 			*tar.xz)
-			tar -xvf *.orig.tar.xz
+			tar -xvf *.tar.xz
 			;;
 
 			*.tar.gz)
-			tar -xvzf *.orig.tar.gz
+			tar -xvzf *.tar.gz
 			;;
 
 		esac

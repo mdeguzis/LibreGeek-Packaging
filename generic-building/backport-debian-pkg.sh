@@ -246,7 +246,7 @@ function_get_source()
 		elif [[ "${SOURCE_FORMAT}" == "native" ]]; then
 
 			PKGSUFFIX="~${DIST_CODE}+${BACKPORTREV}"
-			
+
 			# Native does not get a pgk rev
 			unset PKGREV
 
@@ -274,7 +274,7 @@ function_get_source()
 
 	# Set our suffix for backporting
 	# Update any of the below if distro versions change
-	# Set pkgver on Ubuntu to include everything except revision so 
+	# Set pkgver on Ubuntu to include everything except revision so
 	# Multi release uploads work fine
 	# LaunchPad will not allow an orig. tarball under the same version, so
 	# backporting the same package to multiple dists is tough
@@ -446,7 +446,7 @@ function_backport_config()
 
 		rm -f ${BUILD_TMP}/*.orig.tar.*
 		cd ${BUILD_TMP}
-		
+
 
 		# Create tarball
 		tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
@@ -887,11 +887,11 @@ BUILDOPTS=$(echo ${BUILDOPTS[@]})
 # Set extra opts array
 EXTRA_OPTS=$(echo ${EXTRA_OPTS[@]})
 
-# Remove forced source inclusion from aggregated OPTS if making 
+# Remove forced source inclusion from aggregated OPTS if making
 # binary only
 if [[ "${BINARY_ONLY}" == "true" ]]; then
 
-	BUILDOPTS-=("--debbuildopts -nc")
+	BUILDOPTS=$(echo "${BUILDOPTS[@]:debbuildopts -nc}")
 
 fi
 

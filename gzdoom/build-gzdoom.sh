@@ -18,7 +18,6 @@
 # Set variables
 #################################################
 
-arg1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
@@ -36,19 +35,10 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-if [[ "$arg1" == "--testing" ]]; then
-
-	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
-
-else
-
-	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
-
-fi
 # upstream vars
 SRC_URL="https://github.com/coelckers/gzdoom"
-FMOD_VER="fmodstudioapi10814linux.tar.gz"
-FMOD_URL="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_VER}"
+FMOD_FILE="fmodstudioapi10815linux.tar.gz"
+FMOD_RELEASE="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_FILE}"
 TARGET="g2.2.0"
 
 # package vars
@@ -56,18 +46,17 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
-export STEAMOS_TOOLS_BETA_HOOK="false"
+BUILDOPTS="--debbuildopts -nc"
 PKGNAME="gzdoom"
 PKGVER=$(echo ${TARGET} | sed 's/g//')
-PKGREV="2"
-PKGSUFFIX="git+bsos"
-DIST="${DIST:=brewmaster}"
+PKGREV="1"
+DIST="${DIST:=yakkety}"
 URGENCY="low"
 UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
@@ -80,6 +69,54 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper libmpg123-dev libfluidsynth-dev \
 	libsndfile1-dev libsdl2-dev
+
+}
+
+fetch_fmod()
+{
+
+	# Obtain FMOD
+	# See: https://wiki.debian.org/FMOD
+	# See: https://github.com/coelckers/gzdoom/blob/master/src/CMakeLists.txt
+
+	# IMPORTANT! - FMOD must be downloaded from the website first
+	# The download is user-authenticated
+	# A copy should be in the GitHub directory this script resides in
+
+	wget "http://www.libregeek.org/Linux/files/${FMOD_FILE}" \
+	-q -nc --show-progress
+
+	# Unpack FMOD for build
+
+	# You can either use "make install" on the FMOD distribution to put it
+	# in standard system locations, or you can unpack the FMOD distribution
+	# in the root of the zdoom tree. e.g.:
+	# zdoom
+	#   docs
+	#   fmodapi<version>linux[64] -or simply- fmod
+	#   jpeg-6b
+	#   ...
+	# The recommended method is to put it in the zdoom tree, since its
+	# headers are unversioned. Especially now that we can't work properly
+	# with anything newer than 4.26.xx, you probably don't want to use
+	# a system-wide version.
+
+	mkdir -p "${SRC_DIR}/fmod"
+
+	if [[ -f "${FMOD_FILE}" ]]; then
+
+		# Unpack
+		echo -e "\nUnpacking FMOD\n"
+		sleep 2s
+		tar xzvf fmod*.tar.gz --strip-components=1 -C "${SRC_DIR}/fmod"
+		rm -f "${FMOD_VER}"
+
+	else
+		echo -e "\nCould not find or unpack FMOD! Exiting...\n" 
+		sleep 4s
+		exit 1
+
+	fi
 
 }
 
@@ -113,33 +150,23 @@ main()
 
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-	# Obtain FMOD
-	# See: https://wiki.debian.org/FMOD
-	# See: https://github.com/coelckers/gzdoom/blob/master/src/CMakeLists.txt
-	wget -P "${SRC_DIR}" "${FMOD_URL}/${FMOD_VERSION}" -q -nc --show-progress
 
-	cd "${SRC_DIR}"
-	
-	# Unpack FMOD for build
+	# Set PKGSUFFIX based on Ubuntu DIST
+	case "${DIST}" in
 
-	# You can either use "make install" on the FMOD distribution to put it
-	# in standard system locations, or you can unpack the FMOD distribution
-	# in the root of the zdoom tree. e.g.:
-	# zdoom
-	#   docs
-	#   fmodapi<version>linux[64] -or simply- fmod
-	#   jpeg-6b
-	#   ...
-	# The recommended method is to put it in the zdoom tree, since its
-	# headers are unversioned. Especially now that we can't work properly
-	# with anything newer than 4.26.xx, you probably don't want to use
-	# a system-wide version.
+                trusty)
+                PKGSUFFIX="trusty${PPA_REV}"
+                ;;
 
-	mkdir -p "${SRC_DIR}/fmod"
-	tar xf fmod*.tar.gz -C "${SRC_DIR}/fmod"
-	cp fmodapi*linux/fmodapi*linux/api/libfmod-3.75.so "${SRC_DIR}/fmod"
-	cp fmodapi*linux/fmodapi*linux/api/inc/*.h "${SRC_DIR}/fmod"
-	rm fmod*.tar.gz
+		xenial)
+		PKGSUFFIX="xenial${PPA_REV}"
+		;;
+
+		yakkety)
+		PKGSUFFIX="yakkety${PPA_REV}"
+		;;
+
+	esac
 
 	#################################################
 	# Build package
@@ -148,16 +175,31 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}~${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-	cp "${SRC_DIR}/license.txt" "${SRC_DIR}/debian/LICENSE"
+	cp "${SRC_DIR}/docs/licenses/README.TXT" "${SRC_DIR}/debian/LICENSE"
+
+	# Assess optoin for fmod support
+	if [[ "${FMOD_SUPPORT}" == "true" ]]; then
+
+		# fetch files
+		fetch_fmod
+
+		# adjust for fmod
+		sed -i 's/$[(]FMOD[)]/\-DNO_FMOD=OFF/' "${SRC_DIR}/debian/rules"
+		sed -i 's/$[(]OPENAL[)]/\-DNO_OPENAL=ON/' "${SRC_DIR}/debian/rules"
+
+	else
+
+		# adjust for openal
+		sed -i 's/$[(]FMOD[)]/\-DNO_FMOD=ON/' "${SRC_DIR}/debian/rules"
+		sed -i 's/$[(]OPENAL[)]/\-DNO_OPENAL=OFF/' "${SRC_DIR}/debian/rules"
+
+	fi
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -168,14 +210,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to the latest version ${PKGVER}"
+		dch -p --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Upload for ${DIST}"
 		nano "debian/changelog"
-	
+
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Initial upload"
+		dch -p --create --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi
 
@@ -254,6 +296,47 @@ main()
 
 }
 
+############################
+# source options
+############################
+
+# set defaults
+REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming"
+FMOD_SUPPORT="false"
+
+while :; do
+	case $1 in
+
+		--testing)
+			REPO_FOLDER="/mnt/server_media_y/packaging/ubuntu/incoming_testing"
+			;;
+
+		--fmod-support|-fmod)
+			# Enable fmod
+			FMOD_SUPPORT="true"
+			;;
+
+		--)
+			# End of all options.
+			shift
+			break
+			;;
+
+		-?*)
+			printf 'WARN: Unknown option (ignored): %s\n' "$1" >&2
+			;;
+
+		*)
+			# no more options
+			break
+			;;
+
+	esac
+
+	# shift args
+	shift
+
+done
+
 # start main
 main
-

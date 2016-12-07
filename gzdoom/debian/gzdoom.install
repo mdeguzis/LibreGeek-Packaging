@@ -1,4 +1,5 @@
-debian/gzdoom.desktop 		usr/share/applications/
-#gzdoom.png 			usr/share/pixmaps/
-build/gzdoom			usr/games
-build/*.pk3			usr/lib/games/gzdoom
+debian/scripts/gzdoom			usr/games
+debian/gzdoom.desktop			usr/share/applications/
+build/gzdoom				usr/lib/games/gzdoom
+build/*.pk3				usr/share/games/gzdoom
+debian/gzdoom.xpm			usr/share/pixmaps

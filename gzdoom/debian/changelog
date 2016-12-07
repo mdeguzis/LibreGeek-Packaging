@@ -1,5 +1,11 @@
-gzdoom (2.2.0+git+bsos-1) brewmaster; urgency=low
+gzdoom (2.2.0~yakkety-1) yakkety; urgency=low
+
+  * Upload for yakkety
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 06 Dec 2016 22:12:01 +0000
+
+gzdoom (2.2.0~xenial-1) xenial; urgency=low
 
   * Initial upload
 
- -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 04 Nov 2016 13:34:26 -0400
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 06 Dec 2016 21:24:17 +0000

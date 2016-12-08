@@ -15,6 +15,7 @@ main ()
 	DOOM_RL_SRC="${TMP_DIR}/doomrl"
 	VALKYRIE_SRC="${TMP_DIR}/fpcvalkyrie"
 	VALKYRIE_ROOT="${VALKYRIE_SRC}"
+	OS="LINUX"
 
 	PKGS="build-essential fpc lua5.1 liblua5.1-0-dev fp-units-base curl"
 
@@ -71,11 +72,17 @@ main ()
 	# Clean files
 	git clean -f
 
-	# Add lua config
-	cat "${DOOM_RL_SRC}/config-linux.lua" >> "${DOOM_RL_SRC}/bin/config.lua"
+	# Add lua config and valkyrie root
+
+	cat >> "${DOOM_RL_SRC}/bin/config.lua" <<_EOF
+
+	VALKYRIE_ROOT = "${VALKYRIE_ROOT}"
+	OS = "${OS}
+
+	_EOF
 
 	# build
-	VALKYRIE_ROOT=${VALKYRIE_ROOT} lua makefile.lua lq
+	lua makefile.lua lq
 
 }
 

@@ -11,7 +11,8 @@ DOOM_RL_SRC="${TMP_DIR}/doomrl"
 VALKYRIE_SRC="${TMP_DIR}/fpcvalkyrie"
 
 # deps
-sudo apt-get install -y --force-yes build-essential fpc lua5.1 liblua5.1-0-dev fp-units-base
+sudo apt-get install -y --force-yes build-essential fpc lua5.1 liblua5.1-0-dev \
+fp-units-base curl
 
 # Enter tmp dir
 cd "${TMP_DIR}"
@@ -47,3 +48,10 @@ git clean -f
 
 # build
 lua makefile.lua lq
+
+main 2>$1 | tee log.txt
+
+echo "Log: "
+cat log.txt | curl -F 'sprunge=<-' http://sprunge.us
+
+rm -f log.txt

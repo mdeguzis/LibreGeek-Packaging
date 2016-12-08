@@ -71,6 +71,9 @@ main ()
 	# back out to main src dir
 	cd  "${DOOM_RL_SRC}"
 
+	# create tmp path to see if that helps build error
+	mkdir -p "${DOOM_RL_SRC}/tmp"
+
 	# Add lua config and valkyrie root
 
 	cat >> "${DOOM_RL_SRC}/bin/config.lua" <<-EOF

@@ -17,8 +17,31 @@ main ()
 	VALKYRIE_ROOT="${VALKYRIE_SRC}"
 
 	# deps
-	sudo apt-get install -y --force-yes build-essential fpc lua5.1 liblua5.1-0-dev \
-	fp-units-base curl
+	DEPS=""
+	
+	
+	PKGS="build-essential fpc lua5.1 liblua5.1-0-dev fp-units-base curl"
+
+	for PKG in ${PKGs};
+	do
+
+		echo -e "Installing: "${PKG}""
+
+		if sudo apt-get install -y --force-yes ${PKG} &> /dev/null; then
+
+			# PASS, but also show pkg version
+			echo -e "Package: ${PKG} [OK]"
+			dpkg -s ${PKG} | grep Version
+
+		else
+
+			# echo and exit if package install fails
+			echo -e "Package: ${PKG} [FAILED] Exiting..."
+			exit 1
+
+		fi
+
+	done
 
 	# Enter tmp dir
 	cd "${TMP_DIR}"

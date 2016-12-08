@@ -14,7 +14,7 @@ main ()
 
 	DOOM_RL_SRC="${TMP_DIR}/doomrl"
 	VALKYRIE_SRC="${TMP_DIR}/fpcvalkyrie"
-	VALKYRIE_ROOT="${VALKYRIE_SRC}"
+	VALKYRIE_ROOT="${VALKYRIE_SRC}/"
 	OS="LINUX"
 
 	PKGS="build-essential fpc lua5.1 liblua5.1-0-dev fp-units-base curl"

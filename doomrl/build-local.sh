@@ -52,7 +52,7 @@ main ()
 
 		cd  "${DOOM_RL_SRC}"
 		git clean -f
-		git pull
+		git reset --hard
 
 	fi
 
@@ -64,7 +64,7 @@ main ()
 
 		cd  "${VALKYRIE_SRC}"
 		git clean -f
-		git pull
+		git reset --hard
 
 	fi
 

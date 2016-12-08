@@ -49,7 +49,7 @@ main ()
 	cd "${TMP_DIR}"
 
 	echo -e "\n==> Fetching source code\n"
-	sleep 2s
+	sleep 1s
 
 	# Get files 
 	if [[ ! -d "${DOOM_RL_SRC}" ]]; then
@@ -82,9 +82,9 @@ main ()
 	# Download and extra required extras from doomrl download
 	
 	echo -e "\n==> Fetching assets\n"
-	sleep 2s
+	sleep 1s
 	
-	wget "${DOOM_RL_CLIENT_DL}" -q -nc --show-progress || (echo "Could not fetch assets!" && sleep 4s && exit 1)
+	wget "${DOOM_RL_CLIENT_DL}" -nc || (echo "Could not fetch assets!" && sleep 4s && exit 1)
 	tar xzf "${DOOM_RL_CLIENT_VER}.tar.gz"
 
 	cp -r "${DOOM_RL_CLIENT_VER}/mp3/"* "${DOOM_RL_SRC}/bin"
@@ -96,7 +96,7 @@ main ()
 	rm -f "${DOOM_RL_CLIENT_VER}.tar.gz"
 
 	echo -e "\n==> Configuring...\n"
-	sleep 2s
+	sleep 1s
 
 	# create tmp path to see if that helps build error
 	mkdir -p "${DOOM_RL_SRC}/tmp"

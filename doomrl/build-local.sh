@@ -98,7 +98,7 @@ main ()
 #	tar xzf "${DOOM_RL_CLIENT_VER}.tar.gz"
 	tar xf "${DOOM_RL_CLIENT_VER}.tar"
 
-	cp -r "${DOOM_RL_SRC}/mp3/"* "${DOOM_RL_SRC}/bin"
+	cp -r "${DOOM_RL_SRC}/mp3/"* "${DOOM_RL_SRC}/bin/mp3/"
 	rm -rf "${DOOM_RL_SRC}/mp3"
 
 #	cp -r "${DOOM_RL_CLIENT_VER}/mp3/"* "${DOOM_RL_SRC}/bin"

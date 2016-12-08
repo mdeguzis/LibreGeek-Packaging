@@ -77,7 +77,7 @@ main ()
 	cat >> "${DOOM_RL_SRC}/bin/config.lua" <<-EOF
 
 	VALKYRIE_ROOT = "${VALKYRIE_ROOT}"
-	OS = "${OS}
+	OS = "${OS}"
 
 	EOF
 

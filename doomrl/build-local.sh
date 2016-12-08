@@ -84,7 +84,7 @@ main ()
 	echo -e "\n==> Fetching assets\n"
 	sleep 1s
 	
-	wget "${DOOM_RL_CLIENT_DL}" -nc || (echo "Could not fetch assets!" && sleep 4s && exit 1)
+	wget "${DOOM_RL_CLIENT_DL}" -nc || (echo -e "\nERROR: Could not fetch assets!\n" && sleep 4s && exit 1)
 	tar xzf "${DOOM_RL_CLIENT_VER}.tar.gz"
 
 	cp -r "${DOOM_RL_CLIENT_VER}/mp3/"* "${DOOM_RL_SRC}/bin"

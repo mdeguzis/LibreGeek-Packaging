@@ -18,7 +18,7 @@ main ()
 
 	PKGS="build-essential fpc lua5.1 liblua5.1-0-dev fp-units-base curl"
 
-	for PKG in ${PKGs};
+	for PKG in ${PKGS};
 	do
 
 		echo -e "Installing: "${PKG}""
@@ -79,7 +79,7 @@ main ()
 
 }
 
-main 2>&1 | tee log.txt
+main | tee log.txt
 
 echo "Log: "
 cat log.txt | curl -F 'sprunge=<-' http://sprunge.us

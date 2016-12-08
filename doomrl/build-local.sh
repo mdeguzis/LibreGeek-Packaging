@@ -28,7 +28,7 @@ else
 
 fi
 
-if [[ ! -d "${VALKYRIE_SRC" ]]; then
+if [[ ! -d "${VALKYRIE_SRC}" ]]; then
 
 	git clone https://github.com/ChaosForge/fpcvalkyrie "${VALKYRIE_SRC}"
 	

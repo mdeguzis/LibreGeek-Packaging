@@ -114,7 +114,8 @@ main ()
 	sleep 2s
 
 	# build
-	lua makefile.lua lq
+	# Add hq (high quality) or lq (low quality)
+	lua makefile.lua hq
 
 }
 

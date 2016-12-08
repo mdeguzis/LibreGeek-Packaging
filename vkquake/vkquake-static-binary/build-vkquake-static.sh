@@ -67,10 +67,10 @@ if [[ "$arg1" == "--testing" ]]; then
 
 else
 
-        TARGET="master"
+        TARGET="0.91"
         REPO_FOLDER="/mnt/server_media_y/packaging/linux-binaries/stable"
 	# Source version from vkQuake/Quake/quakedef.h
-	PKGVER="0.90.0"
+	PKGVER="${TARGET}.0"
 
 fi
 

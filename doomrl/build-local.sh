@@ -79,7 +79,7 @@ main ()
 
 }
 
-main | tee log.txt
+main 2>&1 | tee log.txt
 
 echo "Log: "
 cat log.txt | curl -F 'sprunge=<-' http://sprunge.us

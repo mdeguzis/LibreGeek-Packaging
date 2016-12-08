@@ -891,7 +891,7 @@ EXTRA_OPTS=$(echo ${EXTRA_OPTS[@]})
 # binary only
 if [[ "${BINARY_ONLY}" == "true" ]]; then
 
-	BUILDOPTS=$(echo "${BUILDOPTS[@]:debbuildopts -nc}")
+	BUILDOPTS=$(echo "${BUILDOPTS[@]}" | sed 's/\-\- debbuildopts \-nc//')
 
 fi
 

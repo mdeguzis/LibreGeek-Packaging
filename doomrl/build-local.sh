@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+# set -x
 
 #
 # Only intended for testing a local build

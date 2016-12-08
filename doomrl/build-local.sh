@@ -79,7 +79,7 @@ main ()
 	VALKYRIE_ROOT = "${VALKYRIE_ROOT}"
 	OS = "${OS}
 
-	_EOF
+	EOF
 
 	# build
 	lua makefile.lua lq

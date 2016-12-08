@@ -51,6 +51,7 @@ main ()
 	else
 
 		cd  "${DOOM_RL_SRC}"
+		git clean -f
 		git pull
 
 	fi
@@ -62,15 +63,13 @@ main ()
 	else
 
 		cd  "${VALKYRIE_SRC}"
+		git clean -f
 		git pull
 
 	fi
 
 	# back out to main src dir
 	cd  "${DOOM_RL_SRC}"
-
-	# Clean files
-	git clean -f
 
 	# Add lua config and valkyrie root
 

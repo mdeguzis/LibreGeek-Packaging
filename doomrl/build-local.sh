@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 #
 # Only intended for testing a local build
 #

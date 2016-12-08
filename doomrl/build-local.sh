@@ -16,10 +16,6 @@ main ()
 	VALKYRIE_SRC="${TMP_DIR}/fpcvalkyrie"
 	VALKYRIE_ROOT="${VALKYRIE_SRC}"
 
-	# deps
-	DEPS=""
-	
-	
 	PKGS="build-essential fpc lua5.1 liblua5.1-0-dev fp-units-base curl"
 
 	for PKG in ${PKGs};

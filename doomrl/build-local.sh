@@ -12,6 +12,8 @@ main ()
 	echo -e "\n==> Prepping...\n"
 	sleep 2s
 
+	SCRIPTDIR="${PWD}"
+
 	TMP_DIR="${HOME}/doomrl-local-build-test"
 	mkdir -p "${TMP_DIR}"
 
@@ -21,6 +23,7 @@ main ()
 	OS="LINUX"
 	DOOM_RL_CLIENT_VER="doomrl-linux-x64-0997"
 	DOOM_RL_CLIENT_DL="https://drl.chaosforge.org/file_download/32/${DOOM_RL_CLIENT_VER}.tar.gz"
+	DOOM_RL_CLIENT_DL_ALT="http://libregeek.org/Linux/game-files/doomrl/${DOOM_RL_CLIENT_VER}.tar"
 
 	PKGS="build-essential fpc lua5.1 liblua5.1-0-dev fp-units-base curl"
 
@@ -84,13 +87,21 @@ main ()
 	echo -e "\n==> Fetching assets\n"
 	sleep 1s
 	
-	wget "${DOOM_RL_CLIENT_DL}" -nc || (echo -e "\nERROR: Could not fetch assets!\n" && sleep 4s && exit 1)
-	tar xzf "${DOOM_RL_CLIENT_VER}.tar.gz"
+	# TEMP ONLY
+	# Download a mirror of asssets from libregeek
+	# wget will refuse to download your game files via CLI, noting
+	# "the certificate of drl.chaosforge.org hasn't got a known issuer" ...
+	# The ALT archive just has the folders/files we need. I could not find music/sound/soundhq
+
+#	wget "${DOOM_RL_CLIENT_DL}" -nc || (echo -e "\nERROR: Could not fetch assets!\n" && sleep 4s && exit 1)
+	wget "${DOOM_RL_CLIENT_DL_ALT}" -nc || (echo -e "\nERROR: Could not fetch assets!\n" && sleep 4s && exit 1)
+#	tar xzf "${DOOM_RL_CLIENT_VER}.tar.gz"
+	tar xf "${DOOM_RL_CLIENT_VER}.tar.gz"
 
 	cp -r "${DOOM_RL_CLIENT_VER}/mp3/"* "${DOOM_RL_SRC}/bin"
-	cp -r "${DOOM_RL_CLIENT_VER}/music/"* "${DOOM_RL_SRC}/bin"
-	cp -r "${DOOM_RL_CLIENT_VER}/sound/"* "${DOOM_RL_SRC}/bin"
-	cp -r "${DOOM_RL_CLIENT_VER}/soundhq/"* "${DOOM_RL_SRC}/bin"
+#	cp -r "${DOOM_RL_CLIENT_VER}/music/"* "${DOOM_RL_SRC}/bin"
+#	cp -r "${DOOM_RL_CLIENT_VER}/sound/"* "${DOOM_RL_SRC}/bin"
+#	cp -r "${DOOM_RL_CLIENT_VER}/soundhq/"* "${DOOM_RL_SRC}/bin"
 
 	rm -r "${DOOM_RL_CLIENT_VER}"
 	rm -f "${DOOM_RL_CLIENT_VER}.tar.gz"

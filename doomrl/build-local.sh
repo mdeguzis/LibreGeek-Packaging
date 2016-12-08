@@ -96,7 +96,7 @@ main ()
 #	wget "${DOOM_RL_CLIENT_DL}" -nc || (echo -e "\nERROR: Could not fetch assets!\n" && sleep 4s && exit 1)
 	wget "${DOOM_RL_CLIENT_DL_ALT}" -nc || (echo -e "\nERROR: Could not fetch assets!\n" && sleep 4s && exit 1)
 #	tar xzf "${DOOM_RL_CLIENT_VER}.tar.gz"
-	tar xf "${DOOM_RL_CLIENT_VER}.tar.gz"
+	tar xf "${DOOM_RL_CLIENT_VER}.tar"
 
 	cp -r "${DOOM_RL_CLIENT_VER}/mp3/"* "${DOOM_RL_SRC}/bin"
 #	cp -r "${DOOM_RL_CLIENT_VER}/music/"* "${DOOM_RL_SRC}/bin"
@@ -104,7 +104,7 @@ main ()
 #	cp -r "${DOOM_RL_CLIENT_VER}/soundhq/"* "${DOOM_RL_SRC}/bin"
 
 	rm -r "${DOOM_RL_CLIENT_VER}"
-	rm -f "${DOOM_RL_CLIENT_VER}.tar.gz"
+	rm -f "${DOOM_RL_CLIENT_VER}.tar.*"
 
 	echo -e "\n==> Configuring...\n"
 	sleep 1s

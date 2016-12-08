@@ -12,6 +12,7 @@ main ()
 
 	DOOM_RL_SRC="${TMP_DIR}/doomrl"
 	VALKYRIE_SRC="${TMP_DIR}/fpcvalkyrie"
+	VALKYRIE_ROOT="${VALKYRIE_SRC}"
 
 	# deps
 	sudo apt-get install -y --force-yes build-essential fpc lua5.1 liblua5.1-0-dev \
@@ -49,8 +50,11 @@ main ()
 	# Clean files
 	git clean -f
 
+	# Add lua config ?
+	# cp "${DOOM_RL_SRC}config-linux.lua" 
+
 	# build
-	lua makefile.lua lq
+	VALKYRIE_ROOT=${VALKYRIE_ROOT} lua makefile.lua lq
 
 }
 

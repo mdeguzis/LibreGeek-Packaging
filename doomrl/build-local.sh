@@ -71,8 +71,8 @@ main ()
 	# Clean files
 	git clean -f
 
-	# Add lua config ?
-	# cp "${DOOM_RL_SRC}config-linux.lua" 
+	# Add lua config
+	cat "${DOOM_RL_SRC}/config-linux.lua" >> "${DOOM_RL_SRC}/bin/config.lua"
 
 	# build
 	VALKYRIE_ROOT=${VALKYRIE_ROOT} lua makefile.lua lq

@@ -76,7 +76,7 @@ main ()
 
 	# Add lua config and valkyrie root
 
-	cat >> "${DOOM_RL_SRC}/bin/config.lua" <<-EOF
+	cat >> "${DOOM_RL_SRC}/config.lua" <<-EOF
 
 	VALKYRIE_ROOT = "${VALKYRIE_ROOT}"
 	OS = "${OS}"

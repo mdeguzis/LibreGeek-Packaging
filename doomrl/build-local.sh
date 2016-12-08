@@ -9,6 +9,9 @@
 main ()
 {
 
+	echo -e "\n==> Prepping...\n"
+	sleep 2s
+
 	TMP_DIR="${HOME}/doomrl-local-build-test"
 	mkdir -p "${TMP_DIR}"
 
@@ -16,6 +19,8 @@ main ()
 	VALKYRIE_SRC="${TMP_DIR}/fpcvalkyrie"
 	VALKYRIE_ROOT="${VALKYRIE_SRC}/"
 	OS="LINUX"
+	DOOM_RL_CLIENT_VER="doomrl-linux-x64-0997"
+	DOOM_RL_CLIENT_DL="https://drl.chaosforge.org/file_download/32/${DOOM_RL_CLIENT_VER}.tar.gz"
 
 	PKGS="build-essential fpc lua5.1 liblua5.1-0-dev fp-units-base curl"
 
@@ -42,6 +47,9 @@ main ()
 
 	# Enter tmp dir
 	cd "${TMP_DIR}"
+
+	echo -e "\n==> Fetching source code\n"
+	sleep 2s
 
 	# Get files 
 	if [[ ! -d "${DOOM_RL_SRC}" ]]; then
@@ -71,6 +79,25 @@ main ()
 	# back out to main src dir
 	cd  "${DOOM_RL_SRC}"
 
+	# Download and extra required extras from doomrl download
+	
+	echo -e "\n==> Fetching assets\n"
+	sleep 2s
+	
+	wget "${DOOM_RL_CLIENT_DL}" -q -nc --show-progres
+	tar xzf "${DOOM_RL_CLIENT_VER}.tar.gz"
+
+	cp -r "${DOOM_RL_CLIENT_VER}/mp3/"* "${DOOM_RL_SRC}/bin"
+	cp -r "${DOOM_RL_CLIENT_VER}/music/"* "${DOOM_RL_SRC}/bin"
+	cp -r "${DOOM_RL_CLIENT_VER}/sound/"* "${DOOM_RL_SRC}/bin"
+	cp -r "${DOOM_RL_CLIENT_VER}/soundhq/"* "${DOOM_RL_SRC}/bin"
+
+	rm -r "${DOOM_RL_CLIENT_VER}"
+	rm -f "${DOOM_RL_CLIENT_VER}.tar.gz"
+
+	echo -e "\n==> Configuring...\n"
+	sleep 2s
+
 	# create tmp path to see if that helps build error
 	mkdir -p "${DOOM_RL_SRC}/tmp"
 
@@ -82,6 +109,9 @@ main ()
 	OS = "${OS}"
 
 	EOF
+
+	echo -e "\n==> Building DOOMRL\n"
+	sleep 2s
 
 	# build
 	lua makefile.lua lq

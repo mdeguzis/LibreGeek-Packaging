@@ -1,0 +1,5 @@
+Data/51-usb-device.rules /lib/udev/rules.d
+usr/games/dolphin-emu
+usr/share/applications/dolphin-emu.desktop
+usr/share/icons
+usr/share/man/man6/dolphin-emu.6

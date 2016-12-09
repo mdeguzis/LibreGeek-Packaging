@@ -164,7 +164,7 @@ main()
 
 		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+		tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 		
 	else
 	
@@ -197,7 +197,7 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release to ${PKGVER}"
 		nano "debian/changelog"
 
@@ -261,7 +261,7 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog

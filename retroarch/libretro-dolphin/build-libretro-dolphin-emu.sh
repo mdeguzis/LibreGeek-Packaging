@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-dolphin-emu.sh
+# Scipt Name:	build-libretro-dolphin.sh
 # Script Ver:	1.0.0
-# Description:	Attmpts to build a deb package from latest dolphin-emu
+# Description:	Attmpts to build a deb package from latest libretro-dolphin
 #		github release
 #
-# See:		https://github.com/dolphin-emu/dolphin/
+# See:		https://github.com/libretro/dolphin
 #
-# Usage:	build-dolphin-emu.sh
+# Usage:	build-libretro-dolphin.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -46,8 +46,9 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/dolphin-emu/dolphin/"
-TARGET="5.0"
+SRC_URL="https://github.com/libretro/dolphin"
+#TARGET="5.0"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,10 +59,10 @@ BUILDOPTS="--debbuildopts -sa"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="dolphin-emu"
+PKGNAME="libretro-dolphin"
 PKGVER="5.0"
-PKGREV="3"
-epoch="1"
+PKGREV="1"
+EPOCH="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -196,13 +197,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release to ${PKGVER}"
 		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build for SteamOS"
 		nano "debian/changelog"
 

@@ -37,17 +37,17 @@ fi
 
 if [[ "$arg1" == "--testing" ]]; then
 
-	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
+	REPO_FOLDER="/mnt/server_media_y/packaging/debian/incoming_testing"
 
 else
 
-	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
+	REPO_FOLDER="/mnt/server_media_y/packaging/debian/incoming"
 
 fi
 # upstream vars
-#GIT_URL="https://github.com/ProfessorKaos64/vkQuake"
-GIT_URL="https://github.com/Novum/vkQuake"
-branch="0.72"
+#SRC_URL="https://github.com/ProfessorKaos64/vkQuake"
+SRC_URL="https://github.com/Novum/vkQuake"
+TARGET="0.92"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,13 +58,13 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.72"
+PKGVER="${TARGET}.0"
 PKGREV="1"
 EPOCH="1"
 PKGSUFFIX="${DATE_SHORT}git"
 DIST="${DIST:=jessie}"
 URGENCY="low"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # Need network for pbuilder to pull down ut4 zip
@@ -73,8 +73,7 @@ export NETWORK="yes"
 # set build directories
 unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
-SRCDIR="${PKGNAME}-${PKGVER}"
-GIT_DIR="${BUILD_TMP}/${SRCDIR}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
@@ -115,15 +114,15 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and get latest commit tag
-	git clone -b "${branch}" "${GIT_URL}" "${GIT_DIR}"
-	cd "${GIT_DIR}"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Add required files and artwork
-	cp -r "${SCRIPTDIR}/debian" "${GIT_DIR}"
-	cp "${SCRIPTDIR}/vkquake.png" "${GIT_DIR}"
-	cp "${GIT_DIR}/LICENSE.txt" "${GIT_DIR}/debian/LICENSE"
-	cp "${SCRIPTDIR}/vkquake-launch.sh" "${GIT_DIR}/vkquake-launch"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	cp "${SCRIPTDIR}/vkquake.png" "${SRC_DIR}"
+	cp "${SRC_DIR}/LICENSE.txt" "${SRC_DIR}/debian/LICENSE"
+	cp "${SCRIPTDIR}/vkquake-launch.sh" "${SRC_DIR}/vkquake-launch"
 
 	#################################################
 	# Build package
@@ -134,10 +133,10 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" "${SRCDIR}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename "${SRC_DIR}")
 
 	# enter source dir
-	cd "${GIT_DIR}"
+	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -146,7 +145,7 @@ main()
 	# "Update to the latest commit ${latest_commit}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}}-${PKGREV}" \
+		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update to the latest commit ${latest_commit}"
 		nano "debian/changelog"
@@ -214,11 +213,11 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${GIT_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

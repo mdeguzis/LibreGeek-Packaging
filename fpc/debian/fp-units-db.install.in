@@ -1,0 +1,11 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/dblib*
+usr/lib/fpc/*/*/*/gdbm*
+usr/lib/fpc/*/*/*/ibase*
+usr/lib/fpc/*/*/*/mysql*
+usr/lib/fpc/*/*/*/odbc*
+usr/lib/fpc/*/*/*/oracle*
+usr/lib/fpc/*/*/*/postgres*
+usr/lib/fpc/*/*/*/pxlib*
+usr/lib/fpc/*/*/*/sqlite*
+usr/share/doc/fp-units-db       [!freebsd-any]

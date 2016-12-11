@@ -1,0 +1,3 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/fv*
+usr/share/doc/fp-units-fv   [!freebsd-any]

@@ -1,0 +1,11 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/dbus*         [!freebsd-any]
+usr/lib/fpc/*/*/*/fastcgi*      [!freebsd-any]
+usr/lib/fpc/*/*/*/httpd22*
+usr/lib/fpc/*/*/*/httpd24*
+usr/lib/fpc/*/*/*/ldap*         [!freebsd-any]
+usr/lib/fpc/*/*/*/libcurl*
+usr/lib/fpc/*/*/*/openssl*
+usr/lib/fpc/*/*/*/pcap*
+usr/lib/fpc/*/*/*/zorba*        [!freebsd-any]
+usr/share/doc/fp-units-net      [!freebsd-any]

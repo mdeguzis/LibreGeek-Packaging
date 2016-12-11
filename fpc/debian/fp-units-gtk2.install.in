@@ -1,0 +1,4 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/cairo*
+usr/lib/fpc/*/*/*/gtk2*
+usr/share/doc/fp-units-gtk2

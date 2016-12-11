@@ -1,0 +1,128 @@
+# Debconf translations for fpc.
+# Copyright (C) 2014 fpc's COPYRIGHT HOLDER
+# This file is distributed under the same license as the fpc package.
+# José de Figueiredo <deb.gnulinux@gmail.com>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fpc\n"
+"Report-Msgid-Bugs-To: fpc@packages.debian.org\n"
+"POT-Creation-Date: 2015-06-19 17:31+0200\n"
+"PO-Revision-Date: 2015-02-14 23:20-0300\n"
+"Last-Translator: José de Figueiredo <deb.gnulinux@gmail.com>\n"
+"Language-Team: Brazilian Portuguese <debian-l10n-portuguese@lists.debian."
+"org>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid "Rename \"/etc/fpc.cfg\" to \"/etc/fpc.cfg.bak\"?"
+msgstr "Renomear \"/etc/fpc.cfg\" para \"/etc/fpc.cfg.bak\"?"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"FPC now supports having multiple versions installed on the same system. The "
+"update-alternatives command can be used to set a default version for\n"
+" * fpc (the compiler);\n"
+" * fpc.cfg (the configuration file);\n"
+" * fp-utils (the helper tools)."
+msgstr ""
+"Agora o FPC suporta ter múltiplas versões instaladas no mesmo sistema. O "
+"comando update-alternatives pode ser usado para escolher uma versão padrão "
+"para:\n"
+" * fpc (o compilador);\n"
+" * fpc.cfg (o arquivo de configuração);\n"
+" * fp-utils (as ferramentas de apoio)."
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"Whatever version you may choose as default, the configuration files are "
+"always backward compatible, so it should always be safe to use the latest "
+"version."
+msgstr ""
+"Para qualquer versão que você escolher como padrão, os arquivos de "
+"configuração serão sempre retro-compatíveis, por isso deve ser sempre seguro "
+"usar a última versão."
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"In order to use the alternatives system on the system wide FPC configuration "
+"file you must accept renaming \"/etc/fpc.cfg\"; otherwise you will need to "
+"manage this manually by yourself."
+msgstr ""
+"Para utilizar o sistema de alternativas no arquivo global do sistema de "
+"configuração do FPC, você precisa aceitar renomear \"/etc/fpc.cfg\"; caso "
+"contrário, você precisará gerenciar isto manualmente por si mesmo."
+
+#. Type: select
+#. Choices
+#. This string should be in sync with the translation in the description
+#: ../fp-compiler.templates.in:3001
+msgid "Select manually"
+msgstr "Selecionar manualmente"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid "Default MS Windows .rc resource compiler:"
+msgstr "Compilador de recurso .rc MS Windows padrão:"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"FPC supports compiling programs that embed resources as MS Windows .rc-"
+"format files on all platforms where the MinGW windres tool is available."
+msgstr ""
+"O FPC tem suporte a compilar programas que incorporam recursos como arquivos "
+"no formato .rc do MS Windows em todas as plataformas onde a ferramenta MinGW "
+"windres estiver disponível."
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"In order to be able to compile projects using .rc files, you need first to "
+"manually install the package mingw32-binutils. mingw32-binutils is suggested "
+"by fp-compiler but not pulled in automatically."
+msgstr ""
+"Para poder compilar projetos usando arquivos .rc, primeiro você precisa "
+"instalar manualmente o pacote mingw32-binutils. O mingw32-binutils é "
+"sugerido pelo fp-compiler, mas não é trazido automaticamente."
+
+#. Type: select
+#. Description
+#. "Select manually" should be in sync with the text elsewhere in the
+#. translation
+#: ../fp-compiler.templates.in:3002
+msgid ""
+"If you want to enter a custom .rc file compiler that does not appear in this "
+"list or if you simply want to disable this feature, please select \"Select "
+"manually\"."
+msgstr ""
+"Se você quiser informar um compilador de arquivos .rc personalizado que não "
+"aparece nesta lista ou se você simplesmente quiser desabilitar esta "
+"característica, por favor, selecione \"Selecionar manualmente\"."
+
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:4001
+msgid "If you don't want to use a default .rc file compiler, leave this blank."
+msgstr ""
+"Se você não quer usar um compilador de arquivos .rc padrão, deixe em branco."

@@ -1,0 +1,10 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/a52*              [!freebsd-any]
+usr/lib/fpc/*/*/*/dts*              [!freebsd-any]
+usr/lib/fpc/*/*/*/libvlc*
+usr/lib/fpc/*/*/*/mad*              [!freebsd-any]
+usr/lib/fpc/*/*/*/modplug*          [!freebsd-any]
+usr/lib/fpc/*/*/*/oggvorbis*        [!freebsd-any]
+usr/lib/fpc/*/*/*/openal*           [!freebsd-any]
+usr/lib/fpc/*/*/*/sdl*
+usr/share/doc/fp-units-multimedia   [!freebsd-any]

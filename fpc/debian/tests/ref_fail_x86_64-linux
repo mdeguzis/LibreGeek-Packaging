@@ -1,0 +1,41 @@
+# upstream references: http://www.freepascal.org/testsuite/cgi-bin/testsuite.cgi
+# code comment: this test test needs dynamic dfa to work properly
+test/opt/tdfa11
+# code comment: this test will work only as soon as we have global dfa
+test/opt/tdfa8
+test/packages/webtbs/tw14265
+# pass instead of fail
+test/tcpstr2a
+test/thlp29
+test/timplements4a
+test/timplements4b
+# fails upstream with "-Fd" but not with "-Cg -O2 -Fd"
+test/tlib2a
+test/tset6
+# doesn't fail upstream
+test/tunistr7
+# doesn't fail upstream
+test/twide7
+# doesn't fail upstream
+# Next line fails on my laptop but not on ci.d.n or autopkgtest.u.c
+# This test depends on file system properties
+test/units/sysutils/texpfncase
+tbs/tb0528
+# Next line fails on autopkgtest.u.c but not on my laptop or ci.d.n
+# code comment: This test needs C libraries
+webtbs/tw0876
+webtbs/tw17236
+webtbs/tw24197
+webtbs/tw24863
+webtbs/tw3930
+# pass instead of fail
+webtbs/tw4809
+# fails upstream with "-Fd" but not with "-Cg -O2 -Fd"
+webtbs/tw7838a
+# fails upstream with "-Fd" but not with "-Cg -O2 -Fd"
+webtbs/tw7838b
+# fails upstream with "-Fd" but not with "-Cg -O2 -Fd"
+# assembler test that doesn't fail...
+webtbf/tw22665b
+# Maybe only fails under Kylix
+webtbf/tw3930a

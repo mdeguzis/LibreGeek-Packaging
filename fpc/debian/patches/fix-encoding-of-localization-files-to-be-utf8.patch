@@ -1,0 +1,334 @@
+From: Abou Al Montacir <abou.almontacir@sfr.fr>
+Date: Wed, 15 Jan 2014 21:49:04 +0100
+Subject: Change path of localization fies to fit Debian standard. (Closes: Bug#73368)
+Bug-Debian: http://bugs.debian.org/73368
+
+Index: fpc/fpcsrc/utils/fpdoc/intl/dglobals.de.po
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/intl/dglobals.de.po
++++ fpc/fpcsrc/utils/fpdoc/intl/dglobals.de.po
+@@ -1,6 +1,6 @@
+ #: dglobals:sdocpackagetitle
+ msgid "Reference for package '%s'"
+-msgstr "Referenz für Paket '%s'"
++msgstr "Referenz fÃ¼r Paket '%s'"
+ 
+ #: dglobals:sdocprograms
+ msgid "Programs"
+@@ -12,7 +12,7 @@ msgstr "Units"
+ 
+ #: dglobals:sdocunittitle
+ msgid "Reference for unit '%s'"
+-msgstr "Referenz für Unit '%s'"
++msgstr "Referenz fÃ¼r Unit '%s'"
+ 
+ #: dglobals:sdocinterfacesection
+ msgid "Interface section"
+@@ -60,11 +60,11 @@ msgstr "Variablen"
+ 
+ #: dglobals:sdocunitoverview
+ msgid "Overview of unit '%s'"
+-msgstr "Überblick über Unit '%s'"
++msgstr "Ãœberblick Ã¼ber Unit '%s'"
+ 
+ #: dglobals:sdocoverview
+ msgid "Overview"
+-msgstr "Überblick"
++msgstr "Ãœberblick"
+ 
+ #: dglobals:sdocsearch
+ msgid "Search"
+@@ -104,11 +104,11 @@ msgstr "Bemerkung:   "
+ 
+ #: dglobals:sdocmethodoverview
+ msgid "Method overview"
+-msgstr "Überblick über die Methoden"
++msgstr "Ãœberblick Ã¼ber die Methoden"
+ 
+ #: dglobals:sdocpropertyoverview
+ msgid "Property overview"
+-msgstr "Überblick über die Eigenschaften"
++msgstr "Ãœberblick Ã¼ber die Eigenschaften"
+ 
+ #: dglobals:sdocpage
+ msgid "Page"
+@@ -152,11 +152,11 @@ msgstr "Wert"
+ 
+ #: dglobals:sdocexplanation
+ msgid "Explanation"
+-msgstr "Erklärung"
++msgstr "ErklÃ¤rung"
+ 
+ #: dglobals:sdocvaluesforenum
+ msgid "Enumeration values for type %s"
+-msgstr "Aufzählungswerte für Typ %s"
++msgstr "AufzÃ¤hlungswerte fÃ¼r Typ %s"
+ 
+ #: dglobals.sdocup
+ msgid "Up"
+@@ -164,7 +164,7 @@ msgstr "Hoch"
+ 
+ #: dglobals.sdocnext
+ msgid "Next"
+-msgstr "Nächste"
++msgstr "NÃ¤chste"
+ 
+ #: dglobals.sdocprevious
+ msgid "Previous"
+Index: fpc/fpcsrc/utils/fpdoc/intl/dwriter.de.po
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/intl/dwriter.de.po
++++ fpc/fpcsrc/utils/fpdoc/intl/dwriter.de.po
+@@ -4,23 +4,23 @@ msgstr "Beim Schreiben der Datei \"%s\"
+ 
+ #: dwriter:serrinvalidshortdescr
+ msgid "Invalid short description"
+-msgstr "Ungültige Kurzbeschreibung"
++msgstr "UngÃ¼ltige Kurzbeschreibung"
+ 
+ #: dwriter:serrinvaliddescr
+ msgid "Invalid description (illegal XML element: \"%s\")"
+-msgstr "Ungültige Beschreibung (illegales XML-Element: \"%s\")"
++msgstr "UngÃ¼ltige Beschreibung (illegales XML-Element: \"%s\")"
+ 
+ #: dwriter:serrinvalidparacontent
+ msgid "Invalid paragraph content"
+-msgstr "Ungültiger Absatzinhalt (in <p>-Element)"
++msgstr "UngÃ¼ltiger Absatzinhalt (in <p>-Element)"
+ 
+ #: dwriter:serrinvalidelementinlist
+ msgid "Invalid element in list - only \"li\" allowed"
+-msgstr "Ungültiges Element in Liste - nur \"li\" ist erlaubt"
++msgstr "UngÃ¼ltiges Element in Liste - nur \"li\" ist erlaubt"
+ 
+ #: dwriter:serrinvalidlistcontent
+ msgid "Invalid list content"
+-msgstr "Ungültiger Listeninhalt"
++msgstr "UngÃ¼ltiger Listeninhalt"
+ 
+ #: dwriter:serrlistisempty
+ msgid "List is empty - need at least one \"li\" element"
+@@ -28,11 +28,11 @@ msgstr "Liste ist leer - brauche mindest
+ 
+ #: dwriter:serrinvalidremarkcontent
+ msgid "Invalid <remark> content (illegal XML element: \"%s\")"
+-msgstr "Ungültiger <remark>-Inhalt (illegales XML-Element: \"%s\")"
++msgstr "UngÃ¼ltiger <remark>-Inhalt (illegales XML-Element: \"%s\")"
+ 
+ #: dwriter:serrinvaliddefinitiontermcontent
+ msgid "Invalid content in definition term"
+-msgstr "Ungültiger Inhalt in Definitionsterm"
++msgstr "UngÃ¼ltiger Inhalt in Definitionsterm"
+ 
+ #: dwriter:serrdefinitionentrymissing
+ msgid "Definition entry after definition term is missing"
+@@ -40,11 +40,11 @@ msgstr "Definitionseintrag nach Definiti
+ 
+ #: dwriter:serrtableinvalidbordervalue
+ msgid "Invalid \"border\" value for <table>"
+-msgstr "Ungültiger \"border\"-Wert für <table>"
++msgstr "UngÃ¼ltiger \"border\"-Wert fÃ¼r <table>"
+ 
+ #: dwriter:serrinvalidtablecontent
+ msgid "Invalid table content"
+-msgstr "Ungültiger Tabelleninhalt"
++msgstr "UngÃ¼ltiger Tabelleninhalt"
+ 
+ #: dwriter:serrtablerowempty
+ msgid "Table row is empty (no \"td\" elements found)"
+@@ -52,7 +52,7 @@ msgstr "Tabellenzeile ist leer (keine \"
+ 
+ #: dwriter:serrinvalidcontentbeforesectiontitle
+ msgid "Invalid content before section title"
+-msgstr "Ungültiger Inhalt vor Abschnittstitel"
++msgstr "UngÃ¼ltiger Inhalt vor Abschnittstitel"
+ 
+ #: dwriter:serrsectiontitleexpected
+ msgid "Section title (\"title\" element) expected"
+@@ -76,5 +76,5 @@ msgstr "Warnung: Ziel-ID von <printshort
+ 
+ #: dwriter:serrunknownlink
+ msgid "Could not resolve link to \"%s\""
+-msgstr "Konnte Link auf \"%s\" nicht auflösen"
++msgstr "Konnte Link auf \"%s\" nicht auflÃ¶sen"
+ 
+Index: fpc/fpcsrc/utils/fpdoc/intl/fpdoc.de.po
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/intl/fpdoc.de.po
++++ fpc/fpcsrc/utils/fpdoc/intl/fpdoc.de.po
+@@ -4,7 +4,7 @@ msgstr "FPDoc - Free-Pascal-Dokumentatio
+ 
+ #: fpdoc:scopyright
+ msgid "(c) 2000 - 2003 Areca Systems GmbH / Sebastian Guenther, sg@freepascal.org"
+-msgstr "(c) 2000 - 2003 Areca Systems GmbH / Sebastian Günther, sg@freepascal.org"
++msgstr "(c) 2000 - 2003 Areca Systems GmbH / Sebastian GÃ¼nther, sg@freepascal.org"
+ 
+ #: fpdoc:scmdlinehelp
+ msgid "See documentation for usage."
+@@ -16,11 +16,11 @@ msgstr "Ignoriere unbekannte Option \"%s
+ 
+ #: fpdoc:scmdlineinvalidformat
+ msgid "Invalid format \"%s\" specified"
+-msgstr "Ungültiges Format \"%s\" angegeben"
++msgstr "UngÃ¼ltiges Format \"%s\" angegeben"
+ 
+ #: fpdoc:scmdlineoutputoptionmissing
+ msgid "Need an output filename, please specify one with --output=<filename>"
+-msgstr "Benötige einen Ausgabedateinamen, bitte geben Sie einen mit --output=<dateiname> an"
++msgstr "BenÃ¶tige einen Ausgabedateinamen, bitte geben Sie einen mit --output=<dateiname> an"
+ 
+ #: fpdoc:swritingpages
+ msgid "Writing %d pages..."
+Index: fpc/fpcsrc/utils/fpdoc/intl/fpdocmk.de.po
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/intl/fpdocmk.de.po
++++ fpc/fpcsrc/utils/fpdoc/intl/fpdocmk.de.po
+@@ -18,33 +18,33 @@ msgstr ""
+ 
+ #: fpdocmk:stitle
+ msgid "FPDocMK - Makefile.fpc processor for Free Pascal Documentation Tool"
+-msgstr "FPDocMK - Makefile.fpc-Prozessor für das "
++msgstr "FPDocMK - Makefile.fpc-Prozessor fÃ¼r das "
+ "Free-Pascal-Dokumentationswerkzeug"
+ 
+ #: fpdocmk:scopyright
+ msgid "(c) 2003 Areca Systems GmbH / Sebastian Guenther, sg@freepascal.org"
+-msgstr "(c) 2003 Areca Systems GmbH / Sebastian Günther, sg@freepascal.org"
++msgstr "(c) 2003 Areca Systems GmbH / Sebastian GÃ¼nther, sg@freepascal.org"
+ 
+ #: fpdocmk:scmdlinehelp
+ msgid "See documentation for usage."
+-msgstr "Lesen Sie die Dokumentation für Infos zur Benutzung."
++msgstr "Lesen Sie die Dokumentation fÃ¼r Infos zur Benutzung."
+ 
+ #: fpdocmk:scmdlineinvalidoption
+ msgid "Ignoring unknown option \"%s\""
+-msgstr "Ignoriere unbekannte Option »%s«"
++msgstr "Ignoriere unbekannte Option Â»%sÂ«"
+ 
+ #: fpdocmk:scmdlineinvalidformat
+ msgid "Invalid format \"%s\" specified"
+-msgstr "Ungültiges Format »%s« gewählt"
++msgstr "UngÃ¼ltiges Format Â»%sÂ« gewÃ¤hlt"
+ 
+ #: fpdocmk:scmdlineoutputoptionmissing
+ msgid "Need an output path or filename, please specify one with --output=<filename>"
+-msgstr "Benötige einen Ausgabepfad oder -dateinamen; "
++msgstr "BenÃ¶tige einen Ausgabepfad oder -dateinamen; "
+ "bitte geben Sie mit --output=<dateiname> einen an."
+ 
+ #: fpdocmk:sneedpackagename
+ msgid "No package name specified. Please specify one using the --package option."
+-msgstr "Kein Paketname gewählt. Bitte geben Sie mit der Option --package "
++msgstr "Kein Paketname gewÃ¤hlt. Bitte geben Sie mit der Option --package "
+ "einen an."
+ 
+ #: fpdocmk:sdone
+Index: fpc/fpcsrc/utils/fpdoc/intl/fpdocstr.de.po
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/intl/fpdocstr.de.po
++++ fpc/fpcsrc/utils/fpdoc/intl/fpdocstr.de.po
+@@ -50,11 +50,11 @@ msgstr "Alias-Typ"
+ 
+ #: fpdocstr:sptreetypealiastype
+ msgid "\"type\" alias type"
+-msgstr "Alias-Typ »type«"
++msgstr "Alias-Typ Â»typeÂ«"
+ 
+ #: fpdocstr:sptreeclassoftype
+ msgid "\"class of\" type"
+-msgstr "»class-of«-Typ"
++msgstr "Â»class-ofÂ«-Typ"
+ 
+ #: fpdocstr:sptreerangetype
+ msgid "Range type"
+@@ -66,11 +66,11 @@ msgstr "Array-Typ"
+ 
+ #: fpdocstr:sptreeenumvalue
+ msgid "Enumeration value"
+-msgstr "Aufzählungswert"
++msgstr "AufzÃ¤hlungswert"
+ 
+ #: fpdocstr:sptreeenumtype
+ msgid "Enumeration type"
+-msgstr "Aufzählungstyp"
++msgstr "AufzÃ¤hlungstyp"
+ 
+ #: fpdocstr:sptreesettype
+ msgid "Set type"
+@@ -118,7 +118,7 @@ msgstr "Eigenschaft"
+ 
+ #: fpdocstr:sptreeoverloadedprocedure
+ msgid "Overloaded procedure"
+-msgstr "Überladene Prozedur"
++msgstr "Ãœberladene Prozedur"
+ 
+ #: fpdocstr:sptreeprocedure
+ msgid "Procedure"
+@@ -138,7 +138,7 @@ msgstr "Destruktor"
+ 
+ #: fpdocstr:sdocpackagetitle
+ msgid "Reference for package '%s'"
+-msgstr "Referenz für das Paket »%s«"
++msgstr "Referenz fÃ¼r das Paket Â»%sÂ«"
+ 
+ #: fpdocstr:sdocprograms
+ msgid "Programs"
+@@ -150,7 +150,7 @@ msgstr "Units"
+ 
+ #: fpdocdef:sdocunittitle
+ msgid "Reference for unit '%s'"
+-msgstr "Referenz für Unit »%s«"
++msgstr "Referenz fÃ¼r Unit Â»%sÂ«"
+ 
+ #: fpdocdef:sdocinterfacesection
+ msgid "Interface section"
+@@ -166,7 +166,7 @@ msgstr "Verwendete Units"
+ 
+ #: fpdocdef:sdocusedunitsbyunitxy
+ msgid "Used units by unit '%s'"
+-msgstr "Von Unit »%s« verwendete Units"
++msgstr "Von Unit Â»%sÂ« verwendete Units"
+ 
+ #: fpdocdef:sdocconststypesvars
+ msgid "Constants, types and variables"
+@@ -198,7 +198,7 @@ msgstr "Variablen"
+ 
+ #: fpdocdef:sdocoverview
+ msgid "Overview"
+-msgstr "Überblick"
++msgstr "Ãœberblick"
+ 
+ #: fpdocdef:sdocsearch
+ msgid "Search"
+@@ -234,11 +234,11 @@ msgstr "Bemerkung:   "
+ 
+ #: fpdocstr:sdocmethodoverview
+ msgid "Method overview"
+-msgstr "Überblick über die Methoden"
++msgstr "Ãœberblick Ã¼ber die Methoden"
+ 
+ #: fpdocstr:sdocpropertyoverview
+ msgid "Property overview"
+-msgstr "Überblick über die Eigenschaften"
++msgstr "Ãœberblick Ã¼ber die Eigenschaften"
+ 
+ #: fpdocstr:sdocpage
+ msgid "Page"
+Index: fpc/fpcsrc/utils/fpdoc/intl/makeskel.de.po
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/intl/makeskel.de.po
++++ fpc/fpcsrc/utils/fpdoc/intl/makeskel.de.po
+@@ -1,10 +1,10 @@
+ #: makeskel:stitle
+ msgid "MakeSkel - FPDoc skeleton XML description file generator"
+-msgstr "MakeSkel - Skelett-Generator für FPDoc-XML-Beschreibungsdateien"
++msgstr "MakeSkel - Skelett-Generator fÃ¼r FPDoc-XML-Beschreibungsdateien"
+ 
+ #: makeskel:scopyright
+ msgid "(c) 2000 - 2003 Areca Systems GmbH / Sebastian Guenther, sg@freepascal.org"
+-msgstr "(c) 2000 - 2003 Areca Systems GmbH / Sebastian Günther, sg@freepascal.org"
++msgstr "(c) 2000 - 2003 Areca Systems GmbH / Sebastian GÃ¼nther, sg@freepascal.org"
+ 
+ #: makeskel:scmdlinehelp
+ msgid "See documentation for usage."

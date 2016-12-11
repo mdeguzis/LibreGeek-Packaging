@@ -1,0 +1,103 @@
+From: Abou Al Montacir <abou.almontacir@sfr.fr>
+Date: Wed, 15 Jan 2014 21:49:04 +0100
+Subject: Change path of localization fies to fit Debian standard. (Closes: Bug#73368)
+Bug-Debian: http://bugs.debian.org/73368
+
+Index: fpc/fpcsrc/utils/fpdoc/dglobals.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/dglobals.pp
++++ fpc/fpcsrc/utils/fpdoc/dglobals.pp
+@@ -1676,7 +1676,7 @@ procedure TranslateDocStrings(const Lang
+ 
+ Const
+ {$ifdef unix}
+-  DefDir = '/usr/local/share/locale';
++  DefDir = '/usr/share/locale';
+ {$else}  
+   DefDir = 'intl';
+ {$endif}
+@@ -1690,7 +1690,7 @@ begin
+     Dir:=DefDir;
+   Dir:=IncludeTrailingPathDelimiter(Dir);
+ {$IFDEF Unix}
+-  mo := TMOFile.Create(Format(Dir+'%s/LC_MESSAGES/dglobals.mo', [Lang]));
++  mo := TMOFile.Create(Format(Dir+'%s/LC_MESSAGES/dglobals-' + {$include %FPCVERSION%} + '.mo', [Lang]));
+ {$ELSE}
+   mo := TMOFile.Create(Format(Dir+'dglobals.%s.mo', [Lang]));
+ {$ENDIF}
+Index: fpc/fpcsrc/utils/fpdoc/fpclasschart.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/fpclasschart.pp
++++ fpc/fpcsrc/utils/fpdoc/fpclasschart.pp
+@@ -689,7 +689,7 @@ Function ParseCommandLine : Integer;
+ 
+ Const
+ {$IFDEF Unix}
+-  MoFileTemplate = '/usr/local/share/locale/%s/LC_MESSAGES/makeskel.mo';
++  MoFileTemplate = '/usr/share/locale/%s/LC_MESSAGES/makeskel-' + {$include %FPCVERSION%} + '.mo';
+ {$ELSE}
+   MoFileTemplate ='intl/makeskel.%s.mo';
+ {$ENDIF}
+Index: fpc/fpcsrc/utils/fpdoc/fpdoc.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/fpdoc.pp
++++ fpc/fpcsrc/utils/fpdoc/fpdoc.pp
+@@ -369,7 +369,7 @@ Procedure TFPDocApplication.DoRun;
+ 
+ begin
+ {$IFDEF Unix}
+-  gettext.TranslateResourceStrings('/usr/local/share/locale/%s/LC_MESSAGES/fpdoc.mo');
++  gettext.TranslateResourceStrings('/usr/share/locale/%s/LC_MESSAGES/fpdoc-' + {$include %FPCVERSION%} + '.mo');
+ {$ELSE}
+   gettext.TranslateResourceStrings('intl/fpdoc.%s.mo');
+ {$ENDIF}
+Index: fpc/fpcsrc/utils/fpdoc/intl/Makefile
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/intl/Makefile
++++ fpc/fpcsrc/utils/fpdoc/intl/Makefile
+@@ -1,3 +1,5 @@
++FPC_VERSION=$(shell ${PP} -iV)
++
+ all:	de
+ 
+ clean:
+@@ -16,8 +18,8 @@ pot:
+ 	rstconv -i ../makeskel.rst -o makeskel.pot
+ 	rstconv -i ../fpdocmk.rst -o fpdocmk.pot
+ 
+-install:
+-	install -D -m 0644 fpdoc.de.mo /usr/local/share/locale/de/LC_MESSAGES/fpdoc.mo
+-	install -D -m 0644 dglobals.de.mo /usr/local/share/locale/de/LC_MESSAGES/dglobals.mo
+-	install -D -m 0644 makeskel.de.mo /usr/local/share/locale/de/LC_MESSAGES/makeskel.mo
+-	install -D -m 0644 fpdocmk.de.mo /usr/local/share/locale/de/LC_MESSAGES/fpdocmk.mo
++install: de
++	install -D -m 0644 fpdoc.de.mo ${INSTALL_PREFIX}/share/locale/de/LC_MESSAGES/fpdoc-${FPC_VERSION}.mo
++	install -D -m 0644 dglobals.de.mo ${INSTALL_PREFIX}/share/locale/de/LC_MESSAGES/dglobals-${FPC_VERSION}.mo
++	install -D -m 0644 makeskel.de.mo ${INSTALL_PREFIX}/share/locale/de/LC_MESSAGES/makeskel-${FPC_VERSION}.mo
++	install -D -m 0644 fpdocmk.de.mo ${INSTALL_PREFIX}/share/locale/de/LC_MESSAGES/fpdocmk-${FPC_VERSION}.mo
+Index: fpc/fpcsrc/utils/fpdoc/makeskel.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/makeskel.pp
++++ fpc/fpcsrc/utils/fpdoc/makeskel.pp
+@@ -568,7 +568,7 @@ Function ParseCommandLine : Integer;
+ 
+ Const
+ {$IFDEF Unix}
+-  MoFileTemplate = '/usr/local/share/locale/%s/LC_MESSAGES/makeskel.mo';
++  MoFileTemplate = '/usr/share/locale/%s/LC_MESSAGES/makeskel-' + {$include %FPCVERSION%} + '.mo';
+ {$ELSE}
+   MoFileTemplate ='intl/makeskel.%s.mo';
+ {$ENDIF}
+Index: fpc/fpcsrc/utils/fpdoc/unitdiff.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/unitdiff.pp
++++ fpc/fpcsrc/utils/fpdoc/unitdiff.pp
+@@ -169,7 +169,7 @@ procedure ParseCommandLine;
+ 
+ Const
+ {$IFDEF Unix}
+-  MoFileTemplate = '/usr/local/share/locale/%s/LC_MESSAGES/makeskel.mo';
++  MoFileTemplate = '/usr/share/locale/%s/LC_MESSAGES/makeskel-' + {$include %FPCVERSION%} + '.mo';
+ {$ELSE}
+   MoFileTemplate ='intl/makeskel.%s.mo';
+ {$ENDIF}

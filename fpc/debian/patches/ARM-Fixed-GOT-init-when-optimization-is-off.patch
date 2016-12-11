@@ -1,0 +1,45 @@
+From 1fd8ae7765e75b52563aff9c2fff070f41b6b0c5 Mon Sep 17 00:00:00 2001
+From: yury <yury@3ad0048d-3df7-0310-abae-a5850022a9f2>
+Date: Wed, 16 Sep 2015 21:30:20 +0000
+Subject: [PATCH 4/9] * ARM: Fixed GOT init when optimization is off.
+
+git-svn-id: http://svn.freepascal.org/svn/ fpc/trunk@31728 3ad0048d-3df7-0310-abae-a5850022a9f2
+---
+ compiler/arm/cgcpu.pas | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
+
+diff --git fpc.orig/fpcsrc/compiler/arm/cgcpu.pas fpc/fpcsrc/compiler/arm/cgcpu.pas
+index 24b6442..0f94d5b 100644
+--- fpc.orig/fpcsrc/compiler/arm/cgcpu.pas
++++ fpc/fpcsrc/compiler/arm/cgcpu.pas
+@@ -2284,19 +2284,14 @@ unit cgcpu;
+             current_asmdata.getaddrlabel(l);
+             current_procinfo.aktlocaldata.concat(tai_const.Create_rel_sym_offset(aitconst_32bit,l,current_asmdata.RefAsmSymbol('_GLOBAL_OFFSET_TABLE_'),-8));
+             cg.a_label(list,l);
+-            if cs_opt_regvar in current_settings.optimizerswitches then
+-              begin
+-                {
+-                  When regvars are used, it is needed to perform GOT calculations using the scratch register R12
+-                  and then MOV the result to the GOT register. Otherwise the register allocator will use
+-                  register R0 as temp to perform calculations in case if a procedure uses all available registers.
+-                  It leads to corruption of R0 which is normally holds a value of the first procedure parameter.
+-                }
+-                list.concat(Taicpu.op_reg_reg_reg(A_ADD,NR_R12,NR_PC,NR_R12));
+-                list.concat(Taicpu.op_reg_reg(A_MOV,current_procinfo.got,NR_R12));
+-              end
+-            else
+-              list.concat(Taicpu.op_reg_reg_reg(A_ADD,current_procinfo.got,NR_PC,NR_R12));
++            {
++              It is needed to perform GOT calculations using the scratch register R12
++              and then MOV the result to the GOT register. Otherwise the register allocator will use
++              register R0 as temp to perform calculations in case if a procedure uses all available registers.
++              It leads to corruption of R0 which is normally holds a value of the first procedure parameter.
++            }
++            list.concat(Taicpu.op_reg_reg_reg(A_ADD,NR_R12,NR_PC,NR_R12));
++            list.concat(Taicpu.op_reg_reg(A_MOV,current_procinfo.got,NR_R12));
+             a_reg_dealloc(list,NR_R12);
+           end;
+       end;
+-- 
+2.7.0
+

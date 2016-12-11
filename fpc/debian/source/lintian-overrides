@@ -1,0 +1,8 @@
+# Lintian believes these text files are pre-build Shockwave Flash (SWF)
+# or Flash Video (FLV) files, which is definitely not true.
+# Filing bug in lintian, but until that time, override
+fpc source: source-is-missing install/doc/cwsdpmi.txt
+fpc source: source-is-missing install/doc/cwsparam.txt
+# In 3.0.0+dfsg-5 elbrus added fp-fix-timestamps that expects d/source/timestamps
+# lintian bug: http://bugs.debian.org/825222
+fpc source: unknown-file-in-debian-source timestamps

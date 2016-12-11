@@ -1,0 +1,71 @@
+#! /bin/sh
+
+set -e
+
+FPCDIR=/usr/lib/fpc
+
+# add alternatives
+update-alternatives \
+    --install ${FPCDIR}/default fp-utils ${FPCDIR}/${VERSION} ${PRIORITY} \
+    --slave ${FPCDIR}/lexyacc fplexyacc ${FPCDIR}/${VERSION}/lexyacc \
+	--slave /usr/bin/chmcmd chmcmd /usr/bin/chmcmd-${VERSION} \
+	--slave /usr/bin/chmls chmls /usr/bin/chmls-${VERSION} \
+	--slave /usr/bin/ifpc ifpc /usr/bin/ifpc-${VERSION} \
+	--slave /usr/bin/fppkg fppkg /usr/bin/fppkg-${VERSION} \
+	--slave /usr/bin/instantfpc instantfpc /usr/bin/ifpc-${VERSION} \
+	--slave /usr/bin/ppufiles ppufiles /usr/bin/ppufiles-${VERSION} \
+	--slave /usr/bin/ppudump ppudump /usr/bin/ppudump-${VERSION} \
+	--slave /usr/bin/ppumove ppumove /usr/bin/ppumove-${VERSION} \
+	--slave /usr/bin/ppdep ppdep /usr/bin/ppdep-${VERSION} \
+	--slave /usr/bin/ptop ptop /usr/bin/ptop-${VERSION} \
+	--slave /usr/bin/rstconv rstconv /usr/bin/rstconv-${VERSION} \
+	--slave /usr/bin/data2inc data2inc /usr/bin/data2inc-${VERSION} \
+	--slave /usr/bin/bin2obj bin2obj /usr/bin/bin2obj-${VERSION} \
+	--slave /usr/bin/delp delp /usr/bin/delp-${VERSION} \
+	--slave /usr/bin/plex plex /usr/bin/plex-${VERSION} \
+	--slave /usr/bin/pyacc pyacc /usr/bin/pyacc-${VERSION} \
+	--slave /usr/bin/h2pas h2pas /usr/bin/h2pas-${VERSION} \
+	--slave /usr/bin/h2paspp h2paspp /usr/bin/h2paspp-${VERSION} \
+	--slave /usr/bin/postw32 postw32 /usr/bin/postw32-${VERSION} \
+	--slave /usr/bin/fpclasschart fpclasschart /usr/bin/fpclasschart-${VERSION} \
+	--slave /usr/bin/fpcmake fpcmake /usr/bin/fpcmake-${VERSION} \
+	--slave /usr/bin/fpcsubst fpcsubst /usr/bin/fpcsubst-${VERSION} \
+	--slave /usr/bin/fprcp fprcp /usr/bin/fprcp-${VERSION} \
+	--slave /usr/bin/fpdoc fpdoc /usr/bin/fpdoc-${VERSION} \
+	--slave /usr/bin/makeskel makeskel /usr/bin/makeskel-${VERSION} \
+	--slave /usr/bin/relpath relpath /usr/bin/relpath-${VERSION} \
+	--slave /usr/bin/rmcvsdir rmcvsdir /usr/bin/rmcvsdir-${VERSION} \
+	--slave /usr/bin/unitdiff unitdiff /usr/bin/unitdiff-${VERSION} \
+	--slave /usr/share/man/man1/chmcmd.1.gz chmcmd.1.gz /usr/share/man/man1/chmcmd-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/chmls.1.gz chmls.1.gz /usr/share/man/man1/chmls-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/ifpc.1.gz ifpc.1.gz /usr/share/man/man1/ifpc-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/fppkg.1.gz fppkg.1.gz /usr/share/man/man1/fppkg-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/instantfpc.1.gz instantfpc.1.gz /usr/share/man/man1/ifpc-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/bin2obj.1.gz bin2obj.1.gz /usr/share/man/man1/bin2obj-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/data2inc.1.gz data2inc.1.gz /usr/share/man/man1/data2inc-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/fprcp.1.gz fprcp.1.gz /usr/share/man/man1/fprcp-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/h2paspp.1.gz h2paspp.1.gz /usr/share/man/man1/h2paspp-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/makeskel.1.gz makeskel.1.gz /usr/share/man/man1/makeskel-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/postw32.1.gz postw32.1.gz /usr/share/man/man1/postw32-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/relpath.1.gz relpath.1.gz /usr/share/man/man1/relpath-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/rmcvsdir.1.gz rmcvsdir.1.gz /usr/share/man/man1/rmcvsdir-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/unitdiff.1.gz unitdiff.1.gz /usr/share/man/man1/unitdiff-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/delp.1.gz delp.1.gz /usr/share/man/man1/delp-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/fpcmake.1.gz fpcmake.1.gz /usr/share/man/man1/fpcmake-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/fpcsubst.1.gz fpcsubst.1.gz /usr/share/man/man1/fpcsubst-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/h2pas.1.gz h2pas.1.gz /usr/share/man/man1/h2pas-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/plex.1.gz plex.1.gz /usr/share/man/man1/plex-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/ppdep.1.gz ppdep.1.gz /usr/share/man/man1/ppdep-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/ppudump.1.gz ppudump.1.gz /usr/share/man/man1/ppudump-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/ppufiles.1.gz ppufiles.1.gz /usr/share/man/man1/ppufiles-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/ppumove.1.gz ppumove.1.gz /usr/share/man/man1/ppumove-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/ptop.1.gz ptop.1.gz /usr/share/man/man1/ptop-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/pyacc.1.gz pyacc.1.gz /usr/share/man/man1/pyacc-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/rstconv.1.gz rstconv.1.gz /usr/share/man/man1/rstconv-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/fpdoc.1.gz fpdoc.1.gz /usr/share/man/man1/fpdoc-${VERSION}.1.gz \
+	--slave /usr/share/man/man1/fpclasschart.1.gz fpclasschart.1.gz /usr/share/man/man1/fpclasschart-${VERSION}.1.gz \
+	--slave /usr/share/man/man5/fpcmake.5.gz fpcmake.5.gz /usr/share/man/man5/fpcmake-${VERSION}.5.gz \
+	--slave /usr/share/man/man5/ptop.cfg.5.gz ptop.cfg.5.gz /usr/share/man/man5/ptop-${VERSION}.cfg.5.gz
+
+# Debhelper code
+#DEBHELPER#

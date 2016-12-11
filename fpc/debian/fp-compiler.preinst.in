@@ -1,0 +1,12 @@
+#! /bin/sh
+
+set -e
+
+# Remove fpc from pc alternative if buggy 2.0.0-{1,2} versions are upgraded
+
+if [ "$1" = "upgrade" ] && [ "$2" = "2.0.0-1" ] || [ "$2" = "2.0.0-2" ]; then
+    update-alternatives --remove pc /usr/bin/fpc
+fi
+
+# Debhelper code
+#DEBHELPER#

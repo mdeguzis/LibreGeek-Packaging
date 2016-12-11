@@ -1,0 +1,373 @@
+Description: This patch fixes spelling errors detected by the Debian tool lintian.
+Author: Paul Gevers <elbrus@debian.org>
+Bug: http://mantis.freepascal.org/view.php?id=30233
+
+Index: fpc/fpcsrc/ide/fphelp.pas
+===================================================================
+--- fpc.orig/fpcsrc/ide/fphelp.pas
++++ fpc/fpcsrc/ide/fphelp.pas
+@@ -96,7 +96,7 @@ const
+       hint_systemmenu        = 'System menu';
+       hint_update            = 'Refresh and redraw display';
+       hint_about             = 'Show version and copyright information';
+-      hint_filemenu          = 'File managment commands (Open, New, Save, etc.)';
++      hint_filemenu          = 'File management commands (Open, New, Save, etc.)';
+       hint_filenew           = 'Create a new file in a new edit window';
+       hint_filenewfromtemplate='Create a new file using a code template';
+       hint_fileopen          = 'Locate and open a file in an edit window';
+@@ -204,7 +204,7 @@ const
+       hint_openini           = 'Load a previously saved options file';
+       hint_saveini           = 'Save all the changes made in the options menu';
+       hint_saveasini         = 'Save all the changes made under a different name';
+-      hint_windowmenu        = 'Windows managment commands';
++      hint_windowmenu        = 'Windows management commands';
+       hint_tile              = 'Arrange windows on desktop by tiling';
+       hint_cascade           = 'Arrange windows on desktop by cascading';
+       hint_closeall          = 'Close all windows on the desktop';
+Index: fpc/install/man/man1/fp.1
+===================================================================
+--- fpc.orig/install/man/man1/fp.1
++++ fpc/install/man/man1/fp.1
+@@ -49,7 +49,7 @@ on-line help system and a debugger.
+ 
+ A text mode windowing system is the base of the user interface. The mouse is supported,
+ but most people will use the keyboard. The user will usually open a few text editor
+-windows in which he will design his program, during which he can regularily check and
++windows in which he will design his program, during which he can regularly check and
+ debug through the use of hot keys. The high speed of the compiler ensures that programmers
+ can do this often and therefore allows speedy development of code.
+ 
+Index: fpc/install/man/man1/fpdoc.1
+===================================================================
+--- fpc.orig/install/man/man1/fpdoc.1
++++ fpc/install/man/man1/fpdoc.1
+@@ -43,7 +43,7 @@ option.
+ .BI \-\-cputarget=value
+ This option tells 
+ .B fpdoc
+-for which CPU to generate documentation. This simply defines the approriate CPU macros.
++for which CPU to generate documentation. This simply defines the appropriate CPU macros.
+ .TP
+ .BI \-\-descr=descfile
+ This option specifies the name of a description file
+@@ -190,7 +190,7 @@ where to look for the translation files
+ .BI \-\-ostarget=value
+ This option tells 
+ .B fpdoc
+-for which operating system to generate documentation. This simply defines the approriate operating system macros.
++for which operating system to generate documentation. This simply defines the appropriate operating system macros.
+ .TP
+ .BI \-\-output=name 
+ This option tells 
+Index: fpc/install/man/man1/grab_vcsa.1
+===================================================================
+--- fpc.orig/install/man/man1/grab_vcsa.1
++++ fpc/install/man/man1/grab_vcsa.1
+@@ -37,7 +37,7 @@ work). The permissions are automatically
+ 
+ .B grab_vcsa
+ is used by the Free Pascal video unit. The video unit allows programmers to
+-develop portable programs accross Dos, Linux, FreeBSD, Windows, OS/2 and
++develop portable programs across Dos, Linux, FreeBSD, Windows, OS/2 and
+ other operating systems while they can still assume being able to use the
+ full VGA character set.
+ 
+Index: fpc/install/man/man1/h2pas.1
+===================================================================
+--- fpc.orig/install/man/man1/h2pas.1
++++ fpc/install/man/man1/h2pas.1
+@@ -101,7 +101,7 @@ macros are changed - wherever possible t
+ are all integers, so these must be changed manually. Simple expressions 
+ in define staments are recognized, as are most arithmetic operators: 
+ addition, substraction, multiplication, division, logical operators, 
+-comparision operators, shift operators. The C construct ( A ? B : C)
++comparison operators, shift operators. The C construct ( A ? B : C)
+ is also recognized and translated to a pascal construct with an IF
+ statement (this is buggy, however).
+ 
+Index: fpc/install/man/man1/pas2jni.1
+===================================================================
+--- fpc.orig/install/man/man1/pas2jni.1
++++ fpc/install/man/man1/pas2jni.1
+@@ -9,7 +9,7 @@ pas2jni - Free Pascal Java Native Interf
+ Generate a Java native interface description and library from compiled Free Pascal units.
+ pas2jni generates per unit 2 files: a library that provides access to the functions and 
+ procedures in the pascal unit in a manner that Java understands, and a .java file that 
+-describes the library, and can be used to access the libary from Java.
++describes the library, and can be used to access the library from Java.
+ 
+ .SH OPTIONS
+ .TP
+Index: fpc/install/man/man1/ppdep.1
+===================================================================
+--- fpc.orig/install/man/man1/ppdep.1
++++ fpc/install/man/man1/ppdep.1
+@@ -20,7 +20,7 @@ implementation section of the unit, and
+ You can invoke 
+ .B ppdep
+ with as the only required argument the name of the
+-file (program or unit) whose dependecies you wish to list. You don't need 
++file (program or unit) whose dependencies you wish to list. You don't need
+ to specify an extension, by default 
+ .B .pp
+ is assumed.
+Index: fpc/fpcsrc/packages/fcl-xml/src/xmltextreader.pp
+===================================================================
+--- fpc.orig/fpcsrc/packages/fcl-xml/src/xmltextreader.pp
++++ fpc/fpcsrc/packages/fcl-xml/src/xmltextreader.pp
+@@ -2208,7 +2208,7 @@ begin
+           SkipWhitespace;
+           CheckName([cnToken]);
+           if not AttDef.AddEnumToken(FName.Buffer, FName.Length) then
+-            ValidationError('Duplicate token in enumerated attibute declaration', [], FName.Length);
++            ValidationError('Duplicate token in enumerated attribute declaration', [], FName.Length);
+           SkipWhitespace;
+         until not CheckForChar('|');
+         ExpectChar(')');
+Index: fpc/fpcsrc/ide/wconstse.inc
+===================================================================
+--- fpc.orig/fpcsrc/ide/wconstse.inc
++++ fpc/fpcsrc/ide/wconstse.inc
+@@ -90,7 +90,7 @@
+     label_name = '~N~ame';
+ 
+     msg_searchstringnotfound = 'Search string not found.';
+-    msg_replacethisoccourence = 'Replace this occurence?';
++    msg_replacethisoccourence = 'Replace this occurrence?';
+     msg_fileexistsoverwrite = 'File %s already exists. Overwrite?';
+     msg_readingwinclipboard = 'Reading windows clipboard';
+     msg_copyingwinclipboard = 'Copying to windows clipboard';
+Index: fpc/fpcsrc/packages/fv/src/editors.pas
+===================================================================
+--- fpc.orig/fpcsrc/packages/fv/src/editors.pas
++++ fpc/fpcsrc/packages/fv/src/editors.pas
+@@ -428,7 +428,7 @@ resourcestring  sClipboard='Clipboard';
+                 sReformatNotPossible='Paragraph reformat not possible while trying to wrap current line with current margins.';
+                 sReformattingTheDocument='Reformatting the document:';
+                 sReplaceNotPossible='Wordwrap on:  Replace not possible in current margins when at end of line.';
+-                sReplaceThisOccurence='Replace this occurence?';
++                sReplaceThisOccurence='Replace this occurrence?';
+                 sRightMargin='Right Margin';
+                 sSearchStringNotFound='Search string not found.';
+                 sSelectWhereToBegin='Please select where to begin.';
+Index: fpc/fpcsrc/packages/fv/src/strtxt.inc
+===================================================================
+--- fpc.orig/fpcsrc/packages/fv/src/strtxt.inc
++++ fpc/fpcsrc/packages/fv/src/strtxt.inc
+@@ -75,7 +75,7 @@ const standard_string_count=107;
+           (nr:sReplace;text:'Replace'),
+           (nr:sReplaceFile;text:'Replace file?'#13#10#13#3'%s'),
+           (nr:sReplaceNotPossible;text:'Wordwrap on:  Replace not possible in current margins when at end of line.'),
+-          (nr:sReplaceThisOccurence;text:'Replace this occurence?'),
++          (nr:sReplaceThisOccurence;text:'Replace this occurrence?'),
+           (nr:sRightMargin;text:'Right Margin'),
+           (nr:sSaveAs;text:'Save As'),
+           (nr:sScrollbarIcons;text:'Scroll bar icons'),
+Index: fpc/fpcsrc/utils/delp.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/delp.pp
++++ fpc/fpcsrc/utils/delp.pp
+@@ -167,7 +167,7 @@ begin
+   writeln('  -r    Recurse into directories.');
+   writeln('  -n    Do not actually delete files.');
+   writeln('  -m N  Maximum depth to recurse into directories (1 based, zero is no max).');
+-  writeln('  -q    Quietly perfoms deleting.');
++  writeln('  -q    Quietly performs deleting.');
+   writeln('  -v    Verbose (print names of deleted files).');
+   Halt(1);
+ end;
+Index: fpc/fpcsrc/utils/fpdoc/fpclasschart.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/fpclasschart.pp
++++ fpc/fpcsrc/utils/fpdoc/fpclasschart.pp
+@@ -714,7 +714,7 @@ begin
+     if FileExists(MOFilename) then
+       gettext.TranslateResourceStrings(MoFileName)
+     else
+-      writeln('NOTE: unable to find tranlation file ',MOFilename);
++      writeln('NOTE: unable to find translation file ',MOFilename);
+     // Translate internal documentation strings
+     TranslateDocStrings(DocLang);
+     end;
+Index: fpc/fpcsrc/utils/fpdoc/makeskel.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/makeskel.pp
++++ fpc/fpcsrc/utils/fpdoc/makeskel.pp
+@@ -588,7 +588,7 @@ begin
+     if FileExists(MOFilename) then
+       gettext.TranslateResourceStrings(MoFileName)
+     else
+-      writeln('NOTE: unable to find tranlation file ',MOFilename);
++      writeln('NOTE: unable to find translation file ',MOFilename);
+     // Translate internal documentation strings
+     TranslateDocStrings(DocLang);
+     end;
+Index: fpc/fpcsrc/utils/fpdoc/unitdiff.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/unitdiff.pp
++++ fpc/fpcsrc/utils/fpdoc/unitdiff.pp
+@@ -189,7 +189,7 @@ begin
+     if FileExists(MOFilename) then
+       gettext.TranslateResourceStrings(MoFileName)
+     else
+-      writeln('NOTE: unable to find tranlation file ',MOFilename);
++      writeln('NOTE: unable to find translation file ',MOFilename);
+     // Translate internal documentation strings
+     TranslateDocStrings(DocLang);
+     end;
+Index: fpc/fpcsrc/utils/fpdoc/dglobals.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/dglobals.pp
++++ fpc/fpcsrc/utils/fpdoc/dglobals.pp
+@@ -159,7 +159,7 @@ resourcestring
+   SUsageOption140  = '--lang=lng        Select output language.';
+   SUsageOption150  = '--ostarget=value  Set the target OS for the scanner.';
+   SUsageOption160  = '--output=name     use name as the output name.';
+-  SUsageOption170  = '                  Each backend interpretes this as needed.';
++  SUsageOption170  = '                  Each backend interprets this as needed.';
+   SUsageOption180  = '--package=name    Set the package name for which to create output,';
+   SUsageOption190  = '                  e.g. --package=fcl';
+   SUsageOption200  = '--project=file    Use file as project file';
+Index: fpc/fpcsrc/packages/fcl-db/src/sqlite/sqliteds.pas
+===================================================================
+--- fpc.orig/fpcsrc/packages/fcl-db/src/sqlite/sqliteds.pas
++++ fpc/fpcsrc/packages/fcl-db/src/sqlite/sqliteds.pas
+@@ -321,7 +321,7 @@ begin
+         Exit;
+       end;
+   else
+-    Result := 'Unknow Return Value';
++    Result := 'Unknown Return Value';
+   end;
+   Result := Result + ' - ' + sqlite_error_string(FReturnCode);
+ end;
+Index: fpc/fpcsrc/packages/fcl-sdo/src/base/sdo_xpath_helper.pas
+===================================================================
+--- fpc.orig/fpcsrc/packages/fcl-sdo/src/base/sdo_xpath_helper.pas
++++ fpc/fpcsrc/packages/fcl-sdo/src/base/sdo_xpath_helper.pas
+@@ -1085,7 +1085,7 @@ var
+     locTmpNode := FTermStack.Pop() as TXPathNode;
+     if not locTmpNode.InheritsFrom(TXPathRigthSquareBraketNode) then begin
+       FTermStack.Push(locTmpNode);
+-      raise EXpathException.Create('Predicate begining expected.');
++      raise EXpathException.Create('Predicate beginning expected.');
+     end;
+     FreeAndNil(locTmpNode);
+     locExp := FTermStack.Pop() as TXPathNode;
+Index: fpc/fpcsrc/ide/fp.pas
+===================================================================
+--- fpc.orig/fpcsrc/ide/fp.pas
++++ fpc/fpcsrc/ide/fp.pas
+@@ -500,7 +500,7 @@ BEGIN
+           end;
+         if ideapp.displaymode=dmUser then
+           begin
+-            writeln('Fatal exception occured while in user screen mode. File save message boxes');
++            writeln('Fatal exception occurred while in user screen mode. File save message boxes');
+             writeln('cannot be displayed. We are sorry, but need to terminate now.');
+             halt(255);
+           end;
+Index: fpc/fpcsrc/packages/cdrom/src/fpcddb.pp
+===================================================================
+--- fpc.orig/fpcsrc/packages/cdrom/src/fpcddb.pp
++++ fpc/fpcsrc/packages/cdrom/src/fpcddb.pp
+@@ -184,7 +184,7 @@ implementation
+ Resourcestring
+   SErrNoDisk         = 'No disk active';
+   SErrInvalidTrackNo = 'Invalid track number: %d';
+-  SErrParsingLine    = 'An error occured while parsing line %d of the response: %s';
++  SErrParsingLine    = 'An error occurred while parsing line %d of the response: %s';
+   SErrCDDBResponse   = 'CDDB error in command response: %s';
+ 
+ function DiscIDToStr(ID: Integer): String;
+Index: fpc/fpcsrc/packages/fcl-db/src/base/dbconst.pas
+===================================================================
+--- fpc.orig/fpcsrc/packages/fcl-db/src/base/dbconst.pas
++++ fpc/fpcsrc/packages/fcl-db/src/base/dbconst.pas
+@@ -87,7 +87,7 @@ Resourcestring
+   SInvalidSearchFieldType  = 'Searching in fields of type %s is not supported';
+   SDatasetEmpty            = 'The dataset is empty';
+   SFieldIsNull             = 'The field is null';
+-  SOnUpdateError           = 'An error occured while applying the updates in a record: %s';
++  SOnUpdateError           = 'An error occurred while applying the updates in a record: %s';
+   SApplyRecNotSupported    = 'Applying updates is not supported by this TDataset descendent';
+   SNoWhereFields           = 'No %s query specified and failed to generate one. (No fields for inclusion in where statement found)';
+   SNoUpdateFields          = 'No %s query specified and failed to generate one. (No fields found for insert- or update-statement found)';
+Index: fpc/fpcsrc/packages/fcl-net/src/httpsvlt.pp
+===================================================================
+--- fpc.orig/fpcsrc/packages/fcl-net/src/httpsvlt.pp
++++ fpc/fpcsrc/packages/fcl-net/src/httpsvlt.pp
+@@ -478,7 +478,7 @@ begin
+     except
+       on e: Exception do
+       begin
+-        s := 'An error occured: ' + ' ' + e.Message;
++        s := 'An error occurred: ' + ' ' + e.Message;
+         ResponseHeader.ContentType := 'text/plain';
+         ResponseStream.Write(s[1], Length(s));
+       end;
+Index: fpc/fpcsrc/packages/fcl-xml/tests/testgen.pp
+===================================================================
+--- fpc.orig/fpcsrc/packages/fcl-xml/tests/testgen.pp
++++ fpc/fpcsrc/packages/fcl-xml/tests/testgen.pp
+@@ -932,7 +932,7 @@ begin
+       try
+         ConvertTest(root, sl);
+       except
+-        Writeln('An exception occured while converting ', casename);
++        Writeln('An exception occurred while converting ', casename);
+         raise;
+       end;
+       if sl.Count > 0 then
+Index: fpc/fpcsrc/rtl/macos/system.pp
+===================================================================
+--- fpc.orig/fpcsrc/rtl/macos/system.pp
++++ fpc/fpcsrc/rtl/macos/system.pp
+@@ -450,7 +450,7 @@ begin
+           if IsConsole then
+             Writeln( '### Program exited with exit code ' + s)
+           else if macosHasSysDebugger then
+-            DebugStr('A possible error occured, exit code: ' + s + '. Type "g" and return to continue.')
++            DebugStr('A possible error occurred, exit code: ' + s + '. Type "g" and return to continue.')
+           else
+             {Be quiet}
+         end;
+Index: fpc/fpcsrc/rtl/objpas/sysconst.pp
+===================================================================
+--- fpc.orig/fpcsrc/rtl/objpas/sysconst.pp
++++ fpc/fpcsrc/rtl/objpas/sysconst.pp
+@@ -120,7 +120,7 @@ resourcestring
+   SVarUnexpected                = 'Unexpected variant error';
+   SZeroDivide                   = 'Floating point division by zero';
+ 
+-  SFallbackError                = 'An error, whose error code is larger than can be returned to the OS, has occured';
++  SFallbackError                = 'An error, whose error code is larger than can be returned to the OS, has occurred';
+ 
+   SNoToolserver                 = 'Toolserver is not installed, cannot execute Tool';
+ 
+Index: fpc/fpcsrc/utils/fpdoc/dwriter.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpdoc/dwriter.pp
++++ fpc/fpcsrc/utils/fpdoc/dwriter.pp
+@@ -28,7 +28,7 @@ interface
+ uses Classes, DOM, dGlobals, PasTree, SysUtils;
+ 
+ resourcestring
+-  SErrFileWriting = 'An error occured during writing of file "%s": %s';
++  SErrFileWriting = 'An error occurred during writing of file "%s": %s';
+ 
+   SErrInvalidShortDescr = 'Invalid short description';
+   SErrInvalidDescr = 'Invalid description (illegal XML element: "%s")';
+Index: fpc/fpcsrc/packages/fcl-sdo/src/base/sdo_consts.pas
+===================================================================
+--- fpc.orig/fpcsrc/packages/fcl-sdo/src/base/sdo_consts.pas
++++ fpc/fpcsrc/packages/fcl-sdo/src/base/sdo_consts.pas
+@@ -117,7 +117,7 @@ resourcestring
+   SERR_OperationNotAllowedOnActivePool = 'Operation not allowed on an active pool.';
+   SERR_ParamaterNotFound           = 'Parameter non found : "%s".';
+   SERR_Parsing                     = 'Parsing "%s" ...';
+-  SERR_RecordExtendedRttiNotFound  = 'Record extended RTTI informations not found in type registry : "%s".';
++  SERR_RecordExtendedRttiNotFound  = 'Record extended RTTI information not found in type registry : "%s".';
+   SERR_RootObjectCannotBeNIL       = 'The root object cannot be NIL.';
+   SERR_SchemaNodeRequiredAttribute = 'The Schema node must have at least the "%s" attribute.';
+   SERR_SerializerInitializationException = 'Unable to initialize the serializer of that type : "%s".';

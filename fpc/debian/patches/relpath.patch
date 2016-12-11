@@ -1,0 +1,76 @@
+This patch adds an utility for computing relative path according to a given
+base directory. This is useful for libraries that are to install .lpk in
+order to be used with lazarus. As these libraries may be compiled without
+need to build depend on Lazarus, we add it in fp-utils package which is likely
+to be used by any big project which build depends on fp-compiler.
+
+Index: fpc/fpcsrc/utils/relpath.pas
+===================================================================
+--- /dev/null
++++ fpc/fpcsrc/utils/relpath.pas
+@@ -0,0 +1,16 @@
++program relpath;
++uses
++  SysUtils;
++
++var
++	BaseDir: string;
++	TargetDir: string;
++begin
++	TargetDir := ParamStr(1);
++	BaseDir := ParamStr(2);
++	if BaseDir = ''
++	then begin
++		BaseDir := GetCurrentDir;
++	end;
++	WriteLn(ExtractRelativePath(IncludeTrailingPathDelimiter(BaseDir), TargetDir));
++end.
+Index: fpc/install/man/man1/relpath.1
+===================================================================
+--- /dev/null
++++ fpc/install/man/man1/relpath.1
+@@ -0,0 +1,32 @@
++.TH relpath 1 "7 May 2013" "Free Pascal" "Relative path computing tool"
++.SH NAME
++relpath \- The Free Pascal file deletion tool.
++
++.SH SYNOPSIS
++
++.B relpath
++[\fIfile or directory\fR] [\fIbase directory\fR]
++
++.SH DESCRIPTION
++
++.B relpath
++This is an utility for computing relative path according to a given base
++directory. This is useful for libraries that are to install .lpk in order to be
++used with lazarus. As these libraries may be compiled without need to build
++depend on Lazarus, we add it in fp-utils package which is likely to be used by
++any big project which build depends on fp-compiler.
++
++.SH USAGE
++
++.B relpath 
++takes the following arguments:
++.TP
++.B file or directory
++The target file or directory for which relative path should be computed.
++.TP
++.B base directory
++The base directory according to which the relative patch should be computed.
++
++.SH SEE ALSO
++.IP 
++.BR  readlink (1)
+Index: fpc/fpcsrc/utils/fpmake.pp
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpmake.pp
++++ fpc/fpcsrc/utils/fpmake.pp
+@@ -84,6 +84,7 @@ begin
+     P.Targets.AddProgram('mkinsadd.pp');
+     P.Targets.AddProgram('postw32.pp');
+     P.Targets.AddProgram('rmcvsdir.pp');
++    P.Targets.AddProgram('relpath.pas');
+     P.Targets.AddProgram('grab_vcsa.pp',[linux]);
+     T:=P.Targets.AddProgram('fpcsubst.pp');
+     T.Dependencies.AddUnit('usubst');

@@ -1,0 +1,162 @@
+From b5b89b7d3c18d74e051d2f883d7d957fe7efda4c Mon Sep 17 00:00:00 2001
+From: yury <yury@3ad0048d-3df7-0310-abae-a5850022a9f2>
+Date: Thu, 17 Sep 2015 12:18:04 +0000
+Subject: [PATCH 5/9] * ARM: I hope this is a final proper fix for GOT
+ initialization. + Test.
+
+git-svn-id: http://svn.freepascal.org/svn/ fpc/trunk@31730 3ad0048d-3df7-0310-abae-a5850022a9f2
+---
+ compiler/arm/cgcpu.pas | 26 ++++++++++-----
+ tests/tbs/tb613.pp     | 85 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 104 insertions(+), 7 deletions(-)
+ create mode 100644 tests/tbs/tb613.pp
+
+diff --git fpc.orig/fpcsrc/compiler/arm/cgcpu.pas fpc/fpcsrc/compiler/arm/cgcpu.pas
+index 0f94d5b..2267172 100644
+--- fpc.orig/fpcsrc/compiler/arm/cgcpu.pas
++++ fpc/fpcsrc/compiler/arm/cgcpu.pas
+@@ -2268,31 +2268,43 @@ unit cgcpu;
+       var
+         ref : treference;
+         l : TAsmLabel;
++        regs : tcpuregisterset;
++        r: byte;
+       begin
+         if (cs_create_pic in current_settings.moduleswitches) and
+            (pi_needs_got in current_procinfo.flags) and
+            (tf_pic_uses_got in target_info.flags) then
+           begin
++            { Procedure parametrs are not initialized at this stage.
++              Before GOT initialization code, allocate registers used for procedure parameters
++              to prevent usage of these registers for temp operations in later stages of code
++              generation. }
++            regs:=rg[R_INTREGISTER].used_in_proc;
++            for r:=RS_R0 to RS_R3 do
++              if r in regs then
++                a_reg_alloc(list, newreg(R_INTREGISTER,r,R_SUBWHOLE));
++            { Allocate scratch register R12 and use it for GOT calculations directly.
++              Otherwise the init code can be distorted in later stages of code generation. }
++            a_reg_alloc(list,NR_R12);
++
+             reference_reset(ref,4);
+             current_asmdata.getdatalabel(l);
+             cg.a_label(current_procinfo.aktlocaldata,l);
+             ref.symbol:=l;
+             ref.base:=NR_PC;
+             ref.symboldata:=current_procinfo.aktlocaldata.last;
+-            a_reg_alloc(list,NR_R12);
+             list.concat(Taicpu.op_reg_ref(A_LDR,NR_R12,ref));
+             current_asmdata.getaddrlabel(l);
+             current_procinfo.aktlocaldata.concat(tai_const.Create_rel_sym_offset(aitconst_32bit,l,current_asmdata.RefAsmSymbol('_GLOBAL_OFFSET_TABLE_'),-8));
+             cg.a_label(list,l);
+-            {
+-              It is needed to perform GOT calculations using the scratch register R12
+-              and then MOV the result to the GOT register. Otherwise the register allocator will use
+-              register R0 as temp to perform calculations in case if a procedure uses all available registers.
+-              It leads to corruption of R0 which is normally holds a value of the first procedure parameter.
+-            }
+             list.concat(Taicpu.op_reg_reg_reg(A_ADD,NR_R12,NR_PC,NR_R12));
+             list.concat(Taicpu.op_reg_reg(A_MOV,current_procinfo.got,NR_R12));
++
++            { Deallocate registers }
+             a_reg_dealloc(list,NR_R12);
++            for r:=RS_R3 downto RS_R0 do
++              if r in regs then
++                a_reg_dealloc(list, newreg(R_INTREGISTER,r,R_SUBWHOLE));
+           end;
+       end;
+ 
+diff --git fpc.orig/fpcsrc/tests/tbs/tb613.pp fpc/fpcsrc/tests/tbs/tb613.pp
+new file mode 100644
+index 0000000..4ff7068
+--- /dev/null
++++ fpc/fpcsrc/tests/tbs/tb613.pp
+@@ -0,0 +1,85 @@
++{$mode objfpc}
++{$PIC+}
++
++{
++  Test for proper initialization of GOT register.
++}
++
++const
++  BufSize = 128*1024;
++
++var
++  gvar: longint;
++
++procedure check(c, e: longint);
++begin
++  if c <> e then begin
++    writeln('ERROR. Result: ', c, '  Expected: ', e);
++    Halt(1);
++  end;
++end;
++
++function test101(p1, p2: longint): longint;
++begin
++  result:=gvar+p1+p2;
++end;
++
++function test102(p1, p2: longint): longint;
++var
++  Buffer: array[0..BufSize] of byte;
++begin
++  Buffer[0]:=0;
++  result:=gvar+p1+p2+Buffer[0];
++end;
++
++function test103(p1, p2: longint): longint;
++var
++  a, j: longint;
++begin
++  a:=0;
++  for j:=1 to 1 do begin
++    a:=a + j;
++    a:=a - j;
++  end;
++  result:=gvar+p1+p2+a;
++end;
++
++function test111(p1, p2: longint): longint;
++var
++  i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15: longint;
++  a, j: longint;
++begin
++  i1:=1;i2:=2;i3:=3;i4:=4;i5:=5;i6:=6;i7:=7;i8:=8;i9:=9;i10:=10;i11:=11;i12:=12;i13:=13;i14:=14;i15:=15;
++  a:=0;
++  for j:=1 to 1 do begin
++    a:=a + (i1+i2+i3+i4+i5+i6+i7+i8+i9+i10+i11+i12+i13+i14+i15);
++    a:=a - (i1+i2+i3+i4+i5+i6+i7+i8+i9+i10+i11+i12+i13+i14+i15);
++  end;
++  result:=gvar+p1+p2+a;
++end;
++
++function test112(p1, p2: longint): longint;
++var
++  i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, i15: longint;
++  a, j: longint;
++  Buffer: array[0..BufSize] of byte;
++begin
++  i1:=1;i2:=2;i3:=3;i4:=4;i5:=5;i6:=6;i7:=7;i8:=8;i9:=9;i10:=10;i11:=11;i12:=12;i13:=13;i14:=14;i15:=15;
++  a:=0;
++  Buffer[0]:=0;
++  for j:=1 to 1 do begin
++    a:=a + (i1+i2+i3+i4+i5+i6+i7+i8+i9+i10+i11+i12+i13+i14+i15);
++    a:=a - (i1+i2+i3+i4+i5+i6+i7+i8+i9+i10+i11+i12+i13+i14+i15);
++    a:=a + Buffer[0];
++  end;
++  result:=gvar+p1+p2+a;
++end;
++
++begin
++  gvar:=100;
++  check(test101(10, 20), 130);
++  check(test102(20, 30), 150);
++  check(test103(30, 40), 170);
++  check(test111(110, 20), 230);
++  check(test112(120, 30), 250);
++end.
+-- 
+2.7.0
+

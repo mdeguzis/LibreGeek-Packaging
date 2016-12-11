@@ -1,0 +1,16 @@
+Description: Add tags to make armhf binaries come out correctly.
+ Add elf tag to mark hardfp binaries as such. (Closes: 695547)
+Author: Peter Michael Green <plugwash@debian.org>
+Bug-Debian: https://bugs.debian.org/695547
+
+--- fpc-3.0.0+dfsg.orig/fpcsrc/compiler/arm/agarmgas.pas
++++ fpc-3.0.0+dfsg/fpcsrc/compiler/arm/agarmgas.pas
+@@ -135,6 +135,8 @@ unit agarmgas;
+         inherited WriteExtraHeader;
+         if TArmInstrWriter(InstrWriter).unified_syntax then
+           AsmWriteLn(#9'.syntax unified');
++        if target_info.abi = abi_eabihf then
++          AsmWriteLn(#9'.eabi_attribute 28, 1 @Tag_ABI_VFP_args');
+       end;
+ 
+ {****************************************************************************}

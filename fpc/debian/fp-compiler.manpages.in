@@ -1,0 +1,7 @@
+debian/fpc-depends-${VERSION}.1
+debian/tmp/usr/man/man1/fpc-${VERSION}.1
+debian/tmp/usr/man/man1/fpcmkcfg-${VERSION}.1
+debian/tmp/usr/man/man1/fpcres-${VERSION}.1
+debian/tmp/usr/man/man1/${PPCBIN}-${VERSION}.1
+debian/tmp/usr/man/man1/grab_vcsa-${VERSION}.1
+debian/tmp/usr/man/man5/fpc-${VERSION}.cfg.5

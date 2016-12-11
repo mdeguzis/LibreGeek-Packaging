@@ -1,0 +1,37 @@
+Description: iconv in kfreebsd is found in libc as on linux
+ On FreeBSD, iconv is a seperate library. In Debian, it is found in libc.
+Author: Paul Gevers <elbrus@debian.org>
+Index: fpc/fpcsrc/rtl/unix/cwstring.pp
+===================================================================
+--- fpc.orig/fpcsrc/rtl/unix/cwstring.pp
++++ fpc/fpcsrc/rtl/unix/cwstring.pp
+@@ -26,9 +26,10 @@ procedure SetCWidestringManager;
+ implementation
+ 
+ {$linklib c}
++{$define debian}
+ 
+ // Linux (and maybe glibc platforms in general), have iconv in glibc.
+-{$if defined(linux) or defined(solaris)}
++{$if defined(linux) or defined(solaris) or defined(debian)}
+   {$define iconv_is_in_libc}
+ {$endif}
+ 
+@@ -102,7 +103,7 @@ function mblen(const s: pchar; n: size_t
+ 
+ 
+ const
+-{$if defined(linux)}
++{$if defined(linux) or defined(debian)}
+   __LC_CTYPE = 0;
+   LC_ALL = 6;
+   _NL_CTYPE_CLASS = (__LC_CTYPE shl 16);
+@@ -195,7 +196,7 @@ type
+   {$endif}
+ {$endif}
+ 
+-{$if (not defined(bsd) and not defined(beos)) or defined(iconv_is_in_libc) or (defined(darwin) and not defined(cpupowerpc32))}
++{$if (not defined(bsd) and not defined(beos)) or defined(iconv_is_in_libc) or (defined(darwin) and not defined(cpupowerpc32)) or defined(debian)}
+ function iconv_open(__tocode:pchar; __fromcode:pchar):iconv_t;cdecl;external libiconvname name 'iconv_open';
+ function iconv(__cd:iconv_t; __inbuf:ppchar; __inbytesleft:psize_t; __outbuf:ppchar; __outbytesleft:psize_t):size_t;cdecl;external libiconvname name 'iconv';
+ function iconv_close(__cd:iconv_t):cint;cdecl;external libiconvname name 'iconv_close';

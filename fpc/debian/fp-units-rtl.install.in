@@ -1,0 +1,6 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/rtl
+usr/lib/fpc/*/*/*/rtl-console*
+usr/lib/fpc/*/*/*/rtl-extra*
+usr/lib/fpc/*/*/*/rtl-objpas*
+usr/lib/fpc/*/*/*/rtl-unicode*

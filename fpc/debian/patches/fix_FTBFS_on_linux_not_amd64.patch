@@ -1,0 +1,37 @@
+Description: FPC 3.0.0rc1 FTBFS on all archs except ARMEL & AMD64 because
+ the linker can't find the appropriate symbols
+Author: Edmund Grimley Evans <edmund.grimley.evans@gmail.com>
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=800811
+Source: http://svn.freepascal.org/cgi-bin/viewvc.cgi/trunk/compiler/systems/t_linux.pas?r1=31675&r2=31980
+
+Index: fpc/fpcsrc/compiler/systems/t_linux.pas
+===================================================================
+--- fpc.orig/fpcsrc/compiler/systems/t_linux.pas
++++ fpc/fpcsrc/compiler/systems/t_linux.pas
+@@ -145,10 +145,26 @@ begin
+     LibrarySearchPath.AddPath(sysrootpath,'/usr/lib/arm-linux-gnueabi',true);
+ {$endif}
+ {$endif arm}
++{$ifdef i386}
++  if not Dontlinkstdlibpath Then
++    LibrarySearchPath.AddPath(sysrootpath,'/usr/lib/i386-linux-gnu',true);
++{$endif i386}
+ {$ifdef x86_64}
+   if not Dontlinkstdlibpath Then
+     LibrarySearchPath.AddPath(sysrootpath,'/usr/lib/x86_64-linux-gnu',true);
+ {$endif x86_64}
++{$ifdef powerpc}
++  if not Dontlinkstdlibpath Then
++    LibrarySearchPath.AddPath(sysrootpath,'/usr/lib/powerpc-linux-gnu',true);
++{$endif powerpc}
++{$ifdef powerpc64}
++  if not Dontlinkstdlibpath Then
++    LibrarySearchPath.AddPath(sysrootpath,'/usr/lib/powerpc64-linux-gnu',true);
++{$endif powerpc64}
++{$ifdef aarch64}
++  if not Dontlinkstdlibpath Then
++    LibrarySearchPath.AddPath(sysrootpath,'/usr/lib/aarch64-linux-gnu',true);
++{$endif aarch64}
+ end;
+ 
+ {$ifdef m68k}

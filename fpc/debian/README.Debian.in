@@ -1,0 +1,26 @@
+The Free Pascal Compiler for Debian
+- -----------------------------------
+
+Only PDF docs are built as shipped. You may want to make the HTML files with
+tex4ht by yourself and eventually adapt the doc-base file.
+
+To create a new config file for fpc (/etc/fpc.cfg) use the command:
+ /usr/lib/fpc/%{fpcversion}/samplecfg /usr/lib/fpc/%{fpcversion}
+However, you should be aware that said file (/etc/fpc.cfg) is
+declared as a conffile since version 1.0.2.
+
+And, yes - this is a i386/amd64/powerpc/sparc/arm only package currently.
+
+ -- Varun Hiremath <varunhiremath@gmail.com>, Sat, 20 Jan 2007 01:28:28 +0530
+
+
+Debugging support
+-------------------------------------
+
+As discussed in bug 528855 [1], fp-ide currently does not have debugging
+support. We are still trying to define a proper solution, but for now it
+just doesn't work.
+
+[1] http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=528855
+
+ -- Paul Gevers <elbrus@debian.org>  Mon, 23 Sep 2013 21:20:16 +0200

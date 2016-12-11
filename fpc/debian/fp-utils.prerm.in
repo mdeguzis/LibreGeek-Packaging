@@ -1,0 +1,12 @@
+#! /bin/sh
+
+set -e
+
+FPCDIR=/usr/lib/fpc
+
+# remove alternatives
+update-alternatives \
+    --remove fp-utils ${FPCDIR}/${VERSION}
+
+# Debhelper code
+#DEBHELPER#

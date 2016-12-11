@@ -1,0 +1,9 @@
+version=3
+# Original line if repacking is needed...
+opts=uversionmangle=s/(RC)/\L$1/;\
+s/(\d)((rc|pre|dev|beta|alpha|b|a))/$1~$2/;\
+s/\-\d//;\
+s/\-src//,\
+dversionmangle=s/\+dfsg// \
+http://sf.net/freepascal/ fpcbuild-(.*).tar.gz debian debian/orig-tar.sh
+# http://sf.net/freepascal/ fpcbuild-(.*).tar.gz

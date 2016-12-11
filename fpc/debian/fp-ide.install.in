@@ -1,0 +1,5 @@
+#! /usr/bin/dh-exec
+usr/bin/fp-*
+usr/lib/fpc/*/ide
+usr/lib/fpc/*/fpmkinst/*/ide.fpm
+usr/share/doc/fp-ide    [!freebsd-any]

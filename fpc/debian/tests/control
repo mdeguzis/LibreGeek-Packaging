@@ -1,0 +1,12 @@
+Tests: run-upstream-testsuite
+# Building the testsuite requires at least Makefiles to be made
+Restrictions: rw-build-tree, allow-stderr
+# Running the testsuite as root can change the system time; not sure
+# if this warrants a:
+# Restrictions: breaks-testbed
+#
+# binutils is the only relevant difference that I could find between
+#  autopkgtest.u.c and ci.d.n (maybe needed for webtbs/tw0876)
+# build-essential is needed to build some c/c++ objects used for testing
+# zlib1g-dev is needed for at least test/packages/zlib/tzlib1.pp
+Depends: @, binutils, build-essential, zlib1g-dev

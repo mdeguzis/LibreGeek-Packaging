@@ -1,0 +1,5 @@
+# False positive because the first occurrence is a name of a unit, while the
+# second occurrence (between brackets) is a description of the unit.
+spelling-error-in-description symbolic symbolic (duplicate word) symbolic
+# Spelling error in upstream license text
+spelling-error-in-copyright orignal original

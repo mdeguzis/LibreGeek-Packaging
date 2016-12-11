@@ -1,0 +1,255 @@
+From bfbbb605bdce9536ca37c249492c046d08a2cc6c Mon Sep 17 00:00:00 2001
+From: yury <yury@3ad0048d-3df7-0310-abae-a5850022a9f2>
+Date: Mon, 12 Oct 2015 08:02:56 +0000
+Subject: [PATCH 7/9] * Keep the GOT offset in a virtual register for i386
+ non-darwin platforms.   It fixes PIC code generation with GOT for i386 with
+ enabled optimizations. Bugs #28667, #28668.   Prior the fix I have not been
+ able to compile even RTL with -O2 due to not enough free registers, since EBX
+ is reserved for GOT.
+
+  It can be further optimized to teach register allocator to not spill the GOT register if possible.
+
+git-svn-id: http://svn.freepascal.org/svn/ fpc/trunk@32020 3ad0048d-3df7-0310-abae-a5850022a9f2
+---
+ compiler/i386/cgcpu.pas   | 82 ++++++++++++++++++++++-------------------------
+ compiler/i386/cpupi.pas   |  3 +-
+ compiler/i386/hlcgcpu.pas | 29 +++++++++++++++++
+ compiler/x86/aasmcpu.pas  |  5 +--
+ 4 files changed, 70 insertions(+), 49 deletions(-)
+
+diff --git fpc.orig/fpcsrc/compiler/i386/cgcpu.pas fpc/fpcsrc/compiler/i386/cgcpu.pas
+index de73fc0..fa6e901 100644
+--- fpc.orig/fpcsrc/compiler/i386/cgcpu.pas
++++ fpc/fpcsrc/compiler/i386/cgcpu.pas
+@@ -36,7 +36,6 @@ unit cgcpu;
+     type
+       tcg386 = class(tcgx86)
+         procedure init_register_allocators;override;
+-        procedure do_register_allocation(list:TAsmList;headertai:tai);override;
+ 
+         { passing parameter using push instead of mov }
+         procedure a_load_reg_cgpara(list : TAsmList;size : tcgsize;r : tregister;const cgpara : tcgpara);override;
+@@ -85,29 +84,15 @@ unit cgcpu;
+     procedure tcg386.init_register_allocators;
+       begin
+         inherited init_register_allocators;
+-        if not(target_info.system in [system_i386_darwin,system_i386_iphonesim]) and
+-           (cs_create_pic in current_settings.moduleswitches) then
+-          rg[R_INTREGISTER]:=trgcpu.create(R_INTREGISTER,R_SUBWHOLE,[RS_EAX,RS_EDX,RS_ECX,RS_ESI,RS_EDI],first_int_imreg,[RS_EBP])
++        if (cs_useebp in current_settings.optimizerswitches) and assigned(current_procinfo) and (current_procinfo.framepointer<>NR_EBP) then
++          rg[R_INTREGISTER]:=trgcpu.create(R_INTREGISTER,R_SUBWHOLE,[RS_EAX,RS_EDX,RS_ECX,RS_EBX,RS_ESI,RS_EDI,RS_EBP],first_int_imreg,[])
+         else
+-          if (cs_useebp in current_settings.optimizerswitches) and assigned(current_procinfo) and (current_procinfo.framepointer<>NR_EBP) then
+-            rg[R_INTREGISTER]:=trgcpu.create(R_INTREGISTER,R_SUBWHOLE,[RS_EAX,RS_EDX,RS_ECX,RS_EBX,RS_ESI,RS_EDI,RS_EBP],first_int_imreg,[])
+-          else
+-            rg[R_INTREGISTER]:=trgcpu.create(R_INTREGISTER,R_SUBWHOLE,[RS_EAX,RS_EDX,RS_ECX,RS_EBX,RS_ESI,RS_EDI],first_int_imreg,[RS_EBP]);
++          rg[R_INTREGISTER]:=trgcpu.create(R_INTREGISTER,R_SUBWHOLE,[RS_EAX,RS_EDX,RS_ECX,RS_EBX,RS_ESI,RS_EDI],first_int_imreg,[RS_EBP]);
+         rg[R_MMXREGISTER]:=trgcpu.create(R_MMXREGISTER,R_SUBNONE,[RS_XMM0,RS_XMM1,RS_XMM2,RS_XMM3,RS_XMM4,RS_XMM5,RS_XMM6,RS_XMM7],first_mm_imreg,[]);
+         rg[R_MMREGISTER]:=trgcpu.create(R_MMREGISTER,R_SUBWHOLE,[RS_XMM0,RS_XMM1,RS_XMM2,RS_XMM3,RS_XMM4,RS_XMM5,RS_XMM6,RS_XMM7],first_mm_imreg,[]);
+         rgfpu:=Trgx86fpu.create;
+       end;
+ 
+-    procedure tcg386.do_register_allocation(list:TAsmList;headertai:tai);
+-      begin
+-        if (pi_needs_got in current_procinfo.flags) then
+-          begin
+-            if getsupreg(current_procinfo.got) < first_int_imreg then
+-              include(rg[R_INTREGISTER].used_in_proc,getsupreg(current_procinfo.got));
+-          end;
+-        inherited do_register_allocation(list,headertai);
+-      end;
+-
+ 
+     procedure tcg386.a_load_reg_cgpara(list : TAsmList;size : tcgsize;r : tregister;const cgpara : tcgpara);
+       var
+@@ -314,13 +299,6 @@ unit cgcpu;
+         end;
+ 
+       begin
+-        { Release PIC register }
+-        if (cs_create_pic in current_settings.moduleswitches) and
+-           (tf_pic_uses_got in target_info.flags) and
+-           (pi_needs_got in current_procinfo.flags) and
+-           not(target_info.system in systems_darwin) then
+-          list.concat(tai_regalloc.dealloc(NR_PIC_OFFSET_REG,nil));
+-
+         { MMX needs to call EMMS }
+         if assigned(rg[R_MMXREGISTER]) and
+            (rg[R_MMXREGISTER].uses_registers) then
+@@ -582,26 +560,49 @@ unit cgcpu;
+ 
+     procedure tcg386.g_maybe_got_init(list: TAsmList);
+       var
+-        notdarwin: boolean;
++        i: longint;
++        tmpreg: TRegister;
+       begin
+         { allocate PIC register }
+         if (cs_create_pic in current_settings.moduleswitches) and
+            (tf_pic_uses_got in target_info.flags) and
+            (pi_needs_got in current_procinfo.flags) then
+           begin
+-            notdarwin:=not(target_info.system in [system_i386_darwin,system_i386_iphonesim]);
+-            { on darwin, the got register is virtual (and allocated earlier
+-              already) }
+-            if notdarwin then
+-              { ecx could be used in leaf procedures that don't use ecx to pass
+-                aparameter }
+-              current_procinfo.got:=NR_EBX;
+-            if notdarwin { needs testing before it can be enabled for non-darwin platforms
+-                and
+-               (current_settings.optimizecputype in [cpu_Pentium2,cpu_Pentium3,cpu_Pentium4]) } then
++            if not (target_info.system in [system_i386_darwin,system_i386_iphonesim]) then
+               begin
+-                current_module.requires_ebx_pic_helper:=true;
+-                a_call_name_static(list,'fpc_geteipasebx');
++                { Use ECX as a temp register by default }
++                tmpreg:=NR_ECX;
++                { Allocate registers used for parameters to make sure they
++                  never allocated during this PIC init code }
++                for i:=0 to current_procinfo.procdef.paras.Count - 1 do
++                  with tparavarsym(current_procinfo.procdef.paras[i]).paraloc[calleeside].Location^ do
++                    if Loc in [LOC_REGISTER, LOC_CREGISTER] then begin
++                      a_reg_alloc(list, register);
++                      { If ECX is used for a parameter, use EBX as temp }
++                      if getsupreg(register) = RS_ECX then
++                        tmpreg:=NR_EBX;
++                    end;
++
++                if tmpreg = NR_EBX then
++                  begin
++                    { Mark EBX as used in the proc }
++                    include(rg[R_INTREGISTER].used_in_proc,RS_EBX);
++                    current_module.requires_ebx_pic_helper:=true;
++                    a_call_name_static(list,'fpc_geteipasebx');
++                  end
++                else
++                  begin
++                    current_module.requires_ecx_pic_helper:=true;
++                    a_call_name_static(list,'fpc_geteipasecx');
++                  end;
++                list.concat(taicpu.op_sym_ofs_reg(A_ADD,S_L,current_asmdata.RefAsmSymbol('_GLOBAL_OFFSET_TABLE_'),0,tmpreg));
++                list.concat(taicpu.op_reg_reg(A_MOV,S_L,tmpreg,current_procinfo.got));
++
++                { Deallocate parameter registers }
++                for i:=0 to current_procinfo.procdef.paras.Count - 1 do
++                  with tparavarsym(current_procinfo.procdef.paras[i]).paraloc[calleeside].Location^ do
++                    if Loc in [LOC_REGISTER, LOC_CREGISTER] then
++                      a_reg_dealloc(list, register);
+               end
+             else
+               begin
+@@ -613,11 +614,6 @@ unit cgcpu;
+                 a_label(list,current_procinfo.CurrGotLabel);
+                 list.concat(taicpu.op_reg(A_POP,S_L,current_procinfo.got))
+               end;
+-            if notdarwin then
+-              begin
+-                list.concat(taicpu.op_sym_ofs_reg(A_ADD,S_L,current_asmdata.RefAsmSymbol('_GLOBAL_OFFSET_TABLE_'),0,NR_PIC_OFFSET_REG));
+-                list.concat(tai_regalloc.alloc(NR_PIC_OFFSET_REG,nil));
+-              end;
+           end;
+       end;
+ 
+diff --git fpc.orig/fpcsrc/compiler/i386/cpupi.pas fpc/fpcsrc/compiler/i386/cpupi.pas
+index f4282af..39187cb 100644
+--- fpc.orig/fpcsrc/compiler/i386/cpupi.pas
++++ fpc/fpcsrc/compiler/i386/cpupi.pas
+@@ -97,8 +97,7 @@ unit cpupi;
+ 
+     procedure ti386procinfo.allocate_got_register(list: tasmlist);
+       begin
+-        if (target_info.system in [system_i386_darwin,system_i386_iphonesim]) and
+-           (cs_create_pic in current_settings.moduleswitches) then
++        if (cs_create_pic in current_settings.moduleswitches) then
+           begin
+             got := cg.getaddressregister(list);
+           end;
+diff --git fpc.orig/fpcsrc/compiler/i386/hlcgcpu.pas fpc/fpcsrc/compiler/i386/hlcgcpu.pas
+index e437254..9a6ec0e 100644
+--- fpc.orig/fpcsrc/compiler/i386/hlcgcpu.pas
++++ fpc/fpcsrc/compiler/i386/hlcgcpu.pas
+@@ -29,7 +29,7 @@ unit hlcgcpu;
+ interface
+ 
+   uses
+-    aasmdata,
++    globtype, aasmdata,
+     symtype,symdef,parabase,
+     cgbase,cgutils,
+     hlcgobj, hlcgx86;
+@@ -40,6 +40,7 @@ interface
+      protected
+       procedure gen_loadfpu_loc_cgpara(list: TAsmList; size: tdef; const l: tlocation; const cgpara: tcgpara; locintsize: longint); override;
+      public
++      function a_call_name(list: TAsmList; pd: tprocdef; const s: TSymStr; forceresdef: tdef; weak: boolean): tcgpara; override;
+       procedure g_copyvaluepara_openarray(list: TAsmList; const ref: treference; const lenloc: tlocation; arrdef: tarraydef; destreg: tregister); override;
+       procedure g_releasevaluepara_openarray(list: TAsmList; arrdef: tarraydef; const l: tlocation); override;
+     end;
+@@ -49,9 +50,13 @@ interface
+ implementation
+ 
+   uses
++    globals, procinfo,
+-    globtype,verbose,
++    verbose,
++    fmodule,systems,
++    aasmbase,aasmtai,
+     paramgr,
+-    cpubase,tgobj,cgobj,cgcpu;
++    symconst,
++    cpubase,aasmcpu,tgobj,cgobj,cgcpu;
+ 
+   { thlcgcpu }
+ 
+@@ -170,6 +175,31 @@ implementation
+     end;
+ 
+ 
++  function thlcgcpu.a_call_name(list: TAsmList; pd: tprocdef; const s: TSymStr; forceresdef: tdef; weak: boolean): tcgpara;
++  var
++    need_got_load: boolean;
++  begin
++    { Load GOT address to EBX before calling an external function.
++      It is needed because GOT stubs for external function calls
++      generated by a linker expect EBX as a GOT register. }
++    need_got_load:=not (target_info.system in systems_darwin) and
++                   (cs_create_pic in current_settings.moduleswitches) and
++                   (tf_pic_uses_got in target_info.flags) and
++                   (pi_needs_got in current_procinfo.flags) and
++                   (po_external in pd.procoptions);
++    if need_got_load then
++      begin
++        { Alloc EBX }
++        getcpuregister(list, NR_PIC_OFFSET_REG);
++        list.concat(taicpu.op_reg_reg(A_MOV,S_L,current_procinfo.got,NR_PIC_OFFSET_REG));
++      end;
++    Result:=inherited a_call_name(list, pd, s, forceresdef, weak);
++    { Free EBX }
++    if need_got_load then
++      ungetcpuregister(list, NR_PIC_OFFSET_REG);
++  end;
++
++
+   procedure thlcgcpu.g_copyvaluepara_openarray(list: TAsmList; const ref: treference; const lenloc: tlocation; arrdef: tarraydef; destreg: tregister);
+     begin
+       if paramanager.use_fixed_stack then
+diff --git fpc.orig/fpcsrc/compiler/x86/aasmcpu.pas fpc/fpcsrc/compiler/x86/aasmcpu.pas
+index 9462f72..a89dee8 100644
+--- fpc.orig/fpcsrc/compiler/x86/aasmcpu.pas
++++ fpc/fpcsrc/compiler/x86/aasmcpu.pas
+@@ -1124,10 +1124,7 @@ implementation
+ {$ifdef i386}
+                      or (
+                          (ref^.refaddr in [addr_pic]) and
+-                         { allow any base for assembler blocks }
+-                        ((assigned(current_procinfo) and
+-                         (pi_has_assembler_block in current_procinfo.flags) and
+-                         (ref^.base<>NR_NO)) or (ref^.base=NR_EBX))
++                         (ref^.base<>NR_NO)
+                         )
+ {$endif i386}
+ {$ifdef x86_64}
+-- 
+2.7.0
+

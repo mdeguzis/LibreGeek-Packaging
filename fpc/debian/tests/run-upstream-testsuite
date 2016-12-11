@@ -1,0 +1,70 @@
+#!/bin/sh
+# This script was made by Paul Gevers <elbrus@debian.org>
+# It is licensed under the same license as the fpc package
+
+set -e # Make sure the test fails if a command fails
+
+FULL_TARGET=`fpc -iSP`-`fpc -iSO` # x86_64-linux
+FPC_VER=`fpc -iV`
+# Make sure we use the installed fpcmake
+export FPCMAKE=`which fpcmake`-${FPC_VER}
+TESTUNITDIRROOT=fpcsrc/tests/tstunits
+TESTUNITDIR=${TESTUNITDIRROOT}/${FULL_TARGET}
+if [ -f fpcsrc/tests/Makefile ] ; then
+	MAKEMAKEFILES=false
+else   
+	MAKEMAKEFILES=true
+fi
+
+[ "$MAKEMAKEFILES" = "true" ] && debian/rules makefiles
+
+# If the make target is run without intervention, the units target is build and
+# installed, while we want to test with the installed units.
+[ -d ${TESTUNITDIR} ] || mkdir ${TESTUNITDIR}
+for FILE in /usr/lib/fpc/${FPC_VER}/units/$FULL_TARGET/*/*.[op]* ; do
+	[ -h ${TESTUNITDIR}/${FILE##*/} ] || ln -s ${FILE} ${TESTUNITDIR}
+done
+echo Compiled > ${TESTUNITDIRROOT}/rtl-stamp.${FULL_TARGET}
+echo Compiled > ${TESTUNITDIRROOT}/fpcunit-stamp.${FULL_TARGET}
+echo Compiled > ${TESTUNITDIRROOT}/packages-stamp.${FULL_TARGET}
+
+# Some tests need additional objects, lets make them first (why are they not
+# automatically build?)
+mkdir -p fpcsrc/tests/test/cg/obj/${FULL_TARGET##*-}/${FULL_TARGET%%-*} #linux/x86_64
+make -C fpcsrc/tests create_c_objects TEST_FPC=`which fpc` TEST_CCOMPILER=gcc
+# Run the real test suite; this doesn't fail on its own
+LC_ALL=C.UTF-8 make -C fpcsrc/tests all TEST_FPC=`which fpc`
+# The next line just creates some nice output
+make -C fpcsrc/tests digest TEST_FPC=`which fpc`
+
+# Let's save some of the output
+if [ -n "${ADT_ARTIFACTS}" ] ; then
+	cp -p fpcsrc/tests/output/${FULL_TARGET}/faillist ${ADT_ARTIFACTS}
+	cp -p fpcsrc/tests/output/${FULL_TARGET}/log ${ADT_ARTIFACTS}
+	cp -p fpcsrc/tests/output/${FULL_TARGET}/longlog ${ADT_ARTIFACTS}
+fi
+
+# Compare the new results with known results if we have them
+REF_FILE=debian/tests/ref_fail_${FULL_TARGET}
+if [ -f ${REF_FILE} ] ; then
+	echo
+	echo Difference between expected failures and current failures:
+	diff ${REF_FILE} fpcsrc/tests/output/${FULL_TARGET}/faillist || true
+	echo
+	echo "Checking (and fail if so) for new failures:"
+	diff ${REF_FILE} fpcsrc/tests/output/${FULL_TARGET}/faillist | grep \>\ # || PASSED=true
+	if [ "$?" = "1" ] ; then
+		echo No new failures
+	else
+		return 1
+	fi
+else
+    echo "No reference file found for $FULL_TARGET. Please consider adding one."
+fi
+
+# For debugging, add clean target
+if [ -n "$CLEAN" ] ; then
+	make -C fpcsrc/tests digest TEST_FPC=`which fpc`
+	debian/rules clean-makefiles
+	rm debian/deb-build-fpc.cfg
+fi

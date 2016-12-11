@@ -1,0 +1,75 @@
+#! /bin/sh
+
+set -e
+
+# Load debconf
+. /usr/share/debconf/confmodule
+
+CFG_PATH='/etc/fpc.cfg'
+PKG_CFG_PATH="/etc/fpc-${VERSION}.cfg"
+LIB_DIR="/usr/lib/fpc"
+MAN_DIR="/usr/share/man/man1"
+
+# Debhelper code
+#DEBHELPER#
+
+USER_HAS_ENABLED_NEW_CONF="test -L ${CFG_PATH} -o  ! -e ${CFG_PATH}"
+
+if ! ${USER_HAS_ENABLED_NEW_CONF}
+then
+	db_get fp-compiler/rename_cfg
+	if test "${RET}" = "true" -a -e ${CFG_PATH}
+	then
+		mv "${CFG_PATH}" "${CFG_PATH}.bak"
+	fi
+fi
+
+# Create new compiler configuration file
+fpcmkcfg-${VERSION} -0 -d "basepath=${LIB_DIR}/\$fpcversion" -o "${PKG_CFG_PATH}"
+# Add multiarch path to /etc/fpc.cfg so executables linked against libc can be corectly linked
+echo '# multiarch library search path' >> ${PKG_CFG_PATH}
+echo '-Fl/usr/lib/$fpctarget-*' >> ${PKG_CFG_PATH}
+# Define a default location, multi-arch compatible, for third party units.
+cat >> ${PKG_CFG_PATH} <<EOF
+# Third party units should be installe in a, multi-arch compatible location.
+# Units should be installed in /usr/lib/\$fpctarget-gnu/fp-units-2.6.2/\$pkg/.
+# Ech fp-units package should install a configuration file called \$pkg.cfg in
+#CFGDIR /etc/fpc-\$fpcversion.cfg.d/\$fpctarget
+EOF
+
+if test -n ${WINDRES_BIN}
+then
+	db_get fp-compiler/windres
+	if test -n "${RET}"
+	then
+		WINDRES_BIN=${RET}
+	fi
+fi
+sed -e '\@# MS Windows .rc resource compiler@d' -e '\@-FC@d' -i  ${PKG_CFG_PATH}
+if test -n "${WINDRES_BIN}"
+then
+	echo '# MS Windows .rc resource compiler' >> ${PKG_CFG_PATH}
+	echo "-FC${WINDRES_BIN}" >> ${PKG_CFG_PATH}
+fi
+
+# add alternatives
+update-alternatives \
+    --install /usr/bin/fpc fpc /usr/bin/fpc-${VERSION} ${PRIORITY} \
+    --slave /usr/bin/${PPCBIN} ${PPCBIN} ${LIB_DIR}/${VERSION}/${PPCBIN} \
+    --slave /usr/bin/fpc-depends fpc-depends /usr/bin/fpc-depends-${VERSION} \
+	--slave /usr/bin/fpcres fpcres /usr/bin/fpcres-${VERSION} \
+    --slave ${MAN_DIR}/${PPCBIN}.1.gz ${PPCBIN}.1.gz ${MAN_DIR}/${PPCBIN}-${VERSION}.1.gz \
+    --slave ${MAN_DIR}/fpc.1.gz fpc.1.gz ${MAN_DIR}/fpc-${VERSION}.1.gz \
+    --slave ${MAN_DIR}/fpc-depends.1.gz fpc-depends.1.gz ${MAN_DIR}/fpc-depends-${VERSION}.1.gz \
+	--slave ${MAN_DIR}/fpcres.1.gz fpcres.1.gz ${MAN_DIR}/fpcres-${VERSION}.1.gz
+# Configuration file is a special case as it is backward compatible and is
+# likely to be handled as a special alternative pointing to the latest release
+if ${USER_HAS_ENABLED_NEW_CONF}
+then
+	update-alternatives \
+		--install ${CFG_PATH} fpc.cfg ${PKG_CFG_PATH} ${PRIORITY}
+fi
+# Replace legacy/gnu pascal compilers
+update-alternatives \
+    --install /usr/bin/pc pc /usr/bin/fpc-${VERSION} 20 \
+    --slave ${MAN_DIR}/pc.1.gz pc.1.gz ${MAN_DIR}/fpc-${VERSION}.1.gz

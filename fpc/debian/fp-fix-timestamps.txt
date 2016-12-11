@@ -1,0 +1,44 @@
+NAME
+fp-fix-timestamps - helper script for the Free Pascal stack in Debian
+
+SYNOPSIS
+fp-fix-timestamps check|update|touch
+
+DESCRIPTION
+
+fp-fix-timestamps is meant to be used by Debian source packages in the Free
+Pascal stack. The primary location for use is the debian/rules file. The aim of
+this script is to fix the timestamps of patched files (with respect to
+upstream) that would otherwise end up changing the timestamp stored in ppu
+files.
+
+This timestamp in ppu files has two issues:
+
+1. It deteriorates reproducible builds.
+
+2. Reverse dependent packages that also build ppu files may believe that the
+source has changed and either require recompilation of the source or at least
+require recalculation all the time.
+
+Currently this script supports three operations.
+
+1. touch: The main operation is to touch the files that are listed in
+debian/source/timestamps to the associated timestamps (in that same file).
+
+2. check: When the situation is simple and the only changes in the package to
+the source come from patches, the check option can be used to verify that the
+list in debian/source/timestamps is still up-to-date in the sense that all
+files touched by patches are listed and that all files listed are touched by
+patches.
+
+3. update: Similar to check, but also update the debian/source/timestamps file.
+
+When the maintainer scripts modify a source file outside of the patches, the
+maintainer is free to add those files manually to the timestamps file, but then
+the check and update options don't work as expected anymore.
+
+SEE ALSO
+https://wiki.debian.org/ReproducibleBuilds/TimestampsInPPUGeneratedByFPC
+
+AUTHOR
+Paul Gevers <elbrus@debian.org>

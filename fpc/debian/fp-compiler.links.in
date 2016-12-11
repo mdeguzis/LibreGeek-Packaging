@@ -1,0 +1,1 @@
+/usr/lib/fpc/${VERSION}/${PPCBIN} /usr/bin/${PPCBIN}-${VERSION}

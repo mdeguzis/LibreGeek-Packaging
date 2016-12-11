@@ -1,0 +1,155 @@
+# fpc translation to Spanish
+# Copyright (C) 2012 Software in the Public Interest, SPI Inc.
+# This file is distributed under the same license as the fpc package.
+#
+# Changes:
+# - Initial translation
+#      Matías Bellone <matiasbellone+debian@gmail.com> , 2012
+#
+# - Updates
+#      Matías Bellone <matiasbellone+debian@gmail.com> , 2013
+#
+#  Traductores, si no conoce el formato PO, merece la pena leer la 
+#  documentación de gettext, especialmente las secciones dedicadas a este
+#  formato, por ejemplo ejecutando:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#
+# Equipo de traducción al español, por favor lean antes de traducir
+# los siguientes documentos:
+#
+# - El proyecto de traducción de Debian al español
+#   http://www.debian.org/intl/spanish/
+#   especialmente las notas y normas de traducción en
+#   http://www.debian.org/intl/spanish/notas
+#
+# - La guía de traducción de po's de debconf:
+#   /usr/share/doc/po-debconf/README-trans
+#   o http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+# Si tiene dudas o consultas sobre esta traducción consulte con el último
+# traductor (campo Last-Translator) y ponga en copia a la lista de
+# traducción de Debian al español (<debian-l10n-spanish@lists.debian.org>)
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fpc\n"
+"Report-Msgid-Bugs-To: fpc@packages.debian.org\n"
+"POT-Creation-Date: 2015-06-19 17:31+0200\n"
+"PO-Revision-Date: 2013-12-03 19:06-0300\n"
+"Last-Translator: Matías Bellone <matiasbellone+debian@gmail.com>\n"
+"Language-Team: Debian L10N Spanish <debian-l10n-spanish@lists.debian.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid "Rename \"/etc/fpc.cfg\" to \"/etc/fpc.cfg.bak\"?"
+msgstr "¿Desea renombrar «/etc/fpc.cfg» a «/etc/fpc.cfg.bak»?"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"FPC now supports having multiple versions installed on the same system. The "
+"update-alternatives command can be used to set a default version for\n"
+" * fpc (the compiler);\n"
+" * fpc.cfg (the configuration file);\n"
+" * fp-utils (the helper tools)."
+msgstr ""
+"FPC ahora puede tener múltiples versiones instaladas en el mismo sistema. "
+"Puede utilizar la orden «update-alternatives» para definir la versión "
+"predeterminada de:  * fpc (el compilador);\n"
+" * fpc.cfg (el archivo de configuración);\n"
+" * fp-utils (las heramientas de ayuda)."
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"Whatever version you may choose as default, the configuration files are "
+"always backward compatible, so it should always be safe to use the latest "
+"version."
+msgstr ""
+"Los archivos de configuración siempre son compatibles con versiones "
+"anteriores sin importar la versión que elija como predeterminada, por lo que "
+"siempre debería ser seguro utilizar la última versión."
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"In order to use the alternatives system on the system wide FPC configuration "
+"file you must accept renaming \"/etc/fpc.cfg\"; otherwise you will need to "
+"manage this manually by yourself."
+msgstr ""
+"Debe aceptar cambiar el nombre de «/etc/fpc.cfg» para utilizar el sistema de "
+"alternativas en la configuración de FPC para todo el equipo, de lo contrario "
+"deberá administrarlo a mano por su cuenta."
+
+#. Type: select
+#. Choices
+#. This string should be in sync with the translation in the description
+#: ../fp-compiler.templates.in:3001
+msgid "Select manually"
+msgstr "Seleccionar manualmente"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid "Default MS Windows .rc resource compiler:"
+msgstr "Compilador predeterminado de recursos .rc de MS Windows:"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"FPC supports compiling programs that embed resources as MS Windows .rc-"
+"format files on all platforms where the MinGW windres tool is available."
+msgstr ""
+"FPC puede compilar programas que incluyen recursos en archivos con formato ."
+"rc de MS Windows en todas las plataformas en las que esté disponible la "
+"herramienta «windres» de MinGW."
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"In order to be able to compile projects using .rc files, you need first to "
+"manually install the package mingw32-binutils. mingw32-binutils is suggested "
+"by fp-compiler but not pulled in automatically."
+msgstr ""
+"Para poder compilar proyectos que utilizan archivos .rc, primero debe "
+"instalar el paquete mingw32-binutils. El paquete fp-compiler sugiere el "
+"paquete mingw32-binutils, pero no se lo instalará automáticamente."
+
+#. Type: select
+#. Description
+#. "Select manually" should be in sync with the text elsewhere in the
+#. translation
+#: ../fp-compiler.templates.in:3002
+msgid ""
+"If you want to enter a custom .rc file compiler that does not appear in this "
+"list or if you simply want to disable this feature, please select \"Select "
+"manually\"."
+msgstr ""
+"Si desea utilizar un compilador de archivos .rc personalizado que no se "
+"encuentra en esta lista o si desea desactivar esta funcionalidad, seleccione "
+"«Seleccionar manualmente»."
+
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:4001
+msgid "If you don't want to use a default .rc file compiler, leave this blank."
+msgstr ""
+"Si no desea utilizar un compilador de archivos .rc predeterminado, deje este "
+"valor vacío."

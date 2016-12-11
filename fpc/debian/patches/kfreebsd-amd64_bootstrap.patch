@@ -1,0 +1,57 @@
+Description: kfreebsd bootstrap necessities
+ In the case we use freebsd as OS_TARGET the following goes wrong:
+ .
+ In fastcgi and fcl-web, something goes wrong with linking:
+   ELF interpreter /usr/libexec/ld-elf.so.1 not found
+ I have no idea where this comes from as all references to libexec are either
+ in fpmake itself after compilation or in t_bsd.pas in parts that should not be
+ used. However, if we force it in t_bsd.pas, it at least calls the right linker.
+ It still doesn't work though, as the symbols it links to are wrong.
+Author: Paul Gevers <elbrus@debian.org>
+
+Index: fpc/fpcsrc/compiler/systems/t_bsd.pas
+===================================================================
+--- fpc.orig/fpcsrc/compiler/systems/t_bsd.pas
++++ fpc/fpcsrc/compiler/systems/t_bsd.pas
+@@ -187,13 +187,8 @@ begin
+        DllCmd[2]:='strip --strip-unneeded $EXE'
+      else
+        DllCmd[2]:='strip -x $EXE';
+-     { OpenBSD seems to use a wrong dynamic linker by default }
+-     if target_info.system in systems_openbsd then
+-      DynamicLinker:='/usr/libexec/ld.so'
+-     else if target_info.system in systems_netbsd then
+-      DynamicLinker:='/usr/libexec/ld.elf_so'
+-     else
+-       DynamicLinker:='';
++     { On Debian systems it seems we have to set the dynamicLinker }
++     DynamicLinker:='/lib/ld-kfreebsd-x86-64.so.1';
+    end;
+ end;
+ 
+Index: fpc/fpcsrc/rtl/unix/initc.pp
+===================================================================
+--- fpc.orig/fpcsrc/rtl/unix/initc.pp
++++ fpc/fpcsrc/rtl/unix/initc.pp
+@@ -60,7 +60,7 @@ function geterrnolocation: pcint; cdecl;
+ {$endif}
+ 
+ {$if defined(FreeBSD) or defined(DragonFly)} // tested on x86
+-function geterrnolocation: pcint; cdecl;external clib name '__error';
++function geterrnolocation: pcint; cdecl;external clib name '__errno_location';
+ {$endif}
+ 
+ {$ifdef OpenBSD} // tested on x86
+Index: fpc/fpcsrc/rtl/bsd/sysos.inc
+===================================================================
+--- fpc.orig/fpcsrc/rtl/bsd/sysos.inc
++++ fpc/fpcsrc/rtl/bsd/sysos.inc
+@@ -23,7 +23,7 @@ type libcint=longint;
+      plibcint=^libcint;
+ 
+ {$if defined(FreeBSD) or defined(DragonFly)} // tested on x86
+-function geterrnolocation: Plibcint; cdecl;external clib name '__error';
++function geterrnolocation: Plibcint; cdecl;external clib name '__errno_location';
+ {$else}
+ {$ifdef NetBSD} // from a sparc dump.
+ function geterrnolocation: Plibcint; cdecl;external clib name '__errno';

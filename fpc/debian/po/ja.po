@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the fpc package.
+# victory <victory.deb@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fpc\n"
+"Report-Msgid-Bugs-To: fpc@packages.debian.org\n"
+"POT-Creation-Date: 2015-06-19 17:31+0200\n"
+"PO-Revision-Date: 2014-09-22 03:49+0900\n"
+"Last-Translator: victory <victory.deb@gmail.com>\n"
+"Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid "Rename \"/etc/fpc.cfg\" to \"/etc/fpc.cfg.bak\"?"
+msgstr "「/etc/fpc.cfg」を「/etc/fpc.cfg.bak」に変更しますか?"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"FPC now supports having multiple versions installed on the same system. The "
+"update-alternatives command can be used to set a default version for\n"
+" * fpc (the compiler);\n"
+" * fpc.cfg (the configuration file);\n"
+" * fp-utils (the helper tools)."
+msgstr ""
+"FPC は現在同一システムに複数バージョンが混在することをサポートしています。"
+"update-alternatives コマンドを使って、以下のファイルにデフォルトのバージョン"
+"をセットすることが可能です\n"
+" * fpc (コンパイラ)\n"
+" * fpc.cfg (設定ファイル)\n"
+" * fp-utils (補助ツール)"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"Whatever version you may choose as default, the configuration files are "
+"always backward compatible, so it should always be safe to use the latest "
+"version."
+msgstr ""
+"デフォルトにどのバージョンを選んでも、設定ファイルは常に後方互換なので、最新"
+"版の使用はいつでも安全です。"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"In order to use the alternatives system on the system wide FPC configuration "
+"file you must accept renaming \"/etc/fpc.cfg\"; otherwise you will need to "
+"manage this manually by yourself."
+msgstr ""
+"システムワイドの FPC 設定ファイルにより代替システムを使用する場合、「/etc/"
+"fpc.cfg」ファイルの改名を受け入れないといけません。受け入れない場合は手作業で"
+"自ら管理する必要があります。"
+
+#. Type: select
+#. Choices
+#. This string should be in sync with the translation in the description
+#: ../fp-compiler.templates.in:3001
+msgid "Select manually"
+msgstr "手作業で指定する"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid "Default MS Windows .rc resource compiler:"
+msgstr "デフォルトの MS Windows .rc リソースコンパイラ:"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"FPC supports compiling programs that embed resources as MS Windows .rc-"
+"format files on all platforms where the MinGW windres tool is available."
+msgstr ""
+"FPC は MS Windows の .rc 形式のファイルにリソースを埋め込んだプログラムの、"
+"MinGW windres ツールが利用できるあらゆるプラットフォーム上でのコンパイルをサ"
+"ポートしています。"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"In order to be able to compile projects using .rc files, you need first to "
+"manually install the package mingw32-binutils. mingw32-binutils is suggested "
+"by fp-compiler but not pulled in automatically."
+msgstr ""
+".rc ファイルを使っているプロジェクトをコンパイルできるようにするためにはまず "
+"mingw32-binutils パッケージを手作業でインストールする必要があります。mingw32-"
+"binutils は fp-compiler で提案されていますが自動的にインストールはされませ"
+"ん。"
+
+#. Type: select
+#. Description
+#. "Select manually" should be in sync with the text elsewhere in the
+#. translation
+#: ../fp-compiler.templates.in:3002
+msgid ""
+"If you want to enter a custom .rc file compiler that does not appear in this "
+"list or if you simply want to disable this feature, please select \"Select "
+"manually\"."
+msgstr ""
+"一覧に表示されない独自の .rc ファイルのコンパイラを指定したい、あるいはこの機"
+"能を単に無効化したい場合は、「手作業で指定する」を選択ください。"
+
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:4001
+msgid "If you don't want to use a default .rc file compiler, leave this blank."
+msgstr ""
+"デフォルトの .rc ファイルコンパイラを使いたくない場合は空白にしてください。"

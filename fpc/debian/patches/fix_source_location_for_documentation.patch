@@ -1,0 +1,287 @@
+Description: Two new files in the upstream source are not pointing at
+ the proper location in the tar ball for building.
+Author: Paul Gevers <elbrus@debian.org>
+
+Index: fpc/fpcdocs/fcl-project.xml
+===================================================================
+--- fpc.orig/fpcdocs/fcl-project.xml
++++ fpc/fpcdocs/fcl-project.xml
+@@ -14,43 +14,43 @@
+   <packages>
+     <package name="fcl" output="" content="fcl.xct">
+       <units>
+-        <unit file="../packages/fcl-base/src/iostream.pp" options="-S2"/>
+-        <unit file="../packages/fcl-process/src/pipes.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/streamio.pp" options=""/>
+-        <unit file="../packages/fcl-process/src/process.pp" options=""/>
+-        <unit file="../packages/fcl-process/src/dbugintf.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/contnrs.pp" options=""/>
+-        <unit file="../packages/paszlib/src/zstream.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/idea.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/bufstream.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/base64.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/gettext.pp" options=""/>
+-        <unit file="../packages/fcl-web/src/base/ezcgi.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/pooledmm.pp" options=""/>
+-        <unit file="../packages/fcl-process/src/dbugmsg.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/streamex.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/inicol.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/streamcoll.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/cachecls.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/eventlog.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/syncobjs.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/custapp.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/blowfish.pp" options=""/>
+-        <unit file="../packages/fcl-process/src/simpleipc.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/inifiles.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/rttiutils.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/avl_tree.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/uriparser.pp" options=""/>
+-        <unit file="../packages/fcl-extra/src/daemonapp.pp" options=""/>
+-        <unit file="../packages/libtar/src/libtar.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/ascii85.pp" options=""/>
+-        <unit file="../packages/fcl-base/src/fptimer.pp" options=""/>
+-        <unit file="../packages/fcl-db/src/base/db.pas" options=""/>
+-        <unit file="../packages/paszlib/src/zipper.pp" options=""/>
+-        <unit file="../packages/fcl-db/src/sqldb/sqldb.pp" options=""/>
+-        <unit file="../packages/fcl-db/src/sqldb/interbase/ibconnection.pp" options=""/>
+-        <unit file="../packages/fcl-db/src/sqldb/mssql/mssqlconn.pp" options=""/>
+-        <unit file="../packages/fcl-json/src/fpjson.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/iostream.pp" options="-S2"/>
++        <unit file="../fpcsrc/packages/fcl-process/src/pipes.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/streamio.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-process/src/process.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-process/src/dbugintf.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/contnrs.pp" options=""/>
++        <unit file="../fpcsrc/packages/paszlib/src/zstream.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/idea.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/bufstream.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/base64.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/gettext.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-web/src/base/ezcgi.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/pooledmm.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-process/src/dbugmsg.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/streamex.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/inicol.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/streamcoll.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/cachecls.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/eventlog.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/syncobjs.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/custapp.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/blowfish.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-process/src/simpleipc.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/inifiles.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/rttiutils.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/avl_tree.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/uriparser.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-extra/src/daemonapp.pp" options=""/>
++        <unit file="../fpcsrc/packages/libtar/src/libtar.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/ascii85.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-base/src/fptimer.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-db/src/base/db.pas" options=""/>
++        <unit file="../fpcsrc/packages/paszlib/src/zipper.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-db/src/sqldb/sqldb.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-db/src/sqldb/interbase/ibconnection.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-db/src/sqldb/mssql/mssqlconn.pp" options=""/>
++        <unit file="../fpcsrc/packages/fcl-json/src/fpjson.pp" options=""/>
+       </units>
+       <descriptions>
+         <description file="fcl.xml"/>
+@@ -93,7 +93,7 @@
+         <description file="fpjson.xml"/>
+       </descriptions>
+       <imports>
+-        <import file="rtl.xct" prefix="../rtl/"/>
++        <import file="rtl.xct" prefix="../fpcsrc/rtl/"/>
+       </imports>
+     </package>
+   </packages>
+Index: fpc/fpcdocs/rtl-project.xml
+===================================================================
+--- fpc.orig/fpcdocs/rtl-project.xml
++++ fpc/fpcdocs/rtl-project.xml
+@@ -14,95 +14,95 @@
+   <packages>
+     <package name="rtl" output="" content="rtl.xct">
+       <units>
+-        <unit file="../rtl/linux/system.pp" options="-Sd -dfpdocsystem -dHASGETHEAPSTATUS -dSUPPORT_DOUBLE -Fi../rtl/linux -Fi../rtl/unix -Fi../rtl/inc -Fi../rtl/i386 -dCPU32 -dHASVARIANT -dFPC_HAS_TYPE_EXTENDED -dHASWIDECHAR"/>
+-        <unit file="../rtl/objpas/objpas.pp" options="-dHASINTF"/>
+-        <unit file="../rtl/objpas/types.pp" options=""/>
+-        <unit file="../packages/rtl-objpas/src/inc/strutils.pp" options=""/>
+-        <unit file="../rtl/unix/sysutils.pp" options="-Fi../rtl/objpas/sysutils -Fi../rtl/inc"/>
+-        <unit file="../rtl/inc/strings.pp" options="-Fi../rtl/i386 -Fi../rtl/inc"/>
+-        <unit file="../packages/rtl-console/src/unix/mouse.pp" options="-Fi../packages/rtl-console/src/inc"/>
+-        <unit file="../packages/rtl-console/src/unix/keyboard.pp" options="-Fi../packages/rtl-console/src/inc"/>
+-        <unit file="../packages/rtl-console/src/unix/crt.pp" options="-Fi../packages/rtl-console/src/inc"/>
+-        <unit file="../packages/rtl-console/src/unix/video.pp" options="-Fi../packages/rtl-console/src/inc"/>
+-        <unit file="../rtl/unix/dos.pp" options="-Fi../rtl/inc -dcpui386"/>
+-        <unit file="../packages/rtl-extra/src/unix/sockets.pp" options="-dver1_0 -Fi../packages/rtl-extra/src/inc -Fi../packages/rtl-extra/src/linux"/>
+-        <unit file="../packages/rtl-extra/src/inc/objects.pp" options="-Fi../rtl/i386 -Fi../rtl/linux"/>
+-        <unit file="../rtl/inc/heaptrc.pp" options="-Fi../rtl/i386 -Fi../rtl/linux"/>
+-        <unit file="../rtl/i386/mmx.pp" options="-Fi../rtl/linux"/>
+-        <unit file="../packages/rtl-extra/src/unix/ipc.pp" options="-Fi../rtl/linux"/>
+-        <unit file="../packages/rtl-extra/src/unix/printer.pp" options="-Fi../packages/rtl-extra/src/linux -Fi../packages/rtl-extra/src/inc"/>
+-        <unit file="../rtl/objpas/typinfo.pp" options="-Fi../rtl/linux"/>
+-        <unit file="../rtl/unix/ports.pp" options="-Fi../rtl/linux"/>
+-        <unit file="../rtl/inc/getopts.pp" options="-Fi../rtl/linux"/>
+-        <unit file="../rtl/go32v2/emu387.pp" options="-Fi../rtl/i386"/>
+-        <unit file="../rtl/go32v2/dxeload.pp" options="-Fi../rtl/i386"/>
+-        <unit file="../rtl/go32v2/go32.pp" options="-Fi../rtl/i386"/>
+-        <unit file="../packages/rtl-extra/src/unix/gpm.pp" options="-dVER1_0 -Fi../rtl/i386"/>
+-        <unit file="../packages/graph/src/unix/graph.pp" options="-Fi../packages/graph/src/inc"/>
+-        <unit file="../rtl/unix/unixtype.pp" options="-dcpu64 -Fi../rtl/unix -Fi../rtl/linux -Fi../rtl/linux/i386"/>
+-        <unit file="../rtl/unix/baseunix.pp" options="-dcpu64 -Fi../rtl/unix -Fi../rtl/linux -Fi../rtl/linux/i386"/>
+-        <unit file="../rtl/unix/unix.pp" options="-dcpu64 -Fi../rtl/unix -Fi../rtl/linux -Fi../rtl/linux/i386"/>
+-        <unit file="../rtl/unix/classes.pp" options="-Fi../rtl/objpas/classes -dfpdocsystem"/>
+-        <unit file="../rtl/unix/unixutil.pp" options="-dcpu64"/>
+-        <unit file="../rtl/unix/x86.pp" options=""/>
+-        <unit file="../rtl/inc/dynlibs.pas" options="-Fi../rtl/unix -Fi../rtl/linux"/>
+-        <unit file="../rtl/linux/linux.pp" options="-dclone_implemented -Fi../rtl/linux -Fi../rtl/unix"/>
+-        <unit file="../rtl/objpas/math.pp" options="-dFPDOC_MATH -Fi../rtl/i386 -dFPC_HAS_TYPE_EXTENDED"/>
+-        <unit file="../packages/rtl-extra/src/inc/matrix.pp" options="-Fi../packages/rtl-extra/src/inc"/>
+-        <unit file="../packages/rtl-objpas/src/inc/dateutils.pp" options="-Fi../rtl/objpas"/>
+-        <unit file="../packages/graph/src/win32/wincrt.pp" options=""/>
+-        <unit file="../packages/rtl-extra/src/unix/clocale.pp" options=""/>
+-        <unit file="../rtl/unix/cthreads.pp" options=""/>
+-        <unit file="../rtl/inc/cmem.pp" options=""/>
+-        <unit file="../rtl/unix/cwstring.pp" options=""/>
+-        <unit file="../rtl/inc/exeinfo.pp" options=""/>
+-        <unit file="../rtl/inc/lineinfo.pp" options=""/>
+-        <unit file="../rtl/inc/lnfodwrf.pp" options=""/>
+-        <unit file="../rtl/inc/ctypes.pp" options="-Fi../rtl/unix"/>
+-        <unit file="../rtl/objpas/fpwidestring.pp" options="-Fi../rtl/inc -Fi../rtl/linux"/>
+-        <unit file="../rtl/objpas/unicodedata.pas" options="-Sd -Fi../rtl/inc -Fi../rtl/linux"/>
+-        <unit file="../rtl/unix/errors.pp" options="-Fi../rtl/linux"/>
+-        <unit file="../rtl/unix/unixcp.pp" options="-Fi../rtl/linux"/>
+-        <unit file="../rtl/objpas/fgl.pp" options=""/>
+-        <unit file="../rtl/objpas/character.pas" options=""/>
+-        <unit file="../rtl/inc/charset.pp" options=""/>
+-        <unit file="../packages/rtl-unicode/src/inc/unicodeducet.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/inc/cp895.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/inc/cp932.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/inc/cp936.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/inc/cp949.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/inc/cp950.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/collations/collation_de.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/collations/collation_es.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/collations/collation_fr_ca.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/collations/collation_ja.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/collations/collation_ko.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/collations/collation_ru.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/collations/collation_sv.pas"  options=""/>
+-        <unit file="../packages/rtl-unicode/src/collations/collation_zh.pas"  options=""/>
+-        <unit file="../rtl/win/windirs.pp" options=""/>
+-        <unit file="../rtl/win/sharemem.pp" options=""/>
+-        <unit file="../rtl/charmaps/cp1251.pas"/>
+-        <unit file="../rtl/charmaps/cp1252.pas"/>
+-        <unit file="../rtl/charmaps/cp866.pas"/>
+-        <unit file="../rtl/charmaps/cp8859_1.pas"/>
+-        <unit file="../rtl/charmaps/cp8859_2.pas"/>
+-        <unit file="../rtl/charmaps/cp8859_5.pas"/>
+-        <unit file="../rtl/charmaps/cp1253.pas"/>
+-        <unit file="../rtl/charmaps/cp1250.pas"/>
+-        <unit file="../rtl/charmaps/cp1254.pas"/>
+-        <unit file="../rtl/charmaps/cp1255.pas"/>
+-        <unit file="../rtl/charmaps/cp1256.pas"/>
+-        <unit file="../rtl/charmaps/cp1257.pas"/>
+-        <unit file="../rtl/charmaps/cp1258.pas"/>
+-        <unit file="../rtl/charmaps/cp1252.pas"/>
+-        <unit file="../rtl/charmaps/cp850.pas"/>
+-        <unit file="../rtl/charmaps/cp852.pas"/>
+-        <unit file="../rtl/charmaps/cp856.pas"/>
+-        <unit file="../rtl/charmaps/cp437.pas"/>
+-        <unit file="../rtl/charmaps/cp646.pas"/>
+-        <unit file="../rtl/charmaps/cp874.pas"/>
+-        <unit file="../rtl/charmaps/cpall.pas"/>
++        <unit file="../fpcsrc/rtl/linux/system.pp" options="-Sd -dfpdocsystem -dHASGETHEAPSTATUS -dSUPPORT_DOUBLE -Fi../fpcsrc/rtl/linux -Fi../fpcsrc/rtl/unix -Fi../fpcsrc/rtl/inc -Fi../fpcsrc/rtl/i386 -dCPU32 -dHASVARIANT -dFPC_HAS_TYPE_EXTENDED -dHASWIDECHAR"/>
++        <unit file="../fpcsrc/rtl/objpas/objpas.pp" options="-dHASINTF"/>
++        <unit file="../fpcsrc/rtl/objpas/types.pp" options=""/>
++        <unit file="../fpcsrc/packages/rtl-objpas/src/inc/strutils.pp" options=""/>
++        <unit file="../fpcsrc/rtl/unix/sysutils.pp" options="-Fi../fpcsrc/rtl/objpas/sysutils -Fi../fpcsrc/rtl/inc"/>
++        <unit file="../fpcsrc/rtl/inc/strings.pp" options="-Fi../fpcsrc/rtl/i386 -Fi../fpcsrc/rtl/inc"/>
++        <unit file="../fpcsrc/packages/rtl-console/src/unix/mouse.pp" options="-Fi../fpcsrc/packages/rtl-console/src/inc"/>
++        <unit file="../fpcsrc/packages/rtl-console/src/unix/keyboard.pp" options="-Fi../fpcsrc/packages/rtl-console/src/inc"/>
++        <unit file="../fpcsrc/packages/rtl-console/src/unix/crt.pp" options="-Fi../fpcsrc/packages/rtl-console/src/inc"/>
++        <unit file="../fpcsrc/packages/rtl-console/src/unix/video.pp" options="-Fi../fpcsrc/packages/rtl-console/src/inc"/>
++        <unit file="../fpcsrc/rtl/unix/dos.pp" options="-Fi../fpcsrc/rtl/inc -dcpui386"/>
++        <unit file="../fpcsrc/packages/rtl-extra/src/unix/sockets.pp" options="-dver1_0 -Fi../fpcsrc/packages/rtl-extra/src/inc -Fi../fpcsrc/packages/rtl-extra/src/linux"/>
++        <unit file="../fpcsrc/packages/rtl-extra/src/inc/objects.pp" options="-Fi../fpcsrc/rtl/i386 -Fi../fpcsrc/rtl/linux"/>
++        <unit file="../fpcsrc/rtl/inc/heaptrc.pp" options="-Fi../fpcsrc/rtl/i386 -Fi../fpcsrc/rtl/linux"/>
++        <unit file="../fpcsrc/rtl/i386/mmx.pp" options="-Fi../fpcsrc/rtl/linux"/>
++        <unit file="../fpcsrc/packages/rtl-extra/src/unix/ipc.pp" options="-Fi../fpcsrc/rtl/linux"/>
++        <unit file="../fpcsrc/packages/rtl-extra/src/unix/printer.pp" options="-Fi../fpcsrc/packages/rtl-extra/src/linux -Fi../fpcsrc/packages/rtl-extra/src/inc"/>
++        <unit file="../fpcsrc/rtl/objpas/typinfo.pp" options="-Fi../fpcsrc/rtl/linux"/>
++        <unit file="../fpcsrc/rtl/unix/ports.pp" options="-Fi../fpcsrc/rtl/linux"/>
++        <unit file="../fpcsrc/rtl/inc/getopts.pp" options="-Fi../fpcsrc/rtl/linux"/>
++        <unit file="../fpcsrc/rtl/go32v2/emu387.pp" options="-Fi../fpcsrc/rtl/i386"/>
++        <unit file="../fpcsrc/rtl/go32v2/dxeload.pp" options="-Fi../fpcsrc/rtl/i386"/>
++        <unit file="../fpcsrc/rtl/go32v2/go32.pp" options="-Fi../fpcsrc/rtl/i386"/>
++        <unit file="../fpcsrc/packages/rtl-extra/src/unix/gpm.pp" options="-dVER1_0 -Fi../fpcsrc/rtl/i386"/>
++        <unit file="../fpcsrc/packages/graph/src/unix/graph.pp" options="-Fi../fpcsrc/packages/graph/src/inc"/>
++        <unit file="../fpcsrc/rtl/unix/unixtype.pp" options="-dcpu64 -Fi../fpcsrc/rtl/unix -Fi../fpcsrc/rtl/linux -Fi../fpcsrc/rtl/linux/i386"/>
++        <unit file="../fpcsrc/rtl/unix/baseunix.pp" options="-dcpu64 -Fi../fpcsrc/rtl/unix -Fi../fpcsrc/rtl/linux -Fi../fpcsrc/rtl/linux/i386"/>
++        <unit file="../fpcsrc/rtl/unix/unix.pp" options="-dcpu64 -Fi../fpcsrc/rtl/unix -Fi../fpcsrc/rtl/linux -Fi../fpcsrc/rtl/linux/i386"/>
++        <unit file="../fpcsrc/rtl/unix/classes.pp" options="-Fi../fpcsrc/rtl/objpas/classes -dfpdocsystem"/>
++        <unit file="../fpcsrc/rtl/unix/unixutil.pp" options="-dcpu64"/>
++        <unit file="../fpcsrc/rtl/unix/x86.pp" options=""/>
++        <unit file="../fpcsrc/rtl/inc/dynlibs.pas" options="-Fi../fpcsrc/rtl/unix -Fi../fpcsrc/rtl/linux"/>
++        <unit file="../fpcsrc/rtl/linux/linux.pp" options="-dclone_implemented -Fi../fpcsrc/rtl/linux -Fi../fpcsrc/rtl/unix"/>
++        <unit file="../fpcsrc/rtl/objpas/math.pp" options="-dFPDOC_MATH -Fi../fpcsrc/rtl/i386 -dFPC_HAS_TYPE_EXTENDED"/>
++        <unit file="../fpcsrc/packages/rtl-extra/src/inc/matrix.pp" options="-Fi../fpcsrc/packages/rtl-extra/src/inc"/>
++        <unit file="../fpcsrc/packages/rtl-objpas/src/inc/dateutils.pp" options="-Fi../fpcsrc/rtl/objpas"/>
++        <unit file="../fpcsrc/packages/graph/src/win32/wincrt.pp" options=""/>
++        <unit file="../fpcsrc/packages/rtl-extra/src/unix/clocale.pp" options=""/>
++        <unit file="../fpcsrc/rtl/unix/cthreads.pp" options=""/>
++        <unit file="../fpcsrc/rtl/inc/cmem.pp" options=""/>
++        <unit file="../fpcsrc/rtl/unix/cwstring.pp" options=""/>
++        <unit file="../fpcsrc/rtl/inc/exeinfo.pp" options=""/>
++        <unit file="../fpcsrc/rtl/inc/lineinfo.pp" options=""/>
++        <unit file="../fpcsrc/rtl/inc/lnfodwrf.pp" options=""/>
++        <unit file="../fpcsrc/rtl/inc/ctypes.pp" options="-Fi../fpcsrc/rtl/unix"/>
++        <unit file="../fpcsrc/rtl/objpas/fpwidestring.pp" options="-Fi../fpcsrc/rtl/inc -Fi../fpcsrc/rtl/linux"/>
++        <unit file="../fpcsrc/rtl/objpas/unicodedata.pas" options="-Sd -Fi../rtl/inc -Fi../rtl/linux"/>
++        <unit file="../fpcsrc/rtl/unix/errors.pp" options="-Fi../rtl/linux"/>
++        <unit file="../fpcsrc/rtl/unix/unixcp.pp" options="-Fi../rtl/linux"/>
++        <unit file="../fpcsrc/rtl/objpas/fgl.pp" options=""/>
++        <unit file="../fpcsrc/rtl/objpas/character.pas" options=""/>
++        <unit file="../fpcsrc/rtl/inc/charset.pp" options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/inc/unicodeducet.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/inc/cp895.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/inc/cp932.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/inc/cp936.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/inc/cp949.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/inc/cp950.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/collations/collation_de.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/collations/collation_es.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/collations/collation_fr_ca.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/collations/collation_ja.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/collations/collation_ko.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/collations/collation_ru.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/collations/collation_sv.pas"  options=""/>
++        <unit file="../fpcsrc/packages/rtl-unicode/src/collations/collation_zh.pas"  options=""/>
++        <unit file="../fpcsrc/rtl/win/windirs.pp" options=""/>
++        <unit file="../fpcsrc/rtl/win/sharemem.pp" options=""/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1251.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1252.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp866.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp8859_1.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp8859_2.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp8859_5.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1253.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1250.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1254.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1255.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1256.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1257.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1258.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp1252.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp850.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp852.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp856.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp437.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp646.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cp874.pas"/>
++        <unit file="../fpcsrc/rtl/charmaps/cpall.pas"/>
+       </units>
+       <descriptions>
+         <description file="rtl.xml"/>

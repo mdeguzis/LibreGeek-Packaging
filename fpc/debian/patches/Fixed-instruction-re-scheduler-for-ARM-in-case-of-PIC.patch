@@ -1,0 +1,46 @@
+From 3e4027551a58031a6540b5f7946962ca4f15c10e Mon Sep 17 00:00:00 2001
+From: yury <yury@3ad0048d-3df7-0310-abae-a5850022a9f2>
+Date: Wed, 16 Sep 2015 11:54:12 +0000
+Subject: [PATCH 2/9] * Fixed instruction re-scheduler for ARM in case of PIC.
+
+git-svn-id: http://svn.freepascal.org/svn/ fpc/trunk@31706 3ad0048d-3df7-0310-abae-a5850022a9f2
+---
+ compiler/arm/aoptcpu.pas | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
+
+diff --git fpc.orig/fpcsrc/compiler/arm/aoptcpu.pas fpc/fpcsrc/compiler/arm/aoptcpu.pas
+index 2cca31e..75dc92a 100644
+--- fpc.orig/fpcsrc/compiler/arm/aoptcpu.pas
++++ fpc/fpcsrc/compiler/arm/aoptcpu.pas
+@@ -2500,13 +2500,16 @@ Implementation
+               hp3:=tai(p.Previous);
+               hp5:=tai(p.next);
+               asml.Remove(p);
+-              { if there is a reg. dealloc instruction associated with p, move it together with p }
++              { if there is a reg. dealloc instruction or address labels (e.g. for GOT-less PIC)
++                associated with p, move it together with p }
+ 
+               { before the instruction? }
+               while assigned(hp3) and (hp3.typ<>ait_instruction) do
+                 begin
+-                  if (hp3.typ=ait_regalloc) and (tai_regalloc(hp3).ratype in [ra_dealloc]) and
+-                    RegInInstruction(tai_regalloc(hp3).reg,p) then
++                  if ( (hp3.typ=ait_regalloc) and (tai_regalloc(hp3).ratype in [ra_dealloc]) and
++                    RegInInstruction(tai_regalloc(hp3).reg,p) )
++                    or ( (hp3.typ=ait_label) and (tai_label(hp3).labsym.typ=AT_ADDR) )
++                  then
+                     begin
+                       hp4:=hp3;
+                       hp3:=tai(hp3.Previous);
+@@ -2552,7 +2555,7 @@ Implementation
+ {$endif DEBUG_PREREGSCHEDULER}
+               asml.InsertBefore(hp1,insertpos);
+               asml.InsertListBefore(insertpos,list);
+-              p:=tai(p.next)
++              p:=tai(p.next);
+             end
+           else if p.typ=ait_instruction then
+             p:=hp1
+-- 
+2.7.0
+

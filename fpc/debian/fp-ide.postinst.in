@@ -1,0 +1,16 @@
+#! /bin/sh
+
+set -e
+
+# Load debconf
+. /usr/share/debconf/confmodule
+
+LIB_DIR="/usr/lib/fpc"
+MAN_DIR="/usr/share/man/man1"
+
+# Debhelper code
+#DEBHELPER#
+
+# add alternatives
+update-alternatives \
+    --install /usr/bin/fp fp /usr/bin/fp-${VERSION} ${PRIORITY}

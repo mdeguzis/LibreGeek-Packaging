@@ -1,0 +1,4 @@
+#! /usr/bin/dh-exec
+# sh-bang not really needed here, but because of the d/rules logic to make all
+# install files executable
+debian/fp-fix-timestamps usr/bin/

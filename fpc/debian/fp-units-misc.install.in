@@ -1,0 +1,24 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/aspell*
+usr/lib/fpc/*/*/*/bfd*
+usr/lib/fpc/*/*/*/bzip2*
+usr/lib/fpc/*/*/*/cdrom*        [!freebsd-any]
+usr/lib/fpc/*/*/*/chm*
+usr/lib/fpc/*/*/*/fftw*
+usr/lib/fpc/*/*/*/fpindexer*
+usr/lib/fpc/*/*/*/fppkg*        [!freebsd-any]
+usr/lib/fpc/*/*/*/gdbint*
+usr/lib/fpc/*/*/*/iconvenc*
+usr/lib/fpc/*/*/*/jni*
+usr/lib/fpc/*/*/*/libsee*       [!freebsd-any]
+usr/lib/fpc/*/*/*/libxml2*
+usr/lib/fpc/*/*/*/lua*          [!freebsd-any]
+usr/lib/fpc/*/*/*/newt*         [!freebsd-any]
+usr/lib/fpc/*/*/*/pthreads*
+usr/lib/fpc/*/*/*/syslog*
+usr/lib/fpc/*/*/*/tcl*
+usr/lib/fpc/*/*/*/unzip*
+usr/lib/fpc/*/*/*/users*
+usr/lib/fpc/*/*/*/utmp*
+usr/lib/fpc/*/*/*/zlib*
+usr/share/doc/fp-units-misc     [!freebsd-any]

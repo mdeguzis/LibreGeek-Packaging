@@ -1,0 +1,41 @@
+Description: fp-compiler is not installable on powerpc since glibc 2.23 and
+ segfaults, this patch is a combination of patches.
+Source: http://svn.freepascal.org/cgi-bin/viewvc.cgi/trunk/rtl/unix/dl.pp?r1=34368&r2=34365&pathrev=34368
+Source: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=826300#131
+Author: florian
+Bug-Debian: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=826300
+Bug: http://bugs.freepascal.org/view.php?id=29594
+
+Index: fpc/fpcsrc/rtl/unix/dl.pp
+===================================================================
+--- fpc.orig/fpcsrc/rtl/unix/dl.pp
++++ fpc/fpcsrc/rtl/unix/dl.pp
+@@ -31,8 +31,9 @@ const
+   {$define ELF} // ELF symbol versioning.
+ {$endif}
+ 
+-{$if defined(linux) and defined(cpuarm)}
+-{ arm-linux seems to require this }
++{$if defined(linux) and (defined(cpuarm) or defined(cpupowerpc))}
++{ some linux targets seem to require this, if libc is not linked
++  the wrong start up code is used }
+ {$linklib c}
+ {$endif}
+ 
+--- a/fpcsrc/rtl/linux/powerpc/cprt0.as
++++ b/fpcsrc/rtl/linux/powerpc/cprt0.as
+@@ -88,12 +88,8 @@ main_stub:
+     .globl  _haltproc
+     .type   _haltproc, @function
+ _haltproc:
+-    lis     11, ___fpc_ret@ha
+-    lwz     1, ___fpc_ret@l(11)
+-    addi    1, 1, 16
+-    lwz     0, 0(1)
+-    mtlr    0
+-    blr
++    bl     _exit
++    b      _haltproc
+
+ #    li      0, 1       /* exit call */
+ #    lis     3, operatingsystem_result@h

@@ -1,0 +1,31 @@
+From 30f368dbd111c443a6b2d8526cc6e6a23ca84dca Mon Sep 17 00:00:00 2001
+From: yury <yury@3ad0048d-3df7-0310-abae-a5850022a9f2>
+Date: Fri, 18 Sep 2015 10:34:27 +0000
+Subject: [PATCH 6/9] * Removed a leftover of my code. It is not needed
+ anymore.
+
+git-svn-id: http://svn.freepascal.org/svn/ fpc/trunk@31755 3ad0048d-3df7-0310-abae-a5850022a9f2
+---
+ compiler/arm/cgcpu.pas | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git fpc.orig/fpcsrc/compiler/arm/cgcpu.pas fpc/fpcsrc/compiler/arm/cgcpu.pas
+index 2267172..5ea2b39 100644
+--- fpc.orig/fpcsrc/compiler/arm/cgcpu.pas
++++ fpc/fpcsrc/compiler/arm/cgcpu.pas
+@@ -2060,12 +2060,6 @@ unit cgcpu;
+          mmpostfix: toppostfix;
+          imm1, imm2: DWord;
+       begin
+-        { Release PIC register }
+-        if (cs_create_pic in current_settings.moduleswitches) and
+-           (tf_pic_uses_got in target_info.flags) and
+-           (pi_needs_got in current_procinfo.flags)
+-        then
+-          list.concat(tai_regalloc.dealloc(current_procinfo.got,nil));
+         if not(nostackframe) then
+           begin
+             registerarea:=0;
+-- 
+2.7.0
+

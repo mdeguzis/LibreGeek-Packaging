@@ -1,0 +1,11 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/fpmkunit*
+usr/lib/fpc/*/*/*/hash*
+usr/lib/fpc/*/*/*/libtar*
+usr/lib/fpc/*/*/*/ncurses*
+usr/lib/fpc/*/*/*/pasjpeg*
+usr/lib/fpc/*/*/*/paszlib*
+usr/lib/fpc/*/*/*/regexpr*
+usr/lib/fpc/*/*/*/uuid*         [!freebsd-any]
+usr/lib/fpc/*/*/*/x11*
+usr/share/doc/fp-units-base     [!freebsd-any]

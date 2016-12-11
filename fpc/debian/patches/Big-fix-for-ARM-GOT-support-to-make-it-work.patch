@@ -1,0 +1,112 @@
+From 643626aa16434490141b60d0a82366d88d3494ea Mon Sep 17 00:00:00 2001
+From: yury <yury@3ad0048d-3df7-0310-abae-a5850022a9f2>
+Date: Mon, 14 Sep 2015 23:15:10 +0000
+Subject: [PATCH 1/9] * Big fix for ARM GOT support to make it work:   - Fixed
+ access to symbols with offset.   - Always use register R9 for GOT pointer to
+ prevent bugs when free register limit is reached in a function.   - GOT is
+ not needed for function calls by name.
+
+git-svn-id: http://svn.freepascal.org/svn/ fpc/trunk@31681 3ad0048d-3df7-0310-abae-a5850022a9f2
+---
+ compiler/aggas.pas     |  2 ++
+ compiler/arm/cgcpu.pas | 18 ++++++++++++++----
+ compiler/arm/cpupi.pas |  2 +-
+ 3 files changed, 17 insertions(+), 5 deletions(-)
+
+diff --git fpc.orig/fpcsrc/compiler/aggas.pas fpc/fpcsrc/compiler/aggas.pas
+index 52acf3b..6fd6a2f 100644
+--- fpc.orig/fpcsrc/compiler/aggas.pas
++++ fpc/fpcsrc/compiler/aggas.pas
+@@ -953,6 +953,8 @@ implementation
+ {$endif cpu64bitaddr}
+                  aitconst_got:
+                    begin
++                     if tai_const(hp).symofs<>0 then
++                       InternalError(2015091401);  // No symbol offset is allowed for GOT.
+                      AsmWrite(#9'.word'#9+tai_const(hp).sym.name+'(GOT)');
+                      Asmln;
+                    end;
+diff --git fpc.orig/fpcsrc/compiler/arm/cgcpu.pas fpc/fpcsrc/compiler/arm/cgcpu.pas
+index 874ac78..de66718 100644
+--- fpc.orig/fpcsrc/compiler/arm/cgcpu.pas
++++ fpc/fpcsrc/compiler/arm/cgcpu.pas
+@@ -653,7 +653,6 @@ unit cgcpu;
+         if (tf_pic_uses_got in target_info.flags) and
+            (cs_create_pic in current_settings.moduleswitches) then
+           begin
+-            include(current_procinfo.flags,pi_needs_got);
+             r.refaddr:=addr_pic
+           end
+         else
+@@ -2061,6 +2060,12 @@ unit cgcpu;
+          mmpostfix: toppostfix;
+          imm1, imm2: DWord;
+       begin
++        { Release PIC register }
++        if (cs_create_pic in current_settings.moduleswitches) and
++           (tf_pic_uses_got in target_info.flags) and
++           (pi_needs_got in current_procinfo.flags)
++        then
++          list.concat(tai_regalloc.dealloc(current_procinfo.got,nil));
+         if not(nostackframe) then
+           begin
+             registerarea:=0;
+@@ -2268,6 +2273,9 @@ unit cgcpu;
+            (pi_needs_got in current_procinfo.flags) and
+            (tf_pic_uses_got in target_info.flags) then
+           begin
++            a_reg_alloc(list,current_procinfo.got);  // Alloc PIC register
++            if getsupreg(current_procinfo.got) < first_int_imreg then
++              include(rg[R_INTREGISTER].used_in_proc,getsupreg(current_procinfo.got));
+             reference_reset(ref,4);
+             current_asmdata.getdatalabel(l);
+             cg.a_label(current_procinfo.aktlocaldata,l);
+@@ -2374,12 +2382,12 @@ unit cgcpu;
+               begin
+                 tmpreg:=g_indirect_sym_load(list,ref.symbol.name,asmsym2indsymflags(ref.symbol));
+                 if ref.offset<>0 then
+-                  a_op_const_reg(list,OP_ADD,OS_ADDR,ref.offset,tmpreg);
++                    a_op_const_reg(list,OP_ADD,OS_ADDR,ref.offset,tmpreg);
+                 indirection_done:=true;
+               end
+             else if (cs_create_pic in current_settings.moduleswitches) then
+               if (tf_pic_uses_got in target_info.flags) then
+-                current_procinfo.aktlocaldata.concat(tai_const.Create_type_sym_offset(aitconst_got,ref.symbol,ref.offset))
++                current_procinfo.aktlocaldata.concat(tai_const.Create_type_sym(aitconst_got,ref.symbol))
+               else
+                 begin
+                   { ideally, we would want to generate
+@@ -2403,7 +2411,7 @@ unit cgcpu;
+               current_procinfo.aktlocaldata.concat(tai_const.create_sym_offset(ref.symbol,ref.offset))
+           end
+         else
+-          current_procinfo.aktlocaldata.concat(tai_const.Create_32bit(ref.offset));
++            current_procinfo.aktlocaldata.concat(tai_const.Create_32bit(ref.offset));
+ 
+         { load consts entry }
+         if not indirection_done then
+@@ -2421,6 +2429,8 @@ unit cgcpu;
+                 tmpref.base:=current_procinfo.got;
+                 tmpref.index:=tmpreg;
+                 list.concat(taicpu.op_reg_ref(A_LDR,tmpreg,tmpref));
++                if ref.offset<>0 then
++                  a_op_const_reg(list,OP_ADD,OS_ADDR,ref.offset,tmpreg);
+               end;
+           end;
+ 
+diff --git fpc.orig/fpcsrc/compiler/arm/cpupi.pas fpc/fpcsrc/compiler/arm/cpupi.pas
+index 30cd892..3d69b85 100644
+--- fpc.orig/fpcsrc/compiler/arm/cpupi.pas
++++ fpc/fpcsrc/compiler/arm/cpupi.pas
+@@ -265,7 +265,7 @@ unit cpupi;
+       begin
+         { darwin doesn't use a got }
+         if tf_pic_uses_got in target_info.flags then
+-          got := cg.getaddressregister(list);
++          got := NR_PIC_OFFSET_REG;
+       end;
+ 
+ 
+-- 
+2.7.0
+

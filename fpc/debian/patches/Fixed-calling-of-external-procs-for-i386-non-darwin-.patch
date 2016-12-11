@@ -1,0 +1,26 @@
+From 62b88855dc049297cbf6e290a52c9853c06570f0 Mon Sep 17 00:00:00 2001
+From: yury <yury@3ad0048d-3df7-0310-abae-a5850022a9f2>
+Date: Thu, 26 Nov 2015 17:04:55 +0000
+Subject: [PATCH 9/9] * Fixed calling of external procs for i386 non-darwin
+ targets when PIC is enabled.
+
+git-svn-id: http://svn.freepascal.org/svn/ fpc/trunk@32536 3ad0048d-3df7-0310-abae-a5850022a9f2
+---
+ compiler/i386/hlcgcpu.pas | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git fpc.orig/fpcsrc/compiler/i386/hlcgcpu.pas fpc/fpcsrc/compiler/i386/hlcgcpu.pas
+index 9a6ec0e..ecd9a17 100644
+--- fpc.orig/fpcsrc/compiler/i386/hlcgcpu.pas
++++ fpc/fpcsrc/compiler/i386/hlcgcpu.pas
+@@ -184,7 +184,6 @@ implementation
+     need_got_load:=not (target_info.system in systems_darwin) and
+                    (cs_create_pic in current_settings.moduleswitches) and
+                    (tf_pic_uses_got in target_info.flags) and
+-                   (pi_needs_got in current_procinfo.flags) and
+                    (po_external in pd.procoptions);
+     if need_got_load then
+       begin
+-- 
+2.7.0
+

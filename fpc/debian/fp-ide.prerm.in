@@ -1,0 +1,9 @@
+#! /bin/sh
+
+set -e
+
+# remove alternative
+update-alternatives --remove fp /usr/bin/fp-${VERSION}
+
+# Debhelper code
+#DEBHELPER#

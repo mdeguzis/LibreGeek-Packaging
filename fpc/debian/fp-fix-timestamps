@@ -1,0 +1,98 @@
+#!/bin/sh
+
+# This script is meant to be used by source packages in the Free Pascal stack
+# in Debian and derivatives. The aim of this script is to fix the timestamps of
+# patched files (with respect to upstream) that would otherwise end up changing
+# the timestamp stored in ppu files. This timestamp in ppu files has two
+# issues: 1) it deteriorates reproducible builds. 2) reverse dependent packages
+# that also build ppu files may believe that the source has changed and either
+# require recompilation of the source or at least require recalculation all the
+# time.
+#
+# See also: https://wiki.debian.org/ReproducibleBuilds/TimestampsInPPUGeneratedByFPC
+
+set -e
+
+myTmpFile=$(mktemp)
+myNewRef=$(mktemp)
+myOldRefSorted=$(mktemp)
+ReferenceFile=debian/source/timestamps
+
+trap 'rm $myTmpFile $myNewRef $myOldRefSorted' 0
+
+if [ ! -f debian/source/format ] ; then
+    echo "debian/source/format not found: $0 only works if it can check the Debian source format."
+    return 1
+fi
+
+if [ "$(cat debian/source/format)" != "3.0 (quilt)" ] ; then
+    echo "debian/source/format is not 3.0 (quilt): $0 doesn't know how to proceed."
+    return 1
+fi
+
+checkAgainstRef(){
+    diff -q $myOldRefSorted $myNewRef > /dev/null
+}
+
+makeNewRef(){
+    now="$(date --iso-8601='minutes' --universal)"
+    if [ -f $ReferenceFile ] ; then
+        cat $ReferenceFile | LC_ALL=C.UTF-8 sort > $myOldRefSorted
+    fi
+    for FILE in $fpcFiles ; do
+        FILE=${FILE#*/}
+        existingFile="$(grep $FILE $myOldRefSorted || true)"
+        if [ -z "$existingFile" ] ; then
+            echo "$FILE $now" >> $myTmpFile
+        else
+            echo "$existingFile" >> $myTmpFile     
+        fi
+    done
+    cat $myTmpFile | LC_ALL=C.UTF-8 sort | uniq > $myNewRef
+}
+
+updateRef(){
+    if [ ! -d "$(dirname $ReferenceFile)" ] ; then
+        mkdir "$(dirname $ReferenceFile)"
+    fi
+    cat $myNewRef > $ReferenceFile
+}
+
+# We need something smarter for commented out patches I guess. Warning,
+# checking d/p/series alone is not enough, see man dpkg-source. Maybe what can
+# be done is that we use dpkg-parsechangelog to extract the date of the
+# packaging and in the check option verify that those files are actually newer
+# than that. Unfortunately, that also depends on the way-of-working.
+fpcFiles="$(rgrep "^+++" debian/patches | awk '{print $2}' | grep -e "\.pas$" -e "\.inc$" -e "\.pp$" | sort | uniq)"
+
+if [ -z "$fpcFiles" ] ; then
+    echo "Nothing to do as no patched Free Pascal source files were found."
+    return 0
+fi
+
+makeNewRef
+
+case $1 in
+    check)
+        if checkAgainstRef ; then
+            echo "Reference file up-to-date"
+        else
+            echo "Reference file needs updating"
+            return 1
+        fi
+        ;;
+    update)
+        if ! checkAgainstRef ; then
+            updateRef
+        else
+            echo "No update needed"
+        fi
+        ;;
+    touch)
+        awk '{system("touch " $1 " -d" $2)}' $ReferenceFile
+        ;;
+    *)
+        echo "No input arguments given"
+        return 1
+        ;;
+esac

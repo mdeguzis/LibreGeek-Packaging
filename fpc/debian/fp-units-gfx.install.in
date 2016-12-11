@@ -1,0 +1,15 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/ggi*
+usr/lib/fpc/*/*/*/graph*        [!linux-arm64 !linux-armel !linux-armhf !linux-ppc64]
+usr/lib/fpc/*/*/*/hermes*
+usr/lib/fpc/*/*/*/imagemagick*
+usr/lib/fpc/*/*/*/libgd*
+usr/lib/fpc/*/*/*/libpng*
+usr/lib/fpc/*/*/*/opencl*       [!freebsd-any !linux-arm64 !linux-armel !linux-armhf !linux-powerpc !linux-ppc64]
+usr/lib/fpc/*/*/*/opengl*
+usr/lib/fpc/*/*/*/opengles*
+usr/lib/fpc/*/*/*/ptc*          [!freebsd-any]
+usr/lib/fpc/*/*/*/rsvg*
+usr/lib/fpc/*/*/*/svgalib*
+usr/lib/fpc/*/*/*/xforms*
+usr/share/doc/fp-units-gfx      [!freebsd-any]

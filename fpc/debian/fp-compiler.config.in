@@ -1,0 +1,34 @@
+#! /bin/sh
+
+set -e
+
+# Load debconf
+. /usr/share/debconf/confmodule
+
+CFG_FILE='/etc/fpc.cfg'
+CFG_PRIORITY=$(echo ${VERSION} | sed -e 's/\.//g')
+if test -f "${CFG_FILE}" && ! test -L "${CFG_FILE}"
+then
+	db_input high fp-compiler/rename_cfg || test $? -eq 30
+fi
+WINDRES_BINS=$(find '/usr/bin' -maxdepth 1 -mindepth 1 -executable -name "*windres*" -printf "%p, ")
+# The last comma needs to be stripped because the template already has it
+db_subst fp-compiler/windres-select choices ${WINDRES_BINS%, }
+db_metaget fp-compiler/windres-select choices
+# The last entry of the template now has "Select manually" but let's not hardcode
+# it here. It should remain the last item though.
+MANUAL_SELECT_MESSAGE="${RET##*, }"
+db_input low fp-compiler/windres-select || test $? -eq 30
+db_go
+db_get fp-compiler/windres-select
+if test "${RET}" = "${MANUAL_SELECT_MESSAGE}"
+then
+	db_input low fp-compiler/windres || test $? -eq 30
+else
+	WINDRES_BIN=${RET}
+	db_set fp-compiler/windres "${WINDRES_BIN}"
+fi
+db_go
+
+# Debhelper code
+#DEBHELPER#

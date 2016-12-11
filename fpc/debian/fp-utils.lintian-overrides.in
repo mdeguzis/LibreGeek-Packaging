@@ -1,0 +1,7 @@
+# Free pascal binaries are often statically linked.
+# The Free Pascal Compiler does not properly support linking. Please
+# see BTS #472304.
+fp-utils${PACKAGESUFFIX} binary: statically-linked-binary
+fp-utils${PACKAGESUFFIX}: statically-linked-binary
+# Spelling error in upstream license text
+spelling-error-in-copyright orignal original

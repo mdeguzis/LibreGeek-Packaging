@@ -1,0 +1,20 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/fcl-async*
+usr/lib/fpc/*/*/*/fcl-base*
+usr/lib/fpc/*/*/*/fcl-db*
+usr/lib/fpc/*/*/*/fcl-extra*
+usr/lib/fpc/*/*/*/fcl-fpcunit*
+usr/lib/fpc/*/*/*/fcl-image*
+usr/lib/fpc/*/*/*/fcl-js*
+usr/lib/fpc/*/*/*/fcl-json*
+usr/lib/fpc/*/*/*/fcl-net*
+usr/lib/fpc/*/*/*/fcl-passrc*
+usr/lib/fpc/*/*/*/fcl-process*
+usr/lib/fpc/*/*/*/fcl-registry*
+usr/lib/fpc/*/*/*/fcl-res*
+usr/lib/fpc/*/*/*/fcl-sdo*
+usr/lib/fpc/*/*/*/fcl-sound*
+usr/lib/fpc/*/*/*/fcl-stl*
+usr/lib/fpc/*/*/*/fcl-web*          [!freebsd-any]
+usr/lib/fpc/*/*/*/fcl-xml*
+usr/share/doc/fp-units-fcl          [!freebsd-any]

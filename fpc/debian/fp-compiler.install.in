@@ -1,0 +1,10 @@
+#! /usr/bin/dh-exec
+usr/bin/fpc-*
+usr/bin/fpc-depends-*
+usr/bin/fpcmkcfg-*
+usr/bin/fpcres-*
+usr/bin/grab_vcsa-*         [!freebsd-any]
+usr/lib/fpc/*/${PPCBIN}
+usr/lib/fpc/*/msg
+usr/lib/fpc/*/samplecfg
+usr/share/doc/fp-compiler   [!freebsd-any]

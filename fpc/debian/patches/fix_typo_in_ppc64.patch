@@ -1,0 +1,17 @@
+Description: ppc64 FTBFS because there is a typo in its assembly code
+Author: Hiroyuki Yamamoto <yama1066@gmail.com>
+Forwarded: http://bugs.freepascal.org/view.php?id=29004
+
+Index: fpc/fpcsrc/rtl/linux/powerpc64/cprt0.as
+===================================================================
+--- fpc.orig/fpcsrc/rtl/linux/powerpc64/cprt0.as
++++ fpc/fpcsrc/rtl/linux/powerpc64/cprt0.as
+@@ -373,7 +373,7 @@ FUNCTION_PROLOG _start
+     /* PPC64 ABI uses R13 for thread local, so we leave it alone */
+     LOAD_64BIT_VAL 8, start_addresses
+ 
+-    b   .__libc_start_main
++    b   __libc_start_main
+     nop                      /* a NOP for the linker */
+ 
+ /*

@@ -1,0 +1,6 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/gmp*
+usr/lib/fpc/*/*/*/numlib*
+usr/lib/fpc/*/*/*/proj4*        [!freebsd-math]
+usr/lib/fpc/*/*/*/symbolic*
+usr/share/doc/fp-units-math     [!freebsd-any]

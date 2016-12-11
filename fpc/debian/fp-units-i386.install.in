@@ -1,0 +1,4 @@
+#! /usr/bin/dh-exec
+usr/lib/fpc/*/*/*/libc
+usr/lib/fpc/*/fpmkinst/*/libc.fpm
+usr/lib/fpc/*/*/*/unixutil*

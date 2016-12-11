@@ -1,0 +1,37 @@
+#! /usr/bin/dh-exec
+usr/bin/bin2obj-*
+usr/bin/chmcmd-*
+usr/bin/chmls-*
+usr/bin/data2inc-*
+usr/bin/delp-*
+usr/bin/fd2pascal-*
+usr/bin/fpcjres-*
+usr/bin/fpclasschart-*              [!freebsd-any]
+usr/bin/fpcmake-*
+usr/bin/fpcsubst-*
+usr/bin/fpdoc-*
+usr/bin/fppkg-*
+usr/bin/fprcp-*
+usr/bin/h2pas-*
+usr/bin/h2paspp-*
+usr/bin/ifpc-*
+usr/bin/makeskel-*                  [!freebsd-any]
+usr/bin/pas2fpm-*
+usr/bin/pas2jni-*
+usr/bin/pas2ut-*
+usr/bin/plex-*
+usr/bin/postw32-*
+usr/bin/ppdep-*
+usr/bin/ppudump-*
+usr/bin/ppufiles-*
+usr/bin/ppumove-*
+usr/bin/ptop-*
+usr/bin/pyacc-*
+usr/bin/relpath-*
+usr/bin/rmcvsdir-*
+usr/bin/rstconv-*
+usr/bin/unitdiff-*                  [!freebsd-any]
+usr/lib/fpc/*/lexyacc/*.cod
+usr/lib/fpc/*/*/*/utils-lexyacc*
+usr/share/locale
+usr/share/texmf/tex/latex/fpc-*

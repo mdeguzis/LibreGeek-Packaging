@@ -1,0 +1,70 @@
+Description: Temporary kfreebsd bootstrap issue
+ In fastcgi and fcl-web, something goes wrong with linking. Originally it was
+   ELF interpreter /usr/libexec/ld-elf.so.1 not found
+ which is fixed, but now it crashes when it is used (symbols issue I think) 
+ .
+ For now, I decide to remove fastcgi and fcl-web from the kfreebsd build.
+ .
+ Because of removing fastcgi and fcl-web from building, also fppkg fails:
+    pkgfphttp.pp(18,12) Fatal: Can't find unit fphttpclient used by pkgfphttp
+ This last failure can be prevented by building fcl-web until failure,
+ then enough pieces are in place for fppkg to build. But as I haven't figured
+ out yet how to do that sensibly, let's not build fppkg for now on kfreebsd.
+ .
+ .
+ This patch was made before the buildsystem was changed. This needs reviewing
+ but I keep it as a reminder.
+Author: Paul Gevers <elbrus@debian.org>
+
+Index: fpc/fpcsrc/packages/Makefile.fpc.fpcmake
+===================================================================
+--- fpc.orig/fpcsrc/packages/Makefile.fpc.fpcmake
++++ fpc/fpcsrc/packages/Makefile.fpc.fpcmake
+@@ -4,7 +4,7 @@
+ #
+ 
+ [target]
+-dirs=hash pasjpeg paszlib fpmkunit fcl-xml fcl-base fcl-db fcl-image fcl-net fcl-passrc fcl-registry fcl-fpcunit fcl-json fcl-js fcl-process unzip regexpr chm fcl-res fcl-stl libgd symbolic bzip2 hermes fppkg
++dirs=hash pasjpeg paszlib fpmkunit fcl-xml fcl-base fcl-db fcl-image fcl-net fcl-passrc fcl-registry fcl-fpcunit fcl-json fcl-js fcl-process unzip regexpr chm fcl-res fcl-stl libgd symbolic bzip2 hermes
+ dirs_linux_i386=libc unixutil graph pxlib bzip2
+ dirs_i386_linux=graph
+ dirs_x86_64_linux=graph
+@@ -21,7 +21,7 @@ dirs_haiku=rtl-console rtl-unicode fv fc
+                gdbint libpng x11 gdbm tcl syslog libcurl opengl cairo bfd aspell svgalib \
+                imlib utmp  fpgtk xforms fftw pcap ggi sdl openssl graph gnome1 gtk1 gtk2 librsvg  httpd22 pxlib numlib \
+                iconvenc
+-dirs_freebsd=rtl-console rtl-unicode fv fcl-web fastcgi fcl-async ibase mysql ncurses zlib oracle odbc postgres sqlite pthreads imagemagick \
++dirs_freebsd=rtl-console rtl-unicode fv fcl-async ibase mysql ncurses zlib oracle odbc postgres sqlite pthreads imagemagick \
+                gdbint libpng x11 gdbm tcl syslog libcurl opengl cairo  bfd aspell svgalib \
+                imlib utmp  fpgtk xforms fftw pcap ggi sdl openssl graph gnome1 gtk1 gtk2 librsvg  httpd22 pxlib numlib \
+                users iconvenc gmp fcl-extra libxml
+@@ -52,7 +52,7 @@ dirs_linux=rtl-console rtl-unicode fv fc
+                gdbint libpng x11 uuid ldap modplug dts mad  gdbm tcl syslog libcurl opengl opencl cairo gtk1 gtk2 librsvg \
+                a52 bfd aspell svgalib newt cdrom users  iconvenc libxml proj4 fcl-extra zorba \
+                imlib utmp  fpgtk openal lua oggvorbis xforms fftw pcap ggi sdl openssl gnome1  httpd22 \
+-               pxlib numlib gmp libsee ptc
++               pxlib numlib gmp libsee ptc fppkg
+ dirs_win32=rtl-console rtl-unicode fv winunits-base winunits-jedi fcl-web fastcgi ibase mysql zlib oracle odbc postgres sqlite imagemagick \
+                gdbint libpng mad tcl opengl gtk1 gtk2 librsvg a52 cdrom fpgtk openal fftw lua fcl-extra zorba \
+                oggvorbis sdl openssl graph pcap  httpd22 pxlib numlib winceunits cairo libxml \
+Index: fpc/fpcsrc/utils/Makefile.fpc.fpcmake
+===================================================================
+--- fpc.orig/fpcsrc/utils/Makefile.fpc.fpcmake
++++ fpc/fpcsrc/utils/Makefile.fpc.fpcmake
+@@ -7,14 +7,14 @@ name=utils
+ version=3.0.0
+ 
+ [target]
+-dirs=fppkg fpcm tply h2pas fprcp dxegen fpdoc fpcmkcfg pas2ut pas2fpm pas2jni
++dirs=fpcm tply h2pas fprcp dxegen fpdoc fpcmkcfg pas2ut pas2fpm pas2jni
+ programs=ppdep ptop rstconv data2inc delp bin2obj postw32 rmcvsdir
+ programs_linux=grab_vcsa
+ dirs_win32=fpmc fpcres rmwait instantfpc importtl unicode
+ dirs_win64=fpmc fpcres rmwait instantfpc importtl unicode
+ dirs_wince=fpcres rmwait instantfpc
+ dirs_haiku=fpcres instantfpc
+-dirs_linux=fpcres instantfpc unicode
++dirs_linux=fpcres fppkg instantfpc unicode
+ dirs_freebsd=fpcres instantfpc
+ dirs_openbsd=fpcres instantfpc
+ dirs_netbsd=fpcres instantfpc

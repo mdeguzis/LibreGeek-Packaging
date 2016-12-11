@@ -1,0 +1,4 @@
+# False positive, this is a Pascal header file
+fpc-source${PACKAGESUFFIX}: extra-license-file
+# Spelling error in upstream license text
+spelling-error-in-copyright orignal original

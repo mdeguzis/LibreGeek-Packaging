@@ -1,0 +1,114 @@
+Description: Disable the gnome1, gtk1, fpgtk and imlib packages to build
+ as they depend on libraries long go removed from Debian.
+Author: Paul Gevers <elbrus@debian.org>
+
+Index: fpc/fpcsrc/packages/fpmake_proc.inc
+===================================================================
+--- fpc.orig/fpcsrc/packages/fpmake_proc.inc
++++ fpc/fpcsrc/packages/fpmake_proc.inc
+@@ -194,12 +194,6 @@ begin
+ {$include fftw/fpmake.pp}
+ end;
+ 
+-procedure add_fpgtk(const ADirectory: string);
+-begin
+-  with Installer do
+-{$include fpgtk/fpmake.pp}
+-end;
+-
+ {$include fpindexer/fpmake.pp}
+ 
+ procedure add_fpmkunit(const ADirectory: string);
+@@ -236,24 +230,12 @@ begin
+ {$include gmp/fpmake.pp}
+ end;
+ 
+-procedure add_gnome1(const ADirectory: string);
+-begin
+-  with Installer do
+-{$include gnome1/fpmake.pp}
+-end;
+-
+ procedure add_graph(const ADirectory: string);
+ begin
+   with Installer do
+ {$include graph/fpmake.pp}
+ end;
+ 
+-procedure add_gtk1(const ADirectory: string);
+-begin
+-  with Installer do
+-{$include gtk1/fpmake.pp}
+-end;
+-
+ procedure add_gtk2(const ADirectory: string);
+ begin
+   with Installer do
+@@ -314,12 +296,6 @@ begin
+ {$include imagemagick/fpmake.pp}
+ end;
+ 
+-procedure add_imlib(const ADirectory: string);
+-begin
+-  with Installer do
+-{$include imlib/fpmake.pp}
+-end;
+-
+ procedure add_iosxlocale(const ADirectory: string);
+ begin
+   with Installer do
+Index: fpc/fpcsrc/packages/fpmake_add.inc
+===================================================================
+--- fpc.orig/fpcsrc/packages/fpmake_add.inc
++++ fpc/fpcsrc/packages/fpmake_add.inc
+@@ -32,7 +32,6 @@
+   add_fcl_web(ADirectory+IncludeTrailingPathDelimiter('fcl-web'));
+   add_fcl_xml(ADirectory+IncludeTrailingPathDelimiter('fcl-xml'));
+   add_fftw(ADirectory+IncludeTrailingPathDelimiter('fftw'));
+-  add_fpgtk(ADirectory+IncludeTrailingPathDelimiter('fpgtk'));
+   add_fpindexer(ADirectory+IncludeTrailingPathDelimiter('fpindexer'));
+   add_fpmkunit(ADirectory+IncludeTrailingPathDelimiter('fpmkunit'));
+   add_fppkg(ADirectory+IncludeTrailingPathDelimiter('fppkg'));
+@@ -41,9 +40,7 @@
+   add_gdbm(ADirectory+IncludeTrailingPathDelimiter('gdbm'));
+   add_ggi(ADirectory+IncludeTrailingPathDelimiter('ggi'));
+   add_gmp(ADirectory+IncludeTrailingPathDelimiter('gmp'));
+-  add_gnome1(ADirectory+IncludeTrailingPathDelimiter('gnome1'));
+   add_graph(ADirectory+IncludeTrailingPathDelimiter('graph'));
+-  add_gtk1(ADirectory+IncludeTrailingPathDelimiter('gtk1'));
+   add_gtk2(ADirectory+IncludeTrailingPathDelimiter('gtk2'));
+   add_hash(ADirectory+IncludeTrailingPathDelimiter('hash'));
+   add_hermes(ADirectory+IncludeTrailingPathDelimiter('hermes'));
+@@ -54,7 +51,6 @@
+   add_ibase(ADirectory+IncludeTrailingPathDelimiter('ibase'));
+   add_iconvenc(ADirectory+IncludeTrailingPathDelimiter('iconvenc'));
+   add_imagemagick(ADirectory+IncludeTrailingPathDelimiter('imagemagick'));
+-  add_imlib(ADirectory+IncludeTrailingPathDelimiter('imlib'));
+   add_iosxlocale(ADirectory+IncludeTrailingPathDelimiter('iosxlocale'));
+   add_jni(ADirectory+IncludeTrailingPathDelimiter('jni'));
+   add_ldap(ADirectory+IncludeTrailingPathDelimiter('ldap'));
+Index: fpc/fpcsrc/utils/fpmake_proc.inc
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpmake_proc.inc
++++ fpc/fpcsrc/utils/fpmake_proc.inc
+@@ -10,8 +10,6 @@
+ 
+ {$include fpdoc/fpmake.pp}
+ 
+-{$include fpmc/fpmake.pp}
+-
+ {$include fppkg/fpmake.pp}
+ 
+ {$include fprcp/fpmake.pp}
+Index: fpc/fpcsrc/utils/fpmake_add.inc
+===================================================================
+--- fpc.orig/fpcsrc/utils/fpmake_add.inc
++++ fpc/fpcsrc/utils/fpmake_add.inc
+@@ -4,7 +4,6 @@
+   add_fpcres(ADirectory+IncludeTrailingPathDelimiter('fpcres'));
+   add_fpcreslipo(ADirectory+IncludeTrailingPathDelimiter('fpcreslipo'));
+   add_fpdoc(ADirectory+IncludeTrailingPathDelimiter('fpdoc'));
+-  add_fpmc(ADirectory+IncludeTrailingPathDelimiter('fpmc'));
+   add_fppkg_util(ADirectory+IncludeTrailingPathDelimiter('fppkg'));
+   add_fprcp(ADirectory+IncludeTrailingPathDelimiter('fprcp'));
+   add_h2pas(ADirectory+IncludeTrailingPathDelimiter('h2pas'));

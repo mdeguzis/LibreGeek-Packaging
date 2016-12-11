@@ -1,0 +1,27 @@
+From 7554b65ee4d145da849416e36a8ccf08aa2704e6 Mon Sep 17 00:00:00 2001
+From: yury <yury@3ad0048d-3df7-0310-abae-a5850022a9f2>
+Date: Tue, 13 Oct 2015 12:58:19 +0000
+Subject: [PATCH 8/9] * Fixed i386 case jump table when PIC with GOT and an
+ external assembler is used.
+
+git-svn-id: http://svn.freepascal.org/svn/ fpc/trunk@32036 3ad0048d-3df7-0310-abae-a5850022a9f2
+---
+ compiler/aggas.pas | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git fpc.orig/fpcsrc/compiler/aggas.pas fpc/fpcsrc/compiler/aggas.pas
+index 6fd6a2f..b764cda 100644
+--- fpc.orig/fpcsrc/compiler/aggas.pas
++++ fpc/fpcsrc/compiler/aggas.pas
+@@ -974,7 +974,7 @@ implementation
+                        cpu_i386:
+                          begin
+                            AsmWrite(ait_const2str[aitconst_32bit]);
+-                           AsmWrite(tai_const(hp).sym.name);
++                           AsmWrite(tai_const(hp).sym.name+'-_GLOBAL_OFFSET_TABLE_');
+                          end;
+                      else
+                        InternalError(2014022602);
+-- 
+2.7.0
+

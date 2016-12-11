@@ -1,0 +1,133 @@
+# Slovak translations for fpc package
+# Slovenské preklady pre balík fpc.
+# Copyright (C) 2012 THE fpc'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the fpc package.
+# Slavko <linux@slavino.sk>, 2012, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fpc 2.6.2-6\n"
+"Report-Msgid-Bugs-To: fpc@packages.debian.org\n"
+"POT-Creation-Date: 2015-06-19 17:31+0200\n"
+"PO-Revision-Date: 2013-11-23 20:22+0100\n"
+"Last-Translator: Slavko <linux@slavino.sk>\n"
+"Language-Team: slovenčina <linux@slavino.sk>\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-POFile-SpellExtra: fp-utils fpc FPC cfg etc update-alternatives bak\n"
+"X-Generator: Gtranslator 2.91.6\n"
+"X-POFile-SpellExtra: resource windres mingw32-binutils MinGW rc\n"
+"X-POFile-SpellExtra: fp-compiler\n"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid "Rename \"/etc/fpc.cfg\" to \"/etc/fpc.cfg.bak\"?"
+msgstr "Premenovať „/etc/fpc.cfg” na „/etc/fpc.cfg.bak”?"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"FPC now supports having multiple versions installed on the same system. The "
+"update-alternatives command can be used to set a default version for\n"
+" * fpc (the compiler);\n"
+" * fpc.cfg (the configuration file);\n"
+" * fp-utils (the helper tools)."
+msgstr ""
+"FPC teraz podporuje viacero nainštalovaných verzií na jednom stroji. Na "
+"nastavenie predvolenej verzie možno použiť príkaz update-alternatives pre\n"
+" * fpc (kompilátor);\n"
+" * fpc.cfg (konfiguračný súbor);\n"
+" * fp-utils (pomocné nástroje)."
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"Whatever version you may choose as default, the configuration files are "
+"always backward compatible, so it should always be safe to use the latest "
+"version."
+msgstr ""
+"Ako predvolenú môžete zvoliť ktorúkoľvek verziu, konfiguračné súbory sú vždy "
+"spätne kompatibilné, takže by malo byť vždy bezpečné používať najnovšiu "
+"verziu."
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"In order to use the alternatives system on the system wide FPC configuration "
+"file you must accept renaming \"/etc/fpc.cfg\"; otherwise you will need to "
+"manage this manually by yourself."
+msgstr ""
+"Aby ste mohli používať systém alternatív na systémový konfiguračný súbor "
+"FPC, musíte potvrdiť premenovanie „/etc/fpc.cfg”; inak to budete musieť "
+"spravovať manuálne."
+
+#. Type: select
+#. Choices
+#. This string should be in sync with the translation in the description
+#: ../fp-compiler.templates.in:3001
+msgid "Select manually"
+msgstr "Vybrať manuálne"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid "Default MS Windows .rc resource compiler:"
+msgstr "Predvolený kompilátor .rc resource MS Windows:"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"FPC supports compiling programs that embed resources as MS Windows .rc-"
+"format files on all platforms where the MinGW windres tool is available."
+msgstr ""
+"FPC podporuje programy na zostavovanie, ktoré zahrnú zdroje ako súbory vo "
+"formáte MS Windows .rc na všetkých platformách, kde je dostupný nástroj "
+"MinGW windres."
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"In order to be able to compile projects using .rc files, you need first to "
+"manually install the package mingw32-binutils. mingw32-binutils is suggested "
+"by fp-compiler but not pulled in automatically."
+msgstr ""
+"Aby ste mohli zostavovať projekty pomocou pomocou súborov .rc, musíte najprv "
+"manuálne nainštalovať balík mingw32-binutils. Balík mingw32-binutils je "
+"navrhovaný balíkom fp-compiler, ale nie je zvolený automaticky."
+
+#. Type: select
+#. Description
+#. "Select manually" should be in sync with the text elsewhere in the
+#. translation
+#: ../fp-compiler.templates.in:3002
+msgid ""
+"If you want to enter a custom .rc file compiler that does not appear in this "
+"list or if you simply want to disable this feature, please select \"Select "
+"manually\"."
+msgstr ""
+"Ak chcete zadať vlastný kompilátor súboru .rc, ktorý nie je v tomto zozname, "
+"alebo ak chcete jednoducho vypnúť túto vlastnosť, prosím, vyberte možnosť "
+"„Vybrať manuálne”."
+
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:4001
+msgid "If you don't want to use a default .rc file compiler, leave this blank."
+msgstr ""
+"Ak nechcete používať predvolený kompilátor súboru .rc, nechajte toto pole "
+"prázdne."

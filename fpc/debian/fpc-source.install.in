@@ -1,0 +1,4 @@
+#! /usr/bin/dh-exec
+usr/share/fpcsrc/*/compiler
+usr/share/fpcsrc/*/packages
+usr/share/fpcsrc/*/rtl

@@ -1,0 +1,126 @@
+# Danish translation fpc.
+# Copyright (c) 2014 fpc & nedenstående oversættere.
+# This file is distributed under the same license as the fpc package.
+# Joe Hansen <joedalton2@yahoo.dk>, 2012, 2013, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: fpc\n"
+"Report-Msgid-Bugs-To: fpc@packages.debian.org\n"
+"POT-Creation-Date: 2015-06-19 17:31+0200\n"
+"PO-Revision-Date: 2014-10-04 17:30+01:00\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid "Rename \"/etc/fpc.cfg\" to \"/etc/fpc.cfg.bak\"?"
+msgstr "Omdøb »/etc/fpc.cfg« til »/etc/fpc.cfg.bak«?"
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"FPC now supports having multiple versions installed on the same system. The "
+"update-alternatives command can be used to set a default version for\n"
+" * fpc (the compiler);\n"
+" * fpc.cfg (the configuration file);\n"
+" * fp-utils (the helper tools)."
+msgstr ""
+"FPC understøtter nu at der er installeret flere versioner på det samme "
+"system. Kommandoen update-alternatives kan bruges til at angive en "
+"standardversion for\n"
+" * fpc (kompileren);\n"
+" * fpc.cfg (konfigurationsfilen);\n"
+" * fp-utils (hjælpeværktøjerne)."
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"Whatever version you may choose as default, the configuration files are "
+"always backward compatible, so it should always be safe to use the latest "
+"version."
+msgstr ""
+"Uanset versionen du vælger som standard, så er konfigurationsfilerne altid "
+"bagud kompatible, så det bør være sikkert at bruge den seneste version."
+
+#. Type: boolean
+#. Description
+#: ../fp-compiler.templates.in:2001
+msgid ""
+"In order to use the alternatives system on the system wide FPC configuration "
+"file you must accept renaming \"/etc/fpc.cfg\"; otherwise you will need to "
+"manage this manually by yourself."
+msgstr ""
+"For at bruge systemet for alternativerne på den for hele systemet brugte FPC-"
+"konfigurationsfil, så skal du acceptere omdøbelse af »/etc/fpc.cfg«; ellers "
+"skal du selv håndtere dette manuelt."
+
+#. Type: select
+#. Choices
+#. This string should be in sync with the translation in the description
+#: ../fp-compiler.templates.in:3001
+msgid "Select manually"
+msgstr "Vælg manuelt"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid "Default MS Windows .rc resource compiler:"
+msgstr "Standard for MS Windows .rc-ressourcekompiler:"
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"FPC supports compiling programs that embed resources as MS Windows .rc-"
+"format files on all platforms where the MinGW windres tool is available."
+msgstr ""
+"FPC understøtter kompilering af programmer, som indlejrer ressourcer som MS "
+"Windows .rc-format-filer på alle platforme hvor MinGW windres-værktøjet er "
+"tilgængeligt."
+
+#. Type: select
+#. Description
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:3002 ../fp-compiler.templates.in:4001
+msgid ""
+"In order to be able to compile projects using .rc files, you need first to "
+"manually install the package mingw32-binutils. mingw32-binutils is suggested "
+"by fp-compiler but not pulled in automatically."
+msgstr ""
+"For at kunne kompilere projekter med brug af .rc-filer, så skal du først "
+"manuelt installere pakken mingw32-binutils. Mingw32-binutils foreslås af fp-"
+"compiler men installeres ikke automatisk."
+
+#. Type: select
+#. Description
+#. "Select manually" should be in sync with the text elsewhere in the
+#. translation
+#: ../fp-compiler.templates.in:3002
+msgid ""
+"If you want to enter a custom .rc file compiler that does not appear in this "
+"list or if you simply want to disable this feature, please select \"Select "
+"manually\"."
+msgstr ""
+"Hvis du ønsker at indtaste en tilpasset .rc-fil-kompiler, som ikke fremgår "
+"af denne liste eller hvis du simpelthen ønsker at deaktivere denne funktion, "
+"så vælg »Vælg manuelt«."
+
+#. Type: string
+#. Description
+#: ../fp-compiler.templates.in:4001
+msgid "If you don't want to use a default .rc file compiler, leave this blank."
+msgstr ""
+"Hvis du ikke ønsker at bruge en standard .rc-fil-kompiler, så efterland tom."

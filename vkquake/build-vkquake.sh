@@ -47,7 +47,7 @@ fi
 # upstream vars
 #SRC_URL="https://github.com/ProfessorKaos64/vkQuake"
 SRC_URL="https://github.com/Novum/vkQuake"
-TARGET="master"
+TARGET="0.92"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,7 +58,7 @@ BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.90"
+PKGVER="${TARGET}.0"
 PKGREV="1"
 PPA_REV=${PPA_REV:-""}
 EPOCH="1"

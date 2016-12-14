@@ -215,6 +215,7 @@ main()
 		sleep 2s
 
 		echo -e "...Stripping uneeded dirs for data package\n"
+		sleep 2s
 
 		# strip unecessary dirs
 		STRIP_DIRs="android CMakeLists.txt debian objs srb2.png Android.mk \
@@ -227,7 +228,7 @@ main()
 		for file_or_folder in ${STRIP_DIRs};
 		do
 
-			rm -rc "${SRC_DIR}/${file_or_folder}"
+			rm -rv "${SRC_DIR}/${file_or_folder}"
 
 		done
 

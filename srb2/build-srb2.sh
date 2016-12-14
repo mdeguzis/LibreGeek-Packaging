@@ -247,7 +247,8 @@ main()
 		if [[ -f "debian/changelog" ]]; then
 
 			dch -p --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}${PKGREV_DATA}" \
-			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}"
+			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}" \
+			"Update for SRB2 ${PKGVER}"
 
 		else
 

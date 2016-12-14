@@ -239,36 +239,16 @@ main()
 		# enter source dir
 		cd "${DATA_DIR}"
 
-		# Create basic changelog format
-
-		cat <<-EOF>> changelog.in
-		$PKGNAME_DATA (${EPOCH_DATA}:${PKGVER_DATA}) $DIST; URGENCY=low
-
-		  * Packaged deb for SteamOS-Tools
-		  * See: packages.libregeek.org
-		  * Upstream authors and source: $SRC_URL
-
-		 -- $UPLOADER  $DATE_LONG
-
-		EOF
-
-		# Perform a little trickery to update existing changelog or create
-		# basic file
-		cat 'changelog.in' | cat - debian/changelog > tmp && mv temp debian/changelog
-
-		echo -e "\n==> Updating changelog"
-		sleep 2s
-
 	 	# update changelog with dch
 		if [[ -f "debian/changelog" ]]; then
 
-			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D \
+			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME_DATA}" -D \
 			"${DIST}" -u "${URGENCY}"
 
 		else
 
 			dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package \
-			"${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+			"${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}"
 
 		fi
 

@@ -41,11 +41,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -90,7 +90,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
 	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl2-dev libsdl2-mixer-dev \
-	libgme-dev clang cmake libgl1-mesa-dev libgme-dev
+	libgme-dev clang cmake libgl1-mesa-dev libgme-dev clang-3.6
 
 }
 
@@ -113,11 +113,17 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
+
+
+	else
+
+		# still need 7zip
+		sudo apt-get install p7zip-full
 
 	fi
 
@@ -131,7 +137,7 @@ main()
 
 	# Fetch assets
 	wget -P "${SRC_DIR}" "http://rosenthalcastle.org/srb2/${ASSETS_VER}.7z" || (echo -e "Could not fetch assets!\n" && exit 1)
-	7z x "${SRC_DIR}/${ASSETS_VER}.7z" -oassets
+	7z x "${SRC_DIR}/${ASSETS_VER}.7z" -o"${SRC_DIR}/assets"
 
 	# get suffix from TARGET commit (stable TARGETs for now)
 	cd "${SRC_DIR}"
@@ -171,12 +177,12 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
@@ -201,9 +207,9 @@ main()
 		# now we need to build the data package
 		# Pkg ver is independent* of the version of srb2
 		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
-		PKGVER_data="2.1.14"
-		PKGNAME_data="srb2-data"
-		data_dir="assets"
+		PKGVER_DATA="2.1.14"
+		PKGNAME_DATA="srb2-data"
+		DATA_DIR="assets"
 
 		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
 		sleep 2s
@@ -214,19 +220,20 @@ main()
 		# create the tarball from latest tarball creation script
 		# use latest revision designated at the top of this script
 
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+		# Trim .git folders
+		find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 		# create source tarball
-		tar -cvzf "${PKGNAME_data}_${PKGVER_data}.orig.tar.gz" "${data_dir}"
+		cd "${BUILD_TMP}"
+		tar -cvzf "${PKGNAME_data}_${PKGVER_DATA}.orig.tar.gz" $(basename ${DATA_DIR})
 
 		# enter source dir
-		cd "${data_dir}"
+		cd "${DATA_DIR}"
 
 		# Create basic changelog format
 
 		cat <<-EOF> changelog.in
-		$PKGNAME_data (${PKGVER_data}) $DIST; URGENCY=low
+		$PKGNAME_DATA (${PKGVER_DATA}) $DIST; URGENCY=low
 
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
@@ -245,19 +252,19 @@ main()
 		sleep 3s
 		nano "debian/changelog"
 
-	echo -e "\n==> Updating changelog"
-	sleep 2s
+		echo -e "\n==> Updating changelog"
+		sleep 2s
 
 	 	# update changelog with dch
-	if [[ -f "debian/changelog" ]]; then
+		if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
-	else
+		else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+			dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
-	fi
+		fi
 
 
 		#################################################

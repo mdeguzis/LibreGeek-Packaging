@@ -214,25 +214,25 @@ main()
 		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
 		sleep 2s
 
-		echo -e "\n...Stripping uneeded dirs for data package\n"
+		echo -e "...Stripping uneeded dirs for data package\n"
 
 		# strip unecessary dirs
 		STRIP_DIRs="android CMakeLists.txt debian objs srb2.png Android.mk \
 		comptime.bat doc README.md SRB2_Release.props appveyor.yml comptime.mk \
 		Doxyfile SRB2.cbp srb2-vc10.sln comptime.props extras SRB2_common.props \
-		srb2-vc9.sln bin  comptime.sh libs SRB2_Debug.props src cmake cpdebug.mk \
+		srb2-vc9.sln bin comptime.sh libs SRB2_Debug.props src cmake cpdebug.mk \
 		LICENSE Srb2.dev tools"
 
 		# Run validation
 		for file_or_folder in ${STRIP_DIRs};
 		do
 
-			rm -r "${SRC_DIR}/${file_or_folder}"
+			rm -rc "${SRC_DIR}/${file_or_folder}"
 
 		done
 
 		# create source tarball
-		cd "${BUILD_TMP}"
+		cd "${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 		tar -cvzf "${PKGNAME_data}_${PKGVER_DATA}.orig.tar.gz" $(basename ${DATA_DIR})
 
 		# enter source dir

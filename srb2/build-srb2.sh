@@ -219,7 +219,7 @@ main()
 		# strip unecessary dirs
 		STRIP_DIRs="android CMakeLists.txt debian objs srb2.png Android.mk \
 		comptime.bat doc README.md SRB2_Release.props appveyor.yml comptime.mk \
-		Doxyfile SRB2.cbp srb2-vc10.slncomptime.props extrasSRB2_common.props \
+		Doxyfile SRB2.cbp srb2-vc10.sln comptime.props extra sSRB2_common.props \
 		srb2-vc9.sln bin  comptime.sh libs SRB2_Debug.props src cmake cpdebug.mk \
 		LICENSE Srb2.dev tools"
 

@@ -11,7 +11,7 @@
 # See:    https://github.com/STJr/SRB2/issues/45
 #
 # Usage:	./build-srb2.sh [opts]
-# Opts:		[--build-data]
+# Opts:		[--build-data|--build-data-only]
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -127,82 +127,79 @@ main()
 
 	fi
 
+	if [[ "$arg1" != "--build-data-only" ]]; then
 
-	# Clone upstream source code and TARGET
+		# Clone upstream source code and TARGET
 
-	echo -e "\n==> Obtaining upstream source code\n"
+		echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone (use recursive to get the assets folder)
-	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+		# clone (use recursive to get the assets folder)
+		git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 
-	# Fetch assets
-	wget -P "${SRC_DIR}" "http://rosenthalcastle.org/srb2/${ASSETS_VER}.7z" || (echo -e "Could not fetch assets!\n" && exit 1)
-	7z x "${SRC_DIR}/${ASSETS_VER}.7z" -o"${SRC_DIR}/assets"
+		# get suffix from TARGET commit (stable TARGETs for now)
+		cd "${SRC_DIR}"
 
-	# get suffix from TARGET commit (stable TARGETs for now)
-	cd "${SRC_DIR}"
+		#################################################
+		# Prepare package (main)
+		#################################################
 
-	# remove debian/ use ours
-	rm -rf "${SRC_DIR}/debian"
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
 
-	#################################################
-	# Prepare package (main)
-	#################################################
+		# enter build dir to package attmpt
+		cd "${BUILD_TMP}"
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
+		# TEMP, fix debian/docs
+		rm -rf "${SRC_DIR}/debian/docs"
+		echo "README.md" > "${SRC_DIR}/debian/docs"
 
-	# enter build dir to package attmpt
-	cd "${BUILD_TMP}"
+		# Trim .git folders
+		find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
+		# create source tarball
+		cd "${BUILD_TMP}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+		# Add our debian files
+		cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
-	# create source tarball
-	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+		# enter source dir
+		cd "${SRC_DIR}"
 
-	# Add our debian files
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+		echo -e "\n==> Updating changelog"
+		sleep 2s
 
-	# enter source dir
-	cd "${SRC_DIR}"
+		# update changelog with dch
+		if [[ -f "debian/changelog" ]]; then
 
-	echo -e "\n==> Updating changelog"
-	sleep 2s
+			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+			-D "${DIST}" -u "${URGENCY}"
 
- 	# update changelog with dch
-	if [[ -f "debian/changelog" ]]; then
+		else
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}"
+			dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+			--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
-	else
+		fi
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+
+		#################################################
+		# Build Debian package (main)
+		#################################################
+
+		echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
+		sleep 2s
+
+		#  build
+		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	fi
 
-
- 	#################################################
-	# Build Debian package (main)
-	#################################################
-
-	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
-	sleep 2s
-
-	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
-	#################################################
-	# Prepare Debian package (data) - if needed
-	#################################################
-
 	if [[ "$arg1" == "--build-data" ]]; then
+
+		#################################################
+		# Prepare Debian package (data) - if needed
+		#################################################
 
 		# now we need to build the data package
 		# Pkg ver is independent* of the version of srb2
@@ -213,15 +210,6 @@ main()
 
 		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
 		sleep 2s
-
-		# enter build dir to package attmpt
-		cd "${SRC_DIR}"
-
-		# create the tarball from latest tarball creation script
-		# use latest revision designated at the top of this script
-
-		# Trim .git folders
-		find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 		# create source tarball
 		cd "${BUILD_TMP}"
@@ -258,11 +246,13 @@ main()
 	 	# update changelog with dch
 		if [[ -f "debian/changelog" ]]; then
 
-			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D \
+			"${DIST}" -u "${URGENCY}"
 
 		else
 
-			dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+			dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package \
+			"${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 		fi
 

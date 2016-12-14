@@ -208,7 +208,7 @@ main()
 		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
 		PKGVER_DATA="2.0.6"
 		EPOCH_DATA="2"
-		PKGREV_DATA=1"
+		PKGREV_DATA="1"
 		PKGNAME_DATA="srb2-data"
 		DATA_DIR="assets"
 

@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+
+export CC=clang-3.8
+export CXX=clang++-3.8
+
+export CFLAGS = "-Wall -W -Werror $WFLAGS"
+export CCACHE_COMPRESS = true
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -rf build && mkdir -p build
+	cd build && cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=RELEASE \
+		..
+
+#override_dh_auto_build:
+#	make -C build
+
+#override_dh_auto_install:
+#	nake -C build install

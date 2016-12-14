@@ -38,8 +38,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
@@ -51,28 +49,26 @@ else
 fi
 
 # upstream vars
-# build from specific commit for stability
-#SRC_URL="https://github.com/STJr/SRB2"
-SRC_URL="https://github.com/ProfessorKaos64/SRB2"
-rel_TARGET="brewmaster"
-commit="5c09c31"
+SRC_URL="https://github.com/STJr/SRB2"
+TARGET="SRB2_release_2.1.16a"
+ASSETS_VER="SRB2-v2115-assets-2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="srb2"
-PKGVER="2.1.14"
-upstream_rev="1"
+PKGVER="$(echo ${TARGET} | sed 's/SRB2_release_//')"
 PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set build directories
@@ -94,7 +90,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
 	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl2-dev libsdl2-mixer-dev \
-	libgme-dev
+	libgme-dev clang cmake libgl1-mesa-dev libgme-dev
 
 }
 
@@ -131,16 +127,17 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone (use recursive to get the assets folder)
-	git clone -b "$rel_TARGET" "$SRC_URL" "$GIT_DIR"
+	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+
+	# Fetch assets
+	wget -P "${SRC_DIR}" "http://rosenthalcastle.org/srb2/${ASSETS_VER}.7z" || (echo -e "Could not fetch assets!\n" && exit 1)
+	7z x "${SRC_DIR}/${ASSETS_VER}.7z" -oassets
 
 	# get suffix from TARGET commit (stable TARGETs for now)
 	cd "${SRC_DIR}"
-	#git checkout $commit 1> /dev/null
-	commit=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${commit}+bsos${PKGREV}"
 
-	# copy in modified files until fixed upstream
-	# cp "${SCRIPTDIR}/rules" "${SRC_DIR}/debian"
+	# remove debian/ use ours
+	rm -rf "${SRC_DIR}/debian"
 
 	#################################################
 	# Prepare package (main)
@@ -159,11 +156,14 @@ main()
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+
+	# Add our debian files
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -171,11 +171,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 

@@ -38,8 +38,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
@@ -51,25 +49,22 @@ else
 fi
 
 # upstream vars
-# build from specific commit for stability
-#SRC_URL="https://github.com/STJr/SRB2"
-SRC_URL="https://github.com/ProfessorKaos64/SRB2"
-rel_TARGET="brewmaster"
-commit="5c09c31"
+SRC_URL="https://github.com/STJr/SRB2"
+TARGET="SRB2_release_2.1.16a"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="srb2"
-PKGVER="2.1.14"
-upstream_rev="1"
+PKGVER="$(echo ${TARGET} | sed 's/SRB2_release_//')"
 PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -131,16 +126,13 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone (use recursive to get the assets folder)
-	git clone -b "$rel_TARGET" "$SRC_URL" "$GIT_DIR"
+	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 
 	# get suffix from TARGET commit (stable TARGETs for now)
 	cd "${SRC_DIR}"
-	#git checkout $commit 1> /dev/null
-	commit=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${commit}+bsos${PKGREV}"
 
-	# copy in modified files until fixed upstream
-	# cp "${SCRIPTDIR}/rules" "${SRC_DIR}/debian"
+	# remove debian/ use ours
+	rm -rf "${SRC_DIR}/debian"
 
 	#################################################
 	# Prepare package (main)
@@ -159,11 +151,14 @@ main()
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+
+	# Add our debian files
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

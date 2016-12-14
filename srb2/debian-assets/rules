@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -rf build && mkdir -p build
+	cd build && cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=RELEASE \
+		..
+
+override_dh_auto_build:
+	make -C build
+
+override_dh_auto_install:
+	make -C build install

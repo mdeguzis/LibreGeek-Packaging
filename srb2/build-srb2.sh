@@ -8,7 +8,7 @@
 #		github release
 #
 # See:		https://github.com/STJr/SRB2
-# See:    https://github.com/STJr/SRB2/issues/45
+# See:https://github.com/STJr/SRB2/issues/45
 #
 # Usage:	./build-srb2.sh [opts]
 # Opts:		[--build-data|--build-data-only]
@@ -127,14 +127,16 @@ main()
 
 	fi
 
+
+	# Clone upstream source code and TARGET
+
+	echo -e "\n==> Obtaining upstream source code\n"
+
+	# clone (use recursive to get the assets folder)
+	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+
+
 	if [[ "$arg1" != "--build-data-only" ]]; then
-
-		# Clone upstream source code and TARGET
-
-		echo -e "\n==> Obtaining upstream source code\n"
-
-		# clone (use recursive to get the assets folder)
-		git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 
 		# get suffix from TARGET commit (stable TARGETs for now)
 		cd "${SRC_DIR}"
@@ -204,12 +206,30 @@ main()
 		# now we need to build the data package
 		# Pkg ver is independent* of the version of srb2
 		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
-		PKGVER_DATA="2.1.14"
+		PKGVER_DATA="2.0.6"
+		EPOCH_DATA="2"
 		PKGNAME_DATA="srb2-data"
 		DATA_DIR="assets"
 
 		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
 		sleep 2s
+
+		echo -e "\n...Stripping uneeded dirs for data package\n"
+
+		# strip unecessary dirs
+		STRIP_DIRs="android CMakeLists.txt debian objs srb2.png Android.mk \
+		comptime.bat doc README.md SRB2_Release.props appveyor.yml comptime.mk \
+		Doxyfile SRB2.cbp srb2-vc10.slncomptime.props extrasSRB2_common.props \
+		srb2-vc9.sln bin  comptime.sh libs SRB2_Debug.props src cmake cpdebug.mk \
+		LICENSE Srb2.dev tools"
+
+		# Run validation
+		for file_or_folder in ${STRIP_DIRs};
+		do
+
+			rm -r "${SRC_DIR}/${file_or_folder}"
+
+		done
 
 		# create source tarball
 		cd "${BUILD_TMP}"
@@ -220,8 +240,8 @@ main()
 
 		# Create basic changelog format
 
-		cat <<-EOF> changelog.in
-		$PKGNAME_DATA (${PKGVER_DATA}) $DIST; URGENCY=low
+		cat <<-EOF>> changelog.in
+		$PKGNAME_DATA (${EPOCH_DATA}:${PKGVER_DATA}) $DIST; URGENCY=low
 
 		  * Packaged deb for SteamOS-Tools
 		  * See: packages.libregeek.org
@@ -234,11 +254,6 @@ main()
 		# Perform a little trickery to update existing changelog or create
 		# basic file
 		cat 'changelog.in' | cat - debian/changelog > tmp && mv temp debian/changelog
-
-		# open debian/changelog and update
-		echo -e "\n==> Opening changelog for confirmation/changes."
-		sleep 3s
-		nano "debian/changelog"
 
 		echo -e "\n==> Updating changelog"
 		sleep 2s
@@ -256,19 +271,15 @@ main()
 
 		fi
 
-
 		#################################################
 		# Build Debian package (data)
 		#################################################
 
-		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
+		echo -e "\n==> Building Debian package ${PKGNAME_DATA} from source\n"
 		sleep 2s
 
 		#  build
 		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
-		# Move packages to build dir
-		mv ${SRC_DIR}/*${PKGVER_data}* "${BUILD_TMP}"
 
 	# end build data run
 	fi

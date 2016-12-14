@@ -197,7 +197,7 @@ main()
 
 	fi
 
-	if [[ "$arg1" == "--build-data" ]]; then
+	if [[ "$arg1" == "--build-data" || "$arg1" == "--build-data-only" ]]; then
 
 		#################################################
 		# Prepare Debian package (data) - if needed

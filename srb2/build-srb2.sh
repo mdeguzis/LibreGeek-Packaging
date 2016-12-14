@@ -242,13 +242,13 @@ main()
 	 	# update changelog with dch
 		if [[ -f "debian/changelog" ]]; then
 
-			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME_DATA}" -D \
-			"${DIST}" -u "${URGENCY}"
+			dch -p --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}" \
+			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}"
 
 		else
 
-			dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package \
-			"${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}"
+			dch -p --create --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}" \
+			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}"
 
 		fi
 

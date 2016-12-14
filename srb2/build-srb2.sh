@@ -174,12 +174,12 @@ main()
 		# update changelog with dch
 		if [[ -f "debian/changelog" ]]; then
 
-			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}${PKGREV}" --package "${PKGNAME}" \
 			-D "${DIST}" -u "${URGENCY}"
 
 		else
 
-			dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+			dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}${PKGREV}" \
 			--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 		fi
@@ -208,6 +208,7 @@ main()
 		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
 		PKGVER_DATA="2.0.6"
 		EPOCH_DATA="2"
+		PKGREV_DATA=1"
 		PKGNAME_DATA="srb2-data"
 		DATA_DIR="assets"
 
@@ -242,12 +243,12 @@ main()
 	 	# update changelog with dch
 		if [[ -f "debian/changelog" ]]; then
 
-			dch -p --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}" \
+			dch -p --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}${PKGREV_DATA}" \
 			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}"
 
 		else
 
-			dch -p --create --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}" \
+			dch -p --create --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}${PKGREV_DATA}" \
 			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}"
 
 		fi

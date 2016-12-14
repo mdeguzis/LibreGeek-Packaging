@@ -71,6 +71,13 @@ URGENCY="low"
 UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
+# Assets vars
+PKGVER_DATA="2.1.14"
+EPOCH_DATA="1"
+PKGREV_DATA="1"
+PKGNAME_DATA="srb2-data"
+DATA_DIR="assets"
+
 # set build directories
 unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
@@ -133,7 +140,17 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone (use recursive to get the assets folder)
-	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	echo -e "\n==> Fetching data files\n"
+
+	DATAFILES = "srb2.srb zones.dta player.dta rings.dta music.dta"
+
+	for file in $(DATAFILES); 
+	do
+		wget -P  "${SRC_DIR}/assets" "http://alam.srb2.org/SRB2/${PKGVER_DATA}-Final/Resources/${file}" \
+		-nc -q --show-progress
+	done
 
 
 	if [[ "$arg1" != "--build-data-only" ]]; then
@@ -203,15 +220,6 @@ main()
 		# Prepare Debian package (data) - if needed
 		#################################################
 
-		# now we need to build the data package
-		# Pkg ver is independent* of the version of srb2
-		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
-		PKGVER_DATA="2.0.6"
-		EPOCH_DATA="2"
-		PKGREV_DATA="1"
-		PKGNAME_DATA="srb2-data"
-		DATA_DIR="assets"
-
 		# Required to fetch assets within Makefile
 		export USE_NETWORK="yes"
 
@@ -249,6 +257,7 @@ main()
 			dch -p --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}${PKGREV_DATA}" \
 			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}" \
 			"Update for SRB2 ${PKGVER}"
+			nano "debian/changelog"
 
 		else
 
@@ -307,7 +316,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+	ls "${BUILD_TMP}" | grep -E *${PKGNAME}*
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.
@@ -325,9 +334,6 @@ main()
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
-			# uplaod local repo changelog
-			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

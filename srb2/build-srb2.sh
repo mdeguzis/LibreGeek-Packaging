@@ -51,6 +51,7 @@ fi
 # upstream vars
 SRC_URL="https://github.com/STJr/SRB2"
 TARGET="SRB2_release_2.1.16a"
+ASSETS_VER="SRB2-v2115-assets-2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -67,7 +68,7 @@ PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set build directories
@@ -89,7 +90,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
 	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl2-dev libsdl2-mixer-dev \
-	libgme-dev
+	libgme-dev clang cmake libgl1-mesa-dev libgme-dev
 
 }
 
@@ -127,6 +128,10 @@ main()
 
 	# clone (use recursive to get the assets folder)
 	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+
+	# Fetch assets
+	wget -P "${SRC_DIR}" "http://rosenthalcastle.org/srb2/${ASSETS_VER}.7z" || (echo -e "Could not fetch assets!\n" && exit 1)
+	7z x "${SRC_DIR}/${ASSETS_VER}.7z" -oassets
 
 	# get suffix from TARGET commit (stable TARGETs for now)
 	cd "${SRC_DIR}"
@@ -166,11 +171,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 

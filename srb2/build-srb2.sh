@@ -212,6 +212,9 @@ main()
 		PKGNAME_DATA="srb2-data"
 		DATA_DIR="assets"
 
+		# Required to fetch assets within Makefile
+		export USE_NETWORK="yes"
+
 		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
 		sleep 2s
 

@@ -144,7 +144,7 @@ main()
 
 	echo -e "\n==> Fetching data files\n"
 
-	DATAFILES = "srb2.srb zones.dta player.dta rings.dta music.dta"
+	DATAFILES="srb2.srb zones.dta player.dta rings.dta music.dta"
 
 	for file in $(DATAFILES); 
 	do

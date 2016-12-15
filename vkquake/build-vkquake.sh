@@ -45,10 +45,8 @@ else
 
 fi
 # upstream vars
-#SRC_URL="https://github.com/ProfessorKaos64/vkQuake"
 SRC_URL="https://github.com/Novum/vkQuake"
-#TARGET="master"
-TARGET="0.71"
+TARGET="0.93"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,10 +58,10 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="vkquake"
 # Source version from vkQuake/Quake/quakedef.h
-PKGVER="0.71.0"
+PKGVER="${TARGET}.0"
 PKGREV="1"
 EPOCH="1"
-PKGSUFFIX="${DATE_SHORT}git+bsos"
+PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -217,7 +215,7 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog

@@ -146,7 +146,6 @@ main()
 		USE_CODEC_UMX=1
 	make -C Misc/vq_pak
 
-
 	#################################################
 	# Install process
 	#################################################
@@ -164,11 +163,12 @@ main()
 		exit 1
 	fi
 
-	# Add libs, launcher, and readme for binary7
+	# Add binary,libs, launcher, and readme
 
 	cp -r ${SCRIPTDIR}/libs-all/* "${SRC_DIR}"
 	cp "${SCRIPTDIR}/vkquake-launch.sh" "${SRC_DIR}"
 	cp "${SCRIPTDIR}/vkquake.readme" "${SRC_DIR}"
+	cp "${SRC_DIR}/Quake/vkquake" "${SRC_DIR}"
 
 	# Get rid of all uncecessary files
 

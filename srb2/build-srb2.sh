@@ -146,7 +146,7 @@ main()
 
 	DATAFILES="srb2.srb zones.dta player.dta rings.dta music.dta"
 
-	for file in $(DATAFILES); 
+	for file in ${DATAFILES}; 
 	do
 		wget -P  "${SRC_DIR}/assets" "http://alam.srb2.org/SRB2/${PKGVER_DATA}-Final/Resources/${file}" \
 		-nc -q --show-progress

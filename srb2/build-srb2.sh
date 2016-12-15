@@ -317,14 +317,14 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGNAME}*
+	ls "${BUILD_TMP}" | grep -E ${PKGNAME}
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.
 
 	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
 
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]\n"
 		sleep 0.5s
 		# capture command
 		read -erp "Choice: " transfer_choice

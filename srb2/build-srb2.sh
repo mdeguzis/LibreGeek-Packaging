@@ -8,10 +8,10 @@
 #		github release
 #
 # See:		https://github.com/STJr/SRB2
-# See:    https://github.com/STJr/SRB2/issues/45
+# See:https://github.com/STJr/SRB2/issues/45
 #
 # Usage:	./build-srb2.sh [opts]
-# Opts:		[--build-data]
+# Opts:		[--build-data|--build-data-only]
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -41,11 +41,11 @@ fi
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
-	
+
 else
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
-	
+
 fi
 
 # upstream vars
@@ -71,6 +71,13 @@ URGENCY="low"
 UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
+# Assets vars
+PKGVER_DATA="2.1.14"
+EPOCH_DATA="1"
+PKGREV_DATA="1"
+PKGNAME_DATA="srb2-data"
+DATA_DIR="assets"
+
 # set build directories
 unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
@@ -90,7 +97,7 @@ install_prereqs()
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
 	libpng12-dev libglu1-mesa-dev libgl1-mesa-dev nasm:i386 libsdl2-dev libsdl2-mixer-dev \
-	libgme-dev clang cmake libgl1-mesa-dev libgme-dev
+	libgme-dev clang cmake libgl1-mesa-dev libgme-dev clang-3.6
 
 }
 
@@ -113,11 +120,17 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-	
+
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
+
+
+	else
+
+		# still need 7zip
+		sudo apt-get install p7zip-full
 
 	fi
 
@@ -127,151 +140,142 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone (use recursive to get the assets folder)
-	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
-	# Fetch assets
-	wget -P "${SRC_DIR}" "http://rosenthalcastle.org/srb2/${ASSETS_VER}.7z" || (echo -e "Could not fetch assets!\n" && exit 1)
-	7z x "${SRC_DIR}/${ASSETS_VER}.7z" -oassets
+	echo -e "\n==> Fetching data files\n"
 
-	# get suffix from TARGET commit (stable TARGETs for now)
-	cd "${SRC_DIR}"
+	DATAFILES="srb2.srb zones.dta player.dta rings.dta music.dta"
 
-	# remove debian/ use ours
-	rm -rf "${SRC_DIR}/debian"
-
-	#################################################
-	# Prepare package (main)
-	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# enter build dir to package attmpt
-	cd "${BUILD_TMP}"
-
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
-	# create source tarball
-	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
-
-	# Add our debian files
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-
-	# enter source dir
-	cd "${SRC_DIR}"
-
-	echo -e "\n==> Updating changelog"
-	sleep 2s
-
- 	# update changelog with dch
-	if [[ -f "debian/changelog" ]]; then
-
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}"
-
-	else
-
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
-
-	fi
+	for file in ${DATAFILES}; 
+	do
+		wget -P  "${SRC_DIR}/assets" "http://alam.srb2.org/SRB2/${PKGVER_DATA}-Final/Resources/${file}" \
+		-nc -q --show-progress
+	done
 
 
- 	#################################################
-	# Build Debian package (main)
-	#################################################
+	if [[ "$arg1" != "--build-data-only" ]]; then
 
-	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
-	sleep 2s
+		# get suffix from TARGET commit (stable TARGETs for now)
+		cd "${SRC_DIR}"
 
-	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+		#################################################
+		# Prepare package (main)
+		#################################################
 
-	#################################################
-	# Prepare Debian package (data) - if needed
-	#################################################
-
-	if [[ "$arg1" == "--build-data" ]]; then
-
-		# now we need to build the data package
-		# Pkg ver is independent* of the version of srb2
-		# See: https://github.com/STJr/SRB2/issues/45#issuecomment-180838131
-		PKGVER_data="2.1.14"
-		PKGNAME_data="srb2-data"
-		data_dir="assets"
-
-		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
+		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 
 		# enter build dir to package attmpt
-		cd "${SRC_DIR}"
+		cd "${BUILD_TMP}"
 
-		# create the tarball from latest tarball creation script
-		# use latest revision designated at the top of this script
+		# TEMP, fix debian/docs
+		rm -rf "${SRC_DIR}/debian/docs"
+		echo "README.md" > "${SRC_DIR}/debian/docs"
 
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+		# Trim .git folders
+		find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 		# create source tarball
-		tar -cvzf "${PKGNAME_data}_${PKGVER_data}.orig.tar.gz" "${data_dir}"
+		cd "${BUILD_TMP}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+
+		# Add our debian files
+		cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 		# enter source dir
-		cd "${data_dir}"
+		cd "${SRC_DIR}"
 
-		# Create basic changelog format
+		echo -e "\n==> Updating changelog"
+		sleep 2s
 
-		cat <<-EOF> changelog.in
-		$PKGNAME_data (${PKGVER_data}) $DIST; URGENCY=low
+		# update changelog with dch
+		if [[ -f "debian/changelog" ]]; then
 
-		  * Packaged deb for SteamOS-Tools
-		  * See: packages.libregeek.org
-		  * Upstream authors and source: $SRC_URL
+			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}${PKGREV}" --package "${PKGNAME}" \
+			-D "${DIST}" -u "${URGENCY}"
+			"Update release to ${PKGVER}"
 
-		 -- $UPLOADER  $DATE_LONG
+		else
 
-		EOF
+			dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}${PKGREV}" \
+			--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
-		# Perform a little trickery to update existing changelog or create
-		# basic file
-		cat 'changelog.in' | cat - debian/changelog > tmp && mv temp debian/changelog
-
-		# open debian/changelog and update
-		echo -e "\n==> Opening changelog for confirmation/changes."
-		sleep 3s
-		nano "debian/changelog"
-
-	echo -e "\n==> Updating changelog"
-	sleep 2s
-
-	 	# update changelog with dch
-	if [[ -f "debian/changelog" ]]; then
-
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
-
-	else
-
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
-
-	fi
+		fi
 
 
 		#################################################
-		# Build Debian package (data)
+		# Build Debian package (main)
 		#################################################
 
-		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
+		echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 		sleep 2s
 
 		#  build
 		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
-		# Move packages to build dir
-		mv ${SRC_DIR}/*${PKGVER_data}* "${BUILD_TMP}"
+	fi
+
+	if [[ "$arg1" == "--build-data" || "$arg1" == "--build-data-only" ]]; then
+
+		#################################################
+		# Prepare Debian package (data) - if needed
+		#################################################
+
+		# Required to fetch assets within Makefile
+		export USE_NETWORK="yes"
+
+		echo -e "\n==> Building Debian package ${PKGNAME_data} from source\n"
+		sleep 2s
+
+		echo -e "...Stripping uneeded dirs for data package\n"
+		sleep 2s
+
+		# strip unecessary dirs
+		STRIP_DIRs="android CMakeLists.txt debian objs srb2.png Android.mk \
+		comptime.bat doc README.md SRB2_Release.props appveyor.yml comptime.mk \
+		Doxyfile SRB2.cbp srb2-vc10.sln comptime.props extras SRB2_common.props \
+		srb2-vc9.sln bin comptime.sh libs SRB2_Debug.props src cmake cpdebug.mk \
+		LICENSE Srb2.dev tools"
+
+		# Run validation
+		for file_or_folder in ${STRIP_DIRs};
+		do
+
+			rm -rv "${SRC_DIR}/${file_or_folder}"
+
+		done
+
+		# create source tarball
+		cd "${BUILD_TMP}/${PKGNAME}-${PKGVER}"
+		tar -cvzf "${PKGNAME_data}_${PKGVER_DATA}.orig.tar.gz" $(basename ${DATA_DIR})
+
+		# enter source dir
+		cd "${DATA_DIR}"
+
+	 	# update changelog with dch
+		if [[ -f "debian/changelog" ]]; then
+
+			dch -p --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}${PKGREV_DATA}" \
+			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}" \
+			"Update for SRB2 ${PKGVER}"
+			nano "debian/changelog"
+
+		else
+
+			dch -p --create --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}${PKGREV_DATA}" \
+			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}"
+
+		fi
+
+		#################################################
+		# Build Debian package (data)
+		#################################################
+
+		echo -e "\n==> Building Debian package ${PKGNAME_DATA} from source\n"
+		sleep 2s
+
+		#  build
+		DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	# end build data run
 	fi
@@ -313,14 +317,14 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+	ls "${BUILD_TMP}" | grep -E ${PKGNAME}
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.
 
 	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
 
-		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
+		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]\n"
 		sleep 0.5s
 		# capture command
 		read -erp "Choice: " transfer_choice
@@ -331,9 +335,6 @@ main()
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
 			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
-
-			# uplaod local repo changelog
-			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

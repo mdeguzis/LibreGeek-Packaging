@@ -49,7 +49,7 @@ fi
 # upstream vars
 #SRC_URL="https://github.com/smcameron/space-nerds-in-space"
 SRC_URL="https://github.com/ProfessorKaos64/space-nerds-in-space"
-TARGET="v20160903"
+TARGET="v20161212"
 #TARGET="master"
 
 # package vars
@@ -63,7 +63,7 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="snis"
 PKGREV="1"
-PKGVER="20160903"
+PKGVER="$(echo ${TARGET} | sed 's/v//')"
 PKGSUFFIX="git+bsos"
 BUILDER="pdebuild"
 DIST="${DIST:=brewmaster}"

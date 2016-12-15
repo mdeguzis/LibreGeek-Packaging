@@ -193,6 +193,7 @@ main()
 
 			dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}${PKGREV}" --package "${PKGNAME}" \
 			-D "${DIST}" -u "${URGENCY}"
+			"Update release to ${PKGVER}"
 
 		else
 

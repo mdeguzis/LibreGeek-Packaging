@@ -23,7 +23,7 @@ if [[ "${OS}" == "SteamOS" ]]; then
 	echo "I: STEAMOS-TOOLS: Adding repository configuration"
 
 	# get repository configuration script and invoke
-	wget "https://raw.githubusercontent.com/mdeguzis/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc
+	wget "https://raw.githubusercontent.com/mdeguzis/SteamOS-Tools/master/configure-repos.sh" -q -nc
 	chmod +x configure-repos.sh
 
 	sed -i 's/sudo //g' configure-repos.sh

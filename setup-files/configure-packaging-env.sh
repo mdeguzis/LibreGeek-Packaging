@@ -481,7 +481,7 @@ setup_common_prereqs()
 	echo -e "\n==> Adding needed Directories"
 	sleep 2s
 
-	LIBREGEEK_CONFIGS="${HOME}/.config/SteamOS-Tools"
+	LIBREGEEK_CONFIGS="${HOME}/.config/libregeek-packaging"
 
 	DIRS="${LIBREGEEK_CONFIGS}"
 

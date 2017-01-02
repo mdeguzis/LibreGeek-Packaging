@@ -86,7 +86,7 @@ set_vars()
 
 	# source vars
 	SRC_URL="git://github.com/xbmc/xbmc.git"
-	export BUILD_TMP="$HOME/build-${PKGNAME}-tmp"
+	export BUILD_TMP="$HOME/package-builds/build-${PKGNAME}-tmp"
 	SRC_DIR="${BUILD_TMP}/kodi-source"
 
 	# Set TARGET for xbmc sources
@@ -154,7 +154,7 @@ kodi_clone()
 
 	if [[ -d "${SRC_DIR}" ]]; then
 
-		echo -e "\n==Info==\nGit source files already exist! Remove and [r]eclone or [c]lean? ?\n"
+		echo -e "\n==Info==\nGit source files already exist! Remove and [r]eclone or clean and [u]pdate? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 
@@ -174,7 +174,11 @@ kodi_clone()
 			echo "Removing tmp files and other cruft from build dir and source dir"
 			find "${BUILD_TMP}" -name '*.dsc' -o -name '*.deb' -o -name '*.build' \
 			-exec rm -rf "{}" \;
-			cd "${SRC_DIR}" && git clean -xfd || exit 1
+			cd "${SRC_DIR}"
+			# clean, reset on master, and pull new changes
+			git clean -xfd
+			git reset --hard master
+			git pull
 
 		fi
 

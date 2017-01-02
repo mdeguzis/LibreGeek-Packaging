@@ -172,7 +172,7 @@ kodi_clone()
 
 			# Clean up and changes
 			echo "Removing tmp files and other cruft from build dir and source dir"
-			rm -f "${BUILD_TMP}/{*.deb,*.dsc,*.changes,*.xz,*.gz}"
+			rm -f ${BUILD_TMP}/{*.deb,*.dsc,*.changes,*.xz,*.gz}
 			cd "${SRC_DIR}"
 			# clean, reset on master, and pull new changes
 			git clean -xfd

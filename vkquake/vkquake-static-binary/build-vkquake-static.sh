@@ -220,7 +220,7 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 			${BUILD_TMP}/${PKGNAME}*.gz ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 		elif [[ "$transfer_choice" == "n" ]]; then

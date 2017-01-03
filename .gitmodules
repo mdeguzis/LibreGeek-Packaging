@@ -1,0 +1,3 @@
+[submodule "dotfiles"]
+	path = setup-files/dotfiles
+	url = https://github.com/mdeguzis/dotfiles

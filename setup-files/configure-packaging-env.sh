@@ -393,22 +393,22 @@ setup_dotfiles()
 
 	# Add PPA upload configs
 	# example: 'dput mdeguzis/libregeek-ubuntu pkgname*source.changes'
-	cp "${SCRIPTDIR}/.dput.cf" "${HOME}"
+	cp "${SCRIPTDIR}/dotfiles/.dput.cf" "${HOME}"
 
 	#####################
 	# Quilt
 	#####################
 
 	# Setup Quilt rc file for dpkg
-	cp "${SCRIPTDIR}/.quiltrc-dpkg" "${HOME}"
-	cp "${SCRIPTDIR}/.quiltrc" "${HOME}"
+	cp "${SCRIPTDIR}/dotfiles/.quiltrc-dpkg" "${HOME}"
+	cp "${SCRIPTDIR}/dotfiles/.quiltrc" "${HOME}"
 
 	#####################
 	# devscripts
 	#####################
 
 	# devscripts
-	cp "${SCRIPTDIR}/.devscripts" "${HOME}"
+	cp "${SCRIPTDIR}/dotfiles/.devscripts" "${HOME}"
 
 	#####################
 	# GPG
@@ -428,7 +428,7 @@ setup_dotfiles()
 	# Lintian
 	#####################
 
-	cp "${SCRIPTDIR}/.lintianrc" "${HOME}/"
+	cp "${SCRIPTDIR}/dotfiles/.lintianrc" "${HOME}/"
 
 	#####################
 	# Mock (for RPMs)
@@ -444,16 +444,16 @@ setup_dotfiles()
 	#####################
 
 	# pbuilder
-	cp "${SCRIPTDIR}/.pbuilderrc" "${HOME}/"
-	sudo cp "${SCRIPTDIR}/.pbuilderrc" "/root/"
+	cp "${SCRIPTDIR}/dotfiles/.pbuilderrc" "${HOME}/"
+	sudo cp "${SCRIPTDIR}/dotfiles/.pbuilderrc" "/root/"
 
 	#####################
 	# sbuild
 	#####################
 
 	# sbuild
-	cp "${SCRIPTDIR}/.sbuildrc" "${HOME}/"
-	sudo cp "${SCRIPTDIR}/.sbuildrc" "/root/"
+	cp "${SCRIPTDIR}/dotfiles/.sbuildrc" "${HOME}/"
+	sudo cp "${SCRIPTDIR}/dotfiles/.sbuildrc" "/root/"
 
 	#cp "${SCRIPTDIR}/.mk-sbuild.rc" "${HOME}/"
 	#sudo cp "${SCRIPTDIR}/.mk-sbuild.rc" "/root/"
@@ -467,7 +467,7 @@ setup_dotfiles()
 
 	echo -e "\n==> Obtaining gdb config\n"
 
-	wget -P ${HOME} git.io/.gdbinit -q -nc --show-progress
+	wget -P "${HOME}" git.io/.gdbinit -q -nc --show-progress
 
 }
 

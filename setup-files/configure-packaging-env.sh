@@ -242,9 +242,6 @@ setup_debian_variant()
 	echo -e "\n==>Installing keyrings\n"
 	sleep 2s
 
-	# Set vars
-	VALVE_KEYRING="valve-archive-keyring_0.5+bsos3_all"
-
 	if [[ "${OS}" == "Debian" ]]; then
 
 		# Libregeek keyrings and repos
@@ -473,6 +470,9 @@ setup_dotfiles()
 
 setup_common_prereqs()
 {
+	
+	# Common package vars
+	VALVE_KEYRING="valve-archive-keyring_0.5+bsos3_all"
 
 	#################################################
 	# Create Directories

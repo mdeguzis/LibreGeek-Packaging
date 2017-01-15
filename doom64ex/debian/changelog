@@ -1,3 +1,9 @@
+doom64ex (2:0.0.0+git20170104.74af96c-1) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 04 Jan 2017 21:54:04 -0500
+
 doom64ex (0.20161102+git+bsos-1) brewmaster; urgency=low
 
   * Update release

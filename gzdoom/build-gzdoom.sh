@@ -39,7 +39,7 @@ fi
 SRC_URL="https://github.com/coelckers/gzdoom"
 FMOD_FILE="fmodstudioapi10815linux.tar.gz"
 FMOD_RELEASE="http://www.fmod.org/download/fmodstudio/api/Linux/${FMOD_FILE}"
-TARGET="g2.2.0"
+TARGET="g2.3.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -50,7 +50,8 @@ BUILDOPTS="--debbuildopts -nc"
 PKGNAME="gzdoom"
 PKGVER=$(echo ${TARGET} | sed 's/g//')
 PKGREV="1"
-DIST="${DIST:=yakkety}"
+PKGSUFFIX="git+bsos"
+DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
@@ -151,23 +152,6 @@ main()
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
-	# Set PKGSUFFIX based on Ubuntu DIST
-	case "${DIST}" in
-
-                trusty)
-                PKGSUFFIX="trusty${PPA_REV}"
-                ;;
-
-		xenial)
-		PKGSUFFIX="xenial${PPA_REV}"
-		;;
-
-		yakkety)
-		PKGSUFFIX="yakkety${PPA_REV}"
-		;;
-
-	esac
-
 	#################################################
 	# Build package
 	#################################################
@@ -177,7 +161,7 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}~${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -216,7 +200,7 @@ main()
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 
 	fi

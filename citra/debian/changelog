@@ -1,3 +1,9 @@
+citra (2:0.0.0+git20170102.0b897c45-1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 02 Jan 2017 11:07:13 -0500
+
 citra (2:0.0.0+git20161123.c96d143-1) brewmaster; urgency=low
 
   * Update snapshot

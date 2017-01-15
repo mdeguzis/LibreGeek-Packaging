@@ -52,8 +52,7 @@ fi
 #SRC_URL="https://github.com/plexinc/plex-home-theater-public"
 #SRC_URL="https://github.com/ProfessorKaos64/plex-home-theater-public"
 SRC_URL="https://github.com/RasPlex/OpenPHT"
-TARGET="v1.6.2.123-e23a7eef"
-#TARGET="openpht-1.6"
+TARGET="v1.7.1.137-b604995c"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -63,8 +62,8 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
 PKGNAME="openpht"
-PKGVER="1.6.2"
-PKGREV="7"
+PKGVER="1.7.1.137"
+PKGREV="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -163,9 +162,6 @@ main()
 	cd "${SRC_DIR}"
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
-	# Trim out .git
-	rm -rf "${SRC_DIR}/.git"
-	
 	#################################################
 	# Prep source
 	#################################################

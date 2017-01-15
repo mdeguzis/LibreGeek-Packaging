@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/lutris/lutris"
-TARGET="v0.4.2"
+TARGET="v0.4.4.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

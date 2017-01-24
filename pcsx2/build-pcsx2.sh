@@ -71,7 +71,7 @@ MAINTAINER="ProfessorKaos64"
 subpkg1="pcsx2-dbg"
 
 # build dirs
-export BUILD_TMP="/home/desktop/build-${PKGNAME}-tmp"
+export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
@@ -168,29 +168,29 @@ main()
 	#################################################
 
 	echo -e "\nRemove 3rdparty code"
-	rm -fr "${${SRC_DIR}}/3rdparty"
-	rm -fr "${${SRC_DIR}}/fps2bios"
-	rm -fr "${${SRC_DIR}}/tools"
+	rm -fr "${SRC_DIR}/3rdparty"
+	rm -fr "${SRC_DIR}/fps2bios"
+	rm -fr "${SRC_DIR}/tools"
 	
 	echo "Remove non free plugins"
 	# remove also deprecated plugins
 	for plugin in CDVDiso CDVDisoEFP CDVDlinuz CDVDolio CDVDpeops dev9ghzdrk \
 	PeopsSPU2 SSSPSXPAD USBqemu xpad zerogs zerospu2
 	do
-		rm -fr "${${SRC_DIR}}/plugins/$plugin"
+		rm -fr "${SRC_DIR}/plugins/$plugin"
 	done
 
 	echo "Remove remaining non free file. TODO UPSTREAM"
-	rm -rf ${${SRC_DIR}}/unfree
-	rm -rf ${${SRC_DIR}}/plugins/GSdx/baseclasses
-	rm -f  ${${SRC_DIR}}/plugins/zzogl-pg/opengl/Win32/aviUtil.h
-	rm -f  ${${SRC_DIR}}/common/src/Utilities/x86/MemcpyFast.cpp
+	rm -rf ${SRC_DIR}/unfree
+	rm -rf ${SRC_DIR}/plugins/GSdx/baseclasses
+	rm -f  ${SRC_DIR}/plugins/zzogl-pg/opengl/Win32/aviUtil.h
+	rm -f  ${SRC_DIR}/common/src/Utilities/x86/MemcpyFast.cpp
 	
 	# To save 66% of the package size
-	# rm -rf  ${${SRC_DIR}}/.git
+	# rm -rf  $[SRC_DIR}/.git
 	
 	# copy in debian folder
-	cp -r "${SCRIPTDIR}/debian" "${${SRC_DIR}}/debian"
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}/debian"
 
 	#################################################
 	# Build platform
@@ -203,11 +203,11 @@ main()
 	# use latest revision designated at the top of this script
 
 	# Trim .git folders
-	find "${${SRC_DIR}}" -name "*.git" -type d -exec sudo rm -r {} \;
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd ${BUILD_TMP}
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" ${basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -218,7 +218,7 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		dch -p --force-bad-version --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to release ${PKGVER}"
 		nano "debian/changelog"
 
@@ -297,7 +297,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cp "${${SRC_DIR}}/debian/changelog" "${SCRIPTDIR}/debian"
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

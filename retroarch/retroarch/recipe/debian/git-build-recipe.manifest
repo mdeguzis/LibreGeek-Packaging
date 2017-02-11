@@ -1,3 +1,0 @@
-# git-build-recipe format 0.4 deb-version {debupstream}-r201702022302-d8855ca-56
-lp:~libretro/libretro/+git/RetroArch git-commit:d8855caae9fe3e249a2aab358480e2fe16c4ef0e
-nest packaging lp:~libretro/libretro/+git/RetroArch-debian debian git-commit:c6df31106fd6cdb290023f65725dd93de99b59a1

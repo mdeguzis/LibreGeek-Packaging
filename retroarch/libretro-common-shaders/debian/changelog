@@ -1,3 +1,9 @@
+libretro-common-shaders (1:0.1+git20170207.c50557b~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 07 Feb 2017 20:57:20 -0500
+
 libretro-common-shaders (1:0.1+20160622git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit d9b035c

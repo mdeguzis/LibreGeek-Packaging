@@ -63,7 +63,7 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="lgogdownloader"
 #PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGVER="3.0"
+PKGVER="3.1"
 EPOCH="2"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"

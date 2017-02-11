@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/libretro/RetroArch"
-TARGET="v1.3.6"
+TARGET="v1.4.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,7 +60,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="retroarch"
-PKGVER="1.3.6"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
 PKGREV="3"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"

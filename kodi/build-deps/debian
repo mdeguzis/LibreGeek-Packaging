@@ -1,5 +1,5 @@
-libcec (1:4.0.0+git+bsos1) brewmaster-testing; urgency=low
+libcec (1:4.0.2+git+bsos1) brewmaster; urgency=low
 
   * Inital build
 
- -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 02 Dec 2016 03:46:56 +0000
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 11 Feb 2017 10:24:07 -0500

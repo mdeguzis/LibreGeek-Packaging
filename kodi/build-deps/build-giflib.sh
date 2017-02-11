@@ -55,12 +55,12 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="giflib"
-PKGVER="5.0.6"
+PKGVER="5.1.4+git${DATE_SHORT}"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -120,10 +120,10 @@ main()
 	latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Alter pkg suffix based on commit
-	PKGSUFFIX="${latest_commit}git+bsos${PKGREV}"
+	PKGSUFFIX="${latest_commit}+${PKGREV}"
 
 	# Add debian files
-        cp -r "${SCRIPTDIR}/$PKGNAME/debian" "${SRC_DIR}"
+	cp -r "${SCRIPTDIR}/$PKGNAME/debian" "${SRC_DIR}"
 
 	#################################################
 	# Build platform
@@ -152,11 +152,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 
@@ -197,16 +199,6 @@ main()
 		cd "${HOME}" || exit
 	fi
 
-	# If "build_all" is requested, skip user interaction
-
-	if [[ "$build_all" == "yes" ]]; then
-
-		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${BUILD_TMP}/*.deb "$auto_BUILD_DIR"
-		sleep 2s
-
-	else
-
 	# inform user of packages
 	cat<<- EOF
 	#################################################################
@@ -217,7 +209,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+	ls "${BUILD_TMP}"
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.

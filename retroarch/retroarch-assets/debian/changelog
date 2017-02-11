@@ -1,3 +1,9 @@
+retroarch-assets (0.1+git20170207.90b882d~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 07 Feb 2017 20:44:25 -0500
+
 retroarch-assets (0.1+git20161116.caa5c8d~1) brewmaster; urgency=low
 
   * Update snapshot

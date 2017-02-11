@@ -36,7 +36,7 @@ fi
 
 # upstream URL
 SRC_URL="https://github.com/Pulse-Eight/platform/"
-TARGET="p8-platform-2.0.1"
+TARGET="p8-platform-2.1.0.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -48,8 +48,8 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="p8-platform"
-PKGVER="2.0.1"
-PKGREV="2"
+PKGVER=$(echo ${TARGET} | sed 's/p8-platform-//')
+PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -60,6 +60,18 @@ MAINTAINER="ProfessorKaos64"
 unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
+
+# Check if USER/HOST is setup under ~/.bashrc, set to default if blank
+# This keeps the IP of the remote VPS out of the build script
+
+if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
+
+	# fallback to local repo pool TARGET(s)
+	REMOTE_USER="mikeyd"
+	REMOTE_HOST="archboxmtd"
+	REMOTE_PORT="22"
+
+fi
 
 install_prereqs()
 {

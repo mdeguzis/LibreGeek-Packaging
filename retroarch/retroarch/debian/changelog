@@ -1,53 +1,5 @@
-retroarch (1.3.6+git+bsos3) brewmaster; urgency=low
+retroarch (1.4.1+git20170207.d8855caae~1) brewmaster; urgency=low
 
-  * Update default .cfg inputs
-  * Full screen is default, joyppad autodetect is on
+  * Initial upload
 
- -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 27 Aug 2016 10:25:33 -0400
-
-retroarch (1.3.6+git+bsos2) brewmaster; urgency=low
-
-  * Fix steam BPM image
-
- -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 27 Aug 2016 09:14:32 -0400
-
-retroarch (1.3.6+git+bsos1) brewmaster; urgency=low
-
-  * New 1.3.6 release
-
- -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 02 Aug 2016 19:06:33 -0400
-
-retroarch (1.3.4+git+bsos3) brewmaster; urgency=low
-
-  * New release
-  * Includes libegl-nvidia0 missing that provides libEGL_nvidia.so*
-  * The above fixes the segfault
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 23 May 2016 20:14:26 -0400
-
-retroarch (1.3.1+git+bsos2) brewmaster; urgency=low
-
-  * Enabled joypad autoconfig (upstream borked it)
-  * Set autoconfig path to traditional /usr/share/libretro/autoconfig
-  * Packaged deb for SteamOS-Tools
-  * See: packages.libregeek.org
-  * Upstream authors and source: https://github.com/libretro/RetroArch
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 08 Feb 2016 21:57:21 -0500
-
-retroarch (1.3.1+git+bsos1) brewmaster; urgency=low
-
-  * Packaged deb for SteamOS-Tools
-  * See: packages.libregeek.org
-  * Upstream authors and source: https://github.com/libretro/RetroArch
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Tue, 19 Jan 2016 19:07:31 -0500
-
-retroarch (1.2.2+git+bsos1) brewmaster; urgency=low
-
-  * Packaged deb for SteamOS-Tools
-  * See: packages.libregeek.org
-  * Upstream authors and source: https://github.com/libretro/RetroArch
-
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Mon, 04 Jan 2016 19:10:38 -0500
- 
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 07 Feb 2017 21:14:03 -0500

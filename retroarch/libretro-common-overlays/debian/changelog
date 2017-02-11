@@ -1,3 +1,9 @@
+libretro-common-overlays (1:0.1+git20170207.fd6179f~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 07 Feb 2017 20:54:13 -0500
+
 libretro-common-overlays (0.1+r24~1~ubuntu15.04.1) vivid; urgency=low
 
   * Auto build.

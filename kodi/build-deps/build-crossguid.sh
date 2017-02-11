@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/graeme-hill/crossguid"
-git_TARGET="master"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -120,7 +120,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone -b "$git_TARGET" "$SRC_URL" "$GIT_DIR"
+	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 
 	#################################################
 	# Build platform
@@ -138,8 +138,8 @@ main()
 	# create source tarball
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
-        # funnel old changelog.in to changelog or create basic file
-        cp -r "${SCRIPTDIR}/$PKGNAME/debian" "${SRC_DIR}"
+	# funnel old changelog.in to changelog or create basic file
+	cp -r "${SCRIPTDIR}/$PKGNAME/debian" "${SRC_DIR}"
 
 	# emter source dir
 	cd "${SRC_DIR}"
@@ -151,11 +151,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 
@@ -199,16 +201,6 @@ main()
 	else
 		cd "${HOME}" || exit
 	fi
-
-	# If "build_all" is requested, skip user interaction
-
-	if [[ "$build_all" == "yes" ]]; then
-
-		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${BUILD_TMP}/*.deb "$auto_BUILD_DIR"
-		sleep 2s
-
-	else
 
 	# inform user of packages
 	cat<<- EOF

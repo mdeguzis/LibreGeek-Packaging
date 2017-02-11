@@ -165,7 +165,7 @@ kodi_clone()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
 			git clone "${SRC_URL}" "${SRC_DIR}"
 
 		else

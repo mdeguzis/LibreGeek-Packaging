@@ -993,7 +993,9 @@ setup_system_setup()
 		# List editors and set
 		ls "/usr/bin" | grep -xE 'vi|vim|nano|emacs|gvim' && echo ""
 		read -erp "Default editor to use: " EDITOR
+		# Set in bashrc and /usr/bin/dch
 		sed -i "s|EDITOR_TEMP|$EDITOR|" "${HOME}/.bashrc"
+		sudo sed -i "s|sensible-editor|$EDITOR|" "/usr/bin/dch"
 
 	fi
 

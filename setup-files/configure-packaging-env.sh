@@ -80,8 +80,9 @@ setup_arch_linux()
 	pacaur -Sa ${AUROPTS} libxmltok help2man
 	
 	# AUR stage 2 packages:
-	pacaur -Sa ${AUROPTS} pbuilder-ubuntu debian-keyring debian-archive-keyring \
-	linuxmint-keyring ubuntu-archive-keyring ubuntu-keyring apt devscripts debsig-verify-git rpmdevtools mock
+	pacaur -Sa ${AUROPTS} debian-archive-keyring debsig-verify-git devscripts \
+	pbuilder-ubuntu debian-keyring	linuxmint-keyring mock rpmdevtools sensible-utils \
+	ubuntu-archive-keyring ubuntu-keyring apt
 	
 	# OBS Open Build System
 	# Disable this for now.
@@ -970,7 +971,7 @@ setup_system_setup()
 	# Editor
 	# Provided by sensible-utils, dependency of debianutils
 
-	if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
+	if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" || "${OS}" == "Arch" ]]; then
 
 		select-editor
 
@@ -995,7 +996,11 @@ setup_system_setup()
 		read -erp "Default editor to use: " EDITOR
 		# Set in bashrc and /usr/bin/dch
 		sed -i "s|EDITOR_TEMP|$EDITOR|" "${HOME}/.bashrc"
-		sudo sed -i "s|sensible-editor|$EDITOR|" "/usr/bin/dch"
+		
+		# If sensible utils is not installed, do the change manually
+		if [[ ! -f /usr/bin/sensible-editor ]];
+			sudo sed -i "s|sensible-editor|$EDITOR|" "/usr/bin/dch"
+		fi
 
 	fi
 

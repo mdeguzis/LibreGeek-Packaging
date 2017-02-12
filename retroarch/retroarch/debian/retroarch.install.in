@@ -6,3 +6,4 @@ gfx/video_filters/*.filt                 usr/lib/@DEB_HOST_MULTIARCH@/retroarch/
 libretro-common/audio/dsp_filters/*.so   usr/lib/@DEB_HOST_MULTIARCH@/retroarch/filters/audio
 libretro-common/audio/dsp_filters/*.dsp  usr/lib/@DEB_HOST_MULTIARCH@/retroarch/filters/audio
 media/retroarch.svg                      usr/share/icons/hicolor/scalable/apps
+retroarch.png														 usr/share/pixmaps

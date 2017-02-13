@@ -73,11 +73,11 @@ set_vars()
 	PKGNAME="kodi"
 	UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 	MAINTAINER="ProfessorKaos64"
-	PKGREV="1"
+	PKGREV="2"
 	DIST="${DIST:=brewmaster}"
 	URGENCY="low"
 	BUILDER="pdebuild"
-	BUILDOPTS="--debbuildopts \"-j4\""
+	BUILDOPTS="--debbuildopts \"-j4\" --debbuildopts -b"
 	export USE_NETWORK="yes"
 	export STEAMOS_TOOLS_BETA_HOOK="true"
 	ARCH="amd64"
@@ -355,7 +355,10 @@ kodi_package_deb()
 	if echo ${KODI_TAG} | grep -i "Krypton" 1> /dev/null; then KODI_RELEASE="Krypton"; fi
 
 	# set release for changelog
-        PKGVER="${KODI_RELEASE}+git+bsos${PKGREV}"
+	PKGVER="${KODI_RELEASE}+git+bsos${PKGREV}"
+
+	TAGREV="${PKGREV}"
+	export TAGREV
 
 	############################################################
 	# Add any overrides for setup below
@@ -394,7 +397,6 @@ kodi_package_deb()
 
 		# Add any overrides for mk-debian-package.sh below
 		# The default in the script is '"${BUILDER}"' which will attmpt to sign the pkg
-
 		RELEASEV="${KODI_TAG}" \
 		DISTS="${DIST}" \
 		ARCHS="${ARCH}" \

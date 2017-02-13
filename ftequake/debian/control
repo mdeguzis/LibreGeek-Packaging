@@ -1,4 +1,4 @@
-Source: ftequakeworld
+Source: ftequake
 Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Section: games
 Priority: optional
@@ -19,9 +19,9 @@ Build-Depends:
 Standards-Version: 3.9.8
 Homepage: https://sourceforge.net/projects/fteqw
 
-Package: ftequakeworld
-Replaces: ftequakeworld-unstable, fteqw
-Conflicts: ftequakeworld-unstable, fteqw
+Package: ftequake
+Replaces: ftequake-unstable, fteqw, ftequakeworld
+Conflicts: ftequake-unstable, fteqw, ftequakeworld
 Architecture: any
 Depends:
  ${misc:Depends},

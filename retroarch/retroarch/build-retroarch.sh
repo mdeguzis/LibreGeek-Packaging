@@ -55,13 +55,13 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -nc --debbuildopts -b"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="retroarch"
 PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGREV="3"
+PKGREV="2"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -131,7 +131,7 @@ main()
 	# Set suffix based on revisions
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~${PKGREV}"
 
 	###############################################################
 	# correct any files needed here that you can ahead of time

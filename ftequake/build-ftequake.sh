@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-ftequakeworld.sh
+# Scipt name:	build-ftequake.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest ftequakeworld source
+# Description:	Attmpts to build a deb package from the latest ftequake source
 #		code.
 #
-# See:		https://github.com/Novum/ftequakeworld
+# See:		https://github.com/Novum/ftequake
 #
-# Usage:	./build-ftequakeworld.sh
+# Usage:	./build-ftequake.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -55,9 +55,8 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
-PKGNAME="ftequakeworld"
-# Base version sourced from latest milestone on SF
-PKGVER="1.04.0"
+PKGNAME="ftequake"
+# Source major/minor later on
 PKGREV="1"
 # PKGSUFFIX set below
 DIST="${DIST:=brewmaster}"
@@ -67,7 +66,7 @@ MAINTAINER="ProfessorKaos64"
 
 # set build directories
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
-SRC_DIR="${PKGNAME}-${PKGVER}"
+SRC_DIR="${PKGNAME}"
 SVN_DIR="${BUILD_TMP}/${SRC_DIR}"
 
 install_prereqs()
@@ -120,6 +119,11 @@ main()
 	# checkout desired revision
 	svn checkout "${SVN_URL}" "${SVN_DIR}"
 
+	# get versioning
+	MAJOR_VER=$(cat ${SVN_DIR}/engine/common/bothdefs.h | awk '/FTE_VER_MAJOR/{print $3}')
+	MINOR_VER=$(cat ${SVN_DIR}/engine/common/bothdefs.h | awk '/FTE_VER_MINOR/{print $3}')
+	PKGVER="${MAJOR_VER}.0${MINOR_VER}.0"
+
 	# Get desired revision
 	echo -e "\n==> Showing last 5 revisions\n"
 
@@ -147,7 +151,7 @@ main()
 	PKGSUFFIX="${SVN_REV}svn+bsos"
 
 	# Add extras
-	cp "${SCRIPTDIR}/ftequakeworld.png" "${SVN_DIR}"
+	cp "${SCRIPTDIR}/ftequake.png" "${SVN_DIR}"
 	cp "${SCRIPTDIR}/quake-icon.png" "${SVN_DIR}"
 
 	#################################################
@@ -178,13 +182,12 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to SVN revision ${SVN_REV}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build, revision ${LATEST_REV}"
-		nano "debian/changelog"
 
 	fi
 

@@ -251,7 +251,7 @@ setup_debian_variant()
 		sudo dpkg -i libregeek-debian-repo.deb
 
 		# Obtain valve keyring
-		wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q --show-progress -nc 
+		wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q -nc --show-progress
 		sudo dpkg -i "valve-archive-keyring_0.5+bsos3_all.deb"
 		rm valve-archive-keyring*
 
@@ -1108,6 +1108,9 @@ main()
 
 	fi
 
+	# Common routine
+	setup_common_prereqs
+
 	# OS-specific routines and defaults
 
 	if [[ "${OS}" == "Debian" ]]; then
@@ -1174,7 +1177,6 @@ main()
 
 	# Common items
 	setup_bulk_storage
-	setup_common_prereqs
 	setup_dotfiles
 	setup_github
 	setup_host

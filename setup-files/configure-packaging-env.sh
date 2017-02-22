@@ -356,14 +356,14 @@ setup_dotfiles()
 			# Reset setup for incoming vars
 			sed -i '/##### DEBIAN PACKAGING SETUP #####/,/##### END DEBIAN PACKAGING SETUP #####/d' "${HOME}/.bashrc"
 
-			cat "${SCRIPTDIR}/.bashrc" >> "${HOME}/.bashrc"
+			cat "${SCRIPTDIR}/dotfiles/.bashrc" >> "${HOME}/.bashrc"
 
 		fi
 
 	else
 
 		# copy in template
-		cat "${SCRIPTDIR}/.bashrc" >> "${HOME}/.bashrc"
+		cat "${SCRIPTDIR}/dotfiles/.bashrc" >> "${HOME}/.bashrc"
 
 	fi
 

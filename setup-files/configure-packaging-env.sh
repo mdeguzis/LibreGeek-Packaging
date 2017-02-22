@@ -997,7 +997,7 @@ setup_system_setup()
 		sed -i "s|EDITOR_TEMP|$EDITOR|" "${HOME}/.bashrc"
 		
 		# If sensible utils is not installed, do the change manually
-		if [[ ! -f /usr/bin/sensible-editor ]];
+		if [[ ! -f /usr/bin/sensible-editor ]]; then
 			sudo sed -i "s|sensible-editor|$EDITOR|" "/usr/bin/dch"
 		fi
 

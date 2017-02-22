@@ -55,14 +55,13 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
-export STEAMOS_TOOLS_BETA_HOOK="false"
+export STEAMOS_TOOLS_BETA_HOOK="true"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGVER="0.${DATE_SHORT}"
 PKGNAME="kodi"
 PKGREV="3"
 PKGVER="17.0"
-PKGSUFFIX="git+bsos"
+PKGSUFFIX="git${DATER_SHORT}+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -100,7 +99,7 @@ main()
 	# clone and get latest commit tag
 	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
 
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [c]lean? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 
@@ -113,12 +112,25 @@ main()
 			# clean and clone
 			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
 			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+			# New build rules expect tarballs in certain depends locations, fetch
+			# Make sure to doublecheck the Kodi team build log n Launchpad for any changes
+			echo -e "\n==> Fetching extra required tarballs\n"
+			wget -O "${SRC_DIR}/tools/depends/target/libdvdread/libdvdread-master.tar.gz" "https://github.com/xbmc/libdvdread/archive/master.tar.gz" -nc -q --show-progres
+			wget -O "${SRC_DIR}/tools/depends/target/libdvdnav/libdvdnav-master.tar.gz" "https://github.com/xbmc/libdvdnav/archive/master.tar.gz" -nc -q --show-progres
+			wget -O "${SRC_DIR}/tools/depends/target/libdvdcss/libdvdcss-master.tar.gz" "https://github.com/xbmc/libdvdcss/archive/master.tar.gz" -nc -q --show-progres
+			wget -O "${SRC_DIR}/tools/depends/target/ffmpeg/3.1.6-Krypton.tar.gz" "https://github.com/xbmc/FFmpeg/archive/3.1.6-Krypton.tar.gz" -nc -q --show-progres
 
 		else
 
-			# Unpack the original source later on for  clean retry
-			# set retry flag
-			retry="yes"
+			echo -e "\n==> Cleaning files...\n"
+			sleep 2s
+			# Clean
+			rm -f "${BUILD_TMP}/*.tar.gz"
+			rm -f "${BUILD_TMP}/*.tar.xz"
+			rm -f "${BUILD_TMP}/*.build"
+			rm -f "${BUILD_TMP}/*.log"
+			cd "${SRC_DIR}"
+			#git clean -f
 
 		fi
 
@@ -138,40 +150,13 @@ main()
 	# Prepare sources
 	#################################################
 
-	# The new rules file expects some tarballs which have to be generated first
-	echo -e "\n==> Generating tarballs for dependent items...\n"
-	cd "${SRC_DIR}/tools/depends/target/libdvdread" && make || exit 1
-	cd "${SRC_DIR}/tools/depends/target/libdvdnav" && make || exit 1
-	cd "${SRC_DIR}/tools/depends/target/libdvdcss" && make || exit 1
-	cd "${SRC_DIR}/tools/depends/target/ffmpeg" && make || exit 1
-
 	cd "${BUILD_TMP}" || exit 1
 
 	# create source tarball
-	# For now, do not recreate the tarball if keep was used above (to keep it clean)
-	# This way, we can try again with the orig source intact
-	# Keep this method until a build is good to go, without error.
 
-	if [[ "${retry}" == "no" ]]; then
-
-		echo -e "\n==> Creating original tarball\n"
-		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
-
-	else
-
-		echo -e "\n==> Cleaning old source folders for retry"
-		sleep 2s
-
-		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
-		mkdir -p "${SRC_DIR}"
-
-		echo -e "\n==> Retrying with prior source tarball\n"
-		sleep 2s
-		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
-		sleep 2s
-
-	fi
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"

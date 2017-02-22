@@ -49,7 +49,7 @@ KODI_OPTS=\
 
 
 %:
-	dh $@ --parallel --buildsystem cmake
+	dh $@ --parallel --buildsystem cmake --sourcedir project/cmake --builddir kodi_build
 
 
 override_dh_auto_configure:

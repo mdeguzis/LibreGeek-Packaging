@@ -239,13 +239,13 @@ setup_debian_variant()
 
 	fi
 
-	echo -e "\n==>Installing keyrings\n"
+	echo -e "\n==> Installing keyrings\n"
 	sleep 2s
 
 	if [[ "${OS}" == "Debian" ]]; then
 
 		# Libregeek keyrings and repos
-		wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --nc -show-progress
+		wget "http://packages.libregeek.org/libregeek-archive-keyring-latest.deb" -q -nc --show-progress
 		wget "http://packages.libregeek.org/libregeek-debian-repo-latest.deb" -q -nc --show-progress
 		sudo dpkg -i libregeek-archive-keyring-latest.deb
 		sudo dpkg -i libregeek-debian-repo-latest.deb

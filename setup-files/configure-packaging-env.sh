@@ -291,7 +291,7 @@ setup_debian_variant()
 	sleep 2s
 
 	# Normal set of packages
-	PKGs=" apt-cacher-ng deboostrap pbuilder libselinux1 libselinux1:i386 lsb-release bc \
+	PKGs=" apt-cacher-ng debootstrap pbuilder libselinux1 libselinux1:i386 lsb-release bc \
 	devscripts libparse-debcontrol-perl sudo screen pv apt-file curl debian-keyring \
 	debian-archive-keyring ubuntu-archive-keyring gnupg osc obs-build mock sbuild \
 	quilt"

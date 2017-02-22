@@ -35,8 +35,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
@@ -49,21 +47,21 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/kodi-pvr/pvr.filmon"
-git_TARGET="Jarvis"
+TARGET="1.4.7-Krypton"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-pvr-filmon"
-#PKGVER="${DATE_SHORT}+git"
 BUILDER="pdebuild"
-PKGVER="0.7.4"
+PKGVER="1.4.7"
+EPOCH="2"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
@@ -120,7 +118,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone -b "$git_TARGET" "$SRC_URL" "$GIT_DIR"
+	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 	
 	#################################################
 	# Build platform
@@ -148,11 +146,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 
@@ -197,16 +195,6 @@ main()
 		cd "${HOME}" || exit
 	fi
 	
-	# If "build_all" is requested, skip user interaction
-	
-	if [[ "$build_all" == "yes" ]]; then
-	
-		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${BUILD_TMP}/*.deb "$auto_BUILD_DIR"
-		sleep 2s
-		
-	else
-		
 	# inform user of packages
 	cat<<- EOF
 	#################################################################

@@ -35,8 +35,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
@@ -49,7 +47,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/kodi-pvr/pvr.mediaportal.tvserver"
-git_TARGET="Jarvis"
+TARGET="2.4.16-Krypton"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,7 +59,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-pvr-mediaportal-tvserver"
-PKGVER="1.13.1"
+PKGVER="2.4.16"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
@@ -112,12 +110,11 @@ main()
 
 	fi
 
-	
 	# Clone upstream source code and TARGET
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone -b "$git_TARGET" "$SRC_URL" "$GIT_DIR"
+	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 	
 	#################################################
 	# Build platform
@@ -126,18 +123,12 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-	
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
 	# create source tarball
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 	
 	# emter source dir
 	cd "${SRC_DIR}"
-	
  
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -152,7 +143,6 @@ main()
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
-
  
 	#################################################
 	# Build Debian package
@@ -162,10 +152,6 @@ main()
 	sleep 2s
 
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
-	#################################################
-	# Post install configuration
-	#################################################
 	
 	#################################################
 	# Cleanup
@@ -182,7 +168,6 @@ main()
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
 	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
@@ -194,16 +179,6 @@ main()
 		cd "${HOME}" || exit
 	fi
 	
-	# If "build_all" is requested, skip user interaction
-	
-	if [[ "$build_all" == "yes" ]]; then
-	
-		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${BUILD_TMP}/*.deb "$auto_BUILD_DIR"
-		sleep 2s
-		
-	else
-		
 	# inform user of packages
 	cat<<- EOF
 	#################################################################

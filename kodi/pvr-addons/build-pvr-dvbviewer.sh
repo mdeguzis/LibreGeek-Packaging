@@ -35,8 +35,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
@@ -49,19 +47,20 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/kodi-pvr/pvr.dvbviewer"
-git_TARGET="Jarvis"
+TARGET="2.4.6-Krypton"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-pvr-dvbviewer"
-PKGVER="1.11.11"
+PKGVER="2.4.6"
+EPOCH="2"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
@@ -117,7 +116,7 @@ main()
 	
 	echo -e "\n==> Obtaining upstream source code\n"
 	
-	git clone -b "$git_TARGET" "$SRC_URL" "$GIT_DIR"
+	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 	
 	#################################################
 	# Build platform
@@ -126,13 +125,8 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-	
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
 	# create source tarball
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 	
 	# emter source dir
@@ -145,11 +139,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 
@@ -194,16 +188,6 @@ main()
 		cd "${HOME}" || exit
 	fi
 	
-	# If "build_all" is requested, skip user interaction
-	
-	if [[ "$build_all" == "yes" ]]; then
-	
-		echo -e "\n==INFO==\nAuto-build requested"
-		mv ${BUILD_TMP}/*.deb "$auto_BUILD_DIR"
-		sleep 2s
-		
-	else
-		
 	# inform user of packages
 	cat<<- EOF
 	#################################################################

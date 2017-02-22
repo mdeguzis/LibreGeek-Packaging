@@ -195,7 +195,6 @@ setup_bulk_storage()
 			echo "${VOLUME_LOC} /mnt/${VOLUME_NAME} ext4 defaults,nofail,discard 0 2" | sudo tee -a "/etc/fstab"
 
 			# Make sure storage is owned by user
-			if 
 			sudo chown -R $USER:$DEFAULT_USER_GROUP "/mnt/${VOLUME_NAME}"
 
 			# mount volumne and fail script if it did not complete

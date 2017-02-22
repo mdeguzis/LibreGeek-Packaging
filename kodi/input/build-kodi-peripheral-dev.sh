@@ -1,15 +1,13 @@
 #!/bin/bash
-#-------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-kodi.sh
-# Script Ver:	0.3.1
-# Description:	Attmpts to build a deb package from the latest kodi source
-#		code.
+# Scipt Name:	build-kodi-peripheral-joystick.sh
+# Script Ver:	1.0.1
+# Description:	Attmpts to build a deb package kodi-peripheral-joystick git source
 #
-# See:		https://github.com/xbmc/xbmc
-#
-# Usage:	./build-kodi.sh
+# See:		https://github.com/peak3d/inputstream.adaptive
+# Usage:	./build-kodi-peripheral-joystick.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -36,6 +34,7 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
+
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
@@ -45,49 +44,66 @@ else
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 
 fi
+
 # upstream vars
-SRC_URL="https://github.com/xbmc/xbmc"
-TARGET="17.0-Krypton"
+SRC_URL="https://github.com/xbmc/peripheral.joystick"
+TARGET="v1.2.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGVER="0.${DATE_SHORT}"
-PKGNAME="kodi"
-PKGREV="3"
-PKGVER="17.0"
+PKGNAME="kodi-peripheral-joystick"
 PKGSUFFIX="git+bsos"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
+PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
 
-	clear
-	echo -e "==> Installing prerequisites for building...\n"
+	echo -e "\n==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	# TODO - fix up
-	sudo apt-get install -y --force-yes build-essential 
+	sudo apt-get install -y --force-yes build-essential pkg-config checkinstall bc \
+	libkodiplatform-dev kodi-addon-dev kodi-peripheral-dev pkg-config \
+	libp8-platform-dev libpcre3-dev
 
 }
 
 main()
 {
 
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
+
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
+
+	else
+
+		mkdir -p "${BUILD_TMP}"
+
+	fi
+
+	# enter build dir
+	cd "${BUILD_TMP}" || exit
+
 	# install prereqs for build
+	
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -95,110 +111,44 @@ main()
 
 	fi
 
+	# Clone upstream source code and TARGET
+
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and get latest commit tag
-	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
-
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
-		sleep 1s
-		read -ep "Choice: " git_choice
-
-		if [[ "$git_choice" == "r" ]]; then
-
-			echo -e "\n==> Removing and cloning repository again...\n"
-			sleep 2s
-			# reset retry flag
-			retry="no"
-			# clean and clone
-			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
-			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-		else
-
-			# Unpack the original source later on for  clean retry
-			# set retry flag
-			retry="yes"
-
-		fi
-
-	else
-
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
-			sleep 2s
-			# reset retry flag
-			retry="no"
-			# create and clone to current dir
-			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-	fi
+	# clone and checkout desired commit
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
-	# Prepare sources
+	# Build platform
 	#################################################
 
-	# The new rules file expects some tarballs which have to be generated first
-	echo -e "\n==> Generating tarballs for dependent items...\n"
-	cd "${SRC_DIR}/tools/depends/target/libdvdread" && make || exit 1
-	cd "${SRC_DIR}/tools/depends/target/libdvdnav" && make || exit 1
-	cd "${SRC_DIR}/tools/depends/target/libdvdcss" && make || exit 1
-	cd "${SRC_DIR}/tools/depends/target/ffmpeg" && make || exit 1
-
-	cd "${BUILD_TMP}" || exit 1
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
 
 	# create source tarball
-	# For now, do not recreate the tarball if keep was used above (to keep it clean)
-	# This way, we can try again with the orig source intact
-	# Keep this method until a build is good to go, without error.
+	cd ${BUILD_TMP}
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
-	if [[ "${retry}" == "no" ]]; then
-
-		echo -e "\n==> Creating original tarball\n"
-		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
-
-	else
-
-		echo -e "\n==> Cleaning old source folders for retry"
-		sleep 2s
-
-		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
-		mkdir -p "${SRC_DIR}"
-
-		echo -e "\n==> Retrying with prior source tarball\n"
-		sleep 2s
-		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
-		sleep 2s
-
-	fi
-
-	# Add required files
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-
-	#################################################
-	# Build package
-	#################################################
-
-	# enter source dir
+	# emter source dir
 	cd "${SRC_DIR}"
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
-	# update changelog with dch
+ 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-bad-version --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
+
 
 	#################################################
 	# Build Debian package
@@ -207,7 +157,7 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
@@ -229,6 +179,13 @@ main()
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
+	# back out of build tmp to script dir if called from git clone
+	if [[ "${SCRIPTDIR}" != "" ]]; then
+		cd "${SCRIPTDIR}" || exit
+	else
+		cd "${HOME}" || exit
+	fi
+
 	# inform user of packages
 	cat<<- EOF
 	#################################################################
@@ -239,7 +196,7 @@ main()
 	EOF
 
 	echo -e "Showing contents of: ${BUILD_TMP}: \n"
-	ls "${BUILD_TMP}" | grep -E *${PKGVER}*
+	ls "${BUILD_TMP}"
 
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.

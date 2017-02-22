@@ -1,0 +1,8 @@
+usr/include/kodi/xbmc_addon_*
+usr/include/kodi/xbmc_codec_types.h
+usr/include/kodi/kodi_vfs_*
+usr/include/kodi/libXBMC_*
+usr/include/kodi/libKODI_*
+usr/include/kodi/IFileTypes.h
+usr/include/kodi/DVDDemuxPacket.h
+usr/share/kodi/cmake/*.cmake

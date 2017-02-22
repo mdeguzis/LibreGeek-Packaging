@@ -1,0 +1,6 @@
+A script is used to generate the orig source that is to be distributed with
+Debian. The script can be found at
+https://github.com/xbmc/xbmc-packaging/blob/master/xbmc-get-orig-source
+
+The '--minimal' option is passed to the script to remove non-free libraries as
+well as libraries and other code not needed to build XBMC for Linux.

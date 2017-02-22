@@ -245,10 +245,10 @@ setup_debian_variant()
 	if [[ "${OS}" == "Debian" ]]; then
 
 		# Libregeek keyrings and repos
-		wget "http://packages.libregeek.org/libregeek-archive-keyring-latest.deb" -q -nc --show-progress
-		wget "http://packages.libregeek.org/libregeek-debian-repo-latest.deb" -q -nc --show-progress
-		sudo dpkg -i libregeek-archive-keyring-latest.deb
-		sudo dpkg -i libregeek-debian-repo-latest.deb
+		wget "http://packages.libregeek.org/libregeek-archive-keyring.deb" -q -nc --show-progress
+		wget "http://packages.libregeek.org/libregeek-debian-repo.deb" -q -nc --show-progress
+		sudo dpkg -i libregeek-archive-keyring.deb
+		sudo dpkg -i libregeek-debian-repo.deb
 
 		# Obtain valve keyring
 		wget "http://repo.steamstatic.com/steamos/pool/main/v/valve-archive-keyring/${VALVE_KEYRING}.deb" -q --show-progress -nc 
@@ -256,8 +256,8 @@ setup_debian_variant()
 		rm valve-archive-keyring*
 
 		# cleanup
-		rm -f libregeek-debian-repo-latest.deb.deb
-		rm -f libregeek-archive-keyring-latest.deb
+		rm -f libregeek-debian-repo.deb.deb
+		rm -f libregeek-archive-keyring.deb
 		rm -f valve-archive-keyring*.deb
 
 		# update for keyrings
@@ -269,14 +269,14 @@ setup_debian_variant()
 	elif [[ "{OS}" == "SteamOS" ]]; then
 
 		# Libregeek keyrings and repos
-		wget http://packages.libregeek.org/libregeek-archive-keyring-latest.deb -q --show-progress -nc
-		wget http://packages.libregeek.org/steamos-tools-repo-latest.deb -q --show-progress -nc
-		sudo dpkg -i libregeek-archive-keyring-latest.deb
-		sudo dpkg -i steamos-tools-repo-latest.deb
+		wget http://packages.libregeek.org/libregeek-archive-keyring.deb -q --show-progress -nc
+		wget http://packages.libregeek.org/steamos-tools-repo.deb -q --show-progress -nc
+		sudo dpkg -i libregeek-archive-keyring.deb
+		sudo dpkg -i steamos-tools-repo.deb
 
 		# cleanup
-		rm -f steamos-tools-repo-latest.deb
-		rm -f libregeek-archive-keyring-latest.deb
+		rm -f steamos-tools-repo.deb
+		rm -f libregeek-archive-keyring.deb
 
 		# update for keyrings
 		echo -e "\n==> Updating system for newly added keyrings and repos\n"

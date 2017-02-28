@@ -48,7 +48,9 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/kodi-pvr/pvr.vbox"
+#SRC_URL="https://github.com/kodi-pvr/pvr.vbox"
+#TARGET="Krypton"
+SRC_URL="https://github.com/mdeguzis/pvr.vbox"
 TARGET="Krypton"
 
 # package vars
@@ -61,7 +63,6 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-pvr-vbox"
-PKGVER="3.6.7"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
@@ -119,8 +120,11 @@ main()
 	
 	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 	
+	#set pkg version from XML info
+    PKGVER=$(cat "${SRC_DIR}/pvr.vbox/addon.xml.in" | grep "version" | sed -sn 2p | sed 's/version=//g;s/  //g;s/"//g')
+
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
 	
 	echo -e "\n==> Creating original tarball\n"

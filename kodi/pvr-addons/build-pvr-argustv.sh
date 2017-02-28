@@ -48,8 +48,10 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/kodi-pvr/pvr.argustv"
-TARGET="2.5.4-Krypton"
+#SRC_URL="https://github.com/kodi-pvr/pvr.argustv"
+#TARGET="2.5.4-Krypton"
+SRC_URL="https://github.com/mdeguzis/pvr.argustv"
+TARGET="Krypton"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,7 +63,6 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-pvr-argustv"
-PKGVER=$(echo ${TARGET} | sed 's/-Krypton//')
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
@@ -72,7 +73,7 @@ MAINTAINER="ProfessorKaos64"
 # set build directories
 unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
-SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}"
 
 install_prereqs()
 {
@@ -118,6 +119,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+	
+	# Set pkg version from XML info
+	PKGVER=$(cat "${SRC_DIR}/pvr.argustv/addon.xml.in" | grep "version" | sed -sn 2p | sed 's/version=//g;s/  //g;s/"//g')
 
 	#################################################
 	# Build platform
@@ -132,7 +136,6 @@ main()
 
 	# emter source dir
 	cd "${SRC_DIR}"
-
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s

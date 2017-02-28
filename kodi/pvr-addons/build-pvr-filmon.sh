@@ -46,21 +46,22 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/kodi-pvr/pvr.filmon"
-TARGET="1.4.7-Krypton"
+#SRC_URL="https://github.com/kodi-pvr/pvr.filmon"
+#TARGET="1.4.7-Krypton"
+SRC_URL="https://github.com/mdeguzis/pvr.filmon"
+TARGET="Krypton"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-pvr-filmon"
 BUILDER="pdebuild"
-PKGVER="1.4.7"
 EPOCH="2"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
@@ -120,6 +121,9 @@ main()
 	
 	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 	
+	#set pkg version from XML info
+    PKGVER=$(cat "${SRC_DIR}/pvr.filmon/addon.xml.in" | grep "version" | sed -sn 2p | sed 's/version=//g;s/  //g;s/"//g')
+
 	#################################################
 	# Build platform
 	#################################################

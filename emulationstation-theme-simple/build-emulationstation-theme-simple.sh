@@ -36,8 +36,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
@@ -51,7 +49,6 @@ fi
 # upstream vars
 SRC_URL="https://github.com/RetroPie/es-theme-simple"
 TARGET="master"
-commit="e9c72a3"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -64,9 +61,7 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="emulationstation-theme-simple"
 PKGVER="1.4"
-upstream_rev="1"
 PKGREV="1"
-PKGSUFFIX="${commit}+git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -107,11 +102,13 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone and checkout commit
-	git clone -b "$TARGET" "$SRC_URL" "$GIT_DIR"
-	cd "$GIT_DIR" && git checkout "$commit"
-	
-	# copy in debian folder
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+
+	# Get latest commit
+	cd "${SRC_DIR}"
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 	
 	# enter build dir
 	cd "${BUILD_TMP}" || exit
@@ -123,13 +120,11 @@ main()
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	# create the tarball from latest tarball creation script
-	# use latest revision designated at the top of this script
-
 	# Trim .git folders
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
+	cd "${BUILD_TMP}"
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
@@ -138,18 +133,19 @@ main()
 	# enter source dir
 	cd "${SRC_DIR}"
 
-
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D \
+		"${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package \
+		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 

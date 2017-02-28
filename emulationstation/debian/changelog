@@ -1,3 +1,9 @@
+emulationstation (2.1.4+git+bsos) brewmaster; urgency=low
+
+  * Switch to active RetroPie fork
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 28 Feb 2017 08:25:49 -0500
+
 emulationstation (2.0.1+646bede+git+bsos1) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

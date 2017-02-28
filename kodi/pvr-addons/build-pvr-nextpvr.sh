@@ -46,8 +46,10 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/kodi-pvr/pvr.nextpvr"
-TARGET="2.4.11-Krypton"
+#SRC_URL="https://github.com/kodi-pvr/pvr.nextpvr"
+#TARGET="2.4.11-Krypton"
+SRC_URL="https://github.com/mdeguzis/pvr.nextpvr"
+TARGET="Krypton"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -59,7 +61,6 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-pvr-nextpvr"
-PKGVER="2.4.11"
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
@@ -117,6 +118,9 @@ main()
 	
 	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 	
+	#set pkg version from XML info
+    PKGVER=$(cat "${SRC_DIR}/pvr.nextpvr/addon.xml.in" | grep "version" | sed -sn 2p | sed 's/version=//g;s/  //g;s/"//g')
+
 	#################################################
 	# Build platform
 	#################################################

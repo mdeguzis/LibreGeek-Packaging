@@ -1,7 +1,7 @@
 Source: emulationstation
 Section: contrib/misc
 Priority: extra
-Maintainer: Alec Lofquist <allofquist@yahoo.com>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends:	debhelper (>= 9),
 		cmake,
 		g++ (>= 4.8),
@@ -15,7 +15,8 @@ Build-Depends:	debhelper (>= 9),
 		libfreetype6-dev,
 		libeigen3-dev,
 		libcurl4-openssl-dev,
-		libgl1-mesa-dev
+		libgl1-mesa-dev,
+		libvlc-dev
 Standards-Version: 3.9.5
 Homepage: http://www.emulationstation.org
 Vcs-Git: git://github.com/Aloshi/EmulationStation.git

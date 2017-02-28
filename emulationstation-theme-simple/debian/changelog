@@ -1,3 +1,9 @@
+emulationstation-theme-simple (1.4+git20170228.2cc8295) brewmaster; urgency=low
+
+  * Update theme
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 28 Feb 2017 08:36:26 -0500
+
 emulationstation-theme-simple (1.4+e9c72a3+git+bsos1) brewmaster; urgency=low
 
   * Packaged deb for SteamOS-Tools

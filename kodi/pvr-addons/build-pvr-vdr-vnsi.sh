@@ -46,14 +46,16 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/kodi-pvr/pvr.vdr.vnsi"
-TARGET="v2.6.17"
+#SRC_URL="https://github.com/kodi-pvr/pvr.vdr.vnsi"
+#TARGET="v2.6.17"
+SRC_URL="https://github.com/mdeguzis/pvr.vdr.vnsi"
+TARGET="Krypton"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 PKGNAME="kodi-pvr-vdr-vnsi"
-PKGVER="2.6.17"
 PKGREV="1"
+EPOCH="2"
 PKGSUFFIX="git+bsos${PKGREV}"
 BUILDER="pdebuild"
 BUILDOPT="--debbuildopts -nc"
@@ -113,8 +115,11 @@ main()
 	
 	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
 	
+	#set pkg version from XML info
+    PKGVER=$(cat "${SRC_DIR}/pvr.vdr.vnsi/addon.xml.in" | grep "version" | sed -sn 2p | sed 's/version=//g;s/  //g;s/"//g')
+
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
 	
 	echo -e "\n==> Creating original tarball\n"
@@ -133,11 +138,11 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
  

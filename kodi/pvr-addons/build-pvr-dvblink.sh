@@ -46,20 +46,21 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/kodi-pvr/pvr.dvblink"
-TARGET="3.3.11-Krypton"
+#SRC_URL="https://github.com/kodi-pvr/pvr.dvblink"
+#TARGET="3.3.11-Krypton"
+SRC_URL="https://github.com/mdeguzis/pvr.dvblink"
+TARGET="Krypton"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-pvr-dvblink"
-PKGVER=$(echo "${TARGET}" | sed 's/-Krypton//')
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
@@ -116,6 +117,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	
 	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+
+	#set pkg version from XML info
+    PKGVER=$(cat "${SRC_DIR}/pvr.dvblink/addon.xml.in" | grep "version" | sed -sn 2p | sed 's/version=//g;s/  //g;s/"//g')
 	
 	#################################################
 	# Build platform

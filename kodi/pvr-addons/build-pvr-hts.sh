@@ -46,7 +46,8 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/kodi-pvr/pvr.hts"
+SRC_URL="https://github.com/mdeguzis/pvr.hts"
+#SRC_URL="https://github.com/kodi-pvr/pvr.hts"
 TARGET="Krypton"
 
 # package vars
@@ -54,12 +55,11 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-pvr-hts"
-PKGVER="3.4.17"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -116,6 +116,9 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	
 	git clone -b "$TARGET" "$SRC_URL" "$SRC_DIR"
+
+	# Set package version
+	PKGVER=$(cat "${SRC_DIR}/pvr.hts/addon.xml.in" | grep "version" | sed -sn 2p | sed 's/version=//g;s/  //g;s/"//g')
 	
 	#################################################
 	# Build platform

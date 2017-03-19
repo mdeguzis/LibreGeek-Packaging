@@ -60,7 +60,6 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-peripheral-joystick"
 PKGSUFFIX="git+bsos"
-PKGVER=$(echo ${TARGET} | sed 's/v//')
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -117,6 +116,9 @@ main()
 
 	# clone and checkout desired commit
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	# get version based on XML
+	PKGVER=$(cat "${SRC_DIR}/peripheral.joystick/addon.xml.in" | grep "version" | sed -sn 2p | sed 's/version=//g;s/  //g;s/"//g')
 
 	#################################################
 	# Build platform

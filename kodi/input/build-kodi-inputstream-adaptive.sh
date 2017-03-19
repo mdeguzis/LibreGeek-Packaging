@@ -47,7 +47,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/peak3d/inputstream.adaptive"
-TARGET="v1.0.6"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -60,8 +60,8 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-inputstream-adaptive"
 PKGSUFFIX="git+bsos"
-PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGREV="1"
+EPOCH="2"
+PKGREV="2"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -116,6 +116,9 @@ main()
 
 	# clone and checkout desired commit
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	# Set version based on XML info
+	PKGVER=$(cat "${SRC_DIR}/inputstream.adaptive/addon.xml.in" | grep "version" | sed -sn 2p | sed 's/version=//g;s/  //g;s/"//g')
 
 	#################################################
 	# Build platform
@@ -173,10 +176,6 @@ main()
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# back out of build tmp to script dir if called from git clone
 	if [[ "${SCRIPTDIR}" != "" ]]; then

@@ -67,7 +67,7 @@ if [[ "$arg1" == "--testing" ]]; then
 
 else
 
-        TARGET="0.93"
+        TARGET="0.95"
         REPO_FOLDER="/mnt/server_media_y/packaging/linux-binaries/stable"
 	# Source version from vkQuake/Quake/quakedef.h
 	PKGVER="${TARGET}.0"

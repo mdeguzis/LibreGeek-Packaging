@@ -1,3 +1,9 @@
+vkquake (1:0.95.0+git+bsos-1) brewmaster; urgency=low
+
+  * Update to release 0.95.0, Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 21 Mar 2017 12:16:05 -0400
+
 vkquake (1:0.93.0+git+bsos-1) brewmaster; urgency=low
 
   * Update to release 0.93.0

@@ -1,0 +1,11 @@
+dpkg-checkbuilddeps: error: Unmet build dependencies: build-essential:native debhelper (>= 9) g++ cmake itstool gettext qttools5-dev qttools5-dev-tools libsdl1.2-dev libxi-dev libsdl2-dev libx11-dev libxtst-dev
+W: Unmet build-dependency in source
+dpkg-buildpackage: info: source package antimicro
+dpkg-buildpackage: info: source version 2.23+git-1
+dpkg-buildpackage: info: source distribution jessie
+dpkg-buildpackage: info: source changed by Michael DeGuzis <mdeguzis@gmail.com>
+ dpkg-source --before-build antimicro
+dpkg-buildpackage: warning: building a source package without cleaning up as you asked; it might contain undesired files
+ dpkg-source -b antimicro
+dpkg-source: error: can't build with source format '3.0 (quilt)': no upstream tarball found at ../antimicro_2.23+git.orig.tar.{bz2,gz,lzma,xz}
+dpkg-buildpackage: error: dpkg-source -b antimicro gave error exit status 255

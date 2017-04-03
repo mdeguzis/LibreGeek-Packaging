@@ -2,14 +2,13 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt name:	build-kodi.sh
-# Script Ver:	0.3.1
-# Description:	Attmpts to build a deb package from the latest kodi source
-#		code.
+# Scipt Name:	build-xonotic.sh
+# Script Ver:	1.0.8
+# Description:	Attmpts to builad a deb package from latest xonotic
 #
-# See:		https://github.com/xbmc/xbmc
+# See:		https://github.com/xonotic/xonotic
 #
-# Usage:	./build-kodi.sh
+# Usage:	./build-xonotic.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -22,7 +21,6 @@ arg1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
-
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -45,42 +43,44 @@ else
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 
 fi
+
 # upstream vars
-SRC_URL="https://github.com/xbmc/xbmc"
-TARGET="17.1-Krypton"
+SRC_URL="https://github.com/xonotic/xonotic"
+TARGET="xonotic-v0.8.2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
-export STEAMOS_TOOLS_BETA_HOOK="true"
-export NO_LINTIAN="false"
-export NO_PKG_TEST="false"
-PKGNAME="kodi"
-PKGREV="1"
-EPOCH="2"
-PKGVER=$(echo ${TARGET} | sed 's/-Kyrpton//g')
-PKGSUFFIX="git${DATER_SHORT}+bsos"
+BUILDOPTS="--debbuildopts -nc"
+export STEAMOS_TOOLS_BETA_HOOK="false"
+PKGNAME="xonotic"
+PKGVER=$(echo ${TARGET} | sed 's/xonotic-v//g')
+PKGREV=""
+PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
-
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
+
 	# install basic build packages
-	# TODO - fix up
-	sudo apt-get install -y --force-yes build-essential 
+	sudo apt-get -y --force-yes install build-essential pkg-config bc \
+	zlib1g-dev libsdl1.2-dev libmodplug-dev libasound2-dev linux-libc-dev \
+    libjpeg62-dev x11proto-core-dev libogg-dev libvorbis-dev libx11-dev \
+	mesa-common-dev libxpm-dev libxext-dev x11proto-xf86dga-dev libxxf86vm-dev \
+    libfftw3-dev libglu1-mesa-dev libxxf86dga-dev libd0-blind-id0-dev
 
 }
 
@@ -88,19 +88,27 @@ main()
 {
 
 	# install prereqs for build
+	
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
+	
+	else
+	
+		# cdbs needed for build clean
+		sudo apt-get install -y cdbs
 
 	fi
 
+	# Clone upstream source code and TARGET
+
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and get latest commit tag
+	# clone
 	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
 
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [c]lean? ?\n"
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
 		sleep 1s
 		read -ep "Choice: " git_choice
 
@@ -116,22 +124,9 @@ main()
 
 		else
 
-			echo -e "\n==> Cleaning files...\n"
-			sleep 2s
-			# Clean
-			rm -f "${BUILD_TMP}/*.tar.gz"
-			rm -f "${BUILD_TMP}/*.tar.xz"
-			rm -f "${BUILD_TMP}/*.build"
-			rm -f "${BUILD_TMP}/*.log"
-			rm -v ${SRC_DIR}/tools/depends/target/libdvdread/*.tar.gz
-			rm -v ${SRC_DIR}/tools/depends/target/libdvdnav/*.tar.gz
-			rm -v ${SRC_DIR}/tools/depends/target/libdvdcss/*.tar.gz
-			rm -v ${SRC_DIR}/tools/depends/target/ffmpeg/*tar.gz
-			cd "${SRC_DIR}"
-			git clean -f
-			git reset --hard
-			git checkout "${TARGET}"
-			git pull
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
 
 		fi
 
@@ -147,28 +142,47 @@ main()
 
 	fi
 
-	# New build rules expect tarballs in certain depends locations, fetch
-	# Make sure to doublecheck the Kodi team build log n Launchpad for any changes
-	echo -e "==> Fetching extra required tarballs\n"
-	wget -O "${SRC_DIR}/tools/depends/target/libdvdread/libdvdread-master.tar.gz" "https://github.com/xbmc/libdvdread/archive/master.tar.gz" -nc --show-progres || exit 1
-	wget -O "${SRC_DIR}/tools/depends/target/libdvdnav/libdvdnav-master.tar.gz" "https://github.com/xbmc/libdvdnav/archive/master.tar.gz" -nc --show-progres || exit 1
-	wget -O "${SRC_DIR}/tools/depends/target/libdvdcss/libdvdcss-master.tar.gz" "https://github.com/xbmc/libdvdcss/archive/master.tar.gz" -nc --show-progres || exit 1
-	wget -O "${SRC_DIR}/tools/depends/target/ffmpeg/ffmpeg-3.1.6.tar.gz" "https://github.com/xbmc/FFmpeg/archive/3.1.6-Krypton.tar.gz" -nc --show-progres || exit 1
-			
+	# Get latest commit
+	cd "${SRC_DIR}"
+	latest_commit=$(git log -n 1 --pretty=format:"%h")
+
 	#################################################
-	# Prepare sources
+	# Prep source
 	#################################################
 
-	cd "${BUILD_TMP}" || exit 1
+	# Trim .git folders
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+	
+	if [[ "${retry}" == "no" ]]; then
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		cd "${BUILD_TMP}"
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+		
+	else
+	
+		echo -e "\n==> Cleaning old source folders for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
+		mkdir -p "${SRC_DIR}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		cd "${BUILD_TMP}"
+		tar -xzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" -C "${BUILD_TMP}" --totals
+		sleep 2s
 
-	# Add required files
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	fi
+
+	# copy in debian folder and other files
+        cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -180,18 +194,17 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
-	# update changelog with dch
+ 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-bad-version --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
-		vim "debian/changelog"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update build/release"
+		nano "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
-		vim "debian/changelog"
 
 	fi
 
@@ -202,27 +215,22 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	#  build
+	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
 
-	# clean up dirs
-
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# inform user of packages
 	cat<<- EOF

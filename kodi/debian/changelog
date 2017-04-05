@@ -1,8 +1,8 @@
-kodi (17.1-Krypton+git+bsos-1) brewmaster; urgency=low
+kodi (2:17.1-Krypton+git+bsos-1) brewmaster; urgency=low
 
   * Update snapshot
 
- -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 02 Apr 2017 19:48:31 -0400
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 03 Apr 2017 15:27:46 -0400
 
 kodi (2:17.0~git20170210.1529-final-0xenial) xenial; urgency=high
 

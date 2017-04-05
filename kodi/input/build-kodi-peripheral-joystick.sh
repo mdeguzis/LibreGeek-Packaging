@@ -47,7 +47,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/xbmc/peripheral.joystick"
-TARGET="v1.2.1"
+TARGET="v1.3.2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -55,7 +55,7 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
-export STEAMOS_TOOLS_BETA_HOOK="false"
+export STEAMOS_TOOLS_BETA_HOOK="true"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="kodi-peripheral-joystick"

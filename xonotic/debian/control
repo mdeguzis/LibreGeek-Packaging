@@ -1,14 +1,14 @@
 Source: xonotic
 Section: games
 Priority: optional
-Maintainer: Christoph Korn <christoph.korn@getdeb.net>
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
               zlib1g-dev,
               libsdl1.2-dev,
               libmodplug-dev,
               libasound2-dev,
               linux-libc-dev,
-              libjpeg62-dev,
+              libjpeg62-turbo-dev,
               x11proto-core-dev,
               libogg-dev,
               libvorbis-dev,

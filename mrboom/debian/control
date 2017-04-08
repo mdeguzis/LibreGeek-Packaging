@@ -1,0 +1,14 @@
+Source: mrboom
+Section: games
+Priority: optional
+Maintainer: Micahel DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9), libsdl2-dev, libsdl2-mixer-dev, libminizip-dev
+Standards-Version: 3.9.8
+Homepage: http://mrboom.mumblecore.org/
+
+Package: mrboom
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: 8 players Bomberman
+ This is an SDL2 version of the original 1999 version of Mr. Boom. The goal of
+ the game is to bomb away your enemies and other players.

@@ -2,13 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
-# Scipt Name:	build-xonotic.sh
-# Script Ver:	1.0.8
-# Description:	Attmpts to builad a deb package from latest xonotic
+# Scipt name:	build-mrboom.sh
+# Script Ver:	0.1.1
+# Description:	Attmpts to build a deb package from the latest mrboom source
+#		code.
 #
-# See:		https://github.com/xonotic/xonotic
+# See:		https://github.com/Novum/vkQuake
 #
-# Usage:	./build-xonotic.sh
+# Usage:	./build-mrboom.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -43,11 +44,9 @@ else
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 
 fi
-
 # upstream vars
-SRC_URL="https://github.com/xonotic/xonotic"
-SRC_URL_DARKPLACES="https://github.com/xonotic/darkplaces"
-TARGET="xonotic-v0.8.2"
+SRC_URL="https://github.com/libretro/mrboom-libretro"
+TARGET="3.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -55,18 +54,23 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
-export STEAMOS_TOOLS_BETA_HOOK="false"
-PKGNAME="xonotic"
-PKGVER=$(echo ${TARGET} | sed 's/xonotic-v//g')
+# Need newer version of libvulkan-dev
+export STEAMOS_TOOLS_BETA_HOOK="true"
+PKGNAME="mrboom"
+# Source version from vkQuake/Quake/quakedef.h
+PKGVER="${TARGET}"
 PKGREV="1"
+EPOCH="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="ProfessorKaos64"
 
+# Need network for pbuilder to pull down ut4 zip
+export NETWORK="yes"
+
 # set build directories
-unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
@@ -75,18 +79,14 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-
 	# install basic build packages
-	sudo apt-get -y --force-yes install build-essential pkg-config bc \
-	zlib1g-dev libsdl1.2-dev libmodplug-dev libasound2-dev linux-libc-dev \
-    libjpeg62-dev x11proto-core-dev libogg-dev libvorbis-dev libx11-dev \
-	mesa-common-dev libxpm-dev libxext-dev x11proto-xf86dga-dev libxxf86vm-dev \
-    libfftw3-dev libglu1-mesa-dev libxxf86dga-dev libd0-blind-id0-dev
+	sudo apt-get install -y --force-yes build-essential
 
 }
 
 main()
 {
+
 	# create BUILD_TMP
 	if [[ -d "${BUILD_TMP}" ]]; then
 
@@ -99,40 +99,35 @@ main()
 
 	fi
 
+	# enter build dir
+	cd "${BUILD_TMP}" || exit
+
 	# install prereqs for build
-	
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
 		install_prereqs
-	
-	else
-	
-		# cdbs needed for build clean
-		sudo apt-get install -y cdbs
 
 	fi
 
-	# Clone upstream source code and TARGET
-
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	VER=${PKGVER} debian/rules get-orig-source
-	cp *orig.tar.gz ${BUILD_TMP}
-	cd ${BUILD_TMP}
-	mv *.orig.tar.gz "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz"
-	
-	echo -e "\n==> Extracting source code\n"
-
-	tar xzvf *.orig.tar.gz
-	mv Xonotic ${PKGNAME}-${PKGVER}
-		
-	# copy in debian folder and other files
-	cp -r "${SCRIPTDIR}/debian/" "${SRC_DIR}"
+	# clone and get latest commit tag
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	#################################################
 	# Build package
 	#################################################
+
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
+
+	# create source tarball
+	cd "${BUILD_TMP}" || exit
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+
+	# Add debian files
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -140,17 +135,20 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
+	# "Update snapshot"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update build/release"
-		nano "debian/changelog"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
+		"Update to release ${PKGVER}, Update snapshot"
+		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
+		vim "debian/changelog"
 
 	fi
 
@@ -161,22 +159,27 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
 
+	# clean up dirs
+
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-	
+
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
+
+
+	# assign value to build folder for exit warning below
+	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# inform user of packages
 	cat<<- EOF
@@ -226,4 +229,3 @@ main()
 
 # start main
 main
-

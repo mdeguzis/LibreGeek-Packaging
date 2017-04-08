@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
-PKD   = $(abspath $(dir $(MAKEFILE_LIST)))
-PKG   = $(shell dpkg-parsechangelog -l$(PKD)/changelog -SSource)
-VER  = $(shell dpkg-parsechangelog -l$(PKD)/changelog -SVersion | cut -d- -f1)
+PKD   ?= $(abspath $(dir $(MAKEFILE_LIST)))
+PKG   ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog -SSource)
+VER  ?= $(shell dpkg-parsechangelog -l$(PKD)/changelog -SVersion | cut -d- -f1)
 
 %:
 	dh $@

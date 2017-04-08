@@ -1,0 +1,3 @@
+mrboom usr/games
+debian/mrboom.desktop usr/share/applications
+debian/mrboom.svg usr/share/icons

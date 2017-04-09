@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-libretro-rustation.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to builad a deb package from latest libretro rustation
@@ -68,7 +68,7 @@ EPOCH="2"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -82,7 +82,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	sudo apt-get -y --force-yes install build-essential pkg-config bc debhelper \
-	rustc cargo git nano devscripts
+	rustc cargo git vim devscripts
 
 }
 
@@ -154,14 +154,14 @@ main()
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update snapshot"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch --create -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

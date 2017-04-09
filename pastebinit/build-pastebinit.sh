@@ -1,12 +1,12 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-pastebinit.sh
 # Script Ver:	1.0.0
 # Description:	Builds simple pacakge for using pastebinit
 #
-# See:		https://github.com/ProfessorKaos64/pastebinit
+# See:		https://github.com/mdeguzis/pastebinit
 #
 # Usage:	build-pastebinit.sh
 # Opts:		[--testing]
@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/ProfessorKaos64/pastebinit"
+SRC_URL="https://github.com/mdeguzis/pastebinit"
 rel_TARGET="master"
 
 # package vars
@@ -68,7 +68,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -152,7 +152,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"New package upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

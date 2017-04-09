@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-mumble.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the latest mumble source
@@ -64,7 +64,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
@@ -149,13 +149,13 @@ main()
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Update to release ${PKGVER}, Update snapshot"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

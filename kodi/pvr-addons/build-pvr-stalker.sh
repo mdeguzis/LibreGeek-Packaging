@@ -1,7 +1,7 @@
 #!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-pvr-stalker.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from Kodi PVR stalker addon git source
@@ -66,7 +66,7 @@ PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP

@@ -107,7 +107,7 @@ EOF
 sudo apt-get install -y --force-yes git devscripts build-essential checkinstall \
 debian-keyring debian-archive-keyring cmake g++ g++-multilib \
 libqt4-dev libqt4-dev libxi-dev libxtst-dev libX11-dev bc libsdl2-dev \
-gcc gcc-multilib nano dh-make gnupg-agent pinentry-curses
+gcc gcc-multilib vim dh-make gnupg-agent pinentry-curses
 
 cat <<-EOF
 ##########################################
@@ -142,7 +142,7 @@ Setup package base files
 EOF
 
 echo -e "\n==> original tarball\n"
-git clone https://github.com/ProfessorKaos64/steamos-xpad-dkms
+git clone https://github.com/mdeguzis/steamos-xpad-dkms
 
 # sanity check
 file steamos-xpad-dkms/
@@ -193,7 +193,7 @@ sed -i "s|DIST|$pkgrel|g" debian/changelog
 
 echo -e "\nOpening change log for details to be added...\n"
 sleep 3s
-nano "debian/changelog"
+vim "debian/changelog"
 
 echo -e "\n==> control"
 sed -i "s|pkgMAINTAINER|$pkgmaintainer|g" debian/control

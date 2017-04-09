@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-llvm-3.8.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to build a deb package from latest llvm-3.8
@@ -63,7 +63,7 @@ EPOCH="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -135,13 +135,13 @@ main()
 #	if [[ -f "debian/changelog" ]]; then
 #
 #		dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
-#		nano "debian/changelog"
+#		vim "debian/changelog"
 #
 #	else
 #
 #		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
 #		-D "${DIST}" -u "${URGENCY}" "Initial upload"
-#		nano "debian/changelog"
+#		vim "debian/changelog"
 #
 #	fi
 

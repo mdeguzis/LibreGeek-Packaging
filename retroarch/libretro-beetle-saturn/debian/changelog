@@ -1,3 +1,9 @@
+libretro-beetle-saturn (2:0.9.43+git20170408.ceffed0~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 20:48:59 -0400
+
 libretro-beetle-saturn (2:0.9.39.2+git20161115.8892d2d~1) brewmaster; urgency=low
 
   * Initial upload

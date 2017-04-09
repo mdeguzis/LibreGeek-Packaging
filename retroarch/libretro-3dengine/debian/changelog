@@ -1,3 +1,9 @@
+libretro-3dengine (1.0+git20170408.4111cc5~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 20:13:36 -0400
+
 libretro-3dengine (1.0+git20161114.d87ecd0~1) brewmaster; urgency=low
 
   * Update snapshot

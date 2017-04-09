@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-eduke32.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the latest eduke32 source
@@ -62,7 +62,7 @@ PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
@@ -170,13 +170,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to SVN revision ${SVN_REV}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build, revision ${LATEST_REV}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

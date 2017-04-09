@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-openlierox.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to build a deb package from latest openlierox release
@@ -49,7 +49,7 @@ fi
 
 # upstream vars
 #SRC_URL="https://github.com/albertz/openlierox"
-SRC_URL="https://github.com/ProfessorKaos64/openlierox"
+SRC_URL="https://github.com/mdeguzis/openlierox"
 rel_TARGET="0.59"
 
 # package vars
@@ -68,7 +68,7 @@ PKGVER="0.59"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP

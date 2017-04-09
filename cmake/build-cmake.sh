@@ -1,7 +1,7 @@
 #!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:	    	  https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	  build-cmake.sh
 # Script Ver:	  0.7.9
 # Description:	  Attmpts to build a deb package from Plex Media Player git source
@@ -67,7 +67,7 @@ PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # build dirs
 export BUILD_TMP="$HOME/build-${PKGNAME}-tmp"
@@ -162,7 +162,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Enable OpenSSL support"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

@@ -1,12 +1,12 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-qtmultimedia-opensource-src.sh
 # Script Ver:	1.0.0
 # Description:	Builds package of QT base
 #
-# See:		https://github.com/ProfessorKaos64/qt
+# See:		https://github.com/mdeguzis/qt
 #		https://wiki.qt.io/Building-Qt-5-from-Git
 #
 # Usage:	./build-qtmultimedia-opensource-src.sh
@@ -67,7 +67,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -200,7 +200,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "Build arch indepdent packages for ${PKGVER}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

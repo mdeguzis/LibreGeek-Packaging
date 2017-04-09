@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-srb2.sh
 # Script Ver:	1.0.8
 # Description:	Attmpts to builad a deb package from latest Sonic Robo Blast 2
@@ -69,7 +69,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="LibreGeek Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # Assets vars
 PKGVER_DATA="2.1.14"
@@ -258,7 +258,7 @@ main()
 			dch -p --force-distribution -v "${EPOCH_DATA}:${PKGVER_DATA}+${PKGSUFFIX}${PKGREV_DATA}" \
 			--package "${PKGNAME_DATA}" -D "${DIST}" -u "${URGENCY}" \
 			"Update for SRB2 ${PKGVER}"
-			nano "debian/changelog"
+			vim "debian/changelog"
 
 		else
 

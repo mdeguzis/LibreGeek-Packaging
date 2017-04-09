@@ -1,7 +1,7 @@
 #!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:    	Michael DeGuzis
-# Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:	    	https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-mpv.sh
 # Script Ver:	1.0.0
 # Description:	Builds mpv for specific use in building PlexMediaPlayer
@@ -65,7 +65,7 @@ PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
@@ -199,13 +199,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Rebuild for newer FFMPEG in repository"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 	

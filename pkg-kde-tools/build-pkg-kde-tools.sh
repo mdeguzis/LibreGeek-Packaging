@@ -1,12 +1,12 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-sprunge.sh
 # Script Ver:	1.0.0
 # Description:	Builds package of pkg-kde-tools
 #
-# See:		https://github.com/ProfessorKaos64/pkg-kde-tools
+# See:		https://github.com/mdeguzis/pkg-kde-tools
 #		https://wiki.qt.io/Building-Qt-5-from-Git
 #
 # Usage:	build-pkg-kde-tools.sh
@@ -48,7 +48,7 @@ else
 
 fi
 
-SRC_URL="https://github.com/ProfessorKaos64/pkg-kde-tools"
+SRC_URL="https://github.com/mdeguzis/pkg-kde-tools"
 TARGET="master"
 
 # package vars
@@ -66,7 +66,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -151,13 +151,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Build arch-independent packages (-doc and -doc-html)"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

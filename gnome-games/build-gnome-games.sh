@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-gnome-games.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the laest "gnome-games"
@@ -61,7 +61,7 @@ PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directoriess
 unset BUILD_TMP
@@ -145,7 +145,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release to commit $LATEST_COMMIT"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

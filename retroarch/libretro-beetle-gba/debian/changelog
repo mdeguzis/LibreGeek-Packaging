@@ -1,3 +1,9 @@
+libretro-beetle-gba (1:0.9.36+git20170408.a6c0224~1) brewmaster; urgency=low
+
+  * Update snapshot vim debian/changelog
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 20:18:36 -0400
+
 libretro-beetle-gba (1:0.9.36+git20161114.b17b3a2~1) brewmaster; urgency=low
 
   * Update snapshot nano debian/changelog

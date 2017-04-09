@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-yabause.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the latest yabause source
@@ -64,7 +64,7 @@ EPOCH="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # Need network for pbuilder to pull down ut4 zip
 export NETWORK="yes"
@@ -149,13 +149,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${LATEST_COMMIT}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}"\
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to the latest commit ${LATEST_COMMIT}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

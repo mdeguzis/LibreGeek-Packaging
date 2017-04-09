@@ -1,14 +1,14 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-darkmod.sh
 # Script Ver:	0.6.1
 # Description:	Attmpts to build a deb package from the laest "The Dark Mod"
 #		release. This is more of a virtual package that deploys and updater
 #		Which is run post-install.
 #
-# See:		https://github.com/ProfessorKaos64/tdm
+# See:		https://github.com/mdeguzis/tdm
 #		http://wiki.darkmod.com/index.php?title=The_Dark_Mod_-_Compilation_Guide
 #		http://wiki.darkmod.com/index.php?title=DarkRadiant_-_Compiling_in_Linux
 #
@@ -51,7 +51,7 @@ else
 
 fi
 # upstream vars
-#SRC_URL="https://github.com/ProfessorKaos64/tdm"
+#SRC_URL="https://github.com/mdeguzis/tdm"
 #TARGET="master"
 
 # package vars
@@ -72,7 +72,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directoriess
 unset BUILD_TMP
@@ -159,7 +159,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Bump version of virtual package."
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

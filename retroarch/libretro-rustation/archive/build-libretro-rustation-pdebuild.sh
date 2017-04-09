@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-libretro-rustation.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to builad a deb package from latest libretro rustation
@@ -66,7 +66,7 @@ PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -80,7 +80,7 @@ install_prereqs()
 	sleep 2s
 	# install basic build packages
 	apt-get -y --force-yes install build-essential pkg-config bc debhelper \
-	rustc cargo git nano devscripts fakeroot
+	rustc cargo git vim devscripts fakeroot
 
 }
 
@@ -108,7 +108,7 @@ main()
 
 		# For now still build in pbuilder chroot (using root directory workaround script)
 		# We need to then obtain the libregeek steamos-tools repo configs
-		wget "https://raw.githubusercontent.com/ProfessorKaos64/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc --show-progress
+		wget "https://raw.githubusercontent.com/mdeguzis/SteamOS-Tools/brewmaster/configure-repos.sh" -q -nc --show-progress
 		sed -i "s|sudo ||g" "configure-repos.sh"
 		bash "configure-repos.sh"
 		apt-get udpate -y
@@ -147,7 +147,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	wget "https://github.com/ProfessorKaos64/LibreGeek-Packaging/raw/brewmaster/retroarch/libretro-rustation/debian.tar.gz" \
+	wget "https://github.com/mdeguzis/LibreGeek-Packaging/raw/brewmaster/retroarch/libretro-rustation/debian.tar.gz" \
 	-q -nc --show-progress
 	tar -xzf debian.tar.gz
 	cp -r "debian" "${SRC_DIR}"
@@ -164,13 +164,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

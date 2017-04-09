@@ -1,3 +1,9 @@
+libretro-catsfc (2:1.36+git20170408.dc596c8~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 21:11:07 -0400
+
 libretro-catsfc (2:1.36+git20161117.fe3ecfc~1) brewmaster; urgency=low
 
   * Update snapshot

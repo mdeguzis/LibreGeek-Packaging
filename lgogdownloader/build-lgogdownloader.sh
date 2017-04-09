@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-lgogdownloader.sh
 # Script Ver:	0.3.1
 # Description:	Attmpts to build a deb package from latest lgogdownloader
@@ -69,7 +69,7 @@ PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -156,7 +156,7 @@ main()
 
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

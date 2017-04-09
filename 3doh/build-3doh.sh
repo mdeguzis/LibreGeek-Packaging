@@ -1,13 +1,13 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-3doh.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to build a deb package from latest 3doh
 #		github release
 #
-# See:		https://github.com/ProfessorKaos64/3doh
+# See:		https://github.com/mdeguzis/3doh
 #
 # Usage:	./build-3doh.sh
 # Opts:		[--testing]
@@ -47,7 +47,7 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/ProfessorKaos64/3doh"
+SRC_URL="https://github.com/mdeguzis/3doh"
 #SRC_URL="https://github.com/arcadenea/3doh"
 TARGET="master"
 
@@ -67,7 +67,7 @@ PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -147,7 +147,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update build"
-		nano "debian/control"
+		vim "debian/control"
 
 	else
 

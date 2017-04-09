@@ -1,0 +1,26 @@
+libretro-beetle-psx (0.9.39.2-r201704062346-f89b822-21~ubuntu16.10.1) yakkety; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Thu, 06 Apr 2017 23:46:40 +0000
+
+libretro-beetle-psx (0.9.39.2-1) unstable; urgency=low
+
+  * Updated to latest git.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sat, 26 Nov 2016 14:25:00 -0300
+
+libretro-beetle-psx (0.9.38.6+git20151019-2) unstable; urgency=low
+
+  * Changed package maintainer to Debian Games Team.
+  * Added patch to reproducible build (Closes: #827148).
+  * Added patch to fix hardening-no-fortify-functions.
+  * Fixed hardening-no-bindnow.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Sun, 12 Jun 2016 21:51:00 -0300
+
+libretro-beetle-psx (0.9.38.6+git20151019-1) unstable; urgency=low
+
+  * Initial release (Closes: #814361).
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Wed, 01 Jun 2016 22:13:00 -0300

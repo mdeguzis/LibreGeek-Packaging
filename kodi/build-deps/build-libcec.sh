@@ -1,7 +1,7 @@
 #!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-libcec.sh
 # Script Ver:	0.5.1
 # Description:	Attmpts to build a deb package libcec git source
@@ -68,7 +68,7 @@ PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -159,7 +159,7 @@ main()
 
 		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Inital build"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

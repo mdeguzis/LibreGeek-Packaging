@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-retroarch.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to build a deb package from latest retroarch
@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/libretro/RetroArch"
-TARGET="v1.4.1"
+TARGET="v1.5.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -65,7 +65,7 @@ PKGREV="2"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -170,7 +170,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "New release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

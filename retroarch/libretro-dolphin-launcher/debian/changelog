@@ -1,0 +1,5 @@
+libretro-dolphin-launcher (1:1.0.4+git+bsos1) brewmaster; urgency=low
+
+  * Initial build
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 19:32:36 -0400

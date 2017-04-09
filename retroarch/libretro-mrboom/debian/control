@@ -1,0 +1,19 @@
+Source: libretro-mrboom
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.8
+Homepage: https://github.com/libretro/mrboom-libretro
+
+Package: libretro-mrboom
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Mr.Boom
+ This wrapper makes Mr.Boom compatible with libretro, thus allowing its use with
+ libretro frontends, such as RetroArch.
+ .
+ Mr.Boom is a Bomberman clone which supports up to 8 players and features like
+ pushing bombs, remote controls and kangaroo riding.

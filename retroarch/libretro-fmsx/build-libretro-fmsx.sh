@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-libretro-fmsx.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to builad a deb package from latest libretro fmsx
@@ -69,7 +69,7 @@ EPOCH="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -157,13 +157,13 @@ main()
 
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update snapshot"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \ 
 		-D "${DIST}" -u "${URGENCY}" "Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

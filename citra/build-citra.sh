@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-citra.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the latest Citra source
@@ -48,7 +48,7 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/citra-emu/citra"
-#SRC_URL="https://github.com/ProfessorKaos64/citra"
+#SRC_URL="https://github.com/mdeguzis/citra"
 TARGET="master"
 
 # package vars
@@ -65,7 +65,7 @@ EPOCH="2"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # Need network for pbuilder to pull down ut4 zip
 export NETWORK="yes"
@@ -156,13 +156,13 @@ main()
 
 		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
-		nano "debian/changelog"
+		vim "debian/changelog"
 	
 	else
 
 		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

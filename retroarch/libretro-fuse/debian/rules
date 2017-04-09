@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+
+export DEB_CXXFLAGS_MAINT_STRIP=-O2
+export DEB_CFLAGS_MAINT_STRIP=-O2
+
+GIT_HASH := $(shell dpkg-parsechangelog | sed -rne 's,^Version: (.*),\1, p' | sed s/-/\\n\ /g | tail -n 2 | head -n 1)
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_build:
+	dh_auto_build -- -f Makefile.libretro GIT_VERSION="'$(GIT_HASH)'"
+
+override_dh_auto_clean:
+	dh_auto_clean -- -f Makefile.libretro

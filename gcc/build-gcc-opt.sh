@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-gcc-opt.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to builad a deb package from a desird gcc image archive
@@ -62,7 +62,7 @@ PKGSUFFIX="bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # upstream vars
 DL_URL="http://www.netgull.com/gcc/releases/gcc-${PKGVER}/gcc-${PKGVER}.tar.gz"
@@ -143,13 +143,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Fix install with launcher/wrapper"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

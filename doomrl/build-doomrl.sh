@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-doomrl.sh
 # Script Ver:	1.0.0
 # Description:	Attempts to build a deb package from latest doomrl
@@ -67,7 +67,7 @@ DIST="${DIST:-yakkety}"
 PPA_REV=${PPA_REV:-""}
 URGENCY="low"
 uploader="Michael DeGuzis <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+maintainer="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -164,13 +164,13 @@ main()
 
 		dch -p --force-bad-version --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to new 2.22 release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

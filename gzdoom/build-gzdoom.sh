@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-gzdoom.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the latest gzdoom source
@@ -54,7 +54,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -196,7 +196,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Upload for ${DIST}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

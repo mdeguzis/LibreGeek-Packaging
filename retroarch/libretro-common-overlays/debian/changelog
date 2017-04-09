@@ -1,3 +1,9 @@
+libretro-common-overlays (1:0.1+git20170408.041856e~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 21:13:17 -0400
+
 libretro-common-overlays (1:0.1+git20170207.fd6179f~1) brewmaster; urgency=low
 
   * Update snapshot

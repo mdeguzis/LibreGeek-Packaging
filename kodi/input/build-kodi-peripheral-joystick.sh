@@ -1,7 +1,7 @@
 #!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-kodi-peripheral-joystick.sh
 # Script Ver:	1.0.1
 # Description:	Attmpts to build a deb package kodi-peripheral-joystick git source
@@ -64,7 +64,7 @@ PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP

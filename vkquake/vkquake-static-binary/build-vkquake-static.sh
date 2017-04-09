@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-vkquake-static.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the latest vkquake source
@@ -36,7 +36,7 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 fi
 
 # upstream vars
-#SRC_URL="https://github.com/ProfessorKaos64/vkQuake"
+#SRC_URL="https://github.com/mdeguzis/vkQuake"
 SRC_URL="https://github.com/Novum/vkQuake"
 
 # package vars
@@ -55,7 +55,7 @@ epoch="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # Set out targets if building a stable binary or git master
 

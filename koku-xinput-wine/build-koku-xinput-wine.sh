@@ -1,13 +1,13 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-koku-xinput-wine.sh
 # Script Ver:	0.3.1
 # Description:	Attmpts to build a deb package from latest koku-xinput-wine
 #		github release
 #
-# See:		https://github.com/ProfessorKaos64/koku-xinput-wine
+# See:		https://github.com/mdeguzis/koku-xinput-wine
 #
 # Usage:	build-koku-xinput-wine.sh
 # Opts:		[--testing]
@@ -48,7 +48,7 @@ else
 	
 fi
 # upstream vars
-#SRC_URL="https://github.com/ProfessorKaos64/koku-xinput-wine"
+#SRC_URL="https://github.com/mdeguzis/koku-xinput-wine"
 SRC_URL="https://github.com/KoKuToru/koku-xinput-wine"
 TARGET="v1.1.2"
 
@@ -68,7 +68,7 @@ PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directoriess
 unset BUILD_TMP
@@ -153,7 +153,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Use upstream fork now, new release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

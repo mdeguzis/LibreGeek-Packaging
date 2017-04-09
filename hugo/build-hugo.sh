@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-hugo.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the laest "hugo"
@@ -48,7 +48,7 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/ProfessorKaos64/hu-go"
+SRC_URL="https://github.com/mdeguzis/hu-go"
 TARGET="master"
 
 # package vars
@@ -67,7 +67,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directoriess
 unset BUILD_TMP
@@ -139,7 +139,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to latest release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

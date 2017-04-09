@@ -1,12 +1,12 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-typhoon2001.sh
 # Script Ver:	1.0.0
 # Description:	Builds simple pacakge for typhoon2001
 #
-# See:		https://github.com/ProfessorKaos64/typhoon2001
+# See:		https://github.com/mdeguzis/typhoon2001
 #
 # Usage:	./build-typhoon2001-steamos.sh
 # Opts:		[--testing]
@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/ProfessorKaos64/typhoon2001"
+SRC_URL="https://github.com/mdeguzis/typhoon2001"
 rel_TARGET="master"
 
 # package vars
@@ -68,7 +68,7 @@ PKGSUFFIX="bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP

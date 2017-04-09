@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-openscenegraph.sh
 # Script Ver:	0.1.1
 #		release
@@ -66,7 +66,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directoriess
 unset BUILD_TMP
@@ -216,13 +216,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release to commit ${PKGNAME}_LATEST_COMMIT"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload/backport"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

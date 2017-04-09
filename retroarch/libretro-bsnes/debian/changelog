@@ -1,3 +1,9 @@
+libretro-bsnes (1:094+git20170408.fcc7244d~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 20:21:13 -0400
+
 libretro-bsnes (1:094+git20161115.365c5c1~1) brewmaster; urgency=low
 
   * Update snapshot

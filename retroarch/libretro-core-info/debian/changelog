@@ -1,3 +1,9 @@
+libretro-core-info (1:0.1+git20170408.3c3b52b~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 19:01:38 -0400
+
 libretro-core-info (1:0.1+20160802git+bsos1) brewmaster; urgency=low
 
   * Update to the latest commit 82369bf

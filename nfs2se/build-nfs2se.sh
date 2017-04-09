@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-nfs2se.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the laest "nfs2se"
@@ -65,7 +65,7 @@ PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directoriess
 unset BUILD_TMP
@@ -143,7 +143,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Test new submodule build process"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

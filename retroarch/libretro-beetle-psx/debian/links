@@ -1,2 +1,3 @@
 #!/bin/sh
 echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/mednafen_psx_libretro.so usr/lib/libretro/mednafen_psx_libretro.so"
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/mednafen_psx_hw_libretro.so usr/lib/libretro/mednafen_psx_hw_libretro.so"

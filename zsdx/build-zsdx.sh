@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-zsdx.sh
 # Script Ver:	0.5.1
 # Description:	Attmpts to build a deb package from latest zsdx
@@ -67,7 +67,7 @@ PKGSUFFIX="bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -146,14 +146,14 @@ main()
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" \
 		"Initial upload attmpt"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" \
 		-u "${URGENCY}" "Initial upload attmpt"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

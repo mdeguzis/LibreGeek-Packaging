@@ -1,13 +1,13 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-grub-customizer.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to build a deb package from latest grub customizer
 #		PPA release code for Wily synced to my github repository.
 #
-# See:		https://github.com/ProfessorKaos64/grub-customizer/
+# See:		https://github.com/mdeguzis/grub-customizer/
 #
 # Usage:	build-grub-customizer.sh
 # Opts:		[--testing]
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/ProfessorKaos64/grub-customizer/"
+SRC_URL="https://github.com/mdeguzis/grub-customizer/"
 rel_TARGET="master"
 
 # package vars
@@ -68,7 +68,7 @@ pkg_suffix="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP

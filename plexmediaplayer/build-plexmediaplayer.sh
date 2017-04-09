@@ -1,7 +1,7 @@
 #!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:	    	  https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	  build-plexmediaplayer.sh
 # Script Ver:	  0.5.5
 # Description:	  Attmpts to build a deb package from Plex Media Player git source
@@ -69,7 +69,7 @@ PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
@@ -169,13 +169,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

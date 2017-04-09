@@ -1,3 +1,9 @@
+libretro-beetle-pce-fast (0.9.38.7+git20170408.f44f722~1) brewmaster; urgency=low
+
+  * Update snapshot vim debian/changelog
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 20:29:29 -0400
+
 libretro-beetle-pce-fast (0.9.38.7+git20161114.8daf99e~1) brewmaster; urgency=low
 
   * Update snapshot nano debian/changelog

@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-hid-retrobit.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to build a deb package from latest 
@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 #SRC_URL="https://github.com/retuxx/hid-retrobit"
-SRC_URL="https://github.com/ProfessorKaos64/hid-retrobit"
+SRC_URL="https://github.com/mdeguzis/hid-retrobit"
 rel_TARGET="master"
 
 # package vars
@@ -68,7 +68,7 @@ PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP

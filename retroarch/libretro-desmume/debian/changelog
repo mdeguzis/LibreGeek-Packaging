@@ -1,3 +1,9 @@
+libretro-desmume (2:0.9.11+git20170408.63ed05bb~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 21:17:28 -0400
+
 libretro-desmume (2:0.9.11+git20161115.ab1bd5a~1) brewmaster; urgency=low
 
   * Update snapshot

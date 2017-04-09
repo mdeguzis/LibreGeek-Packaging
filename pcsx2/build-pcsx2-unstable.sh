@@ -2,12 +2,12 @@
 
 # -------------------------------------------------------------------------------
 # Author:    	Michael DeGuzis
-# Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:	    	https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-pcsx2-unstable.sh
 # Script Ver:	0.9.9
 # Description:	Attmpts to build a deb package from PCSX2 git source
 #		It is highly suggested to build in a 32 bit environment!!!
-#		Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
+#		Ref: https://github.com/mdeguzis/RetroRig/pull/85
 #
 # See:		https://code.google.com/p/pcsx2/wiki/CompilationGuideForLinux
 #		https://github.com/PCSX2/pcsx2/wiki/Installing-on-Linux
@@ -218,13 +218,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update snapshot"
-		nano debian/changelog
+		vim debian/changelog
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano debian/changelog
+		vim debian/changelog
 
 	fi
 

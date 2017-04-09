@@ -1,3 +1,9 @@
+libretro-beetle-vb (1:0.9.36.1+git20170408.00d0671~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 20:57:11 -0400
+
 libretro-beetle-vb (1:0.9.36.1+git20161115.c99ba93~1) brewmaster; urgency=low
 
   * Update snapshot

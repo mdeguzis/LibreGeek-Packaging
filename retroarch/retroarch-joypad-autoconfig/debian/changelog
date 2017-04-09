@@ -1,3 +1,9 @@
+retroarch-joypad-autoconfig (1:0.1.1+git20170408.d907d13-1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 19:00:01 -0400
+
 retroarch-joypad-autoconfig (1:0.1.1+git20170207.be1442f-1) brewmaster; urgency=low
 
   * Update snapshot

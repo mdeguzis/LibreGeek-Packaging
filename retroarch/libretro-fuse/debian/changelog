@@ -1,0 +1,5 @@
+libretro-fuse (1:1.1.1+git20170408.f834c9b~1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 21:47:43 -0400

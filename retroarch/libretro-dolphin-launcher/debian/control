@@ -1,0 +1,18 @@
+Source: libretro-dolphin-launcher
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.8
+Homepage: https://github.com/RobLoach/libretro-dolphin-launcher
+
+Package: libretro-dolphin-launcher
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, 
+ dolphin-emu | dolphin-emu-master,
+ ${misc:Depends}, 
+ ${shlibs:Depends}
+Description: Launch Nintendo Wii and Gamecube games from RetroArch.
+ Launch Nintendo Wii and GameCube games through Dolphin, directly 
+ from RetroArch.

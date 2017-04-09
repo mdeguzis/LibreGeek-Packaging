@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-rust.sh
 # Script Ver:	1.1.5
 # Description:	Attmpts to build a deb package from latest rust
@@ -70,7 +70,7 @@ PKGSUFFIX="bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -189,14 +189,14 @@ main()
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" \
 		--package "${PKGNAME}" -D $DIST -u "${URGENCY}" \
 		"Update release to ${PKGVER}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --force-distribution --create -v "${PKGVER}+${PKGSUFFIX}-${upstream_rev}" \
 		--package "${PKGNAME}" -D "${DIST}" \
 		-u "${URGENCY}" "Initial upload attmpt"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

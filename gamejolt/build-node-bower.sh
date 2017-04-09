@@ -1,13 +1,13 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-node-bower.sh
 # Script Ver:	0.1.1
 # Description:	Builds simple pacakge for using node-bower based of of master upstream
 #		git source (unstable build)
 #
-# See:		https://github.com/ProfessorKaos64/bower/
+# See:		https://github.com/mdeguzis/bower/
 #
 # Usage:	./build-node-bower.sh
 # Opts:		[--testing]
@@ -49,7 +49,7 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/ProfessorKaos64/bower"
+SRC_URL="https://github.com/mdeguzis/bower"
 rel_TARGET="master"
 
 # package vars
@@ -68,7 +68,7 @@ PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP

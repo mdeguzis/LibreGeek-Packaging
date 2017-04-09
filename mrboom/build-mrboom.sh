@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-mrboom.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the latest mrboom source
@@ -53,19 +53,17 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
-# Need newer version of libvulkan-dev
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="mrboom"
-# Source version from vkQuake/Quake/quakedef.h
 PKGVER="${TARGET}"
-PKGREV="1"
+PKGREV="2"
 EPOCH="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # Need network for pbuilder to pull down ut4 zip
 export NETWORK="yes"
@@ -114,6 +112,9 @@ main()
 
 	# clone and get latest commit tag
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	# banner
+	cp -r "${SCRIPTDIR}/mrboom.png" "${SRC_DIR}"
 
 	#################################################
 	# Build package

@@ -1,0 +1,5 @@
+libretro-mrboom (1:3.1+git+bsos1) brewmaster; urgency=low
+
+  * Initial build
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 18:43:45 -0400

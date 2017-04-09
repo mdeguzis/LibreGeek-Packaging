@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-thrive.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from latest thrive
@@ -70,7 +70,7 @@ PKGSUFFIX="bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -152,13 +152,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream-rev}" --package "${PKGNAME}" -D $DIST -u "${URGENCY}" \
 		"New release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${upstream-rev}" --package "${PKGNAME}" -D "${DIST}" \
 		-u "${URGENCY}" "New release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

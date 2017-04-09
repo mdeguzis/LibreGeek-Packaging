@@ -2,12 +2,12 @@
 
 # -------------------------------------------------------------------------------
 # Author:    	Michael DeGuzis
-# Git:	    	https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:	    	https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name	build-pcsx2.sh
 # Script Ver:	0.9.7
 # Description:	Attmpts to build a deb package from PCSX2 git source
 #		It is highly suggested to build in a 32 bit environment!!!
-#		Ref: https://github.com/ProfessorKaos64/RetroRig/pull/85
+#		Ref: https://github.com/mdeguzis/RetroRig/pull/85
 #
 # See:		https://code.google.com/p/pcsx2/wiki/CompilationGuideForLinux
 # Usage:	./build-pcsx2.sh
@@ -65,7 +65,7 @@ URGENCY="low"
 ARCH="i386"
 BUILDER_OPTS="--basetgz merge ${HOME}/pbuilder/brewmaster-i386-base.tgz"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # sub-packages (used for copying to package pool only)
 subpkg1="pcsx2-dbg"
@@ -220,7 +220,7 @@ main()
 
 		dch -p --force-bad-version --force-distribution -v "${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update to release ${PKGVER}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

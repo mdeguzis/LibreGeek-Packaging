@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-snis.sh
 # Script Ver:	1.0.0
 # Description:	Attmpts to build a deb package from latest snis
@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 #SRC_URL="https://github.com/smcameron/space-nerds-in-space"
-SRC_URL="https://github.com/ProfessorKaos64/space-nerds-in-space"
+SRC_URL="https://github.com/mdeguzis/space-nerds-in-space"
 TARGET="v20161212"
 #TARGET="master"
 
@@ -69,7 +69,7 @@ BUILDER="pdebuild"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -146,7 +146,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "update release to ${PKGVER}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 

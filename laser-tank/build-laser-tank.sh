@@ -1,7 +1,7 @@
 #!/bin/bash
 # -------------------------------------------------------------------------------
 # Author:    	  Michael DeGuzis
-# Git:	    	  https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:	    	  https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	  build-laser-tank.sh
 # Script Ver:	  0.1.1
 # Description:	  Attmpts to build a deb package from laser-tank git source
@@ -66,7 +66,7 @@ PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
@@ -159,13 +159,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to latest commit [${latest_commit}]"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

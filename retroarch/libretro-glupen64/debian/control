@@ -1,0 +1,12 @@
+Source: libretro-glupen64
+Section: oldlibs
+Priority: optional
+Maintainer: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.8
+
+Package: libretro-glupen64
+Architecture: all
+Depends: ${misc:Depends}, ${shlibs:Depends}, libretro-mupen64plus
+Description: Transitional package for GLupeN64
+ Dummy package, it will install libretro-mupen64plus.

@@ -1,12 +1,12 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/pastebin
+# Git:		https://github.com/mdeguzis/pastebin
 # Scipt Name:	build-pastbin.sh
 # Script Ver:	0.1.0
 # Description:	Builds pysteam pacakge for using ice
 #
-# See:		http://github.com/ProfessorKaos64/pastebin
+# See:		http://github.com/mdeguzis/pastebin
 #
 # Usage:	build-pastebin.sh
 # Opts:		[--testing]
@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/ProfessorKaos64/pastebin"
+SRC_URL="https://github.com/mdeguzis/pastebin"
 rel_TARGET="master"
 
 # package vars
@@ -68,7 +68,7 @@ PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP

@@ -1,3 +1,9 @@
+libretro-bsnes-mercury (1:094+git20170408.1279e0a~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 21:03:41 -0400
+
 libretro-bsnes-mercury (094+git+bsos2) brewmaster; urgency=low
 
   * Update to the latest commit 059235c

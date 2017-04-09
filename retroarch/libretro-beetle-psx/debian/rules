@@ -1,0 +1,23 @@
+#!/usr/bin/make -f
+
+# Fix hardening-no-bindnow
+export DEB_BUILD_MAINT_OPTIONS = hardening=+bindnow
+
+ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+ifeq ($(ARCH),armhf)
+	PLATFORM=platform="unix gles"
+endif
+
+GIT_HASH := $(shell dpkg-parsechangelog | sed -rne 's,^Version: (.*),\1, p' | sed s/-/\\n\ /g | tail -n 2 | head -n 1)
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_build:
+# Build only software renderer core on ARMhf, see https://github.com/libretro/beetle-psx-libretro/issues/122
+ifneq ($(ARCH),armhf)
+	dh_auto_build -- $(PLATFORM) HAVE_OPENGL=1 HAVE_VULKAN=1 GIT_VERSION="'$(GIT_HASH)'"
+	dh_auto_clean
+endif
+	dh_auto_build -- $(PLATFORM) GIT_VERSION="'$(GIT_HASH)'"

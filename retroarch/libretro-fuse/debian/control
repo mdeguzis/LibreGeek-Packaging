@@ -1,0 +1,41 @@
+Source: libretro-fuse
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), vim-common
+Standards-Version: 3.9.8
+Homepage: http://fuse-emulator.sourceforge.net/
+
+Package: libretro-fuse
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Fuse
+ This wrapper makes Fuse API compatible with libretro, thus allowing its use
+ with libretro frontends, such as RetroArch.
+ .
+ Fuse is a Sinclair ZX Spectrum emulator. It supports several models
+ (including 16K/48K/128K/+2/+2A/+3 and some clones), with quite faithful
+ emulation of the display and sound.
+ .
+ Its features include:
+  * Accurate Spectrum 16K/48K/128K/+2/+2A/+3 emulation.
+  * Working Spectrum +3e and SE, Timex TC2048, TC2068 and TS2068, Pentagon 128,
+    "512" (Pentagon 128 with extra memory) and 1024 and Scorpion ZS 256
+    emulation.
+  * Runs at true Speccy speed on any computer you're likely to try it on.
+  * It can load Z80, SZX and SNA snapshots, TAP and TZX virtual-tape files
+    (including accelerated loading), MDR microdrive images and DSK floppy disk
+    images, among many others.
+  * Sound.
+  * Built-in debugger.
+  * Emulation of most of the common joysticks used on the Spectrum (including
+    Kempston, Sinclair and Cursor joysticks).
+  * Emulation of some of the printers you could attach to a Spectrum.
+  * Support for the RZX input recording file format, including rollback and
+    'competition mode'.
+  * Recording of movies to FMF files.
+  * Emulation of the DivIDE, Interface I, Kempston mouse, Spectrum +3e,
+    ZXATASP, ZXCF, Beta 128, Opus Discovery, +D, Spectranet, SpeccyBoot,
+    SpecDrum and DISCiPLE interfaces.

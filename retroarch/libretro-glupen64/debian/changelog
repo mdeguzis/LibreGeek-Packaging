@@ -1,0 +1,17 @@
+libretro-glupen64 (1:2.5+git20170408.04adfb2~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 21:55:52 -0400
+
+libretro-glupen64 (2.5-r201702180121-86e11ce~ubuntu16.10.1) yakkety; urgency=low
+
+  * Auto build.
+
+ -- Sergio Benjamim <sergio_br2@yahoo.com.br>  Sat, 18 Feb 2017 01:21:56 +0000
+
+libretro-glupen64 (2.5-1) unstable; urgency=low
+
+  * Dummy package.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Fri, 17 Feb 2017 23:04:00 -0300

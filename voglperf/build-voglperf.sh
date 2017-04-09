@@ -1,14 +1,14 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-voglperf.sh
 # Script Ver:	0.4.1
 # Description:	Attmpts to build a deb package from latest voglperf
 #		github release
 #
 # See:		https://github.com/ValveSoftware/voglperf
-#		https://github.com/ProfessorKaos64/voglperf
+#		https://github.com/mdeguzis/voglperf
 #
 # Usage:	build-voglperf.sh
 #-------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/ProfessorKaos64/voglperf"
+SRC_URL="https://github.com/mdeguzis/voglperf"
 TARGET="brewmaster"
 
 # package vars
@@ -67,7 +67,7 @@ PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -146,13 +146,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package $PKGNAME -D $DIST -u "${URGENCY}" "Fix run-time dep (libgl1-mesa-dev)"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

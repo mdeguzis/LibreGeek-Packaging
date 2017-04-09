@@ -1,8 +1,10 @@
 [Desktop Entry]
+Encoding=UTF-8
+Type=Application
 Name=Mr. Boom
 Comment=8 players Bomberman
 Exec=mrboom
-Icon=mrboom
+Icon=/usr/share/pixmaps/mrboom.png
 Terminal=false
-Categories=Games;ActionGame;
+Categories=Applications;Games;ActionGame;
 Keywords=bomberman;bomb;

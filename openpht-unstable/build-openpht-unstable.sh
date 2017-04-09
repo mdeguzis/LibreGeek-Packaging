@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt Name:	build-openpht.sh
 # Script Ver:	1.0.8
 # Description:	Attmpts to build a deb package from latest openpht
@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 #SRC_URL="https://github.com/plexinc/plex-home-theater-public"
-#SRC_URL="https://github.com/ProfessorKaos64/plex-home-theater-public"
+#SRC_URL="https://github.com/mdeguzis/plex-home-theater-public"
 SRC_URL="https://github.com/RasPlex/OpenPHT"
 TARGET="openpht-1.7"
 
@@ -67,7 +67,7 @@ PKGREV="2"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
@@ -221,7 +221,7 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update build/release to latest commit ${latest_commit}" && nano "debian/changelog"
+		"Update build/release to latest commit ${latest_commit}" && vim "debian/changelog"
 
 	else
 

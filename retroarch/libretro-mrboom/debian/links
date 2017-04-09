@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/mrboom_libretro.so usr/lib/libretro/mrboom_libretro.so"

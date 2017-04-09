@@ -1,7 +1,7 @@
 #!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
-# Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
+# Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-ut4.sh
 # Script Ver:	0.1.1
 # Description:	Attmpts to build a deb package from the latest UT4 Linux
@@ -49,7 +49,7 @@ else
 
 fi
 # upstream vars
-#SRC_URL="https://github.com/ProfessorKaos64/tdm"
+#SRC_URL="https://github.com/mdeguzis/tdm"
 #TARGET="master"
 
 # package vars
@@ -70,7 +70,7 @@ PKGSUFFIX="2883976build+alpha+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
-MAINTAINER="ProfessorKaos64"
+MAINTAINER="mdeguzis"
 
 # Need network for pbuilder to pull down ut4 zip
 export NETWORK="yes"

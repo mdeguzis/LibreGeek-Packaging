@@ -1,3 +1,9 @@
+retroarch (1.5.0+git20170408.51581e157~2) brewmaster; urgency=low
+
+  * New release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 08 Apr 2017 19:08:54 -0400
+
 retroarch (1.4.1+git20170212.d8855caae~2) brewmaster; urgency=low
 
   * Fix image banner

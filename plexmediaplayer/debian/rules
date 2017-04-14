@@ -4,14 +4,22 @@
 	dh $@
 
 override_dh_auto_configure:
+	@echo "\n\n==> Installing conan"
+	@echo "USER is $(USER)"
+	chown -R $(USER):$(USER) /usr/local/lib/python2.7
+	pip install -U conan
+	conan remote add plex https://conan.plex.tv
+	@echo "\n\n==> Installing extra dependencies with conan"
 	rm -rf Build && mkdir -p Build
+	cd Build && conan install .. 
+	@echo "\n\n==> Commencing build..."
 	cd Build && cmake -DCMAKE_BUILD_TYPE=Debug \
 		-DQTROOT=/usr/lib/x86_64-linux-gnu/qt5 \
 		-DCMAKE_EXPORT_COMPILE_COMMANDS=on \
 		-DCMAKE_INSTALL_PREFIX=/usr ..
 
 override_dh_auto_build:
-	$(MAKE) VERBOSE=1 DESTDIR=$(CURDIR)/debian/plexmediaplayer -C Build 
+	$(MAKE) VERBOSE=1 DESTDIR=$(CURDIR)/debian/plexmediaplayer -C Build
 
 override_dh_auto_install:
 	$(MAKE) VERBOSE=1 DESTDIR=$(CURDIR)/debian/plexmediaplayer -C Build install

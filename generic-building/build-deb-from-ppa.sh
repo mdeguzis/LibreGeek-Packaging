@@ -311,7 +311,7 @@ main()
 
 	# back out of build tmp to script dir if called from git clone
 	if [[ "${SCRIPTDIR}" != "" ]]; then
-		cd "${SCRIPTDIR}/generic-building"
+		cd "${SCRIPTDIR}"
 	else
 		cd "${HOME}"
 	fi

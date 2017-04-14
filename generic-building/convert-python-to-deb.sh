@@ -418,19 +418,18 @@ while :; do
 				echo -e "ERROR: --type|-t requires an argument.\n" >&2
 				exit 1
 			fi
-			;;			
 			;;
 
 		--help|-h)
 			cat<<-EOF
 
-			Usage:	 	./convert-pypi-to-deb.sh [options]
+			Usage:	 	./convert-python-to-deb.sh [options]
 			Options:
 					--help|-h		display this help text
 					--type|-t		import type (pypi|github)
 
 			EOF
-			break
+			exit
 			;;
 
 		--)

@@ -86,6 +86,11 @@ function_set_vars()
 	if  [[ "${PKGNAME}" == "" ]]; then PKGNAME="${OLD_PKGNAME}"; fi
 	export OLD_PKGNAME="${PKGNAME}"
 
+	echo -e "\nPress ENTER to use last: ${OLD_VERSION}"
+	read -erp "Target package version: " VERSION
+	if  [[ "${VERSION}" == "" ]]; then PKGNAME="${OLD_VERSION}"; fi
+	export OLD_PKGNAME="${VERSION}"
+
 	echo -e "\nPress ENTER to use last: ${OLD_PKGREV}"
 	read -erp "Revsion attempt: " PKGREV
 	if  [[ "${PKGREV}" == "" ]]; then PKGREV="${OLD_PKGREV}"; fi
@@ -198,7 +203,7 @@ main()
 		;;
 
 		pypi)
-		if ! pypi-download  ${PKGNAME}; then
+		if ! pypi-download ${PKGNAME} --release ${VERSION};  then
 			echo -e "\nERROR: Package download failed!\n"
 			exit 1
 		fi

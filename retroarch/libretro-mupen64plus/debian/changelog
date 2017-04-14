@@ -1,3 +1,9 @@
+libretro-mupen64plus (1:2.5+git20170410.eda9d16~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 19:41:28 -0400
+
 libretro-mupen64plus (1:2.0+git20161116.a29227b~1) brewmaster; urgency=low
 
   * Update snapshot

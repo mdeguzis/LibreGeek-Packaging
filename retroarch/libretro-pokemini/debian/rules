@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+GIT_HASH := $(shell dpkg-parsechangelog | sed -rne 's,^Version: (.*),\1, p' | sed s/-/\\n\ /g | tail -n 2 | head -n 1)
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	dh_auto_build -- GIT_VERSION="'$(GIT_HASH)'"

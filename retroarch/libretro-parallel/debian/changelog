@@ -1,0 +1,5 @@
+libretro-parallel-n64 (2.0+git20170410.eda9d16~11) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 22:15:04 -0400

@@ -52,16 +52,16 @@ TARGET="master"
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="amd64"
+TARGET_ARCH="amd64"
 # does not build with pbuilder right now
-BUILDER="debuild"
-BUILDOPTS=""
+BUILDER="pdebuild"
+BUILDOPTS="--architecture ${TARGET_ARCH} --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libretro-mupen64plus"
 epoch="1"
-PKGVER="2.0"
+PKGVER="2.5"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -169,7 +169,7 @@ main()
 	sleep 2s
 
 	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

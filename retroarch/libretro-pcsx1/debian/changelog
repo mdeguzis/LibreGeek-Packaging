@@ -1,3 +1,9 @@
+libretro-pcsx1 (0.22+git20170410.2047e9b~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 22:21:23 -0400
+
 libretro-pcsx1 (0.22+git20161115.2047e9b~1) brewmaster; urgency=low
 
   * Update snapshot

@@ -1,3 +1,9 @@
+libretro-handy (1:0.97+git20170409.c55760b~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 09 Apr 2017 16:50:38 -0400
+
 libretro-handy (1:0.95+git20161115.84f188b~1) brewmaster; urgency=low
 
   * Update snapshot

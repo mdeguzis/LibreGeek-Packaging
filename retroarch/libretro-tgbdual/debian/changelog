@@ -1,3 +1,9 @@
+libretro-tgbdual (2:0.8.3+git20170412.7c5706b~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 12 Apr 2017 22:13:00 -0400
+
 libretro-tgbdual (2:0.8.3+git20161116.6f8bfe5~1) brewmaster; urgency=low
 
   * Update snapshot

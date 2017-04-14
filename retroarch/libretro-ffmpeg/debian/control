@@ -1,0 +1,31 @@
+Source: libretro-ffmpeg
+Section: video
+Priority: optional
+Maintainer: Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+Build-Depends: debhelper (>= 9),
+		zlib1g-dev,
+		mesa-common-dev,
+		libgl1-mesa-dev,
+		libgsm1-dev,
+		libass-dev,
+		libtwolame-dev,
+		libspeex-dev,
+		libtheora-dev,
+		libwebp-dev,
+		libwavpack-dev,
+		libxvidcore-dev,
+		libvpx-dev,
+		libx264-dev,
+		libva-dev,
+		x11proto-video-dev
+Standards-Version: 3.9.8
+Homepage: https://www.ffmpeg.org/
+
+Package: libretro-ffmpeg
+Architecture: amd64
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for FFmpeg video decoding
+ This is a libretro wrapper that makes FFmpeg's video decoding engine API
+ compatible with libretro, thus allowing its use with libretro frontends, such
+ as RetroArch. It supports subtitles via libass.

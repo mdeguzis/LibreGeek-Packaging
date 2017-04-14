@@ -1,0 +1,5 @@
+libretro-ffmpeg (1:1.1.10+git20170409.66b4ae99c8~1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 09 Apr 2017 17:03:50 -0400

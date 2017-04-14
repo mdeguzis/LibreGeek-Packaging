@@ -1,3 +1,9 @@
+libretro-tyrquake (1:0.62+git20170412.1b494ee~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 12 Apr 2017 22:14:44 -0400
+
 libretro-tyrquake (1:0.62+git20161116.34bd008~1) brewmaster; urgency=low
 
   * Update snapshot

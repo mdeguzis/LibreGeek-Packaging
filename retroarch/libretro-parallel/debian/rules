@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+
+# Fix hardening-no-bindnow
+export DEB_BUILD_MAINT_OPTIONS = hardening=+bindnow
+
+export DEB_CXXFLAGS_MAINT_STRIP=-O2
+export DEB_CFLAGS_MAINT_STRIP=-O2
+
+ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+
+ifeq ($(ARCH),armhf)
+	PLATFORM=platform="armv gles neon hardfloat"
+else ifeq ($(ARCH),arm64)
+	PLATFORM=platform="unix gles"
+endif
+
+GIT_HASH := $(shell dpkg-parsechangelog | sed -rne 's,^Version: (.*),\1, p' | sed s/-/\\n\ /g | tail -n 2 | head -n 1)
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_build:
+	dh_auto_build -- $(PLATFORM) GIT_VERSION="'$(GIT_HASH)'"
+
+override_dh_installdocs:
+	dh_installdocs
+	cd debian/libretro-*/usr/share/doc/libretro-parallel-n64/ && mv COPYING cxd4-license

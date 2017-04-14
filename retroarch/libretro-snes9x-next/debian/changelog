@@ -1,3 +1,9 @@
+libretro-snes9x-next (2:1.52.4+git20170410.b2a69de~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 23:32:23 -0400
+
 libretro-snes9x-next (2:1.52.4+git20161117.74953d8~1) brewmaster; urgency=low
 
   * Update snapshot

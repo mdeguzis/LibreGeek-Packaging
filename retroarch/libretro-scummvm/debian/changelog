@@ -1,3 +1,9 @@
+libretro-scummvm (1:1.9.0+git20170411.de8d7e58ca~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 11 Apr 2017 21:55:44 -0400
+
 libretro-scummvm (1:1.7.0+git20161116.47bb6e5~1) brewmaster; urgency=low
 
   * Update snapshot

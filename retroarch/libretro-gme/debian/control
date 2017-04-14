@@ -1,0 +1,20 @@
+Source: libretro-gme
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9), zlib1g-dev
+Standards-Version: 3.9.8
+Homepage: https://github.com/libretro/libretro-gme
+
+Package: libretro-gme
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Blargg's Game_Music_Emu
+ This wrapper makes Blargg's Game_Music_Emu API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ Game_Music_Emu emulates game music in several popular file formats, such as
+ AY, GBS, GYM, HES, KSS, NSF, NSFE, SAP, SPC, VGM and VGZ.
+

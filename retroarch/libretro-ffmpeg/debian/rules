@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+GIT_HASH := $(shell dpkg-parsechangelog | sed -rne 's,^Version: (.*),\1, p' | sed s/-/\\n\ /g | tail -n 2 | head -n 1)
+
+%:
+	dh $@ --parallel
+
+override_dh_auto_configure:
+
+override_dh_auto_test:
+
+override_dh_auto_build:
+	$(MAKE) -C libretro/ GIT_VERSION="'$(GIT_HASH)'"
+
+override_dh_auto_install:
+
+override_dh_auto_clean:
+	$(MAKE) -C libretro/ clean
+
+override_dh_installchangelogs:
+	dh_installchangelogs -k MAINTAINERS

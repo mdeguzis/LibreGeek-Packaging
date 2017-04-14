@@ -1,3 +1,9 @@
+libretro-rustation (2:0.0.0+git20170410.562d367~1-1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 23:24:54 -0400
+
 libretro-rustation (2:0.0.0+git20161117.562d367~1-1) brewmaster; urgency=low
 
   * Update snapshot

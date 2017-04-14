@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "usr/lib/$(dpkg-architecture -qDEB_HOST_MULTIARCH)/libretro/parallel_n64_libretro.so usr/lib/libretro/parallel_n64_libretro.so"

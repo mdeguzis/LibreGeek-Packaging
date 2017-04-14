@@ -50,7 +50,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/libretro/mgba"
-TARGET="master"
+TARGET="0.6"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -63,7 +63,7 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libretro-mgba"
 epoch="1"
-PKGVER="0.4.0"
+PKGVER="0.6.0"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"

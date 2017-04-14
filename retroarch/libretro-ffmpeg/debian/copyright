@@ -1,0 +1,161 @@
+This package was debianized by Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com> on
+Sun, 05 May 2013 11:03:43 -0500.
+
+It was downloaded from <https://github.com/libretro/FFmpeg>
+
+Upstream Authors:
+
+    FFmpeg developer team
+        see `/usr/share/doc/libretro-ffmpeg/MAINTAINERS'
+    The RetroArch Team
+
+Files: *
+Copyright: 2000-2014 FFmpeg developer team
+License: GPLv2+ and LGPLv2.1+
+
+Files: libretro/*
+Copyright: 2011-2014 The RetroArch Team
+License: GPLv3
+
+Files: libretro/libretro.h
+Copyright: 2011-2014 The RetroArch Team
+License: The MIT License (MIT)
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+ .
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+ .
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+    THE SOFTWARE.
+
+Files: libretro/libfaac/*
+Copyright: 2001 Menno Bakker
+License: LGPLv2.1
+
+Files: libretro/libfaac/channels.c
+Copyright: 1997 Texas Instruments
+License:
+    This software module was originally developed by and edited by Texas 
+    Instruments in the course of development of the MPEG-2 NBC/MPEG-4 Audio
+    standard ISO/IEC 13818-7, 14496-1,2 and 3. This software module is an
+    implementation of a part of one or more MPEG-2 NBC/MPEG-4 Audio tools as
+    specified by the MPEG-2 NBC/MPEG-4 Audio standard. ISO/IEC gives users of
+    the MPEG-2 NBC/MPEG-4 Audio standards free license to this software module
+    or modifications thereof for use in hardware or software products claiming
+    conformance to the MPEG-2 NBC/ MPEG-4 Audio standards. Those intending to
+    use this software module in hardware or software products are advised that
+    this use may infringe existing patents. The original developer of this
+    software module and his/her company, the subsequent editors and their
+    companies, and ISO/IEC have no liability for use of this software module
+    or modifications thereof in an implementation. Copyright is not released 
+    for non MPEG-2 NBC/MPEG-4 Audio conforming products. The original developer
+    retains full right to use the code for his/her own purpose, assign or donate
+    the code to a third party and to inhibit third party from using the code for
+    non MPEG-2 NBC/MPEG-4 Audio conforming products. This copyright notice must 
+    be included in all copies or derivative works.
+
+Files: libretro/libfaac/channels.c
+Copyright: 1996 ????
+License:
+    "This software module was originally developed in the course of development of
+    the MPEG-2 NBC/MPEG-4 Audio standard ISO/IEC 13818-7, 14496-1,2 and 3. This
+    software module is an implementation of a part of one or more MPEG-2 NBC/MPEG-4
+    Audio tools as specified by the MPEG-2 NBC/MPEG-4 Audio standard. ISO/IEC gives
+    users of the MPEG-2 NBC/MPEG-4 Audio standards free license to this software
+    module or modifications thereof for use in hardware or software products
+    claiming conformance to the MPEG-2 NBC/MPEG-4 Audio standards. Those intending
+    to use this software module in hardware or software products are advised that 
+    this use may infringe existing patents. The original developer of this software
+    module and his/her company, the subsequent editors and their companies, and
+    ISO/IEC have no liability for use of this software module or modifications
+    thereof in an implementation. Copyright is not released for non MPEG-2
+    NBC/MPEG-4 Audio conforming products. The original developer retains full right
+    to use the code for his/her  own purpose, assign or donate the code to a third
+    party and to inhibit third party from using the code for non MPEG-2 NBC/MPEG-4 
+    Audio conforming products. This copyright notice must be included in all copies
+    or derivative works."
+
+Files: libretro/libFLAC/*
+Copyright: 2000-2009 Josh Coalson
+           2011-2013 Xiph.Org Foundation
+License:
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions
+    are met:
+ .
+    - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ .
+    - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+    - Neither the name of the Xiph.org Foundation nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+ .
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR
+    CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+    EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+    PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+    PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+    LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+    NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+Files: libretro/libz/*
+Copyright: 1995-2003 Mark Adler
+License: ZLIB
+
+Files: libretro/ogg/*
+       libretro/vorbis/*
+       libretro/libopus/*
+Copyright: 1994-2011 Xiph.Org Foundation
+License:
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions
+    are met:
+ .
+    - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ .
+    - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+    - Neither the name of the Xiph.org Foundation nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+ .
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+    ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+    LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+    A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION
+    OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+    SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+    LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+    DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+    THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+    OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+The Debian packaging is:
+
+    Copyright (C) 2013, 2014 Hunter Kaller (hizzlekizzle) <hunter_kaller@yahoo.com>
+    Copyright (C) 2014 Sergio Benjamim (sergio-br2) <sergio_br2@yahoo.com.br>
+
+and is licensed under the GPL version 3, 
+see `/usr/share/common-licenses/GPL-3'.

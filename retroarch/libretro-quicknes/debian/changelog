@@ -1,3 +1,9 @@
+libretro-quicknes (1:1+git20170410.8613b48~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 23:17:38 -0400
+
 libretro-quicknes (1:1+git20161116.646fad9~1) brewmaster; urgency=low
 
   * Update snapshot

@@ -1,3 +1,9 @@
+libretro-stella (1:3.9.3+git20170411.cdbc9cc~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 11 Apr 2017 21:51:48 -0400
+
 libretro-stella (1:3.9.3+git20161116.3aa5737~1) brewmaster; urgency=low
 
   * Update snapshot

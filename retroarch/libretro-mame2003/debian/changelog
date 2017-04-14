@@ -1,3 +1,9 @@
+libretro-mame2003 (1:0.78+git20170409.92ffc48~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 09 Apr 2017 17:32:55 -0400
+
 libretro-mame2003 (1:0.78+git20161115.57f6dae~1) brewmaster; urgency=low
 
   * Update snapshot

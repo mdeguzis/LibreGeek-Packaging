@@ -1,3 +1,9 @@
+libretro-meteor (1.4+git20170410.b7f5c82~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 19:24:24 -0400
+
 libretro-meteor (1.4+git20161115.38b10c0~1) brewmaster; urgency=low
 
   * Update snapshot

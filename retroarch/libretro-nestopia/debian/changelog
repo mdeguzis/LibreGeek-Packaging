@@ -1,3 +1,9 @@
+libretro-nestopia (1:1.47+git20170410.752e695~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 21:54:40 -0400
+
 libretro-nestopia (1:1.47+git20161116.70f4705~1) brewmaster; urgency=low
 
   * Update snapshot

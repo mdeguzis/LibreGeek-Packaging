@@ -1,3 +1,9 @@
+libretro-picodrive (1:1.91+git20170410.f5de3ba~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 22:30:43 -0400
+
 libretro-picodrive (1:1.91+git20161115.0d87bd6~1) brewmaster; urgency=low
 
   * Update snapshot

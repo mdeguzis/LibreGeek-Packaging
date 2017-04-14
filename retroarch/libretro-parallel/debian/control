@@ -1,0 +1,36 @@
+Source: libretro-parallel-n64
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Build-Depends: debhelper (>= 9),
+               libgl1-mesa-dev [!armhf !arm64],
+               libgles2-mesa-dev [armhf arm64],
+               libpng12-dev,
+               mesa-common-dev,
+               zlib1g-dev
+Standards-Version: 3.9.8
+Homepage: https://github.com/libretro/parallel-n64
+
+Package: libretro-parallel-n64
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for ParaLLEl N64
+ This is a wrapper designed to make ParaLLEl N64 API-compatible with libretro,
+ thus allowing its use with libretro frontends, such as Retroarch.
+ .
+ ParaLLEl N64 is an optimized/rewritten Nintendo 64 emulator made specifically
+ for Libretro, originally based on Mupen64Plus and includes a Vulkan rendering
+ backend (only for Ubuntu 16.04 and up).
+ .
+ ParaLLEl N64 is a cross-platform plugin-based Nintendo 64 emulator which is
+ capable of accurately playing many games. Included are four MIPS R4300 CPU
+ emulators, with dynamic recompilers for 32-bit x86 and 64-bit amd64 systems,
+ and necessary plugins for audio, graphical rendering (RDP), signal co-processor
+ (RSP), and input. Video plugins included: Glide64, glN64 (with some GLideN64
+ backports), Rice, Angrylion and ParaLLEl (Vulkan rendering backend based on
+ angrylion plugin).
+ .
+ Nintendo 64 is a registered trademark of Nintendo of America Inc. ParaLLEl N64
+ and Mupen64Plus are not affiliated with or endorsed by any of the companies
+ mentioned.

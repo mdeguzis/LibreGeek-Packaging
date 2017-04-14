@@ -52,12 +52,12 @@ TARGET="master"
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="amd64"
+BUILDOPTS="--architecture ${TARGET_ARCH} --debbuildopts -nc"
 BUILDER="pdebuild"
 BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="true"
-PKGNAME="libretro-parallel"
-PKGVER="0.0.0"
+PKGNAME="libretro-parallel-n64"
+PKGVER="2.0"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -119,10 +119,6 @@ main()
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
-	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
-
-
 	#################################################
 	# Build package
 	#################################################
@@ -149,13 +145,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Initial upload"
 		vim "debian/changelog"
 
@@ -169,7 +165,7 @@ main()
 	sleep 2s
 
 	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	DIST=$DIST ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

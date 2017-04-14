@@ -7,8 +7,10 @@ Build-Depends: debhelper (>= 9),
                clang-3.4 [armhf],
                libgl1-mesa-dev [!armhf],
                libgles2-mesa-dev [armhf],
+               libpng12-dev,
                lsb-release,
-               mesa-common-dev
+               mesa-common-dev,
+               zlib1g-dev
 Standards-Version: 3.9.6
 Homepage: http://www.mupen64plus.org/
 

@@ -1,0 +1,21 @@
+Source: libretro-pokemini
+Section: games
+Priority: optional
+Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
+Uploaders: Sérgio Benjamim <sergio_br2@yahoo.com.br>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.8
+Homepage: https://sourceforge.net/projects/pokemini/
+
+Package: libretro-pokemini
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for PokeMini
+ This wrapper makes PokeMini core API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ PokeMini is a homebrew emulator for Pokémon Mini handheld.
+ .
+ Pokemon Mini is registered trademark of Nintendo of America Inc. PokeMini is
+ not affiliated with or endorsed by any of the companies mentioned.

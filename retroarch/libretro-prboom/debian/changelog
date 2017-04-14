@@ -1,3 +1,9 @@
+libretro-prboom (1:2.5.0+git20170410.e09831c~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 23:04:36 -0400
+
 libretro-prboom (1:2.5.0+git20161116.d1479f0~1) brewmaster; urgency=low
 
   * Update snapshot

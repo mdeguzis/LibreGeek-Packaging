@@ -1,0 +1,11 @@
+libretro-dolphin (5.0-r201704170932-a5fdbdb-3~ubuntu16.04.1) xenial; urgency=low
+
+  * Auto build.
+
+ -- Launchpad Package Builder <noreply@launchpad.net>  Mon, 17 Apr 2017 09:32:11 +0000
+
+libretro-dolphin (5.0-1) UNRELEASED; urgency=low
+
+  * Initial release.
+
+ -- Sérgio Benjamim <sergio_br2@yahoo.com.br>  Thu, 06 Apr 2017 01:25:00 -0300

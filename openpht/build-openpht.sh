@@ -52,18 +52,18 @@ fi
 #SRC_URL="https://github.com/plexinc/plex-home-theater-public"
 #SRC_URL="https://github.com/mdeguzis/plex-home-theater-public"
 SRC_URL="https://github.com/RasPlex/OpenPHT"
-TARGET="v1.7.1.137-b604995c"
+TARGET="v1.8.0.148-573b6d73"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
 PKGNAME="openpht"
-PKGVER="1.7.1.137"
-PKGREV="3"
+PKGVER="1.8.0.148"
+PKGREV="1"
 PKGSUFFIX="${DATE_SHORT}git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"

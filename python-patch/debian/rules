@@ -1,0 +1,13 @@
+#! /usr/bin/make -f
+
+export DH_VERBOSE = 1
+export PYBUILD_NAME = patch
+
+%:
+	dh $@ --with python2,python3 --buildsystem=pybuild
+
+override_dh_auto_install:
+	PYBUILD_SYSTEM=custom PYBUILD_INSTALL_ARGS="{interpreter} setup.py install --root={destdir} --install-scripts=/usr/share/{package}" dh_auto_install
+
+override_dh_auto_test:
+	tests/run_tests.py

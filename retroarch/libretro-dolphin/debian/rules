@@ -1,13 +1,12 @@
 #!/usr/bin/make -f
 
-ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
+export DEB_CXXFLAGS_MAINT_STRIP=-O2
+export DEB_CFLAGS_MAINT_STRIP=-O2
 
-ifeq ($(ARCH),armhf)
-	PLATFORM=platform="armv hardfloat"
-endif
+GIT_HASH := $(shell dpkg-parsechangelog | sed -rne 's,^Version: (.*),\1, p' | sed s/-/\\n\ /g | tail -n 2 | head -n 1)
 
 %:
-	dh $@
+	dh $@ --parallel --sourcedirectory=Source/Core/DolphinLibretro/
 
 override_dh_auto_build:
-	dh_auto_build -- $(PLATFORM)
+	dh_auto_build -- GIT_VERSION="'$(GIT_HASH)'"

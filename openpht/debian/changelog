@@ -1,3 +1,9 @@
+openpht (1.8.0.148+20170416git+bsos-1) brewmaster; urgency=low
+
+  * Update build/release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 16 Apr 2017 23:31:09 -0400
+
 openpht (1.7.1.137+20170310git+bsos-3) brewmaster; urgency=low
 
   * Update build/release

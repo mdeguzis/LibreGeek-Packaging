@@ -4,14 +4,13 @@
 	dh $@
 
 override_dh_auto_configure:
-	@echo "\n\n==> Installing conan"
-	@echo "USER is $(USER)"
-	chown -R $(USER):$(USER) /usr/local/lib/python2.7
+	@echo "\n\n==> Install conan"
 	pip install -U conan
+	@echo "\n\n==> Adding conan remote(s)"
 	conan remote add plex https://conan.plex.tv
 	@echo "\n\n==> Installing extra dependencies with conan"
 	rm -rf Build && mkdir -p Build
-	cd Build && conan install .. 
+	cd Build && conan/conan.py install .. 
 	@echo "\n\n==> Commencing build..."
 	cd Build && cmake -DCMAKE_BUILD_TYPE=Debug \
 		-DQTROOT=/usr/lib/x86_64-linux-gnu/qt5 \

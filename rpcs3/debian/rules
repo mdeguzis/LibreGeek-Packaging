@@ -39,8 +39,8 @@ override_dh_auto_build:
 	rm -rf rpcs3/build && mkdir -p rpcs3/build
 	cd rpcs3/build && cmake \
 			-DCMAKE_BUILD_TYPE='Release' \
-			-DCMAKE_CXX_COMPILER=/opt/gcc-$(GCC_VER)/bin/gcc \
-			-DCMAKE_C_COMPILER=/opt/gcc-$(GCC_VER)/bin/g++ \
+			-DCMAKE_CXX_COMPILER=clang++-3.8 \
+			-DCMAKE_C_COMPILER=clang-3.8 \
 			-DUSE_SYSTEM_LIBPNG='ON' \
 			-DUSE_SYSTEM_FFMPEG='ON' \
 			-DCMAKE_INSTALL_PREFIX=/usr ..

@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt name:	build-rpcs3.sh
-# Script Ver:	0.4.1
-# Description:	Attmpts to build a deb package from the latest rpcs3 source
-#		code.
+# Scipt name:	build-python-conan.sh
+# Script Ver:	0.1.1
+# Description:	Attmpts to build a deb package from the laest "python-conan"
+#		release
 #
-# See:		https://github.com/RPCS3/rpcs3
+# See:		https://github.com/python-conan-emu/python-conan-emu
 #
-# Usage:	./build-rpcs3.sh
+# Usage:	./build-python-conan.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -22,7 +22,6 @@ arg1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
-
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -45,38 +44,31 @@ else
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 
 fi
-# upstream vars
-SRC_URL="https://github.com/RPCS3/rpcs3"
-TARGET="master"
+# upstream var for master build
+SRC_URL="https://github.com/conan-io/conan"
+TARGET="0.21.2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-PKGVER="0.0.2"
-PKGNAME="rpcs3"
+PKGNAME="python-conan"
+PKGVER="${TARGET}"
 PKGREV="1"
-# Base version sourced from ZIP file version
-PKGSUFFIX="${DATE_SHORT}git+bsos"
+PKGSUFFIX="git+bsos"
+EPOCH="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
-# Need network for pbuilder to pull down ut4 zip
-export NETWORK="no"
-# Use dirty hack to utilize ffmpeg-dev packages in our repo (only during build-time)
-export NO_APT_PREFS="true"
-
-# set build directories
+# set build directoriess
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
-
-# Compiler options
-COMPILER="gcc"
 
 install_prereqs()
 {
@@ -84,13 +76,27 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch \
-	libopenal-dev libwxgtk3.0-dev build-essential libglew-dev
+	sudo apt-get install -y debhelper libsdl2-dev libsdl2-net-dev zlib1g-dev \
 
 }
 
 main()
 {
+
+	# create BUILD_TMP
+	if [[ -d "${BUILD_TMP}" ]]; then
+
+		sudo rm -rf "${BUILD_TMP}"
+		mkdir -p "${BUILD_TMP}"
+
+	else
+
+		mkdir -p "${BUILD_TMP}"
+
+	fi
+
+	# enter build dir
+	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
@@ -102,102 +108,21 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and get latest commit tag
-	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
-
-		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
-		sleep 1s
-		read -ep "Choice: " git_choice
-
-		if [[ "$git_choice" == "r" ]]; then
-
-			echo -e "\n==> Removing and cloning repository again...\n"
-			sleep 2s
-			# reset RETRY flag
-			RETRY="no"
-			# clean and clone
-			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
-			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-		else
-
-			# Unpack the original source later on for  clean RETRY
-			# set RETRY flag
-			RETRY="yes"
-
-		fi
-
-	else
-
-			echo -e "\n==> Git directory does not exist. cloning now...\n"
-			sleep 2s
-			# reset RETRY flag
-			RETRY="no"
-			# create and clone to current dir
-			mkdir -p "${BUILD_TMP}" || exit 1
-			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-
-	fi
-	
-	cd "${SRC_DIR}"
-		
-	# Get latest commit and update submodules
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
-	
-	# Update only needed submofules
-	git submodule update --init rsx_program_decompiler asmjit 3rdparty/ffmpeg \
-	3rdparty/pugixml 3rdparty/GSL 3rdparty/libpng Utilities/yaml-cpp 3rdparty/cereal
-
-	# Source latest release version from .git?
-	#release_tag=$(git describe --abbrev=0 --tags)
-	# Set pkg version
-	# PKGVER="${release_tag}"
-        
-        # There are a LOT of submodules/history, trim them
-        #echo -e "\nTrimming .git folders"
-        #find "${SRC_DIR}" -name "*.git" -print0 | xargs -0 rm -rf
-
-	# Add image to git dir
-	# cp -r "${SCRIPTDIR}/rpcs3.png" "${SRC_DIR}"
-
-	#################################################
-	# Prepare sources
-	#################################################
-
-	cd "${BUILD_TMP}" || exit 1
-
-	# create source tarball
-	# For now, do not recreate the tarball if keep was used above (to keep it clean)
-	# This way, we can try again with the orig source intact
-	# Keep this method until a build is good to go, without error.
-	
-	if [[ "${RETRY}" == "no" ]]; then
-
-		echo -e "\n==> Creating original tarball\n"
-		sleep 2s
-		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
-		
-	else
-	
-		echo -e "\n==> Cleaning old source folders for RETRY"
-		sleep 2s
-		
-		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
-		mkdir -p "${SRC_DIR}"
-	
-		echo -e "\n==> RETRYing with prior source tarball\n"
-		sleep 2s
-		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
-		sleep 2s
-
-	fi
-
-	# Add required files
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
 
 	#################################################
 	# Build package
 	#################################################
+
+	echo -e "\n==> Creating original tarball\n"
+	sleep 2s
+
+	# create source tarball
+	cd "${BUILD_TMP}" || exit
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+
+	# Add debian files
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -205,17 +130,17 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
-	# update changelog with dch
+ 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		vim "debian/changelog"
-	
+
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		vim "debian/changelog"
 
 	fi
@@ -227,13 +152,11 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	USENETWORK=$USENETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
-
-	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)
@@ -244,7 +167,6 @@ main()
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
 
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)

@@ -56,7 +56,7 @@ DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -sa"
-export STEAMOS_TOOLS_BETA_HOOK="false"
+export STEAMOS_TOOLS_BETA_HOOK="true"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="libretro-dolphin"
@@ -123,7 +123,7 @@ main()
 			# reset retry flag
 			retry="no"
 			# clean and clone
-			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_TMP}"
 			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 		else

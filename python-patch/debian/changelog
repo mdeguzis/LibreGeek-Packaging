@@ -1,0 +1,7 @@
+python-patch (1:1.16+git+bsos-1) brewmaster; urgency=low
+
+  * Initial release (Closes: #845482)
+  * Add setup.py from https://pypi.python.org/pypi/patch.
+  * Update snapshot
+
+ -- Paolo Greppi <paolo.greppi@libpf.com>  Sun, 16 Apr 2017 21:03:57 -0400

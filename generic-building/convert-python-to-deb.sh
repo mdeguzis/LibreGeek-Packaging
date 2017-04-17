@@ -68,11 +68,28 @@ BUILD_TMP="${BUILD_TMP}/${PKGNAME}-${PKGNAME}"
 install_prereqs()
 {
 
+    OS=$(lsb_release -si)
 	echo -e "\n==> Installing prerequisites for building...\n"
-	sleep 2s
-	# install basic build packages
-	sudo apt-get -y --force-yes install python-pip python python-stdeb python3-stdeb \
-	devscripts
+
+    if [[ "${OS}" == "SteamOS" || "${OS}" == "Debian" ]]; then
+
+        sleep 2s
+        # install basic build packages
+        sudo apt-get -y --force-yes install python-pip python python-stdeb python3-stdeb \
+        devscripts
+
+    elif [[ "${OS}" == "Arch" ]]; then
+
+        sudo pacman -S --needed --noconfirm python-pip python
+        pacaur -S --needed --noconfirm python-stdeb
+
+	else
+
+		echo -e "Unsupported OS/Distro!"
+		sleep 3s
+		exit 1 
+
+    fi  
 
 }
 
@@ -86,10 +103,10 @@ function_set_vars()
 	if  [[ "${PKGNAME}" == "" ]]; then PKGNAME="${OLD_PKGNAME}"; fi
 	export OLD_PKGNAME="${PKGNAME}"
 
-	echo -e "\nPress ENTER to use last: ${OLD_VERSION}"
-	read -erp "Target package version: " VERSION
-	if  [[ "${VERSION}" == "" ]]; then PKGNAME="${OLD_VERSION}"; fi
-	export OLD_PKGNAME="${VERSION}"
+	echo -e "\nPress ENTER to use last: ${OLD_PKGVER}"
+	read -erp "Target package version: " PKGVER
+	if  [[ "${PKGVER}" == "" ]]; then PKGNAME="${OLD_PKGVER}"; fi
+	export OLD_PKGVER="${PKGVER}"
 
 	echo -e "\nPress ENTER to use last: ${OLD_PKGREV}"
 	read -erp "Revsion attempt: " PKGREV
@@ -126,7 +143,7 @@ function_set_vars()
 	if [[ "${DIST}" == "jessie-backports" ]]; then PROJECT_FOLDER="debian"; fi
 
 	# Set repo folder destination
-	REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming"
+	REPO_FOLDER="/mnt/server_media_y/packaging/${PROJECT_FOLDER}/incoming"
 
 }
 
@@ -203,11 +220,15 @@ main()
 		;;
 
 		pypi)
-		if ! pypi-download ${PKGNAME} --release ${VERSION};  then
+		if ! pypi-download ${PKGNAME} --release ${PKGVER};  then
+
 			echo -e "\nERROR: Package download failed!\n"
+			sleep 4s
 			exit 1
+
 		fi
 		;;
+
 	esac
 
 	#################################################
@@ -225,6 +246,14 @@ main()
 	# Do not search more than depth=2 (1 past deb_dist under the build tmp dir)
 	SRC_DIR=$(find "${BUILD_TMP}" -maxdepth 2 -type d -iname "${PKGNAME}*")
 	SRC_DIR_BASENAME=$(basename ${SRC_DIR})
+
+	if [[ "${SRC_DIR_BASENAME}" == "" ]]; then
+
+		echo -e "\nERROR: SRC DIR basename not set correctly"
+		sleep 3s
+		exit 1
+
+	fi
 	
 	# Set pacakge name to lowercase (some PyPi people like capitalization...)
 	PKGNAME=$(echo ${PKGNAME} | tr '[:upper:]' '[:lower:]')
@@ -247,7 +276,7 @@ main()
 		read -erp "File: " FILE
 
 		if [[ "${FILE}" != "quit" ]]; then
-			nano "${FILE}"
+			vim "${FILE}"
 		fi
 
 	done
@@ -315,13 +344,13 @@ main()
 
 		dch -p --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Update release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
 		-D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 	
@@ -365,7 +394,7 @@ main()
 	# Ask to transfer files if debian binries are built
 	# Exit out with log link to reivew if things fail.
 
-	if [[ $(ls "${BUILD_TMP}" | grep -w "deb" | wc -l) -gt 0 ]]; then
+	if [[ $(ls "${BUILD_TMP}" | grep "deb" | wc -l) -gt 0 ]]; then
 
 		echo -e "\n==> Would you like to transfer any packages that were built? [y/n]"
 		sleep 0.5s
@@ -376,7 +405,7 @@ main()
 
 			# copy files to remote server
 			rsync -arv --info=progress2 -e "ssh -p ${REMOTE_PORT}" \
-			--filter="merge ${HOME}/.config/SteamOS-Tools/repo-filter.txt" \
+			--filter="merge ${HOME}/.config/libregeek-packaging/repo-filter.txt" \
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
@@ -410,7 +439,7 @@ while :; do
 
 		--testing)
 			# send packages to test repo location
-			REPO_FOLDER="/home/mikeyd/packaging/${PROJECT_FOLDER}/incoming_testing"
+			REPO_FOLDER="/mnt/server_media_y/packaging/${PROJECT_FOLDER}/incoming_testing"
 			;;
 		
 		--type|-t)
@@ -457,6 +486,15 @@ while :; do
 	shift
 	
 done
+
+# Type must be set
+if [[ ${IMPORT_TYPE} == "" ]]; then
+
+	echo -e "\n--type required!"
+	exit 1
+
+fi
+
 
 # Set the array BULIDOPTS
 BUILDOPTS=$(echo ${BUILDOPTS[@]})

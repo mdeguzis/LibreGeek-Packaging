@@ -38,10 +38,11 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	rm -rf rpcs3/build && mkdir -p rpcs3/build
 	cd rpcs3/build && cmake \
+			-DCMAKE_EXE_LINKER_FLAGS='-ldl -lyaml-cpp' \
 			-DCMAKE_BUILD_TYPE='Release' \
 			-DCMAKE_CXX_COMPILER=clang++-3.8 \
 			-DCMAKE_C_COMPILER=clang-3.8 \
-			-DUSE_SYSTEM_LIBPNG='ON' \
-			-DUSE_SYSTEM_FFMPEG='ON' \
+			-DUSE_SYSTEM_LIBPNG='OFF' \
+			-DUSE_SYSTEM_FFMPEG='OFF' \
 			-DCMAKE_INSTALL_PREFIX=/usr ..
 	make -C rpcs3/build

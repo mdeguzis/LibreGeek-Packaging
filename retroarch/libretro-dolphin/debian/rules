@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+# Issues with gcc-4.9 possibly, use clang
+# see: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=57350
 export DEB_CXXFLAGS_MAINT_STRIP=-O2
 export DEB_CFLAGS_MAINT_STRIP=-O2
 

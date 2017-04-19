@@ -63,7 +63,6 @@ PKGNAME="libretro-dolphin"
 PKGVER="5.0"
 PKGREV="1"
 EPOCH="1"
-PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -146,14 +145,15 @@ main()
 
 	fi
 
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
+
 	################################################
 	# Prepare sources
 	#################################################
 
 	cd "${BUILD_TMP}" || exit 1
-
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	# For now, do not recreate the tarball if keep was used above (to keep it clean)

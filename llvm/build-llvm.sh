@@ -44,11 +44,11 @@ fi
 
 BASEURL="http://http.debian.net/debian/pool/main/l"
 PKGNAME="llvm-toolchain-snapshot"
-LLVM_VER="4.0"
+LLVM_VER="5.0"
 PKGREV="1"
-PKGSUFFIX="~svn276280"
+PKGSUFFIX="~svn294894"
 PKGREV="1"
-LLVM_DSC_URL="${BASEURL}/${PKGNAME}/${PKGNAME}_${LLVM_VER}${PKGSUFFIX}-${PKGREV}~exp1.dsc"
+LLVM_DSC_URL="${BASEURL}/${PKGNAME}/${PKGNAME}_${LLVM_VER}${PKGSUFFIX}-${PKGREV}.dsc"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -69,7 +69,7 @@ MAINTAINER="mdeguzis"
 unset BUILD_TMP
 # 
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
-SRCDIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}${PKGSUFFIX}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}${PKGSUFFIX}"
 
 install_prereqs()
 {
@@ -119,7 +119,40 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 2s
 
-	dget "${LLVM_DSC_URL}"
+	if ! dget "${LLVM_DSC_URL}"; then
+		echo -e "\nERROR: failed to retrieve/validate source files"
+		echo -e "Perhaps debian-keyring is not installed / up to date\n"
+		sleep 5s
+		exit 1
+	fi
+
+	echo -e "\n==> Sanitity checks"
+
+	if [[ ! -d "${SRC_DIR}/debian" ]]; then
+
+		echo -e "\nDebian directory: [FAIL]"
+
+		# no debian folder find and unpack the dget sourced file
+		DEBIAN_FOLDER=$(find "${BUILD_TMP}" -type f -name "*.debian.*")
+
+		case "${DEBIAN_FOLDER}" in
+
+			*.tar.xz)
+			tar -xvf "${DEBIAN_FOLDER}" -C "${PWD}"
+			;;
+
+			*.tar.gz)
+			tar -xzvf "${DEBIAN_FOLDER}" -C "${PWD}"
+			;;
+
+		esac
+
+	else
+
+		echo -e "\nDebian directory: [OK]"
+
+	fi
+
 
 	################################################
 	# Build package

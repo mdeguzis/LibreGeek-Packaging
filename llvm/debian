@@ -1,0 +1,1572 @@
+llvm-toolchain-snapshot (1:5.0~svn294894-1) unstable; urgency=medium
+
+  * New snapshot release
+  * New library liblldb-intel-mpxtable.so
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 12 Feb 2017 13:20:36 +0100
+
+llvm-toolchain-snapshot (1:5.0~svn292017-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+    snapshot is now 5.0
+  * d/p/silent-amdgpu-test-failing.diff silent amdgpu tests failing
+    (see upstream bug 31610)
+  * d/p/lldb-server-link-issue.patch removed, merged upstream
+  * Also install python-lldb-5.0 when installing lldb-5.0 (Closes: #851171)
+  * Bring back the content of llvm-5.0-doc (Closes: #844616)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 14 Jan 2017 16:36:51 +0100
+
+llvm-toolchain-snapshot (1:4.0~svn291344-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Disable libedit usage in lldb because of garbage (Closes: #846616, #850111)
+  * Build lld
+    - d/p/lld-arg-cmake-issue.diff fixes upstream bug #27685
+  * Run clang extra test suite
+  * Fix the detection of lldb-server
+  * Fix the run of the check-lldb target
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 07 Jan 2017 12:24:32 +0100
+
+llvm-toolchain-snapshot (1:4.0~svn290810-1) unstable; urgency=medium
+
+  * New snapshot release
+  * d/p/kfreebsd-support.diff removed (applied upstream)
+  * debian/orig-tar.sh: less verbose
+  * d/p/lldb-missing-install.diff: For the install
+    of lldb-server and lldb-argdumper as they are not always installed
+  * Ship new binary in clang-X.Y: clang-import-test
+  * New symbols in libclang1:
+    - clang_EvalResult_getAsLongLong
+    - clang_EvalResult_getAsLongLong
+    - clang_EvalResult_isUnsignedInt
+  * Fix a regression in the test run for the code coverage
+  * Silent ThinLTO/X86/autoupgrade.ll, fails with code coverage (and maybe others)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 02 Jan 2017 13:51:06 +0100
+
+llvm-toolchain-snapshot (1:4.0~svn286225-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Remove the info section from the generated manpages (Closes: #846269)
+
+  [ Kai Wasserbäch ]
+  * debian/patches/{0003-Debian-version-info-and-bugreport.patch,
+    0044-soname.diff,23-strlcpy_strlcat_warning_removed.diff,
+    26-set-correct-float-abi.diff,atomic_library_[12].diff,
+    fix-clang-path-and-build.diff,fix-lldb-server-build,lldb-libname.diff,
+    lldb-soname.diff,mips-fpxx-enable.diff,removeduplicatedeclaration.diff}:
+    Refreshed.
+  * debian/patches/{silent-gold-utils,kfreebsd-support}.diff: Updated.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 08 Nov 2016 12:19:55 +0100
+
+llvm-toolchain-snapshot (1:4.0~svn282142-1~exp1) experimental; urgency=medium
+
+  * The libstdc++-6-dev & libobjc-6-dev are only install with clang-X.Y
+    and libclang-X.Y-dev and no longer with libclang1-X.Y
+    (Closes: #841309)
+  * Fix the VCS-* fields
+
+  [ Kai Wasserbäch ]
+  * debian/patches/{23-strlcpy_strlcat_warning_removed.diff,
+    0003-Debian-version-info-and-bugreport.patch, atomic_library_[12].diff,
+    python-clangpath.diff,removeduplicatedeclaration.diff,
+    fix-clang-path-and-build.diff,mips-fpxx-enable.diff}: Refreshed.
+  * debian/patches/{silent-more-tests.diff,silent-MCJIIT-tests.diff}: Updated.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 24 Oct 2016 10:45:07 +0200
+
+llvm-toolchain-3.9 (1:3.9-6) unstable; urgency=medium
+
+  * Fix segfaults in the memory sanitizers (Closes: #842642)
+    Caused by the newer glibc. Many thanks for Nobert Lange for everything
+  * Enable the sanitizers testsuite
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 11 Nov 2016 17:01:38 +0100
+
+llvm-toolchain-3.9 (1:3.9-5) unstable; urgency=medium
+
+  * d/p/0011-SimplifyCFG-Hoisting-invalidates-metadata.patch: Also apply bug 29163
+    to fix some issues in rust (Closes: #842956)
+    Many thanks to Ximin Luo for the investigation
+
+  * libclang-common-4.0-dev: missing multilib binaries for the sanitizer
+    libraries (Closes: #841923)
+    Many thanks to Norbert Lange for the changes
+
+  [ Pauli ]
+  * d/p/clang-fix-cmpxchg8-detection-on-i386.patch:
+    libcxx atomic tests for old i386 fail with wrong Atomic inline width.
+    Needed for libc++
+    (See https://llvm.org/bugs/show_bug.cgi?id=19355)
+  * d/p lldb-addversion-suffix-to-llvm-server-exec.patch:
+    Fix the lldb-server call in some cases
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 04 Nov 2016 17:18:07 +0100
+
+llvm-toolchain-3.9 (1:3.9-4) unstable; urgency=medium
+
+  * LLVMConfig.cmake was installed into wrong location
+    Install a symlink from lib/cmake/llvm to share/llvm/cmake
+    (Closes: #839234)
+  * Fix a path issue in scan-view. Thanks Riccardo Magliocchetti
+    (Closes: #838572)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 31 Oct 2016 10:47:52 +0100
+
+llvm-toolchain-3.9 (1:3.9-3) unstable; urgency=medium
+
+  [ Sylvestre Ledru ]
+  * The libstdc++-6-dev & libobjc-6-dev are only install with clang-X.Y
+    and libclang-X.Y-dev and no longer with libclang1-X.Y
+    (Closes: #841309)
+
+  [ Gianfranco Costamagna ]
+  * Team upload
+  * d/p/drop-wrong-hack-arm64.patch:
+    - drop hack that was preventing the package from building on
+      non-amd64 64bit architectures:
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Thu, 27 Oct 2016 11:45:28 +0200
+
+llvm-toolchain-snapshot (1:4.0~svn280796-1~exp1) experimental; urgency=medium
+
+  * Merge clang-include-fixer-4.0 into clang-4.0. Don't think
+    it deserves it own package
+  * python-lldb-4.0 archs "any" to a list like others pkg
+  * Fix a version issue with run-clang-tidy-4.0.py
+  * Also install clang-change-namespace-4.0
+
+  [ Kai Wasserbäch ]
+  * debian/clang-X.Y.install.in: Added clang-cpp.
+  * debian/patches: Refreshed.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 02 Sep 2016 13:11:56 +0200
+
+llvm-toolchain-3.9 (1:3.9-1) unstable; urgency=medium
+
+  * New stable release
+  * Port to kfreebsd. Many thanks to Pino Toscano
+    (Closes: #835665)
+  * clang_getAllSkippedRanges in the list of libclang1 symbols
+  * Try to disable the execution of the testsuite for scan-build & coverity
+    for real
+  * Also ship clang-reorder-fields as part of the clang-4.0 package
+  * Build lldb on arm64. Hopefully, works.
+  * New snapshot release
+  * Tentative fix for lldb-server build
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 07 Sep 2016 12:02:12 +0200
+
+llvm-toolchain-snapshot (1:4.0~svn279916-1) unstable; urgency=medium
+
+  * Snapshot is now 4.0
+  * Introduce clang-include-fixer-4.0
+  * Fix the usage of jsoncpp in polly. Thanks to James Clarke for the patch
+    (Closes: #835607)
+  * Fix the renaming of the manpages (Closes: #834077)
+  * Use the manpage from clang.rst instead of help2man
+  * Disable the build of lldb on mips64el, ppc64 and s390x for real
+  * Add symlink from ./build to ../share and ../lib etc
+    Thanks to Ximin Luo for the patch (Closes: #834144)
+  * Sync the 3.9 changes into 4.0
+  * Fix the cmake paths in llvm-4.0-dev deb package. Thanks to Brad King
+    for the patch (Closes: #819072)
+  * Bring back the lto (gone with the cmake migration)
+    (Closes: #819333) (upstream: #27223)
+  * LLVMConfig.cmake is now installed to <prefix>/lib/cmake/llvm instead of
+    <prefix>/share/llvm/cmake
+    Thanks to Brad King of the fix
+  * Disable lldb on sparc64 (Closes: #832371)
+  * Also install clang-rename.el & clang-rename.py in clang-4.0
+  * scan-build llvm results are built using --show-description
+  * Generate manpages for lli, lldb-mi & git-clang-format
+  * Fix some lintian overrides
+  * Generate more manpages
+  * Remove some garbage from the manpages (Closes: #815991, #804347)
+  * Disable -gsplit-dwarf on Ubuntu precise
+  * Update the coverity configuration (Debian has moved to gcc 6)
+  * remove compiler-rt-path.diff (file removed upstream, probably because
+    we moved to cmake)
+  * Ship clang-offload-bundler in clang 4.0
+  * Set the correct Conflicts for python-clang-4.0, python-lldb-4.0
+    (Closes: #832410)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 27 Aug 2016 14:19:41 +0200
+
+llvm-toolchain-snapshot (1:4.0~svn275970-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Bring back llvm-4.0-tools to life
+  * ship clang-tblgen & yaml-bench as part of the libclang-common-X.Y-dev
+    package
+
+  * amd64 llvm testsuite is green, bring back the failure in case of error
+  * Fix the cmake paths in llvm-3.9-dev deb package. Thanks to Brad King
+    for the patch (Closes: #819072)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 25 Jul 2016 12:18:52 +0200
+
+llvm-toolchain-3.9 (1:3.9~svn275918-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Silent test CodeGen/SPARC/LeonInsertNOPsDoublePrecision.ll
+  * ship lli-child-target as part of the llvm-X.Y-runtime package
+  * Bring back llvm-3.9-tools to life
+  * ship clang-tblgen & yaml-bench as part of the libclang-common-X.Y-dev
+    package
+  * ship lli-child-target as part of the llvm-X.Y-runtime package
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 19 Jul 2016 15:34:08 +0200
+
+llvm-toolchain-snapshot (1:3.9~svn274438-1) unstable; urgency=medium
+
+  * Remove the autoconf section
+  * Bring back the removal of the build dir
+  * Fix the coverage builds (didn't allow several cflags)
+  * Set the correct conflicts on python-lldb-3.8 (Closes: #817873)
+  * Set the correct conflicts on python-clang-3.8 (Closes: #817872)
+  * remove llvm26003-sanitizer-check-env.diff (merged upstream)
+  * Do not fail the build if the manpages cannot be built (failing on
+    Ubuntu precise)
+  * Install libfindAllSymbols.a as part of libclang-X.Y-dev
+  * Ship scan-build-py
+  * Use the libjsoncpp library embedded (fails to link otherwise)
+  * Standards-Version 3.9.8
+  * cmake files moved from usr/lib/llvm-3.9/share/llvm/cmake/
+    to usr/lib/llvm-3.9/lib/cmake/llvm/
+    (upstream change)
+  * Add a symlink from usr/lib/llvm-3.9/share/llvm/cmake
+    pointing to usr/share/llvm-3.9/cmake
+  * Disable the run of lldb testsuite because of LLVM_LINK_LLVM_DYLIB=ON:
+    https://llvm.org/bugs/show_bug.cgi?id=28127
+  * Add -gsplit-dwarf to CXXFLAGS to workaround the memory allocation
+    issue on i386
+  * Ignore the lintian override about embedded-library for json.
+    Doesn't link otherwise
+  * Fix the soname of libclang and libLLVM. Might cause some breakage with
+    existing app but no choice...
+
+  [ Pablo Oliveira ]
+  * Add python-six as a dependency of python-lldb (Closes: #825371)
+    (thanks to Askar Safin)
+  * Fix lldb symlinks
+  * Fix missing _lldb.so import during lldb testsuite
+
+  [ Ed Schouten ]
+  * Preparation of the support of lld (not ready yet)
+
+  [ Kai Wasserbäch ]
+    * debian/rules:
+      - Ensure ld-gold is used. CMake invokes the linker through g++ most of the
+        time, therefore we need to set -Wl,-fuse-ld=gold.
+      - Remove unused variable "confargs".
+
+  [ Brad King ]
+  * Install cmake files in usr/share/llvm-@LLVM_VERSION@/cmake/ instead of
+    usr/share/llvm-@LLVM_VERSION@/cmake/
+  * Also install libLLVM-3.8.so.1 as a symlink
+  * debian/patches/fix-cmake-config-prefix.diff:
+    cover the CMake build system too
+  (Closes: #819072)
+
+  [ Alexis La Goutte ]
+  * Fix an issue with scan-view (Closes: #825101)
+
+  [ YunQiang Su ]
+  * Enable FPXX by default on mips/mipsel (Closes: #826749)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 02 Jul 2016 20:46:05 +0200
+
+llvm-toolchain-snapshot (1:3.9~svn260851-1) unstable; urgency=medium
+
+  * New snapshot
+  * Switch to 3.9 (remove lldb-3.9-dev as it was a transitionnal pkg)
+  * Update the clang description for something more accurate (C++-11, 14, etc)
+  * Cmake migration. Done by Andrew Wilkins. Many thanks to him
+    - Update patches to set SONAME in CMake build
+    - Create symlinks with ".links", don't install from build tree
+    - Remove LLVM-internal tools (lit, FileCheck, not, tblgen, etc.)
+    - Remove llvm-X.Y-tools package, because it contained only
+      internal tools that are not intended for distribution.
+    - Remove autotools-specific artifacts from packages.
+    - Remove "dummy" documentation artifacts from llvm-X.Y-docs
+      package. Not built/installed by CMake, not useful.
+    - Update control/rules to support CMake
+    - Patch LLDB SWIG interfaces to workaround a bug in SWIG
+      See https://llvm.org/bugs/show_bug.cgi?id=25468
+    - add missing files to clang-format
+    - Add patch to fix sanitizer lit invocation
+    - removed LLVM-internal tools (lit, FileCheck, not, *-tblgen, etc.);
+      not installed by CMake, not intended for distribution
+    - removed llvm-X.Y-tools (contained only internal tools)
+    - removed autotools-specific artifacts (configure, Makefile, etc.)
+    - removed dummy documentation files
+  * Sync against 3.8
+  * Disable "Sphinx warnings treated as errors"
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 08 Mar 2016 09:50:29 +0100
+
+llvm-toolchain-3.8 (1:3.8-1) unstable; urgency=medium
+
+  * New upstream release
+  * Install a missing library to unbreak lldb (Closes: #815809)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 03 Mar 2016 21:16:21 +0100
+
+llvm-toolchain-3.8 (1:3.8~+rc3-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Update the clang description for something more accurate (C++-11, 14, etc)
+  * Update debian/orig-tar.sh to remove autoconf/config.sub autoconf/config.guess
+    in polly
+
+  [ Matthias Klose ]
+  * clang-tidy-3.8: Remove Breaks/Replaces on clang-modernize-3.8.
+  * Disable lldb on s390x.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 25 Feb 2016 14:26:14 +0100
+
+llvm-toolchain-3.8 (1:3.8~+rc2-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Remove build-llvm/ after the install step to save space.
+    Most of the rc1 builds failed because of hd space.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 03 Feb 2016 08:59:32 +0100
+
+llvm-toolchain-3.8 (1:3.8~+rc1-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Cmake migration. Done by Andrew Wilkins. Many thanks to him
+    - Update patches to set SONAME in CMake build
+    - Create symlinks with ".links", don't install from build tree
+    - Remove LLVM-internal tools (lit, FileCheck, not, tblgen, etc.)
+    - Remove llvm-X.Y-tools package, because it contained only
+      internal tools that are not intended for distribution.
+    - Remove autotools-specific artifacts from packages.
+    - Remove "dummy" documentation artifacts from llvm-X.Y-docs
+      package. Not built/installed by CMake, not useful.
+    - Update control/rules to support CMake
+    - Patch LLDB SWIG interfaces to workaround a bug in SWIG
+      See https://llvm.org/bugs/show_bug.cgi?id=25468
+    - add missing files to clang-format
+    - Add patch to fix sanitizer lit invocation
+    - removed LLVM-internal tools (lit, FileCheck, not, *-tblgen, etc.);
+      not installed by CMake, not intended for distribution
+    - removed llvm-X.Y-tools (contained only internal tools)
+    - removed autotools-specific artifacts (configure, Makefile, etc.)
+    - removed dummy documentation files
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 20 Jan 2016 16:09:01 +0100
+
+llvm-toolchain-3.8 (1:3.8.1-8) unstable; urgency=medium
+
+  * Disable the usage of ld gold on powerpc (Closes: #833583)
+  * Revert drop-avx512-from-skylake.diff, it is causing some regressions in the
+    testsuite
+  * Disable lldb on ppc64
+  * libfuzzer depends on the same version of clang (Closes: #833564)
+  * Use filter into of findstring in the gold usage. Thanks Doko for the
+    suggestion
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 07 Aug 2016 14:10:09 +0200
+
+llvm-toolchain-3.8 (1:3.8.1-7) unstable; urgency=medium
+
+  * Fix the detection of gcc. This broke the build on the latest unstable
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 05 Aug 2016 09:55:15 +0200
+
+llvm-toolchain-3.8 (1:3.8.1-6) unstable; urgency=medium
+
+  * Ship libFuzzer in its own package (libfuzzer-X.Y-dev) (Closes: #820159)
+  * Sync from Ubuntu. Many thanks to Matthias Klose
+    - drop-avx512-from-skylake.diff: Don't enable AVX512 on Skylake, as it's
+      a server cpu feature and breaks llvmpipe on workstations.
+    - Remove the build tree before calling dh_strip; at least the amd64 buildd
+      runs out of diskspace at this step.
+    - Add support for gcc's attribute abi_tag (needed for compatibility with
+      GCC 5's libstdc++); taken from the trunk (Closes: #797038)
+      (LP: #1510042, #1488254)
+      D17567-PR23529-Sema-part-of-attrbute-abi_tag-support.diff
+      D18035-PR23529-Mangler-part-of-attrbute-abi_tag-support.diff
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 28 Jul 2016 11:15:04 +0200
+
+llvm-toolchain-3.8 (1:3.8.1-5) unstable; urgency=medium
+
+  [ Gianfranco Costamagna ]
+  * Try to fix mips64el build, by enabling the same
+    packages as the mips and mipsel versions
+  * Link mips* with latomic.
+
+  [ Sylvestre Ledru ]
+  * Disable lldb on sparc64 (Closes: #832371)
+  * Hopefully fix the FTBFS on armel
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 27 Jul 2016 22:49:09 +0200
+
+llvm-toolchain-3.8 (1:3.8.1-4) unstable; urgency=medium
+
+  * Fix the FTBFS under mips/mipsel? (enable the link against atomic)
+    (Closes: #820537)
+  * Bring back llvm-3.8-tools to life
+  * ship clang-tblgen & yaml-bench as part of the libclang-common-X.Y-dev
+    package
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 20 Jul 2016 10:20:46 +0200
+
+llvm-toolchain-3.8 (1:3.8.1-3) unstable; urgency=medium
+
+  * Add -gsplit-dwarf to CXXFLAGS to workaround the memory allocation
+    issue on i386 (hopefully)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 02 Jul 2016 20:59:08 +0200
+
+llvm-toolchain-3.8 (1:3.8.1-2) unstable; urgency=medium
+
+  [ Sylvestre Ledru ]
+  * Add a symlink from usr/lib/llvm-3.8/share/llvm/cmake
+    pointing to usr/share/llvm-3.8/cmake
+
+  [ Gianfranco Costamagna ]
+  * Remove python-lldb-3.8 where liblldb-3.8-dev is not built
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 28 Jun 2016 14:44:48 +0200
+
+llvm-toolchain-3.8 (1:3.8.1-1) unstable; urgency=medium
+
+  * New maintenance release
+
+  [ Kai Wasserbäch ]
+  * debian/rules: Ensure ld-gold is used. CMake invokes the linker through
+    g++ most of the time, therefore we need to set -Wl,-fuse-ld=gold.
+
+  [ Brad King ]
+  * Followup to fix the cmake install (Closes: #819072)
+
+  [ YunQiang Su ]
+  * Enable FPXX by default on mips/mipsel (Closes: #826749)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 23 Jun 2016 08:49:29 +0200
+
+llvm-toolchain-3.8 (1:3.8.1~+rc1-1~exp1) experimental; urgency=medium
+
+  * New RC release
+  * Improve the cmake detection (used for llvm.org/apt)
+  * Standards-Version updated to 3.9.8
+  * Ignore outdated-autotools-helper-file
+
+  [ Brad King ]
+  * Install cmake files in usr/share/llvm-@LLVM_VERSION@/cmake/ instead of
+    usr/share/llvm-@LLVM_VERSION@/cmake/
+  * Also install libLLVM-3.8.so.1 as a symlink
+  * debian/patches/fix-cmake-config-prefix.diff:
+    cover the CMake build system too
+  (Closes: #819072)
+
+  [ Pablo Oliveira ]
+  * Fix python-lldb dependencies and make proper symlinks to libLLVM
+    and liblldb as suggested by Graham Inggs (Closes: #821022)
+  * Fix liblldb suffix in lldb/scripts/Python/finishSwigPythonLLDB.py
+    (Closes: #813798)
+  * Fix LLVM bug 26158 - clang packages don't provide man pages
+  * Add python-six as a dependency of python-lldb (thanks to Askar Safin).
+
+  [ Gianfranco Costamagna ]
+  * Make python-lldb-3.8 depend on lldb-3.8-dev, to pick all
+    the required dependencies
+  * Unbreak circular dependency by Suggesting the python binding from
+    liblldb-3.8-dev
+
+  [ Alexis La Goutte ]
+  * Fix an issue with scan-view (Closes: #825101)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 26 May 2016 17:30:00 +0200
+
+llvm-toolchain-3.8 (1:3.8-2) unstable; urgency=medium
+
+  * Team upload.
+  * Disable polly on s390x and fix polly check.
+  * Fix VCS fields.
+
+  [ Sylvestre Ledru ]
+  * Fix txt file installation issue, by putting a README.txt file
+    with some explanation.
+
+  [ Graham Inggs ]
+  * Tighten llvm dev dependency (Closes: #814142).
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Mon, 07 Mar 2016 10:56:05 +0100
+
+llvm-toolchain-3.8 (1:3.8-1) unstable; urgency=medium
+
+  * New upstream release
+  * Install a missing library to unbreak lldb (Closes: #815809)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 03 Mar 2016 21:16:21 +0100
+
+llvm-toolchain-3.8 (1:3.8~+rc3-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Update the clang description for something more accurate (C++-11, 14, etc)
+  * Update debian/orig-tar.sh to remove autoconf/config.sub autoconf/config.guess
+    in polly
+
+  [ Matthias Klose ]
+  * clang-tidy-3.8: Remove Breaks/Replaces on clang-modernize-3.8.
+  * Disable lldb on s390x.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 25 Feb 2016 14:26:14 +0100
+
+llvm-toolchain-3.8 (1:3.8~+rc2-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Remove build-llvm/ after the install step to save space.
+    Most of the rc1 builds failed because of hd space.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 03 Feb 2016 08:59:32 +0100
+
+llvm-toolchain-3.8 (1:3.8~+rc1-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Cmake migration. Done by Andrew Wilkins. Many thanks to him
+    - Update patches to set SONAME in CMake build
+    - Create symlinks with ".links", don't install from build tree
+    - Remove LLVM-internal tools (lit, FileCheck, not, tblgen, etc.)
+    - Remove llvm-X.Y-tools package, because it contained only
+      internal tools that are not intended for distribution.
+    - Remove autotools-specific artifacts from packages.
+    - Remove "dummy" documentation artifacts from llvm-X.Y-docs
+      package. Not built/installed by CMake, not useful.
+    - Update control/rules to support CMake
+    - Patch LLDB SWIG interfaces to workaround a bug in SWIG
+      See https://llvm.org/bugs/show_bug.cgi?id=25468
+    - add missing files to clang-format
+    - Add patch to fix sanitizer lit invocation
+    - removed LLVM-internal tools (lit, FileCheck, not, *-tblgen, etc.);
+      not installed by CMake, not intended for distribution
+    - removed llvm-X.Y-tools (contained only internal tools)
+    - removed autotools-specific artifacts (configure, Makefile, etc.)
+    - removed dummy documentation files
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 20 Jan 2016 16:09:01 +0100
+
+llvm-toolchain-snapshot (1:3.8~svn255217-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Fix an install issue with clang-tidy
+  * clang-modernize has been removed. Long live to clang-tidy, its
+    replacement
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 10 Dec 2015 05:18:29 +0100
+
+llvm-toolchain-snapshot (1:3.8~svn254193-2) UNRELEASED; urgency=medium
+
+  * disable lldb and polly on powerpc, currently ftbfs.
+    setting the lldb archs in debian/control in just one
+    place would be appreciated.
+  * quoting fixes in debian/rules, when make macros
+    are empty
+    Thanks to Doko for the two previous changes (Closes: #806729)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 30 Nov 2015 15:34:12 +0100
+
+llvm-toolchain-snapshot (1:3.8~svn254193-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Remove some warnings in the manpages generation (Closes: #795310)
+  * Also ship sancov in clang-3.8
+  * Fix the links to scan-build-3.8 & scan-view-3.8
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 20 Oct 2015 14:07:06 +0200
+
+llvm-toolchain-snapshot (1:3.8~svn250696-1) unstable; urgency=medium
+
+  * Remove macho-dump from LLVM (removed by upstream r248302)
+  * Introduce clang-tidy-3.8 as a separate package. Replaces clang-modernize
+  * Ship run-clang-tidy.py & clang-tidy-diff.py in clang-tidy-3.8
+  * Remove cpp11-migrate-3.8 package. Has been replaced by clang-modernize
+    for a while (which will be replaced by clang-tidy)
+  * Add three new symbols in libclang1
+    - clang_CompileCommand_getFilename@Base
+    - clang_CompileCommand_getMappedSourceContent@Base 3.8
+    - clang_CompileCommand_getMappedSourcePath@Base 3.8
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 21 Sep 2015 13:16:35 +0200
+
+llvm-toolchain-snapshot (1:3.8~svn247576-1) unstable; urgency=medium
+
+  [ Sylvestre Ledru ]
+  * New snapshot release
+  * Remove CVE-2015-2305.patch. Already fixed upstream in a different
+    way
+  * remove patches merge upstream
+    - lit-lang.diff
+    - locale-issue-ld.diff
+  * Also generate liblldb-3.8-dbg
+  * Select LLVM OpenMP as the default backend
+
+  [ Gianfranco Costamagna ]
+  * d/control: Add more conflicting packages (python-clang and python-lldb)
+    (Closes: #796811, #796843)
+  * Remove an obsolete declaration about dragonegg
+    (cherry-pick from 3.7 branch)
+
+  [ James Price ]
+  * d/p/fix-cmake-config-prefix.diff: fix cmake path,
+    needs a change after upstream revision r241080
+    (Addresses: #794905)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 14 Sep 2015 18:29:09 +0200
+
+llvm-toolchain-snapshot (1:3.8~svn245286-1) unstable; urgency=medium
+
+  * New snapshot release (3.7 => 3.8)
+    No need to rename libllvm as 3.8 was not part of the debian archive
+
+  [ Gianfranco Costamagna ]
+  * Fix VCS fields.
+  * d/p/CVE-2015-2305.patch, fix security issue on regcomp.c
+  * Fix many lintian warning/errors
+    - copyright fixes
+    - control files
+    - disabled ocaml documentation
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 18 Aug 2015 14:28:36 +0200
+
+llvm-toolchain-snapshot (1:3.7~svn231060-1~exp2) UNRELEASED; urgency=medium
+
+  * Reflect upstream changes wrt vim package. Split the files into different
+    directories
+  * Disable the patch force-gcc-header-obj.diff. Seems to cause bug #23556
+  * Fix the CMake build. thanks to Paweł Bylica for the fix.
+    Fix upstream bug #23352
+  * No longer building some clang help page, removing them
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 21 Apr 2015 09:41:41 +0200
+
+llvm-toolchain-snapshot (1:3.7~svn231060-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * Force the version of clang in the analyzer scripts
+    clang-analyzer-force-version.diff
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 03 Mar 2015 09:19:38 +0100
+
+llvm-toolchain-snapshot (1:3.7~svn230857-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Support of gcc 5.0 (Closes: #777988)
+  * compiler-rt-i586.diff: fix a build issue of compiler-rt under i386
+  * lldb-gdbserver & lldb-platform have been merged into lldb-server
+  * Bring back polly and remove libcloog-isl-dev & libisl-dev as build deps
+    (shipped in the polly source tree)
+  * Set the correct conflicts (Closes: #777580, #777581, #777582)
+  * lit-lang.diff: Force the call to ld to be in english
+    (was failing with a french locale)
+  * silent-MCJIIT-tests.diff: enable some tests and silents some other
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 28 Feb 2015 18:44:59 +0100
+
+llvm-toolchain-snapshot (1:3.7~svn227076-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Switch to version 3.7
+  * Standards-Version updated to 3.9.6
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 26 Jan 2015 09:23:41 +0100
+
+llvm-toolchain-snapshot (1:3.6~svn224810-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Update library filename declaration 3.5 => 3.6 (Closes: #772006)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 05 Dec 2014 17:46:56 -0800
+
+llvm-toolchain-snapshot (1:3.6~svn221998-1~exp1) experimental; urgency=medium
+
+  * Disable ocaml binding. Needs libctypes-ocaml 0.3.3 which is not available
+  * libllvm*.a is not longer built
+  * Update of the libclang symbols
+  * Improve the copyright file. Thanks to Dann Frazier (Closes: #766778)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 04 Nov 2014 14:43:28 +0100
+
+llvm-toolchain-snapshot (1:3.6~svn218612-1) unstable; urgency=medium
+
+  * Fix my screw up. Add .1 to the libclang soname to make
+    dpkg-shlibdeps happy
+  * Remove useless dependency on doxygen
+  * scan-build could not find clang binary (Closes: #758998)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 26 Sep 2014 17:05:26 +0200
+
+llvm-toolchain-snapshot (1:3.6~svn218446-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Upload in unstable
+  * Disable the co-instability of lldb & python-lldb
+    (Python stuff conflicts)
+  * Fix bad dependencies on lldb 3.6
+  * Refresh of the list of symbol in libclang
+  * Try to workaround the FTBFS under ppc64el (create an empty directory)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 24 Sep 2014 14:20:49 +0200
+
+llvm-toolchain-snapshot (1:3.6~svn216933-1~exp1) experimental; urgency=medium
+
+  * New snapshot release
+  * sync from 1:3.5~+rc4-2~exp1
+  * libclang-3.6.so should be used instead libclang.so. Update the soname
+    to match the new lib name (Closes: #759538)
+  * Rename liblldb.so to liblldb-3.6.so + update of the soname.
+  * python-clang-3.6 description updated
+  * liblldb-3.6 and python-lldb-3.6 added
+  * lldb-3.6-dev renamed to liblldb-3.6-dev to match the previous changes
+  * Manpages for llvm-ranlib, clang-apply-replacements, pp-trace and clang-tidy
+    added
+  * clang-3.6 should depends on binutils (for ld, at least)
+    (Closes: #751030)
+  * clang/www/analyzer/scripts/dbtree.js removed
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 30 Aug 2014 18:09:20 +0200
+
+llvm-toolchain-snapshot (1:3.6~svn215195-3) unstable; urgency=medium
+
+  * Just like in 3.4 & 3.5, bring back lldb & lldb-dev under mips & mipsel
+  * Ship clang-rename/clang-rename-3.6
+  * Disable libstdc++-header-i386.diff & include-target.diff (merged upstream)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 18 Aug 2014 09:02:30 +0200
+
+llvm-toolchain-snapshot (1:3.6~svn215195-2) unstable; urgency=medium
+
+  * try to build lldb-mi under kfreebsd (kfreebsd-lldb-mi.diff)
+  * kfreebsd-lldb-gdbserver.diff removed (applied upstream)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 11 Aug 2014 08:44:13 +0200
+
+llvm-toolchain-snapshot (1:3.6~svn215195-1) unstable; urgency=medium
+
+  * Upload in unstable
+  * Enable compressed debug sections (Closes: #757002)
+  * Force scan-build to use the same version of clang
+  * Old JIT has been removed. 0050-powerpcspe-fp.diff is useless
+  * try to build lldb-gdbserver under kfreebsd (kfreebsd-lldb-gdbserver.diff)
+  * Second try to fix build under HURD (hurd-EIEIO-undef.diff)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 04 Aug 2014 13:36:15 +0200
+
+llvm-toolchain-3.4 (1:3.4.2-8) unstable; urgency=medium
+
+  * Try to bring back lldb-3.4-dev on mips & mipsel (Closes: #758314)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 16 Aug 2014 22:39:13 +0200
+
+llvm-toolchain-3.4 (1:3.4.2-7) unstable; urgency=medium
+
+  * Upload in unstable
+  * Try to bring back lldb on mips & mipsel
+  * Force scan-build to use the same version of clang
+  * Try to fix hurd (hurd-EIEIO-undef.diff)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 05 Aug 2014 14:40:05 +0200
+
+llvm-toolchain-3.5 (1:3.5~+rc4-1) unstable; urgency=medium
+
+  * New snapshot release
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 27 Aug 2014 23:09:59 +0200
+
+llvm-toolchain-3.5 (1:3.5~+rc3-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Cherry-pick to commit from upstream (revisions 214906 214907)
+    to improve the gcc compat
+  * Remove scan-build-clang-path.diff (applied upstream)
+  * Just like in 3.4, bring back lldb & lldb-dev under mips & mipsel
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 20 Aug 2014 23:43:06 +0200
+
+llvm-toolchain-3.5 (1:3.5~+rc2-1) unstable; urgency=medium
+
+  * Fix the version
+  * try to build lldb-gdbserver under kfreebsd (kfreebsd-lldb-gdbserver.diff)
+  * Second try to fix build under HURD (hurd-EIEIO-undef.diff)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 08 Aug 2014 10:42:13 +0200
+
+llvm-toolchain-3.5 (1:3.5~+rc2-1~exp1) unstable; urgency=medium
+
+  * New snapshot release
+  * Enable compressed debug sections (Closes: #757002)
+  * Force scan-build to use the same version of clang
+  * Bring back scan-build-search-path.diff (Closes: #757219)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 04 Aug 2014 13:35:35 +0200
+
+llvm-toolchain-snapshot (1:3.6~svn214630-1~exp1) experimental; urgency=medium
+
+  * New snapshot release (3.5 => 3.6)
+  * Co installation of clang (Closes: #736057)
+    - scan-build => scan-build-3.6
+    - scan-view => scan-view-3.6
+    - asan_symbolize => asan_symbolize-3.6
+  * Refresh of the patches
+  * Install yaml2obj, obj2yaml & verify-uselistorder in llvm-3.6
+  * Remove of pollycc
+  * clang alternatives are managed by llvm-defaults
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 31 Jul 2014 18:12:59 +0200
+
+llvm-toolchain-3.5 (1:3.5~+rc1-2) unstable; urgency=medium
+
+  * Sync with 3.4 svn to retrieve some changes:
+  * Replace $(CURDIR)/debian/tmp by a variable
+  * Move the polly installation in the dh_auto_install rules instead
+    of using *.install files. In llvm.org/apt/, I have to sometime disable
+    polly
+  * hurd-EIEIO-undef.diff: try to undef an errno.h to fix the ftbfs
+  * clang-X suggests clang-X-doc (Closes: #755922)
+  * Manage all files using .in mechanism. It will simplify the upgrade of
+    version
+  * Disable lldb for ppc64el. Thanks to Dimitri John Ledkov (Closes: #756380)
+  * Fix the FTBFS under PowerPC. Thanks to Dimitri John Ledkov for the patch
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 24 Jul 2014 11:42:56 +0200
+
+llvm-toolchain-3.5 (1:3.5~+rc1-1) unstable; urgency=medium
+
+  * First RC release of the 3.5 llvm toolchain
+  * Apply lldb-kfreebsd.diff patch to fix FTBFS under KFreeBSD
+    Thanks to Ed Maste
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 23 Jul 2014 08:57:59 +0200
+
+llvm-toolchain-snapshot (1:3.5~svn213451-1) unstable; urgency=medium
+
+  * New snapshot release
+  * If the version of gcc is too old, force the usage of gcc 4.8
+  * Clang will now show the full version. Example: 3.5.0-svn213052-1~exp1
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 19 Jul 2014 15:27:11 +0200
+
+llvm-toolchain-snapshot (1:3.5~svn211669-2) unstable; urgency=medium
+
+  * Remove useless dependency on g++
+  * Use the option stable '-analyzer-config stable-report-filename=true'
+    to the llvm scan-build reports
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 29 Jun 2014 19:13:05 +0200
+
+llvm-toolchain-snapshot (1:3.5~svn211669-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Fix CVE-2014-2893 (Closes: #744817)
+  * Merge with 3.4/debian
+  * Ship lldb-mi in lldb
+  * Remove scan-build-fix-clang-detection.diff (applied upstream)
+  * Ship the compiler-rt static libraries
+  * Running tests respect DEB_BUILD_OPTIONS=parallel=X
+   (Closes: #751943)
+  * Fix FTBFS on powerpc and powerpcspe (Closes: #733890)
+  * Broken library symlink fixed in lldb-3.5 (Closes: #715130)
+  * Fix --use-cc when no absolute path is provided (Closes: #748777)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 25 Jun 2014 07:58:03 +0200
+
+llvm-toolchain-snapshot (1:3.5~svn209039-2) unstable; urgency=medium
+
+  * Provide a link as compatibility with previous lib name (Closes: #748569)
+  * Be less permissive when installing lldb. Remove duplication of the install
+    of liblldb.so.1
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 18 May 2014 20:01:40 +0200
+
+llvm-toolchain-snapshot (1:3.5~svn209039-1) unstable; urgency=medium
+
+  * New snapshot release
+  * Fix the cmake install patch
+  * Disable profile_rt.diff for now
+  * Refresh of libclang1-3.5.symbols
+  * Fix path to /usr/lib/clang/3.5.0/ (Closes upstream #19088)
+  * Fix the wrong dependency declaration on llvm-3.5-tools
+  * Add gnustep & gnustep-devel as suggests of clang-3.5
+  * Add libc6-dev as an explicit dependency of clang-3.5
+  * Build with dh_install --fail-missing
+  * Start to use /usr/bin/foo-X.Y. First step to have several clang versions
+    installed together
+  * Add some missing files:
+    - lli-child-target         - llvm-3.5-runtime
+    - count                    - llvm-3.5-tools
+    - html.tar.gz              - llvm-3.5-doc
+    - ocamldoc.tar.gz          - llvm-3.5-doc
+    - BugpointPasses.so        - llvm-3.5-dev
+    - liblldb*                 - lldb-3.5-dev
+    - clang-apply-replacements - clang-3.5
+    - clang-tidy               - clang-3.5
+    - clang-query              - clang-3.5
+    - pp-trace                 - clang-3.5
+    - lldb-platform            - lldb-3.5
+    - lldb-gdbserver           - lldb-3.5
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 16 May 2014 23:23:50 +0200
+
+llvm-toolchain-3.4 (1:3.4.2-2) unstable; urgency=medium
+
+  * Improve the CVE-2014-2893 fix (Closes: #744817)
+  * Add a check to avoid an error on arch where compiler-rt is not available
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 16 Jun 2014 23:00:47 +0200
+
+llvm-toolchain-3.4 (1:3.4.2-1) unstable; urgency=medium
+
+  * New upstream release
+  * Add build conflict on libllvm-3.5-ocaml-dev
+  * Also disable lldb tests under armel (like armhf). Timeout
+  * Update of the repack script
+  * Use llvm-3.4-dev.links.in to manage the symlinks
+  * Fix the soname of liblldb.so to see it treated as a real library
+    (Closes: #750868)
+  * Switch to the default gcc/g++ compiler. Currently 4.9 (Closes: #751322)
+  * Fixes CVE-2014-2893 (Closes: #744817)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 06 Jun 2014 15:55:57 +0200
+
+llvm-toolchain-3.4 (1:3.4.1-4) unstable; urgency=medium
+
+  * Be less permissive when installing lldb. Remove duplication of the install
+    of liblldb.so.1
+  * Add symlinks lldb-3.4, lldb-platform-3.4 & lldb-gdbserver-3.4 without 3.4
+  * Clang was unusable with libstdc++ from gcc 4.9 (Closes: #744792)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 18 May 2014 20:18:19 +0200
+
+llvm-toolchain-3.4 (1:3.4.1-3) unstable; urgency=medium
+
+  * Fix path for arch without support of compiler-rt. Should fix most of the
+    FTBFS
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 16 May 2014 15:27:37 +0200
+
+llvm-toolchain-3.4 (1:3.4.1-2) unstable; urgency=medium
+
+  * Fix the soname. No changes in the ABI, so, no need to update the soname
+    (Closes: #747701)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 11 May 2014 17:29:22 +0200
+
+llvm-toolchain-3.4 (1:3.4.1-1) unstable; urgency=medium
+
+  * New upstream release. Note that only LLVM & Clang had a new release.
+    I just copied the 3.4 tarballs for clang-extra-tools, polly, lldb and
+    compiler-rt.
+  * Symlink for current build mode missing (Closes upstream #18836)
+  * Add link usr/lib/llvm-3.4/ to usr/lib/llvm-3.4/build/Debug+Asserts
+  * Backport of a r201586 from upstream. scan-build was failing on some project
+    like firefox build system. (Yeh, advantage to be the packager of a software
+    that I use ;) ). See scan-build-fix-clang-detection.diff
+  * Fix the version in the symbol list (libclang1-3.4.symbols)
+  * Update the path regarding upstream changed (3.4 => 3.4.1)
+    (Patch improved also by Martin Nowack)
+  * Remove generated file libllvm3.4.install
+  * Add gnustep & gnustep-devel as suggests of clang-3.4
+  * Add libc6-dev as an explicit dependency of clang-3.4
+  * Build with dh_install --fail-missing
+  * Start to use /usr/bin/foo-X.Y. First step to have several clang versions
+    installed together
+  * Add some missing files:
+    - lli-child-target         - llvm-3.4-runtime
+    - count                    - llvm-3.4-tools
+    - html.tar.gz              - llvm-3.4-doc
+    - ocamldoc.tar.gz          - llvm-3.4-doc
+    - BugpointPasses.so        - llvm-3.4-dev
+    - liblldb*                 - lldb-3.4-dev
+    - lldb-platform-3.4        - lldb-3.4
+    - clang-apply-replacements - clang-3.4
+    - clang-tidy               - clang-3.4
+    - pp-trace                 - clang-3.4
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 09 May 2014 19:57:33 +0200
+
+llvm-toolchain-snapshot (1:3.5~svn200375-1) unstable; urgency=medium
+
+  * New snapshot release
+  * polly unnopstream is now using the isl trunk. Disabling it for now.
+  * Only explicit the link against atomic when running mips & mipsel
+  * Fix the cindex.py declaration (3.3 => 3.5). Closes upstream bug #18365
+  * Bring back the dependency on gcc 4.8. It breaks the nightly snapshot
+    packages and it should be the norm now...
+
+  [ Martin Nowack ]
+  * Fixed build directory for llvm-config
+  * Add Unittests for running tests for llvm-based projects
+  * Install FileCheck and not for testing
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 29 Jan 2014 07:36:29 -0800
+
+llvm-toolchain-snapshot (1:3.5~svn199601-1) unstable; urgency=low
+
+  * New snapshot release
+  * Update clang-format declaration from 3.4 => 3.5. Closes upstream bug #18451
+  * Fix the cindex.py declaration (3.3 => 3.5). Closes upstream bug #18365
+  * Force gcc 4.8. LLVM & Co are now in C++ 11.
+  * Also make clang-3.5 breaks/replaces clang. Conflicts on
+    /usr/share/clang/scan-view/ScanView.py (Closes: #730266)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 15 Jan 2014 15:08:03 +0100
+
+llvm-toolchain-snapshot (1:3.5~svn197556-1) unstable; urgency=low
+
+  * New snapshot release
+  * Merge changes from 1:3.4~+rc3-1
+  * Disable much of the display of the lldb display
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 17 Dec 2013 12:02:52 +0100
+
+llvm-toolchain-snapshot (1:3.5~svn195337-1) unstable; urgency=low
+
+  * Sync from 3.4~+rc2-1
+  * Make lldb 3.5 also conflict with 3.4 (Closes: #730163)
+  * Make python-clang 3.5 also conflict with 3.4 (Closes: #730164)
+  * Fix a FTBFS with clang
+  * Refresh the /usr/include/clang mess
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 10 Dec 2013 09:57:15 +0100
+
+llvm-toolchain-snapshot (1:3.5~svn195337-1) unstable; urgency=low
+
+  * Switch from 3.4 to 3.5
+  * Remove patch 0046-Revert-Patch-to-set-is_stmt-a-little-better-for-prol.patch
+    Useless now and missleading
+  * Standards-Version updated to 3.9.5
+  * kfreebsd.diff remove (applied upstream)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 20 Nov 2013 21:24:28 +0100
+
+llvm-toolchain-3.4 (1:3.4-2) unstable; urgency=medium
+
+  * Only explicit the link against atomic when running mips & mipsel
+  * Fix the cindex.py declaration (3.3 => 3.5). Closes upstream bug #18365
+  * Bring back the dependency on gcc 4.8. It breaks the nightly snapshot
+    packages and it should be the norm now...
+  * Introduce llvm-3.4-tools to contain the new files needed by Martin
+
+  [ Matthias Klose ]
+  * Disable the lldb build for AArch64.
+  * Don't run the lldb tests on armhf (time out on the buildd).
+
+  [ Martin Nowack ]
+  * Fixed build directory for llvm-config
+  * Add Unittests for running tests for llvm-based projects
+  * Install FileCheck and not for testing
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 11 Feb 2014 11:19:21 +0100
+
+llvm-toolchain-3.4 (1:3.4-1) unstable; urgency=medium
+
+  * New upstream release
+  * Remove explicit dep on gcc 4.8
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 20 Dec 2013 18:36:58 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc3-1ubuntu4) trusty; urgency=medium
+
+  * Rebuild for ocaml-4.01.
+
+ -- Matthias Klose <doko@ubuntu.com>  Mon, 23 Dec 2013 12:11:17 +0000
+
+llvm-toolchain-3.4 (1:3.4~+rc3-1ubuntu3) trusty; urgency=low
+
+  * Bring over Ubuntu changes from 3.3:
+    - Revert to using the static copy of libjsoncpp, since the shared
+      library lacks sane versioning, and this is only a few thousand
+      lines of cargo-culted code from a reasonably stagnant upstream.
+    - Drop lcov build-dep to avoid pulling it into main, due to its
+      being fundamentally incompatibe with our newer GCC versions.
+
+ -- Matthias Klose <doko@ubuntu.com>  Fri, 20 Dec 2013 12:59:01 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc3-1ubuntu2) trusty; urgency=low
+
+  * Don't run the lldb tests on armhf (time out on the buildd).
+
+ -- Matthias Klose <doko@ubuntu.com>  Wed, 18 Dec 2013 12:29:56 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc3-1ubuntu1) trusty; urgency=low
+
+  * Disable the lldb build for AArch64.
+  * Build-depend on gcc-multilib on amd64 and i386.
+
+ -- Matthias Klose <doko@ubuntu.com>  Tue, 17 Dec 2013 18:44:50 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc3-1) unstable; urgency=low
+
+  * New testing upstream release
+  * Relative call in the chroot without proc failed.
+    See: fix-an-issue-in-chroot-witout-proc.diff
+  * Bring back lldb-link-atomic.diff to make sure lldb builds under
+    powerpc
+  * Also limit the number of archs for liblldb-dev
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 17 Dec 2013 11:27:40 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc2-3) unstable; urgency=low
+
+  * Fix the bad declaration on the lldb desactivation
+  * Also disable lldb under powerpc
+  * Hopefully, fix lldb under Kfreebsd-* (thanks to Ed Maste if it works)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 04 Dec 2013 23:53:49 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc2-2) unstable; urgency=low
+
+  * Add the Ocaml ABI dependency (Closes: #731344)
+  * Disable LLDB also for ia64, mips & mipsel
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 04 Dec 2013 15:37:39 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc2-1) unstable; urgency=low
+
+  * New testing upstream release
+  * 0047-version-name.diff ocamldoc.diff removed (applied upstream)
+  * r600 is now compiled by default (remove the configure arg)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 03 Dec 2013 10:25:59 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc1-3) unstable; urgency=low
+
+  * Remove the usage of --with-c-include-dirs, --with-cxx-include-root,
+    --with-cxx-include-arch and --with-cxx-include-64bit-dir
+    It was blocking the automatic detection of the path of clang.
+    In particular in the context of the usage of -target.
+    However, it does not completely fix the detection of the i386 C++ path.
+    See the next item.
+    (Closes: #729933)
+  * Bring back the path to libstdc++ under i386. Still not fixed upstream
+    (Closes: #730857)
+  * Define also MAXPATHLEN in Path.inc for HURD.
+  * Silent the trillion of warnings in the LLDB Python wrapper (swig generated)
+    See silent-swig-warning.diff
+  * Silent some i386 tests failing (it is expected)
+    See silent-MCJIIT-tests.diff
+  * Make lldb 3.4 also conflict with 3.5 (Closes: #730163)
+  * Make python-clang 3.4 also conflict with 3.5 (Closes: #730164)
+  * Port LLVM to mips64el. Thanks to YunQiang Su. Initially done for
+    3.3 and ported on the 3.4 (Closes: #730808)
+  * If we get an unexpected pass, do not break the tests
+    do-not-fail-on-unexpected-pass.diff (I am disabling some tests)
+  * Fix the path detection of the objective h headers.
+  * Also add usr/lib/llvm-3.4/lib/clang/3.4/include =>
+    usr/lib/clang/3.4/include symlink to simplify the path detection
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 01 Dec 2013 17:49:46 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc1-2) unstable; urgency=low
+
+  * Force the build to gcc 4.8... gcc 4.6 used on some Debian archs does not
+    support some C++ features.
+  * Fail the build when llvm tests are failing under amd64 + i386. More to come.
+  * Fix a libclang.so.1 issue during the clang tests
+  * Improve the patch 23-strlcpy_strlcat_warning_removed.diff
+    (also remove the tests)
+  * Make lldb 3.4 also conflict with 3.5 (Closes: #730163)
+  * Make python-clang 3.4 also conflict with 3.5 (Closes: #730164)
+  * Remove usr/lib/llvm-3.4/build/autoconf/LICENSE.TXT
+  * silent warning "manpage-has-useless-whatis-entry" in lldb-3.4
+  * silent warning "package-name-doesnt-match-sonames libclang1"
+  * Refresh patch kfreebsd_v2.diff to, maybe, fix lldb build under kfreebsd.
+    Thanks to Ed Maste for the patch.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 26 Nov 2013 18:32:49 +0100
+
+llvm-toolchain-3.4 (1:3.4~+rc1-1) unstable; urgency=low
+
+  * New testing upstream release
+  * kfreebsd.diff removed. Applied upstream
+  * Remove patch 0046-Revert-Patch-to-set-is_stmt-a-little-better-for-prol.patch
+    Useless now and missleading
+  * Branch from llvm-toolchain-snapshot
+  * Standards-Version updated to 3.9.5
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 20 Nov 2013 21:24:28 +0100
+
+llvm-toolchain-snapshot (1:3.4~svn194079-1) unstable; urgency=low
+
+  * New snapshot release
+  * Also install clang 3.4 examples (clang-3.4-examples) (Closes: #728260)
+  * Move c-index-test* from llvm-3.4 => clang-3.4. It was triggering an
+    unnecessary dependency from llvm-3.4 to libclang
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 01 Nov 2013 05:19:55 +0100
+
+llvm-toolchain-snapshot (1:3.4~svn193628-1) unstable; urgency=low
+
+  * New snapshot release
+    - Fix the scan-build warning (Closes: #725332)
+  * Merge changes from the 3.3 branch (see 1:3.3-12)
+  * Add lldb-3.4-dev package
+  * Remove mipsel-ftbfs.diff (applied upstream)
+  * Add support of coverity checker (non-free and not packaged)
+  * libprofile_rt and runtime has been removed upstream (r191835)
+    Features are provided by compiler-rt
+  * Update the build dependency from tcl8.5 to tcl (Closes: #725954)
+  * clang-modernize-3.4 was not coinstallable with clang 3.4
+    (Closes: #724245)
+  * The package wasn't cleaned correctly (Closes: #722155)
+  * libtinfo-dev is now a dependency of llvm-3.4-dev (Closes: #727129)
+  * Install libclang.so in /usr/lib/*/libclang-3.4.so
+  * Install libclang.so.1 in /usr/lib/*/libclang-3.4.so.1
+  * Also ship the python clang binding (python-clang-3.4)
+  * Enable polly if the dependencies are OK (only Debian unstable for now)
+  * Bring back /usr/lib/llvm-3.4/lib/libclang.so (libclang-3.4-dev) and
+    /usr/lib/llvm-3.4/lib/libclang.so.1 (libclang1-3.4)
+  * Honor the option "nocheck"
+  * Disable the build of lldb under HURD
+  * Ship the lldb headers into lldb-X.Y-dev (Closes: #723743)
+    I might create a liblldb-X.Y library at some point but I think it is too
+    early.
+  * Update the build dependency from tcl8.5 to tcl (Closes: #725953)
+  * Update of the clang descriptions (Closes: #727684)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 29 Oct 2013 17:56:18 +0100
+
+llvm-toolchain-snapshot (1:3.4~svn190846-1) unstable; urgency=low
+
+  * New snapshot release
+  * Merge changes from the 3.3 branch (see 1:3.3-9)
+  * Remove ia64-fix.diff (applied upstream)
+  * cpp11-migrate renamed to clang-modernize
+  * lldb-3.4 is back to Architectures: any
+  * Patch lldb-hurd.diff removed (applied upstream)
+  * Directory www/ from tarballs polly & lldb removed
+  * Update of the description of LLVM packages
+    (LLVM no longer mean Low Level Virtual Machine)
+
+  [ Luca Falavigna ]
+  * debian/control:
+    - Add llvm-3.4-dev to lldb-3.4 Depends field.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 05 Sep 2013 12:04:35 +0200
+
+llvm-toolchain-3.3 (1:3.3-9) unstable; urgency=low
+
+  [ Luca Falavigna ]
+  * debian/control:
+    - Add llvm-3.3-dev to lldb-3.3 Depends field (Closes: #715129).
+
+  [ Sylvestre Ledru ]
+  * Only use -fuse-ld=gold on supported distribution. Simplify the
+    backports.
+  * Fix  'bits/c++config.h' file not found under i386
+    See libstdc++-header-i386.diff. (Closes: #714890)
+  * Add more fixes for the HURD port... (but still fails)
+
+  [ Robert Millan ]
+  * clang under KfFreeBSD was not exporting the correct defines
+    (Closes: #721880)
+
+  [ Jon Severinsson ]
+  * Merge from llvm-toolchain-3.2 branch up to 3.2repack-11.
+  * Drop auto-generated file debian/libllvm3.3.install.
+  * Automatically determine GCC_VERSION and dep:devlibs based on g++ package
+    version.
+  * Automatically determine if -fuse-ld=gold is supported based on binutils
+    package version.
+
+  [ Adam Conrad ]
+  * debian/patches/lldb-link-atomic.diff: Link lldb with -latomic to get
+    builtin GCC atomic helpers on arches (like powerpc) that need them.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 26 Aug 2013 14:48:42 +0200
+
+llvm-toolchain-3.3 (1:3.3-8) unstable; urgency=low
+
+  [ Sylvestre Ledru ]
+  * Fix another issues under HURD...
+
+  [ Luca Falavigna ]
+  * debian/patches/libprofile_rt_sparc.patch:
+    - Re-enable libprofile_rt on Sparc, fix FTBFS.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 23 Aug 2013 15:02:05 +0200
+
+llvm-toolchain-3.3 (1:3.3-7) unstable; urgency=low
+
+  * debhelper version 9.20130720 fails on the call to dh_auto_clean
+    Remove it. It was anyway useless.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 22 Aug 2013 14:28:25 +0200
+
+llvm-toolchain-3.3 (1:3.3-6) unstable; urgency=low
+
+  * Fix the FTBFS under hurd and KFreeBSD
+  * Do not remove all *.o in tests. Some of them are from upstream source
+    tarball. Thanks to Maarten Lankhorst for the fix.
+  * Fix the lintian error 'lldb-3.3: postinst-must-call-ldconfig'
+  * Add the manpages of clang-format-3.3
+  * Overrides the manpages warnings
+  * Also apply unwind-chain-inclusion.diff from the snapshot branch to make sure
+    we can build the package locally even if libclang-dev is installed
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 22 Aug 2013 09:01:04 +0200
+
+llvm-toolchain-3.3 (1:3.3-5) unstable; urgency=low
+
+  * Install llvm-c headers also in usr/include/llvm-3.3/llvm-c
+  * Fix the FTBFS under mips & mipsel
+  * Refresh of the kfreebsd i386 patch
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 07 Aug 2013 13:12:23 +0200
+
+llvm-toolchain-3.3 (1:3.3-4) unstable; urgency=low
+
+  * Use the static library libjsoncpp.a instead of the ship library in polly
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 11 Aug 2013 09:54:17 +0200
+
+llvm-toolchain-snapshot (1:3.4~svn185325-1) unstable; urgency=low
+
+  * binutils-gold no longer exists. Use -fuse-ld=gold instead.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 01 Aug 2013 14:06:38 +0200
+
+llvm-toolchain-snapshot (1:3.3-2) unstable; urgency=low
+
+  * Fix warning python-script-but-no-python-dep on clang-format-X.Y
+  * manpages are generated during build time (simplifies maintenance)
+  * Fix duplicate underscore.js and jquery.js
+  * Move libjs-jquery & libjs-underscore dependencies to llvm-X.Y-doc
+  * Add lldb-X.Y manpage
+  * Hopefully fix the ftbfs under mipsel (mipsel-ftbfs.diff)
+  * Disable the usage of binutils-gold under armel. It currently fails with:
+    "attempt to map 2752512 bytes at offset 2066666 exceeds size of file;
+    the file may be corrupt"
+
+  [ Léo Cavaillé ]
+  * Add patch to find correctly LLVMGold.so with -O4 (Closes: #712437)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 20 Jun 2013 15:39:11 +0200
+
+llvm-toolchain-snapshot (1:3.4~svn184294-1~exp1) experimental; urgency=low
+
+  * New snapshot release
+  * Improve some scripts and fix cpp11-migrate install from
+    clang-tools-extra.
+  * Fix "versionless" clang manpages install.
+  * Fix Toolchain patch from change of scope (add namespaces).
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 19 Jun 2013 14:20:12 +0200
+
+llvm-toolchain-snapshot (1:3.4~svn183914-1) unstable; urgency=low
+
+  * New snapshot release
+  * Upload to unstable (will be blocked by a RC bug)
+  * Sync changes from llvm-toolchain-3.3:
+    - Introduce cpp11-migrate-3.4 and clang-format-3.4
+    - Install the vim llvm script at the right place
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 13 Jun 2013 18:47:08 +0200
+
+llvm-toolchain-snapshot (1:3.4~svn182733-1~exp1) experimental; urgency=low
+
+   * New snapshot release (3.4 release)
+   * Add a symlink of libLLVM-3.4.so.1 to usr/lib/llvm-3.4/lib/libLLVM-3.4.so
+       to fix make the llvm-config-3.4 --libdir work (Closes: #708677)
+     * Various packages rename to allow co installations:
+       * libclang1 => libclang1-3.4
+       * libclang1-dbg => libclang1-3.4-dbg
+       * libclang-dev => libclang-3.4-dev
+       * libclang-common-dev => libclang-common-3.4-dev
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 27 May 2013 15:01:57 +0200
+
+llvm-toolchain-snapshot (1:3.3~svn179851-1~exp1) experimental; urgency=low
+
+  * Draft of a snapshot release (3.3)
+  * Enable r600 experimental backend
+  * Improve the dependencies:
+    * clang-3.3 depends on the exact same libllvm3.3 release
+    * idem for lldb-3.3
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 19 Apr 2013 09:31:38 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-11) unstable; urgency=low
+
+  * dh_auto_clean removed, just like in the 3.3
+  * Use the static library libjsoncpp.a instead of shipping library in polly
+    Backport of the modification of 3.3
+
+  [ Adam Conrad ]
+  * Revive deltas from the previous Ubuntu versions of llvm and clang:
+    - debian/patches/35-ubuntu-releases.diff: Add UbuntuSaucy to table.
+    - debian/patches/JITEmitter.patch: Fix a segfault in the exception
+      table of the JIT code emitter (See Launchpad bug #1160587)
+
+  [ Luca Falavigna ]
+  * debian/patches/libprofile_rt_sparc.patch:
+    - Re-enable libprofile_rt on Sparc, fix FTBFS.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Fri, 23 Aug 2013 11:49:09 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-10) unstable; urgency=low
+
+  * Fix the wrong package declaration on libstdc++-4.8-dev (Closes: #713944)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 24 Jun 2013 23:00:47 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-9) unstable; urgency=low
+
+  * Switch to libstdc++ 4.8 instead of 4.7 for the headers (Closes: #712520)
+  * Depends against libobjc-4.8-dev and libgcc-4.8-dev
+  * Disable the usage of binutils-gold under armel. It currently fails with:
+      "attempt to map 2752512 bytes at offset 2066666 exceeds size of file;
+      the file may be corrupt"
+  * Add DEBUGMAKE=1 to get information about compiler-rt compilation
+  * Fix "libclang-common-dev: missing-depends-line"
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 22 Jun 2013 07:38:41 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-8) unstable; urgency=low
+
+  * Fix the build under ia64. Thanks to Luca Falavigna for the patch
+    (ia64-fix.diff)
+  * Disable lldb-3.2:
+    - the quality is not good enough
+    - We have lldb-3.3 now in the archive
+    - Too many backported patches would be necessary for lldb-3.2 to work
+    - It blocks some important transitions (mesa)
+  * Add the detection of Ubuntu saucy
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 03 Jun 2013 11:32:29 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-7) unstable; urgency=low
+
+  * For now, enable only lldb for amd64 and i386 (blocks too many things)
+    (Bis) (Closes: #707866)
+  * Add a symlink of libLLVM-3.2.so.1 to usr/lib/llvm-3.2/lib/libLLVM-3.2.so
+    to fix make the llvm-config-3.2 --libdir work (Closes: #708677)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Mon, 27 May 2013 13:20:30 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-6) unstable; urgency=low
+
+  * Create the compiler-rt directory to make the install of compiler-rt works
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 18 May 2013 18:08:52 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-5) unstable; urgency=low
+
+  * For now, enable only lldb for amd64 and i386 (blocks too many things)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 18 May 2013 10:24:04 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-4) unstable; urgency=low
+
+  * Add several patches which, hopefully, will fix the build under ARM, S390,
+    S390X, etc (lldb-apple_only.diff, lldb-user-remove.diff & lldb-hurd.diff)
+  * Include sys/wait.h also under kfreebsd (kfreebsd-thread.diff)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 15 May 2013 12:04:24 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-3) unstable; urgency=low
+
+  * Before the configure, show which version of CC is being used.
+  * Add support of kfreebsd and hurd in lldb (kfreebsd-hurd-lldb.diff)
+  * Force the usage of gcc 4.7 for all archs. Should fix some FTBFS
+    (Closes: #707866)
+  * Fix the symlink on clang++.1.gz llvm-clang.1.gz (Closes: #707832)
+
+  [ Jon Severinsson ]
+  * Re-enable the r600 backend and update it to the mesa-9.1.1 tag.
+   (Closes: #708009)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 14 May 2013 12:10:07 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-2) unstable; urgency=low
+
+  * Do not depend on libobjc-4.7-dev & libgcc-4.7-dev.
+    They are still only in experimental
+  * Disable the usage of binutils-gold under [powerpc powerpcspe ppc64 sparc
+    sparc64] to fix FTBFS
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Tue, 07 May 2013 13:15:20 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-1) unstable; urgency=low
+
+  * Upload to unstable
+  * Standards-Version update to 3.9.4
+  * clang pure virtual function call crash with binaries built with C++11's
+    std::thread. Upstream commit 178816 (Closes: #705838)
+  * Introduce a symbols file for libclang1 (Closes: #705672)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 21 Apr 2013 14:06:23 +0200
+
+llvm-toolchain-3.2 (1:3.2repack-1~exp4) experimental; urgency=low
+
+  * Build using binutls-gold to improve the quality of the binaries.
+    See: http://allievi.sssup.it/techblog/?p=791
+  * Detect the vendor (Debian or Ubuntu) and update the configuration
+  * Port to powerpcspe. Thanks to Roland Stigge (Closes: #701587)
+    See: 31-powerpcspe.diff
+  * Fix the path detection of scan-build (Closes: #698352)
+    See: 32-scan-build-path.diff
+  * debian/patches/r600-snapshot.diff: Move backports into individual patches.
+  * debian/patches/r600-snapshot.diff: Update to mesa-9.1 git tag.
+    (Closes: #703671, #697356)
+  * Fix a typo in the detection of the vendor
+
+  [ Peter Michael Green ]
+  * Use binutils-gold only on architectures where it is actually available
+  * 33-armhf-defaults.diff Fix defaults to use correct CPU and FPU for
+    debian  armhf (Closes: #704111)
+  * 34-powerpc-no-altivec.diff disable altivec by default on powerpc because
+    debian powerpc does not require altivec (patch cherry picked from ubuntu)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Thu, 14 Mar 2013 17:47:12 +0100
+
+llvm-toolchain-3.2 (1:3.2repack-1~exp3) experimental; urgency=low
+
+  * Remove package "clang". It is now provided by llvm-defaults.
+  * Fix some issues relative to the epoch change
+  * Fix a wrong path in the _lldb.so Python symlink
+  * Install cmake files to build LLVM extensions (Closes: #701153)
+  * Remove the embedded copy of libjs-jquery (Closes: #701087)
+  * Fix the install of lli manpage (Closes: #697117)
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sun, 17 Feb 2013 12:05:15 +0100
+
+llvm-toolchain-3.2 (1:3.2repack-1~exp2) experimental; urgency=low
+
+  * Install the python files for lldb. Thanks to Daniel Malea for spotting this.
+  * Update of the clean target
+  * Introduce an epoch to match the changes in bug #699899
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Wed, 13 Feb 2013 12:22:30 +0100
+
+llvm-toolchain-3.2 (3.2repack-1~exp1) experimental; urgency=low
+
+  * Build the whole LLVM toolchain at once. This includes:
+    - LLVM
+    - Clang
+    - compiler-rt
+    - lldb
+    - polly
+  * Also install clang-check & clang-tblgen in the clang-3.2 package
+  * Fix the patch detection of clang from scan-build (Closes: #698352)
+  * debian/patches/0050-powerpcspe-fp.diff: Add, hopefully fix FTBFS on
+    powerpcspe, by disabling save / restore of floating point registers which
+    don't exist on powerpcspe. Thanks to Roland Stigge for the patch.
+    (Closes: #696474)
+  * libLLVM-3.2.so.1 is now shipped only once (Closes: #696913)
+  * Enable RTTI (Closes: #697754)
+  * Introduce lldb as a new package (Closes: #698601)
+  * Add a script pollycc which will call clang with the right arguments.
+  * Use __builtin___clear_cache on ARM to fix a clang bug.
+    Thanks to Matthias Klose.
+
+ -- Sylvestre Ledru <sylvestre@debian.org>  Sat, 09 Feb 2013 12:14:10 +0100

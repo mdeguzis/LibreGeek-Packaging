@@ -508,7 +508,7 @@ function_backport_config()
 		read -erp "File: " FILE
 
 		if [[ "${FILE}" != "quit" &&  "${FILE}" != "q" ]]; then
-			nano "${FILE}"
+			vim "${FILE}"
 		fi
 
 	done
@@ -520,7 +520,7 @@ function_backport_config()
 
 	if [[ "${RETRY_BUILD}" == "false" ]]; then
 
-		echo -e "\n==> Updating changelog with dch. Adjust as necessary. Be mindful of epochs!"
+		echo -e "\n==> Updating changelog with dch. Adjust as necessary. Be mindful of epochs!\n"
 		sleep 4s
 
 		# Create basic changelog format if it does exist or update
@@ -528,7 +528,7 @@ function_backport_config()
 
 			dch -p --force-bad-version --force-distribution -v "${PKGVER}${PKGSUFFIX}${PKGREV}" \
 			--package "${PKGNAME}" -D $DIST -u "${URGENCY}" "Backported package. No changes made."
-			nano "debian/changelog"
+			vim "debian/changelog"
 
 		else
 

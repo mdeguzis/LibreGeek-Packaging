@@ -104,10 +104,10 @@ function_set_vars()
 	if [[ "${PKGREV}" == "" ]]; then PKGREV="${OLD_PKGREV}"; fi
 	export OLD_PKGREV="${PKGREV}"
 
-        echo -e "\nPress ENTER to use last: ${OLD_BACKPORTREV}"
-        read -erp "Backport revision / attempt: " BACKPORTREV
-        if [[ "${BACKPORTREV}" == "" ]]; then BACKPORTREV="${OLD_BACKPORTREV}"; fi
-        export OLD_BACKPORTREV="${BACKPORTREV}"
+	echo -e "\nPress ENTER to use last: ${OLD_BACKPORTREV}"
+	read -erp "Backport revision / attempt: " BACKPORTREV
+	if [[ "${BACKPORTREV}" == "" ]]; then BACKPORTREV="${OLD_BACKPORTREV}"; fi
+	export OLD_BACKPORTREV="${BACKPORTREV}"
 
 	echo -e "\nPress ENTER to use last: ${OLD_ARCH}"
 	read -erp "Arch target: " ARCH
@@ -360,15 +360,15 @@ function_backport_config()
 		case "${ORIG_TARBALL_FILENAME}" in
 
 			*.tar.bz2)
-			tar -xvjf *.tar.bz2
+			tar -xvjf *orig*.tar.bz2
 			;;
 
 			*tar.xz)
-			tar -xvf *.tar.xz
+			tar -xvf *orig*.tar.xz
 			;;
 
 			*.tar.gz)
-			tar -xvzf *.tar.gz
+			tar -xvzf *orig*.tar.gz
 			;;
 
 		esac
@@ -377,7 +377,7 @@ function_backport_config()
 
 	# Set the source dir
 	# Find dir, depth 0 inside* BUILD TMP, which should only by the SRC_DIR
-	SRC_DIR=$(find ${BUILD_TMP}/* -maxdepth 0 -type d)
+	SRC_DIR=$(find ${BUILD_TMP} -maxdepth 1 -name "${PKGNAME}*" -type d)
 
 	# Fail out if SRC_DIR is not found
 	if [[ "${SRC_DIR}" == "" ]]; then
@@ -420,7 +420,7 @@ function_backport_config()
 	# If user requested to execute commands before build:
 	if [[ "${USER_COMMANDS}" == "true" ]]; then
 
-		cd "${SRC_DIR}"
+		cd "${SRC_DIR}" || echo "Cannot enter src directory!" && sleep 5s
 		echo -e "\n==> Enter commands below (Type quit to stop)\n"
 
 		while [[ "${CMD}" != "quit" && "${CMD}" != "q" ]];
@@ -454,7 +454,11 @@ function_backport_config()
 	fi
 
 	# Enter source dir
-	cd ${SRC_DIR}
+	if ! cd ${SRC_DIR}; then
+		echo -e "Cannot enter src dir!, showing value: "
+		echo ${SRC_DIR}
+		exit 1
+	fi
 
 	# Last safety check - debian folder
 	# If the debian folder is in the original souce, keep it.

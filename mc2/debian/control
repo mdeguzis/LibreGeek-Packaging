@@ -1,0 +1,16 @@
+Source: mc2
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends:
+ debhelper (>= 9),
+ cmake,
+ libglew-dev,
+ libsdl2-dev
+Standards-Version: 3.9.8
+Homepage: https://github.com/alariq/mc2
+
+Package: dolphin-emu
+Architecture: amd64 arm64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Mech Commander 2 engine port

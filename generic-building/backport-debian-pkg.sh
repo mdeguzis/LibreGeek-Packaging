@@ -861,7 +861,7 @@ while :; do
 					steamos-tools		SteamOS-Tools beta repo
 
 			EOF
-			exit
+			break
 			;;
 
 		--)

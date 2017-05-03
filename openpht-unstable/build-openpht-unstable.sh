@@ -52,7 +52,7 @@ fi
 #SRC_URL="https://github.com/plexinc/plex-home-theater-public"
 #SRC_URL="https://github.com/mdeguzis/plex-home-theater-public"
 SRC_URL="https://github.com/RasPlex/OpenPHT"
-TARGET="openpht-1.7"
+TARGET="openpht-1.8"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -63,7 +63,7 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"		# requires cmake >= 3.1.0 (not in Jessie)
 PKGNAME="openpht-unstable"
 PKGVER=$(echo ${TARGET} | sed 's/openpht-//')
-PKGREV="2"
+PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"

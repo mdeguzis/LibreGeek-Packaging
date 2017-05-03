@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt name:	build-mrboom.sh
+# Scipt name:	build-libsdl2.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest mrboom source
-#		code.
+# Description:	Attmpts to build a deb package from the laest "libsdl2"
+#		release
 #
-# See:		https://github.com/Novum/vkQuake
+# See:		https://anonscm.debian.org/git/pkg-sdl/packages/libsdl2.git
 #
-# Usage:	./build-mrboom.sh
+# Usage:	./build-libsdl2.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -44,31 +44,28 @@ else
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 
 fi
-# upstream vars
-SRC_URL="https://github.com/libretro/mrboom-libretro"
-TARGET="master"
+# upstream var for master build
+SRC_URL="https://anonscm.debian.org/git/pkg-sdl/packages/libsdl2.git"
+TARGET="debian/2.0.5+dfsg1-2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-PKGNAME="mrboom"
-PKGVER="3.1.${DATE_SHORT}"
+PKGNAME="libsdl2"
+PKGVER="2.0.5"
 PKGREV="1"
 EPOCH="1"
-PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
-# Need network for pbuilder to pull down ut4 zip
-export NETWORK="yes"
-
-# set build directories
+# set build directoriess
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
@@ -78,7 +75,11 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential
+	sudo apt-get install -y debhelper  libasound2-dev libdbus-1-dev libegl1-mesa-dev \
+	libgl1-mesa-dev libgles2-mesa-dev libglu1-mesa-dev libibus-1.0-dev libpulse-dev \
+	libsdl2-2.0-0 libsndio-dev libudev-dev libusb2-dev libusbhid-dev libwayland-dev \
+	libx11-dev libxcursor-dev libxext-dev libxi-dev libxinerama-dev libxkbcommon-dev \
+	libxrandr-dev libxss-dev libxt-dev libxv-dev libxxf86vm-dev
 
 }
 
@@ -110,11 +111,12 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and get latest commit tag
-	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
 
-	# banner
-	cp -r "${SCRIPTDIR}/mrboom.png" "${SRC_DIR}"
+	# Set suffix based on revisions
+	cd "${SRC_DIR}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Build package
@@ -136,19 +138,17 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
-	# update changelog with dch
-	# "Update snapshot"
+ 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update to release ${PKGVER}, Update snapshot"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" -M \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		vim "debian/changelog"
 
 	fi
@@ -160,13 +160,11 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	USENETWORK=$USENETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
-
-	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)
@@ -177,7 +175,6 @@ main()
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
 
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
@@ -230,3 +227,4 @@ main()
 
 # start main
 main
+

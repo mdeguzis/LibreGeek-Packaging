@@ -45,12 +45,15 @@ else
 fi
 # upstream var for master build
 SRC_URL="https://github.com/OpenRA/OpenRA"
-TARGET="release-20161015"
+TARGET="release-20170421"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
+# This has to be built with debbuild unless you wish to skip tests
+# One alternative is to do phase 1/2 build, as you can* run
+# debuild -b inside the failed chroot and the mono tests will work
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
@@ -58,7 +61,7 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 export USE_NETWORK="yes"
 PKGNAME="openra"
-PKGVER="20161015"
+PKGVER=$(echo ${TARGET} | sed 's/release-//')
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
@@ -138,6 +141,13 @@ main()
 	# Get latest commit
 	cd "${SRC_DIR}"
 	export ${PKGNAME}_LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+
+	# get third party stuff now, as quilt needs to find these files
+	cd thirdparty || exit 1
+	./fetch-thirdparty-deps.sh
+
+	# fix version from DEV_VERSION tag
+	find "${SRC_DIR}" -name "*.yaml" -exec sed -i "s|{DEV_VERSION}|$TARGET|g" {} \;
 
 	#################################################
 	# Prepare sources

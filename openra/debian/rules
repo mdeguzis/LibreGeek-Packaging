@@ -1,29 +1,19 @@
 #!/usr/bin/make -f
-
 %:
 	dh $@ --with cli
 
-# Package version set to date in build script and here
-PKGVER_ACTUAL = $(shell DATE_SHORT=$(date +%Y%m%d))
-
 override_dh_auto_configure:
-	# Fix dev version string
-	find $(CURDIR)/mods/ -name "*.yaml" -print0 | xargs -0 sed  -i "s/{DEV_VERSION}/$(PKGVER_ACTUAL)/"
-	# Fire off makefile
-	make all man-page
+	#cd thirdparty && ./fetch-thirdparty-deps.sh
+	make dependencies
 
 override_dh_auto_test:
-	cp -rv thirdparty/download/* .
-	dh_auto_test
+	cp -r thirdparty/download/* .
+	#dh_auto_test
 
 override_dh_auto_install:
-	dh_auto_install -- prefix=/usr datadir=/usr/share/games \
-	bindir=/usr/games \
-	libexecdir=/usr/share/games \
-	gameinstalldir=/usr/share/games/openra
+	dh_auto_install -- prefix=/usr datadir=/usr/share/games libexecdir=/usr/share/games bindir=/usr/games gameinstalldir=/usr/share/games/openra
 
 override_dh_clideps:
-	dh_clideps -d \
-		--exclude-moduleref=i:/System/Library/Frameworks/Cocoa.framework/Cocoa \
-		--exclude-moduleref=i:libobjc.dylib \
-		--exclude-moduleref=i:libdl.dylib
+	dh_clideps -d --exclude-moduleref=i:/System/Library/Frameworks/Cocoa.framework/Cocoa \
+	              --exclude-moduleref=i:libobjc.dylib \
+	              --exclude-moduleref=i:libdl.dylib

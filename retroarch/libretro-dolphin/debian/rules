@@ -4,6 +4,7 @@
 # see: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=57350
 export DEB_CXXFLAGS_MAINT_STRIP=-O2
 export DEB_CFLAGS_MAINT_STRIP=-O2
+export DH_VERBOSE=1
 
 GIT_HASH := $(shell dpkg-parsechangelog | sed -rne 's,^Version: (.*),\1, p' | sed s/-/\\n\ /g | tail -n 2 | head -n 1)
 
@@ -11,4 +12,6 @@ GIT_HASH := $(shell dpkg-parsechangelog | sed -rne 's,^Version: (.*),\1, p' | se
 	dh $@ --parallel --sourcedirectory=Source/Core/DolphinLibretro/
 
 override_dh_auto_build:
-	dh_auto_build -- GIT_VERSION="'$(GIT_HASH)'"
+	rm -rf build && mkdir build
+	cd build && cmake ..
+	cd build && make VERBOSE=1

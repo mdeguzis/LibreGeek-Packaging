@@ -1,5 +1,4 @@
 usr
 packaging/linux/hicolor		usr/share/icons
-debian/openra.desktop		usr/share/applications
+packaging/linux/openra.desktop	usr/share/applications
 debian/scripts/openra		usr/games
-openra.png			usr/share/pixmaps

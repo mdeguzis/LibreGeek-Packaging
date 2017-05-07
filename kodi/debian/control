@@ -103,6 +103,7 @@ Architecture: all
 Depends: kodi-bin (>= ${source:Version}),
          kodi-bin (<< ${source:Version}.1~),
          curl,
+         kodi-peripheral-joystick,
          libcurl3,
          mesa-utils,
          x11-utils,

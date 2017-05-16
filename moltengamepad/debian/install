@@ -1,0 +1,8 @@
+moltengamepad	/usr/bin/
+# Only move the service to debian/ if auto-integration is needed
+# debhelper will crete prerm/postrm hooks if you leave it in debian/
+moltengamepad.service						/lib/systemd/system
+# systemuser install type
+installation/systemuser/profile-sdl2.sh		/etc/profile.d/sdl2-gamecontroller-moltengamepad.sh
+installation/systemuser/tmpfiles.conf		/etc/tmpfiles.d/moltengamepad.conf
+installation/systemuse/rudev.rules			/etc/udev/rules.d/72-moltengamepad.rules

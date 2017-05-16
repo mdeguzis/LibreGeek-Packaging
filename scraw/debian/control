@@ -1,0 +1,17 @@
+Source: scraw
+Section: utils
+Priority: extra
+Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ build-essential,
+ cmake(>= 3.1),
+ doxygen,
+ libusb-1.0-0-dev,
+ python-pkgconfig
+Standards-Version: 3.9.7
+Homepage: https://gitlab.com/dennis-hamester/scraw
+
+Package: scraw
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: scraw is a C library for the Steam Controller

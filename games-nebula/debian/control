@@ -1,0 +1,22 @@
+Source: lgogd-uri
+Section: python
+Priority: optional
+Maintainer: Paolo Greppi <paolo.greppi@libpf.com>
+Build-Depends: debhelper (>= 10),
+ dh-python,
+ python-all,
+ python-dbus,
+ python-gtk2,
+ python-notify,
+ python-pip,
+ python-setuptools,
+ python-vte
+Standards-Version: 3.9.8
+Homepage: https://github.com/ssokolow/lgogd_uri
+
+Package: lgogd-uri
+Section: python
+Architecture: all
+Depends: ${python:Depends}, ${misc:Depends},
+ lgogdownloader
+Description: A simple GTK+ frontend for LGOGDownloader

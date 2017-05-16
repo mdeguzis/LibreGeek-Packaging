@@ -1,0 +1,15 @@
+#!/usr/bin/make -f
+
+export DESTDIR = $(CURDIR)/debian/scrawpp
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -rf build && mkdir build
+	cd build && cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		..
+
+override_dh_auto_install:
+	make -C build install

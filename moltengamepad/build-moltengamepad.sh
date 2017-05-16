@@ -2,13 +2,13 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt Name:	build-molten-gamepad.sh
+# Scipt Name:	build-moltengamepad.sh
 # Script Ver:	1.0.0
-# Description:	Builds simple pacakge for using molten-gamepad
+# Description:	Builds simple pacakge for using moltengamepad
 #
 # See:		https://github.com/jgeumlek/MoltenGamepad
 #
-# Usage:	build-molten-gamepad.sh
+# Usage:	build-moltengamepad.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/jgeumlek/MoltenGamepad"
-TARGET="master"
+TARGET="v1.1.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -55,9 +55,10 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 export USE_NETWORK="no"
-PKGNAME="molten-gamepad"
-PKGVER="0.${DATE_SHORT}"
+PKGNAME="moltengamepad"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
 PKGREV="1"
+PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -106,11 +107,11 @@ main()
 
 	# clone and get latest commit tag
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
-	cd "${SRC_DIR}"
-	latest_commit=$(git log -n 1 --pretty=format:"%h")
+	#cd "${SRC_DIR}"
+	#latest_commit=$(git log -n 1 --pretty=format:"%h")
 
 	# Set suffix to commit
-	PKGSUFFIX="${latest_commit}git+bsos"
+	#PKGSUFFIX="${latest_commit}git+bsos"
 	
 	#################################################
 	# Build package

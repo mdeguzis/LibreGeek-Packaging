@@ -1,0 +1,14 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,8 +1,8 @@
+ #uncomment the lines below to include those plugins within the MG executable.
+ MG_BUILT_INS+=wiimote
+-#MG_BUILT_INS+=steamcontroller
+-#MG_BUILT_INS+=example
+-#MG_BUILT_INS+=joycon
++MG_BUILT_INS+=steamcontroller
++MG_BUILT_INS+=example
++MG_BUILT_INS+=joycon
+ 
+ #uncomment the lines below to build external plugins to be loaded at run time.
+ #MG_PLUG_INS+=wiimote

@@ -14,4 +14,4 @@ GIT_HASH := $(shell dpkg-parsechangelog | sed -rne 's,^Version: (.*),\1, p' | se
 override_dh_auto_build:
 	rm -rf build && mkdir build
 	cd build && cmake ..
-	cd build && make VERBOSE=1
+	cd build && make VERBOSE=1 compiler=clang

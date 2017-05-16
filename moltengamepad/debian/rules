@@ -1,0 +1,17 @@
+#!/usr/bin/make -f
+
+# ignore these for now until upstream fixes warnings
+CFLAGS := $(filter-out -Werror=format-security,$(CFLAGS))
+CXXFLAGS := $(filter-out -Werror=format-security,$(CXXFLAGS))
+
+# Future? - enable/start using helper
+#dh $@ --with=systemd
+# Add 'dh-systemd' to Debian control then
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	make eventlists
+	make
+

@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+export DESTDIR = $(CURDIR)/debian/scraw
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -rf build && mkdir build
+	cd build && cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-Dlibusb-1.0_INCLUDE_DIR="/usr/include/libusb-1.0" \
+		..
+
+override_dh_auto_install:
+	make -C build install

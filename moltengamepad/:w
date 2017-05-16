@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Handles post install actions for moltengamepad
+
+# Create system user and group for MG.
+useradd -r -U gamepad || echo "gamepad user already existed, continuing..."
+
+# Services
+udevadm control --reload
+systemd-tmpfiles --create
+systemctl daemon-reload
+
+# Reload uinput to get its new permissions.
+rmmod uinput
+modprobe uinput

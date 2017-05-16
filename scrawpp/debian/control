@@ -1,14 +1,15 @@
-Source: molten-gamepad
+Source: scrawpp
 Section: utils
 Priority: extra
 Maintainer: SteamOS-Tools Signing Key <mdeguzis@gmail.com>
 Build-Depends: debhelper (>= 9),
  build-essential,
- libudev-dev
+ cmake (>= 3.1),
+ scraw (>= 0.2.1)
 Standards-Version: 3.9.7
-Homepage: https://github.com/jgeumlek/MoltenGamepad
+Homepage: https://gitlab.com/dennis-hamester/scrawpp
 
-Package: molten-gamepad
+Package: scrawpp
 Architecture: amd64
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Flexible input device remapper, geared towards gamepads.
+Description: Steam Controller C++ library

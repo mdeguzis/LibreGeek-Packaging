@@ -16,7 +16,7 @@ Environment="XDG_CONFIG_HOME=/etc/moltengamepad"
 PIDFile=/var/run/moltengamepad/pid
 ExecPre=`if pgrep moltengamepad; then echo "moltengamepad is already running"; exit; fi`
 #ExecStart=/usr/bin/moltengamepad --daemon --num-gamepads %i
-ExecStart=/usr/local/bin/moltengamepad \
+ExecStart=/usr/bin/moltengamepad \
 		--daemon --pidfile /var/run/moltengamepad/pid \
 		--replace-fifo --fifo-path /var/run/moltengamepad/fifo \
 		--make-socket --socket-path /var/run/moltengamepad/socket

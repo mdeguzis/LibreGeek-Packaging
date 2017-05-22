@@ -2,14 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt Name:	build-playonlinux-unstable.sh
-# Script Ver:	0.1.5
-# Description:	Attmpts to build a deb package from latest PlayOnLinux 4
-#		github release
+# Scipt Name:	build-xqemu-unstable.sh
+# Script Ver:	1.0.0
+# Description:	Attmpts to build a deb package from latest xqemu
+#		github release 
 #
-# See:		https://github.com/PlayOnLinux/POL-POM-4
-#
-# Usage:	build-playonlinux-unstable.sh
+# Usage:	build-xqemu.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -36,8 +34,6 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-
-
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
@@ -47,21 +43,22 @@ else
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 
 fi
+
 # upstream vars
-SRC_URL="https://github.com/PlayOnLinux/POL-POM-5"
-TARGET="master"
+SRC_URL="https://github.com/espes/xqemu"
+TARGET="xbox"
 
 # package vars
+# Check https://launchpad.net/~xqemu/+archive/ubuntu/ppa for base version
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="playonlinux5-unstable"
-EPOCH="1"
+PKGNAME="xqemu"
 PKGVER="0.0.0"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
@@ -69,38 +66,24 @@ URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
-# set build directoriess
+# set build directories
 unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
-	clear
-	echo -e "==> Installing prerequisites for building...\n"
+
+	echo -e "\n==> Installing $PKGNAME build dependencies...\n"
 	sleep 2s
-	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc python imagemagick
+
+	apt-get build-dep -y qemu
+	apt-get install libglew-dev libtxc-dxtn-s2tc0 build-essential
 
 }
 
 main()
 {
-
-	# create BUILD_TMP
-	if [[ -d "${BUILD_TMP}" ]]; then
-
-		sudo rm -rf "${BUILD_TMP}"
-		mkdir -p "${BUILD_TMP}"
-
-	else
-
-		mkdir -p "${BUILD_TMP}"
-
-	fi
-
-	# enter build dir
-	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
 
@@ -111,34 +94,90 @@ main()
 
 	fi
 
+
 	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and checkout latest commit
-	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	if [[ -d "${SRC_DIR}" || -f ${BUILD_TMP}/*.orig.tar.gz ]]; then
+
+		echo -e "==Info==\nGit source files already exist! Remove and [r]eclone or [k]eep? ?\n"
+		sleep 1s
+		read -ep "Choice: " git_choice
+
+		if [[ "$git_choice" == "r" ]]; then
+
+			echo -e "\n==> Removing and cloning repository again...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# clean and clone
+			sudo rm -rf "${BUILD_TMP}" && mkdir -p "${BUILD_DIR}"
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+		else
+
+			# Unpack the original source later on for  clean retry
+			# set retry flag
+			retry="yes"
+
+		fi
+
+	else
+
+			echo -e "\n==> Git directory does not exist. cloning now...\n"
+			sleep 2s
+			# reset retry flag
+			retry="no"
+			# create and clone to current dir
+			mkdir -p "${BUILD_TMP}" || exit 1
+			git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	fi
+	
+	# Set suffix based on revisions
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-
-	# Alter pkg suffix based on commit
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
-	# Prepare
+	# Prepare sources
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
+	cd "${BUILD_TMP}" || exit 1
 
 	# create source tarball
-	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	# For now, do not recreate the tarball if keep was used above (to keep it clean)
+	# This way, we can try again with the orig source intact
+	# Keep this method until a build is good to go, without error.
+	
+	if [[ "${retry}" == "no" ]]; then
 
-	# Add required files
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+		echo -e "\n==> Creating original tarball\n"
+		sleep 2s
+		tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+		
+	else
+	
+		echo -e "\n==> Cleaning old source folders for retry"
+		sleep 2s
+		
+		rm -rf *.dsc *.xz *.build *.changes ${SRC_DIR}
+		mkdir -p "${SRC_DIR}"
+	
+		echo -e "\n==> Retrying with prior source tarball\n"
+		sleep 2s
+		tar -xzf ${PKGNAME}_*.orig.tar.gz -C "${BUILD_TMP}" --totals
+		sleep 2s
+
+	fi
+
+	# copy in debian folder
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}/debian"
+
+	#################################################
+	# Build package
+	#################################################
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -147,21 +186,19 @@ main()
 	sleep 2s
 
 	# update changelog with dch
-        if [[ -f "debian/changelog" ]]; then
+	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update snapshot"
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Built against latest commit: [${latest_commit}]"
 		vim "debian/changelog"
 
-        else
+	else
 
-		dch -p --force-distribution --create -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
-		"Update snapshot"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
 		vim "debian/changelog"
 
-        fi
+	fi
 
 	#################################################
 	# Build Debian package
@@ -170,13 +207,12 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
+	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
-
-	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)
@@ -187,17 +223,6 @@ main()
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
-
-
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
-	# back out of build tmp to script dir if called from git clone
-	if [[ "${SCRIPTDIR}" != "" ]]; then
-		cd "${SCRIPTDIR}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
 
 	# inform user of packages
 	cat<<- EOF

@@ -112,6 +112,11 @@ main()
 
 	# Set suffix to commit
 	#PKGSUFFIX="${latest_commit}git+bsos"
+
+	# Copy in systemd service to source
+	# We don't want the service to enable/autostart by default
+	# Keep this out of debian/ to avoid auto installation
+	#cp "${SCRIPTDIR}/moltengamepad.service" "${SRC_DIR}/installation/systemuser"
 	
 	#################################################
 	# Build package

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cat<<- EOF
+
+NOTICE: Please see https://github.com/espes/xqemu/wiki/Getting-Started
+This package requires extra files, such as an Xbox BIOS.
+
+EOF

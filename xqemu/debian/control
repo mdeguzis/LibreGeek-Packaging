@@ -1,0 +1,51 @@
+Source: xqemu
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends:
+ build-essential,
+ debhelper (>= 9),
+ git,
+ libgtk2.0-dev,
+ libaio-dev,
+ libbluetooth-dev,
+ libbrlapi-dev,
+ libbz2-dev,
+ libc6-dev-i386,
+ libcap-dev,
+ libcap-ng-dev,
+ libcurl4-gnutls-dev,
+ linux-libc-dev,
+ libglew-dev,
+ libgtk-3-dev,
+ libibverbs-dev,
+ libjpeg-dev,
+ libncurses5-dev,
+ libnuma-dev,
+ librbd-dev,
+ librdmacm-dev,
+ libsasl2-dev,
+ libsdl1.2-dev,
+ libseccomp-dev,
+ libsnappy-dev,
+ libssh2-1-dev,
+ libvde-dev,
+ libvdeplug-dev,
+ libvte-2.90-dev,
+ libxen-dev,
+ liblzo2-dev,
+ libglib2.0-dev,
+ libfdt-dev,
+ libsdl1.2-dev,
+ libpixman-1-dev,
+ valgrind,
+ xfslibs-dev,
+ zlib1g-dev
+Standards-Version: 3.9.8
+Homepage: http://xqemu.org/
+
+Package: xqemu
+Architecture: amd64 arm64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Xbox emulator
+

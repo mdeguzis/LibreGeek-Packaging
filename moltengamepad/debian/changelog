@@ -1,18 +1,7 @@
-molten-gamepad (1.1.0+git+bsos-1) brewmaster; urgency=low
-
-  * Update snapshot
-  * Enable plugins, link to binary
-
- -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 14 May 2017 21:55:18 -0400
-
-molten-gamepad (0.20160523+c8d09aegit+bsos-1) brewmaster; urgency=low
-
-  * Update to the latest commit c8d09ae
-
- -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 23 May 2016 12:40:47 -0400
-
-molten-gamepad (0.1.1+138377bgit+bsos-1) brewmaster; urgency=low
+moltengamepad (1.1.0+git+bsos-1) brewmaster; urgency=low
 
   * Initial upload
+  * pkg rename from molten-gamepad
+  * single user install
 
- -- SteamOS-Tools Signing Key <mdeguzis@gmail.com>  Sat, 30 Apr 2016 20:34:34 -0400
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 16 May 2017 21:36:34 -0400

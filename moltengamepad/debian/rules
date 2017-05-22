@@ -4,12 +4,15 @@
 CFLAGS := $(filter-out -Werror=format-security,$(CFLAGS))
 CXXFLAGS := $(filter-out -Werror=format-security,$(CXXFLAGS))
 
-# Future? - enable/start using helper
-#dh $@ --with=systemd
-# Add 'dh-systemd' to Debian control then
+TARGET_USER ?= steam
 
 %:
 	dh $@
+
+override_dh_auto_configure:
+	# configure udev rules for user
+	installation/singleuser/configure.sh steam
+	dh_auto_configure
 
 override_dh_auto_build:
 	make eventlists

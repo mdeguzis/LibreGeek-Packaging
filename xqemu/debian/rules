@@ -1,0 +1,25 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--python=python2 \
+		--enable-opengl \
+		--disable-vnc \
+		--disable-user \
+		--enable-kvm \
+		--disable-xen \
+		--audio-drv-list=alsa \
+		--target-list=xbox-softmmu \
+		--extra-cflags="-march=native" \
+		--disable-werror \
+		--enable-debug
+	make
+
+override_dh_auto_test:
+	# There is an issue with tests right now
+	# Needs some debugging

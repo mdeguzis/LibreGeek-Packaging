@@ -441,7 +441,7 @@ function_backport_config()
 
 	if [[ "${RETRY_BUILD}" == "false" ]]; then
 
-		echo -e "\n==> Creating origninal tarball"
+		echo -e "\n==> Creating original tarball\n"
 		sleep 2s
 
 		rm -f ${BUILD_TMP}/*.orig.tar.*
@@ -457,6 +457,7 @@ function_backport_config()
 	if ! cd ${SRC_DIR}; then
 		echo -e "Cannot enter src dir!, showing value: "
 		echo ${SRC_DIR}
+		sleep 10s
 		exit 1
 	fi
 

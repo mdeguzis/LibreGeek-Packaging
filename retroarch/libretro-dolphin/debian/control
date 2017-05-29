@@ -4,9 +4,8 @@ Priority: optional
 Maintainer: Debian Games Team <pkg-games-devel@lists.alioth.debian.org>
 Build-Depends: debhelper (>= 9), 
  cmake,
- clang,
- llvm,
- llvm-defaults,
+ clang(>= 5.0),
+ llvm(>= 5.0),
  libvulkan-dev
 Standards-Version: 3.9.8
 Homepage: https://github.com/libretro/dolphin

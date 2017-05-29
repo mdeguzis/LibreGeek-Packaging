@@ -4,12 +4,11 @@
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
 # Scipt name:	build-kodi.sh
 # Script Ver:	0.3.1
-# Description:	Attmpts to build a deb package from the latest kodi source
-#		code.
+# Description:	Attmpts to build a deb package from the latest kodi master source
 #
 # See:		https://github.com/xbmc/xbmc
 #
-# Usage:	./build-kodi.sh
+# Usage:	./build-kodi-master.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -47,7 +46,7 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/xbmc/xbmc"
-TARGET="17.3-Krypton"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,8 +60,8 @@ export NO_PKG_TEST="false"
 PKGNAME="kodi"
 PKGREV="1"
 EPOCH="2"
-PKGVER=$(echo ${TARGET} | sed 's/-Kyrpton//g')
-PKGSUFFIX="git${DATER_SHORT}+bsos"
+# Base version is 18 right now
+PKGVER="18"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -156,6 +155,12 @@ main()
 	wget -O "${SRC_DIR}/tools/depends/target/libdvdnav/libdvdnav-master.tar.gz" "https://github.com/xbmc/libdvdnav/archive/master.tar.gz" -nc --show-progres || exit 1
 	wget -O "${SRC_DIR}/tools/depends/target/libdvdcss/libdvdcss-master.tar.gz" "https://github.com/xbmc/libdvdcss/archive/master.tar.gz" -nc --show-progres || exit 1
 	wget -O "${SRC_DIR}/tools/depends/target/ffmpeg/ffmpeg-3.1.6.tar.gz" "https://github.com/xbmc/FFmpeg/archive/3.1.6-Krypton.tar.gz" -nc --show-progres || exit 1
+
+	cd "${SRC_DIR}"
+
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 			
 	#################################################
 	# Prepare sources
@@ -170,7 +175,7 @@ main()
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# Add required files
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	cp -r "${SCRIPTDIR}/debian-master" "${SRC_DIR}/debian"
 
 	#################################################
 	# Build package

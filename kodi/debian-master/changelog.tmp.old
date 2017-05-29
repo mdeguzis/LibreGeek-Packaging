@@ -1,0 +1,7205 @@
+kodi (2:17.0~git20160827.0200-a56be14-0dist) dist; urgency=high
+
+  [Alwin Esch]
+   * [addons] cleanup versions.h a bit
+
+  [Christian Fetzer]
+   * [cmake] add support for platform
+
+  [Alwin Esch]
+   * [cmake] force addon.xml.in generation if versions.h is changed
+
+  [Alwin Esch]
+   * [cmake] improve addon include check
+
+
+  [Chris "Koying" Browet]
+   * fixup after last rendering changes
+
+  [Chris "Koying" Browet]
+   * FIX: [amcs] Adjust surface rect only when really necessary
+
+  [Chris "Koying" Browet]
+   * CHG: [droid;amc] Dynamic surface view instances
+
+  [Voyager1]
+   * [DVD] add streaming callback functions and open DVD images using the libdvd streaming API
+
+  [Alwin Esch]
+   * [screensaver] fix c&p fault
+
+  [Voyager1]
+   * [DVD] add libdvd 5.0.3 definitions for streamable ISOs
+
+  [croniccorey]
+   * [Kodi] Update NEON support
+
+  [Martijn Kaijser]
+   * [android] Android O dropped some legacy stuff so let's actually add "banner" as it should
+
+
+  [Alwin Esch]
+   * [screensaver] change addon interface to the coming style
+
+  [h.udo]
+   * [cleanup] Fix headers included twice
+
+  [Voyager1]
+   * fix Win x64 debug build
+
+  [Voyager1]
+   * fix Win x64 DLL wrapping by using 64-bit pointers
+
+  [wsnipex]
+   * [cmake] fix FindRapidJSON after 3d8742f818c20b8302464f34fbf248ed5aac2e0b
+
+  [Sebastian Bauer]
+   * Ignore RapidJSON download artifact
+
+  [Sebastian Bauer]
+   * RapidJSON cmake now falls back to find_package()
+
+  [Sebastian Bauer]
+   * Makefile fix for rapidjson
+
+  [Alwin Esch]
+   * [addons] add interface callbacks to read addon settings
+
+  [Alwin Esch]
+   * [addons] bring in new addon creation way for multiple instances
+
+
+  [Lukas Rusak]
+   * Video/RenderManager: add RendererVAAPIGLES.h
+
+  [Lukas Rusak]
+   * Video/RendererVAAPI: allow using GL or GLES
+
+  [Max Kellermann]
+   * shaders/yuv2rgb_basic_gles.glsl: support NV12_RRG format
+
+  [Max Kellermann]
+   * Video/CLinuxRendererGLES: UploadNV12Texture() returns bool
+
+  [Lukas Rusak]
+   * Video/VAAPI: make compatible with GBM
+
+  [Max Kellermann]
+   * Video/VAAPI: make compatible with GLES2
+
+  [Rechi]
+   * [fix] gcc 4.8 doesn’t correctly implement std::regex
+
+  [Memphiz]
+   * [osx/windowing] - in case we don't find an exact match for the wanted mode - set the current resolution of the screen (makes it basically a nop) - this is needed for some strange change in behavior of the new mode enumeration API from Apple. On Retina macbook pro with a certain display setting (called "like 1680x1050" for example) the old code enumerated a mode with exact 1680x1050 resolution. The new code doesn't iterate this mode - it instead iterates the mode 1650x1050 2 times. No idea if this is an apple bug or not - but it is a change in behavior we try to workaround here.
+
+  [Memphiz]
+   * [osx/windowing] - adapt BestMatchForMode to only return exact matches
+
+  [Max Kellermann]
+   * Video/VAAPI: use 0 instead of None, which is a libX11 macro
+
+
+  [Rechi]
+   * [windows][x64] add libbluray
+
+  [Rechi]
+   * [depends] Bump samba-gplv3 to version 4.1.23
+
+
+  [fritsch]
+   * SMBFile: Remove socket option (only affects new configs)
+
+  [fritsch]
+   * SMBFile: Remove year old workaround
+
+  [Voyager1]
+   * Fix libdvdcss-2 hooking which was broken after a8a3a0db60171328fb962b700ba9b85ac25373a3
+
+  [Alwin Esch]
+   * [audiodecoder] change addon interface function table to style of others
+
+  [Alwin Esch]
+   * [image] change addon interface function table to style of others
+
+  [Alwin Esch]
+   * [audioencoder] change addon interface function table to style of others
+
+  [Alwin Esch]
+   * [screensaver] change addon interface function table to style of others
+
+  [Alwin Esch]
+   * [vfs] change addon interface function table to style of others
+
+  [Alwin Esch]
+   * [visualization] change addon interface function table to style of others
+
+  [xhaggi]
+   * [gui] refactor GUIIncludes class
+
+  [ivopz]
+   * Update README.raspberrypi
+
+  [Alwin Esch]
+   * [addons] remove the 'void ADDON_Stop()' call
+
+  [Memphiz]
+   * [WinSystemOSX] - fixed warning about signed/unsigned comparison
+
+  [Memphiz]
+   * [Windowing/OSX] - replace some deprecated methods related to display refreshrate/mode switching with their successors
+
+  [Memphiz]
+   * [Winowing/OSX] - add some replacement for deprecated osx methods for query bitsperpixel of a displaymode and finding the bestmatch mode for given width,height and bitsperpixel
+
+
+  [Rainer Hochecker]
+   * VideoPlayer: only some codecs require extradata
+
+  [Rainer Hochecker]
+   * VideoPlayer: vaapi - temp disabled runtime check
+
+  [Rechi]
+   * [windows][uninstaller] set SetShellVarContext to current for removing $APPDATA${APP_NAME}
+
+  [montellese]
+   * [python] fix ListItem being forced to be a video item after 27dc9a693fd0a3124a58e8cc9d4c165968df7a11
+
+  [Alwin Esch]
+   * [game] change to new addon to kodi callback way
+
+  [Alwin Esch]
+   * [cmake] fix addon depends check if headers are in separate folders
+
+  [Justin Maggard]
+   * platinum: Add patch file for "Fix upnp:lastPlaybackPosition parsing"
+
+  [Justin Maggard]
+   * platinum: Fix upnp:lastPlaybackPosition parsing
+
+
+  [Save me]
+   * Update kodi.txt.in
+
+  [peak3d]
+   * Revert delayed start of releasing buffers
+
+  [Pär Björklund]
+   * Use PCH as intended to speed up build.
+
+  [peak3d]
+   * Comments
+
+  [Pär Björklund]
+   * [windows] libass: use correct font
+
+  [peak3d]
+   * Postpone Render Start to first RenderUpdate call
+
+  [peak3d]
+   * Reenable SurfaceView extension setting
+
+  [peak3d]
+   * [Android] ReleaseBuffer properly
+
+  [peak3d]
+   * [Android MediaCodecSurface] Change Rendertype from GUILayer to VideoLayer
+
+  [Tobias Kortkamp]
+   * Add sndio sink
+
+  [Zlopez]
+   * Fix for devinput driver in newer version of lirc
+
+
+  [Rechi]
+   * [cmake] move ifdef conditions to cmake
+
+  [Rechi]
+   * [fix][ios] silence deprecated warning
+
+  [Rechi]
+   * [fix] silence maybe uninitialized warnings
+
+  [Rechi]
+   * [fix] silence unused function warnings
+
+  [Rechi]
+   * [fix] comparison of integers of different signs (introduced at ac10c3d3a7)
+
+  [Rechi]
+   * [cleanup] remove unused private fields
+
+  [Rechi]
+   * [cleanup] remove unused variables
+
+  [Rechi]
+   * [cleanup] HAVE_LIBGLES doesn’t get defined anywhere
+
+  [Alwin Esch]
+   * [inputstream] change to new addon to kodi callback way
+
+  [montellese]
+   * CVideoDatabase: fix setting named seasons when updating tvshow details
+
+
+  [Alwin Esch]
+   * [peripheral] change to new addon to kodi callback way
+
+  [Alwin Esch]
+   * [adsp] change to new addon to kodi callback way
+
+  [xhaggi]
+   * [gui] rename CGUIWindow::NeedXMLReload to NeedLoad because it does not reload the XML file
+
+  [xhaggi]
+   * [gui] refactor methods involved in loading windows
+
+  [notspiff]
+   * silence stat errors in texture cache job
+
+  [xhaggi]
+   * [gui][refactor] rework custom window's visible condition and modality handling
+
+  [wsnipex]
+   * [cmake] bump required vaapi version to 0.39 (libva 1.7.3)
+
+
+  [Rechi]
+   * [buildsteps][windows] postfix setup filename with architecture
+
+  [DaveTBlake]
+   * Remove cuesheet table, store replaygain values in song table efficiently as string. Needed for playback of songs from both embedded and separate cuesheets, but will also store for ordinary music files.
+
+  [Alwin Esch]
+   * [pvr] change to new addon to kodi callback way
+
+  [Alwin Esch]
+   * [cmake] update debian package files With only one dev kit for everything are several parts no more needed.
+
+  [Alwin Esch]
+   * [cmake][addons] change binary addon includes cmake install way This change the way how the headers of binary addons becomes installed from Kodi. Instead to define every file becomes the folder with headers installed. All includes who are outside from the dev-kit place are still installed by the old way.
+
+  [Alwin Esch]
+   * [pvr] rename addon callbacks to a "C" name
+
+  [DaveTBlake]
+   * Fix lookup of Cuesheet tracks, vector index is not the same as song track number
+
+
+  [Martijn Kaijser]
+   * [Windows] Let's actually package the available add-ons in the installer
+
+  [Alwin Esch]
+   * [addons] remove no more needed version functions
+
+  [xhaggi]
+   * [gui] remove custom windows from window history while destroy them
+
+  [Alwin Esch]
+   * [addons] change version check to new way
+
+  [Alwin Esch]
+   * [addons] remove old no more needed addon version check way
+
+  [Alwin Esch]
+   * [addons] fix not defined cmake values
+
+  [Alwin Esch]
+   * [addons] fix a wrong #if on versions.h
+
+  [xhaggi]
+   * [cosmetics] rename vars, use foreach, add comments in CApplication::LoadSkin
+
+  [xhaggi]
+   * [gui] no need to store/restore modeless dialogs while unload/load skin
+
+  [Rechi]
+   * [cmake][addons][windows] mingw: fix x64
+
+  [Stefan Saraev]
+   * [fix] amlogic: 4k resolutions after f9d8ab7
+
+  [Alwin Esch]
+   * [cmake][addons] automate addon.xml version set
+
+  [BigNoid]
+   * [infomanager] add skin.font infolabel
+
+
+  [Rechi]
+   * [buildsteps][windows] download-msys2: disable build32 if build64 specified
+
+  [Rechi]
+   * [depends] ffmpeg: fix build for iOS 64 bit
+
+  [BigNoid]
+   * [guilib] resolve includes in font.xml
+
+  [Peter Frühberger]
+   * Revert "DVDVideoCodecFFmpeg: Consistency fixes (buildsys rework in progress)"
+
+
+  [Rainer Hochecker]
+   * VideoPlayer: lost commit, change in shaders
+
+  [fritsch]
+   * DVDVideoCodecFFmpeg: Consistency fixes (buildsys rework in progress) v2: ifdeffery bite me
+
+  [fritsch]
+   * FFmpegImage: Transition to new ffmpeg 3.2+ API
+
+  [Chris "Koying" Browet]
+   * FIX: [videodbFS] missing "inprogresstvshows" case
+
+  [peak3d]
+   * [Android] SecureDecoder: cleanup / readability
+
+  [René Bühlmann]
+   * Fix seeking for pts values larger than max_int
+
+  [peak3d]
+   * [Android] Never use secure decoder for unencrypted material
+
+  [Rechi]
+   * [depends] ffmpeg: don't enable vdpau & vaapi on raspberry-pi
+
+  [peak3d]
+   * [Android] Do not call VC_BUFFER if draining
+
+  [peak3d]
+   * [Android] change codec fill logic
+
+  [Rechi]
+   * [appveyor] bump ffmpeg to 3.3
+
+  [peak3d]
+   * [Android] Release prev. Buffer in GetPicture
+
+  [peak3d]
+   * [Android] remove MediaCodec::ClearPicture
+
+  [peak3d]
+   * Remove ClearPicture from VPV and all Codecs
+
+  [Rainer Hochecker]
+   * VideoPlayer: better calculation of starttime
+
+  [peak3d]
+   * [Android] Mediacodec buffer handling fixed
+
+  [peak3d]
+   * BitstreamConverter::mpeg2 fix double -> int
+
+  [peak3d]
+   * [Android] mpeg2 Bitstream Converter
+
+  [Rainer Hochecker]
+   * windows: rename fmpeg_options to ffmpeg_options
+
+  [Rechi]
+   * [ios]: adapt VTB renderer to VideoPicture
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix hang on stop
+
+  [Rainer Hochecker]
+   * VideoPlayer: demuxClient - hide video streams with no extradata
+
+  [Rainer Hochecker]
+   * VPV: do not open on streams with missing extradata
+
+  [Garrett Brown]
+   * VideoPlayer: Remove unused function
+
+  [Garrett Brown]
+   * VideoPlayer: Fix gcc compiler warning
+
+  [peak3d]
+   * [Android] don't request for secure decoder if stream is unencrypted
+
+  [Garrett Brown]
+   * VideoPlayer: Fix bad cast in DVDAudioCodecFFmpeg.cpp
+
+  [Garrett Brown]
+   * VideoPlayer: Fix compiler warnings
+
+  [Garrett Brown]
+   * VideoPlayer: Fix error due to bad cast
+
+  [peak3d]
+   * [Android] Initialize m_codec
+
+  [peak3d]
+   * [Android] add missing files
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix demux queue
+
+  [peak3d]
+   * [AML] New VP interface
+
+  [peak3d]
+   * [Android] New API / Crypto (cleanup)
+
+  [peak3d]
+   * [Android] New API / Crypto
+
+  [Anton Fedchin]
+   * VideoPlayer: dxva adaptions
+
+  [popcornmix]
+   * MMAL: Remove periodic prime calls and handle from buffer destructor
+
+  [popcornmix]
+   * PixelConverterRBP: adapt to VP updates
+
+  [popcornmix]
+   * MMALRender: Fixup to new API
+
+  [popcornmix]
+   * MMALFFmpeg: Fixup to new API
+
+  [popcornmix]
+   * MMALCodec: Fixup to new API
+
+  [popcornmix]
+   * OMXPlayer: Fixup to new API
+
+  [popcornmix]
+   * VideoPlayer: shader updates - fixup gles
+
+  [Rainer Hochecker]
+   * osx: adapt vtb renderer to videoPicture
+
+  [Rainer Hochecker]
+   * windows: adapt dxva renderer to videoPicture
+
+  [Garrett Brown]
+   * RetroPlayer: adapt to VP updates
+
+  [peak3d]
+   * addon InputStream: drop bandwidth
+
+  [Rainer Hochecker]
+   * PAPlayer: adapt to codec changes
+
+  [Rainer Hochecker]
+   * VideoPlayer: shader updates
+
+  [Rainer Hochecker]
+   * linux: vaapi, vdpau render adaptions
+
+  [Rainer Hochecker]
+   * VideoPlayer: subtitle updates
+
+  [Rainer Hochecker]
+   * VideoPlayer: overlay updates
+
+  [Rainer Hochecker]
+   * VideoPlayer: add crypto fields to memuxer
+
+  [Rainer Hochecker]
+   * VideoPlayer: player updates
+
+  [Rainer Hochecker]
+   * VideoPlayer: rendering updates
+
+  [Rainer Hochecker]
+   * VideoPlayer: codec factory updates
+
+  [Rainer Hochecker]
+   * osx: vtb adaptions
+
+  [Rainer Hochecker]
+   * windows: dxva adaptions
+
+  [Rainer Hochecker]
+   * linux: vaapi, vdpau updates
+
+  [Rainer Hochecker]
+   * VideoPlayer: video codec updates
+
+  [Rainer Hochecker]
+   * VideoPlayer: audio codec updates
+
+  [Rainer Hochecker]
+   * VideoPlayer: demuxer updates
+
+  [Rainer Hochecker]
+   * VideoPlayer: API changes to stream players
+
+  [Rainer Hochecker]
+   * VideoPlayer: distinguish between render and shader formats
+
+  [Rainer Hochecker]
+   * VideoPlayer: API changes for audio codecs
+
+  [Rainer Hochecker]
+   * VideoPlayer: API changes for video codecs
+
+  [Rainer Hochecker]
+   * ffmpeg options: drop enable-memalign-hack
+
+  [Rainer Hochecker]
+   * cmake: bump ffmpeg to 3.3
+
+  [Rainer Hochecker]
+   * bump ffmpeg to 3.3
+
+  [Rechi]
+   * [depends][darwin] configure: remove special tarballs dir & nativeprefix
+
+  [Rechi]
+   * [docs] ios & osx use 'make -C tools/depends/target/cmakebuildsys' for generation
+
+  [Rechi]
+   * [cleanup] remove autotools leftovers
+
+  [Rechi]
+   * [windows] retry download depends & vcredist if it fails
+
+
+
+  [Garrett Brown]
+   * [Peripherals] Add "Driver settings" action in settings to fix iMON devices
+
+  [Garrett Brown]
+   * Fix some add-on setting defaults set to empty string
+
+  [kekePower]
+   * [cosmetics] Copyright year update, xbmc.org to kodi.tv (#11976)
+
+  [Garrett Brown]
+   * VideoPlayer: Remove unused variable in AML codec
+
+  [Rechi]
+   * [depends] libcec: don't query git information
+
+  [DaveTBlake]
+   * Bump db for song table index change. Musicbrainz track id is not unique on an album, the same recording can be repeated e.g. [Silence] tracks or duplications on a disc set. Load these songs correctly into the music library.
+
+  [Dave Blake]
+   * Sorting using artist sort name tags (#11738)
+
+  [Rechi]
+   * [cleanup] disable some unused variable because the corresponding tests are disabled
+
+  [Rechi]
+   * [cleanup] remove unused enum
+
+  [Rechi]
+   * [cleanup] remove unused private fields
+
+  [Rechi]
+   * [cleanup] remove unused variables
+
+
+  [Rechi]
+   * [buildsteps][windows] download ffmpeg, gnutls & libdvd* to a location not cleaned by prepare-env
+
+  [Rechi]
+   * [buildsteps][windows] git clean optimizations
+
+  [Lukas Rusak]
+   * [linux] split out android from windowing/egl
+
+  [Lukas Rusak]
+   * [linux] split out amlogic from windowing/egl
+
+  [Lukas Rusak]
+   * [linux] split out rpi from windowing/egl
+
+  [Alex Deryskyba]
+   * aml: fix bookmark thumbnails creation when playing a video with amcodec
+
+  [Josh Soref]
+   * spelling: [API] GetMininumGameAPIVersion
+
+
+  [montellese]
+   * [network] CWebServer: refactor request/response logging into separate methods
+
+  [notspiff]
+   * changed: always expand iso images in music window
+
+  [Rechi]
+   * [buildsteps][windows] add x64
+
+  [Rechi]
+   * [depends][windows] add 0_package.target-x64.list
+
+  [Rechi]
+   * [windows][installer] set InstallDir for x64
+
+  [Rechi]
+   * [windows][installer] error message if x64 runs on win32
+
+  [Rechi]
+   * [cmake][windows] install architecture dependant dlls & python
+
+  [Pär Björklund]
+   * [windowing][windows] Fix pointer to long cast
+
+  [peak3d]
+   * [PVR] Fix time_t db insertion (typecast time_t -> uint)
+
+  [Rechi]
+   * [filesystem] ZipManager: skip path traversal
+
+  [montellese]
+   * [network] CWebServer: add SendResponse() helper method
+
+  [montellese]
+   * [network] CWebServer: move range parsing logic into separate method
+
+  [montellese]
+   * [network] CWebServer: move POST data processing logic into separate methods
+
+  [montellese]
+   * [network] CWebServer: move cache parsing logic into separate method
+
+  [montellese]
+   * [network] refactor IHTTPRequestHandler
+
+  [montellese]
+   * [network] CWebServer: move range request handling to the scope it belongs to
+
+  [montellese]
+   * [network] CWebServer: fix default basic auth credentials (matching settings.xml)
+
+  [montellese]
+   * [network] CWebServer: use MHDs basic authentication support instead of our own
+
+  [montellese]
+   * [settings] fix custom localization of setting labels/options
+
+  [mihvel]
+   * Update AndroidKey.cpp
+
+  [Rechi]
+   * [network][windows] GetNameServers(): use GetAdaptersAddresses instead of GetNetworkParams
+
+
+  [Chris Mayo]
+   * [c-pluff] Fix implicit declaration compiler warnings
+
+
+  [Rechi]
+   * [cmake] AddonHelpers: fix install directory exclude syntax
+
+  [Rechi]
+   * [cmake] copy_files_from_filelist_to_buildtree: fix 1afb6dcbd8
+
+  [Stefan Saraev]
+   * FTPParse.cpp: use std::string
+
+
+  [Markus Härer]
+   * RssReader: Fix comparison between pointer and zero
+
+  [Bernd Kuhls]
+   * Add support for xtensa
+
+  [Bernd Kuhls]
+   * Add support for arc
+
+  [Bernd Kuhls]
+   * Add support for sparc
+
+  [Bernd Kuhls]
+   * Add support for sh4
+
+
+  [txtranslation]
+   * [lang][skin.estouchy] updated language files from Transifex
+
+  [txtranslation]
+   * [lang][skin.estuary] updated language files from Transifex
+
+  [txtranslation]
+   * [lang][skin.estuary] automatic syntax corrections for the en_GB language file
+
+  [txtranslation]
+   * [lang][kodi.core] automatic syntax corrections for the en_GB language file
+
+  [montellese]
+   * [settings] don't show setting value for hidden values and passwords
+
+  [montellese]
+   * [settings] update displayed button control value after it changed
+
+  [montellese]
+   * [settings] only change the setting dialog's heading if the new section has a valid label
+
+  [montellese]
+   * [settings] CGUIDialogSettingsBase: better support dialogs without any settings/categories/sections
+
+  [montellese]
+   * [settings] CGUIControlListSetting: don't disable control for multiselect settings
+
+  [montellese]
+   * [settings] fix default formatting of slider settings
+
+  [wsnipex]
+   * [cmake] copy_files_from_filelist_to_buildtree: add KEEP_DIR_STRUCTURE option
+
+  [faush01]
+   * Set the WINDOW_INVALID param in the window message
+
+  [Craig Andrews]
+   * Update README.linux testing information
+
+
+
+  [Kai Sommerfeld]
+   * [music] Fix CGUIWindowMusicBase::ShowSongInfo rwegression (wrong window id used).
+
+  [Kai Sommerfeld]
+   * [addons] libKODI_guilib.h: Refactor: Introduce CAddonGUIControlBase and derive addon controls from it.
+
+  [Kai Sommerfeld]
+   * [addons] libKODI_guilib.h: Fix CAddonGUIRenderingControl member init order.
+
+
+  [Kai Sommerfeld]
+   * [estuary] Fix channel osd recording indicator visibility.
+
+
+  [Kai Sommerfeld]
+   * [PVR] Clenup: CPVRClient header (Missed this one so far as it is not pvr subdirectory).
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: Removed unneeded forward declarations.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRChannelGroupsUpdateJob no longer needs to be friend of CPVRChannelGroupsContainer.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRChannelsUpdateJob no longer needs to be friend of CPVRChannelGroupsContainer.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRMamager no longer needs to be friend of CPVRChannelGroupsContainer.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRTimers no longer needs to be friend of CPVRTimerInfoTag.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRClients no longer needs to be friend of CPVRManager.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRDatabase no longer needs to be friend of CPVRChannelGroupInternal.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRChannelGroups no longer needs to be friend of CPVRChannelGroupInternal.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRChannelGroupsContainer no longer needs to be friend of CPVRChannelGroup.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRChannelGroups no longer needs to be friend of CPVRChannelGroup.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRChannelGroupInternal no longer needs to be friend of CPVRChannel.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: CPVRClient no longer needs to be friend of CPVRClients.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: Remove superfluous semicolons.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: Use '= default' and '= delete' whenever possible.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: Use 'override' whenever possible. Use 'virtual' only if it actually makes sense. Make stuff 'private' if it is class internally only.
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: Remove unused class CPVRPersistGroupJob. Remove empty IJobCallback implementation from class CPVRChannelGroup.
+
+
+  [Rechi]
+   * [buildsteps][windows] run-tests: use 64-bit toolset if available
+
+  [Rechi]
+   * [cmake] copy_files_from_filelist_to_buildtree: evaluate all variables
+
+  [sfaulds]
+   * encasulate all the is playcount set functionality in CVideoInfoTag
+
+
+  [Rechi]
+   * [tests][windows] TestSystemInfo.GetDiskSpace: use correct overload of std::string::assign
+
+  [Kai Sommerfeld]
+   * [PVR] Header file cleanup: Remove superfluous 'virtual' from overridden methods.
+
+  [Rechi]
+   * [buildsteps][windows] fix BuildSetup.bat after 0a14316
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: get rid of 'bRadio' parameter to categorize windows: introduce dedicated tv
+
+  [Ryan Rector]
+   * Isolate included expressions
+
+  [Stefan Saraev]
+   * [fix] guilib versions after pull/12011
+
+
+  [popcornmix]
+   * Application: Remove unused dirtyRegions variable (#12030)
+
+  [BigNoid]
+   * [settings] change spinners to list for media/video
+
+
+  [Rechi]
+   * [buildsteps][windows] add old path forwarding scripts
+
+  [Rechi]
+   * [buildsteps][windows] run-tests
+
+  [Rechi]
+   * [buildsteps][windows] BuildSetup.bat
+
+  [Rechi]
+   * [buildsteps][windows] make-addons
+
+  [Rechi]
+   * [buildsteps][windows] bootstrap-addons
+
+  [Rechi]
+   * [buildsteps][windows] make-mingwlibs
+
+  [Rechi]
+   * [buildsteps][windows] download
+
+  [Rechi]
+   * [buildsteps][windows] prepare-env
+
+  [Rechi]
+   * [buildsteps][windows] remove unused files
+
+  [Rechi]
+   * [cleanup][windows] BuildSetup: remove leftover from VS2010
+
+  [Rechi]
+   * [buildsteps][windows] adapt run-tests to cmake
+
+  [Rechi]
+   * [gitignore] add /gtestresults.xml
+
+  [Alwin Esch]
+   * [pvr] remove libXBMC_codec.h and add to libXBMC_pvr.h
+
+  [Alwin Esch]
+   * [addons] add new instance version check function
+
+  [Alwin Esch]
+   * [addons] add new addon versions.h header
+
+  [Alwin Esch]
+   * [addons] remove never used functions
+
+
+  [fritsch]
+   * AESinkAUDIOTRACK: Cleanup long gone channel pre lollipop compatibility
+
+  [fritsch]
+   * AESinkAUDIOTRACK: Refactor and separate PCM and Passthrough Enumeration
+
+
+  [Rainer Hochecker]
+   * guilib: only update container after condition changed
+
+  [Shaun]
+   * For addon created ListItems dont overwrite playcount data from DB (#11998)
+
+  [xhaggi]
+   * [gui][refactor] add window id as arg to GetWindow template because window instance is not unique
+
+  [fritsch]
+   * Revert "DVDDemuxFFMPEG: Increase FFMPEG_FILE_BUFFER_SIZE to 128K"
+
+  [Rechi]
+   * [buildsteps][windows] correct evaluation of make jobs
+
+  [Rainer Hochecker]
+   * AE: improve tempo filter
+
+
+  [Kai Sommerfeld]
+   * [PVR] Search window: Fix 'Find similar' after f39931b3df724a55f43ed799450cd1c35dede142
+
+  [Kai Sommerfeld]
+   * [PVR] Search window ux improvement: Replace modal searching dialog with busy dialog.
+
+
+  [Rechi]
+   * [cmake][windows] keep _ITERATOR_DEBUG_LEVEL=0 only for win32
+
+  [fritsch]
+   * AESinkPULSE: Return to PA's delay infrastructure
+
+
+
+  [skraba]
+   * Create slovenian.xml
+
+  [fritsch]
+   * DVDDemuxFFmpeg: Store probe_buffer on heap
+
+  [popcornmix]
+   * DVDDemuxFFMPEG: Increase FFMPEG_FILE_BUFFER_SIZE to 128K
+
+  [fritsch]
+   * NFSFile: Return max chunksize possible
+
+  [fritsch]
+   * Increase CHUNK_SIZE to 128 KB
+
+  [Chris "Koying" Browet]
+   * ADD: [voicerecog] use voice search button on soft keyboard
+
+  [Chris "Koying" Browet]
+   * ADD: [droid] voice recognition in keyboard
+
+  [Chris "Koying" Browet]
+   * ADD: [droid] implement blocking startActivityForResult
+
+  [Chris "Koying" Browet]
+   * [bump] jni
+
+
+  [Kai Sommerfeld]
+   * [PVR] Search window: Fix very first search after kodi start not working.
+
+
+  [Chris Koying Browet]
+   * FIX: [droid] remove dependency on android-support-v4.jar
+
+  [Kai Sommerfeld]
+   * [PVR] CPVREpgContainer now uses CPVRSettings.
+
+  [Chris Koying Browet]
+   * FIXUP: select first unwatched broken after select by url
+
+  [Rechi]
+   * [addon] remove all windows.h includes
+
+
+  [Kai Sommerfeld]
+   * Revert "Moved party mode, set default and clear default to new contextmenu"
+
+  [Kai Sommerfeld]
+   * [PVR] Make pvr manager's epg container member an object, not a pointer.
+
+  [Kai Sommerfeld]
+   * [PVR] Move files from xbmc/epg to xbmc/pvr/(epg
+
+  [Kai Sommerfeld]
+   * [PVR] Move type definitions from epg/EpgTypes.h to pvr/PVRTypes.h
+
+  [Kai Sommerfeld]
+   * [PVR] Rename all CEpg* types to CPVREpg*.
+
+  [Kai Sommerfeld]
+   * [PVR] Move epg types to namespace PVR.
+
+  [Kai Sommerfeld]
+   * [PVR] Get rid of epg container static global instance. Make it a subcomponent of PVR manager instead.
+
+  [Thomas Amland]
+   * [favourites] publish events to EventStream instead of AnnouncementManager
+
+
+
+  [Rechi]
+   * [addons][windows] replaced replace inline assembler with intrinsics
+
+  [Kai Sommerfeld]
+   * [PVR] Fix 'Switch to channel' context menu action after #11747# - a better approach (do not create a playlist for Livr TV).
+
+  [Thomas Amland]
+   * [addons] make versioncheck optional
+
+
+  [Kai Sommerfeld]
+   * [PVR] Fix 'Switch to channel' context menu action after #11747#.
+
+  [Thomas Amland]
+   * move GUIDialogFavourites to favourites module
+
+  [Thomas Amland]
+   * move favourites context menus to favourites module
+
+  [Thomas Amland]
+   * fix IsFavourited and AddOrRemove after b8416149a
+
+  [Thomas Amland]
+   * refactor favourites directory to a service to avoid reloading from disk on every check
+
+  [Kai Sommerfeld]
+   * [EPG] Fix gap tag update handling.
+
+  [Kai Sommerfeld]
+   * [EPG] Guide window: fix progress indicator rendering.
+
+
+  [Kai Sommerfeld]
+   * [EPG] Guide window: Fix deadlock when switching grid views.
+
+  [Kai Sommerfeld]
+   * [PVR] Reintroduce 'Delete' context menu entry for recording folders.
+
+  [Pablo Poo]
+   * Enable middle mouse button on embedded platform
+
+
+  [MilhouseVH]
+   * logging: always log skin name and version when loading
+
+  [Chris "Koying" Browet]
+   * FIX: [droid;leanback] Various fixes
+
+  [DaveTBlake]
+   * Restore option to avoiding clipping when replaygain and peak values specified by using gain reduction.
+
+
+  [Rechi]
+   * [windows] DownloadBuildDeps: add parameters for target & native platform
+
+  [Rechi]
+   * [windows] DownloadBuildDeps: remove possibility to set download path
+
+  [BigNoid]
+   * [application] load includes before fonts
+
+
+  [Martijn Kaijser]
+   * [android] Change Leanback suggestion to random unwatched movies and random music albums
+
+  [Martijn Kaijser]
+   * [android] update libandroidjni
+
+  [Kai Sommerfeld]
+   * [epg] CGUIEPGGridContainer class declaration cleanup (use 'override' where appropriate, private vs. public, virtual vs. non-virtual, ...).
+
+  [Kai Sommerfeld]
+   * [epg] Fix grid container control resource handling (Fixes log messages on kodi exit: 'Cleanup: Having to cleanup texture windows/pvr/epg_progress_horizontal.png'
+
+  [Kai Sommerfeld]
+   * [Estuary][PVR] Guide window: Add possibility to switch between horizontal and vertical epg grid view.
+
+  [Rechi]
+   * [windows] drop FindFirstFileExW(...) workaround for Vista
+
+
+  [Razzeee]
+   * Corrected spacing in readme
+
+  [BlakZtar]
+   * Added build instructions for rapidjson OpenSuse. (#11943)
+
+  [popcornmix]
+   * Fix for UI not showing both extractflags and extractthumb
+
+  [Martijn Kaijser]
+   * [win32] Bye bye Windows Vista
+
+
+  [h.udo]
+   * [cmake][OSXRemote] Cosmetics: keep it alphabetized
+
+  [h.udo]
+   * [cmake][TexturePacker] Cosmetics: keep it alphabetized
+
+  [h.udo]
+   * [version.txt] What's configure.ac?
+
+  [h.udo]
+   * [cmake/addons] Bindings spring cleanup
+
+  [Chris Koying Browet]
+   * CHG: [amc] hints debugging
+
+  [Chris "Koying" Browet]
+   * CHG: [NDK21] Use native ndk intf for MediaCodec
+
+
+  [Stefan Saraev]
+   * [fix] minor keymap fix
+
+
+  [Chris "Koying" Browet]
+   * ADD: [xsp] filter by originaltitle
+
+  [Rechi]
+   * [windows] installer: call findstr with full path
+
+  [Stefan Saraev]
+   * workaround: undef {Create,Remove}Directory when building addons on windows
+
+  [Stefan Saraev]
+   * ScanArchive: don't leak credentials
+
+  [Stefan Saraev]
+   * [cleanup] remove UnrarXLib
+
+  [Stefan Saraev]
+   * [cleanup] remove internal rar support
+
+  [Chris "Koying" Browet]
+   * FIXUP: [AT] blocking writes
+
+  [David Gamache]
+   * Make use of PlayListPlayer's new func Play()
+
+  [David Gamache]
+   * PlayListPlayer: New overloaded func Play() for single items
+
+
+  [Rechi]
+   * [depends] samba-gplv3: add patch to remove deprecated define in perl generator script
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRActionListener: Fix direct number input handling (to get agnostic to action listener registration order).
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRGUIWindowRecordings now uses CPVRSettings.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRGUIActions now uses CPVRSettings.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRTimers now uses CPVRSettings.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRManager now uses CPVRSettings.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRSettings now is a generic container for settings.
+
+  [taxigps]
+   * erase unsupport tags in TX3G subtitle
+
+
+  [peak3d]
+   * [MediaCodec] Fix videoBuffer video dimensions
+
+
+  [Kai Sommerfeld]
+   * [PVR] Fix timers map after f47956f9d2dc50ace7b7dc3a529eafc988f4471e
+
+  [kszaq]
+   * AMLCodec: fix 720p -> 1080p switching
+
+  [Rechi]
+   * [cmake] fix package names that find_package is equal to find_package_handle_standard_args
+
+  [Rechi]
+   * [cmake][windows] FindCdio: fix find_library
+
+  [Arne Morten Kvarving]
+   * quell signed/unsigned mismatch comparison warning
+
+  [Arne Morten Kvarving]
+   * changed: gcc printf verifier does not understand libfmt syntax
+
+  [fritsch]
+   * FFmpegImage: Use alignment to 4 Bytes when going over an immediate
+
+  [fritsch]
+   * FFmpegImage: Don't rely on new alignment
+
+
+  [Rechi]
+   * [depends] use ccache for binary add-ons
+
+  [Rechi]
+   * [depends] use ccache determined from configure in Toolchain.cmake
+
+  [xhaggi]
+   * [pvr] no need to run a job to announce channel switch
+
+
+  [Memphiz]
+   * [osx] - add the minimum required osx version to the info.plist - this will show a message box on startup when minimum osx version is not installed (also mentioning the needed minimum osx version)
+
+  [Kolja Lampe]
+   * Moved party mode, set default and clear default to new contextmenu
+
+  [Kai Sommerfeld]
+   * [filesystem][dialogs] Add context menus for favourites home screen widget.
+
+  [Garrett Brown]
+   * [Peripherals] Improve shutdown speed by a small amount
+
+  [Garrett Brown]
+   * [Peripherals] Improve logging in CPeripherals::TestFeature()
+
+  [Garrett Brown]
+   * [Peripherals] Improve logging for button presses
+
+  [Garrett Brown]
+   * [Peripherals] Remove check for successful add-on enabling
+
+  [Garrett Brown]
+   * [Peripherals] Remove unused variables
+
+  [Kolja Lampe]
+   * Small gui code cleanup
+
+
+  [Chris Koying Browet]
+   * ADD: [test] URIUtils::Split + options
+
+  [Chris "Koying" Browet]
+   * ADD: [leanback] recommendations & search
+
+  [Chris Koying Browet]
+   * [JAVA] refactor properties
+
+  [Chris "Koying" Browet]
+   * CHG: [droid;java] use resource for main and recommendation color
+
+  [Chris "Koying" Browet]
+   * FIX: ignore options in URIUtils::Split
+
+  [Chris "Koying" Browet]
+   * FIX: [droid] when a videodb intent is passed, fill video tag
+
+  [Chris "Koying" Browet]
+   * ADD: Implement videodb:// VFS
+
+  [Chris "Koying" Browet]
+   * CHG: Allow item selection via ActivateWindow
+
+  [Chris "Koying" Browet]
+   * Revert "Drop unused method"
+
+  [Chris "Koying" Browet]
+   * CHG: [droid] specify package name fully in version.txt
+
+  [Rechi]
+   * [depends] Bump samba-gplv3 to version 4.0.26
+
+  [mueller-ma]
+   * Fix syntax for links
+
+  [DaveTBlake]
+   * Code clean up, removing white space, unused variables and methods
+
+  [Nuno Sénica]
+   * [rbpi] Make sure we strip binaries in Release build
+
+  [asavah]
+   * estuary fix watched status for videos
+
+  [Kolja Lampe]
+   * Align play button in contextmenu to behavior in library Closes #16982
+
+
+  [Garrett Brown]
+   * [RetroPlayer] Update copyright headers
+
+  [Garrett Brown]
+   * [games] Update copyright headers
+
+  [Garrett Brown]
+   * [joysticks] Update copyright headers
+
+  [Rechi]
+   * [windows] use wmic qfe instead of powershell to check if hotfix is installed
+
+  [notspiff]
+   * added: allow mapping a key to browse subtitle in video fullscreen window
+
+  [notspiff]
+   * refactor: move browse for subtitle code to separate function
+
+
+  [popcornmix]
+   * CGUIWindowManager: Protect against null window access
+
+  [Kai Sommerfeld]
+   * [guilib] CGUIWindowManager: Fix destruction of windows on app exit (windows were queued for deletion, but dtors were never called, because async destruction does not work anymore on app exit).
+
+
+  [peak3d]
+   * [android] compile issues / add HDMI-PLUG event
+
+  [AchimTuran]
+   * [adsp] readd GUIDialogAudioDSPManager and remove calls to the old AudioDSP manager object
+
+  [Rainer Hochecker]
+   * adsp: silence warning
+
+  [Rainer Hochecker]
+   * pvr: include ServiecBroker, fixes compile error
+
+  [AchimTuran]
+   * [adsp] Disable AudioDSP
+
+  [AchimTuran]
+   * [service] remove AudioDSP from ServiceBroker and ServiceManager
+
+  [AchimTuran]
+   * [settings] remove AudioDSP settings
+
+  [AchimTuran]
+   * Replace C-style casts to C++ casts
+
+  [AchimTuran]
+   * [adsp] added todo comments
+
+  [wsnipex]
+   * [AE] fix unit tests
+
+  [Rainer Hochecker]
+   * ios: adapt tu ae updates
+
+  [wsnipex]
+   * [AE] fix android build
+
+  [popcornmix]
+   * OMXAudio: Update to use CServiceBroker instead of AEFactory
+
+  [popcornmix]
+   * omxplayer: Avoid CAEFactory::Suspend which should only be called by application
+
+  [popcornmix]
+   * ActiveAEDSP: Fix incorrect case on log header includes
+
+  [Garrett Brown]
+   * Fix RetroPlayer audio after AE updates
+
+  [Rainer Hochecker]
+   * ADSP: temp changes for merge
+
+  [Rainer Hochecker]
+   * AE: only expose interface to the public
+
+  [Rainer Hochecker]
+   * squash factory
+
+  [AchimTuran]
+   * [AE] Drop CAEFactory
+
+  [AchimTuran]
+   * [AE] Replace CAEFactory with CServiceBroker
+
+  [AchimTuran]
+   * [adsp][ActiveAEDSPAddon] Don't disable adsp when add-ons will be deinstalled (TODO: implement a proper way to handle on the fly binary add-on installation for adsp)
+
+  [AchimTuran]
+   * [adsp][ActiveAEDSPProcess] Improve mode handling, stream creation, fix broken ffmpeg layout configuration, simplify public API, improve debugging output, update modes during processing audio streams
+
+  [AchimTuran]
+   * [adsp][ActiveAEDSPMode] Code cosmetics
+
+  [AchimTuran]
+   * [adsp][ActiveAEDSP] Improve thread safety, use int instead of unsigned int for m_activeProcessId, remove CSettings dependency, prepare adsp manager class for ActiveAE to keep track of adsp
+
+  [AchimTuran]
+   * [AE][ActiveAEStream] Remove AudioDSP
+
+  [AchimTuran]
+   * [AE][ActiveAEBuffer] Remove AudioDSP from resampling buffer
+
+  [AchimTuran]
+   * [AE] Insert one space between channel names (looks better in the AudioDSP OSD)
+
+  [Rechi]
+   * [depends] samba-gplv3: use non versioned so on android
+
+  [Kolja Lampe]
+   * We don't need to create new fileItems here, use the ones we already have instead
+
+  [Kolja Lampe]
+   * Check dialog variables before using them
+
+  [Kolja Lampe]
+   * Move initialization to initializer list
+
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRTimers: Fix memory leak. timer tags vectors were heap allocted, but never destructed.
+
+  [Kai Sommerfeld]
+   * [PVR] Factor out minimal timers container and use it instead of CPVRTimers when updating timers (for performance and ressource consumption reasons).
+
+  [Kai Sommerfeld]
+   * [PVR] Rework CPVRActionListener and CPVRGUIActions lifecycle (no more static instances).
+
+
+  [Stefan Saraev]
+   * changed: build the exif code in main library
+
+
+  [Stefan Saraev]
+   * [depends] bump rapidjson to 1.1.0
+
+  [Stefan Saraev]
+   * [fix] fix build error with rapidjson 1.1.0
+
+  [wsnipex]
+   * [depends] bump gnutls to 3.5.10
+
+  [wsnipex]
+   * [depends] update SSL CA trust store
+
+  [Garrett Brown]
+   * Fix call to exit() when entering Games -> Keyboard settings
+
+  [wsnipex]
+   * [depends] bump openssl to 1.0.2k
+
+  [Memphiz]
+   * [touchscreen/pictures] - allow to back out from fullscreen picture mode by mapping longpress
+
+
+  [Brandon Schaefer]
+   * * Missed some variable changes
+
+  [Brandon Schaefer]
+   * * Update to new mir api with moving away from deprecated things
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Optimize re-opening of the window (re-use item list if no changes came in while window was not active).
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Implement asynchronous channel group switching.
+
+  [wsnipex]
+   * [cmake] fail if rapidjson is not found
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Fix event/channel selection after channel group switch.
+
+
+
+
+  [Stefan Saraev]
+   * [cmake] explicitly set ENABLE_EXPORTS
+
+  [Pär Björklund]
+   * General cleanup of ApplicationMessenger
+
+  [LS80]
+   * Fix missing xbmcgui.ACTION_ values
+
+  [ronie]
+   * [Estouchy] add support for radio channel groups
+
+  [ronie]
+   * [Estouchy] fix progress cache
+
+
+
+  [Kai Sommerfeld]
+   * [PVR] Follow PR11887: Fix CPVRManager::ConnectionStateChange not to check for started PVR manager.
+
+  [Rechi]
+   * [cmake] change RapidJSON_INCLUDE_DIRS to capital letters to get added to SYSTEM_INCLUDES
+
+  [xhaggi]
+   * [pvr] drop CPVRManager::GetInstance and use ServiceBroker directly
+
+  [montellese]
+   * CJSONVariantWriter: use RapidJSON instead of yajl
+
+  [montellese]
+   * CJSONVariantParser: use RapidJSON instead of yajl
+
+  [montellese]
+   * CVariant: introduce isSignedInteger() and re-purpose isInteger() to cover both signed and unsigned integers
+
+  [montellese]
+   * [depends/cmake/win32] replace yajl with rapidjson (thanks to hudokkow)
+
+  [Garrett Brown]
+   * [cosmetic] Remove references to old joystick code in comment
+
+  [Garrett Brown]
+   * [Peripherals] Fix segfault on startup
+
+  [Garrett Brown]
+   * [Peripherals] Move g_peripherals to ServiceManager
+
+  [xhaggi]
+   * [pvr] get rid of globals and use ServiceBroker instead
+
+  [xhaggi]
+   * [pvr] move jobs from PVRManager to PVRJobs class
+
+  [xhaggi]
+   * [pvr] rename PVRManager method Shutdown to Deinit
+
+  [xhaggi]
+   * [pvr] rewrite announce logic in PVRManager
+
+  [Garrett Brown]
+   * [Peripherals] Fix segfault when invoking deinitialized add-ons
+
+  [Garrett Brown]
+   * [Peripherals] Power off controllers before services are deinitialized
+
+  [Garrett Brown]
+   * [Peripherals] Fix uninitialized variables
+
+
+  [santaSJ]
+   * [docs] Update README.android
+
+
+  [ace20022]
+   * Revert "[bluray] Early return if requested "dir" is in fact a file."
+
+  [Rechi]
+   * [Fix] adapt gitignore for depends after da63933
+
+  [Rechi]
+   * [cmake] Fix compiling of Android-X86 after 742cc3c31b by checking SSE support again
+
+  [ace20022]
+   * [bluray] Fix CID 1403183: Control flow issues (NO_EFFECT).
+
+  [Rechi]
+   * remove more SDL references
+
+  [Stefan Saraev]
+   * [cleanup] depends: remove libsdl2
+
+  [Stefan Saraev]
+   * [cmake] FindSdl.cmake: look for sdl1 only
+
+  [Stefan Saraev]
+   * [cleanup] sdl2 is no more
+
+  [Stefan Saraev]
+   * [cleanup] depends: remove libsdl_image
+
+
+  [xhaggi]
+   * [gui][refactor] rename container info label actualitems to numallitems
+
+  [xhaggi]
+   * [skin][estuary] rename Container.NonFolderItems to Container.NumNonFolderItems
+
+  [xhaggi]
+   * [gui][refactor] use separate case for CONTAINER_NUM_NONFOLDER_ITEMS to skip some unnecessary checks
+
+  [xhaggi]
+   * [cleanup] various code style cleanups in GUIWindowManager
+
+  [xhaggi]
+   * [refactor] use generic GetWindow() or GetDialog()
+
+  [xhaggi]
+   * [guilib] add convenient method GetDialog() to GUIWindowManager
+
+  [xhaggi]
+   * [guilib] add template for GetWindow() to enclose type cast
+
+  [Chris "Koying" Browet]
+   * FIX: [python] no abort + droid libs
+
+  [notspiff]
+   * fixed: install into system-expected python library path
+
+  [Stefan Saraev]
+   * rpl-native is no more
+
+  [Chris Koying Browet]
+   * FIX: [cmake] use specific Android profile (so versions)
+
+  [xhaggi]
+   * [gui][refactor] rename info label nonfolderitems to numnonfolderitems
+
+
+  [Kai Sommerfeld]
+   * [Estuary] Channelgroup Manager dialog: Add support for radio channel groups.
+
+  [Kai Sommerfeld]
+   * [PVR] Channelgroup Manager dialog: Add support for radio channel groups.
+
+  [Chris "Koying" Browet]
+   * COSMETIC: use <> for jni and reorder
+
+  [wsnipex]
+   * [cmake] require libfmt min version
+
+  [Kai Sommerfeld]
+   * [PVR] GUI Actions: Execute recordings actions async - display busy dialog if action takes some more time to complete."
+
+  [Kai Sommerfeld]
+   * [threads] extend CGUIDialogBusy::Wait(IRunnable *runnable) to accept displaytime and allowCancel.
+
+  [Chris "Koying" Browet]
+   * [jni] remove in-tree jni
+
+  [Chris Koying Browet]
+   * CHG : [jni] use jni lib from depends
+
+  [Chris Koying Browet]
+   * FIX: [AT;jni] Move Kodi-isms to Kodi
+
+  [Chris Koying Browet]
+   * ADD: [jni] add to depends
+
+
+  [Chris "Koying" Browet]
+   * FIX: [depends;PIL] unzip with overwrite
+
+  [DaveTBlake]
+   * Remove colon and "
+
+  [Martijn Kaijser]
+   * [addons] Update Chorus
+
+  [Chris Koying Browet]
+   * FIX: [droid] force PIC (text reloc denied as of API 23)
+
+  [DaveTBlake]
+   * Fix replaygain so clipping check works when peak not 1.0. Allow amplification to be < 1.0 to provide clipping protection when replaygain < 1.0 and peak > 1.0 (headroom on mp3 decoding).
+
+
+  [David Bridson]
+   * Fix for YouTube Add-On Crash
+
+
+  [Rechi]
+   * [bluray] allow do build without bluray support
+
+  [peak3d]
+   * signal monitor by invokeer-id instead addon-id
+
+  [Rechi]
+   * [win] use users profile folder as home folder
+
+  [ronie]
+   * [python] WindowXML - add param for mediawindow
+
+  [ronie]
+   * drop support for 'old' static listitem format
+
+
+  [ace20022]
+   * [bluray] Add handling of BD_EVENT_PLAYLIST_STOP event.
+
+  [ace20022]
+   * [bluray] Drop special code for versions lesser than 0.3.0.
+
+  [ace20022]
+   * [bluray] Improve error handling.
+
+  [ace20022]
+   * [bluray/videoplayer] Refactor OnDVDNavResult.
+
+  [ace20022]
+   * [dvd] Remove unused class DVDNavResult.
+
+  [ace20022]
+   * [bluray] Early return if requested "dir" is in fact a file.
+
+  [ace20022]
+   * [bluray] Add sound effect retrieval. Currently it's not processed any further.
+
+  [ace20022]
+   * [bluray] Improve event processing. Based on code from afedchin.
+
+  [ace20022]
+   * [bluray] Setup the (Blu-ray) player regardless of the nav mode.
+
+  [ace20022]
+   * [bluray] Add file write implementation.
+
+  [popcornmix]
+   * RenderManager: Force frames to output when reconfiguring renderer
+
+  [Rechi]
+   * [win] use 64-bit toolset if available
+
+  [David Bridson]
+   * Replace manual memory management in PythonInvoker with automatic
+
+  [David Bridson]
+   * Move class member argv/argc to function scope
+
+  [David Bridson]
+   * Fix allocation of 0-length array
+
+
+  [Kai Sommerfeld]
+   * [PVR] Fix trac 17374: wakeup command not called on app exit.
+
+
+  [Phondanai Khanti]
+   * Adding keyboard layout: Thai Kedmanee (#11844)
+
+  [xhaggi]
+   * [settings] revert default of epg.selectaction back to show info
+
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: Use CGUIWindowPVRGuide::GetGridControl() instead of copying code.
+
+  [Kai Sommerfeld]
+   * [PVR] Trac 17372: Fix wrong initial channel focus with 'Continue last channel on startup' setting.
+
+  [rbuehlma]
+   * Add some missing Lirc mappings for MCE-Remotes (#11828)
+
+  [xhaggi]
+   * [pvr][refactor] use unique_ptr instead of a bare pointer for m_vecItems
+
+  [xhaggi]
+   * [lang] add label for channel guide
+
+  [xhaggi]
+   * [pvr] add button to open full channel guide to guide info dialog
+
+  [xhaggi]
+   * [pvr] channel guide dialog now able to display guide for supplied channel
+
+  [xhaggi]
+   * [estuary][refactor] use new window id for GUIDialogPVRChannelGuide
+
+  [xhaggi]
+   * [estouchy][refactor] use new window id for GUIDialogPVRChannelGuide
+
+  [xhaggi]
+   * [lang] adjust message comments
+
+  [xhaggi]
+   * [keymaps][refactor] use new window id for GUIDialogPVRChannelGuide
+
+  [xhaggi]
+   * [pvr][refactor] rename GUIDialogPVRGuideOSD to GUIDialogPVRChannelGuide
+
+  [h.udo]
+   * [cmake] Cosmetics: keep deps in alphabetical order
+
+  [h.udo]
+   * [cmake] Add support for LCMS2
+
+  [ace20022]
+   * [Fix] VideoPlayer: Don't close any subtitle stream when switching audio tracks.
+
+
+  [Rechi]
+   * [jenkins][windows] don't remove previous compiled version of ffmpeg and libdvd if nothing changed
+
+  [Thomas Amland]
+   * [contextmenu] unload asynchronously on addon disable and do a full reload instead
+
+  [Thomas Amland]
+   * [contextmenu] remove unnecessary unloads
+
+
+  [Thomas Amland]
+   * language addons: add g_SkinInfo guard as a workaround to ensure these hooks arent called before gui is initialized
+
+  [Thomas Amland]
+   * language addons: remove kaitoast close hack
+
+  [Rechi]
+   * [fix] truncate of value (leftover from 70fa8bd)
+
+  [Rechi]
+   * [cleanup] remove unused private fields (leftover from e6f1ca2)
+
+  [Rechi]
+   * [cleanup] remove unused variables (leftover from 5567d03)
+
+
+  [Stanislav Vlasic]
+   * Fix EGLNativeTypeAmlogic for probing resolutions
+
+  [Stefan Saraev]
+   * [linuxinput] map KEY_SLEEP to power
+
+  [wsnipex]
+   * [depends] install depends build for debug and release into their own respective dirs
+
+  [wsnipex]
+   * [depends] filter out unwanted optimization flags
+
+
+  [montellese]
+   * [depends] libfmt: really fix native build
+
+  [Montellese]
+   * [depends] libfmt: fix retrieval of source tarball
+
+  [montellese]
+   * [depends] add missing CMAKE_INSTALL_PREFIX for native linux builds
+
+  [Montellese]
+   * [depends] libfmt: remove BASE_URL pointing to github
+
+  [Save me]
+   * Update CPackConfigDEB.cmake
+
+  [Cyr-ius]
+   * Fix CHANGELOG if not exist
+
+
+  [Pär Björklund]
+   * Fix progress dialog after formatting changes
+
+  [Pär Björklund]
+   * Stupid copy paste error causing FromW to fail
+
+  [Pär Björklund]
+   * Fix build with VS2017
+
+  [Rechi]
+   * [gitignore][windows] x64 dependencies
+
+  [Rechi]
+   * [cmake][windows] split dependencies into separate architecture directories
+
+
+  [Pär Björklund]
+   * Fix format specifiers, size_t is 32-bit on 32-bit windows
+
+  [Stijn Tintel]
+   * Replace deprecated glibc aliases.
+
+  [Pär Björklund]
+   * Fix addon build after the unicode changes
+
+  [ronie]
+   * [estuary] remove hyphen as none value
+
+
+  [Rechi]
+   * [cmake][windows] use correct d3dcompiler depending on target architecture
+
+  [DaveTBlake]
+   * Fix CleanupArtists from hanging on very large MySQL db when there are few artists to remove.
+
+
+  [Pär Björklund]
+   * Change formatting to {fmt} instead of sprintf/snprintf style formatting
+
+  [montellese]
+   * [cmake/depends/win32] add libfmt
+
+  [Chris Koying Browet]
+   * Revert "[filesystem/samba] - use vfs instead of $home"
+
+  [kwade00]
+   * Change SetShellVarContext from current to all
+
+  [peak3d]
+   * [Android] pycryptodome packaging namespace fix
+
+  [Rainer Hochecker]
+   * VidoePlayer: make no-key-frame-fallback dependent on fps
+
+
+  [mac-l1]
+   * [cmake/windowing] fix dependencies X11/XRandR/OpenGLES
+
+  [Pär Björklund]
+   * New build of libass and freetype
+
+
+  [Anton Fedchin]
+   * [win32] installer: fix generation nsis includes on some systems.
+
+  [Anton Fedchin]
+   * [win32] installer: added checks for required updates and SPs.
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Feature: 'Smart selection' of epg events."
+
+  [DaveTBlake]
+   * Stop fetching embedded cuesheet replay gain data by default
+
+
+  [ace20022]
+   * [Fix] VideoPlayer: Don't correct start time external pgs subtitle streams.
+
+  [Rainer Hochecker]
+   * pvr: fix playing items from library
+
+  [Garrett Brown]
+   * [Peripherals] Fix mapping axes on Android
+
+  [Garrett Brown]
+   * [Peripherals] Pass by reference
+
+  [Garrett Brown]
+   * [Peripherals] Silence debug log spam on Android
+
+  [Garrett Brown]
+   * [Peripherals] Fix Android joysticks not detected on startup
+
+  [Pär Björklund]
+   * Add the patch file for libupnp
+
+  [Pär Björklund]
+   * Switch libupnp to unicode as well
+
+  [Pär Björklund]
+   * Move to using unicode win32 api methods
+
+  [ace20022]
+   * [coverity] Fix CID 138589: Resource leak.
+
+  [Rainer Hochecker]
+   * PVR: never cache pvr directories
+
+
+  [ace20022]
+   * [Fix] XBTFReader: fix regression introduced by 06a781a1b4d1ee715887940e6c915a9c214a1fdc.
+
+  [peak3d]
+   * BitstreamParser: return success on Open()
+
+  [Kai Sommerfeld]
+   * [PVR] Cleanup: Get rid of raw pointer in signature of CPVRTimers::GetTimerRule.
+
+  [Kai Sommerfeld]
+   * [PVR] Fix CID 1401587: UNINIT_CTOR in CGUIEPGGridContainer.
+
+  [S. Davilla]
+   * fixed, unpackedFrame is an array, delete it like one
+
+  [ace20022]
+   * [coverity] CID 1373316: String not null terminated.
+
+  [wsnipex]
+   * [depends] install pycryptodome under the alternative Cryptodome namespace instead of Crypto
+
+  [DaveTBlake]
+   * Skip trying to read tags from internet streams & shoutcasts
+
+  [Michael T. DeGuzis]
+   * display revision num. when building
+
+  [ace20022]
+   * [Fix] VideoPlayer: Delete vob sub demuxer before trying to open a new one (memory leak).
+
+  [DaveTBlake]
+   * Add processing of WRITER tag for Vorbis and APE formats, and correct use of BAND and ENSEMBLE (Vorbis) tags.
+
+
+  [metaron]
+   * [PVR] fix timer type display for 'invalid' types
+
+  [ace20022]
+   * [Fix] VideoPlayer: DemuxMultiSource reads in lesser than order (regression).
+
+  [Pär Björklund]
+   * Drop kernel32 hooking as it's not needed.
+
+
+  [metaron]
+   * [PVR] Fix inconsistent 'Enable/Disable'
+
+  [Pär Björklund]
+   * Drop the idea of total space from GetDiskSpace.
+
+  [Pär Björklund]
+   * Use statvfs64 on linux and some rearrangements
+
+  [Kai Sommerfeld]
+   * [PVR] Trac 17359: Fix crash in CPVRTimers::GetTimerRule(const CFileItem *item).
+
+  [Pär Björklund]
+   * Get rid of our emulated GetDiskFreeSpaceEx method
+
+
+  [Thomas Amland]
+   * [addons] fix InstallUpdatesAndWait
+
+  [wsnipex]
+   * [depends] fix taglib are boost removal
+
+  [Kai Sommerfeld]
+   * [PVR] Fix crash in CPVRGUIActions::ProcessMenuHooks.
+
+  [Garrett Brown]
+   * Add setting to disable rumble notifications
+
+  [Garrett Brown]
+   * Peripheral API v1.3.1 - Expose rumble and power off capabilities
+
+  [Garrett Brown]
+   * [binary add-ons] Const-correctness in xbmc_addon_cpp_dll.h
+
+
+  [Rainer Hochecker]
+   * AE: use iec pause bursts only for aufio sync
+
+  [Kai Sommerfeld]
+   * [PVR] Trac 17339: Remove non-working recording settings defaults.
+
+  [ronie]
+   * [estuary] hide seekbar when pvr osd channels is visible
+
+  [ronie]
+   * musicinfotag - fix recordlabel
+
+  [Rechi]
+   * [cmake
+
+  [Rechi]
+   * [cmake
+
+  [Rechi]
+   * [win] remove call to _controlfp
+
+  [Pär Björklund]
+   * [win] Fixed registry naming for crash dumps for 64-bit windows
+
+  [Kai Sommerfeld]
+   * [PVR] Trac 17311: Fix CGUIDialogPVRTimerSettings::InitializeTypesList.
+
+  [Kai Sommerfeld]
+   * [PVR] Trac 17311: Fix CPVRTimerInfoTag::GetEpgInfoTag.
+
+
+  [ronie]
+   * [estuary] re-add PVRChannelNumberInput to fullscreenvideo
+
+  [phil65]
+   * [estuary] sync pt2
+
+  [Arne Morten Kvarving]
+   * fixed: add FromProps hack for vfsentry/imagedecoder
+
+  [Thomas Amland]
+   * [guilib] drop support for using hyphen as none value
+
+
+  [Pär Björklund]
+   * Hopefully fix non-ascii fonts when using libass
+
+  [fritsch]
+   * AESinkPULSE: Avoid deadlock
+
+  [phil65]
+   * [estuary] sync pt. 1
+
+  [phil65]
+   * [estuary] optimize pngs
+
+  [wsnipex]
+   * [linux] prevent wasting RAM due to memory fragmentation
+
+  [ronie]
+   * properly exclude musicbrainz timeout for python scrapers
+
+  [Kai Sommerfeld]
+   * [PVR][guiinfo][Estuary] Recordings window: Introduce a content view filter (all
+
+  [Garrett Brown]
+   * [Peripherals] Fix memory leak in button mapping commands
+
+  [Garrett Brown]
+   * [Peripherals] Fix add-ons not being destroyed on exit
+
+  [Garrett Brown]
+   * [Controller dialog] Fix keypress being absorbed after mapping
+
+
+  [DaveTBlake]
+   * Vorbis and APE tags for REMIXER as alternative to MIXARTIST
+
+  [ronie]
+   * [estouchy] player process info
+
+  [phil65]
+   * [cleanup] remove some old xbox references
+
+  [DaveTBlake]
+   * Skip RetrieveMusicInfo for smart playlists, like music nodes we already have the info.
+
+  [Garrett Brown]
+   * [Darwin] Update system input settings
+
+  [Kai Sommerfeld]
+   * [EPG] Trac 17323: Guide window: Take epg linger time into account when calculating 'page now offset'.
+
+  [Kai Sommerfeld]
+   * [EPG] Trac 17323: Guide window: Fix jumping selection on channel change while navigatimg the grid.
+
+  [Garrett Brown]
+   * [Peripherals] Clear busses in deterministic order
+
+  [Garrett Brown]
+   * [Peripherals] Replace lock.Leave() with proper RAII pattern
+
+  [Garrett Brown]
+   * [cosmetic] Whitespace fixes after moving JOYSTICK to KODI namespace
+
+  [Garrett Brown]
+   * [cosmetic] Spelling fix in comment
+
+  [Garrett Brown]
+   * Fix warning from PR 11641
+
+  [Garrett Brown]
+   * [Peripherals] Factor out constants
+
+
+  [Martijn Kaijser]
+   * [addons] update Chorus
+
+  [David Gamache]
+   * Search backwards for keyframe when resuming playback
+
+
+  [popcornmix]
+   * Revert "hack: add iso to filedirectory list"
+
+  [ronie]
+   * fix skip specified amount
+
+
+  [Bernd Kuhls]
+   * CMake: kodi-eventclients-wiiremote depends on cwiid
+
+  [Thomas Amland]
+   * [addons] fix notification setting (should not hide feedback on manual install) and set it to off by default
+
+  [Thomas Amland]
+   * [addons] fix install notification message
+
+  [Thomas Amland]
+   * [addons] always show auto-disable notification regardless of setting
+
+  [wsnipex]
+   * [cmake] fix building WiiRemote
+
+  [notspiff]
+   * changed: disable hardcoded musicbrainz rate limiting for python scrapers
+
+
+  [drthaipham]
+   * Fixed Action_Increase/Decrease PAR Clamping code (#11607)
+
+  [notspiff]
+   * inherit thumb from main file for audiobook chapters
+
+  [notspiff]
+   * changed: allow loading tags for file-folder type audio files
+
+  [notspiff]
+   * add basic resume support for audiobooks
+
+  [notspiff]
+   * added: audiobook filesystem support
+
+  [Arne Morten Kvarving]
+   * added: support m4b extension in tag loader
+
+  [notspiff]
+   * add .m4b to default audio extensions
+
+  [Rechi]
+   * [cmake][windows] use precompiled JsonSchemaBuilder if cross compiling
+
+  [fritsch]
+   * Settings: Disable dithering by default - cause 100% load on old rigs
+
+  [ronie]
+   * fix views for videos content
+
+  [Jonas Karlman]
+   * [settings] change allowed remotedelay range to inlcude zero
+
+  [Michael T. DeGuzis]
+   * allow tag rev to be defined for rebuilds
+
+  [b-pass]
+   * A new type of list provider, MultiProvider, which allows multiple <content> blocks in a single container.
+
+  [Nuno Sénica]
+   * Unify setting for RPi, there's no need to make it CPU specific.
+
+  [David Gamache]
+   * Remove redundant calls of CVariant::isObject()
+
+  [Jonas Karlman]
+   * [cmake] use app-name in install path
+
+  [Jonas Karlman]
+   * [linux] install <app-name>.desktop
+
+  [mueller-ma]
+   * fix right order of topics
+
+  [Nuno Sénica]
+   * Tidy up ffmpeg in order to be more flexible and versatile. Also includes switches for Raspberry Pi
+
+  [Nuno Sénica]
+   * Don't compile/add WiiRemote if libcwiid-dev is not present
+
+
+  [DaveTBlake]
+   * Apply random sort for songs with limits in SQL to avoid inefficiently fetching all songs into CFileItemList just to pick a few random ones
+
+  [Kai Sommerfeld]
+   * [PVR] Some code cleanup.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRRecording is gui code free, finally.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRClient is gui code free, finally (removed lots of dead code, btw).
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRTimers is gui code free, finally.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRClients is gui code free, finally.
+
+  [Kai Sommerfeld]
+   * [PVR] Move 'enter parental pin' from pvr manager and pvr timers to gui actions.
+
+  [Kai Sommerfeld]
+   * [PVR] Implement 'continue last channel' using a job instead of custom action (more clean approach, imo).
+
+  [Kai Sommerfeld]
+   * [PVR] Move instant recording handling from pvr manager to gui actions.
+
+  [Kai Sommerfeld]
+   * [PVR] Cosmetics: Rename CPVRClient::HaveMenuHooks to CPVRClient::HasMenuHooks.
+
+  [Kai Sommerfeld]
+   * [PVR] Move settings changes handling from pvr manager and pvr clients to gui actions (reset pvr/epg database, channel scan, pvr client menu hooks processing).
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRActionListener cosmetics.
+
+  [Kai Sommerfeld]
+   * [powermanager] CPowerManager::OnWake: force close busy dialog.
+
+  [Kai Sommerfeld]
+   * [guilib] CGUIWindowManager::OnAction: Log warning if action is ignored due to closing animation running for topmost modal dialog. Happened with very early action sent while waking up from standby and CGUIDialogBusy not yet closed.
+
+  [Kai Sommerfeld]
+   * [PVR] 'Play last channel on startup': playback will only started if channel was playing while last quitting the app.
+
+  [Kai Sommerfeld]
+   * [PVR] Handle 'play last channel on startup' using pvr gui actions - once more, because of consistency and less code redundancy.
+
+  [Kai Sommerfeld]
+   * [PVR] Move 'switch to last played channel' from pvr manager to gui actions (making behavior the same as for the other switching actions, including checking for available recordings and parental check).
+
+  [Kai Sommerfeld]
+   * [PVR] Timer settings dialog: Prefill recordings folder with timer title (epg event name).
+
+  [Peter]
+   * Update README.raspberrypi
+
+  [Rechi]
+   * [depends] use ccache if available
+
+  [Rechi]
+   * [depends] allow CC & CXX have spaces
+
+  [DaveTBlake]
+   * Fix cleanonupdate to clean library after update rather than accidentally disable any subsequent scraping and do nothing on update
+
+  [ronie]
+   * [Estouchy] add seekbar
+
+
+  [peak3d]
+   * android / aml refclock
+
+  [xbmc]
+   * windows: adapt to move of videosync to windowing
+
+  [popcornmix]
+   * RPi: Fixup move of videosync to windowing
+
+  [Rainer Hochecker]
+   * VideoPlayer: VideoReferenceClock to the right place
+
+  [Rechi]
+   * [codegenerator] initialize pointers with nullptr if they have no value
+
+
+  [Lukas Rusak]
+   * add dng to mime types
+
+  [Thomas Amland]
+   * [addons] auto-disable broken addons after update
+
+  [Thomas Amland]
+   * [estuary] fix message for broken addons
+
+  [Thomas Amland]
+   * [addons] remove non-functioning broken status code
+
+  [Thomas Amland]
+   * [addons] add isAutoUpdate flag to install job
+
+  [Thomas Amland]
+   * [addons] dont prevent installation of addons marked broken in addonmgr
+
+  [Thomas Amland]
+   * [addons] fix query. broken table is unused and not updated anymore
+
+  [Anthony Ryan]
+   * Update SSE3 check to match with the others
+
+  [DaveTBlake]
+   * Add advancedsetting to optionally prompt for full tag rescan, regardless of files being unchanged, every time scanning is initiated i.e. from "Update Library" and when "Scan to library" from file view
+
+  [DaveTBlake]
+   * Add versiontagscan table to track the version of tag processing used to populate the library. Replace use of GUI setting MusicNeedsUpdate with read/write to database.
+
+  [Matus Kral]
+   * cmake: findembedded: fix IMX(FB) header file name
+
+
+  [Kevin Goffe]
+   * Update music library nodes
+
+  [Markus Pfau]
+   * fix BitstreamConverter missing declarations
+
+  [fritsch]
+   * AESinkAUDIOTRACK: Add 176.4 khz
+
+  [fritsch]
+   * AESinkAUDIOTRACK: Add 88.2 khz to samplerate test
+
+  [fritsch]
+   * AESinkAUDIOTRACK: Fix start value of algorithm to find matching samplerate
+
+  [Arne Morten Kvarving]
+   * fixed: mbrainz resolution using python based scrapers
+
+  [Arne Morten Kvarving]
+   * quell signed/unsigned comparison warning
+
+  [notspiff]
+   * added: allow using slider controls in visibility conditions
+
+  [Kevin Goffe]
+   * Update movie and TV library nodes
+
+  [Josh Soref]
+   * spelling: methods
+
+  [Memphiz]
+   * [depends/ffmpeg/ios] - fix compilation against ios 10 sdk and running on ios < version 10 - reference https://github.com/kewlbear/FFmpeg-iOS-build-script/issues/83
+
+  [Memphiz]
+   * [ios/codesing] - add a second method to get the bundle id (mdls seems not to work for me on sierra)
+
+  [Memphiz]
+   * [readme/ios] - added xcode8 support
+
+  [Memphiz]
+   * [depends/curl] - on ios ensure clock_gettime is not used in curl (it ignores the ac_cv flag)
+
+  [Memphiz]
+   * [depends] - adapt the xcode8 patches for gnutls and samba to not only work on osx but ios too
+
+  [Memphiz]
+   * [depends/config.site] - make sure clock_gettime and getentropy are not used even if they are found in ios (found in ios10 sdk - but only usable on ios10 runtime)
+
+  [Memphiz]
+   * [ios] - bump deployment target to iOS 6.0 (needed for xcode8/iOS 10)
+
+  [Memphiz]
+   * [depends/ios] - enable support for iOS 10 sdk
+
+
+  [peak3d]
+   * fix dateOfBirth of the new aml video sync files
+
+  [peak3d]
+   * fix rebase conflict again
+
+  [Markus Pfau]
+   * git ignore tools/depends/target/*/aarch64 folders
+
+  [Markus Pfau]
+   * AML VideoReferenceClock
+
+  [Markus Pfau]
+   * AMLRenderer cleanup / adaption
+
+  [Markus Pfau]
+   * AMLCodec Rework
+
+  [popcornmix]
+   * OMXPlayer: Fixup after DVDMessage changes
+
+  [Garrett Brown]
+   * Fix errors from axes discovered during mapping
+
+  [Garrett Brown]
+   * Fix input being dropped when configuration wizard is stopping
+
+
+  [Rainer Hochecker]
+   * VideoPlayer: allow user to skip into commbreaks from the end
+
+  [Rainer Hochecker]
+   * VideoPlayer. update playstate when a/v get in sync
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix edl skipping
+
+  [wsnipex]
+   * [interfaces] legacy: fix format error when building with -Werror=format-security
+
+  [popcornmix]
+   * Application: Allow python door to open for up to 80ms
+
+  [popcornmix]
+   * Application: Add decay before python door closes
+
+
+
+  [notspiff]
+   * explicitly pass rrefs for move semantics
+
+  [Garrett Brown]
+   * [controller dialog] Improve keyboard handling during mapping
+
+  [Garrett Brown]
+   * Move JOYSTICK, KEYBOARD and MOUSE namespaces into KODI
+
+  [Garrett Brown]
+   * Separate CKey and CAction
+
+
+  [Garrett Brown]
+   * [controller dialog] Ignore delayed axes
+
+
+  [Garrett Brown]
+   * Remove AEDefines_override.h
+
+  [notspiff]
+   * add kodi-image-dev in packaging
+
+  [notspiff]
+   * automatic addition of image extensions from addons
+
+  [notspiff]
+   * support for image decoder add-ons
+
+  [notspiff]
+   * add cr2, nef and arw to mime types
+
+  [Pär Björklund]
+   * Add missing documentation to appmessenger and IMessageTarget
+
+  [ronie]
+   * [skins] show video indicator in slideshow window
+
+  [ronie]
+   * [Estuary] fixes
+
+
+
+  [Garrett Brown]
+   * Remove generated file
+
+  [David Gamache]
+   * Send a non-blocking GUIMessage to start a slideshow from JSON
+
+  [Garrett Brown]
+   * Simplify trigger detection now that we know the initial position when the detection process starts.
+
+  [Garrett Brown]
+   * Fix anomalous triggers getting stuck in the background while mapping
+
+  [Garrett Brown]
+   * Fix broken logic causing analog sticks to not work
+
+  [Garrett Brown]
+   * [joysticks] Small code improvement
+
+  [Garrett Brown]
+   * [controller dialog] Remove unused feature
+
+  [Garrett Brown]
+   * [joysticks] Remove unused function
+
+  [Rainer Hochecker]
+   * cmake: fix handling of X11
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRChannelGroup::SearchAndSetChannelIcons: Fix progress dialog label text.
+
+  [Kai Sommerfeld]
+   * [PVR] Avoid deadlocks by obtaining extended progress dialog instance pointer early.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRChannelGroup::SearchAndSetChannelIcons: Remove some useless code.
+
+  [Kai Sommerfeld]
+   * Revert "[PVR] Fix deadlock that might occure during initial channel icon search."
+
+
+  [phate89]
+   * [python] add missing LOCKGUIIF
+
+  [phate89]
+   * [python] allow to set default rating from setUniqueIDs
+
+  [phil65]
+   * [python] modernize ListItem and use setters
+
+  [phate89]
+   * [python] add addAvailableThumb()
+
+  [phil65]
+   * [python] add setAvailableFanart()
+
+  [phate89]
+   * [python] add addSeason()
+
+  [phate89]
+   * [python] add sortepisode, sortseason, episodeguide and showlink in setInfo
+
+  [phate89]
+   * [python] add ability to use list of strings in some setinfo info
+
+  [phate89]
+   * [python] add tags and setoverview fields in setInfo()
+
+  [Christian Fetzer]
+   * [GameClient] Implement in-game saves
+
+  [Christian Fetzer]
+   * [Game API] Update to Game API v1.0.29 - GetMemory (non const)
+
+  [Memesa]
+   * Fix queueing music playlist files
+
+
+  [montellese]
+   * videodb: check whether the database is open before retrieving details
+
+  [notspiff]
+   * fixed: do not try to load folder thumbs for plugin items
+
+  [notspiff]
+   * fix signed/unsigned comparison
+
+
+  [Garrett Brown]
+   * Controller dialog: Update button label because skipping is now mostly fixed
+
+  [Kai Sommerfeld]
+   * [PVR] Make CPVRManager::UpdateItem more failsafe.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRManager::PerformChannelSwitch: never modify m_currentFile without holding own lock.
+
+  [Kai Sommerfeld]
+   * [EPG] Fix CEpgSearchFilter::Reset - CID 1399697: Uninitialized members (UNINIT_CTOR)
+
+  [DaveTBlake]
+   * Correct table name to lower case, as MySQL is case sensitive
+
+  [Garrett Brown]
+   * Fix discrete D-pad axes with a center that is slightly offset
+
+  [Garrett Brown]
+   * [peripheral API] v1.3.0 - Add handling for anomalous triggers
+
+  [Garrett Brown]
+   * [controllers] Cache controller layouts
+
+
+  [Shani-08]
+   * Addon caching enabled and create archive_cache if not exists Backport from krypton PR #11582 and #11561
+
+  [Garrett Brown]
+   * [peripherals] Add todo to fix erratic input with anomalous triggers
+
+  [Garrett Brown]
+   * [peripherals] Remove deprecated callbacks for peripheral add-ons
+
+  [Garrett Brown]
+   * [cosmetic] Fix typo in comment
+
+  [Garrett Brown]
+   * [cosmetic] Fix trailing whitespace in AddonButtonMap.cpp
+
+  [Garrett Brown]
+   * [controllers] Add feature category enum to joystick library
+
+  [Garrett Brown]
+   * [controllers] Rename "group" to "category" internally
+
+
+  [Kai Sommerfeld]
+   * [PVR][jsonrpc] CPVROperations::ToggleTimer: fix crash due to invalid epg tag given (e.g. event end time is in the past, thus no timer can be created)
+
+  [Kai Sommerfeld]
+   * [EPG] EpgSearchFilter: Simplify CPVROperations::GetBroadcastDetails not to use EPG search anymore.
+
+  [Kai Sommerfeld]
+   * [EPG] PVR Search window: Fix duplicate progress dialog on search and not working very first search.
+
+  [Kai Sommerfeld]
+   * [EPG] EpgSearchFilter: Implement 'ignore existing timers' and 'ignore existing recordings'"
+
+  [Kai Sommerfeld]
+   * [EPG] EpgSearchFilter: Refactor interface to use shared pointers
+
+  [Kai Sommerfeld]
+   * [EPG] EpgSearchFilter: Refactor 'match free to air'
+
+  [Kai Sommerfeld]
+   * [EPG] EpgSearchFilter: Implement 'search in description'
+
+  [Kai Sommerfeld]
+   * [EPG] EpgSearchFilter: Refactor: Encapsulate data (struct -> class)
+
+  [Rechi]
+   * Fix Trac 17273 by disabling lonpress-mapping in VirtualKeyboard
+
+  [Rechi]
+   * [ButtonTranslator] add ability to disable lonpress-mapping in sub windows
+
+
+  [Martijn Kaijser]
+   * [tests] fix after de5b4a1c33f95f2963f682014a7472c2c6413efd
+
+  [peak3d]
+   * add bitstreamparser dtor
+
+  [Chris Koying Browet]
+   * FIX: [regression] URL encoding is case-insentive
+
+  [Garrett Brown]
+   * [joysticks] Fix all hell breaking loose when buttons are held
+
+
+  [notspiff]
+   * clear up video filter shader on destruction
+
+  [notspiff]
+   * initialize variable to avoid use before initialization
+
+  [notspiff]
+   * initialize variable to avoid (potential) use before initialization
+
+  [xhaggi]
+   * [lang] update skin path of estuary in language key usage docs
+
+  [montellese]
+   * [resource.language.en_gb] fix order of strings after 1e86311
+
+
+  [Martijn Kaijser]
+   * [addons] Chorus 2.4.2
+
+  [Anton Fedchin]
+   * [VideoPlayer] OverlayRendererDX: don't render if vertexes buffer isn't exist.
+
+  [Anton Fedchin]
+   * Revert "[VideoPlayer] OverlayRendererDX: "mark" overlay as invalid on destroying device in case of fatal error."
+
+  [Rechi]
+   * [cmake] don't abort building binary addons if one addon cannot be downloaded
+
+  [Arne Morten Kvarving]
+   * if it is not utf-8, make it CP437, end of story.
+
+  [Arne Morten Kvarving]
+   * add support for utf-8 formatted zip files
+
+  [Josh Soref]
+   * spelling: member variables
+
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix audio stream not started
+
+  [Rainer Hochecker]
+   * VideoPlayer: ffmpeg decoder - implement fail-safe for missing key frames
+
+
+  [DaveTBlake]
+   * Update tabLib to v1.11.1 with patch 80df30 to avoid hang with internet radio (Shoutcasts)
+
+
+  [arnova]
+   * added: VideoPlayer Audio / Video Bitrate to GUIInfoManager
+
+  [arnova]
+   * fixed: Missing video bitrate info in VideoPlayer
+
+  [Anton Fedchin]
+   * [RenderSystemDX] reload skin on a driver failure.
+
+  [Anton Fedchin]
+   * [VideoPlayer] OverlayRendererDX: "mark" overlay as invalid on destroying device in case of fatal error.
+
+  [Anton Fedchin]
+   * [win32/dx] re-factor ID3DResource to make possible tell to a resource that device is not valid anymore.
+
+  [arnova]
+   * fixed: Exposure of audio bitrate in VideoPlayer
+
+  [Rechi]
+   * [depends] patch taglib: Efficient lookup for an ID3v2 tag in MPEG files with garbage.
+
+
+  [Rechi]
+   * [gitignore] add /addons/script.module.pycryptodome/
+
+  [Kai Sommerfeld]
+   * [PVR] Fix PVR client addon update.
+
+  [fritsch]
+   * AESinkAUDIOTRACK: Be more explicit when logging PT method
+
+  [Kai Sommerfeld]
+   * [application][macOS] Add support for 'special://xbmcaltbinaddons/'. Fixes crash in CAddonDll::LoadDll() when updating a binary addon if shared library name changed between versions (e.g. version name contained in shared lib name).
+
+  [Kai Sommerfeld]
+   * [PVR] Fix deadlock that might occure during initial channel icon search.
+
+
+  [Pär Björklund]
+   * Modified cpluff to handle utf8 path names to avoid addon failures
+
+  [phil65]
+   * [guilib] allow more flexible hitrects
+
+  [Arne Morten Kvarving]
+   * fixed: context menu manager mess with profiles
+
+  [Rainer Hochecker]
+   * VideoPlayer: check for vsyncAdjust on every cycle, speed of videoRefClock might have changed
+
+
+  [Jonas Karlman]
+   * [cmake] fix libdvdnav build when dvdcss is disabled
+
+  [Martijn Kaijser]
+   * [droid] fix packaging after 2816efc77d71d50200ea3ae12fb66ad324d1f6e2
+
+  [Chris Koying Browet]
+   * FIX: [droid] Copy splash to xxxhdpi drawable
+
+
+  [David Bridson]
+   * Rename m_remove_addon_user_data_and_settings -> m_removeData
+
+  [Rechi]
+   * [cmake] git update-index --refresh must be called before using it
+
+  [David Bridson]
+   * Replace 3 raw pointers in CApplication with unique_ptrs
+
+  [Kai Sommerfeld]
+   * [PVR] PVR Manager/Clients: Fix stop playback on addon uninstallation.
+
+  [David Bridson]
+   * Remove CApplicationPlayer as a friend of CApplication
+
+  [DaveTBlake]
+   * Fix multiple changes of song rating from player OSD
+
+  [David Bridson]
+   * Remove CBackgroundPlayer
+
+  [Arne Morten Kvarving]
+   * added: ability to remove add-on settings upon uninstall
+
+  [Kai Sommerfeld]
+   * [PVR][json-rpc] Fix PVR.(Add
+
+  [Arne Morten Kvarving]
+   * add another overload for begin()/end()
+
+  [fritsch]
+   * Resolution: Do not switch resolutions when in 3D (only refreshrates)
+
+  [Kai Sommerfeld]
+   * [PVR][Settings] Remove 'hide connection lost warning' setting and code.
+
+  [Kai Sommerfeld]
+   * [PVR] Fix deadlock (can occure while installing/uninstalling pvr client addon).
+
+  [Arne Morten Kvarving]
+   * restore the ability to build without python and add cmake option
+
+  [Josh Soref]
+   * spelling: transition
+
+  [Josh Soref]
+   * spelling: formatted
+
+  [TotalCaesar659]
+   * Added Russian translation to the shortcut comment
+
+
+  [David Bridson]
+   * Replace raw pointers in CApplication
+
+  [peak3d]
+   * add pycryptodome python module
+
+  [jjd-uk]
+   * Align the settings level for the 2 different character set settings
+
+  [notspiff]
+   * added: make CFileItemList iterable
+
+
+  [Rechi]
+   * [cleanup][windows] remove linking instructions in files, if already done by cmake
+
+
+  [DaveTBlake]
+   * Clear plugin directory cache on window init
+
+  [popcornmix]
+   * [settings] Add comment for help text of EXIF setting
+
+  [phil65]
+   * [gui] fix container bools
+
+  [DaveTBlake]
+   * Restore caching for slow plugins
+
+  [popcornmix]
+   * [settings] Increase settings level for pictures.usetags to 1
+
+  [popcornmix]
+   * Revert "[settings] remove show EXIF picture information setting"
+
+  [enen92]
+   * [pydocs] Corrections on the xbmcvfs/file examples
+
+  [Chris Mayo]
+   * [cmake] Only install VideoPlayer fontconfig configuration files on iOS
+
+
+  [Kai Sommerfeld]
+   * [PVR] Rework fullscreen window direct channel number input - skin changes
+
+  [Kai Sommerfeld]
+   * [PVR][keymaps] Rework fullscreen window direct channel number input - fix remote keymap numeric key definitions
+
+  [Kai Sommerfeld]
+   * [PVR][guiinfo] Rework fullscreen window direct channel number input - pvr core changes, new guiinfo label
+
+  [Kai Sommerfeld]
+   * [PVR] Settings: use 'confirm channel switch' only for channel surfing, no longer for direct channel number input. the latter will always auto switch after the value of 'channel switch delay'.
+
+  [Kai Sommerfeld]
+   * [PVR] Settings: change default for 'confirm channel switch' to true.
+
+  [wsnipex]
+   * [binary-addons] bootstrap: don't filter addons when auto bootstrapping addon definitions
+
+
+  [Rechi]
+   * [cleanup] remove leftover from autotools
+
+  [DaveTBlake]
+   * Avoid zero divide that was causing crash
+
+  [phil65]
+   * [StringUtils] correctly format negative values in SecondsToTimeString()
+
+  [Rechi]
+   * [cmake] add PythonSwig.cpp.template to DEPNDS in python_binding
+
+  [ronie]
+   * unify library node names
+
+
+  [mgrep]
+   * [DOCS] Update README.linux, add README.OpenSuse (#11244)
+
+  [da-anda]
+   * updated artwork containing full logo to reflect our registered mark (r)
+
+  [peak3d]
+   * Bitstream refactor / VC1Bitstream parser
+
+  [phil65]
+   * [gui] inherit listitemlayout width/height from container control width/height in case it is not set explicitely.
+
+  [Chris "Koying" Browet]
+   * FIX: [amcs] Map render to droid w/o taking 3D into account
+
+  [Chris "Koying" Browet]
+   * FIX: [amcs] Handle 3D -> 2D Mono
+
+
+  [Arne Morten Kvarving]
+   * fixed: make news available when browsing add-on repositories
+
+  [Martijn Kaijser]
+   * [addons] webinterface.default 2.4.1
+
+  [Craig Andrews]
+   * [cmake] Cdio is unconditionally required
+
+
+  [Federico Cuello]
+   * Add support for SMB File Rename if same share
+
+  [ronie]
+   * [python] fix coverity 1398455 & 1398456
+
+  [Rechi]
+   * [platinum] add patch for 80f22d1
+
+  [Pär Björklund]
+   * [win][platinum] Changed GWL_USERDATA to GWLP_USERDATA and updated pointer cast
+
+  [phil65]
+   * [FavouritesDirectory] fix for adding addons to favourites via addonbrowser
+
+  [phil65]
+   * [Addonbuiltins] Games support for RunAddon()
+
+  [Josh Soref]
+   * spelling: compiler defines
+
+
+  [Alwin Esch]
+   * Fix DynamicDll.h with use of 'RESOLVE_METHOD_OPTIONAL'
+
+
+  [Josh Soref]
+   * spelling: Thingy
+
+  [Josh Soref]
+   * spelling: mime
+
+  [Josh Soref]
+   * spelling: comments
+
+  [Josh Soref]
+   * spelling: enums
+
+  [Adam Mills]
+   * Websocket connection header is case-insensitive
+
+
+  [Martijn Kaijser]
+   * Revert "[CEC] fix 4.0.1 package name"
+
+  [Martijn Kaijser]
+   * [CEC] fix 4.0.1 package name
+
+  [Pär Björklund]
+   * Revert "[cmake/win32] Don't use system wide installed dependencies"
+
+  [notspiff]
+   * follow up to 4cf4253b1fd3e65d1efe8d15cf86489b0738e75d
+
+  [ronie]
+   * [cosmetics] cleanup xml library nodes
+
+  [Memphiz]
+   * [OSX/Windowing] - added support for videoscreen.delayrefreshchange setting again by delaying the OnResetDisplay callback - take from WindowingX11
+
+  [Memphiz]
+   * [osx] - ensure to set fps in graphics context before calling the OnResetDisplay callbacks
+
+  [Memphiz]
+   * [ios] - adapt to changes in IDispResource
+
+  [Josh Soref]
+   * spelling: CHK_ERR
+
+  [Josh Soref]
+   * spelling: local variables
+
+
+  [notspiff]
+   * hack: add iso to filedirectory list
+
+  [notspiff]
+   * disable mtime code for now
+
+  [notspiff]
+   * add support for vfs add-ons
+
+  [notspiff]
+   * hack: keep a init level in service manager
+
+  [Josh Soref]
+   * spelling: AsyncCallback
+
+  [Josh Soref]
+   * spelling: COMXCoreTunnel
+
+
+  [Josh Soref]
+   * spelling: DestroyDispmanxWindow (#11365)
+
+  [Martijn Kaijser]
+   * Bump repo to v18 "Leia"
+
+  [Kai Sommerfeld]
+   * [PVR] PVRMananger::m_currentFile: CFileItem* -> CFileItemPtr.
+
+  [Nuno Senica]
+   * Add missing kodi-game-dev.txt.in
+
+  [Nuno Senica]
+   * [cmake] fixes cpack dependency list generation
+
+  [Josh Soref]
+   * spelling: strings
+
+  [Josh Soref]
+   * spelling: paths
+
+  [Josh Soref]
+   * spelling: json
+
+  [Josh Soref]
+   * spelling: output
+
+  [Martijn Kaijser]
+   * [gui] Bump GUI version ABI as we start to break backwards compatibility.
+
+
+  [David Bridson]
+   * Replace raw new/delete with unique_ptr in GUIWindowSlideShow
+
+  [David Bridson]
+   * Refactor DVD Factory loop
+
+  [David Bridson]
+   * Change CDVDSubtitleStream to be a unique_ptr
+
+  [David Bridson]
+   * Remove some commented code
+
+  [Josh Soref]
+   * spelling: acquire
+
+
+  [Markus Pfau]
+   * [Android] deactivate zeroconf
+
+  [David Bridson]
+   * Replace raw new/delete in Util with stack object
+
+  [Arne Morten Kvarving]
+   * add example dummy scrapers
+
+  [Arne Morten Kvarving]
+   * added: support for python based scrapers
+
+  [Arne Morten Kvarving]
+   * added: ability to suppress gui locks in python xbmgui.ListItem
+
+  [Christian Fetzer]
+   * [cmake/win32] Don't use system wide installed dependencies
+
+  [Prashant Mavadiya]
+   * Change in App Name for Windows OS, is not reflected in profile path in APPDATA directory.
+
+
+  [notspiff]
+   * remove faulty cast
+
+  [notspiff]
+   * fix wrong format specifier
+
+  [Nuno Senica]
+   * There's no need to have this linker flag
+
+  [Nuno Senica]
+   * [cmake] Move NEON flags to platform specific ArchSetup so its easily customizable per platform and respect ENABLE_NEON flag.
+
+  [xbmc]
+   * VideoPlayer: dxva - only retain buffers for deinterlacing
+
+  [notspiff]
+   * fix yet another format specifier error
+
+  [Arne Morten Kvarving]
+   * fixed: abs() here takes integers
+
+
+  [DaveTBlake]
+   * Extend tag parsing to include more ID3v2 tags
+
+  [Sam Stenvall]
+   * fix invalid output from JsonSchemaBuilder (#11357)
+
+  [Sam Stenvall]
+   * [videoplayer] fix accidental modification of m_streams
+
+  [ndogxj]
+   * [JNI] Fix jni local reference leak for jstring
+
+  [Christian Fetzer]
+   * fixup! [RetroPlayer] Fix crash when refresh rate changes
+
+  [Christian Fetzer]
+   * [RetroPlayer] Fix crash when refresh rate changes
+
+  [Martijn Kaijser]
+   * [android] Enable DisplayMode API on all devices with Nougat
+
+  [ronie]
+   * [python] slider - add int/float support
+
+  [ronie]
+   * [python] remove hardcoded texture names
+
+
+  [Rainer Hochecker]
+   * vtb: fix inverted logic for fence
+
+  [Lars Op den Kamp]
+   * [CEC] bump to libCEC 4.0.1
+
+  [ronie]
+   * librarynodes - fix invalid xml
+
+  [Kai Sommerfeld]
+   * [PVR] Fix channelgroups deadlock.
+
+  [Josh Soref]
+   * spelling: CLog
+
+  [Josh Soref]
+   * spelling: configure
+
+  [verybadsoldier]
+   * add option to wait for network on startup
+
+  [ronie]
+   * context menu - fix positioning
+
+  [ronie]
+   * [Python] add setContent for mediawindows
+
+  [ronie]
+   * [python] add mediatype to musicinfotag
+
+  [ronie]
+   * [python] log invalid videoinfo tag errors
+
+  [ronie]
+   * [python] add dbid to musicinfotag
+
+  [ronie]
+   * properly check if a python window is a media window
+
+
+  [fritsch]
+   * PAPlayer: Explicitely cast to 64 bit before doing large multiplications
+
+  [peak3d]
+   * android:debuggable support
+
+  [Josh Soref]
+   * spelling: Vietnamese
+
+  [Rainer Hochecker]
+   * osx: adapt to changes in IDispResource
+
+  [Nuno Senica]
+   * [cmake] Fixes rpi ARCH
+
+  [Garrett Brown]
+   * Hide notifications shown on device connect
+
+  [Memphiz]
+   * [osx/windowing] - fix regression introduced in 4b9126649940de22e89619cbbe8ed5d64c5411a9 - thx to fernetmenta - fixes trac #17160
+
+
+  [Chris "Koying" Browet]
+   * reADD: [amcs] Handle Rotation
+
+  [Anton Fedchin]
+   * [VideoPlayer] WinRenderer: restore rendering transformation with DXVA rendering witch fixes wrong rendering text subtitles for TAB/SBS mode
+
+  [Kai Sommerfeld]
+   * [PVR] PVR windows: Fix subfolder item selection on window update.
+
+  [amediauser]
+   * Fix 3D OSD Aspect Ratio
+
+  [Nuno Senica]
+   * [rpi] Adds symlink to linux/ExtraTargets.cmake so it doen't break on building and packaging WiiRemote
+
+  [Nuno Senica]
+   * [cmake] allow rbpi platform to create deb packages
+
+  [Lukas Rusak]
+   * fixup! [cmake] add imx support
+
+  [phil65]
+   * [ScriptInvocationManager] make ExecuteAsync() thread-safe
+
+  [Lukas Rusak]
+   * [cmake] add imx support
+
+  [Christian Fetzer]
+   * [cmake/AddonHelpers] Rework custom binary handling (Fix Android)
+
+
+  [Matus Kral]
+   * [IMXEGL] reconfigure fb1 & unblank before (hdmi)sound is resumed in WinSystem
+
+  [Jamie Coldhill]
+   * [aml] Scale video axis correctly when 1080p to 2160p switching
+
+  [kszaq]
+   * [aml] EGLNativeTypeAmlogic: Enable GUI free_scale when framebuffer size is less than output resolution
+
+
+  [verybadsoldier]
+   * wait for network after waking up
+
+  [Doktor-X]
+   * [keyboard] Add Croatian
+
+  [fritsch]
+   * Revert "Speed up startup time for movies in split rar archives."
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix unwanted cont (av) of audio stream
+
+  [Christian Fetzer]
+   * [cmake] Fix make binary-addons when crosscompiling
+
+  [Kai Sommerfeld]
+   * [PVR] PVR windows: Fix channelgroup listener registration.
+
+
+  [Martijn Kaijser]
+   * [depends] explictly disable building curl with rtmp support
+
+  [phil65]
+   * [gui] change icons for playlist section
+
+  [Matus Kral]
+   * [IMXCodec] other tweaks / fixes
+
+  [Matus Kral]
+   * [IMXCodec] update input/output VPU buffer handling
+
+  [Matus Kral]
+   * [IMXCodec] updates/fixes to TileTask()
+
+  [Matus Kral]
+   * [IMXCodec] rework VPU_DEC_RESOLUTION_CHANGED
+
+  [Matus Kral]
+   * [IMXCodec] move checkiputask to standalone f
+
+  [Matus Kral]
+   * [IMXCodec] processinfo updates - add deinterlacing info, modes etc.
+
+  [Matus Kral]
+   * [IMXCodec] cleanups
+
+  [Matus Kral]
+   * [IMXCodec] rework blit(), showpage()
+
+  [Matus Kral]
+   * [RendererIMX] skip rendering already rendered buffer
+
+  [Matus Kral]
+   * [RendererIMX] drop deinterlacing mode
+
+  [Matus Kral]
+   * [IMX] cleanup
+
+  [Matus Kral]
+   * [IMXCodec/EGLIXM] rework startup flow
+
+  [Matus Kral]
+   * [IMX] update to core videoclock class
+
+  [Matus Kral]
+   * [IMX] compilation fix
+
+  [xbmc]
+   * win32: allow dxva decoder to reserve some time for decoding
+
+  [xbmc]
+   * VideoPlayer: add render buffer info to CProcessInfo
+
+  [DaveTBlake]
+   * Fix Party Mode to fetch song artist credits when fileitem list is populated so both current playlist, and song info dialog for an item of the playlist, can display the all the contributors
+
+  [xbmc]
+   * VideoPlayer: fix unwanted kick-in of dirty regions
+
+  [Lukas Rusak]
+   * [cmake] don't build and install wiimote if bluetooth is disabled
+
+
+  [fritsch]
+   * AESinkDirectSound: Clamp samplerate to max 192 khz
+
+  [Kai Sommerfeld]
+   * [PVR] PVR windows: Fix item selection on window update.
+
+  [phil65]
+   * [gui] DialogSeekbar should use g_application.GetPercentage() for progress info
+
+  [phil65]
+   * [infomanager] drop MathUtils for rounding
+
+  [Kai Sommerfeld]
+   * [PVR] PVR Manager: Fix race condition that might cause a crash, for instance on first PVR manager start.
+
+  [Jason Lewis]
+   * [docs] fix typo in README.debian
+
+  [Rechi]
+   * [cleanup] remove unused private fields
+
+  [Rechi]
+   * [cleanup] remove unused variables
+
+  [Kai Sommerfeld]
+   * [guiinfo][PVR] Fix 'player.starttime' and 'player.finishtime' info labels to properly support live tv timeshifting
+
+  [Kai Sommerfeld]
+   * [threads] CThread::Create : Improve logging to include thread name.
+
+
+  [Garrett Brown]
+   * Hide device event notifications
+
+  [Christian Fetzer]
+   * [cmake] Add FindMDNS module
+
+  [Christian Fetzer]
+   * [depends] Fix undefined symbols on mdnsresponder
+
+  [phil65]
+   * [gui] allow %-values for origin, camera and animation attribs
+
+  [phil65]
+   * [guilib] implicit referencing for listitem bools / ints and container bools
+
+
+  [Rainer Hochecker]
+   * AE: fix normalize volume on reconfigure
+
+
+  [Markus Pfau]
+   * Recalculate SyncClock after reconfigure
+
+  [Rechi]
+   * [cleanup] replace CAtomicSpinLock cas with std::atomic_flag
+
+  [Rechi]
+   * [cleanup] replace AtomicIncrement & AtomicDecrement implementation with std::atomic
+
+  [Rechi]
+   * [cleanup] remove unused cas2, AtomicAdd & AtomicSubtract
+
+
+  [Pär Björklund]
+   * Partially revert scaling changes
+
+  [Kai Sommerfeld]
+   * [PVR] Fix pvr manager crash on exit (caused by late addon callback)
+
+  [Kai Sommerfeld]
+   * [PVR] Fix PVR manager job queue concurrency problems.
+
+  [Kai Sommerfeld]
+   * [PVR] Fix crashes on PVR Manager init/reinit, part 2 (PVR database access)
+
+  [Christian Fetzer]
+   * [cmake/depends] Add info about Android SDK/NDK to Toolchain_binaddons.cmake.in
+
+  [da-anda]
+   * [GUI] remember last used keyboard layout
+
+  [da-anda]
+   * [keyboard] improvements to German keyboard layout
+
+
+  [Garrett Brown]
+   * MyGames: Remove duplicate add-on information context item
+
+  [Christian Fetzer]
+   * [docs] Remove note that Xcode has to be adapted for a certain SDK
+
+  [Christian Fetzer]
+   * [docs] Fix cmake paths in README.ios.md and README.osx.md
+
+  [Kai Sommerfeld]
+   * [PVR] Fix guide window: do not jump to grid start on channel group change; go to 'now' instead.
+
+  [phil65]
+   * [gui] fix crash when using container(xx).content in non-mediawindows
+
+  [phil65]
+   * [gui] fix crash when using container(xx).property(yy) in non-mediawindows
+
+
+  [phil65]
+   * [estuary] sync
+
+  [Christian Fetzer]
+   * [cmake/android] Don't fail if addons don't exist
+
+  [Christian Fetzer]
+   * [cmake/osx] Add missing deployment target
+
+  [Christian Fetzer]
+   * [docs] Update README.ios
+
+  [Christian Fetzer]
+   * [docs] Update README.osx
+
+  [phil65]
+   * [gui] remove two not-implemented infolabels for PVR
+
+
+
+
+  [fritsch]
+   * convolution-6x6: Fix assignemnt of vec4
+
+  [fritsch]
+   * FFmpeg: Bump to final 3.1.6-Krypton
+
+
+  [Christian Fetzer]
+   * [cmake] Fix packaging of binary addons
+
+  [Rechi]
+   * [win] always link with Windows Sockets
+
+  [wsnipex]
+   * [cmake] libcec and ccache are optional deps
+
+  [wsnipex]
+   * [travis] compile with libcec support
+
+  [wsnipex]
+   * [cmake] fail when optional deps were manually enabled, but not found
+
+  [h.udo]
+   * [autotools/buildsteps/depends] Update paths
+
+  [h.udo]
+   * [cmake] Move to root folder: Update paths
+
+  [h.udo]
+   * [cmake] Move to root folder: Move files
+
+  [phil65]
+   * [guilib] allow constants for "movement" and "focusposition" nodes
+
+  [phil65]
+   * [gui] streamline shuffle infolabel
+
+  [Rechi]
+   * [GUIInfo] calculate correct remaining play time for speed up or slowed playback
+
+
+  [Alwin Esch]
+   * [addons] remove no more needed lib incluce folders
+
+  [Alwin Esch]
+   * [screensaver] cleanup code on CScreenSaver
+
+  [Alwin Esch]
+   * [screensaver] remove the use of "#ifdef HAS_PYTHON"
+
+  [Alwin Esch]
+   * [screensaver] use 'std::string' instead of 'strdub' for add-on info
+
+  [Alwin Esch]
+   * [screensaver] prevent the use of 'CAddonDll::Initialized()'
+
+  [Rechi]
+   * [win] remove HAS_WEB_SERVER & HAS_WEB_INTERFACE defines, they are handled trough HAVE_LIBMICROHTTPD (cmake)
+
+  [Rechi]
+   * [cmake] build TestWebServer only if HTTPRequestHandlers are build
+
+  [h.udo]
+   * [Xcode] Remove deprecated project file
+
+
+  [Kai Sommerfeld]
+   * [PVR] Fix compiler warning: 'PVR::CGUIWindowPVRBase::OnContextButton' hides overloaded virtual function
+
+  [Kai Sommerfeld]
+   * [PVR] Fix stack overflow while trying to get play resume point from PVR client.
+
+  [Rechi]
+   * [cleanup] remove unused CAEUtil::FloatRand4 & CAEUtil::FloatRand1
+
+  [Chris Mayo]
+   * [cmake] linux: don't run gtk-update-icon-cache
+
+  [Daniel Scheller]
+   * [cmake] fix build with -DENABLE_MICROHTTP=OFF and without installed libmicrohttpd
+
+  [Rechi]
+   * [cmake] core_add_test_library also add headers to IDE (same as in core_add_library)
+
+
+  [b-pass]
+   * Avoid deadlock by Posting AlarmClock commands
+
+  [popcornmix]
+   * log: Don't force logging with a debug build
+
+  [montellese]
+   * [jsonrpc] bump version to 8.0.0
+
+
+  [Rechi]
+   * [win] define __SSE__ and __SSE2__ for the whole platform
+
+  [Martijn Kaijser]
+   * [addons] update scrapers
+
+  [Martijn Kaijser]
+   * [addons] update Chorus2 v2.3.6
+
+  [Kai Sommerfeld]
+   * [PVR] Rename setting 'start playback minimised' to 'start playback full screen' to reflect what it actually does.
+
+  [Kai Sommerfeld]
+   * [PVR] Refactor and fix (especially consistency of) "play minimized" settings handling. Fixes trac 17145.
+
+  [phil65]
+   * [gui] remove old code for viewtype parsing
+
+
+  [Alwin Esch]
+   * [addons] remove try, catch from CAddonDll
+
+  [Alwin Esch]
+   * [addons] rename struct AudioDSP to KodiToAddonFuncTable_AudioDSP
+
+  [Alwin Esch]
+   * [addons] rename struct AudioDecoder to KodiToAddonFuncTable_AudioDecoder
+
+  [Alwin Esch]
+   * [addons] rename struct GameClient to KodiToAddonFuncTable_Game
+
+  [Alwin Esch]
+   * [addons] rename struct InputStreamAddonFunctions to KodiToAddonFuncTable_InputStream
+
+  [Alwin Esch]
+   * [addons] rename struct PeripheralAddon to KodiToAddonFuncTable_Peripheral
+
+  [Alwin Esch]
+   * [addons] rename struct AudioEncoder to KodiToAddonFuncTable_AudioEncoder
+
+  [Alwin Esch]
+   * [addons] rename struct Visualisation to KodiToAddonFuncTable_Visualisation
+
+  [Alwin Esch]
+   * [addons] rename struct ScreenSaver to KodiToAddonFuncTable_Screensaver
+
+  [Alwin Esch]
+   * [addons] rename struct PVRClient to KodiToAddonFuncTable_PVR
+
+  [Alwin Esch]
+   * [addons] create from AddonDll.h a new AddonDll.cpp
+
+  [Alwin Esch]
+   * [addons] remove last template part from CAddonDll
+
+  [Alwin Esch]
+   * [addons] add addons function tables to related classes and remove template use from CAddonDll
+
+  [Alwin Esch]
+   * [addons] remove TheDll template from CAddonDll
+
+  [Alwin Esch]
+   * [addons] change pointer type on all get_addon's to void*
+
+  [Alwin Esch]
+   * [addons] remove the use of TheProps from template's
+
+  [Alwin Esch]
+   * [addons] remove the use of IAddonInterface class
+
+  [Kai Sommerfeld]
+   * [PVR][video] Consolidated 'Play channel', 'Play recording' and 'Resume from' implementations.
+
+  [Kai Sommerfeld]
+   * [xcode] Fix location of ContextMenus.cpp in virtual project structure, it physically is in xbmc/video, not xbmc/video/windows
+
+  [Kai Sommerfeld]
+   * [PVR][video] Consolidated 'Mark watched' and 'Mark unwatched' implementations.
+
+  [Kai Sommerfeld]
+   * [PVR][video] Encapsulate CVideoInfoTag::m_resumePoint
+
+  [Kai Sommerfeld]
+   * [PVR][video] Encapsulate CVideoInfoTag::m_duration
+
+  [Kai Sommerfeld]
+   * [PVR] Remove superflous member CPVRRecording::m_duration
+
+  [Kai Sommerfeld]
+   * [PVR][video] Encapsulate CVideoInfoTag::m_playCount
+
+  [Kai Sommerfeld]
+   * Remove redundant recording infotag handling.
+
+  [Kai Sommerfeld]
+   * [PVR][video] Smart CFileItem::(G
+
+  [Kai Sommerfeld]
+   * [PVR] Never access g_PVRChannelGroups while holding own lock.
+
+  [Kai Sommerfeld]
+   * [PVR] Never access g_PVRManager while holding own lock.
+
+  [Kai Sommerfeld]
+   * [PVR] Never access g_PVRRecordings while holding own lock.
+
+  [Kai Sommerfeld]
+   * [PVR] Fix deadlock during PVR manager reinit.
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: updater thread object must be recreated instead of reused (fixes crash on pvr manager restart).
+
+  [Kai Sommerfeld]
+   * [PVR] trac17040: fix pvr manager deinit/reinit.
+
+
+  [Martijn Kaijser]
+   * [depends] libjpg-turbo 1.5.1
+
+
+  [Pär Björklund]
+   * Remove the special windows free_string_val, it's not needed now that we use the same crt
+
+  [wsnipex]
+   * [cmake] fix build after 8ec984f0fa5bd8e75026e5558870b96071e54288
+
+  [Alwin Esch]
+   * [addon] remove not needed 'GetInfo(...)' call for ScreenSaver
+
+  [Chris Mayo]
+   * [linux] Remove deprecated OnlyShowIn from desktop file
+
+  [Floris Bos]
+   * libdvd: fix setting compiler when cross-compiling
+
+  [popcornmix]
+   * VideoPlayer: Don't add timestamp offsets to DVD_NOPTS_VALUE
+
+  [Garrett Brown]
+   * CMake: Fix TexturePacker installation directory
+
+
+  [Stefan Saraev]
+   * [packaging] android: there is no more lib/kodi/addons/*/*.so
+
+  [Kai Sommerfeld]
+   * [guiinfo][pvr] Added documentation for some not yet documented PVR info labels/bools
+
+  [Stefan Saraev]
+   * [cmake] FindMicroHttpd: do not assume gcrypt / gpg-error
+
+  [Stefan Saraev]
+   * [cmake] FindPython: append static libraries if any
+
+  [Stefan Saraev]
+   * [cmake] FindPython: fix typo
+
+  [notspiff]
+   * remove autotools buildsystem
+
+  [Alwin Esch]
+   * [addons] remove no more used libKODI_game.cpp
+
+  [Alwin Esch]
+   * [peripheral] remove use of try, catch
+
+  [Alwin Esch]
+   * [adsp] remove use of try, catch
+
+  [Alwin Esch]
+   * [inputstream] remove use of try, catch
+
+  [Alwin Esch]
+   * [visualisation] remove use of try, catch
+
+  [Alwin Esch]
+   * [pvr] remove use of try, catch
+
+
+  [Kai Sommerfeld]
+   * [xcode] Add some recently introduced files to xcode to fix build.
+
+  [Alwin Esch]
+   * [addons] remove api1 from cmake parts
+
+  [Alwin Esch]
+   * [addons] remove namespace V1 usage
+
+  [Alwin Esch]
+   * [addons] remove not needed binary and api1 folder from source
+
+  [Alwin Esch]
+   * [addon] remove no more needed header parts
+
+  [Dale Stammen]
+   * Added Win32 support for per-monitor DPI and scaling (#11171)
+
+  [Alwin Esch]
+   * [addon] bye, bye libXBMC_addon.cpp
+
+  [Alwin Esch]
+   * [retroplayer] rework to new code style without shared lib
+
+  [Alwin Esch]
+   * [addon] bye, bye libKODI_guilib.cpp
+
+  [Kolja Lampe]
+   * Code improvements for contextmenu eject items dvd/hdd
+
+  [h.udo]
+   * [cmake] Fix XPREFIX_LIBRARIES populating in modules
+
+  [wsnipex]
+   * [cmake] quote vars in string functions fixes errors when the vars are empty
+
+  [wsnipex]
+   * [cmake] update and fix FindMMAL
+
+  [phate89]
+   * platinum: add patch for 12839cbecd96ac0980e7a75a6e1e841688514b18
+
+  [phate89]
+   * platinum: add resume playerstate
+
+  [phate89]
+   * platinum: add patch for f034d17ddfefac6a182511f1401d248beb45b280
+
+  [phate89]
+   * platinum: fix potential crash in parsetaglist
+
+  [phate89]
+   * Add playerstate to UPnP to allow dvd iso resuming
+
+  [phate89]
+   * Fix exporting of resuming point in dvds
+
+
+  [Alwin Esch]
+   * [addon] bye, bye libKODI_audioengine.cpp
+
+  [Stefan Saraev]
+   * [cleanup] AMLCodec: android leftovers
+
+  [Alwin Esch]
+   * [addon] bye, bye libXBMC_codec.cpp
+
+  [Markus Pfau]
+   * [AML] read display modes optionally from file
+
+  [Stefan Saraev]
+   * cmake: fix FindJsonSchemaBuilder.cmake after 3664574
+
+  [BigNoid]
+   * [estuary] rm deprecated infobool: isempty->string.isempty
+
+  [Chris Mayo]
+   * [cmake] linux: report docdir and install docs into docdir
+
+  [Alwin Esch]
+   * [peripheral] change libKODI_peripheral.h to style of the others
+
+  [Alwin Esch]
+   * [peripheral] bye, bye libKODI_peripheral.cpp
+
+  [Alwin Esch]
+   * [adsp] remove add-on lib function typedef's
+
+  [Alwin Esch]
+   * [adsp] bye, bye libKODI_adsp.cpp
+
+  [notspiff]
+   * fixed: the assumption of toolchain = crosscompile cause issues
+
+  [Thomas Amland]
+   * [addons] add enable/disable context menu
+
+  [Thomas Amland]
+   * [addons] move installer temp dir to addons/temp/ as it must be mapped to the same filesystem as addons/
+
+
+  [Martijn Kaijser]
+   * [depends] remove rtmp as it's included through ffmpeg or as binary addon
+
+  [h.udo]
+   * [cmake] Add support for libcap if we find it
+
+  [notspiff]
+   * fix compile without microhttpd
+
+  [h.udo]
+   * [cmake] Add support for Bluetooth
+
+  [Garrett Brown]
+   * ListItems: Rename "emulator" property to "gameclient"
+
+  [ronie]
+   * remove deprecated infobools
+
+  [Kolja Lampe]
+   * Move eject drive and eject disk to new contextmenu system
+
+
+  [txtranslation]
+   * [lang][skin.estouchy] updated language files from Transifex
+
+  [txtranslation]
+   * [lang][skin.estuary] updated language files from Transifex
+
+  [txtranslation]
+   * [lang][skin.estuary] automatic syntax corrections for the en_GB language file
+
+  [Martijn Kaijser]
+   * [cec] missed change in cmake file after cc3ae0339faf2b669bee20cb360c526410910f42
+
+  [Alwin Esch]
+   * [addons] remove dead code on CAddonDll
+
+  [Alwin Esch]
+   * [inputstream] remove add-on lib function typedef's
+
+  [Alwin Esch]
+   * [inputstream] bye, bye libKODI_inputstream.cpp
+
+  [Craig Andrews]
+   * Remove remaining references to glew
+
+  [phil65]
+   * [gui] fix coverity issue for playlist.position
+
+  [phil65]
+   * [estuary] sync
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix cc after https://github.com/xbmc/xbmc/commit/03aa2441d3235880c939d92f77d7319fca4b5015
+
+  [wsnipex]
+   * [cmake] fix building when fribidi was built with glib
+
+  [Craig Andrews]
+   * Remove remaining references to libmad
+
+  [Craig Andrews]
+   * Remove reference to libxinerama-dev
+
+  [Craig Andrews]
+   * [dependencies] remove remaining references to libmodplug
+
+  [Alwin Esch]
+   * [pvr] remove add-on lib function typedef's
+
+  [Alwin Esch]
+   * [addon] change namespace from V1::KodiAPI:: to KodiAPI::V1::
+
+  [Alwin Esch]
+   * [pvr] bye, bye libXBMC_pvr.cpp
+
+  [Martijn Kaijser]
+   * [depends] curl 7.51.0
+
+  [Martijn Kaijser]
+   * [depends] libpng 1.6.26
+
+  [Martijn Kaijser]
+   * [depends] taglib 1.11.1
+
+  [Garrett Brown]
+   * CGameLoop: Fix missing destructor
+
+  [Garrett Brown]
+   * Update GameInfoTag
+
+  [Garrett Brown]
+   * Fix CID 157137: Error handling issues (CHECKED_RETURN)
+
+  [Garrett Brown]
+   * Fix CID 157138: Control flow issues (DEADCODE)
+
+  [Alwin Esch]
+   * [addon] use another way for__declspec and __cdecl on kodi_inputstream_types.h
+
+
+  [Martijn Kaijser]
+   * [depends] libass 0.13.4
+
+  [Kai Sommerfeld]
+   * Fix performace problem with CFileItem::IsGame unnecessarily accessing addon db for PVR content.
+
+  [phil65]
+   * [gui] return "" instead of "0" for playlist.position in case nothing is playing
+
+  [Alwin Esch]
+   * [addon] remove not needed header comment in CScreenSaver
+
+  [phil65]
+   * [gui] add container.actualitems infolabel
+
+
+  [Christian Fetzer]
+   * [cmake/ios] Enable Xcode generator for IOS
+
+  [Christian Fetzer]
+   * [cmake] Set correct output directory for core_add_shared_library
+
+  [Brandon Schaefer]
+   * We should explicitly check/find libva-drm
+
+  [wsnipex]
+   * [cmake] fix: command not found "GIT_SHALLOW 1"
+
+  [Jonas Karlman]
+   * [win32] remove unused has audio define
+
+  [Jonas Karlman]
+   * [win32] fix linking when airtunes or upnp is disabled
+
+  [Jonas Karlman]
+   * [win32] fix build when optical is disabled
+
+  [Jonas Karlman]
+   * [cmake] use app name target for application manifest
+
+  [Jonas Karlman]
+   * [cmake] fix build error when version tag is empty
+
+
+
+  [phil65]
+   * [estuary] sync
+
+  [ronie]
+   * [Estouchy] Game support
+
+  [popcornmix]
+   * cec: fixup strings after PR 10775
+
+  [popcornmix]
+   * MMALRender: Reduce log spam
+
+  [Kai Sommerfeld]
+   * [PVR] Fix trac #17108 (duplicate context menu entries for PVR recordings)
+
+  [Memphiz]
+   * [WinSystem/OSX] - ensuer the window origin is reset after resizing - fixes windowed mode appearing on the lower bottom of the screen while ignoring the former origin
+
+  [Memphiz]
+   * [OSX/SDL/Windowing] - ignore resize events that exceed the screen resolution (possible bug in SDL related to OSX HiDP scaled resolutions)
+
+
+  [h.udo]
+   * [cmake] Fix FindXSLT.cmake typo
+
+  [Garrett Brown]
+   * Settings: Enable keyboard players by default
+
+  [Garrett Brown]
+   * [estuary] Add missing visible condition
+
+  [notspiff]
+   * fixed: tag updates on shoutcast streams with low meta data intervals
+
+  [Chris "Koying" Browet]
+   * FIX: [droid;dyload] never dyload dependent sytem libs
+
+  [Garrett Brown]
+   * BinaryAddonCache: Fix deadlock
+
+  [ronie]
+   * [python] allow setting the videoinfotag path
+
+
+  [Kai Sommerfeld]
+   * [epg] Skinning engine: epg grid: add support for alternative (horizontal) grid layout with channels as columns and timeline as rows.
+
+  [ronie]
+   * allow absolute item focus
+
+  [Kai Sommerfeld]
+   * [PVR] Fix PVR channel OSD display conditions.
+
+  [ronie]
+   * FileBrowser: fix multiple item selection
+
+
+  [Kai Sommerfeld]
+   * [PVR] Refactor CApplication::PlayMedia to use new PVRGUIActions functionality for playback of PVR channels and recordings.
+
+  [Chris "Koying" Browet]
+   * FIX: [rar] deadlock with cbr + net vfs (credit notspiff)
+
+
+  [Memphiz]
+   * [NFS] - in case we resolve a symlink - don't accidently manipulate the original dirent pointer because the memory belongs to libnfs and it will remember the change. Instead use a copy of the dirent instance - fixes strange behavior in some symlink scenarios. thx to ronbaby for making it reproducable
+
+  [Martijn Kaijser]
+   * update splash for v18 alpha
+
+  [Rainer Hochecker]
+   * VideoPlayer: make sure streams are not discarded after a program change
+
+  [fritsch]
+   * AML: Make DTS-HD, TrueHD work on IEC61937 backport work (more verbose so we can distinguish)
+
+  [Martijn Kaijser]
+   * [doxygen] improve coding guidelines for header includes
+
+  [Brandon Schaefer]
+   * Enable VAAPI support for Mir using DRM
+
+  [Stefan Saraev]
+   * [aml] amlutils: android cleanup
+
+  [Stefan Saraev]
+   * [aml] depends: drop libamplayer
+
+  [Stefan Saraev]
+   * [aml] xbmcapp: drop aml workarounds
+
+  [Stefan Saraev]
+   * [aml] amlcodec: use libamcodec.so
+
+  [Stefan Saraev]
+   * [aml] windowing: drop EGLNativeTypeAmlAndroid
+
+  [Chris "Koying" Browet]
+   * FIX: [amc] set process info DAR
+
+  [Chris "Koying" Browet]
+   * FIX: [processinfo] initialize DAR
+
+
+  [phil65]
+   * [gui] allow implicit container referencing for non-media windows
+
+
+  [BigNoid]
+   * Revert "This makes the SubtitleDialog remember the last service used, and also the last search instead of always using, and searching, the first service in the list."
+
+  [montellese]
+   * [settings] integrate CSettings into CServiceManager/CServiceBroker
+
+  [wsnipex]
+   * [cmake] linux: install game headers
+
+  [montellese]
+   * [settings] move powermanager defaults from CApplication::Create() to CSettings::InitializeDefaults()
+
+  [montellese]
+   * [settings] move unregister calls into separate methods (similar to register calls)
+
+  [Kai Sommerfeld]
+   * [PVR] C++ basics: const vs non-const, reference vs value. :-/
+
+  [Kai Sommerfeld]
+   * [PVR] refactoring: put all pvr and epg shared_ptr typedefs into one header file instead to typedef again and again in several header files.
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: fileitem usage optimizations.
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite: Use CStaticContextMenuAction for menu items with static labels.
+
+  [Kai Sommerfeld]
+   * [PVR] gui actions refactoring: cleanup strings.po
+
+  [Kai Sommerfeld]
+   * [PVR] gui actions refactoring: delete all recordings from trash
+
+  [Kai Sommerfeld]
+   * [PVR] refactored direct channel number input code (removed logic of derived class from base class)
+
+  [Kai Sommerfeld]
+   * [PVR] refactored channels window 'Manage...' context menu item code
+
+  [Kai Sommerfeld]
+   * [PVR] gui actions refactoring: hide channel
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: activate / deactivate timer
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: rename timer
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: mark watched/unwatched
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: undelete recording
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: rename recording
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: delete recording
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite: micro opt
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: recording info
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: play recording, play channel, resume recording
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: pvr client menu hook
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite, gui actions refactoring: adsp settings
+
+  [Kai Sommerfeld]
+   * [PVR] Context menu rewrite & major refactoring of gui actions.
+
+  [Garrett Brown]
+   * [retroplayer/api] Expose GameInfoTag properties to Python list items
+
+  [Garrett Brown]
+   * [retroplayer] MyGames window
+
+  [Garrett Brown]
+   * [retroplayer] RetroPlayer core
+
+  [Garrett Brown]
+   * [retroplayer] Game add-ons
+
+  [Garrett Brown]
+   * [retroplayer] IPlayer: Add game flag to player interface
+
+  [Garrett Brown]
+   * [retroplayer] Game info tags
+
+  [Garrett Brown]
+   * [retroplayer] Keyboard players
+
+  [Garrett Brown]
+   * [retroplayer] Game settings
+
+  [Brandon Schaefer]
+   * Mir windowing system
+
+  [ronie]
+   * [Estouchy] update
+
+  [Arne Morten Kvarving]
+   * fixed: do not use move into member variable here
+
+
+  [xhaggi]
+   * [cleanup][settings] remove dead code - options filler 'epgguideviews'
+
+  [xhaggi]
+   * [cleanup][pvr] get rid of obsolete guide views
+
+  [Martijn Kaijser]
+   * [doxygen] add pydocs v18 support
+
+  [BigNoid]
+   * [estuary] system.hasmodaldialog -> system.hasactivemodaldialog
+
+  [BigNoid]
+   * [guilib] Change System.HasModalDialog to System.HasActiveModalDialog and add System.HasVisibleModalDialog
+
+
+  [montellese]
+   * [cmake] Support @MINGW_TOOLCHAIN_FILE@ in dependency's flags.txt
+
+  [Christian Fetzer]
+   * [binary addons] Add msys and mingw dependencies (from kodi's mingw/msys)
+
+  [montellese]
+   * [binary addons] Support platform specific deps.txt
+
+  [montellese]
+   * [cmake] Move downloading of patch.exe tool into generic tool script
+
+  [Markus Pfau]
+   * use video disptime only in case video is running
+
+  [Christian Fetzer]
+   * [addon/depends] Clone only the last commit of dependencies
+
+  [Christian Fetzer]
+   * [addon/depends] Handle autocrlf for depends
+
+  [Christian Fetzer]
+   * [game-settings] Add 'select' as setting type
+
+  [Martijn Kaijser]
+   * bump to v18.0 alpha 1
+
+  [phil65]
+   * [estuary] sync
+
+  [Garrett Brown]
+   * PlayMedia() builtin: Don't clear video playlist if item is not video
+
+  [Garrett Brown]
+   * StringUtils: template-ize Join() to support more container types
+
+  [Garrett Brown]
+   * DVDCodecUtils: Fix buffer overflow if height is odd
+
+  [Garrett Brown]
+   * DVDCodecUtils: Fix conversion to av_malloc missed by 09acfb8
+
+  [Garrett Brown]
+   * BinaryAddonCache: optimize Update() function
+
+  [Garrett Brown]
+   * BinaryAddonCache: add function to get add-on by ID and type
+
+  [Garrett Brown]
+   * CAddonDirectory: Don't clear existing items from item list parameter
+
+  [Garrett Brown]
+   * CAddonsDirectory: Improve code clarity in GetScriptsAndPlugins()
+
+  [Arne Morten Kvarving]
+   * fixed: prototype struct as struct
+
+  [Arne Morten Kvarving]
+   * fixed: wrong signature for method in GUIWindowPrograms
+
+  [Arne Morten Kvarving]
+   * fixed: wrong signature for OpenForWrite in RarFile
+
+  [Arne Morten Kvarving]
+   * fixed: wrong signature for IoControl method in PipeFile
+
+  [Arne Morten Kvarving]
+   * add extra braces indicating an initializer list
+
+  [Arne Morten Kvarving]
+   * add default case to quell compiler warnings
+
+  [Arne Morten Kvarving]
+   * fix format specifiers to quell compiler warnings
+
+  [Arne Morten Kvarving]
+   * remove extra parantheses to quell compiler warning
+
+  [Arne Morten Kvarving]
+   * fix initializer list orders
+
+  [Arne Morten Kvarving]
+   * register is deprecated and does nothing but throw a warning with c++11
+
+  [ronie]
+   * reset slideshow state on window close
+
+  [fritsch]
+   * FFmpeg: Bump to 3.1.6-Krypton-Beta6
+
+  [Brandon Schaefer]
+   * Add a DRM fallback to get a VaDisplay if not X11
+
+
+  [txtranslation]
+   * [lang][kodi.core] automatic syntax corrections for the en_GB language file
+
+  [kszaq]
+   * aml: introduce speaking constants in H264 4K2K check
+
+  [popcornmix]
+   * rbp: Don't close the display here it should be closed by the opener
+
+  [notspiff]
+   * fixed: tighten vcd .dat file checks to avoid unwanted filtering
+
+  [Arne Morten Kvarving]
+   * remove unused variables / members
+
+  [Garrett Brown]
+   * [joysticks] Fix no action when analog stick changes direction
+
+  [Garrett Brown]
+   * [joysticks] Avoid sending 0.0 value actions every frame
+
+  [Garrett Brown]
+   * [joystick] Code improvements in DefaultJoystick.cpp/h
+
+  [kszaq]
+   * aml: Support for 4K H264 on S905X
+
+  [Christian Fetzer]
+   * [Docs] Add Doxygen documentation for input
+
+  [Garrett Brown]
+   * [joysticks] Cosmetic: fix comments
+
+  [Garrett Brown]
+   * Only force-enable peripheral add-ons with button mapping support
+
+  [Garrett Brown]
+   * Fix crash on unplugging controller
+
+  [Garrett Brown]
+   * Fix unneeded namespace identifier
+
+  [Garrett Brown]
+   * Refactor CKeymapHandler::GetInputType()
+
+  [Garrett Brown]
+   * [peripherals] Cleanup: Remove unused function
+
+  [Garrett Brown]
+   * [joysticks] Only dispatch action if button was pressed this frame
+
+  [Garrett Brown]
+   * [input] Give priority to newly registered keyboard handlers
+
+
+  [phil65]
+   * [DirectoryNodes] override GetChildType() for Episode DirectoryNodes
+
+  [ronie]
+   * [Estouchy] Song Info Dialog contributors in control list
+
+  [phil65]
+   * [estuary] sync
+
+  [Thomas Amland]
+   * [listprovider] fix job cancelling
+
+  [DaveTBlake]
+   * Split TMCL/TIPL and PERFORMER tag role values into individual instruments or jobs etc., and capiltalise for consistency
+
+  [DaveTBlake]
+   * Add song contributors (composer, musicians etc. or people involved in the recording) as a control list with action to display artist info for that artist
+
+  [DaveTBlake]
+   * Rework SQL used by GetFilter for artists, albums and songs nodes.
+
+  [Martijn Kaijser]
+   * [webinterface] add Chorus2 as new default webinterface
+
+  [Martijn Kaijser]
+   * [webinterface] remove old and broken default webinterface
+
+
+  [ronie]
+   * [Estouchy] update to match the new look of the default skin
+
+  [Kai Sommerfeld]
+   * [PVR][guiinfo] Extend LISTITEM_HASTIMERSCHEDULE to support pvr timer info tag items.
+
+  [metaron]
+   * [PVR] Reintroduce filename sort for PVR recordings
+
+  [Rainer Hochecker]
+   * VideoPlayer: rtmp fixes
+
+  [Kai Sommerfeld]
+   * [PVR] Fullscreen video: ON up/down and no channel info is currently shown, display channel info for playing channel, not info for next/prev channel.
+
+  [wsnipex]
+   * [cmake] allow using an existing Texturepacker binary
+
+  [wsnipex]
+   * [cmake] make external FFmpeg default
+
+  [wsnipex]
+   * [cmake] modernize FindFFMPEG and bump versions to v3.1
+
+  [wsnipex]
+   * [depends] ffmpeg: add option to autobuild.sh to build shared libs
+
+  [kszaq]
+   * aml: Do not force default output device for passtrough
+
+
+  [Kai Sommerfeld]
+   * [PVR] Micro optimize async connect (once the pvr client object is obtained, use it)
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Fix grid model block count calculation for an edge case
+
+  [Rainer Hochecker]
+   * inputstream: bump addon api to 1.0.6
+
+  [Rainer Hochecker]
+   * pvr: bump addon api to 5.2.1
+
+  [Rainer Hochecker]
+   * VideoPlayer: change time parameter of SeekTime from int to double
+
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Fix crash (accessed grid index out of bounds).
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings window: Fix missing subfolders in recordings listing (due to url escape/unescape handling bug).
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings window: Fix duplicate '..' entries in recordings listing.
+
+  [Garrett Brown]
+   * [controller dialog] Fix Kodi actions sent after mapping final analog stick
+
+  [Arne Morten Kvarving]
+   * fixed: only add inotify members to CLIRC if inotify is available
+
+  [Arne Morten Kvarving]
+   * fixed: probe for inotify in build system
+
+  [Memphiz]
+   * [cmake] - fixe wrong parsing of platforms.txt (platforms might be on seperate lines...) after 897094feeef8357eaf7ce2a4328a062b1af9d151
+
+  [Garrett Brown]
+   * [joysticks] Fix digital buttons with analog actions only sending one action
+
+  [phil65]
+   * [listprovider] whitelist mediatypes which may get opened in VideoInfoDialog
+
+
+  [ronie]
+   * use debug logging for missing textures
+
+  [oskvadd]
+   * Speed up startup time for movies in split rar archives.
+
+
+  [Arne Morten Kvarving]
+   * fixed: use correct type for time parameter in UPnPPlayer
+
+  [phil65]
+   * [estuary] 2nd edition
+
+  [wsnipex]
+   * [cmake] fix linking wrapped libs with gold linker in debug builds
+
+  [wsnipex]
+   * [cmake] don't rebuild ffmpeg and crossguid when building from depends
+
+  [wsnipex]
+   * [depends] pass build type (debug
+
+  [wsnipex]
+   * [cmake] fix linking on linux when not hardcoding python libs partially reverts 3eb46877
+
+  [wsnipex]
+   * [cmake] fix FindPython
+
+  [popcornmix]
+   * GUIWindowSlideShow: Protect against empty slides access
+
+  [phil65]
+   * FileFactory: handle library protocol
+
+
+  [Lukas Rusak]
+   * [cmake] allow RPi to build with lirc support (#10962)
+
+  [popcornmix]
+   * GUIWindowSlideShow: Protect against empty slides access
+
+  [Christian Fetzer]
+   * [cmake] Properly find correct libcec version
+
+  [ronie]
+   * remove unused control id definitions
+
+  [fritsch]
+   * AESinkOSS: Fix compilation after STREAM_TYPE transition
+
+
+  [hawkeyexp]
+   * Update README.raspberrypi
+
+  [ronie]
+   * [estuary] fix lost focus in mediasource dialog
+
+  [ronie]
+   * [estuary] fix missing texture log error
+
+
+  [DaveTBlake]
+   * Set option albumartistsonly=false, so that all artists with the role are shown regardless of system settings
+
+  [Glenn-1990]
+   * [PVR] fix recordings unwatched overlay
+
+  [Glenn-1990]
+   * [estuary] fix recordings parent folder overlay
+
+  [Glenn-1990]
+   * [estuary] fix recording folders overlay
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings window: fix recordings sub folders after #10930.
+
+  [Alwin Esch]
+   * [audioengine] use OSS only on FreeBSD
+
+  [Jonas Karlman]
+   * [curl] cleanup multi handle in proper order
+
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings window: Fix show status for recordings in progress
+
+  [Rainer Hochecker]
+   * guilib: fix segfault caused by not protected method CGUITextureManager::HasTexture
+
+  [Garrett Brown]
+   * [controller dialog] Fix Coverty CID 152106 introduced in 921862eb7
+
+  [Kai Sommerfeld]
+   * [PVR][Estuary] Recordings window: show status for recordings in progress.
+
+  [notspiff]
+   * changed: drop passing string as const char*
+
+  [notspiff]
+   * fixed: do not null player pointer on Close
+
+  [Thomas Deblock]
+   * Update correction for pull request https://github.com/xbmc/xbmc/pull/10925
+
+  [Garrett Brown]
+   * [controller dialog] Improve code style by removing early returns
+
+  [Garrett Brown]
+   * [controller dialog] Add debug logging
+
+  [Garrett Brown]
+   * [controller dialog] Fix unable to cancel capture with A or B for non-default profiles
+
+  [Garrett Brown]
+   * [controller dialog] Fix not refreshing config if multiple controllers are attached
+
+  [Thomas Deblock]
+   * Correction issue on Android.
+
+  [Anton Fedchin]
+   * Revert "[dxva] Added workaround for AMD/ATI cards to fix interlacing. (#10633)"
+
+  [Anton Fedchin]
+   * [dxvahd] unification of the log messages.
+
+  [Anton Fedchin]
+   * [dxvahd] Re-init video context before creating an enumerator.
+
+
+  [Brandon Schaefer]
+   * Allow overriding CROSSGUID_URL with relative path
+
+  [ronie]
+   * [python] update setInfo() documentation
+
+  [Kolja Lampe]
+   * Fix episode selection when entering a show from the homescreen
+
+  [Garrett Brown]
+   * Peripheral EventScanner: Handle wrap-around
+
+  [Garrett Brown]
+   * [peripherals] Fix 100% cpu usage after a while
+
+  [Christian Fetzer]
+   * [binary-addons] Rename DEPENDS_PATH into ADDON_DEPENDS_PATH
+
+
+  [popcornmix]
+   * MMALCodec: Take more care with the output lock mutex
+
+  [Micah Galizia]
+   * Create FFmpeg stream instead of recursing
+
+  [BigNoid]
+   * [listprovider] Make sure content is always loaded. Fixes #16635
+
+  [Micah Galizia]
+   * If redirected toa UDP stream, re-create the input stream
+
+
+  [Garrett Brown]
+   * Set notification rumble to weak motor for 300ms
+
+  [Christian Fetzer]
+   * [cmake] Fix finding Python on masOS
+
+  [Christian Fetzer]
+   * [cmake/tests] Introduce variable to determine if we can execute build artefacts
+
+  [Christian Fetzer]
+   * [cmake/TexturePacker] TexturePacker on darwin covered by CMAKE_CROSSCOMPILE
+
+  [Christian Fetzer]
+   * [Toolchain] Unconditionally set CMAKE_CROSSCOMPILING
+
+  [Christian Fetzer]
+   * [Toolchain] Cleanup if conditions
+
+
+  [Kai Sommerfeld]
+   * [estuary][pvr] fix recordings window sidebar for folders containing special characters, like ?
+
+  [Anton Fedchin]
+   * [VideoPlayer] VideoPlayerVideo: use default deinterlace method from ProcessInfo if setting value isn't supported.
+
+  [Kai Sommerfeld]
+   * [PVR] Fix recordings url encoding.
+
+  [h.udo]
+   * [json] Missing comma
+
+  [h.udo]
+   * [json] Respect existing method order (oldest on top)
+
+  [DaveTBlake]
+   * Remove the "avoid clipping" replay gain setting
+
+  [Rainer Hochecker]
+   * paplayer: fix replay gain
+
+
+  [DaveTBlake]
+   * Remove duplicate saving of album type to xml
+
+  [Lars Op den Kamp]
+   * [cec] fixed: windows expects cec.dll now instead of libcec.dll
+
+  [Thomas Amland]
+   * workaround: run jobs that blocks waiting for other jobs at priority dedicated to prevent deadlock
+
+  [Thomas Amland]
+   * CJobManager: add priority parameter to Submit
+
+  [Thomas Amland]
+   * CJobManager: add priority 'dedicated'
+
+  [Garrett Brown]
+   * [peripherals] Cosmetic: Add doxy for button mapping commands
+
+  [Garrett Brown]
+   * [controller dialog] Modify dialog shown when peripheral add-ons are disabled
+
+  [Garrett Brown]
+   * Always show controller configuration in settings
+
+
+  [Garrett Brown]
+   * [controller dialog] Fix skipping buttons due to acceleratomers, buggy triggers, etc.
+
+  [Chris "Koying" Browet]
+   * FIX: make CodecInfo a synonym of PlayerProcessInfo
+
+  [ronie]
+   * cosmetics
+
+  [Rainer Hochecker]
+   * VideoPlayer: ffmpeg demuxer - discard all unneeded streams
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix c/p error in HLSSelectProgram
+
+  [Garrett Brown]
+   * Fix new joystick dialog opening when dialog is above the controller dialog
+
+  [Garrett Brown]
+   * [peripherals] Access button map through CButtonMapping object instead of directly
+
+  [Garrett Brown]
+   * [cosmetic] Whitespace fixes in joystick library
+
+  [Garrett Brown]
+   * Peripheral API: [cosmetic] If typo in comment
+
+  [Garrett Brown]
+   * Peripheral API: Specify that joystick features shouldn't be modified
+
+  [Garrett Brown]
+   * Allow callers to know if OK dialog was confirmed or not
+
+
+  [Kai Sommerfeld]
+   * [PVR] Settings: change label and description to reflect that 'TV' is actually 'PVR & Live TV.'
+
+
+  [ace20022]
+   * Videoplayer: If subtitles are set to "on" and the preferred language is "original stream's language" at least default subtitles should be shown, regardless of there language.
+
+  [Lars Op den Kamp]
+   * [cec] added: setting to make libCEC wake up the AVR explicitly when activating the source.
+
+  [Lars Op den Kamp]
+   * [cec] add CEC IMX adapter as known type and set no polling.
+
+  [Lars Op den Kamp]
+   * [cec] Added advanced settings for action when TV goes standby
+
+  [Lars Op den Kamp]
+   * [cec] bump to libCEC 4.0.0
+
+
+  [h.udo]
+   * [cmake] Allow building add-ons by regex match without bootstrapping first
+
+  [Kai Sommerfeld]
+   * [PVR] Guide info dialog: fix record/add timer button visibility.
+
+  [Kai Sommerfeld]
+   * [PVR] Fix and cleanup pvr window's sort methods.
+
+  [popcornmix]
+   * build: Allow installed links to be overwritten
+
+
+  [fritsch]
+   * Picture: Partially revert f5f9b8d and aadfc21d (keeping fixes done by notspiff)
+
+  [Daniel]
+   * Fix IsIosSandboxed
+
+  [h.udo]
+   * [cmake] separate_arguments() is stupid
+
+  [Kai Sommerfeld]
+   * [guiinfo] Fix LISTITEM_RESUMABLE to prefer recording info tag over video info tag, fire recordings updated event on playcount change".
+
+  [Christian Fetzer]
+   * [cmake] Don't allow ENABLE_STATIC_LIBS to be changed by users
+
+  [Christian Fetzer]
+   * [VideoPlayer/Process] Make PLATFORM_OVERRIDE define unique
+
+
+  [Garrett Brown]
+   * Show controller dialog if the user connects an unmapped controller
+
+  [popcornmix]
+   * MMALRenderer: Release buffers on a flush
+
+  [Martijn Kaijser]
+   * [subtitles] decode html escape characters (reverted from commit 56ff2ab08874ab78b7341be092aed0d9b37bb175) This commit breaks RTL languages like Hebrew as each word gets reverted
+
+  [DaveTBlake]
+   * Add forced rescan of tags to capture the new tag data that is processed. Prompt user before fetching additional artist and album data as well.
+
+
+  [Markus Pfau]
+   * Display milliseconds in log file
+
+  [Memphiz]
+   * [PAPlayer] - use SetSpeed for the Pause method and fire callbacks in SetSpeed - fixes missing OnPlaybackResumed callback in PAPlayer
+
+  [Kai Sommerfeld]
+   * [listproviders] directory list provider: fix updates for favourites folders not processed.
+
+  [ronie]
+   * [estouchy] add privacy policy support
+
+  [ronie]
+   * [estuary] add privacy policy support
+
+  [ronie]
+   * show privacy policy in systeminfo
+
+  [ronie]
+   * update build files
+
+  [Garrett Brown]
+   * [peripherals] Fix incorrect number of format arguments
+
+  [phil65]
+   * [gui] - add playcount infolabel for pvr recordings
+
+  [popcornmix]
+   * DVDOverlaySSA: Fix Leak with SSA subtitles
+
+  [popcornmix]
+   * GUIFontTTFGL: Fix texture leak in subtitles
+
+  [Martijn Kaijser]
+   * [travis] Remove autotools options
+
+  [Memphiz]
+   * [CurlFile] - add support for header "active-remote" which is needed for DACP (controlling airtunes clients playback controls)
+
+  [Markus Pfau]
+   * [Depends] Force link generation (ln -s) to package config files to allow subsequent make binary-addons calls
+
+  [ronie]
+   * add privacy policy file
+
+  [Garrett Brown]
+   * [peripherals] Move peripherals to shared_ptr
+
+  [Garrett Brown]
+   * [peripherals] Cleanup: Remove virtual from class methods
+
+
+  [phil65]
+   * [videoplayer] reset VideoCodecInfo in CProcessInfo constructor
+
+  [Thomas Amland]
+   * fix addon installer calling GetAddonHash on incorrect repository
+
+  [Thomas Amland]
+   * [addons] add some lookup methods replacing the current repo/version pair
+
+  [Pär Björklund]
+   * Remove unnecessary test that causes crashing
+
+  [Kolja Lampe]
+   * Code cleanup for GUIDialogVideoInfo
+
+  [Pär Björklund]
+   * Minor tweaks to charset conversion to make it more robust
+
+  [DaveTBlake]
+   * Fix conversion of POPM tag value, as written by Media Monkey or WMP, to the 0 to 10 user rating value stored in the library.
+
+  [Rainer Hochecker]
+   * paplayer: add processInfo, fixes wrong seeking state
+
+  [Chris "Koying" Browet]
+   * REGRESSION: [amc] don't use for dvd's
+
+  [Chris "Koying" Browet]
+   * FIX: [amc] revert most of drain stuff
+
+  [Christian Fetzer]
+   * [cmake] Add doc target that builds the doxygen documentation
+
+  [wsnipex]
+   * [depends] all platform but darwin: always use our own zlib
+
+  [raptorjr]
+   * This makes the SubtitleDialog remember the last service used, and also the last search instead of always using, and searching, the first service in the list.
+
+
+  [Pär Björklund]
+   * Ignore some items that's been bugging me for a while
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Fix another deadlock.
+
+  [phate89]
+   * Extract digits also from the new ratings' vote tag
+
+  [Pär Björklund]
+   * Add patch from taxigps and don't blindly assume that Arial is the fallback font
+
+  [Pär Björklund]
+   * New build of libass, try to not smash the stack
+
+  [Pär Björklund]
+   * Update libass
+
+  [Thomas Amland]
+   * disable GetOsVersion test. does not work on arch
+
+  [Thomas Amland]
+   * [cmake] add missing test files
+
+
+  [popcornmix]
+   * MMAL: Report deinterlace method to processinfo overlay
+
+  [popcornmix]
+   * MMAL: Set processInfo in pool
+
+  [popcornmix]
+   * MMAL: Make setting the decoder more consistent between MMALCodec and MMALFFMpeg
+
+  [popcornmix]
+   * MMAL: Move pool into base class
+
+  [Anton Fedchin]
+   * [SeekHandler] handle ACTION_JUMP_SMSX as numeric seek.
+
+  [popcornmix]
+   * MMAL: Avoid advanced deinterlace when using software decode and HD resolution
+
+  [popcornmix]
+   * MMALRender: Switch to deinterlace mode where frame flags are exclusively used
+
+  [popcornmix]
+   * mmalrender: Use computed framerate rather than version from configure
+
+  [popcornmix]
+   * MMALRenderer: Ensure updated aspect ratio is seen in the case of a single still frame
+
+  [popcornmix]
+   * MMAL: Indicate when picture came from still frame so advanced deinterlace can be disabled
+
+  [popcornmix]
+   * rbp: Ensure processinfo values are initialised
+
+
+  [Jonas Karlman]
+   * FFmpegImage: free avpacket side data
+
+  [graysky]
+   * more verbose help for --enable-optimizations
+
+  [Christian Fetzer]
+   * [cmake/cleanup] file(REMOVE/REMOVE_RECURSE) ignores non existing files
+
+  [Christian Fetzer]
+   * [cmake] Fix unstable check_install_permissions
+
+  [ronie]
+   * [python] add getTrailer() function to the xbmc.InfoTagVideo() class
+
+  [Martijn Kaijser]
+   * [strings] Clarify it's system memory/cpu usage
+
+
+  [Martijn Kaijser]
+   * [win32] Set minimum Windows 10 version for UWP to be installed which contains fix for BSOD https://support.microsoft.com/en-gb/kb/3197954
+
+  [Rechi]
+   * [Fix] access violation in CFFmpegImage::Initialize
+
+  [phil65]
+   * [estuary] add progress bar to BusyDialog
+
+  [phil65]
+   * [python] add xbmcgui.Dialogbusy()
+
+  [phil65]
+   * [gui] change progress bar behaviour for DialogBusy and DialogProgress
+
+  [Serge Schneider]
+   * [depends] alsa-lib: fix typo in configure.in
+
+  [Kai Sommerfeld]
+   * [PVR] Fix epg update deadlock.
+
+
+  [Pär Björklund]
+   * Increase the buffer as it was miscalculated and too small when using light+bold+italic
+
+  [Rainer Hochecker]
+   * slideshow: only stop video player, keep background music playing
+
+  [Kai Sommerfeld]
+   * [PVR] Fix local fanart lookup log spam. pvr recordings never have local fanart.
+
+  [Rechi]
+   * [subtitles] decode html escape characters
+
+  [Rechi]
+   * [subtitles] allow br tags to be self-closing
+
+  [ronie]
+   * fix streaminfo set by python
+
+  [Kolja Lampe]
+   * Fixed OnPlayBackResumed not getting fired anymore.
+
+  [fritsch]
+   * DVDDemuxFFmpeg: Fix whitespace
+
+  [wsnipex]
+   * [cmake] add our own FindLibXml2.cmake, needed for static libs
+
+  [Rainer Hochecker]
+   * VideoPlayer: hls, select best resolution closest to desired bandwidth
+
+  [Rainer Hochecker]
+   * VideoPlayer: add user name and password back to url after testing for redirect
+
+
+  [Martijn Kaijser]
+   * [python] fix pydocs after a2f675e04b8e4c8dab2cf1398bcd2be2e3d8e98f
+
+  [Pär Björklund]
+   * Make CDirectory::Create create all the needed folders
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Fix possible null ptr dereference.
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Fix responsiveness on first open.
+
+  [notspiff]
+   * fixed: don't trigger an ancient chinese memory allocation trap
+
+  [notspiff]
+   * fixed: used av_free when av_freep was intended in f5f9b8d and aadfc21d
+
+  [Christian Fetzer]
+   * [cmake/android] Attempt to fix binary-addon packaging
+
+  [Christian Fetzer]
+   * [binary-addons] Clean patch file in add_addon_depends
+
+  [Christian Fetzer]
+   * [cmake/readme] Fix variable name for addon build
+
+  [Sam Nazarko]
+   * [AMLUtils] Update aml_permissions() to check for RW access to more paths
+
+  [fritsch]
+   * AESinkAudioTrack: Reconsider samplerate matching
+
+  [fritsch]
+   * AESinkAudioTrack: Support Mono layout v2: use get_static_field v3: move mono before stereo
+
+  [Chris "Koying" Browet]
+   * FIX: [amcs] get proper VideoView size
+
+  [phil65]
+   * [python] add xbmcgui.Dialog().info()
+
+  [ronie]
+   * prefer to use the year value from the firstaired date
+
+  [phate89]
+   * Hide passwords from advancedsettings log
+
+  [phil65]
+   * [python] add xbmcgui.ListItem.setCast()
+
+
+  [Bas Rieter]
+   * Fixed: RTMP swfvfy also accepts 1 instead of just true
+
+  [Chris "Koying" Browet]
+   * [jni] update CMakeLists
+
+  [ronie]
+   * [skins] seeknumeric - use hh:mm:ss format
+
+  [Markus Pfau]
+   * allow settings.xml.in
+
+  [phate89]
+   * Coverity: Initialize videoinfotag rating and uniqueid ids
+
+  [fritsch]
+   * Texture: Align to 32 byte - we might end up in ffmpeg buffer
+
+  [fritsch]
+   * ActiveAESink: Align to 32 bytes for using AVX
+
+  [fritsch]
+   * DVDVideoPPFFmpeg: Use av_malloc and av_free
+
+  [fritsch]
+   * Picture: Use av_malloc when using ffmpeg scalers
+
+  [Chris "Koying" Browet]
+   * FIX: [jni] Audiotrack tweaks
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] AudioTrack by attributes
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] AudioTrack by timestamp
+
+  [Chris "Koying" Browet]
+   * FIXUP: [jni] Environment
+
+  [Chris "Koying" Browet]
+   * CHG: [jni] remove dependency to main JNIMainActivity
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] Document
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] Notification
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] Settings
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] URIPermission
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] MediaFormat: KEY_ROTATION
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] ByteBuffer: wrap array
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] Activity: startActivityForResult
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] Network & friends
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] Image
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] AudioFormatBuilder
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] AudioAttributes
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] MediaSync & friends
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] AudioDeviceInfo & friends
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] Package manager features (thx davilla)
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] voice recognition
+
+  [Chris "Koying" Browet]
+   * ADD: [jni] Audio timestamps
+
+  [Chris "Koying" Browet]
+   * FIX: [droid;jni] wrong Cursor signatures
+
+  [Chris "Koying" Browet]
+   * Add: [jni] base utilities
+
+  [Chris "Koying" Browet]
+   * FIX: force using stdint.h
+
+  [Chris "Koying" Browet]
+   * ADD: [utils] static fields by field id
+
+  [Christian Fetzer]
+   * [cmake/tmp] Add more log input to analyze android binary addon packaging failures
+
+  [Christian Fetzer]
+   * [cmake] Log directory for which install permissions/sudo are needed
+
+  [Chris "Koying" Browet]
+   * ADD: [amc] Debug: print non-running state
+
+  [Chris "Koying" Browet]
+   * FIX: [amc] Reset: unconditional flush + don't overwrite statuses
+
+  [Chris "Koying" Browet]
+   * FIX: [amc] VP sends unrequested buffer after drain; flush
+
+  [Chris "Koying" Browet]
+   * FIX: [amc] actually return a picture when dropping
+
+  [Chris "Koying" Browet]
+   * CHG: [amc] keep previous ret code
+
+  [wsnipex]
+   * deprecate autotools
+
+  [fritsch]
+   * FFmpeg: Bump to 3.1.5-Krypton-Beta5-1
+
+
+  [fritsch]
+   * AE: Drop AEBuffer
+
+  [Kai Sommerfeld]
+   * [guiinfo] Coverity: Fix CID 151032 - 151035: Control flow issues (MISSING_BREAK), regression itroduced by #10788
+
+  [Garrett Brown]
+   * CApplication: Fix initialization order
+
+  [Garrett Brown]
+   * ColorManager: Fix signed vs. unsigned compiler warning
+
+  [Garrett Brown]
+   * StringUtils: Fix signed vs. unsigned compiler warning
+
+  [Garrett Brown]
+   * GUIWindowSlideShow: Fix signed vs. unsigned compiler warnings
+
+  [Garrett Brown]
+   * VideoInfoScanner: Fix logging error
+
+  [Garrett Brown]
+   * GUIDialogAddonInfo: Fix compiler warning
+
+  [Garrett Brown]
+   * RenderManager: fix log line
+
+
+  [Martijn Kaijser]
+   * bump to v17.0 beta 6
+
+  [ronie]
+   * [linux] use appname instead of hardcoding kodi
+
+  [Thomas Amland]
+   * [addons] make sure temp dir exists before running CFileOperationJob
+
+  [ace20022]
+   * [Fix] DVDVideoCodecFFmpeg: Free inputs and outputs also in case of a failure. (CID 1374132)
+
+  [ace20022]
+   * [Fix] ActiveAEFilter: Free frame in case of failure. (CID 1374133)
+
+  [phil65]
+   * [gui] - remove fallbacks for pvr next* infolabels
+
+  [phil65]
+   * [gui] dialogvideoinfo: show selectdialog for directorbutton if amount of directors > 1
+
+  [phate89]
+   * Parse the id tag only if the uniqueid tag is missing as fallback
+
+
+  [Martijn Kaijser]
+   * Revert "[xbmc][win]Build addons with debug info on Windows"
+
+  [fritsch]
+   * ActiveAEFilter: Add missing include for avcodec_fill_audio_frame (worked by accident)
+
+  [ronie]
+   * [skins] add seek label
+
+  [Chris "Koying" Browet]
+   * FIX: [droid;egl] assume Mode api unusable if portrait is returned
+
+  [Chris "Koying" Browet]
+   * FIX: [droid;egl] quirk is not needed and problematic
+
+  [Chris Koying Browet]
+   * CHG: Move Render -> Droid coord mapping to XBMCApp
+
+  [Chris Koying Browet]
+   * FIX: use render size in surface mode
+
+  [Chris "Koying" Browet]
+   * FIX: [amc] no need to calc sizing ratio for each buffer
+
+  [Chris Koying Browet]
+   * ADD: [droid] standard Mode api + 4K gui
+
+  [Timo Gurr]
+   * libdvd/Makefile: cross-compile, allow to specify the ar command
+
+  [Anton Fedchin]
+   * GUIInfoManager: added missed documentation.
+
+  [Anton Fedchin]
+   * [GUI] Added new info label Player.SeekNumeric
+
+  [Anton Fedchin]
+   * [utils] SeekHandler: rename Process() to FrameMove()
+
+  [Anton Fedchin]
+   * [utils] CSeekHandler: now handles the seeking with numeric input.
+
+  [phate89]
+   * Change splash db upgrade logic
+
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix segfault on eof caused by postprocessing
+
+  [h.udo]
+   * [docs/android] Wrong toolchain
+
+  [Chris Koying Browet]
+   * FIX: [droid;apps] handles missing res icon
+
+  [Garrett Brown]
+   * Fade the current controller when mapping its buttons
+
+
+  [phil65]
+   * [gui] cosmetics: fix indent in GUISliderControl.cpp
+
+  [ronie]
+   * [estuary] fallback to icon in poster view
+
+  [Rainer Hochecker]
+   * VideoPlayer: hls - select program based on bitrate
+
+  [arnova]
+   * added: 2 Missing redactions for CVideoPlayer::OpenInputStream()
+
+  [Rainer Hochecker]
+   * VideoPlayer: drop selecting bandwidth for hls streams, method is broken on many streams
+
+  [Rainer Hochecker]
+   * VideoPlayer: work around hls issue in ffmpeg, fix jumping back to start
+
+  [Thomas Amland]
+   * unload current skin before loading the new one
+
+
+  [Martijn Kaijser]
+   * [win32] .url extension is not allowed to be registered for UWP apps
+
+  [Chris "Koying" Browet]
+   * FIXUP: [amcs] background video
+
+  [Paul Novotny]
+   * Simplify .codecocs config
+
+  [Pär Björklund]
+   * Build addons with debug info on Windows
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix memleaks in vdpau and vaapi
+
+  [Rainer Hochecker]
+   * AE: fix mem leak
+
+  [Martijn Kaijser]
+   * bump to 17.0 beta 5
+
+
+  [Chris "Koying" Browet]
+   * FIX: [amcs] ignore released buffer
+
+  [Chris Koying Browet]
+   * FIX: [amcs] surface is not a bypass
+
+  [Memphiz]
+   * [AirTunes] - fix the "IsRunning" method. The thread only runs during playback - but we want to now if the service is up. This fixes the problem that the airtunes server doesn't stop at all when you deactivate it
+
+  [Kai Sommerfeld]
+   * [PVR] All pvr windows: Fix channel group change.
+
+  [Martijn Kaijser]
+   * Extend "Would you like to keep this change?" to 15 seconds as 10 seconds was bit short for certain AVR and TVs after resolution change.
+
+  [fritsch]
+   * Settings / Lang: Show noise / silence setting
+
+  [Alex Deryskyba]
+   * aml: Drop frames if requested by VideoPlayer
+
+  [fritsch]
+   * ActiveAESink: Implement infrastructure for also sending silence instead of noise
+
+  [Chris "Koying" Browet]
+   * FIX: [amc] better drain support
+
+  [Chris "Koying" Browet]
+   * FIX: [droid;obb] apk keeps getting larger
+
+  [Memphiz]
+   * [ios/osx] - sync xcode project
+
+  [Thomas Amland]
+   * [addons] improve safety of installing/uninstalling addon files
+
+  [Thomas Amland]
+   * [vfs] properly close directory in RemoveRecursive
+
+  [Thomas Amland]
+   * [vfs] also remove root in directory on recursive remove
+
+  [fritsch]
+   * AESinkAUDIOTrack: Don't false alarm with m_offset
+
+
+  [Pär Björklund]
+   * Guard against double free by setting our deleted values to nullptr
+
+  [DaveTBlake]
+   * Fix drill down from artists smart playlists that have role based rules.
+
+
+  [Rechi]
+   * [skin.estuary] Fix mute
+
+  [Memphiz]
+   * [filesystem/nfs] - ensure that the last access time of a context is updated during keep alive and that clearmembers doesn't clear the list of keep alive handlers during context change - fixes #16576
+
+  [wsnipex]
+   * [jenkins/buildsteps] disable debug in depends in Release builds
+
+  [wsnipex]
+   * [depends] add --enable-debug switch to configure
+
+  [Garrett Brown]
+   * [peripherals] Better fix to fix enabling/disabling peripheral add-ons
+
+
+  [Anton Fedchin]
+   * win32: GUIFontTTFDX: added check on safety to not update resource if it's not exist.
+
+  [Anton Fedchin]
+   * win32: CD3DTexture: added check on safety to not generate mitmaps for non existing resource.
+
+  [Anton Fedchin]
+   * win32: CD3DBuffer: fixed possible memleak when buffer was unable to create a copy on destroying device.
+
+  [Garrett Brown]
+   * [peripherals] Fix button maps not refreshing after a reset
+
+  [Memphiz]
+   * [cmake/addons] - pass our toolchain when manually calling cmake
+
+  [Memphiz]
+   * [cmake/toolchain_binaddons] - set CMAKE_SYSTEM_NAME to Darwin for ios - this enables the cmake cross compile flag which will be needed in cmake 3.7 to fix an ugly bug with osx sdk flags spreading into the ios cflags during cross compile
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix aspect ratio for matroska containers for stereo modes
+
+
+  [h.udo]
+   * [cmake] Fix build with VAAPI/VDPAU off on linux
+
+  [Garrett Brown]
+   * [peripherals] Fix deadlock
+
+  [Martijn Kaijser]
+   * [android] strip binaries in debug builds as well as they do not bring any extra information in logcat
+
+  [DaveTBlake]
+   * Set option albumartistsonly=false, so that all artists with the role are shown regardless of system settings
+
+
+  [Garrett Brown]
+   * [peripheral API] Fix unitialized variable
+
+  [Kai Sommerfeld]
+   * [PVR] All pvr windows: Ignore GUI_MSG_UPDATE_SOURCES. Makes no sense for pvr windows to refresh content upon this message.
+
+  [ronie]
+   * [estouchy] hide video and viz controls when slideshow is active
+
+  [Rainer Hochecker]
+   * [Estuary] hide videowindow and viz of background when slideshow is active
+
+  [Rainer Hochecker]
+   * SlideShow: fix rendering video
+
+  [Rainer Hochecker]
+   * SlideShow: video fixes
+
+  [Rainer Hochecker]
+   * fix SwitchToFullScreen when in slide show
+
+  [Anton Fedchin]
+   * [VideoPlayer] FFmpegDemux: proper flush io context.
+
+  [Kai Sommerfeld]
+   * [PVR] Search window: Fix empty window after subsequent window content update.
+
+  [ronie]
+   * [language] cosmetics
+
+  [phil65]
+   * [gui] fix slider focus handling
+
+
+  [Garrett Brown]
+   * Fix stereoscopic inversion for block format
+
+
+  [ronie]
+   * [estuary] grey text on focused item == unreadable
+
+  [phil65]
+   * [python] - allow detailedmode for xbmcgui.Dialog().select() and multiselect()
+
+  [Koen Kooi]
+   * configure: fix aarch64 builds
+
+  [Martijn Kaijser]
+   * [doxygen] Add revision when API was changed or expanded
+
+  [Martijn Kaijser]
+   * [win32] extend UWP with capabilities and file associations
+
+  [ronie]
+   * cosmetics
+
+  [ronie]
+   * rename ui sound addon
+
+  [Florian Diemer]
+   * DVDDemuxFFmpeg: Read RIFF tags of avi files in order to detect language of streams
+
+  [Rainer Hochecker]
+   * VideoPlayer: ffmpeg - use codec aspect ratio for stereo modes
+
+  [ace20022]
+   * [Texture][FIX] Prevent an access violation in CFFmpegImage::DecodeFrame triggered by a failed alloc due to insufficient free memory.
+
+  [phil65]
+   * [gui] pictures: only show "info" context menu button when item isPicture.
+
+  [phil65]
+   * [gui] add listitem.appearances for actors / directors
+
+
+  [BigNoid]
+   * [gitignore] add addon packages, __.SYMDEF* and certificates
+
+  [fritsch]
+   * Tests: Add include after ServiceManager changes
+
+  [Rainer Hochecker]
+   * app: move first access of CPlaylistPlayer after init
+
+  [BigNoid]
+   * [infomanager] add musicplayer.dbid and videoplayer.dbid infolabel
+
+  [Rainer Hochecker]
+   * SeekHandler: fix state InProgress
+
+  [Rainer Hochecker]
+   * VideoPlayer: expose state seeking
+
+  [Rainer Hochecker]
+   * VideoPlayer: drop dead code
+
+  [Garrett Brown]
+   * [peripherals] Improve locking while creating/destroying peripheral add-ons
+
+  [Garrett Brown]
+   * [peripherals] Fix restart needed to enable/disable peripheral add-ons
+
+  [Garrett Brown]
+   * [peripherals] Fix missing lock in CAddonButtonMap
+
+  [h.udo]
+   * [cmake] Fix build_addon() macro
+
+  [notspiff]
+   * disable filedirectories in addonbrowser
+
+  [wsnipex]
+   * [cmake] set debug flags when doing debug builds
+
+  [wsnipex]
+   * [android] don't strip binaries in debug builds
+
+  [Yair Schwartz]
+   * [OSX/WinEventsSDL] Fix for macOS for native Full screen mode Mac supports native full screen mode - it enlarges the application to full screen in a new screen. This is possibly more convenient than Kodi's full screen mode, which changes resolution, frame rate, etc. However, the code has some check related to Linux causing the resize event to be ignored when switching to a window size equal to the screen size. This should not be done on Mac.
+
+  [Chris "Koying" Browet]
+   * FIX: [droid] force UTF8 locale
+
+  [Rechi]
+   * [CryptThreading] replace hardcoded value for CRYPTO_LOCK by macro
+
+  [chewitt]
+   * [webinterface.default] tvshows: sort results by sorttitle
+
+  [chewitt]
+   * [webinterface.default] tvshows: default to poster view
+
+
+  [Garrett Brown]
+   * [peripherals] Fix grabbing joystick if there's no add-on to translate input
+
+  [Pär Björklund]
+   * Disable minidump handler when running as a store package
+
+  [Rainer Hochecker]
+   * VideoPlayer: terminate playback if seek behind eof fails
+
+  [Rainer Hochecker]
+   * VideoPlayer: disable ffmpeg generic seek for remote files
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix CDVDMessageQueue::WaitUntilEmpty
+
+  [Garrett Brown]
+   * [peripherals] Fix joysticks not being detected on android startup
+
+
+  [Rainer Hochecker]
+   * VideoPlayer: make sure first frame of a new stream is displayed without delay, signal started when frame is picked for render
+
+  [Arne Morten Kvarving]
+   * added: include watched status for movies in actor search dialog
+
+  [Christian Fetzer]
+   * [cmake/android] Let kodi library depend on kodi-libraries
+
+  [Christian Fetzer]
+   * [cmake] Libraries are passed twice to the linker command line
+
+  [Anton Fedchin]
+   * [dxva] blacklist some mpeg2 videos for AMD/ATI cards.
+
+  [Anton Fedchin]
+   * [dxva] allow hw decoding on DVDs and stills
+
+  [Anton Fedchin]
+   * [dxva] fix hw decoding on some mpeg2 files
+
+  [montellese]
+   * [video] fix NFO parsing of <namedseason>'s
+
+  [phate89]
+   * Export max value in ratings by default
+
+
+  [Martijn Kaijser]
+   * [android] update readme for compiling with NDK 12b and SDK21
+
+  [phil65]
+   * [gui] cleanup: remove checkmark control leftovers
+
+  [Glenn-1990]
+   * [PVR] Fix: activate/deactivate read-only timer
+
+  [Memphiz]
+   * [ae/osxsink] - bring bitstream passthrough back with float -> 16bit data conversion for audio devices that don't have a matching virtual audio stream
+
+  [Memphiz]
+   * [ae/ossink] - always enumerate the NE formats
+
+  [Memphiz]
+   * [ae/osxsink] - allow pcm passthrough even if no proper virtual format was found
+
+  [Memphiz]
+   * [MediaSettings] - fixed loading interlacemode_none from defaultsettings
+
+  [Rainer Hochecker]
+   * VideoPlayer: do not block caller on relative seeks
+
+  [Rainer Hochecker]
+   * VideoPlayer: pass parameters for seek mode in a structure
+
+  [DaveTBlake]
+   * Add compilation as a filter on the albums node
+
+  [DaveTBlake]
+   * Add LastPlayed as album smart playlist rule. Fix missing sort orders
+
+  [DaveTBlake]
+   * Add compilation as an "albums" smart playlist rule.
+
+
+  [Kai Sommerfeld]
+   * [PVR] Recording home screen widget: Fix info dialog (show recording info, not generic video info).
+
+  [Christian Fetzer]
+   * [BuildSetup.bat] Remove unnecessary skin building
+
+  [Christian Fetzer]
+   * [cmake] Don't install/mirror skins and audioencoder plugins twice
+
+  [Christian Fetzer]
+   * [BuildSetup.bat] Update usage instructions
+
+  [DaveTBlake]
+   * Add explicit ordering on song join songartist queries
+
+  [peak3d]
+   * support reusing of CFile::m_pFile
+
+
+  [peak3d]
+   * Dont load inputstream addons on startup if they are disabled
+
+  [BigNoid]
+   * [guilib] make onclick override conditional. Fallback to default action if no condition is met.
+
+  [peak3d]
+   * [Win32] DynamicDlls are not system-dll's
+
+
+  [ronie]
+   * [estouchy] update
+
+  [ronie]
+   * [estuary] smartplaylist rules container did not work with a mouse
+
+  [Rainer Hochecker]
+   * Revert "X11, osx: yield to main loop after input action has been handled"
+
+  [Rainer Hochecker]
+   * VideoPlayer: do not wait for teletext msg queue to be empty, makes no sense
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix general synchronize after 48301edd6a88c044243e6468ceeb54ff65f35f26
+
+  [Rainer Hochecker]
+   * VideoPlayer: skip seeks if last seek is still in process
+
+  [Rainer Hochecker]
+   * VideoPlayer: do not signal started if pic was dropped
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix indentation in method HandleMessages
+
+  [Rainer Hochecker]
+   * VideoPlayer: cosmetics in section seek
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix general synchronize, often resulted in global timeout
+
+  [fritsch]
+   * AE: Explicitely check for DTS when making setting invisible
+
+  [wsnipex]
+   * fix encrypted DVD playback
+
+  [Markus Pfau]
+   * add aarch64 lock-obj patch to libgpg-error
+
+  [wsnipex]
+   * don't define INTTYPES_H in core
+
+  [wsnipex]
+   * [cmake] check for inttypes
+
+  [Markus Pfau]
+   * ADD: [droid] capture stderr/stdout to logcat / thanks to @koying
+
+  [wsnipex]
+   * [cmake] android: link wrap libs against libdummy
+
+  [Markus Pfau]
+   * FIX: [droid] don't try /proc/self/exe (selinux). credits to koying
+
+  [wsnipex]
+   * [cmake] set DT_SONAME in wrapped libs
+
+  [Markus Pfau]
+   * FIX: [aarch64] elf64 support. Credits to koying
+
+  [mapfau]
+   * pass CPU instead ARCH as xbmc.property
+
+  [mapfau]
+   * [android] splash fix for arm64
+
+  [Markus Pfau]
+   * packaging fix
+
+  [Markus Pfau]
+   * add aarch64 buildstep
+
+  [Markus Pfau]
+   * version bump / strip force
+
+  [wsnipex]
+   * [android] allow building with jdk 8
+
+  [wsnipex]
+   * [cmake] Macros: use ${CMAKE_COMMAND} instead of "cmake"
+
+  [Markus Pfau]
+   * [Android] Fix BundleFiles RegExp
+
+  [Markus Pfau]
+   * bump default sdk version to 21 / remove offs64 overrides in dvdnav/read
+
+  [wsnipex]
+   * [android] fix packaging for aarch64
+
+  [wsnipex]
+   * [depends] set CMAKE_STRIP in Toolchain.cmake
+
+  [wsnipex]
+   * [cmake] android: resolve symlinks when copying libs to install dir
+
+  [Chris Koying Browet]
+   * CHG: [NDK21] sambav3
+
+  [wsnipex]
+   * [android] add aarch64 support
+
+  [wsnipex]
+   * [cmake] ffmpeg: add android aarch64 support
+
+  [Markus Pfau]
+   * aarch64 compile stuff
+
+  [Markus Pfau]
+   * upgrade autotools for aarch64 depends build
+
+  [Rainer Hochecker]
+   * X11: yield to main loop after input action has been handled
+
+  [Rainer Hochecker]
+   * osx: yield to main loop after input action has been handled
+
+  [ronie]
+   * [doxygen] update python listitem documentation
+
+  [h.udo]
+   * [cmake] get_filename_component(... PATH) is deprecated. Use DIRECTORY instead
+
+  [Memphiz]
+   * [VTB/GLES] - release CVBuffer after it actually has been rendered
+
+  [Pär Björklund]
+   * Remove hardcoded bitness
+
+
+  [Martijn Kaijser]
+   * [docs] clarify checkbox uasge in PR template
+
+  [Martijn Kaijser]
+   * [android] AMC: align allowed ref with player
+
+  [Chris "Koying" Browet]
+   * FIX: [gles;oes] confusion between field and index
+
+  [Rainer Hochecker]
+   * VideoPlayer: drop some outdated pullup correction code that does more harm than any good now
+
+  [Christian Fetzer]
+   * [cmake/jenkins] Build with CMake
+
+  [Rechi]
+   * [webserver] CHTTPImageHandler: add GetMaximumAgeForCaching (one week)
+
+  [Rechi]
+   * [webserver] CHTTPImageHandler: add GetLastModifiedDate implementation
+
+  [Rechi]
+   * [webserver] add method CHTTPFileHandler::SetLastModifiedDate(const struct __stat64 *statBuffer)
+
+  [montellese]
+   * CUtil::MakeShortenPath() should return true if the given path is already short enough (fixes #16783)
+
+
+  [Martijn Kaijser]
+   * [doxygen] Add revision when Python API was changed, expanded or deprecated
+
+  [DaveTBlake]
+   * Fix remixers node to use string constant
+
+  [phil65]
+   * [estuary] another sync, misc fixes / additions
+
+  [BigNoid]
+   * [gui] field and operator buttons from label2 to label
+
+  [Balint Reczey]
+   * [utils] drop AsyncFileCopy from Makefile, too
+
+  [Pär Björklund]
+   * Fix tests on win32. CPUInfo is initialized before CCharsetConverter causing us to blow up.
+
+  [Rainer Hochecker]
+   * allow http header icy-metadata
+
+  [Rainer Hochecker]
+   * guilib: fix initial focus when opening GUiMediaWindow with plugin content after 5220b49d4159f5ee62fd34409f5b811a16185b80
+
+  [Christian Fetzer]
+   * [cmake] Improve documentation
+
+
+  [phil65]
+   * [gui] SmartPlaylistEditor: some refactoring and code improvements
+
+  [Anton Fedchin]
+   * [dxva] Added workaround for AMD/ATI cards to fix interlacing. (#10633)
+
+  [Kai Sommerfeld]
+   * [PVR] Fix: PVR windows never must list removable media.
+
+  [phil65]
+   * [gui] fix bug when opening playlists to smartplaylisteditor several times
+
+  [montellese]
+   * [jsonrpc] CAnnouncementManager: fix invalid type "movies" for video items without video info tag
+
+  [phil65]
+   * [gui] smartplaylisteditor: change operator button type to "button"
+
+  [phil65]
+   * [estuary] - adjust smartplaylisteditor layout
+
+  [phil65]
+   * [gui] smartplaylisteditor: change edit control to "button"
+
+  [phil65]
+   * [gui] change playlist limit selection to "button"
+
+  [phil65]
+   * [gui] change button type for playlist type selection to "button" + some refactoring
+
+  [phil65]
+   * [estuary] change button type for group-by to "button"
+
+  [phil65]
+   * [gui] change group-by selection from spinner to selectdialog
+
+  [phil65]
+   * [gui] change rule type selection from spinner to selectdialog
+
+  [phil65]
+   * [estuary] change smartplaylistrule button type to "button"
+
+  [phil65]
+   * [gui] Always show "Add rule" button in smartplaylisteditor rule list
+
+  [phil65]
+   * SmartPlaylistEditor.xml - add missing 'add rule' button (reverted from commit fc87499d3dfd95790be7e2df52b094d98b939d6b)
+
+  [phil65]
+   * [gui] smartplaylisteditor: change another two buttons to "regular" button controls
+
+  [phil65]
+   * [estuary] change button type for order-by to "button"
+
+  [phil65]
+   * [gui] change order-by selection from spinner to selectdialog
+
+  [Ryan Rector]
+   * Add TV show artwork to episodes/seasons with their own "fanart".
+
+
+  [ronie]
+   * use RGB color space
+
+  [Rechi]
+   * [cmake/osx] Fix detecting SSE4.2 and AVX2 hardware support
+
+  [Rainer Hochecker]
+   * paplayer: fix gapless playback
+
+  [Rainer Hochecker]
+   * VAAPI: restore accidentally lost call to sync of vaapi render picture
+
+  [Kai Sommerfeld]
+   * [eventlog] implement high resolution datetime sort method (CDateTime granularity of 1 sec is not sufficient).
+
+  [Kai Sommerfeld]
+   * [fileitem] add ctor with event log entry.
+
+  [Martijn Kaijser]
+   * bump to 17.0 beta 4
+
+  [phil65]
+   * [python-api] - deprecate listitem.getduration(), .getfilename(), .getdescription()
+
+
+  [Alwin Esch]
+   * [doxygen] add support to show function with version change text
+
+  [Rainer Hochecker]
+   * VTB: release CVBuffer after it actually has been rendered
+
+  [Emanuele Canessa]
+   * Create italian.xml (#10545)
+
+  [Rainer Hochecker]
+   * VideoPlayer: rename method NeedBufferForRef to NeedBuffer
+
+
+  [Christian Fetzer]
+   * [cmake] Fix always outdated targets (with autotools remnants)
+
+  [Christian Fetzer]
+   * [cmake] Fix always outdated wrap_libexif target
+
+  [Kai Sommerfeld]
+   * [PVR] Fix CPVRDirectory::GetDirectory not to return false in case PVR is not yet (compeletely started).
+
+  [fritsch]
+   * Resolution: Don't let code assumption from before 2k break behaviour
+
+  [fritsch]
+   * AESinkAUDIOTrack: Enable all features (clutter the sink)
+
+  [fritsch]
+   * AESinkAUDIOTrack: Keep EAC3 working when in non AML mode
+
+  [fritsch]
+   * AESinkAUDIOTrack: Allow backported v24 API to work
+
+  [fritsch]
+   * AML:Foobar - don't kill user's ears if AML runs public API
+
+  [fritsch]
+   * AMLUtils: Make aml_present and friends available on Android by default
+
+  [kszaq]
+   * DVDVideoCodecAmlogic: Do not H/W decode 10-bit HEVC if hardware doesn't support it
+
+  [kszaq]
+   * DVDVideoCodecAmlogic: Add more unsupported H264 formats to HW decoding blacklist
+
+
+  [phil65]
+   * [estuary] - misc fixes / additions
+
+  [Rainer Hochecker]
+   * drop cookies.dat, not required, not thread safe
+
+  [Kai Sommerfeld]
+   * [PVR] Fix CPVRTimers::GetTimerForEpgTag to aditionally check for equal channel uids if epg uids match.
+
+  [Kai Sommerfeld]
+   * [PVR] Addon API: Added comments clarifying that epg event ids are unique for a channel.
+
+  [Kai Sommerfeld]
+   * [PVR] Make CPVRTimers::GetTimerForEpgTag more readable; no functional changes.
+
+  [xbmc]
+   * VDPAU: fix draining mixer
+
+  [ronie]
+   * fix play button state in side menu
+
+  [Thomas Amland]
+   * refactor skin setting change ingore logic
+
+  [Thomas Amland]
+   * fix font setting reset on skin change
+
+  [unfledged]
+   * Remove home screen info mapping from remote.xml
+
+  [DaveTBlake]
+   * Adjust how compilation albums are determined - if all the songs are marked as being part of a compilation then the album is flagged as a compilation regardless of the album artist.
+
+  [ronie]
+   * remove duplicate button id
+
+  [ronie]
+   * prefer item fanart over container fanart
+
+
+  [Martijn Kaijser]
+   * [log] redact username/password when savings screenshots
+
+  [ronie]
+   * increase property and variable ranges for skins
+
+  [Martijn Kaijser]
+   * [mention-bot] set delayed to false as it doesn't seem to do anything at all
+
+  [Pär Björklund]
+   * Update this to use Visual Studio 14.
+
+  [Rainer Hochecker]
+   * VidoePlayer: fix passthrough audio backlog buffer handling
+
+  [Martijn Kaijser]
+   * [mention-bot] delay commenting on PRs in casethey get merged directly
+
+  [Martijn Kaijser]
+   * [android] pack xxxhdpi icon. credits to koying
+
+  [fritsch]
+   * Resolution: Choose most matching refreshrate
+
+  [Jonathan Lane]
+   * [osx] - Fix build on case-sensitive filesystems.
+
+  [Pär Björklund]
+   * Fix issue where yes/no dialog would show blank buttons
+
+  [DaveTBlake]
+   * Process Musicbrainz Release Type tag to populate the album.strType (note not the same as album.strRreleaseType that is used internally to flag the fake album entry used for singles)
+
+  [DaveTBlake]
+   * Process TPUB/LABEL tag to populate album record label field.
+
+
+  [h.udo]
+   * [cmake] Make sure we strip when CMAKE_BUILD_TYPE=Release
+
+  [dadosch]
+   * Update kodi.desktop fixed german writing (#10571)
+
+  [Rainer Hochecker]
+   * VideoPlayer: allow change of resolution before renderer has been configured
+
+  [ace20022]
+   * [videoplayer] Refactor CUtil::GetExternalStreamDetailsFromFilename. - return an ExternalStreamInfo object instead of passing it by ref. - rename params - add doxygen
+
+  [wsnipex]
+   * [cmake] fix unresolved symbols in libdvd
+
+  [wsnipex]
+   * [cmake] Macros: add new option to core_link_library that allows passing extra libs to link
+
+  [wsnipex]
+   * [cmake] don't rebuild libdvd if we already have it in depends
+
+  [fritsch]
+   * FFmpeg: Bump to 3.1.4-Krypton-Beta3
+
+  [DaveTBlake]
+   * Use album ID when setting the user rating for the album, not path as a folder can contain songs from more than one album
+
+  [ronie]
+   * require click action to activate slider controls
+
+  [ronie]
+   * fix warning on exit
+
+
+  [phil65]
+   * [gui] change fallback icon for "New playlist" entries
+
+  [ace20022]
+   * [videoplayer] Remove codec name extraction from the codec fourcc field. Instead, directly use the codec's name field.
+
+  [ace20022]
+   * [videoplayer][cosmetics] Untabify DVDDemuxFFmpeg.cpp.
+
+  [Ned Scott]
+   * minor keymap change
+
+  [Rainer Hochecker]
+   * VideoPlayer: notify gui when a change of playback speed occurs
+
+  [Rainer Hochecker]
+   * VideoPlayer: coding style fixes
+
+  [Rainer Hochecker]
+   * VideoPlayer: make omx alternative code path more obvious
+
+  [Rainer Hochecker]
+   * VideoPlayer: drop some outdated comments
+
+
+  [phil65]
+   * [gui] add some fallback icons for entries in Art selection dialog
+
+  [phil65]
+   * [gui] use correct fallback icon for "no art" entry in art selection
+
+  [phil65]
+   * [estuary] misc fixes
+
+  [BigNoid]
+   * [gui] fix header on sort dialog
+
+  [Kai Sommerfeld]
+   * [PVR] Fix: pvr client addons must be reloaded on profile switch to re-read addon config etc.
+
+  [Memphiz]
+   * [GUIWindowSystemInfo] - allow one more label/row to be displayed
+
+  [Thomas Amland]
+   * [splash] also hide text when splash image is turned off
+
+  [Thomas Amland]
+   * [splash] only show addon migration text when it takes place
+
+
+  [Memphiz]
+   * [Util/darwin] - fix GetHomePath again - when path was not found - try to find it by starting on the executable path instead of the bundle path (which has a ".." in it and we would falsely detect the source tree as valid homepath - instead of the kodi-build dir when building tests with cmake)
+
+  [DaveTBlake]
+   * Fix album rating to 0 to 10 range when loaded
+
+  [Martijn Kaijser]
+   * [depends] sqlite 3140200
+
+  [Memphiz]
+   * [depends/cmake-native] - bump native cmake to 3.6.2
+
+
+  [Rechi]
+   * [depends] Bump openssl to 1.0.2j
+
+  [phil65]
+   * [python] change signature for ListItem.setRating
+
+
+  [Dave Blake]
+   * Add "userrating" so Player.GetItem can return user rating value for currently playing song (#10561)
+
+  [Garrett Brown]
+   * CSaveFileStateJob: Change empty string comparison to std::string::empty()
+
+  [Garrett Brown]
+   * [advanced settings] Fix uninitialized DatabaseSettings::compression
+
+  [Garrett Brown]
+   * [database] Remove unused member function
+
+  [Garrett Brown]
+   * CAddonMgr: Use in-place erase to avoid extra copy
+
+  [Alwin Esch]
+   * [paplayer] fix codec deinit (was never called)
+
+  [Alwin Esch]
+   * [paplayer] remove no more needed virtual CAEChannelInfo GetChannelInfo()
+
+  [Lauri Myllari]
+   * settings: update cms descriptions
+
+  [ronie]
+   * [epg] fix mouse focus
+
+  [Garrett Brown]
+   * CGUIMediaWindow: improve readability of ".." logic
+
+  [Lauri Myllari]
+   * settings: provide descriptions for color management settings
+
+  [Simon Frei]
+   * Add possibility to get information from both .nfo and scraper
+
+
+  [Christian Fetzer]
+   * [appveyor] Use wget to download mingw depends
+
+  [Christian Fetzer]
+   * [appveyor] Show RDP connection information for debugging
+
+  [ronie]
+   * [estuary] check if fanart pack is selected
+
+  [Garrett Brown]
+   * Bump game.controller.default to v1.0.3
+
+  [xbmc]
+   * VideoPlayer: fix wav playback on win32
+
+  [Rainer Hochecker]
+   * Revert "Fix potential SQL constraint integrity violation in the PVR database"
+
+  [h.udo]
+   * [mention-bot] Correct typo
+
+  [Memphiz]
+   * Revert "[osx/readme] - remove KODI_HOME bits from readme (not needed anymore)" its still needed in the default xcode setup as it seems This reverts commit fbc59139074ac7ce1c2f6730f914b661138044c2.
+
+  [Rechi]
+   * Fix some format warnings
+
+  [fritsch]
+   * FFmpeg: Bump to version 3.1.3-Krypton-Beta3-2
+
+  [Martijn Kaijser]
+   * [droid] disable libcec, libusb
+
+  [Christian Fetzer]
+   * [BuildDependencies] Show wget output to see where it's downloading from
+
+  [Christian Fetzer]
+   * [appveyor] Run CMake through cmd
+
+  [Christian Fetzer]
+   * [cmake/win32] Bump minimum CMake version to 3.6
+
+
+  [Dave Blake]
+   * Fix GetRolesNav passing of all options through from base path (#10485)
+
+  [Martijn Kaijser]
+   * Mention-Bot: change kodi to Kodi
+
+  [Memphiz]
+   * [ios] - added latest ios devices for proper screen scale
+
+  [ronie]
+   * add timer icon
+
+  [Kai Sommerfeld]
+   * [Estuary][PVR] PVR Info dialog: Add 'Add timer' button.
+
+  [Memphiz]
+   * [xcode8] - adapted readme for osx with working xcode 8 constellations
+
+  [Memphiz]
+   * [depends/samba] - samba ignores the get_clocktime autoconf flag - force it to not use get_clocktime on osx
+
+  [Martijn Kaijser]
+   * [depends] openssl 1.0.2i
+
+  [popcornmix]
+   * OMXPlayer: Fix bug where audio timestamps fail to update
+
+  [Memphiz]
+   * [osx/readme] - remove KODI_HOME bits from readme (not needed anymore)
+
+  [Memphiz]
+   * [osx] - make GetHomePath more intelligent - it should finde the KODI_HOME dir now even when no env var is set via xcode
+
+  [Memphiz]
+   * [depends/gnutls] - gnutls ignores the getentropy autoconf flag - force it to not use getentropy aswell on osx
+
+  [Memphiz]
+   * [depends/config.site] - for osx force getentropy and get_clocktime to no (those are only available in 10.12 runtime but get falsly detected with 10.12 sdk)
+
+  [Memphiz]
+   * [depends] - allow osx sdk 10.12
+
+  [Christian Fetzer]
+   * [cmake] Fix LIRC_DEVICE option
+
+  [fritsch]
+   * Lang: Refine Allow passthrough vs. enable passthrough
+
+
+  [Bernd Kuhls]
+   * Fix autoconf-based build after #10491.
+
+  [Kai Sommerfeld]
+   * [macos][ios] fix xcode project after #10491.
+
+  [Thomas Amland]
+   * show text on splash screen during migration tasks
+
+  [Anton Fedchin]
+   * [VideoPlayer] RenderCaptureDX: fixed HRESULT handling, event improvements, speedup memcpy with aligned dst + cosmetics.
+
+  [Anton Fedchin]
+   * [VideoPlayer] RenderManager: fixed endless loop into CRenderManager::ManageCaptures
+
+  [Christian Fetzer]
+   * [cmake] Fix FindCCACHE module
+
+  [Kai Sommerfeld]
+   * [PVR] Fix epg data unload on application exit / log off.
+
+  [fritsch]
+   * TestStopWatch: Take care if we get scheduled v2: Check that the original value resetted
+
+  [Sam Stenvall]
+   * [pvr] fix potential SQL constraint integrity violation
+
+  [Memphiz]
+   * [settings] - increase possible skinzoom from +-20 to +-30 percent. This allows proper size alignment for 16:9 projector on 2.35:1 screen users
+
+  [Ned Scott]
+   * Miscellaneous keymap cleanup
+
+  [Sam Stenvall]
+   * remove unused USE_RELEASE_LIBS define
+
+  [Sam Stenvall]
+   * [pvr] remove some unused dependencies
+
+  [Sam Stenvall]
+   * [utils] drop AsyncFileCopy utility, it doesn't seem to be used
+
+  [Christian Fetzer]
+   * [cmake/win32] Remove BUILDING_WITH_CMAKE ifdeffery
+
+
+  [phil65]
+   * [Estuary] misc fixes and tweaks
+
+  [Dave Blake]
+   * Musicroles Menu Additional default nodes
+
+  [Garrett Brown]
+   * [pictures] Guard against source type not existing and cosmetics
+
+  [Garrett Brown]
+   * [pictures] cosmetic: improve readability of start folder check
+
+  [Garrett Brown]
+   * [pictures] cosmetic: improve readability of start folder check
+
+  [Pascal Patry]
+   * Ticket #16906 - Fix iEndOffset property when parsing cue files
+
+  [Anton Fedchin]
+   * [buildsteps] win32: ffmpeg: fixed possible build hang if ffmpeg build failed.
+
+  [Anton Fedchin]
+   * [mingw] dependencies: added liblzma to dependencies. allows build ffmpeg with lzma support.
+
+  [Anton Fedchin]
+   * [mingw] dependencies: bump gnutls version.
+
+  [Anton Fedchin]
+   * [buildsteps] win32: ffmpeg: disable unused dxva2 support (also fixes linking with msvc toolchain).
+
+  [Anton Fedchin]
+   * [buildsteps] win32: fix build ffmpeg with msvc toolchain.
+
+  [Anton Fedchin]
+   * [buildsteps] win32: use proper way to set VC env vars (depends on build arch).
+
+  [phil65]
+   * [estuary] - drop some PVR viewtypes
+
+  [wsnipex]
+   * [depends] fix binary-addon install when not cross-compiling
+
+  [Garrett Brown]
+   * [pictures] Remove unneeded out-of-bounds check
+
+  [Garrett Brown]
+   * [pictures] Remove early return
+
+
+  [Martijn Kaijser]
+   * [win32] fix appx manifest Visual C++ Redistributable for Visual Studio 2015 dependency
+
+  [ronie]
+   * [estouchy] exit button should execute the selected shutdown function
+
+  [Rainer Hochecker]
+   * kodi.guilib: fix version in generated addon.xml
+
+  [Rainer Hochecker]
+   * VideoPlayer: improve some logging
+
+  [Rainer Hochecker]
+   * VideoPlayer: handle exceptional case where distance between keyframes is greater than demux queue
+
+  [Rainer Hochecker]
+   * drop some unneeded ifdefs related to ffmpeg
+
+  [Anton Fedchin]
+   * [Codecs] DXVA: Changed deinterlacing method to DXVA instead of Auto. Auto confuses users.
+
+  [Anton Fedchin]
+   * [WinRenderer] Added DXVA deinterlacing for SW decoding and DXVA rendering.
+
+  [Anton Fedchin]
+   * [language] update dxva related strings.
+
+  [Rainer Hochecker]
+   * VideoPlayer: allow deinterlacing methods specific to renderer
+
+  [ronie]
+   * [python] fix dialog documentation
+
+  [Kai Sommerfeld]
+   * [PVR][guiinfo] Optimize implementation of System.HasPVRAddon. Also fixes possible deadlock on PVR startup.
+
+
+  [Martijn Kaijser]
+   * Mention-Bot: names are case sensitive
+
+  [Rainer Hochecker]
+   * vaapi: lock gfx context on pre-cleanup
+
+  [fritsch]
+   * Mention-Bot: Config File should be proper json
+
+  [Rainer Hochecker]
+   * VideoPlayer: make processInfo a smart pointer, fixes mem leak
+
+  [Rainer Hochecker]
+   * VideoPlayer: drop obsolete player method HasFrame, fix subs for bypass renderer
+
+  [popcornmix]
+   * ApplicationPlayer: Remove dead code
+
+  [fritsch]
+   * Mention-Bot: Let's use a more sensible default
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix list of supported pixel formats given to ffmpeg
+
+  [Christian Fetzer]
+   * [cmake/osx] Fix generating Xcode projects
+
+  [Maarten Bezemer]
+   * Check if core_pattern contains a pipe to a program
+
+  [DaveTBlake]
+   * Exclude singles from Recently Played Albums
+
+  [Mariusz Brzeski]
+   * Ticket#16638 - No proper handling of WM_DISPLAYCHANGE and related events
+
+  [Christian Fetzer]
+   * [cmake/win32] Fix coverity build
+
+
+  [jjd-uk]
+   * add where string is used (+1 squashed commits)
+
+  [Christian Fetzer]
+   * [cmake/addons] Fix packaging for android
+
+  [ronie]
+   * [estuary] avoid hyphens in front of temperatures
+
+  [Martijn Kaijser]
+   * [docs] add Pull request template
+
+  [Nick Little]
+   * Fix "Custom" view mode not showing in view mode list
+
+  [Kai Sommerfeld]
+   * [PVR] Decouple pvr manager progress dialog from pvr windows progress dialog. Solves race condition / dead lock on kodi satrtup.
+
+  [Kai Sommerfeld]
+   * [PVR] Fix pvr not working after using kodi login screen (trac 16813).
+
+  [Kai Sommerfeld]
+   * [PVR] Simplify and cleanup pvr window's oberserver register/unregister.
+
+  [Martijn Kaijser]
+   * add Pull request template
+
+
+  [fritsch]
+   * Viz: Fixate viz sample buffers to 44.1 khz - addons don't use their freedom
+
+  [fritsch]
+   * ActiveAEBuffer: Remove unused field
+
+  [Thomas Amland]
+   * fix CAddonSystemSettings settings map initialization
+
+  [Thomas Amland]
+   * [contextmenu] remove incorrect log message
+
+  [Martijn Kaijser]
+   * bump to 17.0 beta 3
+
+  [Martijn Kaijser]
+   * Revert "bump to 17.0 beta 3"
+
+  [Memphiz]
+   * [AEUtil] - include config.h to pick up the sse flags
+
+  [Memphiz]
+   * [configure] - define HAVE_SSE and HAVE_SSE2 on osx when compiler says so
+
+  [phil65]
+   * [estuary] some cleanup
+
+  [phil65]
+   * [estuary] add fallback labels to some viewtypes
+
+
+  [Kai Sommerfeld]
+   * [Estuary] Handle visibility of PVR home screen entries like the other home screen entries.
+
+  [Kai Sommerfeld]
+   * [guiinfo] Added new infobool 'System.HasPVRAddon'
+
+  [Rainer Hochecker]
+   * AE: fix mem leak in tempo filter
+
+  [Martijn Kaijser]
+   * [win32] Update appxmanifest and add banner.png
+
+  [Pär Björklund]
+   * Add app manifest to the build to mark us as dpi aware
+
+  [Martijn Kaijser]
+   * bump to 17.0 beta 3
+
+
+  [fritsch]
+   * AESinkWASAPI: Move deprecated layout before first 7.1 layout
+
+  [ace20022]
+   * [win32] Check validity before string conversion in GetHomePath.
+
+  [ace20022]
+   * [win32] Fix possible memory leak in GetHomePath.
+
+  [ace20022]
+   * [win32][Win32Directory] Fix cid 141206: Resource leak (leaked_handle).
+
+  [ace20022]
+   * [win32][Socket] Fix cid 138596: Resource leak (leaked_handle).
+
+  [ace20022]
+   * [win32][WinRenderer] Fix cid 138598: Negative array index read.
+
+  [ace20022]
+   * [WinRenderer] Remove nop.
+
+
+  [Martijn Kaijser]
+   * [language] fix empty string comment after ec5b24d9ecd6a99939a52b4e32e2ece712b04bab
+
+  [xhaggi]
+   * [pvr][epg] fix division by zero in CGUIEPGGridContainer::GetLabel
+
+  [Nick Little]
+   * Added 2 view modes with zoom that depends on AR
+
+  [xhaggi]
+   * [pvr] show notification if no pvr addon is enabled while entering a pvr window
+
+  [Thomas Amland]
+   * [addons] remove dependency checking from repository code
+
+  [Thomas Amland]
+   * [addons] add addon migration and compatibility checking
+
+  [Thomas Amland]
+   * [addons] make CAddonInstaller::InstallUpdates block until all queued installs have finished
+
+  [Thomas Amland]
+   * invert m_skinReverting bool so it can be used for other things
+
+  [Thomas Amland]
+   * [addons] fix skin pre/post install to handle install before application initialization
+
+  [Thomas Amland]
+   * prevent skin reloading before application is initialized
+
+  [Thomas Amland]
+   * fix crash when changing setting before skin is loaded
+
+  [Thomas Amland]
+   * remove duplicate CSkinInfo::Start call
+
+  [Thomas Amland]
+   * remove unused LoadSkin overload
+
+  [Thomas Amland]
+   * remove dead code. always overridden
+
+  [Thomas Amland]
+   * [addons] add IsActive/UnsetActive
+
+  [Thomas Amland]
+   * [addons] add missing implementations of Get/SetActive
+
+  [Thomas Amland]
+   * [addons] move settings Get/SetDefault to CAddonSystemSettings and rename to Active
+
+  [Thomas Amland]
+   * [addons] dont start/stop services on install before initialized
+
+
+  [ronie]
+   * [RDS] enable internal announcements by default
+
+  [Rainer Hochecker]
+   * AE: CActiveAEResampleFFMPEG check for resampling being active before calling swr_set_compensation
+
+  [Rainer Hochecker]
+   * VideoPlayer: preserve protocol options for http when testing for redirect
+
+  [Rainer Hochecker]
+   * VideoPlayer: DemuxFFmpeg, pass cookies in header to ffmpeg if provided by protocol options
+
+  [Memphiz]
+   * [AddonInstaller] - 1 year and 8 month after the last recursion fix from me - lets fix the recursion again
+
+  [mapfau]
+   * use std::uintptr_t instead unsigned int to get correct cast size on 64 bit platforms
+
+
+  [wsnipex]
+   * [cmake] linux: install missing peripheral and vfs addon headers
+
+  [Kai Sommerfeld]
+   * [PVR] Guide Window: Fix epg grid container crash on 'Go to end'.
+
+  [Kai Sommerfeld]
+   * [Estuary][PVR] Guide window: add vertical scrollbar to channel list.
+
+  [montellese]
+   * CGUIDialogContentSettings: fix crash when choosing a scraper and no scraper is set yet
+
+
+  [Christian Fetzer]
+   * Revert "[cmake] Don't install/mirror skins and audioencoder plugins twice"
+
+  [xbmc]
+   * win32: fix eac3 for wasapi, 2nd round
+
+  [Martijn Kaijser]
+   * [skin] Don't include the themes folder in final copy as it's packaged into a xbt file
+
+  [ronie]
+   * Keyboard - fix autocompletion popup
+
+  [ronie]
+   * Various windows - Fix non-scrolling plot
+
+  [ronie]
+   * Custom_1100_AddonLauncher.xml - Fix listing and accesing android apps
+
+  [ronie]
+   * DialogSlider.xml - Prevent label from being cut off
+
+  [ronie]
+   * MusicVisualisation.xml - Fix starrating (1-10)
+
+  [wsnipex]
+   * [cmake] linux: the kodi wrapper script is arch dependent
+
+  [ronie]
+   * MyPics.xml - Fix missing Options button in the BottomBar
+
+  [ronie]
+   * DialogAddonSettings.xml - Workaround for navigation issue
+
+  [ronie]
+   * MyPVRGuide.xml - Fix navigation issue
+
+  [ronie]
+   * MyVideoNav.xml - Hide 'Update Library' button in Addon section
+
+  [ronie]
+   * Home - add 'Stop Scanning' option to SubMenu
+
+  [ronie]
+   * SmartPlaylistEditor.xml - add missing 'add rule' button
+
+
+
+  [fritsch]
+   * AESinkAudioTrack: Track wraparound v2: Someone said it was resource hungry
+
+  [Stefan Saraev]
+   * [cmake] do not compile dacp if ENABLE_AIRTUNES=OFF
+
+  [Stefan Saraev]
+   * [cmake] do not compile cdrip if ENABLE_OPTICAL=OFF
+
+
+  [xbmc]
+   * win32: fix wasapi for eac3
+
+  [Rainer Hochecker]
+   * AE: fix eac3 parser, correct parsing of channels
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings home scren widget: Fix widget not updating when new recording appears / a recording gets deleted.
+
+  [phate89]
+   * Add a numeric field type that doesn't need casting
+
+  [h.udo]
+   * [cpack/deb] Force GIT_HASH update on DEB package generation
+
+  [Kai Sommerfeld]
+   * [Estuary][PVR] Home screen channel widget: Fix 'all channels' URLs. Must not contain localized string.
+
+  [Kai Sommerfeld]
+   * [Estuary][PVR] Fix home screen channel widget to display only channels that actually have been played before.
+
+  [Kai Sommerfeld]
+   * [Estuary][PVR] separate tv/radio widgets for current and next recording.
+
+  [Kai Sommerfeld]
+   * [GUIINFO][PVR] Add separate info labels and info bools for tv/radio timers/recordings
+
+  [Kai Sommerfeld]
+   * [PVR] Fix resume recording playback, did not work for example when triggered from home screen recording widget.
+
+  [Kai Sommerfeld]
+   * [Estuary][PVR] add recordings widget to home screen.
+
+  [Kai Sommerfeld]
+   * [PVR] CPVRRecordings::GetDirectory: add support for url param 'view'.
+
+  [Alwin Esch]
+   * [gui] use CVariant on SetVisualisation(...)
+
+  [Christian Fetzer]
+   * [cmake] Add uninstall target for linux
+
+  [Christian Fetzer]
+   * [cmake] Don't install/mirror skins and audioencoder plugins twice
+
+
+  [ronie]
+   * [Estuary] spaces to tabs
+
+  [ronie]
+   * remove window type, id and zorder defenitions
+
+  [Martijn Kaijser]
+   * [droid] fix builds with AML disabled
+
+  [Martijn Kaijser]
+   * [droid] We only support official Android API so RK specific can be removed
+
+  [Rainer Hochecker]
+   * Gl: drop finishPipeline
+
+  [Rainer Hochecker]
+   * Revert "AE: change usage of swr_set_compensation"
+
+  [Arne Morten Kvarving]
+   * fixed: remove accidentially added Makefile.in from header list
+
+  [h.udo]
+   * [autotools] Add missing APP_DATA_DIR in configure.ac
+
+  [Bas Rieter]
+   * Added: option to pass cookies to ffmpeg connection
+
+  [Rainer Hochecker]
+   * AE: make sure not to call av_buffersink_get_frame before data has been submitted to atempo filter
+
+  [Rainer Hochecker]
+   * AE: make sure not to feed data into tempfilter after it got drained
+
+  [Christian Fetzer]
+   * [cmake/android] Don't allow undefined symbols in shared libraries
+
+  [Chris Koying Browet]
+   * [NDK21] mysql
+
+  [ronie]
+   * avoid empty values in variables
+
+
+  [Christian Fetzer]
+   * [cmake] Cleanup in core_add_optional_subdirs_from_filelist
+
+  [Christian Fetzer]
+   * [cmake] Respect ENABLE_UPNP option
+
+  [Stefan Saraev]
+   * [cmake] xslt is optional
+
+
+
+
+  [wsnipex]
+   * fix dll loading if file path is correct from the beginning
+
+  [wsnipex]
+   * fix OSX after 2cb1ef0
+
+  [wsnipex]
+   * [cmake] linux: install cmake files in arch independent dir
+
+  [Christian Fetzer]
+   * [cmake] Fix globbing of single files on export
+
+  [ronie]
+   * [Estuary] add missing texture
+
+  [ronie]
+   * [Estuary] fix texture paths
+
+  [MilhouseVH]
+   * peripheral: Add backward compatability for older settings files
+
+
+  [Pär Björklund]
+   * Revert "[addons] move ./xbmc/addons/binary/interfaces one down and remove binary folder"
+
+  [Rainer Hochecker]
+   * VideoPlayer: avoid null render if renderer has no frame or is not configured
+
+  [Rainer Hochecker]
+   * VideoPlayer: move SetVideoDimensions to GetFormat, coded_width may not be set in Open
+
+  [Alwin Esch]
+   * [addons] move ./xbmc/addons/binary/interfaces one down and remove binary folder
+
+  [Christian Fetzer]
+   * [cmake/rbpi] Remove error when no toolchain file is set
+
+  [Christian Fetzer]
+   * [cmake] Add support for NEON optimization
+
+  [Christian Fetzer]
+   * [cmake/linux] Add ARCH for arm and arm64 (aarch64)
+
+  [Christian Fetzer]
+   * [cmake] Make AML an optional dependency on Linux
+
+  [Christian Fetzer]
+   * [cmake] EGL is no longer an optional dependency
+
+  [Christian Fetzer]
+   * [cmake] Fix X11 defaulting to AUTO instead ON on Linux and BSD
+
+  [Bas Rieter]
+   * Fixed: allow some basic HTTP headers to be passed on to ffmpeg
+
+  [Thomas Amland]
+   * fix skin variable parsing: dont skip if element text is empty
+
+  [Thomas Amland]
+   * disable plugin caching. non-functioning
+
+  [wsnipex]
+   * [cmake] linux: replace custom (sudo) install target, it's not allowed anymore in cmake 3
+
+  [Thomas Amland]
+   * add scan to library context menu
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix audio drop on edl skip
+
+  [wsnipex]
+   * [binary-addons] allow setting an alternative addon library base path
+
+  [wsnipex]
+   * [binary-addons] linux: use multi-arch install dirs
+
+  [wsnipex]
+   * [cmake] linux: use proper multi-arch install dirs
+
+  [wsnipex]
+   * [cmake] Samba is an optional dependency
+
+  [wsnipex]
+   * [cmake] don't use multi-arch for internal/wrapped libs
+
+  [Christian Fetzer]
+   * [cmake] Fix lib/lib64 paths by using GNUInstallDirs module
+
+
+
+
+
+
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix vaapi after 6cad53545815eb1cca65e9997a9382550d204ed7
+
+  [xbmc]
+   * win32: adapt to deinterlacing changes
+
+  [Rainer Hochecker]
+   * VideoPlayer: ffmpeg, ignore pics before first key frame
+
+  [Kai Sommerfeld]
+   * [Estuary][PVR] Timer rules window breadcrumb: show timer rule name. Recordings window breadcrumb: show recording folder.
+
+  [Thomas Amland]
+   * skin: remove all use of hyphen as none value
+
+  [Rainer Hochecker]
+   * VideoPlayer: catch silly CRedirectException, fixes crash
+
+  [xbmc]
+   * VideoPlayer: drop deint methods bob and weave inverted
+
+  [xbmc]
+   * VideoPlayer: add shader based deint methods for linux to ProcessInfo
+
+  [xbmc]
+   * VAAPI: update deint methods in ProcessInfo
+
+  [xbmc]
+   * VDPAU: cleanup deinterlacing after de30a261418be9f4e9b9231b653da7dc568d33bd
+
+  [fritsch]
+   * VDPAU: Update deinterlacing methods in ProcessInfo
+
+  [xbmc]
+   * VideoPlayer: add default deint method to processInfo
+
+  [popcornmix]
+   * RBP: Add Pi specific deinterlace support reporting
+
+  [Memphiz]
+   * [RendererVTBGLES] - removed deprecated method
+
+  [Memphiz]
+   * [xcode] - added new override classes for ProcessInfo to xcode project
+
+  [Memphiz]
+   * [VideoPlayer/ProcessInfo] - add override classes for osx and ios
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix and cleanup deinterlacing methods
+
+  [Kai Sommerfeld]
+   * [Estuary] TopBar: Fix / unify breadcrumbs for pvr windows.
+
+  [wsnipex]
+   * [configure] adjust to new SSE detection in cmake
+
+  [wsnipex]
+   * [audioengine] only use SSE if enabled
+
+  [wsnipex]
+   * [cmake] only build sse4 lib if we actually have sse4.1 support
+
+  [wsnipex]
+   * [cmake] modernize and fix SSE detection on non x86
+
+  [Kai Sommerfeld]
+   * [Estuary] TopBar: Fix onclick action for containers with non-empty folderpath.
+
+  [Christian Fetzer]
+   * [cmake/linux] Add target to execute tests with valgrind
+
+
+  [Kai Sommerfeld]
+   * [Estuary] Fix channel icons / thumbnails.
+
+  [Thomas Amland]
+   * log failed texture loading and add guards to prevent caching invalid paths
+
+  [phate89]
+   * Update uniqueids when we change imdbnumber via json
+
+  [Rainer Hochecker]
+   * VideoPlayer: fix passthrough audio after recent changes
+
+  [fritsch]
+   * FFmpeg: Bump to 3.1.3-Krypton-Beta3
+
+
+  [fritsch]
+   * AESinkAUDIOTrack: Don't check for version but use the queried values
+
+  [fritsch]
+   * AESinkAUDIOTRACK: Implement Android N API (enable dts, ac3, eac3)
+
+  [fritsch]
+   * AESinkAudioTrack: Support EAC3
+
+  [fritsch]
+   * AESinkAUDIOTrack: Support what Android officially supports
+
+  [Kai Sommerfeld]
+   * [VideoPlayer] Remove item type check from CDVDFileInfo::ExtractThumb, not needed any longer, as now done in CThumbExtractor::DoWork()
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings: Prevent thumbnail extraction (as it cannot work properly without major pvr addon api changes).
+
+  [Martijn Kaijser]
+   * [readme] fix codestyle link
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings window: fix/improve user experience in case of empty recordings list.
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings window: fix crash when selecting '..'
+
+  [Martijn Kaijser]
+   * [keyboard] add Silesian. thx to gkkulik
+
+
+  [ronie]
+   * [Estuary] missing icons and a few updated ones
+
+
+  [Garrett Brown]
+   * [peripherals] Reduce number of for loops in CPeripheralBusAddon::UpdateAddons()
+
+  [Garrett Brown]
+   * [peripherals] Remove controller parameter
+
+  [Garrett Brown]
+   * controllers: Remove unused "overlay" property
+
+  [Garrett Brown]
+   * Reset input receiver before destroying object
+
+  [Garrett Brown]
+   * [peripherals] Show add-on icon if peripheral is provided by add-on
+
+  [Garrett Brown]
+   * [peripheral API] v1.1.0 - Batch-save button maps after wizard ends
+
+  [Garrett Brown]
+   * [peripheral API] v1.0.24 - Store driver primitives as an array instead of a union
+
+  [Garrett Brown]
+   * [joysticks] Rename CARDINAL_DIRECTION to ANALOG_STICK_DIRECTION
+
+  [Garrett Brown]
+   * [peripheral API] v1.0.23 - Add IsValid() and SetInvalid() helpers
+
+  [Garrett Brown]
+   * Remove unused return value
+
+  [fritsch]
+   * DVDAudioCodecPassthrough: Fix memory leak after 14af37aac18b0f471694dac7c65a96d39afaf327
+
+
+  [mrdominuzq]
+   * [depends] gnutls 3.4.14 and nettle 3.2
+
+  [phate89]
+   * Fix query that was missing the actual join condition for unique_id
+
+  [Thomas Amland]
+   * [contextmenu] return by const ref
+
+  [Thomas Amland]
+   * [contextmenu] remove info manager dependency from addons
+
+  [Thomas Amland]
+   * [contextmenu] refactor manager initialization and addon loading
+
+
+  [phate89]
+   * Double the backslash in mysql in case we're in 'LIKE'
+
+  [ronie]
+   * [keymap] fix window names
+
+  [Kai Sommerfeld]
+   * [Estuary][PVR] Recordings Info dialog: Fix 'Play recording' button.
+
+  [Ned Scott]
+   * Make "Next" always visible in Estuary's OSD
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Fix deadlock (occured on quickly closing and reopening the guide window).
+
+  [Aleks Rozman]
+   * Show buffering progress
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings window: Fix recording groups not working (regression introduced by #10333)
+
+
+
+  [Ned Scott]
+   * Make "Next" always visible in Estuary's OSD
+
+  [Kai Sommerfeld]
+   * [PVR] Guide window: Fix deadlock (occured on quickly closing and reopening the guide window).
+
+  [wsnipex]
+   * [cmake] linux: explicitly enable sse on i386
+
+  [wsnipex]
+   * [cmake] allow overriding ffmpeg, libdvd, crossguid download URL with local tarball
+
+  [wsnipex]
+   * [cmake] use common download dir for tarballs
+
+  [Aleks Rozman]
+   * Show buffering progress
+
+  [Kai Sommerfeld]
+   * [PVR] Recordings window: Fix recording groups not working (regression introduced by #10333)
+
+
+
+  [wsnipex]
+   * [cmake] linux: explicitly enable sse on i386
+
+  [wsnipex]
+   * [cmake] allow overriding ffmpeg, libdvd, crossguid download URL with local tarball
+
+  [wsnipex]
+   * [cmake] use common download dir for tarballs
+
+
+
+
+ * dummy
+
+ -- wsnipex <wsnipex@a1.net>  Sun, 04 Nov 2012 09:41:54 +0100

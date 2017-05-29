@@ -47,14 +47,14 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/xbmc/xbmc"
-TARGET="17.1-Krypton"
+TARGET="17.3-Krypton"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"

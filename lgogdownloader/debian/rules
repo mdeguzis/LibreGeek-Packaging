@@ -3,3 +3,14 @@
 %:
 	dh $@
 
+override_dh_auto_configure:
+	rm -rf build && mkdir build
+	cd build && cmake \
+			-DCMAKE_INSTALL_PREFIX=/usr \
+			-DCMAKE_BUILD_TYPE=Release \
+			..
+
+override_dh_auto_build:
+	$(MAKE) -C build \
+		DESTDIR=$(CURDIR)/debian/lgogdownloader \
+		PREFIX=/usr install

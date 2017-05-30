@@ -49,8 +49,8 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/Sude-/lgogdownloader"
-#TARGET="v3.0"
-TARGET="master"
+TARGET="v3.2"
+#TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,8 +62,8 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="lgogdownloader"
-#PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGVER="3.1"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
+PKGSUFFIX="git+bsos"
 EPOCH="2"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
@@ -124,9 +124,8 @@ main()
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
 	# Get latest commit
-	cd "${SRC_DIR}"
-	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
+	#LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	#PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
 	# Build platform

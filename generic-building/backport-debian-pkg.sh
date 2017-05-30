@@ -50,8 +50,8 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="$PKGNAME"
 PKGREV="1"
 URGENCY="low"
-uploader="Michael DeGuzisd <mdeguzis@gmail.com>"
-maintainer="ProfessorKaos64"
+UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
+MAINTAINER="mdeguzis"
 
 # Initial vars for other objects
 EXTRA_OPTS=()
@@ -343,6 +343,10 @@ function_backport_config()
 		# we must be working only with a .xz archive, sans "orig" in filename
 		ORIG_TARBALL=$(find ${BUILD_TMP} -type f -name "*.xz")
 
+		echo -e "\nSettting ORIG_TARBALL to:\n"
+		echo "${ORIG_TARBALL}"
+		sleep 2s
+
 	fi
 
 	# Declare rest of original source
@@ -380,14 +384,17 @@ function_backport_config()
 	SRC_DIR=$(find ${BUILD_TMP} -maxdepth 1 -name "${PKGNAME}*" -type d)
 
 	# Fail out if SRC_DIR is not found
-	if [[ "${SRC_DIR}" == "" ]]; then
+	if [[ "${SRC_DIR}" == "" || `echo "${SRC_DIR}" | wc -w` -gt 1 ]]; then
 
-		echo -e "\nERROR: cannot find the source dir! Contents of ${BUILD_TMP}: "
-		sleep 5s
+		echo -e "\nERROR: cannot find the source dir! SRC_DIR was set to: \n"
+		echo "${SRC_DIR}"
+		
+		echo -e "\nShowing ontents of ${BUILD_TMP}: \n"
 		ls "${BUILD_TMP}"
+		echo -e "\nPlease manually enter the absolute path to the SRC_DIR: \n"
+		read -erp "Directory: " SRC_DIR
 
 	fi
-
 
 	# Unpack all extra tarballs?
 	# example: docker.io (https://packages.debian.org/jessie-backports/docker.io)
@@ -862,7 +869,7 @@ while :; do
 					steamos-tools		SteamOS-Tools beta repo
 
 			EOF
-			break
+			exit
 			;;
 
 		--)

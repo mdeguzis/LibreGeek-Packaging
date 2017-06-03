@@ -1,1 +1,2 @@
-enable-extra-plugins.patch
+#enable-extra-plugins.patch
+build-ext-plugins.patch

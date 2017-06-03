@@ -1,3 +1,4 @@
+# This patch builds the plugins into the binary
 --- a/Makefile
 +++ b/Makefile
 @@ -1,8 +1,8 @@

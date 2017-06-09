@@ -1,9 +1,10 @@
 #!/usr/bin/make -f
 # See: ./linuxBuild.sh
 
-export CC="/usr/bin/clang-3.8"
-export CXX="/usr/bin/clang++-3.8"
-export CLANG_FORMAT="clang-format-3.8"
+CLANGVER ?= 5.0
+export CC="/usr/bin/clang-$(CLANGVER)"
+export CXX="/usr/bin/clang++-$(CLANGVER)"
+export CLANG_FORMAT="clang-format-$(CLANGVER)"
 
 %:
 	dh $@
@@ -12,8 +13,8 @@ override_dh_auto_configure:
 	rm -rf build && mkdir build
 	cd build && cmake \
 			-DCMAKE_INSTALL_PREFIX=/usr \
-			-DCMAKE_CXX_COMPILER=clang++-3.8 \
-			-DCMAKE_C_COMPILER=clang-3.8 \
+			-DCMAKE_CXX_COMPILER=clang++-$(CLANGVER) \
+			-DCMAKE_C_COMPILER=clang-$(CLANGVER) \
 			-DCMAKE_CXX_FLAGS="-O2 -g -stdlib=libc++" \
 			..
 	make -C build -j4

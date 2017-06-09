@@ -48,7 +48,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/libretro/RetroArch"
-TARGET="v1.5.0"
+TARGET="v1.6.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,7 +61,7 @@ export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
 PKGNAME="retroarch"
 PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGREV="2"
+PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -132,6 +132,11 @@ main()
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~${PKGREV}"
+
+	# TEMP ONLY
+	# Patch sdl controller file
+	echo -e "\nPatching sdl device config\n"
+	patch -p1 < ${SCRIPTDIR}/debian/patches/sdl_gamecontroller-devices.patch
 
 	###############################################################
 	# correct any files needed here that you can ahead of time

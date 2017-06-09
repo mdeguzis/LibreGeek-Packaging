@@ -1,8 +1,8 @@
 --- a/engine/Makefile
 +++ b/engine/Makefile
-@@ -1954,15 +1954,16 @@
- endif
+@@ -2077,15 +2077,16 @@
  
+ utils: httpserver iqm
  
 -prefix ?= /usr/local
 +prefix ?= /usr
@@ -15,8 +15,8 @@
  INSTALL_DATA ?= ${INSTALL} -m 644
 -install: sv-rel gl-rel mingl-rel qcc-rel
 +install: sv-rel gl-rel mingl-rel qcc-rel vk-rel
- 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-gl $(DESTDIR)$(bindir)/fteqw-gl
- 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-mingl $(DESTDIR)$(bindir)/fteqw-mingl
- 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-sv $(DESTDIR)$(bindir)/fteqw-sv
+ 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/$(EXE_NAME)-gl $(DESTDIR)$(bindir)/$(EXE_NAME)-gl
+ 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/$(EXE_NAME)-mingl $(DESTDIR)$(bindir)/$(EXE_NAME)-mingl
+ 	$(INSTALL_PROGRAM) $(RELEASE_DIR)/$(EXE_NAME)-sv $(DESTDIR)$(bindir)/$(EXE_NAME)-sv
++	$(INSTALL_PROGRAM) $(RELEASE_DIR)/$(EXE_NAME)-vk $(DESTDIR)$(bindir)/$(EXE_NAME)-vk
  	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqcc $(DESTDIR)$(bindir)/fteqcc
-+	$(INSTALL_PROGRAM) $(RELEASE_DIR)/fteqw-vk $(DESTDIR)$(bindir)/fteqw-vk

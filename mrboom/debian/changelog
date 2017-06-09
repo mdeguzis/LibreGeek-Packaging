@@ -1,3 +1,9 @@
+mrboom (1:3.2+git20170608.04a5153-1) brewmaster; urgency=low
+
+  * Update to release 3.2, Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 08 Jun 2017 21:53:32 -0400
+
 mrboom (1:3.1.20170501+git+bsos-1) brewmaster; urgency=low
 
   * Update to release 3.1.20170501, Update snapshot

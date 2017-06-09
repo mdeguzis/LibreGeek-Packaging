@@ -1,3 +1,9 @@
+moltengamepad (1.1.0+git+bsos-2) brewmaster; urgency=low
+
+  * Move plugins out of binary and into /usr/lib/moltengamepad to use at run-time
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 02 Jun 2017 21:50:17 -0400
+
 moltengamepad (1.1.0+git+bsos-1) brewmaster; urgency=low
 
   * Move plugins out of binary and into /usr/lib/moltengamepad to use at run-time

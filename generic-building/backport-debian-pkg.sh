@@ -1,4 +1,4 @@
-#!/bin/bash
+#!bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools
@@ -869,7 +869,7 @@ while :; do
 					steamos-tools		SteamOS-Tools beta repo
 
 			EOF
-			exit
+			return 1
 			;;
 
 		--)

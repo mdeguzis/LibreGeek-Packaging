@@ -6,6 +6,8 @@
 BUILDDIR="${BUILDDIR:-/tmp/buildd}"
 # Reduce package install output here, annoying when there is an error above it.
 echo -e "I: NOTICE: Installing helper packages, please wait."
-apt-get install -y "${APTGETOPT[@]}" vim less devscripts nano &> /dev/null
+apt-get install -y "${APTGETOPT[@]}" vim less devscripts nano apt-file &> /dev/null
+echo -e "I: NOTICE: Updating apt-file cache, please wait."
+apt-file update
 cd "$BUILDDIR"/*/debian/..
 /bin/bash < /dev/tty > /dev/tty 2> /dev/tty

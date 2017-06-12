@@ -54,7 +54,7 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
@@ -93,7 +93,6 @@ main()
 		install_prereqs
 
 	fi
-
 
 	# Clone upstream source code and TARGET
 
@@ -189,7 +188,8 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Built against latest commit: [${latest_commit}]"
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
+		"Built against latest commit: [${LATEST_COMMIT}]" 
 		vim "debian/changelog"
 
 	else

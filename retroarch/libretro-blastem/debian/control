@@ -1,0 +1,20 @@
+Source: libretro-blastem
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ libcdk5-dev,
+ libglew-dev,
+ libsdl2-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/blastem-libretro
+
+Package: libretro-blastem
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the libretro blastem core
+ This wrapper makes Blastem core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ BlastEm - The fast and accurate Genesis emulator

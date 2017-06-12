@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+# See: ./linuxBuild.sh
+
+CLANGVER ?= 5.0
+export CC="/usr/bin/clang-$(CLANGVER)"
+export CXX="/usr/bin/clang++-$(CLANGVER)"
+export CLANG_FORMAT="clang-format-$(CLANGVER)"
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -rf build && mkdir build
+	cd build && cmake \
+			-DENABLE_LIBRETRO=ON \
+			-DCMAKE_INSTALL_PREFIX=/usr \
+			-DCMAKE_CXX_COMPILER=clang++-$(CLANGVER) \
+			-DCMAKE_C_COMPILER=clang-$(CLANGVER) \
+			-DCMAKE_CXX_FLAGS="-O2 -g -stdlib=libc++" \
+			..
+	make -C build -j4
+

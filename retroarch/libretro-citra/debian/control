@@ -1,0 +1,26 @@
+Source: libretro-citra
+Section: games
+Priority: optional
+Build-Depends: cmake (>= 3.1),
+ debhelper,
+ clang-5.0,
+ clang-format-5.0,
+ libsdl2-dev,
+ libqt5opengl5-dev,
+ libc++-dev,
+ lib32stdc++6,
+ llvm-5.0-dev,
+ python-pkgconfig,
+ qtbase5-dev,
+ xorg-dev
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Standards-Version: 3.9.5
+Homepage: https://github.com/libretro/citra
+
+Package: libretro-citra
+Architecture: all
+Depends: ${misc:Depends},
+ ${shlibs:Depends},
+ libqt5opengl5,
+ libqt5widgets5
+Description: Citra is an emulator for 3DS games (libretro core).

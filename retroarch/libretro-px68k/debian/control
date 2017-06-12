@@ -1,0 +1,13 @@
+Source: libretro-px68k
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/px68k-libretro
+
+Package: libretro-px68k
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Portable SHARP X68000 Emulator

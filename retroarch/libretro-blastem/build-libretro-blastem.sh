@@ -2,14 +2,14 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt Name:	build-snis.sh
+# Scipt Name:	build-libretro-blastem.sh
 # Script Ver:	1.0.0
-# Description:	Attmpts to build a deb package from latest snis
+# Description:	Attmpts to builad a deb package from latest libretro blastem
 #		github release
 #
-# See:		https://github.com/smcameron/space-nerds-in-space
+# See:		https://github.com/libretro/blastem-libretro
 #
-# Usage:	build-snis.sh
+# Usage:	build-libretro-blastem.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -36,36 +36,36 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
+
+
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
-
+	
 else
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
-
+	
 fi
 
 # upstream vars
-#SRC_URL="https://github.com/smcameron/space-nerds-in-space"
-SRC_URL="https://github.com/mdeguzis/space-nerds-in-space"
-TARGET="v20170609"
-#TARGET="master"
+SRC_URL="https://github.com/libretro/blastem-libretro"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="amd64"
+TARGET_ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+# Workaround due to Makefile using ARCH
+BUILDOPTS="--architecture ${TARGET_ARCH} --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="snis"
+PKGNAME="libretro-blastem"
+epoch="1"
+PKGVER="0.3.1"
 PKGREV="1"
-PKGVER="$(echo ${TARGET} | sed 's/v//')"
-PKGSUFFIX="git+bsos"
-BUILDER="pdebuild"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -82,9 +82,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
-	debhelper build-essential portaudio19-dev libvorbis-dev libgtk2.0-dev openscad  libgtkglext1-dev \
-	liblua5.2-dev libglew-dev libsdl1.2-dev
+	sudo apt-get -y --force-yes install build-essential pkg-config bc
 
 }
 
@@ -107,7 +105,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-
+	
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -116,13 +114,19 @@ main()
 	fi
 
 	# Clone upstream source code and TARGET
+
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
+
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -133,7 +137,10 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
+
+	# copy in debian folder
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -141,17 +148,18 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "update release to ${PKGVER}"
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Initial upload"
+		vim "debian/changelog"
 
 	fi
 
@@ -162,30 +170,35 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
+	# build
+	# Don't set ARCH due to Makefile using ARCH
+	DIST=$DIST ${BUILDER} ${BUILDOPTS}
+	
 	#################################################
 	# Cleanup
 	#################################################
-
+	
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
+	
+	# assign value to build folder for exit warning below
+	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
+	
 	# back out of build tmp to script dir if called from git clone
 	if [[ "${SCRIPTDIR}" != "" ]]; then
 		cd "${SCRIPTDIR}" || exit
 	else
 		cd "${HOME}" || exit
 	fi
-
+	
 	# inform user of packages
 	cat<<- EOF
 	#################################################################
@@ -216,8 +229,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cd "${SRC_DIR}" && git add debian/changelog && git commit -m "update changelog"
-			git push origin master && cd ${SCRIPTDIR}
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

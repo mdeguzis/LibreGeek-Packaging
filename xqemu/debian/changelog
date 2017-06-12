@@ -1,3 +1,9 @@
+xqemu (0.0.0+git20170611.1d968aa47-1) brewmaster; urgency=low
+
+  * Built against latest commit: [1d968aa47]
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 11 Jun 2017 09:52:29 -0400
+
 xqemu (0.0.0+git20170521.5cf813119-1) brewmaster; urgency=low
 
   * Initial upload

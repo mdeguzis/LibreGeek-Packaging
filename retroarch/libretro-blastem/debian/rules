@@ -1,0 +1,14 @@
+#!/usr/bin/make -f
+
+# for some reason, not with debuild -b, we need
+# to assign WITH_DYNAREC 
+export WITH_DYNAREC = no
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	make -C libretro
+	cp libretro/*.so $(CURDIR)
+
+override_dh_auto_test:

@@ -1,0 +1,13 @@
+Source: libretro-pocketcdg
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/libretro-pocketcdg
+
+Package: libretro-pocketcdg
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: MP3 karaoke music player

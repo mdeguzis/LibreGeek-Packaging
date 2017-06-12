@@ -2,14 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt Name:	build-snis.sh
-# Script Ver:	1.0.0
-# Description:	Attmpts to build a deb package from latest snis
-#		github release
+# Scipt name:	build-libretro-citra.sh
+# Script Ver:	0.1.1
+# Description:	Attmpts to build a deb package from the latest libretro-citra source
+#		code.
 #
-# See:		https://github.com/smcameron/space-nerds-in-space
-#
-# Usage:	build-snis.sh
+# Usage:	./build-libretro-citra.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -45,34 +43,31 @@ else
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 
 fi
-
 # upstream vars
-#SRC_URL="https://github.com/smcameron/space-nerds-in-space"
-SRC_URL="https://github.com/mdeguzis/space-nerds-in-space"
-TARGET="v20170609"
-#TARGET="master"
+SRC_URL="https://github.com/libretro/citra"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
-export NO_LINTIAN="false"
-export NO_PKG_TEST="false"
-PKGNAME="snis"
+export NO_APT_PREFS="true"
+PKGNAME="libretro-citra"
+PKGVER="0.0.0"
 PKGREV="1"
-PKGVER="$(echo ${TARGET} | sed 's/v//')"
-PKGSUFFIX="git+bsos"
-BUILDER="pdebuild"
+EPOCH="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
+# Need network for pbuilder to pull down ut4 zip
+export NETWORK="yes"
+
 # set build directories
-unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
@@ -82,9 +77,8 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get -y --force-yes install autoconf automake build-essential pkg-config bc checkinstall \
-	debhelper build-essential portaudio19-dev libvorbis-dev libgtk2.0-dev openscad  libgtkglext1-dev \
-	liblua5.2-dev libglew-dev libsdl1.2-dev
+	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch \
+	qtbase5-dev libqt5opengl5-dev build-essential cmake
 
 }
 
@@ -107,7 +101,6 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
-
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -115,14 +108,18 @@ main()
 
 	fi
 
-	# Clone upstream source code and TARGET
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone
-	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	# clone and get latest commit tag
+	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	# Set suffix based on revisions
+	cd "${SRC_DIR}"
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -132,8 +129,12 @@ main()
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	cd "${BUILD_TMP}"
+	cd "${BUILD_TMP}" || exit
 	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+
+	# Add required files
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	cp "${SRC_DIR}/license.txt" "${SRC_DIR}/debian/LICENSE"
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -141,17 +142,18 @@ main()
 	echo -e "\n==> Updating changelog"
 	sleep 2s
 
- 	# update changelog with dch
+	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "update release to ${PKGVER}"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		vim "debian/changelog"
-
+	
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
+		vim "debian/changelog"
 
 	fi
 
@@ -162,12 +164,13 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	#  build
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup
 	#################################################
+
+	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)
@@ -179,12 +182,9 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	# back out of build tmp to script dir if called from git clone
-	if [[ "${SCRIPTDIR}" != "" ]]; then
-		cd "${SCRIPTDIR}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
+
+	# assign value to build folder for exit warning below
+	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# inform user of packages
 	cat<<- EOF
@@ -216,8 +216,7 @@ main()
 			${BUILD_TMP}/ ${REMOTE_USER}@${REMOTE_HOST}:${REPO_FOLDER}
 
 			# uplaod local repo changelog
-			cd "${SRC_DIR}" && git add debian/changelog && git commit -m "update changelog"
-			git push origin master && cd ${SCRIPTDIR}
+			cp "${SRC_DIR}/debian/changelog" "${SCRIPTDIR}/debian"
 
 		elif [[ "$transfer_choice" == "n" ]]; then
 			echo -e "Upload not requested\n"

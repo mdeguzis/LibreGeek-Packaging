@@ -1,5 +1,19 @@
 #!/usr/bin/make -f
-# -*- makefile -*-
 
-include /usr/share/cdbs/1/rules/debhelper.mk
-include /usr/share/cdbs/1/class/cmake.mk
+%:
+	dh $@
+
+PWD = $(CURDIR)
+
+override_dh_auto_configure:
+	rm -rf build && mkdir build
+	cd build && cmake \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DUNIX_STRUCTURE=1 \
+		..
+
+override_dh_auto_build:
+	make DESTDIR=$(PWD)/debian/obs-studio -C build
+
+override_dh_auto_install:
+	make DESTDIR=$(PWD)/debian/obs-studio -C build install

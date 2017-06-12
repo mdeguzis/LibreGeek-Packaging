@@ -1,3 +1,4 @@
+Data/51-usb-device.rules /lib/udev/rules.d
 usr/games/dolphin-emu
 usr/games/dolphin-emu-nogui
 usr/share/applications/dolphin-emu.desktop

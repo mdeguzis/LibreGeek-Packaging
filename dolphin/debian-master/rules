@@ -20,6 +20,13 @@
 # On Debian systems, the complete text of the GNU General Public License
 # version 2 can be found in `/usr/share/common-licenses/GPL-2'
 
+# Try fix 16.10 issue, Wx libs probably built with lower GCC version there
+export DEB_BUILD_MAINT_OPTIONS = hardening=-pie
+# Warning: Mismatch between the program and library build versions detected.
+# The library used 3.0 (wchar_t,compiler with C++ ABI 1009,wx containers,compatible with 2.8),
+# and your program used 3.0 (wchar_t,compiler with C++ ABI 1010,wx containers,compatible with 2.8).
+# Abandon (core dumped)
+
 export DEB_LDFLAGS_MAINT_APPEND=-Wl,--as-needed
 
 export DEB_CXXFLAGS_MAINT_STRIP=-O2
@@ -30,9 +37,14 @@ export DEB_CFLAGS_MAINT_PREPEND=-O3
 %:
 	dh $@ --buildsystem=cmake --parallel
 
-CMAKE_OPTIONS =					\
-	-Dbindir=/usr/games			\
-	-Ddatadir=/usr/share/games/dolphin-emu	\
+# Unused CMAKE_OPTIONS:
+#-DDOLPHIN_WC_REVISION="ac267a29405ae768037a8774b84b805a4180d1af"	\
+#-DDOLPHIN_WC_DESCRIBE="5.0"											\
+
+CMAKE_OPTIONS =															\
+	-DDOLPHIN_WC_BRANCH="master"										\
+	-Dbindir=/usr/games													\
+	-Ddatadir=/usr/share/games/dolphin-emu \
 	-DUSE_SHARED_ENET=ON
 
 ARCH=$(shell dpkg-architecture -qDEB_HOST_ARCH)
@@ -51,4 +63,4 @@ override_dh_auto_build:
 	(cd obj-$(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE) && make unittests)
 
 override_dh_strip:
-	dh_strip -pdolphin-emu-master --dbg-package=dolphin-emu-master-dbg
+	dh_strip -pdolphin-emu --dbg-package=dolphin-emu-master-dbg

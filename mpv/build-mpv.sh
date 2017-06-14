@@ -46,7 +46,9 @@ fi
 
 # upstream URL
 SRC_URL="https://github.com/mpv-player/mpv"
-TARGET="v0.25.0"
+# Need to use v0.22.0 or less due v0.22.0+ requirein ffmpeg 3.2.2
+# ffmpeg 3.2.2x requires 
+TARGET="v0.20.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

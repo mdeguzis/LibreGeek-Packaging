@@ -2,15 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt name:	build-citra.sh
-# Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the latest Citra source
-#		code.
+# Scipt Name:	build-libretro-melonds.sh
+# Script Ver:	1.0.0
+# Description:	Attmpts to builad a deb package from latest libretro melonds
+#		github release
 #
-# See:		https://github.com/citra-emu/
-#		https://github.com/citra-emu/citra/wiki/Linux-Build
-#
-# Usage:	./build-citra.sh
+# Usage:	build-libretro-melonds.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -37,18 +34,20 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
+
+
 if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
-
+	
 else
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
-
+	
 fi
+
 # upstream vars
-SRC_URL="https://github.com/citra-emu/citra"
-#SRC_URL="https://github.com/mdeguzis/citra"
+SRC_URL="https://github.com/libretro/melonDS"
 TARGET="master"
 
 # package vars
@@ -56,22 +55,22 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS=""
+# Workaround due to Makefile using ARCH
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
-export NO_APT_PREFS="true"
-PKGNAME="citra"
+export NO_LINTIAN="false"
+export NO_PKG_TEST="false"
+PKGNAME="libretro-melonds"
+epoch="1"
 PKGVER="0.0.0"
 PKGREV="1"
-EPOCH="2"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
-# Need network for pbuilder to pull down ut4 zip
-export NETWORK="yes"
-
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
@@ -81,8 +80,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config bc debhelper git-dch \
-	qtbase5-dev libqt5opengl5-dev build-essential cmake
+	sudo apt-get -y --force-yes install build-essential pkg-config bc
 
 }
 
@@ -105,6 +103,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
+	
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -112,26 +111,17 @@ main()
 
 	fi
 
+	# Clone upstream source code and TARGET
+
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	# clone and get latest commit tag
-	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	# clone
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
 
 	# Set suffix based on revisions
-	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
-
-	# Add image to git dir
-	cp -r "${SCRIPTDIR}/Citra.png" "${SRC_DIR}"
-
-	# Patched file (TEMPORARY)
-	echo -e "\nPatching src/core/telemetry_session.cpp\n"
-	cp -rv "${SCRIPTDIR}/telemetry_session.cpp" "${SRC_DIR}/src/core/telemetry_session.cpp"
-	sleep 3s
-
-	# Swap version text, since the project assumes citra is being ran in the git dir
-	sed -i "s|GIT-NOTFOUND|${PKGVER}git|g" "${SRC_DIR}/externals/cmake-modules/GetGitRevisionDescription.cmake"
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	#################################################
 	# Build package
@@ -144,12 +134,11 @@ main()
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
-	cd "${BUILD_TMP}" || exit
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	cd "${BUILD_TMP}"
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
-	# Add required files
+	# copy in debian folder
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
-	cp "${SRC_DIR}/license.txt" "${SRC_DIR}/debian/LICENSE"
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -160,14 +149,14 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update snapshot"
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		vim "debian/changelog"
-	
+
 	else
 
-		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Initial upload"
 		vim "debian/changelog"
 
 	fi
@@ -179,28 +168,35 @@ main()
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	USENETWORK=$NETWORK DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
+	# build
+	# Don't set ARCH due to Makefile using ARCH
+	DIST=$DIST ARCH=$ARCH  ${BUILDER} ${BUILDOPTS}
+	
 	#################################################
 	# Cleanup
 	#################################################
-
-	# clean up dirs
-
+	
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-
+	
 	# assign value to build folder for exit warning below
 	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-
+	
+	# back out of build tmp to script dir if called from git clone
+	if [[ "${SCRIPTDIR}" != "" ]]; then
+		cd "${SCRIPTDIR}" || exit
+	else
+		cd "${HOME}" || exit
+	fi
+	
 	# inform user of packages
 	cat<<- EOF
 	#################################################################

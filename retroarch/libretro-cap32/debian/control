@@ -1,0 +1,16 @@
+Source: libretro-cap32
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/libretro-cap32
+
+Package: libretro-cap32
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the libretro cap32 core
+ This wrapper makes cap32 core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.

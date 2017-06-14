@@ -63,14 +63,14 @@ if [[ "$arg1" == "--testing" ]]; then
 
         REPO_FOLDER="/mnt/server_media_y/packaging/linux-binaries/testing"
         TARGET="master"
-	PKGVER="${DATE_SHORT}git"
+		PKGVER="${DATE_SHORT}git"
 
 else
 
-        TARGET="0.95"
+        TARGET="0.96"
         REPO_FOLDER="/mnt/server_media_y/packaging/linux-binaries/stable"
-	# Source version from vkQuake/Quake/quakedef.h
-	PKGVER="${TARGET}.0"
+		# Source version from vkQuake/Quake/quakedef.h
+		PKGVER="${TARGET}.0"
 
 fi
 

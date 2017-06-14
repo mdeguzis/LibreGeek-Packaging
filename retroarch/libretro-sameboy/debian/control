@@ -1,0 +1,21 @@
+Source: libretro-sameboy
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ clang,
+ libsdl2-dev,
+ rgbds
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/sameboy-libretro
+
+Package: libretro-sameboy
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the libretro sameboy core
+ This wrapper makes SameBoy core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.
+ .
+ SameBoy is an open source Gameboy (DMG) and Gameboy Color
+ (CGB) emulator, written in portable C

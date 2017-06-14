@@ -1,3 +1,10 @@
+citra (2:0.0.0+git20170613.ac168eeb-1) brewmaster; urgency=low
+
+  * Update snapshot
+  * Patch src/core/telemetry_session.cpp until fixed upstream
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 13 Jun 2017 21:19:29 -0400
+
 citra (2:0.0.0+git20170102.0b897c45-1) brewmaster; urgency=low
 
   * Update snapshot

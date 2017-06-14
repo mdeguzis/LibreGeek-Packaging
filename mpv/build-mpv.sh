@@ -46,7 +46,7 @@ fi
 
 # upstream URL
 SRC_URL="https://github.com/mpv-player/mpv"
-TARGET="v0.18.1"
+TARGET="v0.25.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,10 +57,12 @@ BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Needed to allow installation of our version of ffmpeg dev packages
 export NO_APT_PREFS="true"
+# Need network to fetch waf
+export USE_NETWORK="yes"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 PKGNAME="mpv"
 BUILDER="pdebuild"
-PKGVER="0.18.1"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
@@ -198,7 +200,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Rebuild for newer FFMPEG in repository"
+		-D "${DIST}" -u "${URGENCY}" "Update release"
 		vim "debian/changelog"
 
 	else

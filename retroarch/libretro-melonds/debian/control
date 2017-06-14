@@ -1,0 +1,19 @@
+Source: libretro-melonds
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ cmake,
+ libgtk2.0-dev,
+ libsdl2-dev,
+ libwxgtk3.0-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/melonds-libretro
+
+Package: libretro-melonds
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the libretro melonds core
+ This wrapper makes MelonDS core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.

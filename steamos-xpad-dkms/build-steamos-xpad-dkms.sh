@@ -59,6 +59,7 @@ PKGREV="1"
 pkgrel="wily"
 
 # BUILD_TMPs
+unset BUILD_TMP
 export BUILD_TMP="${HOME}/pkg-build-dir"
 pkg_folder="${PKGNAME}-${PKGVER}-${PKGREV}~${pkgrel}"
 

@@ -1,3 +1,9 @@
+mpv (0.22.0+git+bsos1-1) brewmaster; urgency=low
+
+  * Update release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 14 Jun 2017 14:46:33 -0400
+
 mpv (0.16.0+git+bsos1-1) brewmaster; urgency=low
 
   * Initial upload

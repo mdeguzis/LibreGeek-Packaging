@@ -49,6 +49,7 @@ else
 fi
 
 # pass build dir var to all scripts
+unset BUILD_TMP
 export auto_export BUILD_TMP="merge ${HOME}/kodi-all-tmp"
 
 # pass auto-build flag

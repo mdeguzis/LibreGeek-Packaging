@@ -47,8 +47,9 @@ fi
 # upstream URL
 SRC_URL="https://github.com/mpv-player/mpv"
 # Need to use v0.22.0 or less due v0.22.0+ requirein ffmpeg 3.2.2
-# ffmpeg 3.2.2x requires 
-TARGET="v0.20.0"
+# ffmpeg 3.2.2x introduces significant API changes
+# Probably the time to do this is when Valve moves to Debain Stretch
+TARGET="v0.22.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -72,6 +73,7 @@ URGENCY="low"
 MAINTAINER="mdeguzis"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 

@@ -66,6 +66,7 @@ DIST="${DIST:=brewmaster}"
 URGENCY="low"
 
 # build dirs
+unset BUILD_TMP
 export BUILD_TMP="/home/desktop/build-${PKGNAME}-tmp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 SRC_URL="https://github.com/PCSX2/pcsx2"

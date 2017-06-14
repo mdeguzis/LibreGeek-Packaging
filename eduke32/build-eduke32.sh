@@ -65,6 +65,7 @@ UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${PKGNAME}-${PKGVER}"
 SVN_DIR="${BUILD_TMP}/${SRC_DIR}"

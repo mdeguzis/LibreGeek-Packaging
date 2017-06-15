@@ -390,7 +390,7 @@ function_backport_config()
 		echo "${SRC_DIR}"
 		
 		echo -e "\nShowing directories in ${BUILD_TMP}: \n"
-		find"${BUILD_TMP}" -maxdepth 1 -type d
+		find "${BUILD_TMP}" -maxdepth 1 -type d
 		echo -e "\nPlease manually enter the absolute path to the SRC_DIR: \n"
 		read -erp "Directory: " SRC_DIR
 
@@ -521,6 +521,26 @@ function_backport_config()
 
 		if [[ "${FILE}" != "quit" &&  "${FILE}" != "q" ]]; then
 			vim "${FILE}"
+		fi
+
+	done
+
+	# Add any additional files now
+
+	while [[ "${FILE}" != "quit" && "${FILE}" != "q" ]];
+	do
+
+		cd ${SRC_DIR}
+		echo ""
+		ls
+
+		echo -e "\n==> Add additional files? (Type "quit" when done)\n"
+		sleep 0.2s
+		read -erp "File: " FILE
+		read -erp "Destination: " DEST
+
+		if [[ "${FILE}" != "quit" &&  "${FILE}" != "q" ]]; then
+			cp -v "${FILE}" "${DEST}"
 		fi
 
 	done

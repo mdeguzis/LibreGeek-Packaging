@@ -307,10 +307,10 @@ function_get_source()
 		unset PKGREV
 		;;
 
-                trusty)
-                DIST_CODE="trusty"
+		trusty)
+		DIST_CODE="trusty"
 		PKGVER="${PKGVER}~${DIST_CODE}${BACKPORTREV}"
-                ;;
+		;;
 
 		xenial)
 		DIST_CODE="xenial"
@@ -389,8 +389,8 @@ function_backport_config()
 		echo -e "\nERROR: cannot find the source dir! SRC_DIR was set to: \n"
 		echo "${SRC_DIR}"
 		
-		echo -e "\nShowing ontents of ${BUILD_TMP}: \n"
-		ls "${BUILD_TMP}"
+		echo -e "\nShowing directories under ${BUILD_TMP}: \n"
+		find "${BUILD_TMP}" -maxdepth 1 -type d
 		echo -e "\nPlease manually enter the absolute path to the SRC_DIR: \n"
 		read -erp "Directory: " SRC_DIR
 
@@ -584,7 +584,7 @@ function_build_package()
 	elif [[ "${METHOD}" == "dpkg-buildpackage" ]]; then
 
 		# enter dir and attemp to satisfy build deps
-		cd ${PKGNAME}*
+		cd ${SRC_DIR} || exit 1
 		if ! sudo mk-build-deps --install --remove; then
 
 			# back out to SCRIPTDIR

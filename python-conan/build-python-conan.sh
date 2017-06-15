@@ -46,7 +46,7 @@ else
 fi
 # upstream var for master build
 SRC_URL="https://github.com/conan-io/conan"
-TARGET="0.21.2"
+TARGET="0.23.2"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -66,7 +66,6 @@ UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
 # set build directoriess
-unset BUILD_TMP
 unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"

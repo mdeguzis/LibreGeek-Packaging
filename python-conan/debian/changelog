@@ -1,6 +1,5 @@
-python-conan (1:0.21.2+git+bsos-1) brewmaster; urgency=low
+python-conan (1:0.23.2+git+bsos-1) brewmaster; urgency=low
 
-  * Initial release (Closes: #845463)
-  * Update snapshot
+  * Initial upload
 
- -- Paolo Greppi <paolo.greppi@libpf.com>  Sun, 16 Apr 2017 21:08:27 -0400
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Wed, 14 Jun 2017 16:13:05 -0400

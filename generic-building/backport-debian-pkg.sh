@@ -390,7 +390,7 @@ function_backport_config()
 		echo "${SRC_DIR}"
 		
 		echo -e "\nShowing directories in ${BUILD_TMP}: \n"
-		find"${SRC_DIR}" -maxdepth 1 -type d
+		find"${BUILD_TMP}" -maxdepth 1 -type d
 		echo -e "\nPlease manually enter the absolute path to the SRC_DIR: \n"
 		read -erp "Directory: " SRC_DIR
 

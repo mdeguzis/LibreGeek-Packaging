@@ -46,7 +46,10 @@ fi
 
 # upstream URL
 SRC_URL="https://github.com/mpv-player/mpv"
-TARGET="v0.18.1"
+# Need to use v0.22.0 or less due v0.22.0+ requirein ffmpeg 3.2.2
+# ffmpeg 3.2.2x introduces significant API changes
+# Probably the time to do this is when Valve moves to Debain Stretch
+TARGET="v0.22.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,10 +60,12 @@ BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 # Needed to allow installation of our version of ffmpeg dev packages
 export NO_APT_PREFS="true"
+# Need network to fetch waf
+export USE_NETWORK="yes"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 PKGNAME="mpv"
 BUILDER="pdebuild"
-PKGVER="0.18.1"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
 PKGREV="1"
 PKGSUFFIX="git+bsos${PKGREV}"
 DIST="${DIST:=brewmaster}"
@@ -68,6 +73,7 @@ URGENCY="low"
 MAINTAINER="mdeguzis"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
@@ -198,7 +204,7 @@ main()
 	if [[ -f "debian/changelog" ]]; then
 
 		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package "${PKGNAME}" \
-		-D "${DIST}" -u "${URGENCY}" "Rebuild for newer FFMPEG in repository"
+		-D "${DIST}" -u "${URGENCY}" "Update release"
 		vim "debian/changelog"
 
 	else

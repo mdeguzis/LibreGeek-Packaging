@@ -72,6 +72,7 @@ MAINTAINER="mdeguzis"
 export NETWORK="yes"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
@@ -124,6 +125,11 @@ main()
 
 	# Add image to git dir
 	cp -r "${SCRIPTDIR}/Citra.png" "${SRC_DIR}"
+
+	# Patched file (TEMPORARY)
+	echo -e "\nPatching src/core/telemetry_session.cpp\n"
+	cp -rv "${SCRIPTDIR}/telemetry_session.cpp" "${SRC_DIR}/src/core/telemetry_session.cpp"
+	sleep 3s
 
 	# Swap version text, since the project assumes citra is being ran in the git dir
 	sed -i "s|GIT-NOTFOUND|${PKGVER}git|g" "${SRC_DIR}/externals/cmake-modules/GetGitRevisionDescription.cmake"

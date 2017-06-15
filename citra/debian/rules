@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # See: ./linuxBuild.sh
 
-CLANGVER ?= 3.8
+CLANGVER ?= 5.0
 export CC="/usr/bin/clang-$(CLANGVER)"
 export CXX="/usr/bin/clang++-$(CLANGVER)"
 export CLANG_FORMAT="clang-format-$(CLANGVER)"

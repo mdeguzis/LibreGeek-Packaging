@@ -1,0 +1,10 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	make PREFIX=/usr DESTDIR=$(CURDIR)/debian/rgbds
+
+override_dh_auto_install:
+	make PREFIX=/usr DESTDIR=$(CURDIR)/debian/rgbds install

@@ -69,6 +69,7 @@ PKGSUFFIX="git+bsos${PKGREV}"
 
 # set build directories
 unset BUILD_TMP
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 

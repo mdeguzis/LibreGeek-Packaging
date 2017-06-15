@@ -70,6 +70,7 @@ URGENCY="low"
 MAINTAINER="mdeguzis"
 
 # build dirs
+unset BUILD_TMP
 export BUILD_TMP="$HOME/build-${PKGNAME}-tmp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 

@@ -46,7 +46,7 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/Novum/vkQuake"
-TARGET="0.95"
+TARGET="0.96"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -71,6 +71,7 @@ MAINTAINER="mdeguzis"
 export NETWORK="yes"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 

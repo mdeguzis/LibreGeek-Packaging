@@ -1,5 +1,5 @@
-libretro-pokemini (0.60+git20170410.16e1f73~1) brewmaster; urgency=low
+libretro-pokemini (0.60+git20170613.e6ed871~1) brewmaster; urgency=low
 
   * Initial upload attmpt
 
- -- Michael DeGuzis <mdeguzis@gmail.com>  Mon, 10 Apr 2017 22:57:57 -0400
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 13 Jun 2017 22:48:42 -0400

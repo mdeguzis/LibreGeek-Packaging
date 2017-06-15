@@ -71,6 +71,7 @@ MAINTAINER="mdeguzis"
 subpkg1="pcsx2-dbg"
 
 # build dirs
+unset BUILD_TMP
 export BUILD_TMP="${HOME}/build-${PKGNAME}-tmp"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 

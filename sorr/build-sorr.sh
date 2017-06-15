@@ -73,6 +73,7 @@ MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 source_dir="${BUILD_TMP}/${PKGNAME}"
 

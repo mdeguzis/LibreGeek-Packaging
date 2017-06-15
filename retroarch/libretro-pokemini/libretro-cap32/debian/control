@@ -1,0 +1,16 @@
+Source: libretro-pokemini
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ zlib1g-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/libretro-pokemini
+
+Package: libretro-pokemini
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the libretro pokemini core
+ This wrapper makes pokemini core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.

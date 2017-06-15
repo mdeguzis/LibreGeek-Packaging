@@ -49,7 +49,7 @@ src_cmd=""
 
 # upstream URL
 SRC_URL="https://github.com/plexinc/plex-media-player"
-TARGET="v1.2.5.606-0b42eb77"
+TARGET="v1.3.3.666-8a1f4d71"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -62,7 +62,7 @@ export STEAMOS_TOOLS_BETA_HOOK="true"
 export NO_APT_PREFS="true"
 UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 PKGNAME="plexmediaplayer"
-PKGVER="1.2.5.606"
+PKGVER=$(echo ${TARGET} | sed 's/v//;s/-.*//')
 BUILDER="pdebuild"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGREV="1"
@@ -72,6 +72,7 @@ URGENCY="low"
 MAINTAINER="mdeguzis"
 
 # set build directories
+unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 

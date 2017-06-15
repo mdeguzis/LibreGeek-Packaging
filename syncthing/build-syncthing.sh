@@ -71,6 +71,7 @@ MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
+unset BUILD_TMP
 export BUILD_TMP="merge ${HOME}/src/github.com/syncthing"
 
 install_prereqs()

@@ -389,8 +389,8 @@ function_backport_config()
 		echo -e "\nERROR: cannot find the source dir! SRC_DIR was set to: \n"
 		echo "${SRC_DIR}"
 		
-		echo -e "\nShowing directories under ${BUILD_TMP}: \n"
-		find "${BUILD_TMP}" -maxdepth 1 -type d
+		echo -e "\nShowing directories in ${BUILD_TMP}: \n"
+		find"${SRC_DIR}" -maxdepth 1 -type d
 		echo -e "\nPlease manually enter the absolute path to the SRC_DIR: \n"
 		read -erp "Directory: " SRC_DIR
 

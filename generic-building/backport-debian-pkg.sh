@@ -524,6 +524,7 @@ function_backport_config()
 		fi
 
 	done
+	unset FILE
 
 	# Add any additional files now
 
@@ -537,13 +538,14 @@ function_backport_config()
 		echo -e "\n==> Add additional files? (Type "quit" when done)\n"
 		sleep 0.2s
 		read -erp "File: " FILE
-		read -erp "Destination: " DEST
 
 		if [[ "${FILE}" != "quit" &&  "${FILE}" != "q" ]]; then
+			read -erp "Destination: " DEST
 			cp -v "${FILE}" "${DEST}"
 		fi
 
 	done
+	unset FILE
 
 	# update changelog
 	# Be sure to include a pacakge revision (e.g. "-1" with "bc_1.0.0+bsos-1") if needed!

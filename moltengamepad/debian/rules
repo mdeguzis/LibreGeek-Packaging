@@ -5,6 +5,7 @@ CFLAGS := $(filter-out -Werror=format-security,$(CFLAGS))
 CXXFLAGS := $(filter-out -Werror=format-security,$(CXXFLAGS))
 
 TARGET_USER ?= steam
+PKG_DIR = $(CURDIR)/debian/moltengamepad
 
 %:
 	dh $@
@@ -17,4 +18,7 @@ override_dh_auto_configure:
 override_dh_auto_build:
 	make eventlists
 	make
+	# copy installation files to path with intended target name
+	cd installation/singleuser && cp profile-sdl2.sh        sdl2-gamecontroller-moltengamepad.sh
+	cd installation/singleuser && cp udev.rules             90-moltengamepad.rules	
 

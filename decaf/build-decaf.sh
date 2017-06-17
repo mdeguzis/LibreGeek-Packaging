@@ -108,7 +108,7 @@ main()
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
-	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}" 
 
 	# add extras
 	cp "${SCRIPTDIR}/decaf.png" "${SRC_DIR}"
@@ -118,6 +118,13 @@ main()
 	cd "${SRC_DIR}"
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
+
+	# Update submodules
+	git submodule update --init
+
+	# Patch file (TEMP), see issues #446
+	echo "Patching platform_posix_memory.cpp"
+	cp ${SCRIPTDIR}/platform_posix_memory.cpp ${SRC_DIR}/src/common/src/platform_posix_memory.cpp
 
 	#################################################
 	# Build package

@@ -3,12 +3,13 @@ Section: games
 Priority: optional
 Build-Depends: cmake,
  debhelper (>=9),
- clang-3.8,
+ clang-5.0,
  libc++-dev,
  libglu1-mesa-dev,
  libsdl2-dev,
  libx11-dev,
  libxcursor-dev,
+ llvm-5.0,
  xorg-dev,
  valgrind,
  zlib1g-dev

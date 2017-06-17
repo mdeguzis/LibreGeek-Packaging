@@ -1,3 +1,10 @@
+moltengamepad (1.1.0+git+bsos-3) brewmaster; urgency=low
+
+  * Add symlink from /usr/lib to /etc/
+  * Fix install dests
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 16 Jun 2017 23:33:32 -0400
+
 moltengamepad (1.1.0+git+bsos-2) brewmaster; urgency=low
 
   * Move plugins out of binary and into /usr/lib/moltengamepad to use at run-time

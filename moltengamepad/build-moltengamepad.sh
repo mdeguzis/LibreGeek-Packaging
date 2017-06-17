@@ -57,7 +57,7 @@ export NO_PKG_TEST="false"
 export USE_NETWORK="no"
 PKGNAME="moltengamepad"
 PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGREV="2"
+PKGREV="3"
 PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"

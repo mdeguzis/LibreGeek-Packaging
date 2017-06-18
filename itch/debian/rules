@@ -9,6 +9,8 @@
 # Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
 
+#export PYTHON = /usr/bin/python2
+
 %:
 	dh $@ --parallel
 
@@ -16,12 +18,19 @@ export DH_VERBOSE=1
 
 #override_dh_auto_configure:
 
-override_dh_auto_install:
+override_dh_auto_build:
+	# Get dependencies
 	# npm needs a cache dir and choose home by default
 	# see: https://github.com/npm/npm/issues/1116
 	mkdir -p $HOME
 	npm install
-	npm test
+	# Build itch
+	export CI_BUILD_TAG="v23.4.1"
+	export CI_CHANNEL="stable"
+	release/ci-compile.js
+	release/ci-generate-linux-extras.js
+	# Run grunt
+	grunt -v electron:linux-x64
 
 #override_dh_strip:
 

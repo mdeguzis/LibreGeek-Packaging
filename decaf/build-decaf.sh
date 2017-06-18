@@ -125,6 +125,8 @@ main()
 	# Patch file (TEMP), see issues #446
 	echo "Patching platform_posix_memory.cpp"
 	cp ${SCRIPTDIR}/platform_posix_memory.cpp ${SRC_DIR}/src/common/src/platform_posix_memory.cpp
+	echo "Patching jit_binrec.cpp"
+	cp ${SCRIPTDIR}/jit_binrec.cpp ${SRC_DIR}/src/libcpu/src/jit/binrec/jit_binrec.cpp
 
 	#################################################
 	# Build package

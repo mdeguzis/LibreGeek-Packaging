@@ -1,3 +1,9 @@
+meta-gnome3 (3.24.0+20170617git+bsos-1) brewmaster; urgency=low
+
+  * Update release to commit
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 17 Jun 2017 16:48:11 -0400
+
 meta-gnome3 (3.22.0+20160919git+bsos-1) brewmaster; urgency=low
 
   * Initial upload

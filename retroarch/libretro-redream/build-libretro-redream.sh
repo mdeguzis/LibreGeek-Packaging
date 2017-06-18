@@ -2,35 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt Name:	build-itch.sh
-# Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from latest itch
-#		github release. DOES NOT CURRENTLY BUILD.
+# Scipt Name:	build-redream.sh
+# Script Ver:	1.0.0
+# Description:	Attmpts to builad a deb package from latest redream
+#		github release
 #
-# See:		https://github.com/itchio/itch
-#		https://github.com/itchio/itch/issues/41
-#
-# Usage:	build-itch.sh
-#-------------------------------------------------------------------------------
-
-###############################
-# TODO
-###############################
-
-# Rebuild nodejs for brewmaster off of sid:
-# https://packages.debian.org/sid/nodejs
-
-# Build sassc 
-# https://github.com/sass/sassc
-# https://github.com/sass/sassc/blob/master/docs/building/unix-instructions.md 
-
-# Unsure:
-# Install the javascript dependencies during build? These should be Debianzed
-# npm install
-
-# Building notes
-# CI Job definitions: https://github.com/itchio/ci.itch.ovh/blob/master/src/jobs/itch.yml
-
+# Usage:	build-libretro-redream.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -68,10 +45,9 @@ else
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 	
 fi
-
 # upstream vars
-SRC_URL="https://github.com/itchio/itch"
-TARGET="v23.4.1"
+SRC_URL="https://github.com/inolen/redream"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -82,10 +58,9 @@ BUILDOPTS=""
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-export USE_NETWORK="yes"
-PKGNAME="itch"
-PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGSUFFIX="git+bsos"
+PKGNAME="libretro-redream"
+epoch="1"
+PKGVER="0.0.0"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -103,15 +78,10 @@ install_prereqs()
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-	# install basic build packages - TODO
-	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper npm
-	
-	# Setup npm
-	npm config set spin false
-	
-	# Install build-specific extra packages
-	npm install -g electron-prebuilt@0.35.4
-	
+
+	# install basic build packages
+	sudo apt-get -y --force-yes install build-essential debhelper
+
 }
 
 main()
@@ -141,16 +111,20 @@ main()
 
 	fi
 
-
 	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
 
 	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+	cd "${SRC_DIR}"
+
+	# Set suffix based on revisions
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"
 
 	#################################################
-	# Build platform
+	# Build package
 	#################################################
 
 	echo -e "\n==> Creating original tarball\n"
@@ -161,14 +135,14 @@ main()
 
 	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
 
-	# Add Debian dir
+	# copy in debian folder
+	cd "${BUILD_TMP}"
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
-	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 
 	echo -e "\n==> Updating changelog"
 	sleep 2s
@@ -176,16 +150,17 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
+		dch -p --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Update snapshot"
+		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
+		dch -p --create --force-distribution -v "${epoch}:${PKGVER}+${PKGSUFFIX}" --package "${PKGNAME}" \
+		-D "${DIST}" -u "${URGENCY}" "Initial upload"
+		vim "debian/changelog"
 
 	fi
-
 
 	#################################################
 	# Build Debian package
@@ -196,11 +171,11 @@ main()
 
 	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-	
+
 	#################################################
 	# Cleanup
 	#################################################
-
+	
 	# note time ended
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
@@ -211,17 +186,6 @@ main()
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
-	
-	# assign value to build folder for exit warning below
-	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
-	
-	# back out of build tmp to script dir if called from git clone
-	if [[ "${SCRIPTDIR}" != "" ]]; then
-		cd "${SCRIPTDIR}" || exit
-	else
-		cd "${HOME}" || exit
-	fi
-	
 	# inform user of packages
 	cat<<- EOF
 	#################################################################

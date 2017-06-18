@@ -1,0 +1,25 @@
+Source: libretro-redream
+Section: games
+Priority: optional
+Build-Depends: debhelper (>= 9),
+ clang-5.0,
+ clang-format-5.0,
+ cmake,
+ libglew1-dev,
+ libegl1-mesa-dev [armhf],
+ libgl1-mesa-dev [!armhf],
+ libgles2-mesa-dev [armhf],
+ llvm-5.0
+Standards-Version: 3.9.6
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Homepage: http://redream.io
+
+Package: libretro-redream
+Architecture: amd64
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for Redream
+ This wrapper makes Redream API compatible with libretro, thus allowing
+ its use with libretro frontends, such as RetroArch.
+ .
+ Redream is a Sega Dreamcast emulator.

@@ -1,0 +1,22 @@
+#!/usr/bin/make -f
+
+export CC="/usr/bin/clang-$(CLANGVER)"
+export CXX="/usr/bin/clang++-$(CLANGVER)"
+export CLANG_FORMAT="clang-format-$(CLANGVER)"
+
+CLANGVER ?= 5.0
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	rm -rf build && mkdir build
+	cd build && cmake \
+			-DCMAKE_INSTALL_PREFIX=/usr \
+			-DBUILD_LIBRETRO=ON \
+			-DCMAKE_BUILD_TYPE=RELEASE \
+			-DCMAKE_CXX_COMPILER=clang++-$(CLANGVER) \
+			-DCMAKE_C_COMPILER=clang-$(CLANGVER) \
+			-DCMAKE_CXX_FLAGS="-O2 -g -stdlib=libc++" \
+	..
+	make -C build

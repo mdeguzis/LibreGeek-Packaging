@@ -60,7 +60,7 @@ PKGNAME="meta-gnome3"
 PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
 # set build directoriess

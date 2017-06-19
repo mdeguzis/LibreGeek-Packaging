@@ -20,3 +20,7 @@ override_dh_auto_configure:
 			..
 	make -C build -j4
 
+override_dh_auto_install:
+	# copy library to top dir
+	cp build/src/citra_libretro/citra_libretro.so $(CURDIR)
+	dh_auto_install

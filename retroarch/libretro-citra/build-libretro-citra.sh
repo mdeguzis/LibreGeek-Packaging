@@ -115,7 +115,7 @@ main()
 	git clone --recursive -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
     # Patched file (TEMPORARY)
-    echo -e "\nPatching src/core/telemetry_session.cpp\n"
+    echo -e "\nPatching src/core/telemetry_session.cpp (See: issues/2775)\n"
     cp -rv "${SCRIPTDIR}/telemetry_session.cpp" "${SRC_DIR}/src/core/telemetry_session.cpp"
     sleep 3s
 

@@ -1,0 +1,27 @@
+attract (2.2.1+git+bsos-2) brewmaster; urgency=low
+
+  * SteamOS build 
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 20 Jun 2017 21:20:36 -0400
+
+attract (2.2.1-1) unstable; urgency=low
+
+  * Version 2.2.1 package.
+
+attract (2.1.0-1) unstable; urgency=low
+
+  * Version 2.1 package.
+
+ -- Andrew Mickelson <andrew@attractmode.org>  Wed, 08 Jun 2016 22:33:19 -0800
+
+attract (2.0.0-1) unstable; urgency=low
+
+  * Version 2.0 package.
+
+ -- Andrew Mickelson <andrew@attractmode.org>  Fri, 19 Feb 2016 22:33:19 -0800
+
+attract (1.6.2-1) unstable; urgency=low
+
+  * Initial debian package.
+
+ -- Andrew Mickelson <andrew@attractmode.org>  Mon, 02 Nov 2015 22:33:19 -0800

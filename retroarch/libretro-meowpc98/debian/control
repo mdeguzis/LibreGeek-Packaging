@@ -1,0 +1,16 @@
+Source: libretro-meowpc98
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ build-essential,
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/meowpc98-libretro
+
+Package: libretro-meowpc98
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the libretro meowpc98 core
+ This wrapper makes meowpc98 core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.

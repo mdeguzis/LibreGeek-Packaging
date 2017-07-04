@@ -154,7 +154,7 @@ main()
 
 	# Set suffix based on commit
 	cd "${SRC_DIR}"
-        LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	# get latest base release for changelog

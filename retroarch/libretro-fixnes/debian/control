@@ -1,0 +1,18 @@
+Source: libretro-fixnes
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ build-essential,
+ freeglut3-dev,
+ libopenal-dev
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/fixnes-libretro
+
+Package: libretro-fixnes
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the libretro fixnes core
+ This wrapper makes fixnes core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.

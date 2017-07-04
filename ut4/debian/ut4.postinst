@@ -3,11 +3,9 @@
 funct_set_vars()
 {
 
-  UT4_VERSION="2883976"
-  URL="https://s3.amazonaws.com/unrealtournament"
-  UT4_ZIP="UnrealTournament-Client-XAN-${UT4_VERSION}-Linux.zip"
-  UT4_BIN_DIR="${UT4_BASE_DIR}/LinuxNoEditor/Engine/Binaries/Linux/"
-  UT4_EXEC="./UE4-Linux-Test UnrealTournament -SaveToUserDir"
+	UT4_VERSION="3510431"
+	URL="https://s3.amazonaws.com/unrealtournament/ShippedBuilds/%2B%2BUT%2BRelease-Next-CL-${UT4_VERSION}"
+	UT4_ZIP="UnrealTournament-Client-XAN-${UT4_VERSION}-Linux.zip"
   
 	# check if we are runnign SteamOS or not.
 	# Since / is normally only 10 GB, we will not install a multi-GB folder set there
@@ -16,30 +14,35 @@ funct_set_vars()
 
 	if [[ "${OS}" == "SteamOS" ]]; then
 
-	  # create any dirs needed and set command
-	  echo -e "\nDetected SteamOS"
-	  BASE_DIR="/home/steam"
-	  GAME_DIR="/home/steam/ut4-linux"
+		# create any dirs needed and set command
+		echo -e "\nDetected SteamOS"
+		BASE_DIR="/home/steam"
+		GAME_DIR="/home/steam/ut4-linux"
+		UT4_BIN_DIR="${UT4_BASE_DIR}/LinuxNoEditor/Engine/Binaries/Linux/UE4-Linux-Shipping"
+		UT4_BIN="${UT4_BIN_DIR}/UE4-Linux-Shipping"
 
 	elif [[ "${DEBIAN}" != "" ]]; then
 
-	  echo -e "\nDetected Other Debian OS"
-	  BASE_DIR="/usr/share/games"
-	  GAME_DIR="/usr/share/games/ut4-linux"
+		echo -e "\nDetected Other Debian OS"
+		BASE_DIR="/usr/share/games"
+		GAME_DIR="/usr/share/games/ut4-linux"
+		UT4_BIN_DIR="${UT4_BASE_DIR}/LinuxNoEditor/Engine/Binaries/Linux/UE4-Linux-Shipping"
+		UT4_BIN="${UT4_BIN_DIR}/UE4-Linux-Shipping"
 
 	else
 
-	echo -e "Detected incompatible OS. Exiting"
-	break
+		echo -e "Detected incompatible OS. Exiting"
+		break
 
 	fi
 
 	# create game directory
 	mkdir -p "${GAME_DIR}"
 
-	# clean up any old updater files
+	# Mark binary exec
+	chmod +x "${UT4_BIN}"
 
-	rm -f "${GAME_DIR}/${UT4_ZIP}"
+	# clean up any old updater files
 	rm -f "${GAME_DIR}/${UT4_ZIP}"
 
 }
@@ -54,12 +57,12 @@ funct_download_game_files()
 	sleep 2s
 
 	# remove old file (if it's there)
-	sudo rm -f ${BASE_DIR}/${UT4_ZIP}
+	rm -f ${BASE_DIR}/${UT4_ZIP}
 	
 	# Get files
-	sudo wget -O ${BASE_DIR}/${UT4_ZIP} ${URL}/${UT4_ZIP} -q -nc --show-progress
-	sudo unzip -d ${BASE_DIR} ${BASE_DIR}/${UT4_ZIP}
-	sudo rm -f ${BASE_DIR}/${UT4_ZIP}
+	wget -O ${BASE_DIR}/${UT4_ZIP} ${URL}/${UT4_ZIP} -q -nc --show-progress
+	unzip -d ${BASE_DIR} ${BASE_DIR}/${UT4_ZIP}
+	rm -f ${BASE_DIR}/${UT4_ZIP}
 
 }
 
@@ -67,18 +70,18 @@ funct_links()
 {
 
 	# Link the proper game dir(s)
-	LINK_DEST="/usr/games/ut4"
+	LINK_DEST="/usr/share/games/ut4"
 	OS=$(lsb_release -is)
 
 	# Remove old link(s)
-	sudo rm -f "${LINK_DEST}"
+	rm -f "${LINK_DEST}"
 
-  # Set link
-	LINK_TARGET="${GAME_DIR}/${UT4_BIN_DIR}/UE4-Linux-Test UnrealTournament"
+	# Set link
+	LINK_TARGET="${GAME_DIR}/${GAME_DIR}"
 
 	# Link
-	echo -e "\nLinking correct directory / executable\n"
-	sudo ln -s ${LINK_TARGET} ${LINK_DEST}
+	echo -e "\nLinking real directory to ${LINK_DEST}\n"
+	ln -s ${LINK_TARGET} ${LINK_DEST}
 
 }
 
@@ -92,7 +95,7 @@ funct_cleanup()
 	if [[ "${OS}" == "SteamOS" ]]; then
 
 		# Fix owner, perms on GAME_DIR
-		sudo chown -R steam:steam ${GAME_DIR}
+		chown -R steam:steam ${GAME_DIR}
 
 	fi
 	

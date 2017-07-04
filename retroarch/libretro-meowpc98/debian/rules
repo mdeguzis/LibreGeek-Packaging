@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	make -C libretro
+	# copy lib to top dir
+	cp libretro/nekop2_libretro.so $(CURDIR)

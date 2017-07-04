@@ -1,0 +1,13 @@
+#!/bin/bash
+
+main()
+{
+	# Note: /usr/share/games/ut4 is a symbolic link
+	cd /usr/share/games/ut4/LinuxNoEditor/Engine/Binaries/Linux/UE4-Linux-Shipping
+	./UE4-Linux-Shipping UnrealTournament -opengl4
+}
+
+# echo for the steam stdout logger on SteamOS
+echo "Starting Unreal Tournament 4"
+# Log to file
+main 2>&1 | tee /tmp/ut4-run-log.txt

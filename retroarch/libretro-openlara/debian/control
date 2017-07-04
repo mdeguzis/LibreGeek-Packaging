@@ -1,0 +1,17 @@
+Source: libretro-openlara
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ build-essential,
+ libgl1-mesa-dev,
+Standards-Version: 3.9.6
+Homepage: https://github.com/libretro/openlara-libretro
+
+Package: libretro-openlara
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for the libretro openlara core
+ This wrapper makes OpenLara core API compatible with libretro, thus
+ allowing its use with libretro frontends, such as RetroArch.

@@ -1,0 +1,19 @@
+Source: libretro-easyrpg
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ liblcf,
+ libsdl2-dev,
+ pixman,
+ libpng-dev
+ zlib1-dev
+
+Standards-Version: 3.9.7
+Homepage: https://github.com/libretro/easyrpg-libretro
+
+Package: libretro-easyrpg
+Architecture: any
+Multi-Arch: same
+Depends: retroarch | libretro-frontend, ${misc:Depends}, ${shlibs:Depends}
+Description: Libretro wrapper for easyrpg

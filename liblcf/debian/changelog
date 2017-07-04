@@ -1,0 +1,5 @@
+liblcf (0.5.1+git+bsos1-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 20 Jun 2017 23:28:30 -0400

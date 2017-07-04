@@ -19,4 +19,9 @@ override_dh_auto_configure:
 			-DCMAKE_C_COMPILER=clang-$(CLANGVER) \
 			-DCMAKE_CXX_FLAGS="-O2 -g -stdlib=libc++" \
 	..
+
+override_dh_auto_build:
 	make -C build
+	# copy core lib to main directory
+	cp build/redream_libretro.so $(CURDIR)
+	

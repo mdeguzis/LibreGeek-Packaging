@@ -1,0 +1,17 @@
+Source: yorg
+Section: games
+Priority: optional
+Maintainer: Micahel DeGuzis <mdeguzis@gmail.com>
+Build-Depends: debhelper (>= 9),
+ build-essential, 
+ scons
+Standards-Version: 3.9.5
+Homepage: https://github.com/cflavio/yorg
+
+Package: yorg
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+Description: Yorg is a free open source racing game.
+ It is developed by Ya2 using Panda3D for Windows,
+ OSX and Linux. More info on its homepage.
+

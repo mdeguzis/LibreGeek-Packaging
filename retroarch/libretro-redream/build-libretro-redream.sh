@@ -119,6 +119,10 @@ main()
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 	cd "${SRC_DIR}"
 
+	# TEMP PATCH
+	echo "Patching profiler.cc"
+	cp -v ${SCRIPTDIR}/profiler.cc ${SRC_DIR}/src/core/profiler.cc
+
 	# Set suffix based on revisions
 	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
 	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~1"

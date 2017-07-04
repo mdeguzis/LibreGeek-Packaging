@@ -49,7 +49,7 @@ fi
 
 # upstream vars
 SRC_URL="https://github.com/hrydgard/ppsspp"
-TARGET="v1.3"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -61,13 +61,13 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_APT_PREFS="true"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
+EPOCH="2"
 PKGNAME="ppsspp"
 PKGVER="1.3"
 PKGREV="1"
-PKGSUFFIX="git+bsos"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
 # set build directories
@@ -107,7 +107,7 @@ main()
 	echo -e "\n==> Obtaining upstream source code\n"
 	sleep 1s
 	
-	if [[ -d "$GIT_DIR" ]]; then
+	if [[ -d "$SRC_DIR" ]]; then
 
 		echo -e "\n==Info==\nGit folder already exists! Reclone [r] or pull [p]?\n"
 		sleep 1s
@@ -154,8 +154,10 @@ main()
 
 	fi
 
-	# clean out .git (large amount of space taken up)
-	rm -rf "${SRC_DIR}/.git"
+	# Set suffix based on commit
+    cd "${SRC_DIR}"
+    LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
+    PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}"
 
 	# copy in debian folder
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
@@ -166,9 +168,6 @@ main()
 
 	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
-
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
 	# create source tarball
 	cd "${BUILD_TMP}"
@@ -183,13 +182,13 @@ main()
  	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
 		vim "debian/changelog"
 

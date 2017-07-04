@@ -8,6 +8,10 @@ override_dh_auto_configure:
 	cd build && cmake \
             -DCMAKE_INSTALL_PREFIX=/usr \
             ..
+
+override_dh_auto_build:
 	make -C build -j4
+	# Rename binary filename, because... "Windows"
+	mv build/OpenTomb build/opentomb
 
 override_dh_auto_test:

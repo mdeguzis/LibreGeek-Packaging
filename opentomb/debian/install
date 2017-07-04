@@ -1,1 +1,8 @@
-a	b
+build/opentomb	usr/bin
+config.lua		usr/share/opentomb/
+ascII.txt		usr/share/opentomb/
+data			usr/share/opentomb/
+save			usr/share/opentomb/
+scripts			usr/share/opentomb/
+VeraMono.ttf	usr/share/opentomb/
+

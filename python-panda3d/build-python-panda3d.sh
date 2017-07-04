@@ -2,14 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt name:	build-python-conan.sh
+# Scipt name:	build-python-panda3d.sh
 # Script Ver:	0.1.1
-# Description:	Attmpts to build a deb package from the laest "python-conan"
+# Description:	Attmpts to build a deb package from the laest "python-panda3d"
 #		release
 #
-# See:		https://github.com/python-conan-emu/python-conan-emu
-#
-# Usage:	./build-python-conan.sh
+# Usage:	./build-python-panda3d.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -45,8 +43,8 @@ else
 
 fi
 # upstream var for master build
-SRC_URL="https://github.com/conan-io/conan"
-TARGET="0.23.2"
+SRC_URL="https://github.com/panda3d/panda3d"
+TARGET="v1.9.4"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -55,14 +53,14 @@ ARCH="amd64"
 BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
-PKGNAME="python-conan"
-PKGVER="${TARGET}"
+PKGNAME="python-panda3d"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
 PKGREV="1"
 PKGSUFFIX="git+bsos"
 EPOCH="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
 # set build directoriess
@@ -76,7 +74,12 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y debhelper libsdl2-dev libsdl2-net-dev zlib1g-dev \
+	sudo apt-get install -y build-essential pkg-config python-dev libpng-dev \
+	libjpeg-dev libtiff-dev zlib1g-dev libssl-dev libx11-dev libgl1-mesa-dev \
+	libxrandr-dev libxxf86dga-dev libxcursor-dev bison flex libfreetype6-dev \
+	libvorbis-dev libeigen3-dev libopenal-dev libode-dev libbullet-dev \
+	nvidia-cg-toolkit libgtk2.0-dev
+
 
 }
 

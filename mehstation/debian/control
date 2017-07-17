@@ -1,0 +1,22 @@
+Source: mehstation
+Section: contrib/misc
+Priority: extra
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends:	debhelper (>= 9),
+ build-essential,
+ cmake,
+ ffmpeg,
+ libavcodec-dev,
+ libavformat-dev,
+ libopenal-dev,
+ libsdl2-dev,
+ libsdl2-image-dev,
+ libsdl2-ttf-dev,
+ libsqlite3-dev
+Standards-Version: 3.9.7
+Homepage: https://github.com/remeh/mehstation
+
+Package: mehstation
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: multi-launcher frontend fully driven by a gamepad/keyboard.

@@ -1,9 +1,28 @@
 #!/usr/bin/make -f
 
+pkgname = python-panda3d
+
 %:
 	dh $@ --with python2
 
 
 override_dh_auto_build:
+	# disable the upstream dpkg build, since it takes forever, no need to do it twice
+	# Why they don't use a Makefile is beyond me...
+	sed -i 's/oscmd.*fakeroot dpkg-deb.*/print "script dpkg disabled"/g' $(CURDIR)/makepanda/makepanda.py
+	# Add --installer here so we get the correct bits for the package, even if we aren't
+	# using makepanda.py's built deb.
 	python makepanda/makepanda.py --everything --installer --no-egl --no-gles --no-gles2 --no-opencv
 
+override_dh_auto_install:
+	# Move files from the resultant targetroot dir to the proper debian/<pkgname> directory
+	mkdir -p $(CURDIR)/debian/$(pkgname)
+	# remove their control file, it is incomplete... use ours
+	rm -v $(CURDIR)/targetroot/DEBIAN/control
+	# Add in the rest of the generated files and built binaries etc..
+	cp -rv $(CURDIR)/targetroot/DEBIAN/* $(CURDIR)/debian
+	cp -rv $(CURDIR)/targetroot/etc $(CURDIR)/debian/$(pkgname)
+	cp -rv $(CURDIR)/targetroot/usr $(CURDIR)/debian/$(pkgname)
+
+override_dh_python2:
+	# not sure why this bails out

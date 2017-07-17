@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=MehStation
+Type=Application
+GenericName=MehStation
+Comment=Graphical emulator front-end
+Icon=/usr/share/pixmaps/mehstation.png
+Exec=mehstation
+Terminal=false
+StartupNotify=false
+Categories=Game

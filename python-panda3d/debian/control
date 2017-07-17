@@ -29,10 +29,66 @@ Build-Depends: build-essential,
 Standards-Version: 3.9.1
 
 Package: python-panda3d
-Architecture: all
-Depends: ${misc:Depends}, ${python:Depends}
-Description: Panda3D game engine
- Panda3D is a game engine and framework for
- 3D rendering and game development for Python
- and C++ programs
+Section: libdevel
+Priority: optional
+Architecture: amd64
+Essential: no
+Depends: libbulletcollision2.82, 
+ libbulletdynamics2.82,
+ libbulletsoftbody2.82,
+ libc6 (>= 2.14), 
+ libcg (>= 3.0.0007),
+ libcggl (>= 3.1.0010),
+ libfreetype6 (>= 2.2.1),
+ libgcc1 (>= 1:4.1.1),
+ libgl1-mesa-glx | libgl1, libjpeg62-turbo (>= 1.3.1),
+ liblinearmath2.82, libode1,
+ libopenal1 (>= 1.14),
+ libpng12-0 (>= 1.2.13-4),
+ libssl1.0.0 (>= 1.0.0),
+ libstdc++6 (>= 4.9),
+ libtiff5 (>= 4.0.3),
+ libvorbisfile3 (>= 1.1.2),
+ libx11-6, libxcursor1 (>> 1.1.2),
+ libxrandr2 (>= 4.3),
+ libxxf86dga1,
+ zlib1g (>= 1:1.1.4),
+ python2.7,
+ nvidia-cg-toolkit
+Recommends: libatk1.0-0 (>= 1.12.4),
+ libc6 (>= 2.14),
+ libcairo2 (>= 1.2.4),
+ libfontconfig1 (>= 2.11),
+ libfreetype6 (>= 2.2.1),
+ libgcc1 (>= 1:4.1.1),
+ libgdk-pixbuf2.0-0 (>= 2.22.0),
+ libglib2.0-0 (>= 2.16.0),
+ libgtk2.0-0 (>= 2.8.0),
+ libpango-1.0-0 (>= 1.14.0),
+ libpangocairo-1.0-0 (>= 1.14.0),
+ libpangoft2-1.0-0 (>= 1.14.0),
+ libpython2.7 (>= 2.7),
+ libssl1.0.0 (>= 1.0.0),
+ libstdc++6 (>= 4.9),
+ zlib1g (>= 1:1.1.4),
+ python-wxversion,
+ python-profiler (>= 2.7),
+ python-pmw,
+ python-tk (>= 2.7)
+Suggests: panda3d-runtime
+Provides: panda3d
+Conflicts: panda3d
+Replaces: panda3d
+Description: Panda3D free 3D engine SDK
+ Panda3D is a game engine which includes graphics, audio,
+ I/O, collision detection, and other abilities relevant
+ to the creation of 3D games. Panda3D is open source and
+ free software under the revised BSD license, and can be
+ used for both free and commercial game development at
+ no financial cost.
+ .
+ Panda3D's intended game-development language is Python.
+ The engine itself is written in C++, and utilizes an
+ automatic wrapper-generator to expose the complete
+ functionality of the engine in a Python interface.
 

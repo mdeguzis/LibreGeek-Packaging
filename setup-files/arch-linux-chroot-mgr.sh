@@ -2,11 +2,11 @@
 # -------------------------------------------------------------------------------
 # Author: 	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/LibreGeek-Packaging
-# Scipt Name:	build-arch-linux-chroot.sh
+# Scipt Name:	arch-linux-chroot-mgr.sh
 # Script Ver:	0.1.1
 # Description:	Builds a clean x86_64 or i686 chroot for Arch Linux
 #
-# Usage:	sudo ./build-test-chroot.sh [type] [release] [arch]
+# Usage:	sudo ./arch-linux-chroot-mgr.sh [type] [release] [arch]
 #
 # See: also:	https://wiki.archlinux.org/index.php/DeveloperWiki:Building_in_a_Clean_Chroot
 #		https://wiki.archlinux.org/index.php/Building_32-bit_packages_on_a_64-bit_system
@@ -42,10 +42,30 @@ prepare_environment()
 
 	if [[ -d "${CHROOT_DIR}" ]]; then 
 
-		echo -e "\nERROR: chroot directory ${CHROOT_DIR} is taken. Please choose an alternate."
-		sleep 0.2s
-		unset CHROOT_DIR
-		read -erp "Path: " CHROOT_DIR
+		cat<<- EOF
+		
+		ERROR: chroot directory ${CHROOT_DIR} is taken. 
+		(r)eplace or use (a)lternate? (r/a)?
+		
+		EOF
+		
+		read -erp "Choice: " RESPONE
+
+		if [[ "${CHOICE}" == "r" ]]; then
+		
+			sudo rm -r "${CHROOT_DIR}"
+			
+		elif [[ "${CHOICE}" == "r" ]]; then
+		
+			unset CHROOT_DIR
+			read -erp "Path: " CHROOT_DIR
+			
+		else
+			echo "\nERROR: improper choice. Exiting..."
+			sleep 5s
+			exit 1
+			
+		fi
 
 	else
 

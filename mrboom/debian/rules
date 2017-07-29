@@ -16,10 +16,13 @@
 	dh $@
 
 override_dh_auto_build:
-	$(MAKE) mrboom LIBSDL2=1
-	mv mrboom.out mrboom
-# STATIC_LINKING=1
-#        dh_auto_build
+	# Makefile hardcodes bin...
+	sed -i 's/bin/games/g' $(CURDIR)/Makefile
+	make clean
+	$(MAKE) PREFIX=/usr DESTDIR=$(CURDIR)/debian/mrboom LIBSDL2=1 mrboom
+
+override_dh_auto_install:
+	$(MAKE) PREFIX=/usr DESTDIR=$(CURDIR)/debian/mrboom LIBSDL2=1 mrboom install
 
 override_dh_auto_test:
 	@echo skipping test

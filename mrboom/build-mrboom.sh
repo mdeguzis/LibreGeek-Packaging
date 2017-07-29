@@ -56,7 +56,6 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="mrboom"
-PKGVER="3.2"
 PKGREV="1"
 EPOCH="1"
 DIST="${DIST:=brewmaster}"
@@ -115,6 +114,7 @@ main()
 
     # clone and get latest commit tag
     cd "${SRC_DIR}"
+	PKGVER=$(git describe --abbrev=0)
     latest_commit=$(git log -n 1 --pretty=format:"%h")
 
     # Set suffix to commit

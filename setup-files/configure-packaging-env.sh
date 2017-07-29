@@ -54,7 +54,7 @@ setup_arch_linux()
 	sudo pacman -S ${PACOPTS} expac yajl
 
 	# get main packages in the main repos for extra needs
-	sudo pacman -S ${PACOPTS} bc
+	sudo pacman -S ${PACOPTS} bc flatpak
 
 	# install pacaur if not installed
 	if ! pacman -Qs pacaur; then
@@ -291,7 +291,7 @@ setup_debian_variant()
 	sleep 2s
 
 	# Normal set of packages
-	PKGs=" apt-cacher-ng debootstrap pbuilder libselinux1 libselinux1:i386 lsb-release bc \
+	PKGs=" apt-cacher-ng debootstrap flatpak pbuilder libselinux1 libselinux1:i386 lsb-release bc \
 	devscripts libparse-debcontrol-perl sudo screen pv apt-file curl debian-keyring \
 	debian-archive-keyring ubuntu-archive-keyring gnupg osc obs-build mock sbuild \
 	quilt"
@@ -805,7 +805,7 @@ setup_rhel_variant()
 
 		GROUP_PACKAGES="'Development Tools'"
 
-		PKGs="apt centos-packager curl devscripts epel-release git gnupug lsb-release parted pbuilder quilt \
+		PKGs="apt centos-packager curl devscripts epel-release flatpak git gnupug lsb-release parted pbuilder quilt \
 		rpm-link rpmdevtools screen sudo yum-cron"
 
 	elif [[ "${OS}" == "Fedora" ]]; then

@@ -1,3 +1,9 @@
+libretro-core-info (1:0.1+git20170730.6ab3dd8~1) brewmaster; urgency=low
+
+  * Update snapshot
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sun, 30 Jul 2017 21:16:30 -0400
+
 libretro-core-info (1:0.1+git20170606.b1d9df6~1) brewmaster; urgency=low
 
   * Update snapshot

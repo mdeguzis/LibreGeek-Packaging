@@ -2,14 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt Name:	build-retroarch.sh
-# Script Ver:	1.0.0
-# Description:	Attmpts to build a deb package from latest retroarch
-#		github release
+# Scipt name:	build-mrboom.sh
+# Script Ver:	0.1.1
+# Description:	Attmpts to build a flatpak package from the latest mrboom source
+#		code.
 #
-# See:		https://github.com/libretro/RetroArch
-#
-# Usage:	build-retroarch.sh
+# Usage:	./build-mrboom-flatpak.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -22,7 +20,6 @@ arg1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
-
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -45,30 +42,25 @@ else
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
 
 fi
-
 # upstream vars
-SRC_URL="https://github.com/libretro/RetroArch"
-TARGET="1.6.3"
+SRC_URL="https://github.com/libretro/mrboom-libretro"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
-BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc --debbuildopts -b"
-export STEAMOS_TOOLS_BETA_HOOK="false"
-export NO_LINTIAN="false"
-export NO_PKG_TEST="false"
-PKGNAME="retroarch"
-PKGVER=$(echo ${TARGET} | sed 's/v//')
+PKGNAME="mrboom"
 PKGREV="1"
-DIST="${DIST:=brewmaster}"
+EPOCH="1"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
+# Need network for pbuilder to pull down ut4 zip
+export NETWORK="yes"
+
 # set build directories
-unset BUILD_TMP
 unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
 SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
@@ -79,15 +71,7 @@ install_prereqs()
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config libpulse-dev\
-	checkinstall bc build-essential devscripts make git-core curl libxxf86vm-dev\
-	g++ pkg-config libglu1-mesa-dev freeglut3-dev mesa-common-dev lsb-release \
-	libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libc6-dev x11proto-xext-dev \
-	libsdl-ttf2.0-dev nvidia-cg-toolkit nvidia-cg-dev libasound2-dev unzip samba \
-	smbclient libsdl2-dev libxml2-dev libavcodec-dev libfreetype6-dev libavformat-dev \
-	libavutil-dev libswscale-dev libv4l-dev libdrm-dev libxinerama-dev libudev-dev \
-	libusb-1.0-0-dev libxv-dev libopenal-dev libjack-jackd2-dev libgbm-dev \
-	libegl1-mesa-dev python3-dev libavdevice-dev
+	sudo apt-get install -y --force-yes build-essential
 
 }
 
@@ -109,89 +93,41 @@ main()
 	# enter build dir
 	cd "${BUILD_TMP}" || exit
 
-	# install prereqs for build
-
-	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
-
-		# handle prereqs on host machine
-		install_prereqs
-
-	fi
-
-	# Clone upstream source code and TARGET
-
-	echo -e "\n==> Obtaining upstream source code\n"
-
-	# clone
+	# clone and get latest commit tag
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
-	# inject .desktop file (not found in release archives) and image
-	cp -r "${SCRIPTDIR}/retroarch.png" "${SRC_DIR}"
-	cp -r "${SCRIPTDIR}/retroarch.desktop" "${SRC_DIR}"
+    # clone and get latest commit tag
+    cd "${SRC_DIR}"
+	PKGVER=$(git describe --abbrev=0)
+    latest_commit=$(git log -n 1 --pretty=format:"%h")
 
-	# Set suffix based on revisions
-	cd "${SRC_DIR}"
-	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~${PKGREV}"
+    # Set suffix to commit
+    PKGSUFFIX="git${DATE_SHORT}.${latest_commit}"
 
-	###############################################################
-	# correct any files needed here that you can ahead of time
-	###############################################################
-
-	# For whatever reason, some "defaults" don't quite work
-	# Mayeb ship a config file in the future instead
-	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${SRC_DIR}/retroarch.cfg"
+	# banner
+	cp -r "${SCRIPTDIR}/mrboom.png" "${SRC_DIR}"
 
 	#################################################
 	# Build package
 	#################################################
 
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
-
-	# Trim .git folders
-	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
-
-	# create source tarball
-	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
-
-	# copy in debian folder
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	# Add debian files
+	#cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
 	# enter source dir
 	cd "${SRC_DIR}"
 
-	echo -e "\n==> Updating changelog"
+	echo -e "\n==> Building flatpak for ${PKGNAME} from source\n"
 	sleep 2s
 
- 	# update changelog with dch
- 	# Maybe include static message: "Update to release: ${TARGET}"
-	if [[ -f "debian/changelog" ]]; then
-
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "New release"
-		vim "debian/changelog"
-
-	else
-
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
-
-	fi
-
-	#################################################
-	# Build Debian package
-	#################################################
-
-	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
-	sleep 2s
-
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	echo "flatpak build-init DIRECTORY APPNAME SDK RUNTIME [BRANCH]"
+	flatpak-build ${SRC_DIR} 
 
 	#################################################
 	# Cleanup
 	#################################################
+
+	# clean up dirs
 
 	# note time ended
 	time_end=$(date +%s)
@@ -202,6 +138,10 @@ main()
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
+
+
+	# assign value to build folder for exit warning below
+	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
 
 	# inform user of packages
 	cat<<- EOF

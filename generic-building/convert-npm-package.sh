@@ -396,20 +396,20 @@ main()
 		# search
 		npm search ${npm_pkgname}
 
-	fi
+		echo -e "\n==> Please review the dependencies for package: ${npm_pkgname}"
+		sleep 2s
+		
+		echo -e "\nGenerating dependency list, please wait..."
+		npm2deb depends -b -r ${npm_pkgname} &> ${npm_pkgname}.deps
+		less ${npm_pkgname}.deps
+		
+		read -erp "Continue? [y/n]: " continue_choice
+		sleep 0.5s
+		
+		if [[ "$continue_choice" != "y" ]]; then
+			exit 1
+		fi
 
-	echo -e "\n==> Please review the dependencies for package: ${npm_pkgname}"
-	sleep 2s
-	
-	echo -e "\nGenerating dependency list, please wait..."
-	npm2deb depends -b -r ${npm_pkgname} &> ${npm_pkgname}.deps
-	less ${npm_pkgname}.deps
-	
-	read -erp "Continue? [y/n]: " continue_choice
-	sleep 0.5s
-	
-	if [[ "$continue_choice" != "y" ]]; then
-		exit 1
 	fi
 
 	echo -e "\n==> Checking if someone else has already started working on this module..."
@@ -421,14 +421,13 @@ main()
 	# Create package files
 	#################################################
 	
-	echo -e "==> Per the above, Has anyone started packaging this module?\n"
+	echo -e "\n==> Per the above, Has anyone started packaging this module?\n"
 	sleep 1s
 	
 	read -erp "Choice [y/n]: " npm_exists
 	
 	if [[ "${npm_exists}" == "n" ]]; then
 		
-	
 		# create
 		echo -e "\n==> Creating base files..."
 		npm2deb create ${npm_pkgname}

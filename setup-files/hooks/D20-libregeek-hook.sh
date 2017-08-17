@@ -209,6 +209,9 @@ if [[ "${DIST}" == "precise" || "${DIST}" == "trusty" ]]; then
 	# Add toolchains for older dists
 	# llvm toolchains (3.4+), gcc-5, and gcc-6 should suffice for now
 
+	echo "I: LIBREGEEK: Adding PPA mdeguzis/libregeek (various)"
+	add-apt-repository -y ppa:mdeguzis/libregeek &> /dev/null
+
 	echo "I: LIBREGEEK: Adding PPA jonathonf/llvm (toolchain)"
 	add-apt-repository -y ppa:jonathonf/llvm &> /dev/null
 

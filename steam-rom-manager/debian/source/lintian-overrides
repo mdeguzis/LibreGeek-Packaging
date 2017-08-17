@@ -1,0 +1,4 @@
+# New url is also mentioned
+node-browserify-aes source: obsolete-url-in-packaging debian/copyright https://code.google.com/p/crypto-js/
+#false positive
+node-browserify-aes source: source-is-missing aes.js line length is 521 characters (>512)

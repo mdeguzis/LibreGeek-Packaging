@@ -1,0 +1,19 @@
+Source: steam-rom-manager
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends:
+ debhelper (>= 10)
+ , dh-buildinfo
+ , nodejs (>= 4.1)
+Standards-Version: 3.9.8
+Homepage: https://github.com/FrogTheFrog/steam-rom-manager
+
+Package: steam-rom-manager
+Architecture: all
+Depends:
+ ${misc:Depends}
+ , nodejs (>= 4.1)
+Description: Steam ROM manager
+ .
+ Node.js is an event-based server-side JavaScript engine.

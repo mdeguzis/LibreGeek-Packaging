@@ -2,23 +2,22 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt Name:	build-llvm-3.8.sh
-# Script Ver:	1.0.0
-# Description:	Attmpts to build a deb package from latest llvm-3.8
+# Scipt Name:	build-steam-rom-manager.sh
+# Script Ver:	0.1.1
+# Description:	Attmpts to build a deb package from latest steam-rom-manager
 #
-# Usage:	build-llvm-3.8.sh
-# Opts:		[--testing]
-#		Modifys build script to denote this is a test package build.
-# -------------------------------------------------------------------------------
+# Usage:	build-steam-rom-manager.sh
+#-------------------------------------------------------------------------------
 
 #################################################
 # Set variables
 #################################################
 
-ARG1="$1"
-SCRIPTDIR="${PWD}"
+arg1="$1"
+SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
+
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -32,58 +31,61 @@ if [[ "${REMOTE_USER}" == "" || "${REMOTE_HOST}" == "" ]]; then
 
 fi
 
-if [[ "$ARG1" == "--testing" ]]; then
+
+
+if [[ "$arg1" == "--testing" ]]; then
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming_testing"
-
+	
 else
 
 	REPO_FOLDER="/mnt/server_media_y/packaging/steamos-tools/incoming"
-
+	
 fi
 
-# http://ftp.debian.org/debian/pool/main/l/llvm-toolchain-5.0/llvm-toolchain-5.0_5.0~+rc2-1.dsc
-BASEURL="http://ftp.debian.org/debian/pool/main/l"
-LLVM_VER="5.0"
-PKGNAME="llvm-toolchain-${LLVM_VER}"
-PKGREV="1"
-PKGSUFFIX="~+rc2"
-PKGREV="1"
-LLVM_DSC_URL="${BASEURL}/${PKGNAME}/${PKGNAME}_${LLVM_VER}${PKGSUFFIX}-${PKGREV}.dsc"
+# upstream vars
+SRC_URL="https://github.com/FrogTheFrog/steam-rom-manager"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
-export STEAMOS_TOOLS_BETA_HOOK="true"
-#PKGNAME="llvm-toolchain-3.8"
-PKGVER="${LLVM_VER}"
-EPOCH="1"
+BUILDOPTS=""
+export STEAMOS_TOOLS_BETA_HOOK="false"
+export NO_LINTIAN="false"
+export NO_PKG_TEST="false"
+export USE_NETWORK="yes"
+PKGNAME="steam-rom-manager"
+PKGVER=$(echo ${TARGET} | sed 's/v//')
+PKGSUFFIX="git+bsos"
+PKGREV="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
-UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
+UPLOADER="Michael DeGuzis <mdeguzis@gmail.com>"
 MAINTAINER="mdeguzis"
 
 # set build directories
 unset BUILD_TMP
-# 
 unset BUILD_TMP
 export BUILD_TMP="${BUILD_TMP:=${HOME}/package-builds/build-${PKGNAME}-tmp}"
-SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}${PKGSUFFIX}"
+SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
-
-	echo -e "\n==> Installing $PKGNAME build dependencies...\n"
+	clear
+	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
-
-	sudo apt-get install -y --force-yes debhelper flex bison dejagnu tcl expect \
-	cmake libtool chrpath sharutils libffi-dev python-dev libedit-dev \
-	swig python-sphinx binutils-dev libjsoncpp-dev lcov help2man zlib1g-dev \
-	texinfo python-six
-
+	# install basic build packages - TODO
+	sudo apt-get -y --force-yes install build-essential pkg-config bc checkinstall debhelper npm
+	
+	# Setup npm
+	npm config set spin false
+	
+	# Install build-specific extra packages
+	npm install -g electron-prebuilt@0.35.4
+	
 }
 
 main()
@@ -105,6 +107,7 @@ main()
 	cd "${BUILD_TMP}" || exit
 
 	# install prereqs for build
+	
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
 
 		# handle prereqs on host machine
@@ -112,73 +115,51 @@ main()
 
 	fi
 
-	################################################
-	# obtain sources
-	#################################################
 
 	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
+
+	# clone
+	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
+
+	#################################################
+	# Build platform
+	#################################################
+
+	echo -e "\n==> Creating original tarball\n"
 	sleep 2s
 
-	if ! dget "${LLVM_DSC_URL}"; then
-		echo -e "\nERROR: failed to retrieve/validate source files"
-		echo -e "Perhaps debian-keyring is not installed / up to date\n"
-		sleep 5s
-		exit 1
-	fi
+	# Trim .git folders
+	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
-	echo -e "\n==> Sanitity checks"
+	# create source tarball
+	cd "${BUILD_TMP}"
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
-	if [[ ! -d "${SRC_DIR}/debian" ]]; then
+	# Add Debian dir
+	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
 
-		echo -e "\nDebian directory: [FAIL]"
+	# enter source dir
+	cd "${SRC_DIR}"
+	commits_full=$(git log --pretty=format:"  * %cd %h %s")
 
-		# no debian folder find and unpack the dget sourced file
-		DEBIAN_FOLDER=$(find "${BUILD_TMP}" -type f -name "*.debian.*")
+	echo -e "\n==> Updating changelog"
+	sleep 2s
 
-		case "${DEBIAN_FOLDER}" in
+ 	# update changelog with dch
+	if [[ -f "debian/changelog" ]]; then
 
-			*.tar.xz)
-			tar -xvf "${DEBIAN_FOLDER}" -C "${PWD}"
-			;;
-
-			*.tar.gz)
-			tar -xzvf "${DEBIAN_FOLDER}" -C "${PWD}"
-			;;
-
-		esac
+		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 
 	else
 
-		echo -e "\nDebian directory: [OK]"
+		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}"
 
 	fi
 
-
-	################################################
-	# Build package
-	#################################################
-
-	# enter source dir if not already
-	cd "${SRC_DIR}" || exit 1
-	
-#	echo -e "\n==> Updating changelog"
-#	sleep 2s
-
-	# update changelog with dch
-#	if [[ -f "debian/changelog" ]]; then
-#
-#		dch -p --force-distribution -D "${DIST}" "Backport for SteamOS brewmaster"
-#		vim "debian/changelog"
-#
-#	else
-#
-#		dch -p --create --force-distribution -v "${PKGVER}-${PKGREV}" --package "${PKGNAME}" \
-#		-D "${DIST}" -u "${URGENCY}" "Initial upload"
-#		vim "debian/changelog"
-#
-#	fi
 
 	#################################################
 	# Build Debian package
@@ -189,7 +170,7 @@ main()
 
 	#  build
 	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
-
+	
 	#################################################
 	# Cleanup
 	#################################################
@@ -198,12 +179,23 @@ main()
 	time_end=$(date +%s)
 	time_stamp_end=(`date +"%T"`)
 	runtime=$(echo "scale=2; ($time_end-$TIME_START) / 60 " | bc)
-
+	
 	# output finish
 	echo -e "\nTime started: ${TIME_STAMP_START}"
 	echo -e "Time started: ${time_stamp_end}"
 	echo -e "Total Runtime (minutes): $runtime\n"
 
+	
+	# assign value to build folder for exit warning below
+	build_folder=$(ls -l | grep "^d" | cut -d ' ' -f12)
+	
+	# back out of build tmp to script dir if called from git clone
+	if [[ "${SCRIPTDIR}" != "" ]]; then
+		cd "${SCRIPTDIR}" || exit
+	else
+		cd "${HOME}" || exit
+	fi
+	
 	# inform user of packages
 	cat<<- EOF
 	#################################################################

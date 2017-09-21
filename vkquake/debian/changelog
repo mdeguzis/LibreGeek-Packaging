@@ -1,3 +1,21 @@
+vkquake (0.96.2~yakkety-1) yakkety; urgency=low
+
+  * Upload for yakkety
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 17 Aug 2017 19:38:23 -0400
+
+vkquake (0.96.2~xenial-1) xenial; urgency=low
+
+  * Upload for xenial
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 17 Aug 2017 19:32:52 -0400
+
+vkquake (0.96.2~trusty-1) trusty; urgency=low
+
+  * Upload for trusty
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 17 Aug 2017 19:26:15 -0400
+
 vkquake (0.92.0~yakkety-1) yakkety; urgency=low
 
   * Upload for yakkety

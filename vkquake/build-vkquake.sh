@@ -159,13 +159,13 @@ main()
 		dch -p --force-bad-version --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" \
 		"Upload for ${DIST}"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

@@ -18,7 +18,7 @@ else
 
 fi
 
-if [[ "${OS}" == "SteamOS" ]]; then
+if [[ "${OS}" == "SteamOS" || "${OS} == "steamos" ]]; then
 
 	echo "I: STEAMOS-TOOLS: Adding repository configuration"
 

@@ -112,16 +112,16 @@ main()
 	# Set PKGSUFFIX based on Ubuntu DIST
 	case "${DIST}" in
 
-                trusty)
-                PKGSUFFIX="trusty${PPA_REV}"
-                ;;
-
 		xenial)
 		PKGSUFFIX="xenial${PPA_REV}"
 		;;
 
 		yakkety)
 		PKGSUFFIX="yakkety${PPA_REV}"
+		;;
+
+		zesty)
+		PKGSUFFIX="zesty${PPA_REV}"
 		;;
 
 	esac

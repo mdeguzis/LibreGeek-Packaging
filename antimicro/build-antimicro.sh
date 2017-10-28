@@ -56,10 +56,10 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="antimicro"
-PKGREV="1"
+PKGREV="2"
 PKGVER="2.23"
 DIST="${DIST:-yakkety}"
 PPA_REV=${PPA_REV:-""}
@@ -160,13 +160,13 @@ main()
 
 		dch -p --force-bad-version --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to new 2.22 release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	else
 
 		dch -p --create --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
-		nano "debian/changelog"
+		vim "debian/changelog"
 
 	fi
 

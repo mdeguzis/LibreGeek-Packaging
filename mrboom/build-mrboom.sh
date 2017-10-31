@@ -45,8 +45,8 @@ else
 
 fi
 # upstream vars
-SRC_URL="https://github.com/libretro/mrboom-libretro"
-TARGET="master"
+SRC_URL="https://github.com/Javanaise/mrboom-libretro"
+TARGET="3.8"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")

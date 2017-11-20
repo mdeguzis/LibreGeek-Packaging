@@ -46,7 +46,7 @@ else
 fi
 # upstream var for master build
 SRC_URL="https://anonscm.debian.org/git/pkg-sdl/packages/libsdl2.git"
-TARGET="debian/2.0.5+dfsg1-2"
+TARGET="debian/2.0.7+dfsg1-3"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -56,7 +56,7 @@ BUILDER="pdebuild"
 BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="libsdl2"
-PKGVER="2.0.5"
+PKGVER="2.0.7"
 PKGREV="1"
 EPOCH="1"
 DIST="${DIST:=brewmaster}"

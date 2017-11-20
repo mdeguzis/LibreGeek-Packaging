@@ -25,16 +25,16 @@ override_dh_auto_configure:
 	# libbluetooth-dev is only available on linux, hence build with
 	# wiimote input device support only on linux
 	if [ $(DEB_HOST_ARCH_OS) = linux ]; then \
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE="STKRelease" \
-			     -DSTK_ASSETS_DIR=$(CURDIR)/stk-assets
-	                     -DSTK_INSTALL_BINARY_DIR="games" \
-	                     -DSTK_INSTALL_DATA_DIR="share/games/supertuxkart"; \
+		dh_auto_configure -- -DCMAKE_BUILD_TYPE="STKRelease" \
+		-DSTK_ASSETS_DIR=$(CURDIR)/data \
+		-DSTK_INSTALL_BINARY_DIR="games" \
+		-DSTK_INSTALL_DATA_DIR="share/games/supertuxkart"; \
 	else \
-	dh_auto_configure -- -DCMAKE_BUILD_TYPE="STKRelease" \
-			     -DSTK_ASSETS_DIR=$(CURDIR)/stk-assets
-	                     -DSTK_INSTALL_BINARY_DIR="games" \
-	                     -DSTK_INSTALL_DATA_DIR="share/games/supertuxkart" \
-	                     -DUSE_WIIUSE=OFF; \
+		dh_auto_configure -- -DCMAKE_BUILD_TYPE="STKRelease" \
+		-DSTK_ASSETS_DIR=$(CURDIR)/data \
+		-DSTK_INSTALL_BINARY_DIR="games" \
+		-DSTK_INSTALL_DATA_DIR="share/games/supertuxkart" \
+		-DUSE_WIIUSE=OFF; \
 	fi
 
 override_dh_auto_build:
@@ -61,14 +61,8 @@ override_dh_install:
 	# Install hi-res icon into /usr/share/pixmaps. LP: #937976
 	install -m 644 $(CURDIR)/debian/tmp/usr/share/games/supertuxkart/data/gui/karts.png \
 	$(CURDIR)/debian/tmp/usr/share/pixmaps/supertuxkart.png
-	mkdir -p $(CURDIR)/debian/tmp/usr/share/icons/hicolor/32x32/apps
-	install -m 644 $(CURDIR)/debian/tmp/usr/share/pixmaps/supertuxkart_32.png \
-	$(CURDIR)/debian/tmp/usr/share/icons/hicolor/32x32/apps/supertuxkart.png
-	mkdir -p $(CURDIR)/debian/tmp/usr/share/icons/hicolor/128x128/apps
-	install -m 644 $(CURDIR)/debian/tmp/usr/share/pixmaps/supertuxkart_128.png \
-	$(CURDIR)/debian/tmp/usr/share/icons/hicolor/128x128/apps/supertuxkart.png
-	
-	dh_install --list-missing -Xgitignore -Xgitattributes
+	#dh_missing --list-missing -Xgitignore -Xgitattributes
+	dh_install
 
 override_dh_strip:
 	dh_strip --dbg-package=supertuxkart-dbg

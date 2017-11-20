@@ -46,7 +46,8 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/supertuxkart/stk-code"
-TARGET="0.9.2"
+#TARGET="0.9.3"
+TARGET="master"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -57,7 +58,8 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"  # If the testing repository is needed
 export APT_PREFS_HACK="false"		# Bypass apt prefs on Valve pkgs to install newer version for build
 export USE_LOCAL_REPO="false"		# Make use of locally build debs (use for arch-indep builds like qt)
-PKGVER="${TARGET}"
+#PKGVER="${TARGET}"
+PKGVER="0.9.3-rc1"
 PKGNAME="supertuxkart"
 PKGREV="1"
 PKGSUFFIX="git+bsos"

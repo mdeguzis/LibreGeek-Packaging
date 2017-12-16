@@ -1,0 +1,32 @@
+Source: libopenglrecorder
+Section: games
+Priority: optional
+Maintainer: Michael DeGuzis <mdeguzis@gmail.com>
+Build-Depends:
+ cmake (>= 2.8.1),
+ debhelper (>= 9),
+ libturbojpeg1-dev, 
+ libvpx-dev,
+ libogg-dev,
+ libvorbisenc2,
+ libvorbis-dev, 
+ libpulse-dev,
+ pkg-config
+Standards-Version: 3.9.8
+Homepage: https://github.com/Benau/libopenglrecorder
+
+Package: libopenglrecorder
+Architecture: any
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: video and audio encoding library
+ .
+ libopenglrecorder is a library allowing optional async
+ readback OpenGL frame buffer with optional audio recording.
+ It will do video and audio encoding together. The user of
+ this library has to setup OpenGL context himself and load
+ suitable callbacks. All functions exposed by
+ libopenglrecorder should be called by the same thread
+ which created the OpenGL context. Currently using in
+ Linux and Windows is supported.

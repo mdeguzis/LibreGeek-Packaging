@@ -2,14 +2,12 @@
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/mdeguzis/SteamOS-Tools
-# Scipt Name:	build-retroarch.sh
+# Scipt Name:	build-libopenglrecorder.sh
 # Script Ver:	1.0.0
-# Description:	Attmpts to build a deb package from latest retroarch
+# Description:	Attmpts to builad a deb package from latest libopenglrecorder
 #		github release
 #
-# See:		https://github.com/libretro/RetroArch
-#
-# Usage:	build-retroarch.sh
+# Usage:	build-libopenglrecorder.sh
 # Opts:		[--testing]
 #		Modifys build script to denote this is a test package build.
 # -------------------------------------------------------------------------------
@@ -22,7 +20,6 @@ arg1="$1"
 SCRIPTDIR=$(pwd)
 TIME_START=$(date +%s)
 TIME_STAMP_START=(`date +"%T"`)
-
 
 # Check if USER/HOST is setup under ~/.bashrc, set to default if blank
 # This keeps the IP of the remote VPS out of the build script
@@ -47,21 +44,25 @@ else
 fi
 
 # upstream vars
-SRC_URL="https://github.com/libretro/RetroArch"
-TARGET="v1.6.9"
+#SRC_URL="https://github.com/jpd002/Play-"
+SRC_URL="https://github.com/Benau/libopenglrecorder"
+TARGET="v0.1.0"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
-ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+ARCH="amd64"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 export NO_LINTIAN="false"
 export NO_PKG_TEST="false"
-PKGNAME="retroarch"
-PKGVER=$(echo ${TARGET} | sed 's/v//')
-PKGREV="1"
+export NO_APT_PREFS="false"
+PKGNAME="libopenglrecorder"
+PKGVER="$(echo ${TARGET} | sed 's/v//')"
+PKGREV="3"
+PKGSUFFIX="git+bsos"
+EPOCH="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
 UPLOADER="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -75,24 +76,20 @@ SRC_DIR="${BUILD_TMP}/${PKGNAME}-${PKGVER}"
 
 install_prereqs()
 {
+
 	clear
 	echo -e "==> Installing prerequisites for building...\n"
 	sleep 2s
 	# install basic build packages
-	sudo apt-get install -y --force-yes build-essential pkg-config libpulse-dev\
-	checkinstall bc build-essential devscripts make git-core curl libxxf86vm-dev\
-	g++ pkg-config libglu1-mesa-dev freeglut3-dev mesa-common-dev lsb-release \
-	libsdl1.2-dev libsdl-image1.2-dev libsdl-mixer1.2-dev libc6-dev x11proto-xext-dev \
-	libsdl-ttf2.0-dev nvidia-cg-toolkit nvidia-cg-dev libasound2-dev unzip samba \
-	smbclient libsdl2-dev libxml2-dev libavcodec-dev libfreetype6-dev libavformat-dev \
-	libavutil-dev libswscale-dev libv4l-dev libdrm-dev libxinerama-dev libudev-dev \
-	libusb-1.0-0-dev libxv-dev libopenal-dev libjack-jackd2-dev libgbm-dev \
-	libegl1-mesa-dev python3-dev libavdevice-dev
+	sudo apt-get -y --force-yes install build-essential cmake libturbojpeg \
+	libvpx-dev libogg-dev libvorbisenc2 libvorbis-dev \
+	libpulse-dev pkg-config
 
 }
 
 main()
 {
+
 
 	# create BUILD_TMP
 	if [[ -d "${BUILD_TMP}" ]]; then
@@ -106,9 +103,6 @@ main()
 
 	fi
 
-	# enter build dir
-	cd "${BUILD_TMP}" || exit
-
 	# install prereqs for build
 
 	if [[ "${BUILDER}" != "pdebuild" && "${BUILDER}" != "sbuild" ]]; then
@@ -121,43 +115,26 @@ main()
 	# Clone upstream source code and TARGET
 
 	echo -e "\n==> Obtaining upstream source code\n"
+	sleep 2s
 
-	# clone
 	git clone -b "${TARGET}" "${SRC_URL}" "${SRC_DIR}"
 
-	# inject .desktop file (not found in release archives) and image
-	cp -r "${SCRIPTDIR}/retroarch.png" "${SRC_DIR}"
-	cp -r "${SCRIPTDIR}/retroarch.desktop" "${SRC_DIR}"
-
-	# Set suffix based on revisions
-	cd "${SRC_DIR}"
-	LATEST_COMMIT=$(git log -n 1 --pretty=format:"%h")
-	PKGSUFFIX="git${DATE_SHORT}.${LATEST_COMMIT}~${PKGREV}"
-
-	###############################################################
-	# correct any files needed here that you can ahead of time
-	###############################################################
-
-	# For whatever reason, some "defaults" don't quite work
-	# Mayeb ship a config file in the future instead
-	sed -ie 's|# assets_directory =|assets_directory = /usr/share/libretro/assets|' "${SRC_DIR}/retroarch.cfg"
-
 	#################################################
-	# Build package
+	# Prepare sources
 	#################################################
-
-	echo -e "\n==> Creating original tarball\n"
-	sleep 2s
 
 	# Trim .git folders
 	find "${SRC_DIR}" -name "*.git" -type d -exec sudo rm -r {} \;
 
-	# create source tarball
 	cd "${BUILD_TMP}"
-	tar -cvzf "${PKGNAME}_${PKGVER}.orig.tar.gz" $(basename ${SRC_DIR})
+	tar -cvzf "${PKGNAME}_${PKGVER}+${PKGSUFFIX}.orig.tar.gz" $(basename ${SRC_DIR})
 
 	# copy in debian folder
-	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+ 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+
+	#################################################
+	# Build package
+	#################################################
 
 	# enter source dir
 	cd "${SRC_DIR}"
@@ -166,28 +143,25 @@ main()
 	sleep 2s
 
  	# update changelog with dch
- 	# Maybe include static message: "Update to release: ${TARGET}"
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "New release"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" 	-D "${DIST}" -u "${URGENCY}" "Update snapshot"
 		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}" \
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial upload"
+		vim "debian/changelog"
 
 	fi
-
-	#################################################
-	# Build Debian package
-	#################################################
 
 	echo -e "\n==> Building Debian package ${PKGNAME} from source\n"
 	sleep 2s
 
-	DIST=$DIST ARCH=$ARCH ${BUILDER} ${BUILDOPTS}
+	#  build
+	DIST=$DIST ${BUILDER} ${BUILDOPTS}
 
 	#################################################
 	# Cleanup

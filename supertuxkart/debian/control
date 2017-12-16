@@ -15,6 +15,7 @@ Build-Depends:
  libfribidi-dev,
  libjpeg-dev,
  libopenal-dev,
+ libopenglrecorder,
  libpng-dev,
  libsdl-image1.2-dev,
  libsdl-ttf2.0-dev,

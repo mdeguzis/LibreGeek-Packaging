@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+
+%:
+	dh $@ --buildsystem=cmake --parallel
+
+override_dh_auto_configure:
+	sed -i 's|@DEB_HOST_MULTIARCH@|$(DEB_HOST_MULTIARCH)|g' $(CURDIR)/debian/install
+	rm -rf build && mkdir build
+	cd build && cmake \
+            -DCMAKE_INSTALL_PREFIX=/usr \
+            ..
+
+override_dh_auto_build:
+	make -C build -j4
+
+override_dh_auto_install:
+
+override_dh_auto_test:
+

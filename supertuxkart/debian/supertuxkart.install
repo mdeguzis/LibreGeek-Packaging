@@ -3,3 +3,4 @@ debian/tmp/usr/share/appdata
 debian/tmp/usr/share/applications
 debian/tmp/usr/share/icons
 debian/tmp/usr/share/pixmaps
+supertuxkart.png debian/tmp/usr/share/pixmaps

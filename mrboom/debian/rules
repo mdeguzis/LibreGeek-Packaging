@@ -12,6 +12,9 @@
 # package maintainers to append LDFLAGS
 #export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
+# Filter out FORTIFY default CPPFLAG here, interferes with mrboom Makefile
+CPPFLAGS := $(filter-out -D_FORTIFY_SOURCE=2,$(CPPFLAGS))
+
 %:
 	dh $@
 

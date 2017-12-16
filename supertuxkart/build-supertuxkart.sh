@@ -46,8 +46,7 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/supertuxkart/stk-code"
-#TARGET="0.9.3"
-TARGET="master"
+TARGET="0.9.3"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
@@ -58,8 +57,8 @@ BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"  # If the testing repository is needed
 export APT_PREFS_HACK="false"		# Bypass apt prefs on Valve pkgs to install newer version for build
 export USE_LOCAL_REPO="false"		# Make use of locally build debs (use for arch-indep builds like qt)
-#PKGVER="${TARGET}"
-PKGVER="0.9.3-rc1"
+EPOCH="2"
+PKGVER="${TARGET}"
 PKGNAME="supertuxkart"
 PKGREV="1"
 PKGSUFFIX="git+bsos"
@@ -142,8 +141,8 @@ main()
 	cd "${SRC_DIR}"
 	git submodule update --init
 
-	# Trim .git folders (these should not be included and take up space)
-	find "${SRC_DIR}" -name ".git" -type d -exec sudo rm -r {} \;
+	# Replace Icon for Steam banner
+	sed -i 's|Icon=supertuxkart|Icon=/usr/share/pixmaps/supertuxkart.png|' "${SRC_DIR}/data/supertuxkart.desktop"
 
 	#################################################
 	# Prepare sources
@@ -179,6 +178,7 @@ main()
 
 	# Add required files
 	cp -r "${SCRIPTDIR}/debian" "${SRC_DIR}"
+	cp -r "${SCRIPTDIR}/supertuxkart.png" "${SRC_DIR}"
 
 	#################################################
 	# Build package
@@ -193,13 +193,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-bad-version --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" --package \
 		"${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to release ${PKGVER}"
 		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}+${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Initial build"
 		vim "debian/changelog"
 

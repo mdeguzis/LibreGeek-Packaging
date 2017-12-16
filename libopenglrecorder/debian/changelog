@@ -1,0 +1,17 @@
+libopenglrecorder (1:0.1.0+git+bsos-3) brewmaster; urgency=low
+
+  * Fix header inclusion
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 25 Nov 2017 09:13:56 -0500
+
+libopenglrecorder (1:0.1.0+git+bsos-2) brewmaster; urgency=low
+
+  * Find links for libs
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 25 Nov 2017 09:05:41 -0500
+
+libopenglrecorder (1:0.1.0+git+bsos-1) brewmaster; urgency=low
+
+  * Initial upload
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Fri, 24 Nov 2017 07:53:30 -0500

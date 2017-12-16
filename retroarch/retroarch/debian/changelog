@@ -1,3 +1,9 @@
+retroarch (1.6.9+git20171123.e8b10d342~1) brewmaster; urgency=low
+
+  * New release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Thu, 23 Nov 2017 15:22:54 -0500
+
 retroarch (1.6.3+git20170730.adae0656e~1) brewmaster; urgency=low
 
   * New release

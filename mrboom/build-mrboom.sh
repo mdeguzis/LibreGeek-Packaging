@@ -46,17 +46,17 @@ else
 fi
 # upstream vars
 SRC_URL="https://github.com/Javanaise/mrboom-libretro"
-TARGET="3.8"
+TARGET="4.1"
 
 # package vars
 DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -nc"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="mrboom"
-PKGREV="1"
+PKGREV="2"
 EPOCH="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"
@@ -114,7 +114,7 @@ main()
 
     # clone and get latest commit tag
     cd "${SRC_DIR}"
-	PKGVER=$(git describe --abbrev=0)
+	PKGVER=$(git describe --abbrev=0 --tags)
     latest_commit=$(git log -n 1 --pretty=format:"%h")
 
     # Set suffix to commit

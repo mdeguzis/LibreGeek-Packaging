@@ -1,3 +1,9 @@
+supertuxkart (2:0.9.3+git+bsos-1) brewmaster; urgency=low
+
+  * Update to release 0.9.3
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Sat, 25 Nov 2017 10:24:07 -0500
+
 supertuxkart (0.9.3-rc1+git+bsos-1) brewmaster; urgency=low
 
   * Update to release 0.9.3-rc1

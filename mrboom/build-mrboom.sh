@@ -53,10 +53,10 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="true"
 PKGNAME="mrboom"
-PKGREV="2"
+PKGREV="1"
 EPOCH="1"
 DIST="${DIST:=brewmaster}"
 URGENCY="low"

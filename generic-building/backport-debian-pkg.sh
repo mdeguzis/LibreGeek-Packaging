@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 #-------------------------------------------------------------------------------
 # Author:	Michael DeGuzis
 # Git:		https://github.com/ProfessorKaos64/SteamOS-Tools

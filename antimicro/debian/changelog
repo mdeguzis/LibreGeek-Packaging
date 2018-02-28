@@ -1,3 +1,9 @@
+antimicro (2.23~artful-2) artful; urgency=low
+
+  * Update to new 2.22 release
+
+ -- Michael DeGuzis <mdeguzis@gmail.com>  Tue, 27 Feb 2018 19:51:13 -0500
+
 antimicro (2.23~zesty-1) zesty; urgency=low
 
   * Upload for Zesty

@@ -61,7 +61,7 @@ export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="antimicro"
 PKGREV="2"
 PKGVER="2.23"
-DIST="${DIST:-yakkety}"
+DIST="${DIST:-artful}"
 PPA_REV=${PPA_REV:-""}
 URGENCY="low"
 uploader="SteamOS-Tools Signing Key <mdeguzis@gmail.com>"
@@ -122,6 +122,10 @@ main()
 
 		zesty)
 		PKGSUFFIX="zesty${PPA_REV}"
+		;;
+
+		artful)
+		PKGSUFFIX="artful${PPA_REV}"
 		;;
 
 	esac

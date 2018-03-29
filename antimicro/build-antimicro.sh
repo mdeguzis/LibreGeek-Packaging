@@ -56,10 +56,12 @@ DATE_LONG=$(date +"%a, %d %b %Y %H:%M:%S %z")
 DATE_SHORT=$(date +%Y%m%d)
 ARCH="amd64"
 BUILDER="pdebuild"
-BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
+#BUILDOPTS="--debbuildopts -sa --debbuildopts -nc"
+BUILDOPTS="--debbuildopts -b --debbuildopts -nc"
 export STEAMOS_TOOLS_BETA_HOOK="false"
 PKGNAME="antimicro"
-PKGREV="2"
+PKGREV="1"
+EPOCH="1"
 PKGVER="2.23"
 DIST="${DIST:-artful}"
 PPA_REV=${PPA_REV:-""}
@@ -125,6 +127,7 @@ main()
 		;;
 
 		artful)
+		# Have to start over at a now..
 		PKGSUFFIX="artful${PPA_REV}"
 		;;
 
@@ -162,13 +165,13 @@ main()
 	# update changelog with dch
 	if [[ -f "debian/changelog" ]]; then
 
-		dch -p --force-bad-version --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
-		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update to new 2.22 release"
+		dch -p --force-distribution -v "${EPOCH}:${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
+		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Upload for ${DIST}"
 		vim "debian/changelog"
 
 	else
 
-		dch -p --create --force-distribution -v "${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
+		dch -p --create --force-distribution -v "${EPOCH}:${PKGVER}~${PKGSUFFIX}-${PKGREV}" \
 		--package "${PKGNAME}" -D "${DIST}" -u "${URGENCY}" "Update release"
 		vim "debian/changelog"
 
@@ -210,7 +213,8 @@ main()
 
 	EOF
 
-	ls "${BUILD_TMP}" | grep -E "${PKGVER}"
+	#ls "${BUILD_TMP}" | grep -E "${PKGVER}"
+	ls "${BUILD_TMP}"
 
 	echo -e "\n==> Would you like to upload any packages that were built to the PPA? [y/n]"
 	sleep 0.5s

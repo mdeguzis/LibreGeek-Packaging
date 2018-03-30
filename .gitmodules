@@ -1,0 +1,3 @@
+[submodule "org.supertuxproject.SuperTux"]
+	path = org.supertuxproject.SuperTux
+	url = https://github.com/flathub/org.supertuxproject.SuperTux

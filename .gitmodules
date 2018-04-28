@@ -1,3 +1,6 @@
 [submodule "modules-flathub"]
 	path = modules-flathub
 	url = https://github.com/flathub/shared-modules
+[submodule "supertux"]
+	path = supertux
+	url = https://github.com/flathub/org.supertuxproject.SuperTux

@@ -1,0 +1,75 @@
+{
+    "app-id": "org.citra_emu.Citra",
+    "runtime": "org.kde.Platform",
+    "sdk": "org.kde.Sdk",
+    "runtime-version": "5.9",
+    "command": "citra-qt",
+    "rename-desktop-file": "citra.desktop",
+    "rename-icon": "citra",
+    "sdk-extensions": [
+        "org.freedesktop.Sdk.Extension.gcc7"
+    ],
+    "build-options": {
+        "env": {
+            "CC": "/usr/lib/sdk/gcc7/bin/gcc",
+            "CXX": "/usr/lib/sdk/gcc7/bin/g++"
+        }
+    },
+    "finish-args": [
+        "--device=all",
+        "--socket=x11",
+        "--socket=pulseaudio",
+        "--share=network",
+        "--share=ipc",
+        "--filesystem=xdg-config/citra-emu:create",
+        "--filesystem=xdg-data/citra-emu:create",
+        "--filesystem=host:ro"
+    ],
+    "modules": [
+        {
+            "name": "cmake",
+            "buildsystem": "cmake-ninja",
+            "cleanup": ["*"],
+            "sources": [
+                {
+                    "type": "archive",
+                    "url": "https://cmake.org/files/v3.10/cmake-3.10.2.tar.gz",
+                    "sha256": "80d0faad4ab56de07aa21a7fc692c88c4ce6156d42b0579c6962004a70a3218b"
+                }
+            ]
+        },
+        {
+            "name": "citra",
+            "buildsystem": "cmake-ninja",
+            "builddir": true,
+            "config-opts": [
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DUSE_SYSTEM_CURL=1"
+            ],
+            "cleanup": [
+              "/bin/citra",
+              "/share/man",
+              "/share/pixmaps"
+            ],
+            "post-install": [
+                "install -Dm644 ../org.citra_emu.Citra.appdata.xml /app/share/appdata/org.citra_emu.Citra.appdata.xml",
+                "desktop-file-install --dir=/app/share/applications ../dist/citra.desktop",
+                "install -Dm644 ../dist/citra.svg /app/share/icons/hicolor/scalable/apps/citra.svg",
+                "install -Dm644 ../dist/icon.png /app/share/icons/hicolor/512x512/apps/citra.png",
+                "mv /app/share/mime/packages/citra.xml /app/share/mime/packages/org.citra_emu.Citra.xml",
+                "sed 's/citra/org.citra_emu.Citra/g' -i /app/share/mime/packages/org.citra_emu.Citra.xml",
+                "install -m644 --target-directory=/app/lib /usr/lib/sdk/gcc7/lib/libstdc++.so*"
+            ],
+            "sources": [
+                {
+                    "type": "git",
+                    "url": "https://github.com/citra-emu/citra.git"
+                },
+                {
+                    "type": "file",
+                    "path": "org.citra_emu.Citra.appdata.xml"
+                }
+            ]
+        }
+    ]
+}

@@ -17,14 +17,23 @@ uninstall:
 	@sudo docker rmi $(IMAGE_NAME)
 
 run:
-	sudo docker run \
-		--name $(CONTAINER_NAME) \
-		--interactive=true \
-		--tty=true \
-		--volume /home/mikeyd:/home/root:rw \
-		--volume /mnt/server_media_y/libregeek-packaging:/libregeek-packaging:rw \
-		--volume /mnt/server_media_y/github_repos/libregeek-packaging/repo:/repo:rw \
-		$(IMAGE_NAME)
+	@# check for run state, if any errors true will not be set, so throw away errors
+	@if [ `sudo docker ps -qf name="$(CONTAINER_NAME)"` ]; then \
+		echo "Attaching to running container"; \
+        sudo docker attach $(CONTAINER_NAME); \
+	else \
+		echo "Starting container"; \
+		sudo docker rm -f $(CONTAINER_NAME); \
+		sudo docker run \
+			--name $(CONTAINER_NAME) \
+			--interactive=true \
+			--tty=true \
+			--volume /home/mikeyd:/home/root:rw \
+			--volume /mnt/server_media_y/libregeek-packaging:/libregeek-packaging:rw \
+			--volume /mnt/server_media_y/github_repos/libregeek-packaging/repo:/repo:rw \
+			$(IMAGE_NAME); \
+		exit 0; \
+	fi
 
 clean: stop
 	@sudo docker rm -f $(CONTAINER_NAME)

@@ -1,9 +1,12 @@
+#!/usr/bin/python2
 import argparse
 import sys
 import yaml
 import json
 
-yaml.safe_dump(json.load(sys.stdin), 
-sys.stdout, 
-default_flow_style=False)' < 
-file.json > file.yaml
+json_file = 'test.json'
+with open(json_file, 'r') as f:
+	json_data = json.load(f)
+
+yaml_content = yaml.safe_dump(json_data, default_flow_style=False)
+print yaml_content

@@ -12,18 +12,22 @@ build:
 		.
 
 uninstall:
-	sudo docker stop $(CONTAINER_NAME)
-	sudo docker rm -f $(CONTAINRE_NAME)
-	sudo docker rmi $(IMAGE_NAME)
+	@sudo docker stop $(CONTAINER_NAME)
+	@sudo docker rm -f $(CONTAINRE_NAME)
+	@sudo docker rmi $(IMAGE_NAME)
 
 run:
 	sudo docker run \
 		--name $(CONTAINER_NAME) \
+		--interactive=true \
 		--tty=true \
 		--volume /home/mikeyd:/home/root:rw \
 		--volume /mnt/server_media_y/libregeek-packaging:/libregeek-packaging:rw \
 		--volume /mnt/server_media_y/github_repos/libregeek-packaging/repo:/repo:rw \
 		$(IMAGE_NAME)
 
+clean: stop
+	@sudo docker rm -f $(CONTAINER_NAME)
+	
 stop:
-	sudo docker stop $(CONTAINER_NAME)
+	@sudo docker stop $(CONTAINER_NAME)

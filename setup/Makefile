@@ -17,11 +17,13 @@ uninstall:
 	sudo docker rmi $(IMAGE_NAME)
 
 run:
-	sudo docker run $(CONTAINER_NAME) \
-		--detach=true \
+	sudo docker run \
+		--name $(CONTAINER_NAME) \
 		--tty=true \
-		--mount /home/mikeyd:/home/root, rw \
-		--mount /mnt/server_media_y/libregee-packaging:/libregeek-packaging, rw \
+		--volume /home/mikeyd:/home/root:rw \
+		--volume /mnt/server_media_y/libregeek-packaging:/libregeek-packaging:rw \
+		--volume /mnt/server_media_y/github_repos/libregeek-packaging/repo:/repo:rw \
+		$(IMAGE_NAME)
 
 stop:
 	sudo docker stop $(CONTAINER_NAME)

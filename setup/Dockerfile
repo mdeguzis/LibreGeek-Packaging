@@ -6,6 +6,7 @@ RUN pacman -Syy
 RUN pacman -Syu
 
 # Install some tools and software
-RUN pacman -S flatpak
+# Use --asdeps for any default providers since this is a minimal image
+RUN pacman -S --asdeps --noconfirm base-devel flatpak
 
 entrypoint /bin/bash

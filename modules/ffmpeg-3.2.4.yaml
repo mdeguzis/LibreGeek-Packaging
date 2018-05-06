@@ -16,8 +16,8 @@ config-opts:
 - --disable-static
 sources:
 - type: archive
-  url: https://ffmpeg.org/releases/ffmpeg-3.2.4.tar.xz
-  sha256: 6e38ff14f080c98b58cf5967573501b8cb586e3a173b591f3807d8f0660daf7a
+  url: https://ffmpeg.org/releases/ffmpeg-3.4.tar.xz
+  sha256: aeee06e4d8b18d852c61ebbfe5e1bb7014b1e118e8728c1c2115f91e51bffbef
 cleanup:
 - /include
 - /lib/*.a
@@ -29,3 +29,5 @@ cleanup:
 - /share/gtk-doc
 - /share/man
 - /share/pkgconfig
+modules:
+  - libass-0.13.6.yaml

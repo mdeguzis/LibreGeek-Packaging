@@ -19,6 +19,5 @@ sources:
     dest-filename: waf
 modules:
   - ffmpeg-3.2.4.yaml
-  - libass-0.13.6.yaml
   - fribidi-1.0.2.yaml
   - uchardet-0.0.6.yaml

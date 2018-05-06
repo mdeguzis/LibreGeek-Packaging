@@ -7,3 +7,6 @@
 [submodule "utils/json2yaml"]
 	path = utils/json2yaml
 	url = https://github.com/drbild/json2yaml
+[submodule "utils/flatpak-builder"]
+	path = utils/flatpak-builder
+	url = https://github.com/flatpak/flatpak-builder

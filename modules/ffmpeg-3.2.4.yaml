@@ -1,33 +1,33 @@
 name: ffmpeg
 config-opts:
-- --enable-gpl
-- --enable-libass
-- --enable-libfreetype
-- --enable-libmp3lame
-- --enable-libopus
-- --enable-libtheora
-- --enable-libvorbis
-- --enable-libvpx
-- --enable-libx264
-- --enable-libx265
-- --enable-openssl
-- --enable-nonfree
-- --enable-shared
-- --disable-static
+  - --enable-gpl
+  - --enable-libass
+  - --enable-libfreetype
+  - --enable-libmp3lame
+  - --enable-libopus
+  - --enable-libtheora
+  - --enable-libvorbis
+  - --enable-libvpx
+  - --enable-libx264
+  - --enable-libx265
+  - --enable-openssl
+  - --enable-nonfree
+  - --enable-shared
+  - --disable-static
 sources:
-- type: archive
-  url: https://ffmpeg.org/releases/ffmpeg-3.4.tar.xz
-  sha256: aeee06e4d8b18d852c61ebbfe5e1bb7014b1e118e8728c1c2115f91e51bffbef
+  - type: archive
+    url: https://ffmpeg.org/releases/ffmpeg-3.4.tar.xz
+    sha256: aeee06e4d8b18d852c61ebbfe5e1bb7014b1e118e8728c1c2115f91e51bffbef
 cleanup:
-- /include
-- /lib/*.a
-- /lib/*.la
-- /lib/pkgconfig
-- /man
-- /share/aclocal
-- /share/doc
-- /share/gtk-doc
-- /share/man
-- /share/pkgconfig
+  - /include
+  - /lib/*.a
+  - /lib/*.la
+  - /lib/pkgconfig
+  - /man
+  - /share/aclocal
+  - /share/doc
+  - /share/gtk-doc
+  - /share/man
+  - /share/pkgconfig
 modules:
   - libass-0.13.6.yaml

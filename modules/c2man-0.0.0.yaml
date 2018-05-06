@@ -1,0 +1,24 @@
+name: c2man
+buildsystem: simple
+build-commands:
+  - ./Configure -dE
+  - mkdir -p ${PWD}/c2man-install
+  - echo "binexp=${PWD}/c2man-install" >> config.sh
+  - echo "installprivlib=${PWD}/c2man-install" >> config.sh
+  - echo "mansrc=${PWD}/c2man-install" >> config.sh
+  - sh config_h.SH
+  - sh flatten.SH
+  - sh Makefile.SH
+  - make depend
+  - make
+  - make install
+sources:
+- type: archive
+  url: https://github.com/fribidi/c2man/archive/master.zip
+  sha256: 1d1cd7d76e57c0bc6f42b60850dce23fd60c6da1a89f334e0d24c27f5f5b6d01
+cleanup:
+  - *.o
+  - .config/*
+  - *.h
+  - *.inc
+  - *.c

@@ -8,7 +8,7 @@ OPTIONS += --rebuild-on-sdk-change
 OPTIONS += --require-changes 
 OPTIONS += --gpg-sign=$(GPG_KEYID) 
 OPTIONS += --repo=$(REPO) $(BUILD_DIR)
-BUILD_CMD = sudo flatpak-builder $(OPTIONS)
+BUILD_CMD = flatpak-builder $(OPTIONS)
 
 # Intended for testing a module build
 MODULE ?= 
@@ -26,16 +26,17 @@ module:
 	@if [ -z $(MODULE) ]; then \
 		echo "MODULE var is not set!"; \
 		exit 1; \
+	else \
+		echo "MODULE check: $(BASEDIR)"; \
+		BASEDIR=$(basename $(MODULE)); \
+		echo "BASEDIR check: $(BASEDIR)"; \
+		exit 1; \
 	fi
-	cd $(CURDIR)/$(shell dirname $(MODULE)) && $(BUILD_CMD) $(shell basename $(MODULE))
+	$(BUILD_CMD) $(MODULE)	
 
 plex: 
-	cd plex && $(BUILD_CMD) tv.plex.PlexMediaPlayer.yaml
+	cd tv.plex.PlexMediaPlayer && $(BUILD_CMD)
 
 sync: $(REPO)
 	cd /mnt/server_media_y/packaging/flatpak && ./sync-flatpak-repo.sh
 
-test:
-	cd tests && $(BUILD_CMD) test.yaml
-
-.PHONY: all plex

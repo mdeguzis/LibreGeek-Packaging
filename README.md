@@ -5,6 +5,21 @@ Branch for working with Flatpak
 Flatpak manifests are traditionally written in JSON. However, lengthly JSON manifests can be annoying to track, despite auto-closing/terminating
 capabilities of editors such as vim. 
 
+## Runtimes
+
+Installing a runtime:
+
+Find it:
+```
+sudo flatpak search org.kde
+org.kde.Platform 5.9 flathub Shared libraries used by KDE ...
+```
+
+Install it:
+```
+sudo flatpak install flathub org.kde.Platform//5.9
+```
+
 ## What about YAML?
 YAML is much cleaner and lends it's structured format with labels very well. As of the below pull request, you can use YAML as an alternative!
 

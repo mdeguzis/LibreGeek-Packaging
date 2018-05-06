@@ -19,15 +19,14 @@ uninstall:
 run:
 	@# check for run state, if any errors true will not be set, so throw away errors
 	@if [ `sudo docker ps -qf name="$(CONTAINER_NAME)"` ]; then \
-		echo "Attaching to running container"; \
-        sudo docker attach $(CONTAINER_NAME); \
+		echo "Container already running"; \
 	else \
 		echo "Starting container"; \
 		sudo docker rm -f $(CONTAINER_NAME); \
 		sudo docker run \
-			--name $(CONTAINER_NAME) \
-			--interactive=true \
+			--detach=true \
 			--tty=true \
+			--name $(CONTAINER_NAME) \
 			--volume /home/mikeyd:/home/root:rw \
 			--volume /mnt/server_media_y/libregeek-packaging:/libregeek-packaging:rw \
 			--volume /mnt/server_media_y/github_repos/libregeek-packaging/repo:/repo:rw \

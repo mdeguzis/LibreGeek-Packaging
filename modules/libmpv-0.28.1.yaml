@@ -18,7 +18,7 @@ sources:
 	  sha256: 167dc42bab6d5bd823b798af195420319cb5c9b571e00db7d83df2a0fe1f4dbf
 	  dest-filename: waf
 modules:
-	- include ffmpeg-3.2.4.yaml
-	- include libass-0.13.6.yaml
-	- include fribidi-0.19.7.yaml
-	- include uchardet-0.0.6.yaml
+  - ffmpeg-3.2.4.yaml
+  - libass-0.13.6.yaml
+  - fribidi-0.19.7.yaml
+  - uchardet-0.0.6.yaml

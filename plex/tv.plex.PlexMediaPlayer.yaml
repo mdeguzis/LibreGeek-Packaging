@@ -14,45 +14,45 @@ finish-args:
 - --filesystem=xdg-pictures:ro
 - --system-talk-name=org.freedesktop.login1
 modules:
-- name: plex-media-player
-  buildsystem: cmake-ninja
-  config-opts:
-  - -DCMAKE_BUILD_TYPE=Release
-  - -DQTROOT=/usr
-  post-install:
-  - install -Dm644 tv.plex.PlexMediaPlayer.appdata.xml /app/share/metainfo/tv.plex.PlexMediaPlayer.appdata.xml
-  - install -Dm644 resources/images/icon.png /app/share/icons/hicolor/256x256/apps/tv.plex.PlexMediaPlayer.png
-  - install -Dm644 tv.plex.PlexMediaPlayer.desktop /app/share/applications/tv.plex.PlexMediaPlayer.desktop
-  cleanup:
-  - /resources
-  sources:
-  - type: archive
-    url: https://github.com/plexinc/plex-media-player/archive/v2.8.0.813-6e77dc0c.tar.gz
-    sha256: 27532ad6c5d7911f852c8638c5a293105c1f8dc13c385d1f4f337701c3f9c589
-  - type: file
-    url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-desktop-3.44.1-8883bd1.tar.xz
-    sha256: ac0c478bd1c04b0cd9f2ac40548d5991effa53766c7104dfd72b82e52705d48f
-    dest: dependencies
-  - type: file
-    url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-desktop-3.44.1-8883bd1.tar.xz.sha1
-    sha256: 36b1c61936632dbfdc1614282d41dbf54cbc5f1d88d0839cd07cd0df13611341
-    dest: dependencies
-  - type: file
-    url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-tv-3.45.2-fea0860.tar.xz
-    sha256: 34ed6ab2f6736da10f2e8cf906596b9ad670f2707c9986b2021507046a6b1371
-    dest: dependencies
-  - type: file
-    url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-tv-3.45.2-fea0860.tar.xz.sha1
-    sha256: 33bc79dad202f674afabb1463815b82a566f5073e42672ad902e2d7f0310ff3d
-    dest: dependencies
-  - type: file
-    url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/buildid.cmake
-    sha256: 591b0a7f4c3c3324d73acbc3ba54fec8a2d078c79602abe2b1e3c66e8484facb
-    dest-filename: buildid-25-fea08608883bd1.cmake
-    dest: dependencies
-  - type: file
-    path: tv.plex.PlexMediaPlayer.appdata.xml
-  - type: file
-    path: tv.plex.PlexMediaPlayer.desktop
-  modules:
-  - include: libmpv-0.28.1.yaml
+  - name: plex-media-player
+    buildsystem: cmake-ninja
+    config-opts:
+    - -DCMAKE_BUILD_TYPE=Release
+    - -DQTROOT=/usr
+    post-install:
+      - install -Dm644 tv.plex.PlexMediaPlayer.appdata.xml /app/share/metainfo/tv.plex.PlexMediaPlayer.appdata.xml
+      - install -Dm644 resources/images/icon.png /app/share/icons/hicolor/256x256/apps/tv.plex.PlexMediaPlayer.png
+      - install -Dm644 tv.plex.PlexMediaPlayer.desktop /app/share/applications/tv.plex.PlexMediaPlayer.desktop
+    cleanup:
+      - /resources
+    sources:
+      - type: archive
+        url: https://github.com/plexinc/plex-media-player/archive/v2.8.0.813-6e77dc0c.tar.gz
+        sha256: 27532ad6c5d7911f852c8638c5a293105c1f8dc13c385d1f4f337701c3f9c589
+      - type: file
+        url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-desktop-3.44.1-8883bd1.tar.xz
+        sha256: ac0c478bd1c04b0cd9f2ac40548d5991effa53766c7104dfd72b82e52705d48f
+        dest: dependencies
+      - type: file
+        url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-desktop-3.44.1-8883bd1.tar.xz.sha1
+        sha256: 36b1c61936632dbfdc1614282d41dbf54cbc5f1d88d0839cd07cd0df13611341
+        dest: dependencies
+      - type: file
+        url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-tv-3.45.2-fea0860.tar.xz
+        sha256: 34ed6ab2f6736da10f2e8cf906596b9ad670f2707c9986b2021507046a6b1371
+        dest: dependencies
+      - type: file
+        url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/web-client-tv-3.45.2-fea0860.tar.xz.sha1
+        sha256: 33bc79dad202f674afabb1463815b82a566f5073e42672ad902e2d7f0310ff3d
+        dest: dependencies
+      - type: file
+        url: https://artifacts.plex.tv/web-client-pmp/25-fea08608883bd1/buildid.cmake
+        sha256: 591b0a7f4c3c3324d73acbc3ba54fec8a2d078c79602abe2b1e3c66e8484facb
+        dest-filename: buildid-25-fea08608883bd1.cmake
+        dest: dependencies
+      - type: file
+        path: tv.plex.PlexMediaPlayer.appdata.xml
+      - type: file
+        path: tv.plex.PlexMediaPlayer.desktop
+    modules:
+      - ../modules/libmpv-0.28.1.yaml

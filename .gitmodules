@@ -4,3 +4,6 @@
 [submodule "supertux"]
 	path = supertux
 	url = https://github.com/flathub/org.supertuxproject.SuperTux
+[submodule "utils/json2yaml"]
+	path = utils/json2yaml
+	url = https://github.com/drbild/json2yaml

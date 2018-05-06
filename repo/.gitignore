@@ -1,0 +1,6 @@
+# Ignore everything in this directory
+# This directory is only for temporarily holding Flatpak 
+# packages for upload/transfer
+*
+# Except this file
+!.gitignore

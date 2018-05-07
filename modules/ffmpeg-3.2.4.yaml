@@ -31,3 +31,5 @@ cleanup:
   - /share/pkgconfig
 modules:
   - libass-0.13.6.yaml
+  - libmp3lame-3.99.5.yaml
+  - libx264-20180506.yaml

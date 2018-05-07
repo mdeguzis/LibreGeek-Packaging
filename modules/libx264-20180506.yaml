@@ -1,0 +1,12 @@
+name: libx264
+config-opts:
+  - --enable-pic
+  - --enable-shared
+sources:
+- type: git
+  url: https://git.videolan.org/git/x264.git
+  commit: 7d0ff22e8c96de126be9d3de4952edd6d1b75a8c
+cleanup:
+  - /bin/x264
+modules:
+  - nasm-2.13.02.yaml

@@ -12,8 +12,6 @@ build-commands:
   - make depend
   - make
   - make install
-  - find . -type f -executable -name "c2man"
-  - ls /app/bin
 sources:
 - type: archive
   url: https://github.com/fribidi/c2man/archive/master.zip

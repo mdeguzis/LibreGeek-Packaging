@@ -3,15 +3,17 @@ buildsystem: simple
 build-commands:
   - ./Configure -dE
   - mkdir -p ${PWD}/c2man-install
-  - echo "binexp=${PWD}/c2man-install" >> config.sh
-  - echo "installprivlib=${PWD}/c2man-install" >> config.sh
-  - echo "mansrc=${PWD}/c2man-install" >> config.sh
+  - echo "binexp=/app/bin/" >> config.sh
+  - echo "installprivlib=/app/bin/" >> config.sh
+  - echo "mansrc=/app/bin/" >> config.sh
   - sh config_h.SH
   - sh flatten.SH
   - sh Makefile.SH
   - make depend
   - make
   - make install
+  - find . -type f -executable -name "c2man"
+  - ls /app/bin
 sources:
 - type: archive
   url: https://github.com/fribidi/c2man/archive/master.zip

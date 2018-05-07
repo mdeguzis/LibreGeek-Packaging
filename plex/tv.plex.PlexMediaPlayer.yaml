@@ -4,15 +4,15 @@ runtime-version: '5.9'
 sdk: org.kde.Sdk
 command: plexmediaplayer
 finish-args:
-- --socket=x11
-- --device=dri
-- --share=ipc
-- --share=network
-- --socket=pulseaudio
-- --filesystem=xdg-videos:ro
-- --filesystem=xdg-music:ro
-- --filesystem=xdg-pictures:ro
-- --system-talk-name=org.freedesktop.login1
+  - --socket=x11
+  - --device=dri
+  - --share=ipc
+  - --share=network
+  - --socket=pulseaudio
+  - --filesystem=xdg-videos:ro
+  - --filesystem=xdg-music:ro
+  - --filesystem=xdg-pictures:ro
+  - --system-talk-name=org.freedesktop.login1
 modules:
   - name: plex-media-player
     buildsystem: cmake-ninja

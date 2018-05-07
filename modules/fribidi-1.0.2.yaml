@@ -16,4 +16,3 @@ cleanup:
   - /share/pkgconfig
 modules:
   - c2man-0.0.0.yaml
-

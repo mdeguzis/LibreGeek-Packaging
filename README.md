@@ -5,6 +5,25 @@ Branch for working with Flatpak
 Flatpak manifests are traditionally written in JSON. However, lengthly JSON manifests can be annoying to track, despite auto-closing/terminating
 capabilities of editors such as vim. 
 
+## Build Environment
+
+### Build Files
+
+Remember, if you need to do post-install/modification or use an install prefix,
+files should go into /app inside the build directory. This is analagous to `usr/`
+as a local folder inside the build area:
+
+From someapp.yaml:
+```
+post-install:
+  - ls /app
+```
+
+Result:
+```
+bin  include  lib  share
+```
+
 ## Runtimes
 
 Installing a runtime:
@@ -42,6 +61,11 @@ Example:
 json2yaml test.json test.yaml
 ```
 
+# Building Notes
+
+## Build systems
+
+* `simple`: use this if you want to run custom commands so that flatpak-builder does not assume a build system
 
 # Examples
 
@@ -53,3 +77,5 @@ json2yaml test.json test.yaml
 
 * [Flatpak FAQ](http://flatpak.org/faq.html)
 * [Getting started with flatpak](http://flatpak.org/getting.html)
+
+

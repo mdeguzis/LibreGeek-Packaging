@@ -17,8 +17,10 @@ sources:
   url: https://github.com/fribidi/c2man/archive/master.zip
   sha256: 1d1cd7d76e57c0bc6f42b60850dce23fd60c6da1a89f334e0d24c27f5f5b6d01
 cleanup:
-  - *.o
-  - .config/*
-  - *.h
-  - *.inc
-  - *.c
+  - ./*.o
+  - ./.config/*
+  - ./*.h
+  - ./*.inc
+  - ./*.c
+modules:
+  - flex-2.6.4.yaml

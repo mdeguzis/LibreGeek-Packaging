@@ -1,0 +1,17 @@
+name: libx265
+buildsystem: simple
+build-commands:
+  - cd build/linux && cmake -G "Unix Makefiles" ../../source
+  - cd build/linux && make
+sources:
+- type: git
+  url: https://github.com/videolan/x265.git
+  tag: 2.7
+post-install:
+  - git status
+  - echo "check files to clean"
+  - asdfsdf
+cleanup:
+  - /bin/x264
+modules:
+  - nasm-2.13.02.yaml

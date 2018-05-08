@@ -1,4 +1,5 @@
-*build*
-*repo*
-*ccache*
+*/.flatpak-builder
+*/build
+*/repo
+*/ccache
 log.txt

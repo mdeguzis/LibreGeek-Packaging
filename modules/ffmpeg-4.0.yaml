@@ -9,7 +9,6 @@ config-opts:
   - --enable-libvorbis
   - --enable-libvpx
   - --enable-libx264
-  - --enable-libx265
   - --enable-openssl
   - --enable-nonfree
   - --enable-shared
@@ -32,5 +31,5 @@ cleanup:
 modules:
   - libass-0.13.6.yaml
   - libmp3lame-3.99.5.yaml
+  - nasm-2.13.02.yaml
   - libx264-20180506.yaml
-  - libx265-2.7.yaml

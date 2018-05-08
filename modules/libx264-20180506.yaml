@@ -8,5 +8,3 @@ sources:
   commit: 7d0ff22e8c96de126be9d3de4952edd6d1b75a8c
 cleanup:
   - /bin/x264
-modules:
-  - nasm-2.13.02.yaml

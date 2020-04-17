@@ -4,7 +4,7 @@
 # Git:		https://github.com/ProfessorKaos64/LibreGeek-Packaging
 # Scipt name:	build-arch-chroot.sh
 # Script Ver:	0.1.1
-# Description:	builds an Arch Linxu chroot on Linus systems
+# Description:	builds an Arch Linxu chroot on Linux systems
 # See:		https://wiki.archlinux.org/index.php/Install_from_existing_Linux
 #		Section: #From_a_host_running_another_Linux_distribution
 #

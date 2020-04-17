@@ -27,11 +27,10 @@ ALT_MIRROR="http://mirrors.kernel.org/archlinux/"
 echo -e "\n==> Acquiring distro-specific dependencies\n"
 sleep 2s
 
-if [[ "$OS" == "SteamOS" || "$OS" == "Debian" ]]; then
+if [[ "$OS" == "SteamOS" || "$OS" == "Debian" || "$OS" == "Ubuntu" ]]; then
 
 	# get basic depdencies
-	sudo apt-get install -y --force-yes bash coreutils wget sed gawk  \
-	tar gzip
+	sudo apt-get install -y coreutils wget sed gawk tar gzip zstd
 	
 else
 
@@ -51,10 +50,10 @@ sleep 2s
 rm -f arch-bootstrap.sh
 rm -f get-pacman-dependencies.sh
 
-wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/arch-bootstrap.sh" \
+wget "https://raw.githubusercontent.com/mdeguzis/arch-bootstrap/master/arch-bootstrap.sh" \
 -q -nc --show-progress
 
-wget "https://raw.githubusercontent.com/tokland/arch-bootstrap/master/get-pacman-dependencies.sh" \
+wget "https://raw.githubusercontent.com/mdeguzis/arch-bootstrap/master/get-pacman-dependencies.sh" \
 -q -nc --show-progress
 
 # Mark exec (if not already)
@@ -78,7 +77,7 @@ if [[ -d "$INSTALL_LOCATION" ]]; then
 	else
 
 		# ensure directory is present
-		mkdir -p "$INSTALL_LOCATION"
+		mkdir -pv "$INSTALL_LOCATION"
 
 	fi
 
@@ -123,12 +122,16 @@ fi
 
 if [[ "$OPTION" == "--bind-mounts" ]]; then
 
-	echo -e "\n==> Binding mounts for Arch Linus install\n"
+	echo -e "\n==> Binding mounts for Arch Linux install\n"
 	sleep 2s
 	sudo mount --bind /proc "$INSTALL_LOCATION/proc"
 	sudo mount --bind /sys "$INSTALL_LOCATION/sys"
 	sudo mount --bind /dev "$INSTALL_LOCATION/dev"
 	sudo mount --bind /dev/pts "$INSTALL_LOCATION/dev/pts"
+
+else
+    # Just bind home
+	sudo mount --bind /home/mikeyd "$INSTALL_LOCATION/home"
 
 fi
 

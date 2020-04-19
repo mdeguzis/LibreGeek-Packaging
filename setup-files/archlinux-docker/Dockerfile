@@ -25,7 +25,7 @@ RUN useradd -m -u $UID -g $GID -o -s /bin/bash $USERNAME
 RUN pacman -Syu --noconfirm
 
 # Software for buildig
-RUN pacman -S --noconfirm base-devel git
+RUN pacman -S --noconfirm base-devel git vim
 
 # Drop to user
 # We can't run makepkg as root

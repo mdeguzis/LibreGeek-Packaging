@@ -1,5 +1,6 @@
 # Makefile to run/build this Archlinux image
 # This image is mainly for feeding PKGBUILDS too
+# See also: https://github.com/Thermi/docker-makepkg
 
 VOLUME_DIR ?= $HOME
 IMAGE_NAME = arch-base
